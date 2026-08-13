@@ -1115,7 +1115,7 @@
         <p>Google 실명 대신 사용할 컬렉터 닉네임을 정하고, 원하는 도감만 다른 사람에게 공유할 수 있습니다.</p>
         <ul class="collector-onboarding-points">
           <li>기존 도감과 보유 기록은 그대로 유지됩니다.</li>
-          <li>모든 도감의 공개 범위는 기본 PRIVATE입니다.</li>
+          <li>모든 도감의 공개 범위는 기본 나만 보기입니다.</li>
           <li>지금 만들지 않아도 기존 기능을 계속 사용할 수 있습니다.</li>
         </ul>
         <div class="collector-onboarding-actions">

@@ -9,7 +9,6 @@
     avatarFallback: document.querySelector("#collector-public-avatar-fallback"),
     name: document.querySelector("#collector-public-name"),
     bio: document.querySelector("#collector-public-bio"),
-    share: document.querySelector("#collector-public-share"),
     collections: document.querySelector("#collector-public-collections"),
     grid: document.querySelector("#collector-public-grid"),
     empty: document.querySelector("#collector-public-empty"),
@@ -35,32 +34,6 @@
         config.authDomain &&
         config.projectId,
     );
-  }
-
-  function canonicalUrl() {
-    const url = new URL("./collector.html", window.location.href);
-    url.searchParams.set("id", publicId);
-    return url.href;
-  }
-
-  async function copyProfileUrl() {
-    const value = canonicalUrl();
-    try {
-      await navigator.clipboard.writeText(value);
-    } catch {
-      const input = document.createElement("textarea");
-      input.value = value;
-      input.style.position = "fixed";
-      input.style.opacity = "0";
-      document.body.append(input);
-      input.select();
-      document.execCommand("copy");
-      input.remove();
-    }
-    elements.share.textContent = "복사했습니다";
-    window.setTimeout(() => {
-      elements.share.textContent = "프로필 링크 복사";
-    }, 1800);
   }
 
   function renderProfile(profile) {
@@ -277,6 +250,5 @@
     }
   }
 
-  elements.share.addEventListener("click", copyProfileUrl);
   void initialize();
 })();

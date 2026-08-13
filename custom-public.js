@@ -5,9 +5,7 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const SERIES_URL = "./data/series.json";
   const params = new URLSearchParams(window.location.search);
-  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
   const publicId = params.get("collector") || "";
-  const shareId = hash.get("share") || "";
   const requestedDexId = params.get("dex") || "";
   const state = {
     dexes: [],
@@ -255,19 +253,21 @@
     ]);
     const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(CONFIG.config);
     const db = firestoreModule.getFirestore(app);
-    let projectionRef;
-    if (/^[a-z0-9]{12}$/.test(publicId)) {
-      projectionRef = firestoreModule.doc(db, "publicProfiles", publicId, "collections", "custom");
-    } else if (/^[A-Za-z0-9_-]{32}$/.test(shareId)) {
-      projectionRef = firestoreModule.doc(db, "sharedCollections", shareId);
-    } else {
-      throw new Error("공유 링크 형식이 올바르지 않습니다.");
+    if (!/^[a-z0-9]{12}$/.test(publicId)) {
+      throw new Error("공개 프로필 주소 형식이 올바르지 않습니다.");
     }
+    const projectionRef = firestoreModule.doc(
+      db,
+      "publicProfiles",
+      publicId,
+      "collections",
+      "custom",
+    );
     const projectionSnapshot = await firestoreModule.getDoc(projectionRef);
     if (!projectionSnapshot.exists()) throw new Error("공개된 나만의 도감을 찾지 못했습니다.");
     const projection = projectionSnapshot.data() || {};
     if (projection.collectionId !== "custom" || projection.schemaVersion !== 1) {
-      throw new Error("나만의 도감 공유 데이터가 올바르지 않습니다.");
+      throw new Error("나만의 도감 공개 데이터가 올바르지 않습니다.");
     }
     state.dexes = normalizeDexes(projection.customDexes);
     let nickname = "컬렉터";

@@ -337,9 +337,7 @@
     actions.className = "collector-page-actions";
 
     if (publicView?.requested) {
-      const publicId = publicView.requestedShareId
-        ? ""
-        : publicView.requestedPublicId;
+      const publicId = publicView.requestedPublicId;
       if (/^[a-z0-9]{12}$/.test(publicId)) {
         const profile = document.createElement("a");
         profile.href = `./collector.html?id=${encodeURIComponent(publicId)}`;

@@ -80,7 +80,7 @@
       .custom-granular-row select{min-width:168px;border:1px solid #dfe3ec;border-radius:9px;background:#fff;color:#596078;font-size:.62rem;font-weight:800;padding:8px 9px}
       .custom-granular-empty{border:1px dashed #dfe3ec;border-radius:12px;color:#8b91a1;font-size:.64rem;padding:12px;text-align:center}
       .custom-granular-status{min-height:18px;margin:9px 0 0;color:#8b91a1;font-size:.6rem}.custom-granular-status[data-state=success]{color:#13795b}.custom-granular-status[data-state=error]{color:#b93647}
-      ${CUSTOM_CARD_SELECTOR} .collector-setting-visibility,${CUSTOM_CARD_SELECTOR} .collector-setting-share{display:none!important}
+      ${CUSTOM_CARD_SELECTOR} .collector-setting-visibility{display:none!important}
       @media(max-width:620px){.custom-granular-row{grid-template-columns:1fr}.custom-granular-row select{width:100%;min-width:0}.custom-granular-heading{display:grid}.custom-granular-heading small{text-align:left}}
     `;
     document.head.append(style);
@@ -105,7 +105,7 @@
     section.innerHTML = `
       <div class="custom-granular-heading">
         <strong>만든 도감별 공개 설정</strong>
-        <small>PUBLIC으로 선택한 도감만 내 공개 프로필에 각각 표시됩니다.</small>
+        <small>공개로 선택한 도감만 내 공개 프로필에 각각 표시됩니다.</small>
       </div>
       <div class="custom-granular-list"></div>
       <p class="custom-granular-status" aria-live="polite"></p>
@@ -121,8 +121,8 @@
         row.innerHTML = `
           <span class="custom-granular-copy"><strong>${escapeHtml(dex.title)}</strong><small>${dex.owned.toLocaleString("ko-KR")} / ${dex.total.toLocaleString("ko-KR")}장 보유</small></span>
           <select aria-label="${escapeHtml(dex.title)} 공개 범위">
-            <option value="private">PRIVATE · 나만 보기</option>
-            <option value="public">PUBLIC · 프로필에 표시</option>
+            <option value="private">나만 보기</option>
+            <option value="public">공개</option>
           </select>
         `;
         const select = row.querySelector("select");

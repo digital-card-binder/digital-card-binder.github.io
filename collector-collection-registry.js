@@ -378,12 +378,7 @@
     if (!source || typeof source !== "object" || Array.isArray(source)) {
       return fallback;
     }
-    const visibility = ["private", "unlisted", "public"].includes(source.visibility)
-      ? source.visibility
-      : "private";
-    const shareId = /^[A-Za-z0-9_-]{32}$/.test(cleanString(source.shareId))
-      ? cleanString(source.shareId)
-      : "";
+    const visibility = source.visibility === "public" ? "public" : "private";
     return {
       ...fallback,
       dashboardVisible:
@@ -394,7 +389,7 @@
       displayOrder: Number.isInteger(source.displayOrder)
         ? source.displayOrder
         : fallback.displayOrder,
-      shareId,
+      shareId: "",
     };
   }
 
