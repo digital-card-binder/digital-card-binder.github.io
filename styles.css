@@ -1299,11 +1299,42 @@ img {
 
 @media (max-width: 690px) {
   .site-header {
-    min-height: 68px;
+    min-height: 64px;
   }
 
   .site-layout {
-    min-height: calc(100vh - 68px);
+    min-height: calc(100vh - 64px);
+  }
+
+  .sidebar {
+    padding: 10px 14px;
+    scroll-padding-inline: 14px;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
+  }
+
+  .collection-nav {
+    gap: 6px;
+  }
+
+  .collection-link {
+    min-width: 138px;
+    min-height: 48px;
+    gap: 8px;
+    border-radius: 12px;
+    padding: 7px 9px;
+    scroll-snap-align: center;
+  }
+
+  .collection-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 0.58rem;
+  }
+
+  .collection-link strong {
+    font-size: 0.76rem;
   }
 
   .brand-copy strong {
@@ -1315,51 +1346,111 @@ img {
   }
 
   .main-content {
-    padding: 18px 14px 28px;
+    padding: 14px 12px calc(28px + env(safe-area-inset-bottom));
   }
 
   .hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
     min-height: 0;
+    gap: 14px;
     border-radius: 21px;
-    padding: 34px 26px;
+    padding: 22px 20px;
   }
 
   .hero h1 {
-    font-size: 2.45rem;
+    font-size: clamp(1.72rem, 8.3vw, 2.15rem);
+    line-height: 1.12;
   }
 
-  .hero-description br {
+  .eyebrow {
+    overflow: hidden;
+    margin-bottom: 8px;
+    font-size: 0.56rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero-description {
     display: none;
   }
 
   .hero-progress {
+    justify-self: end;
+    gap: 0;
     min-width: 0;
+    margin: 0;
   }
 
   .progress-ring {
-    width: 104px;
-    height: 104px;
+    width: 76px;
+    height: 76px;
+  }
+
+  .progress-ring::before {
+    inset: 6px;
+  }
+
+  .progress-ring strong {
+    font-size: 1rem;
+  }
+
+  .progress-ring span {
+    margin-top: 4px;
+    font-size: 0.43rem;
+  }
+
+  .hero-progress-copy {
+    display: none;
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 14px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin: 12px 0 18px;
   }
 
   .stat-card {
-    min-height: 78px;
-    padding: 14px 16px;
+    justify-content: center;
+    min-width: 0;
+    min-height: 67px;
+    gap: 0;
+    border-radius: 14px;
+    padding: 10px 4px;
+    text-align: center;
   }
 
   .stat-icon {
-    width: 42px;
-    height: 42px;
+    display: none;
+  }
+
+  .stat-card > div {
+    min-width: 0;
+  }
+
+  .stat-card > div > span {
+    overflow: hidden;
+    font-size: 0.58rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .stat-card strong {
+    justify-content: center;
+    margin-top: 7px;
+  }
+
+  .stat-card strong b {
+    font-size: clamp(0.94rem, 4.5vw, 1.18rem);
+  }
+
+  .stat-card strong small {
+    font-size: 0.56rem;
   }
 
   .catalog-panel {
-    border-radius: 21px;
-    padding: 20px 14px;
+    border-radius: 19px;
+    padding: 18px 12px;
   }
 
   .catalog-heading {
@@ -1367,9 +1458,14 @@ img {
   }
 
   .catalog-caption {
-    max-width: 110px;
+    max-width: 96px;
     text-align: right;
+    font-size: 0.64rem;
     line-height: 1.55;
+  }
+
+  .catalog-heading h2 {
+    font-size: 1.3rem;
   }
 
   .filter-panel {
@@ -1411,6 +1507,7 @@ img {
 
   .segmented-control button {
     flex: 1;
+    min-height: 44px;
   }
 
   .sort-field select {
@@ -1421,6 +1518,17 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 11px;
     padding-top: 17px;
+  }
+
+  .pokemon-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 320px;
+  }
+
+  .pokemon-card-button,
+  .segmented-control button,
+  .dialog-close {
+    touch-action: manipulation;
   }
 
   .card-image-wrap {
@@ -1446,21 +1554,27 @@ img {
 
   .card-dialog[open] {
     display: block;
+    width: 100%;
+    max-width: none;
+    max-height: calc(100dvh - 12px);
     overflow-y: auto;
+    margin: auto 0 0;
+    border-radius: 24px 24px 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .dialog-card-image {
     min-height: 0;
     border-radius: 24px 24px 0 0;
-    padding: 28px 42px;
+    padding: 22px 52px;
   }
 
   .dialog-card-image img {
-    max-height: 56vh;
+    max-height: 44dvh;
   }
 
   .dialog-card-copy {
-    padding: 28px 25px 30px;
+    padding: 24px 20px 28px;
   }
 
   .dialog-card-copy h2 {
@@ -1470,6 +1584,13 @@ img {
 
   .dialog-details {
     margin-top: 22px;
+  }
+
+  .dialog-close {
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -83,6 +83,10 @@
   color: var(--blue);
 }
 
+.mobile-filter-jump {
+  display: none;
+}
+
 @media (min-width: 921px) {
   html[data-card-columns="4"] .card-grid,
   html[data-card-columns="4"] .pack-grid,
@@ -116,6 +120,140 @@
   .card-layout-toggle {
     min-height: 36px;
     font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 690px) {
+  .filter-panel,
+  .pack-filter-panel,
+  .artist-filter-panel,
+  .people-filter-panel,
+  .catalog-toolbar {
+    scroll-margin-top: 76px;
+  }
+
+  .catalog-panel .results-bar {
+    position: sticky;
+    top: 64px;
+    z-index: 12;
+    min-height: 54px;
+    margin-inline: -6px;
+    border-top: 1px solid rgba(231, 233, 241, 0.86);
+    background: rgba(255, 255, 255, 0.94);
+    padding-inline: 6px;
+    box-shadow: 0 8px 18px rgba(23, 35, 63, 0.07);
+    backdrop-filter: blur(14px);
+  }
+
+  .catalog-panel .results-bar p {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .results-bar-actions {
+    gap: 6px;
+  }
+
+  .mobile-filter-jump,
+  .card-layout-toggle {
+    min-height: 44px;
+    padding: 7px 9px;
+    font-size: 0.64rem;
+    touch-action: manipulation;
+  }
+
+  .mobile-filter-jump {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dfe3ec;
+    border-radius: 9px;
+    background: #fff;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .mobile-filter-jump:focus-visible {
+    outline: 3px solid rgba(42, 117, 187, 0.24);
+    outline-offset: 2px;
+  }
+
+  html[data-card-columns="3"] .card-grid,
+  html[data-card-columns="3"] .pack-grid,
+  html[data-card-columns="3"] .promo-pack-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  html[data-card-columns="3"] .pokemon-card-button,
+  html[data-card-columns="3"] .pack-card,
+  html[data-card-columns="3"] .promo-collection-card {
+    border-radius: 12px;
+  }
+
+  html[data-card-columns="3"] .card-image-wrap {
+    padding: 5px;
+  }
+
+  html[data-card-columns="3"] .card-body,
+  html[data-card-columns="3"] .catalog-card .card-body {
+    min-height: 104px;
+    padding: 8px;
+  }
+
+  html[data-card-columns="3"] .pokemon-card.has-completion-action .card-body,
+  html[data-card-columns="3"] .pack-card.has-completion-action .pack-card-body {
+    padding-bottom: 59px;
+  }
+
+  html[data-card-columns="3"] .card-topline,
+  html[data-card-columns="3"] .pack-card-top {
+    display: grid;
+    justify-content: stretch;
+    gap: 4px;
+  }
+
+  html[data-card-columns="3"] .number-badge,
+  html[data-card-columns="3"] .pack-code,
+  html[data-card-columns="3"] .card-meta {
+    overflow: hidden;
+    font-size: 0.54rem;
+    text-overflow: ellipsis;
+  }
+
+  html[data-card-columns="3"] .status-badge,
+  html[data-card-columns="3"] .pack-status {
+    width: max-content;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 3px 5px;
+    font-size: 0.52rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  html[data-card-columns="3"] .card-name-ko,
+  html[data-card-columns="3"] .pack-name {
+    margin-top: 6px;
+    font-size: 0.72rem;
+  }
+
+  html[data-card-columns="3"] .card-name-en {
+    font-size: 0.52rem;
+  }
+
+  html[data-card-columns="3"] .collection-complete-button {
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    min-height: 44px;
+    padding: 5px 3px;
+    border-radius: 8px;
+    font-size: 0.56rem;
   }
 }
 

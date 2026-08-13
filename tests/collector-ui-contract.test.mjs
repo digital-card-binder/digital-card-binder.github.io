@@ -65,7 +65,7 @@ function publicViewContext(search, hash = "") {
   return { context, addedClasses, bodyAttributes };
 }
 
-function navigationLayoutContext(moduleSource, compact) {
+function navigationLayoutContext(moduleSource, initialWidth) {
   class FakeElement {
     constructor(tagName = "div") {
       this.tagName = tagName.toUpperCase();
@@ -109,12 +109,24 @@ function navigationLayoutContext(moduleSource, compact) {
     }
   }
 
-  const mediaListeners = [];
-  const media = {
-    matches: compact,
-    addEventListener: (type, listener) => {
-      if (type === "change") mediaListeners.push(listener);
-    },
+  const mediaByQuery = new Map();
+  const queryMatches = (query, width) => {
+    if (query.includes("max-width: 690px")) return width <= 690;
+    if (query.includes("max-width: 920px")) return width <= 920;
+    return false;
+  };
+  const matchMedia = (query) => {
+    if (!mediaByQuery.has(query)) {
+      const listeners = [];
+      mediaByQuery.set(query, {
+        matches: queryMatches(query, initialWidth),
+        addEventListener: (type, listener) => {
+          if (type === "change") listeners.push(listener);
+        },
+        listeners,
+      });
+    }
+    return mediaByQuery.get(query);
   };
   const stored = new Map();
   const resultsBar = new FakeElement("div");
@@ -142,16 +154,22 @@ function navigationLayoutContext(moduleSource, compact) {
       setItem: (key, value) => stored.set(key, value),
     },
     location: { pathname: "/national.html" },
-    matchMedia: () => media,
+    matchMedia,
   };
   vm.createContext(context);
   vm.runInContext(moduleSource, context);
   return {
     button: resultsBar.querySelector(".card-layout-toggle"),
     documentElement,
-    media,
-    mediaListeners,
     stored,
+    setViewportWidth(width) {
+      for (const [query, media] of mediaByQuery) {
+        const next = queryMatches(query, width);
+        if (next === media.matches) continue;
+        media.matches = next;
+        media.listeners.forEach((listener) => listener({ matches: next }));
+      }
+    },
   };
 }
 
@@ -167,7 +185,7 @@ test("every page uses the one-line Digital Card Binder brand and tab title", asy
     );
     assert.equal(html.includes("MY POKÉMON DEX"), false, `${page}: legacy brand`);
     assert.equal(html.includes("COLLECTION ARCHIVE"), false, `${page}: legacy subtitle`);
-    assert.match(html, /styles[.]css[?]v=20260813-2/, `${page}: shared styles version`);
+    assert.match(html, /styles[.]css[?]v=20260813-3/, `${page}: shared styles version`);
   }
 
   const collectorClient = await source("collector.js");
@@ -244,6 +262,38 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   assert.equal(page.includes("33 SETS"), false);
 });
 
+test("phone usability upgrades stay inside the 690px mobile boundary", async () => {
+  const commonCss = await source("styles.css");
+  const catalogCss = await source("catalog.css");
+  const collectorCss = await source("collector.css");
+  const managerCss = await source("collection-manager.css");
+  const navigation = await source("collector-nav.js");
+  const catalogClient = await source("catalog.js");
+
+  assert.match(commonCss, /[.]hero \{[\s\S]*?min-height: 276px/);
+  assert.match(commonCss, /[.]progress-ring \{[\s\S]*?width: 128px/);
+  assert.match(commonCss, /[.]card-grid \{[\s\S]*?repeat\(4, minmax\(0, 1fr\)\)/);
+
+  const phoneCss = commonCss.slice(
+    commonCss.indexOf("@media (max-width: 690px)"),
+    commonCss.indexOf("@media (prefers-reduced-motion: reduce)"),
+  );
+  assert.match(phoneCss, /[.]collection-link \{[\s\S]*?min-width: 138px/);
+  assert.match(phoneCss, /[.]hero \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\) auto/);
+  assert.match(phoneCss, /[.]progress-ring \{[\s\S]*?width: 76px/);
+  assert.match(phoneCss, /[.]stats-grid \{[\s\S]*?repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(phoneCss, /[.]card-dialog\[open\] \{[\s\S]*?100dvh/);
+
+  assert.match(catalogCss, /@media\(max-width:690px\)[\s\S]*?scroll-margin-top:76px/);
+  assert.match(collectorCss, /[.]mobile-filter-jump \{\s*display: none/);
+  assert.match(collectorCss, /@media \(max-width: 690px\)[\s\S]*?[.]catalog-panel [.]results-bar \{[\s\S]*?position: sticky/);
+  assert.match(managerCss, /@media\(max-width:690px\)[\s\S]*?[.]collection-complete-button\{min-height:44px/);
+  assert.match(navigation, /function centerActiveNavigationOnMobile\(\)/);
+  assert.match(navigation, /filterTarget[.]scrollIntoView/);
+  assert.match(catalogClient, /pokemonDexMobileCatalogV1/);
+  assert.match(catalogClient, /window[.]sessionStorage[.]setItem/);
+});
+
 test("new pages have unique element IDs and mobile/read-only CSS contracts", async () => {
   for (const page of ["collector-settings.html", "collectors.html", "collector.html", "news.html"]) {
     const html = await source(page);
@@ -286,10 +336,10 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260813-1/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260813-3/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-1/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-3/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -312,7 +362,7 @@ test("the signed-in account name opens profile management", async () => {
   assert.match(css, /#firebase-auth-status[.]firebase-profile-link/);
 });
 
-test("desktop uses four or three columns while compact screens use two or four", async () => {
+test("desktop keeps four or three columns while phones use readable two or three", async () => {
   const navigation = await source("collector-nav.js");
   const commonCss = await source("styles.css");
   const collectorCss = await source("collector.css");
@@ -328,7 +378,9 @@ test("desktop uses four or three columns while compact screens use two or four",
   }
   assert.match(navigation, /pokemonDexCardColumnsV1/);
   assert.match(navigation, /pokemonDexCompactCardColumnsV1/);
+  assert.match(navigation, /pokemonDexMobileCardColumnsV1/);
   assert.match(navigation, /COMPACT_CARD_LAYOUT_QUERY = "\(max-width: 920px\)"/);
+  assert.match(navigation, /MOBILE_CARD_LAYOUT_QUERY = "\(max-width: 690px\)"/);
   assert.match(navigation, /defaultColumns: "2"/);
   assert.match(navigation, /alternateColumns: "4"/);
   assert.match(navigation, /3열 크게 보기/);
@@ -336,6 +388,7 @@ test("desktop uses four or three columns while compact screens use two or four",
   assert.match(navigation, /4열로 보기/);
   assert.match(navigation, /2열 기본 보기/);
   assert.match(navigation, /compactCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
+  assert.match(navigation, /mobileCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
   assert.match(navigation, /localStorage[.]setItem/);
   const compactMediaCss = collectorCss.slice(
     collectorCss.indexOf("@media (max-width: 920px)"),
@@ -348,24 +401,31 @@ test("desktop uses four or three columns while compact screens use two or four",
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260813-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260813-1/);
+    assert.match(html, /collector[.]css\?v=20260813-3/);
+    assert.match(html, /collector-nav[.]js\?v=20260813-3/);
   }
 });
 
-test("compact and desktop column choices restore independently across viewport changes", async () => {
-  const layout = navigationLayoutContext(await source("collector-nav.js"), true);
+test("mobile, compact, and desktop column choices restore independently", async () => {
+  const layout = navigationLayoutContext(await source("collector-nav.js"), 390);
 
+  assert.equal(layout.documentElement.dataset.cardColumns, "2");
+  assert.equal(layout.button.textContent, "▦ 3열");
+
+  layout.button.trigger("click");
+  assert.equal(layout.documentElement.dataset.cardColumns, "3");
+  assert.equal(layout.stored.get("pokemonDexMobileCardColumnsV1"), "3");
+  assert.equal(layout.button.textContent, "▦ 2열");
+
+  layout.setViewportWidth(800);
   assert.equal(layout.documentElement.dataset.cardColumns, "2");
   assert.match(layout.button.textContent, /4열로 보기/);
 
   layout.button.trigger("click");
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
   assert.equal(layout.stored.get("pokemonDexCompactCardColumnsV1"), "4");
-  assert.match(layout.button.textContent, /2열 기본 보기/);
 
-  layout.media.matches = false;
-  layout.mediaListeners.forEach((listener) => listener());
+  layout.setViewportWidth(1200);
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
   assert.match(layout.button.textContent, /3열 크게 보기/);
 
@@ -373,10 +433,9 @@ test("compact and desktop column choices restore independently across viewport c
   assert.equal(layout.documentElement.dataset.cardColumns, "3");
   assert.equal(layout.stored.get("pokemonDexCardColumnsV1"), "3");
 
-  layout.media.matches = true;
-  layout.mediaListeners.forEach((listener) => listener());
-  assert.equal(layout.documentElement.dataset.cardColumns, "4");
-  assert.match(layout.button.textContent, /2열 기본 보기/);
+  layout.setViewportWidth(390);
+  assert.equal(layout.documentElement.dataset.cardColumns, "3");
+  assert.equal(layout.button.textContent, "▦ 2열");
 });
 
 test("public collector board reads only directory and existing public projections", async () => {

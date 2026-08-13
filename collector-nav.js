@@ -6,9 +6,14 @@
   const PROFILE_SETTINGS_HREF = "./collector-settings.html";
   const CARD_COLUMNS_STORAGE_KEY = "pokemonDexCardColumnsV1";
   const COMPACT_CARD_COLUMNS_STORAGE_KEY = "pokemonDexCompactCardColumnsV1";
+  const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
+  const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
   const compactCardLayoutMedia = typeof window.matchMedia === "function"
     ? window.matchMedia(COMPACT_CARD_LAYOUT_QUERY)
+    : null;
+  const mobileCardLayoutMedia = typeof window.matchMedia === "function"
+    ? window.matchMedia(MOBILE_CARD_LAYOUT_QUERY)
     : null;
   const CARD_LAYOUT_MODES = {
     desktop: {
@@ -20,6 +25,11 @@
       defaultColumns: "2",
       alternateColumns: "4",
       storageKey: COMPACT_CARD_COLUMNS_STORAGE_KEY,
+    },
+    mobile: {
+      defaultColumns: "2",
+      alternateColumns: "3",
+      storageKey: MOBILE_CARD_COLUMNS_STORAGE_KEY,
     },
   };
 
@@ -231,6 +241,7 @@
   }
 
   function activeCardLayoutMode() {
+    if (mobileCardLayoutMedia?.matches) return CARD_LAYOUT_MODES.mobile;
     return compactCardLayoutMedia?.matches
       ? CARD_LAYOUT_MODES.compact
       : CARD_LAYOUT_MODES.desktop;
@@ -259,14 +270,22 @@
     const normalized = columns === mode.alternateColumns
       ? mode.alternateColumns
       : mode.defaultColumns;
-    const compact = mode === CARD_LAYOUT_MODES.compact;
+    const compact = mode !== CARD_LAYOUT_MODES.desktop;
+    const mobile = mode === CARD_LAYOUT_MODES.mobile;
     const alternateActive = normalized === mode.alternateColumns;
     document.documentElement.dataset.cardColumns = normalized;
     button.dataset.columns = normalized;
-    button.dataset.layoutMode = compact ? "compact" : "desktop";
+    button.dataset.layoutMode = mobile ? "mobile" : compact ? "compact" : "desktop";
     button.setAttribute("aria-pressed", String(alternateActive));
 
-    if (compact) {
+    if (mobile) {
+      button.textContent = normalized === "3"
+        ? "▦ 2열"
+        : "▦ 3열";
+      button.title = normalized === "3"
+        ? "카드를 한 줄에 2개씩 크게 표시합니다."
+        : "카드를 한 줄에 3개씩 표시합니다.";
+    } else if (compact) {
       button.textContent = normalized === "4"
         ? "▦ 2열 기본 보기"
         : "▦ 4열로 보기";
@@ -300,6 +319,25 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "card-layout-toggle";
+    const filterTarget = document.querySelector(
+      ".catalog-era-filter, .filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .catalog-toolbar",
+    );
+    if (filterTarget) {
+      const filterButton = document.createElement("button");
+      filterButton.type = "button";
+      filterButton.className = "mobile-filter-jump";
+      filterButton.textContent = "필터";
+      filterButton.setAttribute("aria-label", "검색 및 필터로 이동");
+      filterButton.addEventListener("click", () => {
+        const reducedMotion = typeof window.matchMedia === "function" &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        filterTarget.scrollIntoView({
+          behavior: reducedMotion ? "auto" : "smooth",
+          block: "start",
+        });
+      });
+      actions.append(filterButton);
+    }
     actions.append(button);
     resultsBar.append(actions);
 
@@ -322,6 +360,27 @@
       compactCardLayoutMedia.addEventListener("change", restoreLayout);
     } else if (typeof compactCardLayoutMedia?.addListener === "function") {
       compactCardLayoutMedia.addListener(restoreLayout);
+    }
+    if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
+      mobileCardLayoutMedia.addEventListener("change", restoreLayout);
+    } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
+      mobileCardLayoutMedia.addListener(restoreLayout);
+    }
+  }
+
+  function centerActiveNavigationOnMobile() {
+    if (!mobileCardLayoutMedia?.matches) return;
+    const sidebar = document.querySelector(".sidebar");
+    const active = sidebar?.querySelector(".collection-link.is-active");
+    if (!sidebar || !active) return;
+    const left = Math.max(
+      0,
+      active.offsetLeft - (sidebar.clientWidth - active.offsetWidth) / 2,
+    );
+    if (typeof sidebar.scrollTo === "function") {
+      sidebar.scrollTo({ left, behavior: "auto" });
+    } else {
+      sidebar.scrollLeft = left;
     }
   }
 
@@ -403,6 +462,12 @@
 
   window.addEventListener("pokemon-dex:public-sync-error", showPublicSyncWarning);
   arrangeCollectorNavigation();
+  centerActiveNavigationOnMobile();
+  if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
+    mobileCardLayoutMedia.addEventListener("change", centerActiveNavigationOnMobile);
+  } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
+    mobileCardLayoutMedia.addListener(centerActiveNavigationOnMobile);
+  }
   watchAccountProfileEntry();
   ensureProfileShortcutWithoutPanel();
   addCardLayoutToggle();
