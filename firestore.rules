@@ -1,0 +1,1016 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownsDocument(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isOwnerAccount() {
+      return request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com";
+    }
+
+    function isSharedReadOnlyViewer() {
+      return request.auth != null
+        && (
+          request.auth.uid == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+          || request.auth.uid == "04EWx9gDWWNzTw4gNpFtxEGlQTs1"
+        );
+    }
+
+    function isConfiguredSharedOwner(userId) {
+      let share = get(
+        /databases/$(database)/documents/sharedDexViews/9K11y6y4U4dlVmmi9bkxaT4Ci8u2
+      );
+      return share.data.ownerUid == userId
+        && share.data.ownerEmail == "onesmemory@gmail.com"
+        && share.data.viewerUid == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && share.data.mode == "read-only";
+    }
+
+    function requiredBaseMode() {
+      return request.auth.token.email == "onesmemory@gmail.com"
+        ? "legacy"
+        : "empty";
+    }
+
+    function validCollectionBaseModeUpdate() {
+      return (
+          resource.data.keys().hasAny(["baseMode"])
+          && request.resource.data.baseMode == resource.data.baseMode
+        )
+        || (
+          isOwnerAccount()
+          && request.resource.data.baseMode == "legacy"
+        );
+    }
+
+    function supportedCollection(collectionId) {
+      return collectionId == "nationalDex"
+        || collectionId == "packDex"
+        || collectionId == "artistDex"
+        || collectionId == "seriesDex"
+        || collectionId == "pokemonCollectionsDex"
+        || collectionId == "arDex";
+    }
+
+    function supportedCollectorCollection(collectionId) {
+      return collectionId == "national"
+        || collectionId == "pack"
+        || collectionId == "artist"
+        || collectionId == "series"
+        || collectionId == "pokemon"
+        || collectionId == "ar"
+        || collectionId == "people"
+        || collectionId == "custom";
+    }
+
+    function validPublicId(publicId) {
+      return publicId is string
+        && publicId.matches('^[a-z0-9]{12}$');
+    }
+
+    function validShareId(shareId) {
+      return shareId is string
+        && shareId.matches('^[A-Za-z0-9_-]{32}$');
+    }
+
+    function validNicknameId(nicknameId) {
+      return nicknameId is string
+        && nicknameId.size() >= 2
+        && nicknameId.size() <= 20
+        && nicknameId.matches('^[가-힣a-z0-9]+$');
+    }
+
+    function validNickname(nickname, nicknameNormalized) {
+      return nickname is string
+        && nickname.size() >= 2
+        && nickname.size() <= 20
+        && nickname == nickname.trim()
+        && nickname.matches('^[가-힣A-Za-z0-9 ]+$')
+        && nickname == nickname.replace(' +', ' ')
+        && validNicknameId(nicknameNormalized)
+        && nicknameNormalized == nickname.lower().replace(' +', '');
+    }
+
+    function publicIdOwnerAfter(publicId) {
+      return getAfter(
+        /databases/$(database)/documents/collectorPublicIdOwners/$(publicId)
+      );
+    }
+
+    function isPublicIdOwnerAfter(publicId) {
+      return request.auth != null
+        && validPublicId(publicId)
+        && publicIdOwnerAfter(publicId).data.ownerUid == request.auth.uid;
+    }
+
+    function isPublicIdOwner(publicId) {
+      return request.auth != null
+        && validPublicId(publicId)
+        && get(
+          /databases/$(database)/documents/collectorPublicIdOwners/$(publicId)
+        ).data.ownerUid == request.auth.uid;
+    }
+
+    function shareOwnerAfter(shareId) {
+      return getAfter(
+        /databases/$(database)/documents/collectorShareOwners/$(shareId)
+      );
+    }
+
+    function isShareOwner(shareId) {
+      return request.auth != null
+        && validShareId(shareId)
+        && get(
+          /databases/$(database)/documents/collectorShareOwners/$(shareId)
+        ).data.ownerUid == request.auth.uid;
+    }
+
+    function isShareOwnerAfter(shareId) {
+      return request.auth != null
+        && validShareId(shareId)
+        && shareOwnerAfter(shareId).data.ownerUid == request.auth.uid;
+    }
+
+    function validPrivateProfile(userId) {
+      let publicMirror = getAfter(
+        /databases/$(database)/documents/publicProfiles/$(request.resource.data.publicId)
+      );
+      return request.resource.data.keys().hasAll([
+          "nickname",
+          "nicknameNormalized",
+          "publicId",
+          "bio",
+          "profileCompleted",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "nickname",
+          "nicknameNormalized",
+          "publicId",
+          "bio",
+          "profileCompleted",
+          "createdAt",
+          "updatedAt"
+        ])
+        && validNickname(
+          request.resource.data.nickname,
+          request.resource.data.nicknameNormalized
+        )
+        && validPublicId(request.resource.data.publicId)
+        && request.resource.data.bio is string
+        && request.resource.data.bio.size() <= 80
+        && request.resource.data.profileCompleted == true
+        && request.resource.data.updatedAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/collectorNicknameOwners/$(request.resource.data.nicknameNormalized)
+        ).data.ownerUid == userId
+        && publicIdOwnerAfter(
+          request.resource.data.publicId
+        ).data.ownerUid == userId
+        && publicMirror.data.nickname == request.resource.data.nickname
+        && publicMirror.data.bio == request.resource.data.bio
+        && publicMirror.data.profileCompleted
+          == request.resource.data.profileCompleted;
+    }
+
+    function validPublicProfile(publicId) {
+      let ownerUid = publicIdOwnerAfter(publicId).data.ownerUid;
+      let profile = getAfter(
+        /databases/$(database)/documents/users/$(ownerUid)/profile/main
+      );
+      return request.resource.data.keys().hasAll([
+          "nickname",
+          "bio",
+          "profileCompleted"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "nickname",
+          "bio",
+          "profileCompleted"
+        ])
+        && request.resource.data.nickname == profile.data.nickname
+        && request.resource.data.bio == profile.data.bio
+        && request.resource.data.profileCompleted == true
+        && request.resource.data.profileCompleted
+          == profile.data.profileCompleted;
+    }
+
+    function validCollectionSetting(collectionId) {
+      return supportedCollectorCollection(collectionId)
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "collectionId",
+          "dashboardVisible",
+          "visibility",
+          "displayOrder",
+          "shareId",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "collectionId",
+          "dashboardVisible",
+          "visibility",
+          "displayOrder",
+          "shareId",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.collectionId == collectionId
+        && request.resource.data.dashboardVisible is bool
+        && (
+          request.resource.data.visibility == "private"
+          || request.resource.data.visibility == "unlisted"
+          || request.resource.data.visibility == "public"
+        )
+        && request.resource.data.displayOrder is int
+        && request.resource.data.displayOrder >= 0
+        && request.resource.data.displayOrder <= 1000
+        && request.resource.data.shareId is string
+        && (
+          (
+            request.resource.data.visibility == "unlisted"
+            && validShareId(request.resource.data.shareId)
+          )
+          || (
+            request.resource.data.visibility != "unlisted"
+            && request.resource.data.shareId == ""
+          )
+        )
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function releasesPreviousNickname(previousNicknameId, nextNicknameId) {
+      return previousNicknameId == nextNicknameId
+        || (
+          !existsAfter(
+            /databases/$(database)/documents/collectorNicknames/$(previousNicknameId)
+          )
+          && !existsAfter(
+            /databases/$(database)/documents/collectorNicknameOwners/$(previousNicknameId)
+          )
+        );
+    }
+
+    function revokesPreviousShare() {
+      return resource.data.visibility != "unlisted"
+        || (
+          request.resource.data.visibility == "unlisted"
+          && request.resource.data.shareId == resource.data.shareId
+        )
+        || (
+          !existsAfter(
+            /databases/$(database)/documents/sharedCollections/$(resource.data.shareId)
+          )
+          && !existsAfter(
+            /databases/$(database)/documents/collectorShareOwners/$(resource.data.shareId)
+          )
+        );
+    }
+
+    function validSettingProjectionState(userId, collectionId) {
+      let profilePath =
+        /databases/$(database)/documents/users/$(userId)/profile/main;
+      let hasProfile = existsAfter(profilePath);
+      let setting = request.resource.data;
+      return (
+          !hasProfile
+          && setting.visibility == "private"
+        )
+        || (
+          hasProfile
+          && getAfter(profilePath).data.profileCompleted == true
+          && (
+            (
+              setting.visibility == "public"
+              && existsAfter(
+                /databases/$(database)/documents/publicProfiles/$(getAfter(profilePath).data.publicId)/collections/$(collectionId)
+              )
+              && (
+                setting.shareId == ""
+                || !existsAfter(
+                  /databases/$(database)/documents/sharedCollections/$(setting.shareId)
+                )
+              )
+            )
+            || (
+              setting.visibility == "unlisted"
+              && !existsAfter(
+                /databases/$(database)/documents/publicProfiles/$(getAfter(profilePath).data.publicId)/collections/$(collectionId)
+              )
+              && existsAfter(
+                /databases/$(database)/documents/sharedCollections/$(setting.shareId)
+              )
+            )
+            || (
+              setting.visibility == "private"
+              && !existsAfter(
+                /databases/$(database)/documents/publicProfiles/$(getAfter(profilePath).data.publicId)/collections/$(collectionId)
+              )
+              && (
+                setting.shareId == ""
+                || !existsAfter(
+                  /databases/$(database)/documents/sharedCollections/$(setting.shareId)
+                )
+              )
+            )
+          )
+        );
+    }
+
+    function validProjection(collectionId, publicId) {
+      return supportedCollectorCollection(collectionId)
+        && validPublicId(publicId)
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "publicId",
+          "collectionId",
+          "ownedKeys",
+          "ownedCount",
+          "totalCount",
+          "promoOwnedKeys",
+          "promoOwnedCount"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "publicId",
+          "collectionId",
+          "ownedKeys",
+          "ownedCount",
+          "totalCount",
+          "promoOwnedKeys",
+          "promoOwnedCount",
+          "customDexes"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.publicId == publicId
+        && request.resource.data.collectionId == collectionId
+        && request.resource.data.ownedKeys is list
+        && request.resource.data.ownedKeys.size() <= 10000
+        && request.resource.data.ownedCount is int
+        && request.resource.data.ownedCount
+          == request.resource.data.ownedKeys.size()
+        && request.resource.data.totalCount is int
+        && request.resource.data.totalCount >= request.resource.data.ownedCount
+        && request.resource.data.totalCount <= 10000
+        && request.resource.data.promoOwnedKeys is list
+        && request.resource.data.promoOwnedKeys.size() <= 1000
+        && request.resource.data.promoOwnedCount is int
+        && request.resource.data.promoOwnedCount
+          == request.resource.data.promoOwnedKeys.size()
+        && (
+          (
+            collectionId == "custom"
+            && request.resource.data.keys().hasAll(["customDexes"])
+            && request.resource.data.customDexes is list
+            && request.resource.data.customDexes.size() <= 30
+          )
+          || (
+            collectionId != "custom"
+            && !request.resource.data.keys().hasAny(["customDexes"])
+          )
+        );
+    }
+
+    function publicSettingEnabled(userId, collectionId) {
+      let setting = getAfter(
+        /databases/$(database)/documents/users/$(userId)/collectionSettings/$(collectionId)
+      );
+      return setting.data.visibility == "public";
+    }
+
+    function publicSettingExistsAfter(userId, collectionId) {
+      let settingPath =
+        /databases/$(database)/documents/users/$(userId)/collectionSettings/$(collectionId);
+      return existsAfter(settingPath)
+        && getAfter(settingPath).data.visibility == "public";
+    }
+
+    function hasPublicCollectionAfter(userId) {
+      return publicSettingExistsAfter(userId, "national")
+        || publicSettingExistsAfter(userId, "pack")
+        || publicSettingExistsAfter(userId, "artist")
+        || publicSettingExistsAfter(userId, "series")
+        || publicSettingExistsAfter(userId, "pokemon")
+        || publicSettingExistsAfter(userId, "ar")
+        || publicSettingExistsAfter(userId, "people")
+        || publicSettingExistsAfter(userId, "custom");
+    }
+
+    function validPublicCollectorDirectory(publicId) {
+      return isPublicIdOwnerAfter(publicId)
+        && request.resource.data.keys().hasAll(["publicId", "updatedAt"])
+        && request.resource.data.keys().hasOnly(["publicId", "updatedAt"])
+        && request.resource.data.publicId == publicId
+        && request.resource.data.updatedAt == request.time
+        && hasPublicCollectionAfter(request.auth.uid);
+    }
+
+    function sharedSettingEnabled(userId, collectionId, shareId) {
+      let setting = getAfter(
+        /databases/$(database)/documents/users/$(userId)/collectionSettings/$(collectionId)
+      );
+      return setting.data.visibility == "unlisted"
+        && setting.data.shareId == shareId;
+    }
+
+    function validVisitorId(visitorId) {
+      return visitorId is string
+        && visitorId.size() >= 24
+        && visitorId.size() <= 64
+        && visitorId.matches('^[A-Za-z0-9-]+$');
+    }
+
+    function validDateKey(date) {
+      return date is string
+        && date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
+    }
+
+    function createsVisitMarker(date, visitorId) {
+      return validDateKey(date)
+        && validVisitorId(visitorId)
+        && !exists(
+          /databases/$(database)/documents/siteDailyMetrics/$(date)/visitors/$(visitorId)
+        )
+        && existsAfter(
+          /databases/$(database)/documents/siteDailyMetrics/$(date)/visitors/$(visitorId)
+        );
+    }
+
+    function validPublicMetricFields() {
+      return request.resource.data.keys().hasAll([
+          "cumulativeVisits",
+          "userCount",
+          "lastVisitDate",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "cumulativeVisits",
+          "userCount",
+          "lastVisitDate",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.cumulativeVisits is int
+        && request.resource.data.cumulativeVisits >= 0
+        && request.resource.data.userCount is int
+        && request.resource.data.userCount >= 0
+        && request.resource.data.lastVisitDate is string
+        && request.resource.data.lastVisitorId is string
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validVisitMetricCreate() {
+      return validPublicMetricFields()
+        && request.resource.data.cumulativeVisits == 1
+        && request.resource.data.userCount == 0
+        && createsVisitMarker(
+          request.resource.data.lastVisitDate,
+          request.resource.data.lastVisitorId
+        );
+    }
+
+    function validVisitMetricUpdate() {
+      return validPublicMetricFields()
+        && request.resource.data.cumulativeVisits
+          == resource.data.cumulativeVisits + 1
+        && request.resource.data.userCount == resource.data.userCount
+        && createsVisitMarker(
+          request.resource.data.lastVisitDate,
+          request.resource.data.lastVisitorId
+        );
+    }
+
+    function createsRegisteredUser(userId, source) {
+      return !exists(
+          /databases/$(database)/documents/siteUserRegistry/$(userId)
+        )
+        && existsAfter(
+          /databases/$(database)/documents/siteUserRegistry/$(userId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteUserRegistry/$(userId)
+        ).data.source == source;
+    }
+
+    function validUserMetricUpdate(userId, source) {
+      return validPublicMetricFields()
+        && request.resource.data.cumulativeVisits
+          == resource.data.cumulativeVisits
+        && request.resource.data.userCount == resource.data.userCount + 1
+        && request.resource.data.lastVisitDate
+          == resource.data.lastVisitDate
+        && request.resource.data.lastVisitorId
+          == resource.data.lastVisitorId
+        && createsRegisteredUser(userId, source);
+    }
+
+    function validFeedbackType(type) {
+      return type == "suggestion"
+        || type == "feature"
+        || type == "bug"
+        || type == "data"
+        || type == "other";
+    }
+
+    function validFeedbackStatus(status) {
+      return status == "new"
+        || status == "reviewed"
+        || status == "completed";
+    }
+
+    function validFeedbackCreate() {
+      return request.auth != null
+        && request.resource.data.keys().hasAll([
+          "type",
+          "title",
+          "message",
+          "authorUid",
+          "authorEmail",
+          "authorName",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "type",
+          "title",
+          "message",
+          "authorUid",
+          "authorEmail",
+          "authorName",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && validFeedbackType(request.resource.data.type)
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 2
+        && request.resource.data.title.size() <= 80
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 5
+        && request.resource.data.message.size() <= 1000
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorEmail == request.auth.token.email
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() <= 80
+        && request.resource.data.status == "new"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validFeedbackAdminUpdate() {
+      return isOwnerAccount()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "status",
+          "reviewedAt",
+          "reviewedBy",
+          "updatedAt"
+        ])
+        && validFeedbackStatus(request.resource.data.status)
+        && request.resource.data.reviewedAt == request.time
+        && request.resource.data.reviewedBy == request.auth.uid
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    // 컬렉터 프로필의 비공개 원본입니다. 기존 도감 문서와 분리합니다.
+    match /users/{userId}/profile/main {
+      allow get: if ownsDocument(userId);
+      allow list: if false;
+      allow create: if ownsDocument(userId)
+        && validPrivateProfile(userId)
+        && request.resource.data.createdAt == request.time
+        && existsAfter(
+          /databases/$(database)/documents/publicProfiles/$(request.resource.data.publicId)
+        );
+      allow update: if ownsDocument(userId)
+        && validPrivateProfile(userId)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.publicId == resource.data.publicId
+        && releasesPreviousNickname(
+          resource.data.nicknameNormalized,
+          request.resource.data.nicknameNormalized
+        )
+        && existsAfter(
+          /databases/$(database)/documents/publicProfiles/$(request.resource.data.publicId)
+        );
+      allow delete: if false;
+    }
+
+    // 프로필 안내를 나중에 보기로 한 상태만 저장합니다.
+    match /users/{userId}/settings/collector {
+      allow get: if ownsDocument(userId);
+      allow list: if false;
+      allow create: if ownsDocument(userId)
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "profilePromptDismissedAt",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "profilePromptDismissedAt",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.profilePromptDismissedAt == request.time
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if ownsDocument(userId)
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "profilePromptDismissedAt",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "profilePromptDismissedAt",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.profilePromptDismissedAt == request.time
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+
+    // 대시보드 표시와 공개 범위는 도감별 독립 문서로 관리합니다.
+    match /users/{userId}/collectionSettings/{collectionId} {
+      allow get: if ownsDocument(userId);
+      allow list: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCollectionSetting(collectionId)
+        && request.resource.data.createdAt == request.time
+        && validSettingProjectionState(userId, collectionId);
+      allow update: if ownsDocument(userId)
+        && validCollectionSetting(collectionId)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && revokesPreviousShare()
+        && validSettingProjectionState(userId, collectionId);
+      allow delete: if false;
+    }
+
+    // 닉네임 예약 여부만 exact get으로 확인할 수 있고 목록 조회는 차단합니다.
+    match /collectorNicknames/{nicknameId} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validNicknameId(nicknameId)
+        && request.resource.data.keys().hasAll(["claimed"])
+        && request.resource.data.keys().hasOnly(["claimed"])
+        && request.resource.data.claimed == true
+        && getAfter(
+          /databases/$(database)/documents/collectorNicknameOwners/$(nicknameId)
+        ).data.ownerUid == request.auth.uid
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.nicknameNormalized == nicknameId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && get(
+          /databases/$(database)/documents/collectorNicknameOwners/$(nicknameId)
+        ).data.ownerUid == request.auth.uid
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.nicknameNormalized != nicknameId;
+    }
+
+    // 닉네임 소유 UID는 본인 외에는 읽을 수 없습니다.
+    match /collectorNicknameOwners/{nicknameId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validNicknameId(nicknameId)
+        && request.resource.data.keys().hasAll(["ownerUid", "createdAt"])
+        && request.resource.data.keys().hasOnly(["ownerUid", "createdAt"])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.nicknameNormalized == nicknameId
+        && existsAfter(
+          /databases/$(database)/documents/collectorNicknames/$(nicknameId)
+        );
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && !existsAfter(
+          /databases/$(database)/documents/collectorNicknames/$(nicknameId)
+        );
+    }
+
+    // 안정적인 공개 URL과 UID의 연결은 비공개 소유권 문서에만 둡니다.
+    match /collectorPublicIdOwners/{publicId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validPublicId(publicId)
+        && request.resource.data.keys().hasAll(["ownerUid", "createdAt"])
+        && request.resource.data.keys().hasOnly(["ownerUid", "createdAt"])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.publicId == publicId;
+      allow update, delete: if false;
+    }
+
+    // PUBLIC 도감이 하나 이상인 프로필의 무작위 공개 ID만 보드에 등재합니다.
+    // 닉네임·소개·도감 projection은 기존 공개 경로에서 별도로 읽습니다.
+    match /publicCollectorDirectory/{publicId} {
+      allow get, list: if true;
+      allow create, update: if validPublicCollectorDirectory(publicId);
+      allow delete: if isPublicIdOwner(publicId);
+    }
+
+    // 공개 프로필에는 닉네임과 소개만 복제합니다.
+    match /publicProfiles/{publicId} {
+      allow get: if resource.data.profileCompleted == true;
+      allow list: if false;
+      allow create: if isPublicIdOwnerAfter(publicId)
+        && validPublicProfile(publicId);
+      allow update: if isPublicIdOwnerAfter(publicId)
+        && validPublicProfile(publicId);
+      allow delete: if false;
+
+      // 이 경로에는 public 도감의 최소 projection만 존재합니다.
+      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

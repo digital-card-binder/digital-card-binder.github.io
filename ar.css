@@ -1,0 +1,144 @@
+.ar-hero {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 207, 65, 0.13), transparent 20rem),
+    linear-gradient(120deg, rgba(20, 31, 58, 0.99), rgba(37, 54, 91, 0.98)),
+    var(--navy);
+}
+
+.ar-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ar-hero-meta span[aria-hidden="true"] {
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.ar-order-note {
+  align-self: center;
+  color: var(--ink-faint);
+  font-size: 0.66rem;
+}
+
+.ar-card .card-image-wrap {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.98), transparent 44%),
+    linear-gradient(145deg, #f8f9fb, #eceef4);
+}
+
+.ar-card .card-body {
+  min-height: 130px;
+}
+
+.catalog-dialog-image {
+  position: relative;
+}
+
+.catalog-dialog-image .dialog-image-fallback {
+  display: none;
+  max-width: 210px;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.catalog-dialog-image.has-image-error img {
+  display: none;
+}
+
+.catalog-dialog-image.has-image-error .dialog-image-fallback {
+  display: block;
+}
+
+.ar-card .card-name-ko {
+  display: block;
+}
+
+.ar-card-set {
+  overflow: hidden;
+  margin-top: 4px;
+  color: var(--ink-faint);
+  font-size: 0.62rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ar-rarity-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-width: 31px;
+  height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f0b429, #ffdb63);
+  color: #4f3907;
+  font-size: 0.61rem;
+  font-weight: 900;
+  box-shadow: 0 5px 12px rgba(78, 57, 8, 0.15);
+}
+
+.ar-dialog-rarity {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #fff2c8;
+  color: #906a09;
+  font-size: 0.61rem;
+  font-weight: 900;
+  padding: 5px 8px;
+}
+
+.ar-dialog-toggle {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.ar-dialog-toggle.is-complete {
+  background: #168663;
+}
+
+.ar-dialog-hint {
+  margin: 9px 0 0;
+  color: var(--ink-faint);
+  font-size: 0.6rem;
+  text-align: center;
+}
+
+.shared-readonly-view .ar-dialog-hint {
+  display: none;
+}
+
+.ar-zero-set {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  background: #f2f3f7;
+  color: #777e91;
+  font-size: 0.63rem;
+  font-weight: 800;
+  padding: 6px 9px;
+}
+
+@media (max-width: 690px) {
+  .ar-order-note {
+    display: none;
+  }
+
+  .ar-rarity-badge {
+    top: 13px;
+    right: 13px;
+  }
+}

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="포켓몬 카드 정규 확장팩 전종수집과 프로모팩·행사 배포 카드 컬렉션" />
+    <meta name="theme-color" content="#17233f" />
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=20260813-2" />
+    <link rel="stylesheet" href="./legal.css?v=20260806-1" />
+    <link rel="stylesheet" href="./packs.css?v=20260811-1" />
+    <link rel="stylesheet" href="./print.css" />
+    <link rel="stylesheet" href="./collection-manager.css?v=20260729-1" />
+    <link rel="stylesheet" href="./collector.css?v=20260811-3" />
+    <script src="./firebase-config.js?v=20260727-2" defer></script>
+    <script src="./site-metrics.js?v=20260729-1" defer></script>
+    <script src="./image-protection.js?v=20260806-1" defer></script>
+    <script src="./legal.js?v=20260806-1" defer></script>
+    <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
+    <script src="./collector-collection-registry.js?v=20260811-3" defer></script>
+    <script src="./collector-public-view.js?v=20260810-6" defer></script>
+    <script src="./collector-public-sync.js?v=20260810-6" defer></script>
+    <script src="./collector-nav.js?v=20260812-1" defer></script>
+    <script src="./packs.js?v=20260810-6" defer></script>
+    <script src="./owner-sheets-sync.js?v=20260811-3" defer></script>
+    <script src="./print.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+      <span class="header-chip">PUBLIC VIEW</span>
+    </header>
+
+    <div class="site-layout">
+      <aside class="sidebar" aria-label="도감 메뉴">
+        <div class="sidebar-label">MY COLLECTIONS</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
+          <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
+          <a class="collection-link is-active" href="./packs.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">02</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>작가 도감</strong><small>29 ARTISTS</small></span></a>
+          <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>시리즈 도감</strong><small>33 SETS</small></span></a><a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>1025 POKÉMON</small></span></a><a class="collection-link" href="./ar.html"><span class="collection-icon collection-icon--ar" aria-hidden="true">06</span><span><strong>AR 전종도감</strong><small>SV · M · 498 CARDS</small></span></a><a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
+        </nav>
+      </aside>
+
+      <main id="main-content" class="main-content">
+        <section class="hero pack-hero" aria-labelledby="page-title">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-content"><p class="eyebrow">PACK ARCHIVE · COLLECTION 02</p><h1 id="page-title">팩 전종수집</h1><p class="hero-description">S·SV·M 정규 확장팩은 전종수집으로,<br />프로모팩·행사 배포 카드는 검색해 실제 보유 항목만 기록하는 컬렉션</p></div>
+          <div class="hero-progress" aria-label="정규팩 수집 현황">
+            <div class="progress-ring" id="pack-progress-ring" aria-hidden="true"><div><strong id="pack-rate">—</strong><span>COMPLETE</span></div></div>
+            <div class="hero-progress-copy"><span>정규팩 수집 현황</span><strong><b id="pack-owned">—</b><small> / <span id="pack-total">—</span>팩</small></strong><p>미수집 <b id="pack-missing">—</b>팩</p></div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="정규팩 수집 요약">
+          <article class="stat-card stat-card--owned"><span class="stat-icon">✓</span><div><span>수집완료</span><strong><b id="stat-pack-owned">—</b><small>팩</small></strong></div></article>
+          <article class="stat-card stat-card--missing"><span class="stat-icon">○</span><div><span>미수집</span><strong><b id="stat-pack-missing">—</b><small>팩</small></strong></div></article>
+          <article class="stat-card stat-card--rate"><span class="stat-icon">↗</span><div><span>전체 수집률</span><strong><b id="stat-pack-rate">—</b><small>%</small></strong></div></article>
+        </section>
+
+        <section class="catalog-panel" aria-labelledby="pack-catalog-title">
+          <div class="catalog-heading">
+            <div><p class="section-kicker">BOOSTER CATALOG</p><h2 id="pack-catalog-title">정규 확장팩</h2></div>
+            <div class="catalog-actions"><p class="catalog-caption">S·SV·M 정규팩은 기존 방식대로 전종 수집률을 관리합니다.</p><button class="print-button" type="button" data-print-page>인쇄 · PDF 저장</button></div>
+          </div>
+          <div class="pack-filter-panel">
+            <label class="search-field"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">팩 검색</span><input id="pack-search" type="search" autocomplete="off" placeholder="팩 이름 또는 코드로 검색" /></label>
+            <div class="pack-filter-row"><div id="era-filters" class="pill-group" role="group" aria-label="시리즈 선택"></div><div id="pack-status-filters" class="segmented-control" role="group" aria-label="수집 상태 선택"><button class="is-active" type="button" data-status="all">전체</button><button type="button" data-status="owned">수집완료</button><button type="button" data-status="missing">미수집</button></div></div>
+          </div>
+          <div class="results-bar"><p>정규팩 검색 결과 <strong id="pack-result-count">—</strong>팩</p></div>
+          <div id="pack-groups"></div>
+          <div id="pack-empty" class="empty-state" hidden><h3>검색 결과가 없습니다</h3><p>검색어나 필터를 바꿔보세요.</p></div>
+        </section>
+
+        <section class="catalog-panel promo-catalog-panel" aria-labelledby="promo-catalog-title">
+          <div class="catalog-heading promo-catalog-heading">
+            <div>
+              <p class="section-kicker">PROMO COLLECTION</p>
+              <h2 id="promo-catalog-title">프로모 컬렉션</h2>
+            </div>
+            <div class="catalog-actions">
+              <p class="catalog-caption">프로모팩과 행사·교육·대회 단일 배포 카드를 검색해 실제 보유 항목만 등록합니다.</p>
+              <button class="primary-button promo-create-open" type="button" data-open-promo-create>+ 새 프로모 직접 등록</button>
+            </div>
+          </div>
+
+          <section class="my-promo-panel" aria-labelledby="my-promo-title">
+            <div class="my-promo-heading">
+              <div>
+                <span class="promo-panel-label">MY PROMOS</span>
+                <h3 id="my-promo-title">내 프로모 <b id="promo-owned-count">0</b>종</h3>
+              </div>
+              <div id="promo-owned-breakdown" class="promo-owned-breakdown" aria-label="시대별 내 프로모 수"></div>
+            </div>
+            <div id="my-promo-grid" class="promo-pack-grid promo-owned-grid"></div>
+            <div id="my-promo-empty" class="promo-inline-empty">
+              <strong>아직 등록한 프로모가 없습니다.</strong>
+              <span>아래 마스터 DB에서 검색해 내 컬렉션에 추가해 보세요.</span>
+            </div>
+          </section>
+
+          <div class="promo-search-panel">
+            <label class="search-field promo-search-field">
+              <span class="search-icon" aria-hidden="true"></span>
+              <span class="sr-only">프로모 검색</span>
+              <input id="promo-search" type="search" autocomplete="off" placeholder="카드명·번호·프로모팩·행사명 검색 (예: 잉어킹, 173/SV-P)" />
+            </label>
+            <div class="promo-select-row">
+              <label class="promo-select-field"><span>시대</span><select id="promo-era-filter"><option value="all">전체</option><option value="S">S</option><option value="SV">SV</option><option value="M">M</option><option value="OTHER">기타</option></select></label>
+              <label class="promo-select-field"><span>유형</span><select id="promo-type-filter"><option value="all">전체</option><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="other">기타</option></select></label>
+            </div>
+          </div>
+
+          <div id="promo-search-idle" class="promo-search-idle">
+            <strong>찾는 프로모를 검색해 주세요.</strong>
+            <span>검색 전에는 마스터 목록을 펼치지 않습니다. 카드명·번호·행사명으로 바로 찾을 수 있어요.</span>
+          </div>
+          <div class="results-bar promo-results-bar" hidden>
+            <p>검색 결과 <strong id="promo-result-count">—</strong>종</p>
+            <span>기본 DB <b id="promo-master-count">—</b>종</span>
+          </div>
+          <div id="promo-results" class="promo-pack-grid" aria-live="polite" hidden></div>
+          <div id="promo-empty" class="empty-state" hidden>
+            <h3>검색 결과가 없습니다</h3>
+            <p>다른 이름이나 카드 번호로 검색하거나, 새 프로모를 직접 등록할 수 있습니다.</p>
+            <button class="primary-button" type="button" data-open-promo-create>+ 새 프로모 직접 등록</button>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+              <a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">정규팩은 전종 기준 · 프로모는 공식 확인 목록과 사용자 직접 등록을 함께 사용합니다.</p>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="pack-dialog" class="card-dialog pack-dialog">
+      <button id="pack-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button>
+      <div id="pack-dialog-image-wrap" class="dialog-card-image pack-dialog-image-wrap"><span id="pack-dialog-image" class="pack-dialog-image" role="img"></span></div>
+      <div class="dialog-card-copy"><div class="dialog-badges"><span id="pack-dialog-code" class="number-badge"></span><span id="pack-dialog-status" class="status-badge"></span></div><h2 id="pack-dialog-name"></h2><p id="pack-dialog-category" class="dialog-name-en">BOOSTER PACK COLLECTION</p><dl class="dialog-details"><div><dt>시리즈</dt><dd id="pack-dialog-era"></dd></div><div><dt>수집 상태</dt><dd id="pack-dialog-ownership"></dd></div></dl></div>
+    </dialog>
+
+    <dialog id="promo-create-dialog" class="promo-create-dialog" aria-labelledby="promo-create-title">
+      <button id="promo-create-close" class="dialog-close" type="button" aria-label="닫기">×</button>
+      <form id="promo-create-form" class="promo-create-form">
+        <div class="promo-create-heading">
+          <p class="section-kicker">CUSTOM PROMO</p>
+          <h2 id="promo-create-title">새 프로모 직접 등록</h2>
+          <p>마스터 DB에 없는 프로모팩이나 단일 배포 카드를 내 계정에 저장합니다.</p>
+        </div>
+        <div class="promo-form-grid">
+          <label class="promo-form-wide"><span>프로모 이름</span><input id="promo-create-name" name="name" type="text" maxlength="100" required /></label>
+          <label><span>구분</span><select id="promo-create-kind" name="kind" required><option value="pack">프로모팩</option><option value="card">단일 배포 카드</option></select></label>
+          <label><span>카드 번호</span><input id="promo-create-card-number" name="cardNumber" type="text" maxlength="30" placeholder="예: 040/M-P" /></label>
+          <label><span>시리즈</span><select id="promo-create-era" name="era" required><option value="S">S</option><option value="SV">SV</option><option value="M">M</option><option value="OTHER">기타</option></select></label>
+          <label><span>연도</span><input id="promo-create-year" name="year" type="number" min="1996" max="2100" inputmode="numeric" required /></label>
+          <label class="promo-form-wide"><span>유형</span><select id="promo-create-type" name="type" required><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="other">기타</option></select></label>
+          <label class="promo-form-wide"><span>이미지 URL</span><input id="promo-create-image" name="image" type="url" inputmode="url" maxlength="500" placeholder="https://... (없으면 기본 PROMO 이미지 사용)" /></label>
+          <label class="promo-form-wide"><span>간단한 설명</span><textarea id="promo-create-description" name="description" rows="3" maxlength="300" required></textarea></label>
+          <label class="promo-form-wide"><span>메모</span><textarea id="promo-create-note" name="note" rows="3" maxlength="500" placeholder="구입처·배포 행사·보관 위치 등"></textarea></label>
+        </div>
+        <p id="promo-create-message" class="promo-create-message" role="status"></p>
+        <div class="promo-form-actions">
+          <button id="promo-create-cancel" class="manager-button" type="button">취소</button>
+          <button id="promo-create-save" class="primary-button" type="submit">내 컬렉션에 저장</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

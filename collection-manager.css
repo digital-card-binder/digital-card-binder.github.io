@@ -1,0 +1,81 @@
+.firebase-auth-panel{display:flex;align-items:center;gap:8px;min-width:0;border:1px solid var(--line);border-radius:999px;background:#fff;padding:6px 7px 6px 10px;box-shadow:0 5px 16px rgba(23,35,63,.05)}
+.firebase-auth-dot{width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:#a8adba;box-shadow:0 0 0 3px rgba(168,173,186,.13)}
+.firebase-auth-panel.is-account .firebase-auth-dot{background:#21a179;box-shadow:0 0 0 3px rgba(33,161,121,.13)}
+.firebase-auth-panel.is-owner .firebase-auth-dot{background:#2a75bb;box-shadow:0 0 0 3px rgba(42,117,187,.14)}
+.firebase-auth-panel.is-shared-readonly .firebase-auth-dot{background:#7b5fd6;box-shadow:0 0 0 3px rgba(123,95,214,.14)}
+#firebase-auth-status{max-width:230px;overflow:hidden;color:#73798a;font-size:.65rem;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.firebase-auth-panel button{min-height:30px;border:0;border-radius:999px;background:#17233f;color:#fff;cursor:pointer;font-size:.62rem;font-weight:800;padding:6px 10px}
+.firebase-auth-panel button:hover{background:#26365b}
+.firebase-auth-panel button:disabled{cursor:wait;opacity:.55}
+.firebase-auth-panel button:focus-visible{outline:3px solid rgba(42,117,187,.25);outline-offset:2px}
+.firebase-auth-panel .shared-readonly-toggle{background:#7b5fd6;white-space:nowrap}
+.firebase-auth-panel .shared-readonly-toggle:hover{background:#6549bd}
+.firebase-auth-panel button[hidden],.account-only-control[hidden]{display:none!important}
+.owner-sheets-status{max-width:120px;overflow:hidden;border-left:1px solid #e5e8ef;padding-left:8px;color:#8b91a1;font-size:.58rem;font-weight:800;text-overflow:ellipsis;white-space:nowrap}
+.owner-sheets-status[data-state=connected],.owner-sheets-status[data-state=success]{color:#13795b}
+.owner-sheets-status[data-state=loading]{color:#2a75bb}
+.owner-sheets-status[data-state=error]{color:#b93647}
+.owner-sheets-link{display:inline-flex;align-items:center;justify-content:center;min-height:30px;border:1px solid #dfe3ec;border-radius:999px;background:#fff;color:#596078;font-size:.58rem;font-weight:800;padding:5px 8px;text-decoration:none;white-space:nowrap}
+.owner-sheets-link:hover{border-color:#bcc3d1;background:#f7f9fc;color:#17233f}
+.owner-sheets-link[hidden]{display:none!important}
+.catalog-actions{display:flex;align-items:flex-end;flex-direction:column;gap:10px}
+.collection-manager-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}
+.collection-manager-actions>.manager-button:nth-child(2){display:none!important}
+.manager-button{min-height:34px;border:1px solid #dfe3ec;border-radius:9px;background:#fff;color:#596078;cursor:pointer;font-size:.66rem;font-weight:800;padding:7px 10px;transition:border-color .18s ease,transform .18s ease,background .18s ease}
+.manager-button:hover{transform:translateY(-1px);border-color:#bcc3d1;background:#f9fafc;color:#17233f}
+.manager-button:focus-visible{outline:3px solid rgba(42,117,187,.24);outline-offset:2px}
+.manager-button--danger{border-color:#f0d5d9;color:#b93647}
+.manager-button--danger:hover{border-color:#e6aeb6;background:#fff5f6;color:#9d2637}
+.collection-manager-notice{display:flex;align-items:center;gap:13px;margin-top:18px;border:1px solid #dfe8f4;border-radius:14px;background:#f7fbff;padding:12px 14px}
+.collection-manager-notice strong{flex:0 0 auto;color:#2a75bb;font-size:.72rem}
+.collection-manager-notice span{color:#747b8f;font-size:.68rem;line-height:1.55}
+.firebase-not-configured .collection-manager-notice{border-color:#eadfcb;background:#fffaf1}
+.firebase-not-configured .collection-manager-notice strong{color:#a56b12}
+#card-dialog[open]{overflow-y:auto}
+#card-dialog .dialog-card-copy{align-self:start}
+.collection-editor{margin-top:22px;border-top:1px solid #e7e9f1;padding-top:22px}
+.collection-editor-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.collection-editor-heading>div{display:grid;gap:4px}
+.collection-editor-heading>div span{color:#ef4351;font-size:.55rem;font-weight:800;letter-spacing:.13em}
+.collection-editor-heading>div strong{font-size:.9rem}
+.owned-switch{display:inline-flex;align-items:center;gap:7px;border:1px solid #dfe3ec;border-radius:999px;background:#fff;padding:7px 10px;color:#596078;font-size:.68rem;font-weight:800;cursor:pointer}
+.owned-switch input{accent-color:#21a179}
+.collection-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:15px}
+.collection-editor-grid label{display:grid;gap:6px}
+.collection-editor-grid label>span{color:#898fa2;font-size:.62rem;font-weight:700}
+.collection-editor-grid input,.collection-editor-grid select,.collection-editor-grid textarea{width:100%;border:1px solid #dfe3ec;border-radius:9px;background:#fff;color:#182038;outline:0;font-size:.72rem;padding:9px 10px}
+.collection-editor-grid input,.collection-editor-grid select{min-height:38px}
+.collection-editor-grid textarea{resize:vertical;line-height:1.5}
+.collection-editor-grid input:focus,.collection-editor-grid select:focus,.collection-editor-grid textarea:focus{border-color:rgba(42,117,187,.65);box-shadow:0 0 0 3px rgba(42,117,187,.09)}
+.collection-editor-grid input:disabled,.collection-editor-grid select:disabled{cursor:not-allowed;background:#f4f5f8;color:#a1a6b3}
+.collection-editor-wide{grid-column:1/-1}
+.manual-image-fallback{border:1px dashed #d8deea;border-radius:10px;background:#fafbfc;padding:10px 12px}
+.manual-image-fallback summary{cursor:pointer;color:#667087;font-size:.64rem;font-weight:800}
+.manual-image-fallback label{margin-top:11px}
+.manual-image-fallback p{margin:7px 0 0;color:#969cad;font-size:.58rem;line-height:1.5}
+.collection-editor-message{min-height:19px;margin:12px 0 0;color:#747b8f;font-size:.63rem;line-height:1.5}
+.collection-editor-message[data-state=loading]{color:#2a75bb}
+.collection-editor-message[data-state=success]{color:#13795b}
+.collection-editor-message[data-state=error]{color:#b93647}
+.collection-editor-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px}
+.collection-editor-actions .primary-button{min-width:128px;min-height:38px}
+.collection-save-hint{margin:10px 0 0;color:#9a9faf;font-size:.58rem;line-height:1.5}
+.collection-mini-badge{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;border-radius:999px;background:#edf2f8;color:#556178;font-size:.52rem;font-weight:800;padding:4px 6px;white-space:nowrap}
+.collection-mini-badge--trade{background:#fff2d8;color:#a46b00}
+.has-collection-record .pokemon-card-button{border-color:#ccd9e8}
+.has-completion-action{position:relative}
+.pokemon-card.has-completion-action .card-body{padding-bottom:58px}
+.pack-card.has-completion-action .pack-card-body{padding-bottom:58px}
+.collection-complete-button{position:absolute;z-index:4;right:11px;bottom:11px;left:11px;display:flex;align-items:center;justify-content:center;min-height:36px;border:1px solid #d9e0eb;border-radius:10px;background:rgba(255,255,255,.96);color:#536078;cursor:pointer;font-size:.68rem;font-weight:900;letter-spacing:-.01em;padding:8px 10px;box-shadow:0 4px 12px rgba(23,35,63,.08);transition:transform .16s ease,border-color .16s ease,background .16s ease,color .16s ease,box-shadow .16s ease}
+.collection-complete-button:hover{transform:translateY(-1px);border-color:#aebbd0;background:#f7f9fc;color:#17233f;box-shadow:0 7px 16px rgba(23,35,63,.12)}
+.collection-complete-button.is-complete{border-color:#b9e4d5;background:#e9f8f2;color:#13795b}
+.collection-complete-button.is-complete:hover{border-color:#8fd2ba;background:#def4ec;color:#0e674d}
+.collection-complete-button.is-saving,.collection-complete-button:disabled{cursor:wait;transform:none;opacity:.68}
+.collection-complete-button:focus-visible{outline:3px solid rgba(42,117,187,.26);outline-offset:2px}
+.collection-manager-hidden{display:none!important}
+.collection-detail-row dd{overflow-wrap:anywhere}
+.shared-readonly-view .account-only-control,.shared-readonly-view .collection-complete-button,.shared-readonly-view #series-card-editor{display:none!important}
+.shared-readonly-view .pokemon-card.has-completion-action .card-body,.shared-readonly-view .pack-card.has-completion-action .pack-card-body{padding-bottom:15px}
+@media(max-width:1080px){#firebase-auth-status{max-width:155px}.owner-sheets-status{display:none}.header-chip{display:none}}
+@media(max-width:690px){.site-header{gap:10px}.firebase-auth-panel{margin-left:auto;padding-left:8px}.firebase-auth-dot,#firebase-auth-status,.owner-sheets-link{display:none}.firebase-auth-panel button{font-size:.58rem;padding:6px 8px}.catalog-actions{gap:8px}.collection-manager-actions{justify-content:flex-end}.manager-button{font-size:.6rem;padding:6px 8px}.collection-manager-notice{align-items:flex-start;flex-direction:column;gap:4px;margin-top:14px}.collection-editor-grid{grid-template-columns:1fr}.collection-editor-wide{grid-column:auto}.collection-editor-actions{align-items:stretch;flex-direction:column-reverse}.collection-editor-actions button{width:100%}.collection-mini-badge--trade{display:none}}
+@media print{.firebase-auth-panel,.owner-sheets-status,.owner-sheets-link,.collection-manager-actions,.collection-manager-notice,.collection-editor,.collection-complete-button{display:none!important}.pokemon-card.has-completion-action .card-body,.pack-card.has-completion-action .pack-card-body{padding-bottom:15px}}

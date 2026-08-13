@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta
+      name="description"
+      content="포켓몬코리아 공식 카드 정보 기준으로 구성한 SV·M 시리즈 AR 카드 498장 전종도감"
+    >
+    <meta name="theme-color" content="#17233f">
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css?v=20260813-2">
+    <link rel="stylesheet" href="./legal.css?v=20260806-1">
+    <link rel="stylesheet" href="./catalog.css?v=20260727-3">
+    <link rel="stylesheet" href="./collection-manager.css?v=20260729-1">
+    <link rel="stylesheet" href="./ar.css?v=20260806-1">
+    <link rel="stylesheet" href="./collector.css?v=20260811-3">
+    <script src="./firebase-config.js?v=20260727-2" defer></script>
+    <script src="./site-metrics.js?v=20260729-1" defer></script>
+    <script src="./image-protection.js?v=20260806-1" defer></script>
+    <script src="./legal.js?v=20260806-1" defer></script>
+    <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
+    <script src="./collector-collection-registry.js?v=20260811-3" defer></script>
+    <script src="./collector-public-view.js?v=20260810-6" defer></script>
+    <script src="./collector-public-sync.js?v=20260810-6" defer></script>
+    <script src="./collector-nav.js?v=20260812-1" defer></script>
+    <script src="./firebase-page-manager.js?v=20260810-6" defer></script>
+    <script src="./owner-sheets-sync.js?v=20260811-3" defer></script>
+    <script src="./ar-card-editor.js?v=20260813-1" defer></script>
+    <script src="./ar.js?v=20260806-3" defer></script>
+  </head>
+  <body data-catalog="ar">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark"><span></span></span>
+        <span class="brand-copy">
+          <strong>디지털 카드 바인더</strong>
+        </span>
+      </a>
+      <span class="header-chip">PUBLIC VIEW</span>
+    </header>
+    <div class="site-layout">
+      <aside class="sidebar">
+        <div class="sidebar-label">MY COLLECTIONS</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./">
+            <span class="collection-icon">DB</span>
+            <span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span>
+          </a>
+          <a class="collection-link" href="./national.html">
+            <span class="collection-icon">01</span>
+            <span><strong>전국도감</strong><small>1세대–9세대</small></span>
+          </a>
+          <a class="collection-link" href="./packs.html">
+            <span class="collection-icon">02</span>
+            <span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span>
+          </a>
+          <a class="collection-link" href="./artists.html">
+            <span class="collection-icon">03</span>
+            <span><strong>작가 도감</strong><small>29 ARTISTS</small></span>
+          </a>
+          <a class="collection-link" href="./series.html">
+            <span class="collection-icon">04</span>
+            <span><strong>시리즈 도감</strong><small>33 SETS</small></span>
+          </a>
+          <a class="collection-link" href="./pokemon-collections.html">
+            <span class="collection-icon">05</span>
+            <span><strong>포켓몬 컬렉션</strong><small>1025 POKÉMON</small></span>
+          </a>
+          <a class="collection-link is-active" href="./ar.html" aria-current="page">
+            <span class="collection-icon collection-icon--ar">06</span>
+            <span><strong>AR 전종도감</strong><small>SV · M · 498 CARDS</small></span>
+          </a>
+          <a class="collection-link" href="./people.html">
+            <span class="collection-icon">07</span>
+            <span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span>
+          </a>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <section class="hero ar-hero">
+          <span class="hero-glow hero-glow--one"></span>
+          <span class="hero-glow hero-glow--two"></span>
+          <div class="hero-content">
+            <p class="eyebrow">ART RARE ARCHIVE · COLLECTION 06</p>
+            <h1>AR 전종도감</h1>
+            <p class="hero-description">공식 발매 순서로 모아보는 AR 컬렉션</p>
+            <p class="ar-hero-meta">
+              <span>32세트</span>
+              <span aria-hidden="true">·</span>
+              <span>498장</span>
+            </p>
+          </div>
+          <div class="hero-progress">
+            <div class="progress-ring" id="catalog-progress-ring">
+              <div><strong id="catalog-rate">0%</strong><span>COMPLETE</span></div>
+            </div>
+            <div class="hero-progress-copy">
+              <span>현재 수집 현황</span>
+              <strong>
+                <b id="catalog-owned">0</b>
+                <small>/ <span id="catalog-total">498</span>장</small>
+              </strong>
+              <p>미보유 <b id="catalog-missing">498</b>장</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card stat-card--owned">
+            <span class="stat-icon">SV·M</span>
+            <div>
+              <span>대상 세트</span>
+              <strong><b id="stat-catalog-groups">32</b><small>개</small></strong>
+            </div>
+          </article>
+          <article class="stat-card stat-card--missing">
+            <span class="stat-icon">AR</span>
+            <div>
+              <span>전체 AR</span>
+              <strong><b id="stat-catalog-total">498</b><small>장</small></strong>
+            </div>
+          </article>
+          <article class="stat-card stat-card--rate">
+            <span class="stat-icon">↗</span>
+            <div>
+              <span>전체 수집률</span>
+              <strong><b id="stat-catalog-rate">0</b><small>%</small></strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="catalog-panel">
+          <div class="catalog-heading">
+            <div>
+              <p class="section-kicker">SV · M ART RARE CATALOG</p>
+              <h2>전체 AR 모음</h2>
+            </div>
+            <p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p>
+          </div>
+          <div class="catalog-toolbar">
+            <label class="catalog-select">
+              <span class="filter-label">세트 선택</span>
+              <select id="catalog-select"></select>
+            </label>
+            <label class="search-field">
+              <span class="search-icon"></span>
+              <input id="catalog-search" type="search" placeholder="포켓몬명 또는 카드번호 검색">
+            </label>
+          </div>
+          <div class="catalog-filter-row">
+            <div id="catalog-status" class="segmented-control">
+              <button class="is-active" data-status="all">전체</button>
+              <button data-status="owned">보유</button>
+              <button data-status="missing">미보유</button>
+            </div>
+            <span class="ar-order-note">공식 발매 순서 · 카드번호 오름차순</span>
+          </div>
+          <div class="catalog-summary">
+            <div>
+              <span>선택 범위</span>
+              <strong id="selected-name">전체 AR 모음</strong>
+            </div>
+            <p id="selected-progress">0 / 498장 · 0%</p>
+          </div>
+          <div class="results-bar">
+            <p>검색 결과 <strong id="result-count">498</strong>장</p>
+          </div>
+          <div id="catalog-grid" class="card-grid"></div>
+          <div id="catalog-empty" class="empty-state" hidden>
+            <span class="empty-ball"><span></span></span>
+            <h3 id="empty-title">검색 결과가 없습니다</h3>
+            <p id="empty-copy">다른 세트나 검색어를 선택해 보세요.</p>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+              <a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">포켓몬코리아 카드번호 기준 · 세트별 카드번호 오름차순 · 498장</p>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="catalog-dialog" class="card-dialog">
+      <button id="dialog-close" class="dialog-close" aria-label="닫기">×</button>
+      <div id="catalog-dialog-image-wrap" class="dialog-card-image catalog-dialog-image">
+        <img id="catalog-dialog-image" alt="">
+        <span id="catalog-dialog-image-fallback" class="dialog-image-fallback"></span>
+      </div>
+      <div class="dialog-card-copy">
+        <div class="dialog-badges">
+          <span id="dialog-code" class="number-badge"></span>
+          <span class="ar-dialog-rarity">AR</span>
+          <span id="dialog-status" class="status-badge is-missing">미보유</span>
+        </div>
+        <h2 id="dialog-name"></h2>
+        <p id="dialog-meta" class="dialog-name-en"></p>
+        <dl class="dialog-details">
+          <div><dt>수록 세트</dt><dd id="dialog-group"></dd></div>
+          <div><dt>카드 번호</dt><dd id="dialog-number"></dd></div>
+        </dl>
+        <button
+          id="dialog-toggle"
+          class="primary-button ar-dialog-toggle account-only-control"
+          type="button"
+        >
+          수집완료로 표시
+        </button>
+        <p class="ar-dialog-hint">Google 로그인 후 내 AR 도감에 저장됩니다.</p>
+      </div>
+    </dialog>
+
+    <div id="catalog-error" class="app-error" hidden>
+      <strong>AR 데이터를 불러오지 못했습니다.</strong>
+      <span>페이지를 새로고침해 주세요.</span>
+    </div>
+  </body>
+</html>
