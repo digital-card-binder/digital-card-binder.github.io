@@ -49,6 +49,7 @@ let cards = [];
 let status = "all";
 let query = "";
 let activeCard = null;
+let activeEra = "S";
 
 const pct = (amount, total) =>
   total ? Math.round((amount / total) * 1000) / 10 : 0;
@@ -81,9 +82,69 @@ function actualCardCode(card) {
 
 function groupName(group) {
   if (mode === "series") {
-    return SERIES_NAMES[group.code] || group.title || group.name || group.code;
+    return (
+      group.displayName ||
+      SERIES_NAMES[group.code] ||
+      group.title ||
+      group.name ||
+      group.code
+    );
   }
   return group.title || group.name || group.code;
+}
+
+function seriesEra(group) {
+  if (group?.era) return String(group.era).toUpperCase();
+  const code = String(group?.code || "").toLowerCase();
+  if (code.startsWith("sm")) return "SM";
+  if (code.startsWith("sv")) return "SV";
+  if (code.startsWith("m")) return "M";
+  if (code.startsWith("s")) return "S";
+  return "";
+}
+
+function selectableGroups() {
+  return mode === "series"
+    ? groups.filter((group) => seriesEra(group) === activeEra)
+    : groups;
+}
+
+function populateCatalogSelect() {
+  const select = $("catalog-select");
+  const visibleGroups = selectableGroups();
+  select.replaceChildren();
+  visibleGroups.forEach((group) => {
+    const option = document.createElement("option");
+    option.value = group.code || group.name;
+    option.textContent =
+      mode === "series"
+        ? `${groupName(group)} · ${group.code} · ${group.total}장`
+        : `${pokemonGroupLabel(group)} · ${group.total}장`;
+    select.append(option);
+  });
+  return visibleGroups;
+}
+
+function selectEra(era) {
+  if (mode !== "series") return;
+  const visibleGroups = groups.filter((group) => seriesEra(group) === era);
+  if (!visibleGroups.length) return;
+  activeEra = era;
+  $("catalog-era")
+    ?.querySelectorAll("button[data-era]")
+    .forEach((button) => {
+      const active = button.dataset.era === activeEra;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+  const select = $("catalog-select");
+  const currentValue = selected?.code || selected?.name;
+  populateCatalogSelect();
+  if (visibleGroups.some((group) => (group.code || group.name) === currentValue)) {
+    select.value = currentValue;
+  }
+  loadGroup(select.value || visibleGroups[0].code || visibleGroups[0].name);
 }
 
 function pokemonGroupLabel(group) {
@@ -473,8 +534,9 @@ function seriesCardNumber(card) {
 }
 
 function loadGroup(value) {
+  const fallback = selectableGroups()[0] || groups[0];
   selected =
-    groups.find((group) => (group.code || group.name) === value) || groups[0];
+    groups.find((group) => (group.code || group.name) === value) || fallback;
   cards =
     mode === "series"
       ? [...selected.cards].sort(
@@ -547,17 +609,13 @@ async function init() {
     updateSummary();
 
     const select = $("catalog-select");
-    groups.forEach((group) => {
-      const option = document.createElement("option");
-      option.value = group.code || group.name;
-      option.textContent =
-        mode === "series"
-          ? `${groupName(group)} · ${group.code} · ${group.total}장`
-          : `${pokemonGroupLabel(group)} · ${group.total}장`;
-      select.append(option);
-    });
+    const initialGroups = populateCatalogSelect();
 
     select.onchange = () => loadGroup(select.value);
+    $("catalog-era")?.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-era]");
+      if (button) selectEra(button.dataset.era);
+    });
     $("catalog-search").oninput = (event) => {
       query = event.target.value;
       render();
@@ -577,7 +635,13 @@ async function init() {
       else dialog.removeAttribute("open");
     };
 
-    loadGroup(select.value || groups[0].code || groups[0].name);
+    loadGroup(
+      select.value ||
+        initialGroups[0]?.code ||
+        initialGroups[0]?.name ||
+        groups[0].code ||
+        groups[0].name,
+    );
   } catch (error) {
     console.error(error);
     $("catalog-error").hidden = false;

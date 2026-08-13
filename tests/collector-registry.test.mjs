@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
@@ -47,7 +48,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 62,
     artist: 451,
-    series: 4103,
+    series: 10321,
     pokemon: 679,
     ar: 498,
     people: 179,
@@ -64,7 +65,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     national: 9,
     pack: 3,
     artist: 29,
-    series: 33,
+    series: 99,
     pokemon: 47,
     ar: 31,
     people: 9,
@@ -138,6 +139,83 @@ test("every series card has a real display name instead of a numeric code", asyn
   assert.equal(
     seriesCatalog.items.some((item) => item.name === "sv8_095/106"),
     false,
+  );
+});
+
+test("series catalog contains the complete Korean S and SM box catalogs", async () => {
+  const groups = JSON.parse(
+    await readFile(new URL("../data/series.json", import.meta.url), "utf8"),
+  );
+  const swordShield = groups.filter((group) => group.era === "S");
+  const sunMoon = groups.filter((group) => group.era === "SM");
+
+  assert.equal(swordShield.length, 30);
+  assert.equal(sunMoon.length, 36);
+  assert.equal(
+    [...swordShield, ...sunMoon].reduce(
+      (total, group) => total + group.cards.length,
+      0,
+    ),
+    6218,
+  );
+
+  for (const group of [...swordShield, ...sunMoon]) {
+    assert.ok(group.displayName, `${group.code}: display name`);
+    assert.ok(group.sourceProducts.length >= 1, `${group.code}: source product`);
+    assert.equal(
+      new Set(group.cards.map((card) => card.code)).size,
+      group.cards.length,
+      `${group.code}: one slot per printed set code and card number`,
+    );
+    for (const card of group.cards) {
+      assert.match(
+        card.image,
+        /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\/data\/wmimages\/(?:S|SM)\//,
+        card.code,
+      );
+      assert.match(
+        card.source,
+        /^https:\/\/pokemoncard[.]co[.]kr\/cards\/detail\//,
+        card.code,
+      );
+    }
+  }
+
+  const group = (code) => groups.find((item) => item.code === code);
+  assert.equal(group("s4a").cards.length, 326, "different shiny card numbers stay separate");
+  assert.equal(group("s9a").cards.length, 87, "same-number parallel foils collapse");
+  assert.equal(group("sm4+").cards.length, 124, "REMASTER-only printed codes stay in the box");
+  assert.equal(
+    group("sm4+").cards.some((card) => card.code.startsWith("sm-p_")),
+    true,
+  );
+  assert.equal(group("sm7a").cards.length, 66, "box-specific temp cards stay in the box");
+  assert.equal(
+    group("sm12a").cards.filter((card) => card.code.includes("ENERGY-")).length,
+    9,
+    "numberless basic energies remain distinct collection slots",
+  );
+});
+
+test("adding legacy eras does not mutate any existing SV, MEGA, or starter card", async () => {
+  const groups = JSON.parse(
+    await readFile(new URL("../data/series.json", import.meta.url), "utf8"),
+  );
+  const preserved = groups.filter(
+    (group) => group.era !== "S" && group.era !== "SM",
+  );
+  const digest = createHash("sha256")
+    .update(JSON.stringify(preserved))
+    .digest("hex");
+
+  assert.equal(preserved.length, 33);
+  assert.equal(
+    preserved.reduce((total, group) => total + group.cards.length, 0),
+    4103,
+  );
+  assert.equal(
+    digest,
+    "73bec2b688579e876d782de5d5744aa5e49fa613f6a26803711c554e20047827",
   );
 });
 
