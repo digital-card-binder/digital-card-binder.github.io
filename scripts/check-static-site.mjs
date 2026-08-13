@@ -48,6 +48,10 @@ const required = [
   "collector-settings.html",
   "collectors.html",
   "collector.html",
+  "news.html",
+  "news.css",
+  "news.js",
+  "news.json",
   "firestore.rules",
 ];
 for (const file of required) {
