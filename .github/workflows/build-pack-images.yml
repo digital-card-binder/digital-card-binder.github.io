@@ -1,0 +1,61 @@
+name: Build pack images
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/build-pack-images.yml"
+      - "scripts/build_pack_sprite.py"
+  pull_request:
+    paths:
+      - ".github/workflows/build-pack-images.yml"
+      - "scripts/build_pack_sprite.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image tools
+        run: pip install openpyxl pillow
+      - name: Download public collection sheet
+        run: curl --fail --location "https://docs.google.com/spreadsheets/d/1sf3bCPPYUPqMlJ5O4x1OWmflJI6IhJBkJozwC4CkePk/export?format=xlsx" --output /tmp/pack-collection.xlsx
+      - name: Build optimized sprite
+        run: python scripts/build_pack_sprite.py /tmp/pack-collection.xlsx assets/packs/pack-sprite.webp
+      - name: Publish generated image
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          ENDPOINT="repos/${GITHUB_REPOSITORY}/contents/assets/packs/pack-sprite.webp"
+          EXISTING_SHA="$(gh api --method GET "${ENDPOINT}" -f ref="${TARGET_BRANCH}" --jq .sha 2>/dev/null || true)"
+          LOCAL_SHA="$(git hash-object assets/packs/pack-sprite.webp)"
+          if [ "${EXISTING_SHA}" = "${LOCAL_SHA}" ]; then
+            echo "Pack image is already current."
+            exit 0
+          fi
+          python - "${TARGET_BRANCH}" "${EXISTING_SHA}" <<'PY'
+          import base64
+          import json
+          import sys
+          from pathlib import Path
+
+          branch, existing_sha = sys.argv[1:3]
+          payload = {
+              "message": "Update pack collection images",
+              "branch": branch,
+              "content": base64.b64encode(Path("assets/packs/pack-sprite.webp").read_bytes()).decode("ascii"),
+          }
+          if existing_sha:
+              payload["sha"] = existing_sha
+          Path("/tmp/pack-image-payload.json").write_text(json.dumps(payload), encoding="utf-8")
+          PY
+          gh api --method PUT "${ENDPOINT}" --input /tmp/pack-image-payload.json
