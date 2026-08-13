@@ -182,82 +182,9 @@
     outline-offset: 2px;
   }
 
-  html[data-card-columns="3"] .card-grid,
-  html[data-card-columns="3"] .pack-grid,
-  html[data-card-columns="3"] .promo-pack-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 7px;
-  }
-
-  html[data-card-columns="3"] .pokemon-card-button,
-  html[data-card-columns="3"] .pack-card,
-  html[data-card-columns="3"] .promo-collection-card {
-    border-radius: 12px;
-  }
-
-  html[data-card-columns="3"] .card-image-wrap {
-    padding: 5px;
-  }
-
-  html[data-card-columns="3"] .card-body,
-  html[data-card-columns="3"] .catalog-card .card-body {
-    min-height: 104px;
-    padding: 8px;
-  }
-
-  html[data-card-columns="3"] .pokemon-card.has-completion-action .card-body,
-  html[data-card-columns="3"] .pack-card.has-completion-action .pack-card-body {
-    padding-bottom: 59px;
-  }
-
-  html[data-card-columns="3"] .card-topline,
-  html[data-card-columns="3"] .pack-card-top {
-    display: grid;
-    justify-content: stretch;
-    gap: 4px;
-  }
-
-  html[data-card-columns="3"] .number-badge,
-  html[data-card-columns="3"] .pack-code,
-  html[data-card-columns="3"] .card-meta {
-    overflow: hidden;
-    font-size: 0.54rem;
-    text-overflow: ellipsis;
-  }
-
-  html[data-card-columns="3"] .status-badge,
-  html[data-card-columns="3"] .pack-status {
-    width: max-content;
-    max-width: 100%;
-    overflow: hidden;
-    padding: 3px 5px;
-    font-size: 0.52rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  html[data-card-columns="3"] .card-name-ko,
-  html[data-card-columns="3"] .pack-name {
-    margin-top: 6px;
-    font-size: 0.72rem;
-  }
-
-  html[data-card-columns="3"] .card-name-en {
-    font-size: 0.52rem;
-  }
-
-  html[data-card-columns="3"] .collection-complete-button {
-    right: 6px;
-    bottom: 6px;
-    left: 6px;
-    min-height: 44px;
-    padding: 5px 3px;
-    border-radius: 8px;
-    font-size: 0.56rem;
-  }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 690px) {
   html[data-card-columns="4"] .card-grid,
   html[data-card-columns="4"] .pack-grid,
   html[data-card-columns="4"] .promo-pack-grid {
@@ -1527,7 +1454,21 @@
   .collector-directory-badge {
     width: 100%;
     min-width: 0;
-    margin-top: 22px;
+    margin-top: 0;
+  }
+
+  .collector-directory-hero {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+  }
+
+  .collector-directory-hero .hero-content {
+    min-width: 0;
+  }
+
+  .collector-directory-hero h1 {
+    white-space: nowrap;
   }
 
   .collector-directory-toolbar {

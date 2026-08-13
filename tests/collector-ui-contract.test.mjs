@@ -287,6 +287,8 @@ test("phone usability upgrades stay inside the 690px mobile boundary", async () 
   assert.match(catalogCss, /@media\(max-width:690px\)[\s\S]*?scroll-margin-top:76px/);
   assert.match(collectorCss, /[.]mobile-filter-jump \{\s*display: none/);
   assert.match(collectorCss, /@media \(max-width: 690px\)[\s\S]*?[.]catalog-panel [.]results-bar \{[\s\S]*?position: sticky/);
+  assert.match(collectorCss, /@media \(max-width: 680px\)[\s\S]*?[.]collector-directory-hero \{[\s\S]*?grid-template-columns: 1fr/);
+  assert.match(collectorCss, /[.]collector-directory-hero h1 \{\s*white-space: nowrap/);
   assert.match(managerCss, /@media\(max-width:690px\)[\s\S]*?[.]collection-complete-button\{min-height:44px/);
   assert.match(navigation, /function centerActiveNavigationOnMobile\(\)/);
   assert.match(navigation, /filterTarget[.]scrollIntoView/);
@@ -336,10 +338,10 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260813-3/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260813-4/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-3/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-4/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -362,7 +364,7 @@ test("the signed-in account name opens profile management", async () => {
   assert.match(css, /#firebase-auth-status[.]firebase-profile-link/);
 });
 
-test("desktop keeps four or three columns while phones use readable two or three", async () => {
+test("desktop keeps four or three columns while phones use two or four", async () => {
   const navigation = await source("collector-nav.js");
   const commonCss = await source("styles.css");
   const collectorCss = await source("collector.css");
@@ -390,19 +392,14 @@ test("desktop keeps four or three columns while phones use readable two or three
   assert.match(navigation, /compactCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
   assert.match(navigation, /mobileCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
   assert.match(navigation, /localStorage[.]setItem/);
-  const compactMediaCss = collectorCss.slice(
-    collectorCss.indexOf("@media (max-width: 920px)"),
-    collectorCss.indexOf("@media (max-width: 560px)"),
-  );
-  assert.equal(compactMediaCss.includes("display: none"), false);
   assert.match(
     collectorCss,
-    /@media \(max-width: 560px\)[\s\S]*?data-card-columns="4"[\s\S]*?[.]pack-image[\s\S]*?calc\(100% - 8px\)/,
+    /@media \(max-width: 690px\)[\s\S]*?data-card-columns="4"[\s\S]*?[.]pack-image[\s\S]*?calc\(100% - 8px\)/,
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260813-3/);
-    assert.match(html, /collector-nav[.]js\?v=20260813-3/);
+    assert.match(html, /collector[.]css\?v=20260813-4/);
+    assert.match(html, /collector-nav[.]js\?v=20260813-4/);
   }
 });
 
@@ -410,11 +407,11 @@ test("mobile, compact, and desktop column choices restore independently", async 
   const layout = navigationLayoutContext(await source("collector-nav.js"), 390);
 
   assert.equal(layout.documentElement.dataset.cardColumns, "2");
-  assert.equal(layout.button.textContent, "▦ 3열");
+  assert.equal(layout.button.textContent, "▦ 4열");
 
   layout.button.trigger("click");
-  assert.equal(layout.documentElement.dataset.cardColumns, "3");
-  assert.equal(layout.stored.get("pokemonDexMobileCardColumnsV1"), "3");
+  assert.equal(layout.documentElement.dataset.cardColumns, "4");
+  assert.equal(layout.stored.get("pokemonDexMobileCardColumnsV1"), "4");
   assert.equal(layout.button.textContent, "▦ 2열");
 
   layout.setViewportWidth(800);
@@ -434,7 +431,7 @@ test("mobile, compact, and desktop column choices restore independently", async 
   assert.equal(layout.stored.get("pokemonDexCardColumnsV1"), "3");
 
   layout.setViewportWidth(390);
-  assert.equal(layout.documentElement.dataset.cardColumns, "3");
+  assert.equal(layout.documentElement.dataset.cardColumns, "4");
   assert.equal(layout.button.textContent, "▦ 2열");
 });
 
