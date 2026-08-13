@@ -22,6 +22,7 @@
 - 한국어판 단독 인물 대표 카드 확인 125명 / 추가 확인 54명
 - 팩도감: S·SV·M 정규 확장팩 62종 전종수집
 - 프로모팩 검색 DB 36종 / 실제 보유 팩만 계정별 등록
+- 시리즈도감: S 30세트·SM 36세트 추가, 전체 99세트 10,321장
 
 ## 데이터 갱신
 
@@ -40,6 +41,16 @@ python scripts/extract_pokedex.py source/1025-pokedex.xlsm data/pokedex.json
 
 ```bash
 python scripts/enrich_series_pokemon_names.py
+```
+
+소드&실드와 썬&문 시리즈 목록을 포켓몬코리아 공식 카드검색 기준으로
+다시 생성하려면 아래 명령을 실행합니다. 상품별 포켓몬·트레이너·에너지
+결과를 모두 수집하며, 같은 인쇄 세트 코드와 카드번호의 미러·샤이니 등은
+대표 한국판 이미지 한 장만 남깁니다. 세트 코드나 카드번호가 다르면
+재포장 상품의 카드도 해당 박스에 별도 수록합니다.
+
+```bash
+python scripts/build_legacy_series_data.py
 ```
 
 인물도감 데이터와 대표 카드 연결을 다시 생성하려면

@@ -6,7 +6,7 @@
     <title>디지털 카드 바인더</title>
     <link rel="stylesheet" href="./styles.css?v=20260813-2">
     <link rel="stylesheet" href="./legal.css?v=20260806-1">
-    <link rel="stylesheet" href="./catalog.css?v=20260727-3">
+    <link rel="stylesheet" href="./catalog.css?v=20260813-1">
     <link rel="stylesheet" href="./collection-manager.css?v=20260729-1">
     <link rel="stylesheet" href="./collector.css?v=20260813-2">
     <script src="./firebase-config.js?v=20260727-2" defer></script>
@@ -20,7 +20,7 @@
     <script src="./collector-nav.js?v=20260813-1" defer></script>
     <script src="./firebase-page-manager.js?v=20260810-6" defer></script>
     <script src="./owner-sheets-sync.js?v=20260811-3" defer></script>
-    <script src="./catalog.js?v=20260812-4" defer></script>
+    <script src="./catalog.js?v=20260813-1" defer></script>
   </head>
   <body data-catalog="series">
     <header class="site-header">
@@ -54,7 +54,7 @@
           </a>
           <a class="collection-link is-active" href="./series.html">
             <span class="collection-icon collection-icon--red">04</span>
-            <span><strong>시리즈 도감</strong><small>33 SETS</small></span>
+            <span><strong>시리즈 도감</strong><small>S · SV · SM · M</small></span>
           </a>
           <a class="collection-link" href="./pokemon-collections.html">
             <span class="collection-icon">05</span>
@@ -124,6 +124,15 @@
               <h2>시리즈별 카드 목록</h2>
             </div>
             <p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p>
+          </div>
+          <div class="catalog-era-filter">
+            <span class="filter-label">시리즈 카테고리</span>
+            <div id="catalog-era" class="catalog-era-tabs" role="tablist" aria-label="시리즈 카테고리 선택">
+              <button class="is-active" type="button" role="tab" data-era="S" aria-selected="true" tabindex="0"><strong>소드&amp;실드</strong><span>S</span></button>
+              <button type="button" role="tab" data-era="SV" aria-selected="false" tabindex="-1"><strong>스칼렛&amp;바이올렛</strong><span>SV</span></button>
+              <button type="button" role="tab" data-era="SM" aria-selected="false" tabindex="-1"><strong>썬&amp;문</strong><span>SM</span></button>
+              <button type="button" role="tab" data-era="M" aria-selected="false" tabindex="-1"><strong>MEGA</strong><span>M</span></button>
+            </div>
           </div>
           <div class="catalog-toolbar">
             <label class="catalog-select">

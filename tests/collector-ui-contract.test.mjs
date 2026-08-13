@@ -197,7 +197,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "news-page-launch");
+  assert.equal(newsData.items[0].id, "series-s-sm-catalogs");
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);
@@ -219,6 +219,29 @@ test("every existing collection page loads the public adapter before its manager
     assert.ok(managerIndex > syncIndex, `${collectionId}: manager order`);
     assert.ok(html.includes("collector.css"), `${collectionId}: collector CSS missing`);
   }
+});
+
+test("series catalog filters sets by Korean card era without hiding MEGA", async () => {
+  const page = await source("series.html");
+  const client = await source("catalog.js");
+  const css = await source("catalog.css");
+
+  assert.match(page, /id="catalog-era"[^>]*role="tablist"/);
+  for (const [era, label] of [
+    ["S", "소드&amp;실드"],
+    ["SV", "스칼렛&amp;바이올렛"],
+    ["SM", "썬&amp;문"],
+    ["M", "MEGA"],
+  ]) {
+    assert.match(page, new RegExp(`data-era="${era}"[^>]*>[\\s\\S]*?${label}`));
+  }
+  assert.match(client, /function seriesEra\(group\)/);
+  assert.match(client, /groups[.]filter\(\(group\) => seriesEra\(group\) === activeEra\)/);
+  assert.match(client, /group[.]displayName/);
+  assert.match(css, /[.]catalog-era-tabs\{/);
+  assert.match(css, /grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.equal(page.includes("33 SETS"), false);
 });
 
 test("new pages have unique element IDs and mobile/read-only CSS contracts", async () => {
