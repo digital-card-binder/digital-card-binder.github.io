@@ -2,10 +2,8 @@
 
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
   const publicRequested = /^[a-z0-9]{12}$/.test(params.get("collector") || "");
-  const sharedRequested = /^[A-Za-z0-9_-]{32}$/.test(hash.get("share") || "");
-  window.CustomDexPublicViewRequested = publicRequested || sharedRequested;
+  window.CustomDexPublicViewRequested = publicRequested;
 
   function load(src, onload) {
     const script = document.createElement("script");
@@ -16,13 +14,13 @@
   }
 
   if (window.CustomDexPublicViewRequested) {
-    load("./custom-public.js?v=20260813-1");
+    load("./custom-public.js?v=20260813-2");
     return;
   }
 
   load("./custom-granular-sharing.js?v=20260813-1", () => {
     load("./custom.js?v=20260813-2", () => {
-      load("./custom-sync.js?v=20260813-2");
+      load("./custom-sync.js?v=20260813-3");
     });
   });
 })();

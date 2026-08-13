@@ -13,18 +13,18 @@
     <link rel="stylesheet" href="./styles.css?v=20260813-2" />
     <link rel="stylesheet" href="./legal.css?v=20260813-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260729-1" />
-    <link rel="stylesheet" href="./collector.css?v=20260811-3" />
+    <link rel="stylesheet" href="./collector.css?v=20260813-2" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260813-2" defer></script>
-    <script src="./collector-collection-registry.js?v=20260811-3" defer></script>
+    <script src="./collector-collection-registry.js?v=20260813-1" defer></script>
     <script src="./custom-sharing.js?v=20260813-1" defer></script>
     <script src="./custom-granular-sharing.js?v=20260813-1" defer></script>
-    <script src="./collector-public-sync.js?v=20260810-6" defer></script>
-    <script src="./collector-nav.js?v=20260812-1" defer></script>
-    <script src="./collector-settings.js?v=20260811-2" defer></script>
-    <script src="./custom-granular-settings.js?v=20260813-1" defer></script>
+    <script src="./collector-public-sync.js?v=20260813-1" defer></script>
+    <script src="./collector-nav.js?v=20260813-1" defer></script>
+    <script src="./collector-settings.js?v=20260813-1" defer></script>
+    <script src="./custom-granular-settings.js?v=20260813-2" defer></script>
   </head>
   <body data-page="collector-settings">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -95,7 +95,7 @@
           </div>
           <div class="collector-privacy-badge" aria-label="기본 공개 범위 비공개">
             <span aria-hidden="true">◉</span>
-            <div><strong>PRIVATE BY DEFAULT</strong><small>기본값은 모두 비공개</small></div>
+            <div><strong>기본은 나만 보기</strong><small>공개를 직접 선택할 수 있습니다</small></div>
           </div>
         </section>
 
@@ -128,7 +128,6 @@
               </div>
               <div class="collector-profile-actions">
                 <button id="collector-profile-edit" class="manager-button" type="button">프로필 수정</button>
-                <button id="collector-profile-copy" class="primary-button" type="button">내 컬렉션 공유</button>
               </div>
             </div>
 
@@ -180,12 +179,11 @@
               </div>
               <div class="collector-setting-legend" aria-label="공개 범위 설명">
                 <span><i data-visibility="private"></i>나만 보기</span>
-                <span><i data-visibility="unlisted"></i>링크 공개</span>
-                <span><i data-visibility="public"></i>프로필·공개 보드</span>
+                <span><i data-visibility="public"></i>공개</span>
               </div>
             </div>
             <p class="collector-settings-help">
-              대시보드 표시를 꺼도 실제 도감 데이터는 삭제되지 않습니다. PUBLIC 도감이 하나 이상이면 공개 컬렉터 보드에도 자동으로 표시됩니다.
+              대시보드 표시를 꺼도 실제 도감 데이터는 삭제되지 않습니다. 공개 도감이 하나 이상이면 도감 갤러리에도 자동으로 표시됩니다.
             </p>
             <div id="collector-settings-grid" class="collector-settings-grid" aria-live="polite"></div>
             <p id="collector-settings-status" class="collector-form-status" aria-live="polite"></p>

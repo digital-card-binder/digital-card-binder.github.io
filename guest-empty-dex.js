@@ -102,6 +102,11 @@
       return response;
     }
 
+    // The previous fetch layer has already applied the public projection. A
+    // public read-only visitor is intentionally signed out, so
+    // the ordinary guest fallback must not wipe that projection back to zero.
+    if (window.CollectorPublicView?.requested) return response;
+
     try {
       const user = await Promise.race([
         authReady,
@@ -128,6 +133,7 @@
 
     function updateGuestLabel(user) {
     const apply = () => {
+      if (window.CollectorPublicView?.requested) return;
       const headerChip = document.querySelector(".header-chip");
       const shared = window.PokemonDexSharedReadonly;
       const sharedViewActive = Boolean(shared?.updateControl?.(user));

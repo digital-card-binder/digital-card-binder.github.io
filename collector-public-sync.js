@@ -40,10 +40,6 @@
     );
   }
 
-  function sharedProjectionRef(firestoreModule, db, shareId) {
-    return firestoreModule.doc(db, "sharedCollections", shareId);
-  }
-
   function sourceDocumentFromSnapshot(snapshot, user) {
     const source = snapshot?.exists?.() ? { ...(snapshot.data() || {}) } : {};
     if (source.baseMode !== "legacy" && source.baseMode !== "empty") {
@@ -104,7 +100,9 @@
       collectionId,
     });
     const { setting, profile } = context;
-    if (setting.visibility === "private") return { synced: false, visibility: "private" };
+    if (setting.visibility !== "public") {
+      return { synced: false, visibility: "private" };
+    }
     if (!profile?.profileCompleted || !profile.publicId) {
       throw new Error("컬렉터 프로필을 먼저 완성해 주세요.");
     }
@@ -116,27 +114,16 @@
 
     const payload = { ...projection };
 
-    if (setting.visibility === "public") {
-      await firestoreModule.setDoc(
-        publicProjectionRef(
-          firestoreModule,
-          db,
-          profile.publicId,
-          collectionId,
-        ),
-        payload,
-      );
-      return { synced: true, visibility: "public" };
-    }
-
-    if (!setting.shareId) {
-      throw new Error("링크 공개 식별값을 확인하지 못했습니다.");
-    }
     await firestoreModule.setDoc(
-      sharedProjectionRef(firestoreModule, db, setting.shareId),
+      publicProjectionRef(
+        firestoreModule,
+        db,
+        profile.publicId,
+        collectionId,
+      ),
       payload,
     );
-    return { synced: true, visibility: "unlisted" };
+    return { synced: true, visibility: "public" };
   }
 
   async function syncCollectionWithRetry(options) {
@@ -175,7 +162,6 @@
     profileRef,
     publicProjectionRef,
     settingRef,
-    sharedProjectionRef,
     sourceRef,
     sourceDocumentFromSnapshot,
     syncAfterCollectionWrite,

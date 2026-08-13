@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="다른 컬렉터들이 PUBLIC으로 공개한 포켓몬카드 도감과 컬렉션을 둘러봅니다."
+      content="다른 컬렉터들이 공개한 포켓몬카드 도감과 컬렉션을 둘러봅니다."
     />
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="./styles.css?v=20260813-2" />
     <link rel="stylesheet" href="./legal.css?v=20260813-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260729-1" />
-    <link rel="stylesheet" href="./collector.css?v=20260811-3" />
+    <link rel="stylesheet" href="./collector.css?v=20260813-2" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./legal.js?v=20260813-2" defer></script>
-    <script src="./collector-collection-registry.js?v=20260811-3" defer></script>
+    <script src="./collector-collection-registry.js?v=20260813-1" defer></script>
     <script src="./custom-sharing.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260812-1" defer></script>
+    <script src="./collector-nav.js?v=20260813-1" defer></script>
     <script src="./collector-directory.js?v=20260813-2" defer></script>
   </head>
   <body data-page="collector-directory">
@@ -77,7 +77,7 @@
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>
-          PUBLIC으로 설정한 도감만 도감 갤러리와 프로필에 표시됩니다.
+          공개로 설정한 도감만 도감 갤러리와 프로필에 표시됩니다.
         </div>
       </aside>
 
@@ -89,13 +89,13 @@
             <p class="eyebrow">DEX GALLERY · COMMUNITY BOARD</p>
             <h1 id="page-title">도감 갤러리</h1>
             <p class="hero-description">
-              다른 컬렉터들이 PUBLIC으로 공개한 포켓몬카드 도감을<br />
+              다른 컬렉터들이 공개한 포켓몬카드 도감을<br />
               닉네임과 컬렉션별로 둘러보세요.
             </p>
           </div>
           <div class="collector-directory-badge">
-            <strong>PUBLIC ONLY</strong>
-            <small>PRIVATE·UNLISTED 도감과<br />Google 계정정보는 표시하지 않습니다.</small>
+            <strong>공개 도감만 표시</strong>
+            <small>나만 보기 도감과<br />Google 계정정보는 표시하지 않습니다.</small>
           </div>
         </section>
 
@@ -126,14 +126,14 @@
           <div id="collector-directory-loading" class="collector-directory-state" role="status">
             <span class="collector-loading-dot" aria-hidden="true"></span>
             <strong>도감 갤러리를 불러오는 중입니다.</strong>
-            <p>PUBLIC으로 공유된 도감만 확인하고 있습니다.</p>
+            <p>공개로 설정된 도감만 확인하고 있습니다.</p>
           </div>
 
           <div id="collector-directory-grid" class="collector-directory-grid" hidden></div>
 
           <div id="collector-directory-empty" class="collector-directory-state" hidden>
             <strong>조건에 맞는 컬렉터가 없습니다.</strong>
-            <p>검색어를 바꾸거나, 내 프로필 관리에서 도감을 PUBLIC으로 공개해 보세요.</p>
+            <p>검색어를 바꾸거나, 내 프로필 관리에서 도감을 공개해 보세요.</p>
             <a href="./collector-settings.html">내 도감 공개 설정</a>
           </div>
 
@@ -154,7 +154,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">PUBLIC 도감이 없는 프로필은 도감 갤러리에 표시되지 않습니다.</p>
+          <p class="site-footer-note">공개 도감이 없는 프로필은 도감 갤러리에 표시되지 않습니다.</p>
         </footer>
       </main>
     </div>

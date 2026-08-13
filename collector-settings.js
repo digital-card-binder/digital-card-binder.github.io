@@ -17,7 +17,6 @@
     profilePublicId: document.querySelector("#collector-profile-public-id"),
     profileAvatarFallback: document.querySelector("#collector-profile-avatar-fallback"),
     profileEdit: document.querySelector("#collector-profile-edit"),
-    profileCopy: document.querySelector("#collector-profile-copy"),
     nickname: document.querySelector("#collector-nickname"),
     bio: document.querySelector("#collector-bio"),
     bioCount: document.querySelector("#collector-bio-count"),
@@ -82,54 +81,6 @@
 
   function createPublicId() {
     return randomId(12, "abcdefghijklmnopqrstuvwxyz0123456789");
-  }
-
-  function createShareId() {
-    return randomId(
-      32,
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
-    );
-  }
-
-  function profileUrl(publicId = profile?.publicId) {
-    if (!publicId) return "";
-    const url = new URL("./collector.html", window.location.href);
-    url.searchParams.set("id", publicId);
-    return url.href;
-  }
-
-  function collectionShareUrl(collectionId, setting) {
-    if (setting.visibility === "private") return "";
-    const meta = registry.COLLECTIONS[collectionId];
-    const url = new URL(meta.href, window.location.href);
-    if (setting.visibility === "public") {
-      url.searchParams.set("collector", profile.publicId);
-    } else {
-      url.hash = new URLSearchParams({ share: setting.shareId }).toString();
-    }
-    return url.href;
-  }
-
-  async function copyText(
-    value,
-    successMessage,
-    statusElement = elements.settingsStatus,
-  ) {
-    if (!value) return;
-    try {
-      await navigator.clipboard.writeText(value);
-    } catch {
-      const input = document.createElement("textarea");
-      input.value = value;
-      input.setAttribute("readonly", "");
-      input.style.position = "fixed";
-      input.style.opacity = "0";
-      document.body.append(input);
-      input.select();
-      document.execCommand("copy");
-      input.remove();
-    }
-    setStatus(statusElement, successMessage, "success");
   }
 
   function setProfileInitial(element, sourceProfile = profile) {
@@ -547,12 +498,6 @@
     }
   }
 
-  function visibilityLabel(value) {
-    if (value === "public") return "PUBLIC · 프로필·공개 보드에 표시";
-    if (value === "unlisted") return "UNLISTED · 링크를 가진 사람만";
-    return "PRIVATE · 나만 보기";
-  }
-
   async function renderSettings() {
     const metrics = await Promise.all(
       registry.COLLECTION_ORDER.map((collectionId) => metricFor(collectionId)),
@@ -577,15 +522,10 @@
         <label class="collector-setting-visibility">
           <span>공개 범위</span>
           <select data-setting="visibility">
-            <option value="private">PRIVATE · 나만 보기</option>
-            <option value="unlisted">UNLISTED · 링크 공개</option>
-            <option value="public">PUBLIC · 프로필·공개 보드</option>
+            <option value="private">나만 보기</option>
+            <option value="public">공개</option>
           </select>
         </label>
-        <div class="collector-setting-share" hidden>
-          <input type="text" readonly aria-label="공유 링크" />
-          <button class="manager-button" type="button" data-copy-share>링크 복사</button>
-        </div>
       `;
       card.querySelector(".collector-setting-identity strong").textContent = meta.title;
       card.querySelector(".collector-setting-identity small").textContent =
@@ -593,18 +533,9 @@
       const dashboard = card.querySelector('[data-setting="dashboard"]');
       const visibility = card.querySelector('[data-setting="visibility"]');
       dashboard.checked = setting.dashboardVisible;
-      visibility.value = setting.visibility;
-      updateShareRow(card, collectionId, setting);
+      visibility.value = setting.visibility === "public" ? "public" : "private";
       dashboard.addEventListener("change", () => markSettingDirty(card));
-      visibility.addEventListener("change", () => {
-        const draft = settingFromCard(card, collectionId);
-        updateShareRow(card, collectionId, draft);
-        markSettingDirty(card);
-      });
-      card.querySelector("[data-copy-share]").addEventListener("click", () => {
-        const value = card.querySelector(".collector-setting-share input").value;
-        void copyText(value, `${meta.title} 공유 링크를 복사했습니다.`);
-      });
+      visibility.addEventListener("change", () => markSettingDirty(card));
       return card;
     });
     elements.settingsGrid.replaceChildren(...cards);
@@ -633,27 +564,6 @@
     setStatus(elements.settingsStatus, "저장하지 않은 변경사항이 있습니다.");
   }
 
-  function updateShareRow(card, collectionId, setting) {
-    const row = card.querySelector(".collector-setting-share");
-    const input = row.querySelector("input");
-    const copyButton = row.querySelector("[data-copy-share]");
-    const persisted = settings.get(collectionId)?.value;
-    const visible = setting.visibility !== "private" && profile?.profileCompleted;
-    const saved = Boolean(
-      visible &&
-        persisted?.visibility === setting.visibility &&
-        (
-          setting.visibility !== "unlisted" ||
-          (persisted.shareId && persisted.shareId === setting.shareId)
-        ),
-    );
-    row.hidden = !visible;
-    input.value = saved
-      ? collectionShareUrl(collectionId, setting)
-      : "저장 후 링크가 만들어집니다.";
-    copyButton.disabled = !saved;
-  }
-
   async function saveOneSetting(collectionId, draft) {
     const current = settings.get(collectionId) || {
       value: registry.defaultSetting(collectionId),
@@ -664,18 +574,11 @@
       throw new Error(`${registry.COLLECTIONS[collectionId].title}: 컬렉터 프로필을 먼저 만들어 주세요.`);
     }
 
-    const previousShareId = current.value.shareId;
-    const leavingUnlisted =
-      current.value.visibility === "unlisted" &&
-      draft.visibility !== "unlisted" &&
-      Boolean(previousShareId);
-    let shareId = draft.visibility === "unlisted" ? previousShareId : "";
-    let createShareOwner = false;
-    if (draft.visibility === "unlisted" && !shareId) {
-      shareId = createShareId();
-      createShareOwner = true;
-    }
-    const next = { ...draft, shareId };
+    const next = {
+      ...draft,
+      visibility: draft.visibility === "public" ? "public" : "private",
+      shareId: "",
+    };
     const batch = firebase.firestoreModule.writeBatch(firebase.db);
     const settingReference = sync.settingRef(
       firebase.firestoreModule,
@@ -711,53 +614,13 @@
         profile.publicId,
         collectionId,
       );
-      const sharedReference = shareId
-        ? sync.sharedProjectionRef(firebase.firestoreModule, firebase.db, shareId)
-        : null;
-      const previousSharedReference = leavingUnlisted
-        ? sync.sharedProjectionRef(
-            firebase.firestoreModule,
-            firebase.db,
-            previousShareId,
-          )
-        : null;
-      const previousShareOwnerReference = leavingUnlisted
-        ? firebase.firestoreModule.doc(
-            firebase.db,
-            "collectorShareOwners",
-            previousShareId,
-          )
-        : null;
       const projectionPayload = { ...projection };
-
-      if (createShareOwner) {
-        batch.set(
-          firebase.firestoreModule.doc(
-            firebase.db,
-            "collectorShareOwners",
-            shareId,
-          ),
-          {
-            ownerUid: currentUser.uid,
-            collectionId,
-            createdAt: firebase.firestoreModule.serverTimestamp(),
-          },
-        );
-      }
 
       batch.set(settingReference, settingPayload);
       if (next.visibility === "public") {
         batch.set(publicReference, projectionPayload);
-        if (previousSharedReference) batch.delete(previousSharedReference);
-      } else if (next.visibility === "unlisted") {
-        batch.delete(publicReference);
-        batch.set(sharedReference, projectionPayload);
       } else {
         batch.delete(publicReference);
-        if (previousSharedReference) batch.delete(previousSharedReference);
-      }
-      if (previousShareOwnerReference) {
-        batch.delete(previousShareOwnerReference);
       }
       syncDirectoryInBatch(batch, collectionId, next);
       await batch.commit();
@@ -786,7 +649,6 @@
         const collectionId = card.dataset.collectionId;
         await saveOneSetting(collectionId, settingFromCard(card, collectionId));
         card.classList.remove("is-dirty");
-        updateShareRow(card, collectionId, settings.get(collectionId).value);
       }
       setStatus(
         elements.settingsStatus,
@@ -924,13 +786,6 @@
   elements.signIn.addEventListener("click", signIn);
   elements.profileEdit.addEventListener("click", openProfileEditor);
   elements.profileCancel.addEventListener("click", closeProfileEditor);
-  elements.profileCopy.addEventListener("click", () => {
-    void copyText(
-      profileUrl(),
-      "내 컬렉션 프로필 링크를 복사했습니다.",
-      elements.profileStatus,
-    );
-  });
   elements.bio.addEventListener("input", () => {
     elements.bioCount.textContent = String(elements.bio.value.length);
   });

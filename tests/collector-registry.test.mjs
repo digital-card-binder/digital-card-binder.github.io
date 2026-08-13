@@ -269,3 +269,14 @@ test("dashboard defaults preserve the old six-category summary", () => {
     assert.equal(setting.visibility, "private");
   }
 });
+
+test("legacy link-only settings are treated as private without changing card data", () => {
+  const setting = registry.normalizeSetting("national", {
+    dashboardVisible: true,
+    visibility: "unlisted",
+    shareId: "AbCdEfGhIjKlMnOpQrStUvWxYz012345",
+  });
+  assert.equal(setting.dashboardVisible, true);
+  assert.equal(setting.visibility, "private");
+  assert.equal(setting.shareId, "");
+});

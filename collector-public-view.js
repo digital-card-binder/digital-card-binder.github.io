@@ -2,20 +2,12 @@
 
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(
-    String(window.location.hash || "").replace(/^#/, ""),
-  );
-  const requestedShareId = hashParams.get("share") || "";
   const requestedPublicId = params.get("collector") || "";
-  const requested = Boolean(requestedShareId || requestedPublicId);
+  const requested = Boolean(requestedPublicId);
   let activeContext = null;
 
   function validPublicId(value) {
     return /^[a-z0-9]{12}$/.test(String(value || ""));
-  }
-
-  function validShareId(value) {
-    return /^[A-Za-z0-9_-]{32}$/.test(String(value || ""));
   }
 
   function waitForDataReady(readyPromise, timeoutMs = 8000) {
@@ -78,39 +70,21 @@
       throw new Error("지원하지 않는 공개 도감입니다.");
     }
 
-    let publicId = requestedPublicId;
-    let projectionSnapshot;
-    let mode;
-
-    if (requestedShareId) {
-      if (!validShareId(requestedShareId)) {
-        throw new Error("공유 링크 형식이 올바르지 않습니다.");
-      }
-      mode = "unlisted";
-      projectionSnapshot = await firestoreModule.getDoc(
-        firestoreModule.doc(db, "sharedCollections", requestedShareId),
-      );
-      if (!projectionSnapshot.exists()) {
-        throw new Error("비공개로 전환되었거나 만료된 공유 링크입니다.");
-      }
-      publicId = String(projectionSnapshot.data()?.publicId || "");
-    } else {
-      if (!validPublicId(publicId)) {
-        throw new Error("컬렉터 프로필 링크 형식이 올바르지 않습니다.");
-      }
-      mode = "public";
-      projectionSnapshot = await firestoreModule.getDoc(
-        firestoreModule.doc(
-          db,
-          "publicProfiles",
-          publicId,
-          "collections",
-          collectionId,
-        ),
-      );
-      if (!projectionSnapshot.exists()) {
-        throw new Error("이 도감은 공개되어 있지 않습니다.");
-      }
+    const publicId = requestedPublicId;
+    if (!validPublicId(publicId)) {
+      throw new Error("컬렉터 프로필 주소 형식이 올바르지 않습니다.");
+    }
+    const projectionSnapshot = await firestoreModule.getDoc(
+      firestoreModule.doc(
+        db,
+        "publicProfiles",
+        publicId,
+        "collections",
+        collectionId,
+      ),
+    );
+    if (!projectionSnapshot.exists()) {
+      throw new Error("이 도감은 공개되어 있지 않습니다.");
     }
 
     const projection = projectionSnapshot.data() || {};
@@ -120,11 +94,17 @@
       projection.publicId !== publicId ||
       !validPublicId(publicId)
     ) {
-      throw new Error("공유 도감 데이터를 확인하지 못했습니다.");
+      throw new Error("공개 도감 데이터를 확인하지 못했습니다.");
     }
 
     const profile = await loadPublicProfile(db, firestoreModule, publicId);
-    activeContext = { mode, publicId, collectionId, projection, profile };
+    activeContext = {
+      mode: "public",
+      publicId,
+      collectionId,
+      projection,
+      profile,
+    };
     activateReadOnlyUi(activeContext);
     return activeContext;
   }
@@ -185,7 +165,7 @@
     panel.id = "collector-access-error";
     panel.className = "collector-access-error";
     panel.innerHTML = `
-      <strong>이 공유 도감을 열 수 없습니다.</strong>
+      <strong>이 공개 도감을 열 수 없습니다.</strong>
       <p></p>
       <a href="./">디지털 카드 바인더 홈으로</a>
     `;
@@ -211,7 +191,6 @@
     projectionPeopleDocument,
     requested,
     requestedPublicId,
-    requestedShareId,
     showAccessError,
     waitForDataReady,
   };

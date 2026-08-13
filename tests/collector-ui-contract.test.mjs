@@ -234,10 +234,10 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260812-1/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260813-1/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260812-1/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-1/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -296,8 +296,8 @@ test("desktop uses four or three columns while compact screens use two or four",
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260811-3/);
-    assert.match(html, /collector-nav[.]js\?v=20260812-1/);
+    assert.match(html, /collector[.]css\?v=20260813-2/);
+    assert.match(html, /collector-nav[.]js\?v=20260813-1/);
   }
 });
 
@@ -332,7 +332,8 @@ test("public collector board reads only directory and existing public projection
   const boardClient = await source("collector-directory.js");
   const settingsClient = await source("collector-settings.js");
   assert.match(boardPage, /id="collector-directory-grid"/);
-  assert.match(boardPage, /PRIVATE·UNLISTED/);
+  assert.match(boardPage, /나만 보기 도감/);
+  assert.equal(boardPage.includes("UNLISTED"), false);
   assert.match(boardClient, /publicCollectorDirectory/);
   assert.match(boardClient, /publicProfiles/);
   assert.match(boardClient, /"collections"/);
@@ -417,7 +418,26 @@ test("public read-only data waits for its projection instead of rendering an emp
   }
 });
 
-test("public and unlisted collection loads never request a private users path", async () => {
+test("the signed-out guest fallback never wipes a public read-only projection", async () => {
+  const guestClient = await source("guest-empty-dex.js");
+  const page = await source("national.html");
+  const guard = guestClient.indexOf(
+    "if (window.CollectorPublicView?.requested) return response;",
+  );
+  const guestReset = guestClient.indexOf(
+    "const data = makeGuestData(await response.clone().json());",
+  );
+
+  assert.ok(guard >= 0, "public projection guard missing");
+  assert.ok(guard < guestReset, "public projection must be preserved before guest reset");
+  assert.match(
+    guestClient,
+    /const apply = \(\) => \{\s*if \(window[.]CollectorPublicView[?][.]requested\) return;/,
+  );
+  assert.match(page, /guest-empty-dex[.]js[?]v=20260813-1/);
+});
+
+test("public collection loads never request a private users path", async () => {
   const moduleSource = await source("collector-public-view.js");
   const profile = { nickname: "드기", profileCompleted: true };
   const projection = {
@@ -427,49 +447,61 @@ test("public and unlisted collection loads never request a private users path", 
     ownedKeys: ["1"],
   };
 
-  for (const [search, hash] of [
-    ["?collector=abc123def456", ""],
-    ["", "#share=AbCdEfGhIjKlMnOpQrStUvWxYz012345"],
-  ]) {
-    const { context, addedClasses } = publicViewContext(search, hash);
-    vm.runInContext(moduleSource, context);
-    const reads = [];
-    const firestoreModule = {
-      doc: (db, ...parts) => ({ path: parts.join("/") }),
-      getDoc: async (reference) => {
-        reads.push(reference.path);
-        if (reference.path === "sharedCollections/AbCdEfGhIjKlMnOpQrStUvWxYz012345") {
-          return { exists: () => true, data: () => projection };
-        }
-        if (reference.path === "publicProfiles/abc123def456") {
-          return { exists: () => true, data: () => profile };
-        }
-        if (reference.path === "publicProfiles/abc123def456/collections/national") {
-          return { exists: () => true, data: () => projection };
-        }
-        return { exists: () => false, data: () => undefined };
-      },
-    };
-    await context.window.CollectorPublicView.loadProjection(
-      {},
-      firestoreModule,
-      "national",
-    );
-    const route = search || hash;
-    assert.equal(reads.some((path) => path.startsWith("users/")), false, route);
-    assert.equal(addedClasses.has("collector-public-readonly"), true, route);
-  }
+  const { context, addedClasses } = publicViewContext("?collector=abc123def456");
+  vm.runInContext(moduleSource, context);
+  const reads = [];
+  const firestoreModule = {
+    doc: (db, ...parts) => ({ path: parts.join("/") }),
+    getDoc: async (reference) => {
+      reads.push(reference.path);
+      if (reference.path === "publicProfiles/abc123def456") {
+        return { exists: () => true, data: () => profile };
+      }
+      if (reference.path === "publicProfiles/abc123def456/collections/national") {
+        return { exists: () => true, data: () => projection };
+      }
+      return { exists: () => false, data: () => undefined };
+    },
+  };
+  await context.window.CollectorPublicView.loadProjection(
+    {},
+    firestoreModule,
+    "national",
+  );
+  assert.equal(reads.some((path) => path.startsWith("users/")), false);
+  assert.equal(addedClasses.has("collector-public-readonly"), true);
 });
 
-test("unlisted tokens use URL fragments and are never placed in query strings", async () => {
+test("link-only sharing and link-copy controls are removed", async () => {
   const publicClient = await source("collector-public-view.js");
   const settingsClient = await source("collector-settings.js");
-  assert.match(publicClient, /window[.]location[.]hash/);
-  assert.equal(publicClient.includes('params.get("share")'), false);
-  assert.match(settingsClient, /url[.]hash = new URLSearchParams/);
-  assert.equal(settingsClient.includes('searchParams.set("share"'), false);
-  assert.match(settingsClient, /draft[.]visibility === "unlisted" [^\n]* previousShareId/);
-  assert.match(settingsClient, /batch[.]delete\(previousShareOwnerReference\)/);
+  const settingsPage = await source("collector-settings.html");
+  const publicProfilePage = await source("collector.html");
+  const publicProfileClient = await source("collector.js");
+  const publicSync = await source("collector-public-sync.js");
+  const customLoader = await source("custom-loader.js");
+  const customPublic = await source("custom-public.js");
+  const customSync = await source("custom-sync.js");
+  const customSettings = await source("custom-granular-settings.js");
+
+  assert.equal(publicClient.includes("window.location.hash"), false);
+  assert.equal(publicClient.includes("sharedCollections"), false);
+  assert.equal(publicClient.includes("requestedShareId"), false);
+  assert.equal(publicSync.includes("sharedProjectionRef"), false);
+  assert.equal(customLoader.includes("window.location.hash"), false);
+  assert.equal(customPublic.includes("sharedCollections"), false);
+  assert.equal(customSync.includes("custom-share-button"), false);
+  assert.equal(customSync.includes("navigator.clipboard"), false);
+  assert.equal(settingsClient.includes("unlisted"), false);
+  assert.equal(settingsClient.includes("data-copy-share"), false);
+  assert.equal(settingsClient.includes("navigator.clipboard"), false);
+  assert.equal(settingsPage.includes('id="collector-profile-copy"'), false);
+  assert.equal(publicProfilePage.includes("collector-public-share"), false);
+  assert.equal(publicProfileClient.includes("navigator.clipboard"), false);
+  assert.match(settingsClient, /<option value="private">나만 보기<[/]option>/);
+  assert.match(settingsClient, /<option value="public">공개<[/]option>/);
+  assert.match(customSettings, /<option value="private">나만 보기<[/]option>/);
+  assert.match(customSettings, /<option value="public">공개<[/]option>/);
 });
 
 test("the public profile client has no private user-document read route", async () => {

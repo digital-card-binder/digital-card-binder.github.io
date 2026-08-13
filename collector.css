@@ -8,7 +8,6 @@
 .collector-signin-gate[hidden],
 .collector-profile-summary[hidden],
 .collector-profile-form[hidden],
-.collector-setting-share[hidden],
 .collector-public-collections[hidden],
 .collector-public-grid[hidden],
 .collector-public-state[hidden],
@@ -543,10 +542,6 @@
   background: #9ba2af;
 }
 
-.collector-setting-legend i[data-visibility="unlisted"] {
-  background: var(--collector-amber);
-}
-
 .collector-setting-legend i[data-visibility="public"] {
   background: var(--collector-green);
 }
@@ -688,32 +683,6 @@
   background: #fff;
   color: #273248;
   font: inherit;
-}
-
-.collector-setting-share {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding-top: 13px;
-  border-top: 1px solid #edf0f4;
-}
-
-.collector-setting-share input {
-  min-width: 0;
-  flex: 1;
-  height: 39px;
-  padding: 0 11px;
-  border: 1px solid #d8dde6;
-  border-radius: 9px;
-  background: #f8f9fc;
-  color: #596274;
-  font-size: 11px;
-}
-
-.collector-setting-share small {
-  color: #828999;
-  font-size: 11px;
 }
 
 .collector-settings-save-actions {
@@ -1473,12 +1442,6 @@
 
   .collector-setting-identity {
     grid-column: auto;
-  }
-
-  .collector-setting-share {
-    grid-column: auto;
-    align-items: stretch;
-    flex-direction: column;
   }
 
   .collector-form-actions,

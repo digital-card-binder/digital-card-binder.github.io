@@ -73,6 +73,10 @@ publicProfiles/{publicId}/collections/{collectionId}
 sharedCollections/{shareId}
 ```
 
+`collectorShareOwners`와 `sharedCollections`는 과거 링크 공개 데이터 보존용입니다.
+새 사이트는 링크 공개 토큰을 새로 만들거나 읽지 않으며, 이번 변경에서 기존
+문서와 Firestore Rules를 삭제하지 않습니다.
+
 공개 projection은 보유 key와 합계만 포함하며 이메일, UID, 실제 카드 정보,
 메모, 수량, 교환 상태와 사용자 직접 등록 프로모는 포함하지 않습니다.
 
