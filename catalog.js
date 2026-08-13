@@ -50,6 +50,12 @@ let status = "all";
 let query = "";
 let activeCard = null;
 let activeEra = "S";
+let mobileCatalogPreferences = {};
+
+const mobileCatalogMedia = typeof window.matchMedia === "function"
+  ? window.matchMedia("(max-width: 690px)")
+  : null;
+const MOBILE_CATALOG_PREFERENCES_KEY = `pokemonDexMobileCatalogV1:${mode}`;
 
 const pct = (amount, total) =>
   total ? Math.round((amount / total) * 1000) / 10 : 0;
@@ -109,6 +115,54 @@ function selectableGroups() {
     : groups;
 }
 
+function readMobileCatalogPreferences() {
+  if (!mobileCatalogMedia?.matches) return {};
+  try {
+    const stored = window.sessionStorage.getItem(MOBILE_CATALOG_PREFERENCES_KEY);
+    const parsed = stored ? JSON.parse(stored) : {};
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function rememberMobileCatalogPreferences() {
+  if (!mobileCatalogMedia?.matches) return;
+  try {
+    mobileCatalogPreferences.status = status;
+    if (selected) {
+      const groupValue = selected.code || selected.name;
+      if (mode === "series") {
+        mobileCatalogPreferences.era = activeEra;
+        mobileCatalogPreferences.groupByEra = {
+          ...(mobileCatalogPreferences.groupByEra || {}),
+          [activeEra]: groupValue,
+        };
+      } else {
+        mobileCatalogPreferences.group = groupValue;
+      }
+    }
+    window.sessionStorage.setItem(
+      MOBILE_CATALOG_PREFERENCES_KEY,
+      JSON.stringify(mobileCatalogPreferences),
+    );
+  } catch {
+    // 세션 저장소가 제한되어도 도감 탐색은 그대로 동작합니다.
+  }
+}
+
+function syncEraTabs() {
+  if (mode !== "series") return;
+  $("catalog-era")
+    ?.querySelectorAll("button[data-era]")
+    .forEach((button) => {
+      const active = button.dataset.era === activeEra;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-selected", String(active));
+      button.tabIndex = active ? 0 : -1;
+    });
+}
+
 function populateCatalogSelect() {
   const select = $("catalog-select");
   const visibleGroups = selectableGroups();
@@ -130,20 +184,15 @@ function selectEra(era) {
   const visibleGroups = groups.filter((group) => seriesEra(group) === era);
   if (!visibleGroups.length) return;
   activeEra = era;
-  $("catalog-era")
-    ?.querySelectorAll("button[data-era]")
-    .forEach((button) => {
-      const active = button.dataset.era === activeEra;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-selected", String(active));
-      button.tabIndex = active ? 0 : -1;
-    });
+  syncEraTabs();
   const select = $("catalog-select");
   const currentValue = selected?.code || selected?.name;
   populateCatalogSelect();
-  if (visibleGroups.some((group) => (group.code || group.name) === currentValue)) {
-    select.value = currentValue;
-  }
+  const rememberedValue = mobileCatalogPreferences.groupByEra?.[activeEra];
+  const nextValue = [currentValue, rememberedValue].find((value) =>
+    visibleGroups.some((group) => (group.code || group.name) === value),
+  );
+  select.value = nextValue || select.value;
   loadGroup(select.value || visibleGroups[0].code || visibleGroups[0].name);
 }
 
@@ -545,6 +594,7 @@ function loadGroup(value) {
       : selected.cards;
   updateSelected();
   render();
+  rememberMobileCatalogPreferences();
 }
 
 async function fetchJson(url) {
@@ -593,6 +643,17 @@ async function loadCatalogGroups() {
 async function init() {
   try {
     groups = await loadCatalogGroups();
+    mobileCatalogPreferences = readMobileCatalogPreferences();
+
+    if (
+      mode === "series" &&
+      groups.some((group) => seriesEra(group) === mobileCatalogPreferences.era)
+    ) {
+      activeEra = mobileCatalogPreferences.era;
+    }
+    if (["all", "owned", "missing"].includes(mobileCatalogPreferences.status)) {
+      status = mobileCatalogPreferences.status;
+    }
 
     const account = window.PokemonDexPageAccount;
     if (account) {
@@ -607,9 +668,25 @@ async function init() {
 
     createSeriesEditor();
     updateSummary();
+    syncEraTabs();
 
     const select = $("catalog-select");
     const initialGroups = populateCatalogSelect();
+    const rememberedGroup = mode === "series"
+      ? mobileCatalogPreferences.groupByEra?.[activeEra]
+      : mobileCatalogPreferences.group;
+    if (
+      initialGroups.some((group) =>
+        (group.code || group.name) === rememberedGroup,
+      )
+    ) {
+      select.value = rememberedGroup;
+    }
+    $("catalog-status")
+      ?.querySelectorAll("button[data-status]")
+      .forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.status === status);
+      });
 
     select.onchange = () => loadGroup(select.value);
     $("catalog-era")?.addEventListener("click", (event) => {
@@ -628,6 +705,7 @@ async function init() {
         .querySelectorAll("button")
         .forEach((item) => item.classList.toggle("is-active", item === button));
       render();
+      rememberMobileCatalogPreferences();
     };
     $("dialog-close").onclick = () => {
       const dialog = $("catalog-dialog");
