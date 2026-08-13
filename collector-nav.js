@@ -28,7 +28,7 @@
     },
     mobile: {
       defaultColumns: "2",
-      alternateColumns: "3",
+      alternateColumns: "4",
       storageKey: MOBILE_CARD_COLUMNS_STORAGE_KEY,
     },
   };
@@ -279,12 +279,12 @@
     button.setAttribute("aria-pressed", String(alternateActive));
 
     if (mobile) {
-      button.textContent = normalized === "3"
+      button.textContent = normalized === "4"
         ? "▦ 2열"
-        : "▦ 3열";
-      button.title = normalized === "3"
+        : "▦ 4열";
+      button.title = normalized === "4"
         ? "카드를 한 줄에 2개씩 크게 표시합니다."
-        : "카드를 한 줄에 3개씩 표시합니다.";
+        : "카드를 한 줄에 4개씩 표시합니다.";
     } else if (compact) {
       button.textContent = normalized === "4"
         ? "▦ 2열 기본 보기"
