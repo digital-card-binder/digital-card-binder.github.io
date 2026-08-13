@@ -352,13 +352,13 @@ service cloud.firestore {
         && request.resource.data.publicId == publicId
         && request.resource.data.collectionId == collectionId
         && request.resource.data.ownedKeys is list
-        && request.resource.data.ownedKeys.size() <= 10000
+        && request.resource.data.ownedKeys.size() <= 20000
         && request.resource.data.ownedCount is int
         && request.resource.data.ownedCount
           == request.resource.data.ownedKeys.size()
         && request.resource.data.totalCount is int
         && request.resource.data.totalCount >= request.resource.data.ownedCount
-        && request.resource.data.totalCount <= 10000
+        && request.resource.data.totalCount <= 20000
         && request.resource.data.promoOwnedKeys is list
         && request.resource.data.promoOwnedKeys.size() <= 1000
         && request.resource.data.promoOwnedCount is int

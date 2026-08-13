@@ -74,16 +74,11 @@
     ) {
       return null;
     }
-    const ownedKeys = Array.isArray(data.ownedKeys) ? data.ownedKeys : [];
-    const promoOwnedKeys = Array.isArray(data.promoOwnedKeys)
-      ? data.promoOwnedKeys
-      : [];
-    const totalCount = Math.max(0, Number(data.totalCount) || 0);
+    const metrics = registry.publicProjectionMetrics(data);
+    if (!metrics) return null;
     return {
       collectionId: snapshot.id,
-      ownedCount: Math.min(totalCount, ownedKeys.length),
-      totalCount,
-      promoOwnedCount: promoOwnedKeys.length,
+      ...metrics,
       customDexes: snapshot.id === "custom"
         ? normalizeCustomDexes(data.customDexes)
         : [],

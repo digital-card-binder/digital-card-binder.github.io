@@ -57,7 +57,28 @@ test("all existing catalogs retain their expected item counts", async () => {
     const catalog = await registry.loadCatalog(collectionId);
     assert.equal(catalog.items.length, count, collectionId);
     assert.equal(catalog.itemMap.size, count, `${collectionId} unique account keys`);
+    assert.equal(
+      registry.COLLECTIONS[collectionId].catalogCount,
+      count,
+      `${collectionId} public summary count`,
+    );
   }
+});
+
+test("public projection summaries use the current catalog total", () => {
+  const metrics = registry.publicProjectionMetrics({
+    collectionId: "series",
+    ownedKeys: ["series-card-1", "series-card-2", "series-card-2"],
+    ownedCount: 3,
+    totalCount: 4103,
+    promoOwnedKeys: [],
+  });
+
+  assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
+    ownedCount: 2,
+    totalCount: 10321,
+    promoOwnedCount: 0,
+  });
 });
 
 test("existing nonempty top-level catalog group counts stay unchanged", async () => {

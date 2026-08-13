@@ -39,21 +39,19 @@
 
   function normalizedProjection(snapshot, publicId) {
     const data = snapshot.data() || {};
-    const ownedCount = Math.max(0, Number(data.ownedCount) || 0);
-    const totalCount = Math.max(0, Number(data.totalCount) || 0);
     if (
       data.schemaVersion !== 1 ||
       data.publicId !== publicId ||
       data.collectionId !== snapshot.id ||
-      !registry.supportedCollectionId(snapshot.id) ||
-      ownedCount > totalCount
+      !registry.supportedCollectionId(snapshot.id)
     ) {
       return null;
     }
+    const metrics = registry.publicProjectionMetrics(data);
+    if (!metrics) return null;
     return {
       collectionId: snapshot.id,
-      ownedCount,
-      totalCount,
+      ...metrics,
       customDexes:
         snapshot.id === "custom"
           ? normalizedCustomDexes(data.customDexes)
