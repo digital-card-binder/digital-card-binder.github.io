@@ -470,6 +470,59 @@ test("public projection is readable but private source and extra fields stay blo
   assert.equal(publicList.size, 1);
 });
 
+test("large series projections can exceed the former 10,000-card limit", async () => {
+  const settingRef = doc(
+    alice,
+    "users",
+    ALICE_UID,
+    "collectionSettings",
+    "series",
+  );
+  const publicRef = doc(
+    alice,
+    "publicProfiles",
+    PUBLIC_ID,
+    "collections",
+    "series",
+  );
+  const ownedKeys = Array.from({ length: 10001 }, (_, index) => `k${index}`);
+  const publish = writeBatch(alice);
+
+  publish.set(settingRef, {
+    schemaVersion: 1,
+    collectionId: "series",
+    dashboardVisible: true,
+    visibility: "public",
+    displayOrder: 3,
+    shareId: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  publish.set(publicRef, {
+    ...projection("series"),
+    ownedKeys,
+    ownedCount: ownedKeys.length,
+    totalCount: 10321,
+  });
+  await assertSucceeds(publish.commit());
+  await assertFails(
+    setDoc(publicRef, {
+      ...projection("series"),
+      totalCount: 20001,
+    }),
+  );
+
+  const setting = (await getDoc(settingRef)).data();
+  const revoke = writeBatch(alice);
+  revoke.set(settingRef, {
+    ...setting,
+    visibility: "private",
+    updatedAt: serverTimestamp(),
+  });
+  revoke.delete(publicRef);
+  await assertSucceeds(revoke.commit());
+});
+
 test("a PUBLIC collector can enter the list without exposing UID or email", async () => {
   const directoryRef = doc(alice, "publicCollectorDirectory", PUBLIC_ID);
   await assertSucceeds(setDoc(directoryRef, publicDirectoryFields()));

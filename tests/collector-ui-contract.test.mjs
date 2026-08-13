@@ -448,6 +448,7 @@ test("public collector board reads only directory and existing public projection
   assert.equal(boardClient.includes('"users"'), false);
   assert.equal(boardClient.includes("ownerUid"), false);
   assert.equal(boardClient.includes("email"), false);
+  assert.match(boardClient, /publicProjectionMetrics/);
   assert.match(settingsClient, /syncDirectoryInBatch/);
   assert.match(settingsClient, /visibility === "public"/);
 });
@@ -618,9 +619,20 @@ test("the public profile client has no private user-document read route", async 
   assert.equal(client.includes("ownerUid"), false);
   assert.equal(client.includes("email"), false);
   assert.match(client, /publicProfiles/);
+  assert.match(client, /publicProjectionMetrics/);
   assert.match(client, /code === "permission-denied"/);
   assert.match(client, /showError\(publicProfileErrorMessage\(error\)\)/);
   assert.equal(client.includes("showError(error.message"), false);
+});
+
+test("public profile summaries cache-bust the current catalog metrics", async () => {
+  const profilePage = await source("collector.html");
+  const directoryPage = await source("collectors.html");
+
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260813-2/);
+  assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260813-2/);
+  assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
 test("the free profile path has no Firebase Storage or image URL dependency", async () => {

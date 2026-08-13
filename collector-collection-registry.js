@@ -19,6 +19,7 @@
       href: "./national.html",
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "종",
+      catalogCount: 1025,
       defaultDashboardVisible: true,
     },
     pack: {
@@ -28,6 +29,7 @@
       href: "./packs.html",
       documentId: "packDex",
       unit: "팩",
+      catalogCount: 62,
       defaultDashboardVisible: true,
     },
     artist: {
@@ -37,6 +39,7 @@
       href: "./artists.html",
       documentId: "artistDex",
       unit: "장",
+      catalogCount: 451,
       defaultDashboardVisible: true,
     },
     series: {
@@ -46,6 +49,7 @@
       href: "./series.html",
       documentId: "seriesDex",
       unit: "장",
+      catalogCount: 10321,
       defaultDashboardVisible: true,
     },
     pokemon: {
@@ -55,6 +59,7 @@
       href: "./pokemon-collections.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
+      catalogCount: 679,
       defaultDashboardVisible: true,
     },
     ar: {
@@ -64,6 +69,7 @@
       href: "./ar.html",
       documentId: "arDex",
       unit: "장",
+      catalogCount: 498,
       defaultDashboardVisible: true,
     },
     people: {
@@ -73,6 +79,7 @@
       href: "./people.html",
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "명",
+      catalogCount: 179,
       defaultDashboardVisible: false,
     },
   };
@@ -361,6 +368,36 @@
     );
   }
 
+  function publicProjectionMetrics(projection) {
+    const collectionId = cleanString(projection?.collectionId);
+    const meta = COLLECTIONS[collectionId];
+    if (!meta || !supportedCollectionId(collectionId)) return null;
+
+    const storedTotalCount = Math.max(0, Number(projection?.totalCount) || 0);
+    const catalogCount = Number(meta.catalogCount);
+    const totalCount = Number.isInteger(catalogCount) && catalogCount >= 0
+      ? catalogCount
+      : storedTotalCount;
+    const ownedKeys = Array.isArray(projection?.ownedKeys)
+      ? projection.ownedKeys
+      : [];
+    const promoOwnedKeys = Array.isArray(projection?.promoOwnedKeys)
+      ? projection.promoOwnedKeys
+      : [];
+    const uniqueOwnedKeys = new Set(
+      ownedKeys.map(cleanString).filter(Boolean),
+    );
+    const uniquePromoOwnedKeys = new Set(
+      promoOwnedKeys.map(cleanString).filter(Boolean),
+    );
+
+    return {
+      ownedCount: Math.min(totalCount, uniqueOwnedKeys.size),
+      totalCount,
+      promoOwnedCount: uniquePromoOwnedKeys.size,
+    };
+  }
+
   function defaultSetting(collectionId) {
     const meta = COLLECTIONS[collectionId];
     return {
@@ -424,6 +461,7 @@
     normalizeSetting,
     ownershipFor,
     pageUrl,
+    publicProjectionMetrics,
     projectionOwnership,
     supportedCollectionId,
   };
