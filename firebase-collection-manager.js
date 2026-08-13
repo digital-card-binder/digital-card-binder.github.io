@@ -424,10 +424,7 @@
     }
 
     try {
-      await Promise.race([
-        firebaseReady,
-        new Promise((resolve) => window.setTimeout(resolve, 8000)),
-      ]);
+      await window.CollectorPublicView.waitForDataReady(firebaseReady);
       const data = applyOverrides(await response.clone().json());
       const headers = new Headers(response.headers);
       headers.set("content-type", "application/json; charset=utf-8");

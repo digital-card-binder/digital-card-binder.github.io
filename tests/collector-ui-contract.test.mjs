@@ -55,6 +55,7 @@ function publicViewContext(search, hash = "") {
   context.window = {
     location: { search, hash },
     dispatchEvent: () => {},
+    setTimeout,
     CollectorCollectionRegistry: {
       supportedCollectionId: (value) => Object.hasOwn(collectionPages, value),
     },
@@ -379,6 +380,41 @@ test("public projection adapters discard private card and people details", async
       peopleOverrides: {},
     },
   );
+});
+
+test("public read-only data waits for its projection instead of rendering an empty fallback", async () => {
+  const moduleSource = await source("collector-public-view.js");
+  const { context } = publicViewContext("?collector=abc123def456");
+  vm.runInContext(moduleSource, context);
+
+  let releaseProjection;
+  const projectionReady = new Promise((resolve) => {
+    releaseProjection = resolve;
+  });
+  let rendered = false;
+  const waiting = context.window.CollectorPublicView
+    .waitForDataReady(projectionReady, 1)
+    .then(() => {
+      rendered = true;
+    });
+
+  await new Promise((resolve) => setTimeout(resolve, 10));
+  assert.equal(rendered, false, "public cards must not render before projection data");
+  releaseProjection();
+  await waiting;
+  assert.equal(rendered, true);
+
+  for (const manager of [
+    "firebase-collection-manager.js",
+    "firebase-people-manager.js",
+  ]) {
+    const managerSource = await source(manager);
+    assert.match(
+      managerSource,
+      /CollectorPublicView[.]waitForDataReady\(firebaseReady\)/,
+      `${manager}: public projection wait missing`,
+    );
+  }
 });
 
 test("public and unlisted collection loads never request a private users path", async () => {

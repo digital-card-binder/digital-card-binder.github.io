@@ -18,6 +18,15 @@
     return /^[A-Za-z0-9_-]{32}$/.test(String(value || ""));
   }
 
+  function waitForDataReady(readyPromise, timeoutMs = 8000) {
+    const ready = Promise.resolve(readyPromise);
+    if (requested) return ready;
+    return Promise.race([
+      ready,
+      new Promise((resolve) => window.setTimeout(resolve, timeoutMs)),
+    ]);
+  }
+
   function projectionOverrides(projection) {
     return Object.fromEntries(
       (Array.isArray(projection?.ownedKeys) ? projection.ownedKeys : [])
@@ -204,5 +213,6 @@
     requestedPublicId,
     requestedShareId,
     showAccessError,
+    waitForDataReady,
   };
 })();
