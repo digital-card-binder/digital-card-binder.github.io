@@ -26,6 +26,7 @@ const sitePages = [
   "collectors.html",
   "collector.html",
   "collector-settings.html",
+  "news.html",
   "privacy.html",
   "terms.html",
 ];
@@ -177,6 +178,34 @@ test("every page uses the one-line Digital Card Binder brand and tab title", asy
   assert.match(commonCss, /[.]site-header > [.]header-chip\[hidden\] \{\s*display: none !important/);
 });
 
+test("dashboard and news page expose a quiet latest-news flow", async () => {
+  const dashboard = await source("index.html");
+  const newsPage = await source("news.html");
+  const newsClient = await source("news.js");
+  const newsCss = await source("news.css");
+  const newsData = JSON.parse(await source("news.json"));
+
+  assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
+  assert.match(dashboard, /news[.]js[?]v=20260813-1/);
+  assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
+  assert.match(newsPage, /id="news-list"[^>]*hidden/);
+  assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
+  assert.match(newsClient, /items\[0\]/);
+  assert.match(newsClient, /document[.]createElement\("details"\)/);
+  assert.equal(newsClient.includes("firebase"), false);
+  assert.match(newsCss, /[.]dashboard-news-strip \{/);
+  assert.match(newsCss, /@media \(max-width: 690px\)/);
+
+  assert.ok(newsData.items.length >= 10, "major update history should be populated");
+  assert.equal(newsData.items[0].id, "news-page-launch");
+  assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
+  const serialized = JSON.stringify(newsData);
+  assert.equal(serialized.includes("pokemon-dogam"), false);
+  assert.equal(serialized.includes("digital-card-binder.github.io"), false);
+  assert.equal(serialized.includes("새 주소"), false);
+  assert.equal(serialized.includes("주소 이전"), false);
+});
+
 test("every existing collection page loads the public adapter before its manager", async () => {
   for (const [collectionId, [page, manager]] of Object.entries(collectionPages)) {
     const html = await source(page);
@@ -193,7 +222,7 @@ test("every existing collection page loads the public adapter before its manager
 });
 
 test("new pages have unique element IDs and mobile/read-only CSS contracts", async () => {
-  for (const page of ["collector-settings.html", "collectors.html", "collector.html"]) {
+  for (const page of ["collector-settings.html", "collectors.html", "collector.html", "news.html"]) {
     const html = await source(page);
     const ids = [...html.matchAll(/\sid=["']([^"']+)["']/g)].map((match) => match[1]);
     assert.equal(new Set(ids).size, ids.length, `${page}: duplicate id`);

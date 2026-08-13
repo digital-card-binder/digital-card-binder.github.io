@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="디지털 카드 바인더의 주요 기능 추가와 변경 내용을 안내합니다." />
+    <meta name="theme-color" content="#17233f" />
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=20260813-2" />
+    <link rel="stylesheet" href="./legal.css?v=20260806-1" />
+    <link rel="stylesheet" href="./collector.css?v=20260813-2" />
+    <link rel="stylesheet" href="./news.css?v=20260813-1" />
+    <script src="./firebase-config.js?v=20260727-2" defer></script>
+    <script src="./legal.js?v=20260806-1" defer></script>
+    <script src="./collector-nav.js?v=20260813-1" defer></script>
+    <script src="./news.js?v=20260813-1" defer></script>
+  </head>
+  <body data-page="news">
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-copy">
+          <strong>디지털 카드 바인더</strong>
+        </span>
+      </a>
+      <span class="header-chip">NEWS</span>
+    </header>
+
+    <div class="site-layout">
+      <aside class="sidebar" aria-label="도감 메뉴">
+        <div class="sidebar-label">MY COLLECTIONS</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./">
+            <span class="collection-icon" aria-hidden="true">DB</span>
+            <span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span>
+          </a>
+          <a class="collection-link" href="./national.html">
+            <span class="collection-icon" aria-hidden="true">01</span>
+            <span><strong>전국도감</strong><small>1세대–9세대</small></span>
+          </a>
+          <a class="collection-link" href="./packs.html">
+            <span class="collection-icon" aria-hidden="true">02</span>
+            <span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span>
+          </a>
+          <a class="collection-link" href="./artists.html">
+            <span class="collection-icon" aria-hidden="true">03</span>
+            <span><strong>작가 도감</strong><small>29 ARTISTS</small></span>
+          </a>
+          <a class="collection-link" href="./series.html">
+            <span class="collection-icon" aria-hidden="true">04</span>
+            <span><strong>시리즈 도감</strong><small>33 SETS</small></span>
+          </a>
+          <a class="collection-link" href="./pokemon-collections.html">
+            <span class="collection-icon" aria-hidden="true">05</span>
+            <span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span>
+          </a>
+          <a class="collection-link" href="./ar.html">
+            <span class="collection-icon collection-icon--ar" aria-hidden="true">06</span>
+            <span><strong>AR 전종도감</strong><small>SV · M · 498 CARDS</small></span>
+          </a>
+          <a class="collection-link" href="./people.html">
+            <span class="collection-icon" aria-hidden="true">07</span>
+            <span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span>
+          </a>
+        </nav>
+        <div class="sidebar-note">
+          <span aria-hidden="true">✦</span>
+          주요 기능 추가와 변경 내용을 최신순으로 안내합니다.
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content news-main">
+        <section class="hero news-hero" aria-labelledby="page-title">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-content">
+            <p class="eyebrow">SERVICE NEWS</p>
+            <h1 id="page-title">새소식</h1>
+            <p class="hero-description">
+              디지털 카드 바인더의 주요 기능 추가와 변경 내용을<br />
+              최신순으로 확인하세요.
+            </p>
+          </div>
+          <div class="news-hero-count" aria-label="전체 새소식 수">
+            <span>전체 새소식</span>
+            <strong id="news-count">—</strong>
+          </div>
+        </section>
+
+        <section class="catalog-panel news-list-panel" aria-labelledby="news-list-title">
+          <div class="news-list-heading">
+            <div>
+              <p class="section-kicker">NOTICE &amp; UPDATE</p>
+              <h2 id="news-list-title">전체 새소식</h2>
+            </div>
+            <p>제목을 누르면 상세 내용을 볼 수 있습니다.</p>
+          </div>
+          <div id="news-loading" class="news-state" role="status">새소식을 불러오는 중입니다.</div>
+          <div id="news-list" class="news-list" hidden></div>
+          <div id="news-error" class="news-state news-state--error" role="alert" hidden>
+            새소식을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./news.html" aria-current="page">새소식</a>
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+              <a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">중요한 기능 추가와 변경 내용을 기록합니다.</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
