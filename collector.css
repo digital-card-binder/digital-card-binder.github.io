@@ -1574,6 +1574,39 @@
   }
 }
 
+/* 로그인한 모바일 사용자는 모든 도감의 공통 헤더에서 프로필 설정에 바로 접근합니다. */
+@media (max-width: 690px) {
+  .site-header > #firebase-auth-panel {
+    max-width: calc(100vw - 76px);
+    gap: 4px;
+    padding: 5px;
+  }
+
+  #firebase-auth-panel.is-account #firebase-auth-status.firebase-profile-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    max-width: none;
+    border-radius: 999px;
+    background: #f2f5fa;
+    color: var(--navy);
+    font-size: 0.6rem;
+    font-weight: 900;
+    line-height: 1;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+
+  #firebase-auth-panel.is-account #firebase-auth-status.firebase-profile-link::after {
+    display: none;
+  }
+
+  .site-header .firebase-auth-panel .login-policy-links {
+    display: none;
+  }
+}
+
 @media print {
   .collector-page-actions,
   .collector-readonly-bar,
