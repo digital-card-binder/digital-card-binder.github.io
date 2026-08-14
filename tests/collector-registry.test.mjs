@@ -369,6 +369,54 @@ test("dashboard defaults preserve the old six-category summary", () => {
   }
 });
 
+test("custom dex extension exposes dashboard ownership with per-dex keys", async () => {
+  const customSource = await readFile(
+    new URL("../custom-sharing.js", import.meta.url),
+    "utf8",
+  );
+  const customRegistry = {
+    COLLECTION_ORDER: ["national"],
+    COLLECTIONS: { national: {} },
+    supportedCollectionId: () => false,
+    ownershipFor: async () => ({ catalog: { items: [] }, ownedKeys: [] }),
+    buildProjection: async () => ({}),
+  };
+  const customContext = {
+    console,
+    window: { CollectorCollectionRegistry: customRegistry },
+  };
+  vm.createContext(customContext);
+  vm.runInContext(customSource, customContext);
+
+  const ownership = customRegistry.customOwnership({
+    customDexes: {
+      fire: {
+        id: "fire",
+        title: "불꽃 도감",
+        cards: [
+          { key: "sv1::001", owned: true },
+          { key: "sv1::002", owned: false },
+          { key: "sv1::002", owned: true },
+        ],
+      },
+      favorites: {
+        id: "favorites",
+        title: "최애 도감",
+        cards: [{ key: "sv1::001", owned: true }],
+      },
+    },
+  });
+
+  assert.deepEqual(customRegistry.COLLECTION_ORDER, ["national", "custom"]);
+  assert.equal(customRegistry.COLLECTIONS.custom.defaultDashboardVisible, true);
+  assert.equal(ownership.catalog.items.length, 3);
+  assert.equal(ownership.catalog.groups.length, 2);
+  assert.deepEqual(
+    [...ownership.ownedKeys],
+    ["fire::sv1::001", "favorites::sv1::001"],
+  );
+});
+
 test("legacy link-only settings are treated as private without changing card data", () => {
   const setting = registry.normalizeSetting("national", {
     dashboardVisible: true,

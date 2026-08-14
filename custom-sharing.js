@@ -120,6 +120,9 @@
     return value === "custom" || originalSupportedCollectionId(value);
   };
 
+  // 통합 대시보드도 나만의 도감과 동일한 정규화·집계 기준을 사용합니다.
+  registry.customOwnership = customOwnership;
+
   registry.ownershipFor = async function ownershipForWithCustom(
     collectionId,
     sourceDocument = {},

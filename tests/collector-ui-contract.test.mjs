@@ -224,6 +224,31 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.equal(serialized.includes("주소 이전"), false);
 });
 
+test("dashboard includes custom dex in cards, totals, activity, and settings order", async () => {
+  const page = await source("index.html");
+  const client = await source("dashboard.js");
+  const css = await source("dashboard.css");
+  const customSharing = await source("custom-sharing.js");
+
+  const registryIndex = page.indexOf("collector-collection-registry.js");
+  const customIndex = page.indexOf("custom-sharing.js");
+  const dashboardIndex = page.indexOf("dashboard.js");
+  assert.ok(customIndex > registryIndex, "custom registry extension order");
+  assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
+  assert.match(page, /dashboard[.]css[?]v=20260814-1/);
+  assert.match(page, /dashboard[.]js[?]v=20260814-1/);
+
+  assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
+  assert.match(client, /documentId: "pokemonCollectionsDex"/);
+  assert.match(client, /custom: createCategory\("custom", \[\], \[\]\)/);
+  assert.match(client, /category === "custom"[\s\S]*?registry[?][.]customOwnership/);
+  assert.match(client, /document[.]customDexes/);
+  assert.match(client, /escapeHtml\(group[.]name\)/);
+  assert.match(client, /escapeHtml\(entry[.]name\)/);
+  assert.match(css, /dashboard-collection-card\[data-category="custom"\]/);
+  assert.match(customSharing, /registry[.]customOwnership = customOwnership/);
+});
+
 test("every existing collection page loads the public adapter before its manager", async () => {
   for (const [collectionId, [page, manager]] of Object.entries(collectionPages)) {
     const html = await source(page);

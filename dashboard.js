@@ -3,21 +3,14 @@
 (function () {
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
-  const CATEGORY_ORDER = [
-    "national",
-    "pack",
-    "artist",
-    "series",
-    "pokemon",
-    "ar",
-    "people",
-  ];
-  const CATEGORY_META = {
+  const registry = window.CollectorCollectionRegistry;
+  const FALLBACK_CATEGORY_META = {
     national: {
       number: "01",
       title: "전국도감",
       description: "1세대부터 9세대까지",
       href: "./national.html",
+      documentId: CONFIG.userDocument || "nationalDex",
       unit: "종",
     },
     pack: {
@@ -25,6 +18,7 @@
       title: "팩 전종수집",
       description: "S · SV · M 확장팩",
       href: "./packs.html",
+      documentId: "packDex",
       unit: "팩",
     },
     artist: {
@@ -32,6 +26,7 @@
       title: "작가 도감",
       description: "일러스트레이터별 카드",
       href: "./artists.html",
+      documentId: "artistDex",
       unit: "장",
     },
     series: {
@@ -39,6 +34,7 @@
       title: "시리즈 도감",
       description: "확장팩별 카드 목록",
       href: "./series.html",
+      documentId: "seriesDex",
       unit: "장",
     },
     pokemon: {
@@ -46,6 +42,7 @@
       title: "포켓몬 컬렉션",
       description: "좋아하는 포켓몬별 카드",
       href: "./pokemon-collections.html",
+      documentId: "pokemonCollectionsDex",
       unit: "장",
     },
     ar: {
@@ -53,6 +50,7 @@
       title: "AR 전종도감",
       description: "SV·M 시리즈 AR 498장",
       href: "./ar.html",
+      documentId: "arDex",
       unit: "장",
     },
     people: {
@@ -60,18 +58,33 @@
       title: "인물도감",
       description: "트레이너·주요 인물 아카이브",
       href: "./people.html",
+      documentId: CONFIG.userDocument || "nationalDex",
       unit: "명",
     },
+    custom: {
+      number: "08",
+      title: "나만의 도감",
+      description: "직접 만드는 테마 도감",
+      href: "./custom.html",
+      documentId: "pokemonCollectionsDex",
+      unit: "장",
+    },
   };
-  const DOCUMENT_IDS = {
-    national: CONFIG.userDocument || "nationalDex",
-    pack: "packDex",
-    artist: "artistDex",
-    series: "seriesDex",
-    pokemon: "pokemonCollectionsDex",
-    ar: "arDex",
-    people: CONFIG.userDocument || "nationalDex",
-  };
+  const CATEGORY_ORDER = registry?.COLLECTION_ORDER?.length
+    ? [...registry.COLLECTION_ORDER]
+    : Object.keys(FALLBACK_CATEGORY_META);
+  const CATEGORY_META = Object.fromEntries(
+    CATEGORY_ORDER.map((key) => [
+      key,
+      {
+        ...FALLBACK_CATEGORY_META[key],
+        ...(registry?.COLLECTIONS?.[key] || {}),
+      },
+    ]),
+  );
+  const DOCUMENT_IDS = Object.fromEntries(
+    CATEGORY_ORDER.map((key) => [key, CATEGORY_META[key].documentId]),
+  );
 
   const elements = {
     headerChip: document.querySelector(".header-chip"),
@@ -127,6 +140,15 @@
 
   function formatNumber(value) {
     return new Intl.NumberFormat("ko-KR").format(Number(value) || 0);
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
   }
 
   function percentage(owned, total) {
@@ -352,6 +374,7 @@
       pokemon: createCategory("pokemon", pokemonItems, pokemonGroups),
       ar: createCategory("ar", arItems, arGroups),
       people: createCategory("people", peopleItems, peopleGroups),
+      custom: createCategory("custom", [], []),
     };
   }
 
@@ -724,8 +747,28 @@
   }
 
   function applyOwnership(category) {
-    const catalog = catalogs[category];
     const document = documents[category] || {};
+
+    if (category === "custom") {
+      const ownership = registry?.customOwnership?.(document);
+      if (!ownership?.catalog) {
+        catalogs.custom = createCategory("custom", [], []);
+        return;
+      }
+      const ownedKeys = new Set(ownership.ownedKeys || []);
+      const items = ownership.catalog.items.map((item) => ({
+        ...item,
+        owned: ownedKeys.has(item.key),
+      }));
+      const groups = ownership.catalog.groups.map((group) => ({
+        ...group,
+        itemKeys: [...group.itemKeys],
+      }));
+      catalogs.custom = createCategory("custom", items, groups);
+      return;
+    }
+
+    const catalog = catalogs[category];
     const fallbackMode = isOwner(currentUser) ? "legacy" : "empty";
     const baseMode = currentUser
       ? document.baseMode === "legacy"
@@ -932,10 +975,10 @@
       const item = document.createElement("li");
       item.className = "dashboard-ranking-item";
       item.innerHTML = `
-        <a class="dashboard-ranking-link" href="${group.href}">
+        <a class="dashboard-ranking-link" href="${escapeHtml(group.href)}">
           <span class="dashboard-rank">${index + 1}</span>
           <span class="dashboard-list-copy">
-            <span class="dashboard-list-title">${group.name}</span>
+            <span class="dashboard-list-title">${escapeHtml(group.name)}</span>
             <span class="dashboard-list-meta">${CATEGORY_META[group.category].title} · ${formatNumber(group.owned)}/${formatNumber(group.total)}</span>
           </span>
           <span class="dashboard-list-progress">
@@ -1001,6 +1044,29 @@
         continue;
       }
 
+      if (category === "custom") {
+        const customDexes =
+          document.customDexes &&
+          typeof document.customDexes === "object" &&
+          !Array.isArray(document.customDexes)
+            ? Object.values(document.customDexes)
+            : [];
+        customDexes.forEach((dex) => {
+          if (!dex || typeof dex !== "object" || Array.isArray(dex)) return;
+          const date = timestampToDate(dex.updatedAt || document.updatedAt);
+          if (!date) return;
+          const cards = Array.isArray(dex.cards) ? dex.cards : [];
+          const owned = cards.filter((card) => card?.owned === true).length;
+          entries.push({
+            category,
+            name: String(dex.title || "나만의 도감").trim().slice(0, 60),
+            meta: `${formatNumber(owned)}/${formatNumber(cards.length)}장 보유`,
+            date,
+          });
+        });
+        continue;
+      }
+
       // peopleOwned에는 항목별 수정 시각이 없고 nationalDex.updatedAt을 함께
       // 사용하므로, 전국도감 변경을 인물도감 변경으로 잘못 표시하지 않습니다.
       if (category === "people") continue;
@@ -1042,8 +1108,8 @@
       item.innerHTML = `
         <span class="dashboard-recent-icon" aria-hidden="true">${CATEGORY_META[entry.category].number}</span>
         <span class="dashboard-list-copy">
-          <span class="dashboard-list-title">${entry.name}</span>
-          <span class="dashboard-list-meta">${CATEGORY_META[entry.category].title} · ${entry.meta}</span>
+          <span class="dashboard-list-title">${escapeHtml(entry.name)}</span>
+          <span class="dashboard-list-meta">${escapeHtml(CATEGORY_META[entry.category].title)} · ${escapeHtml(entry.meta)}</span>
         </span>
         <time class="dashboard-recent-time" datetime="${entry.date.toISOString()}">${formatRelativeTime(entry.date)}</time>
       `;

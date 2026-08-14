@@ -665,6 +665,10 @@
   --collection-accent: #f0b429;
 }
 
+.dashboard-collection-card[data-category="custom"] {
+  --collection-accent: #d94f86;
+}
+
 .dashboard-card-top,
 .dashboard-card-title,
 .dashboard-card-count,
