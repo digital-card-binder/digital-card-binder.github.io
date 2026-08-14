@@ -135,7 +135,9 @@
       return;
     }
 
-    status.textContent = "프로필설정";
+    if (status.textContent !== "프로필설정") {
+      status.textContent = "프로필설정";
+    }
     status.href = PROFILE_SETTINGS_HREF;
     status.title = "내 프로필 관리";
     status.setAttribute("aria-label", "프로필설정 · 내 프로필 관리 열기");
@@ -155,6 +157,9 @@
       stateObserver.observe(panel, {
         attributes: true,
         attributeFilter: ["class"],
+        childList: true,
+        characterData: true,
+        subtree: true,
       });
     };
 

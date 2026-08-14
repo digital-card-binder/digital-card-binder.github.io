@@ -338,10 +338,10 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260813-4/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260814-1/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260813-4/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260814-1/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -361,7 +361,26 @@ test("the signed-in account name opens profile management", async () => {
   assert.match(navigation, /panel[.]classList[.]contains\("is-account"\)/);
   assert.match(navigation, /status[.]href = PROFILE_SETTINGS_HREF/);
   assert.match(navigation, /내 프로필 관리 열기/);
+  assert.match(navigation, /childList: true/);
+  assert.match(navigation, /characterData: true/);
+  assert.match(navigation, /subtree: true/);
   assert.match(css, /#firebase-auth-status[.]firebase-profile-link/);
+  assert.match(
+    css,
+    /@media \(max-width: 690px\)[\s\S]*?#firebase-auth-panel[.]is-account #firebase-auth-status[.]firebase-profile-link \{[\s\S]*?display: inline-flex/,
+  );
+});
+
+test("collection pages share the same default header state", async () => {
+  for (const page of [...Object.values(collectionPages).map(([file]) => file), "custom.html"]) {
+    const html = await source(page);
+    const headerStart = html.indexOf('<header class="site-header">');
+    const header = html.slice(headerStart, html.indexOf("</header>", headerStart));
+    assert.ok(headerStart >= 0, `${page}: common header missing`);
+    assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
+    assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
+    assert.match(html, /collector-nav[.]js[?]v=20260814-1/, `${page}: current common header behavior`);
+  }
 });
 
 test("desktop keeps four or three columns while phones use two or four", async () => {
@@ -398,8 +417,8 @@ test("desktop keeps four or three columns while phones use two or four", async (
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260813-4/);
-    assert.match(html, /collector-nav[.]js\?v=20260813-4/);
+    assert.match(html, /collector[.]css\?v=20260814-1/);
+    assert.match(html, /collector-nav[.]js\?v=20260814-1/);
   }
 });
 
