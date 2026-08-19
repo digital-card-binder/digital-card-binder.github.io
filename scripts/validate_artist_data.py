@@ -41,6 +41,7 @@ EXPECTED_ARTISTS = [
 ]
 
 EXPECTED_CARD_COUNT = 2451
+OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
 
@@ -61,7 +62,7 @@ def main() -> None:
 
     if payload.get("source") != "Pokemon Korea official card search":
         fail(f"Unexpected source: {payload.get('source')!r}")
-    if payload.get("sourceUrl") != "https://pokemoncard.co.kr/cards":
+    if payload.get("sourceUrl") != OFFICIAL_CARDS_URL:
         fail(f"Unexpected sourceUrl: {payload.get('sourceUrl')!r}")
     if payload.get("artistCount") != len(EXPECTED_ARTISTS):
         fail(f"Unexpected artistCount: {payload.get('artistCount')!r}")
@@ -110,7 +111,20 @@ def main() -> None:
                 fail(f"{artist_name}: base owned must be false on order {card.get('order')}")
             if not card["image"].startswith(OFFICIAL_IMAGE_PREFIX):
                 fail(f"{artist_name}: non-official image URL: {card['image']}")
-            if not card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
+
+            is_hyogo_special = (
+                artist_name == "HYOGONOSUKE"
+                and card["set"] == "S12a"
+                and card["cardNumber"] == "173/172 AR"
+                and card["name"] == "히스이 찌리리공"
+            )
+            if is_hyogo_special:
+                # Pokemon Korea's detail endpoint for this row is broken; the official
+                # search page is retained as the source instead of inventing a detail URL.
+                if card["source"] != OFFICIAL_CARDS_URL:
+                    fail(f"Unexpected source for HYOGONOSUKE special row: {card['source']}")
+                hyogo_special = True
+            elif not card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
                 fail(f"{artist_name}: non-official detail source: {card['source']}")
 
             identity = (artist_name, card["set"], card["cardNumber"], card["name"])
@@ -118,14 +132,6 @@ def main() -> None:
                 fail(f"Duplicate artist/set/cardNumber/name identity: {identity}")
             identities.add(identity)
             coarse[(artist_name, card["set"], card["cardNumber"])].add(card["name"])
-
-            if (
-                artist_name == "HYOGONOSUKE"
-                and card["set"] == "S12a"
-                and card["cardNumber"] == "173/172 AR"
-                and card["name"] == "히스이 찌리리공"
-            ):
-                hyogo_special = True
 
     if total != EXPECTED_CARD_COUNT:
         fail(f"Unexpected total cards from groups: {total}")
