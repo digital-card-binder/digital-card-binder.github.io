@@ -45,7 +45,12 @@ function Upload-File([string]$LocalPath, [string]$RemotePath, [string]$Message) 
 '@
 $patched = [regex]::Replace($text, $pattern, $replacement)
 if ($patched -eq $text) { throw 'Could not patch the upload helper in the rebuild script.' }
-[IO.File]::WriteAllText($TempScript, $patched, (New-Object Text.UTF8Encoding($false)))
+
+# Windows PowerShell 5.1 interprets UTF-8 scripts without a BOM using the local
+# ANSI code page. The rebuild script contains Korean parser labels, so save the
+# child script explicitly as UTF-8 WITH BOM before invoking powershell.exe.
+$utf8Bom = New-Object System.Text.UTF8Encoding($true)
+[IO.File]::WriteAllText($TempScript, $patched, $utf8Bom)
 
 Write-Host '[runner] Starting official rebuild. This can take several minutes.' -ForegroundColor Cyan
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $TempScript
