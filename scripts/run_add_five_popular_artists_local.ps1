@@ -10,6 +10,16 @@ if ($LASTEXITCODE -ne 0 -or -not $encoded) { throw 'Could not fetch crawler scri
 $encoded = $encoded -replace '\s',''
 $text = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($encoded))
 
+Write-Host '[runner] Fixing curl argument binding for Windows PowerShell...'
+$oldCurlSignature = 'function Invoke-CurlText([string[]]$Args, [string]$OutPath) {'
+$newCurlSignature = 'function Invoke-CurlText([string[]]$CurlArgs, [string]$OutPath) {'
+if (-not $text.Contains($oldCurlSignature)) { throw 'Could not find Invoke-CurlText signature.' }
+$text = $text.Replace($oldCurlSignature, $newCurlSignature)
+$oldCurlCall = '& curl.exe @Args -o $OutPath'
+$newCurlCall = '& curl.exe @CurlArgs -o $OutPath'
+if (-not $text.Contains($oldCurlCall)) { throw 'Could not find curl invocation.' }
+$text = $text.Replace($oldCurlCall, $newCurlCall)
+
 Write-Host '[runner] Enabling alphabetical artist ordering...'
 $needle = @'
 foreach ($artistObj in $newArtistObjects.ToArray()) { $combinedArtists.Add($artistObj) }
