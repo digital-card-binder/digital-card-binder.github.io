@@ -1,14 +1,14 @@
 name: Probe Pokemon Korea cards
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/rebuild-artist-dex-official-20260819
+      - main
     paths:
       - ".github/workflows/probe-pokemonkorea.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   probe:
@@ -24,7 +24,6 @@ jobs:
           import re
           import urllib.parse
           import urllib.request
-          from pathlib import Path
 
           base = 'https://pokemoncard.co.kr'
           headers = {'User-Agent':'Mozilla/5.0 (GitHub Actions artist-dex probe)','Accept-Language':'ko-KR,ko;q=0.9,en;q=0.8'}
@@ -83,14 +82,5 @@ jobs:
                       out.append(f'QUERY {param}={key!r} final={final} detail_count={len(details)} sample={details[:5]}')
                   except Exception as e:
                       out.append(f'QUERYERR {param}={key!r} {e!r}')
-          Path('tmp/pokemonkorea-probe.txt').parent.mkdir(exist_ok=True)
-          Path('tmp/pokemonkorea-probe.txt').write_text('\n'.join(out),encoding='utf-8')
           print('\n'.join(out))
           PY
-      - name: Save probe result to branch
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add tmp/pokemonkorea-probe.txt
-          git commit -m "Record Pokemon Korea search probe" || exit 0
-          git push
