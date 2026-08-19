@@ -20,7 +20,9 @@
 
   load("./custom-granular-sharing.js?v=20260813-1", () => {
     load("./custom.js?v=20260813-2", () => {
-      load("./custom-sync.js?v=20260813-3");
+      load("./custom-mobile-actions.js?v=20260819-1", () => {
+        load("./custom-sync.js?v=20260813-3");
+      });
     });
   });
 })();
