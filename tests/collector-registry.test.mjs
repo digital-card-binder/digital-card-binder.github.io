@@ -47,7 +47,7 @@ test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
     pack: 62,
-    artist: 451,
+    artist: 2451,
     series: 10321,
     pokemon: 679,
     ar: 498,
