@@ -1,0 +1,225 @@
+HTML_CHARS 111944
+TITLE 포켓몬 카드 게임
+FORMS
+action=/cards method=get names=s
+SCRIPTS
+https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
+https://pokemoncard.co.kr/v2/js/bootstrap.min.js
+https://pokemoncard.co.kr/v2/js/jquery.magnific-popup.min.js
+https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js
+https://code.jquery.com/ui/1.12.1/jquery-ui.js
+https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js
+https://pokemoncard.co.kr/v3/js/common.js
+https://pokemoncard.co.kr/v2/js/jquery.scrollTo-min.js
+https://pokemoncard.co.kr/v2/js/SmoothScroll.js
+https://pokemoncard.co.kr/v2/js/wow.js
+https://pokemoncard.co.kr/v2/js/custom.js
+https://pokemoncard.co.kr/v2/js/plugins.js
+https://pokemoncard.co.kr/v2/js/greensock.js
+https://pokemoncard.co.kr/v2/js/layerslider.transitions.js
+https://pokemoncard.co.kr/v2/js/layerslider.kreaturamedia.jquery.js
+https://pokemoncard.co.kr/v2/js/jquery.sticky.js
+https://pokemoncard.co.kr/v2/js/cat_list.js?78
+https://pokemoncard.co.kr/v2/js/function.js
+https://pokemoncard.co.kr/v2/js/formData.js
+https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js
+https://www.googletagmanager.com/gtag/js?id=UA-142581117-1
+https://t1.daumcdn.net/kas/static/kp.js
+https://fin.rainbownine.net/js/across_adn_2.0.1.js
+https://pokemoncard.co.kr/v2/js/jquery.range-min.js
+https://pokemoncard.co.kr/v2/js/select2.min.js
+https://pokemoncard.co.kr/v3/js/jquery.nice-select.min.js
+https://fin.rainbownine.net/js/across_adn_closed_pc_ad_1.0.4.js
+https://fin.rainbownine.net/js/across_adn_closed_mobile_ad_1.0.4.js
+HTML_INTERESTING
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+<link href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+src="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<a href="/member/login?next=/cards" class="badge badge-muted2 badge-round">로그인</a>
+<a href="/cards" class="active">카드검색</a>
+<a href="/member/login?next=/cards"><i class="icon-login"></i>로그인</a>
+<button type="button" class="no-style collapsed" data-toggle="collapse" data-target="#search"><i class="icon-search"></i>카드검색</button>
+<div id="search" class="collapse">
+<form id="header-search-form" action="/cards" method="get">
+<div class="search-wrp">
+<input type="text" id="header-search-input" name="s" placeholder="카드검색 (포켓몬 이름 혹은 텍스트를 입력하세요)" value="">
+<button type="button" id="header-search_text_submit" class="no-style btn-search"><p class="sr-only">카드검색</p></button>
+<button tabindex="button" data-toggle="collapse" data-target="#search" class="no-style btn-close"><p class="sr-only">닫기</p></button>
+$("#header-search-input").attr("placeholder","포켓몬 이름 혹은 텍스트를 입력하세요.");
+if($("#search_text").length > 0){
+$("#search_text").attr("placeholder","포켓몬 이름 혹은 텍스트를 입력하세요.");
+$(document).on("click", "button#header-search_text_submit", function (e) {
+$("#header-search-form").submit();
+if($("#navbar-search-box").hasClass("in") ){
+$("#button-top-search").click();
+<link href="/v2/css/cards2.css?v=79" rel="stylesheet">
+.nav-search .search-wrp input {
+.nav-search .search-wrp input {
+<div id="search_text_wrap" class="col-xs-12">
+<div class="main-search-box">
+<a href="#card_search" aria-controls="card_search" role="tab" data-toggle="tab">카드
+<div role="tabpanel" class="search-box-group tab-pane in active" id="card_search">
+<select name="search_params" id="search_params" class="select-css">
+<input type="text" class="form-control" id="search_text" name="search_text"
+<button id="search_text_submit" class="btn btn-default"
+<div role="tabpanel" class="search-box-group tab-pane" id="qna">
+<input type="hidden" name="search_param" value="all" id="search_param">
+<button id="search_keyword_submit" class="btn btn-default" type="button">검색</button>
+<span id="advanced_search" class="btn btn-primary">
+<span id="advanced_search_info" class="btn btn-default">
+<div class="container search_option" style="position: fixed; top: -9999px;">
+<div id="SearchTypePokemon" class="sub_search">
+<div id="CardType" class="type search_button_wrap">
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/prism.png"
+<div id="ability_label1" class="type search_button_wrap">
+<div id="CardMonType" class="type search_button_wrap">
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png"
+<div id="Weakness" class="type search_button_wrap">
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png"
+<div id="Resistance" class="type search_button_wrap">
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png"
+<div id="TechErg" class="type search_button_wrap">
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png"
+src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png"
+<div id="CardType" class="type search_button_wrap">
+<div id="CardType" class="type search_button_wrap">
+<button id="searchs" class="btn btn-primary btn-lg btn-block"><img src="/v2/img/search.png"
+class="search_img"> 조건 검색
+<button id="load_more_search_text" type="button" class="btn btn-primary btn-lg" style="display: none;">
+$.ajax({
+url: '/v2/ajax2_dev2',
+output += '<div class="card"><a href="/cards/detail/' + val.CardNum + '" target="_blank"><img src="https://cards.image.pokemonkorea.co.kr/data/' + val.feature_image + '"></a></div>';
+$(document).on("click", "#advanced_search_info", function () {
+}, searching: function () {
+$("[name=search_text]").val("");
+$("button#load_more_search_text").hide();
+function advacned_search_option(status) {
+$(".search_option").css("position", "inherit");
+$(".search_option").css("top", "auto");
+$("span#advanced_search i").addClass("fa-rotate-180");
+$(".search_option").css("position", "fixed");
+$(".search_option").css("top", "-9999px");
+$("span#advanced_search i").removeClass("fa-rotate-180");
+if ($('.search_option').css('position') === "fixed") {
+$(".search_option").css("position", "inherit");
+$(".search_option").css("top", "auto");
+$("span#advanced_search i").addClass("fa-rotate-180");
+$(".search_option").css("position", "fixed");
+$(".search_option").css("top", "-9999px");
+$("span#advanced_search i").removeClass("fa-rotate-180");
+$(document).on("click", ".search_button_wrap [data-id=all]", function () {
+var dataId = $(this).closest("div.search_button_wrap[id]").attr("id");
+$(document).on("click", "button#load_more, button#searchs", function () {
+if ($(this).attr("id") == "search") {
+$.ajax({
+url: '/v2/ajax2_dev2',
+output += '<div class="card"><a href="/cards/detail/' + val.CardNum + '" target="_blank"><img src="https://cards.image.pokemonkorea.co.kr/data/' + val.feature_image + '"></a></div>';
+function search_text(status) {
+var search_text = $("[name=search_text]").val();
+formData.append("action", "search_text_cards");
+formData.append("search_text", $("[name=search_text]").val());
+formData.append("search_params", $("[name=search_params]").val());
+$.ajax({
+url: '/v2/ajax2_dev2',
+output += '<div class="card"><a href="/cards/detail/' + val.CardNum + '" target="_blank"><img src="https://cards.image.pokemonkorea.co.kr/data/' + val.feature_image + '"></a></div>';
+$("button#load_more_search_text").show();
+function search_text_load_more() {
+var search_text = $("[name=search_text]").val();
+formData.append("action", "search_text_cards");
+formData.append("search_text", $("[name=search_text]").val());
+$.ajax({
+url: '/v2/ajax2_dev2',
+output += '<div class="card"><a href="/cards/detail/' + val.CardNum + '" target="_blank"><img src="https://cards.image.pokemonkorea.co.kr/data/' + val.feature_image + '"></a></div>';
+$("button#load_more_search_text").show();
+function search_keyword() {
+//console.log($(".main-search-box > .nav-tabs > li").next().children().click());
+$(".main-search-box > .nav-tabs > li").next().children().click()
+formData.append("action", "search_cards_keyword");
+$.ajax({
+url: '/v2/ajax2_dev2',
+$(document).on("click", "button#load_more_search_text", function (e) {
+search_text("load_more");
+advacned_search_option('hide');
+$(document).on("click", "button#search_text_submit", function (e) {
+search_text("load");
+advacned_search_option('hide');
+$(document).on("click", "button#search_keyword_submit", function (e) {
+search_keyword();
+search_keyword();
+$("[name=search_text]").keypress(function (event) {
+search_text("load");
+advacned_search_option('hide');
+if ($("[name=search_text]") && (e.keyCode === 13)) {
+search_text("load");
+advacned_search_option('hide');
+$('.search-panel .dropdown-menu').find('a').click(function (e) {
+$('.search-panel span#search_concept').text(concept);
+$('.input-group #search_param').val(param);
+$(".search_button_wrap .select").click(function () {
+$('span#advanced_search').click(function () {
+advacned_search_option("toggle");
+JS https://pokemoncard.co.kr/v3/js/common.js
+function scrollMove(t,h){'use strict';if(h==undefined)h=0;var o=jQuery('html, body');o.animate({scrollTop:jQuery(t).offset().top-h},500);} function menuOpen(o){"use strict";var o=$(o).attr('id'),a=-$(window).scrollTop();$('#wrap').css('top',a);$('body').addClass('nav-open');setTimeout(function(){$('#'+o).show(0,function(){$('body').addClass(o+'-open');});},100);} function menuClose(o){'use strict';var o=$(o).attr('id'),originScroll=-$('#wrap').position().top;$('body').removeClass(o+'-open');setTimeout(function(){$('#'+o).hide();$('body').removeClass('nav-open');if(originScroll!=-0){$(window).scrollTop(originScroll);} $('#wrap').removeAttr('style');},300);} jQuery(function($){var $body=$('body'),$window=$(window),$gnb=$('.gnb'),$gnb1dep=$('.gnb>li>a');$('.js-mn').click(function(){if($body.hasClass('nav-open')){menuClose(gnb);}else{menuOpen(gnb);}});$gnb.children().on('mouseenter',function(){$(this).addClass('open').siblings().removeClass('open');});function gnbOut(){$gnb.children().removeClass('open').next('.depth').hide();} $gnb.mouseleave(gnbOut);var lastScrollTop=0,$scrollElement=$('html, body');$window.scroll(function(){var sT=$(this).scrollTop();if($(this).scrollTop()>0){$body.addClass('is-scroll');}else{$body.removeClass('is-scroll');} lastScrollTop=sT;}).trigger('scroll');});jQuery(function($){if($(window).width()>991){$('.list-card-color>li>a').mouseover(function(){$(this).addClass('active');});$('.list-card-color>li>a').mouseleave(function(){$(this).removeClass('active');});$('.list-full>li>a').mouseover(function(){$(this).addClass('active');});$('.list-full>li>a').mouseleave(function(){$(this).removeClass('active');});$('.list-poster>li>a').mouseover(function(){$(this).addClass('active');});$('.list-poster>li>a').mouseleave(function(){$(this).removeClass('active');});};$('#acc button, .btn-close').click(function(){$('body').toggleClass('search-open');});}) jQuery(function($){$('.breadcrumb a.active').click(function(){return false;});})
+JS https://pokemoncard.co.kr/v2/js/custom.js
+(function(window,undefined){var kakao={};window.kakao=window.kakao||kakao;var uagent=navigator.userAgent.toLocaleLowerCase();if(uagent.search("android")>-1){kakao.os="android";if(uagent.search("chrome")>-1){kakao.browser="android+chrome";}}else if(uagent.search("iphone")>-1||uagent.search("ipod")>-1||uagent.search("ipad")>-1){kakao.os="ios";}
+QUERY param=s artist=OKACHEKE chars=112002 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=keyword artist=OKACHEKE chars=111978 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=q artist=OKACHEKE chars=111991 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=search artist=OKACHEKE chars=111976 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=searchWord artist=OKACHEKE chars=111984 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=word artist=OKACHEKE chars=111972 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=searchKeyword artist=OKACHEKE chars=111990 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=cardName artist=OKACHEKE chars=111980 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=illustrator artist=OKACHEKE chars=111986 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=s artist=Narumi Sato chars=112018 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=keyword artist=Narumi Sato chars=111988 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=q artist=Narumi Sato chars=112004 detailLike=31 containsArtist=True sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=search artist=Narumi Sato chars=111986 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=searchWord artist=Narumi Sato chars=111994 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=word artist=Narumi Sato chars=111982 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=searchKeyword artist=Narumi Sato chars=112000 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=cardName artist=Narumi Sato chars=111990 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
+QUERY param=illustrator artist=Narumi Sato chars=111996 detailLike=31 containsArtist=False sample=/cards/detail,/cards/detail/BS2026004001,/cards/detail/BS2026004002,/cards/detail/BS2026004003,/cards/detail/BS2026004004
