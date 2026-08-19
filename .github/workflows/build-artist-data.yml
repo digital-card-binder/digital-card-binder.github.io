@@ -1,49 +1,28 @@
-name: Build artist dex data
+name: Validate artist dex data
 
 on:
   workflow_dispatch:
   push:
     paths:
       - ".github/workflows/build-artist-data.yml"
-      - "scripts/probe_pokemonkorea.py"
+      - "data/artists.json"
+      - "scripts/validate_artist_data.py"
+  pull_request:
+    paths:
+      - ".github/workflows/build-artist-data.yml"
+      - "data/artists.json"
+      - "scripts/validate_artist_data.py"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Probe Pokemon Korea card search
-        run: python scripts/probe_pokemonkorea.py
-      - name: Publish probe result
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
-        run: |
-          FILE_PATH="tmp/pokemonkorea-probe.txt"
-          ENDPOINT="repos/${GITHUB_REPOSITORY}/contents/${FILE_PATH}"
-          EXISTING_SHA="$(gh api --method GET "${ENDPOINT}" -f ref="${TARGET_BRANCH}" --jq .sha 2>/dev/null || true)"
-          python - "${TARGET_BRANCH}" "${EXISTING_SHA}" "${FILE_PATH}" "/tmp/probe.json" <<'PY'
-          import base64
-          import json
-          import sys
-          from pathlib import Path
-
-          branch, existing_sha, file_path, payload_path = sys.argv[1:5]
-          payload = {
-              "message": "Record Pokemon Korea search probe",
-              "branch": branch,
-              "content": base64.b64encode(Path(file_path).read_bytes()).decode("ascii"),
-          }
-          if existing_sha:
-              payload["sha"] = existing_sha
-          Path(payload_path).write_text(json.dumps(payload), encoding="utf-8")
-          PY
-          gh api --method PUT "${ENDPOINT}" --input /tmp/probe.json
+      - name: Validate committed Pokemon Korea artist data
+        run: python scripts/validate_artist_data.py data/artists.json
