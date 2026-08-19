@@ -7,7 +7,6 @@ $TempDir = Join-Path $env:TEMP 'pokemoncard-artist-probe'
 $HtmlPath = Join-Path $TempDir 'cards.html'
 $CookiePath = Join-Path $TempDir 'cookies.txt'
 $OutPath = Join-Path $TempDir 'pokemonkorea-local-probe.txt'
-$PayloadPath = Join-Path $TempDir 'payload.json'
 New-Item -ItemType Directory -Force -Path $TempDir | Out-Null
 
 $UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36'
@@ -102,18 +101,13 @@ foreach ($artist in @('OKACHEKE','Narumi Sato')) {
 
 Write-Host '[4/4] Uploading diagnostic result to the GitHub work branch...'
 $endpoint = "repos/$Repo/contents/tmp/pokemonkorea-local-probe.txt"
-$existingSha = ''
-try {
-    $existingSha = (& gh api --method GET $endpoint -f ref=$Branch --jq '.sha' 2>$null).Trim()
-} catch { $existingSha = '' }
-$payload = [ordered]@{
-    message = 'Record local Pokemon Korea search probe'
-    branch = $Branch
-    content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($OutPath))
+$content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($OutPath))
+$existingSha = (& gh api --method GET $endpoint -f ref=$Branch --jq '.sha' 2>$null)
+if ($LASTEXITCODE -eq 0 -and $existingSha) {
+    & gh api --method PUT $endpoint -f message='Record local Pokemon Korea search probe' -f branch=$Branch -f content=$content -f sha=$existingSha | Out-Null
+} else {
+    & gh api --method PUT $endpoint -f message='Record local Pokemon Korea search probe' -f branch=$Branch -f content=$content | Out-Null
 }
-if ($existingSha) { $payload.sha = $existingSha }
-$payload | ConvertTo-Json -Compress | Set-Content -LiteralPath $PayloadPath -Encoding UTF8
-& gh api --method PUT $endpoint --input $PayloadPath | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "gh api upload failed with exit code $LASTEXITCODE" }
 
 Write-Host ''
