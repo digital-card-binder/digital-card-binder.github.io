@@ -22,7 +22,7 @@
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let saveQueue = Promise.resolve();
-  let seriesPublicSyncQueue = Promise.resolve();
+  let largeCatalogPublicSyncQueue = Promise.resolve();
   let resolveReady;
 
   const ready = new Promise((resolve) => {
@@ -451,7 +451,7 @@
     );
   }
 
-  function queueSeriesPublicSync() {
+  function queueLargeCatalogPublicSync() {
     const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
     if (typeof sync !== "function" || !firebase || !currentUser) return;
 
@@ -468,8 +468,8 @@
       }
     };
 
-    const queued = seriesPublicSyncQueue.then(operation, operation);
-    seriesPublicSyncQueue = queued.catch(() => undefined);
+    const queued = largeCatalogPublicSyncQueue.then(operation, operation);
+    largeCatalogPublicSyncQueue = queued.catch(() => undefined);
   }
 
   async function saveOverride(key, value) {
@@ -492,8 +492,9 @@
         ...remoteOverrides,
         [key]: savedItem,
       };
+      const isLargeFixedCatalog = mode === "series" || mode === "ar";
 
-      if (mode === "series") {
+      if (isLargeFixedCatalog) {
         const { firestoreModule } = firebase;
         try {
           await firestoreModule.updateDoc(
@@ -539,8 +540,8 @@
 
       remoteOverrides = nextOverrides;
       notifyOwnerSheets(key);
-      if (mode === "series") {
-        queueSeriesPublicSync();
+      if (isLargeFixedCatalog) {
+        queueLargeCatalogPublicSync();
       } else {
         try {
           await window.CollectorPublicSync?.syncCollectionWithRetry?.({
