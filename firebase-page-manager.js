@@ -22,6 +22,7 @@
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let saveQueue = Promise.resolve();
+  let seriesPublicSyncQueue = Promise.resolve();
   let resolveReady;
 
   const ready = new Promise((resolve) => {
@@ -450,6 +451,27 @@
     );
   }
 
+  function queueSeriesPublicSync() {
+    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
+    if (typeof sync !== "function" || !firebase || !currentUser) return;
+
+    const operation = async () => {
+      try {
+        await sync({
+          db: firebase.db,
+          firestoreModule: firebase.firestoreModule,
+          user: currentUser,
+          collectionId: mode,
+        });
+      } catch (error) {
+        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+      }
+    };
+
+    const queued = seriesPublicSyncQueue.then(operation, operation);
+    seriesPublicSyncQueue = queued.catch(() => undefined);
+  }
+
   async function saveOverride(key, value) {
     if (!canEdit()) {
       throw new Error("Google 로그인 후 내 도감을 수정할 수 있습니다.");
@@ -461,38 +483,75 @@
     }
 
     const operation = async () => {
+      const savedItem = {
+        ...item,
+        updatedAt: new Date().toISOString(),
+        updatedBy: currentUser.email || currentUser.uid,
+      };
       const nextOverrides = {
         ...remoteOverrides,
-        [key]: {
-          ...item,
-          updatedAt: new Date().toISOString(),
-          updatedBy: currentUser.email || currentUser.uid,
-        },
+        [key]: savedItem,
       };
 
-      await firebase.firestoreModule.setDoc(
-        userDocumentRef,
-        {
-          baseMode: accountProfile.baseMode,
-          email: currentUser.email || "",
-          displayName: currentUser.displayName || "",
-          overrides: nextOverrides,
-          updatedAt: firebase.firestoreModule.serverTimestamp(),
-        },
-        { merge: true },
-      );
+      if (mode === "series") {
+        const { firestoreModule } = firebase;
+        try {
+          await firestoreModule.updateDoc(
+            userDocumentRef,
+            new firestoreModule.FieldPath("overrides", key),
+            savedItem,
+            "baseMode",
+            accountProfile.baseMode,
+            "email",
+            currentUser.email || "",
+            "displayName",
+            currentUser.displayName || "",
+            "updatedAt",
+            firestoreModule.serverTimestamp(),
+          );
+        } catch (error) {
+          if (error?.code !== "not-found") throw error;
+          await firestoreModule.setDoc(
+            userDocumentRef,
+            {
+              baseMode: accountProfile.baseMode,
+              email: currentUser.email || "",
+              displayName: currentUser.displayName || "",
+              overrides: nextOverrides,
+              updatedAt: firestoreModule.serverTimestamp(),
+            },
+            { merge: true },
+          );
+        }
+      } else {
+        await firebase.firestoreModule.setDoc(
+          userDocumentRef,
+          {
+            baseMode: accountProfile.baseMode,
+            email: currentUser.email || "",
+            displayName: currentUser.displayName || "",
+            overrides: nextOverrides,
+            updatedAt: firebase.firestoreModule.serverTimestamp(),
+          },
+          { merge: true },
+        );
+      }
 
       remoteOverrides = nextOverrides;
       notifyOwnerSheets(key);
-      try {
-        await window.CollectorPublicSync?.syncCollectionWithRetry?.({
-          db: firebase.db,
-          firestoreModule: firebase.firestoreModule,
-          user: currentUser,
-          collectionId: mode,
-        });
-      } catch (error) {
-        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+      if (mode === "series") {
+        queueSeriesPublicSync();
+      } else {
+        try {
+          await window.CollectorPublicSync?.syncCollectionWithRetry?.({
+            db: firebase.db,
+            firestoreModule: firebase.firestoreModule,
+            user: currentUser,
+            collectionId: mode,
+          });
+        } catch (error) {
+          console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+        }
       }
       return remoteOverrides[key];
     };
