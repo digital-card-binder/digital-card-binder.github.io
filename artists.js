@@ -28,15 +28,24 @@ function setSummary(){
   $("stat-artist-rate").textContent=completion;
 }
 
+const normalizeArtistName=name=>String(name??"").trim().replace(/\s+/g," ");
+const compareArtistNames=(a,b)=>{
+  const left=normalizeArtistName(a.name);
+  const right=normalizeArtistName(b.name);
+  return left.localeCompare(right,"en",{sensitivity:"base",numeric:true})
+    ||left.localeCompare(right,"en",{sensitivity:"variant",numeric:true});
+};
+
 function populateArtists(){
   const select=$("artist-select");
-  dataset.artists.forEach(artist=>{
+  const artists=[...dataset.artists].sort(compareArtistNames);
+  artists.forEach(artist=>{
     const option=document.createElement("option");
     option.value=artist.name;
     option.textContent=`${artist.name} · ${artist.cards.length}장`;
     select.append(option);
   });
-  selectedArtist=dataset.artists[0];
+  selectedArtist=artists[0];
   select.value=selectedArtist.name;
   select.addEventListener("change",()=>{
     selectedArtist=dataset.artists.find(artist=>artist.name===select.value)??dataset.artists[0];
