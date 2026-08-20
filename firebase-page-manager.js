@@ -78,6 +78,63 @@
     return cleaned;
   }
 
+  function usesCompactOwnershipStorage() {
+    return mode === "series" || mode === "ar";
+  }
+
+  function compactOwnershipOverrides(source, baseMode) {
+    const compacted = {};
+    let changed = false;
+    if (!source || typeof source !== "object" || Array.isArray(source)) {
+      return { compacted, changed: Boolean(source) };
+    }
+
+    for (const [key, value] of Object.entries(source)) {
+      const item = normalizeOverride(value);
+      if (!key || !item) {
+        changed = true;
+        continue;
+      }
+
+      if (item.owned) {
+        compacted[key] = true;
+        if (value !== true) changed = true;
+        continue;
+      }
+
+      if (baseMode === "legacy") {
+        compacted[key] = false;
+        if (value !== false) changed = true;
+      } else {
+        changed = true;
+      }
+    }
+
+    return { compacted, changed };
+  }
+
+  async function compactFixedCatalogDocument(source) {
+    if (!usesCompactOwnershipStorage() || !firebase || !userDocumentRef) return;
+    const { compacted, changed } = compactOwnershipOverrides(
+      source,
+      accountProfile.baseMode,
+    );
+    if (!changed) {
+      remoteOverrides = sanitizeOverrides(compacted);
+      return;
+    }
+
+    try {
+      await firebase.firestoreModule.updateDoc(userDocumentRef, {
+        overrides: compacted,
+        updatedAt: firebase.firestoreModule.serverTimestamp(),
+      });
+      remoteOverrides = sanitizeOverrides(compacted);
+    } catch (error) {
+      console.warn(`${page.documentId} 저장 데이터를 압축하지 못했습니다.`, error);
+    }
+  }
+
   function groupIdentity(group, groupIndex) {
     return String(group.code || group.name || group.title || groupIndex);
   }
@@ -303,7 +360,9 @@
         accountProfile = {
           baseMode: data.baseMode === "legacy" ? "legacy" : "empty",
         };
-        remoteOverrides = sanitizeOverrides(data.overrides || {});
+        const sourceOverrides = data.overrides || {};
+        remoteOverrides = sanitizeOverrides(sourceOverrides);
+        await compactFixedCatalogDocument(sourceOverrides);
         return;
       }
 
@@ -450,6 +509,56 @@
     );
   }
 
+  async function syncAfterSave(key) {
+    notifyOwnerSheets(key);
+    try {
+      await window.CollectorPublicSync?.syncCollectionWithRetry?.({
+        db: firebase.db,
+        firestoreModule: firebase.firestoreModule,
+        user: currentUser,
+        collectionId: mode,
+      });
+    } catch (error) {
+      console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+    }
+  }
+
+  async function saveCompactOwned(key, owned) {
+    if (!canEdit()) {
+      throw new Error("Google 로그인 후 내 도감을 수정할 수 있습니다.");
+    }
+    if (!key) {
+      throw new Error("저장할 카드 정보가 올바르지 않습니다.");
+    }
+
+    const operation = async () => {
+      const firestoreModule = firebase.firestoreModule;
+      const nextOwned = Boolean(owned);
+      const removeOverride = !nextOwned && accountProfile.baseMode !== "legacy";
+      const overridePath = new firestoreModule.FieldPath("overrides", key);
+
+      await firestoreModule.updateDoc(
+        userDocumentRef,
+        overridePath,
+        removeOverride ? firestoreModule.deleteField() : nextOwned,
+        "updatedAt",
+        firestoreModule.serverTimestamp(),
+      );
+
+      if (removeOverride) {
+        delete remoteOverrides[key];
+      } else {
+        remoteOverrides[key] = nextOwned;
+      }
+      await syncAfterSave(key);
+      return normalizeOverride(remoteOverrides[key]) || { owned: false };
+    };
+
+    const queued = saveQueue.then(operation, operation);
+    saveQueue = queued.catch(() => undefined);
+    return queued;
+  }
+
   async function saveOverride(key, value) {
     if (!canEdit()) {
       throw new Error("Google 로그인 후 내 도감을 수정할 수 있습니다.");
@@ -459,41 +568,32 @@
     if (!key || !item) {
       throw new Error("저장할 카드 정보가 올바르지 않습니다.");
     }
+    if (usesCompactOwnershipStorage()) {
+      return saveCompactOwned(key, item.owned);
+    }
 
     const operation = async () => {
-      const nextOverrides = {
-        ...remoteOverrides,
-        [key]: {
-          ...item,
-          updatedAt: new Date().toISOString(),
-          updatedBy: currentUser.email || currentUser.uid,
-        },
+      const firestoreModule = firebase.firestoreModule;
+      const storedItem = {
+        ...item,
+        updatedAt: new Date().toISOString(),
+        updatedBy: currentUser.email || currentUser.uid,
       };
+      const overridePath = new firestoreModule.FieldPath("overrides", key);
 
-      await firebase.firestoreModule.setDoc(
+      await firestoreModule.updateDoc(
         userDocumentRef,
-        {
-          baseMode: accountProfile.baseMode,
-          email: currentUser.email || "",
-          displayName: currentUser.displayName || "",
-          overrides: nextOverrides,
-          updatedAt: firebase.firestoreModule.serverTimestamp(),
-        },
-        { merge: true },
+        overridePath,
+        storedItem,
+        "updatedAt",
+        firestoreModule.serverTimestamp(),
       );
 
-      remoteOverrides = nextOverrides;
-      notifyOwnerSheets(key);
-      try {
-        await window.CollectorPublicSync?.syncCollectionWithRetry?.({
-          db: firebase.db,
-          firestoreModule: firebase.firestoreModule,
-          user: currentUser,
-          collectionId: mode,
-        });
-      } catch (error) {
-        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
-      }
+      remoteOverrides = {
+        ...remoteOverrides,
+        [key]: storedItem,
+      };
+      await syncAfterSave(key);
       return remoteOverrides[key];
     };
 
@@ -503,6 +603,9 @@
   }
 
   async function saveOwned(key, owned) {
+    if (usesCompactOwnershipStorage()) {
+      return saveCompactOwned(key, owned);
+    }
     const current = normalizeOverride(remoteOverrides[key]) || {};
     return saveOverride(key, {
       ...current,
