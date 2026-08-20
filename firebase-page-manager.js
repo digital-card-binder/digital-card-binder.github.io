@@ -22,6 +22,7 @@
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let saveQueue = Promise.resolve();
+  let largeCatalogPublicSyncQueue = Promise.resolve();
   let resolveReady;
 
   const ready = new Promise((resolve) => {
@@ -450,7 +451,28 @@
     );
   }
 
-  async function saveOverride(key, value) {
+  function queueLargeCatalogPublicSync() {
+    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
+    if (typeof sync !== "function" || !firebase || !currentUser) return;
+
+    const operation = async () => {
+      try {
+        await sync({
+          db: firebase.db,
+          firestoreModule: firebase.firestoreModule,
+          user: currentUser,
+          collectionId: mode,
+        });
+      } catch (error) {
+        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+      }
+    };
+
+    const queued = largeCatalogPublicSyncQueue.then(operation, operation);
+    largeCatalogPublicSyncQueue = queued.catch(() => undefined);
+  }
+
+  async function saveOverride(key, value, options = {}) {
     if (!canEdit()) {
       throw new Error("Google 로그인 후 내 도감을 수정할 수 있습니다.");
     }
@@ -461,38 +483,78 @@
     }
 
     const operation = async () => {
+      const savedItem = {
+        ...item,
+        updatedAt: new Date().toISOString(),
+        updatedBy: currentUser.email || currentUser.uid,
+      };
       const nextOverrides = {
         ...remoteOverrides,
-        [key]: {
-          ...item,
-          updatedAt: new Date().toISOString(),
-          updatedBy: currentUser.email || currentUser.uid,
-        },
+        [key]: savedItem,
       };
+      const isLargeFixedCatalog = mode === "series" || mode === "ar";
+      const backgroundPublicSync =
+        mode === "series" || Boolean(options.backgroundPublicSync);
 
-      await firebase.firestoreModule.setDoc(
-        userDocumentRef,
-        {
-          baseMode: accountProfile.baseMode,
-          email: currentUser.email || "",
-          displayName: currentUser.displayName || "",
-          overrides: nextOverrides,
-          updatedAt: firebase.firestoreModule.serverTimestamp(),
-        },
-        { merge: true },
-      );
+      if (isLargeFixedCatalog) {
+        const { firestoreModule } = firebase;
+        try {
+          await firestoreModule.updateDoc(
+            userDocumentRef,
+            new firestoreModule.FieldPath("overrides", key),
+            savedItem,
+            "baseMode",
+            accountProfile.baseMode,
+            "email",
+            currentUser.email || "",
+            "displayName",
+            currentUser.displayName || "",
+            "updatedAt",
+            firestoreModule.serverTimestamp(),
+          );
+        } catch (error) {
+          if (error?.code !== "not-found") throw error;
+          await firestoreModule.setDoc(
+            userDocumentRef,
+            {
+              baseMode: accountProfile.baseMode,
+              email: currentUser.email || "",
+              displayName: currentUser.displayName || "",
+              overrides: nextOverrides,
+              updatedAt: firestoreModule.serverTimestamp(),
+            },
+            { merge: true },
+          );
+        }
+      } else {
+        await firebase.firestoreModule.setDoc(
+          userDocumentRef,
+          {
+            baseMode: accountProfile.baseMode,
+            email: currentUser.email || "",
+            displayName: currentUser.displayName || "",
+            overrides: nextOverrides,
+            updatedAt: firebase.firestoreModule.serverTimestamp(),
+          },
+          { merge: true },
+        );
+      }
 
       remoteOverrides = nextOverrides;
       notifyOwnerSheets(key);
-      try {
-        await window.CollectorPublicSync?.syncCollectionWithRetry?.({
-          db: firebase.db,
-          firestoreModule: firebase.firestoreModule,
-          user: currentUser,
-          collectionId: mode,
-        });
-      } catch (error) {
-        console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+      if (isLargeFixedCatalog && backgroundPublicSync) {
+        queueLargeCatalogPublicSync();
+      } else {
+        try {
+          await window.CollectorPublicSync?.syncCollectionWithRetry?.({
+            db: firebase.db,
+            firestoreModule: firebase.firestoreModule,
+            user: currentUser,
+            collectionId: mode,
+          });
+        } catch (error) {
+          console.warn(`${page.documentId} 공개 projection 갱신 실패`, error);
+        }
       }
       return remoteOverrides[key];
     };
@@ -504,10 +566,14 @@
 
   async function saveOwned(key, owned) {
     const current = normalizeOverride(remoteOverrides[key]) || {};
-    return saveOverride(key, {
-      ...current,
-      owned: Boolean(owned),
-    });
+    return saveOverride(
+      key,
+      {
+        ...current,
+        owned: Boolean(owned),
+      },
+      { backgroundPublicSync: mode === "ar" },
+    );
   }
 
   window.PokemonDexPageAccount = {
