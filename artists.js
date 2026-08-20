@@ -28,7 +28,7 @@ function setSummary(){
   $("stat-artist-rate").textContent=completion;
 }
 
-const normalizeArtistName=name=>String(name??"").trim().replace(/\\s+/g," ");
+const normalizeArtistName=name=>String(name??"").trim().replace(/\s+/g," ");
 const compareArtistNames=(a,b)=>{
   const left=normalizeArtistName(a.name);
   const right=normalizeArtistName(b.name);
