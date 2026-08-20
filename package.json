@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npm run test:syntax && npm run test:registry && npm run test:ui && npm run test:rules:lint && npm run test:rules",
+    "test": "npm run test:syntax && npm run test:registry && npm run test:ui && npm run test:storage && npm run test:rules:lint && npm run test:rules",
     "test:syntax": "node scripts/check-static-site.mjs",
     "test:registry": "node --test tests/collector-registry.test.mjs",
     "test:ui": "node --test tests/collector-ui-contract.test.mjs",
+    "test:storage": "node --test tests/storage-scaling.test.mjs",
     "test:rules:lint": "eslint firestore.rules",
     "test:rules": "firebase emulators:exec --only firestore --project demo-digital-card-binder \"node --test tests/firestore.rules.test.mjs\""
   },
