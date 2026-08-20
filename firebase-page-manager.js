@@ -472,7 +472,7 @@
     largeCatalogPublicSyncQueue = queued.catch(() => undefined);
   }
 
-  async function saveOverride(key, value) {
+  async function saveOverride(key, value, options = {}) {
     if (!canEdit()) {
       throw new Error("Google 로그인 후 내 도감을 수정할 수 있습니다.");
     }
@@ -493,6 +493,8 @@
         [key]: savedItem,
       };
       const isLargeFixedCatalog = mode === "series" || mode === "ar";
+      const backgroundPublicSync =
+        mode === "series" || Boolean(options.backgroundPublicSync);
 
       if (isLargeFixedCatalog) {
         const { firestoreModule } = firebase;
@@ -540,7 +542,7 @@
 
       remoteOverrides = nextOverrides;
       notifyOwnerSheets(key);
-      if (isLargeFixedCatalog) {
+      if (isLargeFixedCatalog && backgroundPublicSync) {
         queueLargeCatalogPublicSync();
       } else {
         try {
@@ -564,10 +566,14 @@
 
   async function saveOwned(key, owned) {
     const current = normalizeOverride(remoteOverrides[key]) || {};
-    return saveOverride(key, {
-      ...current,
-      owned: Boolean(owned),
-    });
+    return saveOverride(
+      key,
+      {
+        ...current,
+        owned: Boolean(owned),
+      },
+      { backgroundPublicSync: mode === "ar" },
+    );
   }
 
   window.PokemonDexPageAccount = {
