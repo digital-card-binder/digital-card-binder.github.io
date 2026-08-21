@@ -20,7 +20,7 @@
     <script src="./collector-nav.js?v=20260821-3" defer></script>
     <script src="./firebase-page-manager.js?v=20260820-1" defer></script>
     <script src="./owner-sheets-sync.js?v=20260811-3" defer></script>
-    <script src="./catalog.js?v=20260813-2" defer></script>
+    <script src="./catalog.js?v=20260821-1" defer></script>
   </head>
   <body data-catalog="series">
     <header class="site-header">
@@ -54,7 +54,7 @@
           </a>
           <a class="collection-link is-active" href="./series.html">
             <span class="collection-icon collection-icon--red">04</span>
-            <span><strong>시리즈 도감</strong><small>S · SV · SM · M</small></span>
+            <span><strong>시리즈 도감</strong><small>SM · S · SV · M</small></span>
           </a>
           <a class="collection-link" href="./pokemon-collections.html">
             <span class="collection-icon">05</span>
@@ -128,9 +128,9 @@
           <div class="catalog-era-filter">
             <span class="filter-label">시리즈 카테고리</span>
             <div id="catalog-era" class="catalog-era-tabs" role="tablist" aria-label="시리즈 카테고리 선택">
-              <button class="is-active" type="button" role="tab" data-era="S" aria-selected="true" tabindex="0"><strong>소드&amp;실드</strong><span>S</span></button>
+              <button class="is-active" type="button" role="tab" data-era="SM" aria-selected="true" tabindex="0"><strong>썬&amp;문</strong><span>SM</span></button>
+              <button type="button" role="tab" data-era="S" aria-selected="false" tabindex="-1"><strong>소드&amp;실드</strong><span>S</span></button>
               <button type="button" role="tab" data-era="SV" aria-selected="false" tabindex="-1"><strong>스칼렛&amp;바이올렛</strong><span>SV</span></button>
-              <button type="button" role="tab" data-era="SM" aria-selected="false" tabindex="-1"><strong>썬&amp;문</strong><span>SM</span></button>
               <button type="button" role="tab" data-era="M" aria-selected="false" tabindex="-1"><strong>MEGA</strong><span>M</span></button>
             </div>
           </div>

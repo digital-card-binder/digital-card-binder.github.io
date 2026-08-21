@@ -271,13 +271,17 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
 
   assert.match(page, /id="catalog-era"[^>]*role="tablist"/);
   for (const [era, label] of [
+    ["SM", "썬&amp;문"],
     ["S", "소드&amp;실드"],
     ["SV", "스칼렛&amp;바이올렛"],
-    ["SM", "썬&amp;문"],
     ["M", "MEGA"],
   ]) {
     assert.match(page, new RegExp(`data-era="${era}"[^>]*>[\\s\\S]*?${label}`));
   }
+  const eraIndices = ["SM", "S", "SV", "M"].map((era) => page.indexOf(`data-era="${era}"`));
+  assert.ok(eraIndices.every((index, position) => position === 0 || eraIndices[position - 1] < index));
+  assert.match(page, /class="is-active"[^>]*data-era="SM"[^>]*aria-selected="true"/);
+  assert.match(client, /let activeEra = "SM";/);
   assert.match(client, /function seriesEra\(group\)/);
   assert.match(client, /groups[.]filter\(\(group\) => seriesEra\(group\) === activeEra\)/);
   assert.match(client, /group[.]displayName/);
@@ -285,6 +289,15 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   assert.match(css, /grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
   assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
   assert.equal(page.includes("33 SETS"), false);
+});
+
+test("series era labels use SM, S, SV, M order across navigation", async () => {
+  for (const file of [...sitePages, "trades.html"]) {
+    const html = await source(file);
+    if (!html.includes('href="./series.html"')) continue;
+    assert.match(html, /시리즈 도감<\/strong><small>SM · S · SV · M<\/small>/, file);
+    assert.doesNotMatch(html, /시리즈 도감<\/strong><small>S · SV · SM · M<\/small>/, file);
+  }
 });
 
 test("phone usability upgrades stay inside the 690px mobile boundary", async () => {
