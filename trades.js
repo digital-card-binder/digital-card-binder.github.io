@@ -5,6 +5,7 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const TRADE_DRAFT_KEY = "digitalCardBinderTradeDraftV2";
   const PROPOSAL_DRAFT_KEY = "digitalCardBinderProposalDraftV1";
+  const TRADE_SERIES_NAMES_URL = "./data/trade-series-names.json?v=20260821-1";
   const TRADE_SOURCE_LABELS = Object.freeze({
     "national.html": "전국도감",
     "packs.html": "팩 전종수집",
@@ -18,8 +19,9 @@
   const state = {
     firebase: null, user: null, profile: null, posts: [], draft: null,
     proposalDraft: null, received: [], sent: [],
-    unreadByProposal: new Map(), activeConversation: null,
+    unreadByProposal: new Map(), activeConversation: null, activeCardDetailKey: null,
   };
+  let tradeSeriesNamesPromise = null;
   const $ = (id) => document.getElementById(id);
   const clean = (value, max = 160) => String(value || "").replace(/\s+/g, " ").trim().slice(0, max);
 
@@ -105,6 +107,36 @@
     return [...new Set(parts)].join(" · ") || "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다.";
   }
 
+  function loadTradeSeriesNames() {
+    if (!tradeSeriesNamesPromise) {
+      tradeSeriesNamesPromise = window.fetch(TRADE_SERIES_NAMES_URL)
+        .then((response) => {
+          if (!response.ok) throw new Error(`세트명 목록을 불러오지 못했습니다. (${response.status})`);
+          return response.json();
+        })
+        .then((value) => value && typeof value === "object" && !Array.isArray(value) ? value : {})
+        .catch((error) => {
+          tradeSeriesNamesPromise = null;
+          throw error;
+        });
+    }
+    return tradeSeriesNamesPromise;
+  }
+
+  async function resolveCardSetName(card) {
+    try {
+      const names = await loadTradeSeriesNames();
+      const tokens = `${card?.detail || ""} ${card?.imageUrl || ""}`
+        .toLowerCase()
+        .match(/[a-z][a-z0-9+]*/g) || [];
+      const code = tokens.find((token) => Object.prototype.hasOwnProperty.call(names, token));
+      return code ? clean(names[code], 100) : "";
+    } catch (error) {
+      console.warn("교환 카드의 세트명을 확인하지 못했습니다.", error);
+      return "";
+    }
+  }
+
   function offeredCardsFor(post) {
     const cards = sanitizeCards(post?.offeredCards);
     if (cards.length) return cards;
@@ -186,7 +218,7 @@
     return cards.map((card, index) => `<button class="trade-post-card" type="button" data-view-trade-card data-post-id="${escapeHtml(postId)}" data-card-role="${escapeHtml(role)}" data-card-index="${index}" aria-label="${escapeHtml(`${card.name} 상세 보기`)}">${cardImage(card)}<b>${escapeHtml(card.name)}</b></button>`).join("");
   }
 
-  function openTradeCardDetails(postId, role, cardIndex) {
+  async function openTradeCardDetails(postId, role, cardIndex) {
     const post = state.posts.find((item) => item.id === postId);
     if (!post) return;
     const cards = role === "offered" ? offeredCardsFor(post) : wantedCardsFor(post);
@@ -194,12 +226,15 @@
     const dialog = $("trade-card-dialog");
     if (!card || !dialog) return;
 
+    const detailKey = `${postId}:${role}:${cardIndex}`;
+    state.activeCardDetailKey = detailKey;
     const sourceLabel = TRADE_SOURCE_LABELS[card.sourcePage] || "";
     $("trade-card-dialog-role").textContent = role === "offered" ? "줄 수 있는 카드" : "구하는 카드";
     $("trade-card-dialog-title").textContent = card.name;
     $("trade-card-dialog-image").innerHTML = cardImage(card, `${card.name} 카드`);
     $("trade-card-dialog-name").textContent = card.name;
     $("trade-card-dialog-meta").textContent = cardDetailText(card);
+    $("trade-card-dialog-set-name").textContent = "세트 이름 확인 중…";
     $("trade-card-dialog-source").textContent = sourceLabel || "출처 정보 없음";
 
     const sourceLink = $("trade-card-dialog-source-link");
@@ -210,6 +245,11 @@
     if (!dialog.open) {
       if (typeof dialog.showModal === "function") dialog.showModal();
       else dialog.setAttribute("open", "");
+    }
+
+    const setName = await resolveCardSetName(card);
+    if (state.activeCardDetailKey === detailKey) {
+      $("trade-card-dialog-set-name").textContent = setName || "세트 이름 정보 없음";
     }
   }
 
