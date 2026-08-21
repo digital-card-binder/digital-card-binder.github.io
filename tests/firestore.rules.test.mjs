@@ -4,6 +4,7 @@ import {
   initializeTestEnvironment,
 } from "@firebase/rules-unit-testing";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -161,6 +162,61 @@ test("existing collection documents remain owner-only and retain baseMode", asyn
       },
       { merge: true },
     ),
+  );
+});
+
+test("trade posts are public, isolated, card-only records owned by the author", async () => {
+  const tradeUser = userDb("trade-user", "trade@example.com");
+  await environment.withSecurityRulesDisabled(async (context) => {
+    await setDoc(
+      doc(context.firestore(), "users", "trade-user", "profile", "main"),
+      {
+        nickname: "교환컬렉터",
+        profileCompleted: true,
+      },
+    );
+  });
+
+  const validPost = {
+    schemaVersion: 1,
+    authorUid: "trade-user",
+    authorNickname: "교환컬렉터",
+    offeredCard: {
+      name: "피카츄",
+      imageUrl: "https://cards.example/pikachu.png",
+      detail: "sv2a · 173/165",
+      sourcePage: "series.html",
+    },
+    wantedCard: "라이츄 AR",
+    acceptOffers: true,
+    status: "open",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+
+  await assertSucceeds(
+    addDoc(collection(tradeUser, "tradePosts"), validPost),
+  );
+  await assertSucceeds(getDocs(collection(guest, "tradePosts")));
+
+  await assertFails(
+    addDoc(collection(bob, "tradePosts"), {
+      ...validPost,
+      authorUid: BOB_UID,
+      authorNickname: "교환컬렉터",
+    }),
+  );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      cashPrice: 10000,
+    }),
+  );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      status: "closed",
+    }),
   );
 });
 

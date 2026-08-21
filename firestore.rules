@@ -580,6 +580,70 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
     }
 
+    function validTradeCard(card) {
+      return card is map
+        && card.keys().hasAll(["name", "imageUrl", "detail", "sourcePage"])
+        && card.keys().hasOnly(["name", "imageUrl", "detail", "sourcePage"])
+        && card.name is string
+        && card.name.size() >= 1
+        && card.name.size() <= 100
+        && card.imageUrl is string
+        && card.imageUrl.size() <= 500
+        && card.detail is string
+        && card.detail.size() <= 160
+        && card.sourcePage is string
+        && (
+          card.sourcePage == "national.html"
+          || card.sourcePage == "artists.html"
+          || card.sourcePage == "series.html"
+          || card.sourcePage == "pokemon-collections.html"
+          || card.sourcePage == "ar.html"
+          || card.sourcePage == "custom.html"
+        );
+    }
+
+    function validTradePostCreate() {
+      return request.auth != null
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "authorUid",
+          "authorNickname",
+          "offeredCard",
+          "wantedCard",
+          "acceptOffers",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "authorUid",
+          "authorNickname",
+          "offeredCard",
+          "wantedCard",
+          "acceptOffers",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.authorUid == request.auth.uid
+        && get(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.profileCompleted == true
+        && request.resource.data.authorNickname == get(
+          /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+        ).data.nickname
+        && validTradeCard(request.resource.data.offeredCard)
+        && request.resource.data.wantedCard is string
+        && request.resource.data.wantedCard.size() >= 2
+        && request.resource.data.wantedCard.size() <= 120
+        && request.resource.data.acceptOffers is bool
+        && request.resource.data.status == "open"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+    }
+
     // 컬렉터 프로필의 비공개 원본입니다. 기존 도감 문서와 분리합니다.
     match /users/{userId}/profile/main {
       allow get: if ownsDocument(userId);
@@ -602,6 +666,13 @@ service cloud.firestore {
           /databases/$(database)/documents/publicProfiles/$(request.resource.data.publicId)
         );
       allow delete: if false;
+    }
+
+    // 교환글은 기존 사용자 도감 문서와 완전히 분리된 공개 게시판입니다.
+    match /tradePosts/{tradePostId} {
+      allow get, list: if true;
+      allow create: if validTradePostCreate();
+      allow update, delete: if false;
     }
 
     // 프로필 안내를 나중에 보기로 한 상태만 저장합니다.
