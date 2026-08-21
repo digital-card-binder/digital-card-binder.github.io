@@ -97,6 +97,14 @@
     return cards.length > 1 ? `${cards[0].name} 외 ${cards.length - 1}장` : cards[0].name;
   }
 
+  function cardDetailText(card) {
+    const parts = String(card?.detail || "")
+      .split(" · ")
+      .map((part) => clean(part, 160))
+      .filter(Boolean);
+    return [...new Set(parts)].join(" · ") || "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다.";
+  }
+
   function offeredCardsFor(post) {
     const cards = sanitizeCards(post?.offeredCards);
     if (cards.length) return cards;
@@ -191,7 +199,7 @@
     $("trade-card-dialog-title").textContent = card.name;
     $("trade-card-dialog-image").innerHTML = cardImage(card, `${card.name} 카드`);
     $("trade-card-dialog-name").textContent = card.name;
-    $("trade-card-dialog-meta").textContent = card.detail || "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다.";
+    $("trade-card-dialog-meta").textContent = cardDetailText(card);
     $("trade-card-dialog-source").textContent = sourceLabel || "출처 정보 없음";
 
     const sourceLink = $("trade-card-dialog-source-link");
