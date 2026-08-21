@@ -135,7 +135,9 @@ test("wanted and offered cards open a read-only card detail dialog", async () =>
   assert.match(client, /data-view-trade-card/);
   assert.match(client, /function openTradeCardDetails\(postId, role, cardIndex\)/);
   assert.match(client, /role === "offered" \? offeredCardsFor\(post\) : wantedCardsFor\(post\)/);
-  assert.match(client, /card\.detail \|\| "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다\."/);
+  assert.match(client, /function cardDetailText\(card\)/);
+  assert.match(client, /\[\.\.\.new Set\(parts\)\]\.join\(" · "\)/);
+  assert.match(client, /\$\("trade-card-dialog-meta"\)\.textContent = cardDetailText\(card\)/);
   assert.match(integration, /\[id\$='dialog-group'\]/);
   assert.match(integration, /\[id\$='dialog-set'\]/);
   assert.match(integration, /\[id\$='dialog-rarity'\]/);
