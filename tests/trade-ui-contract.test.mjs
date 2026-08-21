@@ -24,6 +24,7 @@ test("trade registration contains card-only fields and no money input", async ()
   assert.match(html, /id="trade-offered-cards"/);
   assert.match(html, /미보유 카드에서 선택/);
   assert.match(html, /내가 줄 수 있는 보유 카드/);
+  assert.match(html, /없어도 등록 가능/);
   assert.match(html, /id="trade-accept-offers"/);
   assert.doesNotMatch(html, /type="number"|id="[^"]*(price|cash|amount)[^"]*"/i);
 });
@@ -39,7 +40,7 @@ test("trade posts use an isolated Firestore collection and fixed schema", async 
   assert.match(rules, /keys\(\)\.hasOnly\(\[/);
   assert.match(rules, /request\.resource\.data\.schemaVersion == 2/);
   assert.match(rules, /validTradeCard\(request\.resource\.data\.wantedCard\)/);
-  assert.match(rules, /validTradeCardList\(request\.resource\.data\.offeredCards\)/);
+  assert.match(rules, /validOptionalTradeCardList\(request\.resource\.data\.offeredCards\)/);
   assert.match(rules, /request\.resource\.data\.status == "open"/);
 });
 
@@ -96,4 +97,11 @@ test("trade code never writes existing collection or dashboard settings", async 
   assert.doesNotMatch(sources, /"collections"|collectionSettings|publicProfiles|sharedCollections/);
   assert.match(sources, /batch\.update\(firestoreModule\.doc\(db, "tradePosts"/);
   assert.doesNotMatch(sources, /batch\.(update|set)\(firestoreModule\.doc\(db, "users"/);
+});
+
+test("trade posts may omit offered cards while proposals still require one", async () => {
+  const [client, rules] = await Promise.all([read("trades.js"), read("firestore.rules")]);
+  assert.match(client, /state\.draft\.offeredCards\.length === 0 \|\|/);
+  assert.match(rules, /function validOptionalTradeCardList\(cards\)/);
+  assert.match(rules, /function validTradeCardList\(cards\)[\s\S]*cards\.size\(\) >= 1/);
 });
