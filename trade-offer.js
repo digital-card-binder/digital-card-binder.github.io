@@ -1,6 +1,7 @@
 "use strict";
 
 const TRADE_DRAFT_KEY = "digitalCardBinderTradeDraftV1";
+const PROPOSAL_DRAFT_KEY = "digitalCardBinderProposalDraftV1";
 
 function clean(value, maxLength = 160) {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
@@ -55,13 +56,37 @@ function ensureTradeButton(dialog) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "trade-offer-shortcut";
-  button.textContent = "교환에 내놓기";
+  let proposalDraft = null;
+  try {
+    proposalDraft = JSON.parse(window.sessionStorage.getItem(PROPOSAL_DRAFT_KEY) || "null");
+  } catch {
+    proposalDraft = null;
+  }
+  const proposalMode = Boolean(proposalDraft?.postId);
+  button.textContent = proposalMode ? "이 카드로 교환 제안" : "교환에 내놓기";
   button.addEventListener("click", () => {
     const latest = ownedCardFromDialog(dialog);
     if (!latest) return;
     try {
-      window.sessionStorage.setItem(TRADE_DRAFT_KEY, JSON.stringify(latest));
-      window.location.href = "./trades.html?register=1";
+      if (proposalMode) {
+        const cards = Array.isArray(proposalDraft.cards)
+          ? proposalDraft.cards.filter((item) => item?.name)
+          : [];
+        const duplicate = cards.some((item) =>
+          item.name === latest.name &&
+          item.detail === latest.detail &&
+          item.sourcePage === latest.sourcePage
+        );
+        if (!duplicate && cards.length < 6) cards.push(latest);
+        window.sessionStorage.setItem(
+          PROPOSAL_DRAFT_KEY,
+          JSON.stringify({ ...proposalDraft, cards }),
+        );
+        window.location.href = "./trades.html?propose=1";
+      } else {
+        window.sessionStorage.setItem(TRADE_DRAFT_KEY, JSON.stringify(latest));
+        window.location.href = "./trades.html?register=1";
+      }
     } catch (error) {
       console.warn("교환 등록용 카드 정보를 준비하지 못했습니다.", error);
     }

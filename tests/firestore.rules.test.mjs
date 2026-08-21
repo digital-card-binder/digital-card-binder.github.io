@@ -10,8 +10,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  query,
   serverTimestamp,
   setDoc,
+  updateDoc,
+  where,
   writeBatch,
 } from "firebase/firestore";
 import { readFile } from "node:fs/promises";
@@ -218,6 +221,205 @@ test("trade posts are public, isolated, card-only records owned by the author", 
       status: "closed",
     }),
   );
+});
+
+test("trade proposals, accepted messages, unread updates, blocks, reports, and deletion enforce participants", async () => {
+  const authorUid = "trade-author";
+  const proposerUid = "trade-proposer";
+  const strangerUid = "trade-stranger";
+  const authorDb = userDb(authorUid, "author@example.com");
+  const proposerDb = userDb(proposerUid, "proposer@example.com");
+  const strangerDb = userDb(strangerUid, "stranger@example.com");
+  await environment.withSecurityRulesDisabled(async (context) => {
+    const adminDb = context.firestore();
+    await Promise.all([
+      setDoc(doc(adminDb, "users", authorUid, "profile", "main"), {
+        nickname: "글작성자",
+        profileCompleted: true,
+      }),
+      setDoc(doc(adminDb, "users", proposerUid, "profile", "main"), {
+        nickname: "제안자",
+        profileCompleted: true,
+      }),
+      setDoc(doc(adminDb, "users", strangerUid, "profile", "main"), {
+        nickname: "제삼자",
+        profileCompleted: true,
+      }),
+    ]);
+  });
+
+  const card = {
+    name: "피카츄",
+    imageUrl: "https://cards.example/pikachu.png",
+    detail: "sv2a · 173/165",
+    sourcePage: "series.html",
+  };
+  const postFields = {
+    schemaVersion: 1,
+    authorUid,
+    authorNickname: "글작성자",
+    offeredCard: card,
+    wantedCard: "라이츄 AR",
+    acceptOffers: true,
+    status: "open",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+  const postRef = await assertSucceeds(
+    addDoc(collection(authorDb, "tradePosts"), postFields),
+  );
+  const proposalFields = {
+    schemaVersion: 1,
+    postId: postRef.id,
+    postAuthorUid: authorUid,
+    proposerUid,
+    proposerNickname: "제안자",
+    offeredCards: [{ ...card, name: "라이츄" }],
+    message: "이 카드와 교환을 제안합니다.",
+    status: "pending",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+  const proposalRef = await assertSucceeds(
+    addDoc(collection(proposerDb, "tradeProposals"), proposalFields),
+  );
+  await assertFails(
+    addDoc(collection(proposerDb, "tradeProposals"), {
+      ...proposalFields,
+      cashAmount: 10000,
+    }),
+  );
+
+  await assertFails(getDoc(doc(strangerDb, "tradeProposals", proposalRef.id)));
+  await assertFails(getDocs(collection(guest, "tradeProposals")));
+  await assertFails(
+    updateDoc(doc(proposerDb, "tradeProposals", proposalRef.id), {
+      status: "accepted",
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(
+    addDoc(collection(proposerDb, "tradeMessages"), {
+      schemaVersion: 1,
+      proposalId: proposalRef.id,
+      senderUid: proposerUid,
+      recipientUid: authorUid,
+      text: "수락 전 메시지",
+      createdAt: serverTimestamp(),
+      readAt: null,
+    }),
+  );
+
+  const acceptBatch = writeBatch(authorDb);
+  acceptBatch.update(doc(authorDb, "tradeProposals", proposalRef.id), {
+    status: "accepted",
+    updatedAt: serverTimestamp(),
+  });
+  acceptBatch.update(doc(authorDb, "tradePosts", postRef.id), {
+    status: "completed",
+    acceptedProposalId: proposalRef.id,
+    updatedAt: serverTimestamp(),
+  });
+  acceptBatch.set(doc(authorDb, "tradeConversations", proposalRef.id), {
+    schemaVersion: 1,
+    proposalId: proposalRef.id,
+    postId: postRef.id,
+    participantUids: [authorUid, proposerUid],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  await assertSucceeds(acceptBatch.commit());
+  assert.equal((await getDoc(doc(guest, "tradePosts", postRef.id))).data().status, "completed");
+  await assertFails(deleteDoc(doc(authorDb, "tradePosts", postRef.id)));
+
+  const messageRef = await assertSucceeds(
+    addDoc(collection(proposerDb, "tradeMessages"), {
+      schemaVersion: 1,
+      proposalId: proposalRef.id,
+      senderUid: proposerUid,
+      recipientUid: authorUid,
+      text: "수락 후 보내는 쪽지",
+      createdAt: serverTimestamp(),
+      readAt: null,
+    }),
+  );
+  await assertSucceeds(
+    getDocs(query(
+      collection(authorDb, "tradeMessages"),
+      where("proposalId", "==", proposalRef.id),
+    )),
+  );
+  await assertFails(getDoc(doc(strangerDb, "tradeMessages", messageRef.id)));
+  await assertFails(
+    updateDoc(doc(proposerDb, "tradeMessages", messageRef.id), {
+      readAt: serverTimestamp(),
+    }),
+  );
+  await assertSucceeds(
+    updateDoc(doc(authorDb, "tradeMessages", messageRef.id), {
+      readAt: serverTimestamp(),
+    }),
+  );
+
+  const blockId = `${authorUid}__${proposerUid}`;
+  await assertSucceeds(
+    setDoc(doc(authorDb, "tradeBlocks", blockId), {
+      blockerUid: authorUid,
+      blockedUid: proposerUid,
+      createdAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(
+    addDoc(collection(proposerDb, "tradeMessages"), {
+      schemaVersion: 1,
+      proposalId: proposalRef.id,
+      senderUid: proposerUid,
+      recipientUid: authorUid,
+      text: "차단 후 메시지",
+      createdAt: serverTimestamp(),
+      readAt: null,
+    }),
+  );
+  await assertSucceeds(
+    addDoc(collection(proposerDb, "tradeReports"), {
+      schemaVersion: 1,
+      proposalId: proposalRef.id,
+      reporterUid: proposerUid,
+      targetUid: authorUid,
+      reason: "부적절한 교환 응대",
+      status: "new",
+      createdAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(
+    addDoc(collection(strangerDb, "tradeReports"), {
+      schemaVersion: 1,
+      proposalId: proposalRef.id,
+      reporterUid: strangerUid,
+      targetUid: authorUid,
+      reason: "관계없는 신고",
+      status: "new",
+      createdAt: serverTimestamp(),
+    }),
+  );
+
+  const deletablePost = await assertSucceeds(
+    addDoc(collection(authorDb, "tradePosts"), postFields),
+  );
+  const rejectedProposal = await assertSucceeds(
+    addDoc(collection(proposerDb, "tradeProposals"), {
+      ...proposalFields,
+      postId: deletablePost.id,
+    }),
+  );
+  await assertSucceeds(
+    updateDoc(doc(authorDb, "tradeProposals", rejectedProposal.id), {
+      status: "rejected",
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(deleteDoc(doc(proposerDb, "tradePosts", deletablePost.id)));
+  await assertSucceeds(deleteDoc(doc(authorDb, "tradePosts", deletablePost.id)));
 });
 
 test("owner Sheets sync can repair a legacy document without baseMode", async () => {

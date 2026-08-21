@@ -43,4 +43,47 @@ test("only owned catalog cards expose the trade shortcut", async () => {
   assert.match(integration, /status\?\.classList\.contains\("is-owned"\)/);
   assert.match(integration, /if \(!owned\) return null;/);
   assert.match(integration, /교환에 내놓기/);
+  assert.match(integration, /이 카드로 교환 제안/);
+});
+
+test("proposal inbox, outbox, statuses, and owned-card selection are present", async () => {
+  const [html, client] = await Promise.all([read("trades.html"), read("trades.js")]);
+  assert.match(html, /id="trade-received-panel"/);
+  assert.match(html, /id="trade-sent-panel"/);
+  assert.match(html, /id="trade-proposal-cards"/);
+  assert.match(client, /status: "pending"/);
+  assert.match(client, /status: "accepted"/);
+  assert.match(client, /status: "rejected"/);
+  assert.match(client, /offeredCards: state\.proposalDraft\.cards/);
+});
+
+test("messages are limited to accepted proposals and stored as individual documents", async () => {
+  const [html, client, rules] = await Promise.all([
+    read("trades.html"), read("trades.js"), read("firestore.rules"),
+  ]);
+  assert.match(html, /id="trade-unread-count"/);
+  assert.match(html, /id="trade-message-dialog"/);
+  assert.match(client, /collection\(db, "tradeMessages"\)/);
+  assert.match(client, /proposal\.status !== "accepted"/);
+  assert.match(rules, /match \/tradeMessages\/\{messageId\}/);
+  assert.match(rules, /acceptedTradeProposal\(resource\.data\.proposalId\)/);
+  assert.match(rules, /tradeMessageAllowed/);
+});
+
+test("completion, deletion, blocking, and reporting have explicit guarded paths", async () => {
+  const [html, client, rules] = await Promise.all([
+    read("trades.html"), read("trades.js"), read("firestore.rules"),
+  ]);
+  assert.match(client, /acceptedProposalId: proposalId/);
+  assert.match(client, /deleteDoc\(firestoreModule\.doc\(db, "tradePosts"/);
+  assert.match(html, /id="trade-block-user"/);
+  assert.match(html, /id="trade-report-user"/);
+  assert.match(rules, /match \/tradeBlocks\/\{blockId\}/);
+  assert.match(rules, /match \/tradeReports\/\{reportId\}/);
+  assert.doesNotMatch(html, /type="number"|id="[^"]*(price|cash|amount)[^"]*"/i);
+});
+
+test("trade code never writes existing collection or dashboard settings", async () => {
+  const sources = `${await read("trades.js")}\n${await read("trade-offer.js")}`;
+  assert.doesNotMatch(sources, /"collections"|collectionSettings|publicProfiles|sharedCollections/);
 });

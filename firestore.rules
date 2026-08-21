@@ -644,6 +644,198 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
     }
 
+    function validTradeProposalCards(cards) {
+      return cards is list
+        && cards.size() >= 1
+        && cards.size() <= 6
+        && validTradeCard(cards[0])
+        && (cards.size() < 2 || validTradeCard(cards[1]))
+        && (cards.size() < 3 || validTradeCard(cards[2]))
+        && (cards.size() < 4 || validTradeCard(cards[3]))
+        && (cards.size() < 5 || validTradeCard(cards[4]))
+        && (cards.size() < 6 || validTradeCard(cards[5]));
+    }
+
+    function validTradeProposalCreate() {
+      let post = get(
+        /databases/$(database)/documents/tradePosts/$(request.resource.data.postId)
+      );
+      let profile = get(
+        /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
+      );
+      return request.auth != null
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "postId",
+          "postAuthorUid",
+          "proposerUid",
+          "proposerNickname",
+          "offeredCards",
+          "message",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "postId",
+          "postAuthorUid",
+          "proposerUid",
+          "proposerNickname",
+          "offeredCards",
+          "message",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && post.data.status == "open"
+        && post.data.authorUid == request.resource.data.postAuthorUid
+        && request.resource.data.proposerUid == request.auth.uid
+        && request.resource.data.proposerUid != post.data.authorUid
+        && profile.data.profileCompleted == true
+        && request.resource.data.proposerNickname == profile.data.nickname
+        && validTradeProposalCards(request.resource.data.offeredCards)
+        && request.resource.data.message is string
+        && request.resource.data.message.size() <= 300
+        && request.resource.data.status == "pending"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function isTradeProposalParty(proposalId) {
+      let proposal = get(
+        /databases/$(database)/documents/tradeProposals/$(proposalId)
+      );
+      return request.auth != null
+        && (
+          proposal.data.postAuthorUid == request.auth.uid
+          || proposal.data.proposerUid == request.auth.uid
+        );
+    }
+
+    function validTradePostCompletion(tradePostId) {
+      let proposal = getAfter(
+        /databases/$(database)/documents/tradeProposals/$(request.resource.data.acceptedProposalId)
+      );
+      return request.auth != null
+        && resource.data.authorUid == request.auth.uid
+        && resource.data.status == "open"
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "status",
+          "acceptedProposalId",
+          "updatedAt"
+        ])
+        && request.resource.data.status == "completed"
+        && request.resource.data.acceptedProposalId is string
+        && request.resource.data.acceptedProposalId.size() > 0
+        && request.resource.data.updatedAt == request.time
+        && proposal.data.postId == tradePostId
+        && proposal.data.postAuthorUid == request.auth.uid
+        && proposal.data.status == "accepted";
+    }
+
+    function validTradeProposalUpdate(proposalId) {
+      let postAfter = getAfter(
+        /databases/$(database)/documents/tradePosts/$(resource.data.postId)
+      );
+      return request.auth != null
+        && resource.data.postAuthorUid == request.auth.uid
+        && resource.data.status == "pending"
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "status",
+          "updatedAt"
+        ])
+        && (
+          request.resource.data.status == "accepted"
+          || request.resource.data.status == "rejected"
+        )
+        && request.resource.data.updatedAt == request.time
+        && (
+          request.resource.data.status == "rejected"
+          || (
+            postAfter.data.status == "completed"
+            && postAfter.data.acceptedProposalId == proposalId
+            && existsAfter(
+              /databases/$(database)/documents/tradeConversations/$(proposalId)
+            )
+          )
+        );
+    }
+
+    function validTradeConversationCreate(proposalId) {
+      let proposal = getAfter(
+        /databases/$(database)/documents/tradeProposals/$(proposalId)
+      );
+      return request.auth != null
+        && proposal.data.status == "accepted"
+        && proposal.data.postAuthorUid == request.auth.uid
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "proposalId",
+          "postId",
+          "participantUids",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "proposalId",
+          "postId",
+          "participantUids",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.proposalId == proposalId
+        && request.resource.data.postId == proposal.data.postId
+        && request.resource.data.participantUids == [
+          proposal.data.postAuthorUid,
+          proposal.data.proposerUid
+        ]
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function acceptedTradeProposal(proposalId) {
+      return get(
+        /databases/$(database)/documents/tradeProposals/$(proposalId)
+      ).data.status == "accepted";
+    }
+
+    function otherTradeParticipant(proposalId, candidateUid) {
+      let proposal = get(
+        /databases/$(database)/documents/tradeProposals/$(proposalId)
+      );
+      return (
+          proposal.data.postAuthorUid == request.auth.uid
+          && proposal.data.proposerUid == candidateUid
+        )
+        || (
+          proposal.data.proposerUid == request.auth.uid
+          && proposal.data.postAuthorUid == candidateUid
+        );
+    }
+
+    function tradeBlockId(blockerUid, blockedUid) {
+      return blockerUid + "__" + blockedUid;
+    }
+
+    function tradeMessageAllowed(proposalId, recipientUid) {
+      return request.auth != null
+        && acceptedTradeProposal(proposalId)
+        && otherTradeParticipant(proposalId, recipientUid)
+        && exists(
+          /databases/$(database)/documents/tradeConversations/$(proposalId)
+        )
+        && !exists(
+          /databases/$(database)/documents/tradeBlocks/$(tradeBlockId(request.auth.uid, recipientUid))
+        )
+        && !exists(
+          /databases/$(database)/documents/tradeBlocks/$(tradeBlockId(recipientUid, request.auth.uid))
+        );
+    }
+
     // 컬렉터 프로필의 비공개 원본입니다. 기존 도감 문서와 분리합니다.
     match /users/{userId}/profile/main {
       allow get: if ownsDocument(userId);
@@ -672,6 +864,146 @@ service cloud.firestore {
     match /tradePosts/{tradePostId} {
       allow get, list: if true;
       allow create: if validTradePostCreate();
+      allow update: if validTradePostCompletion(tradePostId);
+      allow delete: if request.auth != null
+        && resource.data.authorUid == request.auth.uid
+        && resource.data.status == "open";
+    }
+
+    // 제안은 교환글 작성자와 제안자만 읽을 수 있습니다.
+    match /tradeProposals/{proposalId} {
+      allow get, list: if request.auth != null
+        && (
+          resource.data.postAuthorUid == request.auth.uid
+          || resource.data.proposerUid == request.auth.uid
+        );
+      allow create: if validTradeProposalCreate();
+      allow update: if validTradeProposalUpdate(proposalId);
+      allow delete: if false;
+    }
+
+    // 수락된 제안에서만 두 참여자의 대화방을 생성합니다.
+    match /tradeConversations/{proposalId} {
+      allow get: if request.auth != null
+        && request.auth.uid in resource.data.participantUids;
+      allow list: if false;
+      allow create: if validTradeConversationCreate(proposalId);
+      allow update, delete: if false;
+    }
+
+    // 쪽지는 메시지 한 건마다 별도 문서로 저장합니다.
+    match /tradeMessages/{messageId} {
+      allow get, list: if isTradeProposalParty(resource.data.proposalId)
+        && acceptedTradeProposal(resource.data.proposalId);
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "proposalId",
+          "senderUid",
+          "recipientUid",
+          "text",
+          "createdAt",
+          "readAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "proposalId",
+          "senderUid",
+          "recipientUid",
+          "text",
+          "createdAt",
+          "readAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.senderUid == request.auth.uid
+        && tradeMessageAllowed(
+          request.resource.data.proposalId,
+          request.resource.data.recipientUid
+        )
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 1
+        && request.resource.data.text.size() <= 500
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.readAt == null;
+      allow update: if request.auth != null
+        && resource.data.recipientUid == request.auth.uid
+        && isTradeProposalParty(resource.data.proposalId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "readAt"
+        ])
+        && resource.data.readAt == null
+        && request.resource.data.readAt == request.time;
+      allow delete: if false;
+    }
+
+    // 차단은 차단한 사용자만 만들고 해제할 수 있습니다.
+    match /tradeBlocks/{blockId} {
+      allow get: if request.auth != null
+        && resource.data.blockerUid == request.auth.uid;
+      allow list: if request.auth != null
+        && resource.data.blockerUid == request.auth.uid;
+      allow create: if request.auth != null
+        && blockId == tradeBlockId(
+          request.resource.data.blockerUid,
+          request.resource.data.blockedUid
+        )
+        && request.resource.data.keys().hasAll([
+          "blockerUid",
+          "blockedUid",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "blockerUid",
+          "blockedUid",
+          "createdAt"
+        ])
+        && request.resource.data.blockerUid == request.auth.uid
+        && request.resource.data.blockedUid is string
+        && request.resource.data.blockedUid != request.auth.uid
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.blockerUid == request.auth.uid;
+    }
+
+    // 신고 내용은 신고자와 관리자 외에는 읽을 수 없습니다.
+    match /tradeReports/{reportId} {
+      allow get, list: if request.auth != null
+        && (
+          resource.data.reporterUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "proposalId",
+          "reporterUid",
+          "targetUid",
+          "reason",
+          "status",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "proposalId",
+          "reporterUid",
+          "targetUid",
+          "reason",
+          "status",
+          "createdAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.reporterUid == request.auth.uid
+        && acceptedTradeProposal(request.resource.data.proposalId)
+        && otherTradeParticipant(
+          request.resource.data.proposalId,
+          request.resource.data.targetUid
+        )
+        && request.resource.data.reason is string
+        && request.resource.data.reason.size() >= 2
+        && request.resource.data.reason.size() <= 300
+        && request.resource.data.status == "new"
+        && request.resource.data.createdAt == request.time;
       allow update, delete: if false;
     }
 
