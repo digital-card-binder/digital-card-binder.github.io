@@ -57,6 +57,14 @@ function sameCard(left, right) {
     left?.sourcePage === right?.sourcePage;
 }
 
+function wantedCardsFromDraft(draft) {
+  const cards = Array.isArray(draft?.wantedCards)
+    ? draft.wantedCards.filter((item) => item?.name).slice(0, 6)
+    : [];
+  if (!cards.length && draft?.wantedCard?.name) cards.push(draft.wantedCard);
+  return cards;
+}
+
 function ensureTradeButton(dialog) {
   const existing = dialog?.querySelector(".trade-offer-shortcut");
   const cardState = cardStateFromDialog(dialog);
@@ -67,10 +75,10 @@ function ensureTradeButton(dialog) {
   const proposalDraft = readDraft(PROPOSAL_DRAFT_KEY);
   const tradeDraft = readDraft(TRADE_DRAFT_KEY);
   const proposalMode = Boolean(proposalDraft?.postId);
-  const registrationOfferMode = Boolean(tradeDraft?.wantedCard);
+  const registrationMode = wantedCardsFromDraft(tradeDraft).length > 0;
   const canSelect = proposalMode
     ? cardState.owned
-    : (!cardState.owned || registrationOfferMode);
+    : (!cardState.owned || registrationMode);
   if (!canSelect) {
     existing?.remove();
     return;
@@ -81,7 +89,9 @@ function ensureTradeButton(dialog) {
     ? "이 카드로 교환 제안"
     : cardState.owned
       ? "줄 수 있는 카드로 추가"
-      : "이 카드를 구해요";
+      : registrationMode
+        ? "구하는 카드로 추가"
+        : "이 카드를 구해요";
   if (!existing) {
     button.type = "button";
     button.className = "trade-offer-shortcut";
@@ -105,7 +115,8 @@ function ensureTradeButton(dialog) {
         );
         window.location.href = "./trades.html?propose=1";
       } else if (latest.owned) {
-        if (!registrationOfferMode) return;
+        if (!registrationMode) return;
+        const wantedCards = wantedCardsFromDraft(tradeDraft);
         const offeredCards = Array.isArray(tradeDraft.offeredCards)
           ? tradeDraft.offeredCards.filter((item) => item?.name)
           : [];
@@ -114,15 +125,19 @@ function ensureTradeButton(dialog) {
         }
         window.sessionStorage.setItem(
           TRADE_DRAFT_KEY,
-          JSON.stringify({ ...tradeDraft, offeredCards }),
+          JSON.stringify({ wantedCards, offeredCards }),
         );
         window.location.href = "./trades.html?register=1";
       } else {
+        const wantedCards = wantedCardsFromDraft(tradeDraft);
+        if (!wantedCards.some((item) => sameCard(item, latest.card)) && wantedCards.length < 6) {
+          wantedCards.push(latest.card);
+        }
         window.sessionStorage.setItem(
           TRADE_DRAFT_KEY,
           JSON.stringify({
-            wantedCard: latest.card,
-            offeredCards: registrationOfferMode && Array.isArray(tradeDraft.offeredCards)
+            wantedCards,
+            offeredCards: registrationMode && Array.isArray(tradeDraft.offeredCards)
               ? tradeDraft.offeredCards.slice(0, 6)
               : [],
           }),

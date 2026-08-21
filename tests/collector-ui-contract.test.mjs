@@ -363,7 +363,7 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260814-1/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260821-2/);
   }
   const settingsPage = await source("collector-settings.html");
   assert.match(settingsPage, /collector-nav[.]js\?v=20260814-1/);
@@ -404,7 +404,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260814-1/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260821-2/, `${page}: current common header behavior`);
   }
 });
 
@@ -443,7 +443,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260814-1/);
-    assert.match(html, /collector-nav[.]js\?v=20260814-1/);
+    assert.match(html, /collector-nav[.]js\?v=20260821-2/);
   }
 });
 

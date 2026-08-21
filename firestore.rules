@@ -625,31 +625,64 @@ service cloud.firestore {
         && (cards.size() < 6 || validTradeCard(cards[5]));
     }
 
+    function validTradePostCardShape() {
+      return (
+          request.resource.data.keys().hasAll([
+            "schemaVersion",
+            "authorUid",
+            "authorNickname",
+            "wantedCard",
+            "offeredCards",
+            "acceptOffers",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "schemaVersion",
+            "authorUid",
+            "authorNickname",
+            "wantedCard",
+            "offeredCards",
+            "acceptOffers",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ])
+          && request.resource.data.schemaVersion == 2
+          && validTradeCard(request.resource.data.wantedCard)
+        )
+        || (
+          request.resource.data.keys().hasAll([
+            "schemaVersion",
+            "authorUid",
+            "authorNickname",
+            "wantedCards",
+            "offeredCards",
+            "acceptOffers",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "schemaVersion",
+            "authorUid",
+            "authorNickname",
+            "wantedCards",
+            "offeredCards",
+            "acceptOffers",
+            "status",
+            "createdAt",
+            "updatedAt"
+          ])
+          && request.resource.data.schemaVersion == 3
+          && validTradeCardList(request.resource.data.wantedCards)
+        );
+    }
+
     function validTradePostCreate() {
       return request.auth != null
-        && request.resource.data.keys().hasAll([
-          "schemaVersion",
-          "authorUid",
-          "authorNickname",
-          "wantedCard",
-          "offeredCards",
-          "acceptOffers",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ])
-        && request.resource.data.keys().hasOnly([
-          "schemaVersion",
-          "authorUid",
-          "authorNickname",
-          "wantedCard",
-          "offeredCards",
-          "acceptOffers",
-          "status",
-          "createdAt",
-          "updatedAt"
-        ])
-        && request.resource.data.schemaVersion == 2
+        && validTradePostCardShape()
         && request.resource.data.authorUid == request.auth.uid
         && get(
           /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
@@ -657,7 +690,6 @@ service cloud.firestore {
         && request.resource.data.authorNickname == get(
           /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
         ).data.nickname
-        && validTradeCard(request.resource.data.wantedCard)
         && validOptionalTradeCardList(request.resource.data.offeredCards)
         && request.resource.data.acceptOffers is bool
         && request.resource.data.status == "open"
