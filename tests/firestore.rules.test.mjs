@@ -193,10 +193,13 @@ test("trade posts are public, isolated, card-only records owned by the author", 
     sourcePage: "series.html",
   };
   const validPost = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     authorUid: "trade-user",
     authorNickname: "교환컬렉터",
-    wantedCard,
+    wantedCards: [
+      wantedCard,
+      { ...wantedCard, name: "꼬부기", imageUrl: "https://cards.example/squirtle.png" },
+    ],
     offeredCards: [offeredCard],
     acceptOffers: true,
     status: "open",
@@ -231,13 +234,41 @@ test("trade posts are public, isolated, card-only records owned by the author", 
   await assertFails(
     addDoc(collection(tradeUser, "tradePosts"), {
       ...validPost,
-      wantedCard: "라이츄 AR",
+      wantedCards: ["라이츄 AR"],
+    }),
+  );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      wantedCards: [],
+    }),
+  );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      wantedCards: Array.from(
+        { length: 7 },
+        (_, index) => ({ ...wantedCard, name: `구하는 카드 ${index + 1}` }),
+      ),
     }),
   );
   await assertSucceeds(
     addDoc(collection(tradeUser, "tradePosts"), {
       ...validPost,
       offeredCards: [],
+    }),
+  );
+  await assertSucceeds(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      schemaVersion: 2,
+      authorUid: "trade-user",
+      authorNickname: "교환컬렉터",
+      wantedCard,
+      offeredCards: [offeredCard],
+      acceptOffers: true,
+      status: "open",
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
     }),
   );
 });
@@ -282,10 +313,13 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
     sourcePage: "series.html",
   };
   const postFields = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     authorUid,
     authorNickname: "글작성자",
-    wantedCard: { ...card, name: "라이츄", imageUrl: "https://cards.example/raichu.png" },
+    wantedCards: [
+      { ...card, name: "라이츄", imageUrl: "https://cards.example/raichu.png" },
+      { ...card, name: "꼬부기", imageUrl: "https://cards.example/squirtle.png" },
+    ],
     offeredCards: [card],
     acceptOffers: true,
     status: "open",

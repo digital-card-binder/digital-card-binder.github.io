@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="./legal.css?v=20260813-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
-    <link rel="stylesheet" href="./trades.css?v=20260821-2" />
+    <link rel="stylesheet" href="./trades.css?v=20260821-3" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./legal.js?v=20260813-2" defer></script>
     <script src="./collector-collection-registry.js?v=20260813-2" defer></script>
-    <script src="./collector-nav.js?v=20260821-1" defer></script>
-    <script src="./trades.js?v=20260821-3" defer></script>
+    <script src="./collector-nav.js?v=20260821-2" defer></script>
+    <script src="./trades.js?v=20260821-4" defer></script>
   </head>
   <body data-page="trades">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -53,7 +53,7 @@
           <div class="hero-content">
             <p class="eyebrow">CARD FOR CARD · TRADE BOARD</p>
             <h1 id="page-title">카드 교환</h1>
-            <p class="hero-description">미보유 카드에서 원하는 카드를 고르고, 줄 수 있는 카드가 있다면 함께 보여주세요.<br />교환완료가 되어도 내 도감의 보유 상태는 바뀌지 않습니다.</p>
+            <p class="hero-description">구하는 미보유 카드와 줄 수 있는 보유 카드를 각각 여러 장 선택할 수 있습니다.<br />교환완료가 되어도 내 도감의 보유 상태는 바뀌지 않습니다.</p>
           </div>
           <a class="trades-hero-action" href="./national.html">미보유 카드에서 선택</a>
         </section>
@@ -71,9 +71,12 @@
             <button id="trade-register-close" class="trade-text-button" type="button">등록 취소</button>
           </div>
           <form id="trade-register-form" class="trade-register-form">
-            <div id="trade-wanted-card" class="trade-wanted-card"></div>
-            <div class="trade-offered-cards-section">
-              <div class="trade-form-heading"><div><strong>내가 줄 수 있는 보유 카드 <span>(선택)</span></strong><small>없어도 등록 가능 · 최대 6장</small></div><a id="trade-register-add-card" href="./national.html">보유 카드 추가</a></div>
+            <div class="trade-card-selection-section">
+              <div class="trade-form-heading"><div><strong>내가 구하는 미보유 카드</strong><small><span id="trade-wanted-count">1</span>/6장 선택</small></div><a id="trade-register-add-wanted-card" href="./national.html">구하는 카드 추가</a></div>
+              <div id="trade-wanted-cards" class="trade-proposal-cards"></div>
+            </div>
+            <div class="trade-card-selection-section">
+              <div class="trade-form-heading"><div><strong>내가 줄 수 있는 보유 카드 <span>(선택)</span></strong><small><span id="trade-offered-count">0</span>/6장 · 없어도 등록 가능</small></div><a id="trade-register-add-card" href="./national.html">보유 카드 추가</a></div>
               <div id="trade-offered-cards" class="trade-proposal-cards"></div>
             </div>
             <label class="trade-checkbox"><input id="trade-accept-offers" type="checkbox" checked /><span>표시한 카드 외의 다른 카드 제안도 받아요</span></label>

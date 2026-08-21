@@ -498,7 +498,7 @@
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
   if (tradeEligiblePages.has(currentPage)) {
     const script = document.createElement("script");
-    script.src = "./trade-offer.js?v=20260821-2";
+    script.src = "./trade-offer.js?v=20260821-3";
     script.defer = true;
     document.head?.append(script);
   }

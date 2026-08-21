@@ -54,9 +54,11 @@
 
   function readTradeDraft() {
     const value = readSessionJson(TRADE_DRAFT_KEY);
-    const wantedCard = sanitizeCard(value?.wantedCard);
-    if (!wantedCard) return null;
-    return { wantedCard, offeredCards: sanitizeCards(value?.offeredCards) };
+    const wantedCards = sanitizeCards(value?.wantedCards);
+    const legacyWantedCard = sanitizeCard(value?.wantedCard);
+    if (!wantedCards.length && legacyWantedCard) wantedCards.push(legacyWantedCard);
+    if (!wantedCards.length) return null;
+    return { wantedCards, offeredCards: sanitizeCards(value?.offeredCards) };
   }
 
   function readProposalDraft() {
@@ -69,13 +71,20 @@
     };
   }
 
-  function wantedCardFor(post) {
+  function wantedCardsFor(post) {
+    const cards = sanitizeCards(post?.wantedCards);
+    if (cards.length) return cards;
     const card = sanitizeCard(post?.wantedCard);
-    if (card) return card;
+    if (card) return [card];
     const legacyName = clean(post?.wantedCard, 120);
     return legacyName
-      ? { name: legacyName, imageUrl: "", detail: "", sourcePage: "" }
-      : null;
+      ? [{ name: legacyName, imageUrl: "", detail: "", sourcePage: "" }]
+      : [];
+  }
+
+  function cardListSummary(cards, fallback = "카드") {
+    if (!cards.length) return fallback;
+    return cards.length > 1 ? `${cards[0].name} 외 ${cards.length - 1}장` : cards[0].name;
   }
 
   function offeredCardsFor(post) {
@@ -109,8 +118,11 @@
   function renderTradeDraft() {
     state.draft = readTradeDraft();
     if (!state.draft) return;
-    const wanted = state.draft.wantedCard;
-    $("trade-wanted-card").innerHTML = `${cardImage(wanted)}<div><span>내가 원하는 미보유 카드</span><strong>${escapeHtml(wanted.name)}</strong><small>${escapeHtml(wanted.detail)}</small></div>`;
+    $("trade-wanted-count").textContent = String(state.draft.wantedCards.length);
+    $("trade-offered-count").textContent = String(state.draft.offeredCards.length);
+    $("trade-wanted-cards").innerHTML = state.draft.wantedCards
+      .map((card, index) => `<article class="trade-proposal-card">${cardImage(card)}<div><strong>${escapeHtml(card.name)}</strong><small>${escapeHtml(card.detail)}</small></div><button type="button" data-remove-wanted-card="${index}" aria-label="${escapeHtml(card.name)} 제거">×</button></article>`)
+      .join("");
     $("trade-offered-cards").innerHTML = state.draft.offeredCards.length
       ? state.draft.offeredCards.map((card, index) => `<article class="trade-proposal-card">${cardImage(card)}<div><strong>${escapeHtml(card.name)}</strong><small>${escapeHtml(card.detail)}</small></div><button type="button" data-remove-trade-card="${index}" aria-label="${escapeHtml(card.name)} 제거">×</button></article>`).join("")
       : '<div class="trade-board-state"><strong>줄 수 있는 카드가 없어도 등록할 수 있습니다.</strong><p>나중에 제안을 받은 뒤 교환 조건을 정해도 됩니다.</p></div>';
@@ -125,8 +137,8 @@
     state.proposalDraft = readProposalDraft();
     if (!state.proposalDraft) return;
     const post = state.posts.find((item) => item.id === state.proposalDraft.postId);
-    const wanted = wantedCardFor(post);
-    const label = post ? `${post.authorNickname}님이 구하는 ${wanted?.name || "카드"}` : state.proposalDraft.postLabel || "선택한 교환글";
+    const wantedCards = wantedCardsFor(post);
+    const label = post ? `${post.authorNickname}님이 구하는 ${cardListSummary(wantedCards)}` : state.proposalDraft.postLabel || "선택한 교환글";
     $("trade-proposal-target").innerHTML = `<span>제안 대상</span><strong>${escapeHtml(label)}</strong>`;
     $("trade-proposal-cards").innerHTML = state.proposalDraft.cards.length
       ? state.proposalDraft.cards.map((card, index) => `<article class="trade-proposal-card">${cardImage(card)}<div><strong>${escapeHtml(card.name)}</strong><small>${escapeHtml(card.detail)}</small></div><button type="button" data-remove-proposal-card="${index}" aria-label="${escapeHtml(card.name)} 제거">×</button></article>`).join("")
@@ -145,16 +157,15 @@
     if (status !== "all" && post.status !== status) return false;
     if (offer === "yes" && !post.acceptOffers) return false;
     if (offer === "no" && post.acceptOffers) return false;
-    const wanted = wantedCardFor(post);
+    const wanted = wantedCardsFor(post);
     const offered = offeredCardsFor(post);
-    return !query || [post.authorNickname, wanted?.name, wanted?.detail, ...offered.flatMap((card) => [card.name, card.detail])]
+    return !query || [post.authorNickname, ...wanted.flatMap((card) => [card.name, card.detail]), ...offered.flatMap((card) => [card.name, card.detail])]
       .join(" ").toLocaleLowerCase("ko-KR").includes(query);
   }
 
-  function postOfferedCardsHtml(post) {
-    const cards = offeredCardsFor(post);
-    if (!cards.length) return '<span class="trade-post-no-offer">제시한 카드 없음</span>';
-    return cards.map((card) => `<span class="trade-post-offered-card">${cardImage(card)}<b>${escapeHtml(card.name)}</b></span>`).join("");
+  function postCardsHtml(cards, emptyLabel) {
+    if (!cards.length) return `<span class="trade-post-no-offer">${escapeHtml(emptyLabel)}</span>`;
+    return cards.map((card) => `<span class="trade-post-card">${cardImage(card)}<b>${escapeHtml(card.name)}</b></span>`).join("");
   }
 
   function renderPosts() {
@@ -165,11 +176,13 @@
     $("trade-grid").innerHTML = posts.map((post) => {
       const completed = post.status === "completed";
       const mine = state.user?.uid === post.authorUid;
-      const wanted = wantedCardFor(post);
+      const wantedCards = wantedCardsFor(post);
+      const wanted = wantedCards[0];
+      const offeredCards = offeredCardsFor(post);
       const actions = completed ? "" : mine
         ? `<button type="button" data-delete-post="${escapeHtml(post.id)}">글 삭제</button>`
         : `<button class="trade-propose-button" type="button" data-propose-post="${escapeHtml(post.id)}">교환 제안</button>`;
-      return `<article class="trade-card"><div class="trade-card-image">${cardImage(wanted)}</div><div class="trade-card-copy"><div class="trade-card-meta"><strong>${escapeHtml(post.authorNickname || "컬렉터")}</strong><time>${escapeHtml(formatDate(post.createdAt))}</time></div><div class="trade-card-status"><span class="${completed ? "is-closed" : ""}">${completed ? "교환완료" : "교환중"}</span>${post.acceptOffers ? "<small>다른 제안도 받아요</small>" : ""}</div><dl><div><dt>원하는 카드</dt><dd><strong>${escapeHtml(wanted?.name || "카드 정보 없음")}</strong><small>${escapeHtml(wanted?.detail)}</small></dd></div><div><dt>내가 줄 수 있는 카드</dt><dd><div class="trade-post-offered-cards">${postOfferedCardsHtml(post)}</div></dd></div></dl><div class="trade-card-actions">${actions}</div></div></article>`;
+      return `<article class="trade-card"><div class="trade-card-image">${cardImage(wanted)}${wantedCards.length > 1 ? `<b class="trade-card-image-count">+${wantedCards.length - 1}</b>` : ""}</div><div class="trade-card-copy"><div class="trade-card-meta"><strong>${escapeHtml(post.authorNickname || "컬렉터")}</strong><time>${escapeHtml(formatDate(post.createdAt))}</time></div><div class="trade-card-status"><span class="${completed ? "is-closed" : ""}">${completed ? "교환완료" : "교환중"}</span>${post.acceptOffers ? "<small>다른 제안도 받아요</small>" : ""}</div><dl><div><dt>원하는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(wantedCards, "카드 정보 없음")}</div></dd></div><div><dt>내가 줄 수 있는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(offeredCards, "제시한 카드 없음")}</div></dd></div></dl><div class="trade-card-actions">${actions}</div></div></article>`;
     }).join("");
   }
 
@@ -182,7 +195,7 @@
   function proposalHtml(proposal, received) {
     const [label, className] = proposalStatus(proposal.status);
     const post = state.posts.find((item) => item.id === proposal.postId);
-    const wanted = wantedCardFor(post);
+    const wanted = wantedCardsFor(post);
     const title = received ? `${proposal.proposerNickname || "컬렉터"}님의 제안` : `${post?.authorNickname || "컬렉터"}님에게 보낸 제안`;
     const cards = (proposal.offeredCards || []).map((card) => `<span>${escapeHtml(card.name)}${card.detail ? ` · ${escapeHtml(card.detail)}` : ""}</span>`).join("");
     let actions = "";
@@ -191,7 +204,7 @@
     } else if (proposal.status === "accepted") {
       actions = `<button type="button" data-action="message" data-proposal-id="${escapeHtml(proposal.id)}">쪽지 열기</button>`;
     }
-    return `<article class="trade-proposal-item"><div class="trade-proposal-item-head"><div><strong>${escapeHtml(title)}</strong><small>${escapeHtml(wanted?.name || "삭제된 교환글")} · ${escapeHtml(formatDate(proposal.createdAt))}</small></div><span class="trade-proposal-status ${className}">${label}</span></div><div class="trade-proposal-mini-cards">${cards}</div>${proposal.message ? `<p class="trade-proposal-message">${escapeHtml(proposal.message)}</p>` : ""}<div class="trade-proposal-actions">${actions}</div></article>`;
+    return `<article class="trade-proposal-item"><div class="trade-proposal-item-head"><div><strong>${escapeHtml(title)}</strong><small>${escapeHtml(cardListSummary(wanted, "삭제된 교환글"))} · ${escapeHtml(formatDate(proposal.createdAt))}</small></div><span class="trade-proposal-status ${className}">${label}</span></div><div class="trade-proposal-mini-cards">${cards}</div>${proposal.message ? `<p class="trade-proposal-message">${escapeHtml(proposal.message)}</p>` : ""}<div class="trade-proposal-actions">${actions}</div></article>`;
   }
 
   function renderPrivateActivity() {
@@ -206,10 +219,10 @@
     const conversations = [...accepted.values()];
     $("trade-conversation-list").innerHTML = conversations.map((proposal) => {
       const post = state.posts.find((item) => item.id === proposal.postId);
-      const wanted = wantedCardFor(post);
+      const wanted = wantedCardsFor(post);
       const peerName = state.user?.uid === proposal.postAuthorUid ? proposal.proposerNickname || "교환 상대" : post?.authorNickname || "교환 상대";
       const unread = state.unreadByProposal.get(proposal.id) || 0;
-      return `<button class="trade-conversation-item" type="button" data-open-conversation="${escapeHtml(proposal.id)}"><div><strong>${escapeHtml(peerName)}</strong><small>${escapeHtml(wanted?.name || "교환 제안")}</small></div>${unread ? `<b>${unread}</b>` : ""}</button>`;
+      return `<button class="trade-conversation-item" type="button" data-open-conversation="${escapeHtml(proposal.id)}"><div><strong>${escapeHtml(peerName)}</strong><small>${escapeHtml(cardListSummary(wanted, "교환 제안"))}</small></div>${unread ? `<b>${unread}</b>` : ""}</button>`;
     }).join("");
     $("trade-messages-empty").hidden = conversations.length > 0;
     $("trade-unread-count").textContent = String([...state.unreadByProposal.values()].reduce((sum, count) => sum + count, 0));
@@ -290,13 +303,13 @@
     const message = $("trade-register-message"); const submit = $("trade-register-submit");
     message.textContent = "";
     if (!state.draft || !(await requireUser(message))) return;
-    if (!state.draft.wantedCard) return;
+    if (!state.draft.wantedCards.length) return;
     try {
       submit.disabled = true;
       const { db, firestoreModule } = state.firebase;
       await firestoreModule.addDoc(firestoreModule.collection(db, "tradePosts"), {
-        schemaVersion: 2, authorUid: state.user.uid, authorNickname: clean(state.profile.nickname, 20),
-        wantedCard: state.draft.wantedCard, offeredCards: state.draft.offeredCards,
+        schemaVersion: 3, authorUid: state.user.uid, authorNickname: clean(state.profile.nickname, 20),
+        wantedCards: state.draft.wantedCards, offeredCards: state.draft.offeredCards,
         acceptOffers: state.draft.offeredCards.length === 0 || $("trade-accept-offers").checked,
         status: "open", createdAt: firestoreModule.serverTimestamp(), updatedAt: firestoreModule.serverTimestamp(),
       });
@@ -310,8 +323,8 @@
     if (!(await requireUser())) return;
     const post = state.posts.find((item) => item.id === postId);
     if (!post || post.status !== "open" || post.authorUid === state.user.uid) return;
-    const wanted = wantedCardFor(post);
-    state.proposalDraft = { postId, postAuthorUid: post.authorUid, postLabel: `${post.authorNickname}님이 구하는 ${wanted?.name || "카드"}`, cards: [] };
+    const wanted = wantedCardsFor(post);
+    state.proposalDraft = { postId, postAuthorUid: post.authorUid, postLabel: `${post.authorNickname}님이 구하는 ${cardListSummary(wanted)}`, cards: [] };
     saveProposalDraft(); window.location.href = "./national.html";
   }
 
@@ -468,6 +481,16 @@
       const removeTradeIndex = event.target.closest("[data-remove-trade-card]")?.dataset.removeTradeCard;
       if (removeTradeIndex !== undefined && state.draft) {
         state.draft.offeredCards.splice(Number(removeTradeIndex), 1);
+        saveTradeDraft(); renderTradeDraft(); return;
+      }
+      const removeWantedIndex = event.target.closest("[data-remove-wanted-card]")?.dataset.removeWantedCard;
+      if (removeWantedIndex !== undefined && state.draft) {
+        if (state.draft.wantedCards.length <= 1) {
+          $("trade-register-message").textContent = "구하는 카드는 한 장 이상 필요합니다. 다른 카드를 추가한 뒤 제거해 주세요.";
+          return;
+        }
+        state.draft.wantedCards.splice(Number(removeWantedIndex), 1);
+        $("trade-register-message").textContent = "";
         saveTradeDraft(); renderTradeDraft(); return;
       }
       const removeIndex = event.target.closest("[data-remove-proposal-card]")?.dataset.removeProposalCard;
