@@ -128,6 +128,7 @@ test("wanted and offered cards open a read-only card detail dialog", async () =>
   ]);
   assert.match(html, /id="trade-card-dialog"/);
   assert.match(html, /id="trade-card-dialog-meta"/);
+  assert.match(html, /id="trade-card-dialog-set-name"/);
   assert.match(html, /id="trade-card-dialog-source"/);
   assert.match(html, /id="trade-card-dialog-source-link"/);
   assert.match(client, /const TRADE_SOURCE_LABELS = Object\.freeze/);
@@ -138,10 +139,28 @@ test("wanted and offered cards open a read-only card detail dialog", async () =>
   assert.match(client, /function cardDetailText\(card\)/);
   assert.match(client, /\[\.\.\.new Set\(parts\)\]\.join\(" · "\)/);
   assert.match(client, /\$\("trade-card-dialog-meta"\)\.textContent = cardDetailText\(card\)/);
+  assert.match(client, /async function resolveCardSetName\(card\)/);
+  assert.match(client, /TRADE_SERIES_NAMES_URL/);
+  assert.match(client, /\$\("trade-card-dialog-set-name"\)\.textContent = setName/);
   assert.match(integration, /\[id\$='dialog-group'\]/);
   assert.match(integration, /\[id\$='dialog-set'\]/);
   assert.match(integration, /\[id\$='dialog-rarity'\]/);
   assert.match(integration, /\[\.\.\.new Set\(detailParts\)\]\.join\(" · "\)/);
   assert.match(css, /\.trade-card-dialog-body \{ display: grid; grid-template-columns:/);
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*\.trade-card-dialog-body \{ grid-template-columns: 1fr;/);
+});
+
+test("trade set-name lookup covers every series catalog group", async () => {
+  const [groups, names] = await Promise.all([
+    read("data/series.json").then(JSON.parse),
+    read("data/trade-series-names.json").then(JSON.parse),
+  ]);
+  const missingCodes = groups
+    .map((group) => String(group.code).toLowerCase())
+    .filter((code) => !names[code]);
+  assert.deepEqual(missingCodes, []);
+  assert.equal(names.sv1s, "스칼렛 ex");
+  assert.equal(names.sv9, "배틀파트너즈");
+  assert.equal(names.m5, "어비스아이");
+  assert.equal(names.s1w, "소드");
 });
