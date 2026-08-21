@@ -30,7 +30,7 @@
 .trade-count { margin: 16px 0; color: var(--ink-faint); font-size: .8rem; }
 .trade-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .trade-card { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 18px; border: 1px solid var(--line); border-radius: 18px; background: #fff; padding: 16px; box-shadow: var(--shadow-sm); }
-.trade-card-image { position: relative; display: grid; place-items: center; min-height: 194px; border-radius: 12px; background: #f3f4f8; overflow: hidden; }
+.trade-card-image { position: relative; display: grid; width: 100%; min-width: 0; min-height: 194px; place-items: center; overflow: hidden; border: 0; border-radius: 12px; background: #f3f4f8; color: inherit; font: inherit; padding: 0; cursor: pointer; }
 .trade-card-image-count { position: absolute; right: 7px; bottom: 7px; display: grid; min-width: 30px; height: 30px; place-items: center; border-radius: 999px; background: rgba(23,35,63,.9); color: #fff; font-size: .72rem; }
 .trade-image-placeholder { color: #a1a6b5; font-size: .72rem; font-weight: 900; letter-spacing: .12em; }
 .trade-card-copy { display: grid; gap: 12px; align-content: start; min-width: 0; }
@@ -45,7 +45,8 @@
 .trade-card dt { color: var(--ink-faint); font-size: .66rem; font-weight: 800; }
 .trade-card dd { display: grid; gap: 3px; margin: 0; font-size: .82rem; overflow-wrap: anywhere; }
 .trade-post-card-list { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
-.trade-post-card { flex: 0 0 70px; display: grid; gap: 4px; min-width: 0; }
+.trade-post-card { flex: 0 0 70px; display: grid; gap: 4px; min-width: 0; border: 0; background: transparent; color: inherit; font: inherit; padding: 0; text-align: left; cursor: pointer; }
+.trade-card-image:focus-visible, .trade-post-card:focus-visible { outline: 3px solid rgba(66,99,158,.3); outline-offset: 3px; }
 .trade-post-card img { width: 46px; height: 64px; justify-self: start; border-radius: 5px; object-fit: contain; background: #f3f4f8; }
 .trade-post-card .trade-image-placeholder { display: grid; width: 46px; height: 64px; place-items: center; border-radius: 5px; background: #f3f4f8; font-size: .5rem; }
 .trade-post-card b { overflow: hidden; font-size: .66rem; text-overflow: ellipsis; white-space: nowrap; }
@@ -81,6 +82,24 @@
 .trade-proposal-actions button[data-action="reject"] { background: #eceef3; color: #626979; }
 .trade-conversation-item { display: grid; width: 100%; text-align: left; background: #fff; font: inherit; cursor: pointer; }
 .trade-conversation-item b { display: grid; min-width: 25px; height: 25px; place-items: center; border-radius: 999px; background: var(--red); color: #fff; font-size: .7rem; }
+.trade-card-dialog { width: min(700px, calc(100% - 24px)); max-height: min(760px, calc(100vh - 24px)); overflow: auto; border: 0; border-radius: 18px; color: var(--ink); padding: 0; box-shadow: 0 24px 80px rgba(23,35,63,.25); }
+.trade-card-dialog::backdrop { background: rgba(14,22,42,.52); }
+.trade-card-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding: 16px 18px; }
+.trade-card-dialog-header > div { display: grid; gap: 3px; min-width: 0; }
+.trade-card-dialog-header span { color: var(--ink-faint); font-size: .66rem; font-weight: 800; }
+.trade-card-dialog-header h2 { overflow: hidden; margin: 0; font-size: 1.08rem; text-overflow: ellipsis; white-space: nowrap; }
+.trade-card-dialog-header button { flex: 0 0 auto; border: 0; background: transparent; color: var(--ink); font-size: 1.5rem; cursor: pointer; }
+.trade-card-dialog-body { display: grid; grid-template-columns: minmax(190px, 240px) minmax(0, 1fr); gap: 22px; align-items: start; padding: 20px; }
+.trade-card-dialog-image { display: grid; min-height: 322px; place-items: center; overflow: hidden; border-radius: 14px; background: #f3f4f8; }
+.trade-card-dialog-image img { display: block; width: 100%; max-height: 420px; object-fit: contain; }
+.trade-card-dialog-image .trade-image-placeholder { display: grid; width: 100%; min-height: 322px; place-items: center; }
+.trade-card-dialog-copy { display: grid; gap: 18px; min-width: 0; }
+.trade-card-dialog-details { display: grid; gap: 0; margin: 0; }
+.trade-card-dialog-details > div { display: grid; gap: 6px; border-bottom: 1px solid var(--line); padding: 13px 0; }
+.trade-card-dialog-details > div:first-child { padding-top: 0; }
+.trade-card-dialog-details dt { color: var(--ink-faint); font-size: .68rem; font-weight: 800; }
+.trade-card-dialog-details dd { margin: 0; font-size: .88rem; font-weight: 700; line-height: 1.55; overflow-wrap: anywhere; }
+.trade-card-dialog-source-link { justify-self: start; border-radius: 10px; background: var(--navy); color: #fff; font-size: .76rem; font-weight: 800; padding: 10px 12px; text-decoration: none; }
 .trade-message-dialog { width: min(620px, calc(100% - 24px)); max-height: min(760px, calc(100vh - 24px)); border: 0; border-radius: 18px; padding: 0; box-shadow: 0 24px 80px rgba(23,35,63,.25); }
 .trade-message-dialog::backdrop { background: rgba(14,22,42,.52); }
 .trade-message-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding: 16px 18px; }
@@ -127,6 +146,9 @@
   .trade-proposal-cards { grid-template-columns: 1fr; }
   .trade-card { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 12px; }
   .trade-card-image { min-height: 128px; }
+  .trade-card-dialog-body { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
+  .trade-card-dialog-image { width: min(220px, 100%); min-height: 294px; justify-self: center; }
+  .trade-card-dialog-image .trade-image-placeholder { min-height: 294px; }
   .trade-message-form { grid-template-columns: 1fr; }
   .trade-guide { border-radius: 14px; }
   .trade-guide summary { grid-template-columns: 32px minmax(0,1fr) 20px; gap: 9px; min-height: 56px; padding: 10px 12px; }
