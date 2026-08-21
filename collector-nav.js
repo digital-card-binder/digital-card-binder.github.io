@@ -81,6 +81,14 @@
         "도감 갤러리",
         "PUBLIC BOARD",
       );
+    const trades =
+      nav.querySelector('[href*="trades.html"]') ||
+      navigationLink(
+        "./trades.html",
+        "TR",
+        "카드 교환",
+        "TRADE BOARD",
+      );
     const customDex =
       nav.querySelector('[href*="custom.html"]') ||
       navigationLink(
@@ -100,6 +108,7 @@
 
     settings?.remove();
     dashboard.after(directory);
+    directory.after(trades);
     const people = nav.querySelector('[href*="people.html"]');
     if (people) people.after(customDex);
     else nav.append(customDex);
@@ -390,7 +399,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
@@ -477,4 +486,20 @@
   ensureProfileShortcutWithoutPanel();
   addCardLayoutToggle();
   addHeroActions();
+
+  const tradeEligiblePages = new Set([
+    "national.html",
+    "artists.html",
+    "series.html",
+    "pokemon-collections.html",
+    "ar.html",
+    "custom.html",
+  ]);
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  if (tradeEligiblePages.has(currentPage)) {
+    const script = document.createElement("script");
+    script.src = "./trade-offer.js?v=20260821-1";
+    script.defer = true;
+    document.head?.append(script);
+  }
 })();

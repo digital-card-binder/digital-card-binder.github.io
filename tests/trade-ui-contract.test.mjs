@@ -1,0 +1,89 @@
+import { readFile } from "node:fs/promises";
+import assert from "node:assert/strict";
+import test from "node:test";
+
+const root = new URL("../", import.meta.url);
+const read = (path) => readFile(new URL(path, root), "utf8");
+
+test("card trade is the third desktop and mobile navigation item", async () => {
+  const [html, navigation] = await Promise.all([
+    read("trades.html"),
+    read("collector-nav.js"),
+  ]);
+  const dashboard = html.indexOf('href="./"');
+  const gallery = html.indexOf('href="./collectors.html"');
+  const trades = html.indexOf('href="./trades.html"');
+  const national = html.indexOf('href="./national.html"');
+  assert.ok(dashboard < gallery && gallery < trades && trades < national);
+  assert.match(navigation, /dashboard\.after\(directory\);\s*directory\.after\(trades\);/);
+});
+
+test("trade registration contains card-only fields and no money input", async () => {
+  const html = await read("trades.html");
+  assert.match(html, /id="trade-offered-card"/);
+  assert.match(html, /id="trade-wanted-card"/);
+  assert.match(html, /id="trade-accept-offers"/);
+  assert.doesNotMatch(html, /type="number"|id="[^"]*(price|cash|amount)[^"]*"/i);
+});
+
+test("trade posts use an isolated Firestore collection and fixed schema", async () => {
+  const [client, rules] = await Promise.all([
+    read("trades.js"),
+    read("firestore.rules"),
+  ]);
+  assert.match(client, /collection\(db, "tradePosts"\)/);
+  assert.doesNotMatch(client, /"users",\s*state\.user\.uid,\s*"collections"/);
+  assert.match(rules, /match \/tradePosts\/\{tradePostId\}/);
+  assert.match(rules, /keys\(\)\.hasOnly\(\[/);
+  assert.match(rules, /request\.resource\.data\.status == "open"/);
+});
+
+test("only owned catalog cards expose the trade shortcut", async () => {
+  const integration = await read("trade-offer.js");
+  assert.match(integration, /status\?\.classList\.contains\("is-owned"\)/);
+  assert.match(integration, /if \(!owned\) return null;/);
+  assert.match(integration, /교환에 내놓기/);
+  assert.match(integration, /이 카드로 교환 제안/);
+});
+
+test("proposal inbox, outbox, statuses, and owned-card selection are present", async () => {
+  const [html, client] = await Promise.all([read("trades.html"), read("trades.js")]);
+  assert.match(html, /id="trade-received-panel"/);
+  assert.match(html, /id="trade-sent-panel"/);
+  assert.match(html, /id="trade-proposal-cards"/);
+  assert.match(client, /status: "pending"/);
+  assert.match(client, /status: "accepted"/);
+  assert.match(client, /status: "rejected"/);
+  assert.match(client, /offeredCards: state\.proposalDraft\.cards/);
+});
+
+test("messages are limited to accepted proposals and stored as individual documents", async () => {
+  const [html, client, rules] = await Promise.all([
+    read("trades.html"), read("trades.js"), read("firestore.rules"),
+  ]);
+  assert.match(html, /id="trade-unread-count"/);
+  assert.match(html, /id="trade-message-dialog"/);
+  assert.match(client, /collection\(db, "tradeMessages"\)/);
+  assert.match(client, /proposal\.status !== "accepted"/);
+  assert.match(rules, /match \/tradeMessages\/\{messageId\}/);
+  assert.match(rules, /acceptedTradeProposal\(resource\.data\.proposalId\)/);
+  assert.match(rules, /tradeMessageAllowed/);
+});
+
+test("completion, deletion, blocking, and reporting have explicit guarded paths", async () => {
+  const [html, client, rules] = await Promise.all([
+    read("trades.html"), read("trades.js"), read("firestore.rules"),
+  ]);
+  assert.match(client, /acceptedProposalId: proposalId/);
+  assert.match(client, /deleteDoc\(firestoreModule\.doc\(db, "tradePosts"/);
+  assert.match(html, /id="trade-block-user"/);
+  assert.match(html, /id="trade-report-user"/);
+  assert.match(rules, /match \/tradeBlocks\/\{blockId\}/);
+  assert.match(rules, /match \/tradeReports\/\{reportId\}/);
+  assert.doesNotMatch(html, /type="number"|id="[^"]*(price|cash|amount)[^"]*"/i);
+});
+
+test("trade code never writes existing collection or dashboard settings", async () => {
+  const sources = `${await read("trades.js")}\n${await read("trade-offer.js")}`;
+  assert.doesNotMatch(sources, /"collections"|collectionSettings|publicProfiles|sharedCollections/);
+});
