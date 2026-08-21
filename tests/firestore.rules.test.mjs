@@ -234,7 +234,7 @@ test("trade posts are public, isolated, card-only records owned by the author", 
       wantedCard: "라이츄 AR",
     }),
   );
-  await assertFails(
+  await assertSucceeds(
     addDoc(collection(tradeUser, "tradePosts"), {
       ...validPost,
       offeredCards: [],
@@ -309,6 +309,12 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
   };
   const proposalRef = await assertSucceeds(
     addDoc(collection(proposerDb, "tradeProposals"), proposalFields),
+  );
+  await assertFails(
+    addDoc(collection(proposerDb, "tradeProposals"), {
+      ...proposalFields,
+      offeredCards: [],
+    }),
   );
   await assertFails(
     addDoc(collection(proposerDb, "tradeProposals"), {

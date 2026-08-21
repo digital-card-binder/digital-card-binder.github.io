@@ -17,7 +17,7 @@
     <script src="./legal.js?v=20260813-2" defer></script>
     <script src="./collector-collection-registry.js?v=20260813-2" defer></script>
     <script src="./collector-nav.js?v=20260821-1" defer></script>
-    <script src="./trades.js?v=20260821-2" defer></script>
+    <script src="./trades.js?v=20260821-3" defer></script>
   </head>
   <body data-page="trades">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -53,7 +53,7 @@
           <div class="hero-content">
             <p class="eyebrow">CARD FOR CARD · TRADE BOARD</p>
             <h1 id="page-title">카드 교환</h1>
-            <p class="hero-description">미보유 카드에서 원하는 카드를 고르고 줄 수 있는 보유 카드를 함께 보여주세요.<br />교환완료가 되어도 내 도감의 보유 상태는 바뀌지 않습니다.</p>
+            <p class="hero-description">미보유 카드에서 원하는 카드를 고르고, 줄 수 있는 카드가 있다면 함께 보여주세요.<br />교환완료가 되어도 내 도감의 보유 상태는 바뀌지 않습니다.</p>
           </div>
           <a class="trades-hero-action" href="./national.html">미보유 카드에서 선택</a>
         </section>
@@ -73,10 +73,10 @@
           <form id="trade-register-form" class="trade-register-form">
             <div id="trade-wanted-card" class="trade-wanted-card"></div>
             <div class="trade-offered-cards-section">
-              <div class="trade-form-heading"><div><strong>내가 줄 수 있는 보유 카드</strong><small>최대 6장</small></div><a id="trade-register-add-card" href="./national.html">보유 카드 추가</a></div>
+              <div class="trade-form-heading"><div><strong>내가 줄 수 있는 보유 카드 <span>(선택)</span></strong><small>없어도 등록 가능 · 최대 6장</small></div><a id="trade-register-add-card" href="./national.html">보유 카드 추가</a></div>
               <div id="trade-offered-cards" class="trade-proposal-cards"></div>
             </div>
-            <label class="trade-checkbox"><input id="trade-accept-offers" type="checkbox" /><span>표시한 카드 외의 다른 카드 제안도 받아요</span></label>
+            <label class="trade-checkbox"><input id="trade-accept-offers" type="checkbox" checked /><span>표시한 카드 외의 다른 카드 제안도 받아요</span></label>
             <p class="trade-cash-warning">현금·가격·추가금액 거래는 등록할 수 없습니다.</p>
             <p class="trade-collection-warning">교환완료는 이 글의 상태만 변경하며 전국도감·다른 도감의 보유 기록은 변경하지 않습니다.</p>
             <div id="trade-register-message" class="trade-register-message" role="status" aria-live="polite"></div>

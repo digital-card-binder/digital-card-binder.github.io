@@ -614,6 +614,17 @@ service cloud.firestore {
         && (cards.size() < 6 || validTradeCard(cards[5]));
     }
 
+    function validOptionalTradeCardList(cards) {
+      return cards is list
+        && cards.size() <= 6
+        && (cards.size() < 1 || validTradeCard(cards[0]))
+        && (cards.size() < 2 || validTradeCard(cards[1]))
+        && (cards.size() < 3 || validTradeCard(cards[2]))
+        && (cards.size() < 4 || validTradeCard(cards[3]))
+        && (cards.size() < 5 || validTradeCard(cards[4]))
+        && (cards.size() < 6 || validTradeCard(cards[5]));
+    }
+
     function validTradePostCreate() {
       return request.auth != null
         && request.resource.data.keys().hasAll([
@@ -647,7 +658,7 @@ service cloud.firestore {
           /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
         ).data.nickname
         && validTradeCard(request.resource.data.wantedCard)
-        && validTradeCardList(request.resource.data.offeredCards)
+        && validOptionalTradeCardList(request.resource.data.offeredCards)
         && request.resource.data.acceptOffers is bool
         && request.resource.data.status == "open"
         && request.resource.data.createdAt == request.time

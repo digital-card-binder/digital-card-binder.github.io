@@ -113,7 +113,7 @@
     $("trade-wanted-card").innerHTML = `${cardImage(wanted)}<div><span>내가 원하는 미보유 카드</span><strong>${escapeHtml(wanted.name)}</strong><small>${escapeHtml(wanted.detail)}</small></div>`;
     $("trade-offered-cards").innerHTML = state.draft.offeredCards.length
       ? state.draft.offeredCards.map((card, index) => `<article class="trade-proposal-card">${cardImage(card)}<div><strong>${escapeHtml(card.name)}</strong><small>${escapeHtml(card.detail)}</small></div><button type="button" data-remove-trade-card="${index}" aria-label="${escapeHtml(card.name)} 제거">×</button></article>`).join("")
-      : '<div class="trade-board-state"><strong>아직 줄 수 있는 카드를 고르지 않았습니다.</strong><p>보유 카드 중 하나 이상을 추가해 주세요.</p></div>';
+      : '<div class="trade-board-state"><strong>줄 수 있는 카드가 없어도 등록할 수 있습니다.</strong><p>나중에 제안을 받은 뒤 교환 조건을 정해도 됩니다.</p></div>';
     $("trade-register-panel").hidden = false;
   }
 
@@ -290,17 +290,14 @@
     const message = $("trade-register-message"); const submit = $("trade-register-submit");
     message.textContent = "";
     if (!state.draft || !(await requireUser(message))) return;
-    if (!state.draft.wantedCard || !state.draft.offeredCards.length) {
-      message.textContent = "미보유 카드와 줄 수 있는 보유 카드를 모두 선택해 주세요.";
-      return;
-    }
+    if (!state.draft.wantedCard) return;
     try {
       submit.disabled = true;
       const { db, firestoreModule } = state.firebase;
       await firestoreModule.addDoc(firestoreModule.collection(db, "tradePosts"), {
         schemaVersion: 2, authorUid: state.user.uid, authorNickname: clean(state.profile.nickname, 20),
         wantedCard: state.draft.wantedCard, offeredCards: state.draft.offeredCards,
-        acceptOffers: $("trade-accept-offers").checked,
+        acceptOffers: state.draft.offeredCards.length === 0 || $("trade-accept-offers").checked,
         status: "open", createdAt: firestoreModule.serverTimestamp(), updatedAt: firestoreModule.serverTimestamp(),
       });
       window.sessionStorage.removeItem(TRADE_DRAFT_KEY); state.draft = null;
