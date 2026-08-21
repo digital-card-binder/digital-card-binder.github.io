@@ -49,7 +49,7 @@ let cards = [];
 let status = "all";
 let query = "";
 let activeCard = null;
-let activeEra = "S";
+let activeEra = "SM";
 let mobileCatalogPreferences = {};
 
 const mobileCatalogMedia = typeof window.matchMedia === "function"
