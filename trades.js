@@ -5,6 +5,16 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const TRADE_DRAFT_KEY = "digitalCardBinderTradeDraftV2";
   const PROPOSAL_DRAFT_KEY = "digitalCardBinderProposalDraftV1";
+  const TRADE_SOURCE_LABELS = Object.freeze({
+    "national.html": "전국도감",
+    "packs.html": "팩 전종수집",
+    "artists.html": "작가 도감",
+    "series.html": "시리즈 도감",
+    "pokemon-collections.html": "포켓몬 컬렉션",
+    "ar.html": "AR 전종도감",
+    "people.html": "인물도감",
+    "custom.html": "나만의 도감",
+  });
   const state = {
     firebase: null, user: null, profile: null, posts: [], draft: null,
     proposalDraft: null, received: [], sent: [],
@@ -163,9 +173,36 @@
       .join(" ").toLocaleLowerCase("ko-KR").includes(query);
   }
 
-  function postCardsHtml(cards, emptyLabel) {
+  function postCardsHtml(cards, emptyLabel, postId, role) {
     if (!cards.length) return `<span class="trade-post-no-offer">${escapeHtml(emptyLabel)}</span>`;
-    return cards.map((card) => `<span class="trade-post-card">${cardImage(card)}<b>${escapeHtml(card.name)}</b></span>`).join("");
+    return cards.map((card, index) => `<button class="trade-post-card" type="button" data-view-trade-card data-post-id="${escapeHtml(postId)}" data-card-role="${escapeHtml(role)}" data-card-index="${index}" aria-label="${escapeHtml(`${card.name} 상세 보기`)}">${cardImage(card)}<b>${escapeHtml(card.name)}</b></button>`).join("");
+  }
+
+  function openTradeCardDetails(postId, role, cardIndex) {
+    const post = state.posts.find((item) => item.id === postId);
+    if (!post) return;
+    const cards = role === "offered" ? offeredCardsFor(post) : wantedCardsFor(post);
+    const card = cards[Number(cardIndex)];
+    const dialog = $("trade-card-dialog");
+    if (!card || !dialog) return;
+
+    const sourceLabel = TRADE_SOURCE_LABELS[card.sourcePage] || "";
+    $("trade-card-dialog-role").textContent = role === "offered" ? "줄 수 있는 카드" : "구하는 카드";
+    $("trade-card-dialog-title").textContent = card.name;
+    $("trade-card-dialog-image").innerHTML = cardImage(card, `${card.name} 카드`);
+    $("trade-card-dialog-name").textContent = card.name;
+    $("trade-card-dialog-meta").textContent = card.detail || "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다.";
+    $("trade-card-dialog-source").textContent = sourceLabel || "출처 정보 없음";
+
+    const sourceLink = $("trade-card-dialog-source-link");
+    sourceLink.hidden = !sourceLabel;
+    if (sourceLabel) sourceLink.href = `./${card.sourcePage}`;
+    else sourceLink.removeAttribute("href");
+
+    if (!dialog.open) {
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    }
   }
 
   function renderPosts() {
@@ -182,7 +219,7 @@
       const actions = completed ? "" : mine
         ? `<button type="button" data-delete-post="${escapeHtml(post.id)}">글 삭제</button>`
         : `<button class="trade-propose-button" type="button" data-propose-post="${escapeHtml(post.id)}">교환 제안</button>`;
-      return `<article class="trade-card"><div class="trade-card-image">${cardImage(wanted)}${wantedCards.length > 1 ? `<b class="trade-card-image-count">+${wantedCards.length - 1}</b>` : ""}</div><div class="trade-card-copy"><div class="trade-card-meta"><strong>${escapeHtml(post.authorNickname || "컬렉터")}</strong><time>${escapeHtml(formatDate(post.createdAt))}</time></div><div class="trade-card-status"><span class="${completed ? "is-closed" : ""}">${completed ? "교환완료" : "교환중"}</span>${post.acceptOffers ? "<small>다른 제안도 받아요</small>" : ""}</div><dl><div><dt>원하는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(wantedCards, "카드 정보 없음")}</div></dd></div><div><dt>내가 줄 수 있는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(offeredCards, "제시한 카드 없음")}</div></dd></div></dl><div class="trade-card-actions">${actions}</div></div></article>`;
+      return `<article class="trade-card"><button class="trade-card-image" type="button" data-view-trade-card data-post-id="${escapeHtml(post.id)}" data-card-role="wanted" data-card-index="0" aria-label="${escapeHtml(`${wanted?.name || "구하는 카드"} 상세 보기`)}">${cardImage(wanted)}${wantedCards.length > 1 ? `<b class="trade-card-image-count">+${wantedCards.length - 1}</b>` : ""}</button><div class="trade-card-copy"><div class="trade-card-meta"><strong>${escapeHtml(post.authorNickname || "컬렉터")}</strong><time>${escapeHtml(formatDate(post.createdAt))}</time></div><div class="trade-card-status"><span class="${completed ? "is-closed" : ""}">${completed ? "교환완료" : "교환중"}</span>${post.acceptOffers ? "<small>다른 제안도 받아요</small>" : ""}</div><dl><div><dt>원하는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(wantedCards, "카드 정보 없음", post.id, "wanted")}</div></dd></div><div><dt>내가 줄 수 있는 카드</dt><dd><div class="trade-post-card-list">${postCardsHtml(offeredCards, "제시한 카드 없음", post.id, "offered")}</div></dd></div></dl><div class="trade-card-actions">${actions}</div></div></article>`;
     }).join("");
   }
 
@@ -468,10 +505,20 @@
       $("trade-register-panel").hidden = true;
     });
     $("trade-proposal-close")?.addEventListener("click", () => { $("trade-proposal-panel").hidden = true; });
+    $("trade-card-dialog-close")?.addEventListener("click", () => $("trade-card-dialog").close());
+    $("trade-card-dialog")?.addEventListener("click", (event) => {
+      if (event.target === event.currentTarget) event.currentTarget.close();
+    });
     $("trade-message-close")?.addEventListener("click", () => $("trade-message-dialog").close());
     $("trade-block-user")?.addEventListener("click", blockActiveUser);
     $("trade-report-user")?.addEventListener("click", reportActiveUser);
     document.addEventListener("click", async (event) => {
+      const cardButton = event.target.closest("[data-view-trade-card]");
+      if (cardButton) return openTradeCardDetails(
+        cardButton.dataset.postId,
+        cardButton.dataset.cardRole,
+        cardButton.dataset.cardIndex,
+      );
       const view = event.target.closest("[data-trade-view]")?.dataset.tradeView;
       if (view) return switchView(view);
       const postId = event.target.closest("[data-propose-post]")?.dataset.proposePost;

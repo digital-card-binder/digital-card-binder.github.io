@@ -121,3 +121,25 @@ test("trade posts support up to six wanted and offered cards with legacy display
   assert.match(rules, /validTradeCardList\(request\.resource\.data\.wantedCards\)/);
   assert.match(rules, /request\.resource\.data\.schemaVersion == 2/);
 });
+
+test("wanted and offered cards open a read-only card detail dialog", async () => {
+  const [html, client, integration, css] = await Promise.all([
+    read("trades.html"), read("trades.js"), read("trade-offer.js"), read("trades.css"),
+  ]);
+  assert.match(html, /id="trade-card-dialog"/);
+  assert.match(html, /id="trade-card-dialog-meta"/);
+  assert.match(html, /id="trade-card-dialog-source"/);
+  assert.match(html, /id="trade-card-dialog-source-link"/);
+  assert.match(client, /const TRADE_SOURCE_LABELS = Object\.freeze/);
+  assert.match(client, /"series\.html": "시리즈 도감"/);
+  assert.match(client, /data-view-trade-card/);
+  assert.match(client, /function openTradeCardDetails\(postId, role, cardIndex\)/);
+  assert.match(client, /role === "offered" \? offeredCardsFor\(post\) : wantedCardsFor\(post\)/);
+  assert.match(client, /card\.detail \|\| "카드번호·세트 정보가 등록되지 않은 기존 교환글입니다\."/);
+  assert.match(integration, /\[id\$='dialog-group'\]/);
+  assert.match(integration, /\[id\$='dialog-set'\]/);
+  assert.match(integration, /\[id\$='dialog-rarity'\]/);
+  assert.match(integration, /\[\.\.\.new Set\(detailParts\)\]\.join\(" · "\)/);
+  assert.match(css, /\.trade-card-dialog-body \{ display: grid; grid-template-columns:/);
+  assert.match(css, /@media \(max-width: 690px\)[\s\S]*\.trade-card-dialog-body \{ grid-template-columns: 1fr;/);
+});

@@ -23,9 +23,15 @@ function cardStateFromDialog(dialog) {
   const image = dialog.querySelector("img");
   const heading = dialog.querySelector("h2");
   const number = dialog.querySelector(".number-badge");
-  const detail = dialog.querySelector(
-    ".dialog-name-en, [id$='dialog-meta'], [id$='dialog-actual-card']",
-  );
+  const detailParts = [
+    number?.textContent,
+    ...Array.from(dialog.querySelectorAll(
+      ".dialog-name-en, [id$='dialog-meta'], [id$='dialog-generation'], " +
+      "[id$='dialog-group'], [id$='dialog-artist-detail'], [id$='dialog-set'], " +
+      "[id$='dialog-rarity'], [id$='dialog-card-number'], [id$='dialog-actual-set'], " +
+      "[id$='dialog-actual-number'], [id$='dialog-actual-name'], [id$='dialog-actual-rarity']",
+    ), (element) => element.textContent),
+  ].map((value) => clean(value, 160)).filter(Boolean);
   const name = clean(heading?.textContent, 100);
   if (!name) return null;
 
@@ -34,10 +40,7 @@ function cardStateFromDialog(dialog) {
     card: {
       name,
       imageUrl: clean(image?.currentSrc || image?.src, 500),
-      detail: clean(
-        [number?.textContent, detail?.textContent].filter(Boolean).join(" · "),
-        160,
-      ),
+      detail: clean([...new Set(detailParts)].join(" · "), 160),
       sourcePage: window.location.pathname.split("/").pop() || "",
     },
   };
