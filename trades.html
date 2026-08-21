@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="./legal.css?v=20260813-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
-    <link rel="stylesheet" href="./trades.css?v=20260821-1" />
+    <link rel="stylesheet" href="./trades.css?v=20260821-2" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./legal.js?v=20260813-2" defer></script>
     <script src="./collector-collection-registry.js?v=20260813-2" defer></script>
     <script src="./collector-nav.js?v=20260821-1" defer></script>
-    <script src="./trades.js?v=20260821-1" defer></script>
+    <script src="./trades.js?v=20260821-2" defer></script>
   </head>
   <body data-page="trades">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -53,9 +53,9 @@
           <div class="hero-content">
             <p class="eyebrow">CARD FOR CARD · TRADE BOARD</p>
             <h1 id="page-title">카드 교환</h1>
-            <p class="hero-description">보유한 카드를 내놓고 원하는 카드를 찾아보세요.<br />이곳에서는 카드끼리의 교환만 등록할 수 있습니다.</p>
+            <p class="hero-description">미보유 카드에서 원하는 카드를 고르고 줄 수 있는 보유 카드를 함께 보여주세요.<br />교환완료가 되어도 내 도감의 보유 상태는 바뀌지 않습니다.</p>
           </div>
-          <a class="trades-hero-action" href="./national.html">내 도감에서 카드 선택</a>
+          <a class="trades-hero-action" href="./national.html">미보유 카드에서 선택</a>
         </section>
 
         <nav class="trade-account-nav" aria-label="교환 활동">
@@ -68,13 +68,17 @@
         <section id="trade-register-panel" class="catalog-panel trade-register-panel" hidden aria-labelledby="trade-register-title">
           <div class="catalog-heading">
             <div><p class="section-kicker">NEW TRADE</p><h2 id="trade-register-title">교환글 등록</h2></div>
-            <button id="trade-register-close" class="trade-text-button" type="button">닫기</button>
+            <button id="trade-register-close" class="trade-text-button" type="button">등록 취소</button>
           </div>
           <form id="trade-register-form" class="trade-register-form">
-            <div id="trade-offered-card" class="trade-offered-card"></div>
-            <label class="trade-field"><span>원하는 카드</span><input id="trade-wanted-card" type="text" maxlength="120" required placeholder="예: 피카츄 AR sv2a 173/165" /></label>
-            <label class="trade-checkbox"><input id="trade-accept-offers" type="checkbox" /><span>다른 카드 제안도 받아요</span></label>
+            <div id="trade-wanted-card" class="trade-wanted-card"></div>
+            <div class="trade-offered-cards-section">
+              <div class="trade-form-heading"><div><strong>내가 줄 수 있는 보유 카드</strong><small>최대 6장</small></div><a id="trade-register-add-card" href="./national.html">보유 카드 추가</a></div>
+              <div id="trade-offered-cards" class="trade-proposal-cards"></div>
+            </div>
+            <label class="trade-checkbox"><input id="trade-accept-offers" type="checkbox" /><span>표시한 카드 외의 다른 카드 제안도 받아요</span></label>
             <p class="trade-cash-warning">현금·가격·추가금액 거래는 등록할 수 없습니다.</p>
+            <p class="trade-collection-warning">교환완료는 이 글의 상태만 변경하며 전국도감·다른 도감의 보유 기록은 변경하지 않습니다.</p>
             <div id="trade-register-message" class="trade-register-message" role="status" aria-live="polite"></div>
             <button id="trade-register-submit" class="trade-primary-button" type="submit">교환글 등록</button>
           </form>
@@ -129,7 +133,7 @@
           <p id="trade-count" class="trade-count" aria-live="polite">교환글 <strong>—</strong>개</p>
           <div id="trade-loading" class="trade-board-state" role="status"><strong>교환글을 불러오는 중입니다.</strong></div>
           <div id="trade-grid" class="trade-grid" hidden></div>
-          <div id="trade-empty" class="trade-board-state" hidden><strong>조건에 맞는 교환글이 없습니다.</strong><p>내 도감에서 보유 카드를 선택해 첫 교환글을 등록해 보세요.</p></div>
+          <div id="trade-empty" class="trade-board-state" hidden><strong>조건에 맞는 교환글이 없습니다.</strong><p>내 도감의 미보유 카드에서 원하는 카드를 선택해 첫 교환글을 등록해 보세요.</p></div>
           <div id="trade-error" class="trade-board-state trade-board-state--error" role="alert" hidden><strong>교환글을 불러오지 못했습니다.</strong><p>기존 도감과 보유 데이터에는 영향을 주지 않습니다.</p></div>
         </section>
 

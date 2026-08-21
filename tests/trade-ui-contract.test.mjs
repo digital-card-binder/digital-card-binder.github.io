@@ -20,8 +20,10 @@ test("card trade is the third desktop and mobile navigation item", async () => {
 
 test("trade registration contains card-only fields and no money input", async () => {
   const html = await read("trades.html");
-  assert.match(html, /id="trade-offered-card"/);
   assert.match(html, /id="trade-wanted-card"/);
+  assert.match(html, /id="trade-offered-cards"/);
+  assert.match(html, /미보유 카드에서 선택/);
+  assert.match(html, /내가 줄 수 있는 보유 카드/);
   assert.match(html, /id="trade-accept-offers"/);
   assert.doesNotMatch(html, /type="number"|id="[^"]*(price|cash|amount)[^"]*"/i);
 });
@@ -35,14 +37,20 @@ test("trade posts use an isolated Firestore collection and fixed schema", async 
   assert.doesNotMatch(client, /"users",\s*state\.user\.uid,\s*"collections"/);
   assert.match(rules, /match \/tradePosts\/\{tradePostId\}/);
   assert.match(rules, /keys\(\)\.hasOnly\(\[/);
+  assert.match(rules, /request\.resource\.data\.schemaVersion == 2/);
+  assert.match(rules, /validTradeCard\(request\.resource\.data\.wantedCard\)/);
+  assert.match(rules, /validTradeCardList\(request\.resource\.data\.offeredCards\)/);
   assert.match(rules, /request\.resource\.data\.status == "open"/);
 });
 
-test("only owned catalog cards expose the trade shortcut", async () => {
+test("missing cards start registration and owned cards can be added as offers", async () => {
   const integration = await read("trade-offer.js");
   assert.match(integration, /status\?\.classList\.contains\("is-owned"\)/);
-  assert.match(integration, /if \(!owned\) return null;/);
-  assert.match(integration, /교환에 내놓기/);
+  assert.match(integration, /이 카드를 구해요/);
+  assert.match(integration, /줄 수 있는 카드로 추가/);
+  assert.match(integration, /wantedCard: latest\.card/);
+  assert.match(integration, /offeredCards\.push\(latest\.card\)/);
+  assert.doesNotMatch(integration, /교환에 내놓기/);
   assert.match(integration, /이 카드로 교환 제안/);
 });
 
@@ -86,4 +94,6 @@ test("completion, deletion, blocking, and reporting have explicit guarded paths"
 test("trade code never writes existing collection or dashboard settings", async () => {
   const sources = `${await read("trades.js")}\n${await read("trade-offer.js")}`;
   assert.doesNotMatch(sources, /"collections"|collectionSettings|publicProfiles|sharedCollections/);
+  assert.match(sources, /batch\.update\(firestoreModule\.doc\(db, "tradePosts"/);
+  assert.doesNotMatch(sources, /batch\.(update|set)\(firestoreModule\.doc\(db, "users"/);
 });

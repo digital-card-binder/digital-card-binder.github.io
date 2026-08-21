@@ -180,17 +180,24 @@ test("trade posts are public, isolated, card-only records owned by the author", 
     );
   });
 
+  const offeredCard = {
+    name: "피카츄",
+    imageUrl: "https://cards.example/pikachu.png",
+    detail: "sv2a · 173/165",
+    sourcePage: "series.html",
+  };
+  const wantedCard = {
+    name: "라이츄",
+    imageUrl: "https://cards.example/raichu.png",
+    detail: "AR · 074/071",
+    sourcePage: "series.html",
+  };
   const validPost = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     authorUid: "trade-user",
     authorNickname: "교환컬렉터",
-    offeredCard: {
-      name: "피카츄",
-      imageUrl: "https://cards.example/pikachu.png",
-      detail: "sv2a · 173/165",
-      sourcePage: "series.html",
-    },
-    wantedCard: "라이츄 AR",
+    wantedCard,
+    offeredCards: [offeredCard],
     acceptOffers: true,
     status: "open",
     createdAt: serverTimestamp(),
@@ -221,6 +228,18 @@ test("trade posts are public, isolated, card-only records owned by the author", 
       status: "closed",
     }),
   );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      wantedCard: "라이츄 AR",
+    }),
+  );
+  await assertFails(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      offeredCards: [],
+    }),
+  );
 });
 
 test("trade proposals, accepted messages, unread updates, blocks, reports, and deletion enforce participants", async () => {
@@ -230,6 +249,7 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
   const authorDb = userDb(authorUid, "author@example.com");
   const proposerDb = userDb(proposerUid, "proposer@example.com");
   const strangerDb = userDb(strangerUid, "stranger@example.com");
+  const authorNationalRef = doc(authorDb, "users", authorUid, "collections", "nationalDex");
   await environment.withSecurityRulesDisabled(async (context) => {
     const adminDb = context.firestore();
     await Promise.all([
@@ -245,8 +265,15 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
         nickname: "제삼자",
         profileCompleted: true,
       }),
+      setDoc(doc(adminDb, "users", authorUid, "collections", "nationalDex"), {
+        baseMode: "empty",
+        email: "author@example.com",
+        overrides: { 25: { owned: true } },
+        updatedAt: "before-trade-completion",
+      }),
     ]);
   });
+  const nationalBeforeCompletion = (await assertSucceeds(getDoc(authorNationalRef))).data();
 
   const card = {
     name: "피카츄",
@@ -255,11 +282,11 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
     sourcePage: "series.html",
   };
   const postFields = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     authorUid,
     authorNickname: "글작성자",
-    offeredCard: card,
-    wantedCard: "라이츄 AR",
+    wantedCard: { ...card, name: "라이츄", imageUrl: "https://cards.example/raichu.png" },
+    offeredCards: [card],
     acceptOffers: true,
     status: "open",
     createdAt: serverTimestamp(),
@@ -330,6 +357,10 @@ test("trade proposals, accepted messages, unread updates, blocks, reports, and d
   });
   await assertSucceeds(acceptBatch.commit());
   assert.equal((await getDoc(doc(guest, "tradePosts", postRef.id))).data().status, "completed");
+  assert.deepEqual(
+    (await assertSucceeds(getDoc(authorNationalRef))).data(),
+    nationalBeforeCompletion,
+  );
   await assertFails(deleteDoc(doc(authorDb, "tradePosts", postRef.id)));
 
   const messageRef = await assertSucceeds(
