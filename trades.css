@@ -7,18 +7,22 @@
 .trades-hero-action, .trade-primary-button, .trade-offer-shortcut { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: var(--red); color: #fff; font: inherit; font-size: .82rem; font-weight: 800; padding: 12px 18px; text-decoration: none; cursor: pointer; }
 .trade-offer-shortcut { width: 100%; margin-top: 18px; }
 .trade-register-panel, .trades-board-panel { margin: 0; }
-.trade-register-form { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(260px, 1.4fr); gap: 18px 24px; align-items: start; }
-.trade-offered-card { grid-row: span 4; display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: center; min-height: 150px; border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: #fafbfe; }
-.trade-offered-card img, .trade-card-image img { width: 100%; aspect-ratio: 2.5/3.5; border-radius: 8px; object-fit: contain; }
-.trade-offered-card div { display: grid; gap: 7px; }
-.trade-offered-card span, .trade-field > span, .trade-filter > span { color: var(--ink-faint); font-size: .7rem; font-weight: 800; }
-.trade-offered-card strong { font-size: 1.05rem; }
-.trade-offered-card small, .trade-card-copy small { color: var(--ink-faint); }
+.trade-register-form { display: grid; gap: 18px; align-items: start; }
+.trade-wanted-card { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; align-items: center; min-height: 150px; border: 1px solid #e5c8ce; border-radius: 16px; padding: 16px; background: #fff8f9; }
+.trade-wanted-card img, .trade-card-image img { width: 100%; aspect-ratio: 2.5/3.5; border-radius: 8px; object-fit: contain; }
+.trade-wanted-card div { display: grid; gap: 7px; }
+.trade-wanted-card span, .trade-field > span, .trade-filter > span { color: var(--ink-faint); font-size: .7rem; font-weight: 800; }
+.trade-wanted-card strong { font-size: 1.05rem; }
+.trade-wanted-card small, .trade-card-copy small { color: var(--ink-faint); }
+.trade-offered-cards-section { display: grid; gap: 2px; }
+.trade-form-heading > div { display: grid; gap: 3px; }
+.trade-form-heading small { color: var(--ink-faint); font-size: .68rem; }
 .trade-field { display: grid; gap: 8px; }
 .trade-field input, .trade-field textarea, .trade-search input, .trade-filter select { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 11px; background: #fff; color: var(--ink); font: inherit; padding: 10px 13px; resize: vertical; }
 .trade-checkbox { display: flex; align-items: center; gap: 9px; font-size: .85rem; font-weight: 700; }
 .trade-checkbox input { width: 18px; height: 18px; accent-color: var(--red); }
 .trade-cash-warning { margin: 0; border-left: 3px solid var(--red); color: #7b3540; font-size: .76rem; padding-left: 10px; }
+.trade-collection-warning { margin: 0; border-left: 3px solid #54709e; color: #4a607f; font-size: .76rem; padding-left: 10px; }
 .trade-register-message { min-height: 20px; color: #9b2f3e; font-size: .78rem; }
 .trade-register-message a { color: inherit; font-weight: 800; }
 .trade-primary-button { justify-self: start; }
@@ -42,6 +46,12 @@
 .trade-card dl > div { display: grid; gap: 4px; }
 .trade-card dt { color: var(--ink-faint); font-size: .66rem; font-weight: 800; }
 .trade-card dd { display: grid; gap: 3px; margin: 0; font-size: .82rem; overflow-wrap: anywhere; }
+.trade-post-offered-cards { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.trade-post-offered-card { flex: 0 0 70px; display: grid; gap: 4px; min-width: 0; }
+.trade-post-offered-card img { width: 46px; height: 64px; justify-self: start; border-radius: 5px; object-fit: contain; background: #f3f4f8; }
+.trade-post-offered-card .trade-image-placeholder { display: grid; width: 46px; height: 64px; place-items: center; border-radius: 5px; background: #f3f4f8; font-size: .5rem; }
+.trade-post-offered-card b { overflow: hidden; font-size: .66rem; text-overflow: ellipsis; white-space: nowrap; }
+.trade-post-no-offer { color: var(--ink-faint); font-size: .72rem; }
 .trade-card-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
 .trade-card-actions button, .trade-form-heading a, .trade-safety-actions button { border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); font: inherit; font-size: .72rem; font-weight: 800; padding: 8px 10px; text-decoration: none; cursor: pointer; }
 .trade-card-actions .trade-propose-button { border-color: #edcfd4; background: #fff7f8; color: #9b2f3e; }
@@ -95,9 +105,9 @@
 @media (max-width: 690px) {
   .trades-main { gap: 18px; }
   .trades-hero-action { width: 100%; }
-  .trade-register-form, .trades-toolbar { grid-template-columns: 1fr; }
+  .trades-toolbar { grid-template-columns: 1fr; }
   .trade-proposal-cards { grid-template-columns: 1fr; }
-  .trade-offered-card { grid-row: auto; grid-template-columns: 88px 1fr; }
+  .trade-wanted-card { grid-template-columns: 88px minmax(0, 1fr); }
   .trade-card { grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 12px; }
   .trade-card-image { min-height: 128px; }
   .trade-message-form { grid-template-columns: 1fr; }
