@@ -38,25 +38,15 @@
     ]);
   }
 
-  function addPromoShortcut(){
-    const host=document.querySelector("#era-filters");
-    const promoPanel=document.querySelector(".promo-catalog-panel");
-    if(!host||!promoPanel||host.querySelector('[data-era="PROMO"]'))return;
-
-    const promoButton=document.createElement("button");
-    promoButton.type="button";
-    promoButton.textContent="PROMO";
-    promoButton.dataset.era="PROMO";
-    promoButton.setAttribute("aria-label","프로모 컬렉션으로 이동");
-    promoButton.addEventListener("click",()=>{
-      host.querySelectorAll("button").forEach(item=>item.classList.toggle("is-active",item===promoButton));
-      promoPanel.scrollIntoView({behavior:"smooth",block:"start"});
-      window.setTimeout(()=>document.querySelector("#promo-search")?.focus({preventScroll:true}),450);
-    });
-    host.append(promoButton);
+  function loadPackPromoHelper(){
+    if(!document.querySelector("#era-filters")||document.querySelector("script[data-pack-promo-helper]"))return;
+    const script=document.createElement("script");
+    script.src="./packs-promo-helper.js?v=20260822-1";
+    script.dataset.packPromoHelper="true";
+    document.head.append(script);
   }
 
-  addPromoShortcut();
+  loadPackPromoHelper();
 
   button.addEventListener("click",async()=>{
     button.disabled=true;
