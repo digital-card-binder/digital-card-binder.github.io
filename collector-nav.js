@@ -81,14 +81,7 @@
         "도감 갤러리",
         "PUBLIC BOARD",
       );
-    const trades =
-      nav.querySelector('[href*="trades.html"]') ||
-      navigationLink(
-        "./trades.html",
-        "TR",
-        "카드 교환",
-        "TRADE BOARD",
-      );
+    nav.querySelector('[href*="trades.html"]')?.remove();
     const customDex =
       nav.querySelector('[href*="custom.html"]') ||
       navigationLink(
@@ -108,7 +101,6 @@
 
     settings?.remove();
     dashboard.after(directory);
-    directory.after(trades);
     const people = nav.querySelector('[href*="people.html"]');
     if (people) people.after(customDex);
     else nav.append(customDex);
