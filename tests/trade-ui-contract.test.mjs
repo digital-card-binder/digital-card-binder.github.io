@@ -5,17 +5,14 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 const read = (path) => readFile(new URL(path, root), "utf8");
 
-test("card trade is the third desktop and mobile navigation item", async () => {
-  const [html, navigation] = await Promise.all([
-    read("trades.html"),
-    read("collector-nav.js"),
-  ]);
-  const dashboard = html.indexOf('href="./"');
-  const gallery = html.indexOf('href="./collectors.html"');
-  const trades = html.indexOf('href="./trades.html"');
-  const national = html.indexOf('href="./national.html"');
-  assert.ok(dashboard < gallery && gallery < trades && trades < national);
-  assert.match(navigation, /dashboard\.after\(directory\);\s*directory\.after\(trades\);/);
+test("card trade stays hidden from desktop and mobile navigation", async () => {
+  const navigation = await read("collector-nav.js");
+  assert.match(
+    navigation,
+    /nav\.querySelector\('\[href\*="trades\.html"\]'\)\?\.remove\(\);/,
+  );
+  assert.doesNotMatch(navigation, /navigationLink\(\s*"\.\/trades\.html"/);
+  assert.doesNotMatch(navigation, /directory\.after\(trades\)/);
 });
 
 test("trade registration contains card-only fields and no money input", async () => {
