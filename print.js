@@ -38,6 +38,16 @@
     ]);
   }
 
+  function loadPackPromoHelper(){
+    if(!document.querySelector("#era-filters")||document.querySelector("script[data-pack-promo-helper]"))return;
+    const script=document.createElement("script");
+    script.src="./packs-promo-helper.js?v=20260822-1";
+    script.dataset.packPromoHelper="true";
+    document.head.append(script);
+  }
+
+  loadPackPromoHelper();
+
   button.addEventListener("click",async()=>{
     button.disabled=true;
     const previousLabel=button.textContent;
