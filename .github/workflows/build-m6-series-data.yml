@@ -1,11 +1,10 @@
-name: Build M6 Series Data
+name: Inspect M5 Series Data
 
 on:
   push:
     branches:
       - feature/add-m6
     paths:
-      - scripts/build_m6_series_data.py
       - .github/workflows/build-m6-series-data.yml
   workflow_dispatch:
 
@@ -13,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  inspect:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -23,12 +22,7 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Inspect current M5 group
+      - name: Extract current M5 group
         run: |
           python - <<'PY'
           import json
@@ -39,56 +33,20 @@ jobs:
               raise SystemExit(f'M5 group count: {len(matches)}')
           group = matches[0]
           cards = group.get('cards') or []
-          missing_names = [c.get('code') or c.get('meta') for c in cards if not str(c.get('name') or '').strip()]
-          missing_images = [c.get('code') or c.get('meta') for c in cards if not str(c.get('image') or '').strip()]
-          codes = [str(c.get('code') or c.get('meta') or '') for c in cards]
-          duplicates = sorted({code for code in codes if code and codes.count(code) > 1})
-          print(f"M5 title={group.get('title') or group.get('displayName')}")
-          print(f"M5 total field={group.get('total')} actual cards={len(cards)}")
-          print(f"M5 missing names={len(missing_names)}")
-          print(f"M5 missing images={len(missing_images)}")
-          print(f"M5 duplicate codes={len(duplicates)}")
-          print(f"M5 first codes={codes[:5]}")
-          print(f"M5 last codes={codes[-5:]}")
-          if missing_names:
-              print(f"M5 missing-name examples={missing_names[:20]}")
-          if missing_images:
-              print(f"M5 missing-image examples={missing_images[:20]}")
-          if duplicates:
-              print(f"M5 duplicate examples={duplicates[:20]}")
+          Path('tmp').mkdir(exist_ok=True)
+          Path('tmp/m5-current.json').write_text(
+              json.dumps(group, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          print(f"M5 cards={len(cards)}")
+          print(f"M5 missing names={sum(not str(c.get('name') or '').strip() for c in cards)}")
+          print(f"M5 missing images={sum(not str(c.get('image') or '').strip() for c in cards)}")
           PY
 
-      - name: Build Korean M6 data
-        run: python scripts/build_m6_series_data.py
-
-      - name: Validate generated M6 group
+      - name: Commit M5 snapshot
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          groups = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
-          matches = [g for g in groups if str(g.get('code', '')).lower() == 'm6']
-          if len(matches) != 1:
-              raise SystemExit(f'expected one m6 group, got {len(matches)}')
-          group = matches[0]
-          cards = group.get('cards') or []
-          if len(cards) < 100:
-              raise SystemExit(f'M6 card count too small: {len(cards)}')
-          if any(not card.get('name') or not card.get('image') for card in cards):
-              raise SystemExit('M6 contains card(s) missing Korean name or image')
-          if len({card.get('code') for card in cards}) != len(cards):
-              raise SystemExit('M6 contains duplicate card codes')
-          print(f"validated M6: {len(cards)} cards")
-          PY
-
-      - name: Commit generated series data
-        run: |
-          if git diff --quiet -- data/series.json; then
-            echo 'No series data changes.'
-            exit 0
-          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/series.json
-          git commit -m 'Add Korean M6 Storm Emeralda series data'
+          git add -f tmp/m5-current.json
+          git commit -m 'Extract M5 series snapshot for repair'
           git push origin HEAD:${{ github.ref_name }}
