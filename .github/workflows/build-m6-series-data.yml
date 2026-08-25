@@ -28,6 +28,36 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Inspect current M5 group
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          groups = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          matches = [g for g in groups if str(g.get('code', '')).lower() == 'm5']
+          if len(matches) != 1:
+              raise SystemExit(f'M5 group count: {len(matches)}')
+          group = matches[0]
+          cards = group.get('cards') or []
+          missing_names = [c.get('code') or c.get('meta') for c in cards if not str(c.get('name') or '').strip()]
+          missing_images = [c.get('code') or c.get('meta') for c in cards if not str(c.get('image') or '').strip()]
+          codes = [str(c.get('code') or c.get('meta') or '') for c in cards]
+          duplicates = sorted({code for code in codes if code and codes.count(code) > 1})
+          print(f"M5 title={group.get('title') or group.get('displayName')}")
+          print(f"M5 total field={group.get('total')} actual cards={len(cards)}")
+          print(f"M5 missing names={len(missing_names)}")
+          print(f"M5 missing images={len(missing_images)}")
+          print(f"M5 duplicate codes={len(duplicates)}")
+          print(f"M5 first codes={codes[:5]}")
+          print(f"M5 last codes={codes[-5:]}")
+          if missing_names:
+              print(f"M5 missing-name examples={missing_names[:20]}")
+          if missing_images:
+              print(f"M5 missing-image examples={missing_images[:20]}")
+          if duplicates:
+              print(f"M5 duplicate examples={duplicates[:20]}")
+          PY
+
       - name: Build Korean M6 data
         run: python scripts/build_m6_series_data.py
 
