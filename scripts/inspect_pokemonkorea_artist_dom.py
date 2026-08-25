@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
-import re
-import requests
-from urllib.parse import urljoin
+import os, re, subprocess, tempfile
+from collections import Counter, defaultdict
 
-UA={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36"}
-
-for url in ["https://icu.gg/card/list", "https://pokemon.cardmon.com"]:
-    print("\nURL",url)
-    try:
-        r=requests.get(url,headers=UA,timeout=30)
-        print("STATUS",r.status_code,"LEN",len(r.text),"FINAL",r.url)
-        print(r.text[:1000].replace("\n"," "))
-        scripts=re.findall(r'<script[^>]+src=["\']([^"\']+)',r.text,re.I)
-        print("SCRIPTS",scripts)
-        for src in scripts[-8:]:
-            jsurl=urljoin(r.url,src)
-            try:
-                j=requests.get(jsurl,headers=UA,timeout=30)
-                print("JS",j.status_code,len(j.text),jsurl)
-                for pat in [r'https?://[^"\'\s]+',r'/api/[^"\'\s]+',r'axios[^;]{0,300}',r'illustrator[^,;]{0,200}',r'artist[^,;]{0,200}']:
-                    hits=re.findall(pat,j.text,re.I)
-                    if hits: print("PAT",pat,"HITS",hits[:20])
-            except Exception as e: print("JSERR",jsurl,e)
-    except Exception as e: print("ERR",e)
+ARTISTS=["Mitsuhiro Arita","Kagemaru Himeno","Kouki Saitou","Naoki Saito","kawayoo"]
+with tempfile.TemporaryDirectory() as td:
+    repo=os.path.join(td,"cards-database")
+    subprocess.run(["git","clone","--depth=1","-q","https://github.com/tcgdex/cards-database.git",repo],check=True)
+    base=os.path.join(repo,"data-asia")
+    hits=defaultdict(list)
+    for root,_,files in os.walk(base):
+        for fn in files:
+            if not fn.endswith('.ts'): continue
+            path=os.path.join(root,fn)
+            try: text=open(path,encoding='utf-8').read()
+            except: continue
+            for artist in ARTISTS:
+                if re.search(r'illustrator:\s*["\']'+re.escape(artist)+r'["\']',text):
+                    rel=os.path.relpath(path,base)
+                    hits[artist].append(rel)
+    for artist in ARTISTS:
+        paths=hits[artist]
+        eras=Counter(p.split(os.sep)[0] for p in paths)
+        print("ARTIST",artist,"COUNT",len(paths),"ERAS",dict(sorted(eras.items())))
+        print("SAMPLE",paths[:12])
