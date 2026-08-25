@@ -1,4 +1,4 @@
-name: Probe M6 Image Filenames
+name: Probe M6 Fallback Images
 
 on:
   push:
@@ -11,19 +11,22 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe Korean M6 images
+      - name: Inspect Pokecardmon page image sources
+        shell: bash
+        run: |
+          set -e
+          curl -L -sS -A 'Mozilla/5.0' 'https://pokecardmon.com/ko/box/M6?market=JP' -o /tmp/pokecardmon.html
+          echo '--- interesting image/source URLs ---'
+          grep -Eo 'https?[^"'"' ]+|/_next/image[^"'"' ]+|[^"'"' ]+\.(png|jpg|jpeg|webp)' /tmp/pokecardmon.html | grep -Ei 'M6|card|image|113|077' | head -n 120 || true
+          echo '--- M6 / 113 context ---'
+          grep -Eio '.{0,180}(113/076|M6[^<]{0,100}113|메가레쿠쟈|メガレックウザ).{0,300}' /tmp/pokecardmon.html | head -n 30 || true
+
+      - name: Inspect Samurai Sword card list image sources
         shell: bash
         run: |
           set +e
-          base='https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6'
-          for n in 071 072 073 074 075 076 077 113; do
-            for suffix in ".png" ".jpg" ".webp" "_1.png" "_2.png" "_L.png" "_R.png"; do
-              url="$base/M6_${n}${suffix}"
-              result=$(curl -L -sS -A 'Mozilla/5.0' -o /tmp/probe -w '%{http_code} %{content_type} %{size_download}' "$url")
-              if [[ "$result" == 200* ]]; then
-                echo "FOUND $n $suffix $result"
-                break
-              fi
-              if [[ "$suffix" == ".png" ]]; then echo "BASE $n $result"; fi
-            done
-          done
+          curl -L -sS -A 'Mozilla/5.0' 'https://samuraiswordtokyo.com/zh-hant/blogs/news/storm-emeralda-m6-card-list-all-73-cards' -o /tmp/samurai.html
+          wc -c /tmp/samurai.html || true
+          grep -Eo 'https?[^"'"' ]+\.(png|jpg|jpeg|webp)[^"'"' ]*' /tmp/samurai.html | grep -Ei 'M6|077|113|storm|rayquaza|masquerain' | head -n 120 || true
+          echo '--- image tags around 077/113 ---'
+          grep -Eio '.{0,250}(077/076|113/076).{0,500}' /tmp/samurai.html | head -n 20 || true
