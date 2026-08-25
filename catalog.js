@@ -2,6 +2,8 @@
 
 const $ = (id) => document.getElementById(id);
 const mode = document.body.dataset.catalog;
+const seriesBaseOnly =
+  mode === "series" && document.body.dataset.seriesScope === "base";
 const SERIES_DATA_URL = "./data/series.json";
 const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
@@ -55,7 +57,7 @@ let mobileCatalogPreferences = {};
 const mobileCatalogMedia = typeof window.matchMedia === "function"
   ? window.matchMedia("(max-width: 690px)")
   : null;
-const MOBILE_CATALOG_PREFERENCES_KEY = `pokemonDexMobileCatalogV1:${mode}`;
+const MOBILE_CATALOG_PREFERENCES_KEY = `pokemonDexMobileCatalogV1:${mode}:${seriesBaseOnly ? "base" : "all"}`;
 
 const pct = (amount, total) =>
   total ? Math.round((amount / total) * 1000) / 10 : 0;
@@ -582,6 +584,32 @@ function seriesCardNumber(card) {
   return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
 }
 
+function seriesCardRange(card) {
+  const match = String(card.code || card.meta || "").match(
+    /_([0-9]+)\/([0-9]+)/,
+  );
+  if (!match) return null;
+  return {
+    number: Number(match[1]),
+    denominator: Number(match[2]),
+  };
+}
+
+function isBaseSeriesCard(card) {
+  const range = seriesCardRange(card);
+  return !range || range.number <= range.denominator;
+}
+
+function applySeriesScope() {
+  if (!seriesBaseOnly) return;
+  groups = groups
+    .map((group) => ({
+      ...group,
+      cards: (group.cards || []).filter(isBaseSeriesCard),
+    }))
+    .filter((group) => group.cards.length > 0);
+}
+
 function loadGroup(value) {
   const fallback = selectableGroups()[0] || groups[0];
   selected =
@@ -660,6 +688,10 @@ async function init() {
       await account.ready;
       account.applyGroups(groups);
     }
+
+    // 기본 수록 도감은 기존 시리즈도감과 같은 accountKey를 먼저 부여한 뒤
+    // 분모 번호 이하 카드만 화면에 남겨 보유 상태를 완전히 공유합니다.
+    applySeriesScope();
 
     groups.forEach((group) => {
       group.total = group.cards.length;

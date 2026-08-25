@@ -99,6 +99,24 @@
     const pokemonCount = pokemonCollections?.querySelector("small");
     if (pokemonCount) pokemonCount.textContent = "67 POKÉMON";
 
+    const series = nav.querySelector('a.collection-link[href="./series.html"]');
+    const baseSeries =
+      nav.querySelector('a.collection-link[href="./base-series.html"]') ||
+      navigationLink(
+        "./base-series.html",
+        "04B",
+        "기본 수록 도감",
+        "BASE SET · 분모까지",
+      );
+    if (series) {
+      baseSeries.remove();
+      series.after(baseSeries);
+    }
+
+    const ar = nav.querySelector('a.collection-link[href="./ar.html"]');
+    const arCount = ar?.querySelector("small");
+    if (arCount) arCount.textContent = "SV · M · 522 CARDS";
+
     settings?.remove();
     dashboard.after(directory);
     const people = nav.querySelector('[href*="people.html"]');
