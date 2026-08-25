@@ -20,8 +20,11 @@ for r in records:
     pairs=[]
     m=re.match(r'^([^_]+)_0*(\d+)(?:/|$)',raw,re.I)
     if m: pairs.append((m.group(1),m.group(2)))
-    m=re.search(r'/wmimages/[^/]+/([^/]+)/[^/]*?_?0*(\d+)(?:[_\.]|$)',img,re.I)
-    if m: pairs.append((m.group(1),m.group(2)))
+    im=re.search(r'/wmimages/[^/]+/([^/]+)/([^/?#]+)',img,re.I)
+    if im:
+        directory,filename=im.groups()
+        nm=re.search(r'_0*(\d{1,4})(?:[_\.]|$)',filename,re.I)
+        if nm: pairs.append((directory,nm.group(1)))
     m=re.search(r'(\d{1,4})',numv)
     if setv and m: pairs.append((setv,m.group(1)))
     for code,num in pairs:
@@ -38,8 +41,7 @@ with tempfile.TemporaryDirectory() as td:
         if not os.path.isdir(ep): continue
         for fn in os.listdir(ep):
             if not fn.endswith('.ts'): continue
-            path=os.path.join(ep,fn)
-            txt=open(path,encoding='utf-8',errors='ignore').read()
+            txt=open(os.path.join(ep,fn),encoding='utf-8',errors='ignore').read()
             if re.search(r'\bko\s*:',txt) or re.search(r'["\']ko["\']\s*:',txt): korean_sets.add((era,fn[:-3]))
     print('KOREAN SETS',len(korean_sets),sorted(korean_sets)[:30])
     hits=defaultdict(list)
