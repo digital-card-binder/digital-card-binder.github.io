@@ -1,4 +1,4 @@
-name: Validate M5 and M6 Data Sources
+name: Probe M6 Image Filenames
 
 on:
   push:
@@ -6,56 +6,24 @@ on:
       - feature/add-m6
     paths:
       - .github/workflows/build-m6-series-data.yml
-  workflow_dispatch:
 
 jobs:
-  validate:
+  probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-
-      - name: Validate M5 completeness
+      - name: Probe Korean M6 images
+        shell: bash
         run: |
-          python - <<'PY'
-          import json, re
-          from pathlib import Path
-          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
-          g=next(x for x in groups if str(x.get('code','')).lower()=='m5')
-          cards=g['cards']
-          missing_display=[c.get('code') for c in cards if not str(c.get('name') or c.get('pokemonName') or '').strip()]
-          missing_images=[c.get('code') for c in cards if not str(c.get('image') or '').strip()]
-          nums=[]
-          for c in cards:
-            m=re.search(r'm5_(\d+)',str(c.get('code','')),re.I)
-            if m: nums.append(int(m.group(1)))
-          missing_nums=sorted(set(range(1,119))-set(nums))
-          duplicate_nums=sorted(n for n in set(nums) if nums.count(n)>1)
-          print('cards',len(cards))
-          print('missing_display',missing_display)
-          print('missing_images',missing_images)
-          print('missing_numbers',missing_nums)
-          print('duplicate_numbers',duplicate_nums)
-          if len(cards)!=118 or missing_display or missing_images or missing_nums or duplicate_nums:
-            raise SystemExit('M5 structural validation failed')
-          PY
-
-      - name: Probe Korean M6 image CDN
-        run: |
-          python - <<'PY'
-          from urllib.request import Request,urlopen
-          for n in (1,58,76,77,113):
-            url=f'https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_{n:03}.png'
-            req=Request(url,headers={'User-Agent':'Mozilla/5.0'})
-            try:
-              with urlopen(req,timeout=20) as r:
-                head=r.read(16)
-                print(n,r.status,r.headers.get('Content-Type'),r.headers.get('Content-Length'),head[:8].hex())
-                if r.status!=200 or not str(r.headers.get('Content-Type','')).startswith('image/'):
-                  raise SystemExit(f'M6 image unavailable: {url}')
-            except Exception as e:
-              print('FAILED',n,repr(e))
-              raise
-          PY
+          set +e
+          base='https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6'
+          for n in 071 072 073 074 075 076 077 113; do
+            for suffix in ".png" ".jpg" ".webp" "_1.png" "_2.png" "_L.png" "_R.png"; do
+              url="$base/M6_${n}${suffix}"
+              result=$(curl -L -sS -A 'Mozilla/5.0' -o /tmp/probe -w '%{http_code} %{content_type} %{size_download}' "$url")
+              if [[ "$result" == 200* ]]; then
+                echo "FOUND $n $suffix $result"
+                break
+              fi
+              if [[ "$suffix" == ".png" ]]; then echo "BASE $n $result"; fi
+            done
+          done
