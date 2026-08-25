@@ -5,74 +5,52 @@ on:
     branches:
       - feat/add-popular-artists-final-20260826
     paths:
-      - "scripts/build_popular_artist_data.py"
       - ".github/workflows/build-popular-artists-temp.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: feat/add-popular-artists-final-20260826
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Build supplement
-        run: python scripts/build_popular_artist_data.py /tmp/artists-popular.json
-      - name: Merge and validate catalog
+      - name: Inspect series records
         run: |
           python - <<'PY'
-          import json
+          import json, re
           from pathlib import Path
-
-          base_path = Path("data/artists.json")
-          base = json.loads(base_path.read_text(encoding="utf-8"))
-          supplement = json.loads(Path("/tmp/artists-popular.json").read_text(encoding="utf-8"))
-          new_names = ["Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri"]
-          existing = {artist["name"] for artist in base["artists"]}
-          overlap = existing.intersection(new_names)
-          if overlap:
-              raise SystemExit(f"Artists already exist: {sorted(overlap)}")
-          if [artist["name"] for artist in supplement["artists"]] != new_names:
-              raise SystemExit("Unexpected supplement artist list")
-          for artist in supplement["artists"]:
-              if not artist["cards"]:
-                  raise SystemExit(f"No cards generated for {artist['name']}")
-              for card in artist["cards"]:
-                  if card.get("owned") is not False:
-                      raise SystemExit(f"New artist ownership must start false: {artist['name']}")
-                  if not str(card.get("image", "")).startswith("https://cards.image.pokemonkorea.co.kr/data/"):
-                      raise SystemExit(f"Non-official image: {artist['name']} {card.get('name')}")
-          base["artists"].extend(supplement["artists"])
-          base["artists"].sort(key=lambda artist: artist["name"].casefold())
-          base["artistCount"] = len(base["artists"])
-          base["cardCount"] = sum(len(artist.get("cards", [])) for artist in base["artists"])
-          base["ownedCount"] = sum(1 for artist in base["artists"] for card in artist.get("cards", []) if card.get("owned"))
-          base["illustratorIndex"] = supplement["illustratorIndex"]
-          if base["artistCount"] != 34:
-              raise SystemExit(f"Expected 34 artists, got {base['artistCount']}")
-          if any(name not in {artist['name'] for artist in base['artists']} for name in new_names):
-              raise SystemExit("One or more new artists missing after merge")
-          base_path.write_text(json.dumps(base, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-          print("artistCount", base["artistCount"])
-          print("cardCount", base["cardCount"])
-          print("ownedCount", base["ownedCount"])
-          for artist in supplement["artists"]:
-              print(artist["name"], len(artist["cards"]))
+          payload=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          rows=[]
+          def walk(node):
+              if isinstance(node,dict):
+                  if any(k in node for k in ('image','code','cardNumber','name')):
+                      rows.append(node)
+                  for v in node.values(): walk(v)
+              elif isinstance(node,list):
+                  for v in node: walk(v)
+          walk(payload)
+          print('rows',len(rows))
+          targets=[('SV4a',41),('SV4a',62),('SV2a',52),('SV2P',63),('SV6',67),('SV5a',26),('SV5M',50),('SV4K',26),('SV4M',20),('SV3a',85),('SV2D',9),('SV1S',43)]
+          for setcode,num in targets:
+              print('\nTARGET',setcode,num)
+              found=[]
+              for r in rows:
+                  text=' '.join(str(r.get(k,'')) for k in ('code','set','cardNumber','number','image','name'))
+                  if setcode.lower() in text.lower() and re.search(r'(^|\D)0*'+str(num)+r'(\D|$)',text):
+                      found.append(r)
+              print('found',len(found))
+              for r in found[:5]: print(json.dumps(r,ensure_ascii=False)[:1600])
+          print('\nSV4a samples')
+          count=0
+          for r in rows:
+              text=' '.join(str(r.get(k,'')) for k in ('code','set','cardNumber','number','image'))
+              if 'sv4a' in text.lower():
+                  print(json.dumps(r,ensure_ascii=False)[:1200]); count+=1
+                  if count>=8: break
           PY
-      - name: Commit generated artist data
-        run: |
-          if git diff --quiet -- data/artists.json; then
-            echo "No generated changes"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/artists.json
-          git commit -m "Add five popular artist catalogs"
-          git push origin HEAD:feat/add-popular-artists-final-20260826
