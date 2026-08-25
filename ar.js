@@ -3,8 +3,8 @@
 const $ = (id) => document.getElementById(id);
 const DATA_URL = "./data/ar.json";
 const NATIONAL_DEX_URL = "./data/pokedex.json";
-const EXPECTED_GROUPS = 32;
-const EXPECTED_TOTAL = 498;
+const EXPECTED_GROUPS = 34;
+const EXPECTED_TOTAL = 522;
 
 let groups = [];
 let allCards = [];
@@ -98,7 +98,7 @@ function updateDialog(card) {
   image.alt = `${card.name} 카드`;
   imageWrap.classList.toggle("is-missing", !card.owned);
   imageFallback.textContent =
-    card.setCode.toLowerCase() === "m5"
+    ["m5", "m6"].includes(card.setCode.toLowerCase())
       ? "포켓몬코리아 공식 AR 이미지 준비 중"
       : "이미지를 불러오지 못했습니다";
 
@@ -212,7 +212,7 @@ function makeCard(card) {
   fallbackBall.append(document.createElement("span"));
   const fallbackCopy = document.createElement("span");
   fallbackCopy.textContent =
-    card.setCode.toLowerCase() === "m5"
+    ["m5", "m6"].includes(card.setCode.toLowerCase())
       ? "포켓몬코리아 공식 AR 이미지 준비 중"
       : "이미지를 불러오지 못했습니다";
   fallback.append(fallbackBall, fallbackCopy);
