@@ -1,33 +1,25 @@
 #!/usr/bin/env python3
 import re
 import requests
-from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 UA={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36"}
 
-for url in [
-    "https://pokemoncard.co.kr/cards",
-    "https://pokemoncard.co.kr/cards/detail/BS2024012107",
-]:
-    print("\nURL", url)
-    r=requests.get(url,headers=UA,timeout=30)
-    print("STATUS",r.status_code,"LEN",len(r.text))
-    s=BeautifulSoup(r.text,"html.parser")
-    print("SCRIPTS")
-    for x in s.find_all("script",src=True): print(x.get("src"))
-    print("INPUTS")
-    for x in s.find_all(["input","select","button"]):
-        print(x.name, {k:x.get(k) for k in ["name","id","class","type","value","placeholder"] if x.get(k) is not None}, "TXT=",x.get_text(" ",strip=True)[:100])
-    print("DETAIL LINKS",len(s.select('a[href*="/cards/detail/"]')))
-    if "/detail/" in url:
-        artist=s.find(string=re.compile(r"Naoki Saito",re.I))
-        if artist:
-            node=artist.parent
-            print("ARTIST NODE",node)
-            print("PARENT",node.parent)
-            print("GRANDPARENT",node.parent.parent)
-        for img in s.find_all("img",src=True):
-            if "cards.image.pokemonkorea.co.kr" in img.get("src",""):
-                print("CARD IMG",img)
-        print("TEXT SAMPLE")
-        print(s.get_text("\n",strip=True)[:5000])
+for url in ["https://icu.gg/card/list", "https://pokemon.cardmon.com"]:
+    print("\nURL",url)
+    try:
+        r=requests.get(url,headers=UA,timeout=30)
+        print("STATUS",r.status_code,"LEN",len(r.text),"FINAL",r.url)
+        print(r.text[:1000].replace("\n"," "))
+        scripts=re.findall(r'<script[^>]+src=["\']([^"\']+)',r.text,re.I)
+        print("SCRIPTS",scripts)
+        for src in scripts[-8:]:
+            jsurl=urljoin(r.url,src)
+            try:
+                j=requests.get(jsurl,headers=UA,timeout=30)
+                print("JS",j.status_code,len(j.text),jsurl)
+                for pat in [r'https?://[^"\'\s]+',r'/api/[^"\'\s]+',r'axios[^;]{0,300}',r'illustrator[^,;]{0,200}',r'artist[^,;]{0,200}']:
+                    hits=re.findall(pat,j.text,re.I)
+                    if hits: print("PAT",pat,"HITS",hits[:20])
+            except Exception as e: print("JSERR",jsurl,e)
+    except Exception as e: print("ERR",e)
