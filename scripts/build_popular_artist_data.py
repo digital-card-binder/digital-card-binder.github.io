@@ -54,6 +54,14 @@ def iter_dicts(node):
             yield from iter_dicts(value)
 
 
+def row_name(row: dict) -> str:
+    for key in ("name", "pokemonName", "cardName"):
+        value = str(row.get(key) or "").strip()
+        if value:
+            return value
+    return ""
+
+
 def parse_local_identity(row: dict):
     image = str(row.get("image") or "").strip()
     if not image.startswith(OFFICIAL_IMAGE_PREFIX):
@@ -80,7 +88,7 @@ def parse_local_identity(row: dict):
 def build_local_index():
     index = defaultdict(list)
     excluded = {"data/artists.json", "data/artists-popular.json"}
-    for filename in glob.glob("data/*.json"):
+    for filename in sorted(glob.glob("data/*.json")):
         if filename.replace("\\", "/") in excluded:
             continue
         try:
@@ -89,13 +97,12 @@ def build_local_index():
             continue
         for row in iter_dicts(payload):
             image = str(row.get("image") or "").strip()
-            name = str(row.get("name") or "").strip()
-            if not image.startswith(OFFICIAL_IMAGE_PREFIX) or not name:
+            if not image.startswith(OFFICIAL_IMAGE_PREFIX):
                 continue
             for set_name, number in parse_local_identity(row):
                 key = (set_name.casefold(), number)
-                identity = (name, normalized_image(image), str(row.get("source") or ""))
-                if any((str(x.get("name") or ""), normalized_image(str(x.get("image") or "")), str(x.get("source") or "")) == identity for x in index[key]):
+                identity = (normalized_image(image), str(row.get("code") or ""), row_name(row))
+                if any((normalized_image(str(x.get("image") or "")), str(x.get("code") or ""), row_name(x)) == identity for x in index[key]):
                     continue
                 index[key].append(row)
     return index
@@ -163,7 +170,7 @@ def normalize_local_card(row: dict, fallback_set: str, fallback_number: int):
     if not source.startswith(OFFICIAL_DETAIL_PREFIX):
         source = OFFICIAL_CARDS_URL
     return {
-        "name": str(row.get("name") or "").strip(),
+        "name": row_name(row),
         "owned": False,
         "set": set_name,
         "rarity": infer_rarity(row, card_number),
@@ -195,20 +202,21 @@ def build():
             seen = set()
             for era, set_name, number, relative in sorted(grouped[artist], key=set_sort_key):
                 local_rows = local_index.get((set_name.casefold(), number), [])
-                if not local_rows and (era, set_name) not in kr_sets:
+                override = MANUAL_OVERRIDES.get((artist, set_name, number))
+                if not local_rows and not override and (era, set_name) not in kr_sets:
                     continue
-                if local_rows:
-                    candidates = [normalize_local_card(row, set_name, number) for row in local_rows]
-                else:
-                    override = MANUAL_OVERRIDES.get((artist, set_name, number))
-                    if not override:
-                        unresolved.append((artist, relative))
-                        continue
+                if override:
                     candidates = [{**override, "owned": False, "imageBw": ""}]
-                for card in candidates:
-                    if not card["name"] or not card["image"].startswith(OFFICIAL_IMAGE_PREFIX):
-                        continue
-                    identity = (card["set"].casefold(), card["cardNumber"], card["name"], normalized_image(card["image"]))
+                else:
+                    preferred = sorted(local_rows, key=lambda row: (bool(str(row.get("name") or "").strip()), bool(row_name(row))), reverse=True)
+                    candidates = [normalize_local_card(row, set_name, number) for row in preferred]
+                valid = [card for card in candidates if card["name"] and card["image"].startswith(OFFICIAL_IMAGE_PREFIX)]
+                if not valid:
+                    if (era, set_name) in kr_sets:
+                        unresolved.append((artist, relative))
+                    continue
+                for card in valid:
+                    identity = (card["set"].casefold(), card["cardNumber"], normalized_image(card["image"]))
                     if identity in seen:
                         continue
                     seen.add(identity)
