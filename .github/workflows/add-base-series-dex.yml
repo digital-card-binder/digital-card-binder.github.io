@@ -18,7 +18,9 @@ jobs:
           ref: feature/base-series-dex
 
       - name: Implement basic series dex
-        run: python scripts/implement_base_series.py
+        run: |
+          python scripts/implement_base_series.py
+          python scripts/update_base_series_contracts.py
 
       - name: Validate
         run: |
@@ -31,6 +33,7 @@ jobs:
         run: |
           rm .github/workflows/add-base-series-dex.yml
           rm scripts/implement_base_series.py
+          rm scripts/update_base_series_contracts.py
 
       - name: Commit implementation
         run: |
