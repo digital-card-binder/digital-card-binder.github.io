@@ -1,1 +1,64 @@
-placeholder
+name: Build M6 Series Data
+
+on:
+  push:
+    branches:
+      - feature/add-m6
+    paths:
+      - scripts/build_m6_series_data.py
+      - .github/workflows/build-m6-series-data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build Korean M6 data
+        run: python scripts/build_m6_series_data.py
+
+      - name: Validate generated M6 group
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          groups = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          matches = [g for g in groups if str(g.get('code', '')).lower() == 'm6']
+          if len(matches) != 1:
+              raise SystemExit(f'expected one m6 group, got {len(matches)}')
+          group = matches[0]
+          cards = group.get('cards') or []
+          if len(cards) < 100:
+              raise SystemExit(f'M6 card count too small: {len(cards)}')
+          if any(not card.get('name') or not card.get('image') for card in cards):
+              raise SystemExit('M6 contains card(s) missing Korean name or image')
+          if len({card.get('code') for card in cards}) != len(cards):
+              raise SystemExit('M6 contains duplicate card codes')
+          print(f"validated M6: {len(cards)} cards")
+          PY
+
+      - name: Commit generated series data
+        run: |
+          if git diff --quiet -- data/series.json; then
+            echo 'No series data changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/series.json
+          git commit -m 'Add Korean M6 Storm Emeralda series data'
+          git push origin HEAD:${{ github.ref_name }}
