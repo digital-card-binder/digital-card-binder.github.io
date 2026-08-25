@@ -9,38 +9,44 @@ from collections import defaultdict
 from pathlib import Path
 
 EXPECTED_ARTISTS = [
-    "Narumi Sato",
-    "OKACHEKE",
-    "Shinji Kanda",
-    "Asako Ito",
-    "Gapao",
-    "Yukihiro Tada",
-    "Tetsu Kayama",
-    "Jerky",
-    "Pani kobayashi",
-    "Ounishi",
-    "Sachiko Adachi",
-    "Yuka Morii",
-    "Tomokazu Komiya",
     "AKIRA EGAWA",
-    "OOYAMA",
-    "HYOGONOSUKE",
-    "miki kudo",
-    "Miki Tanaka",
-    "sui",
+    "Asako Ito",
     "Atsuko Nishida",
     "Aya Kusube",
-    "Shibuzoh",
-    "Saya Tsuruta",
-    "ryoma uratsuka",
-    "Tika Matsuno",
-    "sowsow",
-    "Yukiko Baba",
-    "Sekio",
+    "Gapao",
+    "HYOGONOSUKE",
+    "Jerky",
+    "kantaro",
+    "kawayoo",
+    "miki kudo",
+    "Miki Tanaka",
+    "Naoki Saito",
     "Naoyo Kimura",
+    "Narumi Sato",
+    "OKACHEKE",
+    "OOYAMA",
+    "Oswaldo KATO",
+    "Ounishi",
+    "Pani kobayashi",
+    "ryoma uratsuka",
+    "Saboteri",
+    "Sachiko Adachi",
+    "Saya Tsuruta",
+    "Sekio",
+    "Shibuzoh",
+    "Shinji Kanda",
+    "sowsow",
+    "sui",
+    "Tetsu Kayama",
+    "Tika Matsuno",
+    "Tomokazu Komiya",
+    "Yuka Morii",
+    "Yukihiro Tada",
+    "Yukiko Baba",
 ]
 
-EXPECTED_CARD_COUNT = 2451
+NEW_ARTISTS = {"Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri"}
+EXPECTED_CARD_COUNT = 2872
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -77,7 +83,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 29-artist catalog")
+        fail("Artist list/order does not match the approved 34-artist catalog")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
@@ -119,12 +125,18 @@ def main() -> None:
                 and card["name"] == "히스이 찌리리공"
             )
             if is_hyogo_special:
-                # Pokemon Korea's detail endpoint for this row is broken; the official
-                # search page is retained as the source instead of inventing a detail URL.
                 if card["source"] != OFFICIAL_CARDS_URL:
                     fail(f"Unexpected source for HYOGONOSUKE special row: {card['source']}")
                 hyogo_special = True
-            elif not card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
+            elif card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
+                pass
+            elif artist_name in NEW_ARTISTS and card["source"] == OFFICIAL_CARDS_URL:
+                # Some committed Korean catalog rows have an official image/name but
+                # no retained detail id. For the newly indexed artists, keep the
+                # Pokemon Korea search page as the official source rather than
+                # fabricating a detail URL.
+                pass
+            else:
                 fail(f"{artist_name}: non-official detail source: {card['source']}")
 
             identity = (artist_name, card["set"], card["cardNumber"], card["name"])
