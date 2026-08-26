@@ -8,36 +8,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect Korean matches and unresolved cards
+      - name: Inspect unresolved Korean cards
         run: |
           python - <<'PY'
           import os,re,tempfile
-          from collections import defaultdict
           from scripts import build_artist_batch2_data as b
           artists=['nagimiso','Ken Sugimori','Kouki Saitou','Akira Komayama','Masakazu Fukuda']
           local=b.build_local_index()
           with tempfile.TemporaryDirectory() as td:
-            repo=os.path.join(td,'tcgdex'); b.clone_tcgdex(repo); base=os.path.join(repo,'data-asia')
-            krsets=b.korean_sets(base)
-            grouped=defaultdict(list)
+            repo=os.path.join(td,'tcgdex'); b.clone_tcgdex(repo); base=os.path.join(repo,'data-asia'); kr=b.korean_sets(base)
             for root,_,files in os.walk(base):
               for fn in files:
-                if not fn.endswith('.ts') or not re.fullmatch(r'0*\d+\.ts',fn): continue
+                if not re.fullmatch(r'0*\d+\.ts',fn): continue
                 path=os.path.join(root,fn); text=open(path,encoding='utf-8',errors='ignore').read()
-                m=re.search(r"illustrator:\s*['\"]([^'\"]+)['\"]",text)
-                if not m: continue
-                actual=m.group(1).strip()
-                target=next((a for a in artists if a.casefold()==actual.casefold()),None)
-                if not target: continue
-                rel=os.path.relpath(path,base); parts=rel.split(os.sep)
-                grouped[target].append((parts[0],parts[1],int(os.path.splitext(fn)[0]),rel))
-            for artist in artists:
-              matched=[]; unresolved=[]; nonkr=[]
-              for era,setname,num,rel in grouped[artist]:
-                rows=local.get((setname.casefold(),num),[])
-                if rows: matched.append((era,setname,num,len(rows)))
-                elif (era,setname) in krsets: unresolved.append((era,setname,num,rel))
-                else: nonkr.append((era,setname,num))
-              print(f'ARTIST {artist} assignments={len(grouped[artist])} matched_assignments={len(matched)} unresolved_ko={len(unresolved)} nonko={len(nonkr)}')
-              print('UNRESOLVED '+artist+' '+repr(unresolved))
+                im=re.search(r"illustrator:\s*['\"]([^'\"]+)['\"]",text)
+                if not im: continue
+                artist=next((a for a in artists if a.casefold()==im.group(1).strip().casefold()),None)
+                if not artist: continue
+                parts=os.path.relpath(path,base).split(os.sep); era,setname=parts[0],parts[1]; num=int(os.path.splitext(fn)[0])
+                if local.get((setname.casefold(),num),[]) or (era,setname) not in kr: continue
+                nameblock=re.search(r"name:\s*\{(.*?)\}",text,re.S)
+                block=nameblock.group(1) if nameblock else ''
+                ja=re.search(r"ja:\s*['\"]([^'\"]+)",block); ident=re.search(r"id:\s*['\"]([^'\"]+)",block)
+                print('ITEM',artist,era,setname,num,'JA='+(ja.group(1) if ja else ''),'ID='+(ident.group(1) if ident else ''))
           PY
