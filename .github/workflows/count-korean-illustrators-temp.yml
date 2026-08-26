@@ -1,0 +1,21 @@
+name: Count Korean illustrators temp
+on:
+  push:
+    branches:
+      - tmp/count-korean-illustrators-20260826
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Count TCGdex illustrator lists
+        run: |
+          python - <<'PY'
+          import json, urllib.request
+          for lang in ('ko','en','ja'):
+              url=f'https://api.tcgdex.net/v2/{lang}/illustrators'
+              with urllib.request.urlopen(url, timeout=30) as r:
+                  data=json.load(r)
+              vals=sorted({str(x).strip() for x in data if str(x).strip()}, key=str.casefold)
+              print(f'{lang}_illustrator_count={len(vals)}')
+              print(f'{lang}_first10={vals[:10]}')
+          PY
