@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json,re
+import concurrent.futures,json
 from pathlib import Path
 from urllib.request import Request,urlopen
-from urllib.error import HTTPError,URLError
 AUDIT=Path('data/artist-top10-korean-candidate-audit.json')
 OUT=Path('data/artist-top10-unresolved-cdn.json')
 BASE='https://cards.image.pokemonkorea.co.kr/data/wmimages'
@@ -18,40 +17,39 @@ KO={
  ('Shin Nagasawa','SV4a',275):'묘두기',('Shin Nagasawa','SV4a',294):'대도각참',('Shin Nagasawa','SV4a',281):'루카리오',('Shin Nagasawa','SV4a',229):'돌핀맨',('Shin Nagasawa','SV4a',244):'볼트로스',('Shin Nagasawa','SV4a',290):'포푸니라',('Shin Nagasawa','CP2',24):'아르세우스',('Shin Nagasawa','CP2',21):'화이트큐레무',('Shin Nagasawa','CP2',23):'레지기가스',('Shin Nagasawa','CP1',2):'마그마단의 폭타',('Shin Nagasawa','CP1',22):'마그마단의 쟝고',
  ('takuyoa','SV4a',335):'피죤투 ex',('takuyoa','SV4a',323):'클레스퍼트라 ex',
 }
-def urls(setname,num):
- n=f'{num:03d}'
- s=setname
- if s.upper().startswith('SV'): return [f'{BASE}/SV/{s}/{s}_{n}.png']
- if s.upper().startswith('SM'): return [f'{BASE}/SM/{s.upper()}/{s.upper()}_{n}.png',f'{BASE}/SM/{s}/{s}_{n}.png']
- if s.upper().startswith('S') and not s.upper().startswith('SM'): return [f'{BASE}/S/{s.upper()}/{s.upper()}_{n}.png',f'{BASE}/S/{s}/{s}_{n}.png']
- if s.upper().startswith('CP'): return [f'{BASE}/XY/{s.upper()}/XY_{s.upper()}_{n}.jpg',f'{BASE}/XY/{s.upper()}/{s.upper()}_{n}.jpg']
+def urls(s,n):
+ z=f'{n:03d}'; up=s.upper()
+ if up.startswith('SV'): return [f'{BASE}/SV/{s}/{s}_{z}.png']
+ if up.startswith('SM'): return list(dict.fromkeys([f'{BASE}/SM/{up}/{up}_{z}.png',f'{BASE}/SM/{s}/{s}_{z}.png']))
+ if up.startswith('S'): return list(dict.fromkeys([f'{BASE}/S/{up}/{up}_{z}.png',f'{BASE}/S/{s}/{s}_{z}.png']))
+ if up.startswith('CP'): return [f'{BASE}/XY/{up}/XY_{up}_{z}.jpg',f'{BASE}/XY/{up}/{up}_{z}.jpg']
  return []
 def exists(u):
  try:
   req=Request(u,headers={'User-Agent':'Mozilla/5.0','Range':'bytes=0-31'})
-  with urlopen(req,timeout=20) as r:
+  with urlopen(req,timeout=6) as r:
    b=r.read(32); ct=str(r.headers.get('Content-Type') or '')
-   return r.status in (200,206) and ct.startswith('image/') and (b.startswith(b'\x89PNG') or b.startswith(b'\xff\xd8'))
+  return r.status in (200,206) and ct.startswith('image/') and (b.startswith(b'\x89PNG') or b.startswith(b'\xff\xd8'))
  except Exception:return False
-def rarity(raw,setname,num):
- r=str(raw or '')
+def first_existing(us):
+ for u in us:
+  if exists(u):return u
+ return ''
+def rarity(raw,s,n):
  mp={'Common':'C','Uncommon':'U','Rare':'R','Double rare':'RR','Ultra Rare':'SR','Hyper rare':'HR'}
- if setname.lower()=='sv4a' and num>190:return 'S'
- return mp.get(r,r)
+ if s.casefold()=='sv4a' and n>190:return 'S'
+ return mp.get(str(raw or ''),str(raw or ''))
 def main():
- a=json.loads(AUDIT.read_text(encoding='utf-8'))
- out={'artists':{},'totals':{'input':0,'found':0,'missing':0}}
- for artist,d in a['artists'].items():
-  rows=[]
-  for x in d.get('unresolved',[]):
-   out['totals']['input']+=1; found=''
-   for u in urls(x['set'],x['number']):
-    if exists(u):found=u;break
-   row={'artist':artist,'set':x['set'],'number':x['number'],'name':KO.get((artist,x['set'],x['number']),''),'rarity':rarity(x.get('rarity',''),x['set'],x['number']),'image':found,'exists':bool(found),'source':'https://pokemoncard.co.kr/cards'}
-   rows.append(row); out['totals']['found' if found else 'missing']+=1
-  out['artists'][artist]=rows
+ audit=json.loads(AUDIT.read_text(encoding='utf-8')); jobs=[]
+ for artist,d in audit['artists'].items():
+  for x in d.get('unresolved',[]): jobs.append((artist,x))
+ with concurrent.futures.ThreadPoolExecutor(max_workers=20) as ex:
+  found=list(ex.map(lambda j:first_existing(urls(j[1]['set'],j[1]['number'])),jobs))
+ out={'artists':{},'totals':{'input':len(jobs),'found':0,'missing':0}}
+ for (artist,x),img in zip(jobs,found):
+  row={'artist':artist,'set':x['set'],'number':x['number'],'name':KO.get((artist,x['set'],x['number']),''),'rarity':rarity(x.get('rarity',''),x['set'],x['number']),'image':img,'exists':bool(img),'source':'https://pokemoncard.co.kr/cards'}
+  out['artists'].setdefault(artist,[]).append(row); out['totals']['found' if img else 'missing']+=1
  OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps(out['totals'],ensure_ascii=False))
- for a,rows in out['artists'].items():
-  print(a,[(r['set'],r['number'],r['name'],r['exists']) for r in rows])
+ for a,rows in out['artists'].items(): print(a,[(r['set'],r['number'],r['name'],r['exists']) for r in rows])
 if __name__=='__main__':main()
