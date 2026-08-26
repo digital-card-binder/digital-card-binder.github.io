@@ -103,7 +103,7 @@
 
     const ar = nav.querySelector('a.collection-link[href="./ar.html"]');
     const arCount = ar?.querySelector("small");
-    if (arCount) arCount.textContent = "SV · M · 522 CARDS";
+    if (arCount) arCount.textContent = "SV · M · 510 CARDS";
 
     settings?.remove();
     dashboard.after(directory);
