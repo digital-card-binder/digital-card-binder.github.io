@@ -1,0 +1,94 @@
+name: Rank Korean artists temp
+on:
+  push:
+    branches:
+      - tmp/count-korean-illustrators-20260826
+jobs:
+  rank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build candidate ranking preview
+        run: |
+          python - <<'PY'
+          import os,re,subprocess,tempfile,urllib.request,html,math,json
+          from collections import defaultdict
+          from scripts.build_popular_artist_data import build_local_index, normalized_image, TCGDEX_REPO, TCGDEX_REF
+          completed={a['name'].casefold().rstrip('.') for a in json.load(open('data/artists.json',encoding='utf-8'))['artists']}
+          local=build_local_index(); seen=defaultdict(set); eras=defaultdict(set); sets=defaultdict(set); hi=defaultdict(int)
+          era_order={'DP':0,'BW':1,'XY':2,'SM':3,'S':4,'SV':5,'M':6}
+          with tempfile.TemporaryDirectory() as td:
+            subprocess.run(['git','clone','--filter=blob:none','-q',TCGDEX_REPO,td+'/tcgdex'],check=True)
+            subprocess.run(['git','-C',td+'/tcgdex','checkout','-q',TCGDEX_REF],check=True)
+            base=td+'/tcgdex/data-asia'
+            for root,_,files in os.walk(base):
+              for fn in files:
+                if not re.fullmatch(r'0*\d+\.ts',fn): continue
+                rel=os.path.relpath(os.path.join(root,fn),base).split(os.sep)
+                if len(rel)<3: continue
+                era,setname=rel[0],rel[1]; num=int(fn[:-3]); text=open(os.path.join(root,fn),encoding='utf-8',errors='ignore').read()
+                m=re.search(r"illustrator:\s*['\"]([^'\"]+)['\"]",text)
+                if not m: continue
+                artist=m.group(1).strip(); rows=local.get((setname.casefold(),num),[])
+                for row in rows:
+                  img=str(row.get('image') or '')
+                  if not img: continue
+                  norm=normalized_image(img)
+                  if norm in seen[artist]: continue
+                  seen[artist].add(norm); eras[artist].add(era); sets[artist].add(setname)
+                  rarity=(str(row.get('rarity') or '')+' '+str(row.get('cardNumber') or '')).upper()
+                  if re.search(r'\b(SR|HR|UR|SAR|AR|CSR|CHR|SSR|ACE|PROMO)\b',rarity): hi[artist]+=1
+          # live hype source
+          hype={}; rank={}
+          try:
+            req=urllib.request.Request('https://www.pokemonpredictor.com/artists/',headers={'User-Agent':'Mozilla/5.0'})
+            raw=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','ignore')
+            text=html.unescape(re.sub('<[^>]+>',' ',raw)); text=re.sub(r'\s+',' ',text)
+            pat=re.compile(r'([A-Za-z0-9À-ž][A-Za-z0-9À-ž .&/\-\'’]+?)\s+HYPE\s+(\d+)#(\d+)\s+of\s+253',re.I)
+            for n,h,r in pat.findall(text):
+              n=n.strip(); hype[n.casefold()]=int(h); rank[n.casefold()]=int(r)
+            print('PREDICTOR_PARSED='+str(len(hype)))
+          except Exception as e: print('PREDICTOR_ERROR='+repr(e))
+          STYLE={
+            'ken sugimori':24,'kouki saitou':23,'nagimiso':25,'masakazu fukuda':24,'taiga kasai':25,
+            'akira komayama':23,'megumi mizutani':22,'yuu nishida':24,'atsushi furusawa':25,'midori harada':24,
+            'sumiyoshi kizuki':23,'shin nagasawa':21,'anesaki dynamic':21,'takuyoa':22,'gossan':22,
+            'shigenori negishi':21,'ayaka yoshida':21,'ryuta fuse':21,'hideki ishikawa':21,'yu nagaba':25,
+            'tetsuya koizumi':20,'hasuno':21,'satoshi nakai':20,'yoshinobu saito':20,'kyoko umemoto':20,
+            'taira akitsu':21,'dom':22,'hncl':22,'chibi':22,'mahou':22,'james turner':25,'mika pikazo':25,
+            'demizuposuka':25,'tetsuo hara':25,'kinu nishimura':24,'kanako eo':24,'hajime kusajima':22,
+            'hironobu yoshida':22,'keiji kinebuchi':24,'match':23,'you iribi':20,'satoma':22,'uninori':22,
+            'rend':22,'ligton':21,'shinya komatsu':21,'en morikura':22,'haru akasaka':22,'takumi wada':22,
+            'satoshi shirai':20,'tokiya':21,'sumiyoshi kizuki':23,'toshinao aoki':21,'yuya oka':20,'nisota niso':21,
+            'kurumitsu':21,'otumami':21,'scav':21,'j iro sasumo':20,'kiyotaka oshiyama':24,'saki hayashiro':21,
+            'nagomi nijo':22,'tomomi ozaki':20,'tona?':15,'con a nitanda':20,'susumu maeya':22,'nelnal':22,
+          }
+          STUDIO_WORDS=('inc.','graphics','works','studio','planeta','beach','empire','conceptlab','mugenup','orbitallink','game freak','spike chunsoft','n-design','d.a.g')
+          guest_pop={'yu nagaba':65,'mika pikazo':55,'demizuposuka':55,'tetsuo hara':60,'james turner':55,'kinu nishimura':50}
+          out=[]
+          for artist,cards in seen.items():
+            key=artist.casefold().rstrip('.')
+            if key in completed: continue
+            count=len(cards); studio=any(w in key for w in STUDIO_WORDS)
+            h=hype.get(key,guest_pop.get(key,35)); pop=round(min(35,h/81*35),1)
+            if count>=100: card=20
+            elif count>=60: card=16
+            elif count>=30: card=12
+            elif count>=10: card=8
+            else: card=4
+            earliest=min((era_order.get(e,99) for e in eras[artist]),default=99)
+            age={0:8,1:8,2:8,3:6,4:4,5:2,6:1}.get(earliest,1)
+            breadth=6 if len(sets[artist])>=50 else 5 if len(sets[artist])>=30 else 4 if len(sets[artist])>=20 else 3 if len(sets[artist])>=10 else 2
+            rare=6 if hi[artist]>=20 else 5 if hi[artist]>=12 else 4 if hi[artist]>=7 else 3 if hi[artist]>=3 else 2 if hi[artist]>=1 else 1
+            difficulty=min(20,age+breadth+rare)
+            style=STYLE.get(key,18 if h>=50 else 16 if h>=45 else 15)
+            total=round(pop+card+difficulty+style,1)
+            out.append((studio,total,artist,pop,difficulty,card,style,count,h,rank.get(key,999),len(sets[artist]),','.join(sorted(eras[artist],key=lambda e:era_order.get(e,99)))))
+          out.sort(key=lambda x:(x[0],-x[1],x[9],-x[7],x[2].casefold()))
+          print('CANDIDATES='+str(len(out))+' INDIVIDUAL='+str(sum(not x[0] for x in out))+' STUDIO='+str(sum(x[0] for x in out)))
+          for i,x in enumerate([x for x in out if not x[0]][:50],1):
+            _,tot,n,pop,dif,card,sty,cnt,h,r,sc,era=x
+            print(f'RANK\t{i}\t{n}\t{tot}\tpop={pop}\tdiff={dif}\tcountScore={card}\tstyle={sty}\tkoCards={cnt}\thype={h}\thypeRank={r}\tsets={sc}\teras={era}')
+          print('TOP_STUDIOS')
+          for i,x in enumerate([x for x in out if x[0]][:15],1): print('STUDIO',i,x[2],x[1],x[7])
+          PY
