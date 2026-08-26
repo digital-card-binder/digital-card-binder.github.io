@@ -2,23 +2,32 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const catalog = readFileSync(new URL("../catalog.js", import.meta.url), "utf8");
+// 기본 수록 보기는 별도 도감이 아니라 시리즈도감의 범위 필터로 유지하며 회귀를 방지한다.
 const nav = readFileSync(new URL("../collector-nav.js", import.meta.url), "utf8");
-const page = readFileSync(new URL("../base-series.html", import.meta.url), "utf8");
+const legacyPage = readFileSync(new URL("../base-series.html", import.meta.url), "utf8");
+const seriesPage = readFileSync(new URL("../series.html", import.meta.url), "utf8");
+const scopeFilter = readFileSync(
+  new URL("../series-scope-filter.js", import.meta.url),
+  "utf8",
+);
 
-test("기본 수록 도감은 시리즈 보유 키를 부여한 뒤 분모 이하만 필터링한다", () => {
-  assert.match(catalog, /dataset\.seriesScope === "base"/);
-  assert.match(catalog, /range\.number <= range\.denominator/);
-  const applyAccount = catalog.indexOf("account.applyGroups(groups)");
-  const applyScope = catalog.indexOf("applySeriesScope();", applyAccount);
-  assert.ok(applyAccount >= 0);
-  assert.ok(applyScope > applyAccount);
+test("시리즈도감 기본 수록 필터는 각 세트의 분모 이하 카드만 표시한다", () => {
+  assert.match(scopeFilter, /params\.get\("scope"\) === "base"/);
+  assert.match(scopeFilter, /range\.number <= range\.denominator/);
+  assert.match(scopeFilter, /pathname\.endsWith\("\/data\/series\.json"\)/);
+  assert.match(seriesPage, /series-scope-filter\.js/);
 });
 
-test("기본 수록 도감 페이지와 메뉴가 제공된다", () => {
-  assert.match(page, /data-series-scope="base"/);
-  assert.match(page, /<h1>기본 수록 도감<\/h1>/);
-  assert.match(page, /분모를 초과하는 AR·SR·SAR/);
-  assert.match(nav, /base-series\.html/);
-  assert.match(nav, /기본 수록 도감/);
+test("기본 수록은 별도 카테고리 없이 시리즈도감 내부 필터로 제공된다", () => {
+  assert.match(scopeFilter, /data-scope="all"/);
+  assert.match(scopeFilter, /data-scope="base"/);
+  assert.match(scopeFilter, />기본 수록<\/button>/);
+  assert.doesNotMatch(nav, /navigationLink\(\s*"\.\/base-series\.html"/);
+  assert.doesNotMatch(nav, /"기본 수록 도감"/);
+});
+
+test("기존 기본 수록 도감 주소는 시리즈도감 기본 수록 보기로 연결된다", () => {
+  assert.match(legacyPage, /series\.html\?scope=base/);
+  assert.doesNotMatch(legacyPage, /data-series-scope="base"/);
+  assert.doesNotMatch(legacyPage, /<h1>기본 수록 도감<\/h1>/);
 });
