@@ -1,0 +1,59 @@
+{
+  "status": "stable-staging",
+  "scope": "ranked top 10 Korean cards only",
+  "baseCardCount": 1191,
+  "unresolvedCandidateCount": 58,
+  "officialCdnFoundCount": 52,
+  "officialCdnMissingCount": 6,
+  "stagingCardCount": 1243,
+  "excludedCandidates": [
+    {
+      "artist": "Hideki Ishikawa",
+      "set": "S8",
+      "number": 112
+    },
+    {
+      "artist": "Hideki Ishikawa",
+      "set": "S8",
+      "number": 121
+    },
+    {
+      "artist": "Hideki Ishikawa",
+      "set": "SM6",
+      "number": 103
+    },
+    {
+      "artist": "Ken Sugimori",
+      "set": "SM6",
+      "number": 104
+    },
+    {
+      "artist": "Ken Sugimori",
+      "set": "SM6",
+      "number": 105
+    },
+    {
+      "artist": "Masakazu Fukuda",
+      "set": "S10D",
+      "number": 2
+    }
+  ],
+  "legacyVerification": {
+    "status": "pending",
+    "eras": [
+      "DP",
+      "BW",
+      "XY"
+    ],
+    "productionMergeAllowed": false,
+    "reason": "Legacy Korean releases require a final official cross-check before data/artists.json may be changed."
+  },
+  "safetyGates": [
+    "data/artists.json remains unchanged at 39 artists / 3382 cards",
+    "all staged base ownership values are false",
+    "all staged images use the Pokemon Korea official image CDN",
+    "the 6 Korean-image-missing candidates are excluded",
+    "duplicate normalized image URLs are forbidden within each artist",
+    "production merge stays blocked until legacyVerification is complete"
+  ]
+}
