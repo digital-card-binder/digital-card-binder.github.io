@@ -4,7 +4,7 @@ import json, os, re, sys, tempfile
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-import build_artist_batch2_data as b
+import build_popular_artist_data as b
 ARTISTS=["nagimiso","Ken Sugimori","Kouki Saitou","Akira Komayama","Masakazu Fukuda","Megumi Mizutani","Anesaki Dynamic","Hideki Ishikawa","Shin Nagasawa","takuyoa"]
 OUT=Path('data/artists-top10-local-official.json')
 PREFIX='https://cards.image.pokemonkorea.co.kr/data/'
@@ -35,7 +35,6 @@ def main():
      key=norm(card['image']).casefold()
      if key in seen: continue
      seen.add(key); cards.append(card)
-   # deterministic ordering by rough era/set/number while preserving distinct official images
    def sk(c):
     s=str(c.get('set') or ''); nums=tuple(int(x) for x in re.findall(r'\d+',s)); n=re.search(r'(\d+)',str(c.get('cardNumber') or ''))
     era=0 if s.upper().startswith('M') else 1 if s.upper().startswith('SV') else 2 if s.upper().startswith('S') else 3 if s.upper().startswith('SM') else 4 if s.upper().startswith('XY') else 5 if s.upper().startswith('BW') else 6
