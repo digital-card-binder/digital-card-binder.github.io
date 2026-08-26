@@ -69,7 +69,7 @@
       href: "./ar.html",
       documentId: "arDex",
       unit: "장",
-      catalogCount: 498,
+      catalogCount: 510,
       defaultDashboardVisible: true,
     },
     people: {
@@ -172,6 +172,21 @@
     };
   }
 
+  function mergeCatalogGroups(baseGroups, supplementGroups) {
+    const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
+    const extras = Array.isArray(supplementGroups) ? supplementGroups : [];
+    extras.forEach((extra) => {
+      const code = cleanString(extra?.code).toLowerCase();
+      if (!code) return;
+      const index = merged.findIndex(
+        (group) => cleanString(group?.code).toLowerCase() === code,
+      );
+      if (index >= 0) merged[index] = extra;
+      else merged.push(extra);
+    });
+    return merged;
+  }
+
   async function buildCatalog(collectionId) {
     if (collectionId === "pack") return loadPackCatalog();
 
@@ -210,7 +225,11 @@
       ar: "./data/ar.json",
     };
     const payload = await fetchJson(pathByCollection[collectionId]);
-    const sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];
+    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];
+    if (collectionId === "ar") {
+      const supplement = await fetchJson("./data/ar-supplement.json").catch(() => []);
+      sourceGroups = mergeCatalogGroups(sourceGroups, supplement);
+    }
     const items = [];
 
     sourceGroups.forEach((group, groupIndex) => {
