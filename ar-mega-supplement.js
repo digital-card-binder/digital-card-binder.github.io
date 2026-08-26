@@ -81,18 +81,18 @@
     const response = await nativeFetch(input, init);
     if (!isArData || !response.ok) return response;
 
-    try {
-      const merged = mergeArGroups(await response.clone().json());
-      const headers = new Headers(response.headers);
-      headers.set("content-type", "application/json; charset=utf-8");
-      return new Response(JSON.stringify(merged), {
-        status: response.status,
-        statusText: response.statusText,
-        headers,
-      });
-    } catch (error) {
-      console.warn("M5/M6 AR 데이터를 합치지 못했습니다.", error);
-      return response;
-    }
+    // Samsung Internet을 포함한 모바일 브라우저에서 fetch Response를 새로
+    // 생성하면 헤더/본문 처리 차이로 JSON 파싱이 실패할 수 있습니다.
+    // 원본 Response는 그대로 유지하고 json() 결과만 안전하게 보충합니다.
+    const nativeJson = response.json.bind(response);
+    response.json = async function arMegaSupplementJson() {
+      try {
+        return mergeArGroups(await nativeJson());
+      } catch (error) {
+        console.warn("M5/M6 AR 데이터를 합치지 못했습니다.", error);
+        throw error;
+      }
+    };
+    return response;
   };
 })();
