@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a staging-only catalog for the ranked top 10 artists.
 
-This intentionally does NOT touch data/artists.json.  The production merge stays
+This intentionally does NOT touch data/artists.json. The production merge stays
 blocked until legacy DP/BW/XY verification is explicitly marked complete.
 """
 from __future__ import annotations
@@ -30,9 +30,14 @@ TARGETS = [
     "Shin Nagasawa",
     "takuyoa",
 ]
-EXPECTED_BASE = 1191
-EXPECTED_UNRESOLVED = 58
-EXPECTED_FOUND = 52
+
+# Canonical stable state after exact Pokemon Korea CDN reconciliation.
+# The 52 cards that were initially unresolved are now reproducibly absorbed by
+# build_ranked_artist_top10_local_official.py, leaving only the 6 candidates for
+# which no Korean official image exists.
+EXPECTED_BASE = 1243
+EXPECTED_UNRESOLVED = 6
+EXPECTED_FOUND = 0
 EXPECTED_MISSING = 6
 EXPECTED_STAGING = 1243
 EXPECTED_MISSING_KEYS = {
@@ -89,7 +94,11 @@ def set_sort_key(set_name: str) -> tuple:
 
 
 def card_sort_key(card: dict) -> tuple:
-    return (*set_sort_key(str(card.get("set") or "")), number_from_card(card), normalized_url(card.get("image", "")))
+    return (
+        *set_sort_key(str(card.get("set") or "")),
+        number_from_card(card),
+        normalized_url(card.get("image", "")),
+    )
 
 
 def card_number(set_name: str, number: int, rarity: str) -> str:
@@ -121,6 +130,9 @@ def main() -> None:
     }
     assert missing_keys == EXPECTED_MISSING_KEYS, (missing_keys, EXPECTED_MISSING_KEYS)
 
+    # Normally no rows are appended here: exact-CDN-confirmed cards are already
+    # part of the canonical base. This generic path remains as a guard in case a
+    # future candidate is newly confirmed without yet being absorbed by the base.
     base_by_artist = {a["name"]: deepcopy(a["cards"]) for a in base["artists"]}
     found_rows = []
     for artist in TARGETS:
@@ -139,7 +151,11 @@ def main() -> None:
                     "image": row["image"],
                     "imageBw": "",
                     "source": "https://pokemoncard.co.kr/cards",
-                    "cardNumber": card_number(str(row["set"]), int(row["number"]), str(row.get("rarity") or "")),
+                    "cardNumber": card_number(
+                        str(row["set"]),
+                        int(row["number"]),
+                        str(row.get("rarity") or ""),
+                    ),
                     "order": 0,
                 }
             )
@@ -157,7 +173,9 @@ def main() -> None:
             if not image_key:
                 raise AssertionError(f"missing image: {artist}: {card}")
             if image_key in seen:
-                duplicate_images.append((artist, image_key, seen[image_key].get("name"), card.get("name")))
+                duplicate_images.append(
+                    (artist, image_key, seen[image_key].get("name"), card.get("name"))
+                )
                 continue
             seen[image_key] = card
             unique.append(card)
@@ -183,7 +201,9 @@ def main() -> None:
         "ownedCount": 0,
         "artists": staged_artists,
     }
-    OUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    OUT_PATH.write_text(
+        json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
 
     stability = {
         "status": "stable-staging",
@@ -193,9 +213,15 @@ def main() -> None:
         "officialCdnFoundCount": EXPECTED_FOUND,
         "officialCdnMissingCount": EXPECTED_MISSING,
         "stagingCardCount": staging_count,
+        "reconciliationNotes": [
+            "52 candidates that were initially unresolved were verified on the Pokemon Korea official image CDN and are now absorbed into the deterministic 1,243-card local official-image base.",
+            "Only the six candidates without a Korean official image remain unresolved and are excluded from staging.",
+        ],
         "excludedCandidates": [
             {"artist": a, "set": s, "number": n}
-            for a, s, n in sorted(EXPECTED_MISSING_KEYS, key=lambda x: (x[0].casefold(), x[1].casefold(), x[2]))
+            for a, s, n in sorted(
+                EXPECTED_MISSING_KEYS, key=lambda x: (x[0].casefold(), x[1].casefold(), x[2])
+            )
         ],
         "legacyVerification": {
             "status": "pending",
@@ -212,8 +238,21 @@ def main() -> None:
             "production merge stays blocked until legacyVerification is complete",
         ],
     }
-    STABILITY_PATH.write_text(json.dumps(stability, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"artists": 10, "base": EXPECTED_BASE, "found": EXPECTED_FOUND, "missing": EXPECTED_MISSING, "staging": staging_count}, ensure_ascii=False))
+    STABILITY_PATH.write_text(
+        json.dumps(stability, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(
+        json.dumps(
+            {
+                "artists": 10,
+                "base": EXPECTED_BASE,
+                "found": EXPECTED_FOUND,
+                "missing": EXPECTED_MISSING,
+                "staging": staging_count,
+            },
+            ensure_ascii=False,
+        )
+    )
 
 
 if __name__ == "__main__":
