@@ -5,6 +5,12 @@ on:
     branches:
       - feat/add-ranked-artists-top10-ko-20260826
     paths:
+      - scripts/audit_ranked_artist_top10_korean_candidates.py
+      - scripts/audit_ranked_artist_top10_legacy_candidates.py
+      - scripts/audit_top10_all_legacy_artist_cards.py
+      - scripts/audit_korean_legacy_image_folders.py
+      - scripts/build_ranked_artist_top10_local_official.py
+      - scripts/verify_top10_unresolved_cdn.py
       - scripts/build_top10_staging.py
       - scripts/validate_top10_staging.py
       - .github/workflows/validate-top10-staging.yml
@@ -24,18 +30,38 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Rebuild Korean-release candidate audit
+        run: python scripts/audit_ranked_artist_top10_korean_candidates.py
+      - name: Rebuild legacy candidate audit
+        run: python scripts/audit_ranked_artist_top10_legacy_candidates.py
+      - name: Rebuild all-legacy illustrator audit
+        run: python scripts/audit_top10_all_legacy_artist_cards.py
+      - name: Rebuild official-image local base
+        run: python scripts/build_ranked_artist_top10_local_official.py
+      - name: Audit Korean legacy image folders
+        run: python scripts/audit_korean_legacy_image_folders.py
+      - name: Recheck unresolved cards on official Pokemon Korea CDN
+        run: python scripts/verify_top10_unresolved_cdn.py
       - name: Build staging snapshot
         run: python scripts/build_top10_staging.py
       - name: Validate staging gates and official CDN additions
         run: python scripts/validate_top10_staging.py --network
       - name: Revalidate current production artist catalog
         run: python scripts/validate_artist_data.py
-      - name: Commit deterministic staging snapshot
+      - name: Commit deterministic audit snapshots
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/artists-top10-staging.json data/artist-top10-stability.json
+          git add \
+            data/artist-top10-korean-candidate-audit.json \
+            data/artist-top10-legacy-candidate-audit.json \
+            data/artist-top10-all-legacy-audit.json \
+            data/artists-top10-local-official.json \
+            data/korean-legacy-image-folders.json \
+            data/artist-top10-unresolved-cdn.json \
+            data/artists-top10-staging.json \
+            data/artist-top10-stability.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Generate stable staging snapshot for ranked top 10 artists"
+          git commit -m "Refresh stable staging audit for ranked top 10 artists"
           git pull --rebase origin feat/add-ranked-artists-top10-ko-20260826
           git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
