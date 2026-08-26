@@ -4,6 +4,7 @@ on:
     branches: [feat/add-ranked-artists-top10-ko-20260826]
     paths:
       - scripts/audit_korean_legacy_image_folders.py
+      - scripts/verify_top10_unresolved_cdn.py
       - .github/workflows/audit-legacy-folders.yml
 permissions:
   contents: write
@@ -19,11 +20,12 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/audit_korean_legacy_image_folders.py
+      - run: python scripts/verify_top10_unresolved_cdn.py
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/korean-legacy-image-folders.json
+          git add data/korean-legacy-image-folders.json data/artist-top10-unresolved-cdn.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Audit Korean legacy image folders"
+          git commit -m "Verify unresolved ranked top 10 cards on official CDN"
           git pull --rebase origin feat/add-ranked-artists-top10-ko-20260826
           git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
