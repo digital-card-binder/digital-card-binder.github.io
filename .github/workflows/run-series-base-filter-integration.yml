@@ -38,3 +38,5 @@ jobs:
           git add -A
           git commit -m "Move base set dex into series filter"
           git push origin HEAD:feature/series-base-filter
+
+# Retry after updating the base-series contract test for the integrated filter.
