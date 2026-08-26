@@ -14,12 +14,16 @@ EXPECTED_ARTISTS = [
     "Atsuko Nishida",
     "Aya Kusube",
     "Gapao",
+    "Hitoshi Ariga",
     "HYOGONOSUKE",
     "Jerky",
+    "Kagemaru Himeno",
     "kantaro",
     "kawayoo",
+    "kodama",
     "miki kudo",
     "Miki Tanaka",
+    "Mitsuhiro Arita",
     "Naoki Saito",
     "Naoyo Kimura",
     "Narumi Sato",
@@ -28,6 +32,7 @@ EXPECTED_ARTISTS = [
     "Oswaldo KATO",
     "Ounishi",
     "Pani kobayashi",
+    "Ryo Ueda",
     "ryoma uratsuka",
     "Saboteri",
     "Sachiko Adachi",
@@ -45,8 +50,11 @@ EXPECTED_ARTISTS = [
     "Yukiko Baba",
 ]
 
-NEW_ARTISTS = {"Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri"}
-EXPECTED_CARD_COUNT = 2872
+NEW_ARTISTS = {
+    "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
+    "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
+}
+EXPECTED_CARD_COUNT = 3382
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -83,7 +91,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 34-artist catalog")
+        fail("Artist list/order does not match the approved 39-artist catalog")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
@@ -132,9 +140,8 @@ def main() -> None:
                 pass
             elif artist_name in NEW_ARTISTS and card["source"] == OFFICIAL_CARDS_URL:
                 # Some committed Korean catalog rows have an official image/name but
-                # no retained detail id. For the newly indexed artists, keep the
-                # Pokemon Korea search page as the official source rather than
-                # fabricating a detail URL.
+                # no retained detail id. Keep Pokemon Korea's official card search
+                # page as source rather than fabricating a detail URL.
                 pass
             else:
                 fail(f"{artist_name}: non-official detail source: {card['source']}")
