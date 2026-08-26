@@ -1,0 +1,41 @@
+name: Validate ranked top10 staging
+
+on:
+  push:
+    branches:
+      - feat/add-ranked-artists-top10-ko-20260826
+    paths:
+      - scripts/build_top10_staging.py
+      - scripts/validate_top10_staging.py
+      - .github/workflows/validate-top10-staging.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/add-ranked-artists-top10-ko-20260826
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build staging snapshot
+        run: python scripts/build_top10_staging.py
+      - name: Validate staging gates and official CDN additions
+        run: python scripts/validate_top10_staging.py --network
+      - name: Revalidate current production artist catalog
+        run: python scripts/validate_artist_data.py
+      - name: Commit deterministic staging snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/artists-top10-staging.json data/artist-top10-stability.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Generate stable staging snapshot for ranked top 10 artists"
+          git pull --rebase origin feat/add-ranked-artists-top10-ko-20260826
+          git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
