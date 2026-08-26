@@ -1,30 +1,4 @@
-name: Integrate series base filter
-
-on:
-  push:
-    branches:
-      - feature/series-base-filter
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  integrate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          ref: feature/series-base-filter
-
-      - name: Integrate base-set filter into series dex
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-
-          scope_js = r'''"use strict";
+"use strict";
 
 (function () {
   if (document.body.dataset.catalog !== "series") return;
@@ -38,10 +12,7 @@ jobs:
     const raw = String(card?.code || card?.meta || "");
     const match = raw.match(/_(\d+)\/(\d+)/);
     if (!match) return null;
-    return {
-      number: Number(match[1]),
-      denominator: Number(match[2]),
-    };
+    return { number: Number(match[1]), denominator: Number(match[2]) };
   }
 
   function isBaseCard(card) {
@@ -178,82 +149,3 @@ jobs:
   addScopeControl();
   window.addEventListener("load", restoreView, { once: true });
 })();
-'''
-          Path("series-scope-filter.js").write_text(scope_js, encoding="utf-8")
-
-          series = Path("series.html")
-          text = series.read_text(encoding="utf-8")
-          marker = '    <script src="./series-mega-supplement.js?v=20260825-1" defer></script>\n'
-          addition = marker + '    <script src="./series-scope-filter.js?v=20260826-1" defer></script>\n'
-          if "series-scope-filter.js" not in text:
-            if marker not in text:
-              raise SystemExit("series.html script marker not found")
-            text = text.replace(marker, addition, 1)
-          series.write_text(text, encoding="utf-8")
-
-          nav = Path("collector-nav.js")
-          text = nav.read_text(encoding="utf-8")
-          pattern = re.compile(
-              r'\n    const series = nav\.querySelector\(\'a\.collection-link\[href="\.\/series\.html"\]\'\);'
-              r'\n    const baseSeries =.*?\n    }\n',
-              re.S,
-          )
-          replacement = '\n    nav.querySelector(\'a.collection-link[href="./base-series.html"]\')?.remove();\n'
-          text, count = pattern.subn(replacement, text, count=1)
-          if count != 1:
-            raise SystemExit(f"collector-nav.js base-series block patch count={count}")
-          nav.write_text(text, encoding="utf-8")
-
-          # Remove any static sidebar entry for the old standalone category.
-          anchor_pattern = re.compile(
-              r'\n\s*<a class="collection-link[^>]*href="\.\/base-series\.html"[^>]*>.*?</a>',
-              re.S,
-          )
-          for path in Path(".").glob("*.html"):
-            if path.name == "base-series.html":
-              continue
-            html = path.read_text(encoding="utf-8")
-            html, _ = anchor_pattern.subn("", html)
-            path.write_text(html, encoding="utf-8")
-
-          # Keep old bookmarks working, but the standalone category/page is no longer used.
-          Path("base-series.html").write_text('''<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=./series.html?scope=base">
-    <title>디지털 카드 바인더</title>
-    <link rel="canonical" href="./series.html?scope=base">
-    <script>window.location.replace("./series.html?scope=base");</script>
-  </head>
-  <body>
-    <p><a href="./series.html?scope=base">시리즈 도감 · 기본 수록 보기로 이동</a></p>
-  </body>
-</html>
-''', encoding="utf-8")
-
-      - name: Validate integration
-        run: |
-          node --check series-scope-filter.js
-          node --check collector-nav.js
-          grep -q 'series-scope-filter.js' series.html
-          grep -q 'data-scope="base"' series-scope-filter.js
-          grep -q 'series.html?scope=base' base-series.html
-          if grep -R --line-number --exclude=base-series.html --exclude=series-scope-filter.js --exclude='*.md' '기본 수록 도감' . --include='*.html' --include='*.js'; then
-            echo 'Standalone 기본 수록 도감 label remains.' >&2
-            exit 1
-          fi
-          npm run test:ui
-
-      - name: Remove one-time workflow
-        run: rm .github/workflows/integrate-series-base-filter.yml
-
-      - name: Commit integrated series filter
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add series.html series-scope-filter.js collector-nav.js base-series.html .github/workflows/integrate-series-base-filter.yml
-          git add '*.html'
-          git commit -m "Move base set dex into series filter"
-          git push origin HEAD:feature/series-base-filter
