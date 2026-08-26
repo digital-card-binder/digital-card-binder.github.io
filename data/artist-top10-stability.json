@@ -1,11 +1,15 @@
 {
   "status": "stable-staging",
   "scope": "ranked top 10 Korean cards only",
-  "baseCardCount": 1191,
-  "unresolvedCandidateCount": 58,
-  "officialCdnFoundCount": 52,
+  "baseCardCount": 1243,
+  "unresolvedCandidateCount": 6,
+  "officialCdnFoundCount": 0,
   "officialCdnMissingCount": 6,
   "stagingCardCount": 1243,
+  "reconciliationNotes": [
+    "52 candidates that were initially unresolved were verified on the Pokemon Korea official image CDN and are now absorbed into the deterministic 1,243-card local official-image base.",
+    "Only the six candidates without a Korean official image remain unresolved and are excluded from staging."
+  ],
   "excludedCandidates": [
     {
       "artist": "Hideki Ishikawa",
