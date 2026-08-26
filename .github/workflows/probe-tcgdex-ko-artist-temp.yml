@@ -15,17 +15,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Probe Korean direct card API
+      - name: Probe Pokemon Korea detail pages
         run: |
           python - <<'PY'
-          import json, urllib.request
-          for cid in ['dp1-103','dp1-49','bw1-101','bw2-22','xy5-110']:
-              for lang in ['ko','ja','en']:
-                  url=f'https://api.tcgdex.net/v2/{lang}/cards/{cid}'
-                  try:
-                      with urllib.request.urlopen(url,timeout=30) as r:
-                          data=json.loads(r.read().decode('utf-8'))
-                      print('CARD',lang,cid,json.dumps({k:data.get(k) for k in ['id','localId','name','image','illustrator']},ensure_ascii=False))
-                  except Exception as e:
-                      print('CARD',lang,cid,'ERROR',repr(e))
+          import urllib.request,re
+          urls=[
+            'https://pokemoncard.co.kr/cards/detail/ST2010002012',
+            'https://pokemoncard.co.kr/cards/detail/ST2010003002',
+            'https://pokemoncard.co.kr/cards/detail/BS2010001002',
+            'https://pokemoncard.co.kr/cards/detail/BS2011001030',
+          ]
+          for u in urls:
+              try:
+                  req=urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0','Accept-Language':'ko-KR,ko;q=0.9'})
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      raw=r.read().decode('utf-8','ignore')
+                  print('\nURL',u,'STATUS',r.status,'LEN',len(raw))
+                  for pat in ['Ken Sugimori','Kouki Saitou','모부기','엄마의 배려','아쿠스타','암트르']:
+                      if pat in raw: print('FOUND',pat)
+                  print('IMG',re.findall(r'https?://[^"\']+wmimages[^"\']+',raw)[:2])
+              except Exception as e:
+                  print('\nURL',u,'ERROR',repr(e))
           PY
