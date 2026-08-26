@@ -1,0 +1,49 @@
+name: Probe legacy image match temp
+on:
+  push:
+    branches: [feat/add-ranked-artists-top10-ko-20260826]
+    paths: [.github/workflows/probe-legacy-image-match-temp.yml]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip -q install pillow imagehash numpy
+      - name: Compare known matching Turtwig art
+        run: |
+          python - <<'PY'
+          import io, urllib.request, numpy as np
+          from PIL import Image, ImageOps
+          import imagehash
+          urls={
+            'en':'https://assets.tcgdex.net/en/dp/dp1/103/high.webp',
+            'ko':'https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS1/bs1_kr_2.jpg?w=512',
+            'other':'https://assets.tcgdex.net/en/dp/dp1/49/high.webp',
+          }
+          imgs={}
+          for k,u in urls.items():
+            with urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0'}),timeout=30) as r:
+              raw=r.read()
+            im=Image.open(io.BytesIO(raw)).convert('RGB')
+            print(k,im.size,len(raw),r.headers.get('Content-Type'))
+            imgs[k]=im
+          def crop_art(im):
+            w,h=im.size
+            # DP Pokemon illustration box: roughly x 7%-93%, y 18%-55%
+            return im.crop((int(w*.07),int(h*.18),int(w*.93),int(h*.56))).resize((256,128))
+          def h(im): return imagehash.phash(crop_art(im),hash_size=16)
+          hs={k:h(v) for k,v in imgs.items()}
+          for a in hs:
+            for b in hs:
+              if a<b: print('DIST',a,b,hs[a]-hs[b])
+          # grayscale normalized pixel correlation on crop
+          def vec(im):
+            a=np.asarray(ImageOps.grayscale(crop_art(im)).resize((128,64)),dtype=float).ravel(); a=(a-a.mean())/(a.std()+1e-9); return a
+          vs={k:vec(v) for k,v in imgs.items()}
+          for a in vs:
+            for b in vs:
+              if a<b: print('CORR',a,b,float(np.mean(vs[a]*vs[b])))
+          PY
