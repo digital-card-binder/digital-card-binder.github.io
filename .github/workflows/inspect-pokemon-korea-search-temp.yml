@@ -1,0 +1,25 @@
+name: Inspect Pokemon Korea search temp
+on:
+  push:
+    branches:
+      - feat/add-ranked-artists-batch1-20260826
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect card search form and scripts
+        run: |
+          python - <<'PY'
+          import re,urllib.request
+          url='https://pokemoncard.co.kr/cards'
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+          html=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','ignore')
+          print('LEN',len(html))
+          for pat in [r'<form[^>]*>',r'<input[^>]*>',r'<select[^>]*>',r'<script[^>]+src=["\'][^"\']+["\'][^>]*>']:
+            vals=re.findall(pat,html,re.I)
+            print('\nPATTERN',pat,'COUNT',len(vals))
+            for v in vals[:80]: print(v[:500])
+          for kw in ['keyword','search','cards/list','ajax','illustrator','일러스트']:
+            print('\nKW',kw)
+            for m in re.finditer(kw,html,re.I): print(html[max(0,m.start()-180):m.start()+300].replace('\n',' ')[:480])
+          PY
