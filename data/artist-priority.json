@@ -1,0 +1,5084 @@
+{
+  "snapshotDate": "2026-08-26",
+  "scope": "Pokemon Korea official-image-matched Korean cards only",
+  "weights": {
+    "popularity": 35,
+    "collectionDifficulty": 20,
+    "koreanCardCount": 20,
+    "styleDistinctiveness": 25
+  },
+  "notes": [
+    "Japanese/English-only cards are excluded from Korean card counts and difficulty scoring.",
+    "Studio/team credits are ranked separately from individual/pseudonymous illustrators.",
+    "Popularity uses a 2026-08-24 collector-hype snapshot where available; untracked names use a conservative baseline.",
+    "Style distinctiveness is the intentionally subjective component and is curated most heavily for higher-priority candidates.",
+    "Matched counts are a planning floor based on cards already mapped to official Pokemon Korea images; final artist builds may recover additional Korean cards through official-search/manual reconciliation."
+  ],
+  "verifiedIllustratorCreditCount": 303,
+  "completedArtistCount": 39,
+  "remainingCreditCount": 264,
+  "individualCandidateCount": 245,
+  "studioCandidateCount": 19,
+  "individualRanking": [
+    {
+      "rank": 1,
+      "name": "nagimiso",
+      "totalScore": 88.2,
+      "popularityScore": 30.2,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 25,
+      "koreanCardCountMatched": 123,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 60,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 70,
+      "hypeRank": 5,
+      "status": "pending"
+    },
+    {
+      "rank": 2,
+      "name": "Ken Sugimori",
+      "totalScore": 86.2,
+      "popularityScore": 30.2,
+      "difficultyScore": 12,
+      "cardCountScore": 20,
+      "styleScore": 24,
+      "koreanCardCountMatched": 153,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 40,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 70,
+      "hypeRank": 4,
+      "status": "pending"
+    },
+    {
+      "rank": 3,
+      "name": "Kouki Saitou",
+      "totalScore": 82.4,
+      "popularityScore": 26.4,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 23,
+      "koreanCardCountMatched": 184,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 66,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 61,
+      "hypeRank": 10,
+      "status": "pending"
+    },
+    {
+      "rank": 4,
+      "name": "Akira Komayama",
+      "totalScore": 79.9,
+      "popularityScore": 22.9,
+      "difficultyScore": 14,
+      "cardCountScore": 20,
+      "styleScore": 23,
+      "koreanCardCountMatched": 118,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 58,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 53,
+      "hypeRank": 40,
+      "status": "pending"
+    },
+    {
+      "rank": 5,
+      "name": "Masakazu Fukuda",
+      "totalScore": 78.8,
+      "popularityScore": 26.8,
+      "difficultyScore": 12,
+      "cardCountScore": 16,
+      "styleScore": 24,
+      "koreanCardCountMatched": 84,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 47,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 62,
+      "hypeRank": 8,
+      "status": "pending"
+    },
+    {
+      "rank": 6,
+      "name": "Megumi Mizutani",
+      "totalScore": 77.1,
+      "popularityScore": 25.1,
+      "difficultyScore": 14,
+      "cardCountScore": 16,
+      "styleScore": 22,
+      "koreanCardCountMatched": 84,
+      "highRarityMatched": 4,
+      "verifiedSetCount": 48,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 58,
+      "hypeRank": 16,
+      "status": "pending"
+    },
+    {
+      "rank": 7,
+      "name": "Anesaki Dynamic",
+      "totalScore": 73.9,
+      "popularityScore": 19.9,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 21,
+      "koreanCardCountMatched": 130,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 71,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 46,
+      "hypeRank": 89,
+      "status": "pending"
+    },
+    {
+      "rank": 8,
+      "name": "Hideki Ishikawa",
+      "totalScore": 73.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 15,
+      "cardCountScore": 16,
+      "styleScore": 21,
+      "koreanCardCountMatched": 71,
+      "highRarityMatched": 8,
+      "verifiedSetCount": 43,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": 60,
+      "status": "pending"
+    },
+    {
+      "rank": 9,
+      "name": "Shin Nagasawa",
+      "totalScore": 73.4,
+      "popularityScore": 19.4,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 21,
+      "koreanCardCountMatched": 133,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 60,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 45,
+      "hypeRank": 93,
+      "status": "pending"
+    },
+    {
+      "rank": 10,
+      "name": "takuyoa",
+      "totalScore": 72.5,
+      "popularityScore": 25.5,
+      "difficultyScore": 9,
+      "cardCountScore": 16,
+      "styleScore": 22,
+      "koreanCardCountMatched": 78,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 29,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 59,
+      "hypeRank": 12,
+      "status": "pending"
+    },
+    {
+      "rank": 11,
+      "name": "GOSSAN",
+      "totalScore": 72.3,
+      "popularityScore": 23.3,
+      "difficultyScore": 11,
+      "cardCountScore": 16,
+      "styleScore": 22,
+      "koreanCardCountMatched": 60,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 37,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 54,
+      "hypeRank": 33,
+      "status": "pending"
+    },
+    {
+      "rank": 12,
+      "name": "Atsushi Furusawa",
+      "totalScore": 70.9,
+      "popularityScore": 22.9,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 25,
+      "koreanCardCountMatched": 44,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 34,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 53,
+      "hypeRank": 41,
+      "status": "pending"
+    },
+    {
+      "rank": 13,
+      "name": "Midori Harada",
+      "totalScore": 70.3,
+      "popularityScore": 23.3,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 24,
+      "koreanCardCountMatched": 43,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 25,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 54,
+      "hypeRank": 35,
+      "status": "pending"
+    },
+    {
+      "rank": 14,
+      "name": "chibi",
+      "totalScore": 70.3,
+      "popularityScore": 23.3,
+      "difficultyScore": 13,
+      "cardCountScore": 12,
+      "styleScore": 22,
+      "koreanCardCountMatched": 38,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 36,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 54,
+      "hypeRank": 36,
+      "status": "pending"
+    },
+    {
+      "rank": 15,
+      "name": "Shigenori Negishi",
+      "totalScore": 70.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 13,
+      "cardCountScore": 16,
+      "styleScore": 21,
+      "koreanCardCountMatched": 82,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 55,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 76,
+      "status": "pending"
+    },
+    {
+      "rank": 16,
+      "name": "kirisAki",
+      "totalScore": 69.9,
+      "popularityScore": 19.9,
+      "difficultyScore": 14,
+      "cardCountScore": 20,
+      "styleScore": 16,
+      "koreanCardCountMatched": 113,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 55,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 46,
+      "hypeRank": 87,
+      "status": "pending"
+    },
+    {
+      "rank": 17,
+      "name": "Yuu Nishida",
+      "totalScore": 69.8,
+      "popularityScore": 23.8,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 24,
+      "koreanCardCountMatched": 57,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 36,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 55,
+      "hypeRank": 28,
+      "status": "pending"
+    },
+    {
+      "rank": 18,
+      "name": "Ayaka Yoshida",
+      "totalScore": 69.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 12,
+      "cardCountScore": 16,
+      "styleScore": 21,
+      "koreanCardCountMatched": 71,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 44,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 79,
+      "status": "pending"
+    },
+    {
+      "rank": 19,
+      "name": "MAHOU",
+      "totalScore": 67.5,
+      "popularityScore": 22.5,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 22,
+      "koreanCardCountMatched": 31,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 26,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 52,
+      "hypeRank": 50,
+      "status": "pending"
+    },
+    {
+      "rank": 20,
+      "name": "DOM",
+      "totalScore": 66.9,
+      "popularityScore": 22.9,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 22,
+      "koreanCardCountMatched": 41,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 27,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 53,
+      "hypeRank": 43,
+      "status": "pending"
+    },
+    {
+      "rank": 21,
+      "name": "Sumiyoshi Kizuki",
+      "totalScore": 66.6,
+      "popularityScore": 24.6,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 23,
+      "koreanCardCountMatched": 27,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 21,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 57,
+      "hypeRank": 20,
+      "status": "pending"
+    },
+    {
+      "rank": 22,
+      "name": "Souichirou Gunjima",
+      "totalScore": 66.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 11,
+      "cardCountScore": 16,
+      "styleScore": 18,
+      "koreanCardCountMatched": 93,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 45,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": 62,
+      "status": "pending"
+    },
+    {
+      "rank": 23,
+      "name": "Ryuta Fuse",
+      "totalScore": 66.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 14,
+      "cardCountScore": 16,
+      "styleScore": 21,
+      "koreanCardCountMatched": 70,
+      "highRarityMatched": 4,
+      "verifiedSetCount": 39,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 24,
+      "name": "Kyoko Umemoto",
+      "totalScore": 66.0,
+      "popularityScore": 22.0,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 45,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 37,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 51,
+      "hypeRank": 54,
+      "status": "pending"
+    },
+    {
+      "rank": 25,
+      "name": "Taiga Kasai",
+      "totalScore": 65.8,
+      "popularityScore": 26.8,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 25,
+      "koreanCardCountMatched": 21,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 62,
+      "hypeRank": 9,
+      "status": "pending"
+    },
+    {
+      "rank": 26,
+      "name": "Ryota Murayama",
+      "totalScore": 65.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 14,
+      "cardCountScore": 12,
+      "styleScore": 18,
+      "koreanCardCountMatched": 43,
+      "highRarityMatched": 3,
+      "verifiedSetCount": 33,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": 58,
+      "status": "pending"
+    },
+    {
+      "rank": 27,
+      "name": "You Iribi",
+      "totalScore": 65.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 40,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 28,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": 61,
+      "status": "pending"
+    },
+    {
+      "rank": 28,
+      "name": "match",
+      "totalScore": 65.1,
+      "popularityScore": 25.1,
+      "difficultyScore": 9,
+      "cardCountScore": 8,
+      "styleScore": 23,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SM"
+      ],
+      "hype": 58,
+      "hypeRank": 17,
+      "status": "pending"
+    },
+    {
+      "rank": 29,
+      "name": "hncl",
+      "totalScore": 64.7,
+      "popularityScore": 20.7,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 22,
+      "koreanCardCountMatched": 41,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 22,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 48,
+      "hypeRank": 68,
+      "status": "pending"
+    },
+    {
+      "rank": 30,
+      "name": "Hasuno",
+      "totalScore": 64.4,
+      "popularityScore": 19.4,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 52,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 37,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 45,
+      "hypeRank": 94,
+      "status": "pending"
+    },
+    {
+      "rank": 31,
+      "name": "Keiji Kinebuchi",
+      "totalScore": 64.2,
+      "popularityScore": 27.2,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 24,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 63,
+      "hypeRank": 7,
+      "status": "pending"
+    },
+    {
+      "rank": 32,
+      "name": "Teeziro",
+      "totalScore": 63.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 11,
+      "cardCountScore": 16,
+      "styleScore": 16,
+      "koreanCardCountMatched": 88,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 43,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 74,
+      "status": "pending"
+    },
+    {
+      "rank": 33,
+      "name": "Sanosuke Sakuma",
+      "totalScore": 62.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 16,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 99,
+      "highRarityMatched": 7,
+      "verifiedSetCount": 58,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 34,
+      "name": "YU NAGABA",
+      "totalScore": 62.1,
+      "popularityScore": 28.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 25,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 65,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 35,
+      "name": "Jiro Sasumo",
+      "totalScore": 62.0,
+      "popularityScore": 22.0,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 18,
+      "koreanCardCountMatched": 30,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 20,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 51,
+      "hypeRank": 52,
+      "status": "pending"
+    },
+    {
+      "rank": 36,
+      "name": "DemizuPosuka",
+      "totalScore": 61.8,
+      "popularityScore": 23.8,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 25,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SM"
+      ],
+      "hype": 55,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 37,
+      "name": "Eske Yoshinob",
+      "totalScore": 61.2,
+      "popularityScore": 21.2,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 16,
+      "koreanCardCountMatched": 58,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 37,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 49,
+      "hypeRank": 67,
+      "status": "pending"
+    },
+    {
+      "rank": 38,
+      "name": "Kanako Eo",
+      "totalScore": 60.8,
+      "popularityScore": 23.8,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 24,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SM"
+      ],
+      "hype": 55,
+      "hypeRank": 29,
+      "status": "pending"
+    },
+    {
+      "rank": 39,
+      "name": "Hajime Kusajima",
+      "totalScore": 60.5,
+      "popularityScore": 25.5,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 22,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SM"
+      ],
+      "hype": 59,
+      "hypeRank": 14,
+      "status": "pending"
+    },
+    {
+      "rank": 40,
+      "name": "Toshinao Aoki",
+      "totalScore": 60.2,
+      "popularityScore": 21.2,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 21,
+      "koreanCardCountMatched": 26,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 20,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 49,
+      "hypeRank": 66,
+      "status": "pending"
+    },
+    {
+      "rank": 41,
+      "name": "KIYOTAKA OSHIYAMA",
+      "totalScore": 60.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 12,
+      "styleScore": 24,
+      "koreanCardCountMatched": 30,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 16,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 42,
+      "name": "TOKIYA",
+      "totalScore": 60.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 30,
+      "highRarityMatched": 5,
+      "verifiedSetCount": 18,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 43,
+      "name": "Tetsuo Hara",
+      "totalScore": 59.9,
+      "popularityScore": 25.9,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 25,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 60,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 44,
+      "name": "Mika Pikazo",
+      "totalScore": 59.8,
+      "popularityScore": 23.8,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 25,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 55,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 45,
+      "name": "Mizue",
+      "totalScore": 59.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 13,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 87,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 55,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 46,
+      "name": "Mina Nakai",
+      "totalScore": 59.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 13,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 77,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 56,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 47,
+      "name": "tetsuya koizumi",
+      "totalScore": 59.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 48,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 33,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 48,
+      "name": "SATOSHI NAKAI",
+      "totalScore": 59.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 47,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 34,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 49,
+      "name": "otumami",
+      "totalScore": 59.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 35,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 27,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 50,
+      "name": "satoma",
+      "totalScore": 58.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 15,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": 63,
+      "status": "pending"
+    },
+    {
+      "rank": 51,
+      "name": "Ligton",
+      "totalScore": 58.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 9,
+      "cardCountScore": 8,
+      "styleScore": 21,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 16,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 84,
+      "status": "pending"
+    },
+    {
+      "rank": 52,
+      "name": "GIDORA",
+      "totalScore": 58.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 80,
+      "highRarityMatched": 5,
+      "verifiedSetCount": 39,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 53,
+      "name": "Misa Tsutsui",
+      "totalScore": 58.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 77,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 38,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 54,
+      "name": "Yoshinobu Saito",
+      "totalScore": 58.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 47,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 24,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 55,
+      "name": "Taira Akitsu",
+      "totalScore": 58.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 45,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 33,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 56,
+      "name": "Nisota Niso",
+      "totalScore": 58.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 37,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 31,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 57,
+      "name": "Hironobu Yoshida",
+      "totalScore": 57.9,
+      "popularityScore": 22.9,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 22,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 53,
+      "hypeRank": 42,
+      "status": "pending"
+    },
+    {
+      "rank": 58,
+      "name": "James Turner",
+      "totalScore": 57.8,
+      "popularityScore": 23.8,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 25,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 55,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 59,
+      "name": "Kinu Nishimura",
+      "totalScore": 57.6,
+      "popularityScore": 21.6,
+      "difficultyScore": 8,
+      "cardCountScore": 4,
+      "styleScore": 24,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 5,
+      "eras": [
+        "S",
+        "M"
+      ],
+      "hype": 50,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 60,
+      "name": "REND",
+      "totalScore": 57.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 14,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 81,
+      "status": "pending"
+    },
+    {
+      "rank": 61,
+      "name": "Yuya Oka",
+      "totalScore": 57.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 20,
+      "koreanCardCountMatched": 38,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 35,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 62,
+      "name": "Scav",
+      "totalScore": 57.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 12,
+      "styleScore": 21,
+      "koreanCardCountMatched": 34,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 27,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 63,
+      "name": "Uninori",
+      "totalScore": 56.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 20,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 16,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 47,
+      "hypeRank": 82,
+      "status": "pending"
+    },
+    {
+      "rank": 64,
+      "name": "AYUMI ODASHIMA",
+      "totalScore": 56.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 80,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 37,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 65,
+      "name": "so-taro",
+      "totalScore": 54.3,
+      "popularityScore": 20.3,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 16,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 47,
+      "hypeRank": 83,
+      "status": "pending"
+    },
+    {
+      "rank": 66,
+      "name": "0313",
+      "totalScore": 54.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 52,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 44,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 67,
+      "name": "KEIICHIRO ITO",
+      "totalScore": 54.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 49,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 37,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 68,
+      "name": "Uta",
+      "totalScore": 54.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 12,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 49,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 38,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 69,
+      "name": "Satoshi Shirai",
+      "totalScore": 54.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 20,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 22,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 70,
+      "name": "En Morikura",
+      "totalScore": 54.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 17,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 12,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 71,
+      "name": "sadaji",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 41,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 24,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 72,
+      "name": "saino misaki",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 41,
+      "highRarityMatched": 3,
+      "verifiedSetCount": 26,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 73,
+      "name": "Nagomi Nijo",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 74,
+      "name": "Haru Akasaka",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 17,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 14,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 75,
+      "name": "Nelnal",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 14,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 76,
+      "name": "kurumitsu",
+      "totalScore": 52.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 21,
+      "koreanCardCountMatched": 26,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 19,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 77,
+      "name": "Saki Hayashiro",
+      "totalScore": 52.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 21,
+      "koreanCardCountMatched": 25,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 78,
+      "name": "Shinya Komatsu",
+      "totalScore": 52.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 21,
+      "koreanCardCountMatched": 20,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 17,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 79,
+      "name": "Shiburingaru",
+      "totalScore": 51.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 38,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 29,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 80,
+      "name": "yuu",
+      "totalScore": 51.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 32,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 20,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 81,
+      "name": "Takumi Wada",
+      "totalScore": 51.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 17,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 82,
+      "name": "Susumu Maeya",
+      "totalScore": 51.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 22,
+      "koreanCardCountMatched": 16,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 83,
+      "name": "danciao",
+      "totalScore": 49.4,
+      "popularityScore": 19.4,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 16,
+      "koreanCardCountMatched": 13,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 11,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 45,
+      "hypeRank": 92,
+      "status": "pending"
+    },
+    {
+      "rank": 84,
+      "name": "Eri Yamaki",
+      "totalScore": 49.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 28,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 26,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 85,
+      "name": "inose yukie",
+      "totalScore": 49.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 28,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 23,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 86,
+      "name": "hatachu",
+      "totalScore": 49.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 20,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 87,
+      "name": "take",
+      "totalScore": 49.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 22,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 88,
+      "name": "Tomomi Ozaki",
+      "totalScore": 49.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 20,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 89,
+      "name": "Yusuke Ohmura",
+      "totalScore": 48.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 26,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 17,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 90,
+      "name": "Suwama Chiaki",
+      "totalScore": 48.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 25,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 16,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 91,
+      "name": "Yumi",
+      "totalScore": 48.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 20,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 92,
+      "name": "Kazuma Koda",
+      "totalScore": 48.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 93,
+      "name": "Kurata So",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 19,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 94,
+      "name": "Yoriyuki Ikegami",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 17,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 95,
+      "name": "Nurikabe",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 22,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 96,
+      "name": "aoki",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 20,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 17,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 97,
+      "name": "Gemi",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 20,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 98,
+      "name": "aspara",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 16,
+      "highRarityMatched": 3,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 99,
+      "name": "Lee HyunJung",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 100,
+      "name": "Megumi Higuchi",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 101,
+      "name": "SIE NANAHARA",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 14,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 102,
+      "name": "OKUBO",
+      "totalScore": 45.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 29,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 23,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 103,
+      "name": "Cona Nitanda",
+      "totalScore": 45.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 17,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 104,
+      "name": "Kariya",
+      "totalScore": 45.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 14,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 105,
+      "name": "Amelicart",
+      "totalScore": 45.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 13,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 106,
+      "name": "zig",
+      "totalScore": 45.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 107,
+      "name": "Takeshi Nakamura",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 25,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 19,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 108,
+      "name": "akagi",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 17,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 109,
+      "name": "Dsuke",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 110,
+      "name": "MARINA Chikazawa",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 23,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 111,
+      "name": "Kazumasa Yasukuni",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 22,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 15,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 112,
+      "name": "matazo",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 22,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 113,
+      "name": "rika",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 21,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 16,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 114,
+      "name": "Shimaris Yukichi",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 19,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 115,
+      "name": "MINAMINAMI Take",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 116,
+      "name": "Tonji Matsuno",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 18,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 16,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 117,
+      "name": "Mousho",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 17,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 118,
+      "name": "Natsumi Yoshida",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 119,
+      "name": "nisimono",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 11,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 120,
+      "name": "osare",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 15,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 121,
+      "name": "Bun Toujo",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 14,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 122,
+      "name": "IKEDA Saki",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 14,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 123,
+      "name": "Masako Tomii",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 14,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 14,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 124,
+      "name": "mingo",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 13,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 12,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 125,
+      "name": "toriyufu",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 13,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 13,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 126,
+      "name": "Yuriko Akase",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 127,
+      "name": "GOTO minori",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 128,
+      "name": "Iori Suzuki",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 2,
+      "verifiedSetCount": 8,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 129,
+      "name": "Kedamahadaitai Yawarakai",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 130,
+      "name": "Krgc",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 131,
+      "name": "Shinya Mizuno",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 132,
+      "name": "Mori Yuu",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 10,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 133,
+      "name": "Taiga Kayama",
+      "totalScore": 44.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 10,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 134,
+      "name": "mashu",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 13,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 135,
+      "name": "Ayako Ozaki",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 136,
+      "name": "cochi8i",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 137,
+      "name": "Mékayu",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 138,
+      "name": "Oku",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 12,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 139,
+      "name": "Orca",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 140,
+      "name": "Whisker",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 11,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 141,
+      "name": "Kuroimori",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 10,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 142,
+      "name": "Hiroki Asanuma",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SM",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 143,
+      "name": "Motofumi Fujiwara",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 144,
+      "name": "Hiroyuki Yamamoto",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SM",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 145,
+      "name": "Mana Ibe",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 146,
+      "name": "Fumie Kittaka",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 147,
+      "name": "Katsura Tabata",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 148,
+      "name": "Misaki Hashimoto",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 149,
+      "name": "Tomomi Kaneko",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 150,
+      "name": "Emi Ando",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SM",
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 151,
+      "name": "kanahei",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 152,
+      "name": "Avec Yoko",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 153,
+      "name": "Hiromichi Sugiyama",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 154,
+      "name": "Hisao Nakamura",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 155,
+      "name": "Huang Tzu En",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 156,
+      "name": "Jumpei Akasaka",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 157,
+      "name": "Junsei Kuninobu",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 158,
+      "name": "Ken Ikuji",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 159,
+      "name": "Masako Yamashita",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 160,
+      "name": "Nabana Kensaku",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 161,
+      "name": "Noriko Uono",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 162,
+      "name": "Q-rais",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 163,
+      "name": "Sakiko Maeda",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 164,
+      "name": "Zu-Ka",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 165,
+      "name": "Atsuya Uki",
+      "totalScore": 42.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 9,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 166,
+      "name": "Nobuhiro Imagawa",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 9,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 167,
+      "name": "Yano Keiji",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 168,
+      "name": "Hataya",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 169,
+      "name": "Rianti Hidayat",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 170,
+      "name": "Hasegawa Saki",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 171,
+      "name": "Haruko Ichikawa",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 172,
+      "name": "Hirotaka Marufuji",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 173,
+      "name": "nagano",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 174,
+      "name": "Fujimoto Gold",
+      "totalScore": 40.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 6,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 175,
+      "name": "imoniii",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 176,
+      "name": "LINNE",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 177,
+      "name": "Nakamura Ippan",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 8,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 178,
+      "name": "Narano",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 179,
+      "name": "svlt",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 180,
+      "name": "toi8",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 8,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 181,
+      "name": "Tomowaka",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 182,
+      "name": "tono",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 183,
+      "name": "Wintr Wandr",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 8,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 184,
+      "name": "Apios",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 8,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 185,
+      "name": "Julie Hang",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 8,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 186,
+      "name": "Mugi Hamada",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 8,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 187,
+      "name": "kamonabe",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 188,
+      "name": "Katsunori Sato",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 189,
+      "name": "Keisin",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 190,
+      "name": "Makura Tami",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 191,
+      "name": "Minahamu",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 192,
+      "name": "takashi shiraishi",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 7,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 193,
+      "name": "Rond",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 194,
+      "name": "Terada Tera",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 195,
+      "name": "Yoshimi Miyoshi",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 196,
+      "name": "Arai Kiriko",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 197,
+      "name": "Eri Kamei",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 198,
+      "name": "Felicia Chen",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 199,
+      "name": "Po-Suzuki",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 200,
+      "name": "YASHIRO Nanaco",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 201,
+      "name": "Yoshioka",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 202,
+      "name": "Akino Fukuji",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 203,
+      "name": "Aliya Chen",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 204,
+      "name": "buchi",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 205,
+      "name": "Heisuke Kitazawa",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 206,
+      "name": "Iwamoto05",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 207,
+      "name": "Izucch",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 208,
+      "name": "Kanami Ogata",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 209,
+      "name": "Masa",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 210,
+      "name": "mele",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 211,
+      "name": "okayamatakatoshi",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 212,
+      "name": "USGMEN",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 213,
+      "name": "Yoko Hishida",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 214,
+      "name": "HICO KIM",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 215,
+      "name": "Hoshino KURO",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 216,
+      "name": "Kamome Shirahama",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 217,
+      "name": "Koji Nakata",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 218,
+      "name": "Natsumi Miyanose",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 219,
+      "name": "Nobusawa/Mochipuyo",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 220,
+      "name": "Tsuyoshi Nagano",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 221,
+      "name": "Yuka Tanaka",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 3,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 222,
+      "name": "burari",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 223,
+      "name": "HAGIYA Kaoru",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 224,
+      "name": "KYUPIYAMA",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 225,
+      "name": "Minato",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 226,
+      "name": "Nabatame Kazutaka",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 227,
+      "name": "Ebila",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 228,
+      "name": "KG-2000",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 229,
+      "name": "Natsuko Shoji été",
+      "totalScore": 39.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 5,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 230,
+      "name": "Kazuhisa Uragami",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 4,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 231,
+      "name": "Keisuke Azuma",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 232,
+      "name": "CHORISO",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 233,
+      "name": "HACCAN",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 234,
+      "name": "Inose yukie",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 235,
+      "name": "June",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 236,
+      "name": "Raita Kazama",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 237,
+      "name": "Satoshi Ito",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 238,
+      "name": "Tomoki Sone",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 239,
+      "name": "Yoshimoto Yoshimon",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 2,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 2,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 240,
+      "name": "Ayako Yoshida",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 241,
+      "name": "Jiro Sasuno",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 242,
+      "name": "Kannnu",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 243,
+      "name": "Kenichi Yamaguchi",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 244,
+      "name": "Mekayu",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 245,
+      "name": "UKUMO uiti",
+      "totalScore": 38.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 4,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    }
+  ],
+  "studioRanking": [
+    {
+      "rank": 1,
+      "name": "5ban Graphics",
+      "totalScore": 75.6,
+      "popularityScore": 24.6,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 18,
+      "koreanCardCountMatched": 685,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 88,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 57,
+      "hypeRank": 18,
+      "status": "pending"
+    },
+    {
+      "rank": 2,
+      "name": "aky CG Works",
+      "totalScore": 74.6,
+      "popularityScore": 24.6,
+      "difficultyScore": 12,
+      "cardCountScore": 20,
+      "styleScore": 18,
+      "koreanCardCountMatched": 128,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 44,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 57,
+      "hypeRank": 19,
+      "status": "pending"
+    },
+    {
+      "rank": 3,
+      "name": "Toyste Beach",
+      "totalScore": 74.3,
+      "popularityScore": 23.3,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 18,
+      "koreanCardCountMatched": 202,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 74,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 54,
+      "hypeRank": 37,
+      "status": "pending"
+    },
+    {
+      "rank": 4,
+      "name": "PLANETA Mochizuki",
+      "totalScore": 71.3,
+      "popularityScore": 23.3,
+      "difficultyScore": 10,
+      "cardCountScore": 20,
+      "styleScore": 18,
+      "koreanCardCountMatched": 101,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 36,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 54,
+      "hypeRank": 31,
+      "status": "pending"
+    },
+    {
+      "rank": 5,
+      "name": "Studio Bora Inc.",
+      "totalScore": 63.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 13,
+      "cardCountScore": 20,
+      "styleScore": 15,
+      "koreanCardCountMatched": 107,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 54,
+      "eras": [
+        "SM",
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 6,
+      "name": "N-DESIGN Inc.",
+      "totalScore": 55.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 16,
+      "styleScore": 15,
+      "koreanCardCountMatched": 66,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 23,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 7,
+      "name": "PLANETA Tsuji",
+      "totalScore": 53.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 11,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 50,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 26,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 8,
+      "name": "NC Empire",
+      "totalScore": 52.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 12,
+      "styleScore": 15,
+      "koreanCardCountMatched": 30,
+      "highRarityMatched": 1,
+      "verifiedSetCount": 24,
+      "eras": [
+        "S",
+        "SV",
+        "M"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 9,
+      "name": "PLANETA Igarashi",
+      "totalScore": 48.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 10,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 26,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 18,
+      "eras": [
+        "SM",
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 10,
+      "name": "ConceptLab",
+      "totalScore": 47.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 10,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 11,
+      "name": "PLANETA Yamashita",
+      "totalScore": 46.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 8,
+      "cardCountScore": 8,
+      "styleScore": 15,
+      "koreanCardCountMatched": 19,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 10,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 12,
+      "name": "PLANETA Otani",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 9,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 6,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 13,
+      "name": "PLANETA",
+      "totalScore": 43.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 9,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 5,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "SM"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 14,
+      "name": "MUGENUP",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 8,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 15,
+      "name": "PLANETA Hiiragi",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 7,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "S",
+        "SV"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 16,
+      "name": "ORBITALLINK Inc.",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 6,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 5,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 17,
+      "name": "D.A.G Inc.",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 4,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 3,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 18,
+      "name": "GAME FREAK inc.",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    },
+    {
+      "rank": 19,
+      "name": "Spike Chunsoft.",
+      "totalScore": 41.1,
+      "popularityScore": 15.1,
+      "difficultyScore": 7,
+      "cardCountScore": 4,
+      "styleScore": 15,
+      "koreanCardCountMatched": 1,
+      "highRarityMatched": 0,
+      "verifiedSetCount": 1,
+      "eras": [
+        "S"
+      ],
+      "hype": 35,
+      "hypeRank": null,
+      "status": "pending"
+    }
+  ],
+  "sources": {
+    "pokemonKorea": "https://pokemoncard.co.kr/cards",
+    "illustratorIndex": "https://github.com/tcgdex/cards-database/tree/d9083b73db080979123ebf5e9e97338d4e0745b2/data-asia",
+    "popularity": "https://www.pokemonpredictor.com/artists/"
+  }
+}
