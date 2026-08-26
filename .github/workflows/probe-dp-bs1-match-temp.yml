@@ -1,0 +1,32 @@
+name: Probe DP BS1 match temp
+on:
+  push:
+    branches: [feat/add-ranked-artists-top10-ko-20260826]
+    paths:
+      - scripts/probe_dp_bs1_artist_match.py
+      - .github/workflows/probe-dp-bs1-match-temp.yml
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/add-ranked-artists-top10-ko-20260826
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip -q install pillow imagehash
+      - run: |
+          git clone --filter=blob:none -q https://github.com/tcgdex/cards-database.git /tmp/tcgdex-db
+          git -C /tmp/tcgdex-db checkout -q d9083b73db080979123ebf5e9e97338d4e0745b2
+      - run: python scripts/probe_dp_bs1_artist_match.py
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/probe-dp-bs1-matches.json
+          git commit -m "Probe DP BS1 artist image matches"
+          git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
