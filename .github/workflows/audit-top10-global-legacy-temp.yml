@@ -1,0 +1,29 @@
+name: Audit top10 global legacy temp
+on:
+  push:
+    branches: [feat/add-ranked-artists-top10-ko-20260826]
+    paths:
+      - scripts/audit_top10_global_legacy_sets.py
+      - .github/workflows/audit-top10-global-legacy-temp.yml
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/add-ranked-artists-top10-ko-20260826
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/audit_top10_global_legacy_sets.py
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/artist-top10-global-legacy-sets.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Audit ranked top 10 global legacy sets"
+          git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
