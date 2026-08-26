@@ -1,0 +1,78 @@
+name: Build next five artists temporary
+
+on:
+  push:
+    branches:
+      - feat/add-next-five-artists-20260826
+    paths:
+      - "scripts/build_next_popular_artist_data.py"
+      - ".github/workflows/build-next-five-artists-temp.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/add-next-five-artists-20260826
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build supplement
+        run: python scripts/build_next_popular_artist_data.py /tmp/artists-next.json
+      - name: Merge and validate catalog
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          base_path=Path('data/artists.json')
+          base=json.loads(base_path.read_text(encoding='utf-8'))
+          supplement=json.loads(Path('/tmp/artists-next.json').read_text(encoding='utf-8'))
+          new_names=['Ryo Ueda','Kagemaru Himeno','Mitsuhiro Arita','kodama','Hitoshi Ariga']
+          existing={a['name'] for a in base['artists']}
+          overlap=existing.intersection(new_names)
+          if overlap: raise SystemExit(f'Artists already exist: {sorted(overlap)}')
+          if [a['name'] for a in supplement['artists']] != new_names:
+              raise SystemExit('Unexpected supplement artist list')
+          if supplement['cardCount'] != 510:
+              raise SystemExit(f"Expected 510 new cards, got {supplement['cardCount']}")
+          expected_counts={'Ryo Ueda':58,'Kagemaru Himeno':114,'Mitsuhiro Arita':161,'kodama':79,'Hitoshi Ariga':98}
+          for artist in supplement['artists']:
+              if len(artist['cards']) != expected_counts[artist['name']]:
+                  raise SystemExit(f"Unexpected count for {artist['name']}: {len(artist['cards'])}")
+              for card in artist['cards']:
+                  if card.get('owned') is not False:
+                      raise SystemExit(f"New ownership must start false: {artist['name']}")
+                  if not str(card.get('image','')).startswith('https://cards.image.pokemonkorea.co.kr/data/'):
+                      raise SystemExit(f"Non-official image: {artist['name']} {card.get('name')}")
+          base['artists'].extend(supplement['artists'])
+          base['artists'].sort(key=lambda a:a['name'].casefold())
+          base['artistCount']=len(base['artists'])
+          base['cardCount']=sum(len(a.get('cards',[])) for a in base['artists'])
+          base['ownedCount']=sum(1 for a in base['artists'] for c in a.get('cards',[]) if c.get('owned'))
+          base['illustratorIndex']=supplement['illustratorIndex']
+          if base['artistCount'] != 39: raise SystemExit(f"Expected 39 artists, got {base['artistCount']}")
+          if base['cardCount'] != 3382: raise SystemExit(f"Expected 3382 cards, got {base['cardCount']}")
+          if base['ownedCount'] != 0: raise SystemExit(f"Expected zero base owned, got {base['ownedCount']}")
+          base_path.write_text(json.dumps(base,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+          print('artistCount',base['artistCount'])
+          print('cardCount',base['cardCount'])
+          print('ownedCount',base['ownedCount'])
+          for artist in supplement['artists']: print(artist['name'],len(artist['cards']))
+          PY
+      - name: Commit generated artist data
+        run: |
+          if git diff --quiet -- data/artists.json; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/artists.json
+          git commit -m "Add next five popular artist catalogs"
+          git push origin HEAD:feat/add-next-five-artists-20260826
