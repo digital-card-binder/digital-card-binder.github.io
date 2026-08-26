@@ -14,6 +14,7 @@ on:
       - scripts/probe_jina_pokemonkorea.py
       - scripts/probe_search_engines.py
       - scripts/discover_top10_official_detail_ids.py
+      - scripts/probe_pokemonkorea_cdn.py
 
 permissions:
   contents: write
@@ -29,6 +30,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Probe Pokemon Korea image CDN
+        run: python scripts/probe_pokemonkorea_cdn.py
       - name: Probe Jina access to Pokemon Korea
         run: python scripts/probe_jina_pokemonkorea.py
       - name: Probe search engines for official detail discovery
@@ -49,7 +52,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jina-probe.txt data/search-engine-probe.txt data/artist-top10-official-detail-discovery.json data/artist-top10-korean-candidate-audit.json data/artist-top10-legacy-candidate-audit.json data/artist-top10-all-legacy-audit.json data/artists-top10-local-official.json data/artist-top10-local-resolution.json
+          git add data/pokemonkorea-cdn-probe.txt data/jina-probe.txt data/search-engine-probe.txt data/artist-top10-official-detail-discovery.json data/artist-top10-korean-candidate-audit.json data/artist-top10-legacy-candidate-audit.json data/artist-top10-all-legacy-audit.json data/artists-top10-local-official.json data/artist-top10-local-resolution.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Discover official detail ids for ranked top 10 artists"
+          git commit -m "Audit CDN and official candidates for ranked top 10 artists"
+          git pull --rebase origin feat/add-ranked-artists-top10-ko-20260826
           git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
