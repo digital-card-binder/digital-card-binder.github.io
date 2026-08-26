@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, os, re, tempfile
+import json, os, re, sys, tempfile
 from collections import defaultdict
 from pathlib import Path
-from scripts import build_artist_batch2_data as b
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_artist_batch2_data as b
 
 ARTISTS=["nagimiso","Ken Sugimori","Kouki Saitou","Akira Komayama","Masakazu Fukuda","Megumi Mizutani","Anesaki Dynamic","Hideki Ishikawa","Shin Nagasawa","takuyoa"]
 OUT=Path('data/artist-top10-korean-candidate-audit.json')
