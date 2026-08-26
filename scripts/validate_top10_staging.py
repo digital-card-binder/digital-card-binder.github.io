@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import json
-import re
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit, urlunsplit
@@ -32,8 +31,17 @@ TARGETS = [
 EXPECTED_PRODUCTION_ARTISTS = 39
 EXPECTED_PRODUCTION_CARDS = 3382
 EXPECTED_STAGING_CARDS = 1243
-EXPECTED_FOUND = 52
+EXPECTED_UNRESOLVED = 6
+EXPECTED_FOUND = 0
 EXPECTED_MISSING = 6
+EXPECTED_MISSING_KEYS = {
+    ("Ken Sugimori", "SM6", 104),
+    ("Ken Sugimori", "SM6", 105),
+    ("Masakazu Fukuda", "S10D", 2),
+    ("Hideki Ishikawa", "S8", 121),
+    ("Hideki Ishikawa", "S8", 112),
+    ("Hideki Ishikawa", "SM6", 103),
+}
 
 
 def norm(value: str) -> str:
@@ -48,16 +56,35 @@ def check_url(url: str) -> tuple[str, bool, str]:
             body = response.read(32)
             content_type = str(response.headers.get("Content-Type") or "")
             ok = response.status in (200, 206) and content_type.startswith("image/") and (
-                body.startswith(b"\x89PNG") or body.startswith(b"\xff\xd8") or body.startswith(b"RIFF")
+                body.startswith(b"\x89PNG")
+                or body.startswith(b"\xff\xd8")
+                or body.startswith(b"RIFF")
             )
             return url, ok, f"{response.status} {content_type}"
     except (HTTPError, URLError, TimeoutError, OSError) as exc:
         return url, False, repr(exc)
 
 
+def network_sample_urls(staging: dict) -> list[str]:
+    """Take first/middle/last image for every artist (up to 30 URLs total)."""
+    urls: list[str] = []
+    for artist in staging.get("artists", []):
+        cards = artist.get("cards") or []
+        if not cards:
+            continue
+        positions = sorted({0, len(cards) // 2, len(cards) - 1})
+        for pos in positions:
+            urls.append(norm(cards[pos]["image"]))
+    return list(dict.fromkeys(urls))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--network", action="store_true", help="Recheck the 52 newly resolved official CDN images")
+    parser.add_argument(
+        "--network",
+        action="store_true",
+        help="Check a deterministic cross-artist sample on the Pokemon Korea official image CDN",
+    )
     args = parser.parse_args()
 
     staging = json.loads(STAGING_PATH.read_text(encoding="utf-8"))
@@ -74,6 +101,8 @@ def main() -> None:
     assert [a.get("name") for a in staging.get("artists", [])] == TARGETS
 
     assert stability.get("status") == "stable-staging"
+    assert stability.get("baseCardCount") == EXPECTED_STAGING_CARDS
+    assert stability.get("unresolvedCandidateCount") == EXPECTED_UNRESOLVED
     assert stability.get("stagingCardCount") == EXPECTED_STAGING_CARDS
     assert stability.get("officialCdnFoundCount") == EXPECTED_FOUND
     assert stability.get("officialCdnMissingCount") == EXPECTED_MISSING
@@ -92,6 +121,7 @@ def main() -> None:
     for artist in staging["artists"]:
         name = artist["name"]
         cards = artist.get("cards") or []
+        assert cards, f"empty staging artist: {name}"
         seen_images = set()
         seen_identity = set()
         for expected_order, card in enumerate(cards, 1):
@@ -117,10 +147,11 @@ def main() -> None:
     assert all_cards == EXPECTED_STAGING_CARDS
 
     totals = cdn.get("totals") or {}
+    assert totals.get("input") == EXPECTED_UNRESOLVED
     assert totals.get("found") == EXPECTED_FOUND
     assert totals.get("missing") == EXPECTED_MISSING
-    found_urls = [
-        row["image"]
+    found_rows = [
+        row
         for rows in (cdn.get("artists") or {}).values()
         for row in rows
         if row.get("exists")
@@ -131,26 +162,37 @@ def main() -> None:
         for row in rows
         if not row.get("exists")
     ]
-    assert len(found_urls) == EXPECTED_FOUND
+    assert len(found_rows) == EXPECTED_FOUND
     assert len(missing_rows) == EXPECTED_MISSING
-    assert len({norm(u) for u in found_urls}) == EXPECTED_FOUND
+    missing_keys = {
+        (row.get("artist"), str(row.get("set") or ""), int(row.get("number") or 0))
+        for row in missing_rows
+    }
+    assert missing_keys == EXPECTED_MISSING_KEYS, (missing_keys, EXPECTED_MISSING_KEYS)
 
+    sample_urls: list[str] = []
     if args.network:
+        sample_urls = network_sample_urls(staging)
+        assert 20 <= len(sample_urls) <= 30, len(sample_urls)
         failures = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
-            for url, ok, detail in pool.map(check_url, found_urls):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=12) as pool:
+            for url, ok, detail in pool.map(check_url, sample_urls):
                 if not ok:
                     failures.append((url, detail))
-        assert not failures, f"official CDN failures: {failures[:10]}"
+        assert not failures, f"official CDN sample failures: {failures[:10]}"
 
     print(
         json.dumps(
             {
-                "production": {"artists": EXPECTED_PRODUCTION_ARTISTS, "cards": EXPECTED_PRODUCTION_CARDS},
+                "production": {
+                    "artists": EXPECTED_PRODUCTION_ARTISTS,
+                    "cards": EXPECTED_PRODUCTION_CARDS,
+                },
                 "staging": {"artists": 10, "cards": EXPECTED_STAGING_CARDS},
-                "cdn": {"found": EXPECTED_FOUND, "missing": EXPECTED_MISSING},
+                "unresolved": {"input": EXPECTED_UNRESOLVED, "missing": EXPECTED_MISSING},
                 "legacyGate": "pending/blocked",
                 "networkChecked": bool(args.network),
+                "networkSampleCount": len(sample_urls),
             },
             ensure_ascii=False,
         )
