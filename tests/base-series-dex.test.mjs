@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
+// 기본 수록 보기는 별도 도감이 아니라 시리즈도감의 범위 필터로 유지한다.
 const nav = readFileSync(new URL("../collector-nav.js", import.meta.url), "utf8");
 const legacyPage = readFileSync(new URL("../base-series.html", import.meta.url), "utf8");
 const seriesPage = readFileSync(new URL("../series.html", import.meta.url), "utf8");
