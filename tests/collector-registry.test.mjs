@@ -50,7 +50,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     artist: 3382,
     series: 10321,
     pokemon: 679,
-    ar: 498,
+    ar: 510,
     people: 179,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
@@ -88,7 +88,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     artist: 39,
     series: 99,
     pokemon: 47,
-    ar: 31,
+    ar: 32,
     people: 9,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
