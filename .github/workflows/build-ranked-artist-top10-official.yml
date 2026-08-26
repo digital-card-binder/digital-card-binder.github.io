@@ -1,4 +1,4 @@
-name: Build ranked artist top10 official Korean
+name: Audit ranked artist top10 Korean candidates
 
 on:
   push:
@@ -6,50 +6,28 @@ on:
       - feat/add-ranked-artists-top10-ko-20260826
     paths:
       - .github/workflows/build-ranked-artist-top10-official.yml
-      - scripts/build_ranked_artist_top10_official.py
+      - scripts/audit_ranked_artist_top10_korean_candidates.py
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: feat/add-ranked-artists-top10-ko-20260826
           fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Prepare official crawler for datacenter access
+      - name: Build Korean-release candidate audit
+        run: python scripts/audit_ranked_artist_top10_korean_candidates.py
+      - name: Commit audit
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('scripts/build_ranked_artist_top10_official.py')
-          s=p.read_text(encoding='utf-8')
-          s=s.replace('        self.get(CARDS_URL)\n','')
-          s=s.replace('            "Accept-Language": "ko-KR,ko;q=0.9",\n', '            "Accept-Language": "ko-KR,ko;q=0.9",\n            "Referer": CARDS_URL,\n            "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",\n')
-          p.write_text(s,encoding='utf-8')
-          PY
-
-      - name: Crawl and verify Pokemon Korea official cards
-        run: python scripts/build_ranked_artist_top10_official.py
-
-      - name: Validate merged artist dataset
-        run: python scripts/validate_artist_data.py
-
-      - name: Commit verified Korean-only artist data
-        run: |
-          git restore scripts/build_ranked_artist_top10_official.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/artists.json data/artist-priority.json data/artist-top10-official-audit.json scripts/validate_artist_data.py
-          if git diff --cached --quiet; then
-            echo "No generated changes"
-            exit 1
-          fi
-          git commit -m "Add ranked top 10 artists from Pokemon Korea official search"
+          git add data/artist-top10-korean-candidate-audit.json
+          git commit -m "Audit ranked top 10 Korean artist candidates"
           git push origin HEAD:feat/add-ranked-artists-top10-ko-20260826
