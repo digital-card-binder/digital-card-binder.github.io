@@ -5,6 +5,8 @@ const DATA_URL = "./data/ar.json";
 const NATIONAL_DEX_URL = "./data/pokedex.json";
 const EXPECTED_GROUPS = 34;
 const EXPECTED_TOTAL = 522;
+const BASE_GROUPS = 32;
+const BASE_TOTAL = 498;
 
 let groups = [];
 let allCards = [];
@@ -301,11 +303,11 @@ function buildSelect() {
 
   const national = document.createElement("option");
   national.value = "national";
-  national.textContent = `전국도감 순 · ${EXPECTED_TOTAL}장`;
+  national.textContent = `전국도감 순 · ${allCards.length}장`;
 
   const all = document.createElement("option");
   all.value = "all";
-  all.textContent = `시리즈 발매 순 · ${EXPECTED_TOTAL}장`;
+  all.textContent = `시리즈 발매 순 · ${allCards.length}장`;
 
   allViews.append(national, all);
   select.append(allViews);
@@ -384,9 +386,20 @@ function normalizeGroups(sourceGroups) {
   }));
 
   allCards = groups.flatMap((group) => group.cards);
-  if (groups.length !== EXPECTED_GROUPS || allCards.length !== EXPECTED_TOTAL) {
+  const isCurrentCatalog =
+    groups.length === EXPECTED_GROUPS && allCards.length === EXPECTED_TOTAL;
+  const isBaseCatalog =
+    groups.length === BASE_GROUPS && allCards.length === BASE_TOTAL;
+
+  if (!isCurrentCatalog && !isBaseCatalog) {
     throw new Error(
       `AR 데이터가 ${groups.length}세트 ${allCards.length}장입니다.`,
+    );
+  }
+
+  if (isBaseCatalog) {
+    console.warn(
+      "M5/M6 AR 보충 데이터가 아직 적용되지 않아 기존 498장 도감으로 표시합니다.",
     );
   }
 }
