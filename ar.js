@@ -4,8 +4,8 @@ const $ = (id) => document.getElementById(id);
 const DATA_URL = "./data/ar.json";
 const SUPPLEMENT_URL = "./data/ar-supplement.json";
 const NATIONAL_DEX_URL = "./data/pokedex.json";
-const EXPECTED_GROUPS = 34;
-const EXPECTED_TOTAL = 522;
+const EXPECTED_GROUPS = 33;
+const EXPECTED_TOTAL = 510;
 const BASE_GROUPS = 32;
 const BASE_TOTAL = 498;
 
