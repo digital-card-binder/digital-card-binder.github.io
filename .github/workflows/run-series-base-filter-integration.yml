@@ -1,0 +1,40 @@
+name: Run series base filter integration
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/series-base-filter
+          fetch-depth: 0
+
+      - name: Apply integration
+        run: python scripts/integrate_series_base_filter.py
+
+      - name: Validate JavaScript and UI tests
+        run: |
+          node --check series-scope-filter.js
+          node --check collector-nav.js
+          grep -q 'series-scope-filter.js' series.html
+          grep -q 'data-scope="base"' series-scope-filter.js
+          grep -q 'series.html?scope=base' base-series.html
+          npm run test:ui
+
+      - name: Commit feature changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Move base set dex into series filter"
+          git push origin HEAD:feature/series-base-filter
