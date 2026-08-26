@@ -16,6 +16,15 @@ def card_names(text):
     for lang,val in re.findall(r"([a-z]{2}):\s*['\"]([^'\"]+)",block): vals[lang]=val
     return vals
 
+def scalar_field(text, key):
+    m=re.search(rf"\b{re.escape(key)}:\s*['\"]([^'\"]+)['\"]", text)
+    return m.group(1).strip() if m else ''
+
+def dex_ids(text):
+    m=re.search(r"\bdexId:\s*\[(.*?)\]", text, re.S)
+    if not m: return []
+    return [int(x) for x in re.findall(r"\b(\d{1,4})\b", m.group(1))]
+
 def main():
     local=b.build_local_index()
     report={"artists":{},"totals":{"candidates":0,"localMatched":0,"unresolved":0}}
@@ -37,7 +46,12 @@ def main():
                 num=int(Path(fn).stem)
                 matches=local.get((setname.casefold(),num),[])
                 names=card_names(text)
-                grouped[artist].append({"era":era,"set":setname,"number":num,"names":names,"localMatchCount":len(matches),"localMatches":[{"name":b.row_name(r),"cardNumber":str(r.get('cardNumber') or r.get('number') or ''),"image":str(r.get('image') or '')} for r in matches[:5]]})
+                grouped[artist].append({
+                    "era":era,"set":setname,"number":num,"names":names,
+                    "rarity":scalar_field(text,'rarity'),"category":scalar_field(text,'category'),"dexId":dex_ids(text),
+                    "localMatchCount":len(matches),
+                    "localMatches":[{"name":b.row_name(r),"rarity":str(r.get('rarity') or ''),"cardNumber":str(r.get('cardNumber') or r.get('number') or ''),"image":str(r.get('image') or '')} for r in matches[:5]]
+                })
         for artist in ARTISTS:
             rows=grouped[artist]
             matched=[r for r in rows if r['localMatchCount']]
