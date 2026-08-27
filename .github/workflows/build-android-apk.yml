@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK v0.8
 
 on:
   push:
@@ -51,23 +51,23 @@ jobs:
       - name: Prepare APK
         run: |
           mkdir -p downloads
-          cp android-app/app/build/outputs/apk/debug/app-debug.apk downloads/digital-card-binder-test.apk
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk downloads/DigitalCardBinder_v0.8.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: digital-card-binder-test-apk
-          path: downloads/digital-card-binder-test.apk
+          name: DigitalCardBinder-v0.8-apk
+          path: downloads/DigitalCardBinder_v0.8.apk
           if-no-files-found: error
 
-      - name: Publish test APK to branch
+      - name: Publish v0.8 APK to branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add downloads/digital-card-binder-test.apk
+          git add downloads/DigitalCardBinder_v0.8.apk
           if git diff --cached --quiet; then
             echo "APK unchanged"
           else
-            git commit -m "Build Android test APK"
+            git commit -m "Build DigitalCardBinder v0.8 APK"
             git push
           fi
