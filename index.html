@@ -16,6 +16,72 @@
     <link rel="stylesheet" href="./dashboard.css?v=20260814-1" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
     <link rel="stylesheet" href="./news.css?v=20260813-1" />
+    <style>
+      .android-app-download {
+        display: none;
+      }
+
+      @media (max-width: 1280px) {
+        .android-app-download.is-visible {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          margin: 14px 0 18px;
+          padding: 14px 16px;
+          border: 1px solid rgba(90, 126, 255, 0.28);
+          border-radius: 16px;
+          background: linear-gradient(135deg, rgba(34, 53, 96, 0.96), rgba(23, 35, 63, 0.96));
+          box-shadow: 0 10px 24px rgba(17, 28, 52, 0.18);
+        }
+
+        .android-app-download-copy {
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .android-app-download-copy strong {
+          font-size: 0.98rem;
+          line-height: 1.3;
+          color: #ffffff;
+        }
+
+        .android-app-download-copy span {
+          font-size: 0.78rem;
+          line-height: 1.35;
+          color: rgba(255, 255, 255, 0.72);
+          overflow-wrap: anywhere;
+        }
+
+        .android-app-download-button {
+          flex: 0 0 auto;
+          min-height: 42px;
+          padding: 0 15px;
+          border: 0;
+          border-radius: 12px;
+          background: #ffffff;
+          color: #17233f;
+          font: inherit;
+          font-size: 0.86rem;
+          font-weight: 800;
+          cursor: pointer;
+          box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .android-app-download.is-visible {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .android-app-download-button {
+          width: 100%;
+        }
+      }
+    </style>
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
@@ -138,6 +204,16 @@
           <time id="dashboard-news-date" class="dashboard-news-date"></time>
           <span class="dashboard-news-arrow" aria-hidden="true">›</span>
         </a>
+
+        <section id="android-app-download" class="android-app-download" aria-label="안드로이드 앱 다운로드">
+          <div class="android-app-download-copy">
+            <strong>안드로이드 앱으로 더 편하게 사용하세요</strong>
+            <span>DigitalCardBinder v0.8 · DigitalCardBinder_v0.8.apk</span>
+          </div>
+          <button id="android-app-download-button" class="android-app-download-button" type="button">
+            앱 다운로드
+          </button>
+        </section>
 
         <section class="stats-grid" aria-label="통합 수집 요약">
           <article class="stat-card stat-card--owned">
@@ -357,5 +433,45 @@
         </div>
       </div>
     </dialog>
+
+    <script>
+      (() => {
+        const section = document.getElementById('android-app-download');
+        const button = document.getElementById('android-app-download-button');
+        if (!section || !button) return;
+
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isMobileOrTablet = window.matchMedia('(max-width: 1280px)').matches ||
+          window.matchMedia('(pointer: coarse)').matches;
+
+        if (isAndroid && isMobileOrTablet) {
+          section.classList.add('is-visible');
+        }
+
+        button.addEventListener('click', async () => {
+          const apkUrl = './DigitalCardBinder_v0.8.apk';
+          button.disabled = true;
+          const originalText = button.textContent;
+          button.textContent = '확인 중...';
+
+          try {
+            const response = await fetch(apkUrl, { method: 'HEAD', cache: 'no-store' });
+            if (!response.ok) throw new Error('APK_NOT_READY');
+
+            const link = document.createElement('a');
+            link.href = apkUrl;
+            link.download = 'DigitalCardBinder_v0.8.apk';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+          } catch (error) {
+            window.alert('안드로이드 앱 v0.8 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.');
+          } finally {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
