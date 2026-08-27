@@ -736,3 +736,29 @@ test("owner Sheets writes also refresh an enabled public projection", async () =
     "dashboard must load projection sync before owner Sheets sync",
   );
 });
+
+
+test("Android owner Sheets uses native authorization while browsers keep popup flow", async () => {
+  const ownerSync = await source("owner-sheets-sync.js");
+  const androidActivity = await source(
+    "android-app/app/src/main/java/io/github/digitalcardbinder/app/MainActivity.java",
+  );
+  const androidGradle = await source("android-app/app/build.gradle");
+  const dashboard = await source("index.html");
+
+  assert.match(ownerSync, /function isAndroidApp[(][)]/);
+  assert.match(ownerSync, /requestNativeSheetsAuthorization/);
+  assert.match(ownerSync, /DigitalCardBinderApp[.]startSheetsAuthorization[(][)]/);
+  assert.match(ownerSync, /PokemonDexOwnerSheetsNativeResult/);
+  assert.match(ownerSync, /native[/]update-required/);
+  assert.match(ownerSync, /signInWithPopup/);
+
+  assert.match(androidActivity, /AuthorizationRequest[.]builder[(][)]/);
+  assert.match(androidActivity, /new Scope[(]SHEETS_SCOPE[)]/);
+  assert.match(androidActivity, /getAccessToken[(][)]/);
+  assert.match(androidActivity, /PokemonDexOwnerSheetsNativeResult/);
+  assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
+  assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
+  assert.match(androidGradle, /versionCode 11/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260828-1/);
+});
