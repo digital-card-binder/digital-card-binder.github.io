@@ -549,8 +549,11 @@
         const isAndroid = /Android/i.test(navigator.userAgent);
         const isMobileOrTablet = window.matchMedia('(max-width: 1280px)').matches ||
           window.matchMedia('(pointer: coarse)').matches;
+        const isDigitalCardBinderApp =
+          window.POKEMON_DEX_ANDROID_APP === true ||
+          typeof window.DigitalCardBinderApp !== 'undefined';
 
-        if (isAndroid && isMobileOrTablet) {
+        if (isAndroid && isMobileOrTablet && !isDigitalCardBinderApp) {
           section.classList.add('is-visible');
         }
 
