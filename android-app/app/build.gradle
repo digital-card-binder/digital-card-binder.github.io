@@ -7,11 +7,26 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId 'io.github.digitalcardbinder.app'
+        applicationId 'io.github.digitalcardbinder.app.test'
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName '0.1.0-test'
+        versionCode 2
+        versionName '0.2.0-test'
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../test-signing.keystore')
+            storePassword 'digital-card-binder-test'
+            keyAlias 'digitalcardbinder-test'
+            keyPassword 'digital-card-binder-test'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
     }
 
     compileOptions {
@@ -21,5 +36,5 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.browser:browser:1.8.0'
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.7.2'
 }
