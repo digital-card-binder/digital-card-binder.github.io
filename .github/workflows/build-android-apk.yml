@@ -26,6 +26,14 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Show Android signing fingerprints
+        run: |
+          keytool -list -v \
+            -keystore android-app/test-signing.keystore \
+            -storepass digital-card-binder-test \
+            -alias digitalcardbinder-test \
+            | grep -E 'SHA1:|SHA256:'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
