@@ -120,6 +120,11 @@
     if (error) error.hidden = false;
   }
 
+  function initializeAndroidDownloadLabel() {
+    const button = document.querySelector("#android-app-download-button");
+    if (button) button.textContent = "앱 다운로드 v0.8";
+  }
+
   async function initializeNews() {
     if (!document.querySelector("#dashboard-news-strip, #news-list")) return;
     try {
@@ -132,5 +137,6 @@
     }
   }
 
+  initializeAndroidDownloadLabel();
   initializeNews();
 })();
