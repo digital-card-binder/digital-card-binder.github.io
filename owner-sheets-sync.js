@@ -49,6 +49,83 @@
   let busy = false;
   let pendingChanges = new Map();
   let changeTimer = null;
+  let pendingNativeAuthorization = null;
+
+  function isAndroidApp() {
+    return (
+      window.POKEMON_DEX_ANDROID_APP === true ||
+      typeof window.DigitalCardBinderApp !== "undefined"
+    );
+  }
+
+  function hasNativeSheetsAuthorization() {
+    return Boolean(
+      isAndroidApp() &&
+        window.DigitalCardBinderApp &&
+        typeof window.DigitalCardBinderApp.startSheetsAuthorization ===
+          "function",
+    );
+  }
+
+  function nativeAuthorizationError(payload = {}) {
+    const error = new Error(
+      payload.message || "Google Sheets 권한을 확인하지 못했습니다.",
+    );
+    error.code = payload.code || "native/authorization-failed";
+    return error;
+  }
+
+  function requestNativeSheetsAuthorization() {
+    if (!hasNativeSheetsAuthorization()) {
+      const error = new Error(
+        "Sheets 연결 기능이 포함된 최신 v0.8 앱으로 다시 설치해 주세요.",
+      );
+      error.code = "native/update-required";
+      return Promise.reject(error);
+    }
+
+    if (pendingNativeAuthorization) {
+      const error = new Error("Google Sheets 권한 확인이 이미 진행 중입니다.");
+      error.code = "native/authorization-in-progress";
+      return Promise.reject(error);
+    }
+
+    return new Promise((resolve, reject) => {
+      const timeoutId = window.setTimeout(() => {
+        if (!pendingNativeAuthorization) return;
+        pendingNativeAuthorization = null;
+        const error = new Error(
+          "Google Sheets 권한 확인 시간이 초과되었습니다. 다시 시도해 주세요.",
+        );
+        error.code = "native/authorization-timeout";
+        reject(error);
+      }, 120_000);
+
+      pendingNativeAuthorization = { resolve, reject, timeoutId };
+      try {
+        window.DigitalCardBinderApp.startSheetsAuthorization();
+      } catch (error) {
+        window.clearTimeout(timeoutId);
+        pendingNativeAuthorization = null;
+        reject(nativeAuthorizationError({ message: error?.message }));
+      }
+    });
+  }
+
+  window.PokemonDexOwnerSheetsNativeResult = function (payload = {}) {
+    const pending = pendingNativeAuthorization;
+    if (!pending) return;
+
+    pendingNativeAuthorization = null;
+    window.clearTimeout(pending.timeoutId);
+
+    if (payload.ok && payload.accessToken) {
+      pending.resolve(payload);
+      return;
+    }
+
+    pending.reject(nativeAuthorizationError(payload));
+  };
 
   function normalizeEmail(value) {
     return String(value || "").trim().toLowerCase();
@@ -295,35 +372,46 @@
   async function connectSheets() {
     if (!firebase || !isOwner(currentUser)) return;
 
-    const { appModule, authModule } = firebase;
-    const sheetsAppName = "pokemonDexOwnerSheetsAuth";
-    const sheetsApp =
-      appModule.getApps().find((app) => app.name === sheetsAppName) ||
-      appModule.initializeApp(CONFIG.config, sheetsAppName);
-    const sheetsAuth = authModule.getAuth(sheetsApp);
-    await authModule.setPersistence(
-      sheetsAuth,
-      authModule.inMemoryPersistence,
-    );
-    const provider = new authModule.GoogleAuthProvider();
-    provider.addScope(SHEETS.scope || SHEETS_SCOPE);
-    provider.setCustomParameters({
-      prompt: "select_account consent",
-    });
-
     clearStoredConnection();
     setUiBusy(true);
     setSyncStatus("권한 확인 중…", "loading");
 
+    let sheetsAuth = null;
+    let sheetsAuthModule = null;
+
     try {
-      const result = await authModule.signInWithPopup(sheetsAuth, provider);
-      const credential =
-        authModule.GoogleAuthProvider.credentialFromResult(result);
-      if (!credential?.accessToken) {
-        throw new Error("Google Sheets 접근 토큰을 받지 못했습니다.");
+      if (isAndroidApp()) {
+        const authorization = await requestNativeSheetsAuthorization();
+        writeToken(authorization.accessToken, currentUser?.email);
+      } else {
+        const { appModule, authModule } = firebase;
+        sheetsAuthModule = authModule;
+        const sheetsAppName = "pokemonDexOwnerSheetsAuth";
+        const sheetsApp =
+          appModule.getApps().find((app) => app.name === sheetsAppName) ||
+          appModule.initializeApp(CONFIG.config, sheetsAppName);
+        sheetsAuth = authModule.getAuth(sheetsApp);
+        await authModule.setPersistence(
+          sheetsAuth,
+          authModule.inMemoryPersistence,
+        );
+
+        const provider = new authModule.GoogleAuthProvider();
+        provider.addScope(SHEETS.scope || SHEETS_SCOPE);
+        provider.setCustomParameters({
+          prompt: "select_account consent",
+        });
+
+        const result = await authModule.signInWithPopup(sheetsAuth, provider);
+        const credential =
+          authModule.GoogleAuthProvider.credentialFromResult(result);
+        if (!credential?.accessToken) {
+          throw new Error("Google Sheets 접근 토큰을 받지 못했습니다.");
+        }
+
+        writeToken(credential.accessToken, result.user?.email);
       }
 
-      writeToken(credential.accessToken, result.user?.email);
       updateOwnerUi();
       await syncAll({ showAlert: true });
     } catch (error) {
@@ -331,13 +419,16 @@
       console.error("Google Sheets 연결 실패", error);
       if (
         error.code !== "auth/popup-closed-by-user" &&
-        error.code !== "auth/cancelled-popup-request"
+        error.code !== "auth/cancelled-popup-request" &&
+        error.code !== "native/cancelled"
       ) {
         alert(error.message || "Google Sheets 연결에 실패했습니다.");
       }
       setSyncStatus("시트 연결 필요", "error");
     } finally {
-      await authModule.signOut(sheetsAuth).catch(() => {});
+      if (sheetsAuth && sheetsAuthModule) {
+        await sheetsAuthModule.signOut(sheetsAuth).catch(() => {});
+      }
       setUiBusy(false);
       updateOwnerUi();
     }
