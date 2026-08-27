@@ -3,10 +3,13 @@ package io.github.digitalcardbinder.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Insets;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowInsets;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -35,9 +38,12 @@ public class MainActivity extends Activity {
     private void createApp(Bundle savedInstanceState) {
         getWindow().setStatusBarColor(Color.WHITE);
         getWindow().setNavigationBarColor(Color.WHITE);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
 
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.WHITE);
+        applySafeAreaInsets(root);
 
         webView = new WebView(this);
         webView.setBackgroundColor(Color.WHITE);
@@ -112,6 +118,33 @@ public class MainActivity extends Activity {
         webView.loadUrl(HOME_URL);
     }
 
+    private void applySafeAreaInsets(View root) {
+        root.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+            int left;
+            int top;
+            int right;
+            int bottom;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                Insets safeInsets = windowInsets.getInsets(
+                        WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+                left = safeInsets.left;
+                top = safeInsets.top;
+                right = safeInsets.right;
+                bottom = safeInsets.bottom;
+            } else {
+                left = windowInsets.getSystemWindowInsetLeft();
+                top = windowInsets.getSystemWindowInsetTop();
+                right = windowInsets.getSystemWindowInsetRight();
+                bottom = windowInsets.getSystemWindowInsetBottom();
+            }
+
+            view.setPadding(left, top, right, bottom);
+            return windowInsets;
+        });
+        root.requestApplyInsets();
+    }
+
     private boolean handleUrl(Uri uri) {
         String scheme = uri.getScheme();
         String host = uri.getHost();
@@ -154,6 +187,7 @@ public class MainActivity extends Activity {
         message.setTextSize(16);
         message.setGravity(Gravity.CENTER);
         message.setPadding(48, 48, 48, 48);
+        applySafeAreaInsets(message);
 
         String detail = error.getClass().getSimpleName();
         if (error.getMessage() != null && !error.getMessage().isBlank()) {
