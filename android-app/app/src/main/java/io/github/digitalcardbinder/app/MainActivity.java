@@ -45,6 +45,8 @@ import org.json.JSONObject;
 public class MainActivity extends Activity {
     private static final String HOME_URL = "https://digital-card-binder.github.io/";
     private static final String HOME_HOST = "digital-card-binder.github.io";
+    private static final String FIREBASE_AUTH_HOST = "pokemon-dex-40e92.firebaseapp.com";
+    private static final String FIREBASE_WEB_HOST = "pokemon-dex-40e92.web.app";
     private static final String FIREBASE_JS_VERSION = "12.16.0";
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -157,13 +159,20 @@ public class MainActivity extends Activity {
         String script =
                 "(function(){" +
                 "window.POKEMON_DEX_ANDROID_APP=true;" +
+                "window.DigitalCardBinderNativeSignIn=function(){" +
+                "if(typeof DigitalCardBinderApp!=='undefined'&&DigitalCardBinderApp.startGoogleSignIn){DigitalCardBinderApp.startGoogleSignIn();return true;}" +
+                "return false;" +
+                "};" +
                 "if(window.__digitalCardBinderNativeAuthInstalled)return;" +
                 "window.__digitalCardBinderNativeAuthInstalled=true;" +
                 "document.addEventListener('click',function(event){" +
                 "var target=event.target;" +
                 "if(!target||!target.closest)return;" +
-                "var button=target.closest('#firebase-login,#dashboard-login-cta');" +
+                "var button=target.closest('#firebase-login,#dashboard-login-cta,[data-google-login],[data-auth-login],button,a');" +
                 "if(!button)return;" +
+                "var text=(button.textContent||'').replace(/\\s+/g,' ').trim();" +
+                "var known=button.matches('#firebase-login,#dashboard-login-cta,[data-google-login],[data-auth-login]')||/Google 로그인|내 도감 로그인/.test(text);" +
+                "if(!known)return;" +
                 "if(typeof DigitalCardBinderApp==='undefined'||!DigitalCardBinderApp.startGoogleSignIn)return;" +
                 "event.preventDefault();" +
                 "event.stopPropagation();" +
@@ -307,6 +316,15 @@ public class MainActivity extends Activity {
         root.requestApplyInsets();
     }
 
+    private boolean isGoogleOrFirebaseAuthHost(String host) {
+        if (host == null) return false;
+        String normalized = host.toLowerCase();
+        return normalized.equals("accounts.google.com")
+                || normalized.equals(FIREBASE_AUTH_HOST)
+                || normalized.equals(FIREBASE_WEB_HOST)
+                || normalized.endsWith(".accounts.google.com");
+    }
+
     private boolean handleUrl(Uri uri) {
         String scheme = uri.getScheme();
         String host = uri.getHost();
@@ -316,6 +334,13 @@ public class MainActivity extends Activity {
         if (("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))
                 && HOME_HOST.equalsIgnoreCase(host)) {
             return false;
+        }
+
+        if (("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))
+                && isGoogleOrFirebaseAuthHost(host)) {
+            if (webView != null) webView.stopLoading();
+            beginGoogleSignIn(true);
+            return true;
         }
 
         try {
