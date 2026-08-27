@@ -1,6 +1,8 @@
 "use strict";
 
 (function () {
+  if (document.body?.dataset.catalog !== "ar") return;
+
   const params = new URLSearchParams(window.location.search);
   const arView = params.get("view") === "series" ? "series" : "national";
 
