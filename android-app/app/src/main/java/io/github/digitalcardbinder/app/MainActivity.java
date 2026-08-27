@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,7 +25,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            createApp(savedInstanceState);
+        } catch (Throwable error) {
+            showFatalError(error);
+        }
+    }
 
+    private void createApp(Bundle savedInstanceState) {
         getWindow().setStatusBarColor(Color.WHITE);
         getWindow().setNavigationBarColor(Color.WHITE);
 
@@ -57,10 +66,9 @@ public class MainActivity extends Activity {
         root.addView(webView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
-        FrameLayout.LayoutParams progressParams = new FrameLayout.LayoutParams(
+        root.addView(progress, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
-                6);
-        root.addView(progress, progressParams);
+                6));
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -81,15 +89,27 @@ public class MainActivity extends Activity {
                 super.onPageFinished(view, url);
                 CookieManager.getInstance().flush();
             }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (request.isForMainFrame()) {
+                    view.loadDataWithBaseURL(
+                            HOME_URL,
+                            "<html><body style='font-family:sans-serif;padding:32px'><h2>디지털 카드 바인더</h2><p>사이트를 불러오지 못했습니다.</p><p>인터넷 연결을 확인한 뒤 앱을 다시 열어주세요.</p></body></html>",
+                            "text/html",
+                            "UTF-8",
+                            null);
+                }
+            }
         });
 
         setContentView(root);
 
-        if (savedInstanceState != null) {
-            webView.restoreState(savedInstanceState);
-        } else {
-            webView.loadUrl(HOME_URL);
+        if (savedInstanceState != null && webView.restoreState(savedInstanceState) != null) {
+            return;
         }
+        webView.loadUrl(HOME_URL);
     }
 
     private boolean handleUrl(Uri uri) {
@@ -122,6 +142,25 @@ public class MainActivity extends Activity {
         } catch (Exception ignored) {
             return false;
         }
+    }
+
+    private void showFatalError(Throwable error) {
+        getWindow().setStatusBarColor(Color.WHITE);
+        getWindow().setNavigationBarColor(Color.WHITE);
+
+        TextView message = new TextView(this);
+        message.setTextColor(Color.rgb(30, 30, 30));
+        message.setBackgroundColor(Color.WHITE);
+        message.setTextSize(16);
+        message.setGravity(Gravity.CENTER);
+        message.setPadding(48, 48, 48, 48);
+
+        String detail = error.getClass().getSimpleName();
+        if (error.getMessage() != null && !error.getMessage().isBlank()) {
+            detail += "\n" + error.getMessage();
+        }
+        message.setText("디지털 카드 바인더 앱을 시작하지 못했습니다.\n\n오류 화면을 캡처해서 알려주세요.\n\n" + detail);
+        setContentView(message);
     }
 
     @Override
