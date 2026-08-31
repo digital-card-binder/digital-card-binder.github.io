@@ -1,6 +1,24 @@
 "use strict";
 
 (function () {
+  function ensureStormEmeraldaPack() {
+    if (typeof packs === "undefined" || !Array.isArray(packs)) return;
+    if (packs.some((pack) => String(pack?.code || "").toLowerCase() === "m6")) return;
+
+    packs.push({
+      era: "M",
+      name: "스톰에메랄다",
+      code: "m6",
+      displayCode: "m6",
+      legacyOwned: false,
+      owned: false,
+      i: packs.length,
+    });
+
+    if (typeof drawSummary === "function") drawSummary();
+    if (typeof render === "function") render();
+  }
+
   function addStyles() {
     if (document.getElementById("promo-quick-search-style")) return;
     const style = document.createElement("style");
@@ -197,6 +215,7 @@
   }
 
   function init() {
+    ensureStormEmeraldaPack();
     addStyles();
     addPromoShortcut();
     addQuickSearch();
