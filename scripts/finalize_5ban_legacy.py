@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = json.loads((ROOT / "data/5ban-legacy-audit.json").read_text(encoding="utf-8"))
@@ -44,6 +45,33 @@ replace(
 replace("tests/collector-registry.test.mjs", "4093", "4838")
 replace("artists.js", "./data/artists.json?v=20260901-1", "./data/artists.json?v=20260901-2")
 
+# Normalize legacy rows from official image paths. Older deck/promo cards can
+# omit the standard NNN/denominator text on their detail pages; the official
+# image filename still carries a stable printed slot token.
+artists_path = ROOT / "data/artists.json"
+payload = json.loads(artists_path.read_text(encoding="utf-8"))
+fiveban = next(artist for artist in payload["artists"] if artist["name"] == "5ban Graphics")
+normalized = 0
+for card in fiveban["cards"]:
+    image = str(card.get("image") or "")
+    match = re.search(r"/wmimages/(BW|XY)/([^/]+)/([^/?#]+)", image, re.I)
+    if not match:
+        continue
+    era, folder, filename = match.groups()
+    if str(card.get("set") or "").upper() in {"", "BW", "XY"} and folder:
+        card["set"] = folder.upper()
+        normalized += 1
+    if not str(card.get("cardNumber") or "").strip():
+        stem = filename.rsplit(".", 1)[0]
+        number_match = re.search(r"[_-]0*(\d{1,4})(?:[_-]|$)", stem)
+        card["cardNumber"] = (
+            str(int(number_match.group(1))).zfill(3)
+            if number_match
+            else stem
+        )
+        normalized += 1
+artists_path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
 builder_path = ROOT / "scripts/build_5ban_artist_data.py"
 builder = builder_path.read_text(encoding="utf-8")
 for old, new in (
@@ -74,7 +102,22 @@ if builder.count(old_call) != 1:
 builder = builder.replace(old_call, new_call)
 builder_path.write_text(builder, encoding="utf-8")
 
+# Make the retained reconciliation script generate the same robust set/number
+# values on future official refreshes.
+reconcile_path = ROOT / "scripts/reconcile_5ban_legacy.py"
+reconcile = reconcile_path.read_text(encoding="utf-8")
+old_set = """def legacy_set_code(feature_image: str, product: str) -> str:\n    path = feature_image.split(\"?\", 1)[0]\n    filename = path.rsplit(\"/\", 1)[-1].rsplit(\".\", 1)[0]\n    prefix = re.sub(r\"[_-]?\\d{1,4}(?:[_-].*)?$\", \"\", filename).strip(\"_-\")\n    if prefix:\n        return prefix.upper()\n    match = re.search(r\"wmimages/(BW|XY)/([^/]+)/\", path, re.I)\n    if match:\n        return match.group(2).upper()\n    return \"BW/XY\"\n"""
+new_set = """def legacy_set_code(feature_image: str, product: str) -> str:\n    path = feature_image.split(\"?\", 1)[0]\n    match = re.search(r\"wmimages/(BW|XY)/([^/]+)/([^/]+)$\", path, re.I)\n    if match:\n        _, folder, raw_filename = match.groups()\n        if folder:\n            return folder.upper()\n        filename = raw_filename.rsplit(\".\", 1)[0]\n    else:\n        filename = path.rsplit(\"/\", 1)[-1].rsplit(\".\", 1)[0]\n    prefix = re.sub(r\"[_-]?\\d{1,4}(?:[_-].*)?$\", \"\", filename).strip(\"_-\")\n    return prefix.upper() if prefix else \"BW/XY\"\n"""
+if reconcile.count(old_set) != 1:
+    raise RuntimeError("reconcile: legacy set-code anchor changed")
+reconcile = reconcile.replace(old_set, new_set)
+old_printed = """    printed = number\n    if denominator:\n        printed = f\"{number}/{denominator}\" if number else denominator\n    if rarity:\n        printed = f\"{printed} {rarity}\".strip()\n"""
+new_printed = """    printed = number\n    if denominator:\n        printed = f\"{number}/{denominator}\" if number else denominator\n    if rarity:\n        printed = f\"{printed} {rarity}\".strip()\n    if not printed:\n        filename = image.split(\"?\", 1)[0].rsplit(\"/\", 1)[-1].rsplit(\".\", 1)[0]\n        number_match = re.search(r\"[_-]0*(\\d{1,4})(?:[_-]|$)\", filename)\n        printed = str(int(number_match.group(1))).zfill(3) if number_match else filename\n    if not printed:\n        printed = card_num\n"""
+if reconcile.count(old_printed) != 1:
+    raise RuntimeError("reconcile: printed-number anchor changed")
+reconcile_path.write_text(reconcile.replace(old_printed, new_printed), encoding="utf-8")
+
 doc = f"""# 5ban Graphics 작가도감 데이터 메모\n\n- 작가명: 5ban Graphics\n- 기본 보유 상태: 0장 / 전체 미보유\n- 한글판 현재 확정 반영: {FIVEBAN_TOTAL:,}장\n  - SM · 소드&실드 · SV · MEGA 기존 공식 이미지 매칭: 685장\n  - M6 스톰에메랄다: 13장\n  - BW · XY 및 해당 시기 한국 프로모 공식 전수 대조 추가: {LEGACY_TOTAL:,}장\n- 구세대 검수 범위: 포켓몬코리아 카드검색에 노출된 관련 상품 {len(AUDIT['productsScanned'])}개, 카드 상세 {AUDIT['uniqueDetailPages']:,}건\n- 구세대 선정 기준: 공식 카드 상세 페이지의 `일러스트` 값이 `5ban Graphics`와 정확히 일치\n- 재포장/상품 중복 처리: 동일 포켓몬코리아 공식 카드 이미지는 1장으로 통합하며, 번호·이름이 같아도 공식 이미지가 다르면 별도 실물 카드 엔트리로 유지\n- 작가도감 전체: 40명 / {CATALOG_TOTAL:,}장\n- 기존 Firebase 사용자 보유 override는 변경하지 않는다.\n- 이 수량은 서로 다른 그림의 개수가 아니라 한글판 수집 카드 엔트리 수다.\n"""
 (ROOT / "docs/5ban-graphics-data-note.md").write_text(doc, encoding="utf-8")
 
-print(f"Finalized 5ban={FIVEBAN_TOTAL}, artist catalog={CATALOG_TOTAL}, legacy={LEGACY_TOTAL}")
+print(f"Finalized 5ban={FIVEBAN_TOTAL}, artist catalog={CATALOG_TOTAL}, legacy={LEGACY_TOTAL}, normalized={normalized}")
