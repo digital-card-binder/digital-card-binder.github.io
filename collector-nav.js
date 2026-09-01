@@ -82,11 +82,19 @@
         "PUBLIC BOARD",
       );
     nav.querySelector('[href*="trades.html"]')?.remove();
+    const worldDex =
+      nav.querySelector('[href*="world.html"]') ||
+      navigationLink(
+        "./world.html",
+        "08",
+        "월드탐험도감",
+        "4×3 STORY BINDER",
+      );
     const customDex =
       nav.querySelector('[href*="custom.html"]') ||
       navigationLink(
         "./custom.html",
-        "08",
+        "09",
         "나만의 도감",
         "MY CUSTOM DEX",
       );
@@ -112,8 +120,12 @@
     settings?.remove();
     dashboard.after(directory);
     const people = nav.querySelector('[href*="people.html"]');
-    if (people) people.after(customDex);
-    else nav.append(customDex);
+    if (people) {
+      people.after(worldDex);
+      worldDex.after(customDex);
+    } else {
+      nav.append(worldDex, customDex);
+    }
     normalizeNavigationState(nav);
   }
 
@@ -401,7 +413,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
