@@ -26,6 +26,21 @@ def replace(path: str, old: str, new: str, *, count: int | None = None) -> None:
 
 replace("collector-collection-registry.js", "catalogCount: 4093,", "catalogCount: 4838,")
 replace("scripts/validate_artist_data.py", "EXPECTED_CARD_COUNT = 4093", "EXPECTED_CARD_COUNT = 4838")
+replace(
+    "scripts/validate_artist_data.py",
+    "identities: set[tuple[str, str, str, str]] = set()",
+    "identities: set[tuple[str, str, str, str, str]] = set()",
+)
+replace(
+    "scripts/validate_artist_data.py",
+    "identity = (artist_name, card[\"set\"], card[\"cardNumber\"], card[\"name\"])",
+    "identity = (artist_name, card[\"set\"], card[\"cardNumber\"], card[\"name\"], card[\"image\"])",
+)
+replace(
+    "scripts/validate_artist_data.py",
+    "Duplicate artist/set/cardNumber/name identity",
+    "Duplicate artist/set/cardNumber/name/image identity",
+)
 replace("tests/collector-registry.test.mjs", "4093", "4838")
 replace("artists.js", "./data/artists.json?v=20260901-1", "./data/artists.json?v=20260901-2")
 
@@ -59,7 +74,7 @@ if builder.count(old_call) != 1:
 builder = builder.replace(old_call, new_call)
 builder_path.write_text(builder, encoding="utf-8")
 
-doc = f"""# 5ban Graphics 작가도감 데이터 메모\n\n- 작가명: 5ban Graphics\n- 기본 보유 상태: 0장 / 전체 미보유\n- 한글판 현재 확정 반영: {FIVEBAN_TOTAL:,}장\n  - SM · 소드&실드 · SV · MEGA 기존 공식 이미지 매칭: 685장\n  - M6 스톰에메랄다: 13장\n  - BW · XY 및 해당 시기 한국 프로모 공식 전수 대조 추가: {LEGACY_TOTAL:,}장\n- 구세대 검수 범위: 포켓몬코리아 카드검색에 노출된 관련 상품 {len(AUDIT['productsScanned'])}개, 카드 상세 {AUDIT['uniqueDetailPages']:,}건\n- 구세대 선정 기준: 공식 카드 상세 페이지의 `일러스트` 값이 `5ban Graphics`와 정확히 일치\n- 재포장/상품 중복 처리: 동일 포켓몬코리아 공식 카드 이미지 엔트리는 1장으로 통합\n- 작가도감 전체: 40명 / {CATALOG_TOTAL:,}장\n- 기존 Firebase 사용자 보유 override는 변경하지 않는다.\n- 이 수량은 서로 다른 그림의 개수가 아니라 한글판 수집 카드 엔트리 수다.\n"""
+doc = f"""# 5ban Graphics 작가도감 데이터 메모\n\n- 작가명: 5ban Graphics\n- 기본 보유 상태: 0장 / 전체 미보유\n- 한글판 현재 확정 반영: {FIVEBAN_TOTAL:,}장\n  - SM · 소드&실드 · SV · MEGA 기존 공식 이미지 매칭: 685장\n  - M6 스톰에메랄다: 13장\n  - BW · XY 및 해당 시기 한국 프로모 공식 전수 대조 추가: {LEGACY_TOTAL:,}장\n- 구세대 검수 범위: 포켓몬코리아 카드검색에 노출된 관련 상품 {len(AUDIT['productsScanned'])}개, 카드 상세 {AUDIT['uniqueDetailPages']:,}건\n- 구세대 선정 기준: 공식 카드 상세 페이지의 `일러스트` 값이 `5ban Graphics`와 정확히 일치\n- 재포장/상품 중복 처리: 동일 포켓몬코리아 공식 카드 이미지는 1장으로 통합하며, 번호·이름이 같아도 공식 이미지가 다르면 별도 실물 카드 엔트리로 유지\n- 작가도감 전체: 40명 / {CATALOG_TOTAL:,}장\n- 기존 Firebase 사용자 보유 override는 변경하지 않는다.\n- 이 수량은 서로 다른 그림의 개수가 아니라 한글판 수집 카드 엔트리 수다.\n"""
 (ROOT / "docs/5ban-graphics-data-note.md").write_text(doc, encoding="utf-8")
 
 print(f"Finalized 5ban={FIVEBAN_TOTAL}, artist catalog={CATALOG_TOTAL}, legacy={LEGACY_TOTAL}")
