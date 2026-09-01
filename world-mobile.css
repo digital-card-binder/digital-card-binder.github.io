@@ -1,0 +1,233 @@
+/* 월드탐험도감 모바일/태블릿 전용 보정
+   - 카드 페이지는 4열을 유지하되 화면 폭 안에 맞춘다.
+   - 바인더 본문에서는 가로 스크롤을 만들지 않는다. */
+
+@media (max-width: 920px) {
+  .world-binder-shell {
+    overflow-x: hidden;
+  }
+
+  .world-binder-shell > *,
+  .world-binder-page {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .world-slot-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 690px) {
+  .world-binder-panel {
+    overflow: hidden;
+  }
+
+  .world-story-header {
+    padding: 16px 14px;
+  }
+
+  .world-story-header h2 {
+    font-size: 1.28rem;
+  }
+
+  .world-story-header p:last-child {
+    font-size: 0.72rem;
+    line-height: 1.55;
+  }
+
+  .world-story-chips {
+    gap: 5px;
+  }
+
+  .world-story-chip {
+    padding: 5px 7px;
+    font-size: 0.58rem;
+  }
+
+  .world-binder-shell {
+    width: 100%;
+    overflow-x: hidden;
+    padding: 10px 8px 14px;
+  }
+
+  .world-binder-shell > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .world-binder-page {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 16px;
+    padding: 10px 8px 12px;
+    border-radius: 14px;
+  }
+
+  .world-page-heading {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-bottom: 10px;
+    padding: 0 1px 9px;
+  }
+
+  .world-page-heading span {
+    font-size: 0.54rem;
+  }
+
+  .world-page-heading strong {
+    margin-top: 3px;
+    font-size: 0.88rem;
+  }
+
+  .world-page-heading p {
+    display: none;
+  }
+
+  .world-phase {
+    margin-bottom: 13px;
+  }
+
+  .world-phase-heading {
+    gap: 6px;
+    margin: 0 1px 6px;
+  }
+
+  .world-phase-heading strong {
+    font-size: 0.62rem;
+  }
+
+  .world-phase-heading span {
+    display: none;
+  }
+
+  .world-slot-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .world-slot {
+    min-width: 0;
+  }
+
+  .world-slot .pokemon-card-button {
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(25, 32, 57, 0.05);
+  }
+
+  .world-slot .card-image-wrap {
+    padding: 3px;
+  }
+
+  .world-slot .card-image {
+    border-radius: 4px;
+  }
+
+  .world-slot .missing-overlay {
+    top: 6px;
+    left: 6px;
+    font-size: 0.48rem;
+    padding: 4px 5px;
+  }
+
+  .world-slot .card-body,
+  .world-card-body {
+    min-height: 126px;
+    padding: 7px 6px 48px;
+  }
+
+  .world-slot .card-topline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .world-slot .number-badge {
+    font-size: 0.52rem;
+  }
+
+  .world-slot .status-badge {
+    gap: 2px;
+    font-size: 0.48rem;
+    padding: 3px 5px;
+  }
+
+  .world-slot .card-name-ko {
+    overflow: hidden;
+    margin-top: 6px;
+    font-size: 0.66rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .world-slot .card-name-en,
+  .world-story-subtitle {
+    min-height: 0;
+    margin-top: 3px;
+    font-size: 0.49rem;
+    line-height: 1.35;
+  }
+
+  .world-selected-card {
+    margin-top: 6px;
+    font-size: 0.53rem;
+  }
+
+  .world-card-meta {
+    margin-top: 3px;
+    font-size: 0.46rem;
+  }
+
+  .world-custom-badge {
+    margin-top: 5px;
+    font-size: 0.45rem;
+    padding: 3px 4px;
+  }
+
+  .world-slot.pokemon-card.has-completion-action .card-body {
+    padding-bottom: 48px;
+  }
+
+  .world-slot .collection-complete-button {
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    min-height: 34px;
+    border-radius: 8px;
+    font-size: 0.54rem;
+    padding: 5px 2px;
+  }
+
+  .world-card-dialog .dialog-card-copy {
+    padding: 22px 16px 26px;
+  }
+}
+
+@media (max-width: 390px) {
+  .world-binder-shell {
+    padding-inline: 6px;
+  }
+
+  .world-binder-page {
+    padding-inline: 6px;
+  }
+
+  .world-slot-grid {
+    gap: 4px;
+  }
+
+  .world-slot .card-body,
+  .world-card-body {
+    padding-inline: 5px;
+  }
+
+  .world-slot .card-name-ko {
+    font-size: 0.62rem;
+  }
+
+  .world-slot .collection-complete-button {
+    font-size: 0.5rem;
+  }
+}
