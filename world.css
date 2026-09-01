@@ -169,11 +169,18 @@
 }
 
 .world-binder-shell {
+  overflow-x: auto;
   padding: 22px;
   background:
     radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 38%),
     #11151d;
   border-radius: 0 0 22px 22px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.25) transparent;
+}
+
+.world-binder-shell > * {
+  min-width: 760px;
 }
 
 .world-phase {
@@ -209,6 +216,7 @@
   background: rgba(255,255,255,0.14);
 }
 
+/* 월드탐험도감의 한 페이지는 실제 4×3 포켓 바인더 규격을 고정한다. */
 .world-slot-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -431,10 +439,6 @@
     grid-template-columns: repeat(9, 104px);
   }
 
-  .world-slot-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .world-story-header {
     grid-template-columns: 1fr;
   }
@@ -461,7 +465,11 @@
   }
 
   .world-binder-shell {
-    padding: 14px;
+    padding: 12px;
+  }
+
+  .world-binder-shell > * {
+    min-width: 720px;
   }
 
   .world-slot-grid {
