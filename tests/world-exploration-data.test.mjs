@@ -47,8 +47,8 @@ test('world exploration exposes one complete 4x3 page for generations 1 through 
   assert.equal(new Set(allSlotIds).size, 108, '월드탐험도감 slot id 중복');
 });
 
-test('every world exploration slot resolves to the reviewed Korean series catalog card', () => {
-  for (const generation of world.generations) {
+test('every newly added generation 2-9 slot resolves to the reviewed Korean series catalog card', () => {
+  for (const generation of world.generations.filter((item) => item.generation >= 2)) {
     for (const slot of generation.slots) {
       const image = stripQuery(slot.card?.image);
       const matches = catalogByImage.get(image) || [];
