@@ -1,6 +1,47 @@
-/* 월드탐험도감 모바일/태블릿 전용 보정
-   - 카드 페이지는 4열을 유지하되 화면 폭 안에 맞춘다.
-   - 바인더 본문에서는 가로 스크롤을 만들지 않는다. */
+/* 월드탐험도감 반응형 보정
+   - PC/태블릿/모바일 모두 바인더 본문이 부모 폭을 넘지 않는다.
+   - 카드 페이지는 항상 4열을 유지하되 화면 폭 안에서 유동적으로 줄어든다. */
+
+.world-binder-panel,
+.world-binder-shell,
+.world-binder-shell > *,
+.world-binder-page,
+.world-phase,
+.world-slot-grid,
+.world-slot,
+.world-card-open,
+.world-card-body {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.world-binder-panel,
+.world-binder-shell,
+.world-binder-page,
+.world-phase,
+.world-slot-grid {
+  width: 100%;
+}
+
+.world-binder-shell {
+  overflow-x: hidden;
+}
+
+.world-binder-shell > * {
+  width: 100%;
+}
+
+.world-binder-page {
+  overflow: hidden;
+}
+
+.world-slot-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.world-slot .pokemon-card-button {
+  min-width: 0;
+}
 
 @media (max-width: 920px) {
   .world-binder-shell {
