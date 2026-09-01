@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Align artist catalog validators, counts and navigation after adding 5ban Graphics."""
+"""Align artist catalog validators, counts, navigation and regression tests after adding 5ban Graphics."""
 from pathlib import Path
 
 
@@ -61,7 +61,13 @@ def main() -> None:
         text = text.replace(anchor, anchor + addition, 1)
     nav.write_text(text, encoding="utf-8")
 
-    print("Finalized 5ban Graphics artist catalog metadata")
+    tests = Path("tests/collector-registry.test.mjs")
+    text = tests.read_text(encoding="utf-8")
+    text = text.replace("    artist: 3382,", "    artist: 4093,", 1)
+    text = text.replace("    artist: 39,", "    artist: 40,", 1)
+    tests.write_text(text, encoding="utf-8")
+
+    print("Finalized 5ban Graphics artist catalog metadata and regression expectations")
 
 
 if __name__ == "__main__":
