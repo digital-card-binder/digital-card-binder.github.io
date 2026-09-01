@@ -82,7 +82,7 @@
       button.innerHTML = `
         <strong>${item.generation}세대</strong>
         <span>${item.region} · ${item.regionEn}</span>
-        <small>${item.status === "active" ? "12 CARD STORY" : "COMING NEXT"}</small>
+        <small>${item.status === "active" ? "4×3 STORY" : "준비 중"}</small>
       `;
       button.addEventListener("click", () => {
         state.generation = item.generation;
@@ -223,18 +223,6 @@
     updateProgress();
   }
 
-  function renderRoadmap() {
-    const list = el("world-roadmap-list");
-    if (!list || !state.data) return;
-    list.replaceChildren();
-    state.data.generations.slice(1).forEach((item) => {
-      const article = document.createElement("article");
-      article.className = "world-roadmap-item";
-      article.innerHTML = `<strong>${item.generation}세대 · ${item.region}</strong><span>${item.title}</span>`;
-      list.append(article);
-    });
-  }
-
   function renderAll() {
     renderGenerationButtons();
     const generation = generationData();
@@ -252,7 +240,6 @@
       state.data = await worldResponse.json();
       state.people = peopleResponse.ok ? await peopleResponse.json() : null;
       renderAll();
-      renderRoadmap();
     } catch (error) {
       console.error(error);
       const binder = el("world-binder-content");
