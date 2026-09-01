@@ -1,0 +1,38 @@
+name: Build 5ban Graphics artist data
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - add/5ban-graphics-artist
+    paths:
+      - ".github/workflows/build-5ban-artist.yml"
+      - "scripts/build_5ban_artist_data.py"
+      - "scripts/build_popular_artist_data.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build 5ban Graphics and M6 artist data
+        run: python scripts/build_5ban_artist_data.py data/artists.json
+      - name: Commit generated artist data
+        run: |
+          if git diff --quiet -- data/artists.json; then
+            echo "Artist data is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/artists.json
+          git commit -m "Add 5ban Graphics to artist dex"
+          git push origin HEAD:${{ github.ref_name }}
