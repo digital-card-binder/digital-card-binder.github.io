@@ -46,6 +46,7 @@ jobs:
             scripts/validate_artist_data.py \
             collector-collection-registry.js \
             collector-nav.js \
-            artists.js
+            artists.js \
+            tests/collector-registry.test.mjs
           git commit -m "Finalize 5ban Graphics artist catalog"
           git push origin HEAD:${{ github.ref_name }}
