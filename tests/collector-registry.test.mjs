@@ -47,7 +47,7 @@ test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
     pack: 62,
-    artist: 3382,
+    artist: 4093,
     series: 10321,
     pokemon: 679,
     ar: 510,
@@ -85,7 +85,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
   const expected = {
     national: 9,
     pack: 3,
-    artist: 39,
+    artist: 40,
     series: 99,
     pokemon: 47,
     ar: 32,
