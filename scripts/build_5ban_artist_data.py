@@ -14,8 +14,8 @@ import build_popular_artist_data as common
 ARTIST = "5ban Graphics"
 ALLOWED_ERAS = {"SM", "S", "SV", "M"}
 EXPECTED_MATCHED_BASE = 685
-EXPECTED_5BAN_TOTAL = 698
-EXPECTED_FINAL_TOTAL = 4093
+EXPECTED_5BAN_TOTAL = 1443
+EXPECTED_FINAL_TOTAL = 4838
 OFFICIAL_CARDS_URL = common.OFFICIAL_CARDS_URL
 OFFICIAL_IMAGE_PREFIX = common.OFFICIAL_IMAGE_PREFIX
 
@@ -90,7 +90,7 @@ def illustrator_rows(base: str):
     return rows
 
 
-def build_5ban_group() -> dict:
+def build_5ban_group(existing_cards: list[dict] | None = None) -> dict:
     local_index = common.build_local_index()
     with tempfile.TemporaryDirectory() as tempdir:
         repo = os.path.join(tempdir, "tcgdex")
@@ -130,6 +130,21 @@ def build_5ban_group() -> dict:
 
     m6 = [m6_card(number, name, rarity) for number, name, rarity in M6_5BAN]
     cards = m6 + cards
+
+    # Preserve officially reconciled Korean legacy rows that are outside the
+    # modern TCGdex/local-image build floor. This prevents a routine rebuild
+    # from deleting the BW/XY catalog added by reconcile_5ban_legacy.py.
+    seen_images = {common.normalized_image(str(card.get("image") or "")) for card in cards}
+    for existing in existing_cards or []:
+        image = str(existing.get("image") or "")
+        image_id = common.normalized_image(image)
+        if not image.startswith(OFFICIAL_IMAGE_PREFIX) or image_id in seen_images:
+            continue
+        preserved = dict(existing)
+        preserved["owned"] = False
+        cards.append(preserved)
+        seen_images.add(image_id)
+
     for order, card in enumerate(cards, start=1):
         card["order"] = order
 
@@ -159,6 +174,10 @@ def prepend_missing_m6(artist: dict, rows: list[tuple[int, str, str]]) -> None:
 def main() -> None:
     target = Path(sys.argv[1] if len(sys.argv) > 1 else "data/artists.json")
     payload = json.loads(target.read_text(encoding="utf-8"))
+    existing_fiveban = next(
+        (artist for artist in payload.get("artists", []) if artist.get("name") == ARTIST),
+        {"cards": []},
+    )
     artists = [artist for artist in payload.get("artists", []) if artist.get("name") != ARTIST]
 
     by_name = {artist.get("name"): artist for artist in artists}
@@ -171,7 +190,7 @@ def main() -> None:
             raise RuntimeError(f"Missing existing artist for M6 backfill: {artist_name}")
         prepend_missing_m6(artist, rows)
 
-    fiveban = build_5ban_group()
+    fiveban = build_5ban_group(list(existing_fiveban.get("cards") or []))
     artists.append(fiveban)
     artists.sort(key=lambda artist: str(artist.get("name") or "").casefold())
 
