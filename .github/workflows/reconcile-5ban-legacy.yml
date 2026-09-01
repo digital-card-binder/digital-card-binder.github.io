@@ -20,13 +20,22 @@ jobs:
         with:
           python-version: '3.12'
       - name: Reconcile official Korean BW and XY cards
-        run: python scripts/reconcile_5ban_legacy.py
-      - name: Commit generated data
+        run: |
+          if [ ! -f data/5ban-legacy-audit.json ]; then
+            python scripts/reconcile_5ban_legacy.py
+          fi
+      - name: Finalize counts and rebuild safety
+        run: python scripts/finalize_5ban_legacy.py
+      - name: Validate artist data
+        run: python scripts/validate_artist_data.py
+      - name: Validate registry regression
+        run: node --test tests/collector-registry.test.mjs
+      - name: Commit generated changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/artists.json data/5ban-legacy-audit.json
+          git add data/artists.json data/5ban-legacy-audit.json collector-collection-registry.js scripts/validate_artist_data.py tests/collector-registry.test.mjs artists.js scripts/build_5ban_artist_data.py docs/5ban-graphics-data-note.md
           if ! git diff --cached --quiet; then
-            git commit -m "data: reconcile Korean BW XY 5ban cards"
+            git commit -m "fix: finalize Korean legacy 5ban catalog"
             git push
           fi
