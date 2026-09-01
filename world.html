@@ -14,15 +14,15 @@
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
-    <link rel="stylesheet" href="./world.css?v=20260901-2" />
-    <link rel="stylesheet" href="./world-pages.css?v=20260901-1" />
+    <link rel="stylesheet" href="./world.css?v=20260901-3" />
+    <link rel="stylesheet" href="./world-pages.css?v=20260901-2" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
     <script src="./collector-collection-registry.js?v=20260813-1" defer></script>
     <script src="./collector-nav.js?v=20260901-1" defer></script>
-    <script src="./world.js?v=20260901-3" defer></script>
+    <script src="./world.js?v=20260901-4" defer></script>
   </head>
   <body data-page="world-exploration">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -144,5 +144,44 @@
         </footer>
       </main>
     </div>
+
+    <dialog id="world-card-dialog" class="card-dialog world-card-dialog">
+      <button id="world-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button>
+      <div class="dialog-card-image"><img id="world-dialog-image" src="" alt="" /></div>
+      <div class="dialog-card-copy">
+        <div class="dialog-badges"><span id="world-dialog-slot" class="number-badge"></span><span class="status-badge is-owned">대표 카드</span></div>
+        <h2 id="world-dialog-title"></h2>
+        <p id="world-dialog-subtitle" class="dialog-name-en"></p>
+        <dl class="dialog-details">
+          <div><dt>현재 대표 카드</dt><dd id="world-dialog-card-name"></dd></div>
+          <div><dt>세트</dt><dd id="world-dialog-set"></dd></div>
+          <div><dt>카드번호</dt><dd id="world-dialog-number"></dd></div>
+          <div><dt>출처</dt><dd><a id="world-dialog-source" href="https://pokemoncard.co.kr/cards" target="_blank" rel="noopener noreferrer">카드 정보 보기 ↗</a></dd></div>
+        </dl>
+
+        <section class="collection-editor" aria-labelledby="world-card-editor-title">
+          <div class="collection-editor-heading">
+            <div><span>REPRESENTATIVE CARD</span><strong id="world-card-editor-title">이 슬롯의 카드 변경</strong></div>
+          </div>
+          <div class="collection-editor-grid">
+            <label><span>세트 코드</span><input id="world-edit-set-code" type="text" placeholder="예: sv2a" /></label>
+            <label><span>카드번호</span><input id="world-edit-card-number" type="text" placeholder="예: 025/165" /></label>
+            <label class="collection-editor-wide"><span>카드명</span><input id="world-edit-card-name" type="text" placeholder="예: 피카츄" /></label>
+            <label><span>레어도</span><input id="world-edit-rarity" type="text" placeholder="예: C, AR, SR, SAR" /></label>
+            <details class="manual-image-fallback collection-editor-wide">
+              <summary>자동 검색이 안 될 때 이미지 URL 직접 입력</summary>
+              <label><span>실제 카드 이미지 URL</span><input id="world-edit-image-url" type="url" inputmode="url" placeholder="https://..." /></label>
+              <p>전국도감과 동일하게 자동 검색을 먼저 시도하고, 찾지 못한 경우에만 이 주소를 사용합니다.</p>
+            </details>
+          </div>
+          <p id="world-card-editor-message" class="collection-editor-message"></p>
+          <div class="collection-editor-actions">
+            <button id="world-reset-card" class="manager-button manager-button--danger" type="button">기본 카드로 되돌리기</button>
+            <button id="world-save-card" class="primary-button" type="button">이미지 찾아 적용</button>
+          </div>
+          <p class="world-card-editor-hint">대표 카드 변경은 현재 브라우저의 월드탐험도감에 슬롯별로 저장됩니다. 수집완료 상태와는 별도로 관리됩니다.</p>
+        </section>
+      </div>
+    </dialog>
   </body>
 </html>
