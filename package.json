@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:syntax && npm run test:registry && npm run test:ui && npm run test:rules:lint && npm run test:rules",
     "test:syntax": "node scripts/check-static-site.mjs",
-    "test:registry": "node --test tests/collector-registry.test.mjs",
+    "test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs",
     "test:ui": "node --test tests/collector-ui-contract.test.mjs tests/large-catalog-save-performance-contract.test.mjs tests/trade-ui-contract.test.mjs tests/mega-latest-data.test.mjs tests/base-series-dex.test.mjs tests/ar-cache-compat.test.mjs",
     "test:rules:lint": "eslint firestore.rules",
     "test:rules": "firebase emulators:exec --only firestore --project demo-digital-card-binder \"node --test tests/firestore.rules.test.mjs\""
