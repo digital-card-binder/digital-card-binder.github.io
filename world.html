@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="포켓몬 1세대부터 9세대까지 대표 인물과 장소를 실제 한국어판 포켓몬 카드로 연결해 4×3 스토리 페이지로 수집하는 월드탐험도감"
+      content="포켓몬 1세대부터 9세대까지 도시·체육관·숲·연구소·시설 등 실제 한국어판 장소와 스타디움 카드를 4×3 페이지로 수집하는 월드탐험도감"
     />
     <meta name="theme-color" content="#17233f" />
     <title>월드탐험도감 · 디지털 카드 바인더</title>
@@ -75,12 +75,12 @@
           </a>
           <a class="collection-link is-active" href="./world.html" aria-current="page">
             <span class="collection-icon collection-icon--red" aria-hidden="true">08</span>
-            <span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span>
+            <span><strong>월드탐험도감</strong><small>4×3 PLACE BINDER</small></span>
           </a>
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>
-          세대별 인물·장소를 4×3 카드 페이지로 연결해 포켓몬 세계를 여행합니다.
+          세대별 도시·체육관·숲·동굴·연구소·시설 카드를 모아 포켓몬 세계의 지도를 완성합니다.
         </div>
       </aside>
 
@@ -92,8 +92,8 @@
             <p class="eyebrow">WORLD EXPLORATION DEX · COLLECTION 08</p>
             <h1 id="page-title">월드탐험도감</h1>
             <p class="hero-description">
-              대표 인물과 장소를 실제 한국어판 카드로 모아,<br />
-              세대마다 4×3 페이지를 넘기며 스토리를 완성하는 탐험형 카드 도감
+              도시·체육관·숲·연구소 같은 장소 카드를 실제 한국어판으로 모아,<br />
+              세대마다 4×3 한 페이지로 포켓몬 세계의 장소를 기록하는 탐험형 카드 도감
             </p>
           </div>
           <div class="hero-progress" aria-label="현재 세대 수집 현황">
@@ -102,8 +102,8 @@
             </div>
             <div class="hero-progress-copy">
               <span>현재 세대</span>
-              <strong><b id="world-owned">0</b><small>/ <span id="world-total">24</span>장</small></strong>
-              <p>남은 카드 <b id="world-missing">24</b>장</p>
+              <strong><b id="world-owned">0</b><small>/ <span id="world-total">12</span>장</small></strong>
+              <p>남은 카드 <b id="world-missing">12</b>장</p>
             </div>
           </div>
         </section>
@@ -114,7 +114,7 @@
               <p class="section-kicker">CHOOSE A REGION</p>
               <h2 id="world-generation-title">세대별 월드 선택</h2>
             </div>
-            <p>한 페이지는 항상 4×3, 스토리가 길면 같은 규격의 다음 페이지로 이어집니다.</p>
+            <p>세대별 대표 장소·스타디움 12장을 4×3 한 페이지로 모읍니다.</p>
           </div>
           <div id="world-generation-grid" class="world-generation-grid" role="group" aria-label="세대 선택"></div>
         </section>
@@ -123,10 +123,10 @@
           <div class="world-story-header">
             <div>
               <p id="world-story-kicker" class="world-story-kicker">1세대 · 관동 · KANTO</p>
-              <h2 id="world-story-title">관동지방 모험의 시작</h2>
-              <p id="world-story-tagline">오박사의 연구소에서 출발해 체육관·로켓단·전설의 포켓몬을 지나 뮤츠와 마주한다.</p>
+              <h2 id="world-story-title">관동지방 장소 아카이브</h2>
+              <p id="world-story-tagline">체육관과 숲, 도로, 발전소, 연구소, 로켓단 시설까지 실제 한국어판 장소·스타디움 카드로 관동을 기록한다.</p>
             </div>
-            <div id="world-story-chips" class="world-story-chips" aria-label="대표 인물과 장소"></div>
+            <div id="world-story-chips" class="world-story-chips" aria-label="대표 장소"></div>
           </div>
           <div id="world-binder-content" class="world-binder-shell" aria-live="polite"></div>
         </section>
@@ -142,7 +142,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">월드탐험도감은 카드 원본을 복제 저장하지 않고, 공식 이미지 출처를 연결해 수집 페이지를 구성합니다.</p>
+          <p class="site-footer-note">월드탐험도감은 카드 원본을 복제 저장하지 않고, 공식 이미지 출처를 연결해 장소 카드 수집 페이지를 구성합니다.</p>
         </footer>
       </main>
     </div>
@@ -167,9 +167,9 @@
           </div>
           <div class="collection-editor-grid">
             <label><span>세트 코드</span><input id="world-edit-set-code" type="text" placeholder="예: sv2a" /></label>
-            <label><span>카드번호</span><input id="world-edit-card-number" type="text" placeholder="예: 025/165" /></label>
-            <label class="collection-editor-wide"><span>카드명</span><input id="world-edit-card-name" type="text" placeholder="예: 피카츄" /></label>
-            <label><span>레어도</span><input id="world-edit-rarity" type="text" placeholder="예: C, AR, SR, SAR" /></label>
+            <label><span>카드번호</span><input id="world-edit-card-number" type="text" placeholder="예: 165/165" /></label>
+            <label class="collection-editor-wide"><span>카드명</span><input id="world-edit-card-name" type="text" placeholder="예: 사이클링 로드" /></label>
+            <label><span>레어도</span><input id="world-edit-rarity" type="text" placeholder="예: U, SR, UR" /></label>
             <details class="manual-image-fallback collection-editor-wide">
               <summary>자동 검색이 안 될 때 이미지 URL 직접 입력</summary>
               <label><span>실제 카드 이미지 URL</span><input id="world-edit-image-url" type="url" inputmode="url" placeholder="https://..." /></label>

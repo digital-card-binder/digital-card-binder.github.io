@@ -2,66 +2,52 @@
   "metadata": {
     "title": "월드탐험도감",
     "subtitle": "WORLD EXPLORATION DEX",
-    "version": 2,
+    "version": 3,
     "updatedAt": "2026-09-01",
-    "scope": "세대별 대표 인물·장소·포켓몬 카드를 4×3 스토리 페이지로 수집하는 월드 탐험형 카드 도감"
+    "scope": "세대별 도시·체육관·숲·연구소·시설 등 장소와 스타디움 카드를 4×3 페이지로 수집하는 월드 탐험형 카드 도감"
   },
   "generations": [
     {
       "generation": 1,
       "region": "관동",
       "regionEn": "KANTO",
-      "title": "관동지방 모험의 시작",
-      "tagline": "오박사의 연구소에서 출발해 체육관·로켓단·전설의 포켓몬을 지나 뮤츠와 마주한다.",
-      "people": ["오박사", "레드", "그린", "웅", "이슬", "마티스", "민화", "독수", "초련", "비주기", "강연"],
-      "places": ["태초마을", "상록숲", "회색시티", "블루시티", "보라타운", "노랑시티", "무인발전소", "홍련섬", "블루시티동굴"],
+      "title": "관동지방 장소 아카이브",
+      "tagline": "체육관과 숲, 도로, 발전소, 연구소, 로켓단 시설까지 실제 한국어판 장소·스타디움 카드로 관동을 기록한다.",
+      "people": [],
+      "places": ["회색시티 체육관", "블루시티 체육관", "격투도장", "보라타운", "상록숲", "사이클링 로드", "무인발전소", "포켓몬 연구소", "포켓몬센터", "포켓스톱", "로켓단의 감시탑", "로켓단의 팩토리"],
       "status": "active",
       "pages": [
-        {"id":"page1","label":"PAGE 1","title":"출발과 배지의 길","description":"태초마을을 떠나 상록숲과 초반 체육관을 지나 관동의 중심부로 향한다.","phases":["start","first-gyms","mid-journey"]},
-        {"id":"page2","label":"PAGE 2","title":"로켓단과 전설의 흔적","description":"보라타운과 노랑시티의 사건을 지나 무인발전소와 전설의 포켓몬, 뮤츠까지 추적한다.","phases":["late-journey","rocket-finale","legends"]}
+        {"id":"page1","label":"PAGE 1","title":"관동의 장소와 시설","description":"관동을 상징하는 체육관·도시·탐험지·연구시설·로켓단 시설을 한 장의 4×3 장소 도감으로 모은다.","phases":["gyms","routes","facilities"]}
       ],
       "phases": [
-        {"id":"start","label":"모험의 시작","description":"오박사에게 도감을 받고 라이벌과 함께 첫길에 오른다."},
-        {"id":"first-gyms","label":"첫 배지","description":"상록숲을 지나 회색시티와 블루시티에서 첫 관장들을 만난다."},
-        {"id":"mid-journey","label":"관동의 중심부","description":"갈색·무지개시티를 거치며 더 강한 트레이너와 길막 포켓몬을 만난다."},
-        {"id":"late-journey","label":"후반 도전","description":"보라타운의 미스터리와 연분홍·노랑시티를 지나 실프 사건으로 이어진다."},
-        {"id":"rocket-finale","label":"로켓단과 홍련섬","description":"비주기의 음모를 넘어서 홍련섬과 무인발전소까지 탐험한다."},
-        {"id":"legends","label":"전설의 흔적","description":"관동 곳곳의 전설을 모으고 마지막에 뮤츠와 마주한다."}
+        {"id":"gyms","label":"체육관과 도시","description":"관동의 체육관과 노랑시티의 격투도장, 보라타운을 기록한다."},
+        {"id":"routes","label":"길과 탐험지","description":"상록숲과 사이클링 로드, 무인발전소, 포켓몬 연구소를 따라 관동의 탐험지를 모은다."},
+        {"id":"facilities","label":"시설과 로켓단","description":"포켓몬센터와 포켓스톱, 로켓단의 감시탑과 팩토리로 관동의 시설 풍경을 완성한다."}
       ],
       "slots": [
-        {"id":"kanto-oak","phase":"start","kind":"person","title":"박사의 연구(오박사)","subtitle":"여행의 시작","card":{"name":"박사의 연구(오박사)","set":"25th ANNIVERSARY COLLECTION","number":"003/028","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8A/S8a_003.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2021015003"}},
-        {"id":"kanto-red","phase":"start","kind":"person","title":"레드","subtitle":"관동의 주인공","personId":"red"},
-        {"id":"kanto-blue","phase":"start","kind":"person","title":"그린","subtitle":"끝까지 앞서가는 라이벌","personId":"blue"},
-        {"id":"kanto-viridian-forest","phase":"start","kind":"place","title":"상록숲","subtitle":"첫 탐험지","card":{"name":"상록숲","set":"태그볼트","number":"091/095","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_091.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019001091"}},
-        {"id":"kanto-pikachu","phase":"first-gyms","kind":"pokemon","title":"피카츄","subtitle":"상록숲의 희귀한 만남","card":{"name":"피카츄","set":"포켓몬 카드 151","number":"025/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_025.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-pewter-gym","phase":"first-gyms","kind":"place","title":"웅의 회색시티 체육관","subtitle":"첫 번째 체육관","card":{"name":"웅의 회색시티 체육관","set":"스타터 세트 격투 롱스톤 GX","number":"029/031","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_029.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019004029"}},
-        {"id":"kanto-brock","phase":"first-gyms","kind":"person","title":"웅","subtitle":"바위타입 관장","personId":"brock"},
-        {"id":"kanto-cerulean-gym","phase":"first-gyms","kind":"place","title":"이슬의 블루시티 체육관","subtitle":"두 번째 체육관","card":{"name":"이슬의 블루시티 체육관","set":"스타터 세트 물 아쿠스타 GX","number":"030/031","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_030.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019004030"}},
-        {"id":"kanto-misty","phase":"mid-journey","kind":"person","title":"이슬","subtitle":"물타입 관장","personId":"misty"},
-        {"id":"kanto-lt-surge","phase":"mid-journey","kind":"person","title":"마티스","subtitle":"갈색시티 전기타입 관장","personId":"lt-surge"},
-        {"id":"kanto-erika","phase":"mid-journey","kind":"person","title":"민화","subtitle":"무지개시티 풀타입 관장","personId":"erika"},
-        {"id":"kanto-snorlax","phase":"mid-journey","kind":"pokemon","title":"잠만보","subtitle":"관동의 길을 막은 거대한 포켓몬","card":{"name":"잠만보","set":"포켓몬 카드 151","number":"143/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_143.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-lavender","phase":"late-journey","kind":"place","title":"보라타운","subtitle":"포켓몬타워의 미스터리","card":{"name":"보라타운","set":"태그볼트","number":"090/095","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_090.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019001090"}},
-        {"id":"kanto-koga","phase":"late-journey","kind":"person","title":"독수","subtitle":"연분홍시티 독타입 관장","personId":"koga"},
-        {"id":"kanto-sabrina","phase":"late-journey","kind":"person","title":"초련","subtitle":"노랑시티 에스퍼타입 관장","personId":"sabrina"},
-        {"id":"kanto-lapras","phase":"late-journey","kind":"pokemon","title":"라프라스","subtitle":"실프주식회사에서 이어지는 기억","card":{"name":"라프라스","set":"포켓몬 카드 151","number":"131/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_131.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-giovanni","phase":"rocket-finale","kind":"person","title":"비주기","subtitle":"로켓단 보스이자 최종 관장","personId":"giovanni"},
-        {"id":"kanto-blaine","phase":"rocket-finale","kind":"person","title":"강연","subtitle":"홍련섬 불꽃타입 관장","personId":"blaine"},
-        {"id":"kanto-power-plant","phase":"rocket-finale","kind":"place","title":"무인발전소","subtitle":"썬더가 기다리는 발전소","card":{"name":"무인발전소","set":"풀메탈월","number":"050/054","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_050.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-zapdos","phase":"rocket-finale","kind":"pokemon","title":"썬더","subtitle":"무인발전소의 전설","card":{"name":"썬더","set":"포켓몬 카드 151","number":"145/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_145.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-articuno","phase":"legends","kind":"pokemon","title":"프리져","subtitle":"쌍둥이섬의 전설","card":{"name":"프리져","set":"포켓몬 카드 151","number":"144/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_144.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-moltres","phase":"legends","kind":"pokemon","title":"파이어","subtitle":"챔피언로드로 이어지는 전설","card":{"name":"파이어","set":"포켓몬 카드 151","number":"146/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_146.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-mew","phase":"legends","kind":"pokemon","title":"뮤","subtitle":"관동의 환상의 포켓몬","card":{"name":"뮤","set":"포켓몬 카드 151","number":"151/165","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_151.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
-        {"id":"kanto-mewtwo","phase":"legends","kind":"pokemon","title":"뮤츠 VSTAR","subtitle":"블루시티동굴의 최종 전설","card":{"name":"뮤츠 VSTAR","set":"VSTAR 유니버스","number":"221/172","rarity":"SAR","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12A/S12a_221.png?w=512","source":"https://pokemoncard.co.kr/cards"}}
+        {"id":"kanto-pewter-gym","phase":"gyms","kind":"place","title":"웅의 회색시티 체육관","subtitle":"회색시티 · 첫 번째 체육관","card":{"name":"웅의 회색시티 체육관","set":"스타터 세트 격투 롱스톤 GX","number":"029/031","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_029.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019004029"}},
+        {"id":"kanto-cerulean-gym","phase":"gyms","kind":"place","title":"이슬의 블루시티 체육관","subtitle":"블루시티 · 두 번째 체육관","card":{"name":"이슬의 블루시티 체육관","set":"스타터 세트 물 아쿠스타 GX","number":"030/031","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_030.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019004030"}},
+        {"id":"kanto-fighting-dojo","phase":"gyms","kind":"place","title":"격투도장","subtitle":"노랑시티 · 비공식 체육관","card":{"name":"격투도장","set":"더블블레이즈","number":"089/095","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_089.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
+        {"id":"kanto-lavender","phase":"gyms","kind":"place","title":"보라타운","subtitle":"포켓몬타워가 있는 마을","card":{"name":"보라타운","set":"태그볼트","number":"090/095","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_090.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019001090"}},
+
+        {"id":"kanto-viridian-forest","phase":"routes","kind":"place","title":"상록숲","subtitle":"관동 초반의 숲길","card":{"name":"상록숲","set":"태그볼트","number":"091/095","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_091.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2019001091"}},
+        {"id":"kanto-cycling-road","phase":"routes","kind":"place","title":"사이클링 로드","subtitle":"관동을 잇는 자전거 도로","card":{"name":"사이클링 로드","set":"포켓몬 카드 151","number":"165/165","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_165.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2023014165m"}},
+        {"id":"kanto-power-plant","phase":"routes","kind":"place","title":"무인발전소","subtitle":"관동의 폐발전소","card":{"name":"무인발전소","set":"풀메탈월","number":"050/054","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_050.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
+        {"id":"kanto-pokemon-lab","phase":"routes","kind":"place","title":"포켓몬 연구소","subtitle":"화석을 복원하는 연구시설","card":{"name":"포켓몬 연구소","set":"미라클트윈","number":"089/094","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11/SM11_089.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
+
+        {"id":"kanto-pokemon-center","phase":"facilities","kind":"place","title":"포켓몬센터","subtitle":"관동 여행의 기본 거점","card":{"name":"포켓몬센터","set":"헤일 블리자드","number":"051/052","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW3/BW3_051.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
+        {"id":"kanto-pokestop","phase":"facilities","kind":"place","title":"포켓스톱","subtitle":"도시 탐험의 체크포인트","card":{"name":"포켓스톱","set":"Pokémon GO","number":"071/071","rarity":"U","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10B/S10b_071.png?w=512","source":"https://pokemoncard.co.kr/cards"}},
+        {"id":"kanto-rocket-watchtower","phase":"facilities","kind":"place","title":"로켓단의 감시탑","subtitle":"로켓단의 감시 시설","card":{"name":"로켓단의 감시탑","set":"MEGA 드림 ex","number":"184/193","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_184.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2025015184"}},
+        {"id":"kanto-rocket-factory","phase":"facilities","kind":"place","title":"로켓단의 팩토리","subtitle":"로켓단의 비밀 생산시설","card":{"name":"로켓단의 팩토리","set":"MEGA 드림 ex","number":"185/193","rarity":"","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_185.png?w=512","source":"https://pokemoncard.co.kr/cards/detail/BS2025015185"}}
       ]
     },
-    {"generation":2,"region":"성도","regionEn":"JOHTO","title":"전설과 전통의 성도","tagline":"금빛시티와 인주시티를 지나 칠색조·루기아, 그리고 은빛산의 레드까지.","people":["실버","공박사","유빈","목호","레드"],"places":["연두마을","금빛시티","인주시티","방울탑","소용돌이섬","은빛산"],"status":"planned"},
-    {"generation":3,"region":"호연","regionEn":"HOENN","title":"육지·바다·하늘의 호연","tagline":"마그마단과 아쿠아단의 충돌, 그리고 레쿠쟈가 잇는 하늘기둥의 결말.","people":["봄이","다이고","마적","아강","윤진"],"places":["미로마을","보라시티","루네시티","해저동굴","하늘기둥"],"status":"planned"},
-    {"generation":4,"region":"신오","regionEn":"SINNOH","title":"시간과 공간의 신오","tagline":"천관산과 창기둥을 넘어 깨어진세계까지 이어지는 신화의 여행.","people":["빛나","용식","난천","태홍"],"places":["떡잎마을","천관산","창기둥","깨어진세계","포켓몬리그"],"status":"planned"},
-    {"generation":5,"region":"하나","regionEn":"UNOVA","title":"이상과 진실의 하나","tagline":"N과 게치스, 플라스마단을 따라 진실과 이상이 충돌하는 이야기.","people":["투지","투희","N","게치스","아데크"],"places":["마름꽃마을","구름시티","뇌문시티","용나선탑","N의 성"],"status":"planned"},
-    {"generation":6,"region":"칼로스","regionEn":"KALOS","title":"메가진화의 칼로스","tagline":"미르시티에서 시작해 코르니와 메가진화의 비밀, 플레어단 사건으로 이어진다.","people":["세레나","칼름","플라타느박사","코르니","플라드리","카르네"],"places":["조아마을","미르시티","사라시티","마스터타워","플레어단 비밀기지"],"status":"planned"},
-    {"generation":7,"region":"알로라","regionEn":"ALOLA","title":"섬 순례의 알로라","tagline":"릴리에의 가족 이야기와 섬 순례, 에테르파라다이스와 울트라홀을 잇는다.","people":["하우","릴리에","쿠쿠이박사","구즈마","루자미네","글라디오"],"places":["멜레멜레섬","아칼라섬","포마을","에테르파라다이스","울트라홀"],"status":"planned"},
-    {"generation":8,"region":"가라르","regionEn":"GALAR","title":"스타디움 열기의 가라르","tagline":"다이맥스 체육관 챌린지와 단델, 소니아, 자시안·자마젠타의 전설.","people":["호브","마리","소니아","단델","로즈"],"places":["펄롱마을","와일드에리어","너클시티","스파이크마을","슛시티"],"status":"planned"},
-    {"generation":9,"region":"팔데아","regionEn":"PALDEA","title":"보물찾기의 팔데아","tagline":"네모·페퍼·모란의 세 이야기가 에리어 제로에서 하나로 합쳐진다.","people":["네모","페퍼","모란","클라벨","테사"],"places":["테이블시티","팔데아의 대공","제로게이트","에리어 제로"],"status":"planned"}
+    {"generation":2,"region":"성도","regionEn":"JOHTO","title":"성도지방 장소 아카이브","tagline":"금빛시티·인주시티·방울탑·소용돌이섬 등 성도의 장소 카드를 모으는 페이지.","people":[],"places":["연두마을","금빛시티","인주시티","방울탑","소용돌이섬","은빛산"],"status":"planned"},
+    {"generation":3,"region":"호연","regionEn":"HOENN","title":"호연지방 장소 아카이브","tagline":"도시와 해저동굴, 하늘기둥 등 호연을 상징하는 장소 카드를 모으는 페이지.","people":[],"places":["미로마을","보라시티","루네시티","해저동굴","하늘기둥"],"status":"planned"},
+    {"generation":4,"region":"신오","regionEn":"SINNOH","title":"신오지방 장소 아카이브","tagline":"천관산·창기둥·깨어진세계·포켓몬리그 등 신오의 장소 카드를 모으는 페이지.","people":[],"places":["떡잎마을","천관산","창기둥","깨어진세계","포켓몬리그"],"status":"planned"},
+    {"generation":5,"region":"하나","regionEn":"UNOVA","title":"하나지방 장소 아카이브","tagline":"구름시티·뇌문시티·용나선탑·N의 성 등 하나의 장소 카드를 모으는 페이지.","people":[],"places":["마름꽃마을","구름시티","뇌문시티","용나선탑","N의 성"],"status":"planned"},
+    {"generation":6,"region":"칼로스","regionEn":"KALOS","title":"칼로스지방 장소 아카이브","tagline":"미르시티·사라시티·마스터타워 등 칼로스의 장소 카드를 모으는 페이지.","people":[],"places":["조아마을","미르시티","사라시티","마스터타워","플레어단 비밀기지"],"status":"planned"},
+    {"generation":7,"region":"알로라","regionEn":"ALOLA","title":"알로라지방 장소 아카이브","tagline":"섬과 포마을, 에테르파라다이스, 울트라홀 등 알로라의 장소 카드를 모으는 페이지.","people":[],"places":["멜레멜레섬","아칼라섬","포마을","에테르파라다이스","울트라홀"],"status":"planned"},
+    {"generation":8,"region":"가라르","regionEn":"GALAR","title":"가라르지방 장소 아카이브","tagline":"와일드에리어와 각 도시·스타디움 등 가라르의 장소 카드를 모으는 페이지.","people":[],"places":["펄롱마을","와일드에리어","너클시티","스파이크마을","슛시티"],"status":"planned"},
+    {"generation":9,"region":"팔데아","regionEn":"PALDEA","title":"팔데아지방 장소 아카이브","tagline":"테이블시티·팔데아의 대공·제로게이트·에리어 제로 등 팔데아의 장소 카드를 모으는 페이지.","people":[],"places":["테이블시티","팔데아의 대공","제로게이트","에리어 제로"],"status":"planned"}
   ]
 }
