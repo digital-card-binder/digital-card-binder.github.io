@@ -99,6 +99,10 @@
     const pokemonCount = pokemonCollections?.querySelector("small");
     if (pokemonCount) pokemonCount.textContent = "67 POKÉMON";
 
+    const artists = nav.querySelector('[href*="artists.html"]');
+    const artistCount = artists?.querySelector("small");
+    if (artistCount) artistCount.textContent = "40 ARTISTS";
+
     nav.querySelector('a.collection-link[href="./base-series.html"]')?.remove();
 
     const ar = nav.querySelector('a.collection-link[href="./ar.html"]');

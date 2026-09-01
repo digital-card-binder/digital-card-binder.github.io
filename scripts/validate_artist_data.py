@@ -9,6 +9,7 @@ from collections import defaultdict
 from pathlib import Path
 
 EXPECTED_ARTISTS = [
+    "5ban Graphics",
     "AKIRA EGAWA",
     "Asako Ito",
     "Atsuko Nishida",
@@ -51,10 +52,10 @@ EXPECTED_ARTISTS = [
 ]
 
 NEW_ARTISTS = {
-    "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
+    "5ban Graphics", "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
     "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
 }
-EXPECTED_CARD_COUNT = 3382
+EXPECTED_CARD_COUNT = 4093
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -91,7 +92,7 @@ def main() -> None:
 
     actual_names = [artist.get("name") for artist in artists]
     if actual_names != EXPECTED_ARTISTS:
-        fail("Artist list/order does not match the approved 39-artist catalog")
+        fail("Artist list/order does not match the approved 40-artist catalog")
     if "Shibuzoh." in actual_names:
         fail("Shibuzoh must not include a trailing period")
 
@@ -138,7 +139,7 @@ def main() -> None:
                 hyogo_special = True
             elif card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
                 pass
-            elif artist_name in NEW_ARTISTS and card["source"] == OFFICIAL_CARDS_URL:
+            elif (artist_name in NEW_ARTISTS or card["set"] == "M6") and card["source"] == OFFICIAL_CARDS_URL:
                 # Some committed Korean catalog rows have an official image/name but
                 # no retained detail id. Keep Pokemon Korea's official card search
                 # page as source rather than fabricating a detail URL.

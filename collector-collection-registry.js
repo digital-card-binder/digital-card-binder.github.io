@@ -39,7 +39,7 @@
       href: "./artists.html",
       documentId: "artistDex",
       unit: "장",
-      catalogCount: 3382,
+      catalogCount: 4093,
       defaultDashboardVisible: true,
     },
     series: {
