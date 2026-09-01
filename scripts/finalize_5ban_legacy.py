@@ -26,7 +26,7 @@ def replace(path: str, old: str, new: str, *, count: int | None = None) -> None:
 
 replace("collector-collection-registry.js", "catalogCount: 4093,", "catalogCount: 4838,")
 replace("scripts/validate_artist_data.py", "EXPECTED_CARD_COUNT = 4093", "EXPECTED_CARD_COUNT = 4838")
-replace("tests/collector-registry.test.mjs", "4093", "4838", count=2)
+replace("tests/collector-registry.test.mjs", "4093", "4838")
 replace("artists.js", "./data/artists.json?v=20260901-1", "./data/artists.json?v=20260901-2")
 
 builder_path = ROOT / "scripts/build_5ban_artist_data.py"
