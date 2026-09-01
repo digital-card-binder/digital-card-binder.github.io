@@ -15,13 +15,14 @@
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
     <link rel="stylesheet" href="./world.css?v=20260901-2" />
+    <link rel="stylesheet" href="./world-pages.css?v=20260901-1" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
     <script src="./collector-collection-registry.js?v=20260813-1" defer></script>
     <script src="./collector-nav.js?v=20260901-1" defer></script>
-    <script src="./world.js?v=20260901-2" defer></script>
+    <script src="./world.js?v=20260901-3" defer></script>
   </head>
   <body data-page="world-exploration">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -77,7 +78,7 @@
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>
-          세대별 인물·장소를 카드 한 페이지에 연결해 포켓몬 세계를 여행합니다.
+          세대별 인물·장소를 4×3 카드 페이지로 연결해 포켓몬 세계를 여행합니다.
         </div>
       </aside>
 
@@ -90,17 +91,17 @@
             <h1 id="page-title">월드탐험도감</h1>
             <p class="hero-description">
               대표 인물과 장소를 실제 한국어판 카드로 모아,<br />
-              세대마다 4×3 한 페이지로 스토리를 완성하는 탐험형 카드 도감
+              세대마다 4×3 페이지를 넘기며 스토리를 완성하는 탐험형 카드 도감
             </p>
           </div>
-          <div class="hero-progress" aria-label="현재 세대 페이지 수집 현황">
+          <div class="hero-progress" aria-label="현재 세대 수집 현황">
             <div class="progress-ring" id="world-progress-ring" aria-hidden="true">
               <div><strong id="world-rate">0%</strong><span>COMPLETE</span></div>
             </div>
             <div class="hero-progress-copy">
-              <span>현재 페이지</span>
-              <strong><b id="world-owned">0</b><small>/ <span id="world-total">12</span>장</small></strong>
-              <p>남은 카드 <b id="world-missing">12</b>장</p>
+              <span>현재 세대</span>
+              <strong><b id="world-owned">0</b><small>/ <span id="world-total">24</span>장</small></strong>
+              <p>남은 카드 <b id="world-missing">24</b>장</p>
             </div>
           </div>
         </section>
@@ -111,7 +112,7 @@
               <p class="section-kicker">CHOOSE A REGION</p>
               <h2 id="world-generation-title">세대별 월드 선택</h2>
             </div>
-            <p>4×3 한 페이지를 기본으로, 스토리가 긴 세대는 두 페이지로 확장합니다.</p>
+            <p>한 페이지는 항상 4×3, 스토리가 길면 같은 규격의 다음 페이지로 이어집니다.</p>
           </div>
           <div id="world-generation-grid" class="world-generation-grid" role="group" aria-label="세대 선택"></div>
         </section>
@@ -121,7 +122,7 @@
             <div>
               <p id="world-story-kicker" class="world-story-kicker">1세대 · 관동 · KANTO</p>
               <h2 id="world-story-title">관동지방 모험의 시작</h2>
-              <p id="world-story-tagline">오박사의 연구소에서 출발해 체육관과 로켓단 사건을 지나 뮤츠와 마주한다.</p>
+              <p id="world-story-tagline">오박사의 연구소에서 출발해 체육관·로켓단·전설의 포켓몬을 지나 뮤츠와 마주한다.</p>
             </div>
             <div id="world-story-chips" class="world-story-chips" aria-label="대표 인물과 장소"></div>
           </div>

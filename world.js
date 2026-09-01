@@ -79,10 +79,12 @@
       button.classList.toggle("is-active", item.generation === state.generation);
       button.classList.toggle("is-planned", item.status !== "active");
       button.setAttribute("aria-pressed", String(item.generation === state.generation));
+      const cardCount = item.slots?.length || 0;
+      const pageCount = item.pages?.length || (cardCount ? Math.ceil(cardCount / 12) : 0);
       button.innerHTML = `
         <strong>${item.generation}세대</strong>
         <span>${item.region} · ${item.regionEn}</span>
-        <small>${item.status === "active" ? "4×3 STORY" : "준비 중"}</small>
+        <small>${item.status === "active" ? `${cardCount} CARD · ${pageCount} PAGE` : "준비 중"}</small>
       `;
       button.addEventListener("click", () => {
         state.generation = item.generation;
@@ -165,6 +167,53 @@
     return article;
   }
 
+  function renderPhase(generation, phaseId) {
+    const phase = generation.phases?.find((item) => item.id === phaseId);
+    if (!phase) return null;
+
+    const section = document.createElement("section");
+    section.className = "world-phase";
+
+    const heading = document.createElement("div");
+    heading.className = "world-phase-heading";
+    heading.innerHTML = `<strong>${phase.label}</strong><span>${phase.description}</span>`;
+
+    const grid = document.createElement("div");
+    grid.className = "world-slot-grid";
+    const phaseSlots = generation.slots.filter((slot) => slot.phase === phase.id);
+    phaseSlots.forEach((slot) => {
+      const overallIndex = generation.slots.findIndex((item) => item.id === slot.id);
+      grid.append(makeSlot(slot, overallIndex));
+    });
+
+    section.append(heading, grid);
+    return section;
+  }
+
+  function renderBinderPage(generation, page, pageIndex) {
+    const pageSection = document.createElement("section");
+    pageSection.className = "world-binder-page";
+    pageSection.dataset.page = String(pageIndex + 1);
+
+    const pageHeading = document.createElement("div");
+    pageHeading.className = "world-page-heading";
+    pageHeading.innerHTML = `
+      <div>
+        <span>${page.label || `PAGE ${pageIndex + 1}`}</span>
+        <strong>${page.title || ""}</strong>
+      </div>
+      <p>${page.description || ""}</p>
+    `;
+    pageSection.append(pageHeading);
+
+    (page.phases || []).forEach((phaseId) => {
+      const phase = renderPhase(generation, phaseId);
+      if (phase) pageSection.append(phase);
+    });
+
+    return pageSection;
+  }
+
   function renderActiveGeneration(generation) {
     const title = el("world-story-title");
     const tagline = el("world-story-tagline");
@@ -176,7 +225,7 @@
     const chips = el("world-story-chips");
     if (chips) {
       chips.replaceChildren();
-      [...(generation.people || []).slice(0, 4), ...(generation.places || []).slice(0, 3)].forEach((label) => {
+      [...(generation.people || []).slice(0, 5), ...(generation.places || []).slice(0, 4)].forEach((label) => {
         const chip = document.createElement("span");
         chip.className = "world-story-chip";
         chip.textContent = label;
@@ -204,22 +253,14 @@
       return;
     }
 
-    generation.phases.forEach((phase) => {
-      const section = document.createElement("section");
-      section.className = "world-phase";
-      const heading = document.createElement("div");
-      heading.className = "world-phase-heading";
-      heading.innerHTML = `<strong>${phase.label}</strong><span>${phase.description}</span>`;
-      const grid = document.createElement("div");
-      grid.className = "world-slot-grid";
-      const phaseSlots = generation.slots.filter((slot) => slot.phase === phase.id);
-      phaseSlots.forEach((slot) => {
-        const overallIndex = generation.slots.findIndex((item) => item.id === slot.id);
-        grid.append(makeSlot(slot, overallIndex));
-      });
-      section.append(heading, grid);
-      binder.append(section);
+    const pages = generation.pages?.length
+      ? generation.pages
+      : [{ id: "page1", label: "PAGE 1", title: "스토리 페이지", description: generation.tagline, phases: generation.phases.map((phase) => phase.id) }];
+
+    pages.forEach((page, index) => {
+      binder.append(renderBinderPage(generation, page, index));
     });
+
     updateProgress();
   }
 
