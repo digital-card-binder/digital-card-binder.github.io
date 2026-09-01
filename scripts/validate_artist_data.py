@@ -55,7 +55,7 @@ NEW_ARTISTS = {
     "5ban Graphics", "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
     "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
 }
-EXPECTED_CARD_COUNT = 4093
+EXPECTED_CARD_COUNT = 4838
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -97,7 +97,7 @@ def main() -> None:
         fail("Shibuzoh must not include a trailing period")
 
     total = 0
-    identities: set[tuple[str, str, str, str]] = set()
+    identities: set[tuple[str, str, str, str, str]] = set()
     coarse: dict[tuple[str, str, str], set[str]] = defaultdict(set)
     hyogo_special = False
 
@@ -147,9 +147,9 @@ def main() -> None:
             else:
                 fail(f"{artist_name}: non-official detail source: {card['source']}")
 
-            identity = (artist_name, card["set"], card["cardNumber"], card["name"])
+            identity = (artist_name, card["set"], card["cardNumber"], card["name"], card["image"])
             if identity in identities:
-                fail(f"Duplicate artist/set/cardNumber/name identity: {identity}")
+                fail(f"Duplicate artist/set/cardNumber/name/image identity: {identity}")
             identities.add(identity)
             coarse[(artist_name, card["set"], card["cardNumber"])].add(card["name"])
 
