@@ -73,14 +73,16 @@ def normalized_image(value: str) -> str:
 
 def legacy_set_code(feature_image: str, product: str) -> str:
     path = feature_image.split("?", 1)[0]
-    filename = path.rsplit("/", 1)[-1].rsplit(".", 1)[0]
-    prefix = re.sub(r"[_-]?\d{1,4}(?:[_-].*)?$", "", filename).strip("_-")
-    if prefix:
-        return prefix.upper()
-    match = re.search(r"wmimages/(BW|XY)/([^/]+)/", path, re.I)
+    match = re.search(r"wmimages/(BW|XY)/([^/]+)/([^/]+)$", path, re.I)
     if match:
-        return match.group(2).upper()
-    return "BW/XY"
+        _, folder, raw_filename = match.groups()
+        if folder:
+            return folder.upper()
+        filename = raw_filename.rsplit(".", 1)[0]
+    else:
+        filename = path.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+    prefix = re.sub(r"[_-]?\d{1,4}(?:[_-].*)?$", "", filename).strip("_-")
+    return prefix.upper() if prefix else "BW/XY"
 
 
 def build_card(record: dict[str, str], detail_html: str) -> dict[str, Any]:
@@ -96,6 +98,12 @@ def build_card(record: dict[str, str], detail_html: str) -> dict[str, Any]:
         printed = f"{number}/{denominator}" if number else denominator
     if rarity:
         printed = f"{printed} {rarity}".strip()
+    if not printed:
+        filename = image.split("?", 1)[0].rsplit("/", 1)[-1].rsplit(".", 1)[0]
+        number_match = re.search(r"[_-]0*(\d{1,4})(?:[_-]|$)", filename)
+        printed = str(int(number_match.group(1))).zfill(3) if number_match else filename
+    if not printed:
+        printed = card_num
     return {
         "order": 0,
         "name": name,
