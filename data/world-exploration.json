@@ -1,0 +1,246 @@
+{
+  "metadata": {
+    "title": "월드탐험도감",
+    "subtitle": "WORLD EXPLORATION DEX",
+    "version": 1,
+    "updatedAt": "2026-09-01",
+    "scope": "세대별 대표 인물·장소·포켓몬 카드를 4×3 스토리 페이지로 수집하는 월드 탐험형 카드 도감"
+  },
+  "generations": [
+    {
+      "generation": 1,
+      "region": "관동",
+      "regionEn": "KANTO",
+      "title": "관동지방 모험의 시작",
+      "tagline": "오박사의 연구소에서 출발해 체육관과 로켓단 사건을 지나 뮤츠와 마주한다.",
+      "people": ["오박사", "레드", "그린", "웅", "이슬", "초련", "비주기"],
+      "places": ["태초마을", "상록숲", "회색시티", "블루시티", "보라타운", "노랑시티", "블루시티동굴"],
+      "status": "active",
+      "phases": [
+        { "id": "start", "label": "모험의 시작", "description": "연구소에서 라이벌과 함께 관동 여행을 시작한다." },
+        { "id": "gyms", "label": "체육관 도전", "description": "첫 배지를 얻고 관동의 대표 체육관을 지나간다." },
+        { "id": "climax", "label": "사건과 결말", "description": "보라타운의 미스터리, 노랑시티와 로켓단을 지나 최후의 전설을 만난다." }
+      ],
+      "slots": [
+        {
+          "id": "kanto-oak",
+          "phase": "start",
+          "kind": "person",
+          "title": "박사의 연구(오박사)",
+          "subtitle": "여행의 시작",
+          "card": {
+            "name": "박사의 연구(오박사)",
+            "set": "25th ANNIVERSARY COLLECTION",
+            "number": "003/028",
+            "rarity": "",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8A/S8a_003.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards/detail/BS2021015003"
+          }
+        },
+        {
+          "id": "kanto-red",
+          "phase": "start",
+          "kind": "person",
+          "title": "레드",
+          "subtitle": "관동의 주인공",
+          "personId": "red"
+        },
+        {
+          "id": "kanto-blue",
+          "phase": "start",
+          "kind": "person",
+          "title": "그린",
+          "subtitle": "끝까지 앞서가는 라이벌",
+          "personId": "blue"
+        },
+        {
+          "id": "kanto-viridian-forest",
+          "phase": "start",
+          "kind": "place",
+          "title": "상록숲",
+          "subtitle": "첫 탐험지",
+          "card": {
+            "name": "상록숲",
+            "set": "태그볼트",
+            "number": "091/095",
+            "rarity": "U",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_091.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards/detail/BS2019001091"
+          }
+        },
+        {
+          "id": "kanto-pewter-gym",
+          "phase": "gyms",
+          "kind": "place",
+          "title": "웅의 회색시티 체육관",
+          "subtitle": "첫 번째 체육관",
+          "card": {
+            "name": "웅의 회색시티 체육관",
+            "set": "스타터 세트 격투 롱스톤 GX",
+            "number": "029/031",
+            "rarity": "",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_029.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards/detail/BS2019004029"
+          }
+        },
+        {
+          "id": "kanto-brock",
+          "phase": "gyms",
+          "kind": "person",
+          "title": "웅",
+          "subtitle": "바위타입 관장",
+          "personId": "brock"
+        },
+        {
+          "id": "kanto-cerulean-gym",
+          "phase": "gyms",
+          "kind": "place",
+          "title": "이슬의 블루시티 체육관",
+          "subtitle": "두 번째 체육관",
+          "card": {
+            "name": "이슬의 블루시티 체육관",
+            "set": "스타터 세트 물 아쿠스타 GX",
+            "number": "030/031",
+            "rarity": "",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMK/SMK_030.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards/detail/BS2019004030"
+          }
+        },
+        {
+          "id": "kanto-misty",
+          "phase": "gyms",
+          "kind": "person",
+          "title": "이슬",
+          "subtitle": "물타입 관장",
+          "personId": "misty"
+        },
+        {
+          "id": "kanto-lavender",
+          "phase": "climax",
+          "kind": "place",
+          "title": "보라타운",
+          "subtitle": "관동의 미스터리",
+          "card": {
+            "name": "보라타운",
+            "set": "태그볼트",
+            "number": "090/095",
+            "rarity": "U",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9/SM9_090.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards/detail/BS2019001090"
+          }
+        },
+        {
+          "id": "kanto-sabrina",
+          "phase": "climax",
+          "kind": "person",
+          "title": "초련",
+          "subtitle": "노랑시티의 에스퍼 관장",
+          "personId": "sabrina"
+        },
+        {
+          "id": "kanto-giovanni",
+          "phase": "climax",
+          "kind": "person",
+          "title": "비주기",
+          "subtitle": "로켓단 보스",
+          "personId": "giovanni"
+        },
+        {
+          "id": "kanto-mewtwo",
+          "phase": "climax",
+          "kind": "pokemon",
+          "title": "뮤츠 VSTAR",
+          "subtitle": "숨겨진 최종 전설",
+          "card": {
+            "name": "뮤츠 VSTAR",
+            "set": "VSTAR 유니버스",
+            "number": "221/172",
+            "rarity": "SAR",
+            "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12A/S12a_221.png?w=512",
+            "source": "https://pokemoncard.co.kr/cards"
+          }
+        }
+      ]
+    },
+    {
+      "generation": 2,
+      "region": "성도",
+      "regionEn": "JOHTO",
+      "title": "전설과 전통의 성도",
+      "tagline": "금빛시티와 인주시티를 지나 칠색조·루기아, 그리고 은빛산의 레드까지.",
+      "people": ["실버", "공박사", "유빈", "목호", "레드"],
+      "places": ["연두마을", "금빛시티", "인주시티", "방울탑", "소용돌이섬", "은빛산"],
+      "status": "planned"
+    },
+    {
+      "generation": 3,
+      "region": "호연",
+      "regionEn": "HOENN",
+      "title": "육지·바다·하늘의 호연",
+      "tagline": "마그마단과 아쿠아단의 충돌, 그리고 레쿠쟈가 잇는 하늘기둥의 결말.",
+      "people": ["봄이", "다이고", "마적", "아강", "윤진"],
+      "places": ["미로마을", "보라시티", "루네시티", "해저동굴", "하늘기둥"],
+      "status": "planned"
+    },
+    {
+      "generation": 4,
+      "region": "신오",
+      "regionEn": "SINNOH",
+      "title": "시간과 공간의 신오",
+      "tagline": "천관산과 창기둥을 넘어 깨어진세계까지 이어지는 신화의 여행.",
+      "people": ["빛나", "용식", "난천", "태홍"],
+      "places": ["떡잎마을", "천관산", "창기둥", "깨어진세계", "포켓몬리그"],
+      "status": "planned"
+    },
+    {
+      "generation": 5,
+      "region": "하나",
+      "regionEn": "UNOVA",
+      "title": "이상과 진실의 하나",
+      "tagline": "N과 게치스, 플라스마단을 따라 진실과 이상이 충돌하는 이야기.",
+      "people": ["투지", "투희", "N", "게치스", "아데크"],
+      "places": ["마름꽃마을", "구름시티", "뇌문시티", "용나선탑", "N의 성"],
+      "status": "planned"
+    },
+    {
+      "generation": 6,
+      "region": "칼로스",
+      "regionEn": "KALOS",
+      "title": "메가진화의 칼로스",
+      "tagline": "미르시티에서 시작해 코르니와 메가진화의 비밀, 플레어단 사건으로 이어진다.",
+      "people": ["세레나", "칼름", "플라타느박사", "코르니", "플라드리", "카르네"],
+      "places": ["조아마을", "미르시티", "사라시티", "마스터타워", "플레어단 비밀기지"],
+      "status": "planned"
+    },
+    {
+      "generation": 7,
+      "region": "알로라",
+      "regionEn": "ALOLA",
+      "title": "섬 순례의 알로라",
+      "tagline": "릴리에의 가족 이야기와 섬 순례, 에테르파라다이스와 울트라홀을 잇는다.",
+      "people": ["하우", "릴리에", "쿠쿠이박사", "구즈마", "루자미네", "글라디오"],
+      "places": ["멜레멜레섬", "아칼라섬", "포마을", "에테르파라다이스", "울트라홀"],
+      "status": "planned"
+    },
+    {
+      "generation": 8,
+      "region": "가라르",
+      "regionEn": "GALAR",
+      "title": "스타디움 열기의 가라르",
+      "tagline": "다이맥스 체육관 챌린지와 단델, 소니아, 자시안·자마젠타의 전설.",
+      "people": ["호브", "마리", "소니아", "단델", "로즈"],
+      "places": ["펄롱마을", "와일드에리어", "너클시티", "스파이크마을", "슛시티"],
+      "status": "planned"
+    },
+    {
+      "generation": 9,
+      "region": "팔데아",
+      "regionEn": "PALDEA",
+      "title": "보물찾기의 팔데아",
+      "tagline": "네모·페퍼·모란의 세 이야기가 에리어 제로에서 하나로 합쳐진다.",
+      "people": ["네모", "페퍼", "모란", "클라벨", "테사"],
+      "places": ["테이블시티", "팔데아의 대공", "제로게이트", "에리어 제로"],
+      "status": "planned"
+    }
+  ]
+}
