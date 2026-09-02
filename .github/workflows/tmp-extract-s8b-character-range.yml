@@ -1,0 +1,41 @@
+name: Temporary extract VMAX Climax character range
+on:
+  push:
+    branches: [fix/dashboard-and-swordshield-trainer-pokemon]
+    paths: [.github/workflows/tmp-extract-s8b-character-range.yml]
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          g=next(g for g in groups if str(g.get('code')).lower()=='s8b')
+          rows=[]
+          for c in g.get('cards') or []:
+            code=str(c.get('code') or '')
+            m=re.search(r'_(\d{3})/184$',code,re.I)
+            if not m: continue
+            n=int(m.group(1))
+            if 185<=n<=254:
+              rows.append({'number':n,'name':c.get('name') or c.get('pokemonName'),'code':code,'image':c.get('image'),'source':c.get('source'),'order':c.get('order')})
+          rows.sort(key=lambda x:x['number'])
+          assert len(rows)==70, len(rows)
+          Path('audit-s8b-character-range.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('COUNT',len(rows)); print('FIRST',rows[:5]);print('LAST',rows[-5:])
+          PY
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit-s8b-character-range.json
+          git commit -m "chore: extract VMAX Climax character rare range"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
