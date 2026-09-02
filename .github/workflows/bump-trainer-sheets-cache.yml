@@ -1,0 +1,44 @@
+name: Bump trainer Sheets cache
+
+on:
+  push:
+    branches:
+      - feature/trainer-pokemon-dex
+    paths:
+      - .github/workflows/bump-trainer-sheets-cache.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/trainer-pokemon-dex
+          fetch-depth: 0
+      - name: Bump owner Sheets cache references
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          changed = []
+          for page in Path('.').glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              new = re.sub(r'owner-sheets-sync[.]js[?]v=[0-9-]+', 'owner-sheets-sync.js?v=20260902-2', text)
+              if new != text:
+                  page.write_text(new, encoding='utf-8')
+                  changed.append(page.name)
+          print('updated:', ', '.join(changed))
+          PY
+      - name: Commit cache bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: refresh Sheets sync cache"
+            git pull --rebase origin feature/trainer-pokemon-dex
+            git push origin HEAD:feature/trainer-pokemon-dex
+          fi
