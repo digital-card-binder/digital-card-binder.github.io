@@ -253,6 +253,7 @@
     arData,
     packData,
     peopleData,
+    trainerPokemonData,
   ) {
     const nationalItems = pokedex.records.map((record) => ({
       key: String(record.number),
@@ -366,6 +367,25 @@
         .map((item) => item.key),
     }));
 
+    const trainerPokemonItems = [];
+    const trainerPokemonGroups = (trainerPokemonData.groups || []).map((group, groupIndex) => {
+      const itemKeys = (group.cards || []).map((card, cardIndex) => {
+        const key = pageCardIdentity("trainerPokemon", group, card, groupIndex, cardIndex);
+        trainerPokemonItems.push({
+          key,
+          name: card.name || card.pokemonName || group.name || "이름 미상 카드",
+          group: group.name,
+          baselineOwned: Boolean(card.owned),
+        });
+        return key;
+      });
+      return {
+        key: groupIdentity(group, groupIndex),
+        name: group.name,
+        itemKeys,
+      };
+    });
+
     return {
       national: createCategory("national", nationalItems, nationalGroups),
       pack: createCategory("pack", packItems, packGroups),
@@ -374,12 +394,17 @@
       pokemon: createCategory("pokemon", pokemonItems, pokemonGroups),
       ar: createCategory("ar", arItems, arGroups),
       people: createCategory("people", peopleItems, peopleGroups),
+      trainerPokemon: createCategory(
+        "trainerPokemon",
+        trainerPokemonItems,
+        trainerPokemonGroups,
+      ),
       custom: createCategory("custom", [], []),
     };
   }
 
   async function loadCatalogs() {
-    const [pokedex, artists, series, pokemon, ar, packs, people] = await Promise.all([
+    const [pokedex, artists, series, pokemon, ar, packs, people, trainerPokemon] = await Promise.all([
       fetchJson("./data/pokedex.json"),
       fetchJson("./data/artists.json"),
       fetchJson("./data/series.json"),
@@ -387,8 +412,18 @@
       fetchJson("./data/ar.json"),
       fetchPacks(),
       fetchJson("./data/people.json"),
+      fetchJson("./data/trainer-pokemon.json"),
     ]);
-    return buildCatalogs(pokedex, artists, series, pokemon, ar, packs, people);
+    return buildCatalogs(
+      pokedex,
+      artists,
+      series,
+      pokemon,
+      ar,
+      packs,
+      people,
+      trainerPokemon,
+    );
   }
 
   function createAuthUi() {

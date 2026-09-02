@@ -226,6 +226,13 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.equal(serialized.includes("주소 이전"), false);
 });
 
+test("dashboard loads the trainer and Pokemon catalog registered in collection order", async () => {
+  const dashboard = await source("dashboard.js");
+  assert.match(dashboard, /fetchJson\("[.]\/data\/trainer-pokemon[.]json"\)/);
+  assert.match(dashboard, /trainerPokemon:\s*createCategory\(/);
+  assert.match(dashboard, /pageCardIdentity\("trainerPokemon"/);
+});
+
 test("dashboard includes custom dex in cards, totals, activity, and settings order", async () => {
   const page = await source("index.html");
   const client = await source("dashboard.js");
