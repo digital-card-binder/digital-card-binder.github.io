@@ -1,0 +1,42 @@
+name: Temporary audit Battle Region CSR official records
+on:
+  push:
+    branches: [fix/dashboard-and-swordshield-trainer-pokemon]
+    paths: [.github/workflows/tmp-audit-s9a-official.yml]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - run: |
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import build_legacy_series_data as official
+          product='소드&실드 강화 확장팩 「배틀리전」'
+          rows=[]
+          for card_type in (1,2,3):
+            page=0
+            while True:
+              batch=official.ajax_page(product, card_type, page)
+              rows.extend(batch)
+              if len(batch)<30: break
+              page+=1
+          print('RECORDS',len(rows))
+          for row in rows:
+            card_num=str(row.get('CardNum') or '').strip()
+            if not card_num: continue
+            detail=official.parse_detail(official.detail_payload(card_num))
+            number=str(detail.get('number') or '').zfill(3)
+            if number not in {'083','084'}: continue
+            print('MATCH',json.dumps({
+              'CardNum':card_num,
+              **detail,
+              'feature_image':row.get('feature_image'),
+              'image':official.feature_image_url(str(row.get('feature_image') or '')),
+              'source':f'https://pokemoncard.co.kr/cards/detail/{card_num}',
+            },ensure_ascii=False))
+          PY
