@@ -20,8 +20,10 @@ jobs:
       - name: Inspect matching Korean catalog cards
         run: |
           python - <<'PY'
-          import json
+          import json, sys
           from pathlib import Path
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          import build_legacy_series_data as official
 
           targets = {
             '마휘핑','뚜꾸리','차오꿀','염무왕','그란돈','코스모움','코스모그','루나아라',
@@ -29,32 +31,49 @@ jobs:
           }
           data = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
           found = []
-          def walk(node, parents=()):
+          def walk(node):
             if isinstance(node, dict):
               name = str(node.get('name') or '').strip()
               image = str(node.get('image') or '')
               if name in targets and image:
                 found.append({
-                  'parents': parents[-3:],
                   'name': name,
-                  'set': node.get('set'),
-                  'setName': node.get('setName'),
-                  'cardNumber': node.get('cardNumber'),
-                  'rarity': node.get('rarity'),
-                  'illustrator': node.get('illustrator'),
                   'image': image,
                   'source': node.get('source'),
                 })
-              for k,v in node.items():
-                next_parents = parents
-                if k in ('name','title','code') and isinstance(v, str):
-                  next_parents = parents + (v,)
-                walk(v, next_parents)
+              for v in node.values(): walk(v)
             elif isinstance(node, list):
-              for item in node:
-                walk(item, parents)
+              for item in node: walk(item)
           walk(data)
-          print('MATCH_COUNT', len(found))
+          print('SERIES_MATCH_COUNT', len(found))
           for row in found:
-            print(json.dumps(row, ensure_ascii=False))
+            print('SERIES', json.dumps(row, ensure_ascii=False))
+
+          product = 'BW 확장팩 「EX 배틀 부스트」'
+          wanted_numbers = {'017','018','019'}
+          records = []
+          for card_type in (1,2,3):
+            page = 0
+            while True:
+              batch = official.ajax_page(product, card_type, page)
+              records.extend(batch)
+              if len(batch) < 30: break
+              page += 1
+          print('EBB_RECORDS', len(records))
+          for row in records:
+            card_num = str(row.get('CardNum') or '').strip()
+            feature = str(row.get('feature_image') or '').strip()
+            if not card_num or not feature: continue
+            detail = official.parse_detail(official.detail_payload(card_num))
+            number = str(detail.get('number') or '').zfill(3)
+            if number not in wanted_numbers: continue
+            print('EBB', json.dumps({
+              'CardNum': card_num,
+              'name': detail.get('name'),
+              'number': detail.get('number'),
+              'denominator': detail.get('denominator'),
+              'rarity': detail.get('rarity'),
+              'image': official.feature_image_url(feature),
+              'source': f'https://pokemoncard.co.kr/cards/detail/{card_num}',
+            }, ensure_ascii=False))
           PY
