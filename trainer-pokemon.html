@@ -9,7 +9,7 @@
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css?v=20260813-3" />
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
-    <link rel="stylesheet" href="./trainer-pokemon.css?v=20260902-1" />
+    <link rel="stylesheet" href="./trainer-pokemon.css?v=20260902-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
     <script src="./firebase-config.js?v=20260727-2" defer></script>
@@ -23,7 +23,7 @@
     <script src="./collector-nav.js?v=20260902-3" defer></script>
     <script src="./firebase-page-manager.js?v=20260902-1" defer></script>
     <script src="./owner-sheets-sync.js?v=20260902-3" defer></script>
-    <script src="./trainer-pokemon.js?v=20260902-2" defer></script>
+    <script src="./trainer-pokemon.js?v=20260902-4" defer></script>
   </head>
   <body data-catalog="trainerPokemon">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -85,14 +85,15 @@
         <section class="catalog-panel" aria-labelledby="tp-catalog-title">
           <div class="catalog-heading"><div><p class="section-kicker">SCENE CATALOG</p><h2 id="tp-catalog-title">사람과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div></div>
           <div class="tp-filter-panel">
-            <label class="tp-select-field"><span class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 선택"></select></label>
+            <div id="tp-view-mode" class="segmented-control tp-view-mode" role="group" aria-label="보기 기준"><button class="is-active" type="button" data-mode="pokemon">포켓몬별</button><button type="button" data-mode="trainer">트레이너별</button></div>
+            <label class="tp-select-field"><span id="tp-filter-label" class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 또는 트레이너 선택"></select></label>
             <label class="search-field"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">카드 검색</span><input id="tp-search" type="search" autocomplete="off" placeholder="포켓몬, 트레이너, 세트 코드로 검색" /></label>
             <div class="tp-filter-row">
               <div id="tp-status-filters" class="segmented-control" role="group" aria-label="보유 상태 선택"><button class="is-active" type="button" data-status="all">전체</button><button type="button" data-status="owned">보유</button><button type="button" data-status="missing">미보유</button></div>
               <label class="tp-sort-field"><span class="filter-label">정렬</span><select id="tp-sort"><option value="order">등록 순서</option><option value="name">포켓몬 이름순</option><option value="set">세트 코드순</option></select></label>
             </div>
           </div>
-          <div class="tp-selection-summary"><div><span>선택 포켓몬</span><strong id="tp-selected-group">—</strong></div><p><b id="tp-selected-owned">—</b> / <span id="tp-selected-total">—</span>장 보유 · <span id="tp-selected-rate">—</span>%</p></div>
+          <div class="tp-selection-summary"><div><span id="tp-selection-label">선택 포켓몬</span><strong id="tp-selected-group">—</strong></div><p><b id="tp-selected-owned">—</b> / <span id="tp-selected-total">—</span>장 보유 · <span id="tp-selected-rate">—</span>%</p></div>
           <div class="results-bar"><p>검색 결과 <strong id="tp-result-count">—</strong>장</p></div>
           <div id="tp-card-grid" class="card-grid" aria-live="polite" aria-busy="true"></div>
           <div id="tp-empty" class="empty-state" hidden><span class="empty-ball" aria-hidden="true"><span></span></span><h3>아직 등록된 카드가 없습니다</h3><p>이 그룹은 공식 한글판 일러스트를 확인하면서 순차적으로 채워집니다.</p></div>
