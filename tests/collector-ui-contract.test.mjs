@@ -376,10 +376,10 @@ test("profile management leaves the sidebar and public collectors stays below da
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260826-1/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260902-2/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260826-1/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260902-2/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -417,7 +417,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260826-1/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260902-2/, `${page}: current common header behavior`);
   }
 });
 
@@ -456,7 +456,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260814-1/);
-    assert.match(html, /collector-nav[.]js\?v=20260826-1/);
+    assert.match(html, /collector-nav[.]js\?v=20260902-2/);
   }
 });
 
@@ -686,9 +686,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260813-2/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260902-1/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260813-2/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260902-1/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
