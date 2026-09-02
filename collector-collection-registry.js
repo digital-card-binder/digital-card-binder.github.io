@@ -90,7 +90,7 @@
       href: "./trainer-pokemon.html",
       documentId: "trainerPokemonDex",
       unit: "장",
-      catalogCount: 20,
+      catalogCount: 130,
       defaultDashboardVisible: true,
     },
   };

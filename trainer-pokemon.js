@@ -1,6 +1,6 @@
 "use strict";
 
-const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-3";
+const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-4";
 const tp = (id) => document.getElementById(id);
 
 let tpDataset = null;
@@ -8,10 +8,26 @@ let tpSelected = null;
 let tpStatus = "all";
 let tpQuery = "";
 let tpSort = "order";
+let tpViewMode = "pokemon";
 let tpActiveCard = null;
 
 const tpRate = (owned, total) => total ? Math.round((owned / total) * 1000) / 10 : 0;
 const allCards = () => tpDataset.groups.flatMap((group) => group.cards || []);
+const personLabel = (card) => {
+  const raw = String(card.personName || card.trainer || "").trim();
+  if (!raw || raw === "그 외의 사람들" || raw === "그외" || raw === "그 외") return "그 외";
+  return raw;
+};
+
+function decorateCards() {
+  tpDataset.groups.forEach((group) => {
+    (group.cards || []).forEach((card) => {
+      card._tpPokemonName = card.pokemonName || group.name;
+      card._tpNationalDexNo = Number(group.nationalDexNo || 9999);
+      card._tpPersonName = personLabel(card);
+    });
+  });
+}
 
 function setSummary() {
   const cards = allCards();
@@ -28,36 +44,69 @@ function setSummary() {
   tp("tp-stat-rate").textContent = completion;
 }
 
-function populateGroups() {
+function trainerOptions() {
+  const counts = new Map();
+  allCards().forEach((card) => {
+    const label = personLabel(card);
+    counts.set(label, (counts.get(label) || 0) + 1);
+  });
+  return [...counts.entries()].sort((a, b) => {
+    if (a[0] === "그 외") return 1;
+    if (b[0] === "그 외") return -1;
+    return a[0].localeCompare(b[0], "ko");
+  });
+}
+
+function populateGroups(preferredValue) {
   const select = tp("tp-group-select");
-  tpDataset.groups.sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999)).forEach((group) => {
-    const option = document.createElement("option");
-    option.value = group.name;
-    option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;
-    select.append(option);
-  });
-  tpSelected = tpDataset.groups[0];
-  select.value = tpSelected.name;
-  select.addEventListener("change", () => {
-    tpSelected = tpDataset.groups.find((group) => group.name === select.value) || tpDataset.groups[0];
-    render();
-  });
+  select.replaceChildren();
+  if (tpViewMode === "pokemon") {
+    tp("tp-filter-label").textContent = "포켓몬";
+    tp("tp-selection-label").textContent = "선택 포켓몬";
+    const groups = [...tpDataset.groups].sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));
+    groups.forEach((group) => {
+      const option = document.createElement("option");
+      option.value = group.name;
+      option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;
+      select.append(option);
+    });
+    const selectedName = groups.some((group) => group.name === preferredValue) ? preferredValue : groups[0]?.name;
+    tpSelected = groups.find((group) => group.name === selectedName) || groups[0] || null;
+    if (tpSelected) select.value = tpSelected.name;
+  } else {
+    tp("tp-filter-label").textContent = "트레이너";
+    tp("tp-selection-label").textContent = "선택 트레이너";
+    const trainers = trainerOptions();
+    trainers.forEach(([name, count]) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = `${name} · ${count}장`;
+      select.append(option);
+    });
+    const selectedName = trainers.some(([name]) => name === preferredValue) ? preferredValue : trainers[0]?.[0];
+    tpSelected = selectedName || null;
+    if (tpSelected) select.value = tpSelected;
+  }
+}
+
+function selectedCards() {
+  if (tpViewMode === "pokemon") return tpSelected?.cards || [];
+  return allCards().filter((card) => personLabel(card) === tpSelected);
 }
 
 function matches(card) {
   const statusOk = tpStatus === "all" || (tpStatus === "owned") === card.owned;
   const query = tpQuery.trim().toLowerCase();
-  const haystack = `${card.name} ${card.pokemonName} ${card.personName || ""} ${card.trainer || ""} ${card.set} ${card.setName} ${card.rarity} ${card.cardNumber} ${card.illustrator}`.toLowerCase();
+  const haystack = `${card.name} ${card.pokemonName} ${personLabel(card)} ${card.set} ${card.setName} ${card.rarity} ${card.cardNumber} ${card.illustrator}`.toLowerCase();
   return statusOk && (!query || haystack.includes(query));
 }
 
 function sortCards(cards) {
   return [...cards].sort((a, b) => {
-    if (tpSort === "name") {
-      return String(a.name).localeCompare(String(b.name), "ko");
-    }
-    if (tpSort === "set") {
-      return String(a.set).localeCompare(String(b.set), "en", { numeric: true }) || (a.order || 0) - (b.order || 0);
+    if (tpSort === "name") return String(a.name).localeCompare(String(b.name), "ko");
+    if (tpSort === "set") return String(a.set).localeCompare(String(b.set), "en", { numeric: true }) || (a.order || 0) - (b.order || 0);
+    if (tpViewMode === "trainer") {
+      return Number(a._tpNationalDexNo || 9999) - Number(b._tpNationalDexNo || 9999) || (a.order || 0) - (b.order || 0);
     }
     return (a.order || 0) - (b.order || 0);
   });
@@ -81,9 +130,9 @@ function updateDialog(card) {
   badge.textContent = card.owned ? "보유" : "미보유";
   badge.className = `status-badge ${card.owned ? "is-owned" : "is-missing"}`;
   tp("tp-dialog-name").textContent = card.name;
-  tp("tp-dialog-person").textContent = String(card.personName || card.trainer || "그 외의 사람들").toUpperCase();
-  tp("tp-dialog-person-detail").textContent = card.personName || card.trainer || "그 외의 사람들";
-  tp("tp-dialog-pokemon").textContent = card.pokemonName || tpSelected.name;
+  tp("tp-dialog-person").textContent = personLabel(card).toUpperCase();
+  tp("tp-dialog-person-detail").textContent = personLabel(card);
+  tp("tp-dialog-pokemon").textContent = card.pokemonName || card._tpPokemonName || "—";
   tp("tp-dialog-set").textContent = [card.set, card.setName].filter(Boolean).join(" · ") || "—";
   tp("tp-dialog-rarity").textContent = card.rarity || "—";
   tp("tp-dialog-card-number").textContent = card.cardNumber || "—";
@@ -187,7 +236,7 @@ function createCard(card) {
   name.textContent = card.name;
   const person = document.createElement("span");
   person.className = "card-name-en";
-  person.textContent = `${card.personName || card.trainer || "그 외의 사람들"} × ${card.pokemonName || tpSelected.name}`;
+  person.textContent = `${personLabel(card)} × ${card.pokemonName || card._tpPokemonName || "포켓몬"}`;
   const meta = document.createElement("span");
   meta.className = "card-meta";
   const set = document.createElement("span");
@@ -205,10 +254,14 @@ function createCard(card) {
 }
 
 function render() {
-  const cards = tpSelected.cards || [];
+  const cards = selectedCards();
   const owned = cards.filter((card) => card.owned).length;
   const completion = tpRate(owned, cards.length);
-  tp("tp-selected-group").textContent = `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}`;
+  if (tpViewMode === "pokemon") {
+    tp("tp-selected-group").textContent = tpSelected ? `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}` : "—";
+  } else {
+    tp("tp-selected-group").textContent = tpSelected || "—";
+  }
   tp("tp-selected-owned").textContent = owned;
   tp("tp-selected-total").textContent = cards.length;
   tp("tp-selected-rate").textContent = completion;
@@ -223,6 +276,19 @@ function render() {
 function controls() {
   tp("tp-search").addEventListener("input", (event) => {
     tpQuery = event.target.value;
+    render();
+  });
+  tp("tp-view-mode").addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-mode]");
+    if (!button || button.dataset.mode === tpViewMode) return;
+    tpViewMode = button.dataset.mode;
+    event.currentTarget.querySelectorAll("button").forEach((item) => item.classList.toggle("is-active", item === button));
+    populateGroups();
+    render();
+  });
+  tp("tp-group-select").addEventListener("change", (event) => {
+    if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || tpDataset.groups[0];
+    else tpSelected = event.target.value;
     render();
   });
   tp("tp-status-filters").addEventListener("click", (event) => {
@@ -247,6 +313,8 @@ async function init() {
     const response = await fetch(TP_DATA_URL, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     tpDataset = await response.json();
+    tpDataset.groups.sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));
+    decorateCards();
     const account = window.PokemonDexPageAccount;
     if (account) {
       await account.ready;
