@@ -1,0 +1,75 @@
+name: Temporary fix dashboard trainer Pokemon catalog
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-fix-dashboard-trainer-pokemon.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - name: Patch dashboard catalog loading
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('dashboard.js')
+          text = path.read_text(encoding='utf-8')
+
+          old_sig = '''    packData,\n    peopleData,\n  ) {'''
+          new_sig = '''    packData,\n    peopleData,\n    trainerPokemonData,\n  ) {'''
+          if old_sig not in text:
+            raise RuntimeError('buildCatalogs signature marker not found')
+          text = text.replace(old_sig, new_sig, 1)
+
+          marker = '''    const peopleGroups = [...new Set(\n      (peopleData.people || []).map((person) => person.generation),\n    )].map((generation) => ({\n      key: `generation-${generation}`,\n      name: `${generation}세대 인물도감`,\n      itemKeys: peopleItems\n        .filter((item) => item.group === `${generation}세대`)\n        .map((item) => item.key),\n    }));\n\n    return {'''
+          insert = '''    const peopleGroups = [...new Set(\n      (peopleData.people || []).map((person) => person.generation),\n    )].map((generation) => ({\n      key: `generation-${generation}`,\n      name: `${generation}세대 인물도감`,\n      itemKeys: peopleItems\n        .filter((item) => item.group === `${generation}세대`)\n        .map((item) => item.key),\n    }));\n\n    const trainerPokemonItems = [];\n    const trainerPokemonGroups = (trainerPokemonData.groups || []).map((group, groupIndex) => {\n      const itemKeys = (group.cards || []).map((card, cardIndex) => {\n        const key = pageCardIdentity(\"trainerPokemon\", group, card, groupIndex, cardIndex);\n        trainerPokemonItems.push({\n          key,\n          name: card.name || card.pokemonName || group.name || \"이름 미상 카드\",\n          group: group.name,\n          baselineOwned: Boolean(card.owned),\n        });\n        return key;\n      });\n      return {\n        key: groupIdentity(group, groupIndex),\n        name: group.name,\n        itemKeys,\n      };\n    });\n\n    return {'''
+          if marker not in text:
+            raise RuntimeError('peopleGroups marker not found')
+          text = text.replace(marker, insert, 1)
+
+          old_return = '''      people: createCategory(\"people\", peopleItems, peopleGroups),\n      custom: createCategory(\"custom\", [], []),'''
+          new_return = '''      people: createCategory(\"people\", peopleItems, peopleGroups),\n      trainerPokemon: createCategory(\n        \"trainerPokemon\",\n        trainerPokemonItems,\n        trainerPokemonGroups,\n      ),\n      custom: createCategory(\"custom\", [], []),'''
+          if old_return not in text:
+            raise RuntimeError('catalog return marker not found')
+          text = text.replace(old_return, new_return, 1)
+
+          old_load = '''    const [pokedex, artists, series, pokemon, ar, packs, people] = await Promise.all([\n      fetchJson(\"./data/pokedex.json\"),\n      fetchJson(\"./data/artists.json\"),\n      fetchJson(\"./data/series.json\"),\n      fetchJson(\"./data/pokemon-collections.json\"),\n      fetchJson(\"./data/ar.json\"),\n      fetchPacks(),\n      fetchJson(\"./data/people.json\"),\n    ]);\n    return buildCatalogs(pokedex, artists, series, pokemon, ar, packs, people);'''
+          new_load = '''    const [pokedex, artists, series, pokemon, ar, packs, people, trainerPokemon] = await Promise.all([\n      fetchJson(\"./data/pokedex.json\"),\n      fetchJson(\"./data/artists.json\"),\n      fetchJson(\"./data/series.json\"),\n      fetchJson(\"./data/pokemon-collections.json\"),\n      fetchJson(\"./data/ar.json\"),\n      fetchPacks(),\n      fetchJson(\"./data/people.json\"),\n      fetchJson(\"./data/trainer-pokemon.json\"),\n    ]);\n    return buildCatalogs(\n      pokedex,\n      artists,\n      series,\n      pokemon,\n      ar,\n      packs,\n      people,\n      trainerPokemon,\n    );'''
+          if old_load not in text:
+            raise RuntimeError('loadCatalogs marker not found')
+          text = text.replace(old_load, new_load, 1)
+          path.write_text(text, encoding='utf-8')
+
+          test = Path('tests/collector-ui-contract.test.mjs')
+          t = test.read_text(encoding='utf-8')
+          anchor = '''test(\"dashboard includes custom dex in cards, totals, activity, and settings order\", async () => {'''
+          new_test = '''test(\"dashboard loads the trainer and Pokemon catalog registered in collection order\", async () => {\n  const dashboard = await source(\"dashboard.js\");\n  assert.match(dashboard, /fetchJson\\(\"[.]\\/data\\/trainer-pokemon[.]json\"\\)/);\n  assert.match(dashboard, /trainerPokemon:\\s*createCategory\\(/);\n  assert.match(dashboard, /pageCardIdentity\\(\"trainerPokemon\"/);\n});\n\n'''
+          if new_test not in t:
+            if anchor not in t:
+              raise RuntimeError('dashboard test anchor not found')
+            t = t.replace(anchor, new_test + anchor, 1)
+          test.write_text(t, encoding='utf-8')
+          PY
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard.js tests/collector-ui-contract.test.mjs
+          git commit -m "fix: load trainer Pokemon catalog on dashboard"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
