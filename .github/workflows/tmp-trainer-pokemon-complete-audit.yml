@@ -1,0 +1,117 @@
+name: Temporary trainer Pokemon complete audit
+on:
+  push:
+    branches:
+      - work/trainer-pokemon-audit-run3
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow requests ultralytics
+      - name: Audit S, SV base, and M6
+        run: |
+          python - <<'PY'
+          import io,json,math,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from PIL import Image,ImageDraw,ImageFont
+          from ultralytics import YOLO
+
+          series=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          buckets={'s':[],'sv-base':[],'m6':[]}
+          groups={'s':[],'sv-base':[],'m6':[]}
+          for g in series:
+            code=str(g.get('code') or '')
+            up=code.upper()
+            cards=g.get('cards') or []
+            if up.startswith('S') and not up.startswith('SV') and not up.startswith('SM'):
+              groups['s'].append({'set':code,'setName':g.get('title'),'cards':len(cards)})
+              for c in cards:
+                buckets['s'].append({'set':code,'setName':g.get('title'),'name':c.get('name') or c.get('pokemonName') or '', 'code':c.get('code') or '', 'image':c.get('image') or '', 'source':c.get('source') or '', 'rarity':c.get('rarity') or ''})
+            if up.startswith('SV'):
+              kept=[]
+              for c in cards:
+                cc=str(c.get('code') or '')
+                m=re.search(r'_(\d+)/(\d+)$',cc)
+                if m and int(m.group(1))<=int(m.group(2)):
+                  kept.append(c)
+              if kept:
+                groups['sv-base'].append({'set':code,'setName':g.get('title'),'cards':len(kept)})
+                for c in kept:
+                  buckets['sv-base'].append({'set':code,'setName':g.get('title'),'name':c.get('name') or c.get('pokemonName') or '', 'code':c.get('code') or '', 'image':c.get('image') or '', 'source':c.get('source') or '', 'rarity':c.get('rarity') or ''})
+
+          txt=Path('mega-latest.js').read_text(encoding='utf-8')
+          block=re.search(r'const M6_NAMES = Object\.freeze\(\[(.*?)\]\);',txt,re.S).group(1)
+          names=re.findall(r'"([^"]+)"',block)
+          for i,name in enumerate(names,1):
+            tok=f'{i:03d}'
+            buckets['m6'].append({'set':'m6','setName':'스톰에메랄다','name':name,'code':f'm6_{tok}/076','image':f'https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_{tok}.png','source':'','rarity':''})
+          groups['m6']=[{'set':'m6','setName':'스톰에메랄다','cards':len(names)}]
+
+          model=YOLO('yolo11n.pt')
+          for key,rows in buckets.items():
+            print('BUCKET',key,'ROWS',len(rows),'GROUPS',json.dumps(groups[key],ensure_ascii=False))
+            Path(f'{key}-manifest.json').write_text(json.dumps({'groups':groups[key],'cards':rows},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            imgdir=Path(f'{key}-images'); imgdir.mkdir()
+            failures=[]; downloaded=[]
+            def dl(i,row):
+              try:
+                if not row['image']: raise RuntimeError('missing image')
+                r=requests.get(row['image'],timeout=20,headers={'User-Agent':'digital-card-binder-audit/1.0'}); r.raise_for_status()
+                p=imgdir/f'{i:05d}.jpg'; Image.open(io.BytesIO(r.content)).convert('RGB').save(p,quality=90)
+                return i,row,p,None
+              except Exception as e: return i,row,None,str(e)
+            with ThreadPoolExecutor(max_workers=24) as ex:
+              futs=[ex.submit(dl,i,r) for i,r in enumerate(rows)]
+              for n,f in enumerate(as_completed(futs),1):
+                i,row,p,e=f.result()
+                if p: downloaded.append((i,row,p))
+                else: failures.append({**row,'error':e})
+                if n%250==0: print(key,'DOWNLOAD',n,'FAIL',len(failures))
+            downloaded.sort(key=lambda x:x[0])
+            Path(f'{key}-failures.json').write_text(json.dumps(failures,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            results=[]
+            paths=[str(x[2]) for x in downloaded]
+            for start in range(0,len(paths),600):
+              results.extend(model.predict(source=paths[start:start+600],classes=[0],conf=0.02,iou=0.45,imgsz=512,batch=32,verbose=False))
+            candidates=[]; thumbs=[]
+            for item,result in zip(downloaded,results):
+              i,row,p=item
+              confs=[] if result.boxes is None else [float(x) for x in result.boxes.conf.cpu().tolist()]
+              maxc=max(confs) if confs else 0
+              if maxc>=.02:
+                rec={**row,'personDetection':round(maxc,4),'personDetections':len(confs)}
+                candidates.append(rec)
+                im=Image.open(p).convert('RGB'); im.thumbnail((205,287)); thumbs.append((rec,im.copy()))
+            print(key,'DOWNLOADED',len(downloaded),'FAIL',len(failures),'CANDIDATES',len(candidates))
+            Path(f'{key}-human-candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            out=Path(f'{key}-candidate-sheets'); out.mkdir(); W,H=245,355; COLS,ROWS=5,4; PER=20; font=ImageFont.load_default()
+            for pg in range(math.ceil(len(thumbs)/PER)):
+              can=Image.new('RGB',(COLS*W,ROWS*H),'white'); d=ImageDraw.Draw(can)
+              for j,(row,im) in enumerate(thumbs[pg*PER:(pg+1)*PER]):
+                x=(j%COLS)*W; y=(j//COLS)*H; can.paste(im,(x+20,y+4))
+                d.multiline_text((x+5,y+294),f"{row['set']} {row['code']}\n{row['name']} p={row['personDetection']}",fill='black',font=font,spacing=2)
+              can.save(out/f'page-{pg+1:03d}.jpg',quality=92)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: trainer-pokemon-complete-audit
+          path: |
+            s-manifest.json
+            s-human-candidates.json
+            s-failures.json
+            s-candidate-sheets/
+            sv-base-manifest.json
+            sv-base-human-candidates.json
+            sv-base-failures.json
+            sv-base-candidate-sheets/
+            m6-manifest.json
+            m6-human-candidates.json
+            m6-failures.json
+            m6-candidate-sheets/
+          retention-days: 1
