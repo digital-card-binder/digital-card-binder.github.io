@@ -1,0 +1,116 @@
+name: Temporary SV human candidate audit
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-sv-human-candidate-audit.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install audit dependencies
+        run: |
+          pip install pillow requests ultralytics
+      - name: Build SV candidate manifest and contact sheets
+        run: |
+          python - <<'PY'
+          import io, json, math, re, time
+          from pathlib import Path
+          from collections import Counter
+          import requests
+          from PIL import Image, ImageDraw, ImageFont
+          from ultralytics import YOLO
+
+          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          sv=[]
+          for g in groups:
+            code=str(g.get('code') or '')
+            if code.upper().startswith('SV'):
+              sv.append(g)
+          print('SV_GROUPS',len(sv),'SV_CARDS',sum(len(g.get('cards') or []) for g in sv))
+          print('SV_CODES',[g.get('code') for g in sv])
+
+          model=YOLO('yolo11n.pt')
+          sess=requests.Session()
+          sess.headers['User-Agent']='digital-card-binder-audit/1.0'
+          candidates=[]; failures=[]
+          outdir=Path('audit/sv-human-candidates'); outdir.mkdir(parents=True,exist_ok=True)
+          thumbs=[]
+
+          def number_from_code(code):
+            m=re.search(r'_(\d+)/(\d+)$',str(code or ''))
+            return int(m.group(1)) if m else 9999
+
+          all_rows=[]
+          for g in sv:
+            for c in g.get('cards') or []:
+              img=str(c.get('image') or '').strip()
+              if not img: continue
+              all_rows.append((g,c,img))
+          print('IMAGE_ROWS',len(all_rows))
+
+          for idx,(g,c,img_url) in enumerate(all_rows,1):
+            try:
+              r=sess.get(img_url,timeout=20)
+              r.raise_for_status()
+              im=Image.open(io.BytesIO(r.content)).convert('RGB')
+              # use generous confidence to reduce false negatives on stylized humans
+              result=model.predict(source=im,classes=[0],conf=0.035,iou=0.45,imgsz=640,verbose=False)[0]
+              boxes=result.boxes
+              confs=[] if boxes is None else [float(x) for x in boxes.conf.cpu().tolist()]
+              max_conf=max(confs) if confs else 0.0
+              # All cards with a person detection at low confidence become candidates.
+              if max_conf>=0.035:
+                row={
+                  'set':g.get('code'),'setName':g.get('title'),'name':c.get('name') or c.get('pokemonName'),
+                  'code':c.get('code'),'image':img_url,'source':c.get('source'),'order':c.get('order'),
+                  'personDetection':round(max_conf,4),'personDetections':len(confs)
+                }
+                candidates.append(row)
+                thumb=im.copy(); thumb.thumbnail((210,294))
+                thumbs.append((row,thumb.copy()))
+            except Exception as e:
+              failures.append({'set':g.get('code'),'code':c.get('code'),'image':img_url,'error':str(e)[:180]})
+            if idx%100==0: print('PROGRESS',idx,'CANDIDATES',len(candidates),'FAIL',len(failures))
+
+          candidates.sort(key=lambda x:(str(x['set']).upper(), number_from_code(x['code']), str(x['code'])))
+          Path('audit/sv-human-candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('audit/sv-human-failures.json').write_text(json.dumps(failures,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('CANDIDATES',len(candidates),'FAILURES',len(failures))
+          print('BY_SET',dict(Counter(x['set'] for x in candidates)))
+
+          # render 20 cards per sheet, enough resolution for visual confirmation
+          W,H=230,350; COLS,ROWS=5,4; PER=COLS*ROWS
+          font=ImageFont.load_default()
+          for page in range(math.ceil(len(thumbs)/PER)):
+            chunk=thumbs[page*PER:(page+1)*PER]
+            canvas=Image.new('RGB',(COLS*W,ROWS*H),'white'); draw=ImageDraw.Draw(canvas)
+            for j,(row,thumb) in enumerate(chunk):
+              x=(j%COLS)*W; y=(j//COLS)*H
+              canvas.paste(thumb,(x+10,y+5))
+              label=f"{row['set']} {row['code']}\n{row['name']}\np={row['personDetection']}"
+              draw.multiline_text((x+7,y+302),label,fill='black',font=font,spacing=2)
+            canvas.save(outdir/f'page-{page+1:03d}.jpg',quality=90)
+          PY
+      - name: Commit audit output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit/sv-human-candidates.json audit/sv-human-failures.json audit/sv-human-candidates/
+          git commit -m "chore: add SV human candidate audit" || exit 0
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
