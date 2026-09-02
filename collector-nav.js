@@ -82,11 +82,19 @@
         "PUBLIC BOARD",
       );
     nav.querySelector('[href*="trades.html"]')?.remove();
+    const trainerPokemon =
+      nav.querySelector('[href*="trainer-pokemon.html"]') ||
+      navigationLink(
+        "./trainer-pokemon.html",
+        "08",
+        "사람과 포켓몬 도감",
+        "PEOPLE × POKÉMON",
+      );
     const worldDex =
       nav.querySelector('[href*="world.html"]') ||
       navigationLink(
         "./world.html",
-        "08",
+        "09",
         "월드탐험도감",
         "4×3 STORY BINDER",
       );
@@ -94,7 +102,7 @@
       nav.querySelector('[href*="custom.html"]') ||
       navigationLink(
         "./custom.html",
-        "09",
+        "10",
         "나만의 도감",
         "MY CUSTOM DEX",
       );
@@ -120,11 +128,18 @@
     settings?.remove();
     dashboard.after(directory);
     const people = nav.querySelector('[href*="people.html"]');
+    const trainerIcon = trainerPokemon.querySelector(".collection-icon");
+    if (trainerIcon) trainerIcon.textContent = "08";
+    const worldIcon = worldDex.querySelector(".collection-icon");
+    if (worldIcon) worldIcon.textContent = "09";
+    const customIcon = customDex.querySelector(".collection-icon");
+    if (customIcon) customIcon.textContent = "10";
     if (people) {
-      people.after(worldDex);
+      people.after(trainerPokemon);
+      trainerPokemon.after(worldDex);
       worldDex.after(customDex);
     } else {
-      nav.append(worldDex, customDex);
+      nav.append(trainerPokemon, worldDex, customDex);
     }
     normalizeNavigationState(nav);
   }

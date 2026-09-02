@@ -8,6 +8,7 @@
     series: { documentId: "seriesDex" },
     pokemon: { documentId: "pokemonCollectionsDex" },
     ar: { documentId: "arDex" },
+    trainerPokemon: { documentId: "trainerPokemonDex" },
   };
 
   const mode = document.body?.dataset.catalog || "";

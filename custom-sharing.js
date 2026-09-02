@@ -12,7 +12,7 @@
 
   registry.COLLECTION_ORDER.push("custom");
   registry.COLLECTIONS.custom = {
-    number: "08",
+    number: "10",
     title: "나만의 도감",
     description: "직접 만드는 테마 도감",
     href: "./custom.html",

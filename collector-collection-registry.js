@@ -10,6 +10,7 @@
     "pokemon",
     "ar",
     "people",
+    "trainerPokemon",
   ];
   const COLLECTIONS = {
     national: {
@@ -81,6 +82,16 @@
       unit: "명",
       catalogCount: 179,
       defaultDashboardVisible: false,
+    },
+    trainerPokemon: {
+      number: "08",
+      title: "사람과 포켓몬 도감",
+      description: "사람이 함께 등장하는 포켓몬 일러스트",
+      href: "./trainer-pokemon.html",
+      documentId: "trainerPokemonDex",
+      unit: "장",
+      catalogCount: 6,
+      defaultDashboardVisible: true,
     },
   };
   const catalogPromises = new Map();
@@ -223,9 +234,14 @@
       series: "./data/series.json",
       pokemon: "./data/pokemon-collections.json",
       ar: "./data/ar.json",
+      trainerPokemon: "./data/trainer-pokemon.json",
     };
     const payload = await fetchJson(pathByCollection[collectionId]);
-    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];
+    let sourceGroups = collectionId === "artist"
+      ? payload.artists || []
+      : collectionId === "trainerPokemon"
+        ? payload.groups || []
+        : payload || [];
     if (collectionId === "ar") {
       const supplement = await fetchJson("./data/ar-supplement.json").catch(() => []);
       sourceGroups = mergeCatalogGroups(sourceGroups, supplement);
