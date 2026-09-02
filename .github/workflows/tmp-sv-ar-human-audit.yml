@@ -1,0 +1,90 @@
+name: Temporary SV AR human audit
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-sv-ar-human-audit.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow requests ultralytics
+      - name: Audit every SV AR card
+        run: |
+          python - <<'PY'
+          import io,json,math,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from PIL import Image,ImageDraw,ImageFont
+          from ultralytics import YOLO
+
+          data=json.loads(Path('data/ar.json').read_text(encoding='utf-8'))
+          rows=[]
+          for g in data:
+            code=str(g.get('code') or '')
+            if not code.upper().startswith('SV'): continue
+            for c in g.get('cards') or []:
+              rows.append({'set':code,'setName':g.get('title'),'name':c.get('name'),'code':c.get('code'),'image':c.get('image'),'source':c.get('source')})
+          print('SV_AR_ROWS',len(rows))
+          Path('sv-ar-manifest.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          imgdir=Path('sv-ar-images');imgdir.mkdir()
+          failures=[]
+          def dl(i,row):
+            try:
+              r=requests.get(row['image'],timeout=15,headers={'User-Agent':'digital-card-binder-audit/1.0'});r.raise_for_status()
+              p=imgdir/f'{i:04d}.jpg';Image.open(io.BytesIO(r.content)).convert('RGB').save(p,quality=90)
+              return i,row,p,None
+            except Exception as e:return i,row,None,str(e)
+          downloaded=[]
+          with ThreadPoolExecutor(max_workers=24) as ex:
+            futs=[ex.submit(dl,i,r) for i,r in enumerate(rows)]
+            for f in as_completed(futs):
+              i,row,p,e=f.result()
+              if p:downloaded.append((i,row,p))
+              else:failures.append({**row,'error':e})
+          downloaded.sort();print('DOWNLOADED',len(downloaded),'FAIL',len(failures))
+          Path('sv-ar-failures.json').write_text(json.dumps(failures,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          model=YOLO('yolo11n.pt')
+          paths=[str(x[2]) for x in downloaded]
+          results=model.predict(source=paths,classes=[0],conf=0.025,iou=0.45,imgsz=512,batch=32,verbose=False)
+          candidates=[];thumbs=[]
+          for item,result in zip(downloaded,results):
+            i,row,p=item
+            confs=[] if result.boxes is None else [float(x) for x in result.boxes.conf.cpu().tolist()]
+            maxc=max(confs) if confs else 0
+            if maxc>=.025:
+              r={**row,'personDetection':round(maxc,4),'personDetections':len(confs)};candidates.append(r)
+              im=Image.open(p).convert('RGB');im.thumbnail((205,287));thumbs.append((r,im.copy()))
+          print('CANDIDATES',len(candidates))
+          Path('sv-ar-human-candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          out=Path('sv-ar-candidate-sheets');out.mkdir();W,H=245,355;COLS,ROWS=5,4;PER=20;font=ImageFont.load_default()
+          for pg in range(math.ceil(len(thumbs)/PER)):
+            can=Image.new('RGB',(COLS*W,ROWS*H),'white');d=ImageDraw.Draw(can)
+            for j,(row,im) in enumerate(thumbs[pg*PER:(pg+1)*PER]):
+              x=(j%COLS)*W;y=(j//COLS)*H;can.paste(im,(x+20,y+4))
+              d.multiline_text((x+5,y+294),f"{row['set']} {row['code']}\n{row['name']} p={row['personDetection']}",fill='black',font=font,spacing=2)
+            can.save(out/f'page-{pg+1:03d}.jpg',quality=92)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sv-ar-human-audit
+          path: |
+            sv-ar-manifest.json
+            sv-ar-human-candidates.json
+            sv-ar-failures.json
+            sv-ar-candidate-sheets/
+          retention-days: 1
