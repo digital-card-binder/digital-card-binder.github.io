@@ -1,43 +1,23 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-09-02",
-  "title": "트레이너 & 포켓몬 도감",
-  "description": "트레이너 또는 사람이 포켓몬과 같은 일러스트 안에 함께 등장하는 한글판 카드 컬렉션",
+  "title": "사람과 포켓몬 도감",
+  "description": "포켓몬 카드 일러스트 안에 사람과 포켓몬이 같은 장면으로 함께 등장하는 한글판 카드 컬렉션",
+  "grouping": "pokemon-national-dex",
   "rules": {
     "include": [
-      "이름이 확인되는 트레이너·주요 인물과 포켓몬이 같은 일러스트 안에 함께 등장",
-      "이름을 특정하기 어려운 일반인·NPC·관중도 포켓몬과 장면의 주체로 함께 등장하면 '그 외의 사람들'에 포함"
+      "이름이 확인되는 인물이 포켓몬과 같은 실제 일러스트 장면에 함께 등장",
+      "이름 없는 일반인·가족·직원·학생·NPC 등도 사람의 모습이나 행동이 확인되고 포켓몬과 같은 장면을 구성하면 포함"
     ],
     "exclude": [
-      "트레이너 얼굴 아이콘·마크·사진·간판만 있는 경우",
-      "배경에 점처럼 작게 보이는 군중처럼 사람과 포켓몬의 관계가 장면의 주제가 아닌 경우"
+      "인물 얼굴 아이콘·마크·사진·포스터·간판만 있는 경우",
+      "점처럼 작게 보이는 관중이나 군중처럼 사람의 존재가 단순 배경 요소에 그치는 경우"
     ]
   },
   "groups": [
     {
-      "name": "심향",
-      "type": "named",
-      "cards": [
-        {
-          "order": 1,
-          "name": "심향의 블레이범",
-          "pokemonName": "블레이범",
-          "trainer": "심향",
-          "set": "SV9a",
-          "setName": "열풍의 아레나",
-          "rarity": "AR",
-          "cardNumber": "070/063",
-          "code": "sv9a_070/063",
-          "illustrator": "GIDORA",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_070.png",
-          "source": "https://pokemoncard.co.kr/cards/detail/BS2025005070",
-          "owned": false
-        }
-      ]
-    },
-    {
-      "name": "이슬",
-      "type": "named",
+      "name": "고라파덕",
+      "nationalDexNo": 54,
       "cards": [
         {
           "order": 1,
@@ -52,10 +32,18 @@
           "illustrator": "OKACHEKE",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_071.png",
           "source": "https://pokemoncard.co.kr/cards/detail/BS2025005071",
-          "owned": false
-        },
+          "owned": false,
+          "personName": "이슬",
+          "personType": "named"
+        }
+      ]
+    },
+    {
+      "name": "라프라스",
+      "nationalDexNo": 131,
+      "cards": [
         {
-          "order": 2,
+          "order": 1,
           "name": "이슬의 라프라스",
           "pokemonName": "라프라스",
           "trainer": "이슬",
@@ -67,34 +55,38 @@
           "illustrator": "Orca",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_072.png",
           "source": "https://pokemoncard.co.kr/cards/detail/BS2025005072",
-          "owned": false
+          "owned": false,
+          "personName": "이슬",
+          "personType": "named"
         }
       ]
     },
     {
-      "name": "페퍼",
-      "type": "named",
+      "name": "블레이범",
+      "nationalDexNo": 157,
       "cards": [
         {
           "order": 1,
-          "name": "페퍼의 요씽리스",
-          "pokemonName": "요씽리스",
-          "trainer": "페퍼",
+          "name": "심향의 블레이범",
+          "pokemonName": "블레이범",
+          "trainer": "심향",
           "set": "SV9a",
           "setName": "열풍의 아레나",
           "rarity": "AR",
-          "cardNumber": "075/063",
-          "code": "sv9a_075/063",
-          "illustrator": "Natsumi Yoshida",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_075.png",
-          "source": "https://pokemoncard.co.kr/cards/detail/BS2025005075",
-          "owned": false
+          "cardNumber": "070/063",
+          "code": "sv9a_070/063",
+          "illustrator": "GIDORA",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_070.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2025005070",
+          "owned": false,
+          "personName": "심향",
+          "personType": "named"
         }
       ]
     },
     {
-      "name": "난천",
-      "type": "named",
+      "name": "한카리아스",
+      "nationalDexNo": 445,
       "cards": [
         {
           "order": 1,
@@ -109,13 +101,15 @@
           "illustrator": "HICO KIM",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_087.png",
           "source": "https://pokemoncard.co.kr/cards/detail/BS2025005087",
-          "owned": false
+          "owned": false,
+          "personName": "난천",
+          "personType": "named"
         }
       ]
     },
     {
-      "name": "N",
-      "type": "named",
+      "name": "제크로무",
+      "nationalDexNo": 644,
       "cards": [
         {
           "order": 1,
@@ -130,14 +124,34 @@
           "illustrator": "Bun Toujo",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_210.png",
           "source": "https://pokemoncard.co.kr/cards/detail/BS2025015210",
-          "owned": false
+          "owned": false,
+          "personName": "N",
+          "personType": "named"
         }
       ]
     },
     {
-      "name": "그 외의 사람들",
-      "type": "other",
-      "cards": []
+      "name": "요씽리스",
+      "nationalDexNo": 820,
+      "cards": [
+        {
+          "order": 1,
+          "name": "페퍼의 요씽리스",
+          "pokemonName": "요씽리스",
+          "trainer": "페퍼",
+          "set": "SV9a",
+          "setName": "열풍의 아레나",
+          "rarity": "AR",
+          "cardNumber": "075/063",
+          "code": "sv9a_075/063",
+          "illustrator": "Natsumi Yoshida",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_075.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2025005075",
+          "owned": false,
+          "personName": "페퍼",
+          "personType": "named"
+        }
+      ]
     }
   ]
 }

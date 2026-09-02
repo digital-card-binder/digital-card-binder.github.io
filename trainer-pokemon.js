@@ -1,6 +1,6 @@
 "use strict";
 
-const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-1";
+const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-2";
 const tp = (id) => document.getElementById(id);
 
 let tpDataset = null;
@@ -30,10 +30,10 @@ function setSummary() {
 
 function populateGroups() {
   const select = tp("tp-group-select");
-  tpDataset.groups.forEach((group) => {
+  tpDataset.groups.sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999)).forEach((group) => {
     const option = document.createElement("option");
     option.value = group.name;
-    option.textContent = `${group.name} · ${(group.cards || []).length}장`;
+    option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;
     select.append(option);
   });
   tpSelected = tpDataset.groups[0];
@@ -47,14 +47,14 @@ function populateGroups() {
 function matches(card) {
   const statusOk = tpStatus === "all" || (tpStatus === "owned") === card.owned;
   const query = tpQuery.trim().toLowerCase();
-  const haystack = `${card.name} ${card.pokemonName} ${card.trainer} ${card.set} ${card.setName} ${card.rarity} ${card.cardNumber} ${card.illustrator}`.toLowerCase();
+  const haystack = `${card.name} ${card.pokemonName} ${card.personName || ""} ${card.trainer || ""} ${card.set} ${card.setName} ${card.rarity} ${card.cardNumber} ${card.illustrator}`.toLowerCase();
   return statusOk && (!query || haystack.includes(query));
 }
 
 function sortCards(cards) {
   return [...cards].sort((a, b) => {
     if (tpSort === "name") {
-      return String(a.pokemonName || a.name).localeCompare(String(b.pokemonName || b.name), "ko");
+      return String(a.name).localeCompare(String(b.name), "ko");
     }
     if (tpSort === "set") {
       return String(a.set).localeCompare(String(b.set), "en", { numeric: true }) || (a.order || 0) - (b.order || 0);
@@ -81,9 +81,9 @@ function updateDialog(card) {
   badge.textContent = card.owned ? "보유" : "미보유";
   badge.className = `status-badge ${card.owned ? "is-owned" : "is-missing"}`;
   tp("tp-dialog-name").textContent = card.name;
-  tp("tp-dialog-person").textContent = String(card.trainer || tpSelected.name).toUpperCase();
-  tp("tp-dialog-person-detail").textContent = card.trainer || tpSelected.name;
-  tp("tp-dialog-pokemon").textContent = card.pokemonName || card.name;
+  tp("tp-dialog-person").textContent = String(card.personName || card.trainer || "그 외의 사람들").toUpperCase();
+  tp("tp-dialog-person-detail").textContent = card.personName || card.trainer || "그 외의 사람들";
+  tp("tp-dialog-pokemon").textContent = card.pokemonName || tpSelected.name;
   tp("tp-dialog-set").textContent = [card.set, card.setName].filter(Boolean).join(" · ") || "—";
   tp("tp-dialog-rarity").textContent = card.rarity || "—";
   tp("tp-dialog-card-number").textContent = card.cardNumber || "—";
@@ -187,7 +187,7 @@ function createCard(card) {
   name.textContent = card.name;
   const person = document.createElement("span");
   person.className = "card-name-en";
-  person.textContent = `${card.trainer || tpSelected.name} × ${card.pokemonName || card.name}`;
+  person.textContent = `${card.personName || card.trainer || "그 외의 사람들"} × ${card.pokemonName || tpSelected.name}`;
   const meta = document.createElement("span");
   meta.className = "card-meta";
   const set = document.createElement("span");
@@ -208,7 +208,7 @@ function render() {
   const cards = tpSelected.cards || [];
   const owned = cards.filter((card) => card.owned).length;
   const completion = tpRate(owned, cards.length);
-  tp("tp-selected-group").textContent = tpSelected.name;
+  tp("tp-selected-group").textContent = `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}`;
   tp("tp-selected-owned").textContent = owned;
   tp("tp-selected-total").textContent = cards.length;
   tp("tp-selected-rate").textContent = completion;

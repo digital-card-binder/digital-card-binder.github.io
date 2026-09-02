@@ -85,8 +85,8 @@
     },
     trainerPokemon: {
       number: "08",
-      title: "트레이너 & 포켓몬 도감",
-      description: "사람과 포켓몬이 함께한 일러스트",
+      title: "사람과 포켓몬 도감",
+      description: "사람이 함께 등장하는 포켓몬 일러스트",
       href: "./trainer-pokemon.html",
       documentId: "trainerPokemonDex",
       unit: "장",
