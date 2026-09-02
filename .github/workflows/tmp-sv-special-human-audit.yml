@@ -1,0 +1,81 @@
+name: Temporary SV special human audit
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-sv-special-human-audit.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow requests ultralytics
+      - name: Audit all SV secret-number cards
+        run: |
+          python - <<'PY'
+          import io,json,math,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from PIL import Image,ImageDraw,ImageFont
+          from ultralytics import YOLO
+          series=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          rows=[]
+          for g in series:
+            code=str(g.get('code') or '')
+            if not code.upper().startswith('SV'):continue
+            for c in g.get('cards') or []:
+              cc=str(c.get('code') or '');m=re.search(r'_(\d+)/(\d+)$',cc)
+              if not m:continue
+              n,d=map(int,m.groups())
+              if n<=d:continue
+              rows.append({'set':code,'setName':g.get('title'),'name':c.get('name') or c.get('pokemonName'),'code':cc,'image':c.get('image'),'source':c.get('source'),'n':n,'d':d})
+          rows.sort(key=lambda r:(r['set'].upper(),r['n'],r['code']))
+          print('SPECIAL_ROWS',len(rows))
+          imgdir=Path('sv-special-images');imgdir.mkdir();fails=[];dl=[]
+          def get(i,row):
+            try:
+              rr=requests.get(row['image'],timeout=15,headers={'User-Agent':'digital-card-binder-audit/1.0'});rr.raise_for_status()
+              p=imgdir/f'{i:04d}.jpg';Image.open(io.BytesIO(rr.content)).convert('RGB').save(p,quality=90);return i,row,p,None
+            except Exception as e:return i,row,None,str(e)
+          with ThreadPoolExecutor(max_workers=24) as ex:
+            fs=[ex.submit(get,i,r) for i,r in enumerate(rows)]
+            for f in as_completed(fs):
+              i,r,p,e=f.result();dl.append((i,r,p)) if p else fails.append({**r,'error':e})
+          dl.sort();print('DOWNLOADED',len(dl),'FAIL',len(fails))
+          model=YOLO('yolo11n.pt');results=model.predict(source=[str(x[2]) for x in dl],classes=[0],conf=.02,iou=.45,imgsz=512,batch=32,verbose=False)
+          cand=[];thumbs=[]
+          for item,res in zip(dl,results):
+            i,row,p=item;confs=[] if res.boxes is None else [float(x) for x in res.boxes.conf.cpu().tolist()];mc=max(confs) if confs else 0
+            if mc>=.02:
+              rr={**row,'personDetection':round(mc,4),'personDetections':len(confs)};cand.append(rr);im=Image.open(p).convert('RGB');im.thumbnail((205,287));thumbs.append((rr,im.copy()))
+          print('CANDIDATES',len(cand))
+          Path('sv-special-human-candidates.json').write_text(json.dumps(cand,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('sv-special-human-failures.json').write_text(json.dumps(fails,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          out=Path('sv-special-human-sheets');out.mkdir();W,H=245,355;COLS,ROWS=5,4;PER=20;font=ImageFont.load_default()
+          for pg in range(math.ceil(len(thumbs)/PER)):
+            can=Image.new('RGB',(COLS*W,ROWS*H),'white');d=ImageDraw.Draw(can)
+            for j,(row,im) in enumerate(thumbs[pg*PER:(pg+1)*PER]):
+              x=(j%COLS)*W;y=(j//COLS)*H;can.paste(im,(x+20,y+4));d.multiline_text((x+5,y+294),f"{row['set']} {row['n']:03d}/{row['d']:03d}\n{row['name']} p={row['personDetection']}",fill='black',font=font,spacing=2)
+            can.save(out/f'page-{pg+1:03d}.jpg',quality=92)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sv-special-human-audit
+          path: |
+            sv-special-human-candidates.json
+            sv-special-human-failures.json
+            sv-special-human-sheets/
+          retention-days: 1
