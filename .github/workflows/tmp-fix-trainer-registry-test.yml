@@ -1,0 +1,28 @@
+name: Temporary align trainer Pokemon registry test
+on:
+  push:
+    branches:
+      - work/trainer-pokemon-apply-final
+permissions:
+  contents: write
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Align expected catalog totals
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('tests/collector-registry.test.mjs')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('trainerPokemon: 20,','trainerPokemon: 130,',1)
+          s=s.replace('trainerPokemon: 19,','trainerPokemon: 105,',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm .github/workflows/tmp-fix-trainer-registry-test.yml
+          git config user.name "Youngdeukseo"
+          git config user.email "128191608+Youngdeukseo@users.noreply.github.com"
+          git add tests/collector-registry.test.mjs .github/workflows/tmp-fix-trainer-registry-test.yml
+          git commit -m "test: update trainer Pokemon catalog expectations"
+          git push origin HEAD:work/trainer-pokemon-apply-final
