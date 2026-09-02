@@ -1,0 +1,126 @@
+name: Rework people Pokemon dex v2
+
+on:
+  push:
+    branches:
+      - feature/trainer-pokemon-dex
+    paths:
+      - .github/workflows/rework-people-pokemon-dex-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/trainer-pokemon-dex
+          fetch-depth: 0
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Rework collection around Pokemon groups
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          data_path = Path('data/trainer-pokemon.json')
+          old = json.loads(data_path.read_text(encoding='utf-8'))
+          cards = [card for group in old.get('groups', []) for card in group.get('cards', [])]
+          dex = {'고라파덕':54, '라프라스':131, '블레이범':157, '한카리아스':445, '제크로무':644, '요씽리스':820}
+          for card in cards:
+            card['personName'] = card.get('personName') or card.get('trainer') or '그 외의 사람들'
+            card['personType'] = 'named' if card.get('trainer') else 'other'
+            card['owned'] = False
+          groups = []
+          for name, number in sorted(dex.items(), key=lambda item: item[1]):
+            selected = [card for card in cards if card.get('pokemonName') == name]
+            if selected:
+              for index, card in enumerate(selected, 1): card['order'] = index
+              groups.append({'name': name, 'nationalDexNo': number, 'cards': selected})
+          payload = {
+            'version': 2,
+            'updatedAt': '2026-09-02',
+            'title': '사람과 포켓몬 도감',
+            'description': '포켓몬 카드 일러스트 안에 사람과 포켓몬이 같은 장면으로 함께 등장하는 한글판 카드 컬렉션',
+            'grouping': 'pokemon-national-dex',
+            'rules': {
+              'include': [
+                '이름이 확인되는 인물이 포켓몬과 같은 실제 일러스트 장면에 함께 등장',
+                '이름 없는 일반인·가족·직원·학생·NPC 등도 사람의 모습이나 행동이 확인되고 포켓몬과 같은 장면을 구성하면 포함'
+              ],
+              'exclude': [
+                '인물 얼굴 아이콘·마크·사진·포스터·간판만 있는 경우',
+                '점처럼 작게 보이는 관중이나 군중처럼 사람의 존재가 단순 배경 요소에 그치는 경우'
+              ]
+            },
+            'groups': groups,
+          }
+          data_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          def replace(path, old, new):
+            p = Path(path); text = p.read_text(encoding='utf-8')
+            p.write_text(text.replace(old, new), encoding='utf-8')
+
+          replace('collector-collection-registry.js', '트레이너 & 포켓몬 도감', '사람과 포켓몬 도감')
+          replace('collector-collection-registry.js', '사람과 포켓몬이 함께한 일러스트', '사람이 함께 등장하는 포켓몬 일러스트')
+          replace('collector-nav.js', '트레이너 & 포켓몬 도감', '사람과 포켓몬 도감')
+          replace('collector-nav.js', 'TRAINER × POKÉMON', 'PEOPLE × POKÉMON')
+          replace('owner-sheets-sync.js', '트레이너 & 포켓몬 도감', '사람과 포켓몬 도감')
+
+          html = Path('trainer-pokemon.html')
+          text = html.read_text(encoding='utf-8')
+          for a,b in [
+            ('트레이너 &amp; 포켓몬 도감','사람과 포켓몬 도감'),
+            ('트레이너 & 포켓몬 도감','사람과 포켓몬 도감'),
+            ('TRAINER × POKÉMON','PEOPLE × POKÉMON'),
+            ('트레이너와 사람, 포켓몬이 하나의 일러스트 안에서 함께 등장하는 장면을 모읍니다.','사람과 포켓몬이 하나의 일러스트 장면 안에 함께 등장하는 포켓몬 카드를 모읍니다.'),
+            ('등록 그룹','포켓몬 수'),
+            ('이름 있는 트레이너','이름 있는 인물'),
+            ('트레이너 이름을 확인할 수 있으면 해당 인물 그룹에 모읍니다.','이름을 확인할 수 있는 인물은 카드 정보의 인물 태그로 기록합니다.'),
+            ('그 외의 사람들','이름 없는 사람도 포함'),
+            ('일반 NPC·관중·가족·직원 등 이름을 특정하기 어려워도 장면의 일부라면 포함합니다.','가족·직원·학생·일반 NPC 등 이름을 특정하기 어려워도 포켓몬과 같은 장면을 이루면 포함합니다.'),
+            ('인물 그룹','포켓몬'), ('선택 그룹','선택 포켓몬'),
+            ('포켓몬·트레이너·세트 검색','포켓몬·인물·세트 검색')
+          ]: text = text.replace(a,b)
+          html.write_text(text, encoding='utf-8')
+
+          js = Path('trainer-pokemon.js'); text = js.read_text(encoding='utf-8')
+          text = text.replace('./data/trainer-pokemon.json?v=20260902-1','./data/trainer-pokemon.json?v=20260902-2')
+          text = text.replace('tpDataset.groups.forEach((group) => {', 'tpDataset.groups.sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999)).forEach((group) => {')
+          text = text.replace('option.textContent = `${group.name} · ${(group.cards || []).length}장`;', 'option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;')
+          text = text.replace('${card.name} ${card.pokemonName} ${card.trainer} ${card.set}', '${card.name} ${card.pokemonName} ${card.personName || ""} ${card.trainer || ""} ${card.set}')
+          text = text.replace('String(a.pokemonName || a.name).localeCompare(String(b.pokemonName || b.name), "ko")', 'String(a.name).localeCompare(String(b.name), "ko")')
+          text = text.replace('String(card.trainer || tpSelected.name).toUpperCase()', 'String(card.personName || card.trainer || "그 외의 사람들").toUpperCase()')
+          text = text.replace('card.trainer || tpSelected.name;', 'card.personName || card.trainer || "그 외의 사람들";')
+          text = text.replace('card.pokemonName || card.name;', 'card.pokemonName || tpSelected.name;')
+          text = text.replace('`${card.trainer || tpSelected.name} × ${card.pokemonName || card.name}`', '`${card.personName || card.trainer || "그 외의 사람들"} × ${card.pokemonName || tpSelected.name}`')
+          text = text.replace('tp("tp-selected-group").textContent = tpSelected.name;', 'tp("tp-selected-group").textContent = `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}`;')
+          js.write_text(text, encoding='utf-8')
+
+          Path('tests/trainer-pokemon-data.test.mjs').write_text('''import assert from "node:assert/strict";\nimport { readFile } from "node:fs/promises";\nimport test from "node:test";\nconst data = JSON.parse(await readFile(new URL("../data/trainer-pokemon.json", import.meta.url), "utf8"));\ntest("people and Pokemon dex is grouped by National Dex", () => {\n  const cards = data.groups.flatMap((group) => group.cards || []);\n  assert.equal(data.title, "사람과 포켓몬 도감");\n  assert.equal(data.grouping, "pokemon-national-dex");\n  assert.equal(cards.length, 6);\n  assert.deepEqual(data.groups.map((g) => g.nationalDexNo), [54,131,157,445,644,820]);\n  assert.equal(cards.every((c) => c.owned === false), true);\n  assert.equal(new Set(cards.map((c) => c.code)).size, 6);\n  for (const group of data.groups) for (const card of group.cards) {\n    assert.equal(card.pokemonName, group.name);\n    assert.ok(card.personName);\n    assert.ok(["named","other"].includes(card.personType));\n    assert.match(card.image, /^https:\\/\\/cards[.]image[.]pokemonkorea[.]co[.]kr\\//);\n    assert.match(card.source, /^https:\\/\\/pokemoncard[.]co[.]kr\\/cards\\/detail\\//);\n  }\n});\n''', encoding='utf-8')
+          replace('tests/collector-registry.test.mjs', 'trainerPokemon: 5,', 'trainerPokemon: 6,')
+          replace('tests/collector-ui-contract.test.mjs', '트레이너 & 포켓몬 도감', '사람과 포켓몬 도감')
+          replace('tests/collector-ui-contract.test.mjs', 'TRAINER × POKÉMON', 'PEOPLE × POKÉMON')
+
+          for path in ['collector-collection-registry.js','collector-nav.js','owner-sheets-sync.js','trainer-pokemon.html']:
+            if '트레이너 & 포켓몬 도감' in Path(path).read_text(encoding='utf-8'):
+              raise RuntimeError(f'old title remains in {path}')
+          print('people + Pokemon dex reworked')
+          PY
+      - run: npm ci
+      - run: npm test
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/trainer-pokemon.json trainer-pokemon.html trainer-pokemon.js collector-collection-registry.js collector-nav.js owner-sheets-sync.js tests/trainer-pokemon-data.test.mjs tests/collector-registry.test.mjs tests/collector-ui-contract.test.mjs
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: group people Pokemon dex by Pokemon"
+            git pull --rebase origin feature/trainer-pokemon-dex
+            git push origin HEAD:feature/trainer-pokemon-dex
+          fi
