@@ -1,0 +1,41 @@
+name: Align trainer Pokemon cache tests
+
+on:
+  push:
+    branches:
+      - feature/trainer-pokemon-dex
+    paths:
+      - .github/workflows/fix-trainer-pokemon-tests.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/trainer-pokemon-dex
+          fetch-depth: 0
+      - name: Update cache-version contracts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tests/collector-ui-contract.test.mjs')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('collector-nav[.]js\\?v=20260826-1', 'collector-nav[.]js\\?v=20260902-2')
+          text = text.replace('collector-nav[.]js[?]v=20260826-1', 'collector-nav[.]js[?]v=20260902-2')
+          text = text.replace('collector-collection-registry[.]js[?]v=20260813-2', 'collector-collection-registry[.]js[?]v=20260902-1')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit test contracts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/collector-ui-contract.test.mjs
+          if ! git diff --cached --quiet; then
+            git commit -m "test: align collection cache versions"
+            git pull --rebase origin feature/trainer-pokemon-dex
+            git push origin HEAD:feature/trainer-pokemon-dex
+          fi
