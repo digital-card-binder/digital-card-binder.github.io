@@ -1,0 +1,60 @@
+name: Temporary trainer Pokemon sample audit
+
+on:
+  push:
+    branches:
+      - feature/rename-and-expand-trainer-pokemon-dex
+    paths:
+      - .github/workflows/tmp-audit-trainer-pokemon-samples.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/rename-and-expand-trainer-pokemon-dex
+      - name: Inspect matching Korean catalog cards
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          targets = {
+            '마휘핑','뚜꾸리','차오꿀','염무왕','그란돈','코스모움','코스모그','루나아라',
+            '갈가부기','리자몽','비버니','라프라스','눈여아','꽁어름'
+          }
+          data = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          found = []
+          def walk(node, parents=()):
+            if isinstance(node, dict):
+              name = str(node.get('name') or '').strip()
+              image = str(node.get('image') or '')
+              if name in targets and image:
+                found.append({
+                  'parents': parents[-3:],
+                  'name': name,
+                  'set': node.get('set'),
+                  'setName': node.get('setName'),
+                  'cardNumber': node.get('cardNumber'),
+                  'rarity': node.get('rarity'),
+                  'illustrator': node.get('illustrator'),
+                  'image': image,
+                  'source': node.get('source'),
+                })
+              for k,v in node.items():
+                next_parents = parents
+                if k in ('name','title','code') and isinstance(v, str):
+                  next_parents = parents + (v,)
+                walk(v, next_parents)
+            elif isinstance(node, list):
+              for item in node:
+                walk(item, parents)
+          walk(data)
+          print('MATCH_COUNT', len(found))
+          for row in found:
+            print(json.dumps(row, ensure_ascii=False))
+          PY
