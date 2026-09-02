@@ -1,0 +1,252 @@
+name: Temporary apply trainer Pokemon final
+on:
+  push:
+    branches:
+      - work/trainer-pokemon-apply-final
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Build verified S SV M trainer-Pokemon catalog
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+
+          DATA=Path('data/trainer-pokemon.json')
+          data=json.loads(DATA.read_text(encoding='utf-8'))
+          series=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          dex=json.loads(Path('data/pokedex.json').read_text(encoding='utf-8'))
+
+          dex_rows=[(int(r['number']),str(r['nameKo'])) for r in dex.get('records',[]) if r.get('number') and r.get('nameKo')]
+          dex_rows.sort(key=lambda x:len(x[1]), reverse=True)
+          dex_by_name={name:no for no,name in dex_rows}
+
+          series_groups={str(g.get('code') or '').lower():g for g in series}
+          def clean_title(value):
+            return re.sub(r'\s*\(\d+/\d+\)\s*$','',str(value or '')).strip()
+          def numerator(code):
+            m=re.search(r'_(\d+)/(\d+)',str(code or ''))
+            return int(m.group(1)) if m else None
+          def card_number(code):
+            m=re.search(r'_(\d+/\d+)',str(code or ''))
+            return m.group(1) if m else ''
+          def resolve_pokemon(raw):
+            text=str(raw or '').replace('　',' ').strip()
+            for no,name in dex_rows:
+              if name in text:
+                return no,name
+            return None,None
+
+          # Preserve every existing ownership identity before appending new cards.
+          existing_codes=set()
+          group_by_name={}
+          for group in data.get('groups',[]):
+            group_by_name[group['name']]=group
+            for idx,card in enumerate(group.get('cards') or []):
+              card.setdefault('accountIndex',idx)
+              if card.get('personName') in (None,'','그 외의 사람들','그외'):
+                card['personName']='그 외'
+                card['personType']='other'
+              existing_codes.add(str(card.get('code') or '').lower())
+
+          additions=[]
+          def add_record(set_code, rec, person='그 외', rarity=None, verification='reviewed-image-audit'):
+            code=str(rec.get('code') or '').lower()
+            if not code or code in existing_codes:
+              return False
+            no,pokemon=resolve_pokemon(rec.get('name') or rec.get('pokemonName'))
+            if not pokemon:
+              print('SKIP unresolved Pokemon',set_code,rec.get('code'),rec.get('name'))
+              return False
+            group=series_groups.get(str(set_code).lower(),{})
+            image=str(rec.get('image') or '').strip()
+            if not image:
+              print('SKIP missing image',code)
+              return False
+            item={
+              'personName':person,
+              'personType':'other' if person=='그 외' else 'named',
+              'set':str(set_code),
+              'setName':clean_title(group.get('title') or group.get('displayName') or set_code),
+              'rarity':rarity if rarity is not None else str(rec.get('rarity') or ''),
+              'cardNumber':card_number(rec.get('code')),
+              'code':str(rec.get('code')),
+              'illustrator':str(rec.get('illustrator') or ''),
+              'image':image,
+              'source':str(rec.get('source') or '').strip() or 'https://pokemoncard.co.kr/cards',
+              'sceneTags':['트레이너','캐릭터 일러스트'] if verification=='verified-character-rarity' else ['사람과 포켓몬'],
+              'name':str(rec.get('name') or pokemon),
+              'pokemonName':pokemon,
+              'owned':False,
+              'verification':verification,
+              '_nationalDexNo':no,
+            }
+            additions.append(item)
+            existing_codes.add(code)
+            return True
+
+          # Sword & Shield: these CHR/CSR ranges are character-art card classes where human + Pokemon coexist.
+          s_ranges={
+            's8b':[(185,212,'CHR'),(213,254,'CSR')],
+            's9a':[(68,73,'CHR'),(83,84,'CSR')],
+            's10a':[(72,77,'CHR'),(88,89,'CSR')],
+            's11a':[(69,74,'CHR'),(84,85,'CSR')],
+          }
+          named_s={('s9a',83):'이슬',('s9a',84):'난천',('s11a',69):'세레나'}
+          for set_code,ranges in s_ranges.items():
+            group=series_groups.get(set_code)
+            if not group:
+              print('WARN missing group',set_code)
+              continue
+            by_num={numerator(c.get('code')):c for c in (group.get('cards') or []) if numerator(c.get('code')) is not None}
+            for start,end,rarity in ranges:
+              for n in range(start,end+1):
+                rec=by_num.get(n)
+                if not rec:
+                  # Known Battle Region CSR gaps in legacy series data: add official CDN cards explicitly.
+                  fallback=None
+                  if set_code=='s9a' and n==83:
+                    fallback={'code':'s9a_083/067','name':'아쿠스타 V','image':'https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9a_083.png','source':'https://pokemoncard.co.kr/cards/detail/BS2022004128'}
+                  elif set_code=='s9a' and n==84:
+                    fallback={'code':'s9a_084/067','name':'한카리아스 V','image':'https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9a_084.png','source':'https://pokemoncard.co.kr/cards'}
+                  rec=fallback
+                if not rec:
+                  print('WARN missing S character card',set_code,n)
+                  continue
+                add_record(set_code,rec,named_s.get((set_code,n),'그 외'),rarity,'verified-character-rarity')
+
+          # Scarlet & Violet: only cards manually confirmed from Korean-card image audit.
+          sv_selected={
+            'sv1s_083/078':('그 외','AR'),
+            'sv1s_084/078':('그 외','AR'),
+            'sv1s_101/078':('그 외','SAR'),
+            'sv2a_173/165':('그 외','AR'),
+            'sv2a_205/165':('그 외','SAR'),
+            'sv3a_064/062':('그 외','AR'),
+            'sv4m_074/066':('그 외','AR'),
+            'sv5a_068/066':('그 외','AR'),
+            'sv5a_076/066':('그 외','AR'),
+            'sv6_109/101':('그 외','AR'),
+            'sv9_109/100':('N','AR'),
+            'sv9_112/100':('그 외','AR'),
+            'sv10_103/098':('그 외','AR'),
+            'sv10_125/098':('비주기','SAR'),
+            'sv9a_088/063':('그 외','SAR'),
+            'sv9a_091/063':('난천','SAR'),
+          }
+
+          # MEGA: only true positives from the M1-M5 full image audit. M6 had no conservative Pokemon-card positive.
+          m_selected={
+            'm2_034/080':('그 외',''),
+            'm2a_197/193':('심향','AR'),
+            'm2a_206/193':('비주기','AR'),
+            'm2a_208/193':('그 외','AR'),
+            'm2a_245/193':('성호','SAR'),
+            'm4_092/083':('그 외','AR'),
+          }
+
+          def find_series_card(code):
+            target=code.lower()
+            set_code=target.split('_',1)[0]
+            group=series_groups.get(set_code)
+            if not group:
+              return set_code,None
+            for rec in group.get('cards') or []:
+              if str(rec.get('code') or '').lower()==target:
+                return set_code,rec
+            return set_code,None
+
+          for code,(person,rarity) in {**sv_selected,**m_selected}.items():
+            set_code,rec=find_series_card(code)
+            if rec is None:
+              print('WARN selected card missing from series',code)
+              continue
+            add_record(set_code,rec,person,rarity or None,'reviewed-image-audit')
+
+          # Merge additions without reordering old cards in existing groups (preserves Firebase account keys).
+          for card in additions:
+            no=card.pop('_nationalDexNo')
+            pokemon=card['pokemonName']
+            group=group_by_name.get(pokemon)
+            if group is None:
+              group={'name':pokemon,'nationalDexNo':no,'cards':[]}
+              data['groups'].append(group)
+              group_by_name[pokemon]=group
+            card['accountIndex']=len(group['cards'])
+            card['order']=len(group['cards'])+1
+            group['cards'].append(card)
+
+          # Group order is visual only; account identity uses group name and per-card accountIndex.
+          data['groups'].sort(key=lambda g:int(g.get('nationalDexNo') or 9999))
+          for group in data['groups']:
+            for idx,card in enumerate(group.get('cards') or []):
+              card.setdefault('accountIndex',idx)
+              card.setdefault('order',idx+1)
+              card['owned']=False
+
+          total=sum(len(g.get('cards') or []) for g in data['groups'])
+          data['version']=4
+          data['updatedAt']='2026-09-02'
+          data['catalogCount']=total
+          data['audit']={
+            'scope':['S','SV','M'],
+            'policy':'Sword & Shield CHR/CSR + manually image-reviewed SV/M true positives; ambiguous detections excluded',
+            'newCards':len(additions),
+          }
+          DATA.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('FINAL_CARDS',total,'NEW',len(additions),'GROUPS',len(data['groups']))
+
+          # Registry count.
+          p=Path('collector-collection-registry.js')
+          text=p.read_text(encoding='utf-8')
+          pattern=r'(trainerPokemon:\s*\{.*?catalogCount:\s*)\d+'
+          text,n=re.subn(pattern,lambda m:m.group(1)+str(total),text,count=1,flags=re.S)
+          if n!=1: raise SystemExit('trainerPokemon registry count replacement failed')
+          p.write_text(text,encoding='utf-8')
+
+          # HTML: add view mode control + ids expected by trainer-pokemon.js, and bust cache.
+          p=Path('trainer-pokemon.html'); html=p.read_text(encoding='utf-8')
+          old='<div class="tp-filter-panel">\n            <label class="tp-select-field"><span class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 선택"></select></label>'
+          new='<div class="tp-filter-panel">\n            <div id="tp-view-mode" class="segmented-control tp-view-mode" role="group" aria-label="보기 기준"><button class="is-active" type="button" data-mode="pokemon">포켓몬별</button><button type="button" data-mode="trainer">트레이너별</button></div>\n            <label class="tp-select-field"><span id="tp-filter-label" class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 또는 트레이너 선택"></select></label>'
+          if old not in html: raise SystemExit('filter panel markup not found')
+          html=html.replace(old,new,1)
+          html=html.replace('<div class="tp-selection-summary"><div><span>선택 포켓몬</span><strong id="tp-selected-group">—</strong></div>', '<div class="tp-selection-summary"><div><span id="tp-selection-label">선택 포켓몬</span><strong id="tp-selected-group">—</strong></div>',1)
+          html=re.sub(r'trainer-pokemon\.js\?v=[0-9-]+','trainer-pokemon.js?v=20260902-4',html)
+          html=re.sub(r'trainer-pokemon\.css\?v=[0-9-]+','trainer-pokemon.css?v=20260902-2',html)
+          p.write_text(html,encoding='utf-8')
+
+          p=Path('trainer-pokemon.css'); css=p.read_text(encoding='utf-8')
+          if '.tp-view-mode{' not in css:
+            css+='\n.tp-view-mode{grid-column:1/-1;justify-self:start}\n@media(max-width:690px){.tp-view-mode{width:100%}.tp-view-mode button{flex:1}}\n'
+          p.write_text(css,encoding='utf-8')
+
+          # Data contract: dynamic count, stable identities, official Korean image/source, and view taxonomy.
+          Path('tests/trainer-pokemon-data.test.mjs').write_text('''import assert from "node:assert/strict";\nimport { readFile } from "node:fs/promises";\nimport test from "node:test";\nconst data = JSON.parse(await readFile(new URL("../data/trainer-pokemon.json", import.meta.url), "utf8"));\ntest("trainer and Pokemon dex uses stable National Dex groups and verified Korean cards", () => {\n  const cards = data.groups.flatMap((group) => group.cards || []);\n  assert.equal(data.title, "트레이너와 포켓몬 도감");\n  assert.equal(data.grouping, "pokemon-national-dex");\n  assert.equal(data.catalogCount, cards.length);\n  assert.ok(cards.length >= 120);\n  assert.deepEqual(data.groups.map((g) => g.nationalDexNo), [...data.groups.map((g) => g.nationalDexNo)].sort((a,b) => a-b));\n  assert.equal(cards.every((c) => c.owned === false), true);\n  assert.equal(new Set(cards.map((c) => c.code.toLowerCase())).size, cards.length);\n  for (const group of data.groups) for (const [index, card] of (group.cards || []).entries()) {\n    assert.equal(card.pokemonName, group.name);\n    assert.ok(card.personName);\n    assert.ok(["named","other"].includes(card.personType));\n    assert.equal(Number.isInteger(card.accountIndex), true);\n    assert.equal(card.accountIndex, index);\n    assert.match(card.image, /^https:\\/\\/cards[.]image[.]pokemonkorea[.]co[.]kr\\//);\n    assert.match(card.source, /^https:\\/\\/pokemoncard[.]co[.]kr\\/cards(?:\\/detail\\/.*)?$/);\n  }\n  const byCode = new Map(cards.map((c) => [c.code.toLowerCase(), c]));\n  assert.equal(byCode.get("sv9_109/100")?.personName, "N");\n  assert.equal(byCode.get("m2a_206/193")?.personName, "비주기");\n  assert.equal(byCode.get("m2a_245/193")?.personName, "성호");\n  assert.equal(byCode.has("m1l_030/063"), false);\n});\n''',encoding='utf-8')
+          PY
+      - run: npm ci
+      - name: Run full verification
+        run: npm test
+      - name: Remove temporary workflow and commit verified result
+        run: |
+          rm .github/workflows/tmp-apply-trainer-pokemon-final.yml
+          git config user.name "Youngdeukseo"
+          git config user.email "128191608+Youngdeukseo@users.noreply.github.com"
+          git add data/trainer-pokemon.json trainer-pokemon.js trainer-pokemon.html trainer-pokemon.css collector-collection-registry.js tests/trainer-pokemon-data.test.mjs .github/workflows/tmp-apply-trainer-pokemon-final.yml
+          git commit -m "feat: expand trainer Pokemon dex and add dual filters"
+          git push origin HEAD:work/trainer-pokemon-apply-final
