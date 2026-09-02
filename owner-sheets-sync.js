@@ -25,7 +25,7 @@
     series: "시리즈 도감",
     pokemon: "포켓몬 컬렉션",
     ar: "AR 전종도감",
-    trainerPokemon: "사람과 포켓몬 도감",
+    trainerPokemon: "트레이너와 포켓몬 도감",
   };
   const DOCUMENT_IDS = {
     national: CONFIG.userDocument || "nationalDex",

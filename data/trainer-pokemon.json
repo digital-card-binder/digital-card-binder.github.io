@@ -1,8 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
   "updatedAt": "2026-09-02",
-  "title": "사람과 포켓몬 도감",
-  "description": "포켓몬 카드 일러스트 안에 사람과 포켓몬이 같은 장면으로 함께 등장하는 한글판 카드 컬렉션",
+  "title": "트레이너와 포켓몬 도감",
+  "description": "트레이너를 포함해 사람과 포켓몬이 같은 일러스트 장면에 함께 등장하는 한글판 포켓몬 카드 컬렉션",
   "grouping": "pokemon-national-dex",
   "rules": {
     "include": [
@@ -15,6 +15,33 @@
     ]
   },
   "groups": [
+    {
+      "name": "리자몽",
+      "nationalDexNo": 6,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S4",
+          "setName": "앙천의 볼트태클",
+          "rarity": "R",
+          "cardNumber": "012/100",
+          "code": "s4_012/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4/S4_012.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2020014012",
+          "sceneTags": [
+            "트레이너",
+            "배틀"
+          ],
+          "order": 1,
+          "name": "리자몽",
+          "pokemonName": "리자몽",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
     {
       "name": "고라파덕",
       "nationalDexNo": 54,
@@ -58,6 +85,27 @@
           "owned": false,
           "personName": "이슬",
           "personType": "named"
+        },
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S6H",
+          "setName": "백은의 랜스",
+          "rarity": "C",
+          "cardNumber": "018/070",
+          "code": "s6h_018/070",
+          "illustrator": "Atsushi Furusawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_018.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021004018",
+          "sceneTags": [
+            "트레이너",
+            "설경"
+          ],
+          "order": 2,
+          "name": "라프라스",
+          "pokemonName": "라프라스",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
         }
       ]
     },
@@ -85,6 +133,60 @@
       ]
     },
     {
+      "name": "그란돈",
+      "nationalDexNo": 383,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S8a",
+          "setName": "25th ANNIVERSARY COLLECTION",
+          "rarity": "",
+          "cardNumber": "006/028",
+          "code": "s8a_006/028",
+          "illustrator": "Ryuta Fuse",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_006.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021015006",
+          "sceneTags": [
+            "트레이너",
+            "배틀"
+          ],
+          "order": 1,
+          "name": "그란돈",
+          "pokemonName": "그란돈",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "비버니",
+      "nationalDexNo": 399,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S9",
+          "setName": "스타버스",
+          "rarity": "C",
+          "cardNumber": "081/100",
+          "code": "s9_081/100",
+          "illustrator": "Oswaldo KATO",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9_081.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022002081",
+          "sceneTags": [
+            "트레이너",
+            "야외"
+          ],
+          "order": 1,
+          "name": "비버니",
+          "pokemonName": "비버니",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
       "name": "한카리아스",
       "nationalDexNo": 445,
       "cards": [
@@ -104,6 +206,117 @@
           "owned": false,
           "personName": "난천",
           "personType": "named"
+        }
+      ]
+    },
+    {
+      "name": "눈여아",
+      "nationalDexNo": 478,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S6H",
+          "setName": "백은의 랜스",
+          "rarity": "R",
+          "cardNumber": "021/070",
+          "code": "s6h_021/070",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_021.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021004021",
+          "sceneTags": [
+            "트레이너",
+            "설경"
+          ],
+          "order": 1,
+          "name": "눈여아",
+          "pokemonName": "눈여아",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "뚜꾸리",
+      "nationalDexNo": 498,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "EBB",
+          "setName": "EX 배틀 부스트",
+          "rarity": "",
+          "cardNumber": "017/093",
+          "code": "ebb_017/093",
+          "illustrator": "Kanako Eo",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_017.jpg",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2013006017",
+          "sceneTags": [
+            "가족",
+            "이어지는 일러스트"
+          ],
+          "storyId": "ebb-tepig-family",
+          "order": 1,
+          "name": "뚜꾸리",
+          "pokemonName": "뚜꾸리",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "차오꿀",
+      "nationalDexNo": 499,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "EBB",
+          "setName": "EX 배틀 부스트",
+          "rarity": "",
+          "cardNumber": "018/093",
+          "code": "ebb_018/093",
+          "illustrator": "Kanako Eo",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_018.jpg",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2013006018",
+          "sceneTags": [
+            "가족",
+            "이어지는 일러스트"
+          ],
+          "storyId": "ebb-tepig-family",
+          "order": 1,
+          "name": "차오꿀",
+          "pokemonName": "차오꿀",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "염무왕",
+      "nationalDexNo": 500,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "EBB",
+          "setName": "EX 배틀 부스트",
+          "rarity": "",
+          "cardNumber": "019/093",
+          "code": "ebb_019/093",
+          "illustrator": "Kanako Eo",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_019.jpg",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2013006019",
+          "sceneTags": [
+            "가족",
+            "이어지는 일러스트"
+          ],
+          "storyId": "ebb-tepig-family",
+          "order": 1,
+          "name": "염무왕",
+          "pokemonName": "염무왕",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
         }
       ]
     },
@@ -131,6 +344,117 @@
       ]
     },
     {
+      "name": "꽁어름",
+      "nationalDexNo": 712,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S10P",
+          "setName": "스페이스 저글러",
+          "rarity": "C",
+          "cardNumber": "024/067",
+          "code": "s10p_024/067",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_024.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022008024",
+          "sceneTags": [
+            "일상",
+            "설경"
+          ],
+          "order": 1,
+          "name": "꽁어름",
+          "pokemonName": "꽁어름",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "코스모그",
+      "nationalDexNo": 789,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "trainer": "릴리에",
+          "set": "S8a",
+          "setName": "25th ANNIVERSARY COLLECTION",
+          "rarity": "",
+          "cardNumber": "014/028",
+          "code": "s8a_014/028",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_014.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021015014",
+          "sceneTags": [
+            "트레이너",
+            "스토리"
+          ],
+          "order": 1,
+          "name": "코스모그",
+          "pokemonName": "코스모그",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "코스모움",
+      "nationalDexNo": 790,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "trainer": "릴리에",
+          "set": "S8a",
+          "setName": "25th ANNIVERSARY COLLECTION",
+          "rarity": "",
+          "cardNumber": "015/028",
+          "code": "s8a_015/028",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_015.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021015015",
+          "sceneTags": [
+            "트레이너",
+            "스토리"
+          ],
+          "order": 1,
+          "name": "코스모움",
+          "pokemonName": "코스모움",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "루나아라",
+      "nationalDexNo": 792,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "trainer": "릴리에",
+          "set": "S8a",
+          "setName": "25th ANNIVERSARY COLLECTION",
+          "rarity": "",
+          "cardNumber": "017/028",
+          "code": "s8a_017/028",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_017.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021015017",
+          "sceneTags": [
+            "트레이너",
+            "스토리"
+          ],
+          "order": 1,
+          "name": "루나아라",
+          "pokemonName": "루나아라",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
       "name": "요씽리스",
       "nationalDexNo": 820,
       "cards": [
@@ -150,6 +474,61 @@
           "owned": false,
           "personName": "페퍼",
           "personType": "named"
+        }
+      ]
+    },
+    {
+      "name": "갈가부기",
+      "nationalDexNo": 834,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S4",
+          "setName": "앙천의 볼트태클",
+          "rarity": "U",
+          "cardNumber": "026/100",
+          "code": "s4_026/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4/S4_026.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2020014026",
+          "sceneTags": [
+            "트레이너",
+            "야외"
+          ],
+          "order": 1,
+          "name": "갈가부기",
+          "pokemonName": "갈가부기",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
+        }
+      ]
+    },
+    {
+      "name": "마휘핑",
+      "nationalDexNo": 869,
+      "cards": [
+        {
+          "personName": "그 외의 사람들",
+          "personType": "other",
+          "set": "S8b",
+          "setName": "VMAX 클라이맥스",
+          "rarity": "",
+          "cardNumber": "081/184",
+          "code": "s8b_081/184",
+          "illustrator": "sowsow",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_081.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022001081",
+          "sceneTags": [
+            "직원",
+            "가게",
+            "일상"
+          ],
+          "order": 1,
+          "name": "마휘핑",
+          "pokemonName": "마휘핑",
+          "owned": false,
+          "verification": "reviewed-user-photo-and-official-korean-catalog"
         }
       ]
     }
