@@ -1,0 +1,53 @@
+name: Deploy Firestore Rules
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - firestore.rules
+      - firebase.json
+      - .github/workflows/deploy-firestore-rules.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Firestore rules
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92 }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92" > "$RUNNER_TEMP/firebase-service-account.json"
+            export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-service-account.json"
+            npx firebase-tools deploy --only firestore:rules --project pokemon-dex-40e92 --non-interactive
+          elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+            export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-service-account.json"
+            npx firebase-tools deploy --only firestore:rules --project pokemon-dex-40e92 --non-interactive
+          elif [ -n "${FIREBASE_TOKEN:-}" ]; then
+            npx firebase-tools deploy --only firestore:rules --project pokemon-dex-40e92 --token "$FIREBASE_TOKEN" --non-interactive
+          else
+            echo "::error::Firebase deployment credential is not configured in this repository. Add FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92, FIREBASE_SERVICE_ACCOUNT, or FIREBASE_TOKEN."
+            exit 1
+          fi
