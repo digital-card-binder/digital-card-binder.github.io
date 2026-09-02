@@ -1,0 +1,117 @@
+name: Temporary fix trainer Pokemon storage v2
+on:
+  push:
+    branches:
+      - fix/trainer-pokemon-storage-warning
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Apply storage namespace fix
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p=Path('collector-collection-registry.js')
+          s=p.read_text(encoding='utf-8')
+          before=s
+          s=s.replace('''      documentId: "trainerPokemonDex",\n      unit: "장",''','''      documentId: "pokemonCollectionsDex",\n      overrideField: "trainerPokemonOverrides",\n      legacyDocumentId: "trainerPokemonDex",\n      unit: "장",''',1)
+          old='''    const overrides = normalizedOverrides(source.overrides);\n    const useLegacy = source.baseMode === "legacy";'''
+          new='''    const overrideField = COLLECTIONS[collectionId]?.overrideField || "overrides";\n    const overrides = normalizedOverrides(source[overrideField]);\n    const useLegacy = source.baseMode === "legacy";'''
+          if old not in s: raise SystemExit('registry ownership block not found')
+          s=s.replace(old,new,1)
+          if s==before: raise SystemExit('registry unchanged')
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('firebase-page-manager.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('''    trainerPokemon: { documentId: "trainerPokemonDex" },''','''    trainerPokemon: {\n      documentId: "pokemonCollectionsDex",\n      overrideField: "trainerPokemonOverrides",\n      legacyDocumentId: "trainerPokemonDex",\n    },''',1)
+          marker='''  const page = PAGE_CONFIG[mode];\n  if (!page) return;'''
+          if marker not in s: raise SystemExit('page marker not found')
+          s=s.replace(marker,marker+'\n  const overrideField = page.overrideField || "overrides";',1)
+
+          old='''    try {\n      const snapshot = await firestoreModule.getDoc(documentRef);\n      if (snapshot.exists()) {\n        const data = snapshot.data() || {};\n        accountProfile = {\n          baseMode: data.baseMode === "legacy" ? "legacy" : "empty",\n        };\n        remoteOverrides = sanitizeOverrides(data.overrides || {});\n        return;\n      }\n\n      await firestoreModule.setDoc(documentRef, {\n        baseMode: fallbackMode,\n        email: user.email || "",\n        displayName: user.displayName || "",\n        overrides: {},\n        createdAt: firestoreModule.serverTimestamp(),\n        updatedAt: firestoreModule.serverTimestamp(),\n      });\n    } catch (error) {'''
+          new='''    try {\n      const snapshot = await firestoreModule.getDoc(documentRef);\n      const data = snapshot.exists() ? snapshot.data() || {} : {};\n      accountProfile = {\n        baseMode: data.baseMode === "legacy" ? "legacy" : fallbackMode,\n      };\n      remoteOverrides = sanitizeOverrides(data[overrideField] || {});\n\n      if (page.legacyDocumentId && page.legacyDocumentId !== page.documentId) {\n        try {\n          const legacyRef = firestoreModule.doc(\n            db,\n            "users",\n            user.uid,\n            CONFIG.userCollection || "collections",\n            page.legacyDocumentId,\n          );\n          const legacySnapshot = await firestoreModule.getDoc(legacyRef);\n          if (legacySnapshot.exists()) {\n            const legacyData = legacySnapshot.data() || {};\n            const legacyOverrides = sanitizeOverrides(legacyData.overrides || {});\n            const mergedOverrides = { ...legacyOverrides, ...remoteOverrides };\n            if (Object.keys(legacyOverrides).length) {\n              remoteOverrides = mergedOverrides;\n              await firestoreModule.setDoc(\n                documentRef,\n                {\n                  baseMode: accountProfile.baseMode,\n                  email: user.email || "",\n                  displayName: user.displayName || "",\n                  [overrideField]: mergedOverrides,\n                  updatedAt: firestoreModule.serverTimestamp(),\n                },\n                { merge: true },\n              );\n            }\n          }\n        } catch (migrationError) {\n          console.info(`${page.legacyDocumentId} 이전 데이터는 현재 권한에서 읽을 수 없어 건너뜁니다.`);\n        }\n      }\n\n      if (snapshot.exists()) return;\n\n      await firestoreModule.setDoc(documentRef, {\n        baseMode: fallbackMode,\n        email: user.email || "",\n        displayName: user.displayName || "",\n        [overrideField]: remoteOverrides,\n        createdAt: firestoreModule.serverTimestamp(),\n        updatedAt: firestoreModule.serverTimestamp(),\n      });\n    } catch (error) {'''
+          if old not in s: raise SystemExit('page manager load block not found')
+          s=s.replace(old,new,1)
+          # shared read-only path now reads the same namespace too
+          target='''        remoteOverrides = sanitizeOverrides(data.overrides || {});'''
+          if target not in s: raise SystemExit('shared override read not found')
+          s=s.replace(target,'''        remoteOverrides = sanitizeOverrides(data[overrideField] || {});''',1)
+          s=s.replace('''            overrides: nextOverrides,\n            updatedAt: firebase.firestoreModule.serverTimestamp(),''','''            [overrideField]: nextOverrides,\n            updatedAt: firebase.firestoreModule.serverTimestamp(),''')
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('dashboard.js')
+          s=p.read_text(encoding='utf-8')
+          old='''    const overrides =\n      document.overrides &&\n      typeof document.overrides === "object" &&\n      !Array.isArray(document.overrides)\n        ? document.overrides\n        : {};'''
+          new='''    const overrideField = CATEGORY_META[category]?.overrideField || "overrides";\n    const sourceOverrides = document[overrideField];\n    const overrides =\n      sourceOverrides &&\n      typeof sourceOverrides === "object" &&\n      !Array.isArray(sourceOverrides)\n        ? sourceOverrides\n        : {};'''
+          count=s.count(old)
+          if count != 2: raise SystemExit(f'dashboard override blocks found {count}')
+          s=s.replace(old,new,2)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('owner-sheets-sync.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('''    trainerPokemon: "trainerPokemonDex",''','''    trainerPokemon: "pokemonCollectionsDex",''',1)
+          insert='''  const OVERRIDE_FIELDS = {\n    trainerPokemon: "trainerPokemonOverrides",\n  };\n'''
+          marker='''  const DATA_FILES = {'''
+          if marker not in s: raise SystemExit('sheets DATA_FILES marker missing')
+          s=s.replace(marker,insert+marker,1)
+          old='''  function overrideFor(data, key) {\n    const overrides =\n      data?.overrides && typeof data.overrides === "object"\n        ? data.overrides\n        : {};'''
+          new='''  function overrideFor(data, key, category = "") {\n    const field = OVERRIDE_FIELDS[category] || "overrides";\n    const source = data?.[field];\n    const overrides =\n      source && typeof source === "object"\n        ? source\n        : {};'''
+          if old not in s: raise SystemExit('sheets overrideFor block not found')
+          s=s.replace(old,new,1)
+          start=s.index('  function buildCollectionRows(')
+          end=s.index('\n  function buildRowsForCategory(',start)
+          block=s[start:end]
+          if 'overrideFor(data, key)' not in block: raise SystemExit('collection override call not found')
+          block=block.replace('overrideFor(data, key)','overrideFor(data, key, category)',1)
+          s=s[:start]+block+s[end:]
+          old='''      const overrides = {\n        ...(data.overrides && typeof data.overrides === "object"\n          ? data.overrides\n          : {}),\n      };'''
+          new='''      const overrideField = OVERRIDE_FIELDS[category] || "overrides";\n      const sourceOverrides = data[overrideField];\n      const overrides = {\n        ...(sourceOverrides && typeof sourceOverrides === "object"\n          ? sourceOverrides\n          : {}),\n      };'''
+          if old not in s: raise SystemExit('sheets apply overrides block not found')
+          s=s.replace(old,new,1)
+          target='''            overrides,\n            updatedAt: firebase.firestoreModule.serverTimestamp(),'''
+          if target not in s: raise SystemExit('sheets write payload not found')
+          s=s.replace(target,'''            [overrideField]: overrides,\n            updatedAt: firebase.firestoreModule.serverTimestamp(),''',1)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('tests/collector-registry.test.mjs')
+          s=p.read_text(encoding='utf-8')
+          if 'trainer Pokemon storage shares authorized document' not in s:
+            s+='''\n\ntest("trainer Pokemon storage shares authorized document without sharing ownership keys", async () => {\n  const meta = registry.COLLECTIONS.trainerPokemon;\n  assert.equal(meta.documentId, "pokemonCollectionsDex");\n  assert.equal(meta.overrideField, "trainerPokemonOverrides");\n  const catalog = await registry.loadCatalog("trainerPokemon");\n  const key = catalog.items[0].key;\n  const isolated = await registry.ownershipFor("trainerPokemon", {\n    baseMode: "empty",\n    overrides: { [key]: { owned: true } },\n    trainerPokemonOverrides: { [key]: { owned: false } },\n  });\n  assert.equal(isolated.ownedKeys.includes(key), false);\n  const owned = await registry.ownershipFor("trainerPokemon", {\n    baseMode: "empty",\n    trainerPokemonOverrides: { [key]: { owned: true } },\n  });\n  assert.equal(owned.ownedKeys.includes(key), true);\n});\n'''
+          p.write_text(s,encoding='utf-8')
+
+          # Force fresh shared scripts on every page that includes them.
+          for path in Path('.').glob('*.html'):
+            t=path.read_text(encoding='utf-8')
+            t=re.sub(r'firebase-page-manager\.js\?v=[0-9-]+','firebase-page-manager.js?v=20260902-5',t)
+            t=re.sub(r'collector-collection-registry\.js\?v=[0-9-]+','collector-collection-registry.js?v=20260902-5',t)
+            t=re.sub(r'owner-sheets-sync\.js\?v=[0-9-]+','owner-sheets-sync.js?v=20260902-4',t)
+            t=re.sub(r'dashboard\.js\?v=[0-9-]+','dashboard.js?v=20260902-5',t)
+            path.write_text(t,encoding='utf-8')
+          PY
+      - run: npm ci
+      - name: Run full verification
+        run: npm test
+      - name: Commit verified fix and remove temporary workflows
+        run: |
+          git config user.name "Youngdeukseo"
+          git config user.email "128191608+Youngdeukseo@users.noreply.github.com"
+          rm -f .github/workflows/tmp-fix-trainer-storage.yml .github/workflows/tmp-fix-trainer-storage2.yml
+          git add -A
+          git commit -m "fix: isolate trainer Pokemon ownership in authorized storage"
+          git push origin HEAD:fix/trainer-pokemon-storage-warning
