@@ -48,6 +48,7 @@ jobs:
           if newtest not in t:
             if anchor not in t: raise RuntimeError('test anchor missing')
             t=t.replace(anchor,newtest+anchor,1)
+          t=t.replace('dashboard[.]js[?]v=20260814-1','dashboard[.]js[?]v=20260902-1')
           test.write_text(t,encoding='utf-8')
 
           idx=Path('index.html')
