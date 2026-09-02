@@ -144,7 +144,7 @@ function updateDialog(card) {
   tp("tp-dialog-person").textContent = personLabel(card).toUpperCase();
   tp("tp-dialog-person-detail").textContent = personLabel(card);
   tp("tp-dialog-pokemon").textContent = card.pokemonName || card._tpPokemonName || "—";
-  tp("tp-dialog-set").textContent = [card.set, card.setName].filter(Boolean).join(" · ") || "—";
+  tp("tp-dialog-set").textContent = card.set || "—";
   tp("tp-dialog-rarity").textContent = card.rarity || "—";
   tp("tp-dialog-card-number").textContent = card.cardNumber || "—";
   tp("tp-dialog-illustrator").textContent = card.illustrator || "—";
@@ -252,7 +252,7 @@ function createCard(card) {
   meta.className = "card-meta";
   const set = document.createElement("span");
   set.className = "card-set";
-  set.textContent = [card.setName, card.rarity].filter(Boolean).join(" · ");
+  set.textContent = [card.set, card.rarity].filter(Boolean).join(" · ");
   const cardNumber = document.createElement("span");
   cardNumber.className = "card-number";
   cardNumber.textContent = card.cardNumber || "";
