@@ -1,0 +1,93 @@
+name: Temporary SV special art contact sheets
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-sv-special-contact-sheets.yml
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow requests
+      - name: Build all SV secret-number contact sheets
+        run: |
+          python - <<'PY'
+          import io,json,math,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from PIL import Image,ImageDraw,ImageFont
+
+          series=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          rows=[]
+          for g in series:
+            code=str(g.get('code') or '')
+            if not code.upper().startswith('SV'): continue
+            for c in g.get('cards') or []:
+              cc=str(c.get('code') or '')
+              m=re.search(r'_(\d+)/(\d+)$',cc)
+              if not m: continue
+              n,d=map(int,m.groups())
+              if n<=d: continue
+              rows.append({
+                'set':code,'setName':g.get('title'),'name':c.get('name') or c.get('pokemonName'),
+                'code':cc,'image':c.get('image'),'source':c.get('source'),'n':n,'d':d
+              })
+          rows.sort(key=lambda r:(r['set'].upper(),r['n'],r['code']))
+          Path('sv-special-manifest.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('SPECIAL_ROWS',len(rows))
+
+          def get(row):
+            try:
+              rr=requests.get(row['image'],timeout=20,headers={'User-Agent':'digital-card-binder-audit/1.0'})
+              rr.raise_for_status()
+              im=Image.open(io.BytesIO(rr.content)).convert('RGB')
+              im.thumbnail((200,280))
+              return row,im,None
+            except Exception as e: return row,None,str(e)
+
+          thumbs=[];fails=[]
+          with ThreadPoolExecutor(max_workers=20) as ex:
+            futs=[ex.submit(get,r) for r in rows]
+            for i,f in enumerate(as_completed(futs),1):
+              row,im,e=f.result()
+              if im is None: fails.append({**row,'error':e})
+              else: thumbs.append((row,im))
+              if i%100==0: print('DOWNLOADED',i,'FAIL',len(fails))
+          order={r['code']:i for i,r in enumerate(rows)}
+          thumbs.sort(key=lambda x:order[x[0]['code']])
+          Path('sv-special-failures.json').write_text(json.dumps(fails,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          out=Path('sv-special-sheets');out.mkdir()
+          W,H=245,355;COLS,ROWS=5,4;PER=20;font=ImageFont.load_default()
+          for p in range(math.ceil(len(thumbs)/PER)):
+            canvas=Image.new('RGB',(COLS*W,ROWS*H),'white');draw=ImageDraw.Draw(canvas)
+            for j,(row,im) in enumerate(thumbs[p*PER:(p+1)*PER]):
+              x=(j%COLS)*W;y=(j//COLS)*H
+              canvas.paste(im,(x+20,y+4))
+              label=f"{row['set']} {row['n']:03d}/{row['d']:03d}\n{row['name']}"
+              draw.multiline_text((x+5,y+288),label,fill='black',font=font,spacing=2)
+            canvas.save(out/f'page-{p+1:03d}.jpg',quality=92)
+          print('SHEETS',math.ceil(len(thumbs)/PER),'FAIL',len(fails))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sv-special-contact-sheets
+          path: |
+            sv-special-manifest.json
+            sv-special-failures.json
+            sv-special-sheets/
+          retention-days: 1
