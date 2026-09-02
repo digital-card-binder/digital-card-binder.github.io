@@ -1,0 +1,175 @@
+name: Temporary expand trainer Pokemon dex
+
+on:
+  push:
+    branches:
+      - feature/rename-and-expand-trainer-pokemon-dex
+    paths:
+      - .github/workflows/tmp-expand-trainer-pokemon-dex.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/rename-and-expand-trainer-pokemon-dex
+          fetch-depth: 0
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Rename and add reviewed Korean cards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          DATA = Path('data/trainer-pokemon.json')
+          payload = json.loads(DATA.read_text(encoding='utf-8'))
+          payload['version'] = 3
+          payload['updatedAt'] = '2026-09-02'
+          payload['title'] = '트레이너와 포켓몬 도감'
+          payload['description'] = '트레이너를 포함해 사람과 포켓몬이 같은 일러스트 장면에 함께 등장하는 한글판 포켓몬 카드 컬렉션'
+
+          by_dex = {int(group['nationalDexNo']): group for group in payload.get('groups', [])}
+          existing_codes = {
+            str(card.get('code') or '')
+            for group in payload.get('groups', [])
+            for card in group.get('cards', [])
+          }
+          existing_images = {
+            str(card.get('image') or '').split('?', 1)[0].lower()
+            for group in payload.get('groups', [])
+            for card in group.get('cards', [])
+          }
+
+          def add(dex, pokemon, **card):
+            code = str(card['code'])
+            image_key = str(card['image']).split('?', 1)[0].lower()
+            if code in existing_codes or image_key in existing_images:
+              return
+            group = by_dex.get(dex)
+            if group is None:
+              group = {'name': pokemon, 'nationalDexNo': dex, 'cards': []}
+              by_dex[dex] = group
+            card.update({
+              'order': 0,
+              'name': pokemon,
+              'pokemonName': pokemon,
+              'owned': False,
+              'verification': 'reviewed-user-photo-and-official-korean-catalog',
+            })
+            group['cards'].append(card)
+            existing_codes.add(code)
+            existing_images.add(image_key)
+
+          # User-provided physical-card photos reviewed against the official Korean catalog.
+          add(6, '리자몽', personName='그 외의 사람들', personType='other', set='S4', setName='앙천의 볼트태클', rarity='', cardNumber='012/100', code='s4_012/100', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4/S4_012.png', source='https://pokemoncard.co.kr/cards/detail/BS2020014012', sceneTags=['트레이너','배틀'])
+          add(834, '갈가부기', personName='그 외의 사람들', personType='other', set='S4', setName='앙천의 볼트태클', rarity='', cardNumber='026/100', code='s4_026/100', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4/S4_026.png', source='https://pokemoncard.co.kr/cards/detail/BS2020014026', sceneTags=['트레이너','야외'])
+          add(383, '그란돈', personName='그 외의 사람들', personType='other', set='S8a', setName='25th ANNIVERSARY COLLECTION', rarity='', cardNumber='006/028', code='s8a_006/028', illustrator='Ryuta Fuse', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_006.png', source='https://pokemoncard.co.kr/cards/detail/BS2021015006', sceneTags=['트레이너','배틀'])
+          add(789, '코스모그', personName='릴리에', personType='named', trainer='릴리에', set='S8a', setName='25th ANNIVERSARY COLLECTION', rarity='', cardNumber='014/028', code='s8a_014/028', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_014.png', source='https://pokemoncard.co.kr/cards/detail/BS2021015014', sceneTags=['트레이너','스토리'])
+          add(790, '코스모움', personName='릴리에', personType='named', trainer='릴리에', set='S8a', setName='25th ANNIVERSARY COLLECTION', rarity='', cardNumber='015/028', code='s8a_015/028', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_015.png', source='https://pokemoncard.co.kr/cards/detail/BS2021015015', sceneTags=['트레이너','스토리'])
+          add(792, '루나아라', personName='릴리에', personType='named', trainer='릴리에', set='S8a', setName='25th ANNIVERSARY COLLECTION', rarity='', cardNumber='017/028', code='s8a_017/028', illustrator='kirisAki', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8a/S8a_017.png', source='https://pokemoncard.co.kr/cards/detail/BS2021015017', sceneTags=['트레이너','스토리'])
+          add(869, '마휘핑', personName='그 외의 사람들', personType='other', set='S8b', setName='VMAX 클라이맥스', rarity='', cardNumber='081/184', code='s8b_081/184', illustrator='sowsow', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_081.png', source='https://pokemoncard.co.kr/cards/detail/BS2022001081', sceneTags=['직원','가게','일상'])
+          add(399, '비버니', personName='그 외의 사람들', personType='other', set='S9', setName='스타버스', rarity='C', cardNumber='081/100', code='s9_081/100', illustrator='Oswaldo KATO', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9_081.png', source='https://pokemoncard.co.kr/cards/detail/BS2022002081', sceneTags=['트레이너','야외'])
+          add(131, '라프라스', personName='그 외의 사람들', personType='other', set='S6H', setName='백은의 랜스', rarity='C', cardNumber='018/070', code='s6h_018/070', illustrator='Atsushi Furusawa', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_018.png', source='https://pokemoncard.co.kr/cards/detail/BS2021004018', sceneTags=['트레이너','설경'])
+          add(478, '눈여아', personName='그 외의 사람들', personType='other', set='S6H', setName='백은의 랜스', rarity='', cardNumber='021/070', code='s6h_021/070', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_021.png', source='https://pokemoncard.co.kr/cards/detail/BS2021004021', sceneTags=['트레이너','설경'])
+          add(712, '꽁어름', personName='그 외의 사람들', personType='other', set='S10P', setName='스페이스 저글러', rarity='', cardNumber='024/067', code='s10p_024/067', illustrator='', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_024.png', source='https://pokemoncard.co.kr/cards/detail/BS2022008024', sceneTags=['일상','설경'])
+
+          # EX Battle Boost family sequence shown by the user; official Korean AJAX inventory confirms all three.
+          add(498, '뚜꾸리', personName='그 외의 사람들', personType='other', set='EBB', setName='EX 배틀 부스트', rarity='', cardNumber='017/093', code='ebb_017/093', illustrator='Kanako Eo', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_017.jpg', source='https://pokemoncard.co.kr/cards/detail/BS2013006017', sceneTags=['가족','이어지는 일러스트'], storyId='ebb-tepig-family')
+          add(499, '차오꿀', personName='그 외의 사람들', personType='other', set='EBB', setName='EX 배틀 부스트', rarity='', cardNumber='018/093', code='ebb_018/093', illustrator='Kanako Eo', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_018.jpg', source='https://pokemoncard.co.kr/cards/detail/BS2013006018', sceneTags=['가족','이어지는 일러스트'], storyId='ebb-tepig-family')
+          add(500, '염무왕', personName='그 외의 사람들', personType='other', set='EBB', setName='EX 배틀 부스트', rarity='', cardNumber='019/093', code='ebb_019/093', illustrator='Kanako Eo', image='https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/EBB/ebb_019.jpg', source='https://pokemoncard.co.kr/cards/detail/BS2013006019', sceneTags=['가족','이어지는 일러스트'], storyId='ebb-tepig-family')
+
+          payload['groups'] = sorted(by_dex.values(), key=lambda group: int(group['nationalDexNo']))
+          for group in payload['groups']:
+            for idx, card in enumerate(group.get('cards', []), 1):
+              card['order'] = idx
+
+          cards = [card for group in payload['groups'] for card in group.get('cards', [])]
+          assert len(cards) == 20, len(cards)
+          assert len(payload['groups']) == 19, len(payload['groups'])
+          assert len({card['code'] for card in cards}) == len(cards)
+          assert all(card.get('owned') is False for card in cards)
+          DATA.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          # Rename all user-facing references while keeping the wider inclusion rule.
+          text_files = []
+          for pattern in ('*.js','*.html','*.json','*.mjs'):
+            text_files.extend(Path('.').rglob(pattern))
+          for path in text_files:
+            if '.git' in path.parts or path.name.startswith('tmp-'):
+              continue
+            text = path.read_text(encoding='utf-8')
+            updated = text.replace('사람과 포켓몬 도감', '트레이너와 포켓몬 도감').replace('PEOPLE × POKÉMON', 'TRAINER × POKÉMON')
+            if updated != text:
+              path.write_text(updated, encoding='utf-8')
+
+          # Keep description explicit that unnamed people remain in scope.
+          html_path = Path('trainer-pokemon.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = html.replace('트레이너와 사람, 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션', '트레이너를 포함해 사람과 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션')
+          html = html.replace('이름 없는 NPC·관중·가족·직원 등도 장면의 주체로 포켓몬과 함께 있으면 별도 그룹으로 수록', '이름 없는 NPC·가족·직원·학생 등도 장면의 주체로 포켓몬과 함께 있으면 포함')
+          html = html.replace('./trainer-pokemon.js?v=20260902-1', './trainer-pokemon.js?v=20260902-2')
+          html_path.write_text(html, encoding='utf-8')
+
+          js_path = Path('trainer-pokemon.js')
+          js = js_path.read_text(encoding='utf-8').replace('./data/trainer-pokemon.json?v=20260902-2', './data/trainer-pokemon.json?v=20260902-3')
+          js_path.write_text(js, encoding='utf-8')
+
+          # Update registry count safely inside the trainerPokemon block.
+          reg_path = Path('collector-collection-registry.js')
+          reg = reg_path.read_text(encoding='utf-8')
+          reg, n = re.subn(r'(trainerPokemon:\s*\{.*?catalogCount:\s*)\d+', r'\g<1>20', reg, count=1, flags=re.S)
+          assert n == 1
+          reg_path.write_text(reg, encoding='utf-8')
+
+          # Bust common script caches on every HTML page so the renamed menu/count appears immediately.
+          for path in Path('.').glob('*.html'):
+            text = path.read_text(encoding='utf-8')
+            text = text.replace('collector-collection-registry.js?v=20260902-1', 'collector-collection-registry.js?v=20260902-2')
+            text = text.replace('collector-nav.js?v=20260902-2', 'collector-nav.js?v=20260902-3')
+            text = text.replace('owner-sheets-sync.js?v=20260902-2', 'owner-sheets-sync.js?v=20260902-3')
+            path.write_text(text, encoding='utf-8')
+
+          # Test expectations for the expanded catalog and new cache versions.
+          test = Path('tests/trainer-pokemon-data.test.mjs')
+          text = test.read_text(encoding='utf-8')
+          text = text.replace('assert.equal(cards.length, 6);', 'assert.equal(cards.length, 20);')
+          text = re.sub(r'assert\.deepEqual\(data\.groups\.map\(\(g\) => g\.nationalDexNo\), \[[^\]]+\]\);', 'assert.deepEqual(data.groups.map((g) => g.nationalDexNo), [6,54,131,157,383,399,445,478,498,499,500,644,712,789,790,792,820,834,869]);', text)
+          text = text.replace('assert.equal(new Set(cards.map((c) => c.code)).size, 6);', 'assert.equal(new Set(cards.map((c) => c.code)).size, 20);')
+          test.write_text(text, encoding='utf-8')
+
+          registry_test = Path('tests/collector-registry.test.mjs')
+          text = registry_test.read_text(encoding='utf-8').replace('trainerPokemon: 6,', 'trainerPokemon: 20,')
+          registry_test.write_text(text, encoding='utf-8')
+
+          ui_test = Path('tests/collector-ui-contract.test.mjs')
+          text = ui_test.read_text(encoding='utf-8')
+          text = text.replace('collector-collection-registry[.]js[?]v=20260902-1', 'collector-collection-registry[.]js[?]v=20260902-2')
+          text = text.replace('collector-nav[.]js[?]v=20260902-2', 'collector-nav[.]js[?]v=20260902-3')
+          text = text.replace('owner-sheets-sync[.]js[?]v=20260902-2', 'owner-sheets-sync[.]js[?]v=20260902-3')
+          ui_test.write_text(text, encoding='utf-8')
+
+          # Sanity checks.
+          assert '사람과 포켓몬 도감' not in Path('collector-nav.js').read_text(encoding='utf-8')
+          assert 'PEOPLE × POKÉMON' not in Path('collector-nav.js').read_text(encoding='utf-8')
+          assert '트레이너와 포켓몬 도감' in Path('trainer-pokemon.html').read_text(encoding='utf-8')
+          print('trainer Pokemon dex: 20 cards / 19 Pokemon groups')
+          PY
+      - run: npm ci
+      - run: npm test
+      - name: Commit feature changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A ':!.github/workflows/tmp-audit-trainer-pokemon-samples.yml' ':!.github/workflows/tmp-expand-trainer-pokemon-dex.yml'
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: rename and expand trainer Pokemon dex"
+            git pull --rebase origin feature/rename-and-expand-trainer-pokemon-dex
+            git push origin HEAD:feature/rename-and-expand-trainer-pokemon-dex
+          fi
