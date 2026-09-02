@@ -1,0 +1,187 @@
+name: Temporary apply Sword Shield character rare batch
+
+on:
+  push:
+    branches: [fix/dashboard-and-swordshield-trainer-pokemon]
+    paths: [.github/workflows/tmp-apply-s-character-batch.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Add reviewed CHR and CSR cards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          tp_path=Path('data/trainer-pokemon.json')
+          tp=json.loads(tp_path.read_text(encoding='utf-8'))
+          series=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          pokedex=json.loads(Path('data/pokedex.json').read_text(encoding='utf-8'))
+          dex_by_name={str(r['nameKo']).strip():int(r['number']) for r in pokedex['records']}
+          groups_by_code={str(g.get('code') or '').lower():g for g in series}
+          by_dex={int(g['nationalDexNo']):g for g in tp['groups']}
+          existing={str(c.get('code') or '').lower() for g in tp['groups'] for c in g.get('cards',[])}
+
+          def set_title(g):
+            return re.sub(r'\s*\(\d+/\d+\)\s*$','',str(g.get('title') or '')).strip()
+
+          def base_name(name):
+            n=str(name or '').strip()
+            n=re.sub(r'\s+(?:VMAX|VSTAR|V|ex)$','',n,flags=re.I)
+            replacements={
+              '백마 버드렉스':'버드렉스','흑마 버드렉스':'버드렉스',
+              '일격 우라오스':'우라오스','연격 우라오스':'우라오스',
+            }
+            if n in replacements: n=replacements[n]
+            for prefix in ('가라르 ','히스이 ','알로라 '):
+              if n.startswith(prefix):
+                candidate=n[len(prefix):]
+                if candidate in dex_by_name: n=candidate
+            return n
+
+          def number_from_code(code):
+            m=re.search(r'_(\d{3})/(\d{3})$',str(code),re.I)
+            if not m: return None,None
+            return int(m.group(1)),int(m.group(2))
+
+          # High-confidence Sword & Shield character-rare ranges. These rarities depict a Pokemon with a character.
+          ranges={
+            's8b': [(185,212,'CHR'),(213,254,'CSR')],
+            's9a': [(68,73,'CHR'),(83,84,'CSR')],
+            's10a':[(72,77,'CHR'),(88,89,'CSR')],
+            's11a':[(69,74,'CHR'),(84,85,'CSR')],
+          }
+          # S8b 226-229 is one four-card Morpeko V-UNION illustration and is held for per-piece visual review.
+          held={('s8b',226),('s8b',227),('s8b',228),('s8b',229),('s8b',211)}
+
+          candidates=[]
+          for set_code, specs in ranges.items():
+            g=groups_by_code[set_code]
+            rarity_by_num={n:rar for start,end,rar in specs for n in range(start,end+1)}
+            for c in g.get('cards') or []:
+              num,den=number_from_code(c.get('code'))
+              if num not in rarity_by_num or (set_code,num) in held: continue
+              candidates.append((set_code,g,c,num,den,rarity_by_num[num]))
+
+          # series.json currently omits S8b 249/184 although the official Korean detail page exists.
+          g=groups_by_code['s8b']
+          candidates.append(('s8b',g,{
+            'name':'아머까오 VMAX','code':'s8b_249/184',
+            'image':'https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_249.png',
+            'source':'https://pokemoncard.co.kr/cards/detail/BS2022001249',
+          },249,184,'CSR'))
+
+          # Validate expected ranges against the Korean series catalog before mutating data.
+          keys={(s,n) for s,_,_,n,_,_ in candidates}
+          expected=65+8+8+8
+          assert len(candidates)==expected, (len(candidates), sorted(keys))
+
+          added=[]
+          for set_code,g,c,num,den,rarity in candidates:
+            code=str(c.get('code') or '').lower()
+            if code in existing: continue
+            raw_name=str(c.get('name') or c.get('pokemonName') or '').strip()
+            pokemon=base_name(raw_name)
+            if pokemon not in dex_by_name:
+              raise RuntimeError(f'Unmapped Pokemon: {raw_name} -> {pokemon} ({code})')
+            dex=dex_by_name[pokemon]
+            group=by_dex.get(dex)
+            if group is None:
+              group={'name':pokemon,'nationalDexNo':dex,'cards':[]}
+              by_dex[dex]=group
+            elif group['name'] != pokemon:
+              raise RuntimeError(f'Group name mismatch {dex}: {group["name"]} vs {pokemon}')
+            source=str(c.get('source') or '').strip()
+            image=str(c.get('image') or '').strip()
+            assert source.startswith('https://pokemoncard.co.kr/cards/detail/'), (code,source)
+            assert image.startswith('https://cards.image.pokemonkorea.co.kr/'), (code,image)
+            card={
+              'personName':'그 외의 사람들',
+              'personType':'other',
+              'set':str(g.get('code') or set_code),
+              'setName':set_title(g),
+              'rarity':rarity,
+              'cardNumber':f'{num:03d}/{den:03d}',
+              'code':code,
+              'illustrator':str(c.get('illustrator') or ''),
+              'image':image,
+              'source':source,
+              'sceneTags':['트레이너',rarity],
+              'name':raw_name,
+              'pokemonName':pokemon,
+              'owned':False,
+              'verification':'official-korean-character-rare',
+            }
+            group['cards'].append(card)
+            existing.add(code);added.append(code)
+
+          tp['groups']=sorted(by_dex.values(),key=lambda g:int(g['nationalDexNo']))
+          for group in tp['groups']:
+            group['cards'].sort(key=lambda c:(str(c.get('set') or ''),str(c.get('cardNumber') or ''),str(c.get('code') or '')))
+            for i,c in enumerate(group['cards'],1): c['order']=i
+          tp['version']=4;tp['updatedAt']='2026-09-02'
+          tp_path.write_text(json.dumps(tp,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          cards=[c for g in tp['groups'] for c in g['cards']]
+          assert len(added)==89, len(added)
+          assert len(cards)==109, len(cards)
+          assert len({c['code'] for c in cards})==109
+          assert all(c.get('owned') is False for c in cards)
+          print('ADDED',len(added),'TOTAL',len(cards),'GROUPS',len(tp['groups']))
+          print('GROUP_NUMBERS',[g['nationalDexNo'] for g in tp['groups']])
+
+          # Registry count.
+          reg_path=Path('collector-collection-registry.js');reg=reg_path.read_text(encoding='utf-8')
+          reg,n=re.subn(r'(trainerPokemon:\s*\{.*?catalogCount:\s*)\d+',r'\g<1>109',reg,count=1,flags=re.S)
+          assert n==1;reg_path.write_text(reg,encoding='utf-8')
+
+          # Data and JS cache busts.
+          js_path=Path('trainer-pokemon.js');js=js_path.read_text(encoding='utf-8').replace('trainer-pokemon.json?v=20260902-3','trainer-pokemon.json?v=20260902-4');js_path.write_text(js,encoding='utf-8')
+          html_path=Path('trainer-pokemon.html');html=html_path.read_text(encoding='utf-8').replace('trainer-pokemon.js?v=20260902-2','trainer-pokemon.js?v=20260902-3');html_path.write_text(html,encoding='utf-8')
+          idx=Path('index.html');ix=idx.read_text(encoding='utf-8').replace('dashboard.js?v=20260814-1','dashboard.js?v=20260902-1');idx.write_text(ix,encoding='utf-8')
+          for path in Path('.').glob('*.html'):
+            text=path.read_text(encoding='utf-8').replace('collector-collection-registry.js?v=20260902-2','collector-collection-registry.js?v=20260902-3')
+            path.write_text(text,encoding='utf-8')
+
+          # Trainer/Pokemon data test uses the generated exact group list.
+          test=Path('tests/trainer-pokemon-data.test.mjs');t=test.read_text(encoding='utf-8')
+          t=t.replace('assert.equal(cards.length, 20);','assert.equal(cards.length, 109);')
+          t=re.sub(r'assert\.deepEqual\(data\.groups\.map\(\(g\) => g\.nationalDexNo\), \[[^\]]*\]\);',f"assert.deepEqual(data.groups.map((g) => g.nationalDexNo), {[g['nationalDexNo'] for g in tp['groups']]});",t)
+          t=t.replace('assert.equal(new Set(cards.map((c) => c.code)).size, 20);','assert.equal(new Set(cards.map((c) => c.code)).size, 109);')
+          test.write_text(t,encoding='utf-8')
+
+          # Registry tests: card total and group count.
+          rt=Path('tests/collector-registry.test.mjs');r=rt.read_text(encoding='utf-8')
+          r=r.replace('trainerPokemon: 20,','trainerPokemon: 109,')
+          r=re.sub(r'(test\("existing nonempty top-level catalog group counts stay unchanged".*?trainerPokemon:\s*)19(,)',rf'\g<1>{len(tp["groups"])}\2',r,count=1,flags=re.S)
+          rt.write_text(r,encoding='utf-8')
+
+          # Cache contract versions.
+          ui=Path('tests/collector-ui-contract.test.mjs');u=ui.read_text(encoding='utf-8')
+          u=u.replace('collector-collection-registry[.]js[?]v=20260902-2','collector-collection-registry[.]js[?]v=20260902-3')
+          ui.write_text(u,encoding='utf-8')
+          PY
+      - name: Install dependencies
+        run: npm ci
+      - name: Run full tests
+        run: npm test
+      - name: Commit reviewed batch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard.js index.html data/trainer-pokemon.json collector-collection-registry.js trainer-pokemon.js trainer-pokemon.html tests/collector-ui-contract.test.mjs tests/collector-registry.test.mjs tests/trainer-pokemon-data.test.mjs
+          git commit -m "feat: add Sword Shield character rare trainer Pokemon cards"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
