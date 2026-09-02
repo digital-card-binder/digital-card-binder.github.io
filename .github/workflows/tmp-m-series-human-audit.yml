@@ -1,0 +1,119 @@
+name: Temporary M series human audit
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-m-series-human-audit.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow requests ultralytics
+      - name: Audit every M-series card
+        run: |
+          python - <<'PY'
+          import io,json,math,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from PIL import Image,ImageDraw,ImageFont
+          from ultralytics import YOLO
+
+          data=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          rows=[]; group_counts=[]
+          for g in data:
+            code=str(g.get('code') or '')
+            if not code.upper().startswith('M'):
+              continue
+            cards=g.get('cards') or []
+            group_counts.append({'set':code,'setName':g.get('title'),'cards':len(cards)})
+            for c in cards:
+              rows.append({
+                'set':code,
+                'setName':g.get('title'),
+                'name':c.get('name') or c.get('pokemonName') or '',
+                'code':c.get('code') or '',
+                'image':c.get('image') or '',
+                'source':c.get('source') or '',
+                'rarity':c.get('rarity') or ''
+              })
+          print('M_GROUPS',json.dumps(group_counts,ensure_ascii=False))
+          print('M_ROWS',len(rows))
+          Path('m-series-manifest.json').write_text(json.dumps({'groups':group_counts,'cards':rows},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          imgdir=Path('m-series-images'); imgdir.mkdir()
+          failures=[]; downloaded=[]
+          def dl(i,row):
+            try:
+              if not row['image']:
+                raise RuntimeError('missing image')
+              r=requests.get(row['image'],timeout=20,headers={'User-Agent':'digital-card-binder-audit/1.0'})
+              r.raise_for_status()
+              p=imgdir/f'{i:04d}.jpg'
+              Image.open(io.BytesIO(r.content)).convert('RGB').save(p,quality=91)
+              return i,row,p,None
+            except Exception as e:
+              return i,row,None,str(e)
+
+          with ThreadPoolExecutor(max_workers=24) as ex:
+            futs=[ex.submit(dl,i,r) for i,r in enumerate(rows)]
+            for k,f in enumerate(as_completed(futs),1):
+              i,row,p,e=f.result()
+              if p: downloaded.append((i,row,p))
+              else: failures.append({**row,'error':e})
+              if k%100==0: print('DOWNLOADED_PROGRESS',k,'FAIL',len(failures))
+          downloaded.sort(key=lambda x:x[0])
+          print('DOWNLOADED',len(downloaded),'FAIL',len(failures))
+          Path('m-series-failures.json').write_text(json.dumps(failures,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          model=YOLO('yolo11n.pt')
+          paths=[str(x[2]) for x in downloaded]
+          results=model.predict(source=paths,classes=[0],conf=0.025,iou=0.45,imgsz=512,batch=32,verbose=False)
+          candidates=[]; thumbs=[]
+          for item,result in zip(downloaded,results):
+            i,row,p=item
+            confs=[] if result.boxes is None else [float(x) for x in result.boxes.conf.cpu().tolist()]
+            maxc=max(confs) if confs else 0
+            if maxc>=.025:
+              rec={**row,'personDetection':round(maxc,4),'personDetections':len(confs)}
+              candidates.append(rec)
+              im=Image.open(p).convert('RGB'); im.thumbnail((205,287)); thumbs.append((rec,im.copy()))
+          print('CANDIDATES',len(candidates))
+          byset={}
+          for c in candidates: byset[c['set']]=byset.get(c['set'],0)+1
+          print('CANDIDATES_BY_SET',json.dumps(byset,ensure_ascii=False,sort_keys=True))
+          Path('m-series-human-candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          out=Path('m-series-candidate-sheets'); out.mkdir()
+          W,H=245,355; COLS,ROWS=5,4; PER=20; font=ImageFont.load_default()
+          for pg in range(math.ceil(len(thumbs)/PER)):
+            can=Image.new('RGB',(COLS*W,ROWS*H),'white'); d=ImageDraw.Draw(can)
+            for j,(row,im) in enumerate(thumbs[pg*PER:(pg+1)*PER]):
+              x=(j%COLS)*W; y=(j//COLS)*H
+              can.paste(im,(x+20,y+4))
+              label=f"{row['set']} {row['code']}\n{row['name']} p={row['personDetection']}"
+              d.multiline_text((x+5,y+294),label,fill='black',font=font,spacing=2)
+            can.save(out/f'page-{pg+1:03d}.jpg',quality=92)
+          print('SHEETS',math.ceil(len(thumbs)/PER))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m-series-human-audit
+          path: |
+            m-series-manifest.json
+            m-series-human-candidates.json
+            m-series-failures.json
+            m-series-candidate-sheets/
+          retention-days: 1
