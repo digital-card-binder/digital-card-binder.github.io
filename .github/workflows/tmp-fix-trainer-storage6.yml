@@ -1,0 +1,147 @@
+name: Finalize trainer Pokemon warning and filter fix
+on:
+  push:
+    branches:
+      - fix/trainer-pokemon-storage-warning
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Apply final fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          # 1) Collection registry: reuse the authorized Pokemon document, but prefix trainer keys.
+          p = Path('collector-collection-registry.js')
+          s = p.read_text(encoding='utf-8')
+          old = '''    trainerPokemon: {\n      number: "08",\n      title: "트레이너와 포켓몬 도감",\n      description: "사람이 함께 등장하는 포켓몬 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "trainerPokemonDex",\n      unit: "장",\n      catalogCount: 130,\n      defaultDashboardVisible: true,\n    },'''
+          new = '''    trainerPokemon: {\n      number: "08",\n      title: "트레이너와 포켓몬 도감",\n      description: "인물과 포켓몬이 함께 등장하는 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "pokemonCollectionsDex",\n      unit: "장",\n      catalogCount: 130,\n      defaultDashboardVisible: true,\n    },'''
+          if old not in s:
+            raise SystemExit('registry trainerPokemon block not found')
+          s = s.replace(old, new, 1)
+          marker = '''    if (collectionId === "artist") {'''
+          trainer_prefix = '''    if (collectionId === "trainerPokemon") {\n      return [\n        "trainerPokemon",\n        groupId,\n        card.meta || card.code || card.name || cardIndex,\n        accountIndex,\n      ].join("::");\n    }\n\n'''
+          if trainer_prefix not in s:
+            if marker not in s:
+              raise SystemExit('registry card identity marker not found')
+            s = s.replace(marker, trainer_prefix + marker, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 2) Page manager: same authorized document + identical key prefix.
+          p = Path('firebase-page-manager.js')
+          s = p.read_text(encoding='utf-8')
+          old = '    trainerPokemon: { documentId: "trainerPokemonDex" },'
+          new = '    trainerPokemon: { documentId: "pokemonCollectionsDex" },'
+          if old not in s:
+            raise SystemExit('page manager trainer config not found')
+          s = s.replace(old, new, 1)
+          marker = '''    if (mode === "artist") {'''
+          trainer_prefix = '''    if (mode === "trainerPokemon") {\n      return [\n        "trainerPokemon",\n        groupId,\n        card.meta || card.code || card.name || cardIndex,\n        accountIndex,\n      ].join("::");\n    }\n\n'''
+          if trainer_prefix not in s:
+            if marker not in s:
+              raise SystemExit('page manager card identity marker not found')
+            s = s.replace(marker, trainer_prefix + marker, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 3) Sheets sync: same document and same prefixed identity.
+          p = Path('owner-sheets-sync.js')
+          s = p.read_text(encoding='utf-8')
+          old = '    trainerPokemon: "trainerPokemonDex",'
+          new = '    trainerPokemon: "pokemonCollectionsDex",'
+          if old not in s:
+            raise SystemExit('owner Sheets trainer document id not found')
+          s = s.replace(old, new, 1)
+          marker = '''    if (category === "artist") {'''
+          trainer_prefix = '''    if (category === "trainerPokemon") {\n      return [\n        "trainerPokemon",\n        groupId,\n        card.meta || card.code || card.name || cardIndex,\n        accountIndex,\n      ].join("::");\n    }\n'''
+          if trainer_prefix not in s:
+            if marker not in s:
+              raise SystemExit('owner Sheets card identity marker not found')
+            s = s.replace(marker, trainer_prefix + marker, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 4) Trainer/Pokemon page: add an explicit All option and make it the default.
+          p = Path('trainer-pokemon.js')
+          s = p.read_text(encoding='utf-8')
+          if 'const TP_ALL_VALUE = "__all__";' not in s:
+            s = s.replace(
+              'const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-4";\n',
+              'const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-4";\nconst TP_ALL_VALUE = "__all__";\n',
+              1,
+            )
+          old = '''function populateGroups(preferredValue) {\n  const select = tp("tp-group-select");\n  select.replaceChildren();\n  if (tpViewMode === "pokemon") {\n    tp("tp-filter-label").textContent = "포켓몬";\n    tp("tp-selection-label").textContent = "선택 포켓몬";\n    const groups = [...tpDataset.groups].sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));\n    groups.forEach((group) => {\n      const option = document.createElement("option");\n      option.value = group.name;\n      option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;\n      select.append(option);\n    });\n    const selectedName = groups.some((group) => group.name === preferredValue) ? preferredValue : groups[0]?.name;\n    tpSelected = groups.find((group) => group.name === selectedName) || groups[0] || null;\n    if (tpSelected) select.value = tpSelected.name;\n  } else {\n    tp("tp-filter-label").textContent = "트레이너";\n    tp("tp-selection-label").textContent = "선택 트레이너";\n    const trainers = trainerOptions();\n    trainers.forEach(([name, count]) => {\n      const option = document.createElement("option");\n      option.value = name;\n      option.textContent = `${name} · ${count}장`;\n      select.append(option);\n    });\n    const selectedName = trainers.some(([name]) => name === preferredValue) ? preferredValue : trainers[0]?.[0];\n    tpSelected = selectedName || null;\n    if (tpSelected) select.value = tpSelected;\n  }\n}\n\nfunction selectedCards() {\n  if (tpViewMode === "pokemon") return tpSelected?.cards || [];\n  return allCards().filter((card) => personLabel(card) === tpSelected);\n}\n'''
+          new = '''function appendAllOption(select) {\n  const option = document.createElement("option");\n  option.value = TP_ALL_VALUE;\n  option.textContent = `전체 · ${allCards().length}장`;\n  select.append(option);\n}\n\nfunction populateGroups(preferredValue = TP_ALL_VALUE) {\n  const select = tp("tp-group-select");\n  select.replaceChildren();\n  appendAllOption(select);\n  if (tpViewMode === "pokemon") {\n    tp("tp-filter-label").textContent = "포켓몬";\n    tp("tp-selection-label").textContent = "선택 범위";\n    const groups = [...tpDataset.groups].sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));\n    groups.forEach((group) => {\n      const option = document.createElement("option");\n      option.value = group.name;\n      option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;\n      select.append(option);\n    });\n    const selectedName = groups.some((group) => group.name === preferredValue) ? preferredValue : TP_ALL_VALUE;\n    tpSelected = selectedName === TP_ALL_VALUE\n      ? TP_ALL_VALUE\n      : groups.find((group) => group.name === selectedName) || TP_ALL_VALUE;\n    select.value = tpSelected === TP_ALL_VALUE ? TP_ALL_VALUE : tpSelected.name;\n  } else {\n    tp("tp-filter-label").textContent = "트레이너";\n    tp("tp-selection-label").textContent = "선택 범위";\n    const trainers = trainerOptions();\n    trainers.forEach(([name, count]) => {\n      const option = document.createElement("option");\n      option.value = name;\n      option.textContent = `${name} · ${count}장`;\n      select.append(option);\n    });\n    tpSelected = trainers.some(([name]) => name === preferredValue) ? preferredValue : TP_ALL_VALUE;\n    select.value = tpSelected;\n  }\n}\n\nfunction selectedCards() {\n  if (tpSelected === TP_ALL_VALUE) return allCards();\n  if (tpViewMode === "pokemon") return tpSelected?.cards || [];\n  return allCards().filter((card) => personLabel(card) === tpSelected);\n}\n'''
+          if old not in s:
+            raise SystemExit('trainer filter block not found')
+          s = s.replace(old, new, 1)
+          old = '''  if (tpViewMode === "pokemon") {\n    tp("tp-selected-group").textContent = tpSelected ? `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}` : "—";\n  } else {\n    tp("tp-selected-group").textContent = tpSelected || "—";\n  }'''
+          new = '''  if (tpSelected === TP_ALL_VALUE) {\n    tp("tp-selected-group").textContent = "전체";\n  } else if (tpViewMode === "pokemon") {\n    tp("tp-selected-group").textContent = tpSelected ? `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}` : "—";\n  } else {\n    tp("tp-selected-group").textContent = tpSelected || "—";\n  }'''
+          if old not in s:
+            raise SystemExit('trainer selected summary block not found')
+          s = s.replace(old, new, 1)
+          old = '''  tp("tp-group-select").addEventListener("change", (event) => {\n    if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || tpDataset.groups[0];\n    else tpSelected = event.target.value;\n    render();\n  });'''
+          new = '''  tp("tp-group-select").addEventListener("change", (event) => {\n    if (event.target.value === TP_ALL_VALUE) tpSelected = TP_ALL_VALUE;\n    else if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || TP_ALL_VALUE;\n    else tpSelected = event.target.value;\n    render();\n  });'''
+          if old not in s:
+            raise SystemExit('trainer select handler block not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # 5) Page copy + cache bust only the scripts actually changed.
+          p = Path('trainer-pokemon.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('사람과 포켓몬이 함께한 카드', '인물과 포켓몬이 함께한 카드')
+          s = s.replace('collector-collection-registry.js?v=20260902-2', 'collector-collection-registry.js?v=20260903-1')
+          s = s.replace('firebase-page-manager.js?v=20260902-1', 'firebase-page-manager.js?v=20260903-1')
+          s = s.replace('owner-sheets-sync.js?v=20260902-3', 'owner-sheets-sync.js?v=20260903-1')
+          s = s.replace('trainer-pokemon.js?v=20260902-4', 'trainer-pokemon.js?v=20260903-1')
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('collector-collection-registry.js?v=20260902-2', 'collector-collection-registry.js?v=20260903-1')
+          s = s.replace('owner-sheets-sync.js?v=20260902-3', 'owner-sheets-sync.js?v=20260903-1')
+          p.write_text(s, encoding='utf-8')
+
+          # 6) Tests: lock warning fix, isolated key namespace, All filter, and updated cache token.
+          p = Path('tests/collector-registry.test.mjs')
+          s = p.read_text(encoding='utf-8')
+          test = '''\n\ntest("trainer Pokemon reuses authorized Pokemon storage with an isolated key namespace", async () => {\n  const meta = registry.COLLECTIONS.trainerPokemon;\n  assert.equal(meta.documentId, "pokemonCollectionsDex");\n  const catalog = await registry.loadCatalog("trainerPokemon");\n  assert.ok(catalog.items.length > 0);\n  assert.ok(catalog.items.every((item) => item.key.startsWith("trainerPokemon::")));\n});\n'''
+          if 'trainer Pokemon reuses authorized Pokemon storage with an isolated key namespace' not in s:
+            s += test
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('tests/collector-ui-contract.test.mjs')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+            'assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260902-3/);',
+            'assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260903-1/);',
+            1,
+          )
+          test = '''\n\ntest("trainer Pokemon filter includes an explicit all-cards option and neutral scene heading", async () => {\n  const page = await source("trainer-pokemon.html");\n  const client = await source("trainer-pokemon.js");\n  assert.match(client, /TP_ALL_VALUE = "__all__"/);\n  assert.match(client, /option[.]textContent = `전체 · \$\{allCards\(\)[.]length\}장`/);\n  assert.match(client, /if \(tpSelected === TP_ALL_VALUE\) return allCards\(\)/);\n  assert.match(page, /인물과 포켓몬이 함께한 카드/);\n  assert.equal(page.includes("사람과 포켓몬이 함께한 카드"), false);\n});\n'''
+          if 'trainer Pokemon filter includes an explicit all-cards option' not in s:
+            s += test
+          p.write_text(s, encoding='utf-8')
+          PY
+      - run: npm ci
+      - name: Run full verification
+        run: npm test
+      - name: Commit verified changes and remove temporary workflows
+        run: |
+          git config user.name "Youngdeukseo"
+          git config user.email "128191608+Youngdeukseo@users.noreply.github.com"
+          rm -f .github/workflows/tmp-fix-trainer-storage*.yml
+          git add -A
+          git commit -m "fix: stabilize trainer Pokemon storage and filters"
+          git push origin HEAD:fix/trainer-pokemon-storage-warning
