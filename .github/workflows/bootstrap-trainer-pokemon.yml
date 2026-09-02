@@ -35,90 +35,38 @@ jobs:
                   raise RuntimeError(f"{path}: anchor not found")
               p.write_text(text.replace(old, new, 1), encoding="utf-8")
 
-          replace_once("collector-collection-registry.js",
-              '    "people",\n  ];',
-              '    "people",\n    "trainerPokemon",\n  ];')
-          replace_once("collector-collection-registry.js",
-              '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n  };',
-              '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n    trainerPokemon: {\n      number: "08",\n      title: "트레이너 & 포켓몬 도감",\n      description: "사람과 포켓몬이 함께한 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "trainerPokemonDex",\n      unit: "장",\n      catalogCount: 6,\n      defaultDashboardVisible: true,\n    },\n  };')
-          replace_once("collector-collection-registry.js",
-              '      ar: "./data/ar.json",\n    };',
-              '      ar: "./data/ar.json",\n      trainerPokemon: "./data/trainer-pokemon.json",\n    };')
-          replace_once("collector-collection-registry.js",
-              '    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];',
-              '    let sourceGroups = collectionId === "artist"\n      ? payload.artists || []\n      : collectionId === "trainerPokemon"\n        ? payload.groups || []\n        : payload || [];')
+          replace_once("collector-collection-registry.js", '    "people",\n  ];', '    "people",\n    "trainerPokemon",\n  ];')
+          replace_once("collector-collection-registry.js", '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n  };', '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n    trainerPokemon: {\n      number: "08",\n      title: "트레이너 & 포켓몬 도감",\n      description: "사람과 포켓몬이 함께한 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "trainerPokemonDex",\n      unit: "장",\n      catalogCount: 6,\n      defaultDashboardVisible: true,\n    },\n  };')
+          replace_once("collector-collection-registry.js", '      ar: "./data/ar.json",\n    };', '      ar: "./data/ar.json",\n      trainerPokemon: "./data/trainer-pokemon.json",\n    };')
+          replace_once("collector-collection-registry.js", '    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];', '    let sourceGroups = collectionId === "artist"\n      ? payload.artists || []\n      : collectionId === "trainerPokemon"\n        ? payload.groups || []\n        : payload || [];')
 
-          replace_once("firebase-page-manager.js",
-              '    ar: { documentId: "arDex" },\n  };',
-              '    ar: { documentId: "arDex" },\n    trainerPokemon: { documentId: "trainerPokemonDex" },\n  };')
+          replace_once("firebase-page-manager.js", '    ar: { documentId: "arDex" },\n  };', '    ar: { documentId: "arDex" },\n    trainerPokemon: { documentId: "trainerPokemonDex" },\n  };')
 
-          replace_once("collector-nav.js",
-              '    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "08",',
-              '    const trainerPokemon =\n      nav.querySelector(\'[href*="trainer-pokemon.html"]\') ||\n      navigationLink(\n        "./trainer-pokemon.html",\n        "08",\n        "트레이너 & 포켓몬 도감",\n        "TRAINER × POKÉMON",\n      );\n    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "09",')
-          replace_once("collector-nav.js",
-              '        "./custom.html",\n        "09",',
-              '        "./custom.html",\n        "10",')
-          replace_once("collector-nav.js",
-              '    const people = nav.querySelector(\'[href*="people.html"]\');\n    if (people) {\n      people.after(worldDex);\n      worldDex.after(customDex);',
-              '    const people = nav.querySelector(\'[href*="people.html"]\');\n    const trainerIcon = trainerPokemon.querySelector(".collection-icon");\n    if (trainerIcon) trainerIcon.textContent = "08";\n    const worldIcon = worldDex.querySelector(".collection-icon");\n    if (worldIcon) worldIcon.textContent = "09";\n    const customIcon = customDex.querySelector(".collection-icon");\n    if (customIcon) customIcon.textContent = "10";\n    if (people) {\n      people.after(trainerPokemon);\n      trainerPokemon.after(worldDex);\n      worldDex.after(customDex);')
-          replace_once("collector-nav.js",
-              '    } else {\n      nav.append(worldDex, customDex);\n    }',
-              '    } else {\n      nav.append(trainerPokemon, worldDex, customDex);\n    }')
+          replace_once("collector-nav.js", '    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "08",', '    const trainerPokemon =\n      nav.querySelector(\'[href*="trainer-pokemon.html"]\') ||\n      navigationLink(\n        "./trainer-pokemon.html",\n        "08",\n        "트레이너 & 포켓몬 도감",\n        "TRAINER × POKÉMON",\n      );\n    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "09",')
+          replace_once("collector-nav.js", '        "./custom.html",\n        "09",', '        "./custom.html",\n        "10",')
+          replace_once("collector-nav.js", '    const people = nav.querySelector(\'[href*="people.html"]\');\n    if (people) {\n      people.after(worldDex);\n      worldDex.after(customDex);', '    const people = nav.querySelector(\'[href*="people.html"]\');\n    const trainerIcon = trainerPokemon.querySelector(".collection-icon");\n    if (trainerIcon) trainerIcon.textContent = "08";\n    const worldIcon = worldDex.querySelector(".collection-icon");\n    if (worldIcon) worldIcon.textContent = "09";\n    const customIcon = customDex.querySelector(".collection-icon");\n    if (customIcon) customIcon.textContent = "10";\n    if (people) {\n      people.after(trainerPokemon);\n      trainerPokemon.after(worldDex);\n      worldDex.after(customDex);')
+          replace_once("collector-nav.js", '    } else {\n      nav.append(worldDex, customDex);\n    }', '    } else {\n      nav.append(trainerPokemon, worldDex, customDex);\n    }')
 
-          replace_once("custom-sharing.js",
-              '    number: "08",\n    title: "나만의 도감",',
-              '    number: "10",\n    title: "나만의 도감",')
+          replace_once("custom-sharing.js", '    number: "08",\n    title: "나만의 도감",', '    number: "10",\n    title: "나만의 도감",')
 
-          replace_once("owner-sheets-sync.js",
-              '    "ar",\n  ];',
-              '    "ar",\n    "trainerPokemon",\n  ];')
-          replace_once("owner-sheets-sync.js",
-              '    ar: "AR 전종도감",\n  };',
-              '    ar: "AR 전종도감",\n    trainerPokemon: "트레이너 & 포켓몬 도감",\n  };')
-          replace_once("owner-sheets-sync.js",
-              '    ar: "arDex",\n  };',
-              '    ar: "arDex",\n    trainerPokemon: "trainerPokemonDex",\n  };')
-          replace_once("owner-sheets-sync.js",
-              '    packs: "./packs.js",\n  };',
-              '    packs: "./packs.js",\n    trainerPokemon: "./data/trainer-pokemon.json",\n  };')
-          replace_once("owner-sheets-sync.js",
-              '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n      }));',
-              '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n        fetchJson(DATA_FILES.trainerPokemon),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n        trainerPokemon,\n      }));')
-          replace_once("owner-sheets-sync.js",
-              '    if (category === "ar") return catalogs.ar || [];\n    return catalogs.pokemon || [];',
-              '    if (category === "ar") return catalogs.ar || [];\n    if (category === "trainerPokemon") return catalogs.trainerPokemon.groups || [];\n    return catalogs.pokemon || [];')
-          replace_once("owner-sheets-sync.js",
-              '    if (category === "artist") {\n      return {',
-              '    if (category === "trainerPokemon") {\n      return {\n        setCode: item?.setCode || card.set || "",\n        cardNumber: item?.cardNumber || card.cardNumber || "",\n        rarity: card.rarity || "",\n        imageUrl: item?.imageUrl || card.image || "",\n      };\n    }\n\n    if (category === "artist") {\n      return {')
-          replace_once("owner-sheets-sync.js",
-              '    for (const category of ["artist", "series", "pokemon", "ar"]) {',
-              '    for (const category of ["artist", "series", "pokemon", "ar", "trainerPokemon"]) {')
+          replace_once("owner-sheets-sync.js", '    "ar",\n  ];', '    "ar",\n    "trainerPokemon",\n  ];')
+          replace_once("owner-sheets-sync.js", '    ar: "AR 전종도감",\n  };', '    ar: "AR 전종도감",\n    trainerPokemon: "트레이너 & 포켓몬 도감",\n  };')
+          replace_once("owner-sheets-sync.js", '    ar: "arDex",\n  };', '    ar: "arDex",\n    trainerPokemon: "trainerPokemonDex",\n  };')
+          replace_once("owner-sheets-sync.js", '    packs: "./packs.js",\n  };', '    packs: "./packs.js",\n    trainerPokemon: "./data/trainer-pokemon.json",\n  };')
+          replace_once("owner-sheets-sync.js", '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n      }));', '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n        fetchJson(DATA_FILES.trainerPokemon),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n        trainerPokemon,\n      }));')
+          replace_once("owner-sheets-sync.js", '    if (category === "ar") return catalogs.ar || [];\n    return catalogs.pokemon || [];', '    if (category === "ar") return catalogs.ar || [];\n    if (category === "trainerPokemon") return catalogs.trainerPokemon.groups || [];\n    return catalogs.pokemon || [];')
+          replace_once("owner-sheets-sync.js", '    if (category === "artist") {\n      return {', '    if (category === "trainerPokemon") {\n      return {\n        setCode: item?.setCode || card.set || "",\n        cardNumber: item?.cardNumber || card.cardNumber || "",\n        rarity: card.rarity || "",\n        imageUrl: item?.imageUrl || card.image || "",\n      };\n    }\n\n    if (category === "artist") {\n      return {')
+          replace_once("owner-sheets-sync.js", '    for (const category of ["artist", "series", "pokemon", "ar"]) {', '    for (const category of ["artist", "series", "pokemon", "ar", "trainerPokemon"]) {')
 
-          replace_once("firestore.rules",
-              '        || collectionId == "arDex";',
-              '        || collectionId == "arDex"\n        || collectionId == "trainerPokemonDex";')
-          replace_once("firestore.rules",
-              '        || collectionId == "people"\n        || collectionId == "custom";',
-              '        || collectionId == "people"\n        || collectionId == "trainerPokemon"\n        || collectionId == "custom";')
-          replace_once("firestore.rules",
-              '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "custom");',
-              '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "trainerPokemon")\n        || publicSettingExistsAfter(userId, "custom");')
+          replace_once("firestore.rules", '        || collectionId == "arDex";', '        || collectionId == "arDex"\n        || collectionId == "trainerPokemonDex";')
+          replace_once("firestore.rules", '        || collectionId == "people"\n        || collectionId == "custom";', '        || collectionId == "people"\n        || collectionId == "trainerPokemon"\n        || collectionId == "custom";')
+          replace_once("firestore.rules", '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "custom");', '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "trainerPokemon")\n        || publicSettingExistsAfter(userId, "custom");')
 
-          replace_once("tests/collector-registry.test.mjs",
-              '    people: 179,\n  };',
-              '    people: 179,\n    trainerPokemon: 6,\n  };')
-          replace_once("tests/collector-registry.test.mjs",
-              '    people: 9,\n  };',
-              '    people: 9,\n    trainerPokemon: 6,\n  };')
-          replace_once("tests/collector-ui-contract.test.mjs",
-              '  people: ["people.html", "firebase-people-manager.js"],\n};',
-              '  people: ["people.html", "firebase-people-manager.js"],\n  trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],\n};')
-          replace_once("tests/collector-ui-contract.test.mjs",
-              '  "people.html",\n  "custom.html",',
-              '  "people.html",\n  "trainer-pokemon.html",\n  "custom.html",')
-          replace_once("package.json",
-              '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs"',
-              '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs"')
+          replace_once("tests/collector-registry.test.mjs", '    people: 179,\n  };', '    people: 179,\n    trainerPokemon: 6,\n  };')
+          replace_once("tests/collector-registry.test.mjs", '    people: 9,\n  };', '    people: 9,\n    trainerPokemon: 5,\n  };')
+          replace_once("tests/collector-ui-contract.test.mjs", '  people: ["people.html", "firebase-people-manager.js"],\n};', '  people: ["people.html", "firebase-people-manager.js"],\n  trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],\n};')
+          replace_once("tests/collector-ui-contract.test.mjs", '  "people.html",\n  "custom.html",', '  "people.html",\n  "trainer-pokemon.html",\n  "custom.html",')
+          replace_once("package.json", '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs"', '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs"')
 
           for page in Path('.').glob('*.html'):
               text = page.read_text(encoding='utf-8')
