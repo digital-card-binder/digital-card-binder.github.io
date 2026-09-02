@@ -85,12 +85,12 @@
     },
     trainerPokemon: {
       number: "08",
-      title: "사람과 포켓몬 도감",
+      title: "트레이너와 포켓몬 도감",
       description: "사람이 함께 등장하는 포켓몬 일러스트",
       href: "./trainer-pokemon.html",
       documentId: "trainerPokemonDex",
       unit: "장",
-      catalogCount: 6,
+      catalogCount: 20,
       defaultDashboardVisible: true,
     },
   };

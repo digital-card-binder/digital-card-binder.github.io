@@ -17,13 +17,13 @@
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
-    <script src="./collector-collection-registry.js?v=20260902-1" defer></script>
+    <script src="./collector-collection-registry.js?v=20260902-2" defer></script>
     <script src="./collector-public-view.js?v=20260813-2" defer></script>
     <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260902-2" defer></script>
+    <script src="./collector-nav.js?v=20260902-3" defer></script>
     <script src="./firebase-page-manager.js?v=20260902-1" defer></script>
-    <script src="./owner-sheets-sync.js?v=20260902-2" defer></script>
-    <script src="./trainer-pokemon.js?v=20260902-1" defer></script>
+    <script src="./owner-sheets-sync.js?v=20260902-3" defer></script>
+    <script src="./trainer-pokemon.js?v=20260902-2" defer></script>
   </head>
   <body data-catalog="trainerPokemon">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -47,7 +47,7 @@
           <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
           <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
           <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
-          <a class="collection-link is-active" href="./trainer-pokemon.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">08</span><span><strong>사람과 포켓몬 도감</strong><small>PEOPLE × POKÉMON</small></span></a>
+          <a class="collection-link is-active" href="./trainer-pokemon.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">08</span><span><strong>트레이너와 포켓몬 도감</strong><small>TRAINER × POKÉMON</small></span></a>
           <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
           <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
         </nav>
@@ -57,9 +57,9 @@
         <section class="hero trainer-pokemon-hero" aria-labelledby="page-title">
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div>
           <div class="hero-content">
-            <p class="eyebrow">PEOPLE × POKÉMON · COLLECTION 08</p>
-            <h1 id="page-title">사람과 포켓몬 도감</h1>
-            <p class="hero-description">트레이너와 사람, 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션</p>
+            <p class="eyebrow">TRAINER × POKÉMON · COLLECTION 08</p>
+            <h1 id="page-title">트레이너와 포켓몬 도감</h1>
+            <p class="hero-description">트레이너를 포함해 사람과 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션</p>
           </div>
           <div class="hero-progress" aria-label="트레이너와 포켓몬 도감 수집 현황">
             <div class="progress-ring" id="tp-progress-ring" aria-hidden="true"><div><strong id="tp-rate">—</strong><span>COMPLETE</span></div></div>
@@ -77,7 +77,7 @@
           <div><p class="section-kicker">COLLECTION RULE</p><h2 id="tp-rule-title">이 도감에 들어가는 기준</h2></div>
           <div class="tp-rule-grid">
             <p><strong>포함</strong><span>트레이너·주요 인물 또는 일반 사람이 포켓몬과 같은 일러스트 안에 실제로 함께 등장</span></p>
-            <p><strong>이름 없는 사람도 포함</strong><span>이름 없는 NPC·관중·가족·직원 등도 장면의 주체로 포켓몬과 함께 있으면 별도 그룹으로 수록</span></p>
+            <p><strong>이름 없는 사람도 포함</strong><span>이름 없는 NPC·가족·직원·학생 등도 장면의 주체로 포켓몬과 함께 있으면 포함</span></p>
             <p><strong>제외</strong><span>트레이너 얼굴 아이콘·마크·사진만 있거나 배경 군중처럼 관계성이 없는 경우</span></p>
           </div>
         </section>
@@ -118,6 +118,6 @@
         <dl class="dialog-details"><div><dt>인물</dt><dd id="tp-dialog-person-detail"></dd></div><div><dt>포켓몬</dt><dd id="tp-dialog-pokemon"></dd></div><div><dt>세트</dt><dd id="tp-dialog-set"></dd></div><div><dt>레어도</dt><dd id="tp-dialog-rarity"></dd></div><div><dt>카드번호</dt><dd id="tp-dialog-card-number"></dd></div><div><dt>일러스트</dt><dd id="tp-dialog-illustrator"></dd></div></dl>
       </div>
     </dialog>
-    <div id="tp-error" class="app-error" role="alert" hidden><strong>사람과 포켓몬 도감 데이터를 불러오지 못했습니다.</strong><span>잠시 후 페이지를 새로고침해 주세요.</span></div>
+    <div id="tp-error" class="app-error" role="alert" hidden><strong>트레이너와 포켓몬 도감 데이터를 불러오지 못했습니다.</strong><span>잠시 후 페이지를 새로고침해 주세요.</span></div>
   </body>
 </html>

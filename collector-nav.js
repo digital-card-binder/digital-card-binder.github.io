@@ -87,8 +87,8 @@
       navigationLink(
         "./trainer-pokemon.html",
         "08",
-        "사람과 포켓몬 도감",
-        "PEOPLE × POKÉMON",
+        "트레이너와 포켓몬 도감",
+        "TRAINER × POKÉMON",
       );
     const worldDex =
       nav.querySelector('[href*="world.html"]') ||
