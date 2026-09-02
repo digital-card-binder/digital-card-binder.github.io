@@ -16,158 +16,127 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/trainer-pokemon-dex
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build trainer and Pokemon dex
+      - name: Patch collection integration
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json
+          import re
 
           def replace_once(path, old, new):
               p = Path(path)
-              text = p.read_text(encoding='utf-8')
+              text = p.read_text(encoding="utf-8")
               if new in text:
                   return
               if old not in text:
-                  raise RuntimeError(f'{path}: anchor not found')
-              p.write_text(text.replace(old, new, 1), encoding='utf-8')
+                  raise RuntimeError(f"{path}: anchor not found")
+              p.write_text(text.replace(old, new, 1), encoding="utf-8")
 
-          data = {
-            "version": 1,
-            "updatedAt": "2026-09-02",
-            "title": "트레이너 & 포켓몬 도감",
-            "description": "트레이너 또는 사람이 포켓몬과 같은 일러스트 안에 함께 등장하는 한글판 카드 컬렉션",
-            "rules": {
-              "include": [
-                "이름이 확인되는 트레이너·주요 인물과 포켓몬이 같은 일러스트 안에 함께 등장",
-                "이름을 특정하기 어려운 일반인·NPC·관중도 포켓몬과 장면의 주체로 함께 등장하면 '그 외의 사람들'에 포함"
-              ],
-              "exclude": [
-                "트레이너 얼굴 아이콘·마크·사진·간판만 있는 경우",
-                "배경에 점처럼 작게 보이는 군중처럼 사람과 포켓몬의 관계가 장면의 주제가 아닌 경우"
-              ]
-            },
-            "groups": [
-              {"name":"심향","type":"named","cards":[{"order":1,"name":"심향의 블레이범","pokemonName":"블레이범","trainer":"심향","set":"SV9a","setName":"열풍의 아레나","rarity":"AR","cardNumber":"070/063","code":"sv9a_070/063","illustrator":"GIDORA","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_070.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025005070","owned":False}]},
-              {"name":"이슬","type":"named","cards":[{"order":1,"name":"이슬의 고라파덕","pokemonName":"고라파덕","trainer":"이슬","set":"SV9a","setName":"열풍의 아레나","rarity":"AR","cardNumber":"071/063","code":"sv9a_071/063","illustrator":"OKACHEKE","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_071.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025005071","owned":False},{"order":2,"name":"이슬의 라프라스","pokemonName":"라프라스","trainer":"이슬","set":"SV9a","setName":"열풍의 아레나","rarity":"AR","cardNumber":"072/063","code":"sv9a_072/063","illustrator":"Orca","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_072.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025005072","owned":False}]},
-              {"name":"페퍼","type":"named","cards":[{"order":1,"name":"페퍼의 요씽리스","pokemonName":"요씽리스","trainer":"페퍼","set":"SV9a","setName":"열풍의 아레나","rarity":"AR","cardNumber":"075/063","code":"sv9a_075/063","illustrator":"Natsumi Yoshida","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_075.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025005075","owned":False}]},
-              {"name":"난천","type":"named","cards":[{"order":1,"name":"난천의 한카리아스 ex","pokemonName":"한카리아스","trainer":"난천","set":"SV9a","setName":"열풍의 아레나","rarity":"SAR","cardNumber":"087/063","code":"sv9a_087/063","illustrator":"HICO KIM","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_087.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025005087","owned":False}]},
-              {"name":"N","type":"named","cards":[{"order":1,"name":"N의 제크로무","pokemonName":"제크로무","trainer":"N","set":"M2a","setName":"MEGA 드림 ex","rarity":"AR","cardNumber":"210/193","code":"m2a_210/193","illustrator":"Bun Toujo","image":"https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_210.png","source":"https://pokemoncard.co.kr/cards/detail/BS2025015210","owned":False}]},
-              {"name":"그 외의 사람들","type":"other","cards":[]}
-            ]
-          }
-          Path('data/trainer-pokemon.json').write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          replace_once("collector-collection-registry.js",
+              '    "people",\n  ];',
+              '    "people",\n    "trainerPokemon",\n  ];')
+          replace_once("collector-collection-registry.js",
+              '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n  };',
+              '    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n    trainerPokemon: {\n      number: "08",\n      title: "트레이너 & 포켓몬 도감",\n      description: "사람과 포켓몬이 함께한 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "trainerPokemonDex",\n      unit: "장",\n      catalogCount: 6,\n      defaultDashboardVisible: true,\n    },\n  };')
+          replace_once("collector-collection-registry.js",
+              '      ar: "./data/ar.json",\n    };',
+              '      ar: "./data/ar.json",\n      trainerPokemon: "./data/trainer-pokemon.json",\n    };')
+          replace_once("collector-collection-registry.js",
+              '    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];',
+              '    let sourceGroups = collectionId === "artist"\n      ? payload.artists || []\n      : collectionId === "trainerPokemon"\n        ? payload.groups || []\n        : payload || [];')
 
-          html = '''<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="트레이너와 사람, 포켓몬이 같은 일러스트 안에 함께 등장하는 한글판 포켓몬 카드 도감" />
-    <meta name="theme-color" content="#17233f" />
-    <title>디지털 카드 바인더</title>
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260813-3" />
-    <link rel="stylesheet" href="./legal.css?v=20260806-1" />
-    <link rel="stylesheet" href="./trainer-pokemon.css?v=20260902-1" />
-    <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
-    <link rel="stylesheet" href="./collector.css?v=20260814-1" />
-    <script src="./firebase-config.js?v=20260727-2" defer></script>
-    <script src="./site-metrics.js?v=20260729-1" defer></script>
-    <script src="./image-protection.js?v=20260806-1" defer></script>
-    <script src="./legal.js?v=20260806-1" defer></script>
-    <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
-    <script src="./collector-collection-registry.js?v=20260902-1" defer></script>
-    <script src="./collector-public-view.js?v=20260813-2" defer></script>
-    <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260902-1" defer></script>
-    <script src="./firebase-page-manager.js?v=20260902-1" defer></script>
-    <script src="./owner-sheets-sync.js?v=20260902-1" defer></script>
-    <script src="./trainer-pokemon.js?v=20260902-1" defer></script>
-  </head>
-  <body data-catalog="trainerPokemon">
-    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
-    <header class="site-header"><a class="brand" href="./" aria-label="디지털 카드 바인더 홈"><span class="brand-mark" aria-hidden="true"><span></span></span><span class="brand-copy"><strong>디지털 카드 바인더</strong></span></a><span class="header-chip">PUBLIC VIEW</span></header>
-    <div class="site-layout">
-      <aside class="sidebar" aria-label="도감 메뉴"><div class="sidebar-label">MY COLLECTIONS</div><nav class="collection-nav">
-        <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
-        <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
-        <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
-        <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>작가 도감</strong><small>40 ARTISTS</small></span></a>
-        <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>시리즈 도감</strong><small>SM · S · SV · M</small></span></a>
-        <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
-        <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
-        <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
-        <a class="collection-link is-active" href="./trainer-pokemon.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">08</span><span><strong>트레이너 &amp; 포켓몬 도감</strong><small>TRAINER × POKÉMON</small></span></a>
-        <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
-        <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
-      </nav></aside>
-      <main id="main-content" class="main-content">
-        <section class="hero trainer-pokemon-hero" aria-labelledby="page-title"><div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div><div class="hero-content"><p class="eyebrow">TRAINER × POKÉMON · COLLECTION 08</p><h1 id="page-title">트레이너 &amp; 포켓몬 도감</h1><p class="hero-description">트레이너와 사람, 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션</p></div><div class="hero-progress" aria-label="트레이너와 포켓몬 도감 수집 현황"><div class="progress-ring" id="tp-progress-ring" aria-hidden="true"><div><strong id="tp-rate">—</strong><span>COMPLETE</span></div></div><div class="hero-progress-copy"><span>현재 수집 현황</span><strong><b id="tp-owned">—</b><small> / <span id="tp-total">—</span>장</small></strong><p>미보유 <b id="tp-missing">—</b>장</p></div></div></section>
-        <section class="stats-grid" aria-label="트레이너와 포켓몬 도감 요약"><article class="stat-card stat-card--owned"><span class="stat-icon" aria-hidden="true">✦</span><div><span>등록 그룹</span><strong><b id="tp-group-count">—</b><small>개</small></strong></div></article><article class="stat-card stat-card--missing"><span class="stat-icon" aria-hidden="true">▤</span><div><span>확인 카드</span><strong><b id="tp-card-count">—</b><small>장</small></strong></div></article><article class="stat-card stat-card--rate"><span class="stat-icon" aria-hidden="true">↗</span><div><span>전체 수집률</span><strong><b id="tp-stat-rate">—</b><small>%</small></strong></div></article></section>
-        <section class="tp-rule-panel" aria-labelledby="tp-rule-title"><div><p class="section-kicker">COLLECTION RULE</p><h2 id="tp-rule-title">이 도감에 들어가는 기준</h2></div><div class="tp-rule-grid"><p><strong>포함</strong><span>트레이너·주요 인물 또는 일반 사람이 포켓몬과 같은 일러스트 안에 실제로 함께 등장</span></p><p><strong>그 외의 사람들</strong><span>이름 없는 NPC·관중·가족·직원 등도 장면의 주체로 포켓몬과 함께 있으면 별도 그룹으로 수록</span></p><p><strong>제외</strong><span>트레이너 얼굴 아이콘·마크·사진만 있거나 배경 군중처럼 관계성이 없는 경우</span></p></div></section>
-        <section class="catalog-panel" aria-labelledby="tp-catalog-title"><div class="catalog-heading"><div><p class="section-kicker">SCENE CATALOG</p><h2 id="tp-catalog-title">사람과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div></div><div class="tp-filter-panel"><label class="tp-select-field"><span class="filter-label">인물 그룹</span><select id="tp-group-select" aria-label="인물 그룹 선택"></select></label><label class="search-field"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">카드 검색</span><input id="tp-search" type="search" autocomplete="off" placeholder="포켓몬, 트레이너, 세트 코드로 검색" /></label><div class="tp-filter-row"><div id="tp-status-filters" class="segmented-control" role="group" aria-label="보유 상태 선택"><button class="is-active" type="button" data-status="all">전체</button><button type="button" data-status="owned">보유</button><button type="button" data-status="missing">미보유</button></div><label class="tp-sort-field"><span class="filter-label">정렬</span><select id="tp-sort"><option value="order">등록 순서</option><option value="name">포켓몬 이름순</option><option value="set">세트 코드순</option></select></label></div></div><div class="tp-selection-summary"><div><span>선택 그룹</span><strong id="tp-selected-group">—</strong></div><p><b id="tp-selected-owned">—</b> / <span id="tp-selected-total">—</span>장 보유 · <span id="tp-selected-rate">—</span>%</p></div><div class="results-bar"><p>검색 결과 <strong id="tp-result-count">—</strong>장</p></div><div id="tp-card-grid" class="card-grid" aria-live="polite" aria-busy="true"></div><div id="tp-empty" class="empty-state" hidden><span class="empty-ball" aria-hidden="true"><span></span></span><h3>아직 등록된 카드가 없습니다</h3><p>이 그룹은 공식 한글판 일러스트를 확인하면서 순차적으로 채워집니다.</p></div></section>
-        <footer class="site-footer"><div class="site-footer-main"><nav class="site-footer-links" aria-label="정책 및 문의"><a href="./privacy.html">개인정보처리방침</a><a href="./terms.html">이용약관</a><a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a><a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a></nav><p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p><p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p></div><p class="site-footer-note">카드 정보·이미지 기준: 포켓몬코리아 공식 카드 검색</p></footer>
-      </main>
-    </div>
-    <dialog id="tp-dialog" class="card-dialog"><button id="tp-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button><div id="tp-dialog-image-wrap" class="dialog-card-image"><img id="tp-dialog-image" src="" alt="" /></div><div class="dialog-card-copy"><div class="dialog-badges"><span id="tp-dialog-number" class="number-badge"></span><span id="tp-dialog-status" class="status-badge"></span></div><h2 id="tp-dialog-name"></h2><p id="tp-dialog-person" class="dialog-name-en"></p><dl class="dialog-details"><div><dt>인물</dt><dd id="tp-dialog-person-detail"></dd></div><div><dt>포켓몬</dt><dd id="tp-dialog-pokemon"></dd></div><div><dt>세트</dt><dd id="tp-dialog-set"></dd></div><div><dt>레어도</dt><dd id="tp-dialog-rarity"></dd></div><div><dt>카드번호</dt><dd id="tp-dialog-card-number"></dd></div><div><dt>일러스트</dt><dd id="tp-dialog-illustrator"></dd></div></dl></div></dialog>
-    <div id="tp-error" class="app-error" role="alert" hidden><strong>트레이너 &amp; 포켓몬 도감 데이터를 불러오지 못했습니다.</strong><span>잠시 후 페이지를 새로고침해 주세요.</span></div>
-  </body>
-</html>
-'''
-          Path('trainer-pokemon.html').write_text(html, encoding='utf-8')
+          replace_once("firebase-page-manager.js",
+              '    ar: { documentId: "arDex" },\n  };',
+              '    ar: { documentId: "arDex" },\n    trainerPokemon: { documentId: "trainerPokemonDex" },\n  };')
 
-          Path('trainer-pokemon.css').write_text('''.tp-rule-panel{display:grid;gap:18px;margin:22px 0;padding:22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,#fff,#f8faff)}\n.tp-rule-panel h2{margin:2px 0 0;font-size:1.2rem}.tp-rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.tp-rule-grid p{display:grid;gap:6px;margin:0;padding:15px;border:1px solid #e5e9f2;border-radius:15px;background:#fff}.tp-rule-grid strong{font-size:.8rem;color:var(--red-dark)}.tp-rule-grid span{font-size:.75rem;line-height:1.55;color:var(--ink-soft)}\n.tp-filter-panel{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(280px,1.28fr);gap:16px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#f8faff}.tp-select-field,.tp-sort-field{display:grid;gap:8px}.tp-select-field select,.tp-sort-field select{width:100%;min-height:46px;border:1px solid #dfe3ec;border-radius:13px;background:#fff;color:var(--ink);font-weight:700;padding:0 42px 0 14px;outline:none}.tp-select-field select:focus,.tp-sort-field select:focus{border-color:rgba(239,67,81,.65);box-shadow:0 0 0 3px rgba(239,67,81,.10)}.tp-filter-row{grid-column:1/-1;display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}.tp-sort-field{grid-template-columns:auto minmax(160px,220px);align-items:center}\n.tp-selection-summary{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px 18px}.tp-selection-summary>div{display:grid;gap:3px}.tp-selection-summary span{color:var(--ink-faint);font-size:.7rem;font-weight:700}.tp-selection-summary strong{font-size:1.05rem}.tp-selection-summary p{margin:0;color:var(--ink-soft);font-size:.78rem}.tp-selection-summary p b{color:var(--red-dark)}.tp-card .card-image-wrap{aspect-ratio:63/88}.tp-card .card-image{width:100%;height:100%;object-fit:contain}.tp-card .card-meta{display:grid;gap:2px;white-space:normal}.tp-card .card-meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tp-card .card-set{font-weight:700;color:#747c90}.tp-card .card-number{color:#a0a5b4}.tp-card-button{cursor:pointer}\n@media(max-width:820px){.tp-rule-grid{grid-template-columns:1fr}.tp-filter-panel{grid-template-columns:1fr}.tp-filter-row{grid-column:auto}.tp-sort-field{grid-template-columns:70px 1fr;flex:1}.tp-selection-summary{align-items:flex-start;flex-direction:column;gap:7px}}\n@media(max-width:690px){.tp-rule-panel{padding:16px}.tp-filter-panel{padding:14px}.tp-filter-row{display:grid}.tp-sort-field{width:100%}.tp-selection-summary{margin-top:16px;padding:13px 14px}.tp-selection-summary p{font-size:.7rem}}\n''', encoding='utf-8')
+          replace_once("collector-nav.js",
+              '    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "08",',
+              '    const trainerPokemon =\n      nav.querySelector(\'[href*="trainer-pokemon.html"]\') ||\n      navigationLink(\n        "./trainer-pokemon.html",\n        "08",\n        "트레이너 & 포켓몬 도감",\n        "TRAINER × POKÉMON",\n      );\n    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "09",')
+          replace_once("collector-nav.js",
+              '        "./custom.html",\n        "09",',
+              '        "./custom.html",\n        "10",')
+          replace_once("collector-nav.js",
+              '    const people = nav.querySelector(\'[href*="people.html"]\');\n    if (people) {\n      people.after(worldDex);\n      worldDex.after(customDex);',
+              '    const people = nav.querySelector(\'[href*="people.html"]\');\n    const trainerIcon = trainerPokemon.querySelector(".collection-icon");\n    if (trainerIcon) trainerIcon.textContent = "08";\n    const worldIcon = worldDex.querySelector(".collection-icon");\n    if (worldIcon) worldIcon.textContent = "09";\n    const customIcon = customDex.querySelector(".collection-icon");\n    if (customIcon) customIcon.textContent = "10";\n    if (people) {\n      people.after(trainerPokemon);\n      trainerPokemon.after(worldDex);\n      worldDex.after(customDex);')
+          replace_once("collector-nav.js",
+              '    } else {\n      nav.append(worldDex, customDex);\n    }',
+              '    } else {\n      nav.append(trainerPokemon, worldDex, customDex);\n    }')
 
-          Path('trainer-pokemon.js').write_text(r'''"use strict";
-const TP_DATA_URL="./data/trainer-pokemon.json?v=20260902-1";const tp=id=>document.getElementById(id);let tpDataset=null,tpSelected=null,tpStatus="all",tpQuery="",tpSort="order",tpActiveCard=null;const tpRate=(owned,total)=>total?Math.round(owned/total*1000)/10:0;
-function allCards(){return tpDataset.groups.flatMap(group=>group.cards||[])}function setSummary(){const cards=allCards();const owned=cards.filter(card=>card.owned).length;const total=cards.length;const completion=tpRate(owned,total);tp("tp-owned").textContent=owned;tp("tp-total").textContent=total;tp("tp-missing").textContent=total-owned;tp("tp-rate").textContent=`${completion}%`;tp("tp-progress-ring").style.setProperty("--progress",completion);tp("tp-group-count").textContent=tpDataset.groups.length;tp("tp-card-count").textContent=total;tp("tp-stat-rate").textContent=completion}
-function populateGroups(){const select=tp("tp-group-select");tpDataset.groups.forEach(group=>{const option=document.createElement("option");option.value=group.name;option.textContent=`${group.name} · ${(group.cards||[]).length}장`;select.append(option)});tpSelected=tpDataset.groups[0];select.value=tpSelected.name;select.addEventListener("change",()=>{tpSelected=tpDataset.groups.find(group=>group.name===select.value)||tpDataset.groups[0];render()})}
-function matches(card){const statusOk=tpStatus==="all"||(tpStatus==="owned")===card.owned;const q=tpQuery.trim().toLowerCase();const haystack=`${card.name} ${card.pokemonName} ${card.trainer} ${card.set} ${card.setName} ${card.rarity} ${card.cardNumber} ${card.illustrator}`.toLowerCase();return statusOk&&(!q||haystack.includes(q))}function sortCards(cards){return [...cards].sort((a,b)=>{if(tpSort==="name")return String(a.pokemonName||a.name).localeCompare(String(b.pokemonName||b.name),"ko");if(tpSort==="set")return String(a.set).localeCompare(String(b.set),"en",{numeric:true})||(a.order||0)-(b.order||0);return (a.order||0)-(b.order||0)})}
-function statusBadge(card){const badge=document.createElement("span");badge.className=`status-badge ${card.owned?"is-owned":"is-missing"}`;badge.textContent=card.owned?"보유":"미보유";return badge}function updateDialog(card){const wrap=tp("tp-dialog-image-wrap");const image=tp("tp-dialog-image");image.src=card.image;image.alt=`${card.name} 포켓몬 카드`;wrap.classList.toggle("is-missing",!card.owned);tp("tp-dialog-number").textContent=card.cardNumber||card.set;const badge=tp("tp-dialog-status");badge.textContent=card.owned?"보유":"미보유";badge.className=`status-badge ${card.owned?"is-owned":"is-missing"}`;tp("tp-dialog-name").textContent=card.name;tp("tp-dialog-person").textContent=String(card.trainer||tpSelected.name).toUpperCase();tp("tp-dialog-person-detail").textContent=card.trainer||tpSelected.name;tp("tp-dialog-pokemon").textContent=card.pokemonName||card.name;tp("tp-dialog-set").textContent=[card.set,card.setName].filter(Boolean).join(" · ")||"—";tp("tp-dialog-rarity").textContent=card.rarity||"—";tp("tp-dialog-card-number").textContent=card.cardNumber||"—";tp("tp-dialog-illustrator").textContent=card.illustrator||"—"}function openDialog(card){tpActiveCard=card;updateDialog(card);const dialog=tp("tp-dialog");if(typeof dialog.showModal==="function")dialog.showModal();else dialog.setAttribute("open","")}function closeDialog(){const dialog=tp("tp-dialog");if(typeof dialog.close==="function")dialog.close();else dialog.removeAttribute("open")}
-function updateComplete(button,card){const owned=Boolean(card.owned);button.classList.toggle("is-complete",owned);button.classList.remove("is-saving");button.disabled=false;button.setAttribute("aria-pressed",String(owned));button.setAttribute("aria-label",owned?`${card.name} 수집완료 취소`:`${card.name} 수집완료로 표시`);button.textContent=owned?"✓ 수집완료":"수집완료"}async function toggle(card,button){const account=window.PokemonDexPageAccount;if(!account?.canEdit?.()){alert("Google 로그인 후 내 수집 상태를 저장할 수 있습니다.");return}button.disabled=true;button.classList.add("is-saving");button.textContent="저장 중…";try{const saved=await account.saveOwned(card.accountKey,!card.owned);card.owned=saved.owned;setSummary();if(tpActiveCard===card)updateDialog(card);render()}catch(error){console.error(error);alert(error.message||"수집 상태를 저장하지 못했습니다.");updateComplete(button,card)}}function completeButton(card){const button=document.createElement("button");button.type="button";button.className="collection-complete-button";updateComplete(button,card);button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();void toggle(card,button)});return button}
-function createCard(card){const article=document.createElement("article");article.className=`pokemon-card tp-card has-completion-action${card.owned?"":" is-missing"}`;const button=document.createElement("button");button.className="pokemon-card-button tp-card-button";button.type="button";button.setAttribute("aria-label",`${card.name} 상세 보기`);const imageWrap=document.createElement("span");imageWrap.className="card-image-wrap";const image=document.createElement("img");image.className="card-image";image.src=card.image;image.alt=`${card.name} 포켓몬 카드`;image.loading="lazy";image.addEventListener("error",()=>article.classList.add("has-image-error"));const missing=document.createElement("span");missing.className="missing-overlay";missing.textContent="미보유";const fallback=document.createElement("span");fallback.className="image-fallback";fallback.setAttribute("aria-hidden","true");fallback.innerHTML='<span class="fallback-ball"><span></span></span>이미지를 불러오지 못했습니다';imageWrap.append(image,missing,fallback);const body=document.createElement("span");body.className="card-body";const top=document.createElement("span");top.className="card-topline";const number=document.createElement("span");number.className="number-badge";number.textContent=card.set||`#${card.order}`;top.append(number,statusBadge(card));const name=document.createElement("strong");name.className="card-name-ko";name.textContent=card.name;const person=document.createElement("span");person.className="card-name-en";person.textContent=`${card.trainer||tpSelected.name} × ${card.pokemonName||card.name}`;const meta=document.createElement("span");meta.className="card-meta";const set=document.createElement("span");set.className="card-set";set.textContent=[card.setName,card.rarity].filter(Boolean).join(" · ");const cardNumber=document.createElement("span");cardNumber.className="card-number";cardNumber.textContent=card.cardNumber||"";meta.append(set,cardNumber);body.append(top,name,person,meta);button.append(imageWrap,body);button.addEventListener("click",()=>openDialog(card));article.append(button,completeButton(card));return article}
-function render(){const cards=tpSelected.cards||[];const owned=cards.filter(card=>card.owned).length;const completion=tpRate(owned,cards.length);tp("tp-selected-group").textContent=tpSelected.name;tp("tp-selected-owned").textContent=owned;tp("tp-selected-total").textContent=cards.length;tp("tp-selected-rate").textContent=completion;const shown=sortCards(cards.filter(matches));const grid=tp("tp-card-grid");grid.replaceChildren(...shown.map(createCard));grid.setAttribute("aria-busy","false");tp("tp-result-count").textContent=shown.length;tp("tp-empty").hidden=shown.length!==0}function controls(){tp("tp-search").addEventListener("input",event=>{tpQuery=event.target.value;render()});tp("tp-status-filters").addEventListener("click",event=>{const button=event.target.closest("button");if(!button)return;tpStatus=button.dataset.status;event.currentTarget.querySelectorAll("button").forEach(item=>item.classList.toggle("is-active",item===button));render()});tp("tp-sort").addEventListener("change",event=>{tpSort=event.target.value;render()});tp("tp-dialog-close").addEventListener("click",closeDialog);tp("tp-dialog").addEventListener("click",event=>{if(event.target===event.currentTarget)closeDialog()})}async function init(){try{const response=await fetch(TP_DATA_URL,{cache:"no-store"});if(!response.ok)throw new Error(`HTTP ${response.status}`);tpDataset=await response.json();const account=window.PokemonDexPageAccount;if(account){await account.ready;account.applyGroups(tpDataset.groups)}setSummary();populateGroups();controls();render()}catch(error){console.error(error);tp("tp-card-grid").setAttribute("aria-busy","false");tp("tp-error").hidden=false}}init();
-''', encoding='utf-8')
+          replace_once("custom-sharing.js",
+              '    number: "08",\n    title: "나만의 도감",',
+              '    number: "10",\n    title: "나만의 도감",')
 
-          replace_once('collector-collection-registry.js','    "people",\n  ];','    "people",\n    "trainerPokemon",\n  ];')
-          replace_once('collector-collection-registry.js','    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n  };','    people: {\n      number: "07",\n      title: "인물도감",\n      description: "트레이너·주요 인물 아카이브",\n      href: "./people.html",\n      documentId: CONFIG.userDocument || "nationalDex",\n      unit: "명",\n      catalogCount: 179,\n      defaultDashboardVisible: false,\n    },\n    trainerPokemon: {\n      number: "08",\n      title: "트레이너 & 포켓몬 도감",\n      description: "사람과 포켓몬이 함께한 일러스트",\n      href: "./trainer-pokemon.html",\n      documentId: "trainerPokemonDex",\n      unit: "장",\n      catalogCount: 6,\n      defaultDashboardVisible: true,\n    },\n  };')
-          replace_once('collector-collection-registry.js','      ar: "./data/ar.json",\n    };','      ar: "./data/ar.json",\n      trainerPokemon: "./data/trainer-pokemon.json",\n    };')
-          replace_once('collector-collection-registry.js','    let sourceGroups = collectionId === "artist" ? payload.artists || [] : payload || [];','    let sourceGroups = collectionId === "artist"\n      ? payload.artists || []\n      : collectionId === "trainerPokemon"\n        ? payload.groups || []\n        : payload || [];')
-          replace_once('firebase-page-manager.js','    ar: { documentId: "arDex" },\n  };','    ar: { documentId: "arDex" },\n    trainerPokemon: { documentId: "trainerPokemonDex" },\n  };')
-          replace_once('collector-nav.js','    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "08",','    const trainerPokemon =\n      nav.querySelector(\'[href*="trainer-pokemon.html"]\') ||\n      navigationLink(\n        "./trainer-pokemon.html",\n        "08",\n        "트레이너 & 포켓몬 도감",\n        "TRAINER × POKÉMON",\n      );\n    const worldDex =\n      nav.querySelector(\'[href*="world.html"]\') ||\n      navigationLink(\n        "./world.html",\n        "09",')
-          replace_once('collector-nav.js','        "./custom.html",\n        "09",','        "./custom.html",\n        "10",')
-          replace_once('collector-nav.js','    const people = nav.querySelector(\'[href*="people.html"]\');\n    if (people) {\n      people.after(worldDex);\n      worldDex.after(customDex);','    const people = nav.querySelector(\'[href*="people.html"]\');\n    const trainerIcon = trainerPokemon.querySelector(".collection-icon");\n    if (trainerIcon) trainerIcon.textContent = "08";\n    const worldIcon = worldDex.querySelector(".collection-icon");\n    if (worldIcon) worldIcon.textContent = "09";\n    const customIcon = customDex.querySelector(".collection-icon");\n    if (customIcon) customIcon.textContent = "10";\n    if (people) {\n      people.after(trainerPokemon);\n      trainerPokemon.after(worldDex);\n      worldDex.after(customDex);')
-          replace_once('collector-nav.js','    } else {\n      nav.append(worldDex, customDex);\n    }','    } else {\n      nav.append(trainerPokemon, worldDex, customDex);\n    }')
-          replace_once('owner-sheets-sync.js','    "ar",\n  ];','    "ar",\n    "trainerPokemon",\n  ];')
-          replace_once('owner-sheets-sync.js','    ar: "AR 전종도감",\n  };','    ar: "AR 전종도감",\n    trainerPokemon: "트레이너 & 포켓몬 도감",\n  };')
-          replace_once('owner-sheets-sync.js','    ar: "arDex",\n  };','    ar: "arDex",\n    trainerPokemon: "trainerPokemonDex",\n  };')
-          replace_once('owner-sheets-sync.js','    packs: "./packs.js",\n  };','    packs: "./packs.js",\n    trainerPokemon: "./data/trainer-pokemon.json",\n  };')
-          replace_once('owner-sheets-sync.js','        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n      }));','        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n        fetchJson(DATA_FILES.trainerPokemon),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n        trainerPokemon,\n      }));')
-          replace_once('owner-sheets-sync.js','    if (category === "ar") return catalogs.ar || [];\n    return catalogs.pokemon || [];','    if (category === "ar") return catalogs.ar || [];\n    if (category === "trainerPokemon") return catalogs.trainerPokemon.groups || [];\n    return catalogs.pokemon || [];')
-          replace_once('owner-sheets-sync.js','    if (category === "artist") {\n      return {','    if (category === "trainerPokemon") {\n      return {\n        setCode: item?.setCode || card.set || "",\n        cardNumber: item?.cardNumber || card.cardNumber || "",\n        rarity: card.rarity || "",\n        imageUrl: item?.imageUrl || card.image || "",\n      };\n    }\n\n    if (category === "artist") {\n      return {')
-          replace_once('owner-sheets-sync.js','    for (const category of ["artist", "series", "pokemon", "ar"]) {','    for (const category of ["artist", "series", "pokemon", "ar", "trainerPokemon"]) {')
-          replace_once('firestore.rules','        || collectionId == "arDex";','        || collectionId == "arDex"\n        || collectionId == "trainerPokemonDex";')
-          replace_once('firestore.rules','        || collectionId == "people"\n        || collectionId == "custom";','        || collectionId == "people"\n        || collectionId == "trainerPokemon"\n        || collectionId == "custom";')
-          replace_once('firestore.rules','        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "custom");','        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "trainerPokemon")\n        || publicSettingExistsAfter(userId, "custom");')
-          replace_once('tests/collector-registry.test.mjs','    people: 179,\n  };','    people: 179,\n    trainerPokemon: 6,\n  };')
-          replace_once('tests/collector-registry.test.mjs','    people: 9,\n  };','    people: 9,\n    trainerPokemon: 6,\n  };')
-          replace_once('tests/collector-ui-contract.test.mjs','  people: ["people.html", "firebase-people-manager.js"],\n};','  people: ["people.html", "firebase-people-manager.js"],\n  trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],\n};')
-          replace_once('tests/collector-ui-contract.test.mjs','  "people.html",\n  "custom.html",','  "people.html",\n  "trainer-pokemon.html",\n  "custom.html",')
-          Path('tests/trainer-pokemon-data.test.mjs').write_text('''import assert from "node:assert/strict";\nimport { readFile } from "node:fs/promises";\nimport test from "node:test";\nconst data = JSON.parse(await readFile(new URL("../data/trainer-pokemon.json", import.meta.url), "utf8"));\ntest("trainer and Pokemon dex starts with verified Korean scene cards", () => { const cards = data.groups.flatMap((group) => group.cards || []); assert.equal(cards.length, 6); assert.equal(data.groups.some((group) => group.name === "그 외의 사람들"), true); assert.equal(cards.every((card) => card.owned === false), true); assert.equal(new Set(cards.map((card) => card.code)).size, cards.length); for (const card of cards) { assert.match(card.image, /^https:\\/\\/cards[.]image[.]pokemonkorea[.]co[.]kr\\//); assert.match(card.source, /^https:\\/\\/pokemoncard[.]co[.]kr\\/cards\\/detail\\//); assert.ok(card.trainer); assert.ok(card.pokemonName); } });\n''', encoding='utf-8')
-          replace_once('package.json','"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs"','"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs"')
-          print('trainer & Pokemon dex bootstrap complete')
+          replace_once("owner-sheets-sync.js",
+              '    "ar",\n  ];',
+              '    "ar",\n    "trainerPokemon",\n  ];')
+          replace_once("owner-sheets-sync.js",
+              '    ar: "AR 전종도감",\n  };',
+              '    ar: "AR 전종도감",\n    trainerPokemon: "트레이너 & 포켓몬 도감",\n  };')
+          replace_once("owner-sheets-sync.js",
+              '    ar: "arDex",\n  };',
+              '    ar: "arDex",\n    trainerPokemon: "trainerPokemonDex",\n  };')
+          replace_once("owner-sheets-sync.js",
+              '    packs: "./packs.js",\n  };',
+              '    packs: "./packs.js",\n    trainerPokemon: "./data/trainer-pokemon.json",\n  };')
+          replace_once("owner-sheets-sync.js",
+              '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n      }));',
+              '        fetchJson(DATA_FILES.ar),\n        fetchPacks(),\n        fetchJson(DATA_FILES.trainerPokemon),\n      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({\n        pokedex,\n        artists,\n        series,\n        pokemon,\n        ar,\n        packs,\n        trainerPokemon,\n      }));')
+          replace_once("owner-sheets-sync.js",
+              '    if (category === "ar") return catalogs.ar || [];\n    return catalogs.pokemon || [];',
+              '    if (category === "ar") return catalogs.ar || [];\n    if (category === "trainerPokemon") return catalogs.trainerPokemon.groups || [];\n    return catalogs.pokemon || [];')
+          replace_once("owner-sheets-sync.js",
+              '    if (category === "artist") {\n      return {',
+              '    if (category === "trainerPokemon") {\n      return {\n        setCode: item?.setCode || card.set || "",\n        cardNumber: item?.cardNumber || card.cardNumber || "",\n        rarity: card.rarity || "",\n        imageUrl: item?.imageUrl || card.image || "",\n      };\n    }\n\n    if (category === "artist") {\n      return {')
+          replace_once("owner-sheets-sync.js",
+              '    for (const category of ["artist", "series", "pokemon", "ar"]) {',
+              '    for (const category of ["artist", "series", "pokemon", "ar", "trainerPokemon"]) {')
+
+          replace_once("firestore.rules",
+              '        || collectionId == "arDex";',
+              '        || collectionId == "arDex"\n        || collectionId == "trainerPokemonDex";')
+          replace_once("firestore.rules",
+              '        || collectionId == "people"\n        || collectionId == "custom";',
+              '        || collectionId == "people"\n        || collectionId == "trainerPokemon"\n        || collectionId == "custom";')
+          replace_once("firestore.rules",
+              '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "custom");',
+              '        || publicSettingExistsAfter(userId, "people")\n        || publicSettingExistsAfter(userId, "trainerPokemon")\n        || publicSettingExistsAfter(userId, "custom");')
+
+          replace_once("tests/collector-registry.test.mjs",
+              '    people: 179,\n  };',
+              '    people: 179,\n    trainerPokemon: 6,\n  };')
+          replace_once("tests/collector-registry.test.mjs",
+              '    people: 9,\n  };',
+              '    people: 9,\n    trainerPokemon: 6,\n  };')
+          replace_once("tests/collector-ui-contract.test.mjs",
+              '  people: ["people.html", "firebase-people-manager.js"],\n};',
+              '  people: ["people.html", "firebase-people-manager.js"],\n  trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],\n};')
+          replace_once("tests/collector-ui-contract.test.mjs",
+              '  "people.html",\n  "custom.html",',
+              '  "people.html",\n  "trainer-pokemon.html",\n  "custom.html",')
+          replace_once("package.json",
+              '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs"',
+              '"test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs"')
+
+          for page in Path('.').glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'collector-collection-registry[.]js[?]v=[0-9-]+', 'collector-collection-registry.js?v=20260902-1', text)
+              text = re.sub(r'collector-nav[.]js[?]v=[0-9-]+', 'collector-nav.js?v=20260902-2', text)
+              page.write_text(text, encoding='utf-8')
+
+          print('trainer & Pokemon collection integration patched')
           PY
       - name: Run verification suite
         run: npm test
-      - name: Commit generated category
+      - name: Commit integration
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/trainer-pokemon.json trainer-pokemon.html trainer-pokemon.css trainer-pokemon.js collector-collection-registry.js collector-nav.js firebase-page-manager.js owner-sheets-sync.js firestore.rules tests/collector-registry.test.mjs tests/collector-ui-contract.test.mjs tests/trainer-pokemon-data.test.mjs package.json
+          git add collector-collection-registry.js collector-nav.js custom-sharing.js firebase-page-manager.js owner-sheets-sync.js firestore.rules package.json tests/collector-registry.test.mjs tests/collector-ui-contract.test.mjs '*.html'
           if ! git diff --cached --quiet; then
-            git commit -m "feat: add trainer and Pokemon illustration dex"
-            git push
+            git commit -m "feat: integrate trainer and Pokemon dex"
+            git pull --rebase origin feature/trainer-pokemon-dex
+            git push origin HEAD:feature/trainer-pokemon-dex
           fi
