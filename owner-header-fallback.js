@@ -17,7 +17,6 @@
   `;
   document.querySelector(".site-header")?.append(panel);
 
-  const status = panel.querySelector("#firebase-auth-status");
   const login = panel.querySelector("#firebase-login");
   const logout = panel.querySelector("#firebase-logout");
   const headerChip = document.querySelector(".header-chip");
@@ -45,6 +44,9 @@
   }
 
   function update(user, error = null) {
+    const status = panel.querySelector("#firebase-auth-status");
+    if (!status || !login || !logout) return;
+
     panel.classList.toggle("is-account", Boolean(user));
     panel.classList.toggle("is-owner", isOwner(user));
 
@@ -68,6 +70,7 @@
 
     if (!user) {
       status.textContent = "방문자";
+      status.removeAttribute?.("href");
       login.hidden = false;
       logout.hidden = true;
       return;
