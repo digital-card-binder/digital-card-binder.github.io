@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feature/rename-and-expand-trainer-pokemon-dex
-      - name: Inspect matching Korean catalog cards
+      - name: Inspect exact official Korean sample cards
         run: |
           python - <<'PY'
           import json, sys
@@ -25,29 +25,13 @@ jobs:
           sys.path.insert(0, str(Path('scripts').resolve()))
           import build_legacy_series_data as official
 
-          targets = {
-            '마휘핑','뚜꾸리','차오꿀','염무왕','그란돈','코스모움','코스모그','루나아라',
-            '갈가부기','리자몽','비버니','라프라스','눈여아','꽁어름'
-          }
-          data = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
-          found = []
-          def walk(node):
-            if isinstance(node, dict):
-              name = str(node.get('name') or '').strip()
-              image = str(node.get('image') or '')
-              if name in targets and image:
-                found.append({
-                  'name': name,
-                  'image': image,
-                  'source': node.get('source'),
-                })
-              for v in node.values(): walk(v)
-            elif isinstance(node, list):
-              for item in node: walk(item)
-          walk(data)
-          print('SERIES_MATCH_COUNT', len(found))
-          for row in found:
-            print('SERIES', json.dumps(row, ensure_ascii=False))
+          ids = [
+            'BS2020014012','BS2020014026','BS2021015006','BS2021015014','BS2021015015',
+            'BS2021015017','BS2022001081','BS2022002081','BS2021004018','BS2021004021','BS2022008024'
+          ]
+          for card_num in ids:
+            detail = official.parse_detail(official.detail_payload(card_num))
+            print('DETAIL', json.dumps({'CardNum': card_num, **detail}, ensure_ascii=False))
 
           product = 'BW 확장팩 「EX 배틀 부스트」'
           wanted_numbers = {'017','018','019'}
@@ -69,10 +53,7 @@ jobs:
             if number not in wanted_numbers: continue
             print('EBB', json.dumps({
               'CardNum': card_num,
-              'name': detail.get('name'),
-              'number': detail.get('number'),
-              'denominator': detail.get('denominator'),
-              'rarity': detail.get('rarity'),
+              **detail,
               'image': official.feature_image_url(feature),
               'source': f'https://pokemoncard.co.kr/cards/detail/{card_num}',
             }, ensure_ascii=False))
