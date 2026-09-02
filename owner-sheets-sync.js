@@ -34,7 +34,7 @@
     series: "seriesDex",
     pokemon: "pokemonCollectionsDex",
     ar: "arDex",
-    trainerPokemon: "trainerPokemonDex",
+    trainerPokemon: "pokemonCollectionsDex",
   };
   const DATA_FILES = {
     pokedex: "./data/pokedex.json",
@@ -617,6 +617,14 @@
     const accountIndex = Number.isInteger(card.accountIndex)
       ? card.accountIndex
       : cardIndex;
+    if (category === "trainerPokemon") {
+      return [
+        "trainerPokemon",
+        groupId,
+        card.meta || card.code || card.name || cardIndex,
+        accountIndex,
+      ].join("::");
+    }
     if (category === "artist") {
       return [
         groupId,

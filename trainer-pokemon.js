@@ -1,6 +1,7 @@
 "use strict";
 
 const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-4";
+const TP_ALL_VALUE = "__all__";
 const tp = (id) => document.getElementById(id);
 
 let tpDataset = null;
@@ -57,12 +58,20 @@ function trainerOptions() {
   });
 }
 
-function populateGroups(preferredValue) {
+function appendAllOption(select) {
+  const option = document.createElement("option");
+  option.value = TP_ALL_VALUE;
+  option.textContent = `전체 · ${allCards().length}장`;
+  select.append(option);
+}
+
+function populateGroups(preferredValue = TP_ALL_VALUE) {
   const select = tp("tp-group-select");
   select.replaceChildren();
+  appendAllOption(select);
   if (tpViewMode === "pokemon") {
     tp("tp-filter-label").textContent = "포켓몬";
-    tp("tp-selection-label").textContent = "선택 포켓몬";
+    tp("tp-selection-label").textContent = "선택 범위";
     const groups = [...tpDataset.groups].sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));
     groups.forEach((group) => {
       const option = document.createElement("option");
@@ -70,12 +79,14 @@ function populateGroups(preferredValue) {
       option.textContent = `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name} · ${(group.cards || []).length}장`;
       select.append(option);
     });
-    const selectedName = groups.some((group) => group.name === preferredValue) ? preferredValue : groups[0]?.name;
-    tpSelected = groups.find((group) => group.name === selectedName) || groups[0] || null;
-    if (tpSelected) select.value = tpSelected.name;
+    const selectedName = groups.some((group) => group.name === preferredValue) ? preferredValue : TP_ALL_VALUE;
+    tpSelected = selectedName === TP_ALL_VALUE
+      ? TP_ALL_VALUE
+      : groups.find((group) => group.name === selectedName) || TP_ALL_VALUE;
+    select.value = tpSelected === TP_ALL_VALUE ? TP_ALL_VALUE : tpSelected.name;
   } else {
     tp("tp-filter-label").textContent = "트레이너";
-    tp("tp-selection-label").textContent = "선택 트레이너";
+    tp("tp-selection-label").textContent = "선택 범위";
     const trainers = trainerOptions();
     trainers.forEach(([name, count]) => {
       const option = document.createElement("option");
@@ -83,13 +94,13 @@ function populateGroups(preferredValue) {
       option.textContent = `${name} · ${count}장`;
       select.append(option);
     });
-    const selectedName = trainers.some(([name]) => name === preferredValue) ? preferredValue : trainers[0]?.[0];
-    tpSelected = selectedName || null;
-    if (tpSelected) select.value = tpSelected;
+    tpSelected = trainers.some(([name]) => name === preferredValue) ? preferredValue : TP_ALL_VALUE;
+    select.value = tpSelected;
   }
 }
 
 function selectedCards() {
+  if (tpSelected === TP_ALL_VALUE) return allCards();
   if (tpViewMode === "pokemon") return tpSelected?.cards || [];
   return allCards().filter((card) => personLabel(card) === tpSelected);
 }
@@ -257,7 +268,9 @@ function render() {
   const cards = selectedCards();
   const owned = cards.filter((card) => card.owned).length;
   const completion = tpRate(owned, cards.length);
-  if (tpViewMode === "pokemon") {
+  if (tpSelected === TP_ALL_VALUE) {
+    tp("tp-selected-group").textContent = "전체";
+  } else if (tpViewMode === "pokemon") {
     tp("tp-selected-group").textContent = tpSelected ? `#${String(tpSelected.nationalDexNo).padStart(3, "0")} ${tpSelected.name}` : "—";
   } else {
     tp("tp-selected-group").textContent = tpSelected || "—";
@@ -287,7 +300,8 @@ function controls() {
     render();
   });
   tp("tp-group-select").addEventListener("change", (event) => {
-    if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || tpDataset.groups[0];
+    if (event.target.value === TP_ALL_VALUE) tpSelected = TP_ALL_VALUE;
+    else if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || TP_ALL_VALUE;
     else tpSelected = event.target.value;
     render();
   });

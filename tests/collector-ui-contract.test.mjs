@@ -769,5 +769,16 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
   assert.match(androidGradle, /versionCode 11/);
-  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260902-3/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260903-1/);
+});
+
+
+test("trainer Pokemon filter includes an explicit all-cards option and neutral scene heading", async () => {
+  const page = await source("trainer-pokemon.html");
+  const client = await source("trainer-pokemon.js");
+  assert.match(client, /TP_ALL_VALUE = "__all__"/);
+  assert.match(client, /option[.]textContent = `전체 · \$\{allCards\(\)[.]length\}장`/);
+  assert.match(client, /if \(tpSelected === TP_ALL_VALUE\) return allCards\(\)/);
+  assert.match(page, /인물과 포켓몬이 함께한 카드/);
+  assert.equal(page.includes("사람과 포켓몬이 함께한 카드"), false);
 });

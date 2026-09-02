@@ -8,7 +8,7 @@
     series: { documentId: "seriesDex" },
     pokemon: { documentId: "pokemonCollectionsDex" },
     ar: { documentId: "arDex" },
-    trainerPokemon: { documentId: "trainerPokemonDex" },
+    trainerPokemon: { documentId: "pokemonCollectionsDex" },
   };
 
   const mode = document.body?.dataset.catalog || "";
@@ -89,6 +89,15 @@
     const accountIndex = Number.isInteger(card.accountIndex)
       ? card.accountIndex
       : cardIndex;
+
+    if (mode === "trainerPokemon") {
+      return [
+        "trainerPokemon",
+        groupId,
+        card.meta || card.code || card.name || cardIndex,
+        accountIndex,
+      ].join("::");
+    }
 
     if (mode === "artist") {
       return [
