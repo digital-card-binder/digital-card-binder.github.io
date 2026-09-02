@@ -86,9 +86,9 @@
     trainerPokemon: {
       number: "08",
       title: "트레이너와 포켓몬 도감",
-      description: "사람이 함께 등장하는 포켓몬 일러스트",
+      description: "인물과 포켓몬이 함께 등장하는 일러스트",
       href: "./trainer-pokemon.html",
-      documentId: "trainerPokemonDex",
+      documentId: "pokemonCollectionsDex",
       unit: "장",
       catalogCount: 130,
       defaultDashboardVisible: true,
@@ -114,6 +114,15 @@
     const accountIndex = Number.isInteger(card.accountIndex)
       ? card.accountIndex
       : cardIndex;
+
+    if (collectionId === "trainerPokemon") {
+      return [
+        "trainerPokemon",
+        groupId,
+        card.meta || card.code || card.name || cardIndex,
+        accountIndex,
+      ].join("::");
+    }
 
     if (collectionId === "artist") {
       return [

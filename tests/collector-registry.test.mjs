@@ -429,3 +429,12 @@ test("legacy link-only settings are treated as private without changing card dat
   assert.equal(setting.visibility, "private");
   assert.equal(setting.shareId, "");
 });
+
+
+test("trainer Pokemon reuses authorized Pokemon storage with an isolated key namespace", async () => {
+  const meta = registry.COLLECTIONS.trainerPokemon;
+  assert.equal(meta.documentId, "pokemonCollectionsDex");
+  const catalog = await registry.loadCatalog("trainerPokemon");
+  assert.ok(catalog.items.length > 0);
+  assert.ok(catalog.items.every((item) => item.key.startsWith("trainerPokemon::")));
+});
