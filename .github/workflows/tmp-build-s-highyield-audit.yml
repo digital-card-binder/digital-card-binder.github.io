@@ -1,0 +1,95 @@
+name: Temporary build high-yield Sword Shield audit sheets
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-build-s-highyield-audit.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - name: Build selected contact sheets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from urllib.request import Request, urlopen
+          from io import BytesIO
+          import json, math, hashlib
+          from PIL import Image, ImageDraw, ImageFont
+
+          targets={'s8b','s9a','s10a','s11a','s12a'}
+          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          groups=[g for g in groups if str(g.get('code') or '').lower() in targets]
+          out=Path('audit-s-highyield'); imgdir=out/'images'
+          out.mkdir(exist_ok=True); imgdir.mkdir(exist_ok=True)
+          records=[]
+          for g in groups:
+            for i,c in enumerate(g.get('cards') or []):
+              url=str(c.get('image') or '').strip()
+              if url.startswith('http'):
+                records.append({'set':g.get('code'),'setName':g.get('title'),'index':i,'name':c.get('name') or c.get('pokemonName') or c.get('code') or '', 'code':c.get('code') or '', 'image':url, 'source':c.get('source') or ''})
+          def dl(rec):
+            p=imgdir/(hashlib.sha1(rec['image'].encode()).hexdigest()+'.jpg')
+            if not p.exists():
+              req=Request(rec['image'],headers={'User-Agent':'Mozilla/5.0'})
+              with urlopen(req,timeout=20) as r:data=r.read()
+              Image.open(BytesIO(data)).convert('RGB').save(p,quality=88)
+            return rec,p
+          downloaded={}
+          with ThreadPoolExecutor(max_workers=24) as ex:
+            fs=[ex.submit(dl,r) for r in records]
+            for n,f in enumerate(as_completed(fs),1):
+              try:
+                rec,p=f.result(); downloaded[rec['image']]=str(p)
+              except Exception as e: print('ERR',repr(e))
+              if n%100==0:print('DOWN',n,'/',len(fs))
+          try:
+            font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',13)
+            small=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',10)
+          except: font=small=ImageFont.load_default()
+          manifest=[]; cols=6; rows=5; per=30; cw=180; ch=310; iw=165; ih=230
+          for g in groups:
+            cards=[]
+            for i,c in enumerate(g.get('cards') or []):
+              url=str(c.get('image') or '').strip()
+              if url in downloaded:
+                cards.append({'set':g.get('code'),'name':c.get('name') or c.get('pokemonName') or c.get('code') or '', 'code':c.get('code') or '', 'image':url,'source':c.get('source') or '', 'local':downloaded[url]})
+            sheets=[]
+            for part in range(math.ceil(len(cards)/per)):
+              subset=cards[part*per:(part+1)*per]
+              canvas=Image.new('RGB',(cols*cw,rows*ch+45),'white'); d=ImageDraw.Draw(canvas)
+              d.text((10,10),f"{g.get('code')} {g.get('title')} | {part+1}/{math.ceil(len(cards)/per)}",fill='black',font=font)
+              for j,r in enumerate(subset):
+                rr,cc=divmod(j,cols); x=cc*cw+7;y=40+rr*ch
+                im=Image.open(r['local']).convert('RGB');im.thumbnail((iw,ih),Image.Resampling.LANCZOS)
+                canvas.paste(im,(x+(iw-im.width)//2,y))
+                d.text((x,y+235),str(r['code'])[:27],fill='black',font=small)
+                d.text((x,y+250),str(r['name'])[:22],fill='black',font=small)
+              fn=f"{g.get('code')}-{part+1:02d}.jpg";canvas.save(out/fn,quality=90);sheets.append(fn)
+            manifest.append({'code':g.get('code'),'title':g.get('title'),'cards':cards,'sheets':sheets})
+          (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('GROUPS',[(m['code'],len(m['cards']),len(m['sheets'])) for m in manifest])
+          PY
+      - name: Commit contact sheets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit-s-highyield
+          git commit -m "chore: generate high-yield Sword Shield audit sheets"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
