@@ -1,0 +1,56 @@
+name: Temporary expand trainer Pokemon dex v2
+
+on:
+  push:
+    branches:
+      - feature/rename-and-expand-trainer-pokemon-dex
+    paths:
+      - .github/workflows/tmp-expand-trainer-pokemon-dex-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/rename-and-expand-trainer-pokemon-dex
+          fetch-depth: 0
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Apply expansion and corrected group-count test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, textwrap
+
+          source = Path('.github/workflows/tmp-expand-trainer-pokemon-dex.yml').read_text(encoding='utf-8')
+          marker = "          python - <<'PY'\n"
+          script = source.split(marker, 1)[1].split("\n          PY", 1)[0]
+          exec(compile(textwrap.dedent(script), '<trainer-pokemon-expansion>', 'exec'))
+
+          path = Path('tests/collector-registry.test.mjs')
+          text = path.read_text(encoding='utf-8')
+          pattern = r'(test\("existing nonempty top-level catalog group counts stay unchanged".*?trainerPokemon:\s*)20(,.*?\n\s*\};)'
+          text, count = re.subn(pattern, r'\g<1>19\g<2>', text, count=1, flags=re.S)
+          if count != 1:
+            raise RuntimeError('Could not correct trainerPokemon group count expectation')
+          path.write_text(text, encoding='utf-8')
+          print('Corrected trainerPokemon expectations: 20 cards / 19 groups')
+          PY
+      - run: npm ci
+      - run: npm test
+      - name: Commit feature changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A ':!.github/workflows/tmp-audit-trainer-pokemon-samples.yml' ':!.github/workflows/tmp-expand-trainer-pokemon-dex.yml' ':!.github/workflows/tmp-expand-trainer-pokemon-dex-v2.yml'
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: rename and expand trainer Pokemon dex"
+            git pull --rebase origin feature/rename-and-expand-trainer-pokemon-dex
+            git push origin HEAD:feature/rename-and-expand-trainer-pokemon-dex
+          fi
