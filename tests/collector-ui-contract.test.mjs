@@ -12,6 +12,7 @@ const collectionPages = {
   pokemon: ["pokemon-collections.html", "firebase-page-manager.js"],
   ar: ["ar.html", "firebase-page-manager.js"],
   people: ["people.html", "firebase-people-manager.js"],
+  trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],
 };
 const sitePages = [
   "index.html",
@@ -22,6 +23,7 @@ const sitePages = [
   "pokemon-collections.html",
   "ar.html",
   "people.html",
+  "trainer-pokemon.html",
   "custom.html",
   "collectors.html",
   "collector.html",

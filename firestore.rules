@@ -52,7 +52,8 @@ service cloud.firestore {
         || collectionId == "artistDex"
         || collectionId == "seriesDex"
         || collectionId == "pokemonCollectionsDex"
-        || collectionId == "arDex";
+        || collectionId == "arDex"
+        || collectionId == "trainerPokemonDex";
     }
 
     function supportedCollectorCollection(collectionId) {
@@ -63,6 +64,7 @@ service cloud.firestore {
         || collectionId == "pokemon"
         || collectionId == "ar"
         || collectionId == "people"
+        || collectionId == "trainerPokemon"
         || collectionId == "custom";
     }
 
@@ -400,6 +402,7 @@ service cloud.firestore {
         || publicSettingExistsAfter(userId, "pokemon")
         || publicSettingExistsAfter(userId, "ar")
         || publicSettingExistsAfter(userId, "people")
+        || publicSettingExistsAfter(userId, "trainerPokemon")
         || publicSettingExistsAfter(userId, "custom");
     }
 

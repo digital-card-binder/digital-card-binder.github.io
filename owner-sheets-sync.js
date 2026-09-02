@@ -16,6 +16,7 @@
     "series",
     "pokemon",
     "ar",
+    "trainerPokemon",
   ];
   const CATEGORY_LABELS = {
     national: "전국도감",
@@ -24,6 +25,7 @@
     series: "시리즈 도감",
     pokemon: "포켓몬 컬렉션",
     ar: "AR 전종도감",
+    trainerPokemon: "트레이너 & 포켓몬 도감",
   };
   const DOCUMENT_IDS = {
     national: CONFIG.userDocument || "nationalDex",
@@ -32,6 +34,7 @@
     series: "seriesDex",
     pokemon: "pokemonCollectionsDex",
     ar: "arDex",
+    trainerPokemon: "trainerPokemonDex",
   };
   const DATA_FILES = {
     pokedex: "./data/pokedex.json",
@@ -40,6 +43,7 @@
     pokemon: "./data/pokemon-collections.json",
     ar: "./data/ar.json",
     packs: "./packs.js",
+    trainerPokemon: "./data/trainer-pokemon.json",
   };
 
   let firebase = null;
@@ -590,13 +594,15 @@
         fetchJson(DATA_FILES.pokemon),
         fetchJson(DATA_FILES.ar),
         fetchPacks(),
-      ]).then(([pokedex, artists, series, pokemon, ar, packs]) => ({
+        fetchJson(DATA_FILES.trainerPokemon),
+      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({
         pokedex,
         artists,
         series,
         pokemon,
         ar,
         packs,
+        trainerPokemon,
       }));
     }
     return catalogPromise;
@@ -768,6 +774,7 @@
     if (category === "artist") return catalogs.artists.artists || [];
     if (category === "series") return catalogs.series || [];
     if (category === "ar") return catalogs.ar || [];
+    if (category === "trainerPokemon") return catalogs.trainerPokemon.groups || [];
     return catalogs.pokemon || [];
   }
 
@@ -788,6 +795,15 @@
         cardNumber: card.code || card.meta || "",
         rarity: "",
         imageUrl: card.image || "",
+      };
+    }
+
+    if (category === "trainerPokemon") {
+      return {
+        setCode: item?.setCode || card.set || "",
+        cardNumber: item?.cardNumber || card.cardNumber || "",
+        rarity: card.rarity || "",
+        imageUrl: item?.imageUrl || card.image || "",
       };
     }
 
@@ -924,7 +940,7 @@
       keys.national.add(String(record.number));
     }
     for (const pack of catalogs.packs) keys.pack.add(pack.code);
-    for (const category of ["artist", "series", "pokemon", "ar"]) {
+    for (const category of ["artist", "series", "pokemon", "ar", "trainerPokemon"]) {
       groupsForCategory(category, catalogs).forEach((group, groupIndex) => {
         (group.cards || []).forEach((card, cardIndex) => {
           keys[category].add(
