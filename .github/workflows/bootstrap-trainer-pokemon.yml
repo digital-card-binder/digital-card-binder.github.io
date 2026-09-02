@@ -76,6 +76,8 @@ jobs:
 
           print('trainer & Pokemon collection integration patched')
           PY
+      - name: Install dependencies
+        run: npm ci
       - name: Run verification suite
         run: npm test
       - name: Commit integration
