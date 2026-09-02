@@ -1,0 +1,167 @@
+name: Temporary build Sword Shield trainer Pokemon audit sheets
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-build-swordshield-audit-sheets.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: pip install pillow
+      - name: Build visual audit sheets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from urllib.request import Request, urlopen
+          from io import BytesIO
+          import json, re, math, hashlib
+          from PIL import Image, ImageDraw, ImageFont
+
+          out = Path('tmp/trainer-pokemon-s-audit')
+          imgdir = out / 'images'
+          out.mkdir(parents=True, exist_ok=True)
+          imgdir.mkdir(parents=True, exist_ok=True)
+
+          groups = json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+
+          def is_sword_shield(code):
+            code = str(code or '').strip()
+            if not code: return False
+            upper = code.upper()
+            if upper.startswith('SV') or upper.startswith('SM'):
+              return False
+            return bool(re.match(r'^S(?:[-0-9A-Z].*)?$', upper))
+
+          selected = [g for g in groups if is_sword_shield(g.get('code'))]
+          print('SWORD_SHIELD_GROUPS', len(selected))
+          print('SWORD_SHIELD_CARDS', sum(len(g.get('cards') or []) for g in selected))
+          print('GROUPS', [(g.get('code'), g.get('title'), len(g.get('cards') or [])) for g in selected])
+
+          records = []
+          for g in selected:
+            for i, c in enumerate(g.get('cards') or []):
+              url = str(c.get('image') or '').strip()
+              if not url.startswith('http'):
+                continue
+              records.append({
+                'set': str(g.get('code') or ''),
+                'setName': str(g.get('title') or ''),
+                'index': i,
+                'name': str(c.get('name') or c.get('pokemonName') or c.get('code') or ''),
+                'cardNumber': str(c.get('cardNumber') or c.get('number') or c.get('meta') or ''),
+                'code': str(c.get('code') or ''),
+                'image': url,
+              })
+
+          def download(rec):
+            key = hashlib.sha1(rec['image'].encode()).hexdigest() + '.jpg'
+            path = imgdir / key
+            if path.exists(): return rec, path, None
+            try:
+              req = Request(rec['image'], headers={'User-Agent':'Mozilla/5.0'})
+              with urlopen(req, timeout=20) as r:
+                data = r.read()
+              im = Image.open(BytesIO(data)).convert('RGB')
+              im.save(path, quality=88)
+              return rec, path, None
+            except Exception as e:
+              return rec, None, repr(e)
+
+          downloaded = {}
+          errors = []
+          with ThreadPoolExecutor(max_workers=16) as ex:
+            futures = [ex.submit(download, r) for r in records]
+            for n, fut in enumerate(as_completed(futures), 1):
+              rec, path, err = fut.result()
+              if path: downloaded[rec['image']] = str(path)
+              else: errors.append({'record':rec, 'error':err})
+              if n % 250 == 0: print('downloaded', n, '/', len(futures))
+
+          try:
+            font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 14)
+            small = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
+          except Exception:
+            font = ImageFont.load_default(); small = font
+
+          manifest = {'groups': [], 'downloadErrors': errors}
+          cols, rows = 7, 7
+          card_w, card_h = 160, 224
+          label_h = 48
+          cell_w, cell_h = 174, 286
+          per_sheet = cols * rows
+
+          for g in selected:
+            cards = []
+            for i, c in enumerate(g.get('cards') or []):
+              url = str(c.get('image') or '').strip()
+              if url not in downloaded: continue
+              cards.append({
+                'set': str(g.get('code') or ''),
+                'setName': str(g.get('title') or ''),
+                'index': i,
+                'name': str(c.get('name') or c.get('pokemonName') or c.get('code') or ''),
+                'cardNumber': str(c.get('cardNumber') or c.get('number') or c.get('meta') or ''),
+                'code': str(c.get('code') or ''),
+                'image': url,
+                'local': downloaded[url],
+              })
+            sheets = []
+            for part in range(math.ceil(len(cards)/per_sheet) or 1):
+              subset = cards[part*per_sheet:(part+1)*per_sheet]
+              if not subset: continue
+              canvas = Image.new('RGB', (cols*cell_w, rows*cell_h + 60), 'white')
+              draw = ImageDraw.Draw(canvas)
+              title = f"{g.get('code')} · {g.get('title')} · {len(cards)} cards · sheet {part+1}/{math.ceil(len(cards)/per_sheet)}"
+              draw.text((12, 12), title, fill='black', font=font)
+              for j, rec in enumerate(subset):
+                r, cidx = divmod(j, cols)
+                x = cidx*cell_w + 7
+                y = 50 + r*cell_h
+                im = Image.open(rec['local']).convert('RGB')
+                im.thumbnail((card_w, card_h), Image.Resampling.LANCZOS)
+                px = x + (card_w-im.width)//2
+                py = y
+                canvas.paste(im, (px,py))
+                label1 = f"{rec['set']} {rec['cardNumber']}"
+                label2 = rec['name'][:22]
+                label3 = rec['code'][:26]
+                draw.text((x, y+card_h+4), label1, fill='black', font=small)
+                draw.text((x, y+card_h+18), label2, fill='black', font=small)
+                draw.text((x, y+card_h+32), label3, fill='black', font=small)
+              fname = f"{str(g.get('code')).replace('/','-')}-{part+1:02d}.jpg"
+              canvas.save(out/fname, quality=88, optimize=True)
+              sheets.append(fname)
+            manifest['groups'].append({
+              'code': g.get('code'), 'title': g.get('title'),
+              'cardCount': len(g.get('cards') or []), 'downloaded': len(cards),
+              'sheets': sheets,
+            })
+
+          Path(out/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          print('DOWNLOAD_ERRORS', len(errors))
+          print('SHEETS', sum(len(g['sheets']) for g in manifest['groups']))
+          PY
+      - name: Commit audit sheets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tmp/trainer-pokemon-s-audit
+          git commit -m "chore: generate Sword Shield trainer Pokemon audit sheets"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
