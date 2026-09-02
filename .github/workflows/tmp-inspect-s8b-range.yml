@@ -1,0 +1,28 @@
+name: Temporary inspect VMAX Climax character range
+on:
+  push:
+    branches: [fix/dashboard-and-swordshield-trainer-pokemon]
+    paths: [.github/workflows/tmp-inspect-s8b-range.yml]
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+      - run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          g=next(g for g in groups if str(g.get('code')).lower()=='s8b')
+          rows=[]
+          for c in g.get('cards') or []:
+            m=re.search(r'_(\d{3})/184$',str(c.get('code') or ''),re.I)
+            if m and 185<=int(m.group(1))<=254:
+              rows.append((int(m.group(1)),c.get('name'),c.get('code'),c.get('image'),c.get('source')))
+          nums={r[0] for r in rows}
+          print('COUNT',len(rows))
+          print('MISSING',[n for n in range(185,255) if n not in nums])
+          for r in sorted(rows): print('ROW',json.dumps(r,ensure_ascii=False))
+          PY
