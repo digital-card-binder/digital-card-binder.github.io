@@ -105,5 +105,11 @@ test("legacy unlisted setting must revoke both share documents in the same batch
   assert.equal(saved.data().visibility, "private");
   assert.equal(saved.data().shareId, "");
   assert.equal((await assertSucceeds(getDoc(sharedRef))).exists(), false);
-  assert.equal((await assertSucceeds(getDoc(ownerRef))).exists(), false);
+
+  await environment.withSecurityRulesDisabled(async (context) => {
+    const ownerSnapshot = await getDoc(
+      doc(context.firestore(), "collectorShareOwners", shareId),
+    );
+    assert.equal(ownerSnapshot.exists(), false);
+  });
 });
