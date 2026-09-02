@@ -1,0 +1,44 @@
+name: Temporary list Sword Shield series groups
+
+on:
+  push:
+    branches:
+      - fix/dashboard-and-swordshield-trainer-pokemon
+    paths:
+      - .github/workflows/tmp-list-swordshield-groups.yml
+
+permissions:
+  contents: write
+
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/dashboard-and-swordshield-trainer-pokemon
+          fetch-depth: 0
+      - name: List groups
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          groups=json.loads(Path('data/series.json').read_text(encoding='utf-8'))
+          out=[]
+          for g in groups:
+            code=str(g.get('code') or '')
+            u=code.upper()
+            if re.match(r'^S(?:[-0-9A-Z].*)?$',u) and not u.startswith(('SV','SM')):
+              cards=g.get('cards') or []
+              out.append({'code':code,'title':g.get('title'),'count':len(cards),'first':cards[0] if cards else None,'last':cards[-1] if cards else None})
+          Path('audit-s-groups.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('GROUP_COUNT',len(out),'CARD_COUNT',sum(x['count'] for x in out))
+          PY
+      - name: Commit list
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audit-s-groups.json
+          git commit -m "chore: list Sword Shield series audit groups"
+          git pull --rebase origin fix/dashboard-and-swordshield-trainer-pokemon
+          git push origin HEAD:fix/dashboard-and-swordshield-trainer-pokemon
