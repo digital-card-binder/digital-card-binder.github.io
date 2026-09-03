@@ -1,0 +1,64 @@
+name: One-time structure normalization
+
+on:
+  push:
+    branches:
+      - refactor/structure-normalization
+    paths:
+      - "scripts/one_time_structure_normalization.py"
+      - ".github/workflows/one-time-structure-normalization.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out cleanup branch
+        uses: actions/checkout@v4
+        with:
+          ref: refactor/structure-normalization
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Normalize repository structure
+        run: python scripts/one_time_structure_normalization.py
+
+      - name: Install test dependencies
+        run: npm ci
+
+      - name: Run full verification suite
+        run: npm test
+
+      - name: Remove one-time automation files
+        run: rm scripts/one_time_structure_normalization.py .github/workflows/one-time-structure-normalization.yml
+
+      - name: Commit normalized structure
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No normalization changes to commit."
+            exit 0
+          fi
+          git commit -m "Normalize catalog structure and verification"
+          git push origin HEAD:refactor/structure-normalization
