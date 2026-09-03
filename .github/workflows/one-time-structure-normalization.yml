@@ -34,13 +34,69 @@ jobs:
           cache: npm
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 21
 
+      - name: Patch one-time script guard
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/one_time_structure_normalization.py')
+          source = path.read_text(encoding='utf-8')
+          old = 'if not candidate.is_file() or candidate == duplicate_apk or ".git" in candidate.parts:'
+          new = 'if not candidate.is_file() or candidate == duplicate_apk or candidate == ROOT / "scripts" / "one_time_structure_normalization.py" or ".git" in candidate.parts:'
+          if old not in source:
+              raise SystemExit('self-reference guard block not found')
+          path.write_text(source.replace(old, new, 1), encoding='utf-8')
+          PY
+
       - name: Normalize repository structure
         run: python scripts/one_time_structure_normalization.py
+
+      - name: Preserve National Dex order in merged Pokemon groups
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              file = Path(path)
+              source = file.read_text(encoding='utf-8')
+              if old not in source:
+                  raise SystemExit(f'expected merge helper not found in {path}')
+              file.write_text(source.replace(old, new, 1), encoding='utf-8')
+
+          replace_once(
+              'collector-collection-registry.js',
+              '      payload = [...mergedByName.values()];',
+              '      payload = [...mergedByName.values()].sort(\n        (left, right) => (Number(left?.dexNumber) || Number.POSITIVE_INFINITY)\n          - (Number(right?.dexNumber) || Number.POSITIVE_INFINITY),\n      );',
+          )
+
+          helper_old = '''  function mergeGroupsByName(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const name = String(group?.name || "").trim();
+      if (name) merged.set(name, group);
+    });
+    return [...merged.values()];
+  }
+'''
+          helper_new = '''  function mergeGroupsByName(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const name = String(group?.name || "").trim();
+      if (name) merged.set(name, group);
+    });
+    return [...merged.values()].sort(
+      (left, right) => (Number(left?.dexNumber) || Number.POSITIVE_INFINITY)
+        - (Number(right?.dexNumber) || Number.POSITIVE_INFINITY),
+    );
+  }
+'''
+          replace_once('dashboard.js', helper_old, helper_new)
+          replace_once('owner-sheets-sync.js', helper_old, helper_new)
+          PY
 
       - name: Install test dependencies
         run: npm ci
