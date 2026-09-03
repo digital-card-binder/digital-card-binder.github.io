@@ -1,11 +1,10 @@
 package io.github.digitalcardbinder.app;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -49,21 +48,21 @@ public class DigitalCardBinderMessagingService extends FirebaseMessagingService 
                 launchIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+        Notification notification = new Notification.Builder(
                 this,
                 BinderApplication.NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(body)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new Notification.BigTextStyle().bigText(body))
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .build();
 
         NotificationManager manager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
-            manager.notify((int) (System.currentTimeMillis() & 0x7fffffff), builder.build());
+            manager.notify((int) (System.currentTimeMillis() & 0x7fffffff), notification);
         }
     }
 }
