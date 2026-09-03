@@ -622,7 +622,6 @@
       } else {
         batch.delete(publicReference);
       }
-      syncDirectoryInBatch(batch, collectionId, next);
       await batch.commit();
     }
 
@@ -632,6 +631,7 @@
       exists: true,
       createdAt: snapshot.data()?.createdAt || current.createdAt,
     });
+    await reconcileDirectoryEntry();
   }
 
   async function saveSettings() {
