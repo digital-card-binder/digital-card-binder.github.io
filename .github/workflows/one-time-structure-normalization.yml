@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: structure-normalization
+  cancel-in-progress: true
+
 jobs:
   normalize:
     runs-on: ubuntu-latest
