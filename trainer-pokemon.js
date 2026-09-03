@@ -1,6 +1,6 @@
 "use strict";
 
-const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260902-4";
+const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260903-5";
 const TP_ALL_VALUE = "__all__";
 const tp = (id) => document.getElementById(id);
 
@@ -19,6 +19,73 @@ const personLabel = (card) => {
   if (!raw || raw === "그 외의 사람들" || raw === "그외" || raw === "그 외") return "그 외";
   return raw;
 };
+
+function canonicalSetCode(value) {
+  const raw = String(value || "").trim();
+  const match = raw.match(/^(sv|sm|s|m)(\d+)([a-z]*)$/i);
+  if (!match) return raw;
+  return `${match[1].toUpperCase()}${match[2]}${match[3].toLowerCase()}`;
+}
+
+function cardImageCandidates(card) {
+  const candidates = [];
+  const add = (value) => {
+    const url = String(value || "").trim();
+    if (url && !candidates.includes(url)) candidates.push(url);
+  };
+  add(card.image);
+
+  const setCode = canonicalSetCode(card.set);
+  const number = String(card.cardNumber || "").split("/", 1)[0].trim();
+  if (!setCode || !number) return candidates;
+
+  const paddedNumber = number.padStart(3, "0");
+  const upper = setCode.toUpperCase();
+  const topFolders = upper.startsWith("SV")
+    ? ["SV"]
+    : upper.startsWith("SM")
+      ? ["SM", "S"]
+      : upper.startsWith("S")
+        ? ["S"]
+        : upper.startsWith("M")
+          ? ["MEGA", "M"]
+          : [];
+
+  const setFolders = [setCode];
+  const baseSet = setCode.replace(/[a-z]+$/i, "");
+  if (baseSet && baseSet !== setCode) setFolders.push(baseSet);
+
+  topFolders.forEach((topFolder) => {
+    setFolders.forEach((setFolder) => {
+      ["png", "jpg", "jpeg", "webp"].forEach((extension) => {
+        add(`https://cards.image.pokemonkorea.co.kr/data/wmimages/${topFolder}/${setFolder}/${setCode}_${paddedNumber}.${extension}`);
+        if (setFolder !== setCode) {
+          add(`https://cards.image.pokemonkorea.co.kr/data/wmimages/${topFolder}/${setFolder}/${setFolder}_${paddedNumber}.${extension}`);
+        }
+      });
+    });
+  });
+
+  return candidates;
+}
+
+function loadCardImage(image, card, onExhausted) {
+  const candidates = cardImageCandidates(card);
+  let index = 0;
+  image.onload = () => {
+    if (image.src) card.image = image.src;
+  };
+  image.onerror = () => {
+    if (index >= candidates.length) {
+      image.onerror = null;
+      if (typeof onExhausted === "function") onExhausted();
+      return;
+    }
+    image.src = candidates[index++];
+  };
+  if (candidates.length) image.src = candidates[index++];
+  else if (typeof onExhausted === "function") onExhausted();
+}
 
 function decorateCards() {
   tpDataset.groups.forEach((group) => {
@@ -133,7 +200,8 @@ function statusBadge(card) {
 function updateDialog(card) {
   const wrap = tp("tp-dialog-image-wrap");
   const image = tp("tp-dialog-image");
-  image.src = card.image;
+  wrap.classList.remove("has-image-error");
+  loadCardImage(image, card, () => wrap.classList.add("has-image-error"));
   image.alt = `${card.name} 포켓몬 카드`;
   wrap.classList.toggle("is-missing", !card.owned);
   tp("tp-dialog-number").textContent = card.cardNumber || card.set;
@@ -221,10 +289,9 @@ function createCard(card) {
   imageWrap.className = "card-image-wrap";
   const image = document.createElement("img");
   image.className = "card-image";
-  image.src = card.image;
   image.alt = `${card.name} 포켓몬 카드`;
   image.loading = "lazy";
-  image.addEventListener("error", () => article.classList.add("has-image-error"));
+  loadCardImage(image, card, () => article.classList.add("has-image-error"));
   const missing = document.createElement("span");
   missing.className = "missing-overlay";
   missing.textContent = "미보유";
