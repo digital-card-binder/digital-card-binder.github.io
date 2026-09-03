@@ -21,7 +21,7 @@ test("legacy migration runs after granular custom settings interception", async 
   const page = await source("collector-settings.html");
   const granular = page.indexOf("custom-granular-settings.js?v=20260813-2");
   const migration = page.indexOf(
-    "collector-settings-legacy-share-migration.js?v=20260903-1",
+    "collector-settings-legacy-share-migration.js?v=20260903-2",
   );
 
   assert.ok(granular >= 0, "granular custom settings script must be loaded");
