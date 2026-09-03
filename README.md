@@ -107,3 +107,7 @@ npm test
 `npm test`는 JavaScript/HTML 정적 검사, 카탈로그 수·projection 회귀 검사,
 공개 UI 계약 검사, Firestore Rules 문법 검사와 Firebase Emulator
 권한 테스트를 순서대로 실행합니다.
+
+## 구조 유지보수
+
+도감 데이터의 단일 기준, 롤백 원칙과 임시 파일 정리 기준은 [구조 유지보수 가이드](./docs/structure-maintenance.md)를 참고하세요.
