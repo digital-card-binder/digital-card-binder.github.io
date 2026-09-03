@@ -60,7 +60,7 @@
       href: "./pokemon-collections.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
-      catalogCount: 679,
+      catalogCount: 1134,
       defaultDashboardVisible: true,
     },
     ar: {
@@ -245,7 +245,21 @@
       ar: "./data/ar.json",
       trainerPokemon: "./data/trainer-pokemon.json",
     };
-    const payload = await fetchJson(pathByCollection[collectionId]);
+    let payload;
+    if (collectionId === "pokemon") {
+      const [baseGroups, sequenceGroups] = await Promise.all([
+        fetchJson("./data/pokemon-collections.json"),
+        fetchJson("./data/pokemon-collections-21-40.json"),
+      ]);
+      const mergedByName = new Map();
+      [...(baseGroups || []), ...(sequenceGroups || [])].forEach((group) => {
+        const name = cleanString(group?.name);
+        if (name) mergedByName.set(name, group);
+      });
+      payload = [...mergedByName.values()];
+    } else {
+      payload = await fetchJson(pathByCollection[collectionId]);
+    }
     let sourceGroups = collectionId === "artist"
       ? payload.artists || []
       : collectionId === "trainerPokemon"

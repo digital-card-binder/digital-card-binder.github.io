@@ -183,6 +183,18 @@
 
   function pageCardIdentity(category, group, card, groupIndex, cardIndex) {
     const groupId = groupIdentity(group, groupIndex);
+    const accountIndex = Number.isInteger(card.accountIndex)
+      ? card.accountIndex
+      : cardIndex;
+
+    if (category === "trainerPokemon") {
+      return [
+        "trainerPokemon",
+        groupId,
+        card.meta || card.code || card.name || cardIndex,
+        accountIndex,
+      ].join("::");
+    }
 
     if (category === "artist") {
       return [
@@ -204,7 +216,7 @@
     return [
       groupId,
       card.meta || card.code || card.name || cardIndex,
-      cardIndex,
+      accountIndex,
     ].join("::");
   }
 
@@ -403,19 +415,57 @@
     };
   }
 
+  function mergeGroupsByName(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const name = String(group?.name || "").trim();
+      if (name) merged.set(name, group);
+    });
+    return [...merged.values()];
+  }
+
+  function mergeGroupsByCode(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const code = String(group?.code || group?.name || "").trim().toLowerCase();
+      if (code) merged.set(code, group);
+    });
+    return [...merged.values()];
+  }
+
   async function loadCatalogs() {
-    const [pokedex, artists, series, pokemon, ar, packs, people, trainerPokemon] = await Promise.all([
+    const [
+      pokedex,
+      artists,
+      series,
+      pokemon,
+      pokemonSequence,
+      ar,
+      arSupplement,
+      packs,
+      people,
+      trainerPokemon,
+    ] = await Promise.all([
       fetchJson("./data/pokedex.json"),
       fetchJson("./data/artists.json"),
       fetchJson("./data/series.json"),
       fetchJson("./data/pokemon-collections.json"),
+      fetchJson("./data/pokemon-collections-21-40.json"),
       fetchJson("./data/ar.json"),
+      fetchJson("./data/ar-supplement.json").catch(() => []),
       fetchPacks(),
       fetchJson("./data/people.json"),
       fetchJson("./data/trainer-pokemon.json"),
     ]);
     return buildCatalogs(
-      pokedex, artists, series, pokemon, ar, packs, people, trainerPokemon,
+      pokedex,
+      artists,
+      series,
+      mergeGroupsByName(pokemon, pokemonSequence),
+      mergeGroupsByCode(ar, arSupplement),
+      packs,
+      people,
+      trainerPokemon,
     );
   }
 

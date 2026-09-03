@@ -41,7 +41,9 @@
     artists: "./data/artists.json",
     series: "./data/series.json",
     pokemon: "./data/pokemon-collections.json",
+    pokemonSequence: "./data/pokemon-collections-21-40.json",
     ar: "./data/ar.json",
+    arSupplement: "./data/ar-supplement.json",
     packs: "./packs.js",
     trainerPokemon: "./data/trainer-pokemon.json",
   };
@@ -585,6 +587,24 @@
     return packs;
   }
 
+  function mergeGroupsByName(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const name = String(group?.name || "").trim();
+      if (name) merged.set(name, group);
+    });
+    return [...merged.values()];
+  }
+
+  function mergeGroupsByCode(baseGroups, extraGroups) {
+    const merged = new Map();
+    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
+      const code = String(group?.code || group?.name || "").trim().toLowerCase();
+      if (code) merged.set(code, group);
+    });
+    return [...merged.values()];
+  }
+
   async function loadCatalogs() {
     if (!catalogPromise) {
       catalogPromise = Promise.all([
@@ -592,15 +612,27 @@
         fetchJson(DATA_FILES.artists),
         fetchJson(DATA_FILES.series),
         fetchJson(DATA_FILES.pokemon),
+        fetchJson(DATA_FILES.pokemonSequence),
         fetchJson(DATA_FILES.ar),
+        fetchJson(DATA_FILES.arSupplement).catch(() => []),
         fetchPacks(),
         fetchJson(DATA_FILES.trainerPokemon),
-      ]).then(([pokedex, artists, series, pokemon, ar, packs, trainerPokemon]) => ({
+      ]).then(([
         pokedex,
         artists,
         series,
         pokemon,
+        pokemonSequence,
         ar,
+        arSupplement,
+        packs,
+        trainerPokemon,
+      ]) => ({
+        pokedex,
+        artists,
+        series,
+        pokemon: mergeGroupsByName(pokemon, pokemonSequence),
+        ar: mergeGroupsByCode(ar, arSupplement),
         packs,
         trainerPokemon,
       }));
