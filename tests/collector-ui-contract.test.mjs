@@ -217,7 +217,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "ar-dual-catalog");
+  assert.equal(newsData.items[0].id, "trainer-pokemon-dex-launch");
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);
@@ -768,7 +768,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /PokemonDexOwnerSheetsNativeResult/);
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
-  assert.match(androidGradle, /versionCode 11/);
+  assert.match(androidGradle, /versionCode 12/);
   assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260903-1/);
 });
 

@@ -1,0 +1,45 @@
+name: Send Android news notification
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'news.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Configure Firebase service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92 }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92" > "$RUNNER_TEMP/firebase-service-account.json"
+          elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          else
+            echo "::error::A Firebase service account is required to send FCM notifications."
+            exit 1
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
+
+      - name: Send latest news to Android users
+        run: node scripts/send-android-news-notification.mjs

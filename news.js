@@ -122,7 +122,7 @@
 
   function initializeAndroidDownloadLabel() {
     const button = document.querySelector("#android-app-download-button");
-    if (button) button.textContent = "앱 다운로드 v0.8";
+    if (button) button.textContent = "앱 다운로드 v0.9";
   }
 
   async function initializeNews() {
