@@ -56,49 +56,6 @@ jobs:
       - name: Normalize repository structure
         run: python scripts/one_time_structure_normalization.py
 
-      - name: Preserve National Dex order in merged Pokemon groups
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          def replace_once(path, old, new):
-              file = Path(path)
-              source = file.read_text(encoding='utf-8')
-              if old not in source:
-                  raise SystemExit(f'expected merge helper not found in {path}')
-              file.write_text(source.replace(old, new, 1), encoding='utf-8')
-
-          replace_once(
-              'collector-collection-registry.js',
-              '      payload = [...mergedByName.values()];',
-              '      payload = [...mergedByName.values()].sort(\n        (left, right) => (Number(left?.dexNumber) || Number.POSITIVE_INFINITY)\n          - (Number(right?.dexNumber) || Number.POSITIVE_INFINITY),\n      );',
-          )
-
-          helper_old = '''  function mergeGroupsByName(baseGroups, extraGroups) {
-    const merged = new Map();
-    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
-      const name = String(group?.name || "").trim();
-      if (name) merged.set(name, group);
-    });
-    return [...merged.values()];
-  }
-'''
-          helper_new = '''  function mergeGroupsByName(baseGroups, extraGroups) {
-    const merged = new Map();
-    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
-      const name = String(group?.name || "").trim();
-      if (name) merged.set(name, group);
-    });
-    return [...merged.values()].sort(
-      (left, right) => (Number(left?.dexNumber) || Number.POSITIVE_INFINITY)
-        - (Number(right?.dexNumber) || Number.POSITIVE_INFINITY),
-    );
-  }
-'''
-          replace_once('dashboard.js', helper_old, helper_new)
-          replace_once('owner-sheets-sync.js', helper_old, helper_new)
-          PY
-
       - name: Install test dependencies
         run: npm ci
 
