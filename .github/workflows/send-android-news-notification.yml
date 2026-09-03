@@ -6,8 +6,6 @@ on:
       - main
     paths:
       - 'news.json'
-      - 'scripts/send-android-news-notification.mjs'
-      - '.github/workflows/send-android-news-notification.yml'
   workflow_dispatch:
 
 permissions:
