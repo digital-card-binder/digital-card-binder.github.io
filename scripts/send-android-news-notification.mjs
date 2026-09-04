@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import crypto from "node:crypto";
+import { execFileSync } from "node:child_process";
 
 const PROJECT_ID = "pokemon-dex-40e92";
 const TOPIC = "updates";
@@ -49,20 +50,52 @@ async function getAccessToken(serviceAccount) {
   return payloadJson.access_token;
 }
 
-function latestNewsItem() {
-  const news = JSON.parse(fs.readFileSync("news.json", "utf8"));
-  const items = Array.isArray(news.items) ? news.items : [];
+function latestNewsItemFromData(news) {
+  const items = Array.isArray(news?.items) ? news.items : [];
   if (!items.length) throw new Error("news.json has no items");
   return items
     .map((item, index) => ({ ...item, index }))
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || a.index - b.index)[0];
 }
 
+function latestNewsItemFromText(text) {
+  return latestNewsItemFromData(JSON.parse(text));
+}
+
+function latestNewsItem() {
+  return latestNewsItemFromText(fs.readFileSync("news.json", "utf8"));
+}
+
+function newsIdentity(item) {
+  const id = String(item?.id || "").trim();
+  if (id) return id;
+  return `${String(item?.date || "").trim()}::${String(item?.title || "").trim()}`;
+}
+
+function previousLatestNewsItem() {
+  if (process.env.GITHUB_EVENT_NAME === "workflow_dispatch") return null;
+  try {
+    const previousNews = execFileSync("git", ["show", "HEAD^:news.json"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    return latestNewsItemFromText(previousNews);
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
+  const item = latestNewsItem();
+  const previousItem = previousLatestNewsItem();
+  if (previousItem && newsIdentity(previousItem) === newsIdentity(item)) {
+    console.log(`Latest news item is unchanged (${newsIdentity(item)}); skipping duplicate push.`);
+    return;
+  }
+
   const credentialPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!credentialPath) throw new Error("GOOGLE_APPLICATION_CREDENTIALS is not set");
   const serviceAccount = JSON.parse(fs.readFileSync(credentialPath, "utf8"));
-  const item = latestNewsItem();
   const accessToken = await getAccessToken(serviceAccount);
 
   const id = String(item.id || "").trim();
