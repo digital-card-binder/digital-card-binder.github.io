@@ -1,20 +1,79 @@
 {
-  "version": 4,
-  "updatedAt": "2026-09-02",
+  "version": 5,
+  "updatedAt": "2026-09-10",
   "title": "트레이너와 포켓몬 도감",
   "description": "트레이너를 포함해 사람과 포켓몬이 같은 일러스트 장면에 함께 등장하는 한글판 포켓몬 카드 컬렉션",
   "grouping": "pokemon-national-dex",
   "rules": {
     "include": [
-      "이름이 확인되는 인물이 포켓몬과 같은 실제 일러스트 장면에 함께 등장",
-      "이름 없는 일반인·가족·직원·학생·NPC 등도 사람의 모습이나 행동이 확인되고 포켓몬과 같은 장면을 구성하면 포함"
+      "트레이너·주요 인물·일반인·가족·직원·학생·NPC 등 사람이 포켓몬과 같은 실제 카드 일러스트 장면 안에 함께 등장",
+      "이름 없는 사람도 장면의 실제 구성원이며 사람과 포켓몬의 관계가 같은 장면에서 명확히 확인되면 포함"
     ],
     "exclude": [
-      "인물 얼굴 아이콘·마크·사진·포스터·간판만 있는 경우",
-      "점처럼 작게 보이는 관중이나 군중처럼 사람의 존재가 단순 배경 요소에 그치는 경우"
+      "트레이너 얼굴 아이콘이나 심볼만 있는 경우",
+      "사진·포스터·간판 속 인물만 있는 경우",
+      "배경에 점처럼 작게 보이는 관중·군중만 있는 경우",
+      "실제 사람이 아니라 조형물이나 그림만 있는 경우",
+      "사람과 포켓몬의 동시 등장을 실제 이미지로 확실히 확인할 수 없는 경우"
     ]
   },
   "groups": [
+    {
+      "name": "이상해씨",
+      "nationalDexNo": 1,
+      "cards": [
+        {
+          "personName": "레드",
+          "personType": "named",
+          "set": "sm12a",
+          "setName": "TAG TEAM GX 태그올스타즈",
+          "rarity": "SR",
+          "cardNumber": "191/173",
+          "code": "sm12a_191/173",
+          "illustrator": "TOKIYA",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_191.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019017191",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "레드의 도전",
+          "pokemonName": "이상해씨",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "파이리",
+      "nationalDexNo": 4,
+      "cards": [
+        {
+          "personName": "그린",
+          "personType": "named",
+          "set": "sm12a",
+          "setName": "TAG TEAM GX 태그올스타즈",
+          "rarity": "SR",
+          "cardNumber": "190/173",
+          "code": "sm12a_190/173",
+          "illustrator": "TOKIYA",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_190.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019017190",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "그린의 전략",
+          "pokemonName": "파이리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
     {
       "name": "리자몽",
       "nationalDexNo": 6,
@@ -62,6 +121,62 @@
           "verification": "verified-character-rarity",
           "accountIndex": 1,
           "order": 2
+        }
+      ]
+    },
+    {
+      "name": "꼬부기",
+      "nationalDexNo": 7,
+      "cards": [
+        {
+          "personName": "블루",
+          "personType": "named",
+          "set": "sm12a",
+          "setName": "TAG TEAM GX 태그올스타즈",
+          "rarity": "SR",
+          "cardNumber": "195/173",
+          "code": "sm12a_195/173",
+          "illustrator": "TOKIYA",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_195.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019017195",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "블루의 탐색",
+          "pokemonName": "꼬부기",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "아보크",
+      "nationalDexNo": 24,
+      "cards": [
+        {
+          "personName": "로사",
+          "personType": "named",
+          "set": "sm10b",
+          "setName": "스카이레전드",
+          "rarity": "U",
+          "cardNumber": "026/054",
+          "code": "sm10b_026/054",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10b/SM10b_026.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019011026",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "아보크",
+          "pokemonName": "아보크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -155,6 +270,150 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 3,
           "order": 4
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "s10b",
+          "setName": "Pokémon GO",
+          "rarity": "C",
+          "cardNumber": "027/071",
+          "code": "s10b_027/071",
+          "illustrator": "N-DESIGN Inc.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10b/S10b_027.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022010027",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 5,
+          "name": "피카츄",
+          "pokemonName": "피카츄",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 4
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm10a",
+          "setName": "GG엔드",
+          "rarity": "U",
+          "cardNumber": "049/054",
+          "code": "sm10a_049/054",
+          "illustrator": "nagimiso",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_049.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019010049",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 6,
+          "name": "코치 트레이너",
+          "pokemonName": "피카츄",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 5
+        },
+        {
+          "personName": "레드",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "054/049",
+          "code": "sm11b_054/049",
+          "illustrator": "Hiroshi Ariga",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_054.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015054",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 7,
+          "name": "피카츄",
+          "pokemonName": "피카츄",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 6
+        }
+      ]
+    },
+    {
+      "name": "삐삐",
+      "nationalDexNo": 35,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "set": "sm10b",
+          "setName": "스카이레전드",
+          "rarity": "TR",
+          "cardNumber": "054/054",
+          "code": "sm10b_054/054",
+          "illustrator": "Mana Ibe",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10b/SM10b_054.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019011054",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "릴리에",
+          "pokemonName": "삐삐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "라플레시아",
+      "nationalDexNo": 45,
+      "cards": [
+        {
+          "personName": "민화",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "RR",
+          "cardNumber": "003/049",
+          "code": "sm11b_003/049",
+          "illustrator": "Kagemaru Himeno",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_003.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015003",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "라플레시아 GX",
+          "pokemonName": "라플레시아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "민화",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "SR",
+          "cardNumber": "062/049",
+          "code": "sm11b_062/049",
+          "illustrator": "Kagemaru Himeno",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_062.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015062",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "라플레시아 GX",
+          "pokemonName": "라플레시아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -187,6 +446,34 @@
       ]
     },
     {
+      "name": "디그다",
+      "nationalDexNo": 50,
+      "cards": [
+        {
+          "personName": "비주기",
+          "personType": "named",
+          "set": "sm10",
+          "setName": "더블블레이즈",
+          "rarity": "C",
+          "cardNumber": "043/095",
+          "code": "sm10_043/095",
+          "illustrator": "Kouki Saitou",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_043.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019007043",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "디그다",
+          "pokemonName": "디그다",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "닥트리오",
       "nationalDexNo": 51,
       "cards": [
@@ -210,6 +497,34 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "나옹",
+      "nationalDexNo": 52,
+      "cards": [
+        {
+          "personName": "로사와 로이",
+          "personType": "named",
+          "set": "sm10b",
+          "setName": "스카이레전드",
+          "rarity": "SR",
+          "cardNumber": "061/054",
+          "code": "sm10b_061/054",
+          "illustrator": "Megumi Mizutani",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10b/SM10b_061.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019011061",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "로사와 로이",
+          "pokemonName": "나옹",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -266,6 +581,112 @@
       ]
     },
     {
+      "name": "괴력몬",
+      "nationalDexNo": 68,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "s10D",
+          "setName": "타임게이저",
+          "rarity": "SR",
+          "cardNumber": "073/067",
+          "code": "s10d_073/067",
+          "illustrator": "Shinya Komatsu",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10D_073.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022007073",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "괴력몬 V",
+          "pokemonName": "괴력몬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "smp2",
+          "setName": "명탐정 피카츄",
+          "rarity": "C",
+          "cardNumber": "018/024",
+          "code": "smp2_018/024",
+          "illustrator": "MPC Film.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMP2/SMP2_018.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019008018",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "괴력몬",
+          "pokemonName": "괴력몬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "왕눈해",
+      "nationalDexNo": 72,
+      "cards": [
+        {
+          "personName": "도희",
+          "personType": "named",
+          "set": "sm9a",
+          "setName": "나이트유니슨",
+          "rarity": "C",
+          "cardNumber": "007/055",
+          "code": "sm9a_007/055",
+          "illustrator": "Shin Nagasawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9A/SM9a_007.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019003007",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "왕눈해",
+          "pokemonName": "왕눈해",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "코일",
+      "nationalDexNo": 81,
+      "cards": [
+        {
+          "personName": "마티스",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "055/049",
+          "code": "sm11b_055/049",
+          "illustrator": "Fumie Kittaka",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_055.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015055",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "코일",
+          "pokemonName": "코일",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "팬텀",
       "nationalDexNo": 94,
       "cards": [
@@ -294,6 +715,140 @@
       ]
     },
     {
+      "name": "텅구리",
+      "nationalDexNo": 105,
+      "cards": [
+        {
+          "personName": "로켓단 조무래기",
+          "personType": "named",
+          "set": "sm10",
+          "setName": "더블블레이즈",
+          "rarity": "U",
+          "cardNumber": "046/095",
+          "code": "sm10_046/095",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_046.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019007046",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "텅구리",
+          "pokemonName": "텅구리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "또가스",
+      "nationalDexNo": 109,
+      "cards": [
+        {
+          "personName": "로켓단 조무래기",
+          "personType": "named",
+          "set": "sm10",
+          "setName": "더블블레이즈",
+          "rarity": "C",
+          "cardNumber": "034/095",
+          "code": "sm10_034/095",
+          "illustrator": "Mizue",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_034.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019007034",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "또가스",
+          "pokemonName": "또가스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "보미카",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "056/049",
+          "code": "sm11b_056/049",
+          "illustrator": "HYOGONOSUKE",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_056.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015056",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "또가스",
+          "pokemonName": "또가스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "또도가스",
+      "nationalDexNo": 110,
+      "cards": [
+        {
+          "personName": "로이",
+          "personType": "named",
+          "set": "sm10b",
+          "setName": "스카이레전드",
+          "rarity": "U",
+          "cardNumber": "028/054",
+          "code": "sm10b_028/054",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10b/SM10b_028.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019011028",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "또도가스",
+          "pokemonName": "또도가스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "코뿌리",
+      "nationalDexNo": 112,
+      "cards": [
+        {
+          "personName": "비주기",
+          "personType": "named",
+          "set": "sm10",
+          "setName": "더블블레이즈",
+          "rarity": "C",
+          "cardNumber": "049/095",
+          "code": "sm10_049/095",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_049.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019007049",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "코뿌리",
+          "pokemonName": "코뿌리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "아쿠스타",
       "nationalDexNo": 121,
       "cards": [
@@ -306,7 +861,7 @@
           "cardNumber": "083/067",
           "code": "s9a_083/067",
           "illustrator": "",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9a_083.png",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9a/S9a_083.png",
           "source": "https://pokemoncard.co.kr/cards/detail/BS2022004128",
           "sceneTags": [
             "트레이너",
@@ -318,6 +873,34 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "스라크",
+      "nationalDexNo": 123,
+      "cards": [
+        {
+          "personName": "윤슬",
+          "personType": "named",
+          "set": "s9a",
+          "setName": "배틀리전",
+          "rarity": "C",
+          "cardNumber": "004/067",
+          "code": "s9a_004/067",
+          "illustrator": "Uta",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9a/S9a_004.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022004006",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "스라크",
+          "pokemonName": "스라크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -674,6 +1257,100 @@
       ]
     },
     {
+      "name": "치코리타",
+      "nationalDexNo": 152,
+      "cards": [
+        {
+          "personName": "공박사",
+          "personType": "named",
+          "set": "sm8",
+          "setName": "버스트임팩트",
+          "rarity": "U",
+          "cardNumber": "087/095",
+          "code": "sm8_087/095",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0087.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018010087",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "공박사의 강연",
+          "pokemonName": "치코리타",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "공박사",
+          "personType": "named",
+          "set": "sm8",
+          "setName": "버스트임팩트",
+          "rarity": "SR",
+          "cardNumber": "101/095",
+          "code": "sm8_101/095",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0101.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018010101",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "공박사의강연",
+          "pokemonName": "치코리타",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        },
+        {
+          "personName": "공박사",
+          "personType": "named",
+          "set": "sm12",
+          "setName": "얼터제네시스",
+          "rarity": "TR",
+          "cardNumber": "095/095",
+          "code": "sm12_095/095",
+          "illustrator": "nagimiso",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12/SM12_095.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019016095",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 3,
+          "name": "공박사의 강연",
+          "pokemonName": "치코리타",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 2
+        },
+        {
+          "personName": "공박사",
+          "personType": "named",
+          "set": "sm12a",
+          "setName": "TAG TEAM GX 태그올스타즈",
+          "rarity": "",
+          "cardNumber": "144/173",
+          "code": "sm12a_144/173",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_144.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019017144",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 4,
+          "name": "공박사의 강연",
+          "pokemonName": "치코리타",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 3
+        }
+      ]
+    },
+    {
       "name": "블레이범",
       "nationalDexNo": 157,
       "cards": [
@@ -810,6 +1487,34 @@
       ]
     },
     {
+      "name": "해너츠",
+      "nationalDexNo": 191,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm6b",
+          "setName": "챔피언로드",
+          "rarity": "U",
+          "cardNumber": "062/066",
+          "code": "sm6b_062/066",
+          "illustrator": "Kagemaru Himeno",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6B/SM6B_062.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018006062",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "규토리장인",
+          "pokemonName": "해너츠",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "블래키",
       "nationalDexNo": 197,
       "cards": [
@@ -910,6 +1615,78 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "규리",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "060/049",
+          "code": "sm11b_060/049",
+          "illustrator": "Avec Yoko",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_060.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015060",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "강철톤",
+          "pokemonName": "강철톤",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "포푸니",
+      "nationalDexNo": 215,
+      "cards": [
+        {
+          "personName": "태홍",
+          "personType": "named",
+          "set": "sm5S",
+          "setName": "울트라썬",
+          "rarity": "C",
+          "cardNumber": "027/066",
+          "code": "sm5s_027/066",
+          "illustrator": "Masakazu Fukuda",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_027.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018001027",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "포푸니",
+          "pokemonName": "포푸니",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "태홍",
+          "personType": "named",
+          "set": "sm8b",
+          "setName": "GX 울트라샤이니",
+          "rarity": "",
+          "cardNumber": "065/150",
+          "code": "sm8b_065/150",
+          "illustrator": "Masakazu Fukuda",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_065.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019002065",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "포푸니",
+          "pokemonName": "포푸니",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -1049,6 +1826,34 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "밀탱크",
+      "nationalDexNo": 241,
+      "cards": [
+        {
+          "personName": "꼭두",
+          "personType": "named",
+          "set": "sm8",
+          "setName": "버스트임팩트",
+          "rarity": "U",
+          "cardNumber": "071/095",
+          "code": "sm8_071/095",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0071.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018010071",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "밀탱크",
+          "pokemonName": "밀탱크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -1312,6 +2117,34 @@
       ]
     },
     {
+      "name": "코터스",
+      "nationalDexNo": 324,
+      "cards": [
+        {
+          "personName": "민지",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "050/049",
+          "code": "sm11b_050/049",
+          "illustrator": "Ryota Murayama",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_050.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015050",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "코터스",
+          "pokemonName": "코터스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "파비코리",
       "nationalDexNo": 334,
       "cards": [
@@ -1446,6 +2279,78 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "성호",
+          "personType": "named",
+          "set": "sm7",
+          "setName": "창공의 카리스마",
+          "rarity": "R",
+          "cardNumber": "055/096",
+          "code": "sm7_055/096",
+          "illustrator": "TOKIYA",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7/SM7_055.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018007055",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "메타그로스",
+          "pokemonName": "메타그로스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "레지스틸",
+      "nationalDexNo": 379,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm4S",
+          "setName": "각성의 용사",
+          "rarity": "U",
+          "cardNumber": "035/050",
+          "code": "sm4s_035/050",
+          "illustrator": "Mitsuhiro Arita",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4S/SM4S_035.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2017011035",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "레지스틸",
+          "pokemonName": "레지스틸",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm4+",
+          "setName": "GX 배틀부스트",
+          "rarity": "",
+          "cardNumber": "068/114",
+          "code": "sm4plus_068/114",
+          "illustrator": "Mitsuhiro Arita",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_068.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2017013068",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "레지스틸",
+          "pokemonName": "레지스틸",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -1502,6 +2407,84 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "피아나",
+          "personType": "named",
+          "set": "s7R",
+          "setName": "창공스트림",
+          "rarity": "SR",
+          "cardNumber": "076/067",
+          "code": "s7r_076/067",
+          "illustrator": "Ryuta Fuse",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S7/S7R_076.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021009076",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "레쿠쟈 V",
+          "pokemonName": "레쿠쟈",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "팽도리",
+      "nationalDexNo": 393,
+      "cards": [
+        {
+          "personName": "빛나",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "052/049",
+          "code": "sm11b_052/049",
+          "illustrator": "Tomomi Kaneko",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_052.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015052",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "팽도리",
+          "pokemonName": "팽도리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "찌르꼬",
+      "nationalDexNo": 396,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "s4a",
+          "setName": "샤이니스타 V",
+          "rarity": "SR",
+          "cardNumber": "196/190",
+          "code": "s4a_196/190",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_196.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2020016196",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "새 조련사",
+          "pokemonName": "찌르꼬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -1590,6 +2573,34 @@
       ]
     },
     {
+      "name": "체리꼬",
+      "nationalDexNo": 421,
+      "cards": [
+        {
+          "personName": "유채",
+          "personType": "named",
+          "set": "s12a",
+          "setName": "VSTAR 유니버스",
+          "rarity": "SAR",
+          "cardNumber": "240/172",
+          "code": "s12a_240/172",
+          "illustrator": "Yoriyuki Ikegami",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12a/S12a_240.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2023001240",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "유채의 활기",
+          "pokemonName": "체리꼬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "동탁군",
       "nationalDexNo": 437,
       "cards": [
@@ -1614,6 +2625,78 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "꼬지지",
+      "nationalDexNo": 438,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm5S",
+          "setName": "울트라썬",
+          "rarity": "U",
+          "cardNumber": "063/066",
+          "code": "sm5s_063/066",
+          "illustrator": "Sanosuke Sakuma",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_063.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018001063",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "포켓몬애호가클럽",
+          "pokemonName": "꼬지지",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm5S",
+          "setName": "울트라썬",
+          "rarity": "SR",
+          "cardNumber": "072/066",
+          "code": "sm5s_072/066",
+          "illustrator": "Sanosuke Sakuma",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_072.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018001072",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "포켓몬애호가클럽",
+          "pokemonName": "꼬지지",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm10",
+          "setName": "더블블레이즈",
+          "rarity": "U",
+          "cardNumber": "088/095",
+          "code": "sm10_088/095",
+          "illustrator": "Sanosuke Sakuma",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_088.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019007088",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 3,
+          "name": "포켓몬애호가클럽",
+          "pokemonName": "꼬지지",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 2
         }
       ]
     },
@@ -1697,7 +2780,7 @@
           "cardNumber": "084/067",
           "code": "s9a_084/067",
           "illustrator": "",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9/S9a_084.png",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9a/S9a_084.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
             "트레이너",
@@ -1730,6 +2813,56 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 2,
           "order": 3
+        },
+        {
+          "personName": "난천",
+          "personType": "named",
+          "set": "sm8b",
+          "setName": "GX 울트라샤이니",
+          "rarity": "",
+          "cardNumber": "101/150",
+          "code": "sm8b_101/150",
+          "illustrator": "Megumi Mizutani",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_101.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019002101",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 4,
+          "name": "한카리아스",
+          "pokemonName": "한카리아스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 3
+        }
+      ]
+    },
+    {
+      "name": "히포포타스",
+      "nationalDexNo": 449,
+      "cards": [
+        {
+          "personName": "영빈",
+          "personType": "named",
+          "set": "s9a",
+          "setName": "배틀리전",
+          "rarity": "C",
+          "cardNumber": "041/067",
+          "code": "s9a_041/067",
+          "illustrator": "nagimiso",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S9a/S9a_041.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022004068",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "히포포타스",
+          "pokemonName": "히포포타스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -1789,6 +2922,34 @@
       ]
     },
     {
+      "name": "포푸니라",
+      "nationalDexNo": 461,
+      "cards": [
+        {
+          "personName": "태홍",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "051/049",
+          "code": "sm11b_051/049",
+          "illustrator": "nagimiso",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_051.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015051",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "포푸니라",
+          "pokemonName": "포푸니라",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "엘레이드",
       "nationalDexNo": 475,
       "cards": [
@@ -1813,6 +2974,28 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "민진",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "057/049",
+          "code": "sm11b_057/049",
+          "illustrator": "Huang Tzu En",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_057.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015057",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "엘레이드",
+          "pokemonName": "엘레이드",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -1896,6 +3079,28 @@
           "owned": false,
           "verification": "reviewed-user-photo-and-official-korean-catalog",
           "accountIndex": 0
+        },
+        {
+          "personName": "무청",
+          "personType": "named",
+          "set": "s12",
+          "setName": "패러다임트리거",
+          "rarity": "U",
+          "cardNumber": "021/098",
+          "code": "s12_021/098",
+          "illustrator": "Taira Akitsu",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12/S12_021.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022017021",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "눈여아",
+          "pokemonName": "눈여아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -2015,6 +3220,90 @@
       ]
     },
     {
+      "name": "바랜드",
+      "nationalDexNo": 508,
+      "cards": [
+        {
+          "personName": "체렌",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "061/049",
+          "code": "sm11b_061/049",
+          "illustrator": "Mizue",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_061.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015061",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "바랜드",
+          "pokemonName": "바랜드",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "레파르다스",
+      "nationalDexNo": 510,
+      "cards": [
+        {
+          "personName": "체렌",
+          "personType": "named",
+          "set": "s12a",
+          "setName": "VSTAR 유니버스",
+          "rarity": "SAR",
+          "cardNumber": "244/172",
+          "code": "s12a_244/172",
+          "illustrator": "chibi",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12a/S12a_244.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2023001244",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "체렌의 배려심",
+          "pokemonName": "레파르다스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "몰드류",
+      "nationalDexNo": 530,
+      "cards": [
+        {
+          "personName": "야콘",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "059/049",
+          "code": "sm11b_059/049",
+          "illustrator": "Mitsuhiro Arita",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_059.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015059",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "몰드류",
+          "pokemonName": "몰드류",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "으랏차",
       "nationalDexNo": 532,
       "cards": [
@@ -2038,6 +3327,56 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "바닐리치",
+      "nationalDexNo": 583,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm7a",
+          "setName": "플라스마 스파크",
+          "rarity": "C",
+          "cardNumber": "055/060",
+          "code": "sm7a_055/060",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7A/SM7A_055.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018012055",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "관광객",
+          "pokemonName": "바닐리치",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm12a",
+          "setName": "TAG TEAM GX 태그올스타즈",
+          "rarity": "",
+          "cardNumber": "145/173",
+          "code": "sm12a_145/173",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM12a/SM12a_145.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019017145",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "관광객",
+          "pokemonName": "바닐리치",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -2121,6 +3460,50 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "N",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "RR",
+          "cardNumber": "036/049",
+          "code": "sm11b_036/049",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_036.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015036",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "레시라무&제크로무 GX",
+          "pokemonName": "레시라무",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        },
+        {
+          "personName": "N",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "SR",
+          "cardNumber": "064/049",
+          "code": "sm11b_064/049",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_064.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015064",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 3,
+          "name": "레시라무&제크로무 GX",
+          "pokemonName": "레시라무",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 2
         }
       ]
     },
@@ -2199,6 +3582,34 @@
       ]
     },
     {
+      "name": "냐오닉스",
+      "nationalDexNo": 678,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm6",
+          "setName": "금단의 빛",
+          "rarity": "U",
+          "cardNumber": "031/094",
+          "code": "sm6_031/094",
+          "illustrator": "0313",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_031.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2018004031",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "냐오닉스",
+          "pokemonName": "냐오닉스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
       "name": "칼라마네로",
       "nationalDexNo": 687,
       "cards": [
@@ -2223,6 +3634,34 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "티고라스",
+      "nationalDexNo": 696,
+      "cards": [
+        {
+          "personName": "자크로",
+          "personType": "named",
+          "set": "s12a",
+          "setName": "VSTAR 유니버스",
+          "rarity": "SAR",
+          "cardNumber": "241/172",
+          "code": "s12a_241/172",
+          "illustrator": "Oswaldo KATO",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12a/S12a_241.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2023001241",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "자크로",
+          "pokemonName": "티고라스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -2357,6 +3796,56 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "sm3+",
+          "setName": "빛나는 전설",
+          "rarity": "U",
+          "cardNumber": "069/072",
+          "code": "sm3plus_069/072",
+          "illustrator": "Kanako Eo",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM3+/SM3plus_069.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2017010069",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "포켓몬 브리더",
+          "pokemonName": "암멍이",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "약어리",
+      "nationalDexNo": 746,
+      "cards": [
+        {
+          "personName": "수련",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "053/049",
+          "code": "sm11b_053/049",
+          "illustrator": "Misaki Hashimoto",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_053.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015053",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "약어리",
+          "pokemonName": "약어리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
         }
       ]
     },
@@ -2417,6 +3906,56 @@
       ]
     },
     {
+      "name": "실버디",
+      "nationalDexNo": 773,
+      "cards": [
+        {
+          "personName": "글라디오",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "RR",
+          "cardNumber": "041/049",
+          "code": "sm11b_041/049",
+          "illustrator": "Megumi Mizutani",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_041.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015041",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "실버디 GX",
+          "pokemonName": "실버디",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "글라디오",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "SR",
+          "cardNumber": "065/049",
+          "code": "sm11b_065/049",
+          "illustrator": "Megumi Mizutani",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_065.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015065",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "실버디 GX",
+          "pokemonName": "실버디",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
       "name": "따라큐",
       "nationalDexNo": 778,
       "cards": [
@@ -2463,6 +4002,50 @@
           "verification": "verified-character-rarity",
           "accountIndex": 1,
           "order": 2
+        },
+        {
+          "personName": "아세로라",
+          "personType": "named",
+          "set": "s8b",
+          "setName": "VMAX 클라이맥스",
+          "rarity": "",
+          "cardNumber": "161/184",
+          "code": "s8b_161/184",
+          "illustrator": "Shiburingaru",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_161.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2022001161",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 3,
+          "name": "아세로라의 예감",
+          "pokemonName": "따라큐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 2
+        },
+        {
+          "personName": "아세로라",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "CHR",
+          "cardNumber": "058/049",
+          "code": "sm11b_058/049",
+          "illustrator": "You Iribi",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_058.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015058",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 4,
+          "name": "따라큐",
+          "pokemonName": "따라큐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 3
         }
       ]
     },
@@ -2525,6 +4108,56 @@
       ]
     },
     {
+      "name": "솔가레오",
+      "nationalDexNo": 791,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "RR",
+          "cardNumber": "020/049",
+          "code": "sm11b_020/049",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_020.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015020",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "솔가레오&루나아라 GX",
+          "pokemonName": "솔가레오",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 0
+        },
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "set": "sm11b",
+          "setName": "드림리그",
+          "rarity": "SR",
+          "cardNumber": "063/049",
+          "code": "sm11b_063/049",
+          "illustrator": "Hideki Ishikawa",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM11b/SM11b_063.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2019015063",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "솔가레오&루나아라 GX",
+          "pokemonName": "솔가레오",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        }
+      ]
+    },
+    {
       "name": "루나아라",
       "nationalDexNo": 792,
       "cards": [
@@ -2549,6 +4182,34 @@
           "pokemonName": "루나아라",
           "owned": false,
           "verification": "reviewed-user-photo-and-official-korean-catalog",
+          "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "텅비드",
+      "nationalDexNo": 793,
+      "cards": [
+        {
+          "personName": "루자미네",
+          "personType": "named",
+          "set": "sm4+",
+          "setName": "GX 배틀부스트",
+          "rarity": "SR",
+          "cardNumber": "118/114",
+          "code": "sm4plus_118/114",
+          "illustrator": "You Iribi",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_118.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2017013118",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 1,
+          "name": "루자미네",
+          "pokemonName": "텅비드",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
         }
       ]
@@ -2707,6 +4368,50 @@
           "verification": "reviewed-image-audit",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "s2a",
+          "setName": "폭염워커",
+          "rarity": "U",
+          "cardNumber": "068/070",
+          "code": "s2a_068/070",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S2a/S2a_068.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2020010068",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "포켓몬 브리더의 육성",
+          "pokemonName": "우르",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "s2a",
+          "setName": "폭염워커",
+          "rarity": "SR",
+          "cardNumber": "078/070",
+          "code": "s2a_078/070",
+          "illustrator": "kirisAki",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S2a/S2a_078.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2020010078",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 3,
+          "name": "포켓몬 브리더의 육성",
+          "pokemonName": "우르",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 2
         }
       ]
     },
@@ -2879,29 +4584,6 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "S8b",
-          "setName": "VMAX 클라이맥스",
-          "rarity": "",
-          "cardNumber": "081/184",
-          "code": "s8b_081/184",
-          "illustrator": "sowsow",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S8b/S8b_081.png",
-          "source": "https://pokemoncard.co.kr/cards/detail/BS2022001081",
-          "sceneTags": [
-            "직원",
-            "가게",
-            "일상"
-          ],
-          "order": 1,
-          "name": "마휘핑",
-          "pokemonName": "마휘핑",
-          "owned": false,
-          "verification": "reviewed-user-photo-and-official-korean-catalog",
-          "accountIndex": 0
-        },
-        {
-          "personName": "그 외",
-          "personType": "other",
           "set": "s8b",
           "setName": "VMAX 클라이맥스",
           "rarity": "CHR",
@@ -3004,6 +4686,28 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "금랑",
+          "personType": "named",
+          "set": "s7D",
+          "setName": "마천퍼펙트",
+          "rarity": "SR",
+          "cardNumber": "076/067",
+          "code": "s7d_076/067",
+          "illustrator": "Naoki Saito",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S7/S7D_076.png",
+          "source": "https://pokemoncard.co.kr/cards/detail/BS2021008076",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "order": 2,
+          "name": "두랄루돈 V",
+          "pokemonName": "두랄루돈",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260910",
+          "accountIndex": 1
         }
       ]
     },
@@ -3467,14 +5171,39 @@
       ]
     }
   ],
-  "catalogCount": 130,
+  "catalogCount": 197,
   "audit": {
     "scope": [
       "S",
+      "SM",
       "SV",
       "M"
     ],
-    "policy": "Sword & Shield CHR/CSR + manually image-reviewed SV/M true positives; ambiguous detections excluded",
-    "newCards": 110
+    "policy": "포켓몬코리아 한글판 실제 카드 이미지를 열어 사람과 포켓몬의 동일 장면 동시 등장을 전수 판독",
+    "series": {
+      "S": {
+        "reviewed": 3236,
+        "included": 112,
+        "added": 14,
+        "removed": 1,
+        "excluded": 3124
+      },
+      "SM": {
+        "reviewed": 2982,
+        "included": 54,
+        "added": 54,
+        "removed": 0,
+        "excluded": 2928
+      }
+    },
+    "addedThisAudit": 68,
+    "removedThisAudit": [
+      "s8b_081/184"
+    ],
+    "fixedImages": [
+      "s9a_083/067",
+      "s9a_084/067"
+    ],
+    "held": []
   }
 }
