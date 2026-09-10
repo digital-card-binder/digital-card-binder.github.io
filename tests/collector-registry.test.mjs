@@ -52,7 +52,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     pokemon: 1134,
     ar: 510,
     people: 179,
-    trainerPokemon: 130,
+    trainerPokemon: 197,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -91,7 +91,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     pokemon: 67,
     ar: 32,
     people: 9,
-    trainerPokemon: 105,
+    trainerPokemon: 143,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
