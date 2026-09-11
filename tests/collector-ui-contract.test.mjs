@@ -695,9 +695,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260910-1/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260911-1/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260910-1/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260911-1/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
