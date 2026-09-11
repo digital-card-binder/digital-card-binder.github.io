@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "updatedAt": "2026-09-10",
+  "version": 6,
+  "updatedAt": "2026-09-11",
   "title": "트레이너와 포켓몬 도감",
   "description": "트레이너를 포함해 사람과 포켓몬이 같은 일러스트 장면에 함께 등장하는 한글판 포켓몬 카드 컬렉션",
   "grouping": "pokemon-national-dex",
@@ -153,6 +153,34 @@
       ]
     },
     {
+      "name": "레트라",
+      "nationalDexNo": 20,
+      "cards": [
+        {
+          "personName": "로켓단 조무래기",
+          "personType": "other",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "AR",
+          "cardNumber": "108/098",
+          "code": "sv10_108/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_108.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 레트라",
+          "pokemonName": "레트라",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
       "name": "아보크",
       "nationalDexNo": 24,
       "cards": [
@@ -253,8 +281,8 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv2a",
-          "setName": "포켓몬카드 151",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
           "rarity": "AR",
           "cardNumber": "173/165",
           "code": "sv2a_173/165",
@@ -262,12 +290,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_173.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "피카츄",
           "pokemonName": "피카츄",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 3,
           "order": 4
         },
@@ -336,6 +365,56 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 6
+        },
+        {
+          "personName": "심향",
+          "personType": "named",
+          "set": "SV9a",
+          "setName": "열풍의 아레나",
+          "rarity": "SAR",
+          "cardNumber": "089/063",
+          "code": "sv9a_089/063",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_089.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "심향의 모험",
+          "pokemonName": "피카츄",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 7,
+          "order": 8
+        }
+      ]
+    },
+    {
+      "name": "니드킹",
+      "nationalDexNo": 34,
+      "cards": [
+        {
+          "personName": "비주기",
+          "personType": "named",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "SAR",
+          "cardNumber": "126/098",
+          "code": "sv10_126/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_126.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 니드킹 ex",
+          "pokemonName": "니드킹",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -364,6 +443,56 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
+        },
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "SAR",
+          "cardNumber": "126/100",
+          "code": "sv9_126/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_126.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "릴리에의 삐삐 ex",
+          "pokemonName": "삐삐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "name": "푸린",
+      "nationalDexNo": 39,
+      "cards": [
+        {
+          "personName": "사구아로",
+          "personType": "named",
+          "set": "SV2D",
+          "setName": "클레이버스트",
+          "rarity": "SAR",
+          "cardNumber": "096/071",
+          "code": "sv2d_096/071",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_096.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "사구아로",
+          "pokemonName": "푸린",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -480,7 +609,7 @@
         {
           "personName": "비주기",
           "personType": "named",
-          "set": "m2a",
+          "set": "M2a",
           "setName": "MEGA 드림 ex",
           "rarity": "AR",
           "cardNumber": "206/193",
@@ -489,12 +618,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_206.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "닥트리오",
+          "name": "로켓단의 닥트리오",
           "pokemonName": "닥트리오",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -525,6 +655,56 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
+        },
+        {
+          "personName": "비주기",
+          "personType": "named",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "AR",
+          "cardNumber": "109/098",
+          "code": "sv10_109/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_109.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 나옹",
+          "pokemonName": "나옹",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "name": "페르시온",
+      "nationalDexNo": 53,
+      "cards": [
+        {
+          "personName": "비주기",
+          "personType": "named",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "rarity": "SAR",
+          "cardNumber": "207/165",
+          "code": "sv2a_207/165",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_207.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "비주기의 카리스마",
+          "pokemonName": "페르시온",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -548,7 +728,40 @@
           "owned": false,
           "personName": "이슬",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
+        }
+      ]
+    },
+    {
+      "name": "가디",
+      "nationalDexNo": 58,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV5a",
+          "setName": "크림슨헤이즈",
+          "rarity": "AR",
+          "cardNumber": "075/066",
+          "code": "sv5a_075/066",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5a/SV5a_075.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "히스이 가디",
+          "pokemonName": "가디",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -575,6 +788,34 @@
           "pokemonName": "윈디",
           "owned": false,
           "verification": "verified-character-rarity",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "근육몬",
+      "nationalDexNo": 67,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "rarity": "AR",
+          "cardNumber": "177/165",
+          "code": "sv2a_177/165",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_177.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "근육몬",
+          "pokemonName": "근육몬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -711,6 +952,56 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "유빈",
+          "personType": "named",
+          "set": "SV5K",
+          "setName": "와일드포스",
+          "rarity": "SAR",
+          "cardNumber": "097/071",
+          "code": "sv5k_097/071",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_097.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "유빈의 확신",
+          "pokemonName": "팬텀",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "name": "슬리프",
+      "nationalDexNo": 96,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "rarity": "AR",
+          "cardNumber": "086/078",
+          "code": "sv1v_086/078",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_086.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "슬리프",
+          "pokemonName": "슬리프",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -817,6 +1108,28 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
+        },
+        {
+          "personName": "람다",
+          "personType": "named",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "AR",
+          "cardNumber": "105/098",
+          "code": "sv10_105/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_105.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 또도가스",
+          "pokemonName": "또도가스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -933,6 +1246,34 @@
       ]
     },
     {
+      "name": "잉어킹",
+      "nationalDexNo": 129,
+      "cards": [
+        {
+          "personName": "수련",
+          "personType": "named",
+          "set": "SV5a",
+          "setName": "크림슨헤이즈",
+          "rarity": "SAR",
+          "cardNumber": "093/066",
+          "code": "sv5a_093/066",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5a/SV5a_093.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "수련의 돌봄",
+          "pokemonName": "잉어킹",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
       "name": "라프라스",
       "nationalDexNo": 131,
       "cards": [
@@ -952,7 +1293,12 @@
           "owned": false,
           "personName": "이슬",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
         },
         {
           "personName": "그 외",
@@ -1209,8 +1555,8 @@
         {
           "personName": "비주기",
           "personType": "named",
-          "set": "sv10",
-          "setName": "sv10 도감",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
           "rarity": "SAR",
           "cardNumber": "125/098",
           "code": "sv10_125/098",
@@ -1218,12 +1564,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_125.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "뮤츠",
+          "name": "로켓단의 뮤츠 ex",
           "pokemonName": "뮤츠",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -1236,8 +1583,8 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv2a",
-          "setName": "포켓몬카드 151",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
           "rarity": "SAR",
           "cardNumber": "205/165",
           "code": "sv2a_205/165",
@@ -1245,12 +1592,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_205.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "뮤",
+          "name": "뮤 ex",
           "pokemonName": "뮤",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -1370,7 +1718,12 @@
           "owned": false,
           "personName": "심향",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
         }
       ]
     },
@@ -1455,6 +1808,28 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "로켓단 조무래기",
+          "personType": "other",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "SAR",
+          "cardNumber": "127/098",
+          "code": "sv10_127/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_127.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 크로뱃 ex",
+          "pokemonName": "크로뱃",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -1561,6 +1936,56 @@
           "verification": "verified-character-rarity",
           "accountIndex": 1,
           "order": 2
+        },
+        {
+          "personName": "모란",
+          "personType": "named",
+          "set": "SV4a",
+          "setName": "샤이니트레저 ex",
+          "rarity": "SAR",
+          "cardNumber": "352/190",
+          "code": "sv4a_352/190",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_352.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "모란",
+          "pokemonName": "블래키",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 2,
+          "order": 3
+        }
+      ]
+    },
+    {
+      "name": "니로우",
+      "nationalDexNo": 198,
+      "cards": [
+        {
+          "personName": "아테나",
+          "personType": "named",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
+          "rarity": "AR",
+          "cardNumber": "106/098",
+          "code": "sv10_106/098",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_106.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 니로우",
+          "pokemonName": "니로우",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -1569,10 +1994,10 @@
       "nationalDexNo": 202,
       "cards": [
         {
-          "personName": "그 외",
+          "personName": "로켓단 조무래기",
           "personType": "other",
-          "set": "sv10",
-          "setName": "sv10 도감",
+          "set": "SV10",
+          "setName": "로켓단의 영광",
           "rarity": "AR",
           "cardNumber": "103/098",
           "code": "sv10_103/098",
@@ -1580,12 +2005,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV10/SV10_103.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "마자용",
+          "name": "로켓단의 마자용",
           "pokemonName": "마자용",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -1598,7 +2024,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv4m",
+          "set": "SV4M",
           "setName": "미래의 일섬",
           "rarity": "AR",
           "cardNumber": "074/066",
@@ -1607,12 +2033,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_074.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "강철톤",
           "pokemonName": "강철톤",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         },
@@ -1697,7 +2124,7 @@
         {
           "personName": "심향",
           "personType": "named",
-          "set": "m2a",
+          "set": "M2a",
           "setName": "MEGA 드림 ex",
           "rarity": "AR",
           "cardNumber": "197/193",
@@ -1706,12 +2133,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_197.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "마그카르고",
+          "name": "심향의 마그카르고",
           "pokemonName": "마그카르고",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -1970,7 +2398,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv1s",
+          "set": "SV1S",
           "setName": "스칼렛 ex",
           "rarity": "AR",
           "cardNumber": "083/078",
@@ -1979,12 +2407,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_083.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "랄토스",
           "pokemonName": "랄토스",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -1997,7 +2426,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv1s",
+          "set": "SV1S",
           "setName": "스칼렛 ex",
           "rarity": "AR",
           "cardNumber": "084/078",
@@ -2006,12 +2435,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_084.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "킬리아",
           "pokemonName": "킬리아",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -2068,7 +2498,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv1s",
+          "set": "SV1S",
           "setName": "스칼렛 ex",
           "rarity": "SAR",
           "cardNumber": "101/078",
@@ -2077,12 +2507,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_101.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "가디안",
+          "name": "가디안 ex",
           "pokemonName": "가디안",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 2,
           "order": 3
         }
@@ -2111,6 +2542,34 @@
           "pokemonName": "입치트",
           "owned": false,
           "verification": "verified-character-rarity",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "마이농",
+      "nationalDexNo": 312,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV3a",
+          "setName": "레이징서프",
+          "rarity": "AR",
+          "cardNumber": "066/062",
+          "code": "sv3a_066/062",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3a/SV3a_066.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "마이농",
+          "pokemonName": "마이농",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -2167,6 +2626,56 @@
           "pokemonName": "파비코리",
           "owned": false,
           "verification": "verified-character-rarity",
+          "accountIndex": 0,
+          "order": 1
+        },
+        {
+          "personName": "루티아",
+          "personType": "named",
+          "set": "SV7a",
+          "setName": "낙원드래고나",
+          "rarity": "SAR",
+          "cardNumber": "090/064",
+          "code": "sv7a_090/064",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_090.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "루티아의 어필",
+          "pokemonName": "파비코리",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "name": "릴링",
+      "nationalDexNo": 345,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV7",
+          "setName": "스텔라미라클",
+          "rarity": "AR",
+          "cardNumber": "104/102",
+          "code": "sv7_104/102",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_104.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "릴링",
+          "pokemonName": "릴링",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -2235,7 +2744,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "m4",
+          "set": "M4",
           "setName": "닌자스피너",
           "rarity": "AR",
           "cardNumber": "092/083",
@@ -2244,12 +2753,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M4/M4_092.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "메탕구",
           "pokemonName": "메탕구",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -2262,7 +2772,7 @@
         {
           "personName": "성호",
           "personType": "named",
-          "set": "m2a",
+          "set": "M2a",
           "setName": "MEGA 드림 ex",
           "rarity": "SAR",
           "cardNumber": "245/193",
@@ -2271,12 +2781,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_245.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "메타그로스",
+          "name": "성호의 메타그로스 ex",
           "pokemonName": "메타그로스",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         },
@@ -2569,6 +3080,28 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "난천",
+          "personType": "named",
+          "set": "SV9a",
+          "setName": "열풍의 아레나",
+          "rarity": "AR",
+          "cardNumber": "065/063",
+          "code": "sv9a_065/063",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_065.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "난천의 로즈레이드",
+          "pokemonName": "로즈레이드",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -2597,6 +3130,34 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "무우마직",
+      "nationalDexNo": 429,
+      "cards": [
+        {
+          "personName": "모야모",
+          "personType": "named",
+          "set": "SV4a",
+          "setName": "샤이니트레저 ex",
+          "rarity": "SAR",
+          "cardNumber": "353/190",
+          "code": "sv4a_353/190",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_353.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "모야모",
+          "pokemonName": "무우마직",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -2727,9 +3288,9 @@
           "order": 1
         },
         {
-          "personName": "그 외",
-          "personType": "other",
-          "set": "m2a",
+          "personName": "난천",
+          "personType": "named",
+          "set": "M2a",
           "setName": "MEGA 드림 ex",
           "rarity": "AR",
           "cardNumber": "208/193",
@@ -2738,12 +3299,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_208.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "화강돌",
+          "name": "난천의 화강돌",
           "pokemonName": "화강돌",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 1,
           "order": 2
         }
@@ -2769,7 +3331,12 @@
           "owned": false,
           "personName": "난천",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
         },
         {
           "personName": "난천",
@@ -2792,27 +3359,6 @@
           "verification": "verified-character-rarity",
           "accountIndex": 1,
           "order": 2
-        },
-        {
-          "personName": "난천",
-          "personType": "named",
-          "set": "sv9a",
-          "setName": "sv9a 도감",
-          "rarity": "SAR",
-          "cardNumber": "091/063",
-          "code": "sv9a_091/063",
-          "illustrator": "",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_091.png",
-          "source": "https://pokemoncard.co.kr/cards",
-          "sceneTags": [
-            "사람과 포켓몬"
-          ],
-          "name": "한카리아스",
-          "pokemonName": "한카리아스",
-          "owned": false,
-          "verification": "reviewed-image-audit",
-          "accountIndex": 2,
-          "order": 3
         },
         {
           "personName": "난천",
@@ -2873,7 +3419,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv3a",
+          "set": "SV3a",
           "setName": "레이징서프",
           "rarity": "AR",
           "cardNumber": "064/062",
@@ -2882,12 +3428,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3a/SV3a_064.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "타만타",
           "pokemonName": "타만타",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -3006,7 +3553,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv5a",
+          "set": "SV5a",
           "setName": "크림슨헤이즈",
           "rarity": "AR",
           "cardNumber": "076/066",
@@ -3015,12 +3562,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5a/SV5a_076.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "대코파스",
           "pokemonName": "대코파스",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -3101,6 +3649,34 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 1
+        }
+      ]
+    },
+    {
+      "name": "로토무",
+      "nationalDexNo": 479,
+      "cards": [
+        {
+          "personName": "카나리",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "SR",
+          "cardNumber": "220/193",
+          "code": "m2a_220/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_220.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "카나리",
+          "pokemonName": "로토무",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -3216,6 +3792,28 @@
           "owned": false,
           "verification": "reviewed-user-photo-and-official-korean-catalog",
           "accountIndex": 0
+        },
+        {
+          "personName": "투희",
+          "personType": "named",
+          "set": "SV11W",
+          "setName": "화이트플레어",
+          "rarity": "SAR",
+          "cardNumber": "173/086",
+          "code": "sv11w_173/086",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV11W/SV11W_173.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "투희",
+          "pokemonName": "염무왕",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -3300,6 +3898,28 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 0
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV5M",
+          "setName": "사이버저지",
+          "rarity": "AR",
+          "cardNumber": "079/071",
+          "code": "sv5m_079/071",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_079.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "몰드류",
+          "pokemonName": "몰드류",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -3310,7 +3930,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv6",
+          "set": "SV6",
           "setName": "변환의 가면",
           "rarity": "AR",
           "cardNumber": "109/101",
@@ -3319,14 +3939,93 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_109.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "으랏차",
           "pokemonName": "으랏차",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
+        }
+      ]
+    },
+    {
+      "name": "조로아",
+      "nationalDexNo": 570,
+      "cards": [
+        {
+          "personName": "N",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "AR",
+          "cardNumber": "108/100",
+          "code": "sv9_108/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_108.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "N의 조로아",
+          "pokemonName": "조로아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "조로아크",
+      "nationalDexNo": 571,
+      "cards": [
+        {
+          "personName": "N",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "SAR",
+          "cardNumber": "127/100",
+          "code": "sv9_127/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_127.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "N의 조로아크 ex",
+          "pokemonName": "조로아크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        },
+        {
+          "personName": "N",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "SAR",
+          "cardNumber": "242/193",
+          "code": "m2a_242/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_242.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "N의 조로아크 ex",
+          "pokemonName": "조로아크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -3377,6 +4076,28 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV4M",
+          "setName": "미래의 일섬",
+          "rarity": "AR",
+          "cardNumber": "070/066",
+          "code": "sv4m_070/066",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_070.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "바닐리치",
+          "pokemonName": "바닐리치",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 2,
+          "order": 3
         }
       ]
     },
@@ -3403,6 +4124,34 @@
           "pokemonName": "샹델라",
           "owned": false,
           "verification": "verified-character-rarity",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "액스라이즈",
+      "nationalDexNo": 612,
+      "cards": [
+        {
+          "personName": "아이리스",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "SAR",
+          "cardNumber": "248/193",
+          "code": "m2a_248/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_248.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "아이리스의 투지",
+          "pokemonName": "액스라이즈",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -3443,8 +4192,8 @@
         {
           "personName": "N",
           "personType": "named",
-          "set": "sv9",
-          "setName": "sv9 도감",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
           "rarity": "AR",
           "cardNumber": "109/100",
           "code": "sv9_109/100",
@@ -3452,12 +4201,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_109.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "레시라무",
+          "name": "N의 레시라무",
           "pokemonName": "레시라무",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         },
@@ -3527,7 +4277,12 @@
           "owned": false,
           "personName": "N",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
         },
         {
           "personName": "그 외",
@@ -3576,6 +4331,90 @@
           "pokemonName": "테르나",
           "owned": false,
           "verification": "verified-character-rarity",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "화살꼬빈",
+      "nationalDexNo": 661,
+      "cards": [
+        {
+          "personName": "네모",
+          "personType": "named",
+          "set": "SV4a",
+          "setName": "샤이니트레저 ex",
+          "rarity": "SAR",
+          "cardNumber": "351/190",
+          "code": "sv4a_351/190",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_351.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "네모",
+          "pokemonName": "화살꼬빈",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "레오꼬",
+      "nationalDexNo": 667,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "M1S",
+          "setName": "메가심포니아",
+          "rarity": "AR",
+          "cardNumber": "066/063",
+          "code": "m1s_066/063",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M1S/M1S_066.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "레오꼬",
+          "pokemonName": "레오꼬",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "플라엣테",
+      "nationalDexNo": 670,
+      "cards": [
+        {
+          "personName": "AZ",
+          "personType": "named",
+          "set": "M4",
+          "setName": "닌자스피너",
+          "rarity": "SAR",
+          "cardNumber": "118/083",
+          "code": "m4_118/083",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M4/M4_118.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "AZ의 평온",
+          "pokemonName": "플라엣테",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -3712,6 +4551,50 @@
           "verification": "verified-character-rarity",
           "accountIndex": 1,
           "order": 2
+        },
+        {
+          "personName": "네르케",
+          "personType": "named",
+          "set": "SV4a",
+          "setName": "샤이니트레저 ex",
+          "rarity": "SAR",
+          "cardNumber": "350/190",
+          "code": "sv4a_350/190",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_350.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "네르케",
+          "pokemonName": "님피아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 2,
+          "order": 3
+        },
+        {
+          "personName": "카나리",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "SAR",
+          "cardNumber": "249/193",
+          "code": "m2a_249/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_249.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "카나리",
+          "pokemonName": "님피아",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 3,
+          "order": 4
         }
       ]
     },
@@ -3744,6 +4627,34 @@
       ]
     },
     {
+      "name": "대로트",
+      "nationalDexNo": 709,
+      "cards": [
+        {
+          "personName": "호브",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "AR",
+          "cardNumber": "204/193",
+          "code": "m2a_204/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_204.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "호브의 대로트",
+          "pokemonName": "대로트",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
       "name": "꽁어름",
       "nationalDexNo": 712,
       "cards": [
@@ -3768,6 +4679,34 @@
           "owned": false,
           "verification": "reviewed-user-photo-and-official-korean-catalog",
           "accountIndex": 0
+        }
+      ]
+    },
+    {
+      "name": "에리본",
+      "nationalDexNo": 743,
+      "cards": [
+        {
+          "personName": "릴리에",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "AR",
+          "cardNumber": "105/100",
+          "code": "sv9_105/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_105.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "릴리에의 에리본",
+          "pokemonName": "에리본",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -4046,6 +4985,78 @@
           "owned": false,
           "verification": "reviewed-official-korean-image-20260910",
           "accountIndex": 3
+        },
+        {
+          "personName": "아세로라",
+          "personType": "named",
+          "set": "M1S",
+          "setName": "메가심포니아",
+          "rarity": "SAR",
+          "cardNumber": "091/063",
+          "code": "m1s_091/063",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M1S/M1S_091.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "아세로라의 장난",
+          "pokemonName": "따라큐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 4,
+          "order": 5
+        },
+        {
+          "personName": "로켓단 간부",
+          "personType": "other",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "AR",
+          "cardNumber": "205/193",
+          "code": "m2a_205/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_205.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "로켓단의 따라큐",
+          "pokemonName": "따라큐",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 5,
+          "order": 6
+        }
+      ]
+    },
+    {
+      "name": "할비롱",
+      "nationalDexNo": 780,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV5M",
+          "setName": "사이버저지",
+          "rarity": "AR",
+          "cardNumber": "083/071",
+          "code": "sv5m_083/071",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_083.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "할비롱",
+          "pokemonName": "할비롱",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
         }
       ]
     },
@@ -4262,7 +5273,12 @@
           "owned": false,
           "personName": "페퍼",
           "personType": "named",
-          "accountIndex": 0
+          "accountIndex": 0,
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "verification": "reviewed-official-korean-image-20260911"
         }
       ]
     },
@@ -4349,10 +5365,10 @@
       "nationalDexNo": 831,
       "cards": [
         {
-          "personName": "그 외",
-          "personType": "other",
-          "set": "sv9",
-          "setName": "sv9 도감",
+          "personName": "호브",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
           "rarity": "AR",
           "cardNumber": "112/100",
           "code": "sv9_112/100",
@@ -4360,12 +5376,13 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_112.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "우르",
+          "name": "호브의 우르",
           "pokemonName": "우르",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         },
@@ -4550,6 +5567,34 @@
       ]
     },
     {
+      "name": "오롱털",
+      "nationalDexNo": 861,
+      "cards": [
+        {
+          "personName": "마리",
+          "personType": "named",
+          "set": "M2a",
+          "setName": "MEGA 드림 ex",
+          "rarity": "SAR",
+          "cardNumber": "243/193",
+          "code": "m2a_243/193",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2a/M2a_243.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "마리의 오롱털 ex",
+          "pokemonName": "오롱털",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
       "name": "가로막구리",
       "nationalDexNo": 862,
       "cards": [
@@ -4662,6 +5707,34 @@
       ]
     },
     {
+      "name": "대왕끼리동",
+      "nationalDexNo": 879,
+      "cards": [
+        {
+          "personName": "뽀삐",
+          "personType": "named",
+          "set": "SV3",
+          "setName": "흑염의 지배자",
+          "rarity": "SAR",
+          "cardNumber": "137/108",
+          "code": "sv3_137/108",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3/SV3_137.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "뽀삐",
+          "pokemonName": "대왕끼리동",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
       "name": "두랄루돈",
       "nationalDexNo": 884,
       "cards": [
@@ -4736,6 +5809,28 @@
           "verification": "verified-character-rarity",
           "accountIndex": 0,
           "order": 1
+        },
+        {
+          "personName": "호브",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "SAR",
+          "cardNumber": "128/100",
+          "code": "sv9_128/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_128.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "호브의 자시안 ex",
+          "pokemonName": "자시안",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
         }
       ]
     },
@@ -5090,27 +6185,112 @@
       ]
     },
     {
-      "name": "빠모트",
-      "nationalDexNo": 922,
+      "name": "뜨아거",
+      "nationalDexNo": 909,
       "cards": [
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "m2",
-          "setName": "인페르노X",
-          "rarity": "",
-          "cardNumber": "034/080",
-          "code": "m2_034/080",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "rarity": "AR",
+          "cardNumber": "078/073",
+          "code": "sv1a_078/073",
           "illustrator": "",
-          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2/M2_034.png",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_078.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
-          "name": "빠모트",
-          "pokemonName": "빠모트",
+          "name": "뜨아거",
+          "pokemonName": "뜨아거",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "라우드본",
+      "nationalDexNo": 911,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "rarity": "SAR",
+          "cardNumber": "097/073",
+          "code": "sv1a_097/073",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_097.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "라우드본 ex",
+          "pokemonName": "라우드본",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "빠모",
+      "nationalDexNo": 921,
+      "cards": [
+        {
+          "personName": "올림박사",
+          "personType": "named",
+          "set": "SV4K",
+          "setName": "고대의 포효",
+          "rarity": "SAR",
+          "cardNumber": "092/066",
+          "code": "sv4k_092/066",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_092.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "올림박사의 기백",
+          "pokemonName": "빠모",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "찌리비크",
+      "nationalDexNo": 941,
+      "cards": [
+        {
+          "personName": "모야모",
+          "personType": "named",
+          "set": "SV9",
+          "setName": "배틀파트너즈",
+          "rarity": "AR",
+          "cardNumber": "104/100",
+          "code": "sv9_104/100",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9/SV9_104.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "모야모의 찌리비크",
+          "pokemonName": "찌리비크",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -5121,10 +6301,10 @@
       "nationalDexNo": 943,
       "cards": [
         {
-          "personName": "그 외",
-          "personType": "other",
-          "set": "sv9a",
-          "setName": "sv9a 도감",
+          "personName": "페퍼",
+          "personType": "named",
+          "set": "SV9a",
+          "setName": "열풍의 아레나",
           "rarity": "SAR",
           "cardNumber": "088/063",
           "code": "sv9a_088/063",
@@ -5132,12 +6312,85 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_088.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "페퍼의 마피티프 ex",
+          "pokemonName": "마피티프",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        },
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "rarity": "AR",
+          "cardNumber": "088/078",
+          "code": "sv1v_088/078",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_088.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "마피티프",
           "pokemonName": "마피티프",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 1,
+          "order": 2
+        },
+        {
+          "personName": "페퍼",
+          "personType": "named",
+          "set": "SV4a",
+          "setName": "샤이니트레저 ex",
+          "rarity": "SAR",
+          "cardNumber": "354/190",
+          "code": "sv4a_354/190",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4a/SV4a_354.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "페퍼",
+          "pokemonName": "마피티프",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 2,
+          "order": 3
+        }
+      ]
+    },
+    {
+      "name": "과미르",
+      "nationalDexNo": 1011,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV6",
+          "setName": "변환의 가면",
+          "rarity": "AR",
+          "cardNumber": "103/101",
+          "code": "sv6_103/101",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_103.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "과미르",
+          "pokemonName": "과미르",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
@@ -5150,7 +6403,7 @@
         {
           "personName": "그 외",
           "personType": "other",
-          "set": "sv5a",
+          "set": "SV5a",
           "setName": "크림슨헤이즈",
           "rarity": "AR",
           "cardNumber": "068/066",
@@ -5159,19 +6412,48 @@
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5a/SV5a_068.png",
           "source": "https://pokemoncard.co.kr/cards",
           "sceneTags": [
-            "사람과 포켓몬"
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
           ],
           "name": "차데스",
           "pokemonName": "차데스",
           "owned": false,
-          "verification": "reviewed-image-audit",
+          "verification": "reviewed-official-korean-image-20260911",
+          "accountIndex": 0,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "name": "브리두라스",
+      "nationalDexNo": 1018,
+      "cards": [
+        {
+          "personName": "그 외",
+          "personType": "other",
+          "set": "SV7",
+          "setName": "스텔라미라클",
+          "rarity": "AR",
+          "cardNumber": "113/102",
+          "code": "sv7_113/102",
+          "illustrator": "",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_113.png",
+          "source": "https://pokemoncard.co.kr/cards",
+          "sceneTags": [
+            "사람과 포켓몬",
+            "실물 이미지 전수 검수"
+          ],
+          "name": "브리두라스",
+          "pokemonName": "브리두라스",
+          "owned": false,
+          "verification": "reviewed-official-korean-image-20260911",
           "accountIndex": 0,
           "order": 1
         }
       ]
     }
   ],
-  "catalogCount": 197,
+  "catalogCount": 245,
   "audit": {
     "scope": [
       "S",
@@ -5194,16 +6476,37 @@
         "added": 54,
         "removed": 0,
         "excluded": 2928
+      },
+      "SV": {
+        "reviewed": 3336,
+        "included": 60,
+        "added": 40,
+        "removed": 1,
+        "excluded": 3276
+      },
+      "M": {
+        "reviewed": 902,
+        "included": 16,
+        "added": 10,
+        "removed": 1,
+        "excluded": 886
       }
     },
-    "addedThisAudit": 68,
+    "addedThisAudit": 118,
     "removedThisAudit": [
-      "s8b_081/184"
+      "s8b_081/184",
+      "sv9a_091/063",
+      "m2_034/080"
     ],
     "fixedImages": [
       "s9a_083/067",
       "s9a_084/067"
     ],
-    "held": []
+    "held": [],
+    "poolAdjustments": [
+      "SV4a 191~360번 공식 이미지 170장을 누락 풀에 추가해 전수 판독",
+      "M1L 093, M2 116, M2a 250, M3 117은 공식 카드 DB와 이미지에 없는 비실재 행으로 검수 모수에서 제외",
+      "M4 120/083은 공식 상세 DB와 보조 실물 이미지로 확인했으며 사람 미등장으로 제외"
+    ]
   }
 }
