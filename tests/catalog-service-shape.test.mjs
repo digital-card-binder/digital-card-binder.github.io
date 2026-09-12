@@ -47,7 +47,15 @@ test("shared catalog service reads staged AR arrays directly", () => {
   assert.match(source, /mergeGroups\(base, supplement, "code"\)/);
   assert.ok(Array.isArray(ar));
   assert.ok(Array.isArray(arSupplement));
-  assert.equal(mergedByKey(ar, arSupplement, "code").length, 510);
+  const merged = mergedByKey(ar, arSupplement, "code");
+  assert.equal(merged.length, 33);
+  assert.equal(
+    merged.reduce(
+      (total, group) => total + (Array.isArray(group?.cards) ? group.cards.length : 0),
+      0,
+    ),
+    510,
+  );
 });
 
 test("shared catalog service keeps path-level promise caching", () => {
