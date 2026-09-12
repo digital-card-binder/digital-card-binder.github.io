@@ -19,7 +19,9 @@
     for (const extra of Array.isArray(supplementGroups) ? supplementGroups : []) {
       const extraKey = clean(extra?.[key]).toLowerCase();
       if (!extraKey) continue;
-      const index = merged.findIndex((group) => clean(group?.[key]).toLowerCase() === extraKey);
+      const index = merged.findIndex(
+        (group) => clean(group?.[key]).toLowerCase() === extraKey,
+      );
       if (index >= 0) merged[index] = extra;
       else merged.push(extra);
     }
@@ -36,7 +38,7 @@
       json("./data/pokemon-collections.json"),
       json("./data/pokemon-collections-21-40.json"),
     ]);
-    return mergeGroups(base.groups, supplement.groups, "name");
+    return mergeGroups(base, supplement, "name");
   }
 
   async function ar() {
@@ -44,8 +46,13 @@
       json("./data/ar.json"),
       json("./data/ar-supplement.json"),
     ]);
-    return mergeGroups(base.groups, supplement.groups, "code");
+    return mergeGroups(base, supplement, "code");
   }
 
-  root.catalog = Object.freeze({ json, mergeGroups, pokemonCollections, ar });
+  root.catalog = Object.freeze({
+    json,
+    mergeGroups,
+    pokemonCollections,
+    ar,
+  });
 })();
