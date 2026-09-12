@@ -34,7 +34,7 @@ test("trainer-pokemon cards have stable accountIndex values within each group", 
 test("trainer-pokemon card codes preserve set and card-number identity", () => {
   for (const { card } of cards) {
     assert.match(String(card.code || ""), /^[a-z0-9+]+_[0-9]+\/[0-9]+$/i);
-    assert.match(String(card.set || ""), /^[A-Za-z0-9]+$/);
+    assert.match(String(card.set || ""), /^[A-Za-z0-9+]+$/);
     assert.ok(String(card.cardNumber || "").includes("/"));
   }
 });
