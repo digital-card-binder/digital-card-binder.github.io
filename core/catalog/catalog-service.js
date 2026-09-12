@@ -19,9 +19,7 @@
     for (const extra of Array.isArray(supplementGroups) ? supplementGroups : []) {
       const extraKey = clean(extra?.[key]).toLowerCase();
       if (!extraKey) continue;
-      const index = merged.findIndex(
-        (group) => clean(group?.[key]).toLowerCase() === extraKey,
-      );
+      const index = merged.findIndex((group) => clean(group?.[key]).toLowerCase() === extraKey);
       if (index >= 0) merged[index] = extra;
       else merged.push(extra);
     }
@@ -49,10 +47,5 @@
     return mergeGroups(base.groups, supplement.groups, "code");
   }
 
-  root.catalog = Object.freeze({
-    json,
-    mergeGroups,
-    pokemonCollections,
-    ar,
-  });
+  root.catalog = Object.freeze({ json, mergeGroups, pokemonCollections, ar });
 })();
