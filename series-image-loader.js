@@ -6,9 +6,6 @@
   const RETRY_DELAYS = [800, 2200, 5000];
   const nativeFetch = window.fetch.bind(window);
 
-  // series.json is a large static file. Reuse the browser cache instead of
-  // forcing a full download on every visit while still allowing normal HTTP
-  // revalidation when the deployed file changes.
   window.fetch = function seriesAwareFetch(input, init) {
     let url = "";
     try {
@@ -51,9 +48,6 @@
       image.dataset.imageRetryPending = "0";
       if (!image.isConnected) return;
       clearImageError(image);
-
-      // Re-assigning after a short blank state gives transient network/server
-      // failures another chance without permanently replacing a valid URL.
       image.removeAttribute("src");
       window.requestAnimationFrame(() => {
         if (!image.isConnected) return;
@@ -62,24 +56,51 @@
     }, RETRY_DELAYS[attempt - 1]);
   }
 
-  document.addEventListener(
-    "error",
-    (event) => {
-      retryImage(event.target);
-    },
-    true,
-  );
+  document.addEventListener("error", (event) => {
+    retryImage(event.target);
+  }, true);
 
-  document.addEventListener(
-    "load",
-    (event) => {
-      const image = event.target;
-      if (!(image instanceof HTMLImageElement)) return;
-      if (!image.matches(".card-image, #catalog-dialog-image")) return;
-      image.dataset.imageRetryAttempts = "0";
-      image.dataset.imageRetryPending = "0";
-      clearImageError(image);
-    },
-    true,
-  );
+  document.addEventListener("load", (event) => {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement)) return;
+    if (!image.matches(".card-image, #catalog-dialog-image")) return;
+    image.dataset.imageRetryAttempts = "0";
+    image.dataset.imageRetryPending = "0";
+    clearImageError(image);
+  }, true);
+
+  // Correction for the two Cyber Judge entries whose generated Korean names
+  // were reversed. Card numbers and original images are intentionally kept.
+  const corrections = new Map([
+    ["sv5m_033/071", "에리본"],
+    ["sv5m_034/071", "날개치는머리"],
+  ]);
+
+  function correctNames(root = document) {
+    for (const [code, name] of corrections) {
+      const number = Array.from(root.querySelectorAll(".number-badge"))
+        .find((element) => element.textContent.trim() === code);
+      if (!number) continue;
+
+      const card = number.closest(".catalog-card");
+      const nameElement = card?.querySelector(".card-name-ko");
+      if (nameElement) nameElement.textContent = name;
+
+      const image = card?.querySelector("img.card-image");
+      if (image) image.alt = `${name} 카드`;
+    }
+
+    const dialogCode = document.querySelector("#dialog-code")?.textContent.trim();
+    const dialogName = corrections.get(dialogCode);
+    if (dialogName) {
+      const dialogTitle = document.querySelector("#dialog-name");
+      if (dialogTitle) dialogTitle.textContent = dialogName;
+      const dialogImage = document.querySelector("#catalog-dialog-image");
+      if (dialogImage) dialogImage.alt = `${dialogName} 카드`;
+    }
+  }
+
+  const observer = new MutationObserver(() => correctNames());
+  observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+  correctNames();
 })();
