@@ -69,8 +69,6 @@
     clearImageError(image);
   }, true);
 
-  // Correction for the two Cyber Judge entries whose generated Korean names
-  // were reversed. Card numbers and original images are intentionally kept.
   const corrections = new Map([
     ["sv5m_033/071", "에리본"],
     ["sv5m_034/071", "날개치는머리"],
@@ -84,19 +82,19 @@
 
       const card = number.closest(".catalog-card");
       const nameElement = card?.querySelector(".card-name-ko");
-      if (nameElement) nameElement.textContent = name;
+      if (nameElement && nameElement.textContent !== name) nameElement.textContent = name;
 
       const image = card?.querySelector("img.card-image");
-      if (image) image.alt = `${name} 카드`;
+      if (image && image.alt !== `${name} 카드`) image.alt = `${name} 카드`;
     }
 
     const dialogCode = document.querySelector("#dialog-code")?.textContent.trim();
     const dialogName = corrections.get(dialogCode);
     if (dialogName) {
       const dialogTitle = document.querySelector("#dialog-name");
-      if (dialogTitle) dialogTitle.textContent = dialogName;
+      if (dialogTitle && dialogTitle.textContent !== dialogName) dialogTitle.textContent = dialogName;
       const dialogImage = document.querySelector("#catalog-dialog-image");
-      if (dialogImage) dialogImage.alt = `${dialogName} 카드`;
+      if (dialogImage && dialogImage.alt !== `${dialogName} 카드`) dialogImage.alt = `${dialogName} 카드`;
     }
   }
 
