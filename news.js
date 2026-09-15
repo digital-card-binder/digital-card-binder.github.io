@@ -3,6 +3,31 @@
 (function () {
   const NEWS_DATA_URL = "./news.json?v=20260813-1";
 
+  function initializePwaBootstrap() {
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const manifest = document.createElement("link");
+      manifest.rel = "manifest";
+      manifest.href = "/manifest.webmanifest";
+      document.head.append(manifest);
+    }
+
+    if (!document.querySelector('link[data-pwa-style="1"]')) {
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = "/pwa.css?v=20260915-1";
+      style.dataset.pwaStyle = "1";
+      document.head.append(style);
+    }
+
+    if (!document.querySelector('script[data-pwa-script="1"]')) {
+      const script = document.createElement("script");
+      script.src = "/pwa.js?v=20260915-1";
+      script.defer = true;
+      script.dataset.pwaScript = "1";
+      document.head.append(script);
+    }
+  }
+
   function normalizeNewsItem(item, index) {
     const id = String(item?.id || "").trim();
     const date = String(item?.date || "").trim();
@@ -137,6 +162,7 @@
     }
   }
 
+  initializePwaBootstrap();
   initializeAndroidDownloadLabel();
   initializeNews();
 })();
