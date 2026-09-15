@@ -1,0 +1,151 @@
+name: Send iPhone PWA News Push
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'news.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-web-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Configure Firebase service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92 }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92" > "$RUNNER_TEMP/firebase-service-account.json"
+          elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          else
+            echo "::error::Firebase service account secret is required."
+            exit 1
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
+
+      - name: Install sender dependencies
+        run: npm install --no-save firebase-admin@13 web-push@3
+
+      - name: Send notification for a new news item
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { execFileSync } from 'node:child_process';
+          import { initializeApp, cert } from 'firebase-admin/app';
+          import { getFirestore } from 'firebase-admin/firestore';
+          import webpush from 'web-push';
+
+          const current = JSON.parse(fs.readFileSync('news.json', 'utf8'));
+          const latest = Array.isArray(current.items) ? current.items[0] : null;
+          if (!latest?.id || !latest?.title) {
+            console.log('No current news item found.');
+            process.exit(0);
+          }
+
+          if (process.env.EVENT_NAME !== 'workflow_dispatch') {
+            const before = String(process.env.BEFORE_SHA || '');
+            if (!before || /^0+$/.test(before)) {
+              console.log('No usable previous commit; skipping automatic push.');
+              process.exit(0);
+            }
+            try {
+              const previousText = execFileSync('git', ['show', `${before}:news.json`], { encoding: 'utf8' });
+              const previous = JSON.parse(previousText);
+              const previousId = Array.isArray(previous.items) ? String(previous.items[0]?.id || '') : '';
+              if (previousId === String(latest.id)) {
+                console.log(`Latest news item is unchanged (${latest.id}); no push sent.`);
+                process.exit(0);
+              }
+            } catch (error) {
+              console.log('Could not compare previous news.json; skipping automatic push for safety.');
+              process.exit(0);
+            }
+          }
+
+          const serviceAccount = JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'));
+          initializeApp({ credential: cert(serviceAccount) });
+          const db = getFirestore();
+
+          const configSnap = await db.doc('systemConfig/webPush').get();
+          if (!configSnap.exists) throw new Error('Web Push VAPID config is missing.');
+          const vapid = configSnap.data() || {};
+          if (!vapid.publicKey || !vapid.privateKey) throw new Error('Web Push VAPID keys are incomplete.');
+
+          webpush.setVapidDetails(
+            'mailto:pokemon.dogam.support@gmail.com',
+            String(vapid.publicKey),
+            String(vapid.privateKey),
+          );
+
+          const subscriptions = await db.collectionGroup('webPushSubscriptions').get();
+          if (subscriptions.empty) {
+            console.log('No iPhone PWA Web Push subscribers yet.');
+            process.exit(0);
+          }
+
+          const payload = JSON.stringify({
+            title: '디지털 카드 바인더',
+            body: String(latest.title),
+            url: `/news.html#${encodeURIComponent(String(latest.id))}`,
+            tag: `news-${String(latest.id)}`,
+          });
+
+          let sent = 0;
+          let removed = 0;
+          let failed = 0;
+
+          for (const doc of subscriptions.docs) {
+            const data = doc.data() || {};
+            const subscription = {
+              endpoint: String(data.endpoint || ''),
+              keys: {
+                p256dh: String(data.p256dh || ''),
+                auth: String(data.auth || ''),
+              },
+            };
+            if (!subscription.endpoint || !subscription.keys.p256dh || !subscription.keys.auth) {
+              console.warn(`Skipping incomplete subscription ${doc.ref.path}`);
+              continue;
+            }
+
+            try {
+              await webpush.sendNotification(subscription, payload, { TTL: 86400 });
+              sent += 1;
+            } catch (error) {
+              const status = Number(error?.statusCode || 0);
+              if (status === 404 || status === 410) {
+                await doc.ref.delete();
+                removed += 1;
+              } else {
+                failed += 1;
+                console.warn(`Push failed for ${doc.ref.path}: ${status || error?.message || error}`);
+              }
+            }
+          }
+
+          console.log(`Web Push result: sent=${sent}, expired_removed=${removed}, failed=${failed}`);
+          if (failed > 0 && sent === 0) process.exitCode = 1;
+          NODE
