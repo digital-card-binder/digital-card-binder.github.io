@@ -206,7 +206,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260813-1/);
+  assert.match(dashboard, /news[.]js[?]v=20260915-4/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -217,7 +217,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "android-app-v09-update");
+  assert.equal(newsData.items[0].id, "iphone-pwa-install");
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);

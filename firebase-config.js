@@ -22,3 +22,12 @@ window.POKEMON_DEX_FIREBASE = {
     scope: "https://www.googleapis.com/auth/spreadsheets",
   },
 };
+
+(function loadThemeNavigation() {
+  if (document.querySelector('script[data-theme-navigation="true"]')) return;
+  const script = document.createElement("script");
+  script.src = "./theme-navigation.js?v=20260915-1";
+  script.async = false;
+  script.dataset.themeNavigation = "true";
+  document.head.append(script);
+})();
