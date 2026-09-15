@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "디지털 카드 바인더",
+  "short_name": "카드 바인더",
+  "description": "포켓몬 카드 수집 도감을 한곳에서 관리하는 디지털 카드 바인더",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
