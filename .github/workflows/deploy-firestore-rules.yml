@@ -1,5 +1,6 @@
 name: Deploy Firestore Rules
 
+# Also triggered here to deploy iPhone/PWA Web Push subscription rules.
 on:
   push:
     branches:
