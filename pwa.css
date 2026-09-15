@@ -1,94 +1,128 @@
+.platform-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 18px;
+}
+
+.platform-app-grid .android-app-download.is-visible,
 .ios-pwa-card {
-  display: none;
   position: relative;
   overflow: hidden;
-  margin: 14px 0 18px;
-  padding: 18px 20px;
+  margin: 0;
+  padding: 14px;
   border: 1px solid rgba(72, 101, 163, 0.18);
-  border-radius: 20px;
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 0% 0%, rgba(77, 125, 219, 0.12), transparent 42%),
+    radial-gradient(circle at 0% 0%, rgba(77, 125, 219, 0.11), transparent 44%),
     linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
-  box-shadow: 0 12px 30px rgba(23, 35, 63, 0.09);
+  box-shadow: 0 10px 24px rgba(23, 35, 63, 0.08);
 }
 
+.platform-app-grid .android-app-download.is-visible,
 .ios-pwa-card.is-visible {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr);
   align-items: center;
-  gap: 18px;
+  gap: 10px;
 }
 
+.platform-app-grid .android-app-download.is-visible::before,
 .ios-pwa-card::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 4px;
-  background: linear-gradient(180deg, #6a8ee8 0%, #17233f 100%);
+  width: 3px;
 }
 
+.platform-app-grid .android-app-download.is-visible::before {
+  background: linear-gradient(180deg, #5476cf 0%, #17233f 100%);
+}
+
+.ios-pwa-card::before {
+  background: linear-gradient(180deg, #8297cb 0%, #17233f 100%);
+}
+
+.platform-app-grid .android-app-download-icon,
 .ios-pwa-icon {
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 17px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: linear-gradient(145deg, #24375f 0%, #17233f 100%);
   color: #fff;
-  font-size: 1.5rem;
-  box-shadow: 0 9px 20px rgba(23, 35, 63, 0.2);
+  box-shadow: 0 7px 16px rgba(23, 35, 63, 0.18);
 }
 
+.platform-app-grid .android-app-download-icon svg,
+.ios-pwa-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.platform-app-grid .android-app-download-copy,
 .ios-pwa-copy {
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 3px;
 }
 
+.platform-app-grid .android-app-download-badge,
 .ios-pwa-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 23px;
+  min-height: 19px;
   margin-bottom: 1px;
-  padding: 0 9px;
-  border: 1px solid rgba(64, 103, 190, 0.16);
+  padding: 0 7px;
+  border: 1px solid rgba(64, 103, 190, 0.15);
   border-radius: 999px;
-  background: rgba(75, 111, 198, 0.09);
+  background: rgba(75, 111, 198, 0.08);
   color: #365baf;
-  font-size: 0.64rem;
+  font-size: 0.56rem;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.045em;
   line-height: 1;
 }
 
+.platform-app-grid .android-app-download-copy strong,
 .ios-pwa-copy strong {
   color: #17233f;
-  font-size: 1.04rem;
-  line-height: 1.35;
+  font-size: 0.88rem;
+  line-height: 1.25;
   letter-spacing: -0.025em;
 }
 
+.platform-app-grid .android-app-download-description,
 .ios-pwa-description {
   color: #6f778b;
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.67rem;
+  line-height: 1.35;
 }
 
+.platform-app-grid .android-app-download-button,
 .ios-pwa-button {
-  min-height: 44px;
-  padding: 0 18px;
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 39px;
+  margin-top: 2px;
+  padding: 0 10px;
   border: 0;
-  border-radius: 13px;
+  border-radius: 11px;
   background: #17233f;
   color: #fff;
   font: inherit;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 800;
   white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(23, 35, 63, 0.2);
+  box-shadow: 0 6px 14px rgba(23, 35, 63, 0.16);
+}
+
+.platform-app-grid .android-app-download-button::before {
+  font-size: 0.9rem;
 }
 
 .ios-pwa-button:disabled {
@@ -97,38 +131,65 @@
 }
 
 .ios-pwa-status {
-  grid-column: 2 / -1;
-  margin: -4px 0 0;
+  grid-column: 1 / -1;
+  margin: -1px 0 0;
   color: #6f778b;
-  font-size: 0.7rem;
-  line-height: 1.4;
+  font-size: 0.6rem;
+  line-height: 1.35;
 }
 
 @media (max-width: 640px) {
+  .platform-app-grid {
+    gap: 9px;
+    margin: 12px 0 16px;
+  }
+
+  .platform-app-grid .android-app-download.is-visible,
   .ios-pwa-card.is-visible {
-    grid-template-columns: 48px minmax(0, 1fr);
-    gap: 13px;
-    padding: 16px;
-    border-radius: 18px;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px 10px;
+    border-radius: 16px;
   }
 
+  .platform-app-grid .android-app-download-icon,
   .ios-pwa-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 15px;
-    font-size: 1.25rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
   }
 
+  .platform-app-grid .android-app-download-icon svg,
+  .ios-pwa-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .platform-app-grid .android-app-download-badge,
+  .ios-pwa-badge {
+    min-height: 17px;
+    padding: 0 6px;
+    font-size: 0.5rem;
+  }
+
+  .platform-app-grid .android-app-download-copy strong,
   .ios-pwa-copy strong {
-    font-size: 0.98rem;
+    font-size: 0.79rem;
   }
 
+  .platform-app-grid .android-app-download-description,
+  .ios-pwa-description {
+    font-size: 0.61rem;
+  }
+
+  .platform-app-grid .android-app-download-button,
   .ios-pwa-button {
-    grid-column: 1 / -1;
-    width: 100%;
+    min-height: 36px;
+    padding: 0 6px;
+    font-size: 0.66rem;
   }
 
   .ios-pwa-status {
-    grid-column: 1 / -1;
+    font-size: 0.56rem;
   }
 }
