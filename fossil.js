@@ -1,11 +1,12 @@
 "use strict";
 
-const FOSSIL_DATA_URL = "./data/fossil.json?v=20260915-1";
+const FOSSIL_DATA_URL = "./data/fossil.json?v=20260916-1";
 const FOSSIL_ALL = "__all__";
 const fossilEl = (id) => document.getElementById(id);
 
 let fossilDataset = null;
 let selectedSet = FOSSIL_ALL;
+let selectedCategory = FOSSIL_ALL;
 let statusFilter = "all";
 let searchQuery = "";
 let activeCard = null;
@@ -60,9 +61,15 @@ function loadImage(image, card, onError) {
   else if (typeof onError === "function") onError();
 }
 
-function selectedCards() {
+function setScopedCards() {
   if (selectedSet === FOSSIL_ALL) return allCards();
   return fossilDataset.groups.find((group) => group.code === selectedSet)?.cards || [];
+}
+
+function selectedCards() {
+  const cards = setScopedCards();
+  if (selectedCategory === FOSSIL_ALL) return cards;
+  return cards.filter((card) => card.category === selectedCategory);
 }
 
 function matches(card) {
@@ -105,6 +112,31 @@ function populateSetFilter() {
     select.append(option);
   });
   select.value = selectedSet;
+}
+
+function populateCategoryFilter() {
+  const select = fossilEl("fossil-category-select");
+  const counts = new Map();
+  allCards().forEach((card) => {
+    const category = card.category || "화석 카드";
+    counts.set(category, (counts.get(category) || 0) + 1);
+  });
+
+  select.replaceChildren();
+  const all = document.createElement("option");
+  all.value = FOSSIL_ALL;
+  all.textContent = `전체 · ${allCards().length}장`;
+  select.append(all);
+
+  [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ko"))
+    .forEach(([category, count]) => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = `${category} · ${count}장`;
+      select.append(option);
+    });
+  select.value = selectedCategory;
 }
 
 function statusBadge(card) {
@@ -245,7 +277,9 @@ function render() {
   const owned = cards.filter((card) => card.owned).length;
   const completion = rate(owned, cards.length);
   const group = fossilDataset.groups.find((item) => item.code === selectedSet);
-  fossilEl("fossil-selected-set").textContent = group?.name || "전체";
+  const scopeParts = [group?.name || "전체"];
+  if (selectedCategory !== FOSSIL_ALL) scopeParts.push(selectedCategory);
+  fossilEl("fossil-selected-set").textContent = scopeParts.join(" · ");
   fossilEl("fossil-selected-owned").textContent = owned;
   fossilEl("fossil-selected-total").textContent = cards.length;
   fossilEl("fossil-selected-rate").textContent = completion;
@@ -261,6 +295,10 @@ function render() {
 function bindControls() {
   fossilEl("fossil-set-select").addEventListener("change", (event) => {
     selectedSet = event.target.value;
+    render();
+  });
+  fossilEl("fossil-category-select").addEventListener("change", (event) => {
+    selectedCategory = event.target.value;
     render();
   });
   fossilEl("fossil-search").addEventListener("input", (event) => {
@@ -294,6 +332,7 @@ async function initFossilDex() {
     }
     setSummary();
     populateSetFilter();
+    populateCategoryFilter();
     bindControls();
     render();
   } catch (error) {
