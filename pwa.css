@@ -1,0 +1,134 @@
+.ios-pwa-card {
+  display: none;
+  position: relative;
+  overflow: hidden;
+  margin: 14px 0 18px;
+  padding: 18px 20px;
+  border: 1px solid rgba(72, 101, 163, 0.18);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(77, 125, 219, 0.12), transparent 42%),
+    linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
+  box-shadow: 0 12px 30px rgba(23, 35, 63, 0.09);
+}
+
+.ios-pwa-card.is-visible {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+
+.ios-pwa-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #6a8ee8 0%, #17233f 100%);
+}
+
+.ios-pwa-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #24375f 0%, #17233f 100%);
+  color: #fff;
+  font-size: 1.5rem;
+  box-shadow: 0 9px 20px rgba(23, 35, 63, 0.2);
+}
+
+.ios-pwa-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.ios-pwa-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  margin-bottom: 1px;
+  padding: 0 9px;
+  border: 1px solid rgba(64, 103, 190, 0.16);
+  border-radius: 999px;
+  background: rgba(75, 111, 198, 0.09);
+  color: #365baf;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.ios-pwa-copy strong {
+  color: #17233f;
+  font-size: 1.04rem;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.ios-pwa-description {
+  color: #6f778b;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.ios-pwa-button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 13px;
+  background: #17233f;
+  color: #fff;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(23, 35, 63, 0.2);
+}
+
+.ios-pwa-button:disabled {
+  opacity: 0.56;
+  cursor: default;
+}
+
+.ios-pwa-status {
+  grid-column: 2 / -1;
+  margin: -4px 0 0;
+  color: #6f778b;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .ios-pwa-card.is-visible {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 13px;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .ios-pwa-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    font-size: 1.25rem;
+  }
+
+  .ios-pwa-copy strong {
+    font-size: 0.98rem;
+  }
+
+  .ios-pwa-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .ios-pwa-status {
+    grid-column: 1 / -1;
+  }
+}
