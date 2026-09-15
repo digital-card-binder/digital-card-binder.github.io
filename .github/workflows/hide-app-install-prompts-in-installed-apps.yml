@@ -1,0 +1,65 @@
+name: Hide install prompts inside installed apps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/hide-app-install-prompts-in-installed-apps.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch installed-app visibility
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          pwa = Path('pwa.js')
+          text = pwa.read_text(encoding='utf-8')
+
+          old = '''  function isAndroid() {\n    return /Android/i.test(navigator.userAgent);\n  }\n\n  function isMobilePlatform() {'''
+          new = '''  function isAndroid() {\n    return /Android/i.test(navigator.userAgent);\n  }\n\n  function isAndroidNativeApp() {\n    return window.POKEMON_DEX_ANDROID_APP === true\n      || typeof window.DigitalCardBinderApp !== "undefined";\n  }\n\n  function isMobilePlatform() {'''
+          if old not in text:
+              raise SystemExit('Could not find Android helper insertion point')
+          text = text.replace(old, new, 1)
+
+          old = '''  function createCard() {\n    if (!isMobilePlatform() || document.getElementById("ios-pwa-card")) return null;\n'''
+          new = '''  function createCard() {\n    if (isAndroidNativeApp()) {\n      const androidCard = document.getElementById("android-app-download");\n      if (androidCard) androidCard.classList.remove("is-visible");\n      document.getElementById("ios-pwa-card")?.remove();\n      document.getElementById("platform-app-grid")?.remove();\n      return null;\n    }\n\n    if (!isMobilePlatform() || document.getElementById("ios-pwa-card")) return null;\n'''
+          if old not in text:
+              raise SystemExit('Could not find createCard insertion point')
+          text = text.replace(old, new, 1)
+          pwa.write_text(text, encoding='utf-8')
+
+          news = Path('news.js')
+          text = news.read_text(encoding='utf-8')
+          text = text.replace('/pwa.js?v=20260915-2', '/pwa.js?v=20260915-3')
+          news.write_text(text, encoding='utf-8')
+
+          index = Path('index.html')
+          text = index.read_text(encoding='utf-8')
+          text = text.replace('./news.js?v=20260915-3', './news.js?v=20260915-4')
+          index.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pwa.js news.js index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Hide app install prompts inside installed apps"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
