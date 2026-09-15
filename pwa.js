@@ -14,6 +14,11 @@
     return /Android/i.test(navigator.userAgent);
   }
 
+  function isAndroidNativeApp() {
+    return window.POKEMON_DEX_ANDROID_APP === true
+      || typeof window.DigitalCardBinderApp !== "undefined";
+  }
+
   function isMobilePlatform() {
     return isIOS() || isAndroid();
   }
@@ -173,6 +178,14 @@
   }
 
   function createCard() {
+    if (isAndroidNativeApp()) {
+      const androidCard = document.getElementById("android-app-download");
+      if (androidCard) androidCard.classList.remove("is-visible");
+      document.getElementById("ios-pwa-card")?.remove();
+      document.getElementById("platform-app-grid")?.remove();
+      return null;
+    }
+
     if (!isMobilePlatform() || document.getElementById("ios-pwa-card")) return null;
 
     const card = document.createElement("section");
