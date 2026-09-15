@@ -7,6 +7,7 @@ const fossil = JSON.parse(
 );
 
 test("SV fossil dex keeps the reviewed 26-card baseline", () => {
+  assert.equal(fossil.version, 2);
   assert.equal(fossil.scope, "SV");
   assert.equal(fossil.total, 26);
   assert.deepEqual(
@@ -23,6 +24,22 @@ test("SV fossil dex keeps the reviewed 26-card baseline", () => {
   assert.equal(cards.length, 26);
   assert.equal(new Set(cards.map((card) => card.meta)).size, cards.length);
   assert.ok(fossil.rule.includes("미러는 별도 집계하지 않습니다"));
+});
+
+test("SV fossil dex splits the 26 cards into reviewed categories", () => {
+  const cards = fossil.groups.flatMap((group) => group.cards);
+  const categoryCounts = cards.reduce((counts, card) => {
+    counts[card.category] = (counts[card.category] || 0) + 1;
+    return counts;
+  }, {});
+
+  assert.deepEqual(categoryCounts, {
+    "화석 포켓몬": 19,
+    "화석 아이템": 7,
+  });
+  assert.ok(fossil.rule.includes("화석 포켓몬 19장"));
+  assert.ok(fossil.rule.includes("화석 아이템 7장"));
+  assert.ok(fossil.rule.includes("별도 확장 검수"));
 });
 
 test("fossil ownership keys stay isolated from existing Pokemon collection groups", () => {
