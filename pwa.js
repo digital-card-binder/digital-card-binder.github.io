@@ -10,6 +10,14 @@
       || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   }
 
+  function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+  }
+
+  function isMobilePlatform() {
+    return isIOS() || isAndroid();
+  }
+
   function isStandalone() {
     return window.matchMedia("(display-mode: standalone)").matches
       || window.navigator.standalone === true;
@@ -156,15 +164,29 @@
     }
   }
 
+  function compactAndroidCard(androidCard) {
+    if (!androidCard) return;
+    androidCard.querySelector(".android-app-download-copy strong")?.replaceChildren("Android 앱 다운로드");
+    androidCard.querySelector(".android-app-download-description")?.replaceChildren("APK 직접 설치");
+    const button = androidCard.querySelector("#android-app-download-button");
+    if (button) button.textContent = "다운로드 v0.9";
+  }
+
   function createCard() {
-    if (!isIOS() || document.getElementById("ios-pwa-card")) return null;
+    if (!isMobilePlatform() || document.getElementById("ios-pwa-card")) return null;
 
     const card = document.createElement("section");
     card.id = "ios-pwa-card";
     card.className = "ios-pwa-card is-visible";
-    card.setAttribute("aria-label", "iPhone 앱 및 알림 설정");
+    card.setAttribute("aria-label", "iPhone 앱 설치 및 알림 설정");
     card.innerHTML = `
-      <div class="ios-pwa-icon" aria-hidden="true">◉</div>
+      <div class="ios-pwa-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" focusable="false">
+          <rect x="6" y="2.5" width="12" height="19" rx="3" stroke="currentColor" stroke-width="1.7" />
+          <path d="M12 8v7m0-7-2.5 2.5M12 8l2.5 2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M10 18h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </div>
       <div class="ios-pwa-copy">
         <span class="ios-pwa-badge">iPhone Web App</span>
         <strong id="ios-pwa-title"></strong>
@@ -176,9 +198,25 @@
 
     const androidCard = document.getElementById("android-app-download");
     const newsStrip = document.getElementById("dashboard-news-strip");
-    if (androidCard) androidCard.insertAdjacentElement("afterend", card);
-    else if (newsStrip) newsStrip.insertAdjacentElement("afterend", card);
-    else document.querySelector("main")?.prepend(card);
+    let grid = document.getElementById("platform-app-grid");
+
+    if (!grid) {
+      grid = document.createElement("div");
+      grid.id = "platform-app-grid";
+      grid.className = "platform-app-grid";
+      grid.setAttribute("aria-label", "모바일 앱 이용 안내");
+      if (androidCard) {
+        androidCard.insertAdjacentElement("beforebegin", grid);
+        grid.append(androidCard);
+      } else if (newsStrip) {
+        newsStrip.insertAdjacentElement("afterend", grid);
+      } else {
+        document.querySelector("main")?.prepend(grid);
+      }
+    }
+
+    compactAndroidCard(androidCard);
+    grid.append(card);
     return card;
   }
 
@@ -191,20 +229,22 @@
     const button = card.querySelector("#ios-pwa-button");
     const status = card.querySelector("#ios-pwa-status");
 
-    if (!isStandalone()) {
-      title.textContent = "디지털 카드 바인더를 iPhone 앱으로 사용";
-      description.textContent = "Safari 공유 메뉴에서 ‘홈 화면에 추가’를 선택하세요.";
+    if (!isIOS() || !isStandalone()) {
+      title.textContent = "iPhone 앱 설치";
+      description.textContent = "Safari 홈 화면에 추가";
       button.textContent = "설치 방법";
       button.disabled = false;
-      status.textContent = "홈 화면에 추가하면 주소창 없이 앱처럼 실행됩니다.";
+      status.textContent = isIOS()
+        ? "홈 화면에 추가하면 앱처럼 실행됩니다."
+        : "iPhone Safari에서 설치할 수 있습니다.";
       button.onclick = () => {
-        window.alert("Safari 하단의 공유 버튼을 누른 뒤 ‘홈 화면에 추가’를 선택하세요. 추가된 디지털 카드 바인더를 홈 화면에서 실행하면 알림도 켤 수 있습니다.");
+        window.alert("iPhone Safari에서 디지털 카드 바인더를 연 뒤, 공유 버튼 → ‘홈 화면에 추가’ → ‘추가’를 선택하세요. 홈 화면에 생긴 앱을 실행하면 새소식 알림도 켤 수 있습니다.");
       };
       return;
     }
 
     title.textContent = "새소식 알림";
-    description.textContent = "디지털 카드 바인더의 새소식을 iPhone 알림으로 받아보세요.";
+    description.textContent = "iPhone 푸시 알림";
 
     if (!("Notification" in window) || !("PushManager" in window)) {
       button.textContent = "지원 안 됨";
@@ -224,7 +264,7 @@
     if (Notification.permission === "denied") {
       button.textContent = "알림 차단됨";
       button.disabled = true;
-      status.textContent = "iPhone 설정 → 알림에서 디지털 카드 바인더 알림을 허용해주세요.";
+      status.textContent = "iPhone 설정 → 알림에서 허용해주세요.";
       return;
     }
 
@@ -243,7 +283,7 @@
 
     button.textContent = "알림 켜기";
     button.disabled = false;
-    status.textContent = "Google 로그인 후 한 번만 알림을 허용하면 됩니다.";
+    status.textContent = "로그인 후 한 번만 허용하면 됩니다.";
     button.onclick = async () => {
       button.disabled = true;
       status.textContent = "알림을 설정하는 중입니다…";
