@@ -1,0 +1,52 @@
+name: Resend current news notification once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/resend-current-news-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Configure Firebase service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92 }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92" > "$RUNNER_TEMP/firebase-service-account.json"
+          elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          else
+            echo "::error::A Firebase service account is required to send notifications."
+            exit 1
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
+
+      - name: Resend latest news to Android users
+        run: GITHUB_EVENT_NAME=workflow_dispatch node scripts/send-android-news-notification.mjs
+
+      - name: Install iPhone PWA Web Push dependencies
+        run: npm install --no-save firebase-admin@13 web-push@3
+
+      - name: Resend latest news to iPhone PWA users
+        run: GITHUB_EVENT_NAME=workflow_dispatch node scripts/send-web-news-notification.mjs
