@@ -14,14 +14,14 @@
     if (!document.querySelector('link[data-pwa-style="1"]')) {
       const style = document.createElement("link");
       style.rel = "stylesheet";
-      style.href = "/pwa.css?v=20260915-1";
+      style.href = "/pwa.css?v=20260915-2";
       style.dataset.pwaStyle = "1";
       document.head.append(style);
     }
 
     if (!document.querySelector('script[data-pwa-script="1"]')) {
       const script = document.createElement("script");
-      script.src = "/pwa.js?v=20260915-1";
+      script.src = "/pwa.js?v=20260915-2";
       script.defer = true;
       script.dataset.pwaScript = "1";
       document.head.append(script);
