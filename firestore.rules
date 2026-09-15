@@ -1455,6 +1455,11 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
     // 그 외 모든 Firestore 경로는 차단합니다.
     match /{document=**} {
       allow read, write: if false;
