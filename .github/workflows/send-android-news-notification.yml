@@ -1,4 +1,4 @@
-name: Send Android news notification
+name: Send news notifications
 
 on:
   push:
@@ -38,10 +38,16 @@ jobs:
           elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
             printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
           else
-            echo "::error::A Firebase service account is required to send FCM notifications."
+            echo "::error::A Firebase service account is required to send notifications."
             exit 1
           fi
           echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
 
       - name: Send latest news to Android users
         run: node scripts/send-android-news-notification.mjs
+
+      - name: Install iPhone PWA Web Push dependencies
+        run: npm install --no-save firebase-admin@13 web-push@3
+
+      - name: Send latest news to iPhone PWA users
+        run: node scripts/send-web-news-notification.mjs
