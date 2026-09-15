@@ -1,0 +1,122 @@
+name: Setup iPhone PWA Web Push
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/setup-web-push.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Configure Firebase service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92 }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT_POKEMON_DEX_40E92" > "$RUNNER_TEMP/firebase-service-account.json"
+          elif [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-service-account.json"
+          else
+            echo "::error::A Firebase service account is required to configure Web Push."
+            exit 1
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/firebase-service-account.json" >> "$GITHUB_ENV"
+
+      - name: Install Web Push setup dependencies
+        run: npm install --no-save firebase-admin@13 web-push@3
+
+      - name: Create or reuse VAPID keys
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { initializeApp, cert } from 'firebase-admin/app';
+          import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+          import webpush from 'web-push';
+
+          const serviceAccount = JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'));
+          initializeApp({ credential: cert(serviceAccount) });
+          const db = getFirestore();
+          const ref = db.doc('systemConfig/webPush');
+          const snap = await ref.get();
+
+          let publicKey = '';
+          let privateKey = '';
+          if (snap.exists) {
+            const data = snap.data() || {};
+            publicKey = String(data.publicKey || '');
+            privateKey = String(data.privateKey || '');
+          }
+
+          if (!publicKey || !privateKey) {
+            const keys = webpush.generateVAPIDKeys();
+            publicKey = keys.publicKey;
+            privateKey = keys.privateKey;
+            await ref.set({
+              publicKey,
+              privateKey,
+              createdAt: FieldValue.serverTimestamp(),
+              updatedAt: FieldValue.serverTimestamp(),
+            });
+            console.log('Created new Web Push VAPID keys in Firestore.');
+          } else {
+            console.log('Reusing existing Web Push VAPID keys from Firestore.');
+          }
+
+          fs.writeFileSync('push-config.json', JSON.stringify({
+            version: 1,
+            publicKey,
+          }, null, 2) + '\n');
+          NODE
+
+      - name: Allow signed-in users to manage their own push subscriptions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('firestore.rules')
+          text = path.read_text(encoding='utf-8')
+          marker = '    // 그 외 모든 Firestore 경로는 차단합니다.'
+          block = '''    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.\n    match /users/{userId}/webPushSubscriptions/{subscriptionId} {\n      allow read, write: if ownsDocument(userId);\n    }\n\n'''
+          if 'webPushSubscriptions/{subscriptionId}' not in text:
+              if marker not in text:
+                  raise SystemExit('Firestore deny-all marker not found')
+              text = text.replace(marker, block + marker, 1)
+              path.write_text(text, encoding='utf-8')
+              print('Added Web Push subscription rules.')
+          else:
+              print('Web Push subscription rules already present.')
+          PY
+
+      - name: Commit public Web Push config and rules
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add push-config.json firestore.rules
+          if git diff --cached --quiet; then
+            echo "No Web Push setup changes to commit."
+            exit 0
+          fi
+          git commit -m "Configure iPhone PWA Web Push"
+          git push
