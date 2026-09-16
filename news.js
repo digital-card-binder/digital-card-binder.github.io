@@ -60,12 +60,12 @@
       copy.style.setProperty("display", "block", "important");
       copy.style.minWidth = "0";
       title.style.setProperty("display", "block", "important");
-      title.style.setProperty("font-size", narrow.matches ? "0.66rem" : "0.72rem", "important");
+      title.style.setProperty("font-size", narrow.matches ? "0.75rem" : "0.82rem", "important");
       title.style.setProperty("font-weight", "800", "important");
-      title.style.setProperty("letter-spacing", "-0.04em", "important");
-      title.style.lineHeight = "1.15";
+      title.style.setProperty("letter-spacing", "-0.045em", "important");
+      title.style.lineHeight = "1.1";
       title.style.whiteSpace = "nowrap";
-      title.style.maxWidth = narrow.matches ? "98px" : "112px";
+      title.style.maxWidth = narrow.matches ? "110px" : "126px";
       title.style.overflow = "hidden";
       title.style.textOverflow = "clip";
     };
