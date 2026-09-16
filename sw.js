@@ -11,6 +11,8 @@ const NETWORK_FIRST_PATHS = new Set([
   "/news.json",
   "/site-metrics.js",
   "/collector-nav.js",
+  "/firebase-config.js",
+  "/theme-navigation.js",
 ]);
 
 self.addEventListener("install", () => {
