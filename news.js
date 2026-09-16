@@ -45,6 +45,7 @@
         copy.style.removeProperty("min-width");
         title.style.removeProperty("display");
         title.style.removeProperty("font-size");
+        title.style.removeProperty("font-weight");
         title.style.removeProperty("letter-spacing");
         title.style.removeProperty("line-height");
         title.style.removeProperty("white-space");
@@ -54,16 +55,17 @@
         return;
       }
 
-      brand.style.gap = "7px";
+      brand.style.gap = "8px";
       brand.style.minWidth = "0";
       copy.style.setProperty("display", "block", "important");
       copy.style.minWidth = "0";
       title.style.setProperty("display", "block", "important");
-      title.style.setProperty("font-size", narrow.matches ? "0.55rem" : "0.6rem", "important");
-      title.style.setProperty("letter-spacing", "-0.045em", "important");
+      title.style.setProperty("font-size", narrow.matches ? "0.66rem" : "0.72rem", "important");
+      title.style.setProperty("font-weight", "800", "important");
+      title.style.setProperty("letter-spacing", "-0.04em", "important");
       title.style.lineHeight = "1.15";
       title.style.whiteSpace = "nowrap";
-      title.style.maxWidth = narrow.matches ? "78px" : "88px";
+      title.style.maxWidth = narrow.matches ? "98px" : "112px";
       title.style.overflow = "hidden";
       title.style.textOverflow = "clip";
     };
