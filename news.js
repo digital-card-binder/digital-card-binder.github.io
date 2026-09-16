@@ -28,6 +28,51 @@
     }
   }
 
+  function initializeCompactMobileBrand() {
+    const brand = document.querySelector(".site-header > .brand");
+    const copy = brand?.querySelector(".brand-copy");
+    const title = copy?.querySelector("strong");
+    if (!brand || !copy || !title) return;
+
+    const mobile = window.matchMedia("(max-width: 760px)");
+    const narrow = window.matchMedia("(max-width: 390px)");
+
+    const apply = () => {
+      if (!mobile.matches) {
+        brand.style.removeProperty("gap");
+        brand.style.removeProperty("min-width");
+        copy.style.removeProperty("display");
+        copy.style.removeProperty("min-width");
+        title.style.removeProperty("display");
+        title.style.removeProperty("font-size");
+        title.style.removeProperty("letter-spacing");
+        title.style.removeProperty("line-height");
+        title.style.removeProperty("white-space");
+        title.style.removeProperty("max-width");
+        title.style.removeProperty("overflow");
+        title.style.removeProperty("text-overflow");
+        return;
+      }
+
+      brand.style.gap = "7px";
+      brand.style.minWidth = "0";
+      copy.style.setProperty("display", "block", "important");
+      copy.style.minWidth = "0";
+      title.style.setProperty("display", "block", "important");
+      title.style.setProperty("font-size", narrow.matches ? "0.55rem" : "0.6rem", "important");
+      title.style.setProperty("letter-spacing", "-0.045em", "important");
+      title.style.lineHeight = "1.15";
+      title.style.whiteSpace = "nowrap";
+      title.style.maxWidth = narrow.matches ? "78px" : "88px";
+      title.style.overflow = "hidden";
+      title.style.textOverflow = "clip";
+    };
+
+    apply();
+    mobile.addEventListener?.("change", apply);
+    narrow.addEventListener?.("change", apply);
+  }
+
   function normalizeNewsItem(item, index) {
     const id = String(item?.id || "").trim();
     const date = String(item?.date || "").trim();
@@ -225,6 +270,7 @@
   }
 
   initializePwaBootstrap();
+  initializeCompactMobileBrand();
   initializeAndroidDownloadLabel();
   initializeNews();
 })();
