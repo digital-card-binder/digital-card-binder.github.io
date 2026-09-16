@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="SV 화석 포켓몬 19장과 화석 아이템 7장을 모아보는 디지털 카드 바인더 화석 도감" />
+    <meta name="description" content="S·SV·MEGA 화석 포켓몬, 화석 아이템, 일러스트 속 화석 122장을 모아보는 디지털 카드 바인더 화석 도감" />
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260814-1" />
-    <link rel="stylesheet" href="./fossil.css?v=20260916-1" />
+    <link rel="stylesheet" href="./fossil.css?v=20260916-2" />
     <script src="./firebase-config.js?v=20260915-1" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
@@ -20,7 +20,7 @@
     <script src="./collector-collection-registry.js?v=20260911-1" defer></script>
     <script src="./collector-nav.js?v=20260902-3" defer></script>
     <script src="./firebase-page-manager.js?v=20260903-1" defer></script>
-    <script src="./fossil.js?v=20260916-1" defer></script>
+    <script src="./fossil.js?v=20260916-2" defer></script>
   </head>
   <body data-catalog="pokemon">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -50,9 +50,9 @@
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
           <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
           <div class="hero-content">
-            <p class="eyebrow">FOSSIL DEX · SV 26 CARDS</p>
+            <p id="fossil-scope" class="eyebrow">FOSSIL DEX · S / SV / MEGA · 122 CARDS</p>
             <h1 id="page-title">화석 도감</h1>
-            <p class="hero-description">SV 시리즈에서 화석 포켓몬 19장과 화석 아이템 7장, 총 26장을 기준으로 관리하는 테마 컬렉션입니다.</p>
+            <p id="fossil-hero-description" class="hero-description">S 60장 · SV 38장 · MEGA 24장, 총 122장을 공식 카드 이미지 기준으로 관리합니다.</p>
           </div>
           <div class="hero-progress" aria-label="화석 도감 수집 현황">
             <div class="progress-ring fossil-progress-ring" id="fossil-progress-ring" aria-hidden="true"><div><strong id="fossil-rate">—</strong><span>COMPLETE</span></div></div>
@@ -67,17 +67,17 @@
         </section>
 
         <section class="fossil-rule-panel" aria-labelledby="fossil-rule-title">
-          <div><p class="section-kicker">COLLECTION RULE</p><h2 id="fossil-rule-title">26장 수록 기준</h2></div>
+          <div><p class="section-kicker">COLLECTION RULE</p><h2 id="fossil-rule-title">122장 수록 기준</h2></div>
           <div class="fossil-rule-grid">
-            <p><strong>화석 포켓몬 · 19장</strong><span>화석에서 복원되거나 화석 계보에 속하는 포켓몬 카드를 수집 대상으로 봅니다.</span></p>
-            <p><strong>화석 아이템 · 7장</strong><span>오래된 화석 등 카드 자체가 화석 아이템인 카드를 별도 카테고리로 관리합니다.</span></p>
-            <p><strong>일러스트 속 화석 · 별도 검수</strong><span>배경에 화석·뼈·박물관 전시·발굴물이 보이는 카드는 26장 기준과 분리해 확장 검수합니다.</span></p>
+            <p><strong>화석 포켓몬 · <b id="fossil-pokemon-count">71</b>장</strong><span>화석에서 복원되는 포켓몬의 카드번호별 정식 수록을 관리합니다.</span></p>
+            <p><strong>화석 아이템 · <b id="fossil-item-count">17</b>장</strong><span>희귀한화석·수수께끼화석·오래된 화석류처럼 카드 자체가 화석 아이템인 카드를 관리합니다.</span></p>
+            <p><strong>일러스트 속 화석 · <b id="fossil-illustration-count">34</b>장</strong><span>공식 이미지에 화석·뼈·골격·전시물·화석 연구 또는 발굴 장면이 실제로 보이는 카드를 관리합니다.</span></p>
           </div>
         </section>
 
         <section class="catalog-panel" aria-labelledby="fossil-catalog-title">
           <div class="catalog-heading">
-            <div><p class="section-kicker">FOSSIL CATALOG</p><h2 id="fossil-catalog-title">SV 화석 카드 · 26장</h2></div>
+            <div><p class="section-kicker">FOSSIL CATALOG</p><h2 id="fossil-catalog-title">S / SV / MEGA 화석 카드 · 122장</h2></div>
             <div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div>
           </div>
 
@@ -104,7 +104,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">카드 정보·이미지 기준: 포켓몬코리아 공식 카드 검색 · SV 검수 기준 26장 (화석 포켓몬 19장 + 화석 아이템 7장)</p>
+          <p id="fossil-footer-note" class="site-footer-note">카드 정보·이미지 기준: 포켓몬코리아 공식 카드 검색 · S 60장 + SV 38장 + MEGA 24장 = 총 122장</p>
         </footer>
       </main>
     </div>
@@ -115,7 +115,7 @@
       <div class="dialog-card-copy">
         <div class="dialog-badges"><span id="fossil-dialog-number" class="number-badge"></span><span id="fossil-dialog-status" class="status-badge"></span></div>
         <h2 id="fossil-dialog-name"></h2><p id="fossil-dialog-category" class="dialog-name-en"></p>
-        <dl class="fossil-dialog-details"><div><dt>세트</dt><dd id="fossil-dialog-set"></dd></div><div><dt>카드번호</dt><dd id="fossil-dialog-card-number"></dd></div><div><dt>레어도</dt><dd id="fossil-dialog-rarity"></dd></div><div><dt>일러스트</dt><dd id="fossil-dialog-illustrator"></dd></div></dl>
+        <dl class="fossil-dialog-details"><div><dt>세트</dt><dd id="fossil-dialog-set"></dd></div><div><dt>카드번호</dt><dd id="fossil-dialog-card-number"></dd></div><div><dt>레어도</dt><dd id="fossil-dialog-rarity"></dd></div><div><dt>일러스트</dt><dd id="fossil-dialog-illustrator"></dd></div><div class="is-wide"><dt>선정 근거</dt><dd id="fossil-dialog-evidence"></dd></div></dl>
       </div>
     </dialog>
 
