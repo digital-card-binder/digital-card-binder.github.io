@@ -21,6 +21,13 @@
     { href: "./news.html", icon: "NEW", title: "새소식", subtitle: "NEWS & UPDATES", page: "news.html" },
   ];
 
+  const mobileBrandMedia = typeof window.matchMedia === "function"
+    ? window.matchMedia("(max-width: 760px)")
+    : null;
+  const narrowBrandMedia = typeof window.matchMedia === "function"
+    ? window.matchMedia("(max-width: 390px)")
+    : null;
+
   function currentPage() {
     return window.location.pathname.split("/").pop() || "index.html";
   }
@@ -48,10 +55,79 @@
     return true;
   }
 
+  function applyMobileBrandTitle() {
+    const brand = document.querySelector(".site-header > .brand");
+    if (!brand) return;
+
+    let copy = brand.querySelector(".brand-copy");
+    if (!copy) {
+      copy = document.createElement("span");
+      copy.className = "brand-copy";
+      brand.append(copy);
+    }
+
+    let title = copy.querySelector("strong");
+    if (!title) {
+      title = document.createElement("strong");
+      copy.append(title);
+    }
+    title.textContent = "디지털 카드 바인더";
+
+    if (!mobileBrandMedia?.matches) {
+      brand.style.removeProperty("gap");
+      brand.style.removeProperty("min-width");
+      copy.style.removeProperty("display");
+      copy.style.removeProperty("visibility");
+      copy.style.removeProperty("opacity");
+      copy.style.removeProperty("min-width");
+      title.style.removeProperty("display");
+      title.style.removeProperty("visibility");
+      title.style.removeProperty("opacity");
+      title.style.removeProperty("font-size");
+      title.style.removeProperty("font-weight");
+      title.style.removeProperty("letter-spacing");
+      title.style.removeProperty("line-height");
+      title.style.removeProperty("white-space");
+      title.style.removeProperty("max-width");
+      title.style.removeProperty("overflow");
+      title.style.removeProperty("text-overflow");
+      return;
+    }
+
+    brand.style.gap = "8px";
+    brand.style.minWidth = "0";
+    copy.style.setProperty("display", "block", "important");
+    copy.style.setProperty("visibility", "visible", "important");
+    copy.style.setProperty("opacity", "1", "important");
+    copy.style.minWidth = "0";
+    title.style.setProperty("display", "block", "important");
+    title.style.setProperty("visibility", "visible", "important");
+    title.style.setProperty("opacity", "1", "important");
+    title.style.setProperty("font-size", narrowBrandMedia?.matches ? "0.75rem" : "0.82rem", "important");
+    title.style.setProperty("font-weight", "800", "important");
+    title.style.setProperty("letter-spacing", "-0.045em", "important");
+    title.style.lineHeight = "1.1";
+    title.style.whiteSpace = "nowrap";
+    title.style.maxWidth = narrowBrandMedia?.matches ? "110px" : "126px";
+    title.style.overflow = "hidden";
+    title.style.textOverflow = "clip";
+  }
+
   function boot() {
     applyNavigation();
-    window.setTimeout(applyNavigation, 0);
-    window.setTimeout(applyNavigation, 350);
+    applyMobileBrandTitle();
+    window.setTimeout(() => {
+      applyNavigation();
+      applyMobileBrandTitle();
+    }, 0);
+    window.setTimeout(() => {
+      applyNavigation();
+      applyMobileBrandTitle();
+    }, 350);
+    window.setTimeout(applyMobileBrandTitle, 900);
+
+    mobileBrandMedia?.addEventListener?.("change", applyMobileBrandTitle);
+    narrowBrandMedia?.addEventListener?.("change", applyMobileBrandTitle);
   }
 
   if (document.readyState === "loading") {
