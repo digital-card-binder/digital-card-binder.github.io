@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260916-2";
+  const NEWS_DATA_URL = "./news.json?v=20260916-3";
 
   function initializePwaBootstrap() {
     if (!document.querySelector('link[rel="manifest"]')) {
@@ -57,6 +57,19 @@
       .sort((left, right) => right.date.localeCompare(left.date) || left.index - right.index);
   }
 
+  function applyDashboardNewsLayout(strip, title) {
+    const compact = window.matchMedia("(max-width: 690px)").matches;
+    strip.style.gridTemplateColumns = "auto minmax(0, 1fr) auto";
+    strip.style.alignItems = "center";
+    strip.style.minHeight = compact ? "82px" : "86px";
+    if (!title) return;
+    title.style.display = "grid";
+    title.style.minWidth = "0";
+    title.style.gap = compact ? "2px" : "3px";
+    title.style.overflow = "visible";
+    title.style.whiteSpace = "normal";
+  }
+
   function renderDashboardLatest(items) {
     const strip = document.querySelector("#dashboard-news-strip");
     if (!strip || !items.length) return;
@@ -65,32 +78,75 @@
     const category = strip.querySelector("#dashboard-news-category");
     const title = strip.querySelector("#dashboard-news-title");
     const date = strip.querySelector("#dashboard-news-date");
+    const compact = window.matchMedia("(max-width: 690px)").matches;
 
     if (category) category.hidden = true;
     if (date) date.hidden = true;
+    applyDashboardNewsLayout(strip, title);
 
     if (title) {
       const rows = previewItems.map((item) => {
         const row = document.createElement("span");
         row.className = "dashboard-news-row";
+        row.dataset.newsHref = `./news.html#${encodeURIComponent(item.id)}`;
+        row.setAttribute("role", "link");
+        row.setAttribute("tabindex", "0");
+        row.setAttribute("aria-label", `${item.title} 새소식 보기`);
+        row.style.display = "grid";
+        row.style.gridTemplateColumns = compact ? "minmax(0, 1fr)" : "66px minmax(0, 1fr) auto";
+        row.style.alignItems = "center";
+        row.style.gap = compact ? "0" : "10px";
+        row.style.minWidth = "0";
+        row.style.minHeight = compact ? "20px" : "21px";
+        row.style.cursor = "pointer";
 
         const rowCategory = document.createElement("span");
         rowCategory.className = "dashboard-news-row-category";
         rowCategory.textContent = `[${item.category}]`;
+        if (compact) rowCategory.style.display = "none";
 
         const rowTitle = document.createElement("span");
         rowTitle.className = "dashboard-news-row-title";
         rowTitle.textContent = item.title;
+        rowTitle.style.minWidth = "0";
+        rowTitle.style.overflow = "hidden";
+        rowTitle.style.textOverflow = "ellipsis";
+        rowTitle.style.whiteSpace = "nowrap";
 
         const rowDate = document.createElement("time");
         rowDate.className = "dashboard-news-row-date";
         rowDate.dateTime = item.date;
         rowDate.textContent = formatDate(item.date);
+        if (compact) rowDate.style.display = "none";
 
         row.append(rowCategory, rowTitle, rowDate);
         return row;
       });
       title.replaceChildren(...rows);
+    }
+
+    if (strip.dataset.newsRowLinksBound !== "1") {
+      const openSelectedRow = (target) => {
+        const row = target?.closest?.(".dashboard-news-row");
+        if (!row || !strip.contains(row) || !row.dataset.newsHref) return false;
+        window.location.href = row.dataset.newsHref;
+        return true;
+      };
+
+      strip.addEventListener("click", (event) => {
+        if (!openSelectedRow(event.target)) return;
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      strip.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        if (!openSelectedRow(event.target)) return;
+        event.preventDefault();
+        event.stopPropagation();
+      });
+
+      strip.dataset.newsRowLinksBound = "1";
     }
 
     strip.href = "./news.html";
@@ -159,7 +215,10 @@
     const requestedId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
     if (!requestedId) return;
     const requested = document.getElementById(requestedId);
-    if (requested?.tagName === "DETAILS") requested.open = true;
+    if (requested?.tagName === "DETAILS") {
+      requested.open = true;
+      requested.scrollIntoView({ block: "center" });
+    }
   }
 
   function showNewsError() {
