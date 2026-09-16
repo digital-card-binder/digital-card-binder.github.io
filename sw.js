@@ -2,13 +2,40 @@
 
 const DEFAULT_TITLE = "디지털 카드 바인더";
 const DEFAULT_URL = "/news.html";
+const NETWORK_FIRST_PATHS = new Set([
+  "/",
+  "/index.html",
+  "/news.html",
+  "/news.js",
+  "/news.css",
+  "/news.json",
+]);
 
 self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map((key) => caches.delete(key)));
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  const shouldUseNetworkFirst = request.mode === "navigate" || NETWORK_FIRST_PATHS.has(url.pathname);
+  if (!shouldUseNetworkFirst) return;
+
+  event.respondWith(
+    fetch(request, { cache: "no-store" }).catch(() => fetch(request)),
+  );
 });
 
 self.addEventListener("push", (event) => {
