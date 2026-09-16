@@ -26,7 +26,7 @@ window.POKEMON_DEX_FIREBASE = {
 (function loadThemeNavigation() {
   if (document.querySelector('script[data-theme-navigation="true"]')) return;
   const script = document.createElement("script");
-  script.src = "./theme-navigation.js?v=20260916-2";
+  script.src = "./theme-navigation.js?v=20260916-3";
   script.async = false;
   script.dataset.themeNavigation = "true";
   document.head.append(script);
