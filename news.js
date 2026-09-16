@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260813-1";
+  const NEWS_DATA_URL = "./news.json?v=20260916-2";
 
   function initializePwaBootstrap() {
     if (!document.querySelector('link[rel="manifest"]')) {
@@ -48,7 +48,7 @@
   }
 
   async function loadNewsItems() {
-    const response = await fetch(NEWS_DATA_URL, { cache: "no-cache" });
+    const response = await fetch(NEWS_DATA_URL, { cache: "no-store" });
     if (!response.ok) throw new Error(`새소식 응답 오류: ${response.status}`);
     const payload = await response.json();
     return (Array.isArray(payload?.items) ? payload.items : [])
