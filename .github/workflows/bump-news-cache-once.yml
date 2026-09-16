@@ -1,0 +1,39 @@
+name: Refresh dashboard news cache once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/bump-news-cache-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bump news asset versions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in ('index.html', 'news.html'):
+              path = Path(name)
+              text = path.read_text(encoding='utf-8')
+              text = text.replace('news.css?v=20260916-2', 'news.css?v=20260916-3')
+              text = text.replace('news.js?v=20260916-2', 'news.js?v=20260916-3')
+              path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Commit cache refresh and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/bump-news-cache-once.yml
+          git add index.html news.html
+          git commit -m "Load latest dashboard news assets"
+          git push
