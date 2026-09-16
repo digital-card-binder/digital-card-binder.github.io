@@ -1,6 +1,6 @@
 "use strict";
 
-const FOSSIL_DATA_URL = "./data/fossil.json?v=20260916-1";
+const FOSSIL_DATA_URL = "./data/fossil.json?v=20260916-2";
 const FOSSIL_ALL = "__all__";
 const fossilEl = (id) => document.getElementById(id);
 
@@ -26,6 +26,22 @@ function setVariants(setCode) {
   return [...variants].filter(Boolean);
 }
 
+function imageLocation(card) {
+  const setCode = String(card.set || "").trim();
+  let series = String(card.series || "").trim().toUpperCase();
+  if (!series) {
+    if (/^SV/i.test(setCode)) series = "SV";
+    else if (/^(?:M\d|MC|M-P)/i.test(setCode)) series = "MEGA";
+    else series = "S";
+  }
+
+  let folder = setCode;
+  if (/^S5[RI]$/i.test(setCode)) folder = "S5";
+  else if (/^S6[HK]$/i.test(setCode)) folder = "S6";
+  else if (/^S10[DP]$/i.test(setCode)) folder = "S10";
+  return { series, folder };
+}
+
 function imageCandidates(card) {
   const candidates = [];
   const add = (value) => {
@@ -35,9 +51,10 @@ function imageCandidates(card) {
   add(card.image);
   const number = String(card.cardNumber || "").split("/", 1)[0].trim().padStart(3, "0");
   if (!number) return candidates;
+  const { series, folder } = imageLocation(card);
   for (const setCode of setVariants(card.set)) {
     ["png", "jpg", "jpeg", "webp"].forEach((extension) => {
-      add(`https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/${setCode}/${setCode}_${number}.${extension}`);
+      add(`https://cards.image.pokemonkorea.co.kr/data/wmimages/${series}/${folder}/${setCode}_${number}.${extension}`);
     });
   }
   return candidates;
@@ -77,7 +94,7 @@ function matches(card) {
   const query = searchQuery.trim().toLowerCase();
   if (!statusOk) return false;
   if (!query) return true;
-  const haystack = [card.name, card.set, card.setName, card.cardNumber, card.rarity, card.category, card.illustrator]
+  const haystack = [card.series, card.name, card.set, card.setName, card.cardNumber, card.rarity, card.category, card.evidence, card.illustrator]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
@@ -86,6 +103,16 @@ function matches(card) {
 
 function setSummary() {
   const cards = allCards();
+  const categoryCounts = cards.reduce((counts, card) => {
+    const category = card.category || "화석 카드";
+    counts[category] = (counts[category] || 0) + 1;
+    return counts;
+  }, {});
+  const seriesCounts = cards.reduce((counts, card) => {
+    const series = card.series || "기타";
+    counts[series] = (counts[series] || 0) + 1;
+    return counts;
+  }, {});
   const owned = cards.filter((card) => card.owned).length;
   const completion = rate(owned, cards.length);
   fossilEl("fossil-owned").textContent = owned;
@@ -96,6 +123,16 @@ function setSummary() {
   fossilEl("fossil-set-count").textContent = fossilDataset.groups.length;
   fossilEl("fossil-card-count").textContent = cards.length;
   fossilEl("fossil-stat-rate").textContent = completion;
+  fossilEl("fossil-pokemon-count").textContent = categoryCounts["화석 포켓몬"] || 0;
+  fossilEl("fossil-item-count").textContent = categoryCounts["화석 아이템"] || 0;
+  fossilEl("fossil-illustration-count").textContent = categoryCounts["일러스트 속 화석"] || 0;
+  fossilEl("fossil-rule-title").textContent = `${cards.length}장 수록 기준`;
+  fossilEl("fossil-catalog-title").textContent = `${fossilDataset.scope} 화석 카드 · ${cards.length}장`;
+  fossilEl("fossil-scope").textContent = `FOSSIL DEX · ${fossilDataset.scope} · ${cards.length} CARDS`;
+  fossilEl("fossil-hero-description").textContent =
+    `S ${seriesCounts.S || 0}장 · SV ${seriesCounts.SV || 0}장 · MEGA ${seriesCounts.MEGA || 0}장, 총 ${cards.length}장을 공식 카드 이미지 기준으로 관리합니다.`;
+  fossilEl("fossil-footer-note").textContent =
+    `카드 정보·이미지 기준: 포켓몬코리아 공식 카드 검색 · S ${seriesCounts.S || 0}장 + SV ${seriesCounts.SV || 0}장 + MEGA ${seriesCounts.MEGA || 0}장 = 총 ${cards.length}장`;
 }
 
 function populateSetFilter() {
@@ -256,6 +293,7 @@ function updateDialog(card) {
   fossilEl("fossil-dialog-card-number").textContent = card.cardNumber || "—";
   fossilEl("fossil-dialog-rarity").textContent = card.rarity || "—";
   fossilEl("fossil-dialog-illustrator").textContent = card.illustrator || "확인 중";
+  fossilEl("fossil-dialog-evidence").textContent = card.evidence || "공식 카드 이미지 확인";
 }
 
 function openDialog(card) {
