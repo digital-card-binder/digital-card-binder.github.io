@@ -9,6 +9,7 @@ const NETWORK_FIRST_PATHS = new Set([
   "/news.js",
   "/news.css",
   "/news.json",
+  "/site-metrics.js",
 ]);
 
 self.addEventListener("install", () => {
