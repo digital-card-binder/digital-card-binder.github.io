@@ -10,6 +10,7 @@ const NETWORK_FIRST_PATHS = new Set([
   "/news.css",
   "/news.json",
   "/site-metrics.js",
+  "/collector-nav.js",
 ]);
 
 self.addEventListener("install", () => {
