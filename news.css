@@ -6,10 +6,10 @@
 
 .dashboard-news-strip {
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 13px;
-  min-height: 58px;
+  min-height: 86px;
   margin: 18px 0 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -40,25 +40,50 @@
   white-space: nowrap;
 }
 
-.dashboard-news-category {
-  border-left: 1px solid var(--line);
-  color: var(--blue);
-  font-size: 0.67rem;
-  font-weight: 800;
-  padding-left: 13px;
-  white-space: nowrap;
+.dashboard-news-category,
+.dashboard-news-date {
+  display: none;
 }
 
 .dashboard-news-title {
-  overflow: hidden;
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  overflow: visible;
   font-size: 0.72rem;
+  white-space: normal;
+}
+
+.dashboard-news-row {
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 21px;
+}
+
+.dashboard-news-row-category {
+  color: var(--blue);
+  font-size: 0.63rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.dashboard-news-row-title {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.dashboard-news-date {
+.dashboard-news-row-date {
   color: var(--ink-faint);
-  font-size: 0.64rem;
+  font-size: 0.61rem;
+  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -258,18 +283,29 @@
 @media (max-width: 690px) {
   .dashboard-news-strip {
     grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
     gap: 8px;
-    min-height: 54px;
+    min-height: 82px;
     margin-top: 14px;
     padding: 9px 12px;
   }
 
-  .dashboard-news-category,
-  .dashboard-news-date {
+  .dashboard-news-title {
+    gap: 2px;
+  }
+
+  .dashboard-news-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    min-height: 20px;
+  }
+
+  .dashboard-news-row-category,
+  .dashboard-news-row-date {
     display: none;
   }
 
-  .dashboard-news-title {
+  .dashboard-news-row-title {
     font-size: 0.68rem;
   }
 
