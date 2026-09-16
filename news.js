@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260916-3";
+  const NEWS_DATA_URL = "./news.json?v=20260916-4";
 
   function initializePwaBootstrap() {
     if (!document.querySelector('link[rel="manifest"]')) {
@@ -57,101 +57,80 @@
       .sort((left, right) => right.date.localeCompare(left.date) || left.index - right.index);
   }
 
-  function applyDashboardNewsLayout(strip, title) {
-    const compact = window.matchMedia("(max-width: 690px)").matches;
-    strip.style.gridTemplateColumns = "auto minmax(0, 1fr) auto";
-    strip.style.alignItems = "center";
-    strip.style.minHeight = compact ? "82px" : "86px";
-    if (!title) return;
-    title.style.display = "grid";
-    title.style.minWidth = "0";
-    title.style.gap = compact ? "2px" : "3px";
-    title.style.overflow = "visible";
-    title.style.whiteSpace = "normal";
+  function ensureDashboardNewsContainer() {
+    const current = document.querySelector("#dashboard-news-strip");
+    if (!current) return null;
+
+    if (current.tagName !== "A") {
+      let list = current.querySelector("#dashboard-news-preview-list");
+      if (!list) {
+        list = document.createElement("div");
+        list.id = "dashboard-news-preview-list";
+        list.className = "dashboard-news-preview-list";
+        current.append(list);
+      }
+      return { container: current, list };
+    }
+
+    const container = document.createElement("section");
+    container.id = "dashboard-news-strip";
+    container.className = "dashboard-news-strip";
+    container.hidden = current.hidden;
+    container.setAttribute("aria-label", "최신 새소식");
+
+    const label = document.createElement("a");
+    label.className = "dashboard-news-label";
+    label.href = "./news.html";
+    label.textContent = "새소식";
+    label.setAttribute("aria-label", "전체 새소식 보기");
+
+    const list = document.createElement("div");
+    list.id = "dashboard-news-preview-list";
+    list.className = "dashboard-news-preview-list";
+
+    const more = document.createElement("a");
+    more.className = "dashboard-news-more";
+    more.href = "./news.html";
+    more.setAttribute("aria-label", "전체 새소식 보기");
+    more.textContent = "›";
+
+    container.append(label, list, more);
+    current.replaceWith(container);
+    return { container, list };
+  }
+
+  function createDashboardNewsLink(item) {
+    const link = document.createElement("a");
+    link.className = "dashboard-news-row";
+    link.href = `./news.html#${encodeURIComponent(item.id)}`;
+    link.setAttribute("aria-label", `${item.title} 새소식 보기`);
+
+    const category = document.createElement("span");
+    category.className = "dashboard-news-row-category";
+    category.textContent = `[${item.category}]`;
+
+    const title = document.createElement("span");
+    title.className = "dashboard-news-row-title";
+    title.textContent = item.title;
+
+    const date = document.createElement("time");
+    date.className = "dashboard-news-row-date";
+    date.dateTime = item.date;
+    date.textContent = formatDate(item.date);
+
+    link.append(category, title, date);
+    return link;
   }
 
   function renderDashboardLatest(items) {
-    const strip = document.querySelector("#dashboard-news-strip");
-    if (!strip || !items.length) return;
+    if (!items.length) return;
+    const dashboardNews = ensureDashboardNewsContainer();
+    if (!dashboardNews) return;
 
-    const previewItems = items.slice(0, 3);
-    const category = strip.querySelector("#dashboard-news-category");
-    const title = strip.querySelector("#dashboard-news-title");
-    const date = strip.querySelector("#dashboard-news-date");
-    const compact = window.matchMedia("(max-width: 690px)").matches;
-
-    if (category) category.hidden = true;
-    if (date) date.hidden = true;
-    applyDashboardNewsLayout(strip, title);
-
-    if (title) {
-      const rows = previewItems.map((item) => {
-        const row = document.createElement("span");
-        row.className = "dashboard-news-row";
-        row.dataset.newsHref = `./news.html#${encodeURIComponent(item.id)}`;
-        row.setAttribute("role", "link");
-        row.setAttribute("tabindex", "0");
-        row.setAttribute("aria-label", `${item.title} 새소식 보기`);
-        row.style.display = "grid";
-        row.style.gridTemplateColumns = compact ? "minmax(0, 1fr)" : "66px minmax(0, 1fr) auto";
-        row.style.alignItems = "center";
-        row.style.gap = compact ? "0" : "10px";
-        row.style.minWidth = "0";
-        row.style.minHeight = compact ? "20px" : "21px";
-        row.style.cursor = "pointer";
-
-        const rowCategory = document.createElement("span");
-        rowCategory.className = "dashboard-news-row-category";
-        rowCategory.textContent = `[${item.category}]`;
-        if (compact) rowCategory.style.display = "none";
-
-        const rowTitle = document.createElement("span");
-        rowTitle.className = "dashboard-news-row-title";
-        rowTitle.textContent = item.title;
-        rowTitle.style.minWidth = "0";
-        rowTitle.style.overflow = "hidden";
-        rowTitle.style.textOverflow = "ellipsis";
-        rowTitle.style.whiteSpace = "nowrap";
-
-        const rowDate = document.createElement("time");
-        rowDate.className = "dashboard-news-row-date";
-        rowDate.dateTime = item.date;
-        rowDate.textContent = formatDate(item.date);
-        if (compact) rowDate.style.display = "none";
-
-        row.append(rowCategory, rowTitle, rowDate);
-        return row;
-      });
-      title.replaceChildren(...rows);
-    }
-
-    if (strip.dataset.newsRowLinksBound !== "1") {
-      const openSelectedRow = (target) => {
-        const row = target?.closest?.(".dashboard-news-row");
-        if (!row || !strip.contains(row) || !row.dataset.newsHref) return false;
-        window.location.href = row.dataset.newsHref;
-        return true;
-      };
-
-      strip.addEventListener("click", (event) => {
-        if (!openSelectedRow(event.target)) return;
-        event.preventDefault();
-        event.stopPropagation();
-      });
-
-      strip.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        if (!openSelectedRow(event.target)) return;
-        event.preventDefault();
-        event.stopPropagation();
-      });
-
-      strip.dataset.newsRowLinksBound = "1";
-    }
-
-    strip.href = "./news.html";
-    strip.setAttribute("aria-label", `최신 새소식 ${previewItems.length}건 보기`);
-    strip.hidden = false;
+    const previewItems = items.slice(0, 2);
+    dashboardNews.list.replaceChildren(...previewItems.map(createDashboardNewsLink));
+    dashboardNews.container.setAttribute("aria-label", `최신 새소식 ${previewItems.length}건`);
+    dashboardNews.container.hidden = false;
   }
 
   function createNewsItem(item) {
