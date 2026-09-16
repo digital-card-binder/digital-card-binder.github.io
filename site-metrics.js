@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const HEADER_METRICS_VERSION = 2;
+  const HEADER_METRICS_VERSION = 3;
   if (window.PokemonDexSiteMetrics?.headerMetricsVersion === HEADER_METRICS_VERSION) return;
 
   const SDK_VERSION = "12.16.0";
@@ -29,17 +29,47 @@
       .site-header-metric--users strong{color:#6b50c8}
       .site-header-metric[hidden]{display:none!important}
       .site-header-metrics-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-      #dashboard-traffic{display:none!important}
+      body[data-page="dashboard"] .site-header-metrics{display:none!important}
+      #dashboard-traffic[hidden]{display:none!important}
+      body[data-page="dashboard"] #dashboard-traffic{display:block!important;margin:12px 0 12px}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(100%,440px);margin:0 auto}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:58px;padding:11px 15px;border:1px solid #e3e6ed;border-radius:15px;background:#fff;box-shadow:0 7px 20px rgba(28,38,68,.055);text-align:left}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card--users{display:none!important}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label{justify-content:flex-start;gap:5px;font-size:.64rem;white-space:nowrap}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong{justify-content:flex-end;gap:3px;white-space:nowrap}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong b{font-size:1.05rem}
+      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong small{font-size:.58rem}
       @media(max-width:1180px){.site-header-metrics{margin-left:20px}.site-header-metric{padding-right:7px;padding-left:7px;font-size:.55rem}.site-header-metric strong{font-size:.7rem}}
       @media(max-width:860px){.site-header-metrics{display:none!important}}
-      @media print{.site-header-metrics{display:none!important}}
+      @media(max-width:690px){
+        body[data-page="dashboard"] #dashboard-traffic{margin:10px 0 10px}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-grid{width:100%;max-width:none;gap:0;overflow:hidden;border:1px solid #e3e6ed;border-radius:15px;background:#fff;box-shadow:0 6px 18px rgba(28,38,68,.05)}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card{min-height:44px;padding:8px 11px;border:0;border-radius:0;box-shadow:none}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card+ .dashboard-traffic-card{border-left:1px solid #e7e9ef}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label{font-size:.58rem;gap:0}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label span:first-child{display:none}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong b{font-size:.82rem}
+        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong small{font-size:.5rem}
+      }
+      @media print{.site-header-metrics,#dashboard-traffic{display:none!important}}
     `;
     document.head.append(style);
   }
 
+  function ensureDashboardTraffic() {
+    const traffic = document.querySelector("#dashboard-traffic");
+    if (!traffic) return null;
+    traffic.removeAttribute("hidden");
+    traffic.querySelector(".dashboard-traffic-card--users")?.setAttribute("hidden", "");
+    const todayLabel = traffic.querySelector(".dashboard-traffic-card--today .dashboard-traffic-label span:last-child");
+    if (todayLabel) todayLabel.textContent = "금일 방문자";
+    const hero = document.querySelector(".dashboard-hero");
+    if (hero && hero.nextElementSibling !== traffic) hero.after(traffic);
+    return traffic;
+  }
+
   function ensureHeaderMetrics() {
     installStyles();
-    document.querySelector("#dashboard-traffic")?.setAttribute("hidden", "");
     const header = document.querySelector(".site-header");
     if (!header) return null;
     let panel = document.querySelector("#site-header-metrics");
@@ -71,14 +101,20 @@
     return panel;
   }
 
+  installStyles();
+  const dashboardPanel = ensureDashboardTraffic();
   const panel = ensureHeaderMetrics();
   const elements = {
     panel,
+    dashboardPanel,
     total: document.querySelector("#header-metric-total-visits"),
     today: document.querySelector("#header-metric-today-visits"),
     users: document.querySelector("#header-metric-users"),
     usersWrap: document.querySelector("#header-metric-users-wrap"),
     status: document.querySelector("#site-header-metrics-status"),
+    dashboardTotal: document.querySelector("#metric-total-visits"),
+    dashboardToday: document.querySelector("#metric-today-visits"),
+    dashboardStatus: document.querySelector("#dashboard-traffic-status"),
   };
 
   function configured() {
@@ -106,6 +142,7 @@
 
   function updateStatus(message) {
     if (elements.status) elements.status.textContent = message;
+    if (elements.dashboardStatus) elements.dashboardStatus.textContent = message;
   }
 
   function isOwner(user) {
@@ -121,16 +158,18 @@
   }
 
   function renderMetrics(summary = null, daily = null, user = null) {
-    updateMetric(
-      elements.total,
-      summary ? counter(summary.cumulativeVisits) : null,
-    );
-    updateMetric(elements.today, daily ? counter(daily.visits) : 0);
+    const totalVisits = summary ? counter(summary.cumulativeVisits) : null;
+    const todayVisits = daily ? counter(daily.visits) : 0;
+    updateMetric(elements.total, totalVisits);
+    updateMetric(elements.today, todayVisits);
+    updateMetric(elements.dashboardTotal, totalVisits);
+    updateMetric(elements.dashboardToday, todayVisits);
     setOwnerVisibility(user);
     if (isOwner(user)) {
       updateMetric(elements.users, summary ? counter(summary.userCount) : null);
     }
     elements.panel?.setAttribute("aria-busy", "false");
+    elements.dashboardPanel?.setAttribute("aria-busy", "false");
   }
 
   function dateKeyInKorea(date = new Date()) {
