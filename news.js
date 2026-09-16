@@ -60,17 +60,41 @@
   function renderDashboardLatest(items) {
     const strip = document.querySelector("#dashboard-news-strip");
     if (!strip || !items.length) return;
-    const latest = items[0];
+
+    const previewItems = items.slice(0, 3);
     const category = strip.querySelector("#dashboard-news-category");
     const title = strip.querySelector("#dashboard-news-title");
     const date = strip.querySelector("#dashboard-news-date");
-    if (category) category.textContent = `[${latest.category}]`;
-    if (title) title.textContent = latest.title;
-    if (date) {
-      date.dateTime = latest.date;
-      date.textContent = formatDate(latest.date);
+
+    if (category) category.hidden = true;
+    if (date) date.hidden = true;
+
+    if (title) {
+      const rows = previewItems.map((item) => {
+        const row = document.createElement("span");
+        row.className = "dashboard-news-row";
+
+        const rowCategory = document.createElement("span");
+        rowCategory.className = "dashboard-news-row-category";
+        rowCategory.textContent = `[${item.category}]`;
+
+        const rowTitle = document.createElement("span");
+        rowTitle.className = "dashboard-news-row-title";
+        rowTitle.textContent = item.title;
+
+        const rowDate = document.createElement("time");
+        rowDate.className = "dashboard-news-row-date";
+        rowDate.dateTime = item.date;
+        rowDate.textContent = formatDate(item.date);
+
+        row.append(rowCategory, rowTitle, rowDate);
+        return row;
+      });
+      title.replaceChildren(...rows);
     }
-    strip.href = `./news.html#${encodeURIComponent(latest.id)}`;
+
+    strip.href = "./news.html";
+    strip.setAttribute("aria-label", `최신 새소식 ${previewItems.length}건 보기`);
     strip.hidden = false;
   }
 
