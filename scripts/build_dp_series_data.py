@@ -164,6 +164,19 @@ def build_group(meta: dict[str, Any], records: list[dict[str, str]], workers: in
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         cards = list(pool.map(detail_record, records))
 
+    # Old DP promo detail pages render "1 P" instead of the slash-formatted
+    # number used by the normal detail template, so the shared parser cannot
+    # read those numbers. The official CardNum identity is sequential and
+    # stable: PR2010001001 through PR2010001022 map to 1/P through 22/P.
+    if meta["code"] == "DPP":
+        for card in cards:
+            if card["number"]:
+                continue
+            match = re.fullmatch(r"PR2010001(\d{3})", card["CardNum"])
+            if match:
+                card["number"] = str(int(match.group(1)))
+                card["denominator"] = "P"
+
     deduped: dict[tuple[str, str], dict[str, Any]] = {}
     for card in cards:
         key = card_identity(card)
