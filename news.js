@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260916-4";
+  const NEWS_DATA_URL = "./news.json?v=20260918-1";
 
   function initializePwaBootstrap() {
     if (!document.querySelector('link[rel="manifest"]')) {
