@@ -158,8 +158,9 @@ def parse_dogam_card_text(value: str) -> tuple[str, str]:
     if not match:
         match = re.match(r"^(.*?)([0-9]{3})$", text)
     if match:
-        return match.group(1).strip(), str(int(match.group(2)))
-    return text, ""
+        name = re.sub(r"\s*No[.]\s*$", "", match.group(1), flags=re.I).strip()
+        return name, str(int(match.group(2)))
+    return re.sub(r"\s*No[.]\s*$", "", text, flags=re.I).strip(), ""
 
 
 def dogam_manifest(meta: dict[str, Any]) -> list[dict[str, str]]:
@@ -192,10 +193,19 @@ def dogam_card_detail(item: dict[str, str]) -> dict[str, str]:
         html,
         re.I,
     )
-    fraction = re.search(r"([0-9]{1,3})\s*/\s*([0-9]{1,3}|[A-Za-z-]+)", html)
+    denominator = ""
+    if item.get("number"):
+        padded = str(int(item["number"])).zfill(3)
+        fraction = re.search(
+            rf"(?<![0-9]){re.escape(padded)}\s*/\s*([0-9]{{1,3}}|[A-Za-z0-9-]+)",
+            html,
+            re.I,
+        )
+        if fraction:
+            denominator = fraction.group(1)
     return {
         "image": image_match.group(0) if image_match else "",
-        "denominator": fraction.group(2) if fraction else "",
+        "denominator": denominator,
         "source": url,
     }
 
@@ -378,7 +388,10 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
             number_token=str(int(number)).zfill(3)
             denominator=card["denominator"]
             denominator=denominator.zfill(3) if denominator.isdigit() else denominator
-            suffix=f"{number_token}/{denominator or str(meta['count']).zfill(3)}"
+            # Some Korean constructed-deck energies are printed as "No. 014"
+            # without a denominator. Preserve that form instead of inventing
+            # a denominator from the set size.
+            suffix=f"{number_token}/{denominator}" if denominator else number_token
         else:
             token=ENERGY_TOKEN.get(card["name"])
             if not token:
