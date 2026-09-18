@@ -1,0 +1,97 @@
+name: Probe Korean Image Replacements
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/probe-korean-image-replacements.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Match JP images to Korean official images
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+
+          targets=[
+            ("GBR","gbr_016/015"),("GBR","gbr_017/015"),("GBR","gbr_018/015"),
+            ("SZD","szd_016/015"),("SZD","szd_017/015"),("SZD","szd_018/015"),
+            ("K+K","k+k_019/018"),
+            ("20th","20th_030/071"),("20th","20th_031/071"),("20th","20th_032/071"),
+            ("20th","20th_048/071"),("20th","20th_049/071"),("20th","20th_050/071"),
+            ("20th","20th_051/071"),("20th","20th_053/071"),("20th","20th_054/071"),
+            ("20th","20th_055/071"),("20th","20th_056/071"),("20th","20th_057/071"),
+            ("20th","20th_058/071"),("20th","20th_059/071"),("20th","20th_060/071"),
+            ("20th","20th_061/071"),("20th","20th_062/071"),("20th","20th_063/071"),
+            ("20th","20th_064/071"),("20th","20th_065/071"),("20th","20th_066/071"),
+            ("20th","20th_067/071"),("20th","20th_068/071"),("20th","20th_069/071"),
+            ("20th","20th_070/071"),("20th","20th_071/071"),
+          ]
+
+          def norm(value):
+              value=value or ""
+              value=value.replace("–","-").replace("—","-").replace("·","")
+              value=re.sub(r"\s+","",value)
+              value=value.replace("기본에너지","기본 에너지")
+              return re.sub(r"[^0-9A-Za-z가-힣]+","",value).casefold()
+
+          energy_alias={
+              "물에너지":"기본물에너지",
+              "번개에너지":"기본번개에너지",
+              "격투에너지":"기본격투에너지",
+              "풀에너지":"기본풀에너지",
+              "초에너지":"기본초에너지",
+              "악에너지":"기본악에너지",
+          }
+
+          groups={g.get("code"):g for g in data}
+          pool=[]
+          for g in data:
+              for c in g.get("cards",[]):
+                  url=c.get("image","")
+                  if "pokemonkorea.co.kr" not in url:
+                      continue
+                  n=norm(c.get("name",""))
+                  n=energy_alias.get(n,n)
+                  pool.append({
+                      "era":g.get("era",""),"set":g.get("code",""),
+                      "code":c.get("code",""),"name":c.get("name",""),
+                      "image":url,"source":c.get("source",""),"norm":n
+                  })
+
+          for setcode,cardcode in targets:
+              group=groups.get(setcode,{})
+              target=next((c for c in group.get("cards",[]) if c.get("code")==cardcode),None)
+              if not target:
+                  print("TARGET_MISSING",setcode,cardcode)
+                  continue
+              tn=norm(target.get("name",""))
+              tn=energy_alias.get(tn,tn)
+              candidates=[p for p in pool if p["norm"]==tn]
+              candidates.sort(key=lambda p:(
+                  0 if p["era"]==group.get("era") else 1,
+                  0 if p["set"] not in ("DPP","BWP","XYP") else 1,
+                  p["set"],p["code"]
+              ))
+              print("TARGET",json.dumps({
+                  "set":setcode,"code":cardcode,"name":target.get("name"),
+                  "current":target.get("image"),
+                  "candidate_count":len(candidates)
+              },ensure_ascii=False))
+              for cand in candidates[:8]:
+                  print("MATCH",json.dumps(cand,ensure_ascii=False))
+              if not candidates:
+                  print("MISS",setcode,cardcode,target.get("name"))
+          PY
