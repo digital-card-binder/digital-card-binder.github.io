@@ -58,8 +58,8 @@ SETS: list[dict[str, Any]] = [
     {"code":"SC","title":"샤이니 컬렉션","count":25,"aliases":["샤이니 컬렉션"]},
     {"code":"BW9","title":"메갈로캐논","count":86,"aliases":["메갈로캐논"]},
     {"code":"K+K","title":"최강 폭류 덱 「거북왕 + 큐레무 EX」","count":19,"aliases":["거북왕 + 큐레무 EX","거북왕+큐레무 EX","최강 폭류 덱"]},
-    {"code":"MG-Bg","title":"30장 덱 대전 게노세크트","count":17,"aliases":["게노세크트"]},
-    {"code":"MG-Bm","title":"30장 덱 대전 뮤츠","count":17,"aliases":["30장 덱 대전 뮤츠","뮤츠"]},
+    {"code":"MG-Bg","title":"30장 덱 대전 게노세크트","count":17,"aliases":["30장 덱 대전 set 뮤츠VS게노세크트","30장 덱 대전 뮤츠VS게노세크트"]},
+    {"code":"MG-Bm","title":"30장 덱 대전 뮤츠","count":17,"aliases":["30장 덱 대전 set 뮤츠VS게노세크트","30장 덱 대전 뮤츠VS게노세크트"]},
     {"code":"EBB","title":"EX 배틀 부스트","count":95,"aliases":["EX 배틀 부스트","배틀 부스트"]},
     {"code":"BWP","title":"BW 프로모 카드","count":72,"aliases":["BW 프로모 카드","BW프로모카드"]},
 ]
@@ -75,6 +75,131 @@ ENERGY_TOKEN = {
     "기본 초 에너지":"ENERGY-PSYCHIC","기본 격투 에너지":"ENERGY-FIGHTING",
     "기본 악 에너지":"ENERGY-DARKNESS","기본 강철 에너지":"ENERGY-METAL",
 }
+
+
+class AnchorParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.current_href: str | None = None
+        self.current_text: list[str] = []
+        self.links: list[tuple[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag != "a":
+            return
+        href = dict(attrs).get("href")
+        if href:
+            self.current_href = href
+            self.current_text = []
+
+    def handle_data(self, data: str) -> None:
+        if self.current_href is not None:
+            self.current_text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self.current_href is not None:
+            value = re.sub(r"\s+", " ", "".join(self.current_text)).strip()
+            self.links.append((self.current_href, value))
+            self.current_href = None
+            self.current_text = []
+
+
+def dogam_text(url: str) -> str:
+    request = Request(
+        url,
+        headers={
+            "User-Agent": legacy.USER_AGENT,
+            "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.5",
+        },
+    )
+    with urlopen(request, timeout=60) as response:
+        return response.read().decode("utf-8", errors="replace")
+
+
+_DOGAM_SET_LINKS: list[tuple[str, str]] | None = None
+
+
+def dogam_set_href(meta: dict[str, Any]) -> str:
+    global _DOGAM_SET_LINKS
+    if _DOGAM_SET_LINKS is None:
+        parser = AnchorParser()
+        parser.feed(dogam_text(DOGAM_SOURCE))
+        _DOGAM_SET_LINKS = parser.links
+
+    code_token = re.sub(r"[^0-9a-z]+", "", meta["code"].casefold())
+    title_token = legacy.compact(meta["title"])
+    candidates: list[tuple[int, int, str]] = []
+    for href, label in _DOGAM_SET_LINKS:
+        if not re.fullmatch(r"/sets/[0-9A-Z]+", href):
+            continue
+        label_compact = legacy.compact(label)
+        label_code = re.sub(r"[^0-9a-z]+", "", label.casefold())
+        score = 0
+        if title_token and title_token in label_compact:
+            score += 4
+        if code_token and code_token in label_code:
+            score += 3
+        if score:
+            candidates.append((-score, len(label_compact), href))
+    if not candidates:
+        raise RuntimeError(
+            f"{meta['code']} {meta['title']}: dogam set link not found"
+        )
+    candidates.sort()
+    return candidates[0][2]
+
+
+def parse_dogam_card_text(value: str) -> tuple[str, str]:
+    text = re.sub(r"\s+", " ", value).strip()
+    match = re.match(r"^(.*?)[ ]+([0-9]{1,3})$", text)
+    if not match:
+        match = re.match(r"^(.*?)([0-9]{3})$", text)
+    if match:
+        return match.group(1).strip(), str(int(match.group(2)))
+    return text, ""
+
+
+def dogam_manifest(meta: dict[str, Any]) -> list[dict[str, str]]:
+    set_href = dogam_set_href(meta)
+    parser = AnchorParser()
+    parser.feed(dogam_text(DOGAM_BASE + set_href))
+    prefix = set_href.rstrip("/") + "/cards/"
+    seen: set[str] = set()
+    items: list[dict[str, str]] = []
+    for href, label in parser.links:
+        if not href.startswith(prefix) or href in seen:
+            continue
+        seen.add(href)
+        name, number = parse_dogam_card_text(label)
+        if name:
+            items.append({"name": name, "number": number, "href": href})
+    if len(items) != meta["count"]:
+        raise RuntimeError(
+            f"{meta['code']} {meta['title']}: dogam expected {meta['count']} "
+            f"cards but found {len(items)}: {[(x['name'], x['number']) for x in items]}"
+        )
+    return items
+
+
+def dogam_card_detail(item: dict[str, str]) -> dict[str, str]:
+    url = DOGAM_BASE + item["href"]
+    html = dogam_text(url)
+    image_match = re.search(
+        r"https://static[.]tcgexchange[.]kr/[A-Za-z0-9._/-]+[.](?:png|jpe?g|webp)",
+        html,
+        re.I,
+    )
+    fraction = re.search(r"([0-9]{1,3})\s*/\s*([0-9]{1,3}|[A-Za-z-]+)", html)
+    return {
+        "image": image_match.group(0) if image_match else "",
+        "denominator": fraction.group(2) if fraction else "",
+        "source": url,
+    }
+
+
+def normalized_card_name(value: str) -> str:
+    return re.sub(r"\s+", "", value).casefold()
+
 
 def resolve_products(meta: dict[str, Any], values: dict[str, str]) -> list[str]:
     options = list(values.values())
@@ -177,47 +302,87 @@ def infer_promo_number(card: dict[str,Any]) -> None:
         card["denominator"] = "BW-P"
 
 def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int) -> dict[str,Any]:
+    manifest = dogam_manifest(meta)
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        cards = list(pool.map(detail_record, records))
+        official_cards = list(pool.map(detail_record, records))
 
     if meta["code"] == "BWP":
-        for card in cards:
+        for card in official_cards:
             infer_promo_number(card)
 
-    deduped: dict[tuple[str,str],dict[str,Any]] = {}
-    for card in cards:
-        key = card_identity(card)
-        current = deduped.get(key)
-        if current is None or representative_score(card) < representative_score(current):
-            deduped[key] = card
-    cards = list(deduped.values())
+    by_number_name: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    by_name: dict[str, list[dict[str, Any]]] = {}
+    for card in official_cards:
+        number = str(int(card["number"])) if card["number"] else ""
+        name_key = normalized_card_name(card["name"])
+        by_number_name.setdefault((number, name_key), []).append(card)
+        by_name.setdefault(name_key, []).append(card)
 
-    numbered = [c for c in cards if c["number"]]
-    numberless = [c for c in cards if not c["number"]]
-    numbered.sort(key=lambda c:int(c["number"]))
-    numberless.sort(key=lambda c:(ENERGY_ORDER.get(c["name"],999),c["name"],c["CardNum"]))
-    cards = [*numbered,*numberless]
+    selected: list[dict[str, Any]] = []
+    fallbacks: list[tuple[int, dict[str, str]]] = []
 
-    if len(cards) != meta["count"]:
-        summary=[(c["number"],c["denominator"],c["name"],c["CardNum"]) for c in cards]
-        raise RuntimeError(
-            f"{meta['code']} {meta['title']}: expected {meta['count']} cards, "
-            f"official catalog produced {len(cards)} after dedupe\n{summary}"
+    for index, item in enumerate(manifest):
+        name_key = normalized_card_name(item["name"])
+        number = item["number"]
+        candidates = by_number_name.get((number, name_key), [])
+
+        if not candidates and number:
+            number_matches = [
+                card for card in official_cards
+                if card["number"] and str(int(card["number"])) == number
+            ]
+            if len(number_matches) == 1:
+                candidates = number_matches
+
+        if not candidates:
+            name_matches = by_name.get(name_key, [])
+            if len(name_matches) == 1:
+                candidates = name_matches
+
+        if candidates:
+            selected.append(min(candidates, key=representative_score).copy())
+        else:
+            selected.append({
+                "CardNum": "",
+                "name": item["name"],
+                "number": number,
+                "denominator": "",
+                "rarity": "",
+                "image": "",
+                "source": DOGAM_BASE + item["href"],
+            })
+            fallbacks.append((index, item))
+
+    if fallbacks:
+        legacy.log(
+            f"Dogam 보완 · {meta['code']} {meta['title']}: {len(fallbacks)}장"
         )
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers, 12)) as pool:
+            details = list(pool.map(
+                dogam_card_detail,
+                [item for _, item in fallbacks],
+            ))
+        for (index, item), detail in zip(fallbacks, details):
+            selected[index]["image"] = detail["image"]
+            selected[index]["denominator"] = detail["denominator"]
+            selected[index]["source"] = detail["source"]
 
     finalized=[]
-    for order,card in enumerate(cards,start=1):
-        if card["number"]:
-            number=str(int(card["number"])).zfill(3)
+    for order,(item,card) in enumerate(zip(manifest,selected),start=1):
+        number=item["number"] or card["number"]
+        if number:
+            number_token=str(int(number)).zfill(3)
             denominator=card["denominator"]
             denominator=denominator.zfill(3) if denominator.isdigit() else denominator
-            suffix=f"{number}/{denominator or str(meta['count']).zfill(3)}"
+            suffix=f"{number_token}/{denominator or str(meta['count']).zfill(3)}"
         else:
             token=ENERGY_TOKEN.get(card["name"])
             if not token:
                 token=re.sub(r"[^0-9A-Za-z가-힣]+","-",card["name"]).strip("-").upper()
-                token=f"{token}-{card['CardNum'][-4:]}"
+                token=f"{token}-{order:03d}"
             suffix=token
+
         finalized.append({
             "code":f"{meta['code'].lower()}_{suffix}",
             "image":card["image"],
@@ -228,6 +393,22 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
             "source":card["source"],
         })
 
+    if len(finalized) != meta["count"]:
+        raise RuntimeError(
+            f"{meta['code']} {meta['title']}: expected {meta['count']} cards, "
+            f"selected {len(finalized)}"
+        )
+    if len({card["code"] for card in finalized}) != len(finalized):
+        raise RuntimeError(f"{meta['code']}: duplicate generated card codes")
+
+    fallback_count=sum(
+        1 for card in finalized
+        if card["image"].startswith("https://static.tcgexchange.kr/")
+    )
+    note=f"한글판 {len(finalized)}장 기준 · 포켓몬코리아 공식 이미지"
+    if fallback_count:
+        note += f" · 공식 검색 누락 {fallback_count}장은 Dogam 참고 이미지"
+
     return {
         "code":meta["code"],
         "title":f"{meta['title']} ({len(finalized)}장)",
@@ -236,7 +417,7 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
         "release":"",
         "sourceProducts":meta["officialProducts"],
         "referenceImageRegion":"KR",
-        "referenceNote":f"한글판 {len(finalized)}장 기준 · 포켓몬코리아 공식 이미지",
+        "referenceNote":note,
         "referenceSource":DOGAM_SOURCE,
         "cards":finalized,
     }
