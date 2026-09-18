@@ -1,0 +1,41 @@
+name: Build Korean XY Catalog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/build_xy_series_data.py"
+      - ".github/workflows/build-xy-catalog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build XY catalog
+        run: python scripts/build_xy_series_data.py --workers 16
+
+      - name: Commit generated catalog
+        run: |
+          if git diff --quiet -- data/series-legacy.json; then
+            echo "No catalog changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series-legacy.json
+          git commit -m "Build Korean XY series catalog"
+          git push
