@@ -1,0 +1,100 @@
+name: Audit Legacy Image Language
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/audit-legacy-image-language.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OCR
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-jpn tesseract-ocr-kor
+          python -m pip install --quiet pillow pytesseract requests
+      - name: Detect Japanese fallback images
+        run: |
+          python - <<'PY'
+          import io,json,re
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests,pytesseract
+          from PIL import Image,ImageOps,ImageEnhance
+
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          refs=[]
+          for g in data:
+              for c in g.get("cards",[]):
+                  if "static.tcgexchange.kr" in (c.get("image") or ""):
+                      refs.append({
+                          "era":g.get("era",""),"set":g.get("code",""),
+                          "code":c.get("code",""),"name":c.get("name",""),
+                          "url":c.get("image","")
+                      })
+          unique={x["url"]:x for x in refs}
+          refs=list(unique.values())
+
+          def fetch(ref):
+              try:
+                  r=requests.get(ref["url"],headers={"User-Agent":"Mozilla/5.0"},timeout=15)
+                  r.raise_for_status()
+                  img=Image.open(io.BytesIO(r.content)).convert("RGB")
+                  return ref,img,None
+              except Exception as e:
+                  return ref,None,str(e)
+
+          downloaded=[]
+          with ThreadPoolExecutor(max_workers=24) as pool:
+              futures=[pool.submit(fetch,x) for x in refs]
+              for f in as_completed(futures):
+                  downloaded.append(f.result())
+
+          jp_re=re.compile(r"[ぁ-ゖァ-ヺ]")
+          ko_re=re.compile(r"[가-힣]")
+          classified=[]
+          for n,(ref,img,err) in enumerate(downloaded,1):
+              if err or img is None:
+                  classified.append({**ref,"class":"FAIL","error":err})
+                  continue
+              # OCR the upper 82% (card text/art) and lower 40% separately.
+              w,h=img.size
+              crop=img.crop((0,0,w,int(h*0.9)))
+              gray=ImageOps.grayscale(crop)
+              gray=ImageEnhance.Contrast(gray).enhance(1.6)
+              if gray.width < 650:
+                  scale=max(1,650//max(1,gray.width))
+                  gray=gray.resize((gray.width*scale,gray.height*scale))
+              text=pytesseract.image_to_string(gray,lang="jpn+kor",config="--psm 11")
+              jp=len(jp_re.findall(text)); ko=len(ko_re.findall(text))
+              if jp>=2 and jp>ko:
+                  cls="JP"
+              elif ko>=2 and ko>=jp:
+                  cls="KR"
+              elif jp>0 and ko==0:
+                  cls="JP?"
+              elif ko>0 and jp==0:
+                  cls="KR?"
+              else:
+                  cls="UNKNOWN"
+              classified.append({**ref,"class":cls,"jp":jp,"ko":ko,"ocr":re.sub(r"\s+"," ",text)[:220]})
+              if n%25==0:
+                  print(f"OCR_PROGRESS {n}/{len(downloaded)}",flush=True)
+
+          summary={}
+          for x in classified:
+              summary[x["class"]]=summary.get(x["class"],0)+1
+          print("LANG_SUMMARY",json.dumps({"unique":len(refs),"classes":summary},ensure_ascii=False))
+          for x in sorted(classified,key=lambda z:(z["era"],z["set"],z["code"])):
+              if x["class"] in ("JP","JP?","UNKNOWN"):
+                  print("LANG_CANDIDATE",json.dumps(x,ensure_ascii=False))
+          PY
