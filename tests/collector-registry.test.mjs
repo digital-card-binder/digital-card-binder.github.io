@@ -48,7 +48,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4838,
-    series: 10321,
+    series: 10433,
     pokemon: 1134,
     ar: 510,
     people: 179,
@@ -77,7 +77,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 10321,
+    totalCount: 10433,
     promoOwnedCount: 0,
   });
 });
@@ -87,7 +87,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     national: 9,
     pack: 3,
     artist: 40,
-    series: 99,
+    series: 103,
     pokemon: 67,
     ar: 32,
     people: 9,
