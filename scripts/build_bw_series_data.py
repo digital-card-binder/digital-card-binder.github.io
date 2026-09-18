@@ -438,6 +438,93 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
         "cards":finalized,
     }
 
+
+KNOWN_JP_FALLBACK_CODES = {
+    "gbr_016/015",
+    "gbr_017/015",
+    "gbr_018/015",
+    "szd_016/015",
+    "szd_017/015",
+    "szd_018/015",
+    "k+k_019/018",
+}
+
+ENERGY_NAME_ALIASES = {
+    "물에너지": "기본물에너지",
+    "번개에너지": "기본번개에너지",
+    "격투에너지": "기본격투에너지",
+    "풀에너지": "기본풀에너지",
+    "초에너지": "기본초에너지",
+    "악에너지": "기본악에너지",
+}
+
+
+def korean_reference_key(name: str) -> str:
+    value = re.sub(r"[^0-9A-Za-z가-힣]+", "", str(name or "")).casefold()
+    return ENERGY_NAME_ALIASES.get(value, value)
+
+
+def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
+    official_pool: dict[str, list[tuple[str, dict[str, Any]]]] = {}
+    for group in groups:
+        for card in group.get("cards", []):
+            if "pokemonkorea.co.kr" not in str(card.get("image") or ""):
+                continue
+            official_pool.setdefault(korean_reference_key(card.get("name", "")), []).append(
+                (str(group.get("code") or ""), card)
+            )
+
+    replacements = 0
+    for group in groups:
+        replaced_in_group = 0
+        for card in group.get("cards", []):
+            if str(card.get("code") or "") not in KNOWN_JP_FALLBACK_CODES:
+                continue
+            candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
+            if not candidates:
+                raise RuntimeError(
+                    f"{card.get('code')}: Korean official replacement image missing"
+                )
+            source_set, candidate = sorted(
+                candidates,
+                key=lambda item: (
+                    0 if item[0] not in {"BWP"} else 1,
+                    item[0],
+                    str(item[1].get("code") or ""),
+                ),
+            )[0]
+            card["image"] = candidate["image"]
+            card["imageSource"] = candidate.get("source", "")
+            card["imageReferenceSet"] = source_set
+            card["imageReferenceNote"] = "동일 에너지의 한글판 공식 참고 이미지"
+            replacements += 1
+            replaced_in_group += 1
+
+        fallback_count = sum(
+            1
+            for card in group.get("cards", [])
+            if "static.tcgexchange.kr" in str(card.get("image") or "")
+        )
+        note = (
+            f"한글판 {len(group.get('cards', []))}장 기준 · "
+            "포켓몬코리아 공식 이미지"
+        )
+        if replaced_in_group:
+            note += (
+                f" · 일본판 대체용 한글판 공식 참고 이미지 {replaced_in_group}장"
+            )
+        if fallback_count:
+            note += f" · 공식 검색 누락 {fallback_count}장은 Dogam 한글판 참고 이미지"
+        group["referenceNote"] = note
+
+    if replacements != len(KNOWN_JP_FALLBACK_CODES):
+        raise RuntimeError(
+            f"BW JP replacement mismatch: {replacements}/"
+            f"{len(KNOWN_JP_FALLBACK_CODES)}"
+        )
+    return replacements
+
+
 def run(workers:int)->None:
     official_values=legacy.official_product_values()
     jobs: list[tuple[dict[str, Any], str]] = []
@@ -472,6 +559,9 @@ def run(workers:int)->None:
         group=build_group(meta,inventories[meta["code"]],workers)
         groups.append(group)
         legacy.log(f"완료 · {group['code']} {group['displayName']}: {len(group['cards'])}장")
+
+    replacement_count = replace_known_japanese_fallbacks(groups)
+    legacy.log(f"BW 일본판 이미지 교체 완료 · {replacement_count}장")
 
     existing=json.loads(LEGACY_PATH.read_text(encoding="utf-8"))
     bw_codes={m["code"].casefold() for m in SETS}
