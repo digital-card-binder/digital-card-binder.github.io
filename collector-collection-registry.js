@@ -257,6 +257,12 @@
         if (name) mergedByName.set(name, group);
       });
       payload = [...mergedByName.values()];
+    } else if (collectionId === "series") {
+      const [baseGroups, legacyGroups] = await Promise.all([
+        fetchJson(pathByCollection[collectionId]),
+        fetchJson("./data/series-legacy.json").catch(() => []),
+      ]);
+      payload = mergeCatalogGroups(baseGroups, legacyGroups);
     } else {
       payload = await fetchJson(pathByCollection[collectionId]);
     }
