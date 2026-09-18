@@ -1,0 +1,41 @@
+name: Probe Korean 20th Gallery
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/probe-52poke-20th.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe 52poke Korean gallery
+        run: |
+          python - <<'PY'
+          import re, requests
+          from urllib.parse import quote
+          title="宝可梦集换式卡牌游戏_起始包（TCG）"
+          url="https://wiki.52poke.com/index.php?title="+quote(title)+"&action=raw"
+          r=requests.get(url,headers={"User-Agent":"Mozilla/5.0"},timeout=30)
+          print("STATUS",r.status_code,"LEN",len(r.text))
+          text=r.text
+          for pat in ["韩文版","韓文版","韩文海报","韓文海報","<gallery","gallery>"]:
+              print("PATTERN",pat,[m.start() for m in re.finditer(pat,text,re.I)][:20])
+          for m in re.finditer(r"韩文版|韓文版",text):
+              print("SECTION_START")
+              print(text[max(0,m.start()-1200):m.start()+8000])
+              print("SECTION_END")
+          files=sorted(set(re.findall(r"(?:File|文件|檔案):([^|\]\n]+)",text,re.I)))
+          print("FILES",len(files))
+          for f in files:
+              if any(k.lower() in f.lower() for k in ["20th","starter","korea","kor","kr","训练家","訓練家"]):
+                  print("FILE",f)
+          PY
