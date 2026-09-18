@@ -11,10 +11,12 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import json
+from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
 from typing import Any
+from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_legacy_series_data as legacy  # noqa: E402
@@ -23,6 +25,7 @@ import build_legacy_series_data as legacy  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_PATH = ROOT / "data" / "series-legacy.json"
 DOGAM_SOURCE = "https://www.dogam.app/sets"
+DOGAM_BASE = "https://www.dogam.app"
 
 SETS: list[dict[str, Any]] = [
     {"code":"BW1-Bb","title":"블랙 컬렉션","count":56,"aliases":["블랙 컬렉션"]},
