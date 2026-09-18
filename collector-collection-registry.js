@@ -30,7 +30,7 @@
       href: "./packs.html",
       documentId: "packDex",
       unit: "팩",
-      catalogCount: 62,
+      catalogCount: 64,
       defaultDashboardVisible: true,
     },
     artist: {
