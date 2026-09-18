@@ -5,6 +5,7 @@ const mode = document.body.dataset.catalog;
 const seriesBaseOnly =
   mode === "series" && document.body.dataset.seriesScope === "base";
 const SERIES_DATA_URL = "./data/series.json";
+const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
 const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
@@ -341,9 +342,10 @@ function updateSelected() {
       ? `${groupName(selected)} · ${selected.code}`
       : pokemonGroupLabel(selected),
   );
+  const progress = `${owned} / ${cards.length}장 · ${pct(owned, cards.length)}%`;
   setText(
     "selected-progress",
-    `${owned} / ${cards.length}장 · ${pct(owned, cards.length)}%`,
+    selected?.referenceNote ? `${progress} · ${selected.referenceNote}` : progress,
   );
 }
 
@@ -676,8 +678,28 @@ async function fetchJson(url) {
   return response.json();
 }
 
+function mergeSeriesGroups(baseGroups, supplementGroups) {
+  const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
+  for (const extra of Array.isArray(supplementGroups) ? supplementGroups : []) {
+    const code = String(extra?.code || "").trim().toLowerCase();
+    if (!code) continue;
+    const index = merged.findIndex(
+      (group) => String(group?.code || "").trim().toLowerCase() === code,
+    );
+    if (index >= 0) merged[index] = extra;
+    else merged.push(extra);
+  }
+  return merged;
+}
+
 async function loadCatalogGroups() {
-  if (mode === "series") return fetchJson(SERIES_DATA_URL);
+  if (mode === "series") {
+    const [baseGroups, legacyGroups] = await Promise.all([
+      fetchJson(SERIES_DATA_URL),
+      fetchJson(LEGACY_SERIES_DATA_URL).catch(() => []),
+    ]);
+    return mergeSeriesGroups(baseGroups, legacyGroups);
+  }
 
   const [baseGroups, sequenceGroups, pokedex] = await Promise.all([
     fetchJson(POKEMON_DATA_URL),
