@@ -1,0 +1,114 @@
+name: Audit Dogam Watermarks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/audit-dogam-watermarks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install OCR tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng tesseract-ocr-kor
+          python -m pip install --quiet pillow pytesseract requests
+
+      - name: Scan Dogam fallback images for watermark text
+        run: |
+          python - <<'PY'
+          import io, json, re, time
+          from pathlib import Path
+          import requests
+          from PIL import Image, ImageEnhance, ImageOps
+          import pytesseract
+
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          refs=[]
+          for group in data:
+              for card in group.get("cards",[]):
+                  url=card.get("image","")
+                  if "static.tcgexchange.kr" in url:
+                      refs.append({
+                          "era": group.get("era",""),
+                          "set": group.get("code",""),
+                          "code": card.get("code",""),
+                          "name": card.get("name",""),
+                          "url": url,
+                      })
+
+          unique={}
+          for ref in refs:
+              unique.setdefault(ref["url"], ref)
+          refs=list(unique.values())
+          keywords=re.compile(r"(DOGAM|DOGAM[.]APP|도감|TCG\s*EXCHANGE|TCGEXCHANGE|TCG\s*거래소|티씨지\s*거래소)", re.I)
+          suspects=[]
+          failures=[]
+
+          session=requests.Session()
+          session.headers.update({"User-Agent":"Mozilla/5.0 watermark-audit/1.0"})
+
+          def ocr_variants(img):
+              w,h=img.size
+              regions=[
+                  ("full", img),
+                  ("tl", img.crop((0,0,max(1,w//2),max(1,h//3)))),
+                  ("tr", img.crop((w//2,0,w,max(1,h//3)))),
+                  ("bl", img.crop((0,2*h//3,max(1,w//2),h))),
+                  ("br", img.crop((w//2,2*h//3,w,h))),
+                  ("center", img.crop((w//5,h//3,4*w//5,2*h//3))),
+              ]
+              out=[]
+              for label,region in regions:
+                  gray=ImageOps.grayscale(region)
+                  gray=ImageEnhance.Contrast(gray).enhance(1.8)
+                  if max(gray.size)<1100:
+                      gray=gray.resize((gray.width*2,gray.height*2))
+                  text=pytesseract.image_to_string(gray, lang="kor+eng", config="--psm 11")
+                  out.append((label,text))
+              return out
+
+          for idx,ref in enumerate(refs,1):
+              try:
+                  res=session.get(ref["url"],timeout=25)
+                  res.raise_for_status()
+                  img=Image.open(io.BytesIO(res.content)).convert("RGB")
+                  found=[]
+                  for region,text in ocr_variants(img):
+                      m=keywords.search(text)
+                      if m:
+                          snippet=re.sub(r"\s+"," ",text[max(0,m.start()-50):m.end()+50]).strip()
+                          found.append((region,m.group(0),snippet))
+                  if found:
+                      suspects.append({**ref,"found":found})
+              except Exception as e:
+                  failures.append({**ref,"error":str(e)})
+              if idx%25==0:
+                  print(f"PROGRESS {idx}/{len(refs)}", flush=True)
+
+          by_era={}
+          for ref in refs:
+              by_era[ref["era"]]=by_era.get(ref["era"],0)+1
+
+          print("AUDIT_SUMMARY",json.dumps({
+              "referenced_cards":len(refs),
+              "by_era":by_era,
+              "watermark_text_suspects":len(suspects),
+              "download_or_ocr_failures":len(failures),
+          },ensure_ascii=False))
+          for item in suspects:
+              print("WATERMARK_SUSPECT",json.dumps(item,ensure_ascii=False))
+          for item in failures[:50]:
+              print("AUDIT_FAILURE",json.dumps(item,ensure_ascii=False))
+          PY
