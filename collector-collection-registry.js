@@ -50,7 +50,7 @@
       href: "./series.html",
       documentId: "seriesDex",
       unit: "장",
-      catalogCount: 10433,
+      catalogCount: 10544,
       defaultDashboardVisible: true,
     },
     pokemon: {
