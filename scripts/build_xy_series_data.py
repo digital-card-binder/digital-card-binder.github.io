@@ -386,6 +386,112 @@ def build_group(meta: dict[str, Any], records: list[dict[str, str]], workers: in
     }
 
 
+
+KNOWN_JP_FALLBACK_CODES = {
+    "20th_030/071", "20th_031/071", "20th_032/071",
+    "20th_048/071", "20th_049/071", "20th_050/071",
+    "20th_051/071", "20th_053/071", "20th_054/071",
+    "20th_055/071", "20th_056/071", "20th_057/071",
+    "20th_058/071", "20th_059/071", "20th_060/071",
+    "20th_061/071", "20th_062/071", "20th_063/071",
+    "20th_064/071", "20th_065/071", "20th_066/071",
+    "20th_067/071", "20th_068/071", "20th_069/071",
+    "20th_070/071", "20th_071/071",
+}
+
+REFERENCE_SET_PRIORITY = {
+    "CP6": 0,
+    "CP4": 1,
+    "XY2": 2,
+    "XYA": 3,
+    "XYB": 4,
+    "XYC": 5,
+    "XYD": 6,
+    "XYE": 7,
+    "XYF": 8,
+    "XYG": 9,
+    "XYH": 10,
+    "XY1-Bx": 11,
+    "XY1-By": 12,
+    "FXY": 13,
+}
+
+
+def korean_reference_key(name: str) -> str:
+    return re.sub(r"[^0-9A-Za-z가-힣]+", "", str(name or "")).casefold()
+
+
+def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
+    official_pool: dict[str, list[tuple[str, dict[str, Any]]]] = {}
+    for group in groups:
+        for card in group.get("cards", []):
+            if "pokemonkorea.co.kr" not in str(card.get("image") or ""):
+                continue
+            official_pool.setdefault(korean_reference_key(card.get("name", "")), []).append(
+                (str(group.get("code") or ""), card)
+            )
+
+    replacements = 0
+    target_group = next((g for g in groups if g.get("code") == "20th"), None)
+    if target_group is None:
+        raise RuntimeError("20th trainer set missing")
+
+    for card in target_group.get("cards", []):
+        code = str(card.get("code") or "")
+        if code not in KNOWN_JP_FALLBACK_CODES:
+            continue
+        candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
+        if not candidates:
+            raise RuntimeError(f"{code}: Korean official replacement image missing")
+
+        source_set, candidate = sorted(
+            candidates,
+            key=lambda item: (
+                REFERENCE_SET_PRIORITY.get(item[0], 99),
+                1 if item[0] in {"XYP", "XY"} else 0,
+                item[0],
+                str(item[1].get("code") or ""),
+            ),
+        )[0]
+
+        card["image"] = candidate["image"]
+        card["imageSource"] = candidate.get("source", "")
+        card["imageReferenceSet"] = source_set
+        card["imageReferenceNote"] = "동일 카드의 한글판 공식 참고 이미지 (다른 수록판)"
+        replacements += 1
+
+    for group in groups:
+        replacement_count = sum(
+            1
+            for card in group.get("cards", [])
+            if card.get("imageReferenceNote")
+        )
+        fallback_count = sum(
+            1
+            for card in group.get("cards", [])
+            if "static.tcgexchange.kr" in str(card.get("image") or "")
+        )
+        note = (
+            f"한글판 {len(group.get('cards', []))}장 기준 · "
+            "포켓몬코리아 공식 이미지"
+        )
+        if replacement_count:
+            note += (
+                f" · 일본판 대체용 동일 카드 한글판 공식 참고 이미지 "
+                f"{replacement_count}장"
+            )
+        if fallback_count:
+            note += f" · 공식 검색 누락 {fallback_count}장은 Dogam 한글판 참고 이미지"
+        group["referenceNote"] = note
+
+    if replacements != len(KNOWN_JP_FALLBACK_CODES):
+        raise RuntimeError(
+            f"XY JP replacement mismatch: {replacements}/"
+            f"{len(KNOWN_JP_FALLBACK_CODES)}"
+        )
+    return replacements
+
+
 def run(workers: int) -> None:
     official_values = legacy.official_product_values()
     for meta in SETS:
@@ -418,6 +524,9 @@ def run(workers: int) -> None:
         group = build_group(meta, list(unique.values()), workers)
         groups.append(group)
         legacy.log(f"완료 · {group['code']} {group['displayName']}: {len(group['cards'])}장")
+
+    replacement_count = replace_known_japanese_fallbacks(groups)
+    legacy.log(f"XY 일본판 이미지 교체 완료 · {replacement_count}장")
 
     existing = json.loads(LEGACY_PATH.read_text(encoding="utf-8"))
     preserved = [
