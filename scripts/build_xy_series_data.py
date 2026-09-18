@@ -201,6 +201,17 @@ def dogam_card_detail(item: dict[str, str]) -> dict[str, str]:
 
 def resolve_products(meta: dict[str, Any], values: dict[str, str]) -> list[str]:
     options = list(values.values())
+
+    # XY 퍼스트 세트는 스타팅 포켓몬 3종 상품으로 나뉘어 있어
+    # 세 상품을 모두 합쳐야 Dogam의 FXY 42장과 일치한다.
+    if meta["code"] == "FXY":
+        products = [
+            option for option in options
+            if "xy퍼스트세트" in normalized(option)
+        ]
+        if products:
+            return sorted(set(products))
+
     scored: list[tuple[int, int, str]] = []
     for option in options:
         option_key = normalized(option)
