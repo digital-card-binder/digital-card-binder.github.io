@@ -40,7 +40,27 @@ jobs:
               seen.add(x[4]); unique.append(x)
           refs=unique
           out=Path("watermark-audit"); out.mkdir(exist_ok=True)
-          s=requests.Session(); s.headers.update({"User-Agent":"Mozilla/5.0"})
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+
+          def fetch(ref):
+              era,setcode,code,name,url=ref
+              try:
+                  rr=requests.get(url,headers={"User-Agent":"Mozilla/5.0"},timeout=12)
+                  rr.raise_for_status()
+                  im=Image.open(io.BytesIO(rr.content)).convert("RGB")
+                  return url,im,None
+              except Exception as e:
+                  return url,None,str(e)
+
+          downloaded={}
+          with ThreadPoolExecutor(max_workers=32) as pool:
+              futures=[pool.submit(fetch,ref) for ref in refs]
+              for n,f in enumerate(as_completed(futures),1):
+                  url,im,err=f.result()
+                  downloaded[url]=(im,err)
+                  if n%50==0:
+                      print(f"DOWNLOAD_PROGRESS {n}/{len(refs)}",flush=True)
+
           thumb_w,thumb_h=260,364
           label_h=54
           cols,rows=5,4
@@ -51,13 +71,13 @@ jobs:
               d=ImageDraw.Draw(sheet)
               for i,(era,setcode,code,name,url) in enumerate(chunk):
                   x=(i%cols)*thumb_w; y=(i//cols)*(thumb_h+label_h)
-                  try:
-                      r=s.get(url,timeout=20); r.raise_for_status()
-                      im=Image.open(io.BytesIO(r.content)).convert("RGB")
+                  im,err=downloaded.get(url,(None,"missing"))
+                  if im is not None:
+                      im=im.copy()
                       im.thumbnail((thumb_w-8,thumb_h-8))
                       px=x+(thumb_w-im.width)//2; py=y+(thumb_h-im.height)//2
                       sheet.paste(im,(px,py))
-                  except Exception as e:
+                  else:
                       d.rectangle((x+4,y+4,x+thumb_w-4,y+thumb_h-4),outline="red",width=3)
                       d.text((x+10,y+20),"DOWNLOAD FAIL",fill="red")
                   label=f"{si*per+i+1:03d} {era} {setcode}\n{code}"
