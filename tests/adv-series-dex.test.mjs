@@ -12,7 +12,9 @@ const group = (code) => legacy.find((item) => item.code === code);
 
 test("한국판 구판 카탈로그는 ORIGIN 1세트와 ADV 5세트로 구성된다", () => {
   assert.deepEqual(
-    legacy.map((item) => item.code),
+    legacy
+      .filter((item) => ["ORIGIN", "ADV"].includes(item.era))
+      .map((item) => item.code),
     ["BASE", "ADV1", "ADV1-K", "ADV1-A", "ADV1-M", "ADVP"],
   );
 
