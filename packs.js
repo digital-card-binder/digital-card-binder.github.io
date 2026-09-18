@@ -32,9 +32,11 @@ const specialPackPalettes = {
   m6a: ["#c69a28", "#376bc7"]
 };
 
-const generatedPackArt = new Map([
-  ["m6", "스톰\n에메랄다"],
-  ["m6a", "30th\nCELEBRATION"]
+// These Korean booster pack images come from the official Pokemon Card Game
+// product pages. Older packs continue to use the shared sprite.
+const individualPackImages = new Map([
+  ["m6", "./assets/packs/m6.webp?v=20260918-1"],
+  ["m6a", "./assets/packs/m6a.webp?v=20260918-1"]
 ]);
 
 function packPalette(pack) {
@@ -664,14 +666,19 @@ function spritePosition(index) {
 function configurePackImage(image, pack) {
   const colors = packPalette(pack);
   const pos = spritePosition(pack.i);
-  const generatedLabel = generatedPackArt.get(String(pack.code || "").toLowerCase()) || "";
+  const individualImage = individualPackImages.get(
+    String(pack.code || "").toLowerCase()
+  ) || "";
   image.style.setProperty("--pack-a", colors[0]);
   image.style.setProperty("--pack-b", colors[1]);
   image.style.setProperty("--sprite-x", `${pos.x}%`);
   image.style.setProperty("--sprite-y", `${pos.y}%`);
-  image.classList.toggle("is-generated-pack-art", Boolean(generatedLabel));
-  if (generatedLabel) image.dataset.packLabel = generatedLabel;
-  else delete image.dataset.packLabel;
+  image.classList.toggle("has-individual-pack-image", Boolean(individualImage));
+  if (individualImage) {
+    image.style.setProperty("--pack-image", `url("${individualImage}")`);
+  } else {
+    image.style.removeProperty("--pack-image");
+  }
   image.setAttribute("aria-label", `${pack.name} 팩 이미지`);
 }
 

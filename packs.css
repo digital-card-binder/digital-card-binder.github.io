@@ -124,6 +124,15 @@
   transition: filter 0.2s ease;
 }
 
+.pack-image.has-individual-pack-image,
+.pack-dialog-image.has-individual-pack-image {
+  background-image:
+    var(--pack-image),
+    linear-gradient(135deg, var(--pack-a), var(--pack-b));
+  background-position: center, center;
+  background-size: 100% 100%, 100% 100%;
+}
+
 .pack-card.is-missing .pack-image {
   filter: grayscale(1) drop-shadow(0 7px 8px rgba(23, 35, 63, 0.12));
   opacity: 0.42;
@@ -915,64 +924,4 @@
   .promo-create-dialog {
     display: none !important;
   }
-}
-
-
-/* 2026-09-18: generated artwork for newest MEGA packs not present in the legacy sprite */
-.pack-image.is-generated-pack-art,
-.pack-dialog-image.is-generated-pack-art {
-  position: relative;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background-image:
-    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.96) 0 9%, rgba(255, 255, 255, 0.28) 30%, transparent 48%),
-    linear-gradient(155deg, var(--pack-a), var(--pack-b));
-  background-position: center;
-  background-size: 100% 100%;
-  border: 1px solid rgba(255, 255, 255, 0.62);
-  border-radius: 9px 9px 5px 5px;
-  color: #fff;
-  text-align: center;
-}
-
-.pack-image.is-generated-pack-art::before,
-.pack-dialog-image.is-generated-pack-art::before {
-  content: attr(data-pack-label);
-  position: relative;
-  z-index: 2;
-  max-width: 88%;
-  white-space: pre-line;
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  text-shadow: 0 2px 6px rgba(10, 19, 36, 0.42);
-}
-
-.pack-image.is-generated-pack-art::before {
-  font-size: 0.88rem;
-}
-
-.pack-dialog-image.is-generated-pack-art::before {
-  font-size: 1.38rem;
-}
-
-.pack-image.is-generated-pack-art::after,
-.pack-dialog-image.is-generated-pack-art::after {
-  content: "POKÉMON CARD GAME · MEGA";
-  position: absolute;
-  right: 7px;
-  bottom: 8px;
-  left: 7px;
-  z-index: 2;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.38rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-align: center;
-}
-
-.pack-dialog-image.is-generated-pack-art::after {
-  font-size: 0.58rem;
-  bottom: 14px;
 }
