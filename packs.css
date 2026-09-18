@@ -921,6 +921,7 @@
 /* 2026-09-18: generated artwork for newest MEGA packs not present in the legacy sprite */
 .pack-image.is-generated-pack-art,
 .pack-dialog-image.is-generated-pack-art {
+  position: relative;
   display: grid;
   place-items: center;
   overflow: hidden;
