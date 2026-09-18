@@ -72,3 +72,27 @@ test("XY 데이터에 BW 공식 이미지가 잘못 섞이지 않는다", () => 
     }
   }
 });
+
+
+test("XY 20th에서 확인된 일본판 이미지 26장은 한글판 공식 이미지로 교체됐다", () => {
+  const targetCodes = new Set([
+    "20th_030/071", "20th_031/071", "20th_032/071",
+    "20th_048/071", "20th_049/071", "20th_050/071",
+    "20th_051/071", "20th_053/071", "20th_054/071",
+    "20th_055/071", "20th_056/071", "20th_057/071",
+    "20th_058/071", "20th_059/071", "20th_060/071",
+    "20th_061/071", "20th_062/071", "20th_063/071",
+    "20th_064/071", "20th_065/071", "20th_066/071",
+    "20th_067/071", "20th_068/071", "20th_069/071",
+    "20th_070/071", "20th_071/071",
+  ]);
+  const trainerSet = byCode.get("20th");
+  assert.ok(trainerSet);
+  const targets = trainerSet.cards.filter((card) => targetCodes.has(card.code));
+  assert.equal(targets.length, targetCodes.size);
+  for (const card of targets) {
+    assert.match(card.image, /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\//, card.code);
+    assert.match(card.imageReferenceNote || "", /한글판 공식 참고 이미지/, card.code);
+    assert.ok(card.imageReferenceSet, card.code);
+  }
+});
