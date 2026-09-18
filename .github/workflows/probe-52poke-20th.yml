@@ -23,11 +23,11 @@ jobs:
           import re, requests
           from urllib.parse import quote
           title="宝可梦集换式卡牌游戏_起始包（TCG）"
-          url="https://wiki.52poke.com/index.php?title="+quote(title)+"&action=raw"
+          url="https://wiki.52poke.com/wiki/"+quote(title)
           r=requests.get(url,headers={"User-Agent":"Mozilla/5.0"},timeout=30)
           print("STATUS",r.status_code,"LEN",len(r.text))
           text=r.text
-          for pat in ["韩文版","韓文版","韩文海报","韓文海報","<gallery","gallery>"]:
+          for pat in ["韩文版","韓文版","韩文海报","韓文海報","thumb","image"]:
               print("PATTERN",pat,[m.start() for m in re.finditer(pat,text,re.I)][:20])
           for m in re.finditer(r"韩文版|韓文版",text):
               print("SECTION_START")
