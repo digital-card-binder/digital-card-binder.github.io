@@ -68,3 +68,23 @@ test("BW 프로모 72장을 모두 유지한다", () => {
   assert.equal(promo.cards.at(-1).order, 72);
   assert.equal(promo.cards.at(-1).name, "이브이");
 });
+
+
+test("BW에서 확인된 일본판 에너지 7장은 한글판 공식 이미지로 교체됐다", () => {
+  const targetCodes = new Set([
+    "gbr_016/015",
+    "gbr_017/015",
+    "gbr_018/015",
+    "szd_016/015",
+    "szd_017/015",
+    "szd_018/015",
+    "k+k_019/018",
+  ]);
+  const cards = bw.flatMap((group) => group.cards);
+  const targets = cards.filter((card) => targetCodes.has(card.code));
+  assert.equal(targets.length, targetCodes.size);
+  for (const card of targets) {
+    assert.match(card.image, /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\//, card.code);
+    assert.match(card.imageReferenceNote || "", /한글판 공식 참고 이미지/, card.code);
+  }
+});
