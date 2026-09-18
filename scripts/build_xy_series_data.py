@@ -204,6 +204,8 @@ def resolve_products(meta: dict[str, Any], values: dict[str, str]) -> list[str]:
     scored: list[tuple[int, int, str]] = []
     for option in options:
         option_key = normalized(option)
+        if "xy" not in option.casefold():
+            continue
         for alias in meta["aliases"]:
             alias_key = normalized(alias)
             if alias_key and alias_key in option_key:
@@ -295,7 +297,7 @@ def build_group(meta: dict[str, Any], records: list[dict[str, str]], workers: in
             if len(same_number) == 1:
                 candidates = same_number
 
-        if not candidates:
+        if not candidates and not number:
             same_name = by_name.get(name_key, [])
             if len(same_name) == 1:
                 candidates = same_name
