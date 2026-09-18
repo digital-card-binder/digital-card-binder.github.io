@@ -99,12 +99,23 @@
 
   async function loadSeriesCatalog() {
     if (!seriesCatalogPromise) {
-      seriesCatalogPromise = originalFetch("./data/series.json", {
-        cache: "no-store",
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error(`series.json ${response.status}`);
+      const load = (path) =>
+        originalFetch(path, { cache: "no-store" }).then((response) => {
+          if (!response.ok) throw new Error(`${path} ${response.status}`);
           return response.json();
+        });
+
+      seriesCatalogPromise = Promise.all([
+        load("./data/series.json"),
+        load("./data/series-legacy.json").catch(() => []),
+      ])
+        .then(([baseGroups, legacyGroups]) => {
+          const merged = new Map();
+          [...(baseGroups || []), ...(legacyGroups || [])].forEach((group) => {
+            const code = normalizeSetCode(group?.code || group?.name);
+            if (code) merged.set(code, group);
+          });
+          return [...merged.values()];
         })
         .catch((error) => {
           console.warn("시리즈 카드 목록을 불러오지 못했습니다.", error);
