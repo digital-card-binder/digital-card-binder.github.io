@@ -165,6 +165,7 @@
       .replace(/\s+/g, "")
       .replace(/[^a-z0-9-]/gi, "");
     const canonicalCode = typedCode
+      .replace(/^adv/i, "ADV")
       .replace(/^sv/i, "SV")
       .replace(/^sm/i, "SM")
       .replace(/^xy/i, "XY")
@@ -177,7 +178,8 @@
     );
 
     let primaryRoot = "";
-    if (code.startsWith("SV")) primaryRoot = "SV";
+    if (code.startsWith("ADV")) primaryRoot = "ADV";
+    else if (code.startsWith("SV")) primaryRoot = "SV";
     else if (code.startsWith("SM")) primaryRoot = "SM";
     else if (code.startsWith("XY")) primaryRoot = "XY";
     else if (code.startsWith("BW")) primaryRoot = "BW";
@@ -192,6 +194,7 @@
       "SM",
       "XY",
       "BW",
+      "ADV",
     ].filter((root, index, values) => root && values.indexOf(root) === index);
     const base = "https://cards.image.pokemonkorea.co.kr/data/wmimages";
 
@@ -861,7 +864,7 @@
         <label class="owned-switch"><input id="edit-owned" type="checkbox" /><span>보유</span></label>
       </div>
       <div class="collection-editor-grid">
-        <label><span>세트 코드</span><input id="edit-set-code" data-owned-card-field type="text" placeholder="예: sv2a" /></label>
+        <label><span>세트 코드</span><input id="edit-set-code" data-owned-card-field type="text" placeholder="예: sv2a, ADV1" /></label>
         <label><span>카드번호</span><input id="edit-card-number" data-owned-card-field type="text" placeholder="예: 025/165" /></label>
         <label class="collection-editor-wide"><span>카드명</span><input id="edit-card-name" data-owned-card-field type="text" placeholder="예: 피카츄" /></label>
         <label><span>레어도</span><input id="edit-rarity" data-owned-card-field type="text" placeholder="예: C, AR, SAR" /></label>
