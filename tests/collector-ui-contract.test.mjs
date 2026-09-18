@@ -210,7 +210,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
-  assert.match(newsClient, /items\[0\]/);
+  assert.match(newsClient, /items[.]slice\(0, 2\)/);
   assert.match(newsClient, /document[.]createElement\("details"\)/);
   assert.equal(newsClient.includes("firebase"), false);
   assert.match(newsCss, /[.]dashboard-news-strip \{/);
