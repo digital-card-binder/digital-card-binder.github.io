@@ -300,12 +300,15 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   assert.equal(page.includes("33 SETS"), false);
 });
 
-test("series era labels use SM, S, SV, M order across navigation", async () => {
+test("series era labels include legacy through MEGA order across navigation", async () => {
   for (const file of [...sitePages, "trades.html"]) {
     const html = await source(file);
     if (!html.includes('href="./series.html"')) continue;
-    assert.match(html, /시리즈 도감<\/strong><small>SM · S · SV · M<\/small>/, file);
-    assert.doesNotMatch(html, /시리즈 도감<\/strong><small>S · SV · SM · M<\/small>/, file);
+    assert.match(
+      html,
+      /시리즈 도감<\/strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M<\/small>/,
+      file,
+    );
   }
 });
 
@@ -695,9 +698,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260911-1/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260918-3/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260911-1/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260918-3/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
