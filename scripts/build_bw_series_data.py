@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEGACY_PATH = ROOT / "data" / "series-legacy.json"
 DOGAM_SOURCE = "https://www.dogam.app/sets"
 DOGAM_BASE = "https://www.dogam.app"
+# Known Japanese fallback scans are replaced with same-card Korean official references.
 
 SETS: list[dict[str, Any]] = [
     {"code":"BW1-Bb","title":"블랙 컬렉션","count":56,"aliases":["블랙 컬렉션"]},
