@@ -46,7 +46,7 @@ const registry = context.window.CollectorCollectionRegistry;
 test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
-    pack: 62,
+    pack: 64,
     artist: 4838,
     series: 10321,
     pokemon: 1134,
