@@ -29,11 +29,11 @@ SETS: list[dict[str, Any]] = [
     {"code":"BW1-Bw","title":"화이트 컬렉션","count":56,"aliases":["화이트 컬렉션"]},
     {"code":"BD","title":"볼트로스 덱","count":16,"aliases":["볼트로스 덱","볼트로스덱"]},
     {"code":"TD","title":"토네로스 덱","count":16,"aliases":["토네로스 덱","토네로스덱"]},
-    {"code":"FS","title":"BW 퍼스트 세트","count":40,"aliases":["BW 퍼스트 세트","퍼스트 세트"]},
+    {"code":"FS","title":"BW 퍼스트 세트","count":40,"aliases":["BW 퍼스트 세트","퍼스트 세트"],"multiAliases":["퍼스트 세트 - 풀의 진화","퍼스트 세트 - 불꽃의 진화","퍼스트 세트 - 물의 진화"]},
     {"code":"BW2","title":"레드 컬렉션","count":72,"aliases":["레드 컬렉션"]},
     {"code":"BTV","title":"배틀 체인지덱 비크티니 덱","count":24,"aliases":["배틀 체인지덱 비크티니 덱","비크티니 덱"]},
     {"code":"BGc","title":"배틀 강화덱 - 코바르온 덱","count":16,"aliases":["코바르온 덱","코바르온덱"]},
-    {"code":"PBG","title":"플라스마단 스페셜 세트","count":18,"aliases":["플라스마단 스페셜 세트"]},
+    {"code":"PBG","title":"플라스마단 스페셜 세트","count":18,"aliases":["플라스마단 덱","플라스마단 스페셜 세트"]},
     {"code":"BGt","title":"배틀 강화덱 - 테라키온 덱","count":17,"aliases":["테라키온 덱","테라키온덱"]},
     {"code":"BGv","title":"배틀 강화덱 - 비리디온 덱","count":17,"aliases":["비리디온 덱","비리디온덱"]},
     {"code":"BW3-Bh","title":"헤일 블리자드","count":57,"aliases":["헤일 블리자드"]},
@@ -76,8 +76,24 @@ ENERGY_TOKEN = {
     "기본 악 에너지":"ENERGY-DARKNESS","기본 강철 에너지":"ENERGY-METAL",
 }
 
-def resolve_product(meta: dict[str, Any], values: dict[str, str]) -> str:
+def resolve_products(meta: dict[str, Any], values: dict[str, str]) -> list[str]:
     options = list(values.values())
+    multi_aliases = meta.get("multiAliases") or []
+    if multi_aliases:
+        resolved: list[str] = []
+        for alias in multi_aliases:
+            compact_alias = legacy.compact(alias)
+            matches = [
+                option for option in options
+                if compact_alias and compact_alias in legacy.compact(option)
+            ]
+            if not matches:
+                raise RuntimeError(
+                    f"{meta['code']} {meta['title']}: official product option missing for {alias}"
+                )
+            resolved.append(min(matches, key=lambda option: len(legacy.compact(option))))
+        return list(dict.fromkeys(resolved))
+
     scored: list[tuple[int,int,str]] = []
     for option in options:
         compact_option = legacy.compact(option)
@@ -90,7 +106,7 @@ def resolve_product(meta: dict[str, Any], values: dict[str, str]) -> str:
     if not scored:
         raise RuntimeError(f"{meta['code']} {meta['title']}: official product option missing")
     scored.sort()
-    return scored[0][2]
+    return [scored[0][2]]
 
 def product_inventory(meta: dict[str, Any], product: str) -> list[dict[str,str]]:
     records: list[dict[str,str]] = []
@@ -218,7 +234,7 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
         "displayName":meta["title"],
         "era":"BW",
         "release":"",
-        "sourceProducts":[meta["officialProduct"]],
+        "sourceProducts":meta["officialProducts"],
         "referenceImageRegion":"KR",
         "referenceNote":f"한글판 {len(finalized)}장 기준 · 포켓몬코리아 공식 이미지",
         "referenceSource":DOGAM_SOURCE,
@@ -227,16 +243,32 @@ def build_group(meta: dict[str,Any], records: list[dict[str,str]], workers: int)
 
 def run(workers:int)->None:
     official_values=legacy.official_product_values()
+    jobs: list[tuple[dict[str, Any], str]] = []
     for meta in SETS:
-        meta["officialProduct"]=resolve_product(meta,official_values)
-        legacy.log(f"상품 연결 · {meta['code']} -> {meta['officialProduct']}")
+        meta["officialProducts"]=resolve_products(meta,official_values)
+        legacy.log(
+            f"상품 연결 · {meta['code']} -> " + " | ".join(meta["officialProducts"])
+        )
+        for product in meta["officialProducts"]:
+            jobs.append((meta, product))
 
-    inventories={}
+    inventories={meta["code"]: [] for meta in SETS}
     with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers,12)) as pool:
-        futures={pool.submit(product_inventory,m,m["officialProduct"]):m for m in SETS}
+        futures={
+            pool.submit(product_inventory, meta, product):(meta, product)
+            for meta, product in jobs
+        }
         for future in concurrent.futures.as_completed(futures):
-            meta=futures[future]
-            inventories[meta["code"]]=future.result()
+            meta, product=futures[future]
+            inventories[meta["code"]].extend(future.result())
+
+    for meta in SETS:
+        unique={}
+        for record in inventories[meta["code"]]:
+            card_num=str(record.get("CardNum") or "").strip()
+            if card_num:
+                unique.setdefault(card_num, record)
+        inventories[meta["code"]]=list(unique.values())
 
     groups=[]
     for meta in SETS:
