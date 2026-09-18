@@ -15,6 +15,7 @@
     { href: "./", icon: "DB", title: "대시보드", subtitle: "ALL COLLECTIONS", page: "index.html" },
     { href: "./collectors.html", icon: "PB", title: "도감 갤러리", subtitle: "PUBLIC BOARD", page: "collectors.html" },
     { href: "./national.html", icon: "01", title: "전국 도감", subtitle: "NATIONAL DEX", page: "national.html" },
+    { href: "./packs.html", icon: "PK", title: "팩 도감", subtitle: "PACK DEX", page: "packs.html" },
     { href: "./series.html", icon: "02", title: "시리즈 도감", subtitle: "SERIES DEX", page: "series.html" },
     { href: "./theme.html", icon: "TH", title: "테마 도감", subtitle: "THEME DEX", page: "theme.html", theme: true },
     { href: "./custom.html", icon: "MY", title: "나만의 도감", subtitle: "MY CUSTOM DEX", page: "custom.html" },
