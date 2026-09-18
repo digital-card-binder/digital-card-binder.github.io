@@ -89,6 +89,7 @@ function actualCardCode(card) {
 }
 
 function groupName(group) {
+  if (!group) return "";
   if (mode === "series") {
     return (
       group.displayName ||
@@ -104,6 +105,11 @@ function groupName(group) {
 function seriesEra(group) {
   if (group?.era) return String(group.era).toUpperCase();
   const code = String(group?.code || "").toLowerCase();
+  if (code.startsWith("origin") || code.startsWith("base")) return "ORIGIN";
+  if (code.startsWith("adv")) return "ADV";
+  if (code.startsWith("dp")) return "DP";
+  if (code.startsWith("bw")) return "BW";
+  if (code.startsWith("xy")) return "XY";
   if (code.startsWith("sm")) return "SM";
   if (code.startsWith("sv")) return "SV";
   if (code.startsWith("m")) return "M";
@@ -132,10 +138,12 @@ function rememberMobileCatalogPreferences() {
   if (!mobileCatalogMedia?.matches) return;
   try {
     mobileCatalogPreferences.status = status;
+    if (mode === "series") {
+      mobileCatalogPreferences.era = activeEra;
+    }
     if (selected) {
       const groupValue = selected.code || selected.name;
       if (mode === "series") {
-        mobileCatalogPreferences.era = activeEra;
         mobileCatalogPreferences.groupByEra = {
           ...(mobileCatalogPreferences.groupByEra || {}),
           [activeEra]: groupValue,
@@ -169,6 +177,17 @@ function populateCatalogSelect() {
   const select = $("catalog-select");
   const visibleGroups = selectableGroups();
   select.replaceChildren();
+
+  if (mode === "series" && !visibleGroups.length) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = `${activeEra} 데이터 준비 중`;
+    select.append(option);
+    select.disabled = true;
+    return visibleGroups;
+  }
+
+  select.disabled = false;
   visibleGroups.forEach((group) => {
     const option = document.createElement("option");
     option.value = group.code || group.name;
@@ -184,12 +203,22 @@ function populateCatalogSelect() {
 function selectEra(era) {
   if (mode !== "series") return;
   const visibleGroups = groups.filter((group) => seriesEra(group) === era);
-  if (!visibleGroups.length) return;
   activeEra = era;
   syncEraTabs();
+
   const select = $("catalog-select");
   const currentValue = selected?.code || selected?.name;
   populateCatalogSelect();
+
+  if (!visibleGroups.length) {
+    selected = null;
+    cards = [];
+    updateSelected();
+    render();
+    rememberMobileCatalogPreferences();
+    return;
+  }
+
   const rememberedValue = mobileCatalogPreferences.groupByEra?.[activeEra];
   const nextValue = [currentValue, rememberedValue].find((value) =>
     visibleGroups.some((group) => (group.code || group.name) === value),
@@ -299,6 +328,12 @@ function updateSummary() {
 }
 
 function updateSelected() {
+  if (mode === "series" && !selected) {
+    setText("selected-name", `${activeEra} · 데이터 준비 중`);
+    setText("selected-progress", "등록 예정");
+    return;
+  }
+
   const owned = cards.filter((card) => card.owned).length;
   setText(
     "selected-name",
@@ -573,7 +608,8 @@ function render() {
   const emptyTitle = empty.querySelector("h3");
   if (emptyTitle) {
     emptyTitle.textContent =
-      mode === "pokemon" && cards.length === 0
+      (mode === "pokemon" && cards.length === 0) ||
+      (mode === "series" && !selected)
         ? "카드 데이터 준비 중입니다"
         : "검색 결과가 없습니다";
   }
@@ -611,9 +647,18 @@ function applySeriesScope() {
 }
 
 function loadGroup(value) {
-  const fallback = selectableGroups()[0] || groups[0];
+  const fallback = selectableGroups()[0] || (mode === "series" ? null : groups[0]);
   selected =
     groups.find((group) => (group.code || group.name) === value) || fallback;
+
+  if (!selected) {
+    cards = [];
+    updateSelected();
+    render();
+    rememberMobileCatalogPreferences();
+    return;
+  }
+
   cards =
     mode === "series"
       ? [...selected.cards].sort(
