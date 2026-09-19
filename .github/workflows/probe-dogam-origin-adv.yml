@@ -1,0 +1,57 @@
+name: Probe Dogam Origin ADV
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/probe-dogam-origin-adv.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe Dogam Korean set pages
+        run: |
+          python - <<'PY'
+          import json,re,requests
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          base="https://www.dogam.app"
+          html=requests.get(base+"/sets",headers={"User-Agent":"Mozilla/5.0","Accept-Language":"ko-KR,ko;q=0.9"},timeout=30).text
+          soup=BeautifulSoup(html,"html.parser")
+          links=[]
+          for a in soup.find_all("a",href=True):
+            href=a["href"]; label=" ".join(a.stripped_strings)
+            if re.fullmatch(r"/sets/[0-9A-Z]+",href):
+              links.append((href,label))
+          print("SET_LINKS",len(links))
+          for href,label in links:
+            low=(label+" "+href).lower()
+            if any(k in low for k in ["adv","오리지널","base","제1탄","스타터"]):
+              print("CANDIDATE",json.dumps({"href":href,"label":label},ensure_ascii=False))
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          for g in [x for x in data if x.get("era") in ("ORIGIN","ADV")]:
+            title=g.get("displayName") or g.get("title") or ""
+            code=g.get("code") or ""
+            scored=[]
+            ct=re.sub(r"[^0-9a-z가-힣]+","",(code+" "+title).lower())
+            for href,label in links:
+              lt=re.sub(r"[^0-9a-z가-힣]+","",label.lower())
+              score=0
+              if code.lower() in label.lower(): score+=4
+              for token in re.findall(r"[0-9a-z가-힣]+",(title+" "+code).lower()):
+                if len(token)>=2 and token in label.lower(): score+=1
+              if score: scored.append((score,href,label))
+            scored=sorted(scored,reverse=True)[:8]
+            print("GROUP_MATCH",json.dumps({"code":code,"title":title,"matches":[{"score":s,"href":h,"label":l} for s,h,l in scored]},ensure_ascii=False))
+            for s,h,l in scored[:2]:
+              page=requests.get(base+h,headers={"User-Agent":"Mozilla/5.0","Accept-Language":"ko-KR,ko;q=0.9"},timeout=30).text
+              ps=BeautifulSoup(page,"html.parser")
+              cards=[]
+              for a in ps.find_all("a",href=True):
+                if a["href"].startswith(h.rstrip("/")+"/cards/"):
+                  key=(a["href"]," ".join(a.stripped_strings))
+                  if key not in cards: cards.append(key)
+              print("PAGE",json.dumps({"group":code,"href":h,"label":l,"cardCount":len(cards),"sample":cards[:5]},ensure_ascii=False))
+          PY
