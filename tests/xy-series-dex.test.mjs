@@ -96,3 +96,28 @@ test("XY 20th에서 확인된 일본판 이미지 26장은 한글판 공식 이�
     assert.ok(card.imageReferenceSet, card.code);
   }
 });
+
+
+test("XY 일본판 이미지로 판별된 슬롯은 모두 한글판 이미지로 교체됐다", () => {
+  const targetCodes = new Set([
+    "20th_002/071","20th_011/071","20th_012/071","20th_020/071","20th_023/071","20th_025/071",
+    "20th_030/071","20th_031/071","20th_032/071","20th_039/071","20th_041/071",
+    "20th_048/071","20th_049/071","20th_050/071","20th_051/071","20th_053/071","20th_054/071",
+    "20th_055/071","20th_056/071","20th_057/071","20th_058/071","20th_059/071","20th_060/071",
+    "20th_061/071","20th_062/071","20th_063/071","20th_064/071","20th_065/071","20th_066/071",
+    "20th_067/071","20th_068/071","20th_069/071","20th_070/071","20th_071/071",
+    "cp4_132/131","cp4_134/131","cp4_136/131","cp4_137/131","cp4_140/131","cp5_038/036",
+    "fxy_037","fxy_038","fxy_039","fxy_041","rbd_018","rbd_019","x30_015/014",
+    "xy10_088/078","xy3_104/096","xy4_097/088","xy7_093/081","xy7_094/081","xy9_089/080",
+    "xya_022/021","xyb_020/018","xyc_024/023","xyd_019/018","xye_023/022","xye_024/022",
+    "xye_025/022","xye_026/022","xyf_017/016","xyh_027/026","xyp_122","xyp_185","xyp_186",
+  ]);
+  const targets = xy.flatMap((group) => group.cards).filter((card) => targetCodes.has(card.code));
+  assert.equal(targets.length, targetCodes.size);
+  for (const card of targets) {
+    assert.doesNotMatch(card.image, /static[.]tcgexchange[.]kr/, card.code);
+    assert.match(card.imageReferenceNote || "", /한글판/, card.code);
+  }
+  assert.match(targets.find((card) => card.code === "xyp_185")?.image || "", /xy-p%20185[.]jpg$/);
+  assert.match(targets.find((card) => card.code === "xyp_186")?.image || "", /xy-p%20186[.]jpg$/);
+});
