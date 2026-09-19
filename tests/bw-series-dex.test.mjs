@@ -39,19 +39,19 @@ test("BW 카드 슬롯은 전부 한글판 이름과 이미지를 가진다", ()
       assert.ok(card.image, card.code);
       if (card.code === "bwp_056") {
         assert.match(card.image, /^https:\/\/cdn6966[.]templcdn[.]com\//, card.code);
-        assert.match(card.source, /^https:\/\/pokumon[.]com\//, card.code);
+        assert.match(card.imageSource || "", /^https:\/\/pokumon[.]com\//, card.code);
       } else {
         assert.match(
           card.image,
           /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
           card.code,
         );
-        assert.match(
-          card.source,
-          /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail|www[.]dogam[.]app\/sets)\//,
-          card.code,
-        );
       }
+      assert.match(
+        card.source,
+        /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail|www[.]dogam[.]app\/sets)\//,
+        card.code,
+      );
     });
   }
 });
