@@ -42,17 +42,14 @@ jobs:
           for a in soup.find_all("a",href=True):
             href=a["href"]; label=" ".join(a.stripped_strings)
             if not re.fullmatch(r"/sets/[0-9A-Z]+",href): continue
-            m=re.search(r"(?:^|\s)(SM(?:[0-9A-Z+\-]*|P))(?:\s*·|\s+)(\d+)장\s*$",label,re.I)
-            if m:
-              rows.append({"href":href,"label":label,"code":m.group(1),"count":int(m.group(2))})
-          # Also include labels mentioning 썬&문 but with no parsed code.
-          seen={r["href"] for r in rows}
-          for a in soup.find_all("a",href=True):
-            href=a["href"]; label=" ".join(a.stripped_strings)
-            if href in seen or not re.fullmatch(r"/sets/[0-9A-Z]+",href): continue
-            if "썬&문" in label or "썬 문" in label:
-              m=re.search(r"([A-Z][A-Z0-9+\-]{1,8})\s*·\s*(\d+)장\s*$",label)
-              rows.append({"href":href,"label":label,"code":m.group(1) if m else "?","count":int(m.group(2)) if m else None})
+            tokens=re.findall(r"(?<![A-Z0-9])(SM(?:P2|P|[0-9][0-9A-Z+\-]*))(?![A-Z0-9])",label,re.I)
+            cm=re.search(r"(\d+)장\s*$",label)
+            if tokens and cm:
+              rows.append({"href":href,"label":label,"code":tokens[-1],"count":int(cm.group(1))})
+          # De-duplicate because some labels can contain the era token more than once.
+          uniq={}
+          for row in rows: uniq[row["href"]]=row
+          rows=list(uniq.values())
           print("DOGAM_SUMMARY",json.dumps({"groups":len(rows),"cards":sum(r["count"] or 0 for r in rows)},ensure_ascii=False))
           for r in rows:
             print("DOGAM_GROUP",json.dumps(r,ensure_ascii=False))
