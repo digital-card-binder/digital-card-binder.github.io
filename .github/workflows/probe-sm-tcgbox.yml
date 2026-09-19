@@ -51,11 +51,14 @@ jobs:
           cats={}
           for a in soup.find_all("a",href=True):
             href=a.get("href","")
-            if "cate_no=" not in href: continue
             label=" ".join(a.stripped_strings).strip()
             if not label: continue
-            q=parse_qs(urlparse(urljoin(BASE,href)).query)
+            full=urljoin(BASE,href)
+            q=parse_qs(urlparse(full).query)
             cn=(q.get("cate_no") or [""])[0]
+            if not cn:
+              mcat=re.search(r"/category/[^/?#]+/(\\d+)/?",urlparse(full).path)
+              if mcat: cn=mcat.group(1)
             if not cn or cn=="99": continue
             low=label.casefold()
             if "sm" in low or "썬&문" in label:
