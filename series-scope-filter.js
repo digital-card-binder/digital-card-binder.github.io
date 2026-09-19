@@ -149,3 +149,26 @@
   addScopeControl();
   window.addEventListener("load", restoreView, { once: true });
 })();
+
+window.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    if (document.body.dataset.catalog !== "series") return;
+
+    if (!document.querySelector('link[data-series-market-price]')) {
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = "./series-market-price.css?v=20260831-1";
+      style.dataset.seriesMarketPrice = "";
+      document.head.append(style);
+    }
+
+    if (!document.querySelector('script[data-series-market-price]')) {
+      const script = document.createElement("script");
+      script.src = "./series-market-price.js?v=20260831-1";
+      script.dataset.seriesMarketPrice = "";
+      document.head.append(script);
+    }
+  },
+  { once: true },
+);
