@@ -1,0 +1,70 @@
+name: Probe SM Official CDN
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/probe-sm-official-cdn.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe predictable Pokemon Korea CDN URLs
+        run: |
+          python -m pip install --quiet requests
+          python - <<'PY'
+          import json,re,requests
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          data=json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+          H={"User-Agent":"Mozilla/5.0"}
+          hits=[]; checked=0; skipped=0
+          for g in data:
+            if str(g.get("era") or "").upper()!="SM": continue
+            cards=g.get("cards",[])
+            official=[c for c in cards if str(c.get("image") or "").startswith("https://cards.image.pokemonkorea.co.kr/")]
+            fallback=[c for c in cards if "static.tcgexchange.kr" in str(c.get("image") or "")]
+            if not fallback: continue
+            if not official:
+              skipped+=len(fallback)
+              print("NO_PATTERN",g.get("code"),len(fallback),flush=True)
+              continue
+            sample=str(official[0]["image"])
+            m=re.match(r"^(https://cards\.image\.pokemonkorea\.co\.kr/.*/)([^/]+?)(\d{3})(\.[A-Za-z0-9]+)$",sample)
+            if not m:
+              print("BAD_PATTERN",g.get("code"),sample,flush=True); skipped+=len(fallback); continue
+            base,prefix,_,ext=m.groups()
+            for c in fallback:
+              cm=re.search(r"_0*([0-9]+)(?:/|$)",str(c.get("code") or ""))
+              if not cm:
+                skipped+=1; continue
+              num=int(cm.group(1))
+              candidates=[]
+              for e in dict.fromkeys([ext,".png",".jpg",".jpeg"]):
+                candidates.append(f"{base}{prefix}{num:03d}{e}")
+              found=""
+              for url in candidates:
+                checked+=1
+                try:
+                  r=requests.get(url,headers=H,timeout=12,stream=True)
+                  ct=(r.headers.get("content-type") or "").lower()
+                  if r.status_code==200 and ("image" in ct or int(r.headers.get("content-length") or 0)>3000):
+                    found=url; r.close(); break
+                  r.close()
+                except Exception:
+                  pass
+              if found:
+                row={"set":g.get("code"),"code":c.get("code"),"name":c.get("name"),"url":found}
+                hits.append(row)
+                print("CDN_HIT",json.dumps(row,ensure_ascii=False),flush=True)
+          Path("sm-cdn-hits.json").write_text(json.dumps(hits,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("PROBE_SUMMARY",json.dumps({"hits":len(hits),"checked":checked,"skipped_no_pattern":skipped},ensure_ascii=False),flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm-cdn-hits
+          path: sm-cdn-hits.json
+          retention-days: 2
