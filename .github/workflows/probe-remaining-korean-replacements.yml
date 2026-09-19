@@ -1,0 +1,50 @@
+name: Probe Remaining Korean Replacements
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/probe-remaining-korean-replacements.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find Korean official same-card references
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          targets=set("""bw3-bh_056/052 bw4_076/069 bw5-brn_055/050 bwp_027 bwp_031 bwp_033 bwp_035 bwp_056 fs_037/034
+          20th_002/071 20th_011/071 20th_012/071 20th_020/071 20th_023/071 20th_025/071 20th_039/071 20th_041/071
+          cp4_132/131 cp4_134/131 cp4_136/131 cp4_137/131 cp4_140/131 cp5_038/036 fxy_037 fxy_038 fxy_039 fxy_041
+          rbd_018 rbd_019 x30_015/014 xy10_088/078 xy3_104/096 xy4_097/088 xy7_093/081 xy7_094/081 xy9_089/080
+          xya_022/021 xyb_020/018 xyc_024/023 xyd_019/018 xye_023/022 xye_024/022 xye_025/022 xye_026/022
+          xyf_017/016 xyh_027/026 xyp_122 xyp_185 xyp_186""".split())
+          aliases={
+            "물에너지":"기본물에너지","번개에너지":"기본번개에너지","격투에너지":"기본격투에너지",
+            "풀에너지":"기본풀에너지","불꽃에너지":"기본불꽃에너지","초에너지":"기본초에너지",
+            "악에너지":"기본악에너지","강철에너지":"기본강철에너지","페어리에너지":"기본페어리에너지",
+            "번개기본에너지":"기본번개에너지"
+          }
+          def key(s):
+            x=re.sub(r"[^0-9A-Za-z가-힣]+","",str(s or "")).casefold()
+            return aliases.get(x,x)
+          official={}
+          cards=[]
+          for g in data:
+            for c in g.get("cards",[]):
+              row=(g.get("era"),g.get("code"),c)
+              cards.append(row)
+              if "pokemonkorea.co.kr" in str(c.get("image","")):
+                official.setdefault((g.get("era"),key(c.get("name"))),[]).append(row)
+          found=0
+          for era,setcode,c in cards:
+            if c.get("code") not in targets: continue
+            cand=official.get((era,key(c.get("name"))),[])
+            print("TARGET",json.dumps({"era":era,"set":setcode,"code":c.get("code"),"name":c.get("name"),"current":c.get("image"),"candidates":[{"set":sg,"code":cc.get("code"),"name":cc.get("name"),"image":cc.get("image"),"source":cc.get("source")} for _,sg,cc in cand[:20]]},ensure_ascii=False))
+            if cand: found+=1
+          print("SUMMARY",json.dumps({"targets":len(targets),"with_official_same_name":found},ensure_ascii=False))
+          PY
