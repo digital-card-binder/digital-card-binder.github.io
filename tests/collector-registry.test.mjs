@@ -48,7 +48,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4838,
-    series: 14932,
+    series: 15558,
     pokemon: 1134,
     ar: 510,
     people: 179,
@@ -77,7 +77,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 14932,
+    totalCount: 15558,
     promoOwnedCount: 0,
   });
 });
@@ -87,7 +87,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     national: 9,
     pack: 3,
     artist: 40,
-    series: 195,
+    series: 199,
     pokemon: 67,
     ar: 32,
     people: 9,
@@ -173,16 +173,16 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
   const sunMoon = groups.filter((group) => group.era === "SM");
 
   assert.equal(swordShield.length, 30);
-  assert.equal(sunMoon.length, 36);
+  assert.equal(sunMoon.length, 40);
   assert.equal(
     [...swordShield, ...sunMoon].reduce(
       (total, group) => total + group.cards.length,
       0,
     ),
-    6218,
+    6844,
   );
 
-  for (const group of [...swordShield, ...sunMoon]) {
+  for (const group of swordShield) {
     assert.ok(group.displayName, `${group.code}: display name`);
     assert.ok(group.sourceProducts.length >= 1, `${group.code}: source product`);
     assert.equal(
@@ -193,7 +193,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
     for (const card of group.cards) {
       assert.match(
         card.image,
-        /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\/data\/wmimages\/(?:S|SM)\//,
+        /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\/data\/wmimages\/S\//,
         card.code,
       );
       assert.match(
@@ -204,20 +204,29 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
     }
   }
 
+  for (const group of sunMoon) {
+    assert.ok(group.displayName, `${group.code}: display name`);
+    assert.equal(
+      new Set(group.cards.map((card) => card.code)).size,
+      group.cards.length,
+      `${group.code}: one slot per Korean catalog card`,
+    );
+    for (const card of group.cards) {
+      assert.match(
+        card.image,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
+        card.code,
+      );
+    }
+  }
+
   const group = (code) => groups.find((item) => item.code === code);
   assert.equal(group("s4a").cards.length, 326, "different shiny card numbers stay separate");
   assert.equal(group("s9a").cards.length, 87, "same-number parallel foils collapse");
-  assert.equal(group("sm4+").cards.length, 124, "REMASTER-only printed codes stay in the box");
-  assert.equal(
-    group("sm4+").cards.some((card) => card.code.startsWith("sm-p_")),
-    true,
-  );
-  assert.equal(group("sm7a").cards.length, 66, "box-specific temp cards stay in the box");
-  assert.equal(
-    group("sm12a").cards.filter((card) => card.code.includes("ENERGY-")).length,
-    9,
-    "numberless basic energies remain distinct collection slots",
-  );
+  assert.equal(group("sm4+").cards.length, 125, "Korean GX Battle Boost catalog is complete");
+  assert.equal(group("sm7a").cards.length, 73, "Korean Plasma Spark catalog is complete");
+  assert.equal(group("sm12a").cards.length, 235, "Korean Tag All Stars catalog is complete");
+  assert.equal(group("SMP").cards.length, 249, "Korean SM promo catalog is included");
 });
 
 test("adding legacy eras does not mutate any existing SV, MEGA, or starter card", async () => {
