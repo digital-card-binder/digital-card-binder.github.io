@@ -388,7 +388,11 @@ def build_group(meta: dict[str, Any], records: list[dict[str, str]], workers: in
 
 
 KNOWN_JP_FALLBACK_CODES = {
+    # 20th Trainer Set
+    "20th_002/071", "20th_011/071", "20th_012/071",
+    "20th_020/071", "20th_023/071", "20th_025/071",
     "20th_030/071", "20th_031/071", "20th_032/071",
+    "20th_039/071", "20th_041/071",
     "20th_048/071", "20th_049/071", "20th_050/071",
     "20th_051/071", "20th_053/071", "20th_054/071",
     "20th_055/071", "20th_056/071", "20th_057/071",
@@ -397,6 +401,18 @@ KNOWN_JP_FALLBACK_CODES = {
     "20th_064/071", "20th_065/071", "20th_066/071",
     "20th_067/071", "20th_068/071", "20th_069/071",
     "20th_070/071", "20th_071/071",
+
+    # Other XY sets / decks / promos
+    "cp4_132/131", "cp4_134/131", "cp4_136/131",
+    "cp4_137/131", "cp4_140/131", "cp5_038/036",
+    "fxy_037", "fxy_038", "fxy_039", "fxy_041",
+    "rbd_018", "rbd_019", "x30_015/014",
+    "xy10_088/078", "xy3_104/096", "xy4_097/088",
+    "xy7_093/081", "xy7_094/081", "xy9_089/080",
+    "xya_022/021", "xyb_020/018", "xyc_024/023",
+    "xyd_019/018", "xye_023/022", "xye_024/022",
+    "xye_025/022", "xye_026/022", "xyf_017/016",
+    "xyh_027/026", "xyp_122", "xyp_185",
 }
 
 REFERENCE_SET_PRIORITY = {
@@ -432,40 +448,37 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
             )
 
     replacements = 0
-    target_group = next((g for g in groups if g.get("code") == "20th"), None)
-    if target_group is None:
-        raise RuntimeError("20th trainer set missing")
-
-    for card in target_group.get("cards", []):
-        code = str(card.get("code") or "")
-        if code not in KNOWN_JP_FALLBACK_CODES:
-            continue
-        candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
-        if not candidates:
-            raise RuntimeError(f"{code}: Korean official replacement image missing")
-
-        source_set, candidate = sorted(
-            candidates,
-            key=lambda item: (
-                REFERENCE_SET_PRIORITY.get(item[0], 99),
-                1 if item[0] in {"XYP", "XY"} else 0,
-                item[0],
-                str(item[1].get("code") or ""),
-            ),
-        )[0]
-
-        card["image"] = candidate["image"]
-        card["imageSource"] = candidate.get("source", "")
-        card["imageReferenceSet"] = source_set
-        card["imageReferenceNote"] = "동일 카드의 한글판 공식 참고 이미지 (다른 수록판)"
-        replacements += 1
-
     for group in groups:
-        replacement_count = sum(
-            1
-            for card in group.get("cards", [])
-            if card.get("imageReferenceNote")
-        )
+        replaced_in_group = 0
+        target_set = str(group.get("code") or "")
+
+        for card in group.get("cards", []):
+            code = str(card.get("code") or "")
+            if code not in KNOWN_JP_FALLBACK_CODES:
+                continue
+
+            candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
+            if not candidates:
+                raise RuntimeError(f"{code}: Korean official replacement image missing")
+
+            source_set, candidate = sorted(
+                candidates,
+                key=lambda item: (
+                    0 if item[0] == target_set else 1,
+                    REFERENCE_SET_PRIORITY.get(item[0], 99),
+                    1 if item[0] in {"XYP", "XY"} else 0,
+                    item[0],
+                    str(item[1].get("code") or ""),
+                ),
+            )[0]
+
+            card["image"] = candidate["image"]
+            card["imageSource"] = candidate.get("source", "")
+            card["imageReferenceSet"] = source_set
+            card["imageReferenceNote"] = "동일 카드명의 한글판 공식 참고 이미지 (다른 수록판)"
+            replacements += 1
+            replaced_in_group += 1
+
         fallback_count = sum(
             1
             for card in group.get("cards", [])
@@ -475,13 +488,13 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
             f"한글판 {len(group.get('cards', []))}장 기준 · "
             "포켓몬코리아 공식 이미지"
         )
-        if replacement_count:
+        if replaced_in_group:
             note += (
-                f" · 일본판 대체용 동일 카드 한글판 공식 참고 이미지 "
-                f"{replacement_count}장"
+                f" · 일본판 대체용 한글판 공식 참고 이미지 "
+                f"{replaced_in_group}장"
             )
         if fallback_count:
-            note += f" · 공식 검색 누락 {fallback_count}장은 Dogam 한글판 참고 이미지"
+            note += f" · 공식 검색 누락 {fallback_count}장은 Dogam 참고 이미지"
         group["referenceNote"] = note
 
     if replacements != len(KNOWN_JP_FALLBACK_CODES):
@@ -490,7 +503,6 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
             f"{len(KNOWN_JP_FALLBACK_CODES)}"
         )
     return replacements
-
 
 def run(workers: int) -> None:
     official_values = legacy.official_product_values()
