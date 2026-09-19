@@ -1,0 +1,64 @@
+name: Audit SM Catalog Coverage
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/audit-sm-catalog.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install parser
+        run: python -m pip install --quiet beautifulsoup4 requests
+      - name: Compare current SM catalog with Dogam
+        run: |
+          python - <<'PY'
+          import json,re,requests
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          from collections import Counter
+          data=json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+          sm=[g for g in data if str(g.get("era") or "").upper()=="SM"]
+          print("CURRENT_SUMMARY",json.dumps({
+            "groups":len(sm),
+            "cards":sum(len(g.get("cards",[])) for g in sm),
+            "hosts":Counter((str(c.get("image") or "").split("/")[2] if str(c.get("image") or "").startswith("http") else "(none)") for g in sm for c in g.get("cards",[])),
+          },ensure_ascii=False))
+          for g in sm:
+            print("CURRENT_GROUP",json.dumps({
+              "code":g.get("code"),"name":g.get("displayName") or g.get("title"),
+              "count":len(g.get("cards",[])),"sourceProducts":g.get("sourceProducts"),
+              "first":g.get("cards",[{}])[0].get("code") if g.get("cards") else None,
+              "last":g.get("cards",[{}])[-1].get("code") if g.get("cards") else None,
+            },ensure_ascii=False))
+          H={"User-Agent":"Mozilla/5.0","Accept-Language":"ko-KR,ko;q=0.9"}
+          html=requests.get("https://www.dogam.app/sets",headers=H,timeout=30).text
+          soup=BeautifulSoup(html,"html.parser")
+          rows=[]
+          for a in soup.find_all("a",href=True):
+            href=a["href"]; label=" ".join(a.stripped_strings)
+            if not re.fullmatch(r"/sets/[0-9A-Z]+",href): continue
+            m=re.search(r"(?:^|\s)(SM(?:[0-9A-Z+\-]*|P))(?:\s*·|\s+)(\d+)장\s*$",label,re.I)
+            if m:
+              rows.append({"href":href,"label":label,"code":m.group(1),"count":int(m.group(2))})
+          # Also include labels mentioning 썬&문 but with no parsed code.
+          seen={r["href"] for r in rows}
+          for a in soup.find_all("a",href=True):
+            href=a["href"]; label=" ".join(a.stripped_strings)
+            if href in seen or not re.fullmatch(r"/sets/[0-9A-Z]+",href): continue
+            if "썬&문" in label or "썬 문" in label:
+              m=re.search(r"([A-Z][A-Z0-9+\-]{1,8})\s*·\s*(\d+)장\s*$",label)
+              rows.append({"href":href,"label":label,"code":m.group(1) if m else "?","count":int(m.group(2)) if m else None})
+          print("DOGAM_SUMMARY",json.dumps({"groups":len(rows),"cards":sum(r["count"] or 0 for r in rows)},ensure_ascii=False))
+          for r in rows:
+            print("DOGAM_GROUP",json.dumps(r,ensure_ascii=False))
+          current_codes={re.sub(r"[^0-9a-z]+","",str(g.get("code") or "").lower()) for g in sm}
+          missing=[r for r in rows if re.sub(r"[^0-9a-z]+","",r["code"].lower()) not in current_codes]
+          print("MISSING_SUMMARY",json.dumps({"groups":len(missing),"cards":sum(r["count"] or 0 for r in missing)},ensure_ascii=False))
+          for r in missing:
+            print("MISSING_GROUP",json.dumps(r,ensure_ascii=False))
+          PY
