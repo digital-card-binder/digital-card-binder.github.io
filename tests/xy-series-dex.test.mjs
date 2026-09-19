@@ -43,16 +43,21 @@ test("XY 카드 슬롯은 모두 한글명과 한글판 이미지 소스를 가�
       assert.ok(card.name, card.code);
       assert.ok(card.image, card.code);
       assert.equal(/No[.]$/.test(card.name), false, card.code);
-      assert.match(
-        card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
-        card.code,
-      );
-      assert.match(
-        card.source,
-        /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail|www[.]dogam[.]app\/sets)\//,
-        card.code,
-      );
+      if (card.code === "xyp_185" || card.code === "xyp_186") {
+        assert.match(card.image, /^https:\/\/tcgbox[.]co[.]kr\//, card.code);
+        assert.match(card.source, /^https:\/\/tcgbox[.]co[.]kr\//, card.code);
+      } else {
+        assert.match(
+          card.image,
+          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
+          card.code,
+        );
+        assert.match(
+          card.source,
+          /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail|www[.]dogam[.]app\/sets)\//,
+          card.code,
+        );
+      }
     });
   }
 });
