@@ -59,8 +59,9 @@ jobs:
             q=parse_qs(urlparse(full).query)
             cn=(q.get("cate_no") or [""])[0]
             if not cn:
-              mcat=re.search(r"/category/[^/?#]+/(\\d+)/?",urlparse(full).path)
-              if mcat: cn=mcat.group(1)
+              parts=[p for p in urlparse(full).path.split("/") if p]
+              if len(parts)>=3 and parts[0]=="category" and parts[-1].isdigit():
+                cn=parts[-1]
             if not cn or cn=="99": continue
             low=label.casefold()
             if "sm" in low or "썬&문" in label:
