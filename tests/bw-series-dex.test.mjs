@@ -88,3 +88,21 @@ test("BW에서 확인된 일본판 에너지 7장은 한글판 공식 이미지�
     assert.match(card.imageReferenceNote || "", /한글판 공식 참고 이미지/, card.code);
   }
 });
+
+
+test("BW 일본판 이미지로 판별된 슬롯은 모두 한글판 이미지로 교체됐다", () => {
+  const targetCodes = new Set([
+    "gbr_016/015", "gbr_017/015", "gbr_018/015",
+    "szd_016/015", "szd_017/015", "szd_018/015", "k+k_019/018",
+    "bw3-bh_056/052", "bw4_076/069", "bw5-brn_055/050",
+    "bwp_027", "bwp_031", "bwp_033", "bwp_035", "fs_037/034", "bwp_056",
+  ]);
+  const targets = bw.flatMap((group) => group.cards).filter((card) => targetCodes.has(card.code));
+  assert.equal(targets.length, targetCodes.size);
+  for (const card of targets) {
+    assert.doesNotMatch(card.image, /static[.]tcgexchange[.]kr/, card.code);
+    assert.match(card.imageReferenceNote || "", /한글판/, card.code);
+  }
+  const victoryCup = targets.find((card) => card.code === "bwp_056");
+  assert.match(victoryCup?.image || "", /KR_056BW[.]jpg$/);
+});
