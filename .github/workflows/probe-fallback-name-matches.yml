@@ -1,0 +1,77 @@
+name: Probe Fallback Korean Name Matches
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/probe-fallback-name-matches.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find Korean official same-name candidates
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+
+          legacy=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          base=json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+
+          def norm(v):
+              v=re.sub(r"[^0-9A-Za-z가-힣]+","",str(v or "")).casefold()
+              aliases={
+                "물에너지":"기본물에너지","불꽃에너지":"기본불꽃에너지",
+                "번개에너지":"기본번개에너지","격투에너지":"기본격투에너지",
+                "풀에너지":"기본풀에너지","초에너지":"기본초에너지",
+                "악에너지":"기본악에너지","강철에너지":"기본강철에너지",
+                "번개기본에너지":"기본번개에너지",
+              }
+              return aliases.get(v,v)
+
+          pool={}
+          for g in [*legacy,*base]:
+              for c in g.get("cards",[]):
+                  url=str(c.get("image") or "")
+                  if "cards.image.pokemonkorea.co.kr" not in url:
+                      continue
+                  key=norm(c.get("name") or c.get("pokemonName") or "")
+                  if not key: continue
+                  pool.setdefault(key,[]).append({
+                      "era":g.get("era",""),"set":g.get("code",""),
+                      "code":c.get("code",""),"name":c.get("name") or c.get("pokemonName"),
+                      "image":url,"source":c.get("source","")
+                  })
+
+          rows=[]
+          for g in legacy:
+              for c in g.get("cards",[]):
+                  if "static.tcgexchange.kr" not in str(c.get("image") or ""):
+                      continue
+                  key=norm(c.get("name",""))
+                  matches=pool.get(key,[])
+                  matches=sorted(matches,key=lambda x:(
+                      0 if x["era"]==g.get("era") else 1,
+                      0 if x["set"]==g.get("code") else 1,
+                      1 if x["set"] in ("DPP","BWP","XYP") else 0,
+                      x["set"],x["code"]
+                  ))
+                  if matches:
+                      rows.append({
+                          "era":g.get("era"),"set":g.get("code"),
+                          "code":c.get("code"),"name":c.get("name"),
+                          "match_count":len(matches),"matches":matches[:10]
+                      })
+
+          print("NAME_MATCH_SUMMARY",json.dumps({"fallbacks_with_matches":len(rows)},ensure_ascii=False))
+          for row in rows:
+              print("NAME_MATCH",json.dumps(row,ensure_ascii=False))
+          PY
