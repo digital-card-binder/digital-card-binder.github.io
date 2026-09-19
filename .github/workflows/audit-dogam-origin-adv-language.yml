@@ -1,0 +1,83 @@
+name: Audit Dogam Origin ADV Language
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/audit-dogam-origin-adv-language.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OCR
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-kor tesseract-ocr-jpn
+          python -m pip install --quiet beautifulsoup4 requests pillow pytesseract
+      - name: Audit exact Korean set pages
+        run: |
+          python - <<'PY'
+          import io,json,re,requests,pytesseract
+          from bs4 import BeautifulSoup
+          from PIL import Image,ImageOps,ImageEnhance
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          BASE="https://www.dogam.app"
+          sets={
+            "BASE":"/sets/01KW0T5RVDKBB4K1DEZJJ10J80",
+            "ADV1":"/sets/01KW0T4DR139PHGAETY4KAVK0Z",
+            "ADV1-K":"/sets/01M10GBB4QP2ZA58RFZ8VD913S",
+            "ADV1-A":"/sets/01M10GBB4Q7GYQ6HQ7T02R4621",
+            "ADV1-M":"/sets/01M10GBB4QKQZPFA6CE0GYWB6A",
+            "ADVP":"/sets/01M10F45J59EZ270K6C0XV3TRV",
+          }
+          H={"User-Agent":"Mozilla/5.0","Accept-Language":"ko-KR,ko;q=0.9"}
+          session=requests.Session(); session.headers.update(H)
+          rows=[]
+          for code,href in sets.items():
+            html=session.get(BASE+href,timeout=30).text
+            soup=BeautifulSoup(html,"html.parser")
+            seen=set()
+            for a in soup.find_all("a",href=True):
+              ch=a["href"]
+              if not ch.startswith(href+"/cards/") or ch in seen: continue
+              seen.add(ch)
+              label=" ".join(a.stripped_strings)
+              page=session.get(BASE+ch,timeout=30).text
+              m=re.search(r"https://static[.]tcgexchange[.]kr/[A-Za-z0-9._/-]+[.](?:png|jpe?g|webp)",page,re.I)
+              rows.append({"set":code,"href":ch,"label":label,"image":m.group(0) if m else ""})
+          print("CARD_TOTAL",len(rows))
+          def work(row):
+            if not row["image"]: return {**row,"class":"NOIMAGE","ko":0,"jp":0,"ocr":""}
+            try:
+              rr=session.get(row["image"],timeout=20); rr.raise_for_status()
+              img=Image.open(io.BytesIO(rr.content)).convert("RGB")
+              gray=ImageOps.grayscale(img)
+              gray=ImageEnhance.Contrast(gray).enhance(1.5)
+              if gray.width<650:
+                sc=max(2,650//max(1,gray.width)); gray=gray.resize((gray.width*sc,gray.height*sc))
+              txt=pytesseract.image_to_string(gray,lang="kor+jpn+eng",config="--psm 11")
+              ko=len(re.findall(r"[가-힣]",txt)); jp=len(re.findall(r"[ぁ-ゖァ-ヺ]",txt))
+              if ko>=2 and ko>=jp: cls="KR"
+              elif jp>=2 and jp>ko: cls="JP"
+              elif ko>0 and jp==0: cls="KR?"
+              elif jp>0 and ko==0: cls="JP?"
+              else: cls="UNKNOWN"
+              return {**row,"class":cls,"ko":ko,"jp":jp,"ocr":re.sub(r"\s+"," ",txt)[:160]}
+            except Exception as e:
+              return {**row,"class":"FAIL","error":str(e),"ko":0,"jp":0,"ocr":""}
+          out=[]
+          with ThreadPoolExecutor(max_workers=16) as ex:
+            fs=[ex.submit(work,r) for r in rows]
+            for f in as_completed(fs): out.append(f.result())
+          from collections import Counter,defaultdict
+          by=defaultdict(Counter)
+          for r in out: by[r["set"]][r["class"]]+=1
+          for s in sets:
+            print("SET_SUMMARY",json.dumps({"set":s,"classes":dict(by[s])},ensure_ascii=False))
+          for r in sorted(out,key=lambda x:(x["set"],x["label"])):
+            if r["class"]!="KR":
+              print("NON_KR",json.dumps(r,ensure_ascii=False))
+          PY
