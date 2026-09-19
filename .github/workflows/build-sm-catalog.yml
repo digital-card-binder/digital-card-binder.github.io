@@ -1,0 +1,35 @@
+name: Build Korean SM Catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_sm_series_data.py"
+      - ".github/workflows/build-sm-catalog.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build complete Korean SM catalog
+        run: python scripts/build_sm_series_data.py --workers 16
+      - name: Commit generated catalog
+        run: |
+          if git diff --quiet -- data/series.json; then
+            echo "No catalog changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json
+          git commit -m "Rebuild complete Korean SM catalog"
+          git pull --rebase origin main
+          git push origin HEAD:main
