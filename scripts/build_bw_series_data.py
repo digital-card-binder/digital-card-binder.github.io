@@ -448,6 +448,14 @@ KNOWN_JP_FALLBACK_CODES = {
     "szd_017/015",
     "szd_018/015",
     "k+k_019/018",
+    "bw3-bh_056/052",
+    "bw4_076/069",
+    "bw5-brn_055/050",
+    "bwp_027",
+    "bwp_031",
+    "bwp_033",
+    "bwp_035",
+    "fs_037/034",
 }
 
 ENERGY_NAME_ALIASES = {
@@ -457,6 +465,7 @@ ENERGY_NAME_ALIASES = {
     "풀에너지": "기본풀에너지",
     "초에너지": "기본초에너지",
     "악에너지": "기본악에너지",
+    "번개기본에너지": "기본번개에너지",
 }
 
 
@@ -489,6 +498,7 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
             source_set, candidate = sorted(
                 candidates,
                 key=lambda item: (
+                    0 if item[0] == str(group.get("code") or "") else 1,
                     0 if item[0] not in {"BWP"} else 1,
                     item[0],
                     str(item[1].get("code") or ""),
@@ -497,7 +507,7 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
             card["image"] = candidate["image"]
             card["imageSource"] = candidate.get("source", "")
             card["imageReferenceSet"] = source_set
-            card["imageReferenceNote"] = "동일 에너지의 한글판 공식 참고 이미지"
+            card["imageReferenceNote"] = "동일 카드명의 한글판 공식 참고 이미지 (다른 수록판)"
             replacements += 1
             replaced_in_group += 1
 
