@@ -412,7 +412,85 @@ KNOWN_JP_FALLBACK_CODES = {
     "xya_022/021", "xyb_020/018", "xyc_024/023",
     "xyd_019/018", "xye_023/022", "xye_024/022",
     "xye_025/022", "xye_026/022", "xyf_017/016",
-    "xyh_027/026", "xyp_122", "xyp_185",
+    "xyh_027/026", "xyp_122", "xyp_185", "xyp_186",
+}
+
+KOREAN_IMAGE_OVERRIDES = {
+    "xyp_185": {
+        "image": "https://tcgbox.co.kr/web/product/big/%EB%A0%88%EC%A0%84%EB%93%9C%EC%84%B8%ED%8A%B8/xy-p%20185.jpg",
+        "source": "https://tcgbox.co.kr/product/%EC%B9%A0%EC%83%89%EC%A1%B0/4098/",
+        "referenceSet": "XYP",
+        "note": "한글판 XY-P 185 실물 참고 이미지",
+    },
+    "xyp_186": {
+        "image": "https://tcgbox.co.kr/web/product/big/%EB%A0%88%EC%A0%84%EB%93%9C%EC%84%B8%ED%8A%B8/xy-p%20186.jpg",
+        "source": "https://tcgbox.co.kr/product/%EC%B9%A0%EC%83%89%EC%A1%B0-break/4099/",
+        "referenceSet": "XYP",
+        "note": "한글판 XY-P 186 실물 참고 이미지",
+    },
+
+    # Korean official CDN URLs that still exist even though the current
+    # Pokemon Korea search does not surface these exact deck slots.
+    "rbd_018": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/RBD/RBD_018.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "RBD",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "rbd_019": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/RBD/RBD_019.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "RBD",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xya_022/021": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYA/XY60_022.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYA",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xyd_019/018": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYD/XYD_019.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYD",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xye_023/022": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYE/XYE_023.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYE",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xye_024/022": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYE/XYE_024.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYE",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xye_025/022": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYE/XYE_025.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYE",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xye_026/022": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYE/XYE_026.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYE",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xyf_017/016": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYF/XYF_017.jpg",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYF",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
+    "xyh_027/026": {
+        "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XYH/XYH_027.png",
+        "source": "https://pokemoncard.co.kr/cards",
+        "referenceSet": "XYH",
+        "note": "동일 수록판의 한글판 공식 이미지",
+    },
 }
 
 REFERENCE_SET_PRIORITY = {
@@ -455,6 +533,16 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
         for card in group.get("cards", []):
             code = str(card.get("code") or "")
             if code not in KNOWN_JP_FALLBACK_CODES:
+                continue
+
+            override = KOREAN_IMAGE_OVERRIDES.get(code)
+            if override:
+                card["image"] = override["image"]
+                card["imageSource"] = override["source"]
+                card["imageReferenceSet"] = override["referenceSet"]
+                card["imageReferenceNote"] = override["note"]
+                replacements += 1
+                replaced_in_group += 1
                 continue
 
             candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
