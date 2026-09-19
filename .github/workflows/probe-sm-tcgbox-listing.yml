@@ -103,9 +103,7 @@ jobs:
             for t in targets:
               key=(t["set"],t["code"])
               if key in matches: continue
-              num3=f"{t['num']:03d}"
-              numraw=str(t["num"])
-              if any((p+num3) in nimg or (p+numraw) in nimg for p in t["prefs"]):
+              if any(re.search(re.escape(p)+r"0*"+str(t["num"])+r"(?![0-9])",nimg) for p in t["prefs"]):
                 matches[key]={
                   **t,"image":img,"source":href,"filename":unquote(urlparse(img).path.rsplit("/",1)[-1])
                 }
