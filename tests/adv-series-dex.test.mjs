@@ -73,3 +73,44 @@ test("시리즈 도감은 legacy 카탈로그를 병합하고 ORIGIN 및 ADV 탭
   assert.match(seriesPage, /data-era="ORIGIN"/);
   assert.match(seriesPage, /data-era="ADV"/);
 });
+
+
+test("오리지널·ADV 확장팩·ADV 프로모는 확인된 한글판 실물 이미지를 사용한다", () => {
+  for (const code of ["BASE", "ADV1", "ADVP"]) {
+    const item = group(code);
+    assert.ok(item, code);
+    assert.equal(item.referenceImageRegion, "KR", code);
+    assert.match(item.referenceNote, /한글판.*실물 이미지/, code);
+
+    for (const card of item.cards) {
+      assert.match(
+        card.image,
+        /^https:\/\/static[.]tcgexchange[.]kr\//,
+        card.code,
+      );
+      assert.match(
+        card.source,
+        /^https:\/\/www[.]dogam[.]app\/sets\/.+\/cards\//,
+        card.code,
+      );
+      assert.match(card.imageReferenceNote || "", /한글판 실물 이미지/, card.code);
+      assert.doesNotMatch(card.image, /images[.]pokemontcg[.]io|cdn[.]collectory[.]cc/i, card.code);
+    }
+  }
+});
+
+test("ADV 스타터 3종은 한글판 카드 이미지 미확인 예외만 JP 참고 이미지를 유지한다", () => {
+  let total = 0;
+  for (const code of ["ADV1-K", "ADV1-A", "ADV1-M"]) {
+    const item = group(code);
+    assert.ok(item, code);
+    assert.equal(item.cards.length, 19, code);
+    assert.equal(item.referenceImageRegion, "JP", code);
+    assert.match(item.referenceNote, /한글판 카드 이미지 미확인/, code);
+    for (const card of item.cards) {
+      assert.match(card.imageReferenceNote || "", /한글판 카드 이미지 미확인.*JP 참고 이미지/, card.code);
+      total += 1;
+    }
+  }
+  assert.equal(total, 57);
+});
