@@ -456,6 +456,16 @@ KNOWN_JP_FALLBACK_CODES = {
     "bwp_033",
     "bwp_035",
     "fs_037/034",
+    "bwp_056",
+}
+
+KOREAN_IMAGE_OVERRIDES = {
+    "bwp_056": {
+        "image": "https://cdn6966.templcdn.com/wp-content/uploads/2021/07/KR_056BW.jpg",
+        "source": "https://pokumon.com/card/victory-cup-056-bw-korean-promo/",
+        "referenceSet": "BWP",
+        "note": "한글판 056/BW 실물 참고 이미지",
+    },
 }
 
 ENERGY_NAME_ALIASES = {
@@ -488,8 +498,20 @@ def replace_known_japanese_fallbacks(groups: list[dict[str, Any]]) -> int:
     for group in groups:
         replaced_in_group = 0
         for card in group.get("cards", []):
-            if str(card.get("code") or "") not in KNOWN_JP_FALLBACK_CODES:
+            code = str(card.get("code") or "")
+            if code not in KNOWN_JP_FALLBACK_CODES:
                 continue
+
+            override = KOREAN_IMAGE_OVERRIDES.get(code)
+            if override:
+                card["image"] = override["image"]
+                card["imageSource"] = override["source"]
+                card["imageReferenceSet"] = override["referenceSet"]
+                card["imageReferenceNote"] = override["note"]
+                replacements += 1
+                replaced_in_group += 1
+                continue
+
             candidates = official_pool.get(korean_reference_key(card.get("name", "")), [])
             if not candidates:
                 raise RuntimeError(
