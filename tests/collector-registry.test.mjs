@@ -49,7 +49,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     pack: 64,
     artist: 4838,
     series: 15558,
-    pokemon: 1134,
+    pokemon: 1187,
     ar: 510,
     people: 179,
     trainerPokemon: 245,
