@@ -48,6 +48,8 @@ jobs:
           parent=s.get(BASE+"/product/list.html?cate_no=99",timeout=20)
           parent.raise_for_status()
           soup=BeautifulSoup(parent.text,"html.parser")
+          print("PARENT_DIAG",parent.url,len(parent.text),repr(" ".join(soup.stripped_strings)[:1200]),flush=True)
+          print("ANCHOR_SAMPLE",[(a.get("href","")," ".join(a.stripped_strings).strip()) for a in soup.find_all("a",href=True)][:40],flush=True)
           cats={}
           for a in soup.find_all("a",href=True):
             href=a.get("href","")
