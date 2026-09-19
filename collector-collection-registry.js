@@ -60,7 +60,7 @@
       href: "./pokemon-collections.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
-      catalogCount: 1134,
+      catalogCount: 1187,
       defaultDashboardVisible: true,
     },
     ar: {
