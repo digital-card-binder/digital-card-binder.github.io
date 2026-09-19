@@ -1,0 +1,88 @@
+name: Apply SM Official CDN
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/apply-sm-official-cdn.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace SM fallbacks with verified Pokemon Korea CDN images
+        run: |
+          python -m pip install --quiet requests
+          python - <<'PY'
+          import json,re,requests
+          from pathlib import Path
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          path=Path("data/series.json")
+          data=json.loads(path.read_text(encoding="utf-8"))
+          H={"User-Agent":"Mozilla/5.0"}
+          tasks=[]
+          cardrefs={}
+          for g in data:
+            if str(g.get("era") or "").upper()!="SM": continue
+            cards=g.get("cards",[])
+            official=[c for c in cards if str(c.get("image") or "").startswith("https://cards.image.pokemonkorea.co.kr/")]
+            fallback=[c for c in cards if "static.tcgexchange.kr" in str(c.get("image") or "")]
+            if not fallback or not official: continue
+            sample=str(official[0]["image"])
+            m=re.match(r"^(https://cards\.image\.pokemonkorea\.co\.kr/.*/)([^/]+?)(\d{3})(\.[A-Za-z0-9]+)$",sample)
+            if not m: continue
+            base,prefix,_,ext=m.groups()
+            for c in fallback:
+              cm=re.search(r"_0*([0-9]+)(?:/|$)",str(c.get("code") or ""))
+              if not cm: continue
+              num=int(cm.group(1))
+              urls=[f"{base}{prefix}{num:03d}{e}" for e in dict.fromkeys([ext,".png",".jpg",".jpeg"])]
+              key=(str(g.get("code")),str(c.get("code")))
+              tasks.append((key,urls))
+              cardrefs[key]=c
+          def probe(t):
+            key,urls=t
+            s=requests.Session(); s.headers.update(H)
+            for url in urls:
+              try:
+                r=s.get(url,timeout=6,stream=True)
+                ct=(r.headers.get("content-type") or "").lower()
+                ok=r.status_code==200 and ("image" in ct or int(r.headers.get("content-length") or 0)>3000)
+                r.close()
+                if ok:return key,url
+              except Exception: pass
+            return key,None
+          found={}
+          with ThreadPoolExecutor(max_workers=48) as ex:
+            fs=[ex.submit(probe,t) for t in tasks]
+            for f in as_completed(fs):
+              key,url=f.result()
+              if url: found[key]=url
+          for key,url in found.items():
+            c=cardrefs[key]
+            c["image"]=url
+            c["source"]="https://pokemoncard.co.kr/cards"
+            c["imageReferenceNote"]="포켓몬코리아 공식 한글판 이미지"
+          for g in data:
+            if str(g.get("era") or "").upper()!="SM": continue
+            cards=g.get("cards",[])
+            official=sum(str(c.get("image") or "").startswith("https://cards.image.pokemonkorea.co.kr/") for c in cards)
+            fallback=sum("static.tcgexchange.kr" in str(c.get("image") or "") for c in cards)
+            g["referenceImageRegion"]="KR"
+            g["referenceNote"]=f"한글판 {len(cards)}장 기준 · 포켓몬코리아 공식 이미지 {official}장" + (f" · Dogam 보완 {fallback}장" if fallback else "")
+          path.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
+          print("UPDATED_OFFICIAL",len(found),flush=True)
+          PY
+      - name: Commit official image upgrades
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Upgrade SM fallbacks to official Korean images"
+            git push
+          fi
