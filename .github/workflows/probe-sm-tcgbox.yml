@@ -74,9 +74,9 @@ jobs:
               sp=BeautifulSoup(r.text,"html.parser")
               links=[]
               for a in sp.find_all("a",href=True):
-                href=urljoin(BASE,a["href"])
-                if re.search(r"/product/[^?#]+/\d+/?(?:\?|$)",href):
-                  links.append(href.split("?")[0])
+                href=urljoin(BASE,a["href"]).split("#")[0]
+                if "/product/" in href and re.search(r"/product/[^?#]+/\d+(?:/|$)",urlparse(href).path):
+                  links.append(href)
               return cn,page,sorted(set(links))
             except Exception:
               return cn,page,[]
