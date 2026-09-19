@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Build Korean Sword & Shield / Sun & Moon series catalogs.
+"""Build the Korean Sword & Shield series catalog.
 
+Sun & Moon is maintained by build_sm_series_data.py because the current
+Pokemon Korea archive omits many Korean SM secret, promo, and deck cards.
 The Korean Pokemon Card search is the source of truth for product membership,
 card numbers, Korean card names, and image URLs. Reprint products are queried
 too, then collapsed only when the set code and printed card number are equal.
@@ -728,6 +730,8 @@ def run(args: argparse.Namespace) -> None:
     official_values = official_product_values()
     resolved: list[tuple[dict[str, str], str]] = []
     for product in PRODUCTS:
+        if product["era"] != "S":
+            continue
         value = official_values.get(compact(product["product"]))
         if not value:
             raise RuntimeError(f"official product option missing: {product['product']}")
