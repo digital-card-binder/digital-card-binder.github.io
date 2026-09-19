@@ -1,0 +1,145 @@
+name: Probe SM TCGBOX Korean Images
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/probe-sm-tcgbox.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crawl TCGBOX SM categories and match fallback card numbers
+        run: |
+          python -m pip install --quiet requests beautifulsoup4
+          python - <<'PY'
+          import json,re,time
+          from pathlib import Path
+          from urllib.parse import urljoin,urlparse,parse_qs
+          from concurrent.futures import ThreadPoolExecutor,as_completed
+          import requests
+          from bs4 import BeautifulSoup
+
+          BASE="https://tcgbox.co.kr"
+          H={"User-Agent":"Mozilla/5.0 (compatible; DigitalCardBinder/1.0)","Accept-Language":"ko-KR,ko;q=0.9"}
+          data=json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+
+          targets={}
+          def norm_prefix(s):
+            s=str(s or "").casefold().replace("+","plus")
+            return re.sub(r"[^a-z0-9]","",s)
+          for g in data:
+            if str(g.get("era") or "").upper()!="SM": continue
+            gp=norm_prefix(g.get("code"))
+            for c in g.get("cards",[]):
+              if "static.tcgexchange.kr" not in str(c.get("image") or ""): continue
+              code=str(c.get("code") or "")
+              m=re.search(r"_0*([0-9]+)(?:/|$)",code)
+              if not m: continue
+              targets[(gp,int(m.group(1)))]={
+                "set":g.get("code"),"code":code,"name":c.get("name")
+              }
+          print("TARGETS",len(targets),flush=True)
+
+          s=requests.Session(); s.headers.update(H)
+          parent=s.get(BASE+"/product/list.html?cate_no=99",timeout=20)
+          parent.raise_for_status()
+          soup=BeautifulSoup(parent.text,"html.parser")
+          cats={}
+          for a in soup.find_all("a",href=True):
+            href=a.get("href","")
+            if "cate_no=" not in href: continue
+            label=" ".join(a.stripped_strings).strip()
+            if not label: continue
+            q=parse_qs(urlparse(urljoin(BASE,href)).query)
+            cn=(q.get("cate_no") or [""])[0]
+            if not cn or cn=="99": continue
+            low=label.casefold()
+            if "sm" in low or "썬&문" in label:
+              cats[cn]=label
+          print("CATEGORIES",len(cats),json.dumps(cats,ensure_ascii=False),flush=True)
+
+          def cat_page(cn,page):
+            try:
+              r=requests.get(BASE+f"/product/list.html?cate_no={cn}&page={page}",headers=H,timeout=15)
+              if r.status_code!=200:return cn,page,[]
+              sp=BeautifulSoup(r.text,"html.parser")
+              links=[]
+              for a in sp.find_all("a",href=True):
+                href=urljoin(BASE,a["href"])
+                if re.search(r"/product/[^?#]+/\d+/?(?:\?|$)",href):
+                  links.append(href.split("?")[0])
+              return cn,page,sorted(set(links))
+            except Exception:
+              return cn,page,[]
+
+          product_links=set()
+          with ThreadPoolExecutor(max_workers=32) as ex:
+            fs=[ex.submit(cat_page,cn,p) for cn in cats for p in range(1,18)]
+            for f in as_completed(fs):
+              cn,p,links=f.result()
+              product_links.update(links)
+          print("PRODUCT_LINKS",len(product_links),flush=True)
+
+          def product_detail(url):
+            try:
+              r=requests.get(url,headers=H,timeout=15)
+              if r.status_code!=200:return None
+              sp=BeautifulSoup(r.text,"html.parser")
+              text=" ".join(sp.stripped_strings)
+              raw=""
+              m=re.search(r"카드번호\s*[:：]?\s*([A-Za-z0-9+\-]+(?:\s+[A-Za-z0-9+/\-]+){0,2})",text,re.I)
+              if m: raw=m.group(1).strip()
+              if not raw:
+                return None
+              compact=raw.casefold().replace("+","plus")
+              compact=re.sub(r"[^a-z0-9/]","",compact)
+              m2=re.search(r"([a-z]+\d*[a-z]*|sm\d*plus)(?:/)?0*([0-9]{1,3})(?:/\d+)?",compact,re.I)
+              if not m2:
+                # more direct: split alphabetic set token from trailing number
+                m2=re.search(r"([a-z0-9]+?)0*([0-9]{3})(?:/\d+)?$",compact,re.I)
+              if not m2:return None
+              pref=norm_prefix(m2.group(1)); num=int(m2.group(2))
+              meta=sp.find("meta",attrs={"property":"og:image"})
+              img=(meta.get("content","").strip() if meta else "")
+              if img.startswith("//"):img="https:"+img
+              if img.startswith("/"):img=urljoin(BASE,img)
+              if not img:
+                for im in sp.find_all("img",src=True):
+                  src=urljoin(BASE,im["src"])
+                  if "/product/big/" in src or "/web/product/big/" in src:
+                    img=src;break
+              if not img:return None
+              title=(sp.find("meta",attrs={"property":"og:title"}) or {})
+              title=title.get("content","") if hasattr(title,"get") else ""
+              return {"prefix":pref,"num":num,"raw":raw,"image":img,"source":url,"title":title}
+            except Exception:
+              return None
+
+          matches={}
+          with ThreadPoolExecutor(max_workers=28) as ex:
+            fs=[ex.submit(product_detail,u) for u in product_links]
+            for i,f in enumerate(as_completed(fs),1):
+              row=f.result()
+              if row:
+                key=(row["prefix"],row["num"])
+                if key in targets and key not in matches:
+                  matches[key]=row
+                  out={**targets[key],**row}
+                  print("TCGBOX_HIT",json.dumps(out,ensure_ascii=False),flush=True)
+              if i%250==0: print("DETAIL_PROGRESS",i,len(matches),flush=True)
+          out=[]
+          for key,row in matches.items():
+            out.append({**targets[key],**row})
+          out.sort(key=lambda x:(str(x["set"]),str(x["code"])))
+          Path("sm-tcgbox-hits.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("TCGBOX_SUMMARY",json.dumps({"targets":len(targets),"categories":len(cats),"products":len(product_links),"hits":len(out)},ensure_ascii=False),flush=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm-tcgbox-hits
+          path: sm-tcgbox-hits.json
+          retention-days: 2
