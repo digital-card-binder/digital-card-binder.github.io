@@ -1,0 +1,37 @@
+name: Audit Origin ADV Images
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/audit-origin-adv-images.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print image inventory
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from collections import Counter
+          data=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          for era in ("ORIGIN","ADV","DP"):
+            groups=[g for g in data if g.get("era")==era]
+            cards=[(g,c) for g in groups for c in g.get("cards",[])]
+            hosts=Counter()
+            for g,c in cards:
+              u=str(c.get("image") or "")
+              host=u.split("/")[2] if u.startswith("http") else "(none)"
+              hosts[host]+=1
+            print("ERA_SUMMARY",json.dumps({"era":era,"groups":len(groups),"cards":len(cards),"hosts":hosts},ensure_ascii=False))
+            for g,c in cards:
+              if era=="DP": continue
+              print("CARD",json.dumps({
+                "era":era,"set":g.get("code"),"code":c.get("code"),"name":c.get("name"),
+                "image":c.get("image"),"source":c.get("source"),"note":c.get("note"),
+                "referenceImageRegion":g.get("referenceImageRegion"),"referenceNote":g.get("referenceNote")
+              },ensure_ascii=False))
+          PY
