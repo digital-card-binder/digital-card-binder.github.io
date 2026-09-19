@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0,1,2,3,4,5,6,7]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -24,7 +24,7 @@ jobs:
       - name: Classify SM fallback images
         env:
           SHARD: ${{ matrix.shard }}
-          SHARDS: "8"
+          SHARDS: "16"
         run: |
           python - <<'PY'
           import io,json,os,re,requests,pytesseract
@@ -62,7 +62,7 @@ jobs:
             except Exception as e:
               return {**row,"class":"FAIL","ko":0,"jp":0,"error":str(e)}
           out=[]
-          with ThreadPoolExecutor(max_workers=8) as ex:
+          with ThreadPoolExecutor(max_workers=4) as ex:
             fs=[ex.submit(work,r) for r in rows]
             for n,f in enumerate(as_completed(fs),1):
               out.append(f.result())
