@@ -654,6 +654,18 @@
     });
     el("pokemon-search-toggle-owned").addEventListener("click", toggleOwned);
 
+    window.addEventListener("pageshow", async (event) => {
+      if (!event.persisted) return;
+      const account = window.PokemonDexPageAccount;
+      if (!account) return;
+      await account.ready;
+      await account.refreshAccountData?.();
+      account.applyGroups(state.groups);
+      state.cards = flattenGroups(state.groups);
+      populateSetFilter();
+      render();
+    });
+
     document.addEventListener("keydown", (event) => {
       const shortcut = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k";
       if (!shortcut) return;
@@ -677,6 +689,7 @@
       const account = window.PokemonDexPageAccount;
       if (account) {
         await account.ready;
+        await account.refreshAccountData?.();
         account.applyGroups(state.groups);
       }
 
