@@ -206,7 +206,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260918-1/);
+  assert.match(dashboard, /news[.]js[?]v=20260921-1/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -388,13 +388,14 @@ test("profile management leaves the sidebar and public collectors stays below da
   const navigation = await source("collector-nav.js");
   assert.match(navigation, /settings[?][.]remove\(\)/);
   assert.match(navigation, /dashboard[.]after\(directory\)/);
+  assert.match(navigation, /directory[.]after\(pokemonSearch\)/);
   assert.equal(navigation.includes('"도감 관리"'), false);
   assert.match(navigation, /공개 컬렉터/);
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260902-3/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260921-2/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260902-3/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260921-2/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
   for (const page of [settingsPage, await source("collectors.html")]) {
@@ -432,7 +433,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260902-3/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260921-2/, `${page}: current common header behavior`);
   }
 });
 
@@ -471,7 +472,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260814-1/);
-    assert.match(html, /collector-nav[.]js\?v=20260902-3/);
+    assert.match(html, /collector-nav[.]js\?v=20260921-2/);
   }
 });
 
