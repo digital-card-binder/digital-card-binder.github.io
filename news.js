@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260918-1";
+  const NEWS_DATA_URL = "./news.json?v=20260921-2";
 
   function initializePwaBootstrap() {
     if (!document.querySelector('link[rel="manifest"]')) {
@@ -126,7 +126,8 @@
   }
 
   async function loadNewsItems() {
-    const response = await fetch(NEWS_DATA_URL, { cache: "no-store" });
+    const separator = NEWS_DATA_URL.includes("?") ? "&" : "?";
+    const response = await fetch(`${NEWS_DATA_URL}${separator}t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`새소식 응답 오류: ${response.status}`);
     const payload = await response.json();
     return (Array.isArray(payload?.items) ? payload.items : [])
@@ -290,21 +291,48 @@
     if (button) button.textContent = "앱 다운로드 v0.9";
   }
 
-  async function initializeNews() {
+  let newsRefreshInFlight = null;
+  let lastNewsRefreshAt = 0;
+
+  async function initializeNews(force = false) {
     if (!document.querySelector("#dashboard-news-strip, #news-list")) return;
-    try {
-      const items = await loadNewsItems();
-      renderDashboardLatest(items);
-      renderNewsPage(items);
-    } catch (error) {
-      console.error("새소식을 불러오지 못했습니다.", error);
-      showNewsError();
-    }
+    const now = Date.now();
+    if (!force && now - lastNewsRefreshAt < 2000) return;
+    if (newsRefreshInFlight) return newsRefreshInFlight;
+
+    newsRefreshInFlight = (async () => {
+      try {
+        const items = await loadNewsItems();
+        lastNewsRefreshAt = Date.now();
+        const error = document.querySelector("#news-error");
+        if (error) error.hidden = true;
+        renderDashboardLatest(items);
+        renderNewsPage(items);
+      } catch (error) {
+        console.error("새소식을 불러오지 못했습니다.", error);
+        showNewsError();
+      } finally {
+        newsRefreshInFlight = null;
+      }
+    })();
+
+    return newsRefreshInFlight;
+  }
+
+  function refreshNewsWhenAppReturns() {
+    if (document.visibilityState === "hidden") return;
+    initializeNews(true);
   }
 
   initializePwaBootstrap();
   ensureGalleryNavigation();
   initializeCompactMobileBrand();
   initializeAndroidDownloadLabel();
-  initializeNews();
+  initializeNews(true);
+
+  window.addEventListener("pageshow", refreshNewsWhenAppReturns);
+  window.addEventListener("focus", refreshNewsWhenAppReturns);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") refreshNewsWhenAppReturns();
+  });
 })();
