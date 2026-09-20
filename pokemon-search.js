@@ -66,9 +66,30 @@
     return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
   }
 
+  function legacyEra(groupIndex) {
+    if (groupIndex === 0) return "ORIGIN";
+    if (groupIndex <= 5) return "ADV";
+    if (groupIndex <= 21) return "DP";
+    if (groupIndex <= 58) return "BW";
+    return "XY";
+  }
+
+  function tagSeriesGroups(baseGroups, legacyGroups) {
+    const taggedBase = (Array.isArray(baseGroups) ? baseGroups : []).map((group) => ({
+      ...group,
+      era: seriesEra(group),
+    }));
+    const taggedLegacy = (Array.isArray(legacyGroups) ? legacyGroups : []).map((group, groupIndex) => ({
+      ...group,
+      era: legacyEra(groupIndex),
+    }));
+    return { taggedBase, taggedLegacy };
+  }
+
   function mergeSeriesGroups(baseGroups, legacyGroups) {
-    const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
-    for (const extra of Array.isArray(legacyGroups) ? legacyGroups : []) {
+    const { taggedBase, taggedLegacy } = tagSeriesGroups(baseGroups, legacyGroups);
+    const merged = [...taggedBase];
+    for (const extra of taggedLegacy) {
       const code = clean(extra?.code || extra?.name).toLowerCase();
       if (!code) continue;
       const index = merged.findIndex(
