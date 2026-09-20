@@ -6,7 +6,7 @@ const source = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"
 
 test("top navigation follows the agreed collection order", async () => {
   const navigation = await source("theme-navigation.js");
-  const labels = ["대시보드", "전국 도감", "시리즈 도감", "테마 도감", "나만의 도감", "새소식"];
+  const labels = ["대시보드", "도감 갤러리", "포켓몬 검색", "전국 도감", "시리즈 도감", "테마 도감", "나만의 도감", "새소식"];
   let cursor = -1;
   for (const label of labels) {
     const index = navigation.indexOf(`title: "${label}"`);
