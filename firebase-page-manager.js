@@ -258,7 +258,7 @@
     });
   }
 
-  async function loadAccountDocument(user) {
+  async function loadAccountDocument(user, options = {}) {
     const fallbackMode = isOwnerAccount(user) ? "legacy" : "empty";
     accountProfile = { baseMode: fallbackMode };
     remoteOverrides = {};
@@ -308,7 +308,15 @@
     userDocumentRef = documentRef;
 
     try {
-      const snapshot = await firestoreModule.getDoc(documentRef);
+      let snapshot;
+      if (options.preferServer && typeof firestoreModule.getDocFromServer === "function") {
+        try {
+          snapshot = await firestoreModule.getDocFromServer(documentRef);
+        } catch (error) {
+          console.warn(`${page.documentId} 서버 보유상태 확인 실패, 로컬 상태로 대체합니다.`, error);
+        }
+      }
+      if (!snapshot) snapshot = await firestoreModule.getDoc(documentRef);
       if (snapshot.exists()) {
         const data = snapshot.data() || {};
         accountProfile = {
@@ -448,6 +456,20 @@
         userDocumentRef &&
         !sharedViewActive,
     );
+  }
+
+  async function refreshAccountData() {
+    if (
+      !currentUser ||
+      !firebase ||
+      sharedViewActive ||
+      collectorPublicViewActive
+    ) {
+      return false;
+    }
+    await loadAccountDocument(currentUser, { preferServer: true });
+    updateAuthUi();
+    return true;
   }
 
   function notifyOwnerSheets(key) {
