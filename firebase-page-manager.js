@@ -650,6 +650,8 @@
     ready,
     applyGroups,
     canEdit,
+    readCollectionDocument,
+    refreshAccountData,
     saveOverride,
     saveOwned,
     get currentUser() {
