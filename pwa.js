@@ -3,7 +3,7 @@
 (function () {
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
-  const SERVICE_WORKER_URL = "/sw.js";
+  const SERVICE_WORKER_URL = "/sw.js?v=20260921-1";
 
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -49,7 +49,15 @@
     if (!("serviceWorker" in navigator)) {
       throw new Error("이 기기에서는 웹앱 알림을 지원하지 않습니다.");
     }
-    await navigator.serviceWorker.register(SERVICE_WORKER_URL, { scope: "/" });
+    const registration = await navigator.serviceWorker.register(SERVICE_WORKER_URL, {
+      scope: "/",
+      updateViaCache: "none",
+    });
+    try {
+      await registration.update();
+    } catch (error) {
+      console.warn("서비스 워커 업데이트 확인 실패", error);
+    }
     return navigator.serviceWorker.ready;
   }
 
