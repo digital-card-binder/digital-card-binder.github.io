@@ -206,7 +206,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260921-1/);
+  assert.match(dashboard, /news[.]js[?]v=20260921-2/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -217,7 +217,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "pack-dex-latest-mega-images");
+  assert.equal(newsData.items[0].id, "pokemon-search-launch");
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);
@@ -232,14 +232,36 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   const manager = await source("firebase-page-manager.js");
 
   assert.match(page, /data-catalog="series"/);
-  assert.match(page, /firebase-page-manager[.]js[?]v=20260921-1/);
-  assert.match(page, /pokemon-search[.]js[?]v=20260921-3/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=20260921-2/);
+  assert.match(page, /pokemon-search[.]js[?]v=20260921-4/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
   assert.ok(client.includes("await account.saveOwned(item.card.accountKey, nextOwned);"));
   assert.match(manager, /getDocFromServer/);
   assert.match(manager, /refreshAccountData/);
+});
+
+test("Pokemon search aggregates exact-card ownership without linking dexes", async () => {
+  const page = await source("pokemon-search.html");
+  const client = await source("pokemon-search.js");
+  const manager = await source("firebase-page-manager.js");
+
+  assert.match(page, /보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합/);
+  assert.match(page, /id="pokemon-search-dialog-sources"/);
+  assert.ok(client.includes('addOwnershipSource(index, parts[1], parts[2], "작가 도감")'));
+  assert.ok(client.includes('"AR 도감"'));
+  assert.ok(client.includes('"포켓몬 컬렉션"'));
+  assert.ok(client.includes('"트레이너×포켓몬 도감"'));
+  assert.ok(client.includes('"화석 도감"'));
+  assert.ok(client.includes('"나만의 도감"'));
+  assert.ok(client.includes('"전국도감"'));
+  assert.ok(client.includes('"월드탐험도감"'));
+  assert.ok(client.includes('if (card.seriesOwned) labels.add("시리즈 도감")'));
+  assert.ok(client.includes("item.card.seriesOwned = nextOwned;"));
+  assert.ok(client.includes("applyOwnershipToItem(item);"));
+  assert.ok(manager.includes("async function readCollectionDocument(documentId)"));
+  assert.ok(manager.includes("readCollectionDocument,"));
 });
 
 test("dashboard loads the trainer and Pokemon catalog registered in collection order", async () => {

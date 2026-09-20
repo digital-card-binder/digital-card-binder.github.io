@@ -472,6 +472,44 @@
     return true;
   }
 
+  async function readCollectionDocument(documentId) {
+    const id = String(documentId || "").trim();
+    if (
+      !id ||
+      !currentUser ||
+      !firebase ||
+      sharedViewActive ||
+      collectorPublicViewActive
+    ) {
+      return null;
+    }
+
+    const { db, firestoreModule } = firebase;
+    const ref = firestoreModule.doc(
+      db,
+      "users",
+      currentUser.uid,
+      CONFIG.userCollection || "collections",
+      id,
+    );
+
+    try {
+      let snapshot;
+      if (typeof firestoreModule.getDocFromServer === "function") {
+        try {
+          snapshot = await firestoreModule.getDocFromServer(ref);
+        } catch (error) {
+          console.warn(`${id} 서버 조회 실패, 로컬 캐시로 대체합니다.`, error);
+        }
+      }
+      if (!snapshot) snapshot = await firestoreModule.getDoc(ref);
+      return snapshot.exists() ? snapshot.data() || {} : {};
+    } catch (error) {
+      console.warn(`${id} 도감 데이터를 읽지 못했습니다.`, error);
+      return null;
+    }
+  }
+
   function notifyOwnerSheets(key) {
     window.dispatchEvent(
       new CustomEvent("pokemon-dex:collection-changed", {
@@ -612,6 +650,8 @@
     ready,
     applyGroups,
     canEdit,
+    readCollectionDocument,
+    refreshAccountData,
     saveOverride,
     saveOwned,
     get currentUser() {

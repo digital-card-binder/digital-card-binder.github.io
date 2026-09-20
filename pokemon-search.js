@@ -18,6 +18,7 @@
     groups: [],
     cards: [],
     pokedex: [],
+    ownershipIndex: new Map(),
     query: "",
     target: null,
     era: "ALL",
@@ -106,6 +107,247 @@
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`${url}: ${response.status}`);
     return response.json();
+  }
+
+  function normalizeSetCode(value) {
+    return clean(value)
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/[^a-z0-9+]/g, "");
+  }
+
+  function normalizedCardNumerator(value) {
+    const text = clean(value).replace(/\s+/g, "");
+    const slash =
+      text.match(/(?:^|[_:-])0*(\d{1,4})\/\d{1,4}/i) ||
+      text.match(/^0*(\d{1,4})\/\d{1,4}/);
+    if (slash) return String(Number(slash[1]));
+
+    const separated = text.match(/(?:_|-)(0*\d{1,4})(?:\D|$)/i);
+    if (separated) return String(Number(separated[1]));
+
+    const leading = text.match(/^0*(\d{1,4})(?:\D|$)/);
+    return leading ? String(Number(leading[1])) : "";
+  }
+
+  function ownershipFingerprint(setCode, cardNumberValue) {
+    const set = normalizeSetCode(setCode);
+    const number = normalizedCardNumerator(cardNumberValue);
+    return set && number ? set + "::" + number : "";
+  }
+
+  function itemOwnershipFingerprint(item) {
+    return ownershipFingerprint(
+      item?.setCode,
+      item?.card?.cardNumber || item?.card?.code || item?.card?.meta,
+    );
+  }
+
+  function addOwnershipSource(index, setCode, cardNumberValue, label) {
+    const fingerprint = ownershipFingerprint(setCode, cardNumberValue);
+    if (!fingerprint || !label) return;
+    if (!index.has(fingerprint)) index.set(fingerprint, new Set());
+    index.get(fingerprint).add(label);
+  }
+
+  function overrideIsOwned(value) {
+    if (typeof value === "boolean") return value;
+    return Boolean(value && typeof value === "object" && !Array.isArray(value) && value.owned);
+  }
+
+  function forEachOwnedOverride(documentData, callback) {
+    const overrides =
+      documentData?.overrides &&
+      typeof documentData.overrides === "object" &&
+      !Array.isArray(documentData.overrides)
+        ? documentData.overrides
+        : {};
+    Object.entries(overrides).forEach(([key, value]) => {
+      if (overrideIsOwned(value)) callback(key, value);
+    });
+  }
+
+  function setCodeFromCardCode(value) {
+    const text = clean(value);
+    const match = text.match(/^([a-z0-9+]+)[_-]/i);
+    return match?.[1] || "";
+  }
+
+  function addArtistOwnership(index, documentData) {
+    forEachOwnedOverride(documentData, (key) => {
+      const parts = String(key).split("::");
+      if (parts.length < 4) return;
+      addOwnershipSource(index, parts[1], parts[2], "작가 도감");
+    });
+  }
+
+  function addArOwnership(index, documentData) {
+    forEachOwnedOverride(documentData, (key) => {
+      const parts = String(key).split("::");
+      if (parts.length < 3) return;
+      addOwnershipSource(index, parts[0], parts[1], "AR 도감");
+    });
+  }
+
+  function addPokemonCollectionOwnership(index, documentData) {
+    forEachOwnedOverride(documentData, (key) => {
+      const parts = String(key).split("::");
+      if (parts.length < 3) return;
+
+      if (parts[0] === "trainerPokemon") {
+        const rawCode = parts[2];
+        addOwnershipSource(
+          index,
+          setCodeFromCardCode(rawCode),
+          rawCode,
+          "트레이너×포켓몬 도감",
+        );
+        return;
+      }
+
+      if (parts[0].startsWith("FOSSIL-")) {
+        const rawCode = parts[1];
+        const setCode =
+          setCodeFromCardCode(rawCode) ||
+          parts[0].replace(/^FOSSIL-/i, "");
+        addOwnershipSource(index, setCode, rawCode, "화석 도감");
+        return;
+      }
+
+      const meta = parts[1];
+      const chunks = meta.split("·").map(clean).filter(Boolean);
+      const setCode = chunks.length >= 2 ? chunks[chunks.length - 1] : "";
+      const cardNumberValue = chunks[0] || meta;
+      addOwnershipSource(index, setCode, cardNumberValue, "포켓몬 컬렉션");
+    });
+
+    const customDexes =
+      documentData?.customDexes &&
+      typeof documentData.customDexes === "object" &&
+      !Array.isArray(documentData.customDexes)
+        ? Object.values(documentData.customDexes)
+        : [];
+
+    customDexes.forEach((dex) => {
+      (Array.isArray(dex?.cards) ? dex.cards : []).forEach((entry) => {
+        if (!entry?.owned) return;
+        if (entry.manual) {
+          addOwnershipSource(
+            index,
+            entry.manual.setCode,
+            entry.manual.cardNumber,
+            "나만의 도감",
+          );
+          return;
+        }
+        const parts = String(entry.key || "").split("::");
+        if (parts.length < 2) return;
+        addOwnershipSource(index, parts[0], parts.slice(1).join("::"), "나만의 도감");
+      });
+    });
+  }
+
+  function addNationalOwnership(index, documentData) {
+    forEachOwnedOverride(documentData, (_key, value) => {
+      if (!value?.setCode || !value?.cardNumber) return;
+      addOwnershipSource(index, value.setCode, value.cardNumber, "전국도감");
+    });
+  }
+
+  function inferSetCodeFromImage(imageUrl) {
+    const match = String(imageUrl || "").match(
+      /\/wmimages\/(?:SV|SM|S|MEGA|XY|BW|DP|ADV)\/([^/]+)\//i,
+    );
+    return match?.[1] || "";
+  }
+
+  async function addWorldOwnership(index) {
+    let ownedIds = [];
+    let overrides = {};
+    try {
+      const savedOwned = JSON.parse(
+        localStorage.getItem("digitalCardBinderWorldExplorationOwnedV1") || "[]",
+      );
+      ownedIds = Array.isArray(savedOwned) ? savedOwned : [];
+      const savedOverrides = JSON.parse(
+        localStorage.getItem("digitalCardBinderWorldExplorationCardOverridesV1") || "{}",
+      );
+      overrides =
+        savedOverrides && typeof savedOverrides === "object" && !Array.isArray(savedOverrides)
+          ? savedOverrides
+          : {};
+    } catch {
+      return;
+    }
+    if (!ownedIds.length) return;
+
+    try {
+      const data = await fetchJson("./data/world-exploration.json");
+      const slotMap = new Map();
+      (data?.generations || []).forEach((generation) => {
+        (generation?.slots || []).forEach((slot) => slotMap.set(slot.id, slot));
+      });
+
+      ownedIds.forEach((slotId) => {
+        const slot = slotMap.get(slotId);
+        if (!slot) return;
+        const override = overrides[slotId] || {};
+        const setCode =
+          clean(override.setCode) ||
+          inferSetCodeFromImage(override.image || slot.card?.image);
+        const cardNumberValue = clean(override.number || slot.card?.number);
+        addOwnershipSource(index, setCode, cardNumberValue, "월드탐험도감");
+      });
+    } catch (error) {
+      console.warn("월드탐험도감 보유 상태를 검색에 반영하지 못했습니다.", error);
+    }
+  }
+
+  async function loadOwnershipIndex() {
+    const index = new Map();
+    const account = window.PokemonDexPageAccount;
+    const registry = window.CollectorCollectionRegistry;
+
+    if (account?.currentUser && typeof account.readCollectionDocument === "function") {
+      const nationalDocumentId =
+        registry?.COLLECTIONS?.national?.documentId || "nationalDex";
+      const [national, artist, pokemon, ar] = await Promise.all([
+        account.readCollectionDocument(nationalDocumentId),
+        account.readCollectionDocument("artistDex"),
+        account.readCollectionDocument("pokemonCollectionsDex"),
+        account.readCollectionDocument("arDex"),
+      ]);
+
+      if (national) addNationalOwnership(index, national);
+      if (artist) addArtistOwnership(index, artist);
+      if (pokemon) addPokemonCollectionOwnership(index, pokemon);
+      if (ar) addArOwnership(index, ar);
+    }
+
+    await addWorldOwnership(index);
+    return index;
+  }
+
+  function applyOwnershipToItem(item) {
+    const card = item.card;
+    const labels = new Set();
+    if (card.seriesOwned) labels.add("시리즈 도감");
+
+    const fingerprint = itemOwnershipFingerprint(item);
+    const aggregateSources = fingerprint ? state.ownershipIndex.get(fingerprint) : null;
+    aggregateSources?.forEach((label) => labels.add(label));
+
+    card.ownershipSources = [...labels];
+    card.owned = card.ownershipSources.length > 0;
+  }
+
+  function applyAggregateOwnership() {
+    state.cards.forEach(applyOwnershipToItem);
+  }
+
+  async function refreshAggregateOwnership() {
+    state.ownershipIndex = await loadOwnershipIndex();
+    applyAggregateOwnership();
   }
 
   function flattenGroups(groups) {
@@ -353,7 +595,13 @@
     meta.className = "card-meta";
     meta.textContent = `${ERA_LABELS[item.era] || item.era} · ${item.setCode}`;
 
-    body.append(top, name, set, meta);
+    const sources = document.createElement("span");
+    sources.className = "pokemon-search-ownership-sources";
+    sources.textContent = card.owned
+      ? "보유 확인 · " + (card.ownershipSources || []).join(" · ")
+      : "보유 확인 도감 없음";
+
+    body.append(top, name, set, meta, sources);
     button.append(imageWrap, body);
     button.addEventListener("click", () => openDialog(item));
     article.append(button);
@@ -555,17 +803,23 @@
     el("pokemon-search-dialog-meta").textContent = item.setCode;
     el("pokemon-search-dialog-era").textContent = ERA_LABELS[item.era] || item.era;
     el("pokemon-search-dialog-set").textContent = item.setName;
+    el("pokemon-search-dialog-sources").textContent = owned
+      ? (card.ownershipSources || []).join(" · ")
+      : "확인된 보유 도감 없음";
 
     const account = window.PokemonDexPageAccount;
     const toggle = el("pokemon-search-toggle-owned");
     const canEdit = Boolean(account?.canEdit?.());
+    const seriesOwned = Boolean(card.seriesOwned);
     toggle.disabled = !canEdit;
     toggle.textContent = canEdit
-      ? owned ? "미보유로 변경" : "보유로 변경"
+      ? seriesOwned
+        ? "시리즈 도감에서 보유 해제"
+        : "시리즈 도감에 보유 추가"
       : "로그인 후 변경";
     el("pokemon-search-dialog-message").textContent = canEdit
-      ? "보유 상태는 시리즈 도감과 동일하게 저장됩니다."
-      : "Google 로그인 후 보유 상태를 변경할 수 있습니다.";
+      ? "검색의 보유 여부는 여러 도감을 종합합니다. 이 버튼은 시리즈 도감만 변경합니다."
+      : "Google 로그인 후 시리즈 도감 보유 상태를 변경할 수 있습니다.";
     el("pokemon-search-dialog-message").dataset.state = canEdit ? "" : "guest";
   }
 
@@ -584,7 +838,7 @@
 
     const button = el("pokemon-search-toggle-owned");
     const message = el("pokemon-search-dialog-message");
-    const nextOwned = !Boolean(item.card.owned);
+    const nextOwned = !Boolean(item.card.seriesOwned);
     button.disabled = true;
     button.textContent = "저장 중…";
     message.textContent = "보유 상태를 저장하고 있습니다.";
@@ -592,13 +846,16 @@
 
     try {
       await account.saveOwned(item.card.accountKey, nextOwned);
-      item.card.owned = nextOwned;
+      item.card.seriesOwned = nextOwned;
+      applyOwnershipToItem(item);
       updateDialog(item);
       populateSetFilter();
       render();
       message.textContent = nextOwned
-        ? "보유 카드로 저장했습니다."
-        : "미보유 카드로 저장했습니다.";
+        ? "시리즈 도감에 보유 카드로 저장했습니다."
+        : item.card.owned
+          ? "시리즈 도감에서는 해제했지만 다른 도감의 보유 기록으로 검색에서는 보유로 표시됩니다."
+          : "시리즈 도감에서 미보유로 저장했습니다.";
       message.dataset.state = "success";
     } catch (error) {
       console.error(error);
@@ -662,6 +919,10 @@
       await account.refreshAccountData?.();
       account.applyGroups(state.groups);
       state.cards = flattenGroups(state.groups);
+      state.cards.forEach((item) => {
+        item.card.seriesOwned = Boolean(item.card.owned);
+      });
+      await refreshAggregateOwnership();
       populateSetFilter();
       render();
     });
@@ -694,6 +955,10 @@
       }
 
       state.cards = flattenGroups(state.groups);
+      state.cards.forEach((item) => {
+        item.card.seriesOwned = Boolean(item.card.owned);
+      });
+      await refreshAggregateOwnership();
       bindEvents();
       populateSetFilter();
       render();

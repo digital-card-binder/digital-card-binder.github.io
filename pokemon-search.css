@@ -16,6 +16,8 @@
 .pokemon-search-grid{margin-top:0}
 .pokemon-search-card .card-name-en{min-height:2.7em}
 .pokemon-search-card .card-meta{display:grid;gap:3px;white-space:normal}
+.pokemon-search-ownership-sources{display:block;margin-top:4px;color:var(--ink-faint);font-size:.62rem;font-weight:800;line-height:1.45;white-space:normal}
+#pokemon-search-dialog-sources{font-weight:800;line-height:1.45}
 .pokemon-search-card .card-body{min-height:128px}
 .pokemon-search-card.has-image-error .image-fallback{display:grid}
 .pokemon-search-card.has-image-error .card-image{visibility:hidden}
