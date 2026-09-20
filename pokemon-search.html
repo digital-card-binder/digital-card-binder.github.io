@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./catalog.css?v=20260920-2">
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2">
     <link rel="stylesheet" href="./collector.css?v=20260814-1">
-    <link rel="stylesheet" href="./pokemon-search.css?v=20260921-1">
+    <link rel="stylesheet" href="./pokemon-search.css?v=20260921-2">
     <script src="./firebase-config.js?v=20260918-1" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
@@ -24,9 +24,9 @@
     <script src="./collector-nav.js?v=20260921-2" defer></script>
     <script src="./mega-latest.js?v=20260825-1" defer></script>
     <script src="./series-mega-supplement.js?v=20260825-1" defer></script>
-    <script src="./firebase-page-manager.js?v=20260921-1" defer></script>
+    <script src="./firebase-page-manager.js?v=20260921-2" defer></script>
     <script src="./owner-sheets-sync.js?v=20260918-2" defer></script>
-    <script src="./pokemon-search.js?v=20260921-3" defer></script>
+    <script src="./pokemon-search.js?v=20260921-4" defer></script>
   </head>
   <body data-page="pokemon-search" data-catalog="series">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -117,7 +117,7 @@
               <p class="section-kicker">ALL SERIES SEARCH</p>
               <h2 id="search-section-title">포켓몬별 카드 통합검색</h2>
             </div>
-            <p class="catalog-caption">현재 시리즈 도감에 등록된 카드 데이터를 기준으로 검색합니다.</p>
+            <p class="catalog-caption">카드 목록은 시리즈 도감을 기준으로 하며, 보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합합니다.</p>
           </div>
 
           <div class="pokemon-search-box">
@@ -202,7 +202,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">검색 결과는 현재 시리즈 도감 데이터와 동일한 보유 상태를 사용합니다.</p>
+          <p class="site-footer-note">각 도감의 보유 상태는 서로 독립적으로 유지되며, 검색 화면에서만 정확히 일치하는 카드의 보유 기록을 종합합니다.</p>
         </footer>
       </main>
     </div>
@@ -222,6 +222,7 @@
         <dl class="dialog-details">
           <div><dt>시리즈</dt><dd id="pokemon-search-dialog-era"></dd></div>
           <div><dt>수록 세트</dt><dd id="pokemon-search-dialog-set"></dd></div>
+          <div class="is-wide"><dt>보유 확인 도감</dt><dd id="pokemon-search-dialog-sources"></dd></div>
         </dl>
         <div class="pokemon-search-dialog-actions">
           <button id="pokemon-search-toggle-owned" class="primary-button" type="button">보유로 변경</button>
