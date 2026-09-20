@@ -26,6 +26,7 @@
     suggestions: [],
     suggestionIndex: -1,
     activeCard: null,
+    searchCache: { key: "", items: [] },
   };
 
   const el = (id) => document.getElementById(id);
@@ -148,13 +149,20 @@
     return indexes;
   }
 
-  function occurrenceCoveredByLongerPokemon(haystack, start, target) {
+  function longerPokemonNames(target) {
+    return state.pokedex
+      .map((record) => compact(record.nameKo))
+      .filter(
+        (candidate) =>
+          candidate &&
+          candidate.length > target.length &&
+          candidate.includes(target),
+      );
+  }
+
+  function occurrenceCoveredByLongerPokemon(haystack, start, target, longerNames) {
     const end = start + target.length;
-    for (const record of state.pokedex) {
-      const candidate = compact(record.nameKo);
-      if (!candidate || candidate.length <= target.length || !candidate.includes(target)) {
-        continue;
-      }
+    for (const candidate of longerNames) {
       for (const candidateStart of occurrences(haystack, candidate)) {
         const candidateEnd = candidateStart + candidate.length;
         if (candidateStart <= start && candidateEnd >= end) return true;
@@ -163,7 +171,7 @@
     return false;
   }
 
-  function matchesExactPokemon(item, targetRecord) {
+  function matchesExactPokemon(item, targetRecord, longerNames) {
     const target = compact(targetRecord?.nameKo);
     if (!target) return false;
 
@@ -174,7 +182,7 @@
     if (!haystack.includes(target)) return false;
 
     for (const start of occurrences(haystack, target)) {
-      if (!occurrenceCoveredByLongerPokemon(haystack, start, target)) {
+      if (!occurrenceCoveredByLongerPokemon(haystack, start, target, longerNames)) {
         return true;
       }
     }
@@ -194,9 +202,27 @@
   function targetCards() {
     const query = clean(state.query);
     if (!query) return [];
-    return state.target
-      ? state.cards.filter((item) => matchesExactPokemon(item, state.target))
-      : state.cards.filter((item) => matchesFreeQuery(item, query));
+
+    const cacheKey = state.target
+      ? `pokemon:${state.target.number}:${compact(state.target.nameKo)}`
+      : `free:${compact(query)}`;
+    if (state.searchCache.key === cacheKey) {
+      return state.searchCache.items;
+    }
+
+    let items;
+    if (state.target) {
+      const target = compact(state.target.nameKo);
+      const longerNames = longerPokemonNames(target);
+      items = state.cards.filter((item) =>
+        matchesExactPokemon(item, state.target, longerNames),
+      );
+    } else {
+      items = state.cards.filter((item) => matchesFreeQuery(item, query));
+    }
+
+    state.searchCache = { key: cacheKey, items };
+    return items;
   }
 
   function filteredCards() {
