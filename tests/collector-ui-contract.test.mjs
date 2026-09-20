@@ -226,6 +226,22 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.equal(serialized.includes("주소 이전"), false);
 });
 
+test("Pokemon search refreshes and reuses series ownership state", async () => {
+  const page = await source("pokemon-search.html");
+  const client = await source("pokemon-search.js");
+  const manager = await source("firebase-page-manager.js");
+
+  assert.match(page, /data-catalog="series"/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=20260921-1/);
+  assert.match(page, /pokemon-search[.]js[?]v=20260921-3/);
+  assert.ok(client.includes("await account.refreshAccountData?.();"));
+  assert.ok(client.includes("account.applyGroups(state.groups);"));
+  assert.match(client, /card[.]owned/);
+  assert.ok(client.includes("await account.saveOwned(item.card.accountKey, nextOwned);"));
+  assert.match(manager, /getDocFromServer/);
+  assert.match(manager, /refreshAccountData/);
+});
+
 test("dashboard loads the trainer and Pokemon catalog registered in collection order", async () => {
   const dashboard = await source("dashboard.js");
   assert.match(dashboard, /fetchJson\("[.]\/data\/trainer-pokemon[.]json"\)/);
