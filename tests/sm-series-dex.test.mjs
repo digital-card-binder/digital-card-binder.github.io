@@ -71,7 +71,7 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
       assert.ok(String(card.name || "").trim(), card.code);
       assert.match(
         card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr)\//,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com)\//,
         card.code,
       );
       if (card.image.startsWith("https://cards.image.pokemonkorea.co.kr/")) {
@@ -80,6 +80,9 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
         assert.match(card.source, /^https:\/\/www[.]dogam[.]app\/sets\//, card.code);
       } else if (card.image.startsWith("https://tcgbox.co.kr/")) {
         assert.match(card.source, /^https:\/\/tcgbox[.]co[.]kr\/product\//, card.code);
+        assert.match(String(card.imageReferenceNote || ""), /한글판 실물 참고/, card.code);
+      } else if (card.image.startsWith("https://k-tcgpanda.com/")) {
+        assert.match(card.source, /^https:\/\/k-tcgpanda[.]com\/cardpage[.]php\?/, card.code);
         assert.match(String(card.imageReferenceNote || ""), /한글판 실물 참고/, card.code);
       }
       assert.doesNotMatch(card.image, /pokemontcg[.]io|collectory[.]cc/i, card.code);
