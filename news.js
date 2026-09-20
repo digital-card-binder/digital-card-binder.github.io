@@ -21,7 +21,7 @@
 
     if (!document.querySelector('script[data-pwa-script="1"]')) {
       const script = document.createElement("script");
-      script.src = "/pwa.js?v=20260915-3";
+      script.src = "/pwa.js?v=20260921-2";
       script.defer = true;
       script.dataset.pwaScript = "1";
       document.head.append(script);
