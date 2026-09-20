@@ -10,6 +10,19 @@ const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
 
+const SERIES_ERA_ORDER = Object.freeze(["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"]);
+const SERIES_ERA_LABELS = Object.freeze({
+  ORIGIN: "오리지널",
+  ADV: "ADV",
+  DP: "DP",
+  BW: "BW",
+  XY: "XY",
+  SM: "썬&문",
+  S: "소드&실드",
+  SV: "스칼렛&바이올렛",
+  M: "MEGA",
+});
+
 const SERIES_NAMES = Object.freeze({
   sv1S: "스칼렛 ex",
   sv1V: "바이올렛 ex",
@@ -52,7 +65,7 @@ let cards = [];
 let status = "all";
 let query = "";
 let activeCard = null;
-let activeEra = "SM";
+let activeEra = mode === "series" ? "ALL" : "SM";
 let mobileCatalogPreferences = {};
 
 const mobileCatalogMedia = typeof window.matchMedia === "function"
@@ -174,6 +187,95 @@ function syncEraTabs() {
     });
 }
 
+function syncSeriesView() {
+  if (mode !== "series") return;
+  const dashboardMode = activeEra === "ALL";
+  document.body.classList.toggle("series-dashboard-mode", dashboardMode);
+
+  const dashboard = $("series-dashboard");
+  if (dashboard) dashboard.hidden = !dashboardMode;
+
+  setText(
+    "catalog-section-title",
+    dashboardMode ? "시리즈 전체 현황" : "시리즈별 카드 목록",
+  );
+  setText(
+    "catalog-section-caption",
+    dashboardMode
+      ? "시리즈를 선택하면 세트별 카드 목록을 확인할 수 있습니다."
+      : "미보유 카드는 흑백으로 표시됩니다.",
+  );
+}
+
+function renderSeriesDashboard() {
+  if (mode !== "series") return;
+  const dashboard = $("series-dashboard");
+  if (!dashboard) return;
+
+  const fragment = document.createDocumentFragment();
+
+  for (const era of SERIES_ERA_ORDER) {
+    const eraGroups = groups.filter((group) => seriesEra(group) === era);
+    const total = eraGroups.reduce((sum, group) => sum + group.total, 0);
+    const owned = eraGroups.reduce((sum, group) => sum + group.owned, 0);
+    const missing = Math.max(0, total - owned);
+    const rate = pct(owned, total);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "series-dashboard-card";
+    button.dataset.era = era;
+    button.setAttribute(
+      "aria-label",
+      `${SERIES_ERA_LABELS[era]} ${owned}/${total}장, 수집률 ${rate}% 보기`,
+    );
+
+    const heading = document.createElement("span");
+    heading.className = "series-dashboard-card-heading";
+
+    const titleWrap = document.createElement("span");
+    const code = document.createElement("span");
+    code.className = "series-dashboard-code";
+    code.textContent = era;
+    const title = document.createElement("strong");
+    title.textContent = SERIES_ERA_LABELS[era];
+    titleWrap.append(code, title);
+
+    const arrow = document.createElement("span");
+    arrow.className = "series-dashboard-arrow";
+    arrow.textContent = "›";
+    heading.append(titleWrap, arrow);
+
+    const metrics = document.createElement("span");
+    metrics.className = "series-dashboard-metrics";
+    const rateText = document.createElement("strong");
+    rateText.textContent = `${rate}%`;
+    const count = document.createElement("span");
+    count.textContent = `${owned} / ${total}장`;
+    metrics.append(rateText, count);
+
+    const progress = document.createElement("span");
+    progress.className = "series-dashboard-progress";
+    const progressBar = document.createElement("span");
+    progressBar.style.width = `${Math.min(100, Math.max(0, rate))}%`;
+    progress.append(progressBar);
+
+    const footer = document.createElement("span");
+    footer.className = "series-dashboard-footer";
+    const sets = document.createElement("span");
+    sets.textContent = `${eraGroups.length}개 세트`;
+    const missingText = document.createElement("span");
+    missingText.textContent = `미보유 ${missing}장`;
+    footer.append(sets, missingText);
+
+    button.append(heading, metrics, progress, footer);
+    button.addEventListener("click", () => selectEra(era));
+    fragment.append(button);
+  }
+
+  dashboard.replaceChildren(fragment);
+}
+
 function populateCatalogSelect() {
   const select = $("catalog-select");
   const visibleGroups = selectableGroups();
@@ -203,10 +305,20 @@ function populateCatalogSelect() {
 
 function selectEra(era) {
   if (mode !== "series") return;
-  const visibleGroups = groups.filter((group) => seriesEra(group) === era);
   activeEra = era;
   syncEraTabs();
+  syncSeriesView();
 
+  if (era === "ALL") {
+    selected = null;
+    cards = [];
+    renderSeriesDashboard();
+    render();
+    rememberMobileCatalogPreferences();
+    return;
+  }
+
+  const visibleGroups = groups.filter((group) => seriesEra(group) === era);
   const select = $("catalog-select");
   const currentValue = selected?.code || selected?.name;
   populateCatalogSelect();
@@ -440,6 +552,7 @@ function refreshCounts() {
     group.owned = group.cards.filter((card) => card.owned).length;
   });
   updateSummary();
+  renderSeriesDashboard();
   updateSelected();
 }
 
@@ -737,11 +850,8 @@ async function init() {
     groups = await loadCatalogGroups();
     mobileCatalogPreferences = readMobileCatalogPreferences();
 
-    if (
-      mode === "series" &&
-      groups.some((group) => seriesEra(group) === mobileCatalogPreferences.era)
-    ) {
-      activeEra = mobileCatalogPreferences.era;
+    if (mode === "series") {
+      activeEra = "ALL";
     }
     if (["all", "owned", "missing"].includes(mobileCatalogPreferences.status)) {
       status = mobileCatalogPreferences.status;
@@ -765,9 +875,12 @@ async function init() {
     createSeriesEditor();
     updateSummary();
     syncEraTabs();
+    syncSeriesView();
+    renderSeriesDashboard();
 
     const select = $("catalog-select");
-    const initialGroups = populateCatalogSelect();
+    const initialGroups =
+      mode === "series" && activeEra === "ALL" ? [] : populateCatalogSelect();
     const rememberedGroup = mode === "series"
       ? mobileCatalogPreferences.groupByEra?.[activeEra]
       : mobileCatalogPreferences.group;
@@ -809,13 +922,19 @@ async function init() {
       else dialog.removeAttribute("open");
     };
 
-    loadGroup(
-      select.value ||
-        initialGroups[0]?.code ||
-        initialGroups[0]?.name ||
-        groups[0].code ||
-        groups[0].name,
-    );
+    if (mode === "series" && activeEra === "ALL") {
+      selected = null;
+      cards = [];
+      render();
+    } else {
+      loadGroup(
+        select.value ||
+          initialGroups[0]?.code ||
+          initialGroups[0]?.name ||
+          groups[0].code ||
+          groups[0].name,
+      );
+    }
   } catch (error) {
     console.error(error);
     $("catalog-error").hidden = false;
