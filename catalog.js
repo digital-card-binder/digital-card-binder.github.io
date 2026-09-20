@@ -343,10 +343,7 @@ function updateSelected() {
       : pokemonGroupLabel(selected),
   );
   const progress = `${owned} / ${cards.length}장 · ${pct(owned, cards.length)}%`;
-  setText(
-    "selected-progress",
-    selected?.referenceNote ? `${progress} · ${selected.referenceNote}` : progress,
-  );
+  setText("selected-progress", progress);
 }
 
 function setSeriesEditorMessage(message, state = "") {
