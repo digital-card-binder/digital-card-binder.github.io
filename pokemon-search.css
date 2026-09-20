@@ -1,0 +1,44 @@
+.pokemon-search-main{min-width:0}
+.pokemon-search-panel{position:relative}
+.pokemon-search-box{position:relative;margin-top:24px}
+.pokemon-search-field{height:58px;border-radius:16px}
+.pokemon-search-field input{font-size:.93rem}
+.pokemon-search-suggestions{position:absolute;z-index:30;top:calc(100% + 7px);left:0;right:0;overflow:auto;max-height:360px;border:1px solid #dfe3ec;border-radius:15px;background:#fff;box-shadow:0 18px 44px rgba(23,35,63,.15);padding:7px}
+.pokemon-search-suggestions[hidden]{display:none}
+.pokemon-search-suggestion{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:48px;border:0;border-radius:11px;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer;padding:9px 11px}
+.pokemon-search-suggestion:hover,.pokemon-search-suggestion.is-active{background:#f1f4f9}
+.pokemon-search-suggestion strong{font-size:.82rem}
+.pokemon-search-suggestion span{color:var(--ink-faint);font-size:.64rem;font-weight:800}
+.pokemon-search-filters{display:grid;grid-template-columns:minmax(160px,.55fr) minmax(220px,.85fr) minmax(250px,1fr);align-items:end;gap:12px;margin-top:14px}
+.pokemon-search-filters .catalog-select{min-width:0}
+.pokemon-search-filters .filter-group{display:grid;gap:6px}
+.pokemon-search-filters .segmented-control{min-height:48px}
+.pokemon-search-grid{margin-top:0}
+.pokemon-search-card .card-name-en{min-height:2.7em}
+.pokemon-search-card .card-meta{display:grid;gap:3px;white-space:normal}
+.pokemon-search-card .card-body{min-height:128px}
+.pokemon-search-card.has-image-error .image-fallback{display:grid}
+.pokemon-search-card.has-image-error .card-image{visibility:hidden}
+.pokemon-search-empty{margin-top:0}
+.pokemon-search-dialog-actions{display:flex;gap:8px;margin-top:16px}
+.pokemon-search-dialog-actions .primary-button{min-width:150px}
+#pokemon-search-dialog .dialog-details{grid-template-columns:1fr}
+#pokemon-search-dialog .dialog-card-copy{align-self:start}
+#pokemon-search-dialog[open]{overflow-y:auto}
+.pokemon-search-filter-note{color:var(--ink-faint);font-size:.68rem}
+@media(max-width:920px){
+  .pokemon-search-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pokemon-search-filters .filter-group--status{grid-column:1/-1}
+}
+@media(max-width:690px){
+  .pokemon-search-hero .hero-description br{display:none}
+  .pokemon-search-box{margin-top:18px}
+  .pokemon-search-field{height:52px}
+  .pokemon-search-field kbd{display:none}
+  .pokemon-search-suggestions{max-height:310px;border-radius:13px}
+  .pokemon-search-filters{grid-template-columns:1fr;gap:10px;margin-top:11px}
+  .pokemon-search-filters .filter-group--status{grid-column:auto}
+  .pokemon-search-filters .catalog-select select{height:46px}
+  .pokemon-search-card .card-body{min-height:112px}
+  .pokemon-search-dialog-actions .primary-button{width:100%}
+}
