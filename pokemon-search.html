@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="포켓몬 이름으로 시리즈 전체 카드에서 해당 포켓몬의 카드를 한 번에 찾는 통합 카드 검색">
+    <meta name="theme-color" content="#17233f">
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css?v=20260813-3">
+    <link rel="stylesheet" href="./legal.css?v=20260806-1">
+    <link rel="stylesheet" href="./catalog.css?v=20260920-2">
+    <link rel="stylesheet" href="./collection-manager.css?v=20260813-2">
+    <link rel="stylesheet" href="./collector.css?v=20260814-1">
+    <link rel="stylesheet" href="./pokemon-search.css?v=20260920-1">
+    <script src="./firebase-config.js?v=20260918-1" defer></script>
+    <script src="./site-metrics.js?v=20260729-1" defer></script>
+    <script src="./image-protection.js?v=20260806-1" defer></script>
+    <script src="./legal.js?v=20260806-1" defer></script>
+    <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
+    <script src="./collector-collection-registry.js?v=20260919-3" defer></script>
+    <script src="./collector-public-view.js?v=20260813-2" defer></script>
+    <script src="./collector-public-sync.js?v=20260813-1" defer></script>
+    <script src="./collector-nav.js?v=20260920-1" defer></script>
+    <script src="./mega-latest.js?v=20260825-1" defer></script>
+    <script src="./series-mega-supplement.js?v=20260825-1" defer></script>
+    <script src="./firebase-page-manager.js?v=20260820-1" defer></script>
+    <script src="./owner-sheets-sync.js?v=20260918-2" defer></script>
+    <script src="./pokemon-search.js?v=20260920-1" defer></script>
+  </head>
+  <body data-page="pokemon-search" data-catalog="series">
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+      <span class="header-chip">PUBLIC VIEW</span>
+    </header>
+
+    <div class="site-layout">
+      <aside class="sidebar" aria-label="도감 메뉴">
+        <div class="sidebar-label">MY COLLECTIONS</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./">
+            <span class="collection-icon" aria-hidden="true">DB</span>
+            <span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span>
+          </a>
+          <a class="collection-link is-active" href="./pokemon-search.html" aria-current="page">
+            <span class="collection-icon collection-icon--red" aria-hidden="true">⌕</span>
+            <span><strong>포켓몬 검색</strong><small>ALL CARD SEARCH</small></span>
+          </a>
+          <a class="collection-link" href="./national.html">
+            <span class="collection-icon" aria-hidden="true">01</span>
+            <span><strong>전국도감</strong><small>1세대–9세대</small></span>
+          </a>
+          <a class="collection-link" href="./packs.html">
+            <span class="collection-icon" aria-hidden="true">02</span>
+            <span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span>
+          </a>
+          <a class="collection-link" href="./artists.html">
+            <span class="collection-icon" aria-hidden="true">03</span>
+            <span><strong>작가 도감</strong><small>40 ARTISTS</small></span>
+          </a>
+          <a class="collection-link" href="./series.html">
+            <span class="collection-icon" aria-hidden="true">04</span>
+            <span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span>
+          </a>
+          <a class="collection-link" href="./pokemon-collections.html">
+            <span class="collection-icon" aria-hidden="true">05</span>
+            <span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span>
+          </a>
+          <a class="collection-link" href="./ar.html">
+            <span class="collection-icon collection-icon--ar" aria-hidden="true">06</span>
+            <span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span>
+          </a>
+          <a class="collection-link" href="./people.html">
+            <span class="collection-icon" aria-hidden="true">07</span>
+            <span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span>
+          </a>
+        </nav>
+        <div class="sidebar-note"><span aria-hidden="true">✦</span>포켓몬 이름으로 전 시리즈의 카드를 한 번에 찾을 수 있습니다.</div>
+      </aside>
+
+      <main id="main-content" class="main-content pokemon-search-main">
+        <section class="hero pokemon-search-hero" aria-labelledby="page-title">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-content">
+            <p class="eyebrow">POKÉMON SEARCH · ALL CARD ARCHIVE</p>
+            <h1 id="page-title">포켓몬 검색</h1>
+            <p class="hero-description">
+              포켓몬 이름 하나로 시리즈 전체를 검색해<br>
+              해당 포켓몬의 모든 카드를 한곳에서 확인하세요.
+            </p>
+          </div>
+          <div class="hero-progress" aria-label="검색 포켓몬 수집 현황">
+            <div class="progress-ring" id="search-progress-ring" aria-hidden="true">
+              <div><strong id="search-rate">—</strong><span>OWNED</span></div>
+            </div>
+            <div class="hero-progress-copy">
+              <span id="search-summary-label">포켓몬을 검색해 주세요</span>
+              <strong><b id="search-owned">—</b><small>/ <span id="search-total">—</span>장</small></strong>
+              <p>미보유 <b id="search-missing">—</b>장</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="catalog-panel pokemon-search-panel" aria-labelledby="search-section-title">
+          <div class="catalog-heading">
+            <div>
+              <p class="section-kicker">ALL SERIES SEARCH</p>
+              <h2 id="search-section-title">포켓몬별 카드 통합검색</h2>
+            </div>
+            <p class="catalog-caption">현재 시리즈 도감에 등록된 카드 데이터를 기준으로 검색합니다.</p>
+          </div>
+
+          <div class="pokemon-search-box">
+            <label class="search-field pokemon-search-field" for="pokemon-search-input">
+              <span class="search-icon" aria-hidden="true"></span>
+              <span class="sr-only">포켓몬 이름 검색</span>
+              <input
+                id="pokemon-search-input"
+                type="search"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="포켓몬 이름 검색 (예: 피카츄)"
+                aria-autocomplete="list"
+                aria-controls="pokemon-search-suggestions"
+                aria-expanded="false"
+              >
+              <kbd>⌘ K</kbd>
+            </label>
+            <div id="pokemon-search-suggestions" class="pokemon-search-suggestions" role="listbox" hidden></div>
+          </div>
+
+          <div class="pokemon-search-filters" aria-label="검색 필터">
+            <label class="catalog-select">
+              <span class="filter-label">시리즈</span>
+              <select id="pokemon-search-era">
+                <option value="ALL">전체 시리즈</option>
+                <option value="ORIGIN">오리지널</option>
+                <option value="ADV">ADV</option>
+                <option value="DP">DP</option>
+                <option value="BW">BW</option>
+                <option value="XY">XY</option>
+                <option value="SM">썬&문</option>
+                <option value="S">소드&실드</option>
+                <option value="SV">스칼렛&바이올렛</option>
+                <option value="M">MEGA</option>
+              </select>
+            </label>
+
+            <label class="catalog-select pokemon-search-set-filter">
+              <span class="filter-label">세트</span>
+              <select id="pokemon-search-set" disabled>
+                <option value="ALL">전체 세트</option>
+              </select>
+            </label>
+
+            <div class="filter-group filter-group--status">
+              <span class="filter-label">보유 상태</span>
+              <div id="pokemon-search-status" class="segmented-control" role="group" aria-label="보유 상태 선택">
+                <button class="is-active" type="button" data-status="all">전체</button>
+                <button type="button" data-status="owned">보유</button>
+                <button type="button" data-status="missing">미보유</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-bar">
+            <p>
+              검색 결과 <strong id="pokemon-search-result-count">0</strong>장
+              <span id="pokemon-search-active-filter"></span>
+            </p>
+            <button id="pokemon-search-reset" class="text-button" type="button" hidden>검색 초기화</button>
+          </div>
+
+          <div id="pokemon-search-grid" class="card-grid pokemon-search-grid" aria-live="polite" aria-busy="true"></div>
+
+          <div id="pokemon-search-empty" class="empty-state pokemon-search-empty">
+            <span class="empty-ball" aria-hidden="true"><span></span></span>
+            <h3>포켓몬 이름을 검색해 주세요</h3>
+            <p>예: 피카츄, 리자몽, 루카리오</p>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./news.html">새소식</a>
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+              <a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">검색 결과는 현재 시리즈 도감 데이터와 동일한 보유 상태를 사용합니다.</p>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="pokemon-search-dialog" class="card-dialog">
+      <button id="pokemon-search-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button>
+      <div id="pokemon-search-dialog-image-wrap" class="dialog-card-image catalog-dialog-image">
+        <img id="pokemon-search-dialog-image" src="" alt="">
+      </div>
+      <div class="dialog-card-copy">
+        <div class="dialog-badges">
+          <span id="pokemon-search-dialog-code" class="number-badge"></span>
+          <span id="pokemon-search-dialog-status" class="status-badge"></span>
+        </div>
+        <h2 id="pokemon-search-dialog-name"></h2>
+        <p id="pokemon-search-dialog-meta" class="dialog-name-en"></p>
+        <dl class="dialog-details">
+          <div><dt>시리즈</dt><dd id="pokemon-search-dialog-era"></dd></div>
+          <div><dt>수록 세트</dt><dd id="pokemon-search-dialog-set"></dd></div>
+        </dl>
+        <div class="pokemon-search-dialog-actions">
+          <button id="pokemon-search-toggle-owned" class="primary-button" type="button">보유로 변경</button>
+        </div>
+        <p id="pokemon-search-dialog-message" class="series-editor-message" aria-live="polite"></p>
+      </div>
+    </dialog>
+
+    <div id="pokemon-search-error" class="app-error" role="alert" hidden>
+      <strong>검색 데이터를 불러오지 못했습니다.</strong>
+      <span>잠시 후 페이지를 새로고침해 주세요.</span>
+    </div>
+  </body>
+</html>
