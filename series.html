@@ -6,7 +6,7 @@
     <title>디지털 카드 바인더</title>
     <link rel="stylesheet" href="./styles.css?v=20260813-3">
     <link rel="stylesheet" href="./legal.css?v=20260806-1">
-    <link rel="stylesheet" href="./catalog.css?v=20260813-2">
+    <link rel="stylesheet" href="./catalog.css?v=20260920-2">
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2">
     <link rel="stylesheet" href="./collector.css?v=20260814-1">
     <script src="./firebase-config.js?v=20260918-1" defer></script>
@@ -25,7 +25,7 @@
     <script src="./series-mega-supplement.js?v=20260825-1" defer></script>
     <script src="./series-scope-filter.js?v=20260826-1" defer></script>
     <script src="./series-image-loader.js?v=20260822-1" defer></script>
-    <script src="./catalog.js?v=20260920-1" defer></script>
+    <script src="./catalog.js?v=20260920-2" defer></script>
   </head>
   <body data-catalog="series">
     <header class="site-header">
@@ -126,24 +126,26 @@
           <div class="catalog-heading">
             <div>
               <p class="section-kicker">SERIES CATALOG</p>
-              <h2>시리즈별 카드 목록</h2>
+              <h2 id="catalog-section-title">시리즈 전체 현황</h2>
             </div>
-            <p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p>
+            <p id="catalog-section-caption" class="catalog-caption">시리즈를 선택하면 세트별 카드 목록을 확인할 수 있습니다.</p>
           </div>
           <div class="catalog-era-filter">
             <span class="filter-label">시리즈 카테고리</span>
             <div id="catalog-era" class="catalog-era-tabs" role="tablist" aria-label="시리즈 카테고리 선택">
+              <button class="is-active" type="button" role="tab" data-era="ALL" aria-selected="true" tabindex="0"><strong>전체</strong><span>ALL</span></button>
               <button type="button" role="tab" data-era="ORIGIN" aria-selected="false" tabindex="-1"><strong>오리지널</strong><span>ORIGIN</span></button>
               <button type="button" role="tab" data-era="ADV" aria-selected="false" tabindex="-1"><strong>ADV</strong><span>ADV</span></button>
               <button type="button" role="tab" data-era="DP" aria-selected="false" tabindex="-1"><strong>DP</strong><span>DP</span></button>
               <button type="button" role="tab" data-era="BW" aria-selected="false" tabindex="-1"><strong>BW</strong><span>BW</span></button>
               <button type="button" role="tab" data-era="XY" aria-selected="false" tabindex="-1"><strong>XY</strong><span>XY</span></button>
-              <button class="is-active" type="button" role="tab" data-era="SM" aria-selected="true" tabindex="0"><strong>썬&amp;문</strong><span>SM</span></button>
+              <button type="button" role="tab" data-era="SM" aria-selected="false" tabindex="-1"><strong>썬&amp;문</strong><span>SM</span></button>
               <button type="button" role="tab" data-era="S" aria-selected="false" tabindex="-1"><strong>소드&amp;실드</strong><span>S</span></button>
               <button type="button" role="tab" data-era="SV" aria-selected="false" tabindex="-1"><strong>스칼렛&amp;바이올렛</strong><span>SV</span></button>
               <button type="button" role="tab" data-era="M" aria-selected="false" tabindex="-1"><strong>MEGA</strong><span>M</span></button>
             </div>
           </div>
+          <section id="series-dashboard" class="series-dashboard" aria-label="시리즈별 수집 현황"></section>
           <div class="catalog-toolbar">
             <label class="catalog-select">
               <span class="filter-label">시리즈 선택</span>
