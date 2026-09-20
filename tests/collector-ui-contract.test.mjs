@@ -234,10 +234,10 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   assert.match(page, /data-catalog="series"/);
   assert.match(page, /firebase-page-manager[.]js[?]v=20260921-1/);
   assert.match(page, /pokemon-search[.]js[?]v=20260921-3/);
-  assert.match(client, /await account[.]refreshAccountData[?][.]()/);
-  assert.match(client, /account[.]applyGroups\(state[.]groups\)/);
+  assert.ok(client.includes("await account.refreshAccountData?.();"));
+  assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
-  assert.match(client, /account[.]saveOwned(item[.]card[.]accountKey, nextOwned)/);
+  assert.ok(client.includes("await account.saveOwned(item.card.accountKey, nextOwned);"));
   assert.match(manager, /getDocFromServer/);
   assert.match(manager, /refreshAccountData/);
 });
