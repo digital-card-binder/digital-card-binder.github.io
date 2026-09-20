@@ -280,6 +280,7 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
 
   assert.match(page, /id="catalog-era"[^>]*role="tablist"/);
   for (const [era, label] of [
+    ["ALL", "전체"],
     ["SM", "썬&amp;문"],
     ["S", "소드&amp;실드"],
     ["SV", "스칼렛&amp;바이올렛"],
@@ -287,15 +288,17 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   ]) {
     assert.match(page, new RegExp(`data-era="${era}"[^>]*>[\\s\\S]*?${label}`));
   }
-  const eraIndices = ["SM", "S", "SV", "M"].map((era) => page.indexOf(`data-era="${era}"`));
+  const eraIndices = ["ALL", "SM", "S", "SV", "M"].map((era) => page.indexOf(`data-era="${era}"`));
   assert.ok(eraIndices.every((index, position) => position === 0 || eraIndices[position - 1] < index));
-  assert.match(page, /class="is-active"[^>]*data-era="SM"[^>]*aria-selected="true"/);
-  assert.match(client, /let activeEra = "SM";/);
+  assert.match(page, /class="is-active"[^>]*data-era="ALL"[^>]*aria-selected="true"/);
+  assert.match(client, /let activeEra = mode === "series" \? "ALL" : "SM";/);
+  assert.match(page, /id="series-dashboard"/);
+  assert.match(client, /function renderSeriesDashboard\(\)/);
   assert.match(client, /function seriesEra\(group\)/);
   assert.match(client, /groups[.]filter\(\(group\) => seriesEra\(group\) === activeEra\)/);
   assert.match(client, /group[.]displayName/);
   assert.match(css, /[.]catalog-era-tabs\{/);
-  assert.match(css, /grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(css, /grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
   assert.equal(page.includes("33 SETS"), false);
 });
