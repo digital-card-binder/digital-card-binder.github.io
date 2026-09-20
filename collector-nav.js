@@ -134,8 +134,8 @@
     if (arCount) arCount.textContent = "SV · M · 510 CARDS";
 
     settings?.remove();
-    dashboard.after(directory);
-    directory.after(pokemonSearch);
+    dashboard.after(pokemonSearch);
+    pokemonSearch.after(directory);
     const people = nav.querySelector('[href*="people.html"]');
     const trainerIcon = trainerPokemon.querySelector(".collection-icon");
     if (trainerIcon) trainerIcon.textContent = "08";
