@@ -81,6 +81,14 @@
         "도감 갤러리",
         "PUBLIC BOARD",
       );
+    const pokemonSearch =
+      nav.querySelector('[href*="pokemon-search.html"]') ||
+      navigationLink(
+        "./pokemon-search.html",
+        "⌕",
+        "포켓몬 검색",
+        "ALL CARD SEARCH",
+      );
     nav.querySelector('[href*="trades.html"]')?.remove();
     const trainerPokemon =
       nav.querySelector('[href*="trainer-pokemon.html"]') ||
@@ -126,7 +134,8 @@
     if (arCount) arCount.textContent = "SV · M · 510 CARDS";
 
     settings?.remove();
-    dashboard.after(directory);
+    dashboard.after(pokemonSearch);
+    pokemonSearch.after(directory);
     const people = nav.querySelector('[href*="people.html"]');
     const trainerIcon = trainerPokemon.querySelector(".collection-icon");
     if (trainerIcon) trainerIcon.textContent = "08";
@@ -428,7 +437,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration", "pokemon-search"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
