@@ -1,0 +1,93 @@
+name: Download card image batch
+description: Restore the cumulative image cache and process one rate-limited batch.
+
+inputs:
+  project:
+    description: Cloudflare image project (modern or legacy)
+    required: true
+  root:
+    description: Optional manifest root such as SV, MEGA, or S
+    required: false
+    default: ""
+  phase:
+    description: Stable phase label used in cache and artifact names
+    required: true
+  batch:
+    description: One-based batch number
+    required: true
+  offset:
+    description: Zero-based offset inside the selected phase
+    required: true
+  limit:
+    description: Number of assets in this batch
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install image converter
+      shell: bash
+      run: python -m pip install --quiet "Pillow==12.3.0"
+
+    - name: Build migration manifest
+      shell: bash
+      run: node scripts/build-card-image-manifest.mjs
+
+    - name: Restore cumulative image cache
+      id: image-cache
+      uses: actions/cache/restore@v4
+      with:
+        path: tmp/card-images/build/${{ inputs.project }}
+        key: card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-${{ github.run_id }}-${{ inputs.phase }}-${{ inputs.batch }}
+        restore-keys: |
+          card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-
+          card-images-v1-${{ runner.os }}-${{ inputs.project }}-
+
+    - name: Download one rate-limited batch
+      shell: bash
+      env:
+        SELECTED_PROJECT: ${{ inputs.project }}
+        SELECTED_ROOT: ${{ inputs.root }}
+        BATCH_OFFSET: ${{ inputs.offset }}
+        BATCH_LIMIT: ${{ inputs.limit }}
+      run: |
+        set -euo pipefail
+        ROOT_ARGS=()
+        if [ -n "$SELECTED_ROOT" ]; then
+          ROOT_ARGS+=(--root "$SELECTED_ROOT")
+        fi
+        python scripts/download_card_images.py \
+          --project "$SELECTED_PROJECT" \
+          "${ROOT_ARGS[@]}" \
+          --offset "$BATCH_OFFSET" \
+          --limit "$BATCH_LIMIT" \
+          --min-delay 2.0 \
+          --allow-failures
+
+    - name: Save cumulative image cache
+      if: always()
+      uses: actions/cache/save@v4
+      with:
+        path: tmp/card-images/build/${{ inputs.project }}
+        key: ${{ steps.image-cache.outputs.cache-primary-key }}
+
+    - name: Upload batch migration report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: card-image-${{ inputs.project }}-${{ inputs.phase }}-${{ github.run_id }}-${{ inputs.batch }}
+        path: |
+          tmp/card-images/migration-log.jsonl
+          tmp/card-images/failures-${{ inputs.project }}.json
+        if-no-files-found: ignore
+        retention-days: 14
