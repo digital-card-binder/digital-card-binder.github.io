@@ -556,12 +556,6 @@
     if (el("world-dialog-set")) el("world-dialog-set").textContent = item.setName || "—";
     if (el("world-dialog-number")) el("world-dialog-number").textContent = [item.number, item.rarity].filter(Boolean).join(" · ") || "—";
 
-    const sourceLink = el("world-dialog-source");
-    if (sourceLink) {
-      sourceLink.hidden = !item.source;
-      sourceLink.href = item.source || "https://pokemoncard.co.kr/cards";
-    }
-
     if (el("world-edit-set-code")) el("world-edit-set-code").value = item.setCode || inferSetCodeFromImage(item.image);
     if (el("world-edit-card-number")) el("world-edit-card-number").value = item.number || "";
     if (el("world-edit-card-name")) el("world-edit-card-name").value = item.cardName || "";
@@ -617,7 +611,6 @@
         setCode,
         number: cardNumber,
         rarity,
-        source: "https://pokemoncard.co.kr/cards",
       };
       saveCardOverrides();
       renderAll();
