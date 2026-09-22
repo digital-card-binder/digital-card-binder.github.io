@@ -89,7 +89,6 @@
       rarity: extra.rarity,
       image: `https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_${token}.png?w=400`,
       imageBw: "",
-      source: `https://pokemoncard.co.kr/cards/detail/BS2026005${token}`,
       cardNumber: `${token}/076 ${extra.rarity}`,
     };
   }

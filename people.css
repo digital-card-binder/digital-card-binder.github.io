@@ -388,11 +388,6 @@
   border-radius: 9px;
   background: #f2f4f7;
   object-fit: contain;
-  transition: transform 0.18s ease;
-}
-
-.people-archive-card:hover img {
-  transform: translateY(-2px);
 }
 
 .people-archive-card strong,
@@ -409,12 +404,6 @@
 .people-archive-card small {
   color: var(--ink-faint);
   font-size: 0.54rem;
-}
-
-.people-archive-link-label {
-  color: var(--blue);
-  font-size: 0.56rem;
-  font-weight: 800;
 }
 
 .people-card-empty {

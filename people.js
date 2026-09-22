@@ -388,12 +388,8 @@ function renderDialogCardList(person) {
   setPeopleText("people-dialog-card-count", `${person.cards.length}장 연결`);
 
   person.cards.forEach((card) => {
-    const link = document.createElement("a");
-    link.className = "people-archive-card";
-    link.href = card.source;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", `${card.name} 카드 정보 보기`);
+    const cardItem = document.createElement("article");
+    cardItem.className = "people-archive-card";
 
     const image = document.createElement("img");
     image.src = card.image;
@@ -403,11 +399,8 @@ function renderDialogCardList(person) {
     name.textContent = card.name;
     const meta = document.createElement("small");
     meta.textContent = `${card.set} · ${card.number} · 한국어판`;
-    const linkLabel = document.createElement("span");
-    linkLabel.className = "people-archive-link-label";
-    linkLabel.textContent = "카드 정보 보기 ↗";
-    link.append(image, name, meta, linkLabel);
-    list.append(link);
+    cardItem.append(image, name, meta);
+    list.append(cardItem);
   });
 }
 

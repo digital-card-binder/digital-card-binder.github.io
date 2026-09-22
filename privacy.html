@@ -190,17 +190,24 @@
                   <td>IP 주소, 요청 시각, 브라우저·기기 정보 등 접속 로그</td>
                   <td>국외를 포함한 GitHub 인프라에서 GitHub 정책에 따라 처리</td>
                 </tr>
+                <tr>
+                  <td>Cloudflare, Inc.<br />Cloudflare Pages</td>
+                  <td>카드 이미지 정적 파일 호스팅과 전송</td>
+                  <td>IP 주소, 요청 시각, 브라우저·기기 정보 등 접속 로그</td>
+                  <td>국외를 포함한 Cloudflare 인프라에서 Cloudflare 정책에 따라 처리</td>
+                </tr>
               </tbody>
             </table>
           </div>
           <p>
             위 서비스 이용 시 정보가 국외에서 처리될 수 있으며, 이용 시점에 네트워크를 통해 전송됩니다.
             로그인하지 않고 공개 도감을 열람할 수는 있지만, 공개 프로필·도감 데이터와 이미지를 불러오는 과정에서도
-            GitHub Pages, Firebase 및 외부 이미지 제공 서버와의 기본 통신은 발생할 수 있습니다.
+            GitHub Pages, Firebase, Cloudflare Pages 및 필요한 외부 제공 서버와의 기본 통신은 발생할 수 있습니다.
           </p>
           <h3>외부 이미지·글꼴 제공 서버</h3>
           <p>
-            카드 이미지와 글꼴은 포켓몬코리아 이미지 서버, Collectory CDN, Google Fonts 등 외부 서버에서 불러올 수 있습니다.
+            카드 이미지는 주로 Cloudflare Pages 정적 저장소에서 제공하며, 이용자가 직접 등록한 외부 이미지와 글꼴은
+            해당 이미지 제공 서버 또는 Google Fonts 등에서 불러올 수 있습니다.
             이 과정에서 해당 제공자에게 IP 주소, 접속 시각, 리퍼러 등의 정보가 자동 전달될 수 있으며,
             각 제공자의 개인정보처리방침이 적용됩니다.
           </p>
@@ -208,7 +215,8 @@
             자세한 내용은
             <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase 개인정보·보안 안내</a>,
             <a href="https://policies.google.com/privacy?hl=ko" target="_blank" rel="noopener noreferrer">Google 개인정보처리방침</a>,
-            <a href="https://docs.github.com/ko/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub 개인정보처리방침</a>에서 확인할 수 있습니다.
+            <a href="https://docs.github.com/ko/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub 개인정보처리방침</a>,
+            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare 개인정보처리방침</a>에서 확인할 수 있습니다.
           </p>
         </section>
 
@@ -259,7 +267,7 @@
         <section id="external" class="legal-section">
           <h2>9. 외부 링크와 자동화된 결정</h2>
           <p>
-            사이트에는 포켓몬 카드 공식 사이트, Google, 외부 이미지 제공 서버 등으로 이동하는 링크가 포함될 수 있습니다.
+            사이트에는 로그인·인증 및 이용자가 직접 등록한 외부 주소로 이동하는 링크가 포함될 수 있습니다.
             외부 사이트에서 이루어지는 개인정보 처리는 해당 사이트의 정책을 확인해 주세요.
           </p>
           <p>디지털 카드 바인더는 개인정보를 이용해 이용자에게 법적·경제적 효과를 주는 자동화된 의사결정을 하지 않습니다.</p>
@@ -298,7 +306,6 @@
             <a href="./privacy.html" aria-current="page">개인정보처리방침</a>
             <a href="./terms.html">이용약관</a>
             <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
-            <a href="https://pokemoncard.co.kr/" target="_blank" rel="noopener noreferrer">포켓몬 카드 공식 사이트 ↗</a>
           </nav>
           <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
           <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>

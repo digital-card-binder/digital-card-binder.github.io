@@ -443,7 +443,6 @@
       </div>
       <div class="collection-editor-grid">
         <label class="collection-editor-wide"><span>카드 이미지 URL</span><input id="people-edit-image-url" type="url" inputmode="url" placeholder="https://cards.image.pokemonkorea.co.kr/..." /></label>
-        <label class="collection-editor-wide"><span>카드 상세 링크</span><input id="people-edit-card-url" type="url" inputmode="url" placeholder="https://pokemoncard.co.kr/... 또는 카드 정보 페이지" /></label>
         <label><span>카드명</span><input id="people-edit-card-name" type="text" /></label>
         <label><span>세트명</span><input id="people-edit-set-name" type="text" /></label>
         <label class="collection-editor-wide"><span>카드번호</span><input id="people-edit-card-number" type="text" placeholder="예: 191/173" /></label>
@@ -471,7 +470,6 @@
     const item = normalizeOverride(remoteOverrides[person.id]);
     const card = person.cards?.[0] || null;
     setInput("people-edit-image-url", item?.imageUrl || person.image || "");
-    setInput("people-edit-card-url", item?.cardUrl || card?.source || "");
     setInput("people-edit-card-name", item?.cardName || card?.name || person.nameKo);
     setInput("people-edit-set-name", item?.setName || card?.set || "");
     setInput("people-edit-card-number", item?.cardNumber || card?.number || "");
@@ -547,7 +545,6 @@
   async function saveCurrent() {
     if (!currentPerson || !canEdit()) return;
     const imageUrl = document.querySelector("#people-edit-image-url")?.value.trim() || "";
-    const cardUrl = document.querySelector("#people-edit-card-url")?.value.trim() || "";
     const soloConfirmed = Boolean(
       document.querySelector("#people-edit-solo-confirm")?.checked,
     );
@@ -558,10 +555,6 @@
         "cards.image.pokemonkorea.co.kr로 시작하는 한국어판 카드 이미지 URL을 입력해 주세요.",
         "error",
       );
-      return;
-    }
-    if (cardUrl && !validHttpUrl(cardUrl)) {
-      setEditorMessage("카드 상세 링크 형식을 확인해 주세요.", "error");
       return;
     }
     if (!soloConfirmed) {
@@ -578,7 +571,6 @@
       }
       const item = {
         imageUrl,
-        cardUrl: validHttpUrl(cardUrl)?.href || "",
         cardName: document.querySelector("#people-edit-card-name")?.value.trim() || "",
         setName: document.querySelector("#people-edit-set-name")?.value.trim() || "",
         cardNumber: document.querySelector("#people-edit-card-number")?.value.trim() || "",

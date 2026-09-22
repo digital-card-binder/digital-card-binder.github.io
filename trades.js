@@ -159,7 +159,8 @@
   }
 
   function cardImage(card, alt = "") {
-    const imageUrl = safeImageUrl(card?.imageUrl);
+    const sourceUrl = safeImageUrl(card?.imageUrl);
+    const imageUrl = window.DigitalCardBinderImageCdn?.resolve(sourceUrl) || sourceUrl;
     return imageUrl
       ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(alt || card?.name)}" loading="lazy" />`
       : '<span class="trade-image-placeholder" aria-hidden="true">CARD</span>';
