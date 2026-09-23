@@ -75,7 +75,7 @@ function synchronize(filename, source) {
   let next = source;
 
   if (next.includes('class="site-header"')) {
-    const brandPattern = /<a class="brand"\b[\s\S]*?<\/a>/;
+    const brandPattern = /<a class="brand"[\s\S]*?<\/a>/;
     if (!brandPattern.test(next)) throw new Error(`${filename}: site header brand is missing`);
     next = next.replace(brandPattern, brand);
   }
