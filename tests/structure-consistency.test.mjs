@@ -80,10 +80,11 @@ test("static navigation does not ship known stale collection counts", () => {
 });
 
 
-test("pokemon search consumes the shared series catalog", () => {
-  assert.match(pokemonSearch, /catalogService[.]series[(][)]/);
-  assert.match(pokemonSearch, /catalogService[.]json[(]["']\.[/]data[/]pokedex[.]json["'][)]/);
-  assert.doesNotMatch(pokemonSearch, /["']\.[/]data[/]series(?:-legacy)?[.]json["']/);
-  assert.doesNotMatch(pokemonSearch, /function mergeSeriesGroups/);
-  assert.doesNotMatch(pokemonSearch, /function tagSeriesGroups/);
+test("pokemon search consumes the generated lightweight search index", () => {
+  assert.match(catalogService, /async function pokemonSearchIndex[(][)]/);
+  assert.match(catalogService, /[.]\/data\/pokemon-search-index[.]json/);
+  assert.match(pokemonSearch, /catalogService[.]pokemonSearchIndex[(][)]/);
+  assert.match(pokemonSearch, /function decodeSearchIndex/);
+  assert.doesNotMatch(pokemonSearch, /catalogService[.]series[(][)]/);
+  assert.doesNotMatch(pokemonSearch, /[.]\/data\/(?:series|series-legacy|pokedex)[.]json/);
 });
