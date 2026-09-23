@@ -108,8 +108,9 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
     assert.ok(manifest.counts.legacy + 3 < 20_000);
     assert.equal(manifest.counts.external, 969);
 
-    // Recovery changes sources, never the public route or number of expected assets.
-    assert.equal(manifest.counts.total, 16662);
+    // The catalog's non-existent M1L 093 entry must not create an image destination.
+    assert.equal(manifest.counts.total, 16661);
+    assert.ok(!manifest.assets.some((asset) => asset.relativePath === "data/wmimages/MEGA/M1L/M1L_093.webp"));
     const repaired = manifest.assets.find((asset) => asset.relativePath === "data/wmimages/MEGA/M2/M2_116.webp");
     assert.equal(repaired.project, "modern");
     assert.match(repaired.sourceUrls[0], /^https:\/\/static[.]tcgexchange[.]kr\//);
