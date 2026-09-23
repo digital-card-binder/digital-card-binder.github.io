@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Synchronize Pokemon search index
+        run: npm run search-index:sync
       - name: Synchronize shared site shell
         run: npm run shell:sync
       - name: Synchronize cache versions
@@ -43,8 +45,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*.html' collector-nav.js pwa.js site-version.json
-          git commit -m "chore: sync generated site shell and asset versions"
+          git add -- '*.html' collector-nav.js pwa.js site-version.json data/pokemon-search-index.json
+          git commit -m "chore: sync generated site artifacts"
           git push origin "HEAD:${{ github.head_ref }}"
 
   test:
