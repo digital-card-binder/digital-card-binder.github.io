@@ -88,28 +88,74 @@
     return destinationFor(value) || String(value || "");
   }
 
+  const sourceDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
+  const nativeSetAttribute = Element.prototype.setAttribute;
+  const originalSources = new WeakMap();
+  const fallbackAttempts = new WeakSet();
+
+  function sourceFor(image, value) {
+    const original = String(value || "");
+    const destination = resolve(original);
+    if (enabled && destination && destination !== original) {
+      originalSources.set(image, original);
+      fallbackAttempts.delete(image);
+      return destination;
+    }
+    originalSources.delete(image);
+    fallbackAttempts.delete(image);
+    return original;
+  }
+
+  function restoreOriginal(image) {
+    if (!(image instanceof HTMLImageElement)) return false;
+    const original = originalSources.get(image);
+    if (!original || fallbackAttempts.has(image)) return false;
+    fallbackAttempts.add(image);
+    if (sourceDescriptor?.set) {
+      sourceDescriptor.set.call(image, original);
+    } else {
+      nativeSetAttribute.call(image, "src", original);
+    }
+    return true;
+  }
+
   window.DigitalCardBinderImageCdn = Object.freeze({
-    version: "2026-09-23.1",
+    version: "2026-09-23.2",
     enabled,
     resolve,
     destinationFor,
+    restoreOriginal,
   });
 
   if (!enabled) return;
 
-  const sourceDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
   if (sourceDescriptor?.get && sourceDescriptor?.set && sourceDescriptor.configurable) {
     Object.defineProperty(HTMLImageElement.prototype, "src", {
       ...sourceDescriptor,
       set(value) {
-        sourceDescriptor.set.call(this, resolve(value));
+        sourceDescriptor.set.call(this, sourceFor(this, value));
       },
     });
   }
 
-  const nativeSetAttribute = Element.prototype.setAttribute;
   HTMLImageElement.prototype.setAttribute = function imageCdnSetAttribute(name, value) {
-    const nextValue = String(name).toLowerCase() === "src" ? resolve(value) : value;
+    const nextValue =
+      String(name).toLowerCase() === "src"
+        ? sourceFor(this, value)
+        : value;
     return nativeSetAttribute.call(this, name, nextValue);
   };
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    document.addEventListener(
+      "error",
+      (event) => {
+        if (!(event.target instanceof HTMLImageElement)) return;
+        if (!restoreOriginal(event.target)) return;
+        event.stopImmediatePropagation?.();
+        event.stopPropagation?.();
+      },
+      true,
+    );
+  }
 })();

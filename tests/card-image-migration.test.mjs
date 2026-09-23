@@ -53,6 +53,8 @@ function loadBrowserRouter(search = "") {
     Object,
     String,
     BigInt,
+    WeakMap,
+    WeakSet,
     Element,
     HTMLImageElement,
   });
@@ -155,6 +157,17 @@ test("browser routing is enabled after cutover and routes supported images to Pa
   const preview = loadBrowserRouter("?card-image-cdn-preview=1");
   assert.equal(preview.window.DigitalCardBinderImageCdn.enabled, true);
   assert.equal(preview.window.DigitalCardBinderImageCdn.resolve(official), expected);
+
+  const ownedOverride =
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_009.png?w=512";
+  const ownedOverrideCdn =
+    "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM9B/SM9b_009.webp";
+  const fallbackImage = new active.HTMLImageElement();
+  fallbackImage.src = ownedOverride;
+  assert.equal(fallbackImage.src, ownedOverrideCdn);
+  assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), true);
+  assert.equal(fallbackImage.src, ownedOverride);
+  assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), false);
 
   const unsupported = "https://example.com/card.png";
   propertyImage.src = unsupported;
