@@ -11,6 +11,7 @@
   }
 
   const mode = document.body?.dataset.catalog || "";
+  const arView = mode === "ar" && new URLSearchParams(window.location.search).get("view") === "series" ? "series" : "national";
   const page = registry.COLLECTIONS?.[mode];
   if (!page?.documentId) return;
 
@@ -69,13 +70,14 @@
   }
 
   function cardIdentity(group, card, groupIndex, cardIndex) {
-    return identityService.cardIdentity(
+    const key = identityService.cardIdentity(
       mode,
       group,
       card,
       groupIndex,
       cardIndex,
     );
+    return mode === "ar" && arView === "national" ? `national::${key}` : key;
   }
 
   function applyGroups(groups) {
