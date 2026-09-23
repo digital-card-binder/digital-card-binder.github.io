@@ -8,18 +8,16 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const checkOnly = process.argv.includes("--check");
 const manifestPath = path.join(root, "site-version.json");
 const navPath = path.join(root, "collector-nav.js");
-const pwaPath = path.join(root, "pwa.js");
-const swPath = path.join(root, "sw.js");
 const LOCAL_ASSET_RE = /((?:src|href)=["']\.\/)([^"'?#]+\.(?:js|css))(?:\?v=[^"']*)?(["'])/g;
+const RUNTIME_REF_RE = /(["'`])((?:\.\/|\/)[^"'`?#]+\.(?:js|css|json|webp|svg|webmanifest))\?v=([A-Za-z0-9._-]+)\1/g;
 const NAV_BUILD_RE = /const SITE_BUILD_VERSION = "[^"]*";/;
-const SW_URL_RE = /const SERVICE_WORKER_URL = "\/sw[.]js(?:\?v=[^"]+)?";/;
 
 function hashText(text) {
   return createHash("sha256").update(text, "utf8").digest("hex").slice(0, 12);
 }
 
-function gitBlobVersion(text) {
-  const body = Buffer.from(text, "utf8");
+function gitBlobVersion(value) {
+  const body = Buffer.isBuffer(value) ? value : Buffer.from(value, "utf8");
   return createHash("sha1")
     .update(Buffer.from(`blob ${body.length}\0`, "utf8"))
     .update(body)
@@ -31,6 +29,13 @@ function normalizePage(html) {
   return html.replace(
     LOCAL_ASSET_RE,
     (_match, prefix, asset, quote) => `${prefix}${asset}?v=__AUTO__${quote}`,
+  );
+}
+
+function normalizeRuntimeRefs(source) {
+  return source.replace(
+    RUNTIME_REF_RE,
+    (_match, quote, target) => `${quote}${target}?v=__AUTO__${quote}`,
   );
 }
 
@@ -55,73 +60,131 @@ function rewritePage(html, versions) {
   );
 }
 
+function targetPathFromUrl(url) {
+  return url.startsWith("./") ? url.slice(2) : url.slice(1);
+}
+
 async function readable(relativePath) {
   await access(path.join(root, relativePath), constants.R_OK);
 }
 
 async function main() {
-  const htmlFiles = (await readdir(root))
-    .filter((name) => name.endsWith(".html"))
-    .sort();
+  const rootFiles = await readdir(root);
+  const htmlFiles = rootFiles.filter((name) => name.endsWith(".html")).sort();
+  const rootJsFiles = rootFiles.filter((name) => name.endsWith(".js")).sort();
 
   const htmlSources = new Map();
-  const assets = new Set();
-
+  const htmlAssets = new Set();
   for (const page of htmlFiles) {
     const source = await readFile(path.join(root, page), "utf8");
     htmlSources.set(page, source);
-    for (const match of source.matchAll(LOCAL_ASSET_RE)) assets.add(match[2]);
+    for (const match of source.matchAll(LOCAL_ASSET_RE)) htmlAssets.add(match[2]);
   }
 
-  const swSource = await readFile(swPath, "utf8");
-  const swVersion = gitBlobVersion(swSource);
-  const rawPwa = await readFile(pwaPath, "utf8");
-  if (!SW_URL_RE.test(rawPwa)) {
-    throw new Error("pwa.js: SERVICE_WORKER_URL marker missing");
+  const rawJs = new Map();
+  for (const file of rootJsFiles) {
+    rawJs.set(file, await readFile(path.join(root, file), "utf8"));
   }
-  const expectedPwa = rawPwa.replace(
-    SW_URL_RE,
-    `const SERVICE_WORKER_URL = "/sw.js?v=${swVersion}";`,
-  );
 
-  const rawNav = await readFile(navPath, "utf8");
-  const normalizedNav = normalizeNav(rawNav);
+  const runtimeTargets = new Set();
+  for (const source of rawJs.values()) {
+    for (const match of source.matchAll(RUNTIME_REF_RE)) {
+      runtimeTargets.add(targetPathFromUrl(match[2]));
+    }
+  }
+
+  const binaryTargetCache = new Map();
+  async function targetVersion(target, jsState) {
+    if (jsState.has(target)) return gitBlobVersion(jsState.get(target));
+    if (!binaryTargetCache.has(target)) {
+      await readable(target);
+      binaryTargetCache.set(target, await readFile(path.join(root, target)));
+    }
+    return gitBlobVersion(binaryTargetCache.get(target));
+  }
+
+  let expectedJs = new Map(rawJs);
+  let converged = false;
+  for (let iteration = 0; iteration < 12; iteration += 1) {
+    const next = new Map();
+    let changed = false;
+
+    for (const [file, rawSource] of rawJs) {
+      const rewritten = await replaceRuntimeRefs(rawSource, async (target) =>
+        targetVersion(target, expectedJs),
+      );
+      next.set(file, rewritten);
+      if (rewritten !== expectedJs.get(file)) changed = true;
+    }
+
+    expectedJs = next;
+    if (!changed) {
+      converged = true;
+      break;
+    }
+  }
+  if (!converged) {
+    throw new Error("Runtime asset version dependencies did not converge.");
+  }
+
+  const normalizedNav = normalizeNav(normalizeRuntimeRefs(expectedJs.get("collector-nav.js")));
 
   const buildBasisAssets = {};
-  const assetSources = new Map();
-  for (const asset of [...assets].sort()) {
+  for (const asset of [...htmlAssets].sort()) {
     await readable(asset);
-    let source = await readFile(path.join(root, asset), "utf8");
-    if (asset === "pwa.js") source = expectedPwa;
-    assetSources.set(asset, source);
-    buildBasisAssets[asset] = asset === "collector-nav.js"
-      ? gitBlobVersion(normalizedNav)
-      : gitBlobVersion(source);
+    if (expectedJs.has(asset)) {
+      const source = asset === "collector-nav.js"
+        ? normalizedNav
+        : expectedJs.get(asset);
+      buildBasisAssets[asset] = gitBlobVersion(source);
+    } else {
+      buildBasisAssets[asset] = gitBlobVersion(await readFile(path.join(root, asset)));
+    }
   }
-  buildBasisAssets["sw.js"] = swVersion;
+
+  const runtimeVersions = {};
+  for (const target of [...runtimeTargets].sort()) {
+    runtimeVersions[target] = await targetVersion(target, expectedJs);
+  }
 
   const pages = {};
   for (const [page, source] of htmlSources) {
     pages[page] = hashText(normalizePage(source));
   }
 
+  const runtimeParents = {};
+  for (const [file, source] of expectedJs) {
+    if (RUNTIME_REF_RE.test(rawJs.get(file))) {
+      RUNTIME_REF_RE.lastIndex = 0;
+      runtimeParents[file] = hashText(normalizeRuntimeRefs(source));
+    } else {
+      RUNTIME_REF_RE.lastIndex = 0;
+    }
+  }
+
   const buildPayload = JSON.stringify({
     assets: Object.entries(buildBasisAssets).sort(([a], [b]) => a.localeCompare(b)),
+    runtimeTargets: Object.entries(runtimeVersions).sort(([a], [b]) => a.localeCompare(b)),
+    runtimeParents: Object.entries(runtimeParents).sort(([a], [b]) => a.localeCompare(b)),
     pages: Object.entries(pages).sort(([a], [b]) => a.localeCompare(b)),
   });
   const buildVersion = `b-${hashText(buildPayload)}`;
 
-  const expectedNav = rawNav.replace(
+  const navWithRuntimeVersions = expectedJs.get("collector-nav.js");
+  const expectedNav = navWithRuntimeVersions.replace(
     NAV_BUILD_RE,
     `const SITE_BUILD_VERSION = "${buildVersion}";`,
   );
-  assetSources.set("collector-nav.js", expectedNav);
+  expectedJs.set("collector-nav.js", expectedNav);
 
-  const versions = {};
-  for (const asset of [...assets].sort()) {
-    versions[asset] = gitBlobVersion(assetSources.get(asset));
+  const versions = { ...runtimeVersions };
+  for (const asset of [...htmlAssets].sort()) {
+    if (expectedJs.has(asset)) {
+      versions[asset] = gitBlobVersion(expectedJs.get(asset));
+    } else {
+      versions[asset] = gitBlobVersion(await readFile(path.join(root, asset)));
+    }
   }
-  versions["sw.js"] = swVersion;
 
   const expectedPages = new Map();
   for (const [page, source] of htmlSources) {
@@ -131,15 +194,15 @@ async function main() {
   const manifest = {
     version: buildVersion,
     algorithm: "git-blob-sha1-12",
-    assets: versions,
+    assets: Object.fromEntries(Object.entries(versions).sort(([a], [b]) => a.localeCompare(b))),
     pages,
   };
   const expectedManifest = `${JSON.stringify(manifest, null, 2)}\n`;
 
   const stale = [];
-  if (rawNav !== expectedNav) stale.push("collector-nav.js");
-  if (rawPwa !== expectedPwa) stale.push("pwa.js");
-
+  for (const [file, expected] of expectedJs) {
+    if (rawJs.get(file) !== expected) stale.push(file);
+  }
   for (const [page, expected] of expectedPages) {
     if (htmlSources.get(page) !== expected) stale.push(page);
   }
@@ -165,15 +228,33 @@ async function main() {
     return;
   }
 
-  if (rawNav !== expectedNav) await writeFile(navPath, expectedNav);
-  if (rawPwa !== expectedPwa) await writeFile(pwaPath, expectedPwa);
+  for (const [file, expected] of expectedJs) {
+    if (rawJs.get(file) !== expected) await writeFile(path.join(root, file), expected);
+  }
   for (const [page, expected] of expectedPages) {
-    if (htmlSources.get(page) !== expected) {
-      await writeFile(path.join(root, page), expected);
-    }
+    if (htmlSources.get(page) !== expected) await writeFile(path.join(root, page), expected);
   }
   await writeFile(manifestPath, expectedManifest);
   console.log(`Synchronized ${stale.length} files for build ${buildVersion}.`);
+}
+
+async function replaceRuntimeRefs(source, resolveVersion) {
+  const matches = [...source.matchAll(RUNTIME_REF_RE)];
+  if (!matches.length) return source;
+
+  let output = "";
+  let cursor = 0;
+  for (const match of matches) {
+    const [full, quote, url] = match;
+    const start = match.index;
+    const target = targetPathFromUrl(url);
+    const version = await resolveVersion(target);
+    output += source.slice(cursor, start);
+    output += `${quote}${url}?v=${version}${quote}`;
+    cursor = start + full.length;
+  }
+  output += source.slice(cursor);
+  return output;
 }
 
 main().catch((error) => {
