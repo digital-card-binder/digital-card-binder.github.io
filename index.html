@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./dashboard.css?v=20260923-5" />
     <link rel="stylesheet" href="./collector.css?v=20260923-2" />
     <link rel="stylesheet" href="./news.css?v=20260916-3" />
-    <link rel="stylesheet" href="./pwa.css?v=20260923-3" /> 
+    <link rel="stylesheet" href="./pwa.css?v=20260923-4" /> 
     <script src="./card-image-cdn.js?v=20260923-2" defer></script>
     <script src="./firebase-config.js?v=20260923-3" defer></script>
     <script src="./site-metrics.js?v=20260923-1" defer></script>
@@ -35,7 +35,7 @@
     <script src="./dashboard.js?v=20260923-5" defer></script>
     <script src="./feedback.js?v=20260730-1" defer></script>
     <script src="./owner-sheets-sync.js?v=20260923-3" defer></script>
-    <script src="./pwa.js?v=20260923-3" defer></script>
+    <script src="./pwa.js?v=20260923-4" defer></script>
     <script src="./news.js?v=20260923-5" defer></script>
   </head>
   <body data-page="dashboard">
@@ -199,18 +199,27 @@
             </div>
             <div id="platform-app-grid" class="platform-app-grid" aria-label="앱 설치 및 알림">
               <section id="android-app-download" class="platform-app-card android-app-download" aria-label="안드로이드 앱 다운로드">
-                <div class="android-app-download-copy">
-                  <strong>안드로이드 앱</strong>
-                  <span class="android-app-download-description">APK 직접 설치</span>
+                <div class="platform-app-brand">
+                  <span class="platform-app-logo platform-app-logo--android" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M7.6 8.1h8.8c1.2 0 2.1.9 2.1 2.1v6.6c0 .8-.6 1.4-1.4 1.4h-.8v2.1c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4v-2.1h-3v2.1c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4v-2.1h-.8c-.8 0-1.4-.6-1.4-1.4v-6.6c0-1.2.9-2.1 2.1-2.1Zm-.8-1.5a5.9 5.9 0 0 1 10.4 0H6.8Zm2-4.1 1.1 1.8m5.3-1.8-1.1 1.8M9.7 10.8h.1m4.4 0h.1" />
+                    </svg>
+                  </span>
+                  <strong>안드로이드</strong>
                 </div>
-                <button id="android-app-download-button" class="android-app-download-button" type="button">다운로드 v0.9</button>
+                <button id="android-app-download-button" class="android-app-download-button" type="button">다운로드</button>
               </section>
               <section id="ios-pwa-card" class="platform-app-card ios-pwa-card" aria-label="아이폰 앱 설치 및 알림 설정">
-                <div class="ios-pwa-copy">
-                  <strong id="ios-pwa-title">아이폰 앱 설치</strong>
-                  <span id="ios-pwa-description" class="ios-pwa-description">Safari 홈 화면에 추가</span>
+                <div class="platform-app-brand">
+                  <span class="platform-app-logo platform-app-logo--appstore" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M9.15 4.2 15.9 16.4M14.85 4.2 8.1 16.4M5.2 14.1h13.6" />
+                    </svg>
+                  </span>
+                  <strong id="ios-pwa-title">아이폰</strong>
                 </div>
-                <button id="ios-pwa-button" class="ios-pwa-button" type="button">설치 방법</button>
+                <span id="ios-pwa-description" class="ios-pwa-description" hidden>Safari 홈 화면에 추가</span>
+                <button id="ios-pwa-button" class="ios-pwa-button" type="button">설치</button>
                 <p id="ios-pwa-status" class="ios-pwa-status" aria-live="polite"></p>
               </section>
             </div>
