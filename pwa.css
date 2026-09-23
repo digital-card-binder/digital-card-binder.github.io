@@ -14,47 +14,89 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px;
-  min-height: 38px;
+  gap: 9px;
+  min-height: 42px;
   border-left: 1px solid var(--line);
   padding-left: 10px;
 }
 
-.android-app-download-copy,
-.ios-pwa-copy {
-  display: grid;
-  gap: 1px;
+.platform-app-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   min-width: 0;
 }
 
-.android-app-download-copy strong,
-.ios-pwa-copy strong {
+.platform-app-brand strong {
   color: var(--ink-soft);
-  font-size: 0.65rem;
-  line-height: 1.25;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
-.android-app-download-description,
-.ios-pwa-description,
-.ios-pwa-status {
-  color: var(--ink-faint);
-  font-size: 0.56rem;
-  line-height: 1.35;
+.platform-app-logo {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  border-radius: 8px;
+}
+
+.platform-app-logo svg {
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+}
+
+.platform-app-logo--android {
+  background: #eef8f0;
+  color: #3ddc84;
+}
+
+.platform-app-logo--android svg {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.platform-app-logo--appstore {
+  background: #eef6ff;
+  color: #0a84ff;
+}
+
+.platform-app-logo--appstore svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ios-pwa-description {
+  display: none;
 }
 
 .android-app-download-button,
 .ios-pwa-button {
-  min-height: 34px;
+  min-height: 32px;
   border: 1px solid #dfe4ec;
-  border-radius: 10px;
-  background: var(--navy);
-  color: #fff;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--navy);
   cursor: pointer;
   font: inherit;
   font-size: 0.62rem;
   font-weight: 800;
-  padding: 7px 11px;
+  padding: 6px 10px;
   white-space: nowrap;
+}
+
+.android-app-download-button:hover,
+.ios-pwa-button:hover {
+  background: #f7f9fc;
 }
 
 .android-app-download-button:disabled,
@@ -65,7 +107,14 @@
 
 .ios-pwa-status {
   grid-column: 1 / -1;
-  margin: -3px 0 0;
+  margin: -2px 0 0 34px;
+  color: var(--ink-faint);
+  font-size: 0.56rem;
+  line-height: 1.35;
+}
+
+.ios-pwa-status:empty {
+  display: none;
 }
 
 @media (max-width: 690px) {
