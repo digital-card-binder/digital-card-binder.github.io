@@ -56,24 +56,6 @@
     },
   };
 
-  function navigationLink(href, icon, title, subtitle) {
-    const link = document.createElement("a");
-    link.className = "collection-link";
-    link.href = href;
-    link.innerHTML = `
-      <span class="collection-icon" aria-hidden="true">${icon}</span>
-      <span><strong>${title}</strong><small>${subtitle}</small></span>
-    `;
-    return link;
-  }
-
-  function navigationSection(title) {
-    const label = document.createElement("div");
-    label.className = "sidebar-label collection-nav-section";
-    label.textContent = title;
-    return label;
-  }
-
   function targetPage(link) {
     try {
       const url = new URL(link.getAttribute("href") || "", window.location.href);
@@ -99,119 +81,7 @@
   function arrangeCollectorNavigation() {
     const nav = document.querySelector(".collection-nav");
     if (!nav) return;
-
-    const rootLabel = document.querySelector(".sidebar > .sidebar-label");
-    if (rootLabel) rootLabel.textContent = "도감 메뉴";
-
     nav.querySelector('[href*="trades.html"]')?.remove();
-
-    const dashboard = navigationLink(
-      "./",
-      "DB",
-      "통합 대시보드",
-      "모든 도감",
-    );
-    const pokemonSearch = navigationLink(
-      "./pokemon-search.html",
-      "⌕",
-      "포켓몬 검색",
-      "전체 카드 검색",
-    );
-
-    const national = navigationLink(
-      "./national.html",
-      "01",
-      "전국도감",
-      "1세대–9세대",
-    );
-    const series = navigationLink(
-      "./series.html",
-      "02",
-      "시리즈 도감",
-      "ORIGIN · ADV · DP · BW · XY · SM · S · SV · M",
-    );
-    const ar = navigationLink(
-      "./ar.html",
-      "03",
-      "AR 전종도감",
-      "SV · M · 510장",
-    );
-    const packs = navigationLink(
-      "./packs.html",
-      "04",
-      "팩 전종수집",
-      "S · SV · M · 프로모",
-    );
-
-    const pokemonCollections = navigationLink(
-      "./pokemon-collections.html",
-      "05",
-      "포켓몬 컬렉션",
-      "67종 포켓몬",
-    );
-    const artists = navigationLink(
-      "./artists.html",
-      "06",
-      "작가 도감",
-      "40명 작가",
-    );
-    const people = navigationLink(
-      "./people.html",
-      "07",
-      "인물도감",
-      "인물 아카이브",
-    );
-    const trainerPokemon = navigationLink(
-      "./trainer-pokemon.html",
-      "08",
-      "트레이너 × 포켓몬",
-      "트레이너 × 포켓몬",
-    );
-    const fossilDex = navigationLink(
-      "./fossil.html",
-      "09",
-      "화석 도감",
-      "화석 카드",
-    );
-    const worldDex = navigationLink(
-      "./world.html",
-      "10",
-      "월드탐험도감",
-      "4×3 스토리 바인더",
-    );
-
-    const customDex = navigationLink(
-      "./custom.html",
-      "MY",
-      "나만의 도감",
-      "직접 만드는 도감",
-    );
-    const community = navigationLink(
-      "./collectors.html",
-      "CM",
-      "커뮤니티",
-      "공개 컬렉션",
-    );
-
-    nav.replaceChildren(
-      dashboard,
-      pokemonSearch,
-      navigationSection("주요 도감"),
-      national,
-      series,
-      ar,
-      packs,
-      navigationSection("테마 도감"),
-      pokemonCollections,
-      artists,
-      people,
-      trainerPokemon,
-      fossilDex,
-      worldDex,
-      customDex,
-      community,
-    );
-
     normalizeNavigationState(nav);
   }
 
