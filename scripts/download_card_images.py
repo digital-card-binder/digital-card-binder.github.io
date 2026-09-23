@@ -11,9 +11,11 @@ import argparse
 import io
 import json
 import os
+import shutil
 import tempfile
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -61,6 +63,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--max-consecutive-failures", type=int, default=8)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--missing-only", action="store_true", help="Select missing/invalid assets before applying offset and limit.")
+    parser.add_argument("--max-missing", type=int, default=0, help="Abort recovery when the cache is missing more than this many assets (0 disables the guard).")
     parser.add_argument("--placeholder-on-failure", action="store_true")
     parser.add_argument(
         "--allow-failures",
@@ -87,7 +91,9 @@ def existing_image_is_valid(path: Path) -> bool:
         return False
     try:
         with Image.open(path) as image:
-            image.verify()
+            if image.format != "WEBP":
+                return False
+            image.load()
         return True
     except (OSError, UnidentifiedImageError):
         return False
@@ -280,6 +286,13 @@ def main() -> int:
         if (args.project == "all" or asset["project"] == args.project)
         and (not selected_roots or str(asset.get("root", "")).upper() in selected_roots)
     ]
+    if args.missing_only:
+        selected = [asset for asset in selected if not existing_image_is_valid(
+            args.output_root / asset["project"] / asset["relativePath"]
+        )]
+        if args.max_missing and len(selected) > args.max_missing:
+            print(f"ABORT: {len(selected)} missing images exceeds recovery limit {args.max_missing}; restore the complete cache first.", flush=True)
+            return 2
     selected = selected[args.offset :]
     if args.limit > 0:
         selected = selected[: args.limit]
@@ -287,6 +300,7 @@ def main() -> int:
     limiter = RateLimiter(args.min_delay)
     results = {
         "downloaded": 0,
+        "reused": 0,
         "skipped": 0,
         "placeholder": 0,
         "failed": 0,
@@ -307,6 +321,8 @@ def main() -> int:
             "sources": asset["sourceUrls"],
             "official": asset["official"],
         }
+        if asset.get("originalSourceUrls"):
+            public_record["originalSources"] = asset["originalSourceUrls"]
         source_indexes[project].append(public_record)
 
         if not args.force and existing_image_is_valid(destination):
@@ -315,6 +331,22 @@ def main() -> int:
             consecutive_transient_failures = 0
             print(f"[{index}/{len(selected)}] skip {asset['relativePath']}", flush=True)
             continue
+
+        reuse = asset.get("reuse")
+        if reuse and not args.force:
+            source_path = (args.output_root / reuse["project"] / reuse["relativePath"]).resolve()
+            if not source_path.is_relative_to(args.output_root.resolve()) or source_path == destination.resolve():
+                raise ValueError(f"Unsafe cached image source: {source_path}")
+            if existing_image_is_valid(source_path):
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source_path, destination)
+                results["reused"] += 1
+                public_record["status"] = "reused"
+                public_record["reusedFrom"] = reuse
+                append_log(log_path, {"status": "reused", "source": str(source_path), "path": asset["relativePath"]})
+                print(f"[{index}/{len(selected)}] reuse {asset['relativePath']}", flush=True)
+                consecutive_transient_failures = 0
+                continue
 
         error_messages: list[str] = []
         completed = False
@@ -330,6 +362,8 @@ def main() -> int:
                 convert_to_webp(payload, destination, args.width, args.quality)
                 results["downloaded"] += 1
                 public_record["status"] = "downloaded"
+                public_record["downloadedFrom"] = source_url
+                public_record["official"] = urllib.parse.urlsplit(source_url).hostname == "cards.image.pokemonkorea.co.kr"
                 append_log(
                     log_path,
                     {"status": "downloaded", "source": source_url, "path": asset["relativePath"]},

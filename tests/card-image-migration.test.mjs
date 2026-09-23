@@ -108,6 +108,15 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
     assert.ok(manifest.counts.legacy + 3 < 20_000);
     assert.equal(manifest.counts.external, 969);
 
+    // Recovery changes sources, never the public route or number of expected assets.
+    assert.equal(manifest.counts.total, 16662);
+    const repaired = manifest.assets.find((asset) => asset.relativePath === "data/wmimages/MEGA/M2/M2_116.webp");
+    assert.equal(repaired.project, "modern");
+    assert.match(repaired.sourceUrls[0], /^https:\/\/static[.]tcgexchange[.]kr\//);
+    assert.ok(repaired.originalSourceUrls.includes("https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M2/M2_116.png"));
+    const aliased = manifest.assets.find((asset) => asset.relativePath === "data/wmimages/SM/SM7b/SM7b_012.webp");
+    assert.deepEqual(aliased.reuse, { project: "legacy", relativePath: "data/wmimages/SM/SM7B/SM7B_012.webp" });
+
     const paths = manifest.assets.map((asset) => `${asset.project}:${asset.relativePath}`);
     assert.equal(new Set(paths).size, paths.length);
     for (const token of ["001", "103", "113"]) {

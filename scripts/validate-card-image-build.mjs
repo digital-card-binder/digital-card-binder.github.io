@@ -62,16 +62,20 @@ if (expectedFileCount > maxProjectFiles) {
     `${project} needs ${expectedFileCount} files, above the Cloudflare Free limit of ${maxProjectFiles}`,
   );
 }
-if (missing.length && !allowMissing) {
-  throw new Error(`${project} build is missing ${missing.length} files; first: ${missing.slice(0, 10).join(", ")}`);
-}
-
-console.log(JSON.stringify({
+const report = {
   project,
   expectedAssets: assets.length,
   expectedFileCount,
   missing: missing.length,
+  missingPaths: missing,
   largest,
   cloudflareFreeFileLimit: maxProjectFiles,
   cloudflareSingleFileLimitBytes: maxFileBytes,
-}, null, 2));
+};
+const reportPath = path.resolve(option("report", path.join(path.dirname(manifestPath), `validation-${project}.json`)));
+fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
+console.log(JSON.stringify(report, null, 2));
+if (missing.length && !allowMissing) {
+  throw new Error(`${project} build is missing ${missing.length} files; first: ${missing.slice(0, 10).join(", ")}`);
+}

@@ -1,8 +1,16 @@
 name: Deploy card images to Cloudflare Pages
 
 on:
+  push:
+    branches: [main]
+    paths: ['.github/card-image-deploy-request.json']
   workflow_dispatch:
     inputs:
+      repair_only:
+        description: Restore saved archives and repair only missing images
+        required: false
+        default: false
+        type: boolean
       batch_size:
         description: Images per checkpointed batch
         required: true
@@ -27,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
+      repair_only: ${{ steps.mode.outputs.repair_only }}
       sv: ${{ steps.plan.outputs.sv }}
       mega: ${{ steps.plan.outputs.mega }}
       s: ${{ steps.plan.outputs.s }}
@@ -35,6 +44,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Select recovery mode
+        id: mode
+        env:
+          REQUESTED_REPAIR: ${{ github.event_name == 'push' || inputs.repair_only }}
+        run: echo "repair_only=$REQUESTED_REPAIR" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -46,7 +61,7 @@ jobs:
 
       - name: Create checkpoint plan
         id: plan
-        run: node scripts/plan-card-image-batches.mjs --batch-size="${{ inputs.batch_size }}" --github-output
+        run: node scripts/plan-card-image-batches.mjs --batch-size="${{ inputs.batch_size || '600' }}" --github-output
 
       - name: Record migration order
         env:
@@ -60,6 +75,7 @@ jobs:
   download-sv:
     name: SV batch ${{ matrix.batch }}
     needs: prepare
+    if: needs.prepare.outputs.repair_only != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 150
     strategy:
@@ -146,7 +162,11 @@ jobs:
 
   verify-and-deploy:
     name: Validate complete archives and deploy
-    needs: download-remaining
+    needs: [prepare, download-remaining]
+    if: >-
+      always() && needs.prepare.result == 'success' &&
+      (needs.download-remaining.result == 'success' ||
+       (needs.prepare.outputs.repair_only == 'true' && needs.download-remaining.result == 'skipped'))
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
@@ -179,32 +199,77 @@ jobs:
       - name: Install image verifier
         run: python -m pip install --quiet "Pillow==12.3.0"
 
+      - name: Test cache recovery and complete image verification
+        run: python -m unittest discover -s tests -p test_card_image_recovery.py
+
       - name: Build migration manifest
         run: node scripts/build-card-image-manifest.mjs
 
       - name: Restore complete modern archive
+        id: modern-cache
         uses: actions/cache/restore@v4
         with:
           path: tmp/card-images/build/modern
-          key: card-images-v2-${{ runner.os }}-modern-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-final-${{ github.run_id }}
+          key: card-images-v2-${{ runner.os }}-modern-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-final-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            card-images-v2-${{ runner.os }}-modern-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-
+            card-images-v2-${{ runner.os }}-modern-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-
+            card-images-v2-${{ runner.os }}-modern-
             card-images-v1-${{ runner.os }}-modern-
 
       - name: Restore complete remaining-card archive
+        id: legacy-cache
         uses: actions/cache/restore@v4
         with:
           path: tmp/card-images/build/legacy
-          key: card-images-v2-${{ runner.os }}-legacy-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-final-${{ github.run_id }}
+          key: card-images-v2-${{ runner.os }}-legacy-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-final-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            card-images-v2-${{ runner.os }}-legacy-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-
+            card-images-v2-${{ runner.os }}-legacy-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-
+            card-images-v2-${{ runner.os }}-legacy-
             card-images-v1-${{ runner.os }}-legacy-
 
-      - name: Validate every expected image before deployment
+      - name: Repair missing images in restored archives
         run: |
           set -euo pipefail
-          node scripts/validate-card-image-build.mjs --project=modern
-          node scripts/validate-card-image-build.mjs --project=legacy
+          FAILED=0
+          python scripts/download_card_images.py --project modern --missing-only --max-missing 600 --min-delay 2.0 --allow-failures || FAILED=1
+          python scripts/download_card_images.py --project legacy --missing-only --max-missing 600 --min-delay 2.0 --allow-failures || FAILED=1
+          exit "$FAILED"
+
+      - name: Save repaired modern archive
+        if: always() && steps.modern-cache.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/card-images/build/modern
+          key: ${{ steps.modern-cache.outputs.cache-primary-key }}
+
+      - name: Save repaired remaining-card archive
+        if: always() && steps.legacy-cache.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: tmp/card-images/build/legacy
+          key: ${{ steps.legacy-cache.outputs.cache-primary-key }}
+
+      - name: Validate every expected image before deployment
+        if: always() && steps.modern-cache.outcome == 'success' && steps.legacy-cache.outcome == 'success'
+        run: |
+          set -euo pipefail
+          FAILED=0
+          node scripts/validate-card-image-build.mjs --project=modern || FAILED=1
+          node scripts/validate-card-image-build.mjs --project=legacy || FAILED=1
+          python scripts/verify_card_image_archive.py || FAILED=1
+          exit "$FAILED"
+
+      - name: Upload complete recovery and validation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: card-image-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            tmp/card-images/migration-log.jsonl
+            tmp/card-images/failures-*.json
+            tmp/card-images/validation-*.json
+            tmp/card-images/archive-verification.json
+          retention-days: 14
 
       - name: Select Cloudflare Pages projects
         run: |
