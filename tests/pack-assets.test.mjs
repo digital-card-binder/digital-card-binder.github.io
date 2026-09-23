@@ -29,8 +29,8 @@ test("m6 and m6a use optimized official individual pack images", async () => {
     readFile(new URL("assets/packs/m6a.webp", root)),
   ]);
 
-  assert.match(javascript, /\["m6", "[.]\/assets\/packs\/m6[.]webp\?v=20260918-1"\]/);
-  assert.match(javascript, /\["m6a", "[.]\/assets\/packs\/m6a[.]webp\?v=20260918-1"\]/);
+  assert.match(javascript, /\["m6", "[.]\/assets\/packs\/m6[.]webp\?v=[0-9a-f]{12}"\]/);
+  assert.match(javascript, /\["m6a", "[.]\/assets\/packs\/m6a[.]webp\?v=[0-9a-f]{12}"\]/);
   assert.match(javascript, /has-individual-pack-image/);
   assert.doesNotMatch(javascript, /generatedPackArt|is-generated-pack-art/);
 
