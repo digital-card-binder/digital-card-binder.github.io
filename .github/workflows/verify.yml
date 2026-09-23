@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Synchronize shared site shell
+        run: npm run shell:sync
       - name: Synchronize cache versions
         run: npm run versions:sync
       - name: Commit generated versions
