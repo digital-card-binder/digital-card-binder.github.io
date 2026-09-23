@@ -263,7 +263,7 @@
 
   async function loadPromoIds() {
     if (!promoIdsPromise) {
-      promoIdsPromise = fetchJson("./data/promo-packs.json")
+      promoIdsPromise = catalogService.json("./data/promo-packs.json")
         .then((payload) => {
           const values = Array.isArray(payload)
             ? payload
