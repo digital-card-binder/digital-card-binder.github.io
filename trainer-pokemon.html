@@ -7,14 +7,14 @@
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260923-6" />
+    <link rel="stylesheet" href="./styles.css?v=20260923-7" />
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./trainer-pokemon.css?v=20260902-2" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
     <link rel="stylesheet" href="./collector.css?v=20260923-2" />
     <script src="./card-image-cdn.js?v=20260923-2" defer></script>
     <script src="./firebase-config.js?v=20260923-3" defer></script>
-    <script src="./site-metrics.js?v=20260729-1" defer></script>
+    <script src="./site-metrics.js?v=20260923-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
@@ -25,8 +25,8 @@
     <script src="./collector-collection-registry.js?v=20260923-4" defer></script>
     <script src="./collector-public-view.js?v=20260813-2" defer></script>
     <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260923-6" defer></script>
-    <script src="./firebase-page-manager.js?v=20260923-2" defer></script>
+    <script src="./collector-nav.js?v=20260923-7" defer></script>
+    <script src="./firebase-page-manager.js?v=20260923-3" defer></script>
     <script src="./owner-sheets-sync.js?v=20260923-3" defer></script>
     <script src="./trainer-pokemon.js?v=20260911-1" defer></script>
   </head>
@@ -37,29 +37,29 @@
         <span class="brand-mark" aria-hidden="true"><span></span></span>
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>
-      <span class="header-chip">PUBLIC VIEW</span>
+      <span class="header-chip">공개 보기</span>
     </header>
 
     <div class="site-layout">
       <aside class="sidebar" aria-label="도감 메뉴">
         <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
-          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
-          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>ALL CARD SEARCH</small></span></a>
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>전체 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
           <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
-          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
-          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510장</small></span></a>
+          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · 프로모</small></span></a>
           <div class="sidebar-label collection-nav-section">테마 도감</div>
-          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
-          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40 ARTISTS</small></span></a>
-          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
-          <a class="collection-link is-active" href="./trainer-pokemon.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>TRAINER × POKÉMON</small></span></a>
-          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>FOSSIL DEX</small></span></a>
-          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
-          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
-          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR COMMUNITY</small></span></a>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67종 포켓몬</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40명 작가</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>인물 아카이브</small></span></a>
+          <a class="collection-link is-active" href="./trainer-pokemon.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>트레이너 × 포켓몬</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>화석 카드</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 스토리 바인더</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR 커뮤니티</small></span></a>
         </nav>
       </aside>
 
@@ -67,12 +67,12 @@
         <section class="hero trainer-pokemon-hero" aria-labelledby="page-title">
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div>
           <div class="hero-content">
-            <p class="eyebrow">TRAINER × POKÉMON · COLLECTION 08</p>
+            
             <h1 id="page-title">트레이너 × 포켓몬</h1>
             <p class="hero-description">트레이너를 포함해 사람과 포켓몬이 같은 일러스트 안에서<br />함께 이야기를 만드는 한글판 카드 컬렉션</p>
           </div>
           <div class="hero-progress" aria-label="트레이너 × 포켓몬 수집 현황">
-            <div class="progress-ring" id="tp-progress-ring" aria-hidden="true"><div><strong id="tp-rate">—</strong><span>COMPLETE</span></div></div>
+            <div class="progress-ring" id="tp-progress-ring" aria-hidden="true"><div><strong id="tp-rate">—</strong><span>완성률</span></div></div>
             <div class="hero-progress-copy"><span>현재 수집 현황</span><strong><b id="tp-owned">—</b><small> / <span id="tp-total">—</span>장</small></strong><p>미보유 <b id="tp-missing">—</b>장</p></div>
           </div>
         </section>
@@ -84,7 +84,7 @@
         </section>
 
         <section class="tp-rule-panel" aria-labelledby="tp-rule-title">
-          <div><p class="section-kicker">COLLECTION RULE</p><h2 id="tp-rule-title">이 도감에 들어가는 기준</h2></div>
+          <div><h2 id="tp-rule-title">이 도감에 들어가는 기준</h2></div>
           <div class="tp-rule-grid">
             <p><strong>포함</strong><span>트레이너·주요 인물 또는 일반 사람이 포켓몬과 같은 일러스트 안에 실제로 함께 등장</span></p>
             <p><strong>이름 없는 사람도 포함</strong><span>이름 없는 NPC·가족·직원·학생 등도 장면의 주체로 포켓몬과 함께 있으면 포함</span></p>
@@ -93,7 +93,7 @@
         </section>
 
         <section class="catalog-panel" aria-labelledby="tp-catalog-title">
-          <div class="catalog-heading"><div><p class="section-kicker">SCENE CATALOG</p><h2 id="tp-catalog-title">인물과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div></div>
+          <div class="catalog-heading"><div><h2 id="tp-catalog-title">인물과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div></div>
           <div class="tp-filter-panel">
             <div id="tp-view-mode" class="segmented-control tp-view-mode" role="group" aria-label="보기 기준"><button class="is-active" type="button" data-mode="pokemon">포켓몬별</button><button type="button" data-mode="trainer">트레이너별</button></div>
             <label class="tp-select-field"><span id="tp-filter-label" class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 또는 트레이너 선택"></select></label>

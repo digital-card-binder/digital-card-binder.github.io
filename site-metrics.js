@@ -13,8 +13,10 @@
   const METRICS_DOCUMENT = "public";
   const DAILY_COLLECTION = "siteDailyMetrics";
   const USER_COLLECTION = "siteUserRegistry";
+  const DISPLAY_PUBLIC_METRICS = false;
 
   function installStyles() {
+    if (!DISPLAY_PUBLIC_METRICS) return;
     if (document.querySelector("#site-header-metrics-style")) return;
     const style = document.createElement("style");
     style.id = "site-header-metrics-style";
@@ -57,6 +59,7 @@
   }
 
   function ensureDashboardTraffic() {
+    if (!DISPLAY_PUBLIC_METRICS) return null;
     const traffic = document.querySelector("#dashboard-traffic");
     if (!traffic) return null;
     traffic.removeAttribute("hidden");
@@ -69,6 +72,7 @@
   }
 
   function ensureHeaderMetrics() {
+    if (!DISPLAY_PUBLIC_METRICS) return null;
     installStyles();
     const header = document.querySelector(".site-header");
     if (!header) return null;

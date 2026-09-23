@@ -444,10 +444,10 @@
     panel.classList.toggle("is-owner", isOwner(currentUser));
     if (elements.headerChip) {
       elements.headerChip.textContent = sharedViewActive
-        ? "READ ONLY"
+        ? "읽기 전용"
         : currentUser
-          ? "SIGNED IN"
-          : "PUBLIC VIEW";
+          ? "로그인됨"
+          : "공개 보기";
     }
 
     if (!configured()) {

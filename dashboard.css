@@ -1095,3 +1095,62 @@
     padding-bottom: 10px;
   }
 }
+
+/* Dashboard utility area: secondary actions stay available without competing with collection content. */
+.dashboard-utility-panel{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:24px 0 4px;
+  border-top:1px solid var(--line);
+  padding:20px 2px 0;
+}
+.dashboard-utility-copy{display:grid;gap:4px;min-width:0}
+.dashboard-utility-copy strong{font-size:.76rem;color:var(--ink)}
+.dashboard-utility-copy span{color:var(--ink-faint);font-size:.64rem;line-height:1.5}
+.dashboard-utility-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.dashboard-feedback-actions{display:flex;align-items:center;justify-content:flex-start;gap:7px;margin:0}
+.feedback-action{
+  min-height:34px;
+  border:1px solid #dfe4ec;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink-soft);
+  box-shadow:none;
+  font-size:.64rem;
+  padding:7px 11px;
+}
+.feedback-action:hover{transform:none;border-color:#cfd7e4;background:#f7f9fc;box-shadow:none}
+.feedback-action--send,.feedback-action--admin{background:#fff;color:var(--ink-soft)}
+.feedback-action--send:hover,.feedback-action--admin:hover{background:#f7f9fc;color:var(--ink)}
+.android-app-download{display:none}
+.android-app-download.is-visible{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:38px;
+  border-left:1px solid var(--line);
+  padding-left:10px;
+}
+.android-app-download-copy{display:grid;gap:1px}
+.android-app-download-copy strong{font-size:.65rem;color:var(--ink-soft)}
+.android-app-download-description{font-size:.56rem;color:var(--ink-faint)}
+.android-app-download-button{
+  min-height:34px;
+  border:1px solid #dfe4ec;
+  border-radius:10px;
+  background:var(--navy);
+  color:#fff;
+  cursor:pointer;
+  font:inherit;
+  font-size:.62rem;
+  font-weight:800;
+  padding:7px 11px;
+}
+.android-app-download-button:disabled{cursor:wait;opacity:.6}
+@media(max-width:690px){
+  .dashboard-utility-panel{align-items:flex-start;flex-direction:column;gap:12px;margin-top:20px;padding-top:16px}
+  .dashboard-utility-actions{width:100%;justify-content:flex-start}
+  .android-app-download.is-visible{width:100%;justify-content:space-between;border-left:0;border-top:1px solid var(--line);padding:10px 0 0}
+}

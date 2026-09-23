@@ -7,7 +7,7 @@ const source = (path) => readFile(new URL(path, root), "utf8");
 
 test("shared asset cache versions follow site-version.json", async () => {
   const manifest = JSON.parse(await source("site-version.json"));
-  assert.equal(manifest.version, "20260923-8");
+  assert.equal(manifest.version, "20260923-9");
   assert.ok(manifest.assets && typeof manifest.assets === "object");
 
   const htmlFiles = (await readdir(root)).filter((name) => name.endsWith(".html"));

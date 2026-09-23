@@ -11,181 +11,16 @@
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="stylesheet" href="./styles.css?v=20260923-6" />
+    <link rel="stylesheet" href="./styles.css?v=20260923-7" />
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
-    <link rel="stylesheet" href="./dashboard.css?v=20260923-3" />
+    <link rel="stylesheet" href="./dashboard.css?v=20260923-4" />
     <link rel="stylesheet" href="./collector.css?v=20260923-2" />
     <link rel="stylesheet" href="./news.css?v=20260916-3" />
-    <link rel="stylesheet" href="./pwa.css?v=20260915-2" />
-    <style>
-      .android-app-download {
-        display: none;
-      }
-
-      .android-app-download.is-visible {
-        position: relative;
-        display: grid;
-        grid-template-columns: 56px minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 18px;
-        overflow: hidden;
-        margin: 14px 0 18px;
-        padding: 18px 20px;
-        border: 1px solid rgba(72, 101, 163, 0.18);
-        border-radius: 20px;
-        background:
-          radial-gradient(circle at 0% 0%, rgba(82, 121, 214, 0.12), transparent 42%),
-          linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
-        box-shadow: 0 12px 30px rgba(23, 35, 63, 0.09);
-      }
-
-      .android-app-download.is-visible::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 4px;
-        background: linear-gradient(180deg, #5476cf 0%, #17233f 100%);
-      }
-
-      .android-app-download-icon {
-        display: grid;
-        place-items: center;
-        width: 56px;
-        height: 56px;
-        border-radius: 17px;
-        background: linear-gradient(145deg, #24375f 0%, #17233f 100%);
-        color: #ffffff;
-        box-shadow: 0 9px 20px rgba(23, 35, 63, 0.2);
-      }
-
-      .android-app-download-icon svg {
-        width: 27px;
-        height: 27px;
-      }
-
-      .android-app-download-copy {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
-
-      .android-app-download-badge {
-        display: inline-flex;
-        align-items: center;
-        min-height: 23px;
-        margin-bottom: 1px;
-        padding: 0 9px;
-        border: 1px solid rgba(64, 103, 190, 0.16);
-        border-radius: 999px;
-        background: rgba(75, 111, 198, 0.09);
-        color: #365baf;
-        font-size: 0.64rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        line-height: 1;
-      }
-
-      .android-app-download-copy strong {
-        color: #17233f;
-        font-size: 1.04rem;
-        line-height: 1.35;
-        letter-spacing: -0.025em;
-      }
-
-      .android-app-download-description {
-        color: #6f778b;
-        font-size: 0.78rem;
-        line-height: 1.45;
-      }
-
-      .android-app-download-button {
-        flex: 0 0 auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
-        min-height: 44px;
-        padding: 0 18px;
-        border: 0;
-        border-radius: 13px;
-        background: #17233f;
-        color: #ffffff;
-        font: inherit;
-        font-size: 0.82rem;
-        font-weight: 800;
-        white-space: nowrap;
-        cursor: pointer;
-        box-shadow: 0 8px 18px rgba(23, 35, 63, 0.2);
-        transition:
-          transform 0.18s ease,
-          background 0.18s ease,
-          box-shadow 0.18s ease;
-      }
-
-      .android-app-download-button::before {
-        content: "↓";
-        font-size: 1rem;
-        font-weight: 900;
-        line-height: 1;
-      }
-
-      .android-app-download-button:hover {
-        transform: translateY(-1px);
-        background: #24375f;
-        box-shadow: 0 10px 22px rgba(23, 35, 63, 0.24);
-      }
-
-      .android-app-download-button:active {
-        transform: translateY(0);
-      }
-
-      .android-app-download-button:focus-visible {
-        outline: 3px solid rgba(54, 91, 175, 0.24);
-        outline-offset: 3px;
-      }
-
-      .android-app-download-button:disabled {
-        opacity: 0.62;
-        cursor: wait;
-        transform: none;
-      }
-
-      @media (max-width: 640px) {
-        .android-app-download.is-visible {
-          grid-template-columns: 48px minmax(0, 1fr);
-          gap: 13px;
-          padding: 16px;
-          border-radius: 18px;
-        }
-
-        .android-app-download-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 15px;
-        }
-
-        .android-app-download-icon svg {
-          width: 24px;
-          height: 24px;
-        }
-
-        .android-app-download-copy strong {
-          font-size: 0.98rem;
-        }
-
-        .android-app-download-button {
-          grid-column: 1 / -1;
-          width: 100%;
-          margin-top: 2px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./pwa.css?v=20260915-2" /> 
     <script src="./card-image-cdn.js?v=20260923-2" defer></script>
     <script src="./firebase-config.js?v=20260923-3" defer></script>
-    <script src="./site-metrics.js?v=20260916-4" defer></script>
+    <script src="./site-metrics.js?v=20260923-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
@@ -196,8 +31,8 @@
     <script src="./collector-collection-registry.js?v=20260923-4" defer></script>
     <script src="./custom-sharing.js?v=20260813-1" defer></script>
     <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260923-6" defer></script>
-    <script src="./dashboard.js?v=20260923-4" defer></script>
+    <script src="./collector-nav.js?v=20260923-7" defer></script>
+    <script src="./dashboard.js?v=20260923-5" defer></script>
     <script src="./feedback.js?v=20260730-1" defer></script>
     <script src="./owner-sheets-sync.js?v=20260923-3" defer></script>
     <script src="./pwa.js?v=20260923-2" defer></script>
@@ -213,29 +48,29 @@
           <strong>디지털 카드 바인더</strong>
         </span>
       </a>
-      <span class="header-chip">PUBLIC VIEW</span>
+      <span class="header-chip">공개 보기</span>
     </header>
 
     <div class="site-layout">
       <aside class="sidebar" aria-label="도감 메뉴">
         <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
-          <a class="collection-link is-active" href="./" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
-          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>ALL CARD SEARCH</small></span></a>
+          <a class="collection-link is-active" href="./" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>전체 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
           <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
-          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
-          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510장</small></span></a>
+          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · 프로모</small></span></a>
           <div class="sidebar-label collection-nav-section">테마 도감</div>
-          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
-          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40 ARTISTS</small></span></a>
-          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
-          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>TRAINER × POKÉMON</small></span></a>
-          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>FOSSIL DEX</small></span></a>
-          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
-          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
-          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR COMMUNITY</small></span></a>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67종 포켓몬</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40명 작가</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>인물 아카이브</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>트레이너 × 포켓몬</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>화석 카드</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 스토리 바인더</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>
@@ -244,28 +79,10 @@
       </aside>
 
       <main id="main-content" class="main-content dashboard-main">
-        <div class="dashboard-feedback-actions" aria-label="의견 및 건의 메뉴">
-          <button id="feedback-open" class="feedback-action feedback-action--send" type="button">
-            <span aria-hidden="true">💡</span>
-            건의 및 요구사항 보내기
-          </button>
-          <button
-            id="feedback-admin-open"
-            class="feedback-action feedback-action--admin"
-            type="button"
-            hidden
-          >
-            <span aria-hidden="true">📋</span>
-            의견 확인(관리자)
-            <b id="feedback-new-count" class="feedback-new-count" hidden>0</b>
-          </button>
-        </div>
-
         <section class="hero dashboard-hero" aria-labelledby="page-title">
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
           <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
           <div class="hero-content">
-            <p class="eyebrow">ALL COLLECTIONS · DASHBOARD</p>
             <h1 id="page-title">통합 대시보드</h1>
             <p class="hero-description">
               전국도감부터 팩·작가·시리즈·포켓몬·AR 컬렉션과 인물도감까지,<br />
@@ -274,7 +91,7 @@
           </div>
           <div class="hero-progress" aria-label="전체 도감 수집 현황">
             <div class="progress-ring" id="dashboard-progress-ring" aria-hidden="true">
-              <div><strong id="dashboard-rate">—</strong><span>COMPLETE</span></div>
+              <div><strong id="dashboard-rate">—</strong><span>완성률</span></div>
             </div>
             <div class="hero-progress-copy">
               <span>전체 도감 항목</span>
@@ -294,24 +111,6 @@
           <time id="dashboard-news-date" class="dashboard-news-date"></time>
           <span class="dashboard-news-arrow" aria-hidden="true">›</span>
         </a>
-
-        <section id="android-app-download" class="android-app-download" aria-label="안드로이드 앱 다운로드">
-          <div class="android-app-download-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" focusable="false">
-              <rect x="5.5" y="2.5" width="13" height="19" rx="3" stroke="currentColor" stroke-width="1.7" />
-              <path d="M12 7v7m0 0 2.6-2.6M12 14l-2.6-2.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M9.5 18h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div class="android-app-download-copy">
-            <span class="android-app-download-badge">Android App</span>
-            <strong>디지털 카드 바인더 앱 다운로드</strong>
-            <span class="android-app-download-description">모바일·태블릿에서 더 편리하게 이용하세요</span>
-          </div>
-          <button id="android-app-download-button" class="android-app-download-button" type="button">
-            앱 다운로드 v0.9
-          </button>
-        </section>
 
         <section class="stats-grid" aria-label="통합 수집 요약">
           <article class="stat-card stat-card--owned">
@@ -337,45 +136,9 @@
           <button id="dashboard-login-cta" type="button">내 도감 로그인</button>
         </section>
 
-        <section
-          id="dashboard-traffic"
-          class="dashboard-traffic-panel"
-          aria-labelledby="traffic-title"
-          aria-busy="true"
-        >
-          <h2 id="traffic-title" class="sr-only">사이트 이용 현황</h2>
-          <div class="dashboard-traffic-grid" aria-live="polite">
-            <article class="dashboard-traffic-card dashboard-traffic-card--today">
-              <div class="dashboard-traffic-label">
-                <span aria-hidden="true">😊</span>
-                <span>오늘 방문자</span>
-              </div>
-              <strong><b id="metric-today-visits">—</b><small>명</small></strong>
-            </article>
-            <article class="dashboard-traffic-card dashboard-traffic-card--total">
-              <div class="dashboard-traffic-label">
-                <span aria-hidden="true">🏆</span>
-                <span>누적 방문자</span>
-              </div>
-              <strong><b id="metric-total-visits">—</b><small>명</small></strong>
-            </article>
-            <article class="dashboard-traffic-card dashboard-traffic-card--users">
-              <div class="dashboard-traffic-label">
-                <span aria-hidden="true">👤</span>
-                <span>사용 인원</span>
-              </div>
-              <strong><b id="metric-users">—</b><small>명</small></strong>
-            </article>
-          </div>
-          <p id="dashboard-traffic-status" class="dashboard-traffic-status" aria-live="polite">
-            이용 현황을 불러오는 중입니다.
-          </p>
-        </section>
-
         <section class="catalog-panel dashboard-collections-panel" aria-labelledby="collections-title">
           <div class="catalog-heading">
             <div>
-              <p class="section-kicker">COLLECTION OVERVIEW</p>
               <h2 id="collections-title">도감별 수집 현황</h2>
             </div>
             <p class="catalog-caption">카드를 누르면 해당 도감으로 이동합니다.</p>
@@ -392,7 +155,6 @@
           <section class="catalog-panel dashboard-insight-panel" aria-labelledby="nearest-title">
             <div class="dashboard-panel-heading">
               <div>
-                <p class="section-kicker">NEXT TO COMPLETE</p>
                 <h2 id="nearest-title">완성에 가까운 도감</h2>
               </div>
               <span id="nearest-count" class="dashboard-count-badge">—</span>
@@ -406,10 +168,9 @@
           <section class="catalog-panel dashboard-insight-panel" aria-labelledby="recent-title">
             <div class="dashboard-panel-heading">
               <div>
-                <p class="section-kicker">RECENT ACTIVITY</p>
                 <h2 id="recent-title">최근 업데이트</h2>
               </div>
-              <span class="dashboard-live-badge"><i aria-hidden="true"></i> LIVE</span>
+              <span class="dashboard-live-badge"><i aria-hidden="true"></i> 최신</span>
             </div>
             <ul id="dashboard-recent-list" class="dashboard-recent-list"></ul>
             <div id="dashboard-recent-empty" class="dashboard-list-empty" hidden>
@@ -417,6 +178,34 @@
             </div>
           </section>
         </div>
+
+        <section class="dashboard-utility-panel" aria-label="도움말 및 앱">
+          <div class="dashboard-utility-copy">
+            <strong>도움말 · 앱</strong>
+            <span>사이트 의견을 보내거나 Android 앱을 이용할 수 있습니다.</span>
+          </div>
+          <div class="dashboard-utility-actions">
+            <div class="dashboard-feedback-actions" aria-label="의견 및 건의 메뉴">
+              <button id="feedback-open" class="feedback-action feedback-action--send" type="button">건의하기</button>
+              <button
+                id="feedback-admin-open"
+                class="feedback-action feedback-action--admin"
+                type="button"
+                hidden
+              >
+                의견 확인
+                <b id="feedback-new-count" class="feedback-new-count" hidden>0</b>
+              </button>
+            </div>
+            <section id="android-app-download" class="android-app-download" aria-label="안드로이드 앱 다운로드">
+              <div class="android-app-download-copy">
+                <strong>디지털 카드 바인더 앱</strong>
+                <span class="android-app-download-description">Android 모바일·태블릿용</span>
+              </div>
+              <button id="android-app-download-button" class="android-app-download-button" type="button">앱 다운로드 v0.9</button>
+            </section>
+          </div>
+        </section>
 
         <footer class="site-footer">
           <div class="site-footer-main">
@@ -443,7 +232,6 @@
       <div class="feedback-dialog-shell">
         <div class="feedback-dialog-header">
           <div>
-            <p class="section-kicker">SUGGESTION BOX</p>
             <h2 id="feedback-dialog-title">건의 및 요구사항 보내기</h2>
           </div>
           <button id="feedback-close" class="feedback-dialog-close" type="button" aria-label="닫기">×</button>
@@ -505,7 +293,6 @@
       <div class="feedback-dialog-shell">
         <div class="feedback-dialog-header">
           <div>
-            <p class="section-kicker">ADMIN ONLY</p>
             <h2 id="feedback-admin-title">받은 의견 확인</h2>
           </div>
           <button

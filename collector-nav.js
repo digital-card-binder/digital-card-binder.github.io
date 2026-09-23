@@ -9,7 +9,7 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "20260923-8";
+  const SITE_BUILD_VERSION = "20260923-9";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
 
   async function refreshStaleShell() {
@@ -109,13 +109,13 @@
       "./",
       "DB",
       "통합 대시보드",
-      "ALL COLLECTIONS",
+      "모든 도감",
     );
     const pokemonSearch = navigationLink(
       "./pokemon-search.html",
       "⌕",
       "포켓몬 검색",
-      "ALL CARD SEARCH",
+      "전체 카드 검색",
     );
 
     const national = navigationLink(
@@ -134,63 +134,63 @@
       "./ar.html",
       "03",
       "AR 전종도감",
-      "SV · M · 510 CARDS",
+      "SV · M · 510장",
     );
     const packs = navigationLink(
       "./packs.html",
       "04",
       "팩 전종수집",
-      "S · SV · M · PROMO",
+      "S · SV · M · 프로모",
     );
 
     const pokemonCollections = navigationLink(
       "./pokemon-collections.html",
       "05",
       "포켓몬 컬렉션",
-      "67 POKÉMON",
+      "67종 포켓몬",
     );
     const artists = navigationLink(
       "./artists.html",
       "06",
       "작가 도감",
-      "40 ARTISTS",
+      "40명 작가",
     );
     const people = navigationLink(
       "./people.html",
       "07",
       "인물도감",
-      "TRAINER ARCHIVE",
+      "인물 아카이브",
     );
     const trainerPokemon = navigationLink(
       "./trainer-pokemon.html",
       "08",
       "트레이너 × 포켓몬",
-      "TRAINER × POKÉMON",
+      "트레이너 × 포켓몬",
     );
     const fossilDex = navigationLink(
       "./fossil.html",
       "09",
       "화석 도감",
-      "FOSSIL DEX",
+      "화석 카드",
     );
     const worldDex = navigationLink(
       "./world.html",
       "10",
       "월드탐험도감",
-      "4×3 STORY BINDER",
+      "4×3 스토리 바인더",
     );
 
     const customDex = navigationLink(
       "./custom.html",
       "MY",
       "나만의 도감",
-      "MY CUSTOM DEX",
+      "직접 만드는 도감",
     );
     const community = navigationLink(
       "./collectors.html",
       "CM",
       "커뮤니티",
-      "COLLECTOR COMMUNITY",
+      "공개 컬렉션",
     );
 
     nav.replaceChildren(

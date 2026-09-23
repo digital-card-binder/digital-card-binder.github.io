@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260923-6" />
+    <link rel="stylesheet" href="./styles.css?v=20260923-7" />
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./packs.css?v=20260918-2" />
     <link rel="stylesheet" href="./print.css" />
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./collector.css?v=20260923-2" />
     <script src="./card-image-cdn.js?v=20260923-2" defer></script>
     <script src="./firebase-config.js?v=20260923-3" defer></script>
-    <script src="./site-metrics.js?v=20260729-1" defer></script>
+    <script src="./site-metrics.js?v=20260923-1" defer></script>
     <script src="./image-protection.js?v=20260806-1" defer></script>
     <script src="./legal.js?v=20260806-1" defer></script>
     <script src="./shared-readonly-view.js?v=20260731-1" defer></script>
@@ -26,7 +26,7 @@
     <script src="./collector-collection-registry.js?v=20260923-4" defer></script>
     <script src="./collector-public-view.js?v=20260813-2" defer></script>
     <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260923-6" defer></script>
+    <script src="./collector-nav.js?v=20260923-7" defer></script>
     <script src="./packs.js?v=20260918-2" defer></script>
     <script src="./packs-promo-helper.js?v=20260822-2" defer></script>
     <script src="./owner-sheets-sync.js?v=20260923-3" defer></script>
@@ -39,38 +39,38 @@
         <span class="brand-mark" aria-hidden="true"><span></span></span>
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>
-      <span class="header-chip">PUBLIC VIEW</span>
+      <span class="header-chip">공개 보기</span>
     </header>
 
     <div class="site-layout">
       <aside class="sidebar" aria-label="도감 메뉴">
         <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
-          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
-          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>ALL CARD SEARCH</small></span></a>
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>전체 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
           <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
-          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
-          <a class="collection-link is-active" href="./packs.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510장</small></span></a>
+          <a class="collection-link is-active" href="./packs.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · 프로모</small></span></a>
           <div class="sidebar-label collection-nav-section">테마 도감</div>
-          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
-          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40 ARTISTS</small></span></a>
-          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
-          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>TRAINER × POKÉMON</small></span></a>
-          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>FOSSIL DEX</small></span></a>
-          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
-          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
-          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR COMMUNITY</small></span></a>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67종 포켓몬</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40명 작가</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>인물 아카이브</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>트레이너 × 포켓몬</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>화석 카드</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 스토리 바인더</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR 커뮤니티</small></span></a>
         </nav>
       </aside>
 
       <main id="main-content" class="main-content">
         <section class="hero pack-hero" aria-labelledby="page-title">
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div>
-          <div class="hero-content"><p class="eyebrow">PACK ARCHIVE · COLLECTION 02</p><h1 id="page-title">팩 전종수집</h1><p class="hero-description">S·SV·M 정규 확장팩은 전종수집으로,<br />프로모팩·행사 배포 카드는 검색해 실제 보유 항목만 기록하는 컬렉션</p></div>
+          <div class="hero-content"><h1 id="page-title">팩 전종수집</h1><p class="hero-description">S·SV·M 정규 확장팩은 전종수집으로,<br />프로모팩·행사 배포 카드는 검색해 실제 보유 항목만 기록하는 컬렉션</p></div>
           <div class="hero-progress" aria-label="정규팩 수집 현황">
-            <div class="progress-ring" id="pack-progress-ring" aria-hidden="true"><div><strong id="pack-rate">—</strong><span>COMPLETE</span></div></div>
+            <div class="progress-ring" id="pack-progress-ring" aria-hidden="true"><div><strong id="pack-rate">—</strong><span>완성률</span></div></div>
             <div class="hero-progress-copy"><span>정규팩 수집 현황</span><strong><b id="pack-owned">—</b><small> / <span id="pack-total">—</span>팩</small></strong><p>미수집 <b id="pack-missing">—</b>팩</p></div>
           </div>
         </section>
@@ -83,7 +83,7 @@
 
         <section class="catalog-panel" aria-labelledby="pack-catalog-title">
           <div class="catalog-heading">
-            <div><p class="section-kicker">BOOSTER CATALOG</p><h2 id="pack-catalog-title">정규 확장팩</h2></div>
+            <div><h2 id="pack-catalog-title">정규 확장팩</h2></div>
             <div class="catalog-actions"><p class="catalog-caption">S·SV·M 정규팩은 기존 방식대로 전종 수집률을 관리합니다.</p><button class="print-button" type="button" data-print-page>인쇄 · PDF 저장</button></div>
           </div>
           <div class="pack-filter-panel">
@@ -98,7 +98,7 @@
         <section class="catalog-panel promo-catalog-panel" aria-labelledby="promo-catalog-title">
           <div class="catalog-heading promo-catalog-heading">
             <div>
-              <p class="section-kicker">PROMO COLLECTION</p>
+              
               <h2 id="promo-catalog-title">프로모 컬렉션</h2>
             </div>
             <div class="catalog-actions">
@@ -110,7 +110,7 @@
           <section class="my-promo-panel" aria-labelledby="my-promo-title">
             <div class="my-promo-heading">
               <div>
-                <span class="promo-panel-label">MY PROMOS</span>
+                <span class="promo-panel-label">내 프로모</span>
                 <h3 id="my-promo-title">내 프로모 <b id="promo-owned-count">0</b>종</h3>
               </div>
               <div id="promo-owned-breakdown" class="promo-owned-breakdown" aria-label="시대별 내 프로모 수"></div>
@@ -168,14 +168,14 @@
     <dialog id="pack-dialog" class="card-dialog pack-dialog">
       <button id="pack-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button>
       <div id="pack-dialog-image-wrap" class="dialog-card-image pack-dialog-image-wrap"><span id="pack-dialog-image" class="pack-dialog-image" role="img"></span></div>
-      <div class="dialog-card-copy"><div class="dialog-badges"><span id="pack-dialog-code" class="number-badge"></span><span id="pack-dialog-status" class="status-badge"></span></div><h2 id="pack-dialog-name"></h2><p id="pack-dialog-category" class="dialog-name-en">BOOSTER PACK COLLECTION</p><dl class="dialog-details"><div><dt>시리즈</dt><dd id="pack-dialog-era"></dd></div><div><dt>수집 상태</dt><dd id="pack-dialog-ownership"></dd></div></dl></div>
+      <div class="dialog-card-copy"><div class="dialog-badges"><span id="pack-dialog-code" class="number-badge"></span><span id="pack-dialog-status" class="status-badge"></span></div><h2 id="pack-dialog-name"></h2><p id="pack-dialog-category" class="dialog-name-en">확장팩 컬렉션</p><dl class="dialog-details"><div><dt>시리즈</dt><dd id="pack-dialog-era"></dd></div><div><dt>수집 상태</dt><dd id="pack-dialog-ownership"></dd></div></dl></div>
     </dialog>
 
     <dialog id="promo-create-dialog" class="promo-create-dialog" aria-labelledby="promo-create-title">
       <button id="promo-create-close" class="dialog-close" type="button" aria-label="닫기">×</button>
       <form id="promo-create-form" class="promo-create-form">
         <div class="promo-create-heading">
-          <p class="section-kicker">CUSTOM PROMO</p>
+          
           <h2 id="promo-create-title">새 프로모 직접 등록</h2>
           <p>마스터 DB에 없는 프로모팩이나 단일 배포 카드를 내 계정에 저장합니다.</p>
         </div>

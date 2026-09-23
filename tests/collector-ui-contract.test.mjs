@@ -187,7 +187,7 @@ test("every page uses the one-line Digital Card Binder brand and tab title", asy
     );
     assert.equal(html.includes("MY POKÉMON DEX"), false, `${page}: legacy brand`);
     assert.equal(html.includes("COLLECTION ARCHIVE"), false, `${page}: legacy subtitle`);
-    assert.match(html, /styles[.]css[?]v=20260923-6/, `${page}: shared styles version`);
+    assert.match(html, /styles[.]css[?]v=20260923-7/, `${page}: shared styles version`);
   }
 
   const collectorClient = await source("collector.js");
@@ -310,6 +310,44 @@ test("dashboard polish follows navigation labels and restrained motion", async (
   assert.match(sheets, /trainerPokemon: "트레이너 × 포켓몬"/);
 });
 
+test("dashboard keeps support and app access secondary while removing public traffic", async () => {
+  const page = await source("index.html");
+  const css = await source("dashboard.css");
+  const metrics = await source("site-metrics.js");
+  assert.equal(page.includes('id="dashboard-traffic"'), false);
+  assert.equal(page.includes("오늘 방문자"), false);
+  assert.equal(page.includes("누적 방문자"), false);
+  assert.match(metrics, /DISPLAY_PUBLIC_METRICS = false/);
+  assert.match(page, /class="dashboard-utility-panel"/);
+  assert.match(page, /id="feedback-open"/);
+  assert.match(page, /id="android-app-download"/);
+  assert.ok(
+    page.indexOf("dashboard-utility-panel") > page.indexOf("dashboard-insights"),
+    "utility actions should follow primary dashboard content",
+  );
+  assert.match(css, /[.]dashboard-utility-panel\{/);
+  assert.match(css, /[.]android-app-download[.]is-visible\{/);
+});
+
+test("decorative English UI labels are retired while official series codes remain", async () => {
+  const page = await source("index.html");
+  const navigation = await source("collector-nav.js");
+  const styles = await source("styles.css");
+  for (const retired of [
+    "ALL COLLECTIONS",
+    "ALL CARD SEARCH",
+    "TRAINER ARCHIVE",
+    "FOSSIL DEX",
+    "MY CUSTOM DEX",
+    "COLLECTOR COMMUNITY",
+  ]) {
+    assert.equal(page.includes(retired), false, retired);
+    assert.equal(navigation.includes(retired), false, retired);
+  }
+  assert.match(navigation, /ORIGIN · ADV · DP · BW · XY · SM · S · SV · M/);
+  assert.match(styles, /[.]eyebrow,[.]section-kicker\{display:none!important\}/);
+});
+
 test("dashboard includes custom dex in cards, totals, activity, and settings order", async () => {
   const page = await source("index.html");
   const client = await source("dashboard.js");
@@ -321,8 +359,8 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   const dashboardIndex = page.indexOf("dashboard.js");
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
-  assert.match(page, /dashboard[.]css[?]v=20260923-3/);
-  assert.match(page, /dashboard[.]js[?]v=20260923-4/);
+  assert.match(page, /dashboard[.]css[?]v=20260923-4/);
+  assert.match(page, /dashboard[.]js[?]v=20260923-5/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
@@ -513,10 +551,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260923-6/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260923-7/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-6/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-7/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
@@ -574,9 +612,9 @@ test("collection pages share the same default header state", async () => {
     const headerStart = html.indexOf('<header class="site-header">');
     const header = html.slice(headerStart, html.indexOf("</header>", headerStart));
     assert.ok(headerStart >= 0, `${page}: common header missing`);
-    assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
+    assert.match(header, /<span class="header-chip">공개 보기<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260923-2/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260923-6/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260923-7/, `${page}: current common header behavior`);
   }
 });
 
@@ -614,8 +652,8 @@ test("mobile shared header always shows the Digital Card Binder brand name", asy
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
-  assert.equal(siteVersion.version, "20260923-8");
-  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-8"/);
+  assert.equal(siteVersion.version, "20260923-9");
+  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-9"/);
   assert.match(navigation, /site-version[.]json/);
   assert.match(navigation, /cache: "no-store"/);
   assert.match(navigation, /searchParams[.]set\("build", remoteVersion\)/);
@@ -657,7 +695,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260923-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260923-6/);
+    assert.match(html, /collector-nav[.]js\?v=20260923-7/);
   }
 });
 
@@ -1021,5 +1059,5 @@ test("current dashboard is the only production shell and carries the latest nav"
   assert.match(current, /커뮤니티/);
   assert.equal(current.includes("도감 갤러리"), false);
   assert.equal(current.includes("<strong>팩 도감</strong>"), false);
-  assert.ok(current.includes("collector-nav.js?v=20260923-6"));
+  assert.ok(current.includes("collector-nav.js?v=20260923-7"));
 });
