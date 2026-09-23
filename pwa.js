@@ -241,13 +241,11 @@
     const status = card.querySelector("#ios-pwa-status");
 
     if (!isIOS() || !isStandalone()) {
-      title.textContent = "아이폰 앱 설치";
+      title.textContent = "아이폰";
       description.textContent = "Safari 홈 화면에 추가";
-      button.textContent = "설치 방법";
+      button.textContent = "설치";
       button.disabled = false;
-      status.textContent = isIOS()
-        ? "홈 화면에 추가하면 앱처럼 실행됩니다."
-        : "아이폰 Safari에서 설치할 수 있습니다.";
+      status.textContent = "";
       button.onclick = () => {
         window.alert("아이폰 Safari에서 디지털 카드 바인더를 연 뒤, 공유 버튼 → ‘홈 화면에 추가’ → ‘추가’를 선택하세요. 홈 화면에 생긴 앱을 실행하면 새소식 알림도 켤 수 있습니다.");
       };
