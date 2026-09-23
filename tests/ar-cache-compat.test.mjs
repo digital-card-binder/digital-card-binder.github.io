@@ -26,9 +26,9 @@ const registry = readFileSync(
   "utf8",
 );
 
-assert.match(html, /ar-mega-supplement\.js\?v=20260826-4/);
-assert.match(html, /ar-card-editor\.js\?v=20260826-2/);
-assert.match(html, /ar\.js\?v=20260826-4/);
+assert.match(html, /ar-mega-supplement\.js\?v=[0-9a-f]{12}/);
+assert.match(html, /ar-card-editor\.js\?v=[0-9a-f]{12}/);
+assert.match(html, /ar\.js\?v=[0-9a-f]{12}/);
 assert.match(ar, /const EXPECTED_GROUPS = 33;/);
 assert.match(ar, /const EXPECTED_TOTAL = 510;/);
 assert.match(ar, /const SUPPLEMENT_URL = "\.\/data\/ar-supplement\.json";/);
