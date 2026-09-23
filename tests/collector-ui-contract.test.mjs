@@ -206,7 +206,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260921-2/);
+  assert.match(dashboard, /news[.]js[?]v=20260923-4/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -424,29 +424,46 @@ test("collector settings restores the existing login before showing its sign-in 
   assert.equal(settingsClient.includes('prompt: "select_account"'), false);
 });
 
-test("profile management leaves the sidebar and public collectors stays below dashboard", async () => {
+test("navigation uses Korean main and theme groups with standalone custom and community links", async () => {
   const navigation = await source("collector-nav.js");
-  assert.match(navigation, /settings[?][.]remove\(\)/);
-  assert.match(navigation, /dashboard[.]after\(directory\)/);
-  assert.match(navigation, /directory[.]after\(pokemonSearch\)/);
-  assert.equal(navigation.includes('"도감 관리"'), false);
-  assert.match(navigation, /공개 컬렉터/);
+  assert.match(navigation, /navigationSection\("주요 도감"\)/);
+  assert.match(navigation, /navigationSection\("테마 도감"\)/);
+  assert.match(navigation, /"팩 전종수집"/);
+  assert.match(navigation, /"화석 도감"/);
+  assert.match(navigation, /"나만의 도감"/);
+  assert.match(navigation, /"커뮤니티"/);
+  assert.equal(navigation.includes('"도감 갤러리"'), false);
+  assert.equal(navigation.includes('"공개 컬렉터"'), false);
+
+  const order = [
+    '"통합 대시보드"',
+    '"포켓몬 검색"',
+    'navigationSection("주요 도감")',
+    '"전국도감"',
+    '"시리즈 도감"',
+    '"AR 전종도감"',
+    '"팩 전종수집"',
+    'navigationSection("테마 도감")',
+    '"포켓몬 컬렉션"',
+    '"작가 도감"',
+    '"인물도감"',
+    '"트레이너 × 포켓몬"',
+    '"화석 도감"',
+    '"월드탐험도감"',
+    '"나만의 도감"',
+    '"커뮤니티"',
+  ].map((token) => navigation.indexOf(token));
+  assert.ok(order.every((index) => index >= 0));
+  assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
+
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260921-2/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260923-4/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260921-2/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-4/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
-  for (const page of [settingsPage, await source("collectors.html")]) {
-    const navStart = page.indexOf('<nav class="collection-nav">');
-    const nav = page.slice(navStart, page.indexOf("</nav>", navStart));
-    assert.equal(nav.includes('href="./collector-settings.html"'), false);
-    assert.ok(nav.indexOf('href="./collectors.html"') > nav.indexOf('href="./"'));
-    assert.ok(nav.indexOf('href="./national.html"') > nav.indexOf('href="./collectors.html"'));
-  }
 });
-
 test("the signed-in account name opens profile management", async () => {
   const navigation = await source("collector-nav.js");
   const css = await source("collector.css");
@@ -473,7 +490,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260921-2/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260923-4/, `${page}: current common header behavior`);
   }
 });
 
@@ -512,7 +529,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260814-1/);
-    assert.match(html, /collector-nav[.]js\?v=20260921-2/);
+    assert.match(html, /collector-nav[.]js\?v=20260923-4/);
   }
 });
 
