@@ -32,6 +32,7 @@
 
   const el = (id) => document.getElementById(id);
   const formatNumber = (value) => new Intl.NumberFormat("ko-KR").format(Number(value) || 0);
+  const catalogService = window.DigitalCardBinder?.catalog;
 
   function compact(value) {
     return String(value || "")
@@ -66,47 +67,6 @@
   function cardNumber(card) {
     const match = clean(card?.code || card?.meta).match(/_([0-9]+)/);
     return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
-  }
-
-  function legacyEra(groupIndex) {
-    if (groupIndex === 0) return "ORIGIN";
-    if (groupIndex <= 5) return "ADV";
-    if (groupIndex <= 21) return "DP";
-    if (groupIndex <= 58) return "BW";
-    return "XY";
-  }
-
-  function tagSeriesGroups(baseGroups, legacyGroups) {
-    const taggedBase = (Array.isArray(baseGroups) ? baseGroups : []).map((group) => ({
-      ...group,
-      era: seriesEra(group),
-    }));
-    const taggedLegacy = (Array.isArray(legacyGroups) ? legacyGroups : []).map((group, groupIndex) => ({
-      ...group,
-      era: legacyEra(groupIndex),
-    }));
-    return { taggedBase, taggedLegacy };
-  }
-
-  function mergeSeriesGroups(baseGroups, legacyGroups) {
-    const { taggedBase, taggedLegacy } = tagSeriesGroups(baseGroups, legacyGroups);
-    const merged = [...taggedBase];
-    for (const extra of taggedLegacy) {
-      const code = clean(extra?.code || extra?.name).toLowerCase();
-      if (!code) continue;
-      const index = merged.findIndex(
-        (group) => clean(group?.code || group?.name).toLowerCase() === code,
-      );
-      if (index >= 0) merged[index] = extra;
-      else merged.push(extra);
-    }
-    return merged;
-  }
-
-  async function fetchJson(url) {
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${url}: ${response.status}`);
-    return response.json();
   }
 
   function normalizeSetCode(value) {
@@ -314,7 +274,7 @@
     if (!ownedIds.length) return;
 
     try {
-      const data = await fetchJson("./data/world-exploration.json");
+      const data = await catalogService.json("./data/world-exploration.json");
       const slotMap = new Map();
       (data?.generations || []).forEach((generation) => {
         (generation?.slots || []).forEach((slot) => slotMap.set(slot.id, slot));
@@ -1003,13 +963,19 @@
 
   async function init() {
     try {
-      const [baseGroups, legacyGroups, pokedex] = await Promise.all([
-        fetchJson("./data/series.json"),
-        fetchJson("./data/series-legacy.json").catch(() => []),
-        fetchJson("./data/pokedex.json"),
+      if (!catalogService?.series || !catalogService?.json) {
+        throw new Error("공용 카탈로그 서비스를 찾지 못했습니다.");
+      }
+
+      const [groups, pokedex] = await Promise.all([
+        catalogService.series(),
+        catalogService.json("./data/pokedex.json"),
       ]);
 
-      state.groups = mergeSeriesGroups(baseGroups, legacyGroups);
+      state.groups = (Array.isArray(groups) ? groups : []).map((group) => ({
+        ...group,
+        era: seriesEra(group),
+      }));
       state.pokedex = Array.isArray(pokedex?.records) ? pokedex.records : [];
 
       const account = window.PokemonDexPageAccount;
