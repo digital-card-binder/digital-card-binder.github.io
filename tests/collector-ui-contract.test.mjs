@@ -436,7 +436,7 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.equal(navigation.includes('"공개 컬렉터"'), false);
 
   const replaceStart = navigation.indexOf("nav.replaceChildren(");
-  const replaceEnd = navigation.indexOf(");", replaceStart);
+  const replaceEnd = navigation.indexOf("normalizeNavigationState(nav);", replaceStart);
   const menuLayout = navigation.slice(replaceStart, replaceEnd);
   const order = [
     "dashboard",
