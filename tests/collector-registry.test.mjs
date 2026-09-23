@@ -76,7 +76,10 @@ test("collection order follows the current main and theme navigation", () => {
     ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon"],
   );
   assert.deepEqual(
-    registry.COLLECTION_ORDER.map((id) => registry.COLLECTIONS[id].number),
+    Array.from(
+      registry.COLLECTION_ORDER,
+      (id) => String(registry.COLLECTIONS[id].number),
+    ),
     ["01", "02", "03", "04", "05", "06", "07", "08"],
   );
 });
