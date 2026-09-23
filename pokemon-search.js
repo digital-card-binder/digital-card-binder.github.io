@@ -64,6 +64,58 @@
     return clean(group?.displayName || group?.title || group?.name || group?.code);
   }
 
+
+  function decodeSearchImage(value, imageBase) {
+    const source = clean(value);
+    if (!source) return "";
+    return source.startsWith("@/")
+      ? `${imageBase}${source.slice(1)}`
+      : source;
+  }
+
+  function decodeSearchIndex(payload) {
+    const imageBase = clean(payload?.imageBase);
+    const pokedex = (Array.isArray(payload?.pokedex) ? payload.pokedex : []).map(
+      ([number, nameKo, nameEn]) => ({ number, nameKo, nameEn }),
+    );
+    const groups = (Array.isArray(payload?.groups) ? payload.groups : []).map(
+      ([code, title, displayName, era, cards]) => ({
+        code,
+        title,
+        displayName,
+        era,
+        cards: (Array.isArray(cards) ? cards : []).map((entry) => {
+          const [
+            cardCode,
+            name,
+            pokemonName,
+            image,
+            meta,
+            cardNumberValue,
+            accountIndex,
+            owned,
+            originalImage,
+          ] = entry;
+          const card = {
+            code: cardCode,
+            name,
+            pokemonName,
+            image: decodeSearchImage(image, imageBase),
+            owned: owned === 1,
+          };
+          if (meta) card.meta = meta;
+          if (cardNumberValue) card.cardNumber = cardNumberValue;
+          if (Number.isInteger(accountIndex)) card.accountIndex = accountIndex;
+          if (originalImage) {
+            card.originalImage = decodeSearchImage(originalImage, imageBase);
+          }
+          return card;
+        }),
+      }),
+    );
+    return { groups, pokedex };
+  }
+
   function cardNumber(card) {
     const match = clean(card?.code || card?.meta).match(/_([0-9]+)/);
     return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
@@ -963,20 +1015,18 @@
 
   async function init() {
     try {
-      if (!catalogService?.series || !catalogService?.json) {
-        throw new Error("공용 카탈로그 서비스를 찾지 못했습니다.");
+      if (!catalogService?.pokemonSearchIndex) {
+        throw new Error("공용 검색 인덱스 서비스를 찾지 못했습니다.");
       }
 
-      const [groups, pokedex] = await Promise.all([
-        catalogService.series(),
-        catalogService.json("./data/pokedex.json"),
-      ]);
+      const payload = await catalogService.pokemonSearchIndex();
+      const decoded = decodeSearchIndex(payload);
 
-      state.groups = (Array.isArray(groups) ? groups : []).map((group) => ({
+      state.groups = decoded.groups.map((group) => ({
         ...group,
         era: seriesEra(group),
       }));
-      state.pokedex = Array.isArray(pokedex?.records) ? pokedex.records : [];
+      state.pokedex = decoded.pokedex;
 
       const account = window.PokemonDexPageAccount;
       if (account) {
