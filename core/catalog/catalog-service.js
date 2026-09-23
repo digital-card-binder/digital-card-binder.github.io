@@ -67,6 +67,10 @@
     return mergeGroups(base, legacy, "code");
   }
 
+  async function pokemonSearchIndex() {
+    return json("./data/pokemon-search-index.json");
+  }
+
   root.catalog = Object.freeze({
     json,
     asGroups,
@@ -74,5 +78,6 @@
     pokemonCollections,
     ar,
     series,
+    pokemonSearchIndex,
   });
 })();
