@@ -133,37 +133,35 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
   }
 });
 
-test("browser routing remains disabled until cutover and supports isolated preview", () => {
+test("browser routing is enabled after cutover and routes supported images to Pages", () => {
   const official =
     "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_001.png?w=400";
-
-  const inactive = loadBrowserRouter();
-  assert.equal(inactive.window.DigitalCardBinderImageCdn.enabled, false);
-  assert.equal(inactive.window.DigitalCardBinderImageCdn.resolve(official), official);
-  const inactiveImage = new inactive.HTMLImageElement();
-  inactiveImage.src = official;
-  assert.equal(inactiveImage.src, official);
-
-  const preview = loadBrowserRouter("?card-image-cdn-preview=1");
-  assert.equal(preview.window.DigitalCardBinderImageCdn.enabled, true);
   const expected =
     "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1V/SV1V_001.webp";
-  assert.equal(preview.window.DigitalCardBinderImageCdn.destinationFor(official), expected);
 
-  const propertyImage = new preview.HTMLImageElement();
+  const active = loadBrowserRouter();
+  assert.equal(active.window.DigitalCardBinderImageCdn.enabled, true);
+  assert.equal(active.window.DigitalCardBinderImageCdn.destinationFor(official), expected);
+  assert.equal(active.window.DigitalCardBinderImageCdn.resolve(official), expected);
+
+  const propertyImage = new active.HTMLImageElement();
   propertyImage.src = official;
   assert.equal(propertyImage.src, expected);
 
-  const attributeImage = new preview.HTMLImageElement();
+  const attributeImage = new active.HTMLImageElement();
   attributeImage.setAttribute("src", official);
   assert.equal(attributeImage.attributes.get("src"), expected);
+
+  const preview = loadBrowserRouter("?card-image-cdn-preview=1");
+  assert.equal(preview.window.DigitalCardBinderImageCdn.enabled, true);
+  assert.equal(preview.window.DigitalCardBinderImageCdn.resolve(official), expected);
 
   const unsupported = "https://example.com/card.png";
   propertyImage.src = unsupported;
   assert.equal(propertyImage.src, unsupported);
 });
 
-test("card pages load the inactive router before application scripts", () => {
+test("card pages load the image router before application scripts", () => {
   const cardPages = [
     "ar.html",
     "artists.html",
@@ -190,7 +188,7 @@ test("card pages load the inactive router before application scripts", () => {
   }
 
   const routerSource = fs.readFileSync(browserRouterPath, "utf8");
-  assert.match(routerSource, /active:\s*false/);
+  assert.match(routerSource, /active:\s*true/);
 });
 
 test("public pages expose no clickable Pokemon Korea links", () => {

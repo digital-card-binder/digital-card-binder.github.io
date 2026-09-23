@@ -311,8 +311,8 @@ jobs:
             --output "$RUNNER_TEMP/card-image-legacy.webp"
           python -c 'from PIL import Image; import os; [Image.open(os.path.join(os.environ["RUNNER_TEMP"], name)).verify() for name in ("card-image-modern.webp", "card-image-legacy.webp")]'
 
-      - name: Confirm cutover remains disabled
+      - name: Confirm cutover remains enabled
         run: |
           set -euo pipefail
-          grep -Eq 'active:[[:space:]]*false' card-image-cdn.js
-          echo "Cloudflare archives are verified. card-image-cdn.js remains disabled."
+          grep -Eq 'active:[[:space:]]*true' card-image-cdn.js
+          echo "Cloudflare archives are verified. card-image-cdn.js is enabled."

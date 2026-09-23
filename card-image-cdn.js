@@ -4,8 +4,8 @@
   if (window.DigitalCardBinderImageCdn?.version) return;
 
   const CONFIG = Object.freeze({
-    // Keep false until both Pages projects have been fully uploaded and checked.
-    active: false,
+    // Cloudflare Pages archives were fully uploaded and verified before cutover.
+    active: true,
     modernBase: "https://dcb-card-images-modern-2026.pages.dev",
     legacyBase: "https://dcb-card-images-legacy-2026.pages.dev",
     previewParameter: "card-image-cdn-preview",
@@ -89,7 +89,7 @@
   }
 
   window.DigitalCardBinderImageCdn = Object.freeze({
-    version: "2026-09-22.1",
+    version: "2026-09-23.1",
     enabled,
     resolve,
     destinationFor,
