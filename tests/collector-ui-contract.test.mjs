@@ -847,7 +847,7 @@ test("detached image probes retry the original source after a CDN miss", async (
   const peoplePage = await source("people.html");
   const worldPage = await source("world.html");
   assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-3/);
-  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-2/);
+  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-3/);
   assert.match(worldPage, /world[.]js[?]v=20260923-2/);
   for (const page of [nationalPage, peoplePage, worldPage]) {
     assert.ok(
