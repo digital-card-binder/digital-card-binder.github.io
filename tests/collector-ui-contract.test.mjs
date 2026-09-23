@@ -232,7 +232,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   const manager = await source("firebase-page-manager.js");
 
   assert.match(page, /data-catalog="series"/);
-  assert.match(page, /firebase-page-manager[.]js[?]v=20260921-2/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-1/);
   assert.match(page, /pokemon-search[.]js[?]v=20260921-4/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
@@ -283,7 +283,7 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
   assert.match(page, /dashboard[.]css[?]v=20260814-1/);
-  assert.match(page, /dashboard[.]js[?]v=20260902-1/);
+  assert.match(page, /dashboard[.]js[?]v=20260923-1/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
@@ -740,9 +740,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260919-3/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-1/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260919-3/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-1/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
@@ -814,7 +814,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
   assert.match(androidGradle, /versionCode 12/);
-  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260903-1/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-1/);
 });
 
 

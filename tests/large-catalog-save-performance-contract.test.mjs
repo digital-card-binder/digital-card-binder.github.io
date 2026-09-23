@@ -40,7 +40,7 @@ test("AR actual-card editor keeps its existing awaited sync guarantee", async ()
 
 test("series and AR pages load the optimized manager cache version", async () => {
   const [series, ar] = await Promise.all([read("series.html"), read("ar.html")]);
-  const expected = './firebase-page-manager.js?v=20260820-1';
+  const expected = './firebase-page-manager.js?v=20260923-1';
   assert.ok(series.includes(expected));
   assert.ok(ar.includes(expected));
 });
