@@ -513,10 +513,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260923-5/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260923-6/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-5/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-6/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
@@ -590,13 +590,17 @@ test("shared collection UI uses one calm panel and interaction system", async ()
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*?[.]pokemon-card-button:hover \{[\s\S]*?transform: none/);
 });
 
-test("service worker stays network-first without forcing open tabs to navigate", async () => {
+test("service worker stays network-first without forced shell navigation", async () => {
   const worker = await source("sw.js");
   assert.match(worker, /request[.]mode === "navigate"/);
   assert.match(worker, /fetch\(request, \{ cache: "no-store" \}\)/);
   assert.equal(worker.includes("SHELL_BUILD_VERSION"), false);
-  assert.equal(worker.includes("client.navigate"), false);
   assert.equal(worker.includes("theme-navigation.js"), false);
+  const activateBlock = worker.slice(
+    worker.indexOf('self.addEventListener("activate"'),
+    worker.indexOf('self.addEventListener("fetch"'),
+  );
+  assert.equal(activateBlock.includes("client.navigate"), false);
 });
 
 test("mobile shared header always shows the Digital Card Binder brand name", async () => {
@@ -653,7 +657,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260923-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260923-5/);
+    assert.match(html, /collector-nav[.]js\?v=20260923-6/);
   }
 });
 
@@ -1009,15 +1013,13 @@ test("trainer Pokemon filter includes an explicit all-cards option and neutral s
   assert.equal(page.includes("사람과 포켓몬이 함께한 카드"), false);
 });
 
-test("fresh shell mirrors the current dashboard with a unique uncached path", async () => {
+test("current dashboard is the only production shell and carries the latest nav", async () => {
   const current = await source("index.html");
-  const fresh = await source("latest-20260923.html");
-  assert.match(fresh, /name="dcb-build" content="20260923-8"/);
-  assert.match(fresh, /주요 도감/);
-  assert.match(fresh, /AR 전종도감/);
-  assert.match(fresh, /팩 전종수집/);
-  assert.match(fresh, /커뮤니티/);
-  assert.equal(fresh.includes("도감 갤러리"), false);
-  assert.equal(fresh.includes("<strong>팩 도감</strong>"), false);
-  assert.ok(current.includes("collector-nav.js?v=20260923-5"));
+  assert.match(current, /주요 도감/);
+  assert.match(current, /AR 전종도감/);
+  assert.match(current, /팩 전종수집/);
+  assert.match(current, /커뮤니티/);
+  assert.equal(current.includes("도감 갤러리"), false);
+  assert.equal(current.includes("<strong>팩 도감</strong>"), false);
+  assert.ok(current.includes("collector-nav.js?v=20260923-6"));
 });
