@@ -185,7 +185,7 @@
     forEachOwnedOverride(documentData, (key) => {
       const parts = String(key).split("::");
       if (parts.length < 3) return;
-      addOwnershipSource(index, parts[0], parts[1], "AR 도감");
+      addOwnershipSource(index, parts[0], parts[1], "AR 전종도감");
     });
   }
 
@@ -200,7 +200,7 @@
           index,
           setCodeFromCardCode(rawCode),
           rawCode,
-          "트레이너×포켓몬 도감",
+          "트레이너 × 포켓몬",
         );
         return;
       }

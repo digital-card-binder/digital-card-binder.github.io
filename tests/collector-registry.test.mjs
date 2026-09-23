@@ -70,6 +70,17 @@ test("all existing catalogs retain their expected item counts", async () => {
   }
 });
 
+test("collection order follows the current main and theme navigation", () => {
+  assert.deepEqual(
+    [...registry.COLLECTION_ORDER],
+    ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon"],
+  );
+  assert.deepEqual(
+    registry.COLLECTION_ORDER.map((id) => registry.COLLECTIONS[id].number),
+    ["01", "02", "03", "04", "05", "06", "07", "08"],
+  );
+});
+
 test("public projection summaries use the current catalog total", () => {
   const metrics = registry.publicProjectionMetrics({
     collectionId: "series",

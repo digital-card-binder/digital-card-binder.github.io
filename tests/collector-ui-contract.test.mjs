@@ -233,7 +233,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
 
   assert.match(page, /data-catalog="series"/);
   assert.match(page, /firebase-page-manager[.]js[?]v=20260923-2/);
-  assert.match(page, /pokemon-search[.]js[?]v=20260923-3/);
+  assert.match(page, /pokemon-search[.]js[?]v=20260923-4/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
@@ -250,9 +250,9 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   assert.match(page, /보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합/);
   assert.match(page, /id="pokemon-search-dialog-sources"/);
   assert.ok(client.includes('addOwnershipSource(index, parts[1], parts[2], "작가 도감")'));
-  assert.ok(client.includes('"AR 도감"'));
+  assert.ok(client.includes('"AR 전종도감"'));
   assert.ok(client.includes('"포켓몬 컬렉션"'));
-  assert.ok(client.includes('"트레이너×포켓몬 도감"'));
+  assert.ok(client.includes('"트레이너 × 포켓몬"'));
   assert.ok(client.includes('"화석 도감"'));
   assert.ok(client.includes('"나만의 도감"'));
   assert.ok(client.includes('"전국도감"'));
@@ -279,6 +279,19 @@ test("dashboard loads the trainer and Pokemon catalog registered in collection o
   assert.match(dashboard, /pageCardIdentity\("trainerPokemon"/);
 });
 
+test("dashboard polish follows navigation labels and restrained motion", async () => {
+  const dashboard = await source("dashboard.js");
+  const css = await source("dashboard.css");
+  const sheets = await source("owner-sheets-sync.js");
+  assert.match(dashboard, /AR 전종도감/);
+  assert.match(dashboard, /트레이너 × 포켓몬/);
+  assert.match(dashboard, /SV · M 시리즈 AR 510장/);
+  assert.match(css, /[.]dashboard-collection-card:hover \{[\s\S]*?translateY\(-3px\)/);
+  assert.match(css, /data-category="people"/);
+  assert.match(css, /data-category="trainerPokemon"/);
+  assert.match(sheets, /trainerPokemon: "트레이너 × 포켓몬"/);
+});
+
 test("dashboard includes custom dex in cards, totals, activity, and settings order", async () => {
   const page = await source("index.html");
   const client = await source("dashboard.js");
@@ -290,8 +303,8 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   const dashboardIndex = page.indexOf("dashboard.js");
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
-  assert.match(page, /dashboard[.]css[?]v=20260814-1/);
-  assert.match(page, /dashboard[.]js[?]v=20260923-2/);
+  assert.match(page, /dashboard[.]css[?]v=20260923-3/);
+  assert.match(page, /dashboard[.]js[?]v=20260923-3/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
@@ -862,9 +875,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-3/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-4/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-3/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-4/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
@@ -936,7 +949,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
   assert.match(androidGradle, /versionCode 12/);
-  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-2/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-3/);
 });
 
 

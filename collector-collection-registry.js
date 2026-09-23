@@ -9,11 +9,11 @@
   }
   const COLLECTION_ORDER = [
     "national",
-    "pack",
-    "artist",
     "series",
-    "pokemon",
     "ar",
+    "pack",
+    "pokemon",
+    "artist",
     "people",
     "trainerPokemon",
   ];
@@ -29,7 +29,7 @@
       defaultDashboardVisible: true,
     },
     pack: {
-      number: "02",
+      number: "04",
       title: "팩 전종수집",
       description: "S · SV · M 확장팩",
       href: "./packs.html",
@@ -39,7 +39,7 @@
       defaultDashboardVisible: true,
     },
     artist: {
-      number: "03",
+      number: "06",
       title: "작가 도감",
       description: "일러스트레이터별 카드",
       href: "./artists.html",
@@ -49,7 +49,7 @@
       defaultDashboardVisible: true,
     },
     series: {
-      number: "04",
+      number: "02",
       title: "시리즈 도감",
       description: "확장팩별 카드 목록",
       href: "./series.html",
@@ -69,7 +69,7 @@
       defaultDashboardVisible: true,
     },
     ar: {
-      number: "06",
+      number: "03",
       title: "AR 전종도감",
       description: "SV · M 시리즈 AR",
       href: "./ar.html",

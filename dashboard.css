@@ -636,9 +636,9 @@
 }
 
 .dashboard-collection-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--collection-accent) 35%, var(--line));
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 14px 30px rgba(29, 43, 72, 0.09);
 }
 
 .dashboard-collection-card[data-category="national"] {
@@ -663,6 +663,14 @@
 
 .dashboard-collection-card[data-category="ar"] {
   --collection-accent: #f0b429;
+}
+
+.dashboard-collection-card[data-category="people"] {
+  --collection-accent: #6474b8;
+}
+
+.dashboard-collection-card[data-category="trainerPokemon"] {
+  --collection-accent: #4f87a8;
 }
 
 .dashboard-collection-card[data-category="custom"] {
