@@ -453,6 +453,10 @@
   } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
     mobileCardLayoutMedia.addListener(centerActiveNavigationOnMobile);
   }
+  const standaloneAccountHeaderPages = new Set(["custom-dex", "world-exploration"]);
+  if (standaloneAccountHeaderPages.has(document.body?.dataset?.page)) {
+    void window.DigitalCardBinder?.firebaseAccount?.installHeaderPanel?.(CONFIG);
+  }
   watchAccountProfileEntry();
   ensureProfileShortcutWithoutPanel();
   addCardLayoutToggle();
