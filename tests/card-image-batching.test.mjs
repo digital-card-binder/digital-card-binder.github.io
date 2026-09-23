@@ -60,7 +60,7 @@ test("batch planner preserves SV, M, S, then remaining order", () => {
   }
 });
 
-test("workflow chains priority phases and keeps the live CDN switch off", () => {
+test("workflow chains priority phases and keeps the live CDN switch on after cutover", () => {
   const workflow = fs.readFileSync(
     path.join(repositoryRoot, ".github", "workflows", "deploy-card-images.yml"),
     "utf8",
@@ -88,5 +88,5 @@ test("workflow chains priority phases and keeps the live CDN switch off", () => 
   assert.match(downloader, /--allow-failures/);
 
   const router = fs.readFileSync(path.join(repositoryRoot, "card-image-cdn.js"), "utf8");
-  assert.match(router, /active:\s*false/);
+  assert.match(router, /active:\s*true/);
 });
