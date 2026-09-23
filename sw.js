@@ -2,6 +2,8 @@
 
 const DEFAULT_TITLE = "디지털 카드 바인더";
 const DEFAULT_URL = "/news.html";
+const SHELL_BUILD_VERSION = "20260923-7";
+
 const NETWORK_FIRST_PATHS = new Set([
   "/",
   "/index.html",
@@ -24,6 +26,24 @@ self.addEventListener("activate", (event) => {
     const keys = await caches.keys();
     await Promise.all(keys.map((key) => caches.delete(key)));
     await self.clients.claim();
+
+    const clients = await self.clients.matchAll({
+      type: "window",
+      includeUncontrolled: true,
+    });
+    await Promise.all(
+      clients.map(async (client) => {
+        try {
+          const url = new URL(client.url);
+          if (url.origin !== self.location.origin) return;
+          if (url.searchParams.get("build") === SHELL_BUILD_VERSION) return;
+          url.searchParams.set("build", SHELL_BUILD_VERSION);
+          await client.navigate(url.href);
+        } catch {
+          // 열린 페이지를 갱신하지 못해도 서비스 워커 활성화는 유지합니다.
+        }
+      }),
+    );
   })());
 });
 

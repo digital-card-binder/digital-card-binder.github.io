@@ -585,6 +585,15 @@ test("shared collection UI uses one calm panel and interaction system", async ()
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*?[.]pokemon-card-button:hover \{[\s\S]*?transform: none/);
 });
 
+test("service worker forces stale open shells onto the latest build once", async () => {
+  const worker = await source("sw.js");
+  assert.match(worker, /SHELL_BUILD_VERSION = "20260923-7"/);
+  assert.match(worker, /clients[.]matchAll/);
+  assert.match(worker, /includeUncontrolled: true/);
+  assert.match(worker, /searchParams[.]set\("build", SHELL_BUILD_VERSION\)/);
+  assert.match(worker, /client[.]navigate\(url[.]href\)/);
+});
+
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
