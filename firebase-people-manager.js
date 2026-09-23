@@ -3,6 +3,11 @@
 (function () {
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
+  const accountCore = window.DigitalCardBinder?.firebaseAccount;
+  const cardLookup = window.DigitalCardBinder?.cardLookup;
+  if (!accountCore || !cardLookup) {
+    throw new Error("공통 도감 코어를 불러오지 못했습니다.");
+  }
   const DOCUMENT_ID = CONFIG.userDocument || "nationalDex";
   const originalFetch = window.fetch.bind(window);
 
@@ -22,27 +27,12 @@
     resolveReady = resolve;
   });
 
-  function normalizeEmail(value) {
-    return String(value || "").trim().toLowerCase();
-  }
-
   function isOwnerAccount(user) {
-    return Boolean(
-      user &&
-        normalizeEmail(CONFIG.ownerEmail) &&
-        normalizeEmail(user.email) === normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.isOwner(CONFIG, user);
   }
 
   function configured() {
-    const config = CONFIG.config || {};
-    return Boolean(
-      CONFIG.enabled &&
-        config.apiKey &&
-        config.authDomain &&
-        config.projectId &&
-        normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.configured(CONFIG, { requireOwnerEmail: true });
   }
 
   function normalizeOverride(value) {
@@ -105,25 +95,7 @@
   }
 
   function imageLoads(url, timeout = 7000) {
-    return new Promise((resolve) => {
-      const image = new Image();
-      let settled = false;
-      const finish = (success) => {
-        if (settled) return;
-        settled = true;
-        window.clearTimeout(timer);
-        image.onload = null;
-        image.onerror = null;
-        resolve(success);
-      };
-      const timer = window.setTimeout(() => finish(false), timeout);
-      image.onload = () => finish(image.naturalWidth > 0);
-      image.onerror = () => {
-        if (window.DigitalCardBinderImageCdn?.restoreOriginal?.(image)) return;
-        finish(false);
-      };
-      image.src = url;
-    });
+    return cardLookup.imageLoads(url, { timeout });
   }
 
   function applyAccountState(data) {
@@ -192,18 +164,8 @@
     }
   };
 
-  async function firstAuthUser(auth, authModule) {
-    return new Promise((resolve, reject) => {
-      let unsubscribe = () => {};
-      unsubscribe = authModule.onAuthStateChanged(
-        auth,
-        (user) => {
-          unsubscribe();
-          resolve(user);
-        },
-        reject,
-      );
-    });
+  function firstAuthUser(auth, authModule) {
+    return accountCore.firstAuthUser(auth, authModule);
   }
 
   async function loadAccountDocument(user) {
@@ -231,11 +193,11 @@
       return;
     }
 
-    userDocumentRef = firestoreModule.doc(
+    userDocumentRef = accountCore.documentRef(
+      firestoreModule,
       db,
-      "users",
-      user.uid,
-      CONFIG.userCollection || "collections",
+      user,
+      CONFIG,
       DOCUMENT_ID,
     );
     const snapshot = await firestoreModule.getDoc(userDocumentRef);

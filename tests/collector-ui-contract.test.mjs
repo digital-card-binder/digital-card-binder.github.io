@@ -232,7 +232,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   const manager = await source("firebase-page-manager.js");
 
   assert.match(page, /data-catalog="series"/);
-  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-1/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-2/);
   assert.match(page, /pokemon-search[.]js[?]v=20260923-2/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
@@ -285,7 +285,7 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
   assert.match(page, /dashboard[.]css[?]v=20260814-1/);
-  assert.match(page, /dashboard[.]js[?]v=20260923-1/);
+  assert.match(page, /dashboard[.]js[?]v=20260923-2/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
@@ -296,6 +296,22 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   assert.match(client, /escapeHtml\(entry[.]name\)/);
   assert.match(css, /dashboard-collection-card\[data-category="custom"\]/);
   assert.match(customSharing, /registry[.]customOwnership = customOwnership/);
+});
+
+test("collection pages load shared catalog, identity, and account cores before managers", async () => {
+  for (const [collectionId, [page, manager]] of Object.entries(collectionPages)) {
+    const html = await source(page);
+    const catalogCore = html.indexOf("core/catalog/catalog-service.js");
+    const identityCore = html.indexOf("core/catalog/card-identity.js");
+    const accountCore = html.indexOf("core/account/firebase-account.js");
+    const registryIndex = html.indexOf("collector-collection-registry.js");
+    const managerIndex = html.indexOf(manager);
+    assert.ok(catalogCore >= 0, `${collectionId}: catalog core missing`);
+    assert.ok(identityCore > catalogCore, `${collectionId}: identity core order`);
+    assert.ok(accountCore > identityCore, `${collectionId}: account core order`);
+    assert.ok(registryIndex > accountCore, `${collectionId}: registry core order`);
+    assert.ok(managerIndex > registryIndex, `${collectionId}: manager core order`);
+  }
 });
 
 test("every existing collection page loads the public adapter before its manager", async () => {
@@ -702,6 +718,11 @@ test("public read-only data waits for its projection instead of rendering an emp
 
 
 test("detached image probes retry the original source after a CDN miss", async () => {
+  const lookup = await source("core/catalog/card-lookup.js");
+  assert.match(
+    lookup,
+    /DigitalCardBinderImageCdn[?][.]restoreOriginal[?][.][(]/,
+  );
   for (const file of [
     "firebase-collection-manager.js",
     "firebase-people-manager.js",
@@ -710,17 +731,27 @@ test("detached image probes retry the original source after a CDN miss", async (
     const client = await source(file);
     assert.match(
       client,
-      /DigitalCardBinderImageCdn[?][.]restoreOriginal[?][.][(]/,
-      `${file}: detached image probe must retry its original source`,
+      /cardLookup[.](?:imageLoads|findRepresentativeCard)/,
+      `${file}: shared card lookup core missing`,
     );
   }
 
   const nationalPage = await source("national.html");
   const peoplePage = await source("people.html");
   const worldPage = await source("world.html");
-  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-1/);
-  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-1/);
-  assert.match(worldPage, /world[.]js[?]v=20260923-1/);
+  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-2/);
+  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-2/);
+  assert.match(worldPage, /world[.]js[?]v=20260923-2/);
+  for (const page of [nationalPage, peoplePage, worldPage]) {
+    assert.ok(
+      page.indexOf("core/catalog/card-lookup.js") <
+        Math.max(
+          page.indexOf("firebase-collection-manager.js"),
+          page.indexOf("firebase-people-manager.js"),
+          page.indexOf("world.js"),
+        ),
+    );
+  }
 });
 
 test("the signed-out guest fallback never wipes a public read-only projection", async () => {
@@ -825,9 +856,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-2/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-3/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-2/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-3/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
@@ -899,7 +930,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
   assert.match(androidGradle, /versionCode 12/);
-  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-1/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-2/);
 });
 
 

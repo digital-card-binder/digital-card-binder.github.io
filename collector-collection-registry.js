@@ -2,6 +2,11 @@
 
 (function () {
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
+  const catalogService = window.DigitalCardBinder?.catalog;
+  const identityService = window.DigitalCardBinder?.cardIdentity;
+  if (!catalogService || !identityService) {
+    throw new Error("공통 도감 코어를 불러오지 못했습니다.");
+  }
   const COLLECTION_ORDER = [
     "national",
     "pack",
@@ -106,48 +111,17 @@
   }
 
   function groupIdentity(group, groupIndex) {
-    return String(group.code || group.name || group.title || groupIndex);
+    return identityService.groupIdentity(group, groupIndex);
   }
 
   function cardIdentity(collectionId, group, card, groupIndex, cardIndex) {
-    const groupId = groupIdentity(group, groupIndex);
-    const accountIndex = Number.isInteger(card.accountIndex)
-      ? card.accountIndex
-      : cardIndex;
-
-    if (collectionId === "trainerPokemon") {
-      return [
-        "trainerPokemon",
-        groupId,
-        card.meta || card.code || card.name || cardIndex,
-        accountIndex,
-      ].join("::");
-    }
-
-    if (collectionId === "artist") {
-      return [
-        groupId,
-        card.set || "",
-        card.cardNumber || "",
-        card.order ?? cardIndex,
-      ].join("::");
-    }
-
-    if (collectionId === "series") {
-      return [groupId, card.code || card.meta || cardIndex, accountIndex].join("::");
-    }
-
-    return [
-      groupId,
-      card.meta || card.code || card.name || cardIndex,
-      accountIndex,
-    ].join("::");
-  }
-
-  async function fetchJson(path) {
-    const response = await fetch(path, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${path} ${response.status}`);
-    return response.json();
+    return identityService.cardIdentity(
+      collectionId,
+      group,
+      card,
+      groupIndex,
+      cardIndex,
+    );
   }
 
   async function loadPackCatalog() {
@@ -192,26 +166,11 @@
     };
   }
 
-  function mergeCatalogGroups(baseGroups, supplementGroups) {
-    const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
-    const extras = Array.isArray(supplementGroups) ? supplementGroups : [];
-    extras.forEach((extra) => {
-      const code = cleanString(extra?.code).toLowerCase();
-      if (!code) return;
-      const index = merged.findIndex(
-        (group) => cleanString(group?.code).toLowerCase() === code,
-      );
-      if (index >= 0) merged[index] = extra;
-      else merged.push(extra);
-    });
-    return merged;
-  }
-
   async function buildCatalog(collectionId) {
     if (collectionId === "pack") return loadPackCatalog();
 
     if (collectionId === "national") {
-      const data = await fetchJson("./data/pokedex.json");
+      const data = await catalogService.json("./data/pokedex.json");
       return makeCatalog(
         collectionId,
         (data.records || []).map((record) => ({
@@ -225,7 +184,7 @@
     }
 
     if (collectionId === "people") {
-      const data = await fetchJson("./data/people.json");
+      const data = await catalogService.json("./data/people.json");
       return makeCatalog(
         collectionId,
         (data.people || []).map((person) => ({
@@ -247,34 +206,19 @@
     };
     let payload;
     if (collectionId === "pokemon") {
-      const [baseGroups, sequenceGroups] = await Promise.all([
-        fetchJson("./data/pokemon-collections.json"),
-        fetchJson("./data/pokemon-collections-21-40.json"),
-      ]);
-      const mergedByName = new Map();
-      [...(baseGroups || []), ...(sequenceGroups || [])].forEach((group) => {
-        const name = cleanString(group?.name);
-        if (name) mergedByName.set(name, group);
-      });
-      payload = [...mergedByName.values()];
+      payload = await catalogService.pokemonCollections();
     } else if (collectionId === "series") {
-      const [baseGroups, legacyGroups] = await Promise.all([
-        fetchJson(pathByCollection[collectionId]),
-        fetchJson("./data/series-legacy.json").catch(() => []),
-      ]);
-      payload = mergeCatalogGroups(baseGroups, legacyGroups);
+      payload = await catalogService.series();
+    } else if (collectionId === "ar") {
+      payload = await catalogService.ar();
     } else {
-      payload = await fetchJson(pathByCollection[collectionId]);
+      payload = await catalogService.json(pathByCollection[collectionId]);
     }
     let sourceGroups = collectionId === "artist"
       ? payload.artists || []
       : collectionId === "trainerPokemon"
         ? payload.groups || []
         : payload || [];
-    if (collectionId === "ar") {
-      const supplement = await fetchJson("./data/ar-supplement.json").catch(() => []);
-      sourceGroups = mergeCatalogGroups(sourceGroups, supplement);
-    }
     const items = [];
 
     sourceGroups.forEach((group, groupIndex) => {

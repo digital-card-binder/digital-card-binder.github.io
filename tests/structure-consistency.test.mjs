@@ -7,6 +7,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf
 const registry = read("collector-collection-registry.js");
 const dashboard = read("dashboard.js");
 const sheets = read("owner-sheets-sync.js");
+const catalogService = read("core/catalog/catalog-service.js");
+const identityService = read("core/catalog/card-identity.js");
+const pageManager = read("firebase-page-manager.js");
 const verify = read(".github/workflows/verify.yml");
 
 const htmlFiles = [
@@ -24,25 +27,42 @@ const htmlFiles = [
   "collector-settings.html",
 ];
 
-test("all consumers include staged Pokemon collection data", () => {
+test("shared catalog service is the single owner of staged catalog sources", () => {
+  for (const path of [
+    "pokemon-collections-21-40.json",
+    "ar-supplement.json",
+    "series-legacy.json",
+  ]) {
+    assert.match(catalogService, new RegExp(path.replace(".", "[.]")));
+    for (const [name, source] of [
+      ["registry", registry],
+      ["dashboard", dashboard],
+      ["owner sheets", sheets],
+    ]) {
+      assert.equal(source.includes(path), false, `${name}: ${path}`);
+    }
+  }
+  assert.match(registry, /catalogService[.]pokemonCollections[(][)]/);
+  assert.match(dashboard, /catalogService[.]pokemonCollections[(][)]/);
+  assert.match(sheets, /catalogService[.]pokemonCollections[(][)]/);
+  assert.match(registry, /catalogService[.]ar[(][)]/);
+  assert.match(dashboard, /catalogService[.]ar[(][)]/);
+  assert.match(sheets, /catalogService[.]ar[(][)]/);
+  assert.match(registry, /catalogService[.]series[(][)]/);
+});
+
+test("collection identity semantics live in one shared helper", () => {
+  assert.match(identityService, /const accountIndex = Number[.]isInteger\(card[?][.]accountIndex\)/);
+  assert.match(identityService, /collectionId === "trainerPokemon"/);
+  assert.match(identityService, /"trainerPokemon",\s*groupId,/s);
   for (const [name, source] of [
     ["registry", registry],
     ["dashboard", dashboard],
     ["owner sheets", sheets],
+    ["page manager", pageManager],
   ]) {
-    assert.match(source, /pokemon-collections-21-40[.]json/, name);
+    assert.match(source, /identityService[.]cardIdentity/, name);
   }
-});
-
-test("dashboard and owner sheets include AR supplement data", () => {
-  assert.match(dashboard, /ar-supplement[.]json/);
-  assert.match(sheets, /ar-supplement[.]json/);
-});
-
-test("dashboard identity uses accountIndex and trainerPokemon namespace", () => {
-  assert.match(dashboard, /const accountIndex = Number[.]isInteger\(card[.]accountIndex\)/);
-  assert.match(dashboard, /"trainerPokemon",\s*groupId,/s);
-  assert.match(dashboard, /card[.]meta \|\| card[.]code \|\| card[.]name \|\| cardIndex,\s*accountIndex,/s);
 });
 
 test("main pushes run the verification suite", () => {

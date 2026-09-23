@@ -3,17 +3,16 @@
 (function () {
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
-  const PAGE_CONFIG = {
-    artist: { documentId: "artistDex" },
-    series: { documentId: "seriesDex" },
-    pokemon: { documentId: "pokemonCollectionsDex" },
-    ar: { documentId: "arDex" },
-    trainerPokemon: { documentId: "pokemonCollectionsDex" },
-  };
+  const registry = window.CollectorCollectionRegistry;
+  const accountCore = window.DigitalCardBinder?.firebaseAccount;
+  const identityService = window.DigitalCardBinder?.cardIdentity;
+  if (!registry || !accountCore || !identityService) {
+    throw new Error("공통 도감 코어를 불러오지 못했습니다.");
+  }
 
   const mode = document.body?.dataset.catalog || "";
-  const page = PAGE_CONFIG[mode];
-  if (!page) return;
+  const page = registry.COLLECTIONS?.[mode];
+  if (!page?.documentId) return;
 
   let firebase = null;
   let currentUser = null;
@@ -30,27 +29,12 @@
     resolveReady = resolve;
   });
 
-  function normalizeEmail(value) {
-    return String(value || "").trim().toLowerCase();
-  }
-
   function isOwnerAccount(user) {
-    return Boolean(
-      user &&
-        normalizeEmail(CONFIG.ownerEmail) &&
-        normalizeEmail(user.email) === normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.isOwner(CONFIG, user);
   }
 
   function configured() {
-    const config = CONFIG.config || {};
-    return Boolean(
-      CONFIG.enabled &&
-        config.apiKey &&
-        config.authDomain &&
-        config.projectId &&
-        normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.configured(CONFIG, { requireOwnerEmail: true });
   }
 
   function normalizeOverride(value) {
@@ -81,42 +65,17 @@
   }
 
   function groupIdentity(group, groupIndex) {
-    return String(group.code || group.name || group.title || groupIndex);
+    return identityService.groupIdentity(group, groupIndex);
   }
 
   function cardIdentity(group, card, groupIndex, cardIndex) {
-    const groupId = groupIdentity(group, groupIndex);
-    const accountIndex = Number.isInteger(card.accountIndex)
-      ? card.accountIndex
-      : cardIndex;
-
-    if (mode === "trainerPokemon") {
-      return [
-        "trainerPokemon",
-        groupId,
-        card.meta || card.code || card.name || cardIndex,
-        accountIndex,
-      ].join("::");
-    }
-
-    if (mode === "artist") {
-      return [
-        groupId,
-        card.set || "",
-        card.cardNumber || "",
-        card.order ?? cardIndex,
-      ].join("::");
-    }
-
-    if (mode === "series") {
-      return [groupId, card.code || card.meta || cardIndex, accountIndex].join("::");
-    }
-
-    return [
-      groupId,
-      card.meta || card.code || card.name || cardIndex,
-      accountIndex,
-    ].join("::");
+    return identityService.cardIdentity(
+      mode,
+      group,
+      card,
+      groupIndex,
+      cardIndex,
+    );
   }
 
   function applyGroups(groups) {
@@ -244,18 +203,8 @@
     logout.hidden = false;
   }
 
-  async function firstAuthUser(auth, authModule) {
-    return new Promise((resolve, reject) => {
-      let unsubscribe = () => {};
-      unsubscribe = authModule.onAuthStateChanged(
-        auth,
-        (user) => {
-          unsubscribe();
-          resolve(user || null);
-        },
-        reject,
-      );
-    });
+  function firstAuthUser(auth, authModule) {
+    return accountCore.firstAuthUser(auth, authModule);
   }
 
   async function loadAccountDocument(user, options = {}) {
@@ -298,11 +247,11 @@
     }
 
     const { db, firestoreModule } = firebase;
-    const documentRef = firestoreModule.doc(
+    const documentRef = accountCore.documentRef(
+      firestoreModule,
       db,
-      "users",
-      user.uid,
-      CONFIG.userCollection || "collections",
+      user,
+      CONFIG,
       page.documentId,
     );
     userDocumentRef = documentRef;
@@ -485,11 +434,11 @@
     }
 
     const { db, firestoreModule } = firebase;
-    const ref = firestoreModule.doc(
+    const ref = accountCore.documentRef(
+      firestoreModule,
       db,
-      "users",
-      currentUser.uid,
-      CONFIG.userCollection || "collections",
+      currentUser,
+      CONFIG,
       id,
     );
 

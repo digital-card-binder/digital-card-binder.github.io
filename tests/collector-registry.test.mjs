@@ -5,6 +5,8 @@ import test from "node:test";
 import vm from "node:vm";
 
 const root = new URL("../", import.meta.url);
+const catalogSource = await readFile(new URL("../core/catalog/catalog-service.js", import.meta.url), "utf8");
+const identitySource = await readFile(new URL("../core/catalog/card-identity.js", import.meta.url), "utf8");
 const source = await readFile(new URL("../collector-collection-registry.js", import.meta.url), "utf8");
 
 function localPath(input) {
@@ -40,6 +42,8 @@ context.window = {
   location: context.location,
 };
 vm.createContext(context);
+vm.runInContext(catalogSource, context);
+vm.runInContext(identitySource, context);
 vm.runInContext(source, context);
 const registry = context.window.CollectorCollectionRegistry;
 

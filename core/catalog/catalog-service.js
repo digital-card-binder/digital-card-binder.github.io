@@ -14,9 +14,21 @@
     return String(value ?? "").trim();
   }
 
+  function asGroups(payload, preferredKey = "") {
+    if (Array.isArray(payload)) return payload;
+    if (!payload || typeof payload !== "object") return [];
+    if (preferredKey && Array.isArray(payload[preferredKey])) {
+      return payload[preferredKey];
+    }
+    for (const key of ["groups", "artists"]) {
+      if (Array.isArray(payload[key])) return payload[key];
+    }
+    return [];
+  }
+
   function mergeGroups(baseGroups, supplementGroups, key = "code") {
-    const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
-    for (const extra of Array.isArray(supplementGroups) ? supplementGroups : []) {
+    const merged = [...asGroups(baseGroups)];
+    for (const extra of asGroups(supplementGroups)) {
       const extraKey = clean(extra?.[key]).toLowerCase();
       if (!extraKey) continue;
       const index = merged.findIndex((group) => clean(group?.[key]).toLowerCase() === extraKey);
@@ -36,7 +48,7 @@
       json("./data/pokemon-collections.json"),
       json("./data/pokemon-collections-21-40.json"),
     ]);
-    return mergeGroups(base.groups, supplement.groups, "name");
+    return mergeGroups(base, supplement, "name");
   }
 
   async function ar() {
@@ -44,8 +56,23 @@
       json("./data/ar.json"),
       json("./data/ar-supplement.json"),
     ]);
-    return mergeGroups(base.groups, supplement.groups, "code");
+    return mergeGroups(base, supplement, "code");
   }
 
-  root.catalog = Object.freeze({ json, mergeGroups, pokemonCollections, ar });
+  async function series() {
+    const [base, legacy] = await Promise.all([
+      json("./data/series.json"),
+      json("./data/series-legacy.json").catch(() => []),
+    ]);
+    return mergeGroups(base, legacy, "code");
+  }
+
+  root.catalog = Object.freeze({
+    json,
+    asGroups,
+    mergeGroups,
+    pokemonCollections,
+    ar,
+    series,
+  });
 })();

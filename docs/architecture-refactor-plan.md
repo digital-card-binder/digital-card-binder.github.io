@@ -13,26 +13,31 @@ Improve internal structure without changing the current user-facing implementati
 - Do not migrate or reset existing user collection data.
 - Keep staged catalog files as the source data until consumers are migrated and tested.
 
-## phase 1: shared catalog service
+## phase 1: shared catalog service — completed
 
-`core/catalog/catalog-service.js` provides cached JSON loading and the two existing staged-catalog merge rules:
+`core/catalog/catalog-service.js` provides cached JSON loading and the existing staged-catalog merge rules:
 
 - Pokémon Collections: `pokemon-collections.json` + `pokemon-collections-21-40.json`, keyed by Pokémon name.
 - AR: `ar.json` + `ar-supplement.json`, keyed by set code.
+- Series: `series.json` + `series-legacy.json`, keyed by set code.
 
-This is intentionally additive. Existing consumers are not switched in the same change.
+The registry, dashboard, and owner Sheets sync now consume this shared service.
 
-## phase 2: consumer migration
+## phase 2: consumer migration — completed
 
-Migrate one consumer at a time, beginning with the registry. Compare output against the current implementation before removing duplicated loaders.
+Catalog loading for the registry, dashboard, and owner Sheets sync uses the shared catalog service. Staged source paths no longer live independently in each consumer.
 
-## phase 3: identity boundary
+## phase 3: identity and account boundaries — completed
 
-Centralize card identity helpers only after tests prove that existing Firestore account keys resolve to the same identifiers.
+`core/catalog/card-identity.js` is the single source for collection account keys. Tests execute representative trainerPokemon, artist, series, and Pokémon identities and verify the exact legacy strings.
 
-## phase 4: cleanup
+`core/account/firebase-account.js` centralizes owner detection, Firebase configuration checks, first-auth resolution, default base mode, and user collection document references without changing Firestore paths.
 
-After compatibility is demonstrated, consolidate permanent behavior from compatibility/fix/supplement modules into their owning modules. Do not delete compatibility code solely because it looks redundant.
+`core/catalog/card-lookup.js` centralizes card-code normalization, series-card lookup, official image candidate generation, and detached image probes with CDN fallback. National, People, and World consumers retain their prior legacy-series and timeout behavior through options.
+
+## phase 4: cleanup — completed for shared collection logic
+
+Duplicate catalog merge rules, card identity rules, account helpers, and representative-card lookup helpers have been removed from the migrated consumers. Compatibility and supplement modules remain in place where they still own page-specific behavior; they are not removed solely because they look redundant.
 
 ## verification
 

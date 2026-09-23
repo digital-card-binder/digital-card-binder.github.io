@@ -3,6 +3,11 @@
 (function () {
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
+  const accountCore = window.DigitalCardBinder?.firebaseAccount;
+  const cardLookup = window.DigitalCardBinder?.cardLookup;
+  if (!accountCore || !cardLookup) {
+    throw new Error("공통 도감 코어를 불러오지 못했습니다.");
+  }
   const LOCAL_STORAGE_KEY = "pokemonDexCollectionOverridesV1";
   const EXPORT_FORMAT = "pokemon-dex-user-collection-v1";
   const originalFetch = window.fetch.bind(window);
@@ -17,7 +22,6 @@
   let currentNumber = null;
   let tradeMode = false;
   let snapshotStarted = false;
-  let seriesCatalogPromise = null;
   let saveQueue = Promise.resolve();
   let pendingLocalSnapshot = "";
   let resolveReady;
@@ -34,250 +38,43 @@
     reserved: "예약 중",
   };
 
-  function normalizeEmail(value) {
-    return String(value || "").trim().toLowerCase();
-  }
-
   function isOwnerAccount(user) {
-    return Boolean(
-      user &&
-        normalizeEmail(CONFIG.ownerEmail) &&
-        normalizeEmail(user.email) === normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.isOwner(CONFIG, user);
   }
 
   function configured() {
-    const config = CONFIG.config || {};
-    return Boolean(
-      CONFIG.enabled &&
-        config.apiKey &&
-        config.authDomain &&
-        config.projectId &&
-        normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.configured(CONFIG, { requireOwnerEmail: true });
   }
 
   function normalizeSetCode(value) {
-    return String(value || "")
-      .trim()
-      .replace(/\s+/g, "")
-      .replace(/[^a-z0-9-]/gi, "")
-      .toUpperCase();
+    return cardLookup.normalizeSetCode(value);
   }
 
   function normalizedCardNumber(value) {
-    const numerator = String(value || "")
-      .split("/")[0]
-      .match(/\d{1,4}/)?.[0];
-    return numerator ? numerator.padStart(3, "0") : "";
-  }
-
-  function normalizeCardName(value) {
-    return String(value || "")
-      .trim()
-      .toLocaleLowerCase("ko-KR")
-      .replace(/[\s·._()\-]+/g, "");
-  }
-
-  function namesAreCompatible(inputName, catalogName) {
-    const input = normalizeCardName(inputName);
-    const catalog = normalizeCardName(catalogName);
-    return (
-      !input ||
-      !catalog ||
-      input === catalog ||
-      input.includes(catalog) ||
-      catalog.includes(input)
-    );
-  }
-
-  function catalogCardNumber(card) {
-    const value = String(card?.cardNumber || card?.code || card?.meta || "");
-    const separator = value.lastIndexOf("_");
-    return separator >= 0 ? value.slice(separator + 1) : value;
-  }
-
-  async function loadSeriesCatalog() {
-    if (!seriesCatalogPromise) {
-      const load = (path) =>
-        originalFetch(path, { cache: "no-store" }).then((response) => {
-          if (!response.ok) throw new Error(`${path} ${response.status}`);
-          return response.json();
-        });
-
-      seriesCatalogPromise = Promise.all([
-        load("./data/series.json"),
-        load("./data/series-legacy.json").catch(() => []),
-      ])
-        .then(([baseGroups, legacyGroups]) => {
-          const merged = new Map();
-          [...(baseGroups || []), ...(legacyGroups || [])].forEach((group) => {
-            const code = normalizeSetCode(group?.code || group?.name);
-            if (code) merged.set(code, group);
-          });
-          return [...merged.values()];
-        })
-        .catch((error) => {
-          console.warn("시리즈 카드 목록을 불러오지 못했습니다.", error);
-          return [];
-        });
-    }
-    return seriesCatalogPromise;
+    return cardLookup.normalizedCardNumber(value);
   }
 
   async function lookupSeriesCard(setCode, cardNumber, cardName) {
-    const normalizedSet = normalizeSetCode(setCode);
-    const normalizedNumber = normalizedCardNumber(cardNumber);
-    if (!normalizedSet || !normalizedNumber) return null;
-
-    const groups = await loadSeriesCatalog();
-    const group = groups.find(
-      (candidate) =>
-        normalizeSetCode(candidate.code || candidate.name) === normalizedSet,
-    );
-    if (!group) return null;
-
-    const numberMatches = (group.cards || []).filter((card) => {
-      const code = String(card.code || card.meta || "");
-      const codeSet = code.includes("_") ? code.split("_")[0] : group.code;
-      return (
-        normalizeSetCode(codeSet) === normalizedSet &&
-        normalizedCardNumber(catalogCardNumber(card)) === normalizedNumber
-      );
+    return cardLookup.lookupSeriesCard(setCode, cardNumber, cardName, {
+      includeLegacy: true,
+      fetcher: originalFetch,
     });
-    if (!numberMatches.length) return null;
-
-    const matched =
-      numberMatches.find((card) => namesAreCompatible(cardName, card.name)) ||
-      numberMatches[0];
-
-    if (
-      matched.name &&
-      cardName &&
-      !namesAreCompatible(cardName, matched.name)
-    ) {
-      throw new Error(
-        `입력한 카드명(${cardName})과 검색된 카드명(${matched.name})이 다릅니다. 카드번호를 확인해주세요.`,
-      );
-    }
-
-    return {
-      imageUrl: matched.originalImage || matched.image || "",
-      cardName: matched.name || cardName,
-    };
   }
 
   function officialImageCandidates(setCode, cardNumber) {
-    const code = normalizeSetCode(setCode);
-    const number = normalizedCardNumber(cardNumber);
-    if (!code || !number) return [];
-    const typedCode = String(setCode || "")
-      .trim()
-      .replace(/\s+/g, "")
-      .replace(/[^a-z0-9-]/gi, "");
-    const canonicalCode = typedCode
-      .replace(/^adv/i, "ADV")
-      .replace(/^sv/i, "SV")
-      .replace(/^sm/i, "SM")
-      .replace(/^xy/i, "XY")
-      .replace(/^bw/i, "BW")
-      .replace(/^m/i, "M")
-      .replace(/^s/i, "S");
-    const codeVariants = [canonicalCode, code].filter(
-      (value, index, values) =>
-        value && values.indexOf(value) === index,
-    );
-
-    let primaryRoot = "";
-    if (code.startsWith("ADV")) primaryRoot = "ADV";
-    else if (code.startsWith("SV")) primaryRoot = "SV";
-    else if (code.startsWith("SM")) primaryRoot = "SM";
-    else if (code.startsWith("XY")) primaryRoot = "XY";
-    else if (code.startsWith("BW")) primaryRoot = "BW";
-    else if (/^M\d/.test(code)) primaryRoot = "MEGA";
-    else if (code.startsWith("S")) primaryRoot = "S";
-
-    const roots = [
-      primaryRoot,
-      "SV",
-      "S",
-      "MEGA",
-      "SM",
-      "XY",
-      "BW",
-      "ADV",
-    ].filter((root, index, values) => root && values.indexOf(root) === index);
-    const base = "https://cards.image.pokemonkorea.co.kr/data/wmimages";
-
-    return roots.flatMap((root) =>
-      codeVariants.flatMap((candidateCode) => [
-        `${base}/${root}/${candidateCode}/${candidateCode}_${number}.png`,
-        `${base}/${root}/${candidateCode}/${candidateCode}_${number}.jpg`,
-      ]),
-    );
+    return cardLookup.officialImageCandidates(setCode, cardNumber);
   }
 
   function imageLoads(url, timeout = 5000) {
-    return new Promise((resolve) => {
-      if (!url) {
-        resolve(false);
-        return;
-      }
-
-      let parsed;
-      try {
-        parsed = new URL(url, window.location.href);
-      } catch {
-        resolve(false);
-        return;
-      }
-      if (!["http:", "https:"].includes(parsed.protocol)) {
-        resolve(false);
-        return;
-      }
-
-      const probe = new Image();
-      let settled = false;
-      const finish = (success) => {
-        if (settled) return;
-        settled = true;
-        window.clearTimeout(timer);
-        probe.onload = null;
-        probe.onerror = null;
-        resolve(success);
-      };
-      const timer = window.setTimeout(() => finish(false), timeout);
-      probe.onload = () => finish(probe.naturalWidth > 0);
-      probe.onerror = () => {
-        if (window.DigitalCardBinderImageCdn?.restoreOriginal?.(probe)) return;
-        finish(false);
-      };
-      probe.src = parsed.href;
-    });
+    return cardLookup.imageLoads(url, { timeout });
   }
 
   async function findOwnedCardImage(setCode, cardNumber, cardName) {
-    const catalogMatch = await lookupSeriesCard(
-      setCode,
-      cardNumber,
-      cardName,
-    );
-    if (
-      catalogMatch?.imageUrl &&
-      (await imageLoads(catalogMatch.imageUrl))
-    ) {
-      return catalogMatch;
-    }
-
-    const candidates = officialImageCandidates(setCode, cardNumber);
-    const results = await Promise.all(
-      candidates.map(async (imageUrl) => ({
-        imageUrl,
-        loaded: await imageLoads(imageUrl),
-      })),
-    );
-    const match = results.find((result) => result.loaded);
-    return match ? { imageUrl: match.imageUrl, cardName } : null;
+    return cardLookup.findRepresentativeCard(setCode, cardNumber, cardName, {
+      includeLegacy: true,
+      fetcher: originalFetch,
+      timeout: 5000,
+    });
   }
 
   function setEditorMessage(message, state = "") {
@@ -457,18 +254,8 @@
     }
   };
 
-  async function firstAuthUser(auth, authModule) {
-    return new Promise((resolve, reject) => {
-      let unsubscribe = () => {};
-      unsubscribe = authModule.onAuthStateChanged(
-        auth,
-        (user) => {
-          unsubscribe();
-          resolve(user);
-        },
-        reject,
-      );
-    });
+  function firstAuthUser(auth, authModule) {
+    return accountCore.firstAuthUser(auth, authModule);
   }
 
   async function loadAccountDocument(user) {
@@ -509,11 +296,11 @@
       return;
     }
 
-    userDocumentRef = firestoreModule.doc(
+    userDocumentRef = accountCore.documentRef(
+      firestoreModule,
       db,
-      "users",
-      user.uid,
-      CONFIG.userCollection || "collections",
+      user,
+      CONFIG,
       CONFIG.userDocument || "nationalDex",
     );
 

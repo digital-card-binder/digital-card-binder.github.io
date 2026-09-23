@@ -4,6 +4,12 @@
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const registry = window.CollectorCollectionRegistry;
+  const catalogService = window.DigitalCardBinder?.catalog;
+  const accountCore = window.DigitalCardBinder?.firebaseAccount;
+  const identityService = window.DigitalCardBinder?.cardIdentity;
+  if (!catalogService || !accountCore || !identityService) {
+    throw new Error("공통 도감 코어를 불러오지 못했습니다.");
+  }
   const FALLBACK_CATEGORY_META = {
     national: {
       number: "01",
@@ -155,75 +161,26 @@
     return total ? Number(((owned / total) * 100).toFixed(1)) : 0;
   }
 
-  function normalizeEmail(value) {
-    return String(value || "").trim().toLowerCase();
-  }
-
   function isOwner(user) {
-    return Boolean(
-      user &&
-        normalizeEmail(CONFIG.ownerEmail) &&
-        normalizeEmail(user.email) === normalizeEmail(CONFIG.ownerEmail),
-    );
+    return accountCore.isOwner(CONFIG, user);
   }
 
   function configured() {
-    const config = CONFIG.config || {};
-    return Boolean(
-      CONFIG.enabled &&
-        config.apiKey &&
-        config.authDomain &&
-        config.projectId,
-    );
+    return accountCore.configured(CONFIG);
   }
 
   function groupIdentity(group, groupIndex) {
-    return String(group.code || group.name || group.title || groupIndex);
+    return identityService.groupIdentity(group, groupIndex);
   }
 
   function pageCardIdentity(category, group, card, groupIndex, cardIndex) {
-    const groupId = groupIdentity(group, groupIndex);
-    const accountIndex = Number.isInteger(card.accountIndex)
-      ? card.accountIndex
-      : cardIndex;
-
-    if (category === "trainerPokemon") {
-      return [
-        "trainerPokemon",
-        groupId,
-        card.meta || card.code || card.name || cardIndex,
-        accountIndex,
-      ].join("::");
-    }
-
-    if (category === "artist") {
-      return [
-        groupId,
-        card.set || "",
-        card.cardNumber || "",
-        card.order ?? cardIndex,
-      ].join("::");
-    }
-
-    if (category === "series") {
-      return [
-        groupId,
-        card.code || card.meta || cardIndex,
-        accountIndex,
-      ].join("::");
-    }
-
-    return [
-      groupId,
-      card.meta || card.code || card.name || cardIndex,
-      accountIndex,
-    ].join("::");
-  }
-
-  async function fetchJson(url) {
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${url} ${response.status}`);
-    return response.json();
+    return identityService.cardIdentity(
+      category,
+      group,
+      card,
+      groupIndex,
+      cardIndex,
+    );
   }
 
   async function fetchPacks() {
@@ -415,54 +372,32 @@
     };
   }
 
-  function mergeGroupsByName(baseGroups, extraGroups) {
-    const merged = new Map();
-    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
-      const name = String(group?.name || "").trim();
-      if (name) merged.set(name, group);
-    });
-    return [...merged.values()];
-  }
-
-  function mergeGroupsByCode(baseGroups, extraGroups) {
-    const merged = new Map();
-    [...(baseGroups || []), ...(extraGroups || [])].forEach((group) => {
-      const code = String(group?.code || group?.name || "").trim().toLowerCase();
-      if (code) merged.set(code, group);
-    });
-    return [...merged.values()];
-  }
-
   async function loadCatalogs() {
     const [
       pokedex,
       artists,
       series,
       pokemon,
-      pokemonSequence,
       ar,
-      arSupplement,
       packs,
       people,
       trainerPokemon,
     ] = await Promise.all([
-      fetchJson("./data/pokedex.json"),
-      fetchJson("./data/artists.json"),
-      fetchJson("./data/series.json"),
-      fetchJson("./data/pokemon-collections.json"),
-      fetchJson("./data/pokemon-collections-21-40.json"),
-      fetchJson("./data/ar.json"),
-      fetchJson("./data/ar-supplement.json").catch(() => []),
+      catalogService.json("./data/pokedex.json"),
+      catalogService.json("./data/artists.json"),
+      catalogService.series(),
+      catalogService.pokemonCollections(),
+      catalogService.ar(),
       fetchPacks(),
-      fetchJson("./data/people.json"),
-      fetchJson("./data/trainer-pokemon.json"),
+      catalogService.json("./data/people.json"),
+      catalogService.json("./data/trainer-pokemon.json"),
     ]);
     return buildCatalogs(
       pokedex,
       artists,
       series,
-      mergeGroupsByName(pokemon, pokemonSequence),
-      mergeGroupsByCode(ar, arSupplement),
+      pokemon,
+      ar,
       packs,
       people,
       trainerPokemon,
@@ -536,17 +471,7 @@
   }
 
   function firstAuthUser(auth, authModule) {
-    return new Promise((resolve, reject) => {
-      let unsubscribe = () => {};
-      unsubscribe = authModule.onAuthStateChanged(
-        auth,
-        (user) => {
-          unsubscribe();
-          resolve(user || null);
-        },
-        reject,
-      );
-    });
+    return accountCore.firstAuthUser(auth, authModule);
   }
 
   async function signIn() {
