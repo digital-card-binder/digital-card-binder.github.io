@@ -15,6 +15,6 @@ test("settings batch does not depend on public directory write permission", () =
 });
 
 test("collector settings assets are cache busted after permission fix", () => {
-  assert.match(page, /collector-settings\.js\?v=20260903-2/);
-  assert.match(page, /collector-settings-legacy-share-migration\.js\?v=20260903-2/);
+  assert.match(page, /collector-settings\.js\?v=[0-9a-f]{12}/);
+  assert.match(page, /collector-settings-legacy-share-migration\.js\?v=[0-9a-f]{12}/);
 });
