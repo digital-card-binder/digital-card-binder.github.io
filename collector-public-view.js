@@ -116,13 +116,13 @@
     );
     document.body?.setAttribute("data-collector-readonly", context.mode);
     const chip = document.querySelector(".header-chip");
-    if (chip) chip.textContent = "READ ONLY";
+    if (chip) chip.textContent = "읽기 전용";
     const title = document.querySelector("#page-title, .hero h1");
     if (title && !title.dataset.collectorTitle) {
       title.dataset.collectorTitle = "true";
       title.insertAdjacentHTML(
         "afterend",
-        `<p class="collector-readonly-owner"><strong></strong>님의 공개 도감 · READ ONLY</p>`,
+        `<p class="collector-readonly-owner"><strong></strong>님의 공개 도감 · 읽기 전용</p>`,
       );
       title.nextElementSibling?.querySelector("strong")?.append(
         document.createTextNode(context.profile.nickname || "컬렉터"),
