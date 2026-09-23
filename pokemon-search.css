@@ -16,8 +16,13 @@
 .pokemon-search-grid{margin-top:0}
 .pokemon-search-card .card-name-en{min-height:2.7em}
 .pokemon-search-card .card-meta{display:grid;gap:3px;white-space:normal}
-.pokemon-search-ownership-sources{display:block;margin-top:4px;color:var(--ink-faint);font-size:.62rem;font-weight:800;line-height:1.45;white-space:normal}
-#pokemon-search-dialog-sources{font-weight:800;line-height:1.45}
+.pokemon-search-ownership-sources{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:7px;min-height:22px;white-space:normal}
+.pokemon-search-ownership-label{color:var(--ink-faint);font-size:.6rem;font-weight:800;letter-spacing:.02em}
+.pokemon-search-ownership-chip{display:inline-flex;align-items:center;min-height:22px;border:1px solid rgba(35,64,116,.14);border-radius:999px;background:#f2f5fa;color:#31466c;font-size:.59rem;font-weight:900;line-height:1;padding:4px 7px}
+.pokemon-search-ownership-sources.is-empty{display:block;color:var(--ink-faint);font-size:.61rem;font-weight:800;line-height:1.45}
+#pokemon-search-dialog-sources{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:800;line-height:1.45}
+#pokemon-search-dialog-sources .pokemon-search-ownership-chip{min-height:26px;font-size:.66rem;padding:5px 9px}
+#pokemon-search-dialog-sources.is-empty{display:block;color:var(--ink-faint)}
 .pokemon-search-card .card-body{min-height:128px}
 .pokemon-search-card.has-image-error .image-fallback{display:grid}
 .pokemon-search-card.has-image-error .card-image{visibility:hidden}
@@ -42,5 +47,7 @@
   .pokemon-search-filters .filter-group--status{grid-column:auto}
   .pokemon-search-filters .catalog-select select{height:46px}
   .pokemon-search-card .card-body{min-height:112px}
+  .pokemon-search-ownership-sources{gap:4px}
+  .pokemon-search-ownership-chip{font-size:.56rem;padding:4px 6px}
   .pokemon-search-dialog-actions .primary-button{width:100%}
 }

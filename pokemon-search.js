@@ -581,6 +581,31 @@
     return badge;
   }
 
+  function renderOwnershipSources(target, sources, owned, options = {}) {
+    const labels = Array.isArray(sources) ? sources.filter(Boolean) : [];
+    target.replaceChildren();
+    target.classList.toggle("is-empty", !owned || labels.length === 0);
+
+    if (!owned || labels.length === 0) {
+      target.textContent = options.emptyText || "보유 확인 도감 없음";
+      return;
+    }
+
+    if (options.showLabel !== false) {
+      const label = document.createElement("span");
+      label.className = "pokemon-search-ownership-label";
+      label.textContent = "보유 도감";
+      target.append(label);
+    }
+
+    labels.forEach((source) => {
+      const chip = document.createElement("span");
+      chip.className = "pokemon-search-ownership-chip";
+      chip.textContent = source;
+      target.append(chip);
+    });
+  }
+
   function makeCard(item) {
     const card = item.card;
     const article = document.createElement("article");
@@ -632,9 +657,11 @@
 
     const sources = document.createElement("span");
     sources.className = "pokemon-search-ownership-sources";
-    sources.textContent = card.owned
-      ? "보유 확인 · " + (card.ownershipSources || []).join(" · ")
-      : "보유 확인 도감 없음";
+    renderOwnershipSources(
+      sources,
+      card.ownershipSources,
+      Boolean(card.owned),
+    );
 
     body.append(top, name, set, meta, sources);
     button.append(imageWrap, body);
@@ -838,9 +865,12 @@
     el("pokemon-search-dialog-meta").textContent = item.setCode;
     el("pokemon-search-dialog-era").textContent = ERA_LABELS[item.era] || item.era;
     el("pokemon-search-dialog-set").textContent = item.setName;
-    el("pokemon-search-dialog-sources").textContent = owned
-      ? (card.ownershipSources || []).join(" · ")
-      : "확인된 보유 도감 없음";
+    renderOwnershipSources(
+      el("pokemon-search-dialog-sources"),
+      card.ownershipSources,
+      owned,
+      { showLabel: false, emptyText: "확인된 보유 도감 없음" },
+    );
 
     const account = window.PokemonDexPageAccount;
     const toggle = el("pokemon-search-toggle-owned");

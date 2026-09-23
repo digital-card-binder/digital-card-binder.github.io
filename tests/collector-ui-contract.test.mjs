@@ -233,7 +233,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
 
   assert.match(page, /data-catalog="series"/);
   assert.match(page, /firebase-page-manager[.]js[?]v=20260923-2/);
-  assert.match(page, /pokemon-search[.]js[?]v=20260923-2/);
+  assert.match(page, /pokemon-search[.]js[?]v=20260923-3/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
@@ -262,6 +262,12 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   assert.ok(client.includes("item.card.seriesOwned = nextOwned;"));
   assert.ok(client.includes("applyOwnershipToItem(item);"));
   assert.ok(client.includes("addPeopleOwnership(index, national);"));
+  assert.ok(client.includes("renderOwnershipSources("));
+  assert.match(client, /className = "pokemon-search-ownership-chip"/);
+  const searchCss = await source("pokemon-search.css");
+  assert.match(page, /pokemon-search[.]css[?]v=20260923-3/);
+  assert.match(searchCss, /[.]pokemon-search-ownership-chip\{/);
+  assert.match(searchCss, /#pokemon-search-dialog-sources [.]pokemon-search-ownership-chip\{/);
   assert.ok(manager.includes("async function readCollectionDocument(documentId)"));
   assert.ok(manager.includes("readCollectionDocument,"));
 });
