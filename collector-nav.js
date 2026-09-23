@@ -9,6 +9,29 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
+  const SITE_BUILD_VERSION = "20260923-6";
+  const SITE_BUILD_CHECK_URL = "./site-version.json";
+
+  async function refreshStaleShell() {
+    try {
+      const response = await fetch(
+        `${SITE_BUILD_CHECK_URL}?t=${Date.now()}`,
+        { cache: "no-store" },
+      );
+      if (!response.ok) return;
+      const payload = await response.json();
+      const remoteVersion = String(payload?.version || "").trim();
+      if (!remoteVersion || remoteVersion === SITE_BUILD_VERSION) return;
+
+      const url = new URL(window.location.href);
+      if (url.searchParams.get("build") === remoteVersion) return;
+      url.searchParams.set("build", remoteVersion);
+      window.location.replace(url.href);
+    } catch {
+      // 네트워크가 없어도 현재 페이지는 정상 동작합니다.
+    }
+  }
+
   const compactCardLayoutMedia = typeof window.matchMedia === "function"
     ? window.matchMedia(COMPACT_CARD_LAYOUT_QUERY)
     : null;
@@ -552,6 +575,7 @@
   }
 
   window.addEventListener("pokemon-dex:public-sync-error", showPublicSyncWarning);
+  void refreshStaleShell();
   arrangeCollectorNavigation();
   centerActiveNavigationOnMobile();
   if (typeof mobileCardLayoutMedia?.addEventListener === "function") {

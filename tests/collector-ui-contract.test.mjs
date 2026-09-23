@@ -508,10 +508,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260923-4/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260923-5/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-4/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-5/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
@@ -571,7 +571,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260923-2/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260923-4/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260923-5/, `${page}: current common header behavior`);
   }
 });
 
@@ -583,6 +583,17 @@ test("shared collection UI uses one calm panel and interaction system", async ()
   assert.match(css, /body [.]pack-filter-panel,[\s\S]*?body [.]tp-filter-panel \{/);
   assert.match(css, /[.]pokemon-card-button:hover \{[\s\S]*?translateY\(-3px\)/);
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*?[.]pokemon-card-button:hover \{[\s\S]*?transform: none/);
+});
+
+test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
+  const navigation = await source("collector-nav.js");
+  const siteVersion = JSON.parse(await source("site-version.json"));
+  assert.equal(siteVersion.version, "20260923-6");
+  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-6"/);
+  assert.match(navigation, /site-version[.]json/);
+  assert.match(navigation, /cache: "no-store"/);
+  assert.match(navigation, /searchParams[.]set\("build", remoteVersion\)/);
+  assert.match(navigation, /window[.]location[.]replace\(url[.]href\)/);
 });
 
 test("desktop keeps four or three columns while phones use two or four", async () => {
@@ -620,7 +631,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260923-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260923-4/);
+    assert.match(html, /collector-nav[.]js\?v=20260923-5/);
   }
 });
 
