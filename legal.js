@@ -5,7 +5,7 @@
   const LOGIN_SELECTOR = "#firebase-login, #dashboard-login-cta";
   const SDK_VERSION = "12.16.0";
   const PROFILE_HREF = "./collector-settings.html";
-  const CURRENT_METRICS_SCRIPT = "./site-metrics.js?v=20260813-2";
+  const CURRENT_METRICS_SCRIPT = "./site-metrics.js?v=0a3f1a2b20a6";
 
   function policyLinks(className = "login-policy-links") {
     const wrapper = document.createElement("span");

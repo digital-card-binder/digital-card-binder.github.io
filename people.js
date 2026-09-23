@@ -492,7 +492,7 @@ function bindPeopleEvents() {
 
 async function initPeopleArchive() {
   try {
-    const response = await fetch("./data/people.json?v=20260810-3", { cache: "no-store" });
+    const response = await fetch("./data/people.json?v=a845a63ebb75", { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     peopleState.data = await response.json();
     peopleState.data.people.forEach((person) => {

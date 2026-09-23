@@ -1,6 +1,6 @@
 "use strict";
 
-const FOSSIL_DATA_URL = "./data/fossil.json?v=20260916-2";
+const FOSSIL_DATA_URL = "./data/fossil.json?v=f1e0ce5e3201";
 const FOSSIL_ALL = "__all__";
 const fossilEl = (id) => document.getElementById(id);
 

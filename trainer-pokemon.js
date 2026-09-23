@@ -1,6 +1,6 @@
 "use strict";
 
-const TP_DATA_URL = "./data/trainer-pokemon.json?v=20260911-1";
+const TP_DATA_URL = "./data/trainer-pokemon.json?v=118f86fe49de";
 const TP_ALL_VALUE = "__all__";
 const tp = (id) => document.getElementById(id);
 

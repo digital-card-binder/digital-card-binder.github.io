@@ -9,7 +9,7 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-fab838c07e92";
+  const SITE_BUILD_VERSION = "b-8af388f3fd17";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
 
   async function refreshStaleShell() {
@@ -599,7 +599,7 @@
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
   if (tradeEligiblePages.has(currentPage)) {
     const script = document.createElement("script");
-    script.src = "./trade-offer.js?v=20260821-4";
+    script.src = "./trade-offer.js?v=8a296fa38d86";
     script.defer = true;
     document.head?.append(script);
   }
