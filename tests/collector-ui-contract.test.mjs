@@ -439,22 +439,22 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   const replaceEnd = navigation.indexOf("normalizeNavigationState(nav);", replaceStart);
   const menuLayout = navigation.slice(replaceStart, replaceEnd);
   const order = [
-    "dashboard",
-    "pokemonSearch",
+    "\n      dashboard,",
+    "\n      pokemonSearch,",
     'navigationSection("주요 도감")',
-    "national",
-    "series",
-    "ar",
-    "packs",
+    "\n      national,",
+    "\n      series,",
+    "\n      ar,",
+    "\n      packs,",
     'navigationSection("테마 도감")',
-    "pokemonCollections",
-    "artists",
-    "people",
-    "trainerPokemon",
-    "fossilDex",
-    "worldDex",
-    "customDex",
-    "community",
+    "\n      pokemonCollections,",
+    "\n      artists,",
+    "\n      people,",
+    "\n      trainerPokemon,",
+    "\n      fossilDex,",
+    "\n      worldDex,",
+    "\n      customDex,",
+    "\n      community,",
   ].map((token) => menuLayout.indexOf(token));
   assert.ok(order.every((index) => index >= 0));
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
