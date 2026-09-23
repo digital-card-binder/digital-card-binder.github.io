@@ -279,6 +279,19 @@ test("dashboard loads the trainer and Pokemon catalog registered in collection o
   assert.match(dashboard, /pageCardIdentity\("trainerPokemon"/);
 });
 
+test("dashboard ignores stale saved displayOrder and follows the current navigation order", async () => {
+  const dashboard = await source("dashboard.js");
+  assert.match(
+    dashboard,
+    /const visibleCategories = CATEGORY_ORDER[.]filter\([\s\S]*?dashboardVisible !== false/,
+  );
+  const metricsBlock = dashboard.slice(
+    dashboard.indexOf("function getMetrics()"),
+    dashboard.indexOf("function renderSummary"),
+  );
+  assert.equal(metricsBlock.includes("displayOrder"), false);
+});
+
 test("dashboard polish follows navigation labels and restrained motion", async () => {
   const dashboard = await source("dashboard.js");
   const css = await source("dashboard.css");
@@ -304,7 +317,7 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
   assert.match(page, /dashboard[.]css[?]v=20260923-3/);
-  assert.match(page, /dashboard[.]js[?]v=20260923-3/);
+  assert.match(page, /dashboard[.]js[?]v=20260923-4/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);

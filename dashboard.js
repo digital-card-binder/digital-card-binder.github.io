@@ -839,15 +839,9 @@
     let overallOwned = 0;
     let overallTotal = 0;
 
-    const visibleCategories = CATEGORY_ORDER
-      .filter(
-        (category) => collectionSettings[category]?.dashboardVisible !== false,
-      )
-      .sort(
-        (a, b) =>
-          (collectionSettings[a]?.displayOrder ?? CATEGORY_ORDER.indexOf(a))
-            - (collectionSettings[b]?.displayOrder ?? CATEGORY_ORDER.indexOf(b)),
-      );
+    const visibleCategories = CATEGORY_ORDER.filter(
+      (category) => collectionSettings[category]?.dashboardVisible !== false,
+    );
 
     for (const category of visibleCategories) {
       applyOwnership(category);
