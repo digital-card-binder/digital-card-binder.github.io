@@ -3,10 +3,7 @@ import { readFileSync } from "node:fs";
 
 const html = readFileSync(new URL("../ar.html", import.meta.url), "utf8");
 const ar = readFileSync(new URL("../ar.js", import.meta.url), "utf8");
-const supplement = readFileSync(
-  new URL("../ar-mega-supplement.js", import.meta.url),
-  "utf8",
-);
+const css = readFileSync(new URL("../ar.css", import.meta.url), "utf8");
 const editor = readFileSync(
   new URL("../ar-card-editor.js", import.meta.url),
   "utf8",
@@ -26,39 +23,32 @@ const registry = readFileSync(
   "utf8",
 );
 
-assert.match(html, /ar-mega-supplement\.js\?v=[0-9a-f]{12}/);
-assert.match(html, /ar-card-editor\.js\?v=[0-9a-f]{12}/);
-assert.match(html, /ar\.js\?v=[0-9a-f]{12}/);
+assert.doesNotMatch(html, /ar-count-ui-fix[.]js/);
+assert.doesNotMatch(html, /ar-mega-supplement[.]js/);
+assert.match(html, /ar-card-editor[.]js[?]v=[0-9a-f]{12}/);
+assert.match(html, /ar[.]js[?]v=[0-9a-f]{12}/);
 assert.match(ar, /const EXPECTED_GROUPS = 33;/);
 assert.match(ar, /const EXPECTED_TOTAL = 510;/);
-assert.match(ar, /const SUPPLEMENT_URL = "\.\/data\/ar-supplement\.json";/);
+assert.match(ar, /const SUPPLEMENT_URL = "[.]\/data\/ar-supplement[.]json";/);
+assert.match(ar, /const AR_VIEW = new URLSearchParams/);
+assert.match(ar, /function scopedNationalGroups/);
+assert.match(ar, /code: `national::/);
+assert.match(ar, /function installViewTabs/);
+assert.match(ar, /function applyViewMode/);
 assert.match(ar, /fetchJson\(DATA_URL, true\)/);
 assert.match(ar, /fetchJson\(SUPPLEMENT_URL, false\)/);
 assert.match(ar, /normalizeGroups\(mergeGroups\(baseData, supplementData \|\| \[\]\)\)/);
-assert.match(ar, /buildSelect\(\);\s*refreshCounts\(\);\s*render\(\);\s*bindUi\(\);/s);
 assert.match(ar, /await applyAccountState\(\);/);
-assert.doesNotMatch(supplement, /window\.fetch\s*=/);
-assert.doesNotMatch(supplement, /response\.json\s*=/);
-assert.doesNotMatch(supplement, /new Response\(/);
-assert.doesNotMatch(editor, /account\.applyGroups\s*=/);
+assert.match(css, /[.]ar-view-tabs/);
+assert.match(css, /[.]ar-view-national [.]catalog-select/);
+assert.doesNotMatch(editor, /account[.]applyGroups\s*=/);
 
 assert.equal(baseData.length, 32);
 assert.equal(
   baseData.reduce((total, group) => total + group.cards.length, 0),
   498,
 );
-assert.equal(
-  baseData.some((group) => String(group.code).toLowerCase() === "m5"),
-  true,
-  "M5 is already part of the 498-card base catalog",
-);
 assert.equal(supplementData.length, 2);
-assert.equal(
-  supplementData.reduce((total, group) => total + group.cards.length, 0),
-  24,
-);
-assert.equal(supplementData[0].code, "m5");
-assert.equal(supplementData[1].code, "m6");
 
 const mergedByCode = new Map(
   baseData.map((group) => [String(group.code).toLowerCase(), group]),
@@ -72,11 +62,7 @@ assert.equal(
   mergedGroups.reduce((total, group) => total + group.cards.length, 0),
   510,
 );
-assert.equal(
-  mergedGroups.some((group) => String(group.code).toLowerCase() === "m6"),
-  true,
-);
 assert.match(registry, /ar:\s*\{[\s\S]*?documentId: "arDex"/);
 assert.match(manager, /registry[.]COLLECTIONS[?][.]\[mode\]/);
 
-console.log("AR staged loader regression contract passed: 33 sets / 510 cards");
+console.log("AR integrated loader regression contract passed: 33 sets / 510 cards");

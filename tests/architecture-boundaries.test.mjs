@@ -88,3 +88,23 @@ test("shared card lookup owns CDN-safe detached image probes", () => {
   assert.match(source, /includeLegacy !== false/);
   assert.match(source, /series-legacy[.]json/);
 });
+
+
+test("transitional runtime patch files are retired", () => {
+  for (const path of [
+    "ar-count-ui-fix.js",
+    "ar-mega-supplement.js",
+    "series-mega-supplement.js",
+    "owner-header-fallback.js",
+    "mega-latest.js",
+  ]) {
+    assert.throws(() => read(path), /ENOENT/);
+  }
+
+  const account = read("core/account/firebase-account.js");
+  const ar = read("ar.js");
+  const series = JSON.parse(read("data/series.json"));
+  assert.match(account, /installHeaderPanel/);
+  assert.match(ar, /scopedNationalGroups/);
+  assert.ok(series.some((group) => String(group.code).toLowerCase() === "m6"));
+});

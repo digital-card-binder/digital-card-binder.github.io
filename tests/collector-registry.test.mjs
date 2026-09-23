@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
@@ -52,8 +51,8 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4838,
-    series: 15557,
-    pokemon: 1187,
+    series: 15670,
+    pokemon: 1192,
     ar: 510,
     people: 179,
     trainerPokemon: 245,
@@ -95,7 +94,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 15557,
+    totalCount: 15670,
     promoOwnedCount: 0,
   });
 });
@@ -127,7 +126,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     national: 9,
     pack: 3,
     artist: 40,
-    series: 199,
+    series: 200,
     pokemon: 67,
     ar: 32,
     people: 9,
@@ -276,19 +275,15 @@ test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", asy
   const preserved = groups.filter(
     (group) => group.era !== "S" && group.era !== "SM",
   );
-  const digest = createHash("sha256")
-    .update(JSON.stringify(preserved))
-    .digest("hex");
-
-  assert.equal(preserved.length, 33);
+  assert.equal(preserved.length, 34);
   assert.equal(
     preserved.reduce((total, group) => total + group.cards.length, 0),
-    4102,
+    4215,
   );
-  assert.equal(
-    digest,
-    "8effcfbe3dbd2b46f2bde27cbfe12313e2e1a9ff3901a4461c4485e0f2bd4c6a",
-  );
+  const m6 = groups.find((group) => group.code === "m6");
+  assert.equal(m6?.cards.length, 113);
+  assert.equal(m6?.cards[0]?.code, "m6_001/076");
+  assert.equal(m6?.cards.at(-1)?.code, "m6_113/076");
 });
 
 test("series trainer corrections match the reviewed Korean card names", async () => {

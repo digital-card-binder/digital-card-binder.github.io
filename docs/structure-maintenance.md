@@ -37,4 +37,9 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 
 - Do not commit `.tmp-*` trigger files.
 - Keep only the live root `DigitalCardBinder_v0.9.apk`; old build outputs belong in GitHub Actions artifacts/releases, not duplicate repository paths.
-- Avoid introducing new `*-fix.js` or `*-supplement.js` files for permanent behavior unless there is a staged-data reason. Prefer consolidating stable behavior into the owning module after compatibility is verified.
+- Do not introduce runtime `*-fix.js`, `*-supplement.js`, or `*-fallback.js` files for permanent behavior. Stable behavior belongs in the owning module; staged card data belongs in canonical or explicitly staged data files.
+
+
+## Retired transitional runtime patches
+
+The former AR count/view patch, AR MEGA compatibility shim, MEGA series fetch patch, latest-MEGA runtime dataset, and owner-header fallback were consolidated into their owning modules/data. Do not reintroduce global `window.fetch` interception for catalog corrections.

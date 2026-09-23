@@ -55,7 +55,7 @@
       href: "./series.html",
       documentId: "seriesDex",
       unit: "장",
-      catalogCount: 15557,
+      catalogCount: 15670,
       defaultDashboardVisible: true,
     },
     pokemon: {
@@ -65,7 +65,7 @@
       href: "./pokemon-collections.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
-      catalogCount: 1187,
+      catalogCount: 1192,
       defaultDashboardVisible: true,
     },
     ar: {
