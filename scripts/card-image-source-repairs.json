@@ -2325,13 +2325,6 @@
   ],
   "unresolved": [
     {
-      "project": "modern",
-      "relativePath": "data/wmimages/MEGA/M1L/M1L_093.webp",
-      "reason": "The Korean M1L catalog ends at 092/063; 092 is already present and 093 is an extra invalid entry. Do not substitute a duplicate image or silently remove a collection slot.",
-      "evidenceUrl": "https://www.dogam.app/sets/01KW0QCA5NXA6S422YR9ZDQ8NM",
-      "requiredAction": "Correct the extra catalog slot while preserving existing collection keys before changing the expected image count."
-    },
-    {
       "project": "legacy",
       "relativePath": "data/wmimages/BW/FS/bw1_fs_g_en_1.webp",
       "reason": "The official Korean First Set grass-energy image returns HTTP 415. The matching catalog uses a placeholder; other editions and English images do not match.",

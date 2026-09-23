@@ -50,7 +50,7 @@
       href: "./series.html",
       documentId: "seriesDex",
       unit: "장",
-      catalogCount: 15558,
+      catalogCount: 15557,
       defaultDashboardVisible: true,
     },
     pokemon: {
@@ -134,7 +134,7 @@
     }
 
     if (collectionId === "series") {
-      return [groupId, card.code || card.meta || cardIndex, cardIndex].join("::");
+      return [groupId, card.code || card.meta || cardIndex, accountIndex].join("::");
     }
 
     return [

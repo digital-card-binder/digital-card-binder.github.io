@@ -48,7 +48,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4838,
-    series: 15558,
+    series: 15557,
     pokemon: 1187,
     ar: 510,
     people: 179,
@@ -77,9 +77,30 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 15558,
+    totalCount: 15557,
     promoOwnedCount: 0,
   });
+});
+
+test("removing the non-existent M1L 093 preserves every later collection key", async () => {
+  const groups = JSON.parse(await readFile(new URL("../data/series.json", import.meta.url), "utf8"));
+  const megaBrave = groups.find((group) => group.code === "m1L");
+  assert.equal(megaBrave.title, "메가브레이브 (92/063)");
+  assert.equal(megaBrave.cards.length, 92);
+  assert.ok(!megaBrave.cards.some((card) => card.code === "m1l_093/063"));
+
+  const catalog = await registry.loadCatalog("series");
+  for (const [index, code, originalIndex] of [
+    [89, "m1l_087/063", 90],
+    [90, "m1l_088/063", 91],
+    [91, "m1l_089/063", 92],
+  ]) {
+    const card = megaBrave.cards[index];
+    assert.equal(card.code, code);
+    assert.equal(card.accountIndex, originalIndex);
+    assert.ok(catalog.itemMap.has(`m1L::${code}::${originalIndex}`));
+    assert.ok(!catalog.itemMap.has(`m1L::${code}::${index}`));
+  }
 });
 
 test("existing nonempty top-level catalog group counts stay unchanged", async () => {
@@ -229,7 +250,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
   assert.equal(group("SMP").cards.length, 249, "Korean SM promo catalog is included");
 });
 
-test("adding legacy eras does not mutate any existing SV, MEGA, or starter card", async () => {
+test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", async () => {
   const groups = JSON.parse(
     await readFile(new URL("../data/series.json", import.meta.url), "utf8"),
   );
@@ -243,11 +264,11 @@ test("adding legacy eras does not mutate any existing SV, MEGA, or starter card"
   assert.equal(preserved.length, 33);
   assert.equal(
     preserved.reduce((total, group) => total + group.cards.length, 0),
-    4103,
+    4102,
   );
   assert.equal(
     digest,
-    "73bec2b688579e876d782de5d5744aa5e49fa613f6a26803711c554e20047827",
+    "fb0c19ad77548ebcdb164a7c09e2dae6706ab3d6217ea54cf6ec8dc7f8dfb0d7",
   );
 });
 

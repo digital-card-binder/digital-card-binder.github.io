@@ -109,7 +109,7 @@
     }
 
     if (mode === "series") {
-      return [groupId, card.code || card.meta || cardIndex, cardIndex].join("::");
+      return [groupId, card.code || card.meta || cardIndex, accountIndex].join("::");
     }
 
     return [

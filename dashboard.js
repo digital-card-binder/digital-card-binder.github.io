@@ -209,7 +209,7 @@
       return [
         groupId,
         card.code || card.meta || cardIndex,
-        cardIndex,
+        accountIndex,
       ].join("::");
     }
 
