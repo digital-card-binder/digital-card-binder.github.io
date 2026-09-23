@@ -26,6 +26,14 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - Do not hand-edit the shared navigation or shared legal footer in individual HTML files. Use `npm run shell:sync`.
 - `npm run shell:check` runs before the rest of the test suite.
 
+## Lightweight search data
+
+- `data/pokemon-search-index.json` is generated from the canonical series, legacy-series, and Pokedex sources.
+- The search page loads this compact index instead of loading the full series catalogs and full Pokedex payload.
+- The generated index preserves series group/card order, `accountIndex`, baseline ownership, and card identity fields so existing Firestore keys remain unchanged.
+- Official Pokemon Korea image URLs are stored as compact paths and expanded in the search client.
+- Do not hand-edit the generated index. Use `npm run search-index:sync`; `npm run search-index:check` is part of `npm test`.
+
 ## Automatic cache versioning
 
 - Do not manually edit `?v=...` values, `site-version.json`, `SITE_BUILD_VERSION`, or the service-worker cache token.
