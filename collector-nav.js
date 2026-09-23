@@ -80,6 +80,8 @@
     const rootLabel = document.querySelector(".sidebar > .sidebar-label");
     if (rootLabel) rootLabel.textContent = "도감 메뉴";
 
+    nav.querySelector('[href*="trades.html"]')?.remove();
+
     const dashboard = navigationLink(
       "./",
       "DB",

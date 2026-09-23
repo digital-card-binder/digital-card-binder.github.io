@@ -17,7 +17,7 @@
     <script src="./firebase-config.js?v=20260918-1" defer></script>
     <script src="./site-metrics.js?v=20260729-1" defer></script>
     <script src="./legal.js?v=20260813-2" defer></script>
-    <script src="./collector-collection-registry.js?v=20260923-1" defer></script>
+    <script src="./collector-collection-registry.js?v=20260923-2" defer></script>
     <script src="./custom-sharing.js?v=20260813-1" defer></script>
     <script src="./collector-nav.js?v=20260923-4" defer></script>
     <script src="./collector-directory.js?v=20260813-3" defer></script>
@@ -31,49 +31,29 @@
           <strong>디지털 카드 바인더</strong>
         </span>
       </a>
-      <span class="header-chip">PUBLIC BOARD</span>
+      <span class="header-chip">COMMUNITY</span>
     </header>
 
     <div class="site-layout">
       <aside class="sidebar" aria-label="도감 메뉴">
-        <div class="sidebar-label">MY COLLECTIONS</div>
+        <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
-          <a class="collection-link" href="./">
-            <span class="collection-icon" aria-hidden="true">DB</span>
-            <span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span>
-          </a>
-          <a class="collection-link is-active" href="./collectors.html" aria-current="page">
-            <span class="collection-icon collection-icon--red" aria-hidden="true">PB</span>
-            <span><strong>커뮤니티</strong><small>PUBLIC BOARD</small></span>
-          </a>
-          <a class="collection-link" href="./national.html">
-            <span class="collection-icon" aria-hidden="true">01</span>
-            <span><strong>전국도감</strong><small>1세대–9세대</small></span>
-          </a>
-          <a class="collection-link" href="./packs.html">
-            <span class="collection-icon" aria-hidden="true">02</span>
-            <span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span>
-          </a>
-          <a class="collection-link" href="./artists.html">
-            <span class="collection-icon" aria-hidden="true">03</span>
-            <span><strong>작가 도감</strong><small>40 ARTISTS</small></span>
-          </a>
-          <a class="collection-link" href="./series.html">
-            <span class="collection-icon" aria-hidden="true">04</span>
-            <span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span>
-          </a>
-          <a class="collection-link" href="./pokemon-collections.html">
-            <span class="collection-icon" aria-hidden="true">05</span>
-            <span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span>
-          </a>
-          <a class="collection-link" href="./ar.html">
-            <span class="collection-icon collection-icon--ar" aria-hidden="true">06</span>
-            <span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span>
-          </a>
-          <a class="collection-link" href="./people.html">
-            <span class="collection-icon" aria-hidden="true">07</span>
-            <span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span>
-          </a>
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">DB</span><span><strong>통합 대시보드</strong><small>ALL COLLECTIONS</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>ALL CARD SEARCH</small></span></a>
+          <div class="sidebar-label collection-nav-section">주요 도감</div>
+          <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
+          <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510 CARDS</small></span></a>
+          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · PROMO</small></span></a>
+          <div class="sidebar-label collection-nav-section">테마 도감</div>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67 POKÉMON</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40 ARTISTS</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>TRAINER ARCHIVE</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>TRAINER × POKÉMON</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>FOSSIL DEX</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 STORY BINDER</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">MY</span><span><strong>나만의 도감</strong><small>MY CUSTOM DEX</small></span></a>
+          <a class="collection-link is-active" href="./collectors.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">CM</span><span><strong>커뮤니티</strong><small>COLLECTOR COMMUNITY</small></span></a>
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>

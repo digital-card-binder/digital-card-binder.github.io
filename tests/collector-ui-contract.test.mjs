@@ -206,7 +206,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260923-4/);
+  assert.match(dashboard, /news[.]js[?]v=20260921-2/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -435,24 +435,27 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.equal(navigation.includes('"도감 갤러리"'), false);
   assert.equal(navigation.includes('"공개 컬렉터"'), false);
 
+  const replaceStart = navigation.indexOf("nav.replaceChildren(");
+  const replaceEnd = navigation.indexOf(");", replaceStart);
+  const menuLayout = navigation.slice(replaceStart, replaceEnd);
   const order = [
-    '"통합 대시보드"',
-    '"포켓몬 검색"',
+    "dashboard",
+    "pokemonSearch",
     'navigationSection("주요 도감")',
-    '"전국도감"',
-    '"시리즈 도감"',
-    '"AR 전종도감"',
-    '"팩 전종수집"',
+    "national",
+    "series",
+    "ar",
+    "packs",
     'navigationSection("테마 도감")',
-    '"포켓몬 컬렉션"',
-    '"작가 도감"',
-    '"인물도감"',
-    '"트레이너 × 포켓몬"',
-    '"화석 도감"',
-    '"월드탐험도감"',
-    '"나만의 도감"',
-    '"커뮤니티"',
-  ].map((token) => navigation.indexOf(token));
+    "pokemonCollections",
+    "artists",
+    "people",
+    "trainerPokemon",
+    "fossilDex",
+    "worldDex",
+    "customDex",
+    "community",
+  ].map((token) => menuLayout.indexOf(token));
   assert.ok(order.every((index) => index >= 0));
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
@@ -464,6 +467,36 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
+test("detail pages use the finalized navigation names in their static markup", async () => {
+  const expected = [
+    ["index.html", "통합 대시보드"],
+    ["pokemon-search.html", "포켓몬 검색"],
+    ["national.html", "전국도감"],
+    ["series.html", "시리즈 도감"],
+    ["ar.html", "AR 전종도감"],
+    ["packs.html", "팩 전종수집"],
+    ["pokemon-collections.html", "포켓몬 컬렉션"],
+    ["artists.html", "작가 도감"],
+    ["people.html", "인물도감"],
+    ["trainer-pokemon.html", "트레이너 × 포켓몬"],
+    ["fossil.html", "화석 도감"],
+    ["world.html", "월드탐험도감"],
+    ["custom.html", "나만의 도감"],
+    ["collectors.html", "커뮤니티"],
+  ];
+  for (const [page, title] of expected) {
+    const html = await source(page);
+    assert.match(html, /<div class="sidebar-label">도감 메뉴<\/div>/, page);
+    assert.match(html, /class="sidebar-label collection-nav-section">주요 도감<\/div>/, page);
+    assert.match(html, /class="sidebar-label collection-nav-section">테마 도감<\/div>/, page);
+    assert.ok(html.includes(`<strong>${title}</strong>`) || html.includes(`>${title}</h1>`), page);
+    assert.equal(html.includes("도감 갤러리"), false, page);
+    assert.equal(html.includes("공개 컬렉터"), false, page);
+  }
+  assert.match(await source("trainer-pokemon.html"), /<h1 id="page-title">트레이너 × 포켓몬<\/h1>/);
+  assert.match(await source("collectors.html"), /<h1 id="page-title">커뮤니티<\/h1>/);
+});
+
 test("the signed-in account name opens profile management", async () => {
   const navigation = await source("collector-nav.js");
   const css = await source("collector.css");
@@ -782,9 +815,9 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-1/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-2/);
   assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-1/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-2/);
   assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
 });
 
