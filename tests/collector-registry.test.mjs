@@ -98,6 +98,7 @@ test("removing the non-existent M1L 093 preserves every later collection key", a
     const card = megaBrave.cards[index];
     assert.equal(card.code, code);
     assert.equal(card.accountIndex, originalIndex);
+    assert.equal(card.order, index + 1);
     assert.ok(catalog.itemMap.has(`m1L::${code}::${originalIndex}`));
     assert.ok(!catalog.itemMap.has(`m1L::${code}::${index}`));
   }
@@ -268,7 +269,7 @@ test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", asy
   );
   assert.equal(
     digest,
-    "fb0c19ad77548ebcdb164a7c09e2dae6706ab3d6217ea54cf6ec8dc7f8dfb0d7",
+    "8effcfbe3dbd2b46f2bde27cbfe12313e2e1a9ff3901a4461c4485e0f2bd4c6a",
   );
 });
 
