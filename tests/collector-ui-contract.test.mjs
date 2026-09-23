@@ -187,7 +187,7 @@ test("every page uses the one-line Digital Card Binder brand and tab title", asy
     );
     assert.equal(html.includes("MY POKÉMON DEX"), false, `${page}: legacy brand`);
     assert.equal(html.includes("COLLECTION ARCHIVE"), false, `${page}: legacy subtitle`);
-    assert.match(html, /styles[.]css[?]v=20260813-3/, `${page}: shared styles version`);
+    assert.match(html, /styles[.]css[?]v=20260923-6/, `${page}: shared styles version`);
   }
 
   const collectorClient = await source("collector.js");
