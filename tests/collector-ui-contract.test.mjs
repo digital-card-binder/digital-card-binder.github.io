@@ -995,3 +995,16 @@ test("trainer Pokemon filter includes an explicit all-cards option and neutral s
   assert.match(page, /인물과 포켓몬이 함께한 카드/);
   assert.equal(page.includes("사람과 포켓몬이 함께한 카드"), false);
 });
+
+test("fresh shell mirrors the current dashboard with a unique uncached path", async () => {
+  const current = await source("index.html");
+  const fresh = await source("latest-20260923.html");
+  assert.match(fresh, /name="dcb-build" content="20260923-8"/);
+  assert.match(fresh, /주요 도감/);
+  assert.match(fresh, /AR 전종도감/);
+  assert.match(fresh, /팩 전종수집/);
+  assert.match(fresh, /커뮤니티/);
+  assert.equal(fresh.includes("도감 갤러리"), false);
+  assert.equal(fresh.includes("<strong>팩 도감</strong>"), false);
+  assert.ok(current.includes("collector-nav.js?v=20260923-5"));
+});
