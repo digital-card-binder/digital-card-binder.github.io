@@ -68,7 +68,7 @@ test("workflow chains priority phases and keeps the live CDN switch off", () => 
   assert.match(workflow, /download-mega:[\s\S]*needs: \[prepare, download-sv\]/);
   assert.match(workflow, /download-s:[\s\S]*needs: \[prepare, download-mega\]/);
   assert.match(workflow, /download-remaining:[\s\S]*needs: \[prepare, download-s\]/);
-  assert.match(workflow, /verify-and-deploy:[\s\S]*needs: download-remaining/);
+  assert.match(workflow, /verify-and-deploy:[\s\S]*needs: \[prepare, download-remaining\]/);
   assert.match(workflow, /cancel-in-progress: true/);
 
   const batchAction = fs.readFileSync(

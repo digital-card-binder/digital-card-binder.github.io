@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { routeCardImage } from "./card-image-routing.mjs";
+import { canonicalizeImageUrl, routeCardImage } from "./card-image-routing.mjs";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, "..");
@@ -97,6 +97,31 @@ function buildManifest() {
     .sort((left, right) => {
       return left.project.localeCompare(right.project) || left.relativePath.localeCompare(right.relativePath);
     });
+
+  // Repair source addresses without changing the public destination or collection IDs.
+  const repairFile = path.join(scriptDirectory, "card-image-source-repairs.json");
+  const repairs = JSON.parse(fs.readFileSync(repairFile, "utf8"));
+  const byDestination = new Map(assets.map((asset) => [`${asset.project}:${asset.relativePath}`, asset]));
+  const repaired = new Set();
+  for (const repair of repairs.repairs) {
+    const key = `${repair.project}:${repair.relativePath}`;
+    if (repaired.has(key)) throw new Error(`Duplicate image repair: ${key}`);
+    repaired.add(key);
+    const asset = byDestination.get(key);
+    if (!asset) throw new Error(`Image repair has no manifest destination: ${key}`);
+    if (!repair.sourceUrls?.length || repair.sourceUrls.some((url) => canonicalizeImageUrl(url) !== url)) {
+      throw new Error(`Image repair requires canonical, supported sources: ${key}`);
+    }
+    asset.originalSourceUrls = asset.sourceUrls;
+    asset.sourceUrls = [...new Set([...repair.sourceUrls, ...asset.sourceUrls])];
+    if (repair.reuse) {
+      const source = byDestination.get(`${repair.reuse.project}:${repair.reuse.relativePath}`);
+      if (!source || source === asset || !source.sourceUrls.some((url) => repair.sourceUrls.includes(url))) {
+        throw new Error(`Image repair has an invalid cached source: ${key}`);
+      }
+      asset.reuse = repair.reuse;
+    }
+  }
 
   const counts = {
     total: assets.length,

@@ -1,0 +1,2342 @@
+{
+  "schemaVersion": 1,
+  "sourceRunId": 35700074440,
+  "repairs": [
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/BGR/bw_promo_043.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/6c35049b5f55c4d4c8119a5e0aa11c03.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T70DCYWPQ6BGVW6MZ0DRS/cards/01KY15P65W3NSDYWB3PBRETCGT",
+        "set": "bwp",
+        "number": 43,
+        "name": "메로엣타",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/BW2/bw2_054.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW2/bw2_red_054.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/BW/BW2/bw2_red_054.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/BW3/BW3_051.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/8d533ff73f8def6d62bf437e3eddd7b8.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QE1VNRWV82ZJJ26ZK0TQ7/cards/01KW1C5XTMWG2ZY1V36AB5GS1M",
+        "set": "bw3-bh",
+        "number": 51,
+        "name": "포켓몬 센터",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/BW5/bw5_dragonblast_019.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/bcaf6c8e565979c1b4ace7b08964838e.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QDWCH3VCBZCBYKJ2MZHEA/cards/01KW1C5XTHJ317QV51DMH7KWEE",
+        "set": "bw5-brz",
+        "number": 19,
+        "name": "메리프",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/PROMO/BWpromo_015.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/cb1fdb544539652af3bc63258bb6bee9.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T70DCYWPQ6BGVW6MZ0DRS/cards/01KY15NYPGX6WX8P0MNZRJEZEX",
+        "set": "bwp",
+        "number": 15,
+        "name": "수댕이",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/DP/BS2/bs2_ko_19.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS2/bs2_kr_19.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/DP/BS2/bs2_kr_19.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM3%2B/SM3plus_112.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/74a65106315ae07bedea6003a06fcfc0.png"
+      ],
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "external/static.tcgexchange.kr/7476608cc5df0a35.webp"
+      },
+      "reason": "National Pokedex #250 has an invalid SM3+ 112 URL; use the verified Korean Ho-Oh GX 112/SM-P representative already present in the series catalog. No collection data changes.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T6KX2S3MM9YFN9JJ3X5E5/cards/01KY18CVHD3R2H77JEBSQA373J",
+        "set": "SM-P",
+        "number": 112,
+        "name": "칠색조 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM7b/SM7b_012.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7B/SM7B_012.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM7B/SM7B_012.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM7b/SM7b_041.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7B/SM7B_041.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM7B/SM7B_041.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_010.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0010.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0010.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_041.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0041.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0041.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_046.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0046.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0046.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_048.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0048.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0048.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_050.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0050.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0050.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8/SM8_055.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8/SM8_0055.png"
+      ],
+      "reason": "Existing catalog exact set/printed number; successful image in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8/SM8_0055.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8a/SM8a_033.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8A/SM8a_033.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8A/SM8a_033.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8a/SM8a_045.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8A/SM8a_045.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8A/SM8a_045.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM8b/SM8b_101.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM8B/SM8b_101.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM8B/SM8b_101.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9a/SM9a_020.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9A/SM9a_020.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9A/SM9a_020.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9a/SM9a_021.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9A/SM9a_021.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9A/SM9a_021.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9a/SM9a_023.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9A/SM9a_023.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9A/SM9a_023.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_006.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_006.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_006.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_007.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_007.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_007.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_026.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_026.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_026.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_028.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_028.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_028.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_037.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_037.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_037.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_038.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_038.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_038.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/SM/SM9b/SM9b_042.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM9B/SM9b_042.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/SM/SM9B/SM9b_042.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_002.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_002.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_002.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_004.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_004.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_004.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_005.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_005.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_005.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_009.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_009.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_009.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_012.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_012.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_012.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_019.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_019.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_019.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/CP2/XY_CP2_020.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP2/CP2_020.jpg"
+      ],
+      "reason": "Correct official naming for the same set and printed card number; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/CP2/CP2_020.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/PROMO/XYpromo_126.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/201a0671ec9cfe9724397ecba242b220.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T6RKBVC4GDEY8636DXVWX/cards/01KW1C6HW9YBV5FK43KRJ0R799",
+        "set": "xyp",
+        "number": 126,
+        "name": "바오프",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/PROMO/XYpromo_189.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/7297e828bbb5000fbf9e1b754366d1fa.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T6RKBVC4GDEY8636DXVWX/cards/01KY17SZFCA34V1P2YK7RR3PNX",
+        "set": "xyp",
+        "number": 189,
+        "name": "기라티나",
+        "language": "ko",
+        "imageVerified": true
+      },
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "external/static.tcgexchange.kr/452203bb47c59e8b.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/PROMO/XYpromo_190.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/756dee0af5bdc4ce6b2a5442fb8728c7.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T6RKBVC4GDEY8636DXVWX/cards/01KY17T093TVDRF088K7EGXW91",
+        "set": "xyp",
+        "number": 190,
+        "name": "레쿠쟈",
+        "language": "ko",
+        "imageVerified": true
+      },
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "external/static.tcgexchange.kr/602b619734b36a30.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY11/XY11T_011.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/9827209b307dac2db61e96cba080d836.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QNP2VHTCTAWZCYNP8QVN5/cards/01KW1C683Y29H3MFBFAYFSZW3P",
+        "set": "xy11-bb",
+        "number": 11,
+        "name": "볼케니온",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY11/XY11T_035.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/9ac3fc4f24427251c8abb72f8a7e1b11.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QNP2VHTCTAWZCYNP8QVN5/cards/01KW1C683YCS0T9BRBYB4SE38Z",
+        "set": "xy11-bb",
+        "number": 35,
+        "name": "바리톱스",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_003.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/74e0c172b8c5bf2398f135766ab47653.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHCZB3KFND7PN658NR",
+        "set": "xy5-bg",
+        "number": 3,
+        "name": "나무지기",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_004.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/c12707a8f89f59e1b7d0f86786138cdd.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHZFVZ7FK2C70KP30W",
+        "set": "xy5-bg",
+        "number": 4,
+        "name": "나무돌이",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_005.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/a65afb4da35439a57fb2cd99cecc2a70.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHWKTR8YFS6N2AJ711",
+        "set": "xy5-bg",
+        "number": 5,
+        "name": "나무킹",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_006.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/39ec7e7edd0c3562265ddd0b536b4442.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD77Y8TDGNBFEDTN765NA/cards/01KW1C5WJJQK6QSD7DW9SYHD91",
+        "set": "xy5-bt",
+        "number": 6,
+        "name": "로파파",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_012.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/60270af2a577a9494be06e18c2249365.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD77Y8TDGNBFEDTN765NA/cards/01KW1C5WJJ9R3PH2ADF92588BG",
+        "set": "xy5-bt",
+        "number": 12,
+        "name": "물짱이",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_013.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/4b3f4c4beb646d4c746cc347909d2e62.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD77Y8TDGNBFEDTN765NA/cards/01KW1C5WJJR9MWHDAF911EWQ0D",
+        "set": "xy5-bt",
+        "number": 13,
+        "name": "늪짱이",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_014.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/9cfc9fe54cb63da202928df2be73adcf.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD77Y8TDGNBFEDTN765NA/cards/01KW1C5WJJEKRY18Q20D2HD3BB",
+        "set": "xy5-bt",
+        "number": 14,
+        "name": "대짱이",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_017.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/80a7d1399983cc255351cc896704b836.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHJTNWKJ02J8FR2MH5",
+        "set": "xy5-bg",
+        "number": 17,
+        "name": "아차모",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_019.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/5f91768f9486b1f1ba32758605ae1c7c.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHXYQWTDB68HXC7RD8",
+        "set": "xy5-bg",
+        "number": 19,
+        "name": "영치코",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_020.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/06d9a4927c9c40c23de3947581e15905.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJHECZTYDRCE5YYD8K7",
+        "set": "xy5-bg",
+        "number": 20,
+        "name": "번치코",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_055.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/f7ca2d6f9f1592bd2d8a914018f1c341.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJJ1FH73PGW1EC2W129",
+        "set": "xy5-bg",
+        "number": 55,
+        "name": "지그제구리",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/XY5/XY5_056.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/175e2fcb2224eb9302657d455386364e.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QD6EYGHSZ0E607PXXRSXR/cards/01KW1C5WJJ3NT98KZ51GHGN9P1",
+        "set": "xy5-bg",
+        "number": 56,
+        "name": "직구리",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/XY/Y30/Y30_006.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY30/Y30_006.jpg"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "legacy",
+        "relativePath": "data/wmimages/XY/XY30/Y30_006.webp"
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/03487c731651ee81.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9/%ED%94%BC%EC%B9%B4%EC%B8%84%26%EC%A0%9C%ED%81%AC%EB%A1%9C%EB%AC%B4%20GX_sm9_112_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%94%BC%EC%B9%B4%EC%B8%84%26%EC%A0%9C%ED%81%AC%EB%A1%9C%EB%AC%B4+GX&cardblock=sm9&cardnum=112",
+        "set": "sm9",
+        "number": 112,
+        "name": "피카츄&제크로무 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/05935a5fa6528ec1.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11/%ED%94%84%ED%85%8C%EB%9D%BC%20GX_sm11_110_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%94%84%ED%85%8C%EB%9D%BC+GX&cardblock=sm11&cardnum=110",
+        "set": "sm11",
+        "number": 110,
+        "name": "프테라 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/05cf248732e5702d.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm4S/%EC%A2%85%EC%9D%B4%EC%8B%A0%EB%8F%84%20GX_sm4S_058_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%A2%85%EC%9D%B4%EC%8B%A0%EB%8F%84+GX&cardblock=sm4S&cardnum=058",
+        "set": "sm4s",
+        "number": 58,
+        "name": "종이신도 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/07e3388bb95a892c.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm6/%EB%AF%B8%EC%8A%A4%ED%84%B0%EB%A6%AC%20%ED%8A%B8%EB%A0%88%EC%A0%B8_sm6_108_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%AF%B8%EC%8A%A4%ED%84%B0%EB%A6%AC+%ED%8A%B8%EB%A0%88%EC%A0%B8&cardblock=sm6&cardnum=108",
+        "set": "sm6",
+        "number": 108,
+        "name": "미스터리 트레져",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/1416189e414b900e.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm8/%EB%8B%A8%EB%8B%A8%EC%A7%80%20GX_sm8_104_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%8B%A8%EB%8B%A8%EC%A7%80+GX&cardblock=sm8&cardnum=104",
+        "set": "sm8",
+        "number": 104,
+        "name": "단단지 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/152c838a96c3d31d.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM4A/%EA%B8%B0%EB%B3%B8%20%EB%AC%BC%20%EC%97%90%EB%84%88%EC%A7%80_SM4A_062_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually verified by set and printed number; preserve the existing public destination.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B8%B0%EB%B3%B8+%EB%AC%BC+%EC%97%90%EB%84%88%EC%A7%80&cardblock=SM4A&cardnum=062",
+        "set": "SM4A",
+        "number": 62,
+        "name": "기본 물 에너지",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/15f181ea3e883258.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM10a/%EB%A6%AC%EC%85%8B%20%EC%8A%A4%ED%83%AC%ED%94%84_SM10a_067_KOR.jpg"
+      ],
+      "reason": "Korean card image verified by printed set and number. Some old catalog labels use the Japanese ordering; use the Korean printed number.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A6%AC%EC%85%8B+%EC%8A%A4%ED%83%AC%ED%94%84&cardblock=SM10a&cardnum=067",
+        "set": "SM10a",
+        "number": 67,
+        "name": "리셋 스탬프",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/1897e5ba1827d9f2.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm6/%EC%A0%9C%EB%A5%B4%EB%84%A4%EC%95%84%EC%8A%A4%20GX_sm6_106_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%A0%9C%EB%A5%B4%EB%84%A4%EC%95%84%EC%8A%A4+GX&cardblock=sm6&cardnum=106",
+        "set": "sm6",
+        "number": 106,
+        "name": "제르네아스 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/19537cac43c05a4b.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM10a/%ED%83%9C%EA%B7%B8%20%EC%8A%A4%EC%9C%84%EC%B9%98_SM10a_068_KOR.jpg"
+      ],
+      "reason": "Korean card image verified by printed set and number. Some old catalog labels use the Japanese ordering; use the Korean printed number.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%83%9C%EA%B7%B8+%EC%8A%A4%EC%9C%84%EC%B9%98&cardblock=SM10a&cardnum=068",
+        "set": "SM10a",
+        "number": 68,
+        "name": "태그 스위치",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/1a108f5636f55fd6.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11B/%EB%AC%B4%EC%9D%B8%EB%B0%9C%EC%A0%84%EC%86%8C_sm11B_075_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%AC%B4%EC%9D%B8%EB%B0%9C%EC%A0%84%EC%86%8C&cardblock=sm11B&cardnum=075",
+        "set": "sm11b",
+        "number": 75,
+        "name": "무인발전소",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/1e46a6ca24ef6740.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9B/%ED%8E%98%EB%A1%9C%EC%BD%94%EC%B2%B4%26%EB%A7%A4%EC%8B%9C%EB%B6%95%20GX_sm9B_063_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%8E%98%EB%A1%9C%EC%BD%94%EC%B2%B4%26%EB%A7%A4%EC%8B%9C%EB%B6%95+GX&cardblock=sm9B&cardnum=063",
+        "set": "sm9b",
+        "number": 63,
+        "name": "페로코체&매시붕 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/20f456aeb14bed1d.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/d7f2259c304831e8e97879870470374a.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655K8AT5CPF5JBZ2TXC1",
+        "set": "sm12a",
+        "number": 216,
+        "name": "포푸니라 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/2941a3525b106b95.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm3N/%EB%A0%88%EC%8A%A4%ED%81%90%ED%83%B1%ED%81%AC_sm3N_062_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A0%88%EC%8A%A4%ED%81%90%ED%83%B1%ED%81%AC&cardblock=sm3N&cardnum=062",
+        "set": "sm3n",
+        "number": 62,
+        "name": "레스큐탱크",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/327f44a81351c3c9.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10/%EC%97%98%ED%92%8D%20GX_sm10_112_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%97%98%ED%92%8D+GX&cardblock=sm10&cardnum=112",
+        "set": "sm10",
+        "number": 112,
+        "name": "엘풍 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/3790bcb7b7a7d1b5.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM8b/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88%20GX_SM8b_250_KOR.jpg"
+      ],
+      "reason": "Korean card image verified by printed set and number. Some old catalog labels use the Japanese ordering; use the Korean printed number.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88+GX&cardblock=SM8b&cardnum=250",
+        "set": "SM8b",
+        "number": 250,
+        "name": "울트라네크로즈마 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/385cd20b797b53c5.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm7/%EB%A0%88%EC%BF%A0%EC%9F%88%20GX_sm7_109_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A0%88%EC%BF%A0%EC%9F%88+GX&cardblock=sm7&cardnum=109",
+        "set": "sm7",
+        "number": 109,
+        "name": "레쿠쟈 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/3987af8624a8b80f.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM12/%EB%A9%94%EA%B0%80%EC%9D%B4%EC%96%B4%EB%A1%AD%26%ED%91%B8%EB%A6%B0%20GX_SM12_114_KOR.jpg"
+      ],
+      "reason": "Korean card image verified by printed set and number. Some old catalog labels use the Japanese ordering; use the Korean printed number.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A9%94%EA%B0%80%EC%9D%B4%EC%96%B4%EB%A1%AD%26%ED%91%B8%EB%A6%B0+GX&cardblock=SM12&cardnum=114",
+        "set": "SM12",
+        "number": 114,
+        "name": "메가이어롭&푸린 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/3fbcdd8119b126fd.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm8/%EB%91%90%ED%8C%8C%ED%8C%A1%20GX_sm8_105_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%91%90%ED%8C%8C%ED%8C%A1+GX&cardblock=sm8&cardnum=105",
+        "set": "sm8",
+        "number": 105,
+        "name": "두파팡 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/467d87c141dc1ff2.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11B/%EB%9D%BC%ED%94%8C%EB%A0%88%EC%8B%9C%EC%95%84%20GX_sm11B_069_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%9D%BC%ED%94%8C%EB%A0%88%EC%8B%9C%EC%95%84+GX&cardblock=sm11B&cardnum=069",
+        "set": "sm11b",
+        "number": 69,
+        "name": "라플레시아 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/4bfbf4540044889d.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10/%ED%8A%B8%EB%A6%AC%ED%94%8C%20%EA%B0%80%EC%86%8D%20%EC%97%90%EB%84%88%EC%A7%80_sm10_116_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%8A%B8%EB%A6%AC%ED%94%8C+%EA%B0%80%EC%86%8D+%EC%97%90%EB%84%88%EC%A7%80&cardblock=sm10&cardnum=116",
+        "set": "sm10",
+        "number": 116,
+        "name": "트리플 가속 에너지",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/534fc2ac35c5e321.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm8B/%EC%B9%B4%ED%91%B8%EB%B8%8C%EB%A3%A8%EB%A3%A8%20GX_sm8B_244_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%B9%B4%ED%91%B8%EB%B8%8C%EB%A3%A8%EB%A3%A8+GX&cardblock=sm8B&cardnum=244",
+        "set": "sm8b",
+        "number": 244,
+        "name": "카푸브루루 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/55aaa8c6afb6e9db.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/777c618606d3f599e09ddbed52ea5718.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655K3S40E9WD6753P1RT",
+        "set": "sm12a",
+        "number": 225,
+        "name": "한카리아스&기라티나 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/55f8f57de02f1402.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm8B/%EB%A3%A8%EB%82%98%EC%95%84%EB%9D%BC%20GX_sm8B_248_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A3%A8%EB%82%98%EC%95%84%EB%9D%BC+GX&cardblock=sm8B&cardnum=248",
+        "set": "sm8b",
+        "number": 248,
+        "name": "루나아라 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/57719628767badd5.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM10/%EC%A7%88%EB%BB%90%EA%B8%B0%26%EC%95%8C%EB%A1%9C%EB%9D%BC%EC%A7%88%EB%BB%90%EA%B8%B0%20GX_SM10_109_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually verified by set and printed number; preserve the existing public destination.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%A7%88%EB%BB%90%EA%B8%B0%26%EC%95%8C%EB%A1%9C%EB%9D%BC%EC%A7%88%EB%BB%90%EA%B8%B0+GX&cardblock=SM10&cardnum=109",
+        "set": "SM10",
+        "number": 109,
+        "name": "질뻐기&알로라질뻐기 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/58b3b8b8d2127c66.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/f702a1223fca19f94f3b0b4b981aa1f3.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655KT6YC6AJB76DF30MX",
+        "set": "sm12a",
+        "number": 224,
+        "name": "루카리오&멜메탈 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/5c11ddbebbf777fe.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10/%EB%8F%88%ED%81%AC%EB%A1%9C%EC%9A%B0%20GX_sm10_111_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%8F%88%ED%81%AC%EB%A1%9C%EC%9A%B0+GX&cardblock=sm10&cardnum=111",
+        "set": "sm10",
+        "number": 111,
+        "name": "돈크로우 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/6702f365735ba1d2.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9/%ED%8C%AC%ED%85%80%26%EB%94%B0%EB%9D%BC%ED%81%90%20GX_sm9_113_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%8C%AC%ED%85%80%26%EB%94%B0%EB%9D%BC%ED%81%90+GX&cardblock=sm9&cardnum=113",
+        "set": "sm9",
+        "number": 113,
+        "name": "팬텀&따라큐 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/692331663f88a81d.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm4S/%EC%9B%8C%ED%94%84%20%EC%97%90%EB%84%88%EC%A7%80_sm4S_061_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9B%8C%ED%94%84+%EC%97%90%EB%84%88%EC%A7%80&cardblock=sm4S&cardnum=061",
+        "set": "sm4s",
+        "number": 61,
+        "name": "워프 에너지",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/6caf4f0c37b35105.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm5M/%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88%20%EC%83%88%EB%B2%BD%EC%9D%98%20%EB%82%A0%EA%B0%9C%20GX_sm5M_074_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88+%EC%83%88%EB%B2%BD%EC%9D%98+%EB%82%A0%EA%B0%9C+GX&cardblock=sm5M&cardnum=074",
+        "set": "sm5m",
+        "number": 74,
+        "name": "네크로즈마 새벽의 날개 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/6fa42f93291125cd.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm6/%EC%9D%B4%EB%B2%A8%ED%83%80%EB%A5%B4%20GX_sm6_105_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%B4%EB%B2%A8%ED%83%80%EB%A5%B4+GX&cardblock=sm6&cardnum=105",
+        "set": "sm6",
+        "number": 105,
+        "name": "이벨타르 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/6fb16efda4d780ad.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm4A/%EC%B9%B4%EC%9A%B4%ED%84%B0%20%EC%97%90%EB%84%88%EC%A7%80_sm4A_061_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%B9%B4%EC%9A%B4%ED%84%B0+%EC%97%90%EB%84%88%EC%A7%80&cardblock=sm4A&cardnum=061",
+        "set": "sm4a",
+        "number": 61,
+        "name": "카운터 에너지",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/7486bb6203b1279a.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11B/%EB%A0%88%EC%8B%9C%EB%9D%BC%EB%AC%B4%26%EC%A0%9C%ED%81%AC%EB%A1%9C%EB%AC%B4%20GX_sm11B_071_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A0%88%EC%8B%9C%EB%9D%BC%EB%AC%B4%26%EC%A0%9C%ED%81%AC%EB%A1%9C%EB%AC%B4+GX&cardblock=sm11B&cardnum=071",
+        "set": "sm11b",
+        "number": 71,
+        "name": "레시라무&제크로무 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/7a842b1626cfb576.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm7/%ED%8C%8C%EB%B9%84%EC%BD%94%EB%A6%AC%20GX_sm7_108_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%8C%8C%EB%B9%84%EC%BD%94%EB%A6%AC+GX&cardblock=sm7&cardnum=108",
+        "set": "sm7",
+        "number": 108,
+        "name": "파비코리 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/7b9e5cb932fd87c7.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM6/%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88%20GX_SM6_107_KOR.jpg"
+      ],
+      "reason": "Korean card image verified by printed set and number. Some old catalog labels use the Japanese ordering; use the Korean printed number.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9A%B8%ED%8A%B8%EB%9D%BC%EB%84%A4%ED%81%AC%EB%A1%9C%EC%A6%88%EB%A7%88+GX&cardblock=SM6&cardnum=107",
+        "set": "SM6",
+        "number": 107,
+        "name": "울트라네크로즈마 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/7ef2592f8c64d2f6.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm12/%ED%94%8C%EB%9D%BC%EC%9D%B4%EA%B3%A4%20GX_sm12_111_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%94%8C%EB%9D%BC%EC%9D%B4%EA%B3%A4+GX&cardblock=sm12&cardnum=111",
+        "set": "sm12",
+        "number": 111,
+        "name": "플라이곤 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/83b65796ec297f38.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM8/%EA%B5%AC%EC%95%A0%EB%A9%A7_SM8_111_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually verified by set and printed number; preserve the existing public destination.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B5%AC%EC%95%A0%EB%A9%A7&cardblock=SM8&cardnum=111",
+        "set": "SM8",
+        "number": 111,
+        "name": "구애멧",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/8740e169b58cb7ec.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10B/U%ED%84%B4%20%EB%B3%B4%EB%93%9C_sm10B_067_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=U%ED%84%B4+%EB%B3%B4%EB%93%9C&cardblock=sm10B&cardnum=067",
+        "set": "sm10b",
+        "number": 67,
+        "name": "U턴 보드",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/8ee824e78bf6bddb.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm7/%EB%8D%94%ED%8A%B8%EC%9E%90%EC%A0%84%EA%B1%B0_sm7_110_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%8D%94%ED%8A%B8%EC%9E%90%EC%A0%84%EA%B1%B0&cardblock=sm7&cardnum=110",
+        "set": "sm7",
+        "number": 110,
+        "name": "더트자전거",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/991f1f87af988ea0.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9/%EC%9D%B4%EB%B8%8C%EC%9D%B4%26%EC%9E%A0%EB%A7%8C%EB%B3%B4%20GX_sm9_115_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%B4%EB%B8%8C%EC%9D%B4%26%EC%9E%A0%EB%A7%8C%EB%B3%B4+GX&cardblock=sm9&cardnum=115",
+        "set": "sm9",
+        "number": 115,
+        "name": "이브이&잠만보 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/9cc2fd0a1d78c99c.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm5M/%EA%B8%80%EB%A0%88%EC%9D%B4%EC%8B%9C%EC%95%84%20GX_sm5M_073_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B8%80%EB%A0%88%EC%9D%B4%EC%8B%9C%EC%95%84+GX&cardblock=sm5M&cardnum=073",
+        "set": "sm5m",
+        "number": 73,
+        "name": "글레이시아 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/a127fdcb36c91a72.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10A/%EC%9E%85%EC%B9%98%ED%8A%B8%20GX_sm10A_065_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9E%85%EC%B9%98%ED%8A%B8+GX&cardblock=sm10A&cardnum=065",
+        "set": "sm10a",
+        "number": 65,
+        "name": "입치트 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/a964332adbdb5062.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm3H/%EC%95%8C%EB%A1%9C%EB%9D%BC%20%EC%A7%88%EB%BB%90%EA%B8%B0%20GX_sm3H_060_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%95%8C%EB%A1%9C%EB%9D%BC+%EC%A7%88%EB%BB%90%EA%B8%B0+GX&cardblock=sm3H&cardnum=060",
+        "set": "sm3h",
+        "number": 60,
+        "name": "알로라 질뻐기 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/ab570469e7625cef.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9/%EB%9D%BC%ED%8B%B0%EC%95%84%EC%8A%A4%26%EB%9D%BC%ED%8B%B0%EC%98%A4%EC%8A%A4%20GX_sm9_114_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%9D%BC%ED%8B%B0%EC%95%84%EC%8A%A4%26%EB%9D%BC%ED%8B%B0%EC%98%A4%EC%8A%A4+GX&cardblock=sm9&cardnum=114",
+        "set": "sm9",
+        "number": 114,
+        "name": "라티아스&라티오스 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/ad7f63f3bbdd526c.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm3N/%EA%B0%91%EC%A3%BC%EB%AC%B4%EC%82%AC%20GX_sm3N_058_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B0%91%EC%A3%BC%EB%AC%B4%EC%82%AC+GX&cardblock=sm3N&cardnum=058",
+        "set": "sm3n",
+        "number": 58,
+        "name": "갑주무사 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/aedc9ab767ebd0f5.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm4A/%ED%85%85%EB%B9%84%EB%93%9C%20GX_sm4A_057_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%85%85%EB%B9%84%EB%93%9C+GX&cardblock=sm4A&cardnum=057",
+        "set": "sm4a",
+        "number": 57,
+        "name": "텅비드 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/b467a605eee8a0eb.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM11a/%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8%20%EC%BA%90%EC%B2%98_SM11a_078_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually verified by set and printed number; preserve the existing public destination.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B7%B8%EB%A0%88%EC%9D%B4%ED%8A%B8+%EC%BA%90%EC%B2%98&cardblock=SM11a&cardnum=078",
+        "set": "SM11a",
+        "number": 78,
+        "name": "그레이트 캐처",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/b4a0cdb290404296.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11/%ED%94%84%EB%A0%88%EC%85%94%EC%8A%A4%EB%B3%BC_sm11_113_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%94%84%EB%A0%88%EC%85%94%EC%8A%A4%EB%B3%BC&cardblock=sm11&cardnum=113",
+        "set": "sm11",
+        "number": 113,
+        "name": "프레셔스볼",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/bfc9d95952f7e91b.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm9/%EC%84%B8%EB%A0%88%EB%B9%84%26%EC%9D%B4%EC%83%81%ED%95%B4%EA%BD%83%20GX_sm9_110_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%84%B8%EB%A0%88%EB%B9%84%26%EC%9D%B4%EC%83%81%ED%95%B4%EA%BD%83+GX&cardblock=sm9&cardnum=110",
+        "set": "sm9",
+        "number": 110,
+        "name": "세레비&이상해꽃 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/c1513ff505304760.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11B/%EB%A6%B4%EB%A6%AC%EC%97%90%EC%9D%98%20%EC%82%90%EC%82%90%EC%9D%B8%ED%98%95_sm11B_073_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%A6%B4%EB%A6%AC%EC%97%90%EC%9D%98+%EC%82%90%EC%82%90%EC%9D%B8%ED%98%95&cardblock=sm11B&cardnum=073",
+        "set": "sm11b",
+        "number": 73,
+        "name": "릴리에의 삐삐인형",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/cf027826bb8aa7c2.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/a52b72766ad47767df5f154b491d7a18.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655KGASJ1S0BMHJBH66W",
+        "set": "sm12a",
+        "number": 215,
+        "name": "블래키&다크라이 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/cfb6ca9f2a1acc14.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10/%ED%8E%98%EB%A5%B4%EC%8B%9C%EC%98%A8%20GX_sm10_113_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%8E%98%EB%A5%B4%EC%8B%9C%EC%98%A8+GX&cardblock=sm10&cardnum=113",
+        "set": "sm10",
+        "number": 113,
+        "name": "페르시온 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/df1c5d5f0e6f99a0.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/SM10b/%EB%82%98%EB%AA%B0%EB%B9%BC%EB%AF%B8%26%EC%95%8C%EB%A1%9C%EB%9D%BC%EB%82%98%EC%8B%9C%20GX_SM10b_063_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually verified by set and printed number; preserve the existing public destination.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EB%82%98%EB%AA%B0%EB%B9%BC%EB%AF%B8%26%EC%95%8C%EB%A1%9C%EB%9D%BC%EB%82%98%EC%8B%9C+GX&cardblock=SM10b&cardnum=063",
+        "set": "SM10b",
+        "number": 63,
+        "name": "나몰빼미&알로라나시 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/e1fcc30efb2f381b.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/38e955464359c3b7bb828321db6472c4.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655KREVBW13J5DXASYTH",
+        "set": "sm12a",
+        "number": 218,
+        "name": "토게피 & 삐 & 푸푸린-GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/e80bc397938553e8.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/55ac8ed1f2fd34244b5b42c822f06c32.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QMFJK5M82YHNFWTTABTTX/cards/01KW1C655K58YEGPNVCP4AT462",
+        "set": "sm12a",
+        "number": 217,
+        "name": "멜메탈 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/f08e7a207bf1fb91.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm3H/%EC%9D%8C%EB%B2%88%20GX_sm3H_061_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%8C%EB%B2%88+GX&cardblock=sm3H&cardnum=061",
+        "set": "sm3h",
+        "number": 61,
+        "name": "음번 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/f24fdfb69d8260ed.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11A/%EA%B1%B0%EB%B6%81%EC%99%95%26%ED%8C%BD%EB%8F%84%EB%A6%AC%20GX_sm11A_076_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EA%B1%B0%EB%B6%81%EC%99%95%26%ED%8C%BD%EB%8F%84%EB%A6%AC+GX&cardblock=sm11A&cardnum=076",
+        "set": "sm11a",
+        "number": 76,
+        "name": "거북왕&팽도리 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/f6d8d956f1eafa78.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm11A/%EC%95%8C%EB%A1%9C%EB%9D%BC%20%ED%8E%98%EB%A5%B4%EC%8B%9C%EC%98%A8%20GX_sm11A_077_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%95%8C%EB%A1%9C%EB%9D%BC+%ED%8E%98%EB%A5%B4%EC%8B%9C%EC%98%A8+GX&cardblock=sm11A&cardnum=077",
+        "set": "sm11a",
+        "number": 77,
+        "name": "알로라 페르시온 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/f83447a447b2664d.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm10A/%ED%95%9C%EC%B9%B4%EB%A6%AC%EC%95%84%EC%8A%A4%26%EA%B8%B0%EB%9D%BC%ED%8B%B0%EB%82%98%20GX_sm10A_066_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%95%9C%EC%B9%B4%EB%A6%AC%EC%95%84%EC%8A%A4%26%EA%B8%B0%EB%9D%BC%ED%8B%B0%EB%82%98+GX&cardblock=sm10A&cardnum=066",
+        "set": "sm10a",
+        "number": 66,
+        "name": "한카리아스&기라티나 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "legacy",
+      "relativePath": "external/tcgbox.co.kr/f9da97a13e16226b.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/SM/sm8B/%EC%B9%B4%ED%91%B8%EA%BC%AC%EA%BC%AC%EA%BC%AD%20GX_sm8B_246_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%B9%B4%ED%91%B8%EA%BC%AC%EA%BC%AC%EA%BC%AD+GX&cardblock=sm8B&cardnum=246",
+        "set": "sm8b",
+        "number": 246,
+        "name": "카푸꼬꼬꼭 GX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M2/M2_116.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/add50249c840f89e4aac3495e437f2a0.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QC7TBVVYE4XBV8X0F5QM7/cards/01KW1C5SYWGH63ZH4QK31NRG8M",
+        "set": "m2",
+        "number": 116,
+        "name": "메가리자몽X ex",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M2a/M2a_250.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/75b092a549a925503f069825c5680ebc.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QC71A9E2Z1S33APB830EX/cards/01KW1C5SYSYGQSZ3KMRY9MVGJX",
+        "set": "m2a",
+        "number": 250,
+        "name": "메가망나뇽 ex",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M3/M3_117.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/af7daee3440c40377860d444ebb52dc0.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QC5FKWAR2QHRPE4JFH0CM/cards/01KW1C5R9TZYR5VZGV0J96EANY",
+        "set": "m3",
+        "number": 117,
+        "name": "메가지가르데 ex",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M4/M4_120.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/cdcf38487c6ba088c83b504859e2f3e7.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QC4PK4VBTX2H6WF8CNAE0/cards/01KW1C5R9RGQHWFS33HAQKJ47W",
+        "set": "m4",
+        "number": 120,
+        "name": "메가개굴닌자 ex",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M6/M6_072.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/2ce95fa4905a8d45ac9f5b8f958bba47.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KZRA316MC0ESRMR2E95P7HPW/cards/01KZRA316PEPWJZSZ9NC063GAP",
+        "set": "m6",
+        "number": 72,
+        "name": "전설의 산정",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M6/M6_074.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/c10ace120d4b7dd30dd6d8f24cad5194.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KZRA316MC0ESRMR2E95P7HPW/cards/01KZRA316PRGMP9Q5EK6Q3YSKP",
+        "set": "m6",
+        "number": 74,
+        "name": "전설의 용암동굴",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M6/M6_076.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/d2070cda0df82f219cfa4f444bc7241f.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KZRA316MC0ESRMR2E95P7HPW/cards/01KZRA316N9748J4XM1ZA23W4M",
+        "set": "m6",
+        "number": 76,
+        "name": "전설의 해구",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M6/M6_078.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/9f344e5bdd991d0ccb1394fefe010204.webp"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KZRA316MC0ESRMR2E95P7HPW/cards/01KZRA316PRRR2DV0E088WT0CR",
+        "set": "m6",
+        "number": 78,
+        "name": "가디",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S-P/S-P_122.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/fed742fe636774f3c2020c1998db941b.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0T5C9VFRTHMAC68D0V1P60/cards/01KY190XB34TPHPFNQS3M1XG6R",
+        "set": "sp",
+        "number": 122,
+        "name": "애프룡",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10B/S10b_071.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10b/S10b_071.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10b/S10b_071.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10D/S10D_003.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10D_003.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10D_003.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10D/S10D_026.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10D_026.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10D_026.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10D/S10D_027.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10D_027.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10D_027.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10D/S10D_061.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10D_061.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10D_061.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_018.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_018.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_018.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_026.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_026.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_026.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_028.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_028.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_028.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_032.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_032.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_032.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_043.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_043.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_043.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_045.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_045.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_045.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_046.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_046.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_046.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_055.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_055.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_055.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S10P/S10P_057.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_057.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S10/S10P_057.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S5I/S5I_051.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_051.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S5/S5I_051.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S5I/S5I_088.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/70ef7576452344d7654b8310ae11a8a9.jpg"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QFM9KQ36BHB4Y9QTJCMSX/cards/01KW1C62H7MMT91XBH891QE5CH",
+        "set": "s5i",
+        "number": 88,
+        "name": "회연",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S5R/S5R_030.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_030.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S5/S5R_030.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S5R/S5R_031.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_031.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S5/S5R_031.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_011.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_011.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6H_011.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_036.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_036.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6H_036.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_048.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_048.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6H_048.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_049.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_049.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6H_049.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_050.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6H_050.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6H_050.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_085.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/497e2e4350dfb9d4185df69098f23bff.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QFH4XW0BWJ3Y6PRJF67NW/cards/01KW1C623RKCK6Y6ND2TADWH8H",
+        "set": "s6h",
+        "number": 85,
+        "name": "백마 버드렉스 VMAX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_087.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/S/s6H/%ED%86%A0%EB%84%A4%EB%A1%9C%EC%8A%A4%20VMAX_s6H_087_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%ED%86%A0%EB%84%A4%EB%A1%9C%EC%8A%A4+VMAX&cardblock=s6H&cardnum=087",
+        "set": "s6h",
+        "number": 87,
+        "name": "토네로스 VMAX",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6H/S6H_090.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/S/s6H/%EC%9D%98%EC%82%AC_s6H_090_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%98%EC%82%AC&cardblock=s6H&cardnum=090",
+        "set": "s6h",
+        "number": 90,
+        "name": "의사",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6K/S6K_012.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6K_012.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6K_012.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S6K/S6K_016.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6/S6K_016.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S6/S6K_016.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S7R/S7R_024.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S7/S7R_024.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S7/S7R_024.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S7R/S7R_033.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S7/S7R_033.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S7/S7R_033.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S7R/S7R_052.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S7/S7R_052.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/S7/S7R_052.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S8/S8_110.webp",
+      "sourceUrls": [
+        "https://k-tcgpanda.com/cardimg/S/s8/%EC%9A%94%EC%94%BD%EB%A6%AC%EC%8A%A4%20V_s8_110_KOR.jpg"
+      ],
+      "reason": "Korean replacement image visually checked against the set and printed number; original retailer URL returns 404/415.",
+      "evidence": {
+        "catalogUrl": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9A%94%EC%94%BD%EB%A6%AC%EC%8A%A4+V&cardblock=s8&cardnum=110",
+        "set": "s8",
+        "number": 110,
+        "name": "요씽리스 V",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S8b/S8b_057.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/41a8d93ce62c37c7808880c398d445ab.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QF65CFVJ7Z5HM3ACY36QB/cards/01KW1C618KCS5XR3J10C96GY6R",
+        "set": "s8b",
+        "number": 57,
+        "name": "모르페코 V-UNION",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S8b/S8b_058.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/7e97cb63c6f226c315d0cb687c2a506f.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QF65CFVJ7Z5HM3ACY36QB/cards/01KW1C618K97GNR4S16M85FDVG",
+        "set": "s8b",
+        "number": 58,
+        "name": "모르페코 V-UNION",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/S8b/S8b_059.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/27b4a1369067c8182c4799a2f0529818.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QF65CFVJ7Z5HM3ACY36QB/cards/01KW1C618K0HX91VJTC78JZKYJ",
+        "set": "s8b",
+        "number": 59,
+        "name": "모르페코 V-UNION",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/SLD/SLD_006.webp",
+      "sourceUrls": [
+        "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SL/SLD_006.png"
+      ],
+      "reason": "Same card filename in the correct official directory; successful in source run",
+      "reuse": {
+        "project": "modern",
+        "relativePath": "data/wmimages/S/SL/SLD_006.webp"
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/S/SLL/SLL_003.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/0c22b7322d97c8930a97c3864b9ea197.png"
+      ],
+      "reason": "Pokedex Honchkrow points to SLL by mistake; same numbered Honchkrow belongs to SLD.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QF31GBC85268QWCFW0HKV/cards/01KW1C60V38QZ9HGS12PHYTFS9",
+        "set": "sld",
+        "number": 3,
+        "name": "돈크로우",
+        "language": "ko",
+        "imageVerified": true
+      }
+    },
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/SV/SVAM/SVAM_002.webp",
+      "sourceUrls": [
+        "https://static.tcgexchange.kr/939ab42c5fc7b60c7dd4bdf8beff20cc.png"
+      ],
+      "reason": "Korean card image visually checked against set and printed number.",
+      "evidence": {
+        "catalogUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD087V6NT0EVDXRSH6",
+        "set": "svam",
+        "number": 2,
+        "name": "버섯모",
+        "language": "ko",
+        "imageVerified": true
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "project": "modern",
+      "relativePath": "data/wmimages/MEGA/M1L/M1L_093.webp",
+      "reason": "The Korean M1L catalog ends at 092/063; 092 is already present and 093 is an extra invalid entry. Do not substitute a duplicate image or silently remove a collection slot.",
+      "evidenceUrl": "https://www.dogam.app/sets/01KW0QCA5NXA6S422YR9ZDQ8NM",
+      "requiredAction": "Correct the extra catalog slot while preserving existing collection keys before changing the expected image count."
+    },
+    {
+      "project": "legacy",
+      "relativePath": "data/wmimages/BW/FS/bw1_fs_g_en_1.webp",
+      "reason": "The official Korean First Set grass-energy image returns HTTP 415. The matching catalog uses a placeholder; other editions and English images do not match.",
+      "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/EN2011001001",
+      "requiredAction": "Supply a verified Korean FS grass-energy scan or an exact publicly available source image."
+    }
+  ]
+}

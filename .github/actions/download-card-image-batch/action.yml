@@ -48,9 +48,10 @@ runs:
       uses: actions/cache/restore@v4
       with:
         path: tmp/card-images/build/${{ inputs.project }}
-        key: card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-${{ github.run_id }}-${{ inputs.phase }}-${{ inputs.batch }}
+        key: card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ inputs.phase }}-${{ inputs.batch }}
         restore-keys: |
-          card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/download_card_images.py') }}-
+          card-images-v2-${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('data/*.json', 'mega-latest.js', 'scripts/card-image-routing.mjs', 'scripts/build-card-image-manifest.mjs', 'scripts/card-image-source-repairs.json', 'scripts/download_card_images.py') }}-
+          card-images-v2-${{ runner.os }}-${{ inputs.project }}-
           card-images-v1-${{ runner.os }}-${{ inputs.project }}-
 
     - name: Download one rate-limited batch
