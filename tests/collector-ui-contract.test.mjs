@@ -237,7 +237,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   const manager = await source("firebase-page-manager.js");
 
   assert.match(page, /data-catalog="series"/);
-  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-2/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-3/);
   assert.match(page, /pokemon-search[.]js[?]v=20260923-4/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
@@ -846,7 +846,7 @@ test("detached image probes retry the original source after a CDN miss", async (
   const nationalPage = await source("national.html");
   const peoplePage = await source("people.html");
   const worldPage = await source("world.html");
-  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-2/);
+  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-3/);
   assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-2/);
   assert.match(worldPage, /world[.]js[?]v=20260923-2/);
   for (const page of [nationalPage, peoplePage, worldPage]) {
