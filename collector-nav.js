@@ -455,6 +455,9 @@
   }
   watchAccountProfileEntry();
   ensureProfileShortcutWithoutPanel();
+  if (["world-exploration", "custom-dex"].includes(document.body?.dataset.page)) {
+    void window.DigitalCardBinder?.firebaseAccount?.installHeaderFallback?.();
+  }
   addCardLayoutToggle();
   addHeroActions();
 
