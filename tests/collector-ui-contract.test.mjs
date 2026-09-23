@@ -208,7 +208,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
   assert.match(dashboard, /news[.]js[?]v=20260923-5/);
   assert.equal(newsClient.includes("pwa.js"), false);
-  assert.match(dashboard, /pwa[.]js[?]v=20260923-3/);
+  assert.match(dashboard, /pwa[.]js[?]v=20260923-4/);
   assert.match(newsPage, /pwa[.]js[?]v=20260923-3/);
   const pwaClient = await source("pwa.js");
   assert.match(pwaClient, /sw[.]js[?]v=20260923-2/);
@@ -238,7 +238,7 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
 
   assert.match(page, /data-catalog="series"/);
   assert.match(page, /firebase-page-manager[.]js[?]v=20260923-3/);
-  assert.match(page, /pokemon-search[.]js[?]v=20260923-4/);
+  assert.match(page, /pokemon-search[.]js[?]v=20260923-5/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
@@ -662,8 +662,8 @@ test("mobile shared header always shows the Digital Card Binder brand name", asy
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
-  assert.equal(siteVersion.version, "20260923-10");
-  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-10"/);
+  assert.equal(siteVersion.version, "20260923-12");
+  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-12"/);
   assert.match(navigation, /site-version[.]json/);
   assert.match(navigation, /cache: "no-store"/);
   assert.match(navigation, /searchParams[.]set\("build", remoteVersion\)/);

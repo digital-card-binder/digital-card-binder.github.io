@@ -6,6 +6,7 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf
 
 const registry = read("collector-collection-registry.js");
 const dashboard = read("dashboard.js");
+const pokemonSearch = read("pokemon-search.js");
 const sheets = read("owner-sheets-sync.js");
 const catalogService = read("core/catalog/catalog-service.js");
 const identityService = read("core/catalog/card-identity.js");
@@ -76,4 +77,13 @@ test("static navigation does not ship known stale collection counts", () => {
     assert.doesNotMatch(source, /SV · M · 498 CARDS/, file);
     assert.doesNotMatch(source, /1025 POKÉMON/, file);
   }
+});
+
+
+test("pokemon search consumes the shared series catalog", () => {
+  assert.match(pokemonSearch, /catalogService[.]series[(][)]/);
+  assert.match(pokemonSearch, /catalogService[.]json[(]["']\.[/]data[/]pokedex[.]json["'][)]/);
+  assert.doesNotMatch(pokemonSearch, /["']\.[/]data[/]series(?:-legacy)?[.]json["']/);
+  assert.doesNotMatch(pokemonSearch, /function mergeSeriesGroups/);
+  assert.doesNotMatch(pokemonSearch, /function tagSeriesGroups/);
 });
