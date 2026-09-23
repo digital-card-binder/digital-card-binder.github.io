@@ -206,7 +206,10 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260921-2/);
+  assert.match(dashboard, /news[.]js[?]v=20260923-4/);
+  assert.match(newsClient, /pwa[.]js[?]v=20260923-1/);
+  const pwaClient = await source("pwa.js");
+  assert.match(pwaClient, /sw[.]js[?]v=20260923-1/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -592,6 +595,16 @@ test("service worker forces stale open shells onto the latest build once", async
   assert.match(worker, /includeUncontrolled: true/);
   assert.match(worker, /searchParams[.]set\("build", SHELL_BUILD_VERSION\)/);
   assert.match(worker, /client[.]navigate\(url[.]href\)/);
+});
+
+test("legacy navigation writers cannot overwrite collector-nav", async () => {
+  const firebaseConfig = await source("firebase-config.js");
+  const themeNavigation = await source("theme-navigation.js");
+  const news = await source("news.js");
+  assert.equal(firebaseConfig.includes("theme-navigation.js"), false);
+  assert.equal(themeNavigation.includes("replaceChildren"), false);
+  assert.equal(news.includes("ensureGalleryNavigation"), false);
+  assert.equal(news.includes("도감 갤러리"), false);
 });
 
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {

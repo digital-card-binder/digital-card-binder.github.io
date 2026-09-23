@@ -4,15 +4,13 @@ import test from "node:test";
 
 const source = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
-test("top navigation follows the agreed collection order", async () => {
+test("legacy theme navigation can no longer overwrite the shared navigation", async () => {
   const navigation = await source("theme-navigation.js");
-  const labels = ["대시보드", "도감 갤러리", "포켓몬 검색", "전국 도감", "시리즈 도감", "테마 도감", "나만의 도감", "새소식"];
-  let cursor = -1;
-  for (const label of labels) {
-    const index = navigation.indexOf(`title: "${label}"`);
-    assert.ok(index > cursor, `${label} should follow the agreed top navigation order`);
-    cursor = index;
-  }
+  assert.match(navigation, /Navigation is owned exclusively by collector-nav[.]js/);
+  assert.equal(navigation.includes("replaceChildren"), false);
+  assert.equal(navigation.includes("도감 갤러리"), false);
+  assert.equal(navigation.includes("팩 도감"), false);
+  assert.equal(navigation.includes("테마 도감"), false);
 });
 
 test("theme hub contains only the grouped special dex entries", async () => {

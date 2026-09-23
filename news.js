@@ -21,42 +21,11 @@
 
     if (!document.querySelector('script[data-pwa-script="1"]')) {
       const script = document.createElement("script");
-      script.src = "/pwa.js?v=20260921-2";
+      script.src = "/pwa.js?v=20260923-1";
       script.defer = true;
       script.dataset.pwaScript = "1";
       document.head.append(script);
     }
-  }
-
-  function ensureGalleryNavigation() {
-    const nav = document.querySelector(".collection-nav");
-    if (!nav) return;
-
-    const dashboard =
-      nav.querySelector('a.collection-link[href="./"]') ||
-      nav.querySelector('a.collection-link[href="./index.html"]') ||
-      nav.querySelector("a.collection-link");
-    if (!dashboard) return;
-
-    let gallery = nav.querySelector('a.collection-link[href="./collectors.html"]');
-    if (!gallery) {
-      gallery = document.createElement("a");
-      gallery.className = "collection-link";
-      gallery.href = "./collectors.html";
-      gallery.innerHTML = `
-        <span class="collection-icon" aria-hidden="true">PB</span>
-        <span><strong>도감 갤러리</strong><small>PUBLIC BOARD</small></span>
-      `;
-    } else {
-      const title = gallery.querySelector("strong");
-      const subtitle = gallery.querySelector("small");
-      const icon = gallery.querySelector(".collection-icon");
-      if (title) title.textContent = "도감 갤러리";
-      if (subtitle) subtitle.textContent = "PUBLIC BOARD";
-      if (icon) icon.textContent = "PB";
-    }
-
-    if (dashboard.nextElementSibling !== gallery) dashboard.after(gallery);
   }
 
   function initializeCompactMobileBrand() {
@@ -325,7 +294,6 @@
   }
 
   initializePwaBootstrap();
-  ensureGalleryNavigation();
   initializeCompactMobileBrand();
   initializeAndroidDownloadLabel();
   initializeNews(true);

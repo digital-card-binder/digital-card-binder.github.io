@@ -23,11 +23,3 @@ window.POKEMON_DEX_FIREBASE = {
   },
 };
 
-(function loadThemeNavigation() {
-  if (document.querySelector('script[data-theme-navigation="true"]')) return;
-  const script = document.createElement("script");
-  script.src = "./theme-navigation.js?v=20260918-1";
-  script.async = false;
-  script.dataset.themeNavigation = "true";
-  document.head.append(script);
-})();
