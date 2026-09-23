@@ -29,7 +29,7 @@ DEFAULT_OUTPUT_ROOT = REPOSITORY_ROOT / "tmp" / "card-images" / "build"
 MAX_SOURCE_BYTES = 32 * 1024 * 1024
 PERMANENT_HTTP_STATUSES = {400, 401, 403, 404, 410, 415}
 USER_AGENT = (
-    "DigitalCardBinder-Image-Migration/1.1 "
+    "DigitalCardBinder-Image-Sync/1.1 "
     "(+https://digital-card-binder.github.io/; personal non-commercial archive)"
 )
 

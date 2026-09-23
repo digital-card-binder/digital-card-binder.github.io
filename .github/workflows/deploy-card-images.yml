@@ -25,8 +25,8 @@ permissions:
   contents: read
 
 concurrency:
-  # Starting the corrected sequence replaces the obsolete full-run downloader.
-  group: cloudflare-card-images-migration
+  # Starting a new image sync replaces any older in-progress image sync.
+  group: cloudflare-card-images-sync
   cancel-in-progress: true
 
 jobs:
@@ -56,18 +56,18 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Build migration manifest
+      - name: Build card image manifest
         run: node scripts/build-card-image-manifest.mjs
 
       - name: Create checkpoint plan
         id: plan
         run: node scripts/plan-card-image-batches.mjs --batch-size="${{ inputs.batch_size || '600' }}" --github-output
 
-      - name: Record migration order
+      - name: Record image sync order
         env:
           PLAN_SUMMARY: ${{ steps.plan.outputs.summary }}
         run: |
-          echo "### Card image migration plan" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Card image sync plan" >> "$GITHUB_STEP_SUMMARY"
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           echo "$PLAN_SUMMARY" >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
@@ -202,7 +202,7 @@ jobs:
       - name: Test cache recovery and complete image verification
         run: python -m unittest discover -s tests -p test_card_image_recovery.py
 
-      - name: Build migration manifest
+      - name: Build card image manifest
         run: node scripts/build-card-image-manifest.mjs
 
       - name: Restore complete modern archive
