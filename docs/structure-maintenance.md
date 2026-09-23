@@ -18,6 +18,14 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - `npm test` must pass before merge.
 - The Verify workflow runs for pull requests and direct pushes to `main`.
 
+## Shared site shell
+
+- The shared brand header, collection navigation, and legal footer are generated from `scripts/sync-site-shell.mjs`.
+- Page-specific header chips, sidebar notes, footer notes, and all main content remain owned by each page.
+- `privacy.html` and `terms.html` intentionally keep their no-sidebar layout; `base-series.html` remains a redirect/compatibility page.
+- Do not hand-edit the shared navigation or shared legal footer in individual HTML files. Use `npm run shell:sync`.
+- `npm run shell:check` runs before the rest of the test suite.
+
 ## Automatic cache versioning
 
 - Do not manually edit `?v=...` values, `site-version.json`, `SITE_BUILD_VERSION`, or the service-worker cache token.
@@ -28,5 +36,5 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 ## Repository hygiene
 
 - Do not commit `.tmp-*` trigger files.
-- Keep only the live root `DigitalCardBinder_v0.8.apk`; old build outputs belong in GitHub Actions artifacts/releases, not duplicate repository paths.
+- Keep only the live root `DigitalCardBinder_v0.9.apk`; old build outputs belong in GitHub Actions artifacts/releases, not duplicate repository paths.
 - Avoid introducing new `*-fix.js` or `*-supplement.js` files for permanent behavior unless there is a staged-data reason. Prefer consolidating stable behavior into the owning module after compatibility is verified.

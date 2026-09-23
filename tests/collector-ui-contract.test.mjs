@@ -341,7 +341,7 @@ test("dashboard keeps support and app access secondary while removing public tra
 
 test("decorative English UI labels are retired while official series codes remain", async () => {
   const page = await source("index.html");
-  const navigation = await source("collector-nav.js");
+  const shell = await source("scripts/sync-site-shell.mjs");
   const styles = await source("styles.css");
   for (const retired of [
     "ALL COLLECTIONS",
@@ -352,9 +352,9 @@ test("decorative English UI labels are retired while official series codes remai
     "COLLECTOR COMMUNITY",
   ]) {
     assert.equal(page.includes(retired), false, retired);
-    assert.equal(navigation.includes(retired), false, retired);
+    assert.equal(shell.includes(retired), false, retired);
   }
-  assert.match(navigation, /ORIGIN · ADV · DP · BW · XY · SM · S · SV · M/);
+  assert.match(shell, /ORIGIN · ADV · DP · BW · XY · SM · S · SV · M/);
   assert.match(styles, /[.]eyebrow,[.]section-kicker\{display:none!important\}/);
 });
 
@@ -526,39 +526,43 @@ test("collector settings restores the existing login before showing its sign-in 
 });
 
 test("navigation uses Korean main and theme groups with standalone custom and community links", async () => {
+  const shell = await source("scripts/sync-site-shell.mjs");
   const navigation = await source("collector-nav.js");
-  assert.match(navigation, /navigationSection\("주요 도감"\)/);
-  assert.match(navigation, /navigationSection\("테마 도감"\)/);
-  assert.match(navigation, /"팩 전종수집"/);
-  assert.match(navigation, /"화석 도감"/);
-  assert.match(navigation, /"나만의 도감"/);
-  assert.match(navigation, /"커뮤니티"/);
-  assert.equal(navigation.includes('"도감 갤러리"'), false);
-  assert.equal(navigation.includes('"공개 컬렉터"'), false);
+  assert.match(shell, /section: "주요 도감"/);
+  assert.match(shell, /section: "테마 도감"/);
+  assert.match(shell, /title: "팩 전종수집"/);
+  assert.match(shell, /title: "화석 도감"/);
+  assert.match(shell, /title: "나만의 도감"/);
+  assert.match(shell, /title: "커뮤니티"/);
+  assert.equal(shell.includes('"도감 갤러리"'), false);
+  assert.equal(shell.includes('"공개 컬렉터"'), false);
 
-  const replaceStart = navigation.indexOf("nav.replaceChildren(");
-  const replaceEnd = navigation.indexOf("normalizeNavigationState(nav);", replaceStart);
-  const menuLayout = navigation.slice(replaceStart, replaceEnd);
+  const menuStart = shell.indexOf("const navigation = Object.freeze([");
+  const menuEnd = shell.indexOf("]);", menuStart);
+  const menuLayout = shell.slice(menuStart, menuEnd);
   const order = [
-    "\n      dashboard,",
-    "\n      pokemonSearch,",
-    'navigationSection("주요 도감")',
-    "\n      national,",
-    "\n      series,",
-    "\n      ar,",
-    "\n      packs,",
-    'navigationSection("테마 도감")',
-    "\n      pokemonCollections,",
-    "\n      artists,",
-    "\n      people,",
-    "\n      trainerPokemon,",
-    "\n      fossilDex,",
-    "\n      worldDex,",
-    "\n      customDex,",
-    "\n      community,",
+    'page: "index.html"',
+    'page: "pokemon-search.html"',
+    'section: "주요 도감"',
+    'page: "national.html"',
+    'page: "series.html"',
+    'page: "ar.html"',
+    'page: "packs.html"',
+    'section: "테마 도감"',
+    'page: "pokemon-collections.html"',
+    'page: "artists.html"',
+    'page: "people.html"',
+    'page: "trainer-pokemon.html"',
+    'page: "fossil.html"',
+    'page: "world.html"',
+    'page: "custom.html"',
+    'page: "collectors.html"',
   ].map((token) => menuLayout.indexOf(token));
   assert.ok(order.every((index) => index >= 0));
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
+
+  assert.equal(navigation.includes("nav.replaceChildren("), false);
+  assert.match(navigation, /normalizeNavigationState\(nav\)/);
 
   for (const [page] of Object.values(collectionPages)) {
     assert.match(await source(page), /collector-nav[.]js\?v=[0-9a-f]{12}/);

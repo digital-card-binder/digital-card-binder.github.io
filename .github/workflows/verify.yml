@@ -30,19 +30,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Synchronize shared site shell
+        run: npm run shell:sync
       - name: Synchronize cache versions
         run: npm run versions:sync
       - name: Commit generated versions
         shell: bash
         run: |
           if git diff --quiet; then
-            echo "Asset versions already synchronized."
+            echo "Generated site shell and asset versions already synchronized."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- '*.html' collector-nav.js pwa.js site-version.json
-          git commit -m "chore: sync site asset versions"
+          git commit -m "chore: sync generated site shell and asset versions"
           git push origin "HEAD:${{ github.head_ref }}"
 
   test:
