@@ -197,6 +197,11 @@ test("card pages load the image router before application scripts", () => {
     const routerIndex = source.indexOf("card-image-cdn.js");
     const applicationIndex = source.indexOf("firebase-config.js");
     assert.ok(routerIndex >= 0, `${filename} does not load the card image router`);
+    assert.match(
+      source,
+      /card-image-cdn[.]js[?]v=20260923-2/,
+      `${filename} must load the current card image router version`,
+    );
     assert.ok(routerIndex < applicationIndex, `${filename} loads the card image router too late`);
   }
 

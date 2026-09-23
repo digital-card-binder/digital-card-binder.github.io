@@ -118,7 +118,10 @@
       };
       const timer = window.setTimeout(() => finish(false), timeout);
       image.onload = () => finish(image.naturalWidth > 0);
-      image.onerror = () => finish(false);
+      image.onerror = () => {
+        if (window.DigitalCardBinderImageCdn?.restoreOriginal?.(image)) return;
+        finish(false);
+      };
       image.src = url;
     });
   }

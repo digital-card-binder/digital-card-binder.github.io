@@ -248,7 +248,10 @@
       };
       const timer = window.setTimeout(() => finish(false), timeout);
       probe.onload = () => finish(probe.naturalWidth > 0);
-      probe.onerror = () => finish(false);
+      probe.onerror = () => {
+        if (window.DigitalCardBinderImageCdn?.restoreOriginal?.(probe)) return;
+        finish(false);
+      };
       probe.src = parsed.href;
     });
   }

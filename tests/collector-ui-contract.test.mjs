@@ -638,6 +638,29 @@ test("public read-only data waits for its projection instead of rendering an emp
   }
 });
 
+
+test("detached image probes retry the original source after a CDN miss", async () => {
+  for (const file of [
+    "firebase-collection-manager.js",
+    "firebase-people-manager.js",
+    "world.js",
+  ]) {
+    const client = await source(file);
+    assert.match(
+      client,
+      /DigitalCardBinderImageCdn[?][.]restoreOriginal[?][.][(]/,
+      `${file}: detached image probe must retry its original source`,
+    );
+  }
+
+  const nationalPage = await source("national.html");
+  const peoplePage = await source("people.html");
+  const worldPage = await source("world.html");
+  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-1/);
+  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-1/);
+  assert.match(worldPage, /world[.]js[?]v=20260923-1/);
+});
+
 test("the signed-out guest fallback never wipes a public read-only projection", async () => {
   const guestClient = await source("guest-empty-dex.js");
   const page = await source("national.html");
