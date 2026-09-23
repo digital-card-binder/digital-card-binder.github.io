@@ -18,6 +18,13 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - `npm test` must pass before merge.
 - The Verify workflow runs for pull requests and direct pushes to `main`.
 
+## Automatic cache versioning
+
+- Do not manually edit `?v=...` values, `site-version.json`, `SITE_BUILD_VERSION`, or the service-worker cache token.
+- `npm run versions:sync` derives JS/CSS cache tokens from file contents and synchronizes all root HTML pages, `collector-nav.js`, `pwa.js`, and `site-version.json`.
+- `npm run versions:check` is part of `npm test` and fails if generated versions are stale.
+- Pull requests from this repository run the version synchronizer before the verification suite, so normal feature work does not require choosing or bumping version numbers.
+
 ## Repository hygiene
 
 - Do not commit `.tmp-*` trigger files.

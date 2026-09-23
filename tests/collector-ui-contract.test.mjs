@@ -187,7 +187,7 @@ test("every page uses the one-line Digital Card Binder brand and tab title", asy
     );
     assert.equal(html.includes("MY POKÉMON DEX"), false, `${page}: legacy brand`);
     assert.equal(html.includes("COLLECTION ARCHIVE"), false, `${page}: legacy subtitle`);
-    assert.match(html, /styles[.]css[?]v=20260923-7/, `${page}: shared styles version`);
+    assert.match(html, /styles[.]css[?]v=[0-9a-f]{12}/, `${page}: shared styles version`);
   }
 
   const collectorClient = await source("collector.js");
@@ -206,12 +206,12 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   const newsData = JSON.parse(await source("news.json"));
 
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
-  assert.match(dashboard, /news[.]js[?]v=20260923-5/);
+  assert.match(dashboard, /news[.]js[?]v=[0-9a-f]{12}/);
   assert.equal(newsClient.includes("pwa.js"), false);
-  assert.match(dashboard, /pwa[.]js[?]v=20260923-4/);
-  assert.match(newsPage, /pwa[.]js[?]v=20260923-3/);
+  assert.match(dashboard, /pwa[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(newsPage, /pwa[.]js[?]v=[0-9a-f]{12}/);
   const pwaClient = await source("pwa.js");
-  assert.match(pwaClient, /sw[.]js[?]v=20260923-2/);
+  assert.match(pwaClient, /sw[.]js[?]v=[0-9a-f]{12}/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
@@ -237,8 +237,8 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   const manager = await source("firebase-page-manager.js");
 
   assert.match(page, /data-catalog="series"/);
-  assert.match(page, /firebase-page-manager[.]js[?]v=20260923-3/);
-  assert.match(page, /pokemon-search[.]js[?]v=20260923-5/);
+  assert.match(page, /firebase-page-manager[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(page, /pokemon-search[.]js[?]v=[0-9a-f]{12}/);
   assert.ok(client.includes("await account.refreshAccountData?.();"));
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
@@ -270,7 +270,7 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   assert.ok(client.includes("renderOwnershipSources("));
   assert.match(client, /className = "pokemon-search-ownership-chip"/);
   const searchCss = await source("pokemon-search.css");
-  assert.match(page, /pokemon-search[.]css[?]v=20260923-3/);
+  assert.match(page, /pokemon-search[.]css[?]v=[0-9a-f]{12}/);
   assert.match(searchCss, /[.]pokemon-search-ownership-chip\{/);
   assert.match(searchCss, /#pokemon-search-dialog-sources [.]pokemon-search-ownership-chip\{/);
   assert.ok(manager.includes("async function readCollectionDocument(documentId)"));
@@ -369,8 +369,8 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   const dashboardIndex = page.indexOf("dashboard.js");
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
-  assert.match(page, /dashboard[.]css[?]v=20260923-5/);
-  assert.match(page, /dashboard[.]js[?]v=20260923-5/);
+  assert.match(page, /dashboard[.]css[?]v=[0-9a-f]{12}/);
+  assert.match(page, /dashboard[.]js[?]v=[0-9a-f]{12}/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
@@ -561,10 +561,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260923-8/);
+    assert.match(await source(page), /collector-nav[.]js\?v=[0-9a-f]{12}/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-8/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=[0-9a-f]{12}/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
@@ -623,8 +623,8 @@ test("collection pages share the same default header state", async () => {
     const header = html.slice(headerStart, html.indexOf("</header>", headerStart));
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">공개 보기<\/span>/, `${page}: default header state`);
-    assert.match(html, /collector[.]css[?]v=20260923-2/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260923-8/, `${page}: current common header behavior`);
+    assert.match(html, /collector[.]css[?]v=[0-9a-f]{12}/, `${page}: current common header CSS`);
+    assert.match(html, /collector-nav[.]js[?]v=[0-9a-f]{12}/, `${page}: current common header behavior`);
   }
 });
 
@@ -662,8 +662,8 @@ test("mobile shared header always shows the Digital Card Binder brand name", asy
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
-  assert.equal(siteVersion.version, "20260923-12");
-  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-12"/);
+  assert.match(siteVersion.version, /^b-[0-9a-f]{12}$/);
+  assert.match(navigation, /SITE_BUILD_VERSION = "b-[0-9a-f]{12}"/);
   assert.match(navigation, /site-version[.]json/);
   assert.match(navigation, /cache: "no-store"/);
   assert.match(navigation, /searchParams[.]set\("build", remoteVersion\)/);
@@ -704,8 +704,8 @@ test("desktop keeps four or three columns while phones use two or four", async (
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260923-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260923-8/);
+    assert.match(html, /collector[.]css\?v=[0-9a-f]{12}/);
+    assert.match(html, /collector-nav[.]js\?v=[0-9a-f]{12}/);
   }
 });
 
@@ -856,9 +856,9 @@ test("detached image probes retry the original source after a CDN miss", async (
   const nationalPage = await source("national.html");
   const peoplePage = await source("people.html");
   const worldPage = await source("world.html");
-  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=20260923-3/);
-  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=20260923-3/);
-  assert.match(worldPage, /world[.]js[?]v=20260923-2/);
+  assert.match(nationalPage, /firebase-collection-manager[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(peoplePage, /firebase-people-manager[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(worldPage, /world[.]js[?]v=[0-9a-f]{12}/);
   for (const page of [nationalPage, peoplePage, worldPage]) {
     assert.ok(
       page.indexOf("core/catalog/card-lookup.js") <
@@ -887,7 +887,7 @@ test("the signed-out guest fallback never wipes a public read-only projection", 
     guestClient,
     /const apply = \(\) => \{\s*if \(window[.]CollectorPublicView[?][.]requested\) return;/,
   );
-  assert.match(page, /guest-empty-dex[.]js[?]v=20260813-1/);
+  assert.match(page, /guest-empty-dex[.]js[?]v=[0-9a-f]{12}/);
 });
 
 test("public collection loads never request a private users path", async () => {
@@ -973,10 +973,10 @@ test("public profile summaries cache-bust the current catalog metrics", async ()
   const profilePage = await source("collector.html");
   const directoryPage = await source("collectors.html");
 
-  assert.match(profilePage, /collector-collection-registry[.]js[?]v=20260923-4/);
-  assert.match(profilePage, /collector[.]js[?]v=20260813-4/);
-  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=20260923-4/);
-  assert.match(directoryPage, /collector-directory[.]js[?]v=20260813-3/);
+  assert.match(profilePage, /collector-collection-registry[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(profilePage, /collector[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(directoryPage, /collector-collection-registry[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(directoryPage, /collector-directory[.]js[?]v=[0-9a-f]{12}/);
 });
 
 test("the free profile path has no Firebase Storage or image URL dependency", async () => {
@@ -1047,7 +1047,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
   assert.match(androidGradle, /versionCode 12/);
-  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=20260923-3/);
+  assert.match(dashboard, /owner-sheets-sync[.]js[?]v=[0-9a-f]{12}/);
 });
 
 
@@ -1069,5 +1069,5 @@ test("current dashboard is the only production shell and carries the latest nav"
   assert.match(current, /커뮤니티/);
   assert.equal(current.includes("도감 갤러리"), false);
   assert.equal(current.includes("<strong>팩 도감</strong>"), false);
-  assert.ok(current.includes("collector-nav.js?v=20260923-8"));
+  assert.match(current, /collector-nav[.]js[?]v=[0-9a-f]{12}/);
 });

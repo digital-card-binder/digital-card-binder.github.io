@@ -40,8 +40,8 @@ test("m6 and m6a use optimized official individual pack images", async () => {
   assert.match(css, /[.]pack-dialog-image-wrap[.]is-missing [.]pack-dialog-image/);
   assert.doesNotMatch(css, /is-generated-pack-art/);
 
-  assert.match(html, /packs[.]css\?v=20260918-2/);
-  assert.match(html, /packs[.]js\?v=20260918-2/);
+  assert.match(html, /packs[.]css\?v=[0-9a-f]{12}/);
+  assert.match(html, /packs[.]js\?v=[0-9a-f]{12}/);
 
   for (const image of [m6, m6a]) {
     assert.ok(image.length > 10_000, "optimized image should contain real artwork");
