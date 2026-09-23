@@ -3,7 +3,7 @@
 (function () {
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
-  const SERVICE_WORKER_URL = "/sw.js?v=20260923-1";
+  const SERVICE_WORKER_URL = "/sw.js?v=20260923-2";
 
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent)

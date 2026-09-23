@@ -3,78 +3,6 @@
 (function () {
   const NEWS_DATA_URL = "./news.json?v=20260921-2";
 
-  function initializePwaBootstrap() {
-    if (!document.querySelector('link[rel="manifest"]')) {
-      const manifest = document.createElement("link");
-      manifest.rel = "manifest";
-      manifest.href = "/manifest.webmanifest";
-      document.head.append(manifest);
-    }
-
-    if (!document.querySelector('link[data-pwa-style="1"]')) {
-      const style = document.createElement("link");
-      style.rel = "stylesheet";
-      style.href = "/pwa.css?v=20260915-2";
-      style.dataset.pwaStyle = "1";
-      document.head.append(style);
-    }
-
-    if (!document.querySelector('script[data-pwa-script="1"]')) {
-      const script = document.createElement("script");
-      script.src = "/pwa.js?v=20260923-1";
-      script.defer = true;
-      script.dataset.pwaScript = "1";
-      document.head.append(script);
-    }
-  }
-
-  function initializeCompactMobileBrand() {
-    const brand = document.querySelector(".site-header > .brand");
-    const copy = brand?.querySelector(".brand-copy");
-    const title = copy?.querySelector("strong");
-    if (!brand || !copy || !title) return;
-
-    const mobile = window.matchMedia("(max-width: 760px)");
-    const narrow = window.matchMedia("(max-width: 390px)");
-
-    const apply = () => {
-      if (!mobile.matches) {
-        brand.style.removeProperty("gap");
-        brand.style.removeProperty("min-width");
-        copy.style.removeProperty("display");
-        copy.style.removeProperty("min-width");
-        title.style.removeProperty("display");
-        title.style.removeProperty("font-size");
-        title.style.removeProperty("font-weight");
-        title.style.removeProperty("letter-spacing");
-        title.style.removeProperty("line-height");
-        title.style.removeProperty("white-space");
-        title.style.removeProperty("max-width");
-        title.style.removeProperty("overflow");
-        title.style.removeProperty("text-overflow");
-        return;
-      }
-
-      brand.style.gap = "8px";
-      brand.style.minWidth = "0";
-      copy.style.setProperty("display", "block", "important");
-      copy.style.minWidth = "0";
-      title.style.setProperty("display", "block", "important");
-      title.style.setProperty("font-size", narrow.matches ? "0.75rem" : "0.82rem", "important");
-      title.style.setProperty("font-weight", "800", "important");
-      title.style.setProperty("letter-spacing", "-0.045em", "important");
-      title.style.lineHeight = "1.1";
-      title.style.whiteSpace = "nowrap";
-      title.style.maxWidth = narrow.matches ? "110px" : "126px";
-      title.style.overflow = "hidden";
-      title.style.textOverflow = "clip";
-    };
-
-    apply();
-    mobile.addEventListener?.("change", apply);
-    narrow.addEventListener?.("change", apply);
-  }
-
   function normalizeNewsItem(item, index) {
     const id = String(item?.id || "").trim();
     const date = String(item?.date || "").trim();
@@ -255,11 +183,6 @@
     if (error) error.hidden = false;
   }
 
-  function initializeAndroidDownloadLabel() {
-    const button = document.querySelector("#android-app-download-button");
-    if (button) button.textContent = "앱 다운로드 v0.9";
-  }
-
   let newsRefreshInFlight = null;
   let lastNewsRefreshAt = 0;
 
@@ -293,9 +216,6 @@
     initializeNews(true);
   }
 
-  initializePwaBootstrap();
-  initializeCompactMobileBrand();
-  initializeAndroidDownloadLabel();
   initializeNews(true);
 
   window.addEventListener("pageshow", refreshNewsWhenAppReturns);
