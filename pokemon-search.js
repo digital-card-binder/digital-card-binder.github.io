@@ -254,9 +254,41 @@
     });
   }
 
+  function addPeopleOwnership(index, documentData) {
+    const ownedMap =
+      documentData?.peopleOwned &&
+      typeof documentData.peopleOwned === "object" &&
+      !Array.isArray(documentData.peopleOwned)
+        ? documentData.peopleOwned
+        : {};
+    const overrides =
+      documentData?.peopleOverrides &&
+      typeof documentData.peopleOverrides === "object" &&
+      !Array.isArray(documentData.peopleOverrides)
+        ? documentData.peopleOverrides
+        : {};
+
+    Object.entries(ownedMap).forEach(([personId, owned]) => {
+      if (owned !== true) return;
+      const item = overrides[personId];
+      if (!item || typeof item !== "object" || Array.isArray(item)) return;
+      const setCode = inferSetCodeFromImage(item.imageUrl);
+      const cardNumberValue =
+        clean(item.cardNumber) || inferCardNumberFromImage(item.imageUrl);
+      addOwnershipSource(index, setCode, cardNumberValue, "인물도감");
+    });
+  }
+
   function inferSetCodeFromImage(imageUrl) {
     const match = String(imageUrl || "").match(
       /\/wmimages\/(?:SV|SM|S|MEGA|XY|BW|DP|ADV)\/([^/]+)\//i,
+    );
+    return match?.[1] || "";
+  }
+
+  function inferCardNumberFromImage(imageUrl) {
+    const match = String(imageUrl || "").match(
+      /_([0-9]{1,4})(?:\.[a-z0-9]+)(?:[?#].*)?$/i,
     );
     return match?.[1] || "";
   }
@@ -318,7 +350,10 @@
         account.readCollectionDocument("arDex"),
       ]);
 
-      if (national) addNationalOwnership(index, national);
+      if (national) {
+        addNationalOwnership(index, national);
+        addPeopleOwnership(index, national);
+      }
       if (artist) addArtistOwnership(index, artist);
       if (pokemon) addPokemonCollectionOwnership(index, pokemon);
       if (ar) addArOwnership(index, ar);
