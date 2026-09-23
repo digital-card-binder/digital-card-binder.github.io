@@ -522,9 +522,19 @@ test("collection pages share the same default header state", async () => {
     const header = html.slice(headerStart, html.indexOf("</header>", headerStart));
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">PUBLIC VIEW<\/span>/, `${page}: default header state`);
-    assert.match(html, /collector[.]css[?]v=20260814-1/, `${page}: current common header CSS`);
+    assert.match(html, /collector[.]css[?]v=20260923-2/, `${page}: current common header CSS`);
     assert.match(html, /collector-nav[.]js[?]v=20260923-4/, `${page}: current common header behavior`);
   }
+});
+
+test("shared collection UI uses one calm panel and interaction system", async () => {
+  const css = await source("collector.css");
+  assert.match(css, /--collector-filter-surface: #f8fafc/);
+  assert.match(css, /--collector-panel-shadow: 0 10px 28px/);
+  assert.match(css, /[.]collection-nav-section \{/);
+  assert.match(css, /body [.]pack-filter-panel,[\s\S]*?body [.]tp-filter-panel \{/);
+  assert.match(css, /[.]pokemon-card-button:hover \{[\s\S]*?translateY\(-3px\)/);
+  assert.match(css, /@media \(max-width: 690px\)[\s\S]*?[.]pokemon-card-button:hover \{[\s\S]*?transform: none/);
 });
 
 test("desktop keeps four or three columns while phones use two or four", async () => {
@@ -561,7 +571,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   );
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
-    assert.match(html, /collector[.]css\?v=20260814-1/);
+    assert.match(html, /collector[.]css\?v=20260923-2/);
     assert.match(html, /collector-nav[.]js\?v=20260923-4/);
   }
 });

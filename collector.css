@@ -337,6 +337,105 @@
   }
 }
 
+
+/* 공통 UI 규칙: 도감별 개성은 유지하고 패널·필터·상호작용 밀도만 통일합니다. */
+:root {
+  --collector-filter-surface: #f8fafc;
+  --collector-control-border: #dfe3ec;
+  --collector-panel-shadow: 0 10px 28px rgba(28, 38, 68, 0.06);
+  --collector-hero-shadow: 0 18px 48px rgba(23, 35, 63, 0.16);
+}
+
+.collection-nav-section {
+  margin: 11px 10px 1px;
+  padding-top: 15px;
+  border-top: 1px solid var(--line);
+  color: #9aa0af;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+}
+
+.hero {
+  box-shadow: var(--collector-hero-shadow);
+}
+
+.catalog-panel,
+.stat-card {
+  box-shadow: var(--collector-panel-shadow);
+}
+
+body .filter-panel,
+body .pack-filter-panel,
+body .artist-filter-panel,
+body .people-filter-panel,
+body .fossil-filter-panel,
+body .tp-filter-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--collector-filter-surface);
+  padding: 18px;
+}
+
+body .filter-panel select,
+body .pack-filter-panel select,
+body .artist-filter-panel select,
+body .people-filter-panel select,
+body .fossil-filter-panel select,
+body .tp-filter-panel select {
+  min-height: 46px;
+  border-color: var(--collector-control-border);
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.card-layout-toggle,
+.mobile-filter-jump {
+  border-radius: 11px;
+}
+
+.pokemon-card-button {
+  box-shadow: 0 6px 18px rgba(25, 32, 57, 0.05);
+}
+
+.pokemon-card-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(25, 32, 57, 0.1);
+}
+
+.collector-directory-card {
+  box-shadow: 0 6px 18px rgba(29, 43, 72, 0.045);
+}
+
+.collector-directory-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(29, 43, 72, 0.09);
+}
+
+@media (max-width: 920px) {
+  .collection-nav-section {
+    display: none;
+  }
+}
+
+@media (max-width: 690px) {
+  body .filter-panel,
+  body .pack-filter-panel,
+  body .artist-filter-panel,
+  body .people-filter-panel,
+  body .fossil-filter-panel,
+  body .tp-filter-panel {
+    padding: 12px;
+  }
+
+  .hero {
+    box-shadow: 0 12px 30px rgba(23, 35, 63, 0.13);
+  }
+
+  .pokemon-card-button:hover {
+    transform: none;
+  }
+}
+
 @media print {
   .card-layout-toggle {
     display: none !important;
