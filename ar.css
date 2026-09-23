@@ -142,3 +142,71 @@
     right: 13px;
   }
 }
+
+
+.ar-view-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 6px;
+  border: 1px solid rgba(23, 35, 63, 0.09);
+  border-radius: 16px;
+  background: #f4f6fa;
+}
+
+.ar-view-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  border-radius: 11px;
+  color: var(--ink-soft, #5e6677);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.ar-view-tab small {
+  color: inherit;
+  font-size: 0.6rem;
+  font-weight: 700;
+  opacity: 0.66;
+}
+
+.ar-view-tab:hover {
+  transform: translateY(-1px);
+}
+
+.ar-view-tab.is-active {
+  background: var(--navy, #17233f);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(23, 35, 63, 0.14);
+}
+
+.ar-view-national .catalog-select {
+  display: none;
+}
+
+.ar-view-national .catalog-toolbar .search-field {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 690px) {
+  .ar-view-tabs {
+    margin-bottom: 16px;
+    border-radius: 13px;
+  }
+
+  .ar-view-tab {
+    min-height: 44px;
+    gap: 5px;
+    font-size: 0.72rem;
+  }
+
+  .ar-view-tab small {
+    display: none;
+  }
+}
