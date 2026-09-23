@@ -607,6 +607,14 @@ test("legacy navigation writers cannot overwrite collector-nav", async () => {
   assert.equal(news.includes("도감 갤러리"), false);
 });
 
+test("mobile shared header always shows the Digital Card Binder brand name", async () => {
+  const css = await source("styles.css");
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*?[.]site-header > [.]brand [.]brand-copy \{[\s\S]*?display: block !important/);
+  assert.match(css, /[.]site-header > [.]brand [.]brand-copy strong \{[\s\S]*?visibility: visible !important/);
+  assert.match(css, /max-width: 126px/);
+  assert.match(css, /@media \(max-width: 390px\)[\s\S]*?max-width: 110px/);
+});
+
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
