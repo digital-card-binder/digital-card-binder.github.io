@@ -208,8 +208,8 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(dashboard, /id="dashboard-news-strip"[^>]*hidden/);
   assert.match(dashboard, /news[.]js[?]v=20260923-5/);
   assert.equal(newsClient.includes("pwa.js"), false);
-  assert.match(dashboard, /pwa[.]js[?]v=20260923-2/);
-  assert.match(newsPage, /pwa[.]js[?]v=20260923-2/);
+  assert.match(dashboard, /pwa[.]js[?]v=20260923-3/);
+  assert.match(newsPage, /pwa[.]js[?]v=20260923-3/);
   const pwaClient = await source("pwa.js");
   assert.match(pwaClient, /sw[.]js[?]v=20260923-2/);
   assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
@@ -320,13 +320,23 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.match(metrics, /DISPLAY_PUBLIC_METRICS = false/);
   assert.match(page, /class="dashboard-utility-panel"/);
   assert.match(page, /id="feedback-open"/);
+  assert.match(page, /id="platform-app-grid"/);
   assert.match(page, /id="android-app-download"/);
+  assert.match(page, /id="ios-pwa-card"/);
+  assert.match(page, /안드로이드·아이폰 앱/);
   assert.ok(
     page.indexOf("dashboard-utility-panel") > page.indexOf("dashboard-insights"),
     "utility actions should follow primary dashboard content",
   );
   assert.match(css, /[.]dashboard-utility-panel\{/);
-  assert.match(css, /[.]android-app-download[.]is-visible\{/);
+  const pwa = await source("pwa.js");
+  const pwaCss = await source("pwa.css");
+  assert.match(pwa, /function configureAppCards\(\)/);
+  assert.match(pwa, /if \(isAndroid\(\)\)/);
+  assert.match(pwa, /else if \(isIOS\(\)\)/);
+  assert.match(pwa, /function bindAndroidDownload\(\)/);
+  assert.equal(page.includes("const isAndroid = /Android/i"), false);
+  assert.match(pwaCss, /[.]platform-app-card\[hidden\]/);
 });
 
 test("decorative English UI labels are retired while official series codes remain", async () => {
@@ -359,7 +369,7 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   const dashboardIndex = page.indexOf("dashboard.js");
   assert.ok(customIndex > registryIndex, "custom registry extension order");
   assert.ok(dashboardIndex > customIndex, "dashboard must start after custom registration");
-  assert.match(page, /dashboard[.]css[?]v=20260923-4/);
+  assert.match(page, /dashboard[.]css[?]v=20260923-5/);
   assert.match(page, /dashboard[.]js[?]v=20260923-5/);
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
@@ -551,10 +561,10 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   assert.ok(order.every((index, position) => position === 0 || order[position - 1] < index));
 
   for (const [page] of Object.values(collectionPages)) {
-    assert.match(await source(page), /collector-nav[.]js\?v=20260923-7/);
+    assert.match(await source(page), /collector-nav[.]js\?v=20260923-8/);
   }
   const settingsPage = await source("collector-settings.html");
-  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-7/);
+  assert.match(settingsPage, /collector-nav[.]js\?v=20260923-8/);
   assert.match(settingsPage, /<title>디지털 카드 바인더<\/title>/);
   assert.match(settingsPage, /<h1 id="page-title">내 프로필 관리<\/h1>/);
 });
@@ -614,7 +624,7 @@ test("collection pages share the same default header state", async () => {
     assert.ok(headerStart >= 0, `${page}: common header missing`);
     assert.match(header, /<span class="header-chip">공개 보기<\/span>/, `${page}: default header state`);
     assert.match(html, /collector[.]css[?]v=20260923-2/, `${page}: current common header CSS`);
-    assert.match(html, /collector-nav[.]js[?]v=20260923-7/, `${page}: current common header behavior`);
+    assert.match(html, /collector-nav[.]js[?]v=20260923-8/, `${page}: current common header behavior`);
   }
 });
 
@@ -652,8 +662,8 @@ test("mobile shared header always shows the Digital Card Binder brand name", asy
 test("shared navigation detects stale cached HTML and reloads with the latest build", async () => {
   const navigation = await source("collector-nav.js");
   const siteVersion = JSON.parse(await source("site-version.json"));
-  assert.equal(siteVersion.version, "20260923-9");
-  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-9"/);
+  assert.equal(siteVersion.version, "20260923-10");
+  assert.match(navigation, /SITE_BUILD_VERSION = "20260923-10"/);
   assert.match(navigation, /site-version[.]json/);
   assert.match(navigation, /cache: "no-store"/);
   assert.match(navigation, /searchParams[.]set\("build", remoteVersion\)/);
@@ -695,7 +705,7 @@ test("desktop keeps four or three columns while phones use two or four", async (
   for (const [page] of Object.values(collectionPages)) {
     const html = await source(page);
     assert.match(html, /collector[.]css\?v=20260923-2/);
-    assert.match(html, /collector-nav[.]js\?v=20260923-7/);
+    assert.match(html, /collector-nav[.]js\?v=20260923-8/);
   }
 });
 
@@ -1059,5 +1069,5 @@ test("current dashboard is the only production shell and carries the latest nav"
   assert.match(current, /커뮤니티/);
   assert.equal(current.includes("도감 갤러리"), false);
   assert.equal(current.includes("<strong>팩 도감</strong>"), false);
-  assert.ok(current.includes("collector-nav.js?v=20260923-7"));
+  assert.ok(current.includes("collector-nav.js?v=20260923-8"));
 });

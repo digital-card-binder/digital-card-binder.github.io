@@ -177,68 +177,58 @@
     }
   }
 
-  function compactAndroidCard(androidCard) {
-    if (!androidCard) return;
-    androidCard.querySelector(".android-app-download-copy strong")?.replaceChildren("Android 앱 다운로드");
-    androidCard.querySelector(".android-app-download-description")?.replaceChildren("APK 직접 설치");
-    const button = androidCard.querySelector("#android-app-download-button");
-    if (button) button.textContent = "다운로드 v0.9";
+  function configureAppCards() {
+    const grid = document.getElementById("platform-app-grid");
+    const androidCard = document.getElementById("android-app-download");
+    const iosCard = document.getElementById("ios-pwa-card");
+    if (!grid) return;
+
+    if (isAndroidNativeApp()) {
+      grid.hidden = true;
+      return;
+    }
+
+    grid.hidden = false;
+    if (isAndroid()) {
+      if (androidCard) androidCard.hidden = false;
+      if (iosCard) iosCard.hidden = true;
+    } else if (isIOS()) {
+      if (androidCard) androidCard.hidden = true;
+      if (iosCard) iosCard.hidden = false;
+    } else {
+      if (androidCard) androidCard.hidden = false;
+      if (iosCard) iosCard.hidden = false;
+    }
   }
 
-  function createCard() {
-    if (isAndroidNativeApp()) {
-      const androidCard = document.getElementById("android-app-download");
-      if (androidCard) androidCard.classList.remove("is-visible");
-      document.getElementById("ios-pwa-card")?.remove();
-      document.getElementById("platform-app-grid")?.remove();
-      return null;
-    }
+  function bindAndroidDownload() {
+    const button = document.getElementById("android-app-download-button");
+    if (!button || button.dataset.downloadBound === "true") return;
+    button.dataset.downloadBound = "true";
 
-    if (!isMobilePlatform() || document.getElementById("ios-pwa-card")) return null;
+    button.addEventListener("click", async () => {
+      const apkUrl = "./DigitalCardBinder_v0.9.apk";
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "확인 중…";
 
-    const card = document.createElement("section");
-    card.id = "ios-pwa-card";
-    card.className = "ios-pwa-card is-visible";
-    card.setAttribute("aria-label", "iPhone 앱 설치 및 알림 설정");
-    card.innerHTML = `
-      <div class="ios-pwa-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" focusable="false">
-          <rect x="6" y="2.5" width="12" height="19" rx="3" stroke="currentColor" stroke-width="1.7" />
-          <path d="M12 8v7m0-7-2.5 2.5M12 8l2.5 2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M10 18h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
-        </svg>
-      </div>
-      <div class="ios-pwa-copy">
-        <span class="ios-pwa-badge">iPhone Web App</span>
-        <strong id="ios-pwa-title"></strong>
-        <span id="ios-pwa-description" class="ios-pwa-description"></span>
-      </div>
-      <button id="ios-pwa-button" class="ios-pwa-button" type="button"></button>
-      <p id="ios-pwa-status" class="ios-pwa-status" aria-live="polite"></p>
-    `;
+      try {
+        const response = await fetch(apkUrl, { method: "HEAD", cache: "no-store" });
+        if (!response.ok) throw new Error("APK_NOT_READY");
 
-    const androidCard = document.getElementById("android-app-download");
-    const newsStrip = document.getElementById("dashboard-news-strip");
-    let grid = document.getElementById("platform-app-grid");
-
-    if (!grid) {
-      grid = document.createElement("div");
-      grid.id = "platform-app-grid";
-      grid.className = "platform-app-grid";
-      grid.setAttribute("aria-label", "모바일 앱 이용 안내");
-      if (androidCard) {
-        androidCard.insertAdjacentElement("beforebegin", grid);
-        grid.append(androidCard);
-      } else if (newsStrip) {
-        newsStrip.insertAdjacentElement("afterend", grid);
-      } else {
-        document.querySelector("main")?.prepend(grid);
+        const link = document.createElement("a");
+        link.href = apkUrl;
+        link.download = "DigitalCardBinder_v0.9.apk";
+        document.body.append(link);
+        link.click();
+        link.remove();
+      } catch {
+        window.alert("안드로이드 앱 v0.9 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.");
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
       }
-    }
-
-    compactAndroidCard(androidCard);
-    grid.append(card);
-    return card;
+    });
   }
 
   async function refreshCard() {
@@ -251,21 +241,21 @@
     const status = card.querySelector("#ios-pwa-status");
 
     if (!isIOS() || !isStandalone()) {
-      title.textContent = "iPhone 앱 설치";
+      title.textContent = "아이폰 앱 설치";
       description.textContent = "Safari 홈 화면에 추가";
       button.textContent = "설치 방법";
       button.disabled = false;
       status.textContent = isIOS()
         ? "홈 화면에 추가하면 앱처럼 실행됩니다."
-        : "iPhone Safari에서 설치할 수 있습니다.";
+        : "아이폰 Safari에서 설치할 수 있습니다.";
       button.onclick = () => {
-        window.alert("iPhone Safari에서 디지털 카드 바인더를 연 뒤, 공유 버튼 → ‘홈 화면에 추가’ → ‘추가’를 선택하세요. 홈 화면에 생긴 앱을 실행하면 새소식 알림도 켤 수 있습니다.");
+        window.alert("아이폰 Safari에서 디지털 카드 바인더를 연 뒤, 공유 버튼 → ‘홈 화면에 추가’ → ‘추가’를 선택하세요. 홈 화면에 생긴 앱을 실행하면 새소식 알림도 켤 수 있습니다.");
       };
       return;
     }
 
     title.textContent = "새소식 알림";
-    description.textContent = "iPhone 푸시 알림";
+    description.textContent = "아이폰 푸시 알림";
 
     if (!("Notification" in window) || !("PushManager" in window)) {
       button.textContent = "지원 안 됨";
@@ -285,7 +275,7 @@
     if (Notification.permission === "denied") {
       button.textContent = "알림 차단됨";
       button.disabled = true;
-      status.textContent = "iPhone 설정 → 알림에서 허용해주세요.";
+      status.textContent = "아이폰 설정 → 알림에서 허용해주세요.";
       return;
     }
 
@@ -347,7 +337,8 @@
     }
 
     if (document.body?.dataset.page === "dashboard" || document.getElementById("dashboard-news-strip")) {
-      createCard();
+      configureAppCards();
+      bindAndroidDownload();
       await refreshCard();
     }
   }

@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="./styles.css?v=20260923-7" />
     <link rel="stylesheet" href="./legal.css?v=20260806-1" />
     <link rel="stylesheet" href="./collection-manager.css?v=20260813-2" />
-    <link rel="stylesheet" href="./dashboard.css?v=20260923-4" />
+    <link rel="stylesheet" href="./dashboard.css?v=20260923-5" />
     <link rel="stylesheet" href="./collector.css?v=20260923-2" />
     <link rel="stylesheet" href="./news.css?v=20260916-3" />
-    <link rel="stylesheet" href="./pwa.css?v=20260915-2" /> 
+    <link rel="stylesheet" href="./pwa.css?v=20260923-3" /> 
     <script src="./card-image-cdn.js?v=20260923-2" defer></script>
     <script src="./firebase-config.js?v=20260923-3" defer></script>
     <script src="./site-metrics.js?v=20260923-1" defer></script>
@@ -31,11 +31,11 @@
     <script src="./collector-collection-registry.js?v=20260923-4" defer></script>
     <script src="./custom-sharing.js?v=20260813-1" defer></script>
     <script src="./collector-public-sync.js?v=20260813-1" defer></script>
-    <script src="./collector-nav.js?v=20260923-7" defer></script>
+    <script src="./collector-nav.js?v=20260923-8" defer></script>
     <script src="./dashboard.js?v=20260923-5" defer></script>
     <script src="./feedback.js?v=20260730-1" defer></script>
     <script src="./owner-sheets-sync.js?v=20260923-3" defer></script>
-    <script src="./pwa.js?v=20260923-2" defer></script>
+    <script src="./pwa.js?v=20260923-3" defer></script>
     <script src="./news.js?v=20260923-5" defer></script>
   </head>
   <body data-page="dashboard">
@@ -182,7 +182,7 @@
         <section class="dashboard-utility-panel" aria-label="도움말 및 앱">
           <div class="dashboard-utility-copy">
             <strong>도움말 · 앱</strong>
-            <span>사이트 의견을 보내거나 Android 앱을 이용할 수 있습니다.</span>
+            <span>사이트 의견을 보내거나 안드로이드·아이폰 앱을 이용할 수 있습니다.</span>
           </div>
           <div class="dashboard-utility-actions">
             <div class="dashboard-feedback-actions" aria-label="의견 및 건의 메뉴">
@@ -197,13 +197,23 @@
                 <b id="feedback-new-count" class="feedback-new-count" hidden>0</b>
               </button>
             </div>
-            <section id="android-app-download" class="android-app-download" aria-label="안드로이드 앱 다운로드">
-              <div class="android-app-download-copy">
-                <strong>디지털 카드 바인더 앱</strong>
-                <span class="android-app-download-description">Android 모바일·태블릿용</span>
-              </div>
-              <button id="android-app-download-button" class="android-app-download-button" type="button">앱 다운로드 v0.9</button>
-            </section>
+            <div id="platform-app-grid" class="platform-app-grid" aria-label="앱 설치 및 알림">
+              <section id="android-app-download" class="platform-app-card android-app-download" aria-label="안드로이드 앱 다운로드">
+                <div class="android-app-download-copy">
+                  <strong>안드로이드 앱</strong>
+                  <span class="android-app-download-description">APK 직접 설치</span>
+                </div>
+                <button id="android-app-download-button" class="android-app-download-button" type="button">다운로드 v0.9</button>
+              </section>
+              <section id="ios-pwa-card" class="platform-app-card ios-pwa-card" aria-label="아이폰 앱 설치 및 알림 설정">
+                <div class="ios-pwa-copy">
+                  <strong id="ios-pwa-title">아이폰 앱 설치</strong>
+                  <span id="ios-pwa-description" class="ios-pwa-description">Safari 홈 화면에 추가</span>
+                </div>
+                <button id="ios-pwa-button" class="ios-pwa-button" type="button">설치 방법</button>
+                <p id="ios-pwa-status" class="ios-pwa-status" aria-live="polite"></p>
+              </section>
+            </div>
           </div>
         </section>
 
@@ -318,47 +328,5 @@
       </div>
     </dialog>
 
-    <script>
-      (() => {
-        const section = document.getElementById('android-app-download');
-        const button = document.getElementById('android-app-download-button');
-        if (!section || !button) return;
-
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        const isMobileOrTablet = window.matchMedia('(max-width: 1280px)').matches ||
-          window.matchMedia('(pointer: coarse)').matches;
-        const isDigitalCardBinderApp =
-          window.POKEMON_DEX_ANDROID_APP === true ||
-          typeof window.DigitalCardBinderApp !== 'undefined';
-
-        if (isAndroid && isMobileOrTablet && !isDigitalCardBinderApp) {
-          section.classList.add('is-visible');
-        }
-
-        button.addEventListener('click', async () => {
-          const apkUrl = './DigitalCardBinder_v0.9.apk';
-          button.disabled = true;
-          const originalText = button.textContent;
-          button.textContent = '확인 중...';
-
-          try {
-            const response = await fetch(apkUrl, { method: 'HEAD', cache: 'no-store' });
-            if (!response.ok) throw new Error('APK_NOT_READY');
-
-            const link = document.createElement('a');
-            link.href = apkUrl;
-            link.download = 'DigitalCardBinder_v0.9.apk';
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-          } catch (error) {
-            window.alert('안드로이드 앱 v0.9 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.');
-          } finally {
-            button.disabled = false;
-            button.textContent = originalText;
-          }
-        });
-      })();
-    </script>
   </body>
 </html>
