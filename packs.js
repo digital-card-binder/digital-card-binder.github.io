@@ -3,7 +3,7 @@
 const SPRITE_COLUMNS = 10;
 const SPRITE_ROWS = 7;
 const FIREBASE_SDK_VERSION = "10.12.5";
-const PROMO_DATA_URL = "./data/promo-packs.json?v=20260810-3";
+const PROMO_DATA_URL = "./data/promo-packs.json?v=48452c9b9617";
 
 // 정규 확장팩 목록은 대시보드와 Google Sheets 동기화에서도 이 배열을 읽는다.
 // 프로모팩·단일 배포 카드는 data/promo-packs.json에서 별도로 불러온다.
@@ -35,8 +35,8 @@ const specialPackPalettes = {
 // These Korean booster pack images come from the official Pokemon Card Game
 // product pages. Older packs continue to use the shared sprite.
 const individualPackImages = new Map([
-  ["m6", "./assets/packs/m6.webp?v=20260918-1"],
-  ["m6a", "./assets/packs/m6a.webp?v=20260918-1"]
+  ["m6", "./assets/packs/m6.webp?v=84ae60928319"],
+  ["m6a", "./assets/packs/m6a.webp?v=1ce99afef819"]
 ]);
 
 function packPalette(pack) {

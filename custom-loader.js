@@ -14,14 +14,14 @@
   }
 
   if (window.CustomDexPublicViewRequested) {
-    load("./custom-public.js?v=20260813-2");
+    load("./custom-public.js?v=1bd6444ed94a");
     return;
   }
 
-  load("./custom-granular-sharing.js?v=20260813-1", () => {
-    load("./custom.js?v=20260813-2", () => {
-      load("./custom-mobile-actions.js?v=20260819-1", () => {
-        load("./custom-sync.js?v=20260813-3");
+  load("./custom-granular-sharing.js?v=f4614080dd6c", () => {
+    load("./custom.js?v=1efa6473adf9", () => {
+      load("./custom-mobile-actions.js?v=0cfe2106afd1", () => {
+        load("./custom-sync.js?v=837a3d666240");
       });
     });
   });

@@ -5,7 +5,7 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const TRADE_DRAFT_KEY = "digitalCardBinderTradeDraftV2";
   const PROPOSAL_DRAFT_KEY = "digitalCardBinderProposalDraftV1";
-  const TRADE_SERIES_NAMES_URL = "./data/trade-series-names.json?v=20260821-1";
+  const TRADE_SERIES_NAMES_URL = "./data/trade-series-names.json?v=02a46c60c8f2";
   const TRADE_SOURCE_LABELS = Object.freeze({
     "national.html": "전국도감",
     "packs.html": "팩 전종수집",

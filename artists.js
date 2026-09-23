@@ -1,6 +1,6 @@
 "use strict";
 
-const DATA_URL="./data/artists.json?v=20260901-2";
+const DATA_URL="./data/artists.json?v=8592b7cab455";
 const $=id=>document.getElementById(id);
 
 let dataset=null;

@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const NEWS_DATA_URL = "./news.json?v=20260921-2";
+  const NEWS_DATA_URL = "./news.json?v=e856065707fc";
 
   function normalizeNewsItem(item, index) {
     const id = String(item?.id || "").trim();
