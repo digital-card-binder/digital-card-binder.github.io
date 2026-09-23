@@ -8,11 +8,12 @@ const EXPECTED_GROUPS = 33;
 const EXPECTED_TOTAL = 510;
 const BASE_GROUPS = 32;
 const BASE_TOTAL = 498;
+const AR_VIEW = new URLSearchParams(window.location.search).get("view") === "series" ? "series" : "national";
 
 let groups = [];
 let allCards = [];
 let nationalCards = [];
-let selectedCode = "national";
+let selectedCode = AR_VIEW === "series" ? "all" : "national";
 let status = "all";
 let query = "";
 let activeCard = null;
@@ -32,6 +33,55 @@ function pad(number) {
 
 function padDex(number) {
   return String(number).padStart(4, "0");
+}
+
+function viewUrl(nextView) {
+  const url = new URL(window.location.href);
+  url.searchParams.set("view", nextView);
+  return url.href;
+}
+
+function renderViewTabs() {
+  const panel = document.querySelector(".catalog-panel");
+  const heading = panel?.querySelector(".catalog-heading");
+  if (!panel || !heading || panel.querySelector(".ar-view-tabs")) return;
+
+  const tabs = document.createElement("nav");
+  tabs.className = "ar-view-tabs";
+  tabs.setAttribute("aria-label", "AR 도감 보기 선택");
+  tabs.innerHTML = `
+    <a class="ar-view-tab" data-ar-view="national" href="${viewUrl("national")}">
+      <span>전국도감별</span><small>전국도감 순</small>
+    </a>
+    <a class="ar-view-tab" data-ar-view="series" href="${viewUrl("series")}">
+      <span>시리즈별</span><small>세트별 수집</small>
+    </a>
+  `;
+  tabs.querySelectorAll("[data-ar-view]").forEach((tab) => {
+    const active = tab.dataset.arView === AR_VIEW;
+    tab.classList.toggle("is-active", active);
+    if (active) tab.setAttribute("aria-current", "page");
+  });
+  heading.insertAdjacentElement("afterend", tabs);
+}
+
+function applyViewCopy() {
+  document.body?.classList.toggle("ar-view-national", AR_VIEW === "national");
+  document.body?.classList.toggle("ar-view-series", AR_VIEW === "series");
+
+  const description = document.querySelector(".hero-description");
+  if (description) {
+    description.textContent =
+      AR_VIEW === "national"
+        ? "전국도감 번호 순으로 모아보는 독립 AR 컬렉션"
+        : "시리즈별로 모아보는 독립 AR 컬렉션";
+  }
+
+  const title = document.querySelector(".catalog-heading h2");
+  if (title) title.textContent = AR_VIEW === "national" ? "전국도감별 AR" : "시리즈별 AR";
+
+  const filterLabel = document.querySelector(".catalog-select .filter-label");
+  if (filterLabel) filterLabel.textContent = AR_VIEW === "series" ? "시리즈 선택" : "보기 선택";
 }
 
 function mergeGroups(baseGroups, supplementGroups) {
@@ -453,7 +503,8 @@ function buildSelect() {
   all.value = "all";
   all.textContent = `시리즈 발매 순 · ${allCards.length}장`;
 
-  allViews.append(national, all);
+  if (AR_VIEW === "series") allViews.append(all);
+  else allViews.append(national, all);
   select.append(allViews);
 
   const seriesViews = document.createElement("optgroup");
@@ -543,17 +594,11 @@ async function init() {
 
     // 2) 목록/필터를 먼저 만든다. 이후 부가 기능이 실패해도 빈 화면이 되지 않는다.
     buildSelect();
+    renderViewTabs();
+    applyViewCopy();
     refreshCounts();
     render();
     bindUi();
-
-    const heroDescription = document.querySelector(".hero-description");
-    if (heroDescription) {
-      heroDescription.textContent =
-        "전국도감 순 또는 공식 발매 순서로 모아보는 AR 컬렉션";
-    }
-    const filterLabel = document.querySelector(".catalog-select .filter-label");
-    if (filterLabel) filterLabel.textContent = "보기 선택";
 
     // 3) 전국도감 정렬은 독립적으로 적용한다. 실패해도 시리즈 발매 순 목록은 유지한다.
     const dexData = await fetchJson(NATIONAL_DEX_URL, false);
