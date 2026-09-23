@@ -21,6 +21,10 @@ const manager = readFileSync(
   new URL("../firebase-page-manager.js", import.meta.url),
   "utf8",
 );
+const registry = readFileSync(
+  new URL("../collector-collection-registry.js", import.meta.url),
+  "utf8",
+);
 
 assert.match(html, /ar-mega-supplement\.js\?v=20260826-4/);
 assert.match(html, /ar-card-editor\.js\?v=20260826-2/);
@@ -72,6 +76,7 @@ assert.equal(
   mergedGroups.some((group) => String(group.code).toLowerCase() === "m6"),
   true,
 );
-assert.match(manager, /ar:\s*\{ documentId: "arDex" \}/);
+assert.match(registry, /ar:\s*\{[\s\S]*?documentId: "arDex"/);
+assert.match(manager, /registry[.]COLLECTIONS[?][.]\[mode\]/);
 
 console.log("AR staged loader regression contract passed: 33 sets / 510 cards");

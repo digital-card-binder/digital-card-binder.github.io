@@ -268,7 +268,7 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
 
 test("dashboard loads the trainer and Pokemon catalog registered in collection order", async () => {
   const dashboard = await source("dashboard.js");
-  assert.match(dashboard, /fetchJson\("[.]\/data\/trainer-pokemon[.]json"\)/);
+  assert.match(dashboard, /catalogService[.]json\("[.]\/data\/trainer-pokemon[.]json"\)/);
   assert.match(dashboard, /trainerPokemon:\s*createCategory\(/);
   assert.match(dashboard, /pageCardIdentity\("trainerPokemon"/);
 });
