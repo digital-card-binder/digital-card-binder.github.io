@@ -28,9 +28,10 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 
 ## Lightweight search data
 
-- `data/pokemon-search-index.json` is generated from the canonical series, legacy-series, and Pokedex sources.
-- The search page loads this compact index instead of loading the full series catalogs and full Pokedex payload.
-- The generated index preserves series group/card order, `accountIndex`, baseline ownership, and card identity fields so existing Firestore keys remain unchanged.
+- `data/pokemon-search-index.json` is generated from the canonical series, legacy-series, Pokedex, artist and trainer/Pokemon sources.
+- The search page loads this compact index instead of loading the full source catalogs at runtime.
+- Search index v2 preserves series group/card order, `accountIndex`, baseline ownership and card identity while adding searchable rarity, illustrator and trainer metadata by stable set/card-number fingerprint.
+- Unified search supports card/Pokemon name, card number, set, illustrator, trainer and rarity scopes. Exact Pokemon-name matching keeps the existing longer-name collision guard.
 - Official Pokemon Korea image URLs are stored as compact paths and expanded in the search client.
 - Do not hand-edit the generated index. Use `npm run search-index:sync`; `npm run search-index:check` is part of `npm test`.
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="포켓몬 이름으로 시리즈 전체 카드에서 해당 포켓몬의 카드를 한 번에 찾는 통합 카드 검색">
+    <meta name="description" content="카드명, 카드번호, 세트, 작가, 트레이너, 레어도까지 시리즈 전체 카드를 한 번에 찾는 통합 카드 검색">
     <meta name="theme-color" content="#17233f">
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./catalog.css?v=11dc29d8ebf9">
     <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1">
     <link rel="stylesheet" href="./collector.css?v=4f41aab96806">
-    <link rel="stylesheet" href="./pokemon-search.css?v=1bc68f931aaf">
+    <link rel="stylesheet" href="./pokemon-search.css?v=e974a5b67f50">
     <script src="./card-image-cdn.js?v=99b360ed1730" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=0a3f1a2b20a6" defer></script>
@@ -26,10 +26,10 @@
     <script src="./collector-collection-registry.js?v=2ce75f0aafbc" defer></script>
     <script src="./collector-public-view.js?v=fbcabd853c6b" defer></script>
     <script src="./collector-public-sync.js?v=b55013b5dcd5" defer></script>
-    <script src="./collector-nav.js?v=79e810fb3535" defer></script>
+    <script src="./collector-nav.js?v=c714c6ae7252" defer></script>
     <script src="./firebase-page-manager.js?v=b62c4d57e688" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
-    <script src="./pokemon-search.js?v=26e8f7e477a9" defer></script>
+    <script src="./pokemon-search.js?v=fc6f20045a4c" defer></script>
   </head>
   <body data-page="pokemon-search" data-catalog="series">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -39,7 +39,7 @@
         <span class="brand-mark" aria-hidden="true"><span></span></span>
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>
-      <span class="header-chip">공개 보기</span>
+      <span class="header-chip">통합 검색</span>
     </header>
 
     <div class="site-layout">
@@ -47,7 +47,7 @@
         <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
           <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">홈</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
-          <a class="collection-link is-active" href="./pokemon-search.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>전체 카드 검색</small></span></a>
+          <a class="collection-link is-active" href="./pokemon-search.html" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">⌕</span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
           <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
@@ -63,7 +63,7 @@
           <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">나</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
           <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">모</span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
         </nav>
-        <div class="sidebar-note"><span aria-hidden="true">✦</span>포켓몬 이름으로 전 시리즈의 카드를 한 번에 찾을 수 있습니다.</div>
+        <div class="sidebar-note"><span aria-hidden="true">✦</span>카드명·번호·세트·작가·트레이너·레어도를 한 번에 검색할 수 있습니다.</div>
       </aside>
 
       <main id="main-content" class="main-content pokemon-search-main">
@@ -72,18 +72,18 @@
           <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
           <div class="hero-content">
             
-            <h1 id="page-title">포켓몬 검색</h1>
+            <h1 id="page-title">카드 검색</h1>
             <p class="hero-description">
-              포켓몬 이름 하나로 시리즈 전체를 검색해<br>
-              해당 포켓몬의 모든 카드를 한곳에서 확인하세요.
+              카드명·번호·세트·작가·트레이너·레어도까지<br>
+              하나의 검색창에서 시리즈 전체 카드를 찾아보세요.
             </p>
           </div>
-          <div class="hero-progress" aria-label="검색 포켓몬 수집 현황">
+          <div class="hero-progress" aria-label="검색 결과 수집 현황">
             <div class="progress-ring" id="search-progress-ring" aria-hidden="true">
               <div><strong id="search-rate">—</strong><span>보유율</span></div>
             </div>
             <div class="hero-progress-copy">
-              <span id="search-summary-label">포켓몬을 검색해 주세요</span>
+              <span id="search-summary-label">카드를 검색해 주세요</span>
               <strong><b id="search-owned">—</b><small>/ <span id="search-total">—</span>장</small></strong>
               <p>미보유 <b id="search-missing">—</b>장</p>
             </div>
@@ -94,21 +94,21 @@
           <div class="catalog-heading">
             <div>
               
-              <h2 id="search-section-title">포켓몬별 카드 통합검색</h2>
+              <h2 id="search-section-title">카드 통합검색</h2>
             </div>
-            <p class="catalog-caption">카드 목록은 시리즈 도감을 기준으로 하며, 보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합합니다.</p>
+            <p class="catalog-caption">카드 목록은 시리즈 도감을 기준으로 하며, 작가·트레이너 메타데이터를 함께 검색합니다. 보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합합니다.</p>
           </div>
 
           <div class="pokemon-search-box">
             <label class="search-field pokemon-search-field" for="pokemon-search-input">
               <span class="search-icon" aria-hidden="true"></span>
-              <span class="sr-only">포켓몬 이름 검색</span>
+              <span class="sr-only">카드 통합 검색</span>
               <input
                 id="pokemon-search-input"
                 type="search"
                 autocomplete="off"
                 spellcheck="false"
-                placeholder="포켓몬 이름 검색 (예: 피카츄)"
+                placeholder="카드 검색 (예: 피카츄, SV10, SAR, OKACHEKE)"
                 aria-autocomplete="list"
                 aria-controls="pokemon-search-suggestions"
                 aria-expanded="false"
@@ -118,6 +118,19 @@
           </div>
 
           <div class="pokemon-search-filters" aria-label="검색 필터">
+            <label class="catalog-select pokemon-search-scope-filter">
+              <span class="filter-label">검색 범위</span>
+              <select id="pokemon-search-scope">
+                <option value="ALL">전체</option>
+                <option value="NAME">카드명·포켓몬</option>
+                <option value="NUMBER">카드번호</option>
+                <option value="SET">세트</option>
+                <option value="ARTIST">작가</option>
+                <option value="TRAINER">트레이너</option>
+                <option value="RARITY">레어도</option>
+              </select>
+            </label>
+
             <label class="catalog-select">
               <span class="filter-label">시리즈</span>
               <select id="pokemon-search-era">
@@ -163,8 +176,8 @@
 
           <div id="pokemon-search-empty" class="empty-state pokemon-search-empty">
             <span class="empty-ball" aria-hidden="true"><span></span></span>
-            <h3>포켓몬 이름을 검색해 주세요</h3>
-            <p>예: 피카츄, 리자몽, 루카리오</p>
+            <h3>카드를 검색해 주세요</h3>
+            <p>예: 피카츄, 191/173, SV10, SAR, OKACHEKE, 레드</p>
           </div>
         </section>
 
@@ -199,6 +212,10 @@
         <dl class="dialog-details">
           <div><dt>시리즈</dt><dd id="pokemon-search-dialog-era"></dd></div>
           <div><dt>수록 세트</dt><dd id="pokemon-search-dialog-set"></dd></div>
+          <div><dt>카드번호</dt><dd id="pokemon-search-dialog-number"></dd></div>
+          <div><dt>레어도</dt><dd id="pokemon-search-dialog-rarity"></dd></div>
+          <div><dt>작가</dt><dd id="pokemon-search-dialog-artist"></dd></div>
+          <div><dt>트레이너</dt><dd id="pokemon-search-dialog-trainer"></dd></div>
           <div class="is-wide"><dt>보유 확인 도감</dt><dd id="pokemon-search-dialog-sources"></dd></div>
         </dl>
         <div class="pokemon-search-dialog-actions">

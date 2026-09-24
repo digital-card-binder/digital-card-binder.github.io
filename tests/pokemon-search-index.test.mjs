@@ -28,6 +28,10 @@ function decodeImage(value, base) {
   return source.startsWith("@/") ? `${base}${source.slice(1)}` : source;
 }
 
+function splitPipe(value) {
+  return clean(value).split("|").map(clean).filter(Boolean);
+}
+
 function decodeIndex(payload) {
   return {
     pokedex: payload.pokedex.map(([number, nameKo, nameEn]) => ({
@@ -51,12 +55,18 @@ function decodeIndex(payload) {
           accountIndex,
           owned,
           originalImage,
+          rarity,
+          illustrators,
+          trainers,
         ] = entry;
         return {
           code: cardCode,
           name,
           pokemonName,
           image: decodeImage(image, payload.imageBase),
+          rarity: clean(rarity),
+          illustrators: splitPipe(illustrators),
+          trainers: splitPipe(trainers),
           ...(meta ? { meta } : {}),
           ...(cardNumber ? { cardNumber } : {}),
           ...(Number.isInteger(accountIndex) ? { accountIndex } : {}),
@@ -70,7 +80,7 @@ function decodeIndex(payload) {
   };
 }
 
-test("generated search index preserves catalog order, identity, and search fields", () => {
+test("generated search index v2 preserves catalog order, identity, and core fields", () => {
   const base = parse("data/series.json");
   const legacy = parse("data/series-legacy.json");
   const pokedex = parse("data/pokedex.json");
@@ -78,7 +88,7 @@ test("generated search index preserves catalog order, identity, and search field
   const decoded = decodeIndex(compact);
   const canonical = mergeGroups(base, legacy);
 
-  assert.equal(compact.version, 1);
+  assert.equal(compact.version, 2);
   assert.equal(compact.imageBase, "https://cards.image.pokemonkorea.co.kr");
   assert.equal(decoded.groups.length, canonical.length);
   assert.equal(decoded.pokedex.length, pokedex.records.length);
@@ -127,7 +137,42 @@ test("generated search index preserves catalog order, identity, and search field
   );
 });
 
-test("search index cuts the initial canonical search payload by at least 60 percent", () => {
+test("search index enriches canonical cards with rarity, illustrator, and trainer metadata", () => {
+  const compact = parse("data/pokemon-search-index.json");
+  const decoded = decodeIndex(compact);
+  const byCode = new Map();
+  for (const group of decoded.groups) {
+    for (const card of group.cards) {
+      byCode.set(`${clean(group.code).toLowerCase()}::${clean(card.code).toLowerCase()}`, card);
+    }
+  }
+
+  const m6 = byCode.get("m6::m6_009/076");
+  assert.ok(m6);
+  assert.equal(m6.rarity, "RR");
+  assert.ok(m6.illustrators.includes("5ban Graphics"));
+
+  const red = byCode.get("sm12a::sm12a_191/173");
+  assert.ok(red);
+  assert.ok(red.illustrators.includes("TOKIYA"));
+  assert.ok(red.trainers.includes("레드"));
+
+  let rarityCount = 0;
+  let illustratorCount = 0;
+  let trainerCount = 0;
+  for (const group of decoded.groups) {
+    for (const card of group.cards) {
+      if (card.rarity) rarityCount += 1;
+      if (card.illustrators.length) illustratorCount += 1;
+      if (card.trainers.length) trainerCount += 1;
+    }
+  }
+  assert.ok(rarityCount >= 1900);
+  assert.ok(illustratorCount >= 3400);
+  assert.ok(trainerCount >= 100);
+});
+
+test("search index remains a lightweight replacement for the heavy canonical payload", () => {
   const sourceBytes =
     Buffer.byteLength(read("data/series.json")) +
     Buffer.byteLength(read("data/series-legacy.json")) +
@@ -136,11 +181,24 @@ test("search index cuts the initial canonical search payload by at least 60 perc
   assert.ok(indexBytes < sourceBytes * 0.4, `${indexBytes} vs ${sourceBytes}`);
 });
 
-test("search client does not request the heavy canonical catalogs", () => {
+test("search client supports unified field scopes without requesting heavy catalogs", () => {
   const client = read("pokemon-search.js");
+  const page = read("pokemon-search.html");
   const service = read("core/catalog/catalog-service.js");
+
   assert.match(client, /catalogService[.]pokemonSearchIndex[(][)]/);
   assert.doesNotMatch(client, /catalogService[.]series[(][)]/);
   assert.doesNotMatch(client, /[.]\/data\/(?:series|series-legacy|pokedex)[.]json/);
   assert.match(service, /[.]\/data\/pokemon-search-index[.]json/);
+
+  for (const scope of ["NAME", "NUMBER", "SET", "ARTIST", "TRAINER", "RARITY"]) {
+    assert.match(page, new RegExp(`value="${scope}"`));
+    assert.match(client, new RegExp(`${scope}:`));
+  }
+  assert.match(client, /card[.]illustrators/);
+  assert.match(client, /card[.]trainers/);
+  assert.match(client, /card[.]rarity/);
+  assert.match(page, /id="pokemon-search-dialog-artist"/);
+  assert.match(page, /id="pokemon-search-dialog-trainer"/);
+  assert.match(page, /id="pokemon-search-dialog-rarity"/);
 });
