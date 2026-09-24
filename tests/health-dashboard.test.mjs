@@ -15,7 +15,8 @@ test("owner health dashboard is hidden from public navigation and exposed from o
   assert.match(healthHtml, /id="health-access-gate"/);
   assert.match(healthHtml, /id="health-content" hidden/);
   assert.match(settingsHtml, /id="collector-owner-tools"[^>]*hidden/);
-  assert.match(settingsHtml, /href="\.\/health\.html">도감 건강검진 열기<\/a>/);
+  assert.match(settingsHtml, /href="\.\/health\.html">도감 건강검진<\/a>/);
+  assert.match(settingsHtml, /href="\.\/operations\.html">운영센터<\/a>/);
   assert.match(settingsJs, /firebaseAccount\?\.isOwner\?\.\(CONFIG, currentUser\)/);
   assert.match(settingsJs, /elements\.ownerTools\.hidden = !owner/);
   assert.doesNotMatch(shell, /href: "\.\/health\.html"/);
