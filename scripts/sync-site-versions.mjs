@@ -13,6 +13,7 @@ const swPath = path.join(root, "sw.js");
 const LOCAL_ASSET_RE = /((?:src|href)=["']\.\/)([^"'?#]+\.(?:js|css))(?:\?v=[^"']*)?(["'])/g;
 const NAV_BUILD_RE = /const SITE_BUILD_VERSION = "[^"]*";/;
 const SW_URL_RE = /const SERVICE_WORKER_URL = "\/sw[.]js(?:\?v=[^"]+)?";/;
+const EXTRA_ASSETS = Object.freeze(["trade-offer.js"]);
 
 function hashText(text) {
   return createHash("sha256").update(text, "utf8").digest("hex").slice(0, 12);
@@ -72,6 +73,8 @@ async function main() {
     htmlSources.set(page, source);
     for (const match of source.matchAll(LOCAL_ASSET_RE)) assets.add(match[2]);
   }
+
+  for (const asset of EXTRA_ASSETS) assets.add(asset);
 
   const swSource = await readFile(swPath, "utf8");
   const swVersion = gitBlobVersion(swSource);

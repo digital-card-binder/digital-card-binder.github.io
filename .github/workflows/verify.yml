@@ -14,45 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  sync_versions:
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Check out pull request branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Synchronize Pokemon search index
-        run: npm run search-index:sync
-      - name: Synchronize shared site shell
-        run: npm run shell:sync
-      - name: Synchronize cache versions
-        run: npm run versions:sync
-      - name: Commit generated versions
-        shell: bash
-        run: |
-          if git diff --quiet; then
-            echo "Generated site shell and asset versions already synchronized."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*.html' collector-nav.js pwa.js site-version.json data/pokemon-search-index.json
-          git commit -m "chore: sync generated site artifacts"
-          git push origin "HEAD:${{ github.head_ref }}"
-
   test:
-    needs:
-      - sync_versions
-    if: always() && (needs.sync_versions.result == 'success' || needs.sync_versions.result == 'skipped')
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -60,8 +22,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
