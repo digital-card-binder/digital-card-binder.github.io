@@ -57,8 +57,10 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 ## Owner health dashboard
 
 - `health.html` is an owner-only operational view linked from profile settings only for the configured owner account.
-- The dashboard is read-only. It checks catalog counts, duplicate identities, catalog/render drift, missing or unroutable card-image references, Cloudflare image archive membership, orphaned ownership keys, and current site/app/CDN versions.
+- The dashboard is read-only. It checks catalog counts, duplicate identities, catalog/render drift, missing or unroutable card-image references, Cloudflare image archive membership, disconnected ownership records, and current site/app/CDN versions.
 - Static catalog checks must use the same shared registry/catalog services as the public site. Account checks may read the signed-in owner's existing collection documents but must never mutate ownership data.
+- The owner dashboard must explain what each issue means and generate a copyable Korean ChatGPT repair prompt. Prompts must explicitly prohibit automatic deletion/reset of user ownership data and require root-cause analysis first.
+- Shared Firestore documents must be audited against the union of all catalogs that legitimately share that document. In particular, pokemonCollectionsDex includes Pokemon collections, Trainer × Pokemon, and Fossil ownership keys and must not flag one catalog's valid keys as disconnected records for another.
 - The health route must not be added to the public collection navigation.
 
 ## Automatic cache versioning

@@ -14,6 +14,9 @@ test("owner health dashboard is hidden from public navigation and exposed from o
   assert.match(healthHtml, /<body data-page="health">/);
   assert.match(healthHtml, /id="health-access-gate"/);
   assert.match(healthHtml, /id="health-content" hidden/);
+  assert.match(healthHtml, /id="health-actions-list"/);
+  assert.match(healthHtml, /연결 끊긴 보유 기록/);
+  assert.doesNotMatch(healthHtml, />고아 보유 기록</);
   assert.match(settingsHtml, /id="collector-owner-tools"[^>]*hidden/);
   assert.match(settingsHtml, /href="\.\/health\.html">도감 건강검진<\/a>/);
   assert.match(settingsHtml, /href="\.\/operations\.html">운영센터<\/a>/);
@@ -23,7 +26,7 @@ test("owner health dashboard is hidden from public navigation and exposed from o
   assert.match(nav, /"pokemon-search", "health"/);
 });
 
-test("health dashboard stays read-only and checks catalogs, images, account residues, and versions", () => {
+test("health dashboard stays read-only and explains safe next actions", () => {
   const health = read("health.js");
 
   assert.match(health, /registry\.COLLECTION_ORDER/);
@@ -32,11 +35,17 @@ test("health dashboard stays read-only and checks catalogs, images, account resi
   assert.match(health, /asset-sources\.json/);
   assert.match(health, /missingReferences/);
   assert.match(health, /archiveMissing/);
-  assert.match(health, /source\.peopleOwned/);
-  assert.match(health, /source\.ownedCodes/);
-  assert.match(health, /source\.ownedPromoPackIds/);
-  assert.match(health, /source\.overrides/);
+  assert.match(health, /peopleSource\.peopleOwned/);
+  assert.match(health, /packSource\.ownedCodes/);
+  assert.match(health, /packSource\.ownedPromoPackIds/);
+  assert.match(health, /overrideKeys\(source\)/);
   assert.match(health, /digitalCardBinderWorldExplorationOwnedV1/);
+  assert.match(health, /sharedPokemonKeys/);
+  assert.match(health, /fossilAccountKeys/);
+  assert.match(health, /GPT 수정 프롬프트 복사/);
+  assert.match(health, /disconnectedPrompt/);
+  assert.match(health, /catalogPrompt/);
+  assert.match(health, /imagePrompt/);
   assert.match(health, /site-version\.json/);
   assert.match(health, /app-version\.json/);
   assert.match(health, /imageCdn\?\.version/);
@@ -46,6 +55,8 @@ test("health dashboard stays read-only and checks catalogs, images, account resi
     health,
     /firestoreModule\.(?:setDoc|updateDoc|deleteDoc|addDoc|writeBatch|runTransaction)\s*\(/,
   );
+  assert.doesNotMatch(health, /deleteField\s*\(/);
+  assert.doesNotMatch(health, /자동 정리/);
 });
 
 test("health page loads the shared catalog and owner-auth boundaries before its feature client", () => {

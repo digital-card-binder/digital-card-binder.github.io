@@ -70,3 +70,18 @@
 @media(max-width:690px){.health-hero{min-height:0}.health-access-gate{align-items:stretch;flex-direction:column}.health-access-gate .primary-button,.health-access-gate .manager-button{width:100%}.health-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.health-summary-card{min-height:102px;padding:14px}.health-summary-card strong{font-size:1.3rem}.health-inline-stats,.health-account-grid,.health-version-grid{grid-template-columns:1fr 1fr;gap:8px}.health-heading{align-items:flex-start;flex-direction:column;gap:10px}.health-table th,.health-table td{padding:10px 9px}}
 @media(max-width:430px){.health-summary-grid,.health-inline-stats,.health-account-grid,.health-version-grid{grid-template-columns:1fr}}
 @media print{.health-access-gate,#health-refresh{display:none!important}}
+
+.health-actions-list{display:grid;gap:10px;margin-top:16px}
+.health-action-item{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;border:1px solid #e4e7ee;border-radius:14px;background:#fff;padding:13px 14px}
+.health-action-copy{display:grid;gap:5px;min-width:0}
+.health-action-copy strong{color:var(--ink);font-size:.7rem}
+.health-action-copy p{margin:0;color:var(--ink-faint);font-size:.6rem;line-height:1.5}
+.health-action-item[data-state="ok"]{border-color:#d7eee6;background:#f7fcfa}
+.health-action-item[data-state="warning"]{border-color:#f0dfb7;background:#fffaf0}
+.health-action-item[data-state="error"]{border-color:#f0d3d7;background:#fff8f9}
+.health-action-buttons{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}
+.health-action-tag{display:inline-flex;align-items:center;width:max-content;min-height:22px;border-radius:999px;background:#eef1f5;color:#687083;font-size:.54rem;font-weight:900;padding:4px 7px}
+.health-action-tag[data-state="guide"]{background:#fff5df;color:#9d6915}
+.health-action-tag[data-state="ok"]{background:#e8f7f1;color:#13795b}
+.health-copy-button.is-copied{border-color:#b9dccf;background:#e8f7f1;color:#13795b}
+@media(max-width:690px){.health-action-item{grid-template-columns:1fr}.health-action-buttons{justify-content:flex-start}}
