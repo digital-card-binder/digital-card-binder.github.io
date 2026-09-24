@@ -26,6 +26,7 @@
     settingsGrid: document.querySelector("#collector-settings-grid"),
     settingsStatus: document.querySelector("#collector-settings-status"),
     settingsSave: document.querySelector("#collector-settings-save"),
+    ownerTools: document.querySelector("#collector-owner-tools"),
   };
   let firebase = null;
   let currentUser = null;
@@ -694,10 +695,16 @@
         : "방문자"
     );
     panel.classList.toggle("is-account", Boolean(currentUser));
+    const owner = Boolean(
+      currentUser &&
+        window.DigitalCardBinder?.firebaseAccount?.isOwner?.(CONFIG, currentUser),
+    );
+    panel.classList.toggle("is-owner", owner);
     login.hidden = Boolean(currentUser) || !configured();
     logout.hidden = !currentUser;
     elements.signInGate.hidden = Boolean(currentUser);
     elements.content.hidden = !currentUser;
+    if (elements.ownerTools) elements.ownerTools.hidden = !owner;
   }
 
   async function signIn() {

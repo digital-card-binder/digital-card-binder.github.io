@@ -1,0 +1,72 @@
+.health-main{padding-bottom:44px}
+.health-hero{min-height:230px}
+.health-hero-state{display:flex;align-items:center;gap:12px;min-width:220px;margin-left:24px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(255,255,255,.08);padding:14px 16px;backdrop-filter:blur(8px)}
+.health-hero-state>div{display:grid;gap:4px}
+.health-hero-state strong{color:#fff;font-size:.82rem}
+.health-hero-state small{color:rgba(255,255,255,.72);font-size:.61rem}
+.health-state-dot{width:11px;height:11px;flex:0 0 auto;border-radius:50%;background:#a8adba;box-shadow:0 0 0 5px rgba(168,173,186,.14)}
+.health-state-dot[data-state="ok"]{background:#21a179;box-shadow:0 0 0 5px rgba(33,161,121,.15)}
+.health-state-dot[data-state="warning"]{background:#d58a17;box-shadow:0 0 0 5px rgba(213,138,23,.16)}
+.health-state-dot[data-state="error"]{background:#c84455;box-shadow:0 0 0 5px rgba(200,68,85,.15)}
+.health-access-gate{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px}
+.health-access-gate>div{display:grid;gap:5px}
+.health-access-gate h2{margin:0;font-size:.92rem}
+.health-access-gate p{margin:0;color:var(--ink-faint);font-size:.67rem;line-height:1.55}
+.health-access-gate[hidden],#health-content[hidden]{display:none!important}
+.health-link-button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.health-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.health-summary-card{display:grid;gap:7px;min-height:116px;border:1px solid var(--line);border-radius:18px;background:#fff;padding:17px 18px;box-shadow:0 8px 22px rgba(23,35,63,.05)}
+.health-summary-card>span{color:var(--ink-faint);font-size:.65rem;font-weight:800}
+.health-summary-card strong{color:var(--navy);font-size:1.55rem;letter-spacing:-.045em;line-height:1}
+.health-summary-card small{color:var(--ink-faint);font-size:.58rem;line-height:1.4}
+.health-panel{margin-top:14px}
+.health-heading{align-items:center}
+.health-heading>div{display:grid;gap:5px}
+.health-heading h2{margin:0}
+.health-heading p{margin:0;color:var(--ink-faint);font-size:.64rem;line-height:1.55}
+.health-badge{display:inline-flex;align-items:center;justify-content:center;min-height:28px;border-radius:999px;background:#eef1f5;color:#687083;font-size:.6rem;font-weight:900;padding:5px 9px;white-space:nowrap}
+.health-badge[data-state="ok"]{background:#e8f7f1;color:#13795b}
+.health-badge[data-state="warning"]{background:#fff5df;color:#9d6915}
+.health-badge[data-state="error"]{background:#fff0f2;color:#b93647}
+.health-table-wrap{overflow-x:auto;margin-top:17px;border:1px solid var(--line);border-radius:14px}
+.health-table{width:100%;min-width:760px;border-collapse:collapse;background:#fff}
+.health-table th,.health-table td{border-bottom:1px solid #eceef3;padding:11px 12px;text-align:left;font-size:.65rem;vertical-align:middle}
+.health-table th{background:#f7f8fa;color:#7b8293;font-size:.58rem;font-weight:900;letter-spacing:.02em}
+.health-table tr:last-child td{border-bottom:0}
+.health-table td:first-child strong{display:block;color:var(--ink);font-size:.7rem}
+.health-table td:first-child small{display:block;margin-top:3px;color:var(--ink-faint);font-size:.56rem}
+.health-cell-ok{color:#13795b;font-weight:900}
+.health-cell-warning{color:#a56b12;font-weight:900}
+.health-cell-error{color:#b93647;font-weight:900}
+.health-row-status{display:inline-flex;align-items:center;min-height:24px;border-radius:999px;background:#eef1f5;color:#6f7687;font-size:.56rem;font-weight:900;padding:4px 7px}
+.health-row-status[data-state="ok"]{background:#e8f7f1;color:#13795b}
+.health-row-status[data-state="warning"]{background:#fff5df;color:#9d6915}
+.health-row-status[data-state="error"]{background:#fff0f2;color:#b93647}
+.health-details{display:grid;gap:8px;margin-top:13px}
+.health-details:empty{display:none}
+.health-details details{border:1px solid #e4e7ee;border-radius:12px;background:#fafbfc;padding:10px 12px}
+.health-details summary{cursor:pointer;color:var(--ink-soft);font-size:.64rem;font-weight:900}
+.health-details ul{display:grid;gap:5px;margin:9px 0 0;padding-left:18px;color:#747b8f;font-size:.61rem;line-height:1.45}
+.health-inline-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:17px}
+.health-inline-stats>div{display:grid;gap:5px;border:1px solid #e5e8ef;border-radius:13px;background:#fafbfc;padding:12px}
+.health-inline-stats span{color:var(--ink-faint);font-size:.58rem;font-weight:800}
+.health-inline-stats strong{color:var(--navy);font-size:1rem}
+.health-status-line{margin:12px 0 0;color:var(--ink-faint);font-size:.61rem;line-height:1.5}
+.health-status-line[data-state="ok"]{color:#13795b}
+.health-status-line[data-state="warning"]{color:#9d6915}
+.health-status-line[data-state="error"]{color:#b93647}
+.health-account-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:17px}
+.health-account-card{display:grid;gap:6px;border:1px solid #e5e8ef;border-radius:13px;background:#fff;padding:12px}
+.health-account-card span{color:var(--ink-faint);font-size:.58rem;font-weight:800}
+.health-account-card strong{color:var(--navy);font-size:.86rem}
+.health-account-card small{color:var(--ink-faint);font-size:.56rem;line-height:1.4}
+.health-version-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:17px 0 0}
+.health-version-grid>div{min-width:0;border:1px solid #e5e8ef;border-radius:13px;background:#fafbfc;padding:12px}
+.health-version-grid dt{color:var(--ink-faint);font-size:.58rem;font-weight:800}
+.health-version-grid dd{margin:6px 0 0;overflow-wrap:anywhere;color:var(--ink);font-size:.7rem;font-weight:900}
+#health-refresh{flex:0 0 auto}
+@media(max-width:1080px){.health-summary-grid,.health-inline-stats,.health-account-grid,.health-version-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:920px){.health-hero-state{margin-left:0}}
+@media(max-width:690px){.health-hero{min-height:0}.health-access-gate{align-items:stretch;flex-direction:column}.health-access-gate .primary-button,.health-access-gate .manager-button{width:100%}.health-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.health-summary-card{min-height:102px;padding:14px}.health-summary-card strong{font-size:1.3rem}.health-inline-stats,.health-account-grid,.health-version-grid{grid-template-columns:1fr 1fr;gap:8px}.health-heading{align-items:flex-start;flex-direction:column;gap:10px}.health-table th,.health-table td{padding:10px 9px}}
+@media(max-width:430px){.health-summary-grid,.health-inline-stats,.health-account-grid,.health-version-grid{grid-template-columns:1fr}}
+@media print{.health-access-gate,#health-refresh{display:none!important}}

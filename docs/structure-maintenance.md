@@ -34,6 +34,13 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - Official Pokemon Korea image URLs are stored as compact paths and expanded in the search client.
 - Do not hand-edit the generated index. Use `npm run search-index:sync`; `npm run search-index:check` is part of `npm test`.
 
+## Owner health dashboard
+
+- `health.html` is an owner-only operational view linked from profile settings only for the configured owner account.
+- The dashboard is read-only. It checks catalog counts, duplicate identities, catalog/render drift, missing or unroutable card-image references, Cloudflare image archive membership, orphaned ownership keys, and current site/app/CDN versions.
+- Static catalog checks must use the same shared registry/catalog services as the public site. Account checks may read the signed-in owner's existing collection documents but must never mutate ownership data.
+- The health route must not be added to the public collection navigation.
+
 ## Automatic cache versioning
 
 - Do not manually edit `?v=...` values, `site-version.json`, `SITE_BUILD_VERSION`, or the service-worker cache token.

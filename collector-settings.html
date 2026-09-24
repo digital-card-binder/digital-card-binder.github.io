@@ -12,7 +12,7 @@
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css?v=9b817333161d" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./collection-manager.css?v=b9a29f2e861e" />
+    <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1" />
     <link rel="stylesheet" href="./collector.css?v=4f41aab96806" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=0a3f1a2b20a6" defer></script>
@@ -26,8 +26,8 @@
     <script src="./custom-sharing.js?v=a071004bf3cf" defer></script>
     <script src="./custom-granular-sharing.js?v=f4614080dd6c" defer></script>
     <script src="./collector-public-sync.js?v=b55013b5dcd5" defer></script>
-    <script src="./collector-nav.js?v=28e396b479ee" defer></script>
-    <script src="./collector-settings.js?v=ce6441730ba8" defer></script>
+    <script src="./collector-nav.js?v=79e810fb3535" defer></script>
+    <script src="./collector-settings.js?v=62efdcc947ee" defer></script>
     <script src="./custom-granular-settings.js?v=e28a77100130" defer></script>
     <script src="./collector-settings-legacy-share-migration.js?v=b954f34ba9e8" defer></script>
   </head>
@@ -172,6 +172,20 @@
             <p id="collector-settings-status" class="collector-form-status" aria-live="polite"></p>
             <div class="collector-form-actions collector-settings-save-actions">
               <button id="collector-settings-save" class="primary-button" type="button">변경한 설정 저장</button>
+            </div>
+          </section>
+
+          <section id="collector-owner-tools" class="catalog-panel" aria-labelledby="collector-owner-tools-title" hidden>
+            <div class="catalog-heading">
+              <div>
+                <h2 id="collector-owner-tools-title">관리자 도구</h2>
+              </div>
+            </div>
+            <p class="collector-settings-help">
+              도감 데이터, 카드 이미지, 보유 기록과 운영 버전을 한 번에 점검합니다.
+            </p>
+            <div class="collector-form-actions">
+              <a class="manager-button health-link-button" href="./health.html">도감 건강검진 열기</a>
             </div>
           </section>
         </div>
