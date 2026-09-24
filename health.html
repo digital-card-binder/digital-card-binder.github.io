@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="디지털 카드 바인더 관리자용 도감 건강검진" />
+    <meta name="theme-color" content="#17233f" />
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=9b817333161d" />
+    <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
+    <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1" />
+    <link rel="stylesheet" href="./collector.css?v=4f41aab96806" />
+    <link rel="stylesheet" href="./health.css?v=f4d86c1f3b2c" />
+    <script src="./card-image-cdn.js?v=99b360ed1730" defer></script>
+    <script src="./firebase-config.js?v=0844fbabed65" defer></script>
+    <script src="./site-metrics.js?v=0a3f1a2b20a6" defer></script>
+    <script src="./legal.js?v=c0a64007c536" defer></script>
+    <script src="./core/catalog/catalog-service.js?v=0e2b4455b979" defer></script>
+    <script src="./core/catalog/card-identity.js?v=89fd0bee631d" defer></script>
+    <script src="./core/account/firebase-account.js?v=795928688f9e" defer></script>
+    <script src="./collector-collection-registry.js?v=2ce75f0aafbc" defer></script>
+    <script src="./collector-public-sync.js?v=b55013b5dcd5" defer></script>
+    <script src="./collector-nav.js?v=79e810fb3535" defer></script>
+    <script src="./health.js?v=91d8bc8b0fd2" defer></script>
+  </head>
+  <body data-page="health">
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+      <span class="header-chip">관리자</span>
+    </header>
+
+    <div class="site-layout">
+      <aside class="sidebar" aria-label="도감 메뉴">
+        <div class="sidebar-label">도감 메뉴</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">홈</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>포켓몬 검색</strong><small>전체 카드 검색</small></span></a>
+          <div class="sidebar-label collection-nav-section">주요 도감</div>
+          <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
+          <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510장</small></span></a>
+          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · 프로모</small></span></a>
+          <div class="sidebar-label collection-nav-section">테마 도감</div>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67종 포켓몬</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40명 작가</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>인물 아카이브</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>트레이너 × 포켓몬</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>화석 카드</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 스토리 바인더</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">나</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">모</span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
+        </nav>
+        <div class="sidebar-note">
+          <span aria-hidden="true">✦</span>
+          관리자 전용 점검 화면입니다.
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content health-main">
+        <section class="hero health-hero" aria-labelledby="page-title">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-content">
+            <h1 id="page-title">도감 건강검진</h1>
+            <p class="hero-description">
+              도감 데이터·카드 이미지·내 계정 보유 기록·운영 버전을 한 번에 검사합니다.
+            </p>
+          </div>
+          <div class="health-hero-state" aria-live="polite">
+            <span id="health-overall-dot" class="health-state-dot" data-state="loading"></span>
+            <div>
+              <strong id="health-overall-label">검사 준비 중</strong>
+              <small id="health-run-time">—</small>
+            </div>
+          </div>
+        </section>
+
+        <section id="health-access-gate" class="catalog-panel health-access-gate">
+          <div>
+            <h2>관리자 계정 확인</h2>
+            <p id="health-access-message">로그인 상태를 확인하고 있습니다.</p>
+          </div>
+          <button id="health-login" class="primary-button" type="button" hidden>Google 로그인</button>
+          <a class="manager-button health-link-button" href="./collector-settings.html">프로필 설정</a>
+        </section>
+
+        <div id="health-content" hidden>
+          <section class="health-summary-grid" aria-label="건강검진 요약">
+            <article class="health-summary-card">
+              <span>검사 도감</span>
+              <strong id="health-summary-collections">—</strong>
+              <small>핵심·보조 도감</small>
+            </article>
+            <article class="health-summary-card">
+              <span>확인 필요</span>
+              <strong id="health-summary-warnings">—</strong>
+              <small>데이터·이미지 경고</small>
+            </article>
+            <article class="health-summary-card">
+              <span>이미지 누락</span>
+              <strong id="health-summary-images">—</strong>
+              <small>참조·보관소 대조</small>
+            </article>
+            <article class="health-summary-card">
+              <span>고아 보유 기록</span>
+              <strong id="health-summary-orphans">—</strong>
+              <small>현재 카드와 연결 안 됨</small>
+            </article>
+          </section>
+
+          <section class="catalog-panel health-panel" aria-labelledby="health-data-title">
+            <div class="catalog-heading health-heading">
+              <div>
+                <h2 id="health-data-title">도감 데이터 상태</h2>
+                <p>실제 항목 수, 기준 수치, 중복 식별자와 화면 연결 상태를 검사합니다.</p>
+              </div>
+              <span id="health-data-badge" class="health-badge">검사 중</span>
+            </div>
+            <div class="health-table-wrap">
+              <table class="health-table">
+                <thead>
+                  <tr>
+                    <th>도감</th>
+                    <th>실제</th>
+                    <th>기준</th>
+                    <th>중복</th>
+                    <th>화면 누락</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody id="health-collection-rows"></tbody>
+              </table>
+            </div>
+            <div id="health-data-details" class="health-details"></div>
+          </section>
+
+          <section class="catalog-panel health-panel" aria-labelledby="health-image-title">
+            <div class="catalog-heading health-heading">
+              <div>
+                <h2 id="health-image-title">카드 이미지 상태</h2>
+                <p>현재 도감의 이미지 참조를 Cloudflare 보관 목록과 대조합니다.</p>
+              </div>
+              <span id="health-image-badge" class="health-badge">검사 중</span>
+            </div>
+            <div class="health-inline-stats">
+              <div><span>참조 이미지</span><strong id="health-image-expected">—</strong></div>
+              <div><span>이미지 주소 없음</span><strong id="health-image-missing-ref">—</strong></div>
+              <div><span>지원 불가 주소</span><strong id="health-image-unroutable">—</strong></div>
+              <div><span>보관소 누락</span><strong id="health-image-archive-missing">—</strong></div>
+            </div>
+            <p id="health-image-status" class="health-status-line">이미지 보관소를 확인하고 있습니다.</p>
+            <div id="health-image-details" class="health-details"></div>
+          </section>
+
+          <section class="catalog-panel health-panel" aria-labelledby="health-account-title">
+            <div class="catalog-heading health-heading">
+              <div>
+                <h2 id="health-account-title">내 계정 데이터</h2>
+                <p>현재 도감에 존재하지 않는 예전 보유 키나 설정 잔여물을 찾습니다.</p>
+              </div>
+              <span id="health-account-badge" class="health-badge">검사 중</span>
+            </div>
+            <div id="health-account-grid" class="health-account-grid"></div>
+            <div id="health-account-details" class="health-details"></div>
+          </section>
+
+          <section class="catalog-panel health-panel" aria-labelledby="health-version-title">
+            <div class="catalog-heading health-heading">
+              <div>
+                <h2 id="health-version-title">운영 버전</h2>
+                <p>현재 사이트·앱·이미지 CDN과 데이터 갱신 기준을 확인합니다.</p>
+              </div>
+              <button id="health-refresh" class="manager-button" type="button">다시 검사</button>
+            </div>
+            <dl class="health-version-grid">
+              <div><dt>사이트 빌드</dt><dd id="health-site-version">—</dd></div>
+              <div><dt>안드로이드 앱</dt><dd id="health-app-version">—</dd></div>
+              <div><dt>이미지 CDN</dt><dd id="health-cdn-version">—</dd></div>
+              <div><dt>최근 데이터 기준일</dt><dd id="health-data-date">—</dd></div>
+            </dl>
+          </section>
+        </div>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./news.html">새소식</a>
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">검사 결과는 관리자 화면에만 표시되며 도감 데이터 자체를 변경하지 않습니다.</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
