@@ -11,6 +11,33 @@ function clean(value) {
   return String(value ?? "").trim();
 }
 
+function normalizeSetCode(value) {
+  return clean(value)
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[^a-z0-9+]/g, "");
+}
+
+function normalizedCardNumerator(value) {
+  const text = clean(value).replace(/\s+/g, "");
+  const slash =
+    text.match(/(?:^|[_:-])0*(\d{1,4})\/\d{1,4}/i) ||
+    text.match(/^0*(\d{1,4})\/\d{1,4}/);
+  if (slash) return String(Number(slash[1]));
+
+  const separated = text.match(/(?:_|-)(0*\d{1,4})(?:\D|$)/i);
+  if (separated) return String(Number(separated[1]));
+
+  const leading = text.match(/^0*(\d{1,4})(?:\D|$)/);
+  return leading ? String(Number(leading[1])) : "";
+}
+
+function fingerprint(setCode, cardNumberValue) {
+  const set = normalizeSetCode(setCode);
+  const number = normalizedCardNumerator(cardNumberValue);
+  return set && number ? `${set}::${number}` : "";
+}
+
 function mergeGroups(baseGroups, supplementGroups) {
   const merged = Array.isArray(baseGroups) ? [...baseGroups] : [];
   for (const extra of Array.isArray(supplementGroups) ? supplementGroups : []) {
@@ -32,7 +59,63 @@ function encodeImage(value) {
     : source;
 }
 
-function compactCard(card) {
+function metadataEntry(map, setCode, cardNumberValue) {
+  const key = fingerprint(setCode, cardNumberValue);
+  if (!key) return null;
+  if (!map.has(key)) {
+    map.set(key, {
+      illustrators: new Set(),
+      trainers: new Set(),
+      rarities: new Set(),
+    });
+  }
+  return map.get(key);
+}
+
+function buildMetadata(artistsPayload, trainerPayload) {
+  const map = new Map();
+
+  for (const artist of artistsPayload?.artists || []) {
+    const artistName = clean(artist?.name);
+    for (const card of artist?.cards || []) {
+      const entry = metadataEntry(map, card?.set, card?.cardNumber || card?.code || card?.meta);
+      if (!entry) continue;
+      if (artistName) entry.illustrators.add(artistName);
+      if (clean(card?.rarity)) entry.rarities.add(clean(card.rarity));
+    }
+  }
+
+  for (const group of trainerPayload?.groups || []) {
+    for (const card of group?.cards || []) {
+      const entry = metadataEntry(
+        map,
+        card?.set || card?.setCode,
+        card?.cardNumber || card?.code || card?.meta,
+      );
+      if (!entry) continue;
+      const trainer = clean(card?.personName);
+      if (trainer && trainer !== "그 외") entry.trainers.add(trainer);
+      if (clean(card?.illustrator)) entry.illustrators.add(clean(card.illustrator));
+      if (clean(card?.rarity)) entry.rarities.add(clean(card.rarity));
+    }
+  }
+
+  return map;
+}
+
+function compactCard(card, group, metadata) {
+  const entry = metadata.get(
+    fingerprint(
+      group?.code || group?.name,
+      card?.cardNumber || card?.code || card?.meta,
+    ),
+  );
+  const rarity =
+    clean(card?.rarity) ||
+    (entry?.rarities?.size === 1 ? [...entry.rarities][0] : [...(entry?.rarities || [])].join("|"));
+  const illustrators = [...(entry?.illustrators || [])].sort().join("|");
+  const trainers = [...(entry?.trainers || [])].sort().join("|");
+
   return [
     card?.code || "",
     card?.name || "",
@@ -45,19 +128,26 @@ function compactCard(card) {
     card?.originalImage && card.originalImage !== card.image
       ? encodeImage(card.originalImage)
       : "",
+    rarity,
+    illustrators,
+    trainers,
   ];
 }
 
 async function generate() {
-  const [seriesRaw, legacyRaw, pokedexRaw] = await Promise.all([
+  const [seriesRaw, legacyRaw, pokedexRaw, artistsRaw, trainerRaw] = await Promise.all([
     readFile(path.join(root, "data/series.json"), "utf8"),
     readFile(path.join(root, "data/series-legacy.json"), "utf8"),
     readFile(path.join(root, "data/pokedex.json"), "utf8"),
+    readFile(path.join(root, "data/artists.json"), "utf8"),
+    readFile(path.join(root, "data/trainer-pokemon.json"), "utf8"),
   ]);
   const groups = mergeGroups(JSON.parse(seriesRaw), JSON.parse(legacyRaw));
   const pokedex = JSON.parse(pokedexRaw);
+  const metadata = buildMetadata(JSON.parse(artistsRaw), JSON.parse(trainerRaw));
+
   return `${JSON.stringify({
-    version: 1,
+    version: 2,
     imageBase: OFFICIAL_IMAGE_BASE,
     pokedex: (pokedex.records || []).map((record) => [
       record.number,
@@ -69,7 +159,7 @@ async function generate() {
       group?.title || "",
       group?.displayName || "",
       group?.era || "",
-      (group?.cards || []).map(compactCard),
+      (group?.cards || []).map((card) => compactCard(card, group, metadata)),
     ]),
   })}\n`;
 }
@@ -89,7 +179,7 @@ if (checkOnly) {
   const payload = JSON.parse(expected);
   const cards = payload.groups.reduce((total, group) => total + group[4].length, 0);
   console.log(
-    `Pokemon search index is synchronized (${payload.groups.length} groups / ${cards} cards).`,
+    `Pokemon search index is synchronized (v${payload.version}, ${payload.groups.length} groups / ${cards} cards).`,
   );
 } else if (current === expected) {
   console.log("Pokemon search index already synchronized.");

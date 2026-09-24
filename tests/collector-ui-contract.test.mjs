@@ -575,7 +575,7 @@ test("navigation uses Korean main and theme groups with standalone custom and co
 test("detail pages use the finalized navigation names in their static markup", async () => {
   const expected = [
     ["index.html", "통합 대시보드"],
-    ["pokemon-search.html", "포켓몬 검색"],
+    ["pokemon-search.html", "카드 검색"],
     ["national.html", "전국도감"],
     ["series.html", "시리즈 도감"],
     ["ar.html", "AR 전종도감"],

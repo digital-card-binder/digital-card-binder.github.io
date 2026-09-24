@@ -13,6 +13,24 @@
     SV: "스칼렛&바이올렛",
     M: "MEGA",
   });
+  const SCOPE_LABELS = Object.freeze({
+    ALL: "전체",
+    NAME: "카드명·포켓몬",
+    NUMBER: "카드번호",
+    SET: "세트",
+    ARTIST: "작가",
+    TRAINER: "트레이너",
+    RARITY: "레어도",
+  });
+  const SCOPE_PLACEHOLDERS = Object.freeze({
+    ALL: "카드 검색 (예: 피카츄, SV10, SAR, OKACHEKE)",
+    NAME: "카드명 또는 포켓몬 이름",
+    NUMBER: "카드번호 (예: 191/173, 025)",
+    SET: "세트 코드 또는 세트명 (예: SV10)",
+    ARTIST: "작가명 (예: OKACHEKE, 5ban Graphics)",
+    TRAINER: "트레이너명 (예: 레드, 난천)",
+    RARITY: "레어도 (예: AR, SAR, SR)",
+  });
 
   const state = {
     groups: [],
@@ -21,12 +39,14 @@
     ownershipIndex: new Map(),
     query: "",
     target: null,
+    scope: "ALL",
     era: "ALL",
     setCode: "ALL",
     status: "all",
     suggestions: [],
     suggestionIndex: -1,
     activeCard: null,
+    facets: { sets: [], artists: [], trainers: [], rarities: [] },
     searchCache: { key: "", items: [] },
   };
 
@@ -38,7 +58,7 @@
     return String(value || "")
       .trim()
       .toLocaleLowerCase("ko-KR")
-      .replace(/[\s·._()\-]+/g, "");
+      .replace(/[\s·._()#\-]+/g, "");
   }
 
   function clean(value) {
@@ -95,6 +115,9 @@
             accountIndex,
             owned,
             originalImage,
+            rarity,
+            illustrators,
+            trainers,
           ] = entry;
           const card = {
             code: cardCode,
@@ -102,6 +125,9 @@
             pokemonName,
             image: decodeSearchImage(image, imageBase),
             owned: owned === 1,
+            rarity: clean(rarity),
+            illustrators: clean(illustrators).split("|").map(clean).filter(Boolean),
+            trainers: clean(trainers).split("|").map(clean).filter(Boolean),
           };
           if (meta) card.meta = meta;
           if (cardNumberValue) card.cardNumber = cardNumberValue;
@@ -478,29 +504,80 @@
     return false;
   }
 
+  function minimumQueryLength() {
+    return ["NUMBER", "SET", "ARTIST", "TRAINER", "RARITY"].includes(state.scope)
+      ? 1
+      : 2;
+  }
+
+  function searchFieldValues(item, scope = state.scope) {
+    const card = item.card || {};
+    const fields = {
+      NAME: [card.name, card.pokemonName],
+      NUMBER: [card.code, card.meta, card.cardNumber],
+      SET: [item.setCode, item.setName, item.group?.title, item.group?.displayName],
+      ARTIST: Array.isArray(card.illustrators) ? card.illustrators : [],
+      TRAINER: Array.isArray(card.trainers) ? card.trainers : [],
+      RARITY: [card.rarity],
+    };
+    if (scope !== "ALL") return fields[scope] || [];
+    return Object.values(fields).flat();
+  }
+
   function matchesFreeQuery(item, query) {
     const needle = compact(query);
-    if (needle.length < 2) return false;
-    const haystacks = [
-      item.card?.name,
-      item.card?.pokemonName,
-    ].map(compact);
-    return haystacks.some((value) => value.includes(needle));
+    if (needle.length < minimumQueryLength()) return false;
+    return searchFieldValues(item)
+      .map(compact)
+      .some((value) => value.includes(needle));
+  }
+
+  function buildSearchFacets() {
+    const sets = new Map();
+    const artists = new Set();
+    const trainers = new Set();
+    const rarities = new Set();
+
+    state.cards.forEach((item) => {
+      if (item.setCode && !sets.has(item.setCode)) {
+        sets.set(item.setCode, item.setName);
+      }
+      (item.card?.illustrators || []).forEach((value) => {
+        if (clean(value)) artists.add(clean(value));
+      });
+      (item.card?.trainers || []).forEach((value) => {
+        if (clean(value)) trainers.add(clean(value));
+      });
+      clean(item.card?.rarity)
+        .split("|")
+        .map(clean)
+        .filter(Boolean)
+        .forEach((value) => rarities.add(value));
+    });
+
+    state.facets = {
+      sets: [...sets.entries()].map(([code, name]) => ({ code, name })),
+      artists: [...artists].sort((a, b) => a.localeCompare(b, "ko")),
+      trainers: [...trainers].sort((a, b) => a.localeCompare(b, "ko")),
+      rarities: [...rarities].sort((a, b) => a.localeCompare(b, "en")),
+    };
   }
 
   function targetCards() {
     const query = clean(state.query);
     if (!query) return [];
 
-    const cacheKey = state.target
-      ? `pokemon:${state.target.number}:${compact(state.target.nameKo)}`
-      : `free:${compact(query)}`;
+    const exactPokemonMode =
+      state.target && (state.scope === "ALL" || state.scope === "NAME");
+    const cacheKey = exactPokemonMode
+      ? `pokemon:${state.target.number}:${compact(state.target.nameKo)}:${state.scope}`
+      : `free:${state.scope}:${compact(query)}`;
     if (state.searchCache.key === cacheKey) {
       return state.searchCache.items;
     }
 
     let items;
-    if (state.target) {
+    if (exactPokemonMode) {
       const target = compact(state.target.nameKo);
       const longerNames = longerPokemonNames(target);
       items = state.cards.filter((item) =>
@@ -537,9 +614,9 @@
     const total = all.length;
     const missing = total - owned;
     const rate = total ? Math.round((owned / total) * 1000) / 10 : 0;
-    const label = state.target?.nameKo || clean(state.query) || "포켓몬을 검색해 주세요";
+    const label = state.target?.nameKo || clean(state.query) || "카드를 검색해 주세요";
 
-    el("search-summary-label").textContent = total ? label : "포켓몬을 검색해 주세요";
+    el("search-summary-label").textContent = total ? label : "카드를 검색해 주세요";
     el("search-owned").textContent = total ? formatNumber(owned) : "—";
     el("search-total").textContent = total ? formatNumber(total) : "—";
     el("search-missing").textContent = total ? formatNumber(missing) : "—";
@@ -618,6 +695,39 @@
     });
   }
 
+  function searchMetadataEntries(card) {
+    const entries = [];
+    clean(card?.rarity)
+      .split("|")
+      .map(clean)
+      .filter(Boolean)
+      .slice(0, 2)
+      .forEach((value) => entries.push({ label: "레어도", value }));
+    (card?.illustrators || [])
+      .slice(0, 2)
+      .forEach((value) => entries.push({ label: "작가", value }));
+    (card?.trainers || [])
+      .slice(0, 2)
+      .forEach((value) => entries.push({ label: "트레이너", value }));
+    return entries;
+  }
+
+  function renderSearchMetadata(card) {
+    const wrap = document.createElement("span");
+    wrap.className = "pokemon-search-metadata";
+    const entries = searchMetadataEntries(card);
+    entries.forEach(({ label, value }) => {
+      const chip = document.createElement("span");
+      chip.className = "pokemon-search-meta-chip";
+      const prefix = document.createElement("b");
+      prefix.textContent = label;
+      chip.append(prefix, document.createTextNode(value));
+      wrap.append(chip);
+    });
+    wrap.hidden = entries.length === 0;
+    return wrap;
+  }
+
   function makeCard(item) {
     const card = item.card;
     const article = document.createElement("article");
@@ -667,6 +777,8 @@
     meta.className = "card-meta";
     meta.textContent = `${ERA_LABELS[item.era] || item.era} · ${item.setCode}`;
 
+    const metadata = renderSearchMetadata(card);
+
     const sources = document.createElement("span");
     sources.className = "pokemon-search-ownership-sources";
     renderOwnershipSources(
@@ -675,7 +787,7 @@
       Boolean(card.owned),
     );
 
-    body.append(top, name, set, meta, sources);
+    body.append(top, name, set, meta, metadata, sources);
     button.append(imageWrap, body);
     button.addEventListener("click", () => openDialog(item));
     article.append(button);
@@ -684,6 +796,7 @@
 
   function activeFilterLabel() {
     const labels = [];
+    if (state.scope !== "ALL") labels.push(SCOPE_LABELS[state.scope] || state.scope);
     if (state.era !== "ALL") labels.push(ERA_LABELS[state.era] || state.era);
     if (state.setCode !== "ALL") labels.push(state.setCode);
     if (state.status === "owned") labels.push("보유");
@@ -704,14 +817,18 @@
 
     empty.hidden = false;
     if (!hasQuery) {
-      title.textContent = "포켓몬 이름을 검색해 주세요";
-      copy.textContent = "예: 피카츄, 리자몽, 루카리오";
-    } else if (!state.target && compact(state.query).length < 2) {
-      title.textContent = "두 글자 이상 입력해 주세요";
-      copy.textContent = "포켓몬 이름을 조금 더 입력하면 검색할 수 있습니다.";
+      title.textContent = "카드를 검색해 주세요";
+      copy.textContent = "예: 피카츄, 191/173, SV10, SAR, OKACHEKE, 레드";
+    } else if (compact(state.query).length < minimumQueryLength()) {
+      title.textContent = minimumQueryLength() === 1
+        ? "검색어를 입력해 주세요"
+        : "두 글자 이상 입력해 주세요";
+      copy.textContent = state.scope === "ALL"
+        ? "검색 범위를 선택하면 카드번호·레어도는 한 글자부터 찾을 수 있습니다."
+        : `${SCOPE_LABELS[state.scope] || "선택한 범위"}에서 검색합니다.`;
     } else {
       title.textContent = "검색 결과가 없습니다";
-      copy.textContent = "검색어 또는 필터를 바꿔보세요.";
+      copy.textContent = "검색어 또는 검색 범위·필터를 바꿔보세요.";
     }
   }
 
@@ -723,28 +840,96 @@
     el("pokemon-search-result-count").textContent = formatNumber(shown.length);
     el("pokemon-search-active-filter").textContent = activeFilterLabel();
     el("pokemon-search-reset").hidden =
-      !clean(state.query) && state.era === "ALL" && state.setCode === "ALL" && state.status === "all";
+      !clean(state.query) &&
+      state.scope === "ALL" &&
+      state.era === "ALL" &&
+      state.setCode === "ALL" &&
+      state.status === "all";
     renderEmpty(shown);
     updateSummary();
   }
 
   function suggestionCandidates(query) {
     const needle = compact(query);
-    if (!needle) return [];
-    const candidates = state.pokedex
-      .filter((record) => {
-        const ko = compact(record.nameKo);
-        const en = compact(record.nameEn);
-        return ko.includes(needle) || en.includes(needle);
-      })
-      .sort((a, b) => {
-        const aKo = compact(a.nameKo);
-        const bKo = compact(b.nameKo);
-        const aStarts = aKo.startsWith(needle) ? 0 : 1;
-        const bStarts = bKo.startsWith(needle) ? 0 : 1;
-        return aStarts - bStarts || a.number - b.number;
-      });
-    return candidates.slice(0, 8);
+    if (!needle || needle.length < minimumQueryLength()) return [];
+    const candidates = [];
+    const push = (candidate) => {
+      if (!candidate?.value || candidates.some((item) =>
+        item.scope === candidate.scope && compact(item.value) === compact(candidate.value)
+      )) return;
+      candidates.push(candidate);
+    };
+
+    if (state.scope === "ALL" || state.scope === "NAME") {
+      state.pokedex
+        .filter((record) => {
+          const ko = compact(record.nameKo);
+          const en = compact(record.nameEn);
+          return ko.includes(needle) || en.includes(needle);
+        })
+        .sort((a, b) => {
+          const aKo = compact(a.nameKo);
+          const bKo = compact(b.nameKo);
+          const aStarts = aKo.startsWith(needle) ? 0 : 1;
+          const bStarts = bKo.startsWith(needle) ? 0 : 1;
+          return aStarts - bStarts || a.number - b.number;
+        })
+        .slice(0, 5)
+        .forEach((record) => {
+          const number = String(record.number).padStart(4, "0");
+          push({
+            kind: "포켓몬",
+            scope: "NAME",
+            value: record.nameKo,
+            primary: record.nameKo,
+            secondary: `#${number} · ${record.nameEn || ""}`,
+            target: record,
+          });
+        });
+    }
+
+    if (state.scope === "ALL" || state.scope === "SET") {
+      state.facets.sets
+        .filter((item) =>
+          compact(item.code).includes(needle) || compact(item.name).includes(needle),
+        )
+        .slice(0, 4)
+        .forEach((item) => {
+          const codeMatches = compact(item.code).includes(needle);
+          push({
+            kind: "세트",
+            scope: "SET",
+            value: codeMatches ? item.code : item.name,
+            primary: item.code,
+            secondary: item.name,
+          });
+        });
+    }
+
+    const appendSimple = (scope, kind, values, limit = 4) => {
+      if (state.scope !== "ALL" && state.scope !== scope) return;
+      values
+        .filter((value) => compact(value).includes(needle))
+        .sort((a, b) => {
+          const aStarts = compact(a).startsWith(needle) ? 0 : 1;
+          const bStarts = compact(b).startsWith(needle) ? 0 : 1;
+          return aStarts - bStarts || a.localeCompare(b, "ko");
+        })
+        .slice(0, limit)
+        .forEach((value) => push({
+          kind,
+          scope,
+          value,
+          primary: value,
+          secondary: SCOPE_LABELS[scope],
+        }));
+    };
+
+    appendSimple("ARTIST", "작가", state.facets.artists);
+    appendSimple("TRAINER", "트레이너", state.facets.trainers);
+    appendSimple("RARITY", "레어도", state.facets.rarities);
+
+    return candidates.slice(0, 10);
   }
 
   function closeSuggestions() {
@@ -756,14 +941,24 @@
     el("pokemon-search-input").setAttribute("aria-expanded", "false");
   }
 
-  function chooseSuggestion(record) {
+  function syncSearchPlaceholder() {
+    el("pokemon-search-input").placeholder =
+      SCOPE_PLACEHOLDERS[state.scope] || SCOPE_PLACEHOLDERS.ALL;
+  }
+
+  function chooseSuggestion(suggestion) {
     const input = el("pokemon-search-input");
-    input.value = record.nameKo;
-    state.query = record.nameKo;
-    state.target = record;
+    input.value = suggestion.value;
+    state.query = suggestion.value;
+    state.scope = suggestion.scope || state.scope;
+    state.target = suggestion.target || (
+      state.scope === "NAME" ? exactPokemon(state.query) : null
+    );
     state.era = "ALL";
     state.setCode = "ALL";
+    el("pokemon-search-scope").value = state.scope;
     el("pokemon-search-era").value = "ALL";
+    syncSearchPlaceholder();
     closeSuggestions();
     populateSetFilter();
     render();
@@ -780,17 +975,29 @@
       return;
     }
 
-    state.suggestions.forEach((record, index) => {
+    state.suggestions.forEach((suggestion, index) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "pokemon-search-suggestion";
       button.setAttribute("role", "option");
       button.dataset.index = String(index);
-      const number = String(record.number).padStart(4, "0");
-      button.innerHTML = `<strong>${record.nameKo}</strong><span>#${number} · ${record.nameEn || ""}</span>`;
+
+      const kind = document.createElement("span");
+      kind.className = "pokemon-search-suggestion-kind";
+      kind.textContent = suggestion.kind;
+
+      const copy = document.createElement("span");
+      copy.className = "pokemon-search-suggestion-copy";
+      const strong = document.createElement("strong");
+      strong.textContent = suggestion.primary;
+      const meta = document.createElement("span");
+      meta.textContent = suggestion.secondary || "";
+      copy.append(strong, meta);
+      button.append(kind, copy);
+
       button.addEventListener("mousedown", (event) => {
         event.preventDefault();
-        chooseSuggestion(record);
+        chooseSuggestion(suggestion);
       });
       box.append(button);
     });
@@ -811,7 +1018,9 @@
 
   function onSearchInput(event) {
     state.query = event.currentTarget.value;
-    state.target = exactPokemon(state.query);
+    state.target = (state.scope === "ALL" || state.scope === "NAME")
+      ? exactPokemon(state.query)
+      : null;
     state.era = "ALL";
     state.setCode = "ALL";
     el("pokemon-search-era").value = "ALL";
@@ -846,12 +1055,15 @@
   function resetSearch() {
     state.query = "";
     state.target = null;
+    state.scope = "ALL";
     state.era = "ALL";
     state.setCode = "ALL";
     state.status = "all";
     const input = el("pokemon-search-input");
     input.value = "";
+    el("pokemon-search-scope").value = "ALL";
     el("pokemon-search-era").value = "ALL";
+    syncSearchPlaceholder();
     el("pokemon-search-set").value = "ALL";
     el("pokemon-search-status").querySelectorAll("button").forEach((button) => {
       button.classList.toggle("is-active", button.dataset.status === "all");
@@ -877,6 +1089,13 @@
     el("pokemon-search-dialog-meta").textContent = item.setCode;
     el("pokemon-search-dialog-era").textContent = ERA_LABELS[item.era] || item.era;
     el("pokemon-search-dialog-set").textContent = item.setName;
+    el("pokemon-search-dialog-number").textContent =
+      clean(card.cardNumber || card.code || card.meta) || "—";
+    el("pokemon-search-dialog-rarity").textContent = clean(card.rarity) || "—";
+    el("pokemon-search-dialog-artist").textContent =
+      (card.illustrators || []).join(", ") || "—";
+    el("pokemon-search-dialog-trainer").textContent =
+      (card.trainers || []).join(", ") || "—";
     renderOwnershipSources(
       el("pokemon-search-dialog-sources"),
       card.ownershipSources,
@@ -951,6 +1170,18 @@
     });
     input.addEventListener("blur", () => {
       window.setTimeout(closeSuggestions, 120);
+    });
+
+    el("pokemon-search-scope").addEventListener("change", (event) => {
+      state.scope = event.currentTarget.value;
+      state.target = (state.scope === "ALL" || state.scope === "NAME")
+        ? exactPokemon(state.query)
+        : null;
+      state.setCode = "ALL";
+      syncSearchPlaceholder();
+      renderSuggestions();
+      populateSetFilter();
+      render();
     });
 
     el("pokemon-search-era").addEventListener("change", (event) => {
@@ -1039,8 +1270,10 @@
       state.cards.forEach((item) => {
         item.card.seriesOwned = Boolean(item.card.owned);
       });
+      buildSearchFacets();
       await refreshAggregateOwnership();
       bindEvents();
+      syncSearchPlaceholder();
       populateSetFilter();
       render();
 
@@ -1048,7 +1281,9 @@
       if (requested) {
         el("pokemon-search-input").value = requested;
         state.query = requested;
-        state.target = exactPokemon(requested);
+        state.target = (state.scope === "ALL" || state.scope === "NAME")
+          ? exactPokemon(requested)
+          : null;
         populateSetFilter();
         render();
       }
