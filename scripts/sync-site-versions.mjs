@@ -13,7 +13,7 @@ const swPath = path.join(root, "sw.js");
 const LOCAL_ASSET_RE = /((?:src|href)=["']\.\/)([^"'?#]+\.(?:js|css))(?:\?v=[^"']*)?(["'])/g;
 const NAV_BUILD_RE = /const SITE_BUILD_VERSION = "[^"]*";/;
 const SW_URL_RE = /const SERVICE_WORKER_URL = "\/sw[.]js(?:\?v=[^"]+)?";/;
-const EXTRA_ASSETS = Object.freeze(["trade-offer.js"]);
+const EXTRA_ASSETS = Object.freeze(["trade-offer.js", "collection-history.js"]);
 
 function hashText(text) {
   return createHash("sha256").update(text, "utf8").digest("hex").slice(0, 12);
