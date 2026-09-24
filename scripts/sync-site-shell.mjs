@@ -6,7 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const checkOnly = process.argv.includes("--check");
 
 const navigation = Object.freeze([
-  { href: "./", page: "index.html", icon: "DB", title: "통합 대시보드", subtitle: "모든 도감" },
+  { href: "./", page: "index.html", icon: "홈", title: "통합 대시보드", subtitle: "모든 도감" },
   { href: "./pokemon-search.html", page: "pokemon-search.html", icon: "⌕", title: "포켓몬 검색", subtitle: "전체 카드 검색" },
   { section: "주요 도감" },
   { href: "./national.html", page: "national.html", icon: "01", title: "전국도감", subtitle: "1세대–9세대" },
@@ -20,8 +20,8 @@ const navigation = Object.freeze([
   { href: "./trainer-pokemon.html", page: "trainer-pokemon.html", icon: "08", title: "트레이너 × 포켓몬", subtitle: "트레이너 × 포켓몬" },
   { href: "./fossil.html", page: "fossil.html", icon: "09", title: "화석 도감", subtitle: "화석 카드" },
   { href: "./world.html", page: "world.html", icon: "10", title: "월드탐험도감", subtitle: "4×3 스토리 바인더" },
-  { href: "./custom.html", page: "custom.html", icon: "MY", title: "나만의 도감", subtitle: "직접 만드는 도감" },
-  { href: "./collectors.html", page: "collectors.html", icon: "CM", title: "커뮤니티", subtitle: "공개 컬렉션" },
+  { href: "./custom.html", page: "custom.html", icon: "나", title: "나만의 도감", subtitle: "직접 만드는 도감" },
+  { href: "./collectors.html", page: "collectors.html", icon: "모", title: "커뮤니티", subtitle: "공개 컬렉션" },
 ]);
 
 const brand = `<a class="brand" href="./" aria-label="디지털 카드 바인더 홈">

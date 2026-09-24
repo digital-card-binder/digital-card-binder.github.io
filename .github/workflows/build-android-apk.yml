@@ -118,21 +118,10 @@ jobs:
       - name: Build v0.9 debug APK
         run: gradle --project-dir android-app :app:assembleDebug --no-daemon
 
-      - name: Prepare website download and APK
+      - name: Prepare website APK
         run: |
           set -euo pipefail
           cp android-app/app/build/outputs/apk/debug/app-debug.apk DigitalCardBinder_v0.9.apk
-          rm -f DigitalCardBinder_v0.8.apk
-          python - <<'PY'
-          from pathlib import Path
-          for name in ('index.html', 'news.js'):
-              path = Path(name)
-              text = path.read_text(encoding='utf-8')
-              text = text.replace('DigitalCardBinder_v0.8.apk', 'DigitalCardBinder_v0.9.apk')
-              text = text.replace('앱 다운로드 v0.8', '앱 다운로드 v0.9')
-              text = text.replace('안드로이드 앱 v0.8 파일을 준비 중입니다.', '안드로이드 앱 v0.9 파일을 준비 중입니다.')
-              path.write_text(text, encoding='utf-8')
-          PY
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -141,12 +130,12 @@ jobs:
           path: DigitalCardBinder_v0.9.apk
           if-no-files-found: error
 
-      - name: Publish v0.9 APK and download links to branch
+      - name: Publish v0.9 APK to branch
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html news.js DigitalCardBinder_v0.8.apk DigitalCardBinder_v0.9.apk
+          git add -- DigitalCardBinder_v0.9.apk
           if git diff --cached --quiet; then
             echo "APK and download links unchanged"
           else
