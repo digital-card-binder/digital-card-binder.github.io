@@ -35,6 +35,25 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - Official Pokemon Korea image URLs are stored as compact paths and expanded in the search client.
 - Do not hand-edit the generated index. Use `npm run search-index:sync`; `npm run search-index:check` is part of `npm test`.
 
+## Collection planning and history
+
+- `planner.html` is the signed-in collection planning surface for missing cards, wishlist, trade-ready cards, duplicate quantities, and history.
+- Planner metadata lives under `pokemonCollectionsDex.plannerV1`; history lives under `pokemonCollectionsDex.historyV1`. Both are merged into the existing document and must not replace ownership overrides or custom dex data.
+- `collection-history.js` listens to the existing `pokemon-dex:collection-changed` event and queues history locally before flushing it to Firestore, so reload-based editors do not lose the event.
+- The trade-draft handoff reuses the existing card-only trade workflow and never changes collection ownership automatically.
+
+## Official update watch
+
+- `.github/workflows/watch-official-card-updates.yml` runs once per day and performs a single request to the official Pokemon Korea product page.
+- `scripts/check-official-card-updates.mjs` compares official expansion-product names with the local canonical series catalog and `data/update-watch.json`.
+- The watcher never edits canonical card catalogs. It changes only `data/update-watch.json` when the review state changes, so new cards still require human validation before catalog insertion.
+
+## Owner operations and backup
+
+- `operations.html` is owner-only and combines the update-watch state, health dashboard link, and backup/restore tools.
+- Backup format `digital-card-binder-backup-v1` contains the seven existing account collection documents plus browser-local world-exploration state. Profile identity, nickname reservations, public projections, and trade data are intentionally excluded.
+- Restore may write only those seven supported account documents for the currently signed-in owner and must overwrite email/display name/base mode with the current account-safe values.
+
 ## Owner health dashboard
 
 - `health.html` is an owner-only operational view linked from profile settings only for the configured owner account.

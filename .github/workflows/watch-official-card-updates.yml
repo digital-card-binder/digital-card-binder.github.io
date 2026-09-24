@@ -1,0 +1,35 @@
+name: Watch official card updates
+
+on:
+  schedule:
+    - cron: "30 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: official-card-update-watch
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check official Pokemon Korea products
+        run: node scripts/check-official-card-updates.mjs
+      - name: Commit watch result only when it changed
+        run: |
+          if git diff --quiet -- data/update-watch.json; then
+            echo "No update-watch change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/update-watch.json
+          git commit -m "Update official card watch status"
+          git push

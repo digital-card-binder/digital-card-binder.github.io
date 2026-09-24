@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="디지털 카드 바인더 관리자 운영센터">
+  <meta name="theme-color" content="#17233f">
+  <title>디지털 카드 바인더</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=9b817333161d">
+  <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9">
+  <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1">
+  <link rel="stylesheet" href="./collector.css?v=4f41aab96806">
+  <link rel="stylesheet" href="./operations.css?v=189a9e56ddd6">
+  <script src="./firebase-config.js?v=0844fbabed65" defer></script>
+  <script src="./site-metrics.js?v=0a3f1a2b20a6" defer></script>
+  <script src="./legal.js?v=c0a64007c536" defer></script>
+  <script src="./core/account/firebase-account.js?v=795928688f9e" defer></script>
+  <script src="./collector-nav.js?v=1f56c4f67ea4" defer></script>
+  <script src="./operations.js?v=84e8e8bb8ecf" defer></script>
+</head>
+<body data-page="operations">
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>
+<header class="site-header">
+  <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+  <span class="header-chip">관리자</span>
+</header>
+
+<div class="site-layout">
+  <aside class="sidebar" aria-label="도감 메뉴">
+    <div class="sidebar-label">도감 메뉴</div>
+    <nav class="collection-nav">
+          <a class="collection-link" href="./"><span class="collection-icon" aria-hidden="true">홈</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
+          <a class="collection-link" href="./planner.html"><span class="collection-icon" aria-hidden="true">✓</span><span><strong>수집 관리</strong><small>위시 · 교환 · 히스토리</small></span></a>
+          <div class="sidebar-label collection-nav-section">주요 도감</div>
+          <a class="collection-link" href="./national.html"><span class="collection-icon" aria-hidden="true">01</span><span><strong>전국도감</strong><small>1세대–9세대</small></span></a>
+          <a class="collection-link" href="./series.html"><span class="collection-icon" aria-hidden="true">02</span><span><strong>시리즈 도감</strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M</small></span></a>
+          <a class="collection-link" href="./ar.html"><span class="collection-icon" aria-hidden="true">03</span><span><strong>AR 전종도감</strong><small>SV · M · 510장</small></span></a>
+          <a class="collection-link" href="./packs.html"><span class="collection-icon" aria-hidden="true">04</span><span><strong>팩 전종수집</strong><small>S · SV · M · 프로모</small></span></a>
+          <div class="sidebar-label collection-nav-section">테마 도감</div>
+          <a class="collection-link" href="./pokemon-collections.html"><span class="collection-icon" aria-hidden="true">05</span><span><strong>포켓몬 컬렉션</strong><small>67종 포켓몬</small></span></a>
+          <a class="collection-link" href="./artists.html"><span class="collection-icon" aria-hidden="true">06</span><span><strong>작가 도감</strong><small>40명 작가</small></span></a>
+          <a class="collection-link" href="./people.html"><span class="collection-icon" aria-hidden="true">07</span><span><strong>인물도감</strong><small>인물 아카이브</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span class="collection-icon" aria-hidden="true">08</span><span><strong>트레이너 × 포켓몬</strong><small>트레이너 × 포켓몬</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span class="collection-icon" aria-hidden="true">09</span><span><strong>화석 도감</strong><small>화석 카드</small></span></a>
+          <a class="collection-link" href="./world.html"><span class="collection-icon" aria-hidden="true">10</span><span><strong>월드탐험도감</strong><small>4×3 스토리 바인더</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">나</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html"><span class="collection-icon" aria-hidden="true">모</span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
+        </nav>
+    <div class="sidebar-note"><span aria-hidden="true">✦</span>관리자 전용 운영·백업 화면입니다.</div>
+  </aside>
+
+  <main id="main-content" class="main-content operations-main">
+    <section class="hero operations-hero" aria-labelledby="page-title">
+      <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+      <div class="hero-content"><h1 id="page-title">운영센터</h1><p class="hero-description">신규 카드 감시·건강검진·백업과 복구를 한곳에서 관리합니다.</p></div>
+    </section>
+
+    <section id="operations-gate" class="catalog-panel operations-gate"><div><h2>관리자 계정 확인</h2><p id="operations-gate-message">로그인 상태를 확인하고 있습니다.</p></div><button id="operations-login" class="primary-button" type="button" hidden>Google 로그인</button></section>
+
+    <div id="operations-content" hidden>
+      <section class="operations-grid">
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>12</span><h2>신규 카드 업데이트 감시</h2></div><span id="operations-watch-badge" class="operations-badge">확인 중</span></div>
+          <p>포켓몬코리아 공식 제품 페이지를 하루 한 번만 확인하며, 새 확장팩 후보가 발견될 때만 상태 파일을 갱신합니다.</p>
+          <dl class="operations-meta">
+            <div><dt>상태</dt><dd id="operations-watch-status">—</dd></div>
+            <div><dt>마지막 변화</dt><dd id="operations-watch-date">—</dd></div>
+            <div class="is-wide"><dt>확인 필요 제품</dt><dd id="operations-watch-products">없음</dd></div>
+          </dl>
+        </article>
+
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>8</span><h2>도감 건강검진</h2></div></div>
+          <p>데이터·이미지·고아 보유키·운영 버전을 읽기 전용으로 검사합니다.</p>
+          <a class="manager-button operations-action" href="./health.html">건강검진 열기</a>
+        </article>
+
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>13</span><h2>도감 데이터 백업</h2></div></div>
+          <p>전국·팩·작가·시리즈·포켓몬 컬렉션·AR·트레이너 도감과 수집관리/히스토리를 한 파일로 저장합니다.</p>
+          <button id="operations-backup" class="primary-button operations-action" type="button">백업 파일 만들기</button>
+          <p id="operations-backup-status" class="operations-status" aria-live="polite"></p>
+        </article>
+
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>13</span><h2>백업 복구</h2></div></div>
+          <p>이 운영센터에서 만든 백업 파일만 읽어 복구합니다. 현재 로그인 계정의 도감 문서만 변경합니다.</p>
+          <label class="operations-file"><span>백업 파일 선택</span><input id="operations-restore-file" type="file" accept="application/json,.json"></label>
+          <button id="operations-restore" class="manager-button operations-action" type="button" disabled>선택한 백업 복구</button>
+          <p id="operations-restore-status" class="operations-status" aria-live="polite"></p>
+        </article>
+      </section>
+
+      <section class="catalog-panel operations-final" aria-labelledby="operations-final-title">
+        <div class="catalog-heading"><div><h2 id="operations-final-title">최종 운영 상태</h2><p>구조·검색·수집 관리·히스토리·업데이트 감시·백업까지 운영 흐름을 연결했습니다.</p></div></div>
+        <div class="operations-final-links"><a href="./planner.html">수집 관리</a><a href="./collector-settings.html">프로필 설정</a><a href="./news.html">새소식</a></div>
+      </section>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./news.html">새소식</a>
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+      <p class="site-footer-note">운영센터는 관리자 계정에서만 사용할 수 있습니다.</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>
