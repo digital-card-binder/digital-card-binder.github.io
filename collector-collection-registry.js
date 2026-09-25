@@ -148,6 +148,7 @@
 
   function makeCatalog(collectionId, items) {
     const groups = new Map();
+    const compatibilityMap = new Map();
     for (const item of items) {
       if (!groups.has(item.groupKey)) {
         groups.set(item.groupKey, {
@@ -157,11 +158,19 @@
         });
       }
       groups.get(item.groupKey).itemKeys.push(item.key);
+
+      for (const compatibilityKey of item.compatibilityKeys || []) {
+        if (!compatibilityMap.has(compatibilityKey)) {
+          compatibilityMap.set(compatibilityKey, new Set());
+        }
+        compatibilityMap.get(compatibilityKey).add(item.key);
+      }
     }
     return {
       collectionId,
       items,
       itemMap: new Map(items.map((item) => [item.key, item])),
+      compatibilityMap,
       groups: [...groups.values()],
     };
   }
@@ -235,6 +244,13 @@
       (group.cards || []).forEach((card, cardIndex) => {
         items.push({
           key: cardIdentity(collectionId, group, card, groupIndex, cardIndex),
+          compatibilityKeys: identityService.cardCompatibilityKeys(
+            collectionId,
+            group,
+            card,
+            groupIndex,
+            cardIndex,
+          ),
           name: card.name || card.pokemonName || card.code || groupName,
           groupKey,
           groupName,
@@ -297,6 +313,83 @@
     return Boolean(value.owned);
   }
 
+  function resolveOverrides(collectionId, catalog, sourceOverrides) {
+    const overrides = normalizedOverrides(sourceOverrides);
+    const effectiveOverrides = {};
+    const reconnectedKeys = [];
+    const orphanKeys = [];
+    const conflicts = [];
+
+    for (const [key, value] of Object.entries(overrides)) {
+      if (catalog.itemMap.has(key)) effectiveOverrides[key] = value;
+    }
+
+    const pendingByTarget = new Map();
+    for (const [legacyKey, value] of Object.entries(overrides)) {
+      if (catalog.itemMap.has(legacyKey)) continue;
+
+      const compatibilityKey = identityService.storedCompatibilityKey(
+        collectionId,
+        legacyKey,
+      );
+      if (!compatibilityKey) {
+        orphanKeys.push(legacyKey);
+        continue;
+      }
+
+      const targets = [...(catalog.compatibilityMap?.get(compatibilityKey) || [])];
+      if (targets.length !== 1) {
+        orphanKeys.push(legacyKey);
+        if (targets.length > 1) {
+          conflicts.push({
+            legacyKeys: [legacyKey],
+            candidateKeys: targets,
+          });
+        }
+        continue;
+      }
+
+      const targetKey = targets[0];
+      if (!pendingByTarget.has(targetKey)) pendingByTarget.set(targetKey, []);
+      pendingByTarget.get(targetKey).push({ legacyKey, value });
+    }
+
+    for (const [targetKey, candidates] of pendingByTarget) {
+      if (Object.prototype.hasOwnProperty.call(effectiveOverrides, targetKey)) {
+        candidates.forEach(({ legacyKey }) => {
+          reconnectedKeys.push({
+            legacyKey,
+            currentKey: targetKey,
+            status: "current-key-present",
+          });
+        });
+        continue;
+      }
+
+      if (candidates.length !== 1) {
+        const legacyKeys = candidates.map((item) => item.legacyKey);
+        orphanKeys.push(...legacyKeys);
+        conflicts.push({ legacyKeys, candidateKeys: [targetKey] });
+        continue;
+      }
+
+      const [{ legacyKey, value }] = candidates;
+      effectiveOverrides[targetKey] = value;
+      reconnectedKeys.push({
+        legacyKey,
+        currentKey: targetKey,
+        status: "compatibility",
+      });
+    }
+
+    return {
+      effectiveOverrides,
+      reconnectedKeys,
+      orphanKeys: [...new Set(orphanKeys)],
+      conflicts,
+    };
+  }
+
   async function ownershipFor(collectionId, sourceDocument = {}) {
     const catalog = await loadCatalog(collectionId);
     const source = sourceDocument && typeof sourceDocument === "object"
@@ -335,7 +428,8 @@
       };
     }
 
-    const overrides = normalizedOverrides(source.overrides);
+    const resolution = resolveOverrides(collectionId, catalog, source.overrides);
+    const overrides = resolution.effectiveOverrides;
     const useLegacy = source.baseMode === "legacy";
     return {
       catalog,
@@ -471,6 +565,7 @@
     pageUrl,
     publicProjectionMetrics,
     projectionOwnership,
+    resolveOverrides,
     supportedCollectionId,
   };
 })();
