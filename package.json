@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run site:check && npm run test:syntax && npm run test:registry && npm run test:ui && npm run test:architecture && npm run test:rules:lint && npm run test:rules",
     "test:syntax": "node scripts/check-static-site.mjs",
-    "test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs tests/ar-count-baseline.test.mjs tests/fossil-data.test.mjs tests/dp-series-dex.test.mjs tests/bw-series-dex.test.mjs tests/xy-series-dex.test.mjs tests/sm-series-dex.test.mjs tests/structure-consistency.test.mjs tests/card-image-migration.test.mjs tests/card-image-batching.test.mjs",
+    "test:registry": "node --test tests/collector-registry.test.mjs tests/world-exploration-data.test.mjs tests/trainer-pokemon-data.test.mjs tests/ar-count-baseline.test.mjs tests/fossil-data.test.mjs tests/dp-series-dex.test.mjs tests/bw-series-dex.test.mjs tests/xy-series-dex.test.mjs tests/sm-series-dex.test.mjs tests/structure-consistency.test.mjs tests/card-image-migration.test.mjs tests/card-image-batching.test.mjs tests/series-inventory.test.mjs",
     "test:ui": "node --test tests/asset-version-contract.test.mjs tests/collector-settings-save-permission.test.mjs tests/collector-ui-contract.test.mjs tests/collector-legacy-share-migration.test.mjs tests/large-catalog-save-performance-contract.test.mjs tests/trade-ui-contract.test.mjs tests/mega-latest-data.test.mjs tests/base-series-dex.test.mjs tests/adv-series-dex.test.mjs tests/ar-cache-compat.test.mjs tests/android-v09-contract.test.mjs tests/theme-navigation.test.mjs tests/pack-assets.test.mjs tests/final-ui-cleanup.test.mjs tests/health-dashboard.test.mjs tests/collection-planner.test.mjs tests/operations-center.test.mjs",
     "test:architecture": "node --test tests/architecture-boundaries.test.mjs tests/trainer-pokemon-structure.test.mjs tests/pokemon-search-index.test.mjs tests/maintenance-discipline.test.mjs",
     "test:rules:lint": "eslint firestore.rules",
@@ -20,8 +20,10 @@
     "shell:check": "node scripts/sync-site-shell.mjs --check",
     "search-index:sync": "node scripts/build-pokemon-search-index.mjs",
     "search-index:check": "node scripts/build-pokemon-search-index.mjs --check",
-    "site:prepare": "npm run search-index:sync && npm run shell:sync && npm run versions:sync",
-    "site:check": "npm run search-index:check && npm run shell:check && npm run versions:check"
+    "site:prepare": "npm run series-inventory:sync && npm run search-index:sync && npm run shell:sync && npm run versions:sync",
+    "site:check": "npm run series-inventory:check && npm run search-index:check && npm run shell:check && npm run versions:check",
+    "series-inventory:sync": "node scripts/build-series-inventory.mjs",
+    "series-inventory:check": "node scripts/build-series-inventory.mjs --check"
   },
   "devDependencies": {
     "@firebase/eslint-plugin-security-rules": "0.0.2",
