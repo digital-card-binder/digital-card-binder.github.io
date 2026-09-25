@@ -19,6 +19,7 @@
   let userDocumentRef = null;
   let accountProfile = { baseMode: "empty" };
   let remoteOverrides = {};
+  let resolvedOverrides = {};
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let saveQueue = Promise.resolve();
@@ -78,10 +79,45 @@
     );
   }
 
+  function resolvePageOverrides(groups) {
+    if (typeof registry.resolveOverrides !== "function") {
+      return { effectiveOverrides: remoteOverrides };
+    }
+
+    const itemMap = new Map();
+    const compatibilityMap = new Map();
+
+    groups.forEach((group, groupIndex) => {
+      (group.cards || []).forEach((card, cardIndex) => {
+        const key = cardIdentity(group, card, groupIndex, cardIndex);
+        itemMap.set(key, { key });
+        for (const compatibilityKey of identityService.cardCompatibilityKeys(
+          mode,
+          group,
+          card,
+          groupIndex,
+          cardIndex,
+        )) {
+          if (!compatibilityMap.has(compatibilityKey)) {
+            compatibilityMap.set(compatibilityKey, new Set());
+          }
+          compatibilityMap.get(compatibilityKey).add(key);
+        }
+      });
+    });
+
+    return registry.resolveOverrides(
+      mode,
+      { itemMap, compatibilityMap },
+      remoteOverrides,
+    );
+  }
+
   function applyGroups(groups) {
     const useLegacy = Boolean(
       currentUser && accountProfile.baseMode === "legacy",
     );
+    resolvedOverrides = resolvePageOverrides(groups).effectiveOverrides;
 
     groups.forEach((group, groupIndex) => {
       (group.cards || []).forEach((card, cardIndex) => {
@@ -93,7 +129,7 @@
         }
 
         const key = cardIdentity(group, card, groupIndex, cardIndex);
-        const override = normalizeOverride(remoteOverrides[key]);
+        const override = normalizeOverride(resolvedOverrides[key]);
         card.owned = override ? override.owned : useLegacy && card.legacyOwned;
         card.accountKey = key;
         const usesFixedSeriesCard = mode === "series" || mode === "ar";
@@ -560,6 +596,10 @@
       }
 
       remoteOverrides = nextOverrides;
+      resolvedOverrides = {
+        ...resolvedOverrides,
+        [key]: savedItem,
+      };
       notifyOwnerSheets(key);
       if (isLargeFixedCatalog && backgroundPublicSync) {
         queueLargeCatalogPublicSync();
@@ -584,7 +624,10 @@
   }
 
   async function saveOwned(key, owned) {
-    const current = normalizeOverride(remoteOverrides[key]) || {};
+    const current =
+      normalizeOverride(remoteOverrides[key]) ||
+      normalizeOverride(resolvedOverrides[key]) ||
+      {};
     return saveOverride(
       key,
       {

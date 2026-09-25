@@ -42,6 +42,10 @@ test("health dashboard stays read-only and explains safe next actions", () => {
   assert.match(health, /digitalCardBinderWorldExplorationOwnedV1/);
   assert.match(health, /sharedPokemonKeys/);
   assert.match(health, /fossilAccountKeys/);
+  assert.match(health, /registry\.resolveOverrides/);
+  assert.match(health, /reconnectedKeys/);
+  assert.match(health, /호환 복구/);
+  assert.match(health, /Firestore 원본 기록은 삭제하지 않았습니다/);
   assert.match(health, /GPT 수정 프롬프트 복사/);
   assert.match(health, /disconnectedPrompt/);
   assert.match(health, /catalogPrompt/);

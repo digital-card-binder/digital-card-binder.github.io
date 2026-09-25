@@ -75,6 +75,49 @@ test("shared identity helper returns the exact legacy Firestore keys", () => {
   );
 });
 
+test("shared identity helper exposes safe compatibility signatures without changing stored keys", () => {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(read("core/catalog/card-identity.js"), context);
+  const identity = context.window.DigitalCardBinder.cardIdentity;
+
+  assert.equal(
+    identity.storedCompatibilityKey(
+      "series",
+      "sv5M::sv5m_067/071::66",
+    ),
+    "series::sv5m::sv5m_067/071",
+  );
+  assert.deepEqual(
+    Array.from(
+      identity.cardCompatibilityKeys(
+        "artist",
+        { name: "Narumi Sato" },
+        {
+          set: "S5",
+          cardNumber: "041/070 U",
+          order: 69,
+          image:
+            "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_041.png?w=400",
+        },
+        0,
+        68,
+      ),
+    ).sort(),
+    [
+      "artist::narumi sato::s5::041/070 u",
+      "artist::narumi sato::s5r::041/070 u",
+    ],
+  );
+  assert.equal(
+    identity.storedCompatibilityKey(
+      "trainerPokemon",
+      "trainerPokemon::red::001/100::7",
+    ),
+    "",
+  );
+});
+
 test("shared Firebase account helper keeps existing document path semantics", () => {
   const source = read("core/account/firebase-account.js");
   assert.match(source, /config[?][.]userCollection \|\| "collections"/);

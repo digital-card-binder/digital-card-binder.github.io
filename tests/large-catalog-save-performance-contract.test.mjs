@@ -43,3 +43,12 @@ test("series and AR pages load the optimized manager cache version", async () =>
   assert.match(series, /firebase-page-manager[.]js[?]v=[0-9a-f]{12}/);
   assert.match(ar, /firebase-page-manager[.]js[?]v=[0-9a-f]{12}/);
 });
+
+
+test("page account manager applies compatibility resolution before ownership state", async () => {
+  const manager = await read("firebase-page-manager.js");
+  assert.match(manager, /function resolvePageOverrides\(groups\)/);
+  assert.match(manager, /registry\.resolveOverrides\(/);
+  assert.match(manager, /resolvedOverrides = resolvePageOverrides\(groups\)\.effectiveOverrides/);
+  assert.match(manager, /normalizeOverride\(resolvedOverrides\[key\]\)/);
+});
