@@ -45,8 +45,8 @@ test("series and AR pages load the optimized manager cache version", async () =>
 });
 
 
-test("page account manager applies compatibility resolution before ownership state", () => {
-  const manager = readFileSync("firebase-page-manager.js", "utf8");
+test("page account manager applies compatibility resolution before ownership state", async () => {
+  const manager = await read("firebase-page-manager.js");
   assert.match(manager, /function resolvePageOverrides\(groups\)/);
   assert.match(manager, /registry\.resolveOverrides\(/);
   assert.match(manager, /resolvedOverrides = resolvePageOverrides\(groups\)\.effectiveOverrides/);
