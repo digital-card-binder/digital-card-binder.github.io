@@ -393,6 +393,70 @@ test("the same physical card remains independent across catalogs", async () => {
   assert.equal(artist.ownedKeys.includes(artistKey), false);
 });
 
+test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
+  const seriesCatalog = await registry.loadCatalog("series");
+  const series = registry.resolveOverrides("series", seriesCatalog, {
+    "sv5M::sv5m_067/071::66": { owned: true },
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(series.reconnectedKeys)), [
+    {
+      legacyKey: "sv5M::sv5m_067/071::66",
+      currentKey: "sv5M::sv5m_067/071::69",
+      status: "compatibility",
+    },
+  ]);
+  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::69"].owned, true);
+  assert.deepEqual([...series.orphanKeys], []);
+
+  const artistCatalog = await registry.loadCatalog("artist");
+  const akira = registry.resolveOverrides("artist", artistCatalog, {
+    "AKIRA EGAWA::M3::024/080 U::1": { owned: true },
+  });
+  assert.equal(
+    akira.reconnectedKeys[0]?.currentKey,
+    "AKIRA EGAWA::M3::024/080 U::2",
+  );
+  assert.equal(akira.orphanKeys.length, 0);
+
+  const narumi = registry.resolveOverrides("artist", artistCatalog, {
+    "Narumi Sato::s5R::041/070 U::1": { owned: true },
+  });
+  assert.equal(
+    narumi.reconnectedKeys[0]?.currentKey,
+    "Narumi Sato::S5::041/070 U::69",
+  );
+  assert.equal(
+    narumi.effectiveOverrides["Narumi Sato::S5::041/070 U::69"].owned,
+    true,
+  );
+  assert.equal(narumi.orphanKeys.length, 0);
+});
+
+test("compatibility resolver refuses ambiguous matches and unrelated shared-document namespaces", async () => {
+  const ambiguousCatalog = {
+    itemMap: new Map(),
+    compatibilityMap: new Map([
+      ["series::svx::svx_001/001", new Set(["current-a", "current-b"])],
+    ]),
+  };
+  const ambiguous = registry.resolveOverrides("series", ambiguousCatalog, {
+    "svx::svx_001/001::0": { owned: true },
+  });
+  assert.deepEqual([...ambiguous.orphanKeys], ["svx::svx_001/001::0"]);
+  assert.equal(ambiguous.reconnectedKeys.length, 0);
+  assert.equal(ambiguous.conflicts.length, 1);
+
+  const pokemonCatalog = await registry.loadCatalog("pokemon");
+  const sharedNamespace = registry.resolveOverrides("pokemon", pokemonCatalog, {
+    "trainerPokemon::red::001/100::7": { owned: true },
+  });
+  assert.deepEqual(
+    [...sharedNamespace.orphanKeys],
+    ["trainerPokemon::red::001/100::7"],
+  );
+  assert.equal(sharedNamespace.reconnectedKeys.length, 0);
+});
+
 test("people ownership stays inside nationalDex peopleOwned", async () => {
   const catalog = await registry.loadCatalog("people");
   const personId = catalog.items[0].key;
