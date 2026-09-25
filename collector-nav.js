@@ -369,7 +369,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration", "pokemon-search", "health", "planner", "operations"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration", "pokemon-search", "health", "operations"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
@@ -461,11 +461,6 @@
   ensureProfileShortcutWithoutPanel();
   addCardLayoutToggle();
   addHeroActions();
-
-  const historyScript = document.createElement("script");
-  historyScript.src = `./collection-history.js?v=${SITE_BUILD_VERSION}`;
-  historyScript.defer = true;
-  document.head?.append(historyScript);
 
   const tradeEligiblePages = new Set([
     "national.html",
