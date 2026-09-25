@@ -515,12 +515,22 @@
     for (const collectionId of ["series", "artist", "ar"]) {
       const meta = registry.COLLECTIONS[collectionId];
       const catalog = catalogByCollection.get(collectionId);
-      pushOverrideResult(
+      const source = sourceByCollection.get(collectionId) || {};
+      const resolution = registry.resolveOverrides(
         collectionId,
-        meta.title,
-        sourceByCollection.get(collectionId) || {},
-        new Set(catalog.items.map((item) => item.key)),
+        catalog,
+        source.overrides,
       );
+      results.push({
+        id: collectionId,
+        title: meta.title,
+        orphanKeys: resolution.orphanKeys,
+        reconnectedKeys: resolution.reconnectedKeys,
+        conflicts: resolution.conflicts,
+        note: resolution.reconnectedKeys.length
+          ? "예전 카드 키를 현재 카드에 유일하게 대응할 수 있어 읽기 호환으로 복구했습니다. Firestore 원본 키는 삭제하지 않았습니다."
+          : "",
+      });
     }
 
     const pokemonCatalog = catalogByCollection.get("pokemon");
@@ -740,15 +750,28 @@
     );
   }
 
+  function reconnectedCount(result) {
+    return (result?.results || []).reduce(
+      (sum, item) => sum + (item.reconnectedKeys?.length || 0),
+      0,
+    );
+  }
+
   function renderAccount(result) {
     elements.accountGrid.replaceChildren();
     elements.accountDetails.replaceChildren();
     const totalDisconnected = disconnectedCount(result);
+    const totalReconnected = reconnectedCount(result);
 
     result.results.forEach((item) => {
       const card = document.createElement("article");
       card.className = "health-account-card";
-      const statusText = item.orphanKeys.length ? "확인 필요" : "정상";
+      const reconnected = item.reconnectedKeys?.length || 0;
+      const statusText = item.orphanKeys.length
+        ? "확인 필요"
+        : reconnected
+          ? "호환 복구"
+          : "정상";
       card.innerHTML = "<span></span><strong></strong><small></small>";
       card.children[0].textContent = item.title;
       card.children[1].textContent = statusText;
@@ -757,13 +780,24 @@
         : "health-cell-ok";
       card.children[2].textContent = item.orphanKeys.length
         ? `연결 끊긴 보유 기록 ${formatNumber(item.orphanKeys.length)}건`
-        : "연결 끊긴 보유 기록 없음";
+        : reconnected
+          ? `예전 키 ${formatNumber(reconnected)}건을 현재 카드에 호환 연결`
+          : "연결 끊긴 보유 기록 없음";
       elements.accountGrid.append(card);
       if (item.orphanKeys.length) {
         makeDetails(
           elements.accountDetails,
           `${item.title} 연결 끊긴 보유 기록`,
           item.orphanKeys,
+        );
+      }
+      if (reconnected) {
+        makeDetails(
+          elements.accountDetails,
+          `${item.title} 호환 복구된 예전 키`,
+          item.reconnectedKeys.map((entry) => ({
+            label: `${entry.legacyKey} → ${entry.currentKey}`,
+          })),
         );
       }
     });
@@ -780,12 +814,16 @@
       totalDisconnected ? "warning" : "ok",
       totalDisconnected
         ? `확인 ${formatNumber(totalDisconnected)}`
-        : "정상",
+        : totalReconnected
+          ? `정상 · 호환 복구 ${formatNumber(totalReconnected)}`
+          : "정상",
     );
     elements.accountStatus.dataset.state = totalDisconnected ? "warning" : "ok";
     elements.accountStatus.textContent = totalDisconnected
       ? "현재 도감과 연결되지 않는 예전 기록이 있습니다. 건강검진에서는 삭제하지 않으며, 아래 수정 요청문으로 원인부터 확인하세요."
-      : "현재 도감과 연결이 끊긴 보유 기록이 없습니다.";
+      : totalReconnected
+        ? `예전 키 ${formatNumber(totalReconnected)}건은 현재 카드와 안전하게 호환 연결했습니다. Firestore 원본 기록은 삭제하지 않았습니다.`
+        : "현재 도감과 연결이 끊긴 보유 기록이 없습니다.";
     return totalDisconnected;
   }
 
