@@ -1,0 +1,270 @@
+name: Temporary official series diff audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/official-series-diff-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Download completed 2-1 inventory artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: official-inventory-audit
+          run-id: 36231144709
+          github-token: ${{ github.token }}
+          path: audit-input
+      - name: Normalize and compare with merged series catalog
+        run: |
+          node <<'NODE'
+          const fs=require("fs");
+
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase().replace(/\s+/g,"");
+          const normNum=v=>{
+            const s=clean(v);
+            if(/^\d+$/.test(s)) return String(Number(s));
+            return s.toLowerCase();
+          };
+          const stripUrl=v=>clean(v).split(/[?#]/,1)[0].replace(/^http:/i,"https:");
+          const basename=v=>stripUrl(v).split("/").pop()||"";
+          const genericSet=new Set(["promo","temp","unknown",""]);
+          function localCodeParts(card){
+            const raw=clean(card?.code||card?.meta);
+            const m=raw.match(/^([^_]+)_0*([^/\s]+)(?:\/|$)/i);
+            if(m) return {set:m[1],number:normNum(m[2])};
+            const n=raw.match(/_0*(\d+)(?:\/|$)/);
+            return {set:"",number:n?normNum(n[1]):""};
+          }
+          function localImageParts(card){
+            const image=stripUrl(card?.image);
+            const path=image.split("/wmimages/")[1]||"";
+            const parts=path.split("/");
+            if(parts.length<3)return {era:"",folder:"",fileSet:"",number:""};
+            const era=parts[0], folder=parts[1], file=parts.at(-1).replace(/\.[^.]+$/,"");
+            const m=file.match(/^([^_]+).*?_0*([0-9]{1,4})(?:[^0-9]|$)/i);
+            return {era,folder,fileSet:m?.[1]||"",number:m?normNum(m[2]):""};
+          }
+          function sourceCardNum(card){
+            return clean(card?.source).match(/\/cards\/detail\/([^/?#]+)/i)?.[1]||"";
+          }
+          function inferEra(group){
+            if(clean(group?.era))return clean(group.era).toUpperCase();
+            const c=clean(group?.code).toLowerCase();
+            if(c.startsWith("origin")||c.startsWith("base"))return"ORIGIN";
+            if(c.startsWith("adv"))return"ADV";
+            if(c.startsWith("dp")||/^bs\d/i.test(c))return"DP";
+            if(c.startsWith("bw")||["bd","td","fs"].includes(c))return"BW";
+            if(c.startsWith("xy")||c.startsWith("cp"))return"XY";
+            if(c.startsWith("sm"))return"SM";
+            if(c.startsWith("sv"))return"SV";
+            if(c.startsWith("m"))return"M";
+            if(c.startsWith("s"))return"S";
+            return"UNKNOWN";
+          }
+          function mergeGroups(base,legacy){
+            const merged=[...base];
+            for(const extra of legacy){
+              const key=norm(extra?.code);
+              const i=merged.findIndex(g=>norm(g?.code)===key);
+              if(i>=0)merged[i]=extra; else merged.push(extra);
+            }
+            return merged;
+          }
+
+          const officialPayload=JSON.parse(fs.readFileSync("audit-input/official-inventory.json","utf8"));
+          const base=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const groups=mergeGroups(base,legacy);
+          const official=officialPayload.cards;
+
+          const localCards=[];
+          groups.forEach((group,gi)=>{
+            (group.cards||[]).forEach((card,ci)=>{
+              const cp=localCodeParts(card), ip=localImageParts(card);
+              localCards.push({
+                era:inferEra(group),groupCode:clean(group.code),groupName:clean(group.displayName||group.title||group.name),
+                cardCode:clean(card.code||card.meta),name:clean(card.name||card.pokemonName),rawName:clean(card.name),
+                rarity:clean(card.rarity),image:clean(card.image),source:clean(card.source),
+                sourceCardNum:sourceCardNum(card),codeSet:cp.set,number:cp.number,
+                imageSet:ip.fileSet||ip.folder,imageNumber:ip.number,
+                runtimeKey:[clean(group.code),clean(card.code||card.meta||ci),Number.isInteger(card.accountIndex)?card.accountIndex:ci].join("::"),
+              });
+            });
+          });
+
+          const officialSlots=new Map();
+          const officialRecordToSlot=new Map();
+          function slotKeyFor(o){
+            const actual=norm(o.actualSetCode);
+            const number=normNum(o.printedNumber);
+            const groups=(o.matchedLegacyGroups||[]).map(x=>norm(x)).filter(Boolean);
+            let logicalSet=actual;
+            let confidence="high";
+            if(genericSet.has(actual)){
+              if(groups.length===1){ logicalSet=groups[0]; confidence="medium"; }
+              else { return {key:`record::${o.cardNum}::${stripUrl(o.imageUrl)}`,logicalSet:actual,number,confidence:"low"}; }
+            }
+            return {key:`slot::${logicalSet}::${number}`,logicalSet,number,confidence};
+          }
+          for(const o of official){
+            const sk=slotKeyFor(o);
+            let slot=officialSlots.get(sk.key);
+            if(!slot){
+              slot={key:sk.key,logicalSet:sk.logicalSet,printedNumber:sk.number,confidence:sk.confidence,
+                actualSetCodes:new Set(),imageEras:new Set(),imageSets:new Set(),cardNums:new Set(),images:new Set(),
+                products:new Set(),matchedLegacyGroups:new Set(),sourceModes:new Set(),recordCount:0,records:[]};
+              officialSlots.set(sk.key,slot);
+            }
+            slot.recordCount++;
+            slot.actualSetCodes.add(clean(o.actualSetCode));
+            slot.imageEras.add(clean(o.imageEra));
+            slot.imageSets.add(clean(o.imageSet));
+            slot.cardNums.add(clean(o.cardNum));
+            slot.images.add(stripUrl(o.imageUrl));
+            (o.officialProducts||[]).forEach(x=>slot.products.add(clean(x)));
+            (o.matchedLegacyGroups||[]).forEach(x=>slot.matchedLegacyGroups.add(clean(x)));
+            (o.sourceModes||[]).forEach(x=>slot.sourceModes.add(clean(x)));
+            if(slot.records.length<4)slot.records.push({cardNum:o.cardNum,imageUrl:o.imageUrl,actualSetCode:o.actualSetCode,printedNumber:o.printedNumber});
+            officialRecordToSlot.set(o.key,sk.key);
+          }
+
+          const byCardNum=new Map(), byImage=new Map(), bySetNum=new Map(), byLegacyGroupNum=new Map();
+          for(const [key,slot] of officialSlots){
+            for(const id of slot.cardNums) if(id) { if(!byCardNum.has(id))byCardNum.set(id,new Set()); byCardNum.get(id).add(key); }
+            for(const img of slot.images) if(img) { if(!byImage.has(img))byImage.set(img,new Set()); byImage.get(img).add(key); }
+            if(slot.logicalSet&&slot.printedNumber&&slot.confidence!=="low"){
+              const k=`${norm(slot.logicalSet)}::${normNum(slot.printedNumber)}`;
+              if(!bySetNum.has(k))bySetNum.set(k,new Set()); bySetNum.get(k).add(key);
+            }
+            for(const g of slot.matchedLegacyGroups){
+              const k=`${norm(g)}::${normNum(slot.printedNumber)}`;
+              if(!byLegacyGroupNum.has(k))byLegacyGroupNum.set(k,new Set()); byLegacyGroupNum.get(k).add(key);
+            }
+          }
+
+          function uniqueCandidate(map,key){
+            const set=map.get(key); return set&&set.size===1?[...set][0]:null;
+          }
+          const matchedSlots=new Map(), localMatches=[], localOnly=[];
+          const ambiguous=[];
+          function bind(local,slotKey,method){
+            matchedSlots.set(slotKey,(matchedSlots.get(slotKey)||0)+1);
+            localMatches.push({runtimeKey:local.runtimeKey,era:local.era,groupCode:local.groupCode,cardCode:local.cardCode,name:local.name,slotKey,method});
+          }
+          for(const l of localCards){
+            let slotKey=null,method="";
+            if(l.sourceCardNum){
+              slotKey=uniqueCandidate(byCardNum,l.sourceCardNum);
+              if(slotKey)method="official-detail-cardnum";
+            }
+            if(!slotKey&&l.image){
+              slotKey=uniqueCandidate(byImage,stripUrl(l.image));
+              if(slotKey)method="official-image-exact";
+            }
+            const candidates=[];
+            if(!slotKey){
+              for(const setCode of [l.codeSet,l.imageSet,l.groupCode]){
+                if(!setCode||!l.number)continue;
+                const k=`${norm(setCode)}::${l.number}`;
+                const s=bySetNum.get(k);
+                if(s)for(const x of s)candidates.push(x);
+              }
+              const uniq=[...new Set(candidates)];
+              if(uniq.length===1){slotKey=uniq[0];method="set-number";}
+              else if(uniq.length>1){ambiguous.push({runtimeKey:l.runtimeKey,groupCode:l.groupCode,cardCode:l.cardCode,candidates:uniq.slice(0,12)});}
+            }
+            if(!slotKey&&l.groupCode&&l.number){
+              slotKey=uniqueCandidate(byLegacyGroupNum,`${norm(l.groupCode)}::${l.number}`);
+              if(slotKey)method="legacy-group-number";
+            }
+            if(slotKey)bind(l,slotKey,method);
+            else localOnly.push(l);
+          }
+
+          const officialOnly=[];
+          for(const [key,slot] of officialSlots){
+            if(!matchedSlots.has(key)){
+              officialOnly.push({
+                key,logicalSet:slot.logicalSet,printedNumber:slot.printedNumber,confidence:slot.confidence,
+                recordCount:slot.recordCount,actualSetCodes:[...slot.actualSetCodes],imageEras:[...slot.imageEras],
+                imageSets:[...slot.imageSets],cardNums:[...slot.cardNums].slice(0,8),products:[...slot.products].slice(0,8),
+                matchedLegacyGroups:[...slot.matchedLegacyGroups],sourceModes:[...slot.sourceModes],records:slot.records
+              });
+            }
+          }
+
+          const duplicateLocalToSameOfficial=[...matchedSlots].filter(([,n])=>n>1).map(([slotKey,localCount])=>({slotKey,localCount}));
+          const matchMethods={};
+          for(const m of localMatches)matchMethods[m.method]=(matchMethods[m.method]||0)+1;
+
+          const eraSummary={};
+          for(const era of ["ORIGIN","ADV","DP","BW","XY","SM","S","SV","M","UNKNOWN"]){
+            const locals=localCards.filter(x=>x.era===era);
+            const matched=localMatches.filter(x=>x.era===era);
+            const only=localOnly.filter(x=>x.era===era);
+            if(locals.length)eraSummary[era]={localCount:locals.length,matchedCount:matched.length,localOnlyCount:only.length};
+          }
+
+          const officialOnlyByImageEra={};
+          for(const x of officialOnly){
+            const era=x.imageEras[0]||"UNKNOWN";
+            officialOnlyByImageEra[era]=(officialOnlyByImageEra[era]||0)+1;
+          }
+          const lowConfidenceOfficialSlots=[...officialSlots.values()].filter(x=>x.confidence==="low").length;
+
+          const result={
+            schemaVersion:1,
+            generatedAt:new Date().toISOString(),
+            sources:{
+              officialInventoryRunId:36231144709,
+              officialCollectedAt:officialPayload.summary?.collectedAt,
+              localFiles:["data/series.json","data/series-legacy.json"]
+            },
+            rules:{
+              officialCollapse:"same normalized actual set code + printed card number => one slot; generic PROMO/temp without unique legacy group stays record-level",
+              localMatchOrder:["official detail CardNum","exact official image URL","set code + printed number","legacy matched group + printed number"],
+              mutation:"read-only; no series/Firebase changes"
+            },
+            summary:{
+              localCardCount:localCards.length,
+              officialRawRecordCount:official.length,
+              officialNormalizedSlotCount:officialSlots.size,
+              collapsedOfficialVariantRows:official.length-officialSlots.size,
+              matchedLocalCardCount:localMatches.length,
+              localOnlyCount:localOnly.length,
+              officialOnlySlotCount:officialOnly.length,
+              ambiguousLocalMatchCount:ambiguous.length,
+              duplicateLocalToSameOfficialSlotCount:duplicateLocalToSameOfficial.length,
+              lowConfidenceOfficialSlotCount:lowConfidenceOfficialSlots,
+              matchMethods,
+              eraSummary,
+              officialOnlyByImageEra
+            },
+            duplicateLocalToSameOfficial,
+            ambiguous,
+            localOnly,
+            officialOnly,
+            matches:localMatches
+          };
+          fs.writeFileSync("official-series-diff-audit.json",JSON.stringify(result,null,2));
+          console.log("DIFF_SUMMARY="+JSON.stringify(result.summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-series-diff-audit
+          path: official-series-diff-audit.json
+          if-no-files-found: error
