@@ -44,9 +44,10 @@ test("dynamic trade helper follows centralized build versioning", () => {
 
   assert.match(nav, /trade-offer[.]js[?]v=[$][{]SITE_BUILD_VERSION[}]/);
   assert.doesNotMatch(nav, /20260821-4/);
-  assert.match(sync, /EXTRA_ASSETS[\s\S]*trade-offer[.]js[\s\S]*collection-history[.]js/);
+  assert.match(sync, /EXTRA_ASSETS[\s\S]*trade-offer[.]js/);
+  assert.doesNotMatch(sync, /collection-history[.]js/);
   assert.ok(sync.includes("for (const asset of EXTRA_ASSETS) assets.add(asset);"));
   assert.equal(manifest.assets["trade-offer.js"], gitBlobVersion(read("trade-offer.js")));
-  assert.equal(manifest.assets["collection-history.js"], gitBlobVersion(read("collection-history.js")));
-  assert.match(nav, /collection-history[.]js[?]v=[$][{]SITE_BUILD_VERSION[}]/);
+  assert.equal(manifest.assets["collection-history.js"], undefined);
+  assert.doesNotMatch(nav, /collection-history[.]js/);
 });
