@@ -543,7 +543,6 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   const order = [
     'page: "index.html"',
     'page: "pokemon-search.html"',
-    'page: "planner.html"',
     'section: "주요 도감"',
     'page: "national.html"',
     'page: "series.html"',
@@ -577,7 +576,6 @@ test("detail pages use the finalized navigation names in their static markup", a
   const expected = [
     ["index.html", "통합 대시보드"],
     ["pokemon-search.html", "카드 검색"],
-    ["planner.html", "수집 관리"],
     ["national.html", "전국도감"],
     ["series.html", "시리즈 도감"],
     ["ar.html", "AR 전종도감"],
