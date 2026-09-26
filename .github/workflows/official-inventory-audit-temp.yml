@@ -18,36 +18,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Inspect official search response metadata
+      - name: Inspect official row schema
         shell: bash
         run: |
           node <<'NODE'
           const BASE="https://pokemoncard.co.kr";
-          const form=new URLSearchParams({
-            action:"get_more_cards",limit:"0",GoodsName:"",CardTypeNum:"1",CardType:"all",
-            order:"ASC",orderby:"CardNum",CardMonType:"all",Weakness:"all",Resistance:"all",
-            TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"
-          });
-          const res=await fetch(`${BASE}/v2/ajax2_dev2`,{
-            method:"POST",
-            headers:{
-              "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
-              "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5",
-              "Content-Type":"application/x-www-form-urlencoded",
-              "Referer":`${BASE}/cards`,
-              "X-Requested-With":"XMLHttpRequest"
-            },
-            body:form.toString(),
-            signal:AbortSignal.timeout(45000)
-          });
-          const text=await res.text();
-          let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
-          const obj=JSON.parse(text.slice(start));
-          const meta={};
-          for(const [k,v] of Object.entries(obj)){
-            if(k==="result") continue;
-            meta[k]=v;
+          async function page(cardType){
+            const form=new URLSearchParams({
+              action:"get_more_cards",limit:"0",GoodsName:"",CardTypeNum:String(cardType),CardType:"all",
+              order:"ASC",orderby:"CardNum"
+            });
+            if(cardType===1){
+              for(const [k,v] of Object.entries({CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"})) form.set(k,v);
+            }
+            const res=await fetch(`${BASE}/v2/ajax2_dev2`,{
+              method:"POST",
+              headers:{
+                "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
+                "Content-Type":"application/x-www-form-urlencoded",
+                "Referer":`${BASE}/cards`,
+                "X-Requested-With":"XMLHttpRequest"
+              },
+              body:form.toString(),signal:AbortSignal.timeout(45000)
+            });
+            const text=await res.text(); let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
+            const obj=JSON.parse(text.slice(start));
+            const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
+            console.log("SCHEMA_"+cardType+"="+JSON.stringify({meta:Object.fromEntries(Object.entries(obj).filter(([k])=>k!=="result")),keys:Object.keys(rows[0]||{}),row:rows[0]||null}));
           }
-          console.log("RESPONSE_META="+JSON.stringify(meta));
-          console.log("RESULT_COUNT="+(Array.isArray(obj.result)?obj.result.length:Object.keys(obj.result||{}).length));
+          for(const t of [1,2,3]) await page(t);
           NODE
