@@ -17,9 +17,11 @@ function gitBlobVersion(source) {
 
 test("site preparation is explicit and verification never mutates branches", () => {
   const pkg = JSON.parse(read("package.json"));
-  assert.equal(pkg.scripts["site:prepare"], "npm run search-index:sync && npm run shell:sync && npm run versions:sync");
-  assert.equal(pkg.scripts["site:check"], "npm run search-index:check && npm run shell:check && npm run versions:check");
+  assert.equal(pkg.scripts["site:prepare"], "npm run series-inventory:sync && npm run search-index:sync && npm run shell:sync && npm run versions:sync");
+  assert.equal(pkg.scripts["site:check"], "npm run series-inventory:check && npm run search-index:check && npm run shell:check && npm run versions:check");
   assert.match(pkg.scripts.test, /^npm run site:check && /);
+  assert.equal(pkg.scripts["series-inventory:sync"], "node scripts/audit-series-inventory.mjs");
+  assert.equal(pkg.scripts["series-inventory:check"], "node scripts/audit-series-inventory.mjs --check");
 
   const workflow = read(".github/workflows/verify.yml");
   assert.doesNotMatch(workflow, /contents:\s*write/);

@@ -1,0 +1,3936 @@
+{
+  "schemaVersion": 1,
+  "sourceFiles": [
+    "data/series.json",
+    "data/series-legacy.json"
+  ],
+  "mergeRule": "Group code is matched case-insensitively; a legacy group replaces the same base group, otherwise it is appended.",
+  "cardIdentityRule": "lowercase(set code) + '::' + lowercase(card code)",
+  "summary": {
+    "setCount": 200,
+    "cardCount": 15670,
+    "duplicateSetCodeCount": 0,
+    "duplicateCardIdentityCount": 0,
+    "metadata": {
+      "missingCode": 0,
+      "missingName": 3156,
+      "missingLabel": 0,
+      "missingImage": 0,
+      "missingSource": 4215,
+      "missingRarity": 15557,
+      "missingIllustrator": 15670,
+      "pokemonNameFallback": 3156
+    }
+  },
+  "eras": [
+    {
+      "era": "ORIGIN",
+      "setCount": 1,
+      "cardCount": 102,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 102,
+      "missingIllustrator": 102
+    },
+    {
+      "era": "ADV",
+      "setCount": 5,
+      "cardCount": 121,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 121,
+      "missingIllustrator": 121
+    },
+    {
+      "era": "DP",
+      "setCount": 16,
+      "cardCount": 598,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 598,
+      "missingIllustrator": 598
+    },
+    {
+      "era": "BW",
+      "setCount": 37,
+      "cardCount": 1477,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 1477,
+      "missingIllustrator": 1477
+    },
+    {
+      "era": "XY",
+      "setCount": 37,
+      "cardCount": 2313,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 2313,
+      "missingIllustrator": 2313
+    },
+    {
+      "era": "SM",
+      "setCount": 40,
+      "cardCount": 3608,
+      "missingName": 0,
+      "missingLabel": 0,
+      "missingSource": 0,
+      "missingRarity": 3608,
+      "missingIllustrator": 3608
+    },
+    {
+      "era": "S",
+      "setCount": 31,
+      "cardCount": 3267,
+      "missingName": 31,
+      "missingLabel": 0,
+      "missingSource": 31,
+      "missingRarity": 3267,
+      "missingIllustrator": 3267
+    },
+    {
+      "era": "SV",
+      "setCount": 25,
+      "cardCount": 3166,
+      "missingName": 2496,
+      "missingLabel": 0,
+      "missingSource": 3166,
+      "missingRarity": 3166,
+      "missingIllustrator": 3166
+    },
+    {
+      "era": "M",
+      "setCount": 8,
+      "cardCount": 1018,
+      "missingName": 629,
+      "missingLabel": 0,
+      "missingSource": 1018,
+      "missingRarity": 905,
+      "missingIllustrator": 1018
+    }
+  ],
+  "imageHosts": {
+    "cards.image.pokemonkorea.co.kr": 14701,
+    "cdn.collectory.cc": 57,
+    "cdn6966.templcdn.com": 1,
+    "k-tcgpanda.com": 13,
+    "static.tcgexchange.kr": 715,
+    "tcgbox.co.kr": 183
+  },
+  "sourceHosts": {
+    "(missing)": 4215,
+    "k-tcgpanda.com": 13,
+    "pokemoncard.co.kr": 10407,
+    "tcgbox.co.kr": 181,
+    "www.dogam.app": 854
+  },
+  "duplicateSetCodes": [],
+  "duplicateCardIdentities": [],
+  "sets": [
+    {
+      "era": "S",
+      "code": "s1W",
+      "title": "소드 (68/060)",
+      "displayName": "소드",
+      "cardCount": 68,
+      "firstCardCode": "s1w_001/060",
+      "lastCardCode": "s1w_068/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 68,
+        "illustrator": 68
+      }
+    },
+    {
+      "era": "S",
+      "code": "s1H",
+      "title": "실드 (68/060)",
+      "displayName": "실드",
+      "cardCount": 68,
+      "firstCardCode": "s1h_001/060",
+      "lastCardCode": "s1h_068/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 68,
+        "illustrator": 68
+      }
+    },
+    {
+      "era": "S",
+      "code": "s1a",
+      "title": "VMAX라이징 (78/070)",
+      "displayName": "VMAX라이징",
+      "cardCount": 78,
+      "firstCardCode": "s1a_001/070",
+      "lastCardCode": "s1a_078/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 78,
+        "illustrator": 78
+      }
+    },
+    {
+      "era": "S",
+      "code": "s2",
+      "title": "반역크래시 (106/096)",
+      "displayName": "반역크래시",
+      "cardCount": 106,
+      "firstCardCode": "s2_001/096",
+      "lastCardCode": "s2_106/096",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 106,
+        "illustrator": 106
+      }
+    },
+    {
+      "era": "S",
+      "code": "s2a",
+      "title": "폭염워커 (78/070)",
+      "displayName": "폭염워커",
+      "cardCount": 78,
+      "firstCardCode": "s2a_001/070",
+      "lastCardCode": "s2a_078/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 78,
+        "illustrator": 78
+      }
+    },
+    {
+      "era": "S",
+      "code": "s3",
+      "title": "무한존 (110/100)",
+      "displayName": "무한존",
+      "cardCount": 110,
+      "firstCardCode": "s3_001/100",
+      "lastCardCode": "s3_110/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 110,
+        "illustrator": 110
+      }
+    },
+    {
+      "era": "S",
+      "code": "s3a",
+      "title": "전설의 고동 (84/076)",
+      "displayName": "전설의 고동",
+      "cardCount": 84,
+      "firstCardCode": "s3a_001/076",
+      "lastCardCode": "s3a_084/076",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 84,
+        "illustrator": 84
+      }
+    },
+    {
+      "era": "S",
+      "code": "s4",
+      "title": "앙천의 볼트태클 (111/100)",
+      "displayName": "앙천의 볼트태클",
+      "cardCount": 111,
+      "firstCardCode": "s4_001/100",
+      "lastCardCode": "s4_111/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 111,
+        "illustrator": 111
+      }
+    },
+    {
+      "era": "S",
+      "code": "s4a",
+      "title": "샤이니스타 V (326/190)",
+      "displayName": "샤이니스타 V",
+      "cardCount": 326,
+      "firstCardCode": "s4a_001/190",
+      "lastCardCode": "s4a_326/190",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 326,
+        "illustrator": 326
+      }
+    },
+    {
+      "era": "S",
+      "code": "s5I",
+      "title": "일격마스터 (81/070)",
+      "displayName": "일격마스터",
+      "cardCount": 81,
+      "firstCardCode": "s5i_001/070",
+      "lastCardCode": "s5i_081/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 81,
+        "illustrator": 81
+      }
+    },
+    {
+      "era": "S",
+      "code": "s5R",
+      "title": "연격마스터 (81/070)",
+      "displayName": "연격마스터",
+      "cardCount": 81,
+      "firstCardCode": "s5r_001/070",
+      "lastCardCode": "s5r_081/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 81,
+        "illustrator": 81
+      }
+    },
+    {
+      "era": "S",
+      "code": "s5a",
+      "title": "쌍벽의 파이터 (70/070)",
+      "displayName": "쌍벽의 파이터",
+      "cardCount": 70,
+      "firstCardCode": "s5a_001/070",
+      "lastCardCode": "s5a_070/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 70,
+        "illustrator": 70
+      }
+    },
+    {
+      "era": "S",
+      "code": "s6H",
+      "title": "백은의 랜스 (83/070)",
+      "displayName": "백은의 랜스",
+      "cardCount": 83,
+      "firstCardCode": "s6h_001/070",
+      "lastCardCode": "s6h_083/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 83,
+        "illustrator": 83
+      }
+    },
+    {
+      "era": "S",
+      "code": "s6K",
+      "title": "칠흑의 가이스트 (83/070)",
+      "displayName": "칠흑의 가이스트",
+      "cardCount": 83,
+      "firstCardCode": "s6k_001/070",
+      "lastCardCode": "s6k_083/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 83,
+        "illustrator": 83
+      }
+    },
+    {
+      "era": "S",
+      "code": "s6a",
+      "title": "이브이 히어로즈 (87/069)",
+      "displayName": "이브이 히어로즈",
+      "cardCount": 87,
+      "firstCardCode": "s6a_001/069",
+      "lastCardCode": "s6a_087/069",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 87,
+        "illustrator": 87
+      }
+    },
+    {
+      "era": "S",
+      "code": "s7D",
+      "title": "마천퍼펙트 (79/067)",
+      "displayName": "마천퍼펙트",
+      "cardCount": 79,
+      "firstCardCode": "s7d_001/067",
+      "lastCardCode": "s7d_079/067",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 79,
+        "illustrator": 79
+      }
+    },
+    {
+      "era": "S",
+      "code": "s7R",
+      "title": "창공스트림 (79/067)",
+      "displayName": "창공스트림",
+      "cardCount": 79,
+      "firstCardCode": "s7r_001/067",
+      "lastCardCode": "s7r_079/067",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 79,
+        "illustrator": 79
+      }
+    },
+    {
+      "era": "S",
+      "code": "s8",
+      "title": "퓨전아츠 (101/100)",
+      "displayName": "퓨전아츠",
+      "cardCount": 101,
+      "firstCardCode": "s8_001/100",
+      "lastCardCode": "s8_110/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 101,
+        "illustrator": 101
+      }
+    },
+    {
+      "era": "S",
+      "code": "s8a",
+      "title": "25th ANNIVERSARY COLLECTION (31/028)",
+      "displayName": "25th ANNIVERSARY COLLECTION",
+      "cardCount": 31,
+      "firstCardCode": "s8a_001/028",
+      "lastCardCode": "s8a_038/028",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 31,
+        "illustrator": 31
+      }
+    },
+    {
+      "era": "S",
+      "code": "s8b",
+      "title": "VMAX 클라이맥스 (270/184)",
+      "displayName": "VMAX 클라이맥스",
+      "cardCount": 270,
+      "firstCardCode": "s8b_001/184",
+      "lastCardCode": "s8b_285/184",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 270,
+        "illustrator": 270
+      }
+    },
+    {
+      "era": "S",
+      "code": "s9",
+      "title": "스타버스 (125/100)",
+      "displayName": "스타버스",
+      "cardCount": 125,
+      "firstCardCode": "s9_001/100",
+      "lastCardCode": "s9_127/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 125,
+        "illustrator": 125
+      }
+    },
+    {
+      "era": "S",
+      "code": "s9a",
+      "title": "배틀리전 (87/067)",
+      "displayName": "배틀리전",
+      "cardCount": 87,
+      "firstCardCode": "s9a_001/067",
+      "lastCardCode": "s9a_093/067",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 87,
+        "illustrator": 87
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10P",
+      "title": "스페이스 저글러 (85/067)",
+      "displayName": "스페이스 저글러",
+      "cardCount": 85,
+      "firstCardCode": "s10p_001/067",
+      "lastCardCode": "s10p_088/067",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 85,
+        "illustrator": 85
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10D",
+      "title": "타임게이저 (86/067)",
+      "displayName": "타임게이저",
+      "cardCount": 86,
+      "firstCardCode": "s10d_003/067",
+      "lastCardCode": "s10d_088/067",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 86,
+        "illustrator": 86
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10a",
+      "title": "다크판타스마 (95/071)",
+      "displayName": "다크판타스마",
+      "cardCount": 95,
+      "firstCardCode": "s10a_001/071",
+      "lastCardCode": "s10a_099/071",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 95,
+        "illustrator": 95
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10b",
+      "title": "Pokémon GO (100/071)",
+      "displayName": "Pokémon GO",
+      "cardCount": 100,
+      "firstCardCode": "s10b_001/071",
+      "lastCardCode": "s10b_101/071",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 100,
+        "illustrator": 100
+      }
+    },
+    {
+      "era": "S",
+      "code": "s11",
+      "title": "로스트어비스 (123/100)",
+      "displayName": "로스트어비스",
+      "cardCount": 123,
+      "firstCardCode": "s11_001/100",
+      "lastCardCode": "s11_127/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 123,
+        "illustrator": 123
+      }
+    },
+    {
+      "era": "S",
+      "code": "s11a",
+      "title": "백열의 아르카나 (89/068)",
+      "displayName": "백열의 아르카나",
+      "cardCount": 89,
+      "firstCardCode": "s11a_001/068",
+      "lastCardCode": "s11a_094/068",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 89,
+        "illustrator": 89
+      }
+    },
+    {
+      "era": "S",
+      "code": "s12",
+      "title": "패러다임트리거 (120/098)",
+      "displayName": "패러다임트리거",
+      "cardCount": 120,
+      "firstCardCode": "s12_001/098",
+      "lastCardCode": "s12_125/098",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 120,
+        "illustrator": 120
+      }
+    },
+    {
+      "era": "S",
+      "code": "s12a",
+      "title": "VSTAR 유니버스 (252/172)",
+      "displayName": "VSTAR 유니버스",
+      "cardCount": 252,
+      "firstCardCode": "s12a_001/172",
+      "lastCardCode": "s12a_262/172",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 252,
+        "illustrator": 252
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm1S",
+      "title": "썬 컬렉션 (73장)",
+      "displayName": "썬 컬렉션",
+      "cardCount": 73,
+      "firstCardCode": "sm1s_001/060",
+      "lastCardCode": "sm1s_073/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 73,
+        "illustrator": 73
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm1M",
+      "title": "문 컬렉션 (73장)",
+      "displayName": "문 컬렉션",
+      "cardCount": 73,
+      "firstCardCode": "sm1m_001/060",
+      "lastCardCode": "sm1m_073/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 73,
+        "illustrator": 73
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm1+",
+      "title": "썬&문 (77장)",
+      "displayName": "썬&문",
+      "cardCount": 77,
+      "firstCardCode": "sm1plus_001/051",
+      "lastCardCode": "sm1plus_077/051",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 77,
+        "illustrator": 77
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm60A",
+      "title": "전력 배틀 스타터 세트 「루가루암 GX」 (27장)",
+      "displayName": "전력 배틀 스타터 세트 「루가루암 GX」",
+      "cardCount": 27,
+      "firstCardCode": "sm60a_001",
+      "lastCardCode": "sm60a_027",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 27,
+        "illustrator": 27
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm2K",
+      "title": "알로라의 햇빛 (62장)",
+      "displayName": "알로라의 햇빛",
+      "cardCount": 62,
+      "firstCardCode": "sm2k_001/050",
+      "lastCardCode": "sm2k_062/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 62,
+        "illustrator": 62
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm2L",
+      "title": "알로라의 달빛 (62장)",
+      "displayName": "알로라의 달빛",
+      "cardCount": 62,
+      "firstCardCode": "sm2l_001/050",
+      "lastCardCode": "sm2l_062/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 62,
+        "illustrator": 62
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm2+",
+      "title": "새로운 시련 (75장)",
+      "displayName": "새로운 시련",
+      "cardCount": 75,
+      "firstCardCode": "sm2plus_001/049",
+      "lastCardCode": "sm2plus_075/049",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 75,
+        "illustrator": 75
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm3H",
+      "title": "어둠을 밝힌 무지개 (64장)",
+      "displayName": "어둠을 밝힌 무지개",
+      "cardCount": 64,
+      "firstCardCode": "sm3h_001/051",
+      "lastCardCode": "sm3h_064/051",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 64,
+        "illustrator": 64
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm3N",
+      "title": "빛을 삼킨 어둠 (64장)",
+      "displayName": "빛을 삼킨 어둠",
+      "cardCount": 64,
+      "firstCardCode": "sm3n_001/051",
+      "lastCardCode": "sm3n_064/051",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 64,
+        "illustrator": 64
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm3+",
+      "title": "빛나는 전설 (91장)",
+      "displayName": "빛나는 전설",
+      "cardCount": 91,
+      "firstCardCode": "sm3plus_001/072",
+      "lastCardCode": "sm3plus_091/072",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 91,
+        "illustrator": 91
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm4S",
+      "title": "각성의 용사 (62장)",
+      "displayName": "각성의 용사",
+      "cardCount": 62,
+      "firstCardCode": "sm4s_001/050",
+      "lastCardCode": "sm4s_062/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 62,
+        "illustrator": 62
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm4A",
+      "title": "초차원의 침략자 (62장)",
+      "displayName": "초차원의 침략자",
+      "cardCount": 62,
+      "firstCardCode": "sm4a_001/050",
+      "lastCardCode": "sm4a_062/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 62,
+        "illustrator": 62
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm4+",
+      "title": "GX 배틀부스트 (125장)",
+      "displayName": "GX 배틀부스트",
+      "cardCount": 125,
+      "firstCardCode": "sm4plus_001/114",
+      "lastCardCode": "sm4plus_125/114",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 125,
+        "illustrator": 125
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm5S",
+      "title": "울트라썬 (78장)",
+      "displayName": "울트라썬",
+      "cardCount": 78,
+      "firstCardCode": "sm5s_001/066",
+      "lastCardCode": "sm5s_078/066",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 78,
+        "illustrator": 78
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm5M",
+      "title": "울트라문 (78장)",
+      "displayName": "울트라문",
+      "cardCount": 78,
+      "firstCardCode": "sm5m_001/066",
+      "lastCardCode": "sm5m_078/066",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 78,
+        "illustrator": 78
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm5+",
+      "title": "울트라포스 (72장)",
+      "displayName": "울트라포스",
+      "cardCount": 72,
+      "firstCardCode": "sm5plus_001/050",
+      "lastCardCode": "sm5plus_072/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 72,
+        "illustrator": 72
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm6",
+      "title": "금단의 빛 (110장)",
+      "displayName": "금단의 빛",
+      "cardCount": 110,
+      "firstCardCode": "sm6_001/094",
+      "lastCardCode": "sm6_110/094",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 110,
+        "illustrator": 110
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm6a",
+      "title": "드래곤스톰 (75장)",
+      "displayName": "드래곤스톰",
+      "cardCount": 75,
+      "firstCardCode": "sm6a_001/053",
+      "lastCardCode": "sm6a_075/053",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 75,
+        "illustrator": 75
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm6b",
+      "title": "챔피언로드 (86장)",
+      "displayName": "챔피언로드",
+      "cardCount": 86,
+      "firstCardCode": "sm6b_001/066",
+      "lastCardCode": "sm6b_086/066",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 86,
+        "illustrator": 86
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm7",
+      "title": "창공의 카리스마 (112장)",
+      "displayName": "창공의 카리스마",
+      "cardCount": 112,
+      "firstCardCode": "sm7_001/096",
+      "lastCardCode": "sm7_112/096",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 112,
+        "illustrator": 112
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm7a",
+      "title": "플라스마 스파크 (73장)",
+      "displayName": "플라스마 스파크",
+      "cardCount": 73,
+      "firstCardCode": "sm7a_001/060",
+      "lastCardCode": "sm7a_073/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 73,
+        "illustrator": 73
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm7b",
+      "title": "페어리라이즈 (63장)",
+      "displayName": "페어리라이즈",
+      "cardCount": 63,
+      "firstCardCode": "sm7b_001/050",
+      "lastCardCode": "sm7b_063/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 63,
+        "illustrator": 63
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm8",
+      "title": "버스트임팩트 (111장)",
+      "displayName": "버스트임팩트",
+      "cardCount": 111,
+      "firstCardCode": "sm8_001/095",
+      "lastCardCode": "sm8_111/095",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 111,
+        "illustrator": 111
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm8a",
+      "title": "다크오더 (65장)",
+      "displayName": "다크오더",
+      "cardCount": 65,
+      "firstCardCode": "sm8a_001/052",
+      "lastCardCode": "sm8a_065/052",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 65,
+        "illustrator": 65
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm8b",
+      "title": "GX 울트라샤이니 (250장)",
+      "displayName": "GX 울트라샤이니",
+      "cardCount": 250,
+      "firstCardCode": "sm8b_001/150",
+      "lastCardCode": "sm8b_250/150",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 250,
+        "illustrator": 250
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm9",
+      "title": "태그볼트 (118장)",
+      "displayName": "태그볼트",
+      "cardCount": 118,
+      "firstCardCode": "sm9_001/095",
+      "lastCardCode": "sm9_118/095",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 118,
+        "illustrator": 118
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm9a",
+      "title": "나이트유니슨 (70장)",
+      "displayName": "나이트유니슨",
+      "cardCount": 70,
+      "firstCardCode": "sm9a_001/055",
+      "lastCardCode": "sm9a_070/055",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 70,
+        "illustrator": 70
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm9b",
+      "title": "풀메탈월 (69장)",
+      "displayName": "풀메탈월",
+      "cardCount": 69,
+      "firstCardCode": "sm9b_001/054",
+      "lastCardCode": "sm9b_069/054",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 69,
+        "illustrator": 69
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm10",
+      "title": "더블블레이즈 (116장)",
+      "displayName": "더블블레이즈",
+      "cardCount": 116,
+      "firstCardCode": "sm10_001/095",
+      "lastCardCode": "sm10_116/095",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 116,
+        "illustrator": 116
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm10a",
+      "title": "GG엔드 (69장)",
+      "displayName": "GG엔드",
+      "cardCount": 69,
+      "firstCardCode": "sm10a_001/054",
+      "lastCardCode": "sm10a_069/054",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 69,
+        "illustrator": 69
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm10b",
+      "title": "스카이레전드 (69장)",
+      "displayName": "스카이레전드",
+      "cardCount": 69,
+      "firstCardCode": "sm10b_001/054",
+      "lastCardCode": "sm10b_069/054",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 69,
+        "illustrator": 69
+      }
+    },
+    {
+      "era": "SM",
+      "code": "smp2",
+      "title": "영화 스페셜 팩 「명탐정 피카츄」 (24장)",
+      "displayName": "영화 스페셜 팩 「명탐정 피카츄」",
+      "cardCount": 24,
+      "firstCardCode": "smp2_001/024",
+      "lastCardCode": "smp2_024/024",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 24,
+        "illustrator": 24
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm11",
+      "title": "미라클트윈 (115장)",
+      "displayName": "미라클트윈",
+      "cardCount": 115,
+      "firstCardCode": "sm11_001/094",
+      "lastCardCode": "sm11_115/094",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 115,
+        "illustrator": 115
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm11a",
+      "title": "리믹스바우트 (80장)",
+      "displayName": "리믹스바우트",
+      "cardCount": 80,
+      "firstCardCode": "sm11a_001/064",
+      "lastCardCode": "sm11a_080/064",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 80,
+        "illustrator": 80
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm11b",
+      "title": "드림리그 (75장)",
+      "displayName": "드림리그",
+      "cardCount": 75,
+      "firstCardCode": "sm11b_001/049",
+      "lastCardCode": "sm11b_075/049",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 75,
+        "illustrator": 75
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm12",
+      "title": "얼터제네시스 (117장)",
+      "displayName": "얼터제네시스",
+      "cardCount": 117,
+      "firstCardCode": "sm12_001/095",
+      "lastCardCode": "sm12_117/095",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 117,
+        "illustrator": 117
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm12a",
+      "title": "TAG TEAM GX 태그올스타즈 (235장)",
+      "displayName": "TAG TEAM GX 태그올스타즈",
+      "cardCount": 235,
+      "firstCardCode": "sm12a_001/173",
+      "lastCardCode": "sm12a_235/173",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 235,
+        "illustrator": 235
+      }
+    },
+    {
+      "era": "SM",
+      "code": "SMP",
+      "title": "썬&문 프로모 카드 (249장)",
+      "displayName": "썬&문 프로모 카드",
+      "cardCount": 249,
+      "firstCardCode": "sm-p_001/SM-P",
+      "lastCardCode": "sm-p_543/SM-P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 249,
+        "illustrator": 249
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm30A",
+      "title": "썬&문 랜덤30장덱 (89장)",
+      "displayName": "썬&문 랜덤30장덱",
+      "cardCount": 89,
+      "firstCardCode": "sm30a_001/080",
+      "lastCardCode": "sm30a_089/080",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 89,
+        "illustrator": 89
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm60B",
+      "title": "전격 스타터 세트 「라이코 GX」 (23장)",
+      "displayName": "전격 스타터 세트 「라이코 GX」",
+      "cardCount": 23,
+      "firstCardCode": "sm60b_001",
+      "lastCardCode": "sm60b_023",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 23,
+        "illustrator": 23
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv1S",
+      "title": "스칼렛 ex (108/78)",
+      "displayName": "",
+      "cardCount": 108,
+      "firstCardCode": "sv1s_001/078",
+      "lastCardCode": "sv1s_107/078",
+      "pokemonNameFallback": 90,
+      "missing": {
+        "code": 0,
+        "name": 90,
+        "label": 0,
+        "image": 0,
+        "source": 108,
+        "rarity": 108,
+        "illustrator": 108
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv1V",
+      "title": "바이올렛 ex (108/78)",
+      "displayName": "",
+      "cardCount": 108,
+      "firstCardCode": "sv1v_001/078 C",
+      "lastCardCode": "sv1v_107/078 UR",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 108,
+        "rarity": 108,
+        "illustrator": 108
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv1a",
+      "title": "트리플렛비트 (103/73)",
+      "displayName": "",
+      "cardCount": 103,
+      "firstCardCode": "sv1a_001/073 C",
+      "lastCardCode": "sv1a_103/073 UR",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 103,
+        "rarity": 103,
+        "illustrator": 103
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv2D",
+      "title": "클레이버스트 (99/071)",
+      "displayName": "",
+      "cardCount": 99,
+      "firstCardCode": "sv2d_001/071",
+      "lastCardCode": "sv2d_099/071",
+      "pokemonNameFallback": 87,
+      "missing": {
+        "code": 0,
+        "name": 87,
+        "label": 0,
+        "image": 0,
+        "source": 99,
+        "rarity": 99,
+        "illustrator": 99
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv2P",
+      "title": "스노해저드 (99/71)",
+      "displayName": "",
+      "cardCount": 99,
+      "firstCardCode": "sv2p_001/071",
+      "lastCardCode": "sv2p_099/071",
+      "pokemonNameFallback": 87,
+      "missing": {
+        "code": 0,
+        "name": 87,
+        "label": 0,
+        "image": 0,
+        "source": 99,
+        "rarity": 99,
+        "illustrator": 99
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv2a",
+      "title": "포켓몬카드 151 (210/165)",
+      "displayName": "",
+      "cardCount": 210,
+      "firstCardCode": "sv2a_001/165",
+      "lastCardCode": "sv2a_210/165",
+      "pokemonNameFallback": 188,
+      "missing": {
+        "code": 0,
+        "name": 188,
+        "label": 0,
+        "image": 0,
+        "source": 210,
+        "rarity": 210,
+        "illustrator": 210
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv3",
+      "title": "흑염의 지배자 (114/108)",
+      "displayName": "",
+      "cardCount": 141,
+      "firstCardCode": "sv3_001/108",
+      "lastCardCode": "sv3_141/108",
+      "pokemonNameFallback": 124,
+      "missing": {
+        "code": 0,
+        "name": 124,
+        "label": 0,
+        "image": 0,
+        "source": 141,
+        "rarity": 141,
+        "illustrator": 141
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv3a",
+      "title": "레이징서프 (92/062)",
+      "displayName": "",
+      "cardCount": 92,
+      "firstCardCode": "sv3a_001/062",
+      "lastCardCode": "sv3a_089/062",
+      "pokemonNameFallback": 74,
+      "missing": {
+        "code": 0,
+        "name": 74,
+        "label": 0,
+        "image": 0,
+        "source": 92,
+        "rarity": 92,
+        "illustrator": 92
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv4K",
+      "title": "고대의 포효 (95/066)",
+      "displayName": "",
+      "cardCount": 95,
+      "firstCardCode": "sv4k_001/066",
+      "lastCardCode": "sv4k_089/066",
+      "pokemonNameFallback": 80,
+      "missing": {
+        "code": 0,
+        "name": 80,
+        "label": 0,
+        "image": 0,
+        "source": 95,
+        "rarity": 95,
+        "illustrator": 95
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv4M",
+      "title": "미래의 일섬 (95/066)",
+      "displayName": "",
+      "cardCount": 95,
+      "firstCardCode": "sv4m_001/066",
+      "lastCardCode": "sv4m_089/066",
+      "pokemonNameFallback": 80,
+      "missing": {
+        "code": 0,
+        "name": 80,
+        "label": 0,
+        "image": 0,
+        "source": 95,
+        "rarity": 95,
+        "illustrator": 95
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv4a",
+      "title": "샤이니트레져 ex (360/190)",
+      "displayName": "",
+      "cardCount": 190,
+      "firstCardCode": "sv4a_001/190",
+      "lastCardCode": "sv4a_190/190",
+      "pokemonNameFallback": 155,
+      "missing": {
+        "code": 0,
+        "name": 155,
+        "label": 0,
+        "image": 0,
+        "source": 190,
+        "rarity": 190,
+        "illustrator": 190
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv5K",
+      "title": "와일드포스 (100/071)",
+      "displayName": "",
+      "cardCount": 100,
+      "firstCardCode": "sv5k_001/071",
+      "lastCardCode": "sv5k_100/071",
+      "pokemonNameFallback": 84,
+      "missing": {
+        "code": 0,
+        "name": 84,
+        "label": 0,
+        "image": 0,
+        "source": 100,
+        "rarity": 100,
+        "illustrator": 100
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv5M",
+      "title": "사이버저지 (92/062)",
+      "displayName": "",
+      "cardCount": 95,
+      "firstCardCode": "sv5m_001/071",
+      "lastCardCode": "sv5m_089/071",
+      "pokemonNameFallback": 81,
+      "missing": {
+        "code": 0,
+        "name": 81,
+        "label": 0,
+        "image": 0,
+        "source": 95,
+        "rarity": 95,
+        "illustrator": 95
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv5a",
+      "title": "크림슨헤이즈 (96/066)",
+      "displayName": "",
+      "cardCount": 96,
+      "firstCardCode": "sv5a_001/066",
+      "lastCardCode": "sv5a_096/066",
+      "pokemonNameFallback": 74,
+      "missing": {
+        "code": 0,
+        "name": 74,
+        "label": 0,
+        "image": 0,
+        "source": 96,
+        "rarity": 96,
+        "illustrator": 96
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv6",
+      "title": "변환의 가면 (133/101)",
+      "displayName": "",
+      "cardCount": 133,
+      "firstCardCode": "sv6_001/101",
+      "lastCardCode": "sv6_133/101",
+      "pokemonNameFallback": 113,
+      "missing": {
+        "code": 0,
+        "name": 113,
+        "label": 0,
+        "image": 0,
+        "source": 133,
+        "rarity": 133,
+        "illustrator": 133
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv6a",
+      "title": "나이트 원더러 (94/064)",
+      "displayName": "",
+      "cardCount": 94,
+      "firstCardCode": "sv6a_001/064",
+      "lastCardCode": "sv6a_089/064",
+      "pokemonNameFallback": 76,
+      "missing": {
+        "code": 0,
+        "name": 76,
+        "label": 0,
+        "image": 0,
+        "source": 94,
+        "rarity": 94,
+        "illustrator": 94
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv7",
+      "title": "스텔라미라클 (135/102)",
+      "displayName": "",
+      "cardCount": 135,
+      "firstCardCode": "sv7_001/102",
+      "lastCardCode": "sv7_135/102",
+      "pokemonNameFallback": 113,
+      "missing": {
+        "code": 0,
+        "name": 113,
+        "label": 0,
+        "image": 0,
+        "source": 135,
+        "rarity": 135,
+        "illustrator": 135
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv7a",
+      "title": "낙원드래고나 (94/064)",
+      "displayName": "",
+      "cardCount": 94,
+      "firstCardCode": "sv7a_001/064",
+      "lastCardCode": "sv7a_089/064",
+      "pokemonNameFallback": 73,
+      "missing": {
+        "code": 0,
+        "name": 73,
+        "label": 0,
+        "image": 0,
+        "source": 94,
+        "rarity": 94,
+        "illustrator": 94
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv8",
+      "title": "초전브레이커 (138/106)",
+      "displayName": "",
+      "cardCount": 138,
+      "firstCardCode": "sv8_001/106",
+      "lastCardCode": "sv8_138/106",
+      "pokemonNameFallback": 118,
+      "missing": {
+        "code": 0,
+        "name": 118,
+        "label": 0,
+        "image": 0,
+        "source": 138,
+        "rarity": 138,
+        "illustrator": 138
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv8a",
+      "title": "테라스탈 페스타 ex (237/187)",
+      "displayName": "",
+      "cardCount": 237,
+      "firstCardCode": "sv8a_001/187",
+      "lastCardCode": "sv8a_237/187",
+      "pokemonNameFallback": 168,
+      "missing": {
+        "code": 0,
+        "name": 168,
+        "label": 0,
+        "image": 0,
+        "source": 237,
+        "rarity": 237,
+        "illustrator": 237
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv9",
+      "title": "sv9 도감 (132/100)",
+      "displayName": "",
+      "cardCount": 132,
+      "firstCardCode": "sv9_001/100",
+      "lastCardCode": "sv9_132/100",
+      "pokemonNameFallback": 115,
+      "missing": {
+        "code": 0,
+        "name": 115,
+        "label": 0,
+        "image": 0,
+        "source": 132,
+        "rarity": 132,
+        "illustrator": 132
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv9a",
+      "title": "sv9a 도감 (92/063)",
+      "displayName": "",
+      "cardCount": 92,
+      "firstCardCode": "sv9a_001/063",
+      "lastCardCode": "sv9a_092/063",
+      "pokemonNameFallback": 79,
+      "missing": {
+        "code": 0,
+        "name": 79,
+        "label": 0,
+        "image": 0,
+        "source": 92,
+        "rarity": 92,
+        "illustrator": 92
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv10",
+      "title": "sv10 도감 (132/098)",
+      "displayName": "",
+      "cardCount": 132,
+      "firstCardCode": "sv10_001/098",
+      "lastCardCode": "sv10_132/098",
+      "pokemonNameFallback": 111,
+      "missing": {
+        "code": 0,
+        "name": 111,
+        "label": 0,
+        "image": 0,
+        "source": 132,
+        "rarity": 132,
+        "illustrator": 132
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv11B",
+      "title": "sv11B 도감 (174/086)",
+      "displayName": "",
+      "cardCount": 174,
+      "firstCardCode": "sv11b_001/086",
+      "lastCardCode": "sv11b_174/086",
+      "pokemonNameFallback": 163,
+      "missing": {
+        "code": 0,
+        "name": 163,
+        "label": 0,
+        "image": 0,
+        "source": 174,
+        "rarity": 174,
+        "illustrator": 174
+      }
+    },
+    {
+      "era": "SV",
+      "code": "sv11W",
+      "title": "sv11W 도감 (174/086)",
+      "displayName": "",
+      "cardCount": 174,
+      "firstCardCode": "sv11w_001/086",
+      "lastCardCode": "sv11w_174/086",
+      "pokemonNameFallback": 163,
+      "missing": {
+        "code": 0,
+        "name": 163,
+        "label": 0,
+        "image": 0,
+        "source": 174,
+        "rarity": 174,
+        "illustrator": 174
+      }
+    },
+    {
+      "era": "M",
+      "code": "m1S",
+      "title": "메가심포니아 (92/063)",
+      "displayName": "",
+      "cardCount": 92,
+      "firstCardCode": "m1s_001/063",
+      "lastCardCode": "m1s_089/063",
+      "pokemonNameFallback": 77,
+      "missing": {
+        "code": 0,
+        "name": 77,
+        "label": 0,
+        "image": 0,
+        "source": 92,
+        "rarity": 92,
+        "illustrator": 92
+      }
+    },
+    {
+      "era": "M",
+      "code": "m1L",
+      "title": "메가브레이브 (92/063)",
+      "displayName": "",
+      "cardCount": 92,
+      "firstCardCode": "m1l_001/063",
+      "lastCardCode": "m1l_089/063",
+      "pokemonNameFallback": 77,
+      "missing": {
+        "code": 0,
+        "name": 77,
+        "label": 0,
+        "image": 0,
+        "source": 92,
+        "rarity": 92,
+        "illustrator": 92
+      }
+    },
+    {
+      "era": "M",
+      "code": "m2",
+      "title": "인페르노X (116/080)",
+      "displayName": "",
+      "cardCount": 116,
+      "firstCardCode": "m2_001/080",
+      "lastCardCode": "m2_116/080",
+      "pokemonNameFallback": 98,
+      "missing": {
+        "code": 0,
+        "name": 98,
+        "label": 0,
+        "image": 0,
+        "source": 116,
+        "rarity": 116,
+        "illustrator": 116
+      }
+    },
+    {
+      "era": "M",
+      "code": "m2a",
+      "title": "MEGA 드림 ex (250/193)",
+      "displayName": "",
+      "cardCount": 250,
+      "firstCardCode": "m2a_001/193",
+      "lastCardCode": "m2a_250/193",
+      "pokemonNameFallback": 190,
+      "missing": {
+        "code": 0,
+        "name": 190,
+        "label": 0,
+        "image": 0,
+        "source": 250,
+        "rarity": 250,
+        "illustrator": 250
+      }
+    },
+    {
+      "era": "M",
+      "code": "m3",
+      "title": "니힐제로 (117/080)",
+      "displayName": "",
+      "cardCount": 117,
+      "firstCardCode": "m3_001/080",
+      "lastCardCode": "m3_117/080",
+      "pokemonNameFallback": 91,
+      "missing": {
+        "code": 0,
+        "name": 91,
+        "label": 0,
+        "image": 0,
+        "source": 117,
+        "rarity": 117,
+        "illustrator": 117
+      }
+    },
+    {
+      "era": "M",
+      "code": "m4",
+      "title": "닌자스피너 (120/083)",
+      "displayName": "",
+      "cardCount": 120,
+      "firstCardCode": "m4_001/083",
+      "lastCardCode": "m4_120/083",
+      "pokemonNameFallback": 96,
+      "missing": {
+        "code": 0,
+        "name": 96,
+        "label": 0,
+        "image": 0,
+        "source": 120,
+        "rarity": 120,
+        "illustrator": 120
+      }
+    },
+    {
+      "era": "M",
+      "code": "m5",
+      "title": "어비스아이 (118/081)",
+      "displayName": "",
+      "cardCount": 118,
+      "firstCardCode": "m5_001/081",
+      "lastCardCode": "m5_118/081",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 118,
+        "rarity": 118,
+        "illustrator": 118
+      }
+    },
+    {
+      "era": "M",
+      "code": "m6",
+      "title": "스톰에메랄다 (113/076)",
+      "displayName": "스톰에메랄다",
+      "cardCount": 113,
+      "firstCardCode": "m6_001/076",
+      "lastCardCode": "m6_113/076",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 113,
+        "rarity": 0,
+        "illustrator": 113
+      }
+    },
+    {
+      "era": "S",
+      "code": "sD",
+      "title": "sD 도감 (31/031)",
+      "displayName": "",
+      "cardCount": 31,
+      "firstCardCode": "sd_001/031",
+      "lastCardCode": "sd_031/031",
+      "pokemonNameFallback": 31,
+      "missing": {
+        "code": 0,
+        "name": 31,
+        "label": 0,
+        "image": 0,
+        "source": 31,
+        "rarity": 31,
+        "illustrator": 31
+      }
+    },
+    {
+      "era": "ORIGIN",
+      "code": "BASE",
+      "title": "Base Set (102/102)",
+      "displayName": "Base Set",
+      "cardCount": 102,
+      "firstCardCode": "base_001/102",
+      "lastCardCode": "base_102/102",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 102,
+        "illustrator": 102
+      }
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1",
+      "title": "제1탄 확장팩 (63장)",
+      "displayName": "제1탄 확장팩",
+      "cardCount": 63,
+      "firstCardCode": "adv1_001/055",
+      "lastCardCode": "adv1_ENERGY-METAL",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 63,
+        "illustrator": 63
+      }
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-K",
+      "title": "구성완료스타터 나무지기덱 (19/019)",
+      "displayName": "구성완료스타터 나무지기덱",
+      "cardCount": 19,
+      "firstCardCode": "adv1-k_001/019",
+      "lastCardCode": "adv1-k_019/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-A",
+      "title": "구성완료스타터 아차모덱 (19/019)",
+      "displayName": "구성완료스타터 아차모덱",
+      "cardCount": 19,
+      "firstCardCode": "adv1-a_001/019",
+      "lastCardCode": "adv1-a_019/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-M",
+      "title": "구성완료스타터 물짱이덱 (19/019)",
+      "displayName": "구성완료스타터 물짱이덱",
+      "cardCount": 19,
+      "firstCardCode": "adv1-m_001/019",
+      "lastCardCode": "adv1-m_019/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "ADV",
+      "code": "ADVP",
+      "title": "ADV 프로모 카드 (1장)",
+      "displayName": "ADV 프로모 카드",
+      "cardCount": 1,
+      "firstCardCode": "advp_001/P",
+      "lastCardCode": "advp_001/P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 1,
+        "illustrator": 1
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS1",
+      "title": "모험의 시작 (60장)",
+      "displayName": "모험의 시작",
+      "cardCount": 60,
+      "firstCardCode": "bs1_001/060",
+      "lastCardCode": "bs1_060/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 60,
+        "illustrator": 60
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS2",
+      "title": "불꽃 튀는 대결 (40장)",
+      "displayName": "불꽃 튀는 대결",
+      "cardCount": 40,
+      "firstCardCode": "bs2_001/040",
+      "lastCardCode": "bs2_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS3",
+      "title": "시공의 격돌 (60장)",
+      "displayName": "시공의 격돌",
+      "cardCount": 60,
+      "firstCardCode": "bs3_001/060",
+      "lastCardCode": "bs3_060/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 60,
+        "illustrator": 60
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS4",
+      "title": "또 다른 세계 (40장)",
+      "displayName": "또 다른 세계",
+      "cardCount": 40,
+      "firstCardCode": "bs4_001/040",
+      "lastCardCode": "bs4_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS5",
+      "title": "7개의 신비 (40장)",
+      "displayName": "7개의 신비",
+      "cardCount": 40,
+      "firstCardCode": "bs5_001/040",
+      "lastCardCode": "bs5_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS6",
+      "title": "암흑의 초승달 (60장)",
+      "displayName": "암흑의 초승달",
+      "cardCount": 60,
+      "firstCardCode": "bs6_001/060",
+      "lastCardCode": "bs6_060/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 60,
+        "illustrator": 60
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS7",
+      "title": "보이지 않는 힘 (40장)",
+      "displayName": "보이지 않는 힘",
+      "cardCount": 40,
+      "firstCardCode": "bs7_001/040",
+      "lastCardCode": "bs7_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS8",
+      "title": "화려한 전설 (40장)",
+      "displayName": "화려한 전설",
+      "cardCount": 40,
+      "firstCardCode": "bs8_001/040",
+      "lastCardCode": "bs8_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS9",
+      "title": "호수의 기적 (40장)",
+      "displayName": "호수의 기적",
+      "cardCount": 40,
+      "firstCardCode": "bs9_001/040",
+      "lastCardCode": "bs9_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "BS10",
+      "title": "고대의 수호자 (40장)",
+      "displayName": "고대의 수호자",
+      "cardCount": 40,
+      "firstCardCode": "bs10_001/040",
+      "lastCardCode": "bs10_040/040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "DP",
+      "code": "CSD",
+      "title": "크레세리아 덱 (14장)",
+      "displayName": "크레세리아 덱",
+      "cardCount": 14,
+      "firstCardCode": "csd_001/012",
+      "lastCardCode": "csd_ENERGY-FIGHTING",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 14,
+        "illustrator": 14
+      }
+    },
+    {
+      "era": "DP",
+      "code": "DGD",
+      "title": "디아루가 덱 (15장)",
+      "displayName": "디아루가 덱",
+      "cardCount": 15,
+      "firstCardCode": "dgd_001/012",
+      "lastCardCode": "dgd_ENERGY-METAL",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 15,
+        "illustrator": 15
+      }
+    },
+    {
+      "era": "DP",
+      "code": "DRD",
+      "title": "다크라이 덱 (13장)",
+      "displayName": "다크라이 덱",
+      "cardCount": 13,
+      "firstCardCode": "drd_001/011",
+      "lastCardCode": "drd_ENERGY-DARKNESS",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 13,
+        "illustrator": 13
+      }
+    },
+    {
+      "era": "DP",
+      "code": "PKD",
+      "title": "펄기아 덱 (15장)",
+      "displayName": "펄기아 덱",
+      "cardCount": 15,
+      "firstCardCode": "pkd_001/012",
+      "lastCardCode": "pkd_ENERGY-DARKNESS",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 15,
+        "illustrator": 15
+      }
+    },
+    {
+      "era": "DP",
+      "code": "ST1",
+      "title": "DP 랜덤 구축덱 (59장)",
+      "displayName": "DP 랜덤 구축덱",
+      "cardCount": 59,
+      "firstCardCode": "st1_001/055",
+      "lastCardCode": "st1_ENERGY-LIGHTNING",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 59,
+        "illustrator": 59
+      }
+    },
+    {
+      "era": "DP",
+      "code": "DPP",
+      "title": "DP 프로모 카드 (22장)",
+      "displayName": "DP 프로모 카드",
+      "cardCount": 22,
+      "firstCardCode": "dpp_001/P",
+      "lastCardCode": "dpp_022/P",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 22,
+        "illustrator": 22
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bb",
+      "title": "블랙 컬렉션 (56장)",
+      "displayName": "블랙 컬렉션",
+      "cardCount": 56,
+      "firstCardCode": "bw1-bb_001/053",
+      "lastCardCode": "bw1-bb_056/053",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 56,
+        "illustrator": 56
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bw",
+      "title": "화이트 컬렉션 (56장)",
+      "displayName": "화이트 컬렉션",
+      "cardCount": 56,
+      "firstCardCode": "bw1-bw_001/053",
+      "lastCardCode": "bw1-bw_056/053",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 56,
+        "illustrator": 56
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BD",
+      "title": "볼트로스 덱 (16장)",
+      "displayName": "볼트로스 덱",
+      "cardCount": 16,
+      "firstCardCode": "bd_001/013",
+      "lastCardCode": "bd_016",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 16,
+        "illustrator": 16
+      }
+    },
+    {
+      "era": "BW",
+      "code": "TD",
+      "title": "토네로스 덱 (16장)",
+      "displayName": "토네로스 덱",
+      "cardCount": 16,
+      "firstCardCode": "td_001/013",
+      "lastCardCode": "td_016",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 16,
+        "illustrator": 16
+      }
+    },
+    {
+      "era": "BW",
+      "code": "FS",
+      "title": "BW 퍼스트 세트 (40장)",
+      "displayName": "BW 퍼스트 세트",
+      "cardCount": 40,
+      "firstCardCode": "fs_001/034",
+      "lastCardCode": "fs_040",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 40,
+        "illustrator": 40
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW2",
+      "title": "레드 컬렉션 (72장)",
+      "displayName": "레드 컬렉션",
+      "cardCount": 72,
+      "firstCardCode": "bw2_001/066",
+      "lastCardCode": "bw2_072/066",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 72,
+        "illustrator": 72
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BTV",
+      "title": "배틀 체인지덱 비크티니 덱 (24장)",
+      "displayName": "배틀 체인지덱 비크티니 덱",
+      "cardCount": 24,
+      "firstCardCode": "btv_001/021",
+      "lastCardCode": "btv_024",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 24,
+        "illustrator": 24
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGc",
+      "title": "배틀 강화덱 - 코바르온 덱 (16장)",
+      "displayName": "배틀 강화덱 - 코바르온 덱",
+      "cardCount": 16,
+      "firstCardCode": "bgc_001/014",
+      "lastCardCode": "bgc_016",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 16,
+        "illustrator": 16
+      }
+    },
+    {
+      "era": "BW",
+      "code": "PBG",
+      "title": "플라스마단 스페셜 세트 (18장)",
+      "displayName": "플라스마단 스페셜 세트",
+      "cardCount": 18,
+      "firstCardCode": "pbg_001/016",
+      "lastCardCode": "pbg_018",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 18,
+        "illustrator": 18
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGt",
+      "title": "배틀 강화덱 - 테라키온 덱 (17장)",
+      "displayName": "배틀 강화덱 - 테라키온 덱",
+      "cardCount": 17,
+      "firstCardCode": "bgt_001/014",
+      "lastCardCode": "bgt_017",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 17,
+        "illustrator": 17
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGv",
+      "title": "배틀 강화덱 - 비리디온 덱 (17장)",
+      "displayName": "배틀 강화덱 - 비리디온 덱",
+      "cardCount": 17,
+      "firstCardCode": "bgv_001/014",
+      "lastCardCode": "bgv_017",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 17,
+        "illustrator": 17
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bh",
+      "title": "헤일 블리자드 (57장)",
+      "displayName": "헤일 블리자드",
+      "cardCount": 57,
+      "firstCardCode": "bw3-bh_001/052",
+      "lastCardCode": "bw3-bh_057/052",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 57,
+        "illustrator": 57
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bp",
+      "title": "사이코 드라이브 (57장)",
+      "displayName": "사이코 드라이브",
+      "cardCount": 57,
+      "firstCardCode": "bw3-bp_001/052",
+      "lastCardCode": "bw3-bp_057/052",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 57,
+        "illustrator": 57
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW4",
+      "title": "다크러시 (76장)",
+      "displayName": "다크러시",
+      "cardCount": 76,
+      "firstCardCode": "bw4_001/069",
+      "lastCardCode": "bw4_076/069",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 76,
+        "illustrator": 76
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BKR",
+      "title": "배틀 강화 60장 덱 - 레시라무 EX (20장)",
+      "displayName": "배틀 강화 60장 덱 - 레시라무 EX",
+      "cardCount": 20,
+      "firstCardCode": "bkr_001/018",
+      "lastCardCode": "bkr_020",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGZ",
+      "title": "배틀 강화 60장 덱 - 제크로무 EX (20장)",
+      "displayName": "배틀 강화 60장 덱 - 제크로무 EX",
+      "cardCount": 20,
+      "firstCardCode": "bgz_001/018",
+      "lastCardCode": "bgz_020",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "BW",
+      "code": "DC",
+      "title": "드래곤 컬렉션 (20장)",
+      "displayName": "드래곤 컬렉션",
+      "cardCount": 20,
+      "firstCardCode": "dc_001/020",
+      "lastCardCode": "dc_020/020",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brn",
+      "title": "드래곤 블레이드 (55장)",
+      "displayName": "드래곤 블레이드",
+      "cardCount": 55,
+      "firstCardCode": "bw5-brn_001/050",
+      "lastCardCode": "bw5-brn_055/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 55,
+        "illustrator": 55
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brz",
+      "title": "드래곤 블라스트 (55장)",
+      "displayName": "드래곤 블라스트",
+      "cardCount": 55,
+      "firstCardCode": "bw5-brz_001/050",
+      "lastCardCode": "bw5-brz_055/050",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 55,
+        "illustrator": 55
+      }
+    },
+    {
+      "era": "BW",
+      "code": "GBR",
+      "title": "한카리아스 덱 (18장)",
+      "displayName": "한카리아스 덱",
+      "cardCount": 18,
+      "firstCardCode": "gbr_001/015",
+      "lastCardCode": "gbr_018/015",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 18,
+        "illustrator": 18
+      }
+    },
+    {
+      "era": "BW",
+      "code": "SZD",
+      "title": "삼삼드래 덱 (18장)",
+      "displayName": "삼삼드래 덱",
+      "cardCount": 18,
+      "firstCardCode": "szd_001/015",
+      "lastCardCode": "szd_018/015",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 18,
+        "illustrator": 18
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bc",
+      "title": "콜드플레어 (65장)",
+      "displayName": "콜드플레어",
+      "cardCount": 65,
+      "firstCardCode": "bw6-bc_001/059",
+      "lastCardCode": "bw6-bc_065/059",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 65,
+        "illustrator": 65
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bf",
+      "title": "프리즈볼트 (65장)",
+      "displayName": "프리즈볼트",
+      "cardCount": 65,
+      "firstCardCode": "bw6-bf_001/059",
+      "lastCardCode": "bw6-bf_065/059",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 65,
+        "illustrator": 65
+      }
+    },
+    {
+      "era": "BW",
+      "code": "KD",
+      "title": "트레이너 세트 「케르디오」 (18장)",
+      "displayName": "트레이너 세트 「케르디오」",
+      "cardCount": 18,
+      "firstCardCode": "kd_001/015",
+      "lastCardCode": "kd_018",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 18,
+        "illustrator": 18
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW7",
+      "title": "플라스마게일 (79장)",
+      "displayName": "플라스마게일",
+      "cardCount": 79,
+      "firstCardCode": "bw7_001/070",
+      "lastCardCode": "bw7_079/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 79,
+        "illustrator": 79
+      }
+    },
+    {
+      "era": "BW",
+      "code": "PPD",
+      "title": "플라스마단 파워 덱 (19장)",
+      "displayName": "플라스마단 파워 덱",
+      "cardCount": 19,
+      "firstCardCode": "ppd_001/017",
+      "lastCardCode": "ppd_019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGB",
+      "title": "배틀 강화 60장 덱 - 블랙큐레무 EX (20장)",
+      "displayName": "배틀 강화 60장 덱 - 블랙큐레무 EX",
+      "cardCount": 20,
+      "firstCardCode": "bgb_001/018",
+      "lastCardCode": "bgb_020",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BGW",
+      "title": "배틀 강화 60장 덱 - 화이트큐레무 EX (20장)",
+      "displayName": "배틀 강화 60장 덱 - 화이트큐레무 EX",
+      "cardCount": 20,
+      "firstCardCode": "bgw_001/018",
+      "lastCardCode": "bgw_020",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brf",
+      "title": "스파이럴포스 (58장)",
+      "displayName": "스파이럴포스",
+      "cardCount": 58,
+      "firstCardCode": "bw8-brf_001/051",
+      "lastCardCode": "bw8-brf_058/051",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 58,
+        "illustrator": 58
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brn",
+      "title": "볼트너클 (58장)",
+      "displayName": "볼트너클",
+      "cardCount": 58,
+      "firstCardCode": "bw8-brn_001/051",
+      "lastCardCode": "bw8-brn_058/051",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 58,
+        "illustrator": 58
+      }
+    },
+    {
+      "era": "BW",
+      "code": "SC",
+      "title": "샤이니 컬렉션 (25장)",
+      "displayName": "샤이니 컬렉션",
+      "cardCount": 25,
+      "firstCardCode": "sc_001/025",
+      "lastCardCode": "sc_025/025",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 25,
+        "illustrator": 25
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW9",
+      "title": "메갈로캐논 (86장)",
+      "displayName": "메갈로캐논",
+      "cardCount": 86,
+      "firstCardCode": "bw9_001/076",
+      "lastCardCode": "bw9_086/076",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 86,
+        "illustrator": 86
+      }
+    },
+    {
+      "era": "BW",
+      "code": "K+K",
+      "title": "최강 폭류 덱 「거북왕 + 큐레무 EX」 (19장)",
+      "displayName": "최강 폭류 덱 「거북왕 + 큐레무 EX」",
+      "cardCount": 19,
+      "firstCardCode": "k+k_001/018",
+      "lastCardCode": "k+k_019/018",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bg",
+      "title": "30장 덱 대전 게노세크트 (17장)",
+      "displayName": "30장 덱 대전 게노세크트",
+      "cardCount": 17,
+      "firstCardCode": "mg-bg_001/016",
+      "lastCardCode": "mg-bg_017",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 17,
+        "illustrator": 17
+      }
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bm",
+      "title": "30장 덱 대전 뮤츠 (17장)",
+      "displayName": "30장 덱 대전 뮤츠",
+      "cardCount": 17,
+      "firstCardCode": "mg-bm_001/016",
+      "lastCardCode": "mg-bm_017",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 17,
+        "illustrator": 17
+      }
+    },
+    {
+      "era": "BW",
+      "code": "EBB",
+      "title": "EX 배틀 부스트 (95장)",
+      "displayName": "EX 배틀 부스트",
+      "cardCount": 95,
+      "firstCardCode": "ebb_001/093",
+      "lastCardCode": "ebb_095/093",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 95,
+        "illustrator": 95
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BWP",
+      "title": "BW 프로모 카드 (72장)",
+      "displayName": "BW 프로모 카드",
+      "cardCount": 72,
+      "firstCardCode": "bwp_001/BW",
+      "lastCardCode": "bwp_072",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 72,
+        "illustrator": 72
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY",
+      "title": "THE BEST OF XY (188장)",
+      "displayName": "THE BEST OF XY",
+      "cardCount": 188,
+      "firstCardCode": "xy_001/171",
+      "lastCardCode": "xy_188/171",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 188,
+        "illustrator": 188
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP6",
+      "title": "확장팩 BASE PACK 20th Anniversary (113장)",
+      "displayName": "확장팩 BASE PACK 20th Anniversary",
+      "cardCount": 113,
+      "firstCardCode": "cp6_001/100",
+      "lastCardCode": "cp6_113/100",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 113,
+        "illustrator": 113
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP5",
+      "title": "환상 전설 드림 컬렉션 (38장)",
+      "displayName": "환상 전설 드림 컬렉션",
+      "cardCount": 38,
+      "firstCardCode": "cp5_001/036",
+      "lastCardCode": "cp5_038/036",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 38,
+        "illustrator": 38
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Br",
+      "title": "냉혹한 반역자 (59장)",
+      "displayName": "냉혹한 반역자",
+      "cardCount": 59,
+      "firstCardCode": "xy11-br_001/054",
+      "lastCardCode": "xy11-br_059/054",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 59,
+        "illustrator": 59
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Bb",
+      "title": "타오르는 투사 (59장)",
+      "displayName": "타오르는 투사",
+      "cardCount": 59,
+      "firstCardCode": "xy11-bb_001/054",
+      "lastCardCode": "xy11-bb_059/054",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 59,
+        "illustrator": 59
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP4",
+      "title": "프리미엄 챔피언팩 (140장)",
+      "displayName": "프리미엄 챔피언팩",
+      "cardCount": 140,
+      "firstCardCode": "cp4_001/131",
+      "lastCardCode": "cp4_140/131",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 140,
+        "illustrator": 140
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY10",
+      "title": "초능력의 제왕 (88장)",
+      "displayName": "초능력의 제왕",
+      "cardCount": 88,
+      "firstCardCode": "xy10_001/078",
+      "lastCardCode": "xy10_088/078",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 88,
+        "illustrator": 88
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYH",
+      "title": "메가 배틀 덱 「M다부니 EX」 (27장)",
+      "displayName": "메가 배틀 덱 「M다부니 EX」",
+      "cardCount": 27,
+      "firstCardCode": "xyh_001/026",
+      "lastCardCode": "xyh_027/026",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 27,
+        "illustrator": 27
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYG",
+      "title": "퍼펙트 배틀 덱 「지가르데 EX」 (20장)",
+      "displayName": "퍼펙트 배틀 덱 「지가르데 EX」",
+      "cardCount": 20,
+      "firstCardCode": "xyg_001/019",
+      "lastCardCode": "xyg_020/019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP3",
+      "title": "포켓심쿵 컬렉션 (32장)",
+      "displayName": "포켓심쿵 컬렉션",
+      "cardCount": 32,
+      "firstCardCode": "cp3_001/032",
+      "lastCardCode": "cp3_032/032",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 32,
+        "illustrator": 32
+      }
+    },
+    {
+      "era": "XY",
+      "code": "20th",
+      "title": "트레이너 세트 20th Anniversary (71장)",
+      "displayName": "트레이너 세트 20th Anniversary",
+      "cardCount": 71,
+      "firstCardCode": "20th_001/071",
+      "lastCardCode": "20th_071/071",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 71,
+        "illustrator": 71
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY9",
+      "title": "천공의 분노 (89장)",
+      "displayName": "천공의 분노",
+      "cardCount": 89,
+      "firstCardCode": "xy9_001/080",
+      "lastCardCode": "xy9_089/080",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 89,
+        "illustrator": 89
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYF",
+      "title": "콤보 덱 「골덕 BREAK +펄기아 EX」 (17장)",
+      "displayName": "콤보 덱 「골덕 BREAK +펄기아 EX」",
+      "cardCount": 17,
+      "firstCardCode": "xyf_001/016",
+      "lastCardCode": "xyf_017/016",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 17,
+        "illustrator": 17
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Bb",
+      "title": "푸른 충격 (65장)",
+      "displayName": "푸른 충격",
+      "cardCount": 65,
+      "firstCardCode": "xy8-bb_001/059",
+      "lastCardCode": "xy8-bb_065/059",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 65,
+        "illustrator": 65
+      }
+    },
+    {
+      "era": "XY",
+      "code": "UBD",
+      "title": "덱 「음번 BREAK」 (19장)",
+      "displayName": "덱 「음번 BREAK」",
+      "cardCount": 19,
+      "firstCardCode": "ubd_001/017",
+      "lastCardCode": "ubd_019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "XY",
+      "code": "RBD",
+      "title": "덱 「라이츄 BREAK」 (19장)",
+      "displayName": "덱 「라이츄 BREAK」",
+      "cardCount": 19,
+      "firstCardCode": "rbd_001/017",
+      "lastCardCode": "rbd_019",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 19,
+        "illustrator": 19
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Br",
+      "title": "붉은 섬광 (65장)",
+      "displayName": "붉은 섬광",
+      "cardCount": 65,
+      "firstCardCode": "xy8-br_001/059",
+      "lastCardCode": "xy8-br_065/059",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 65,
+        "illustrator": 65
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYE",
+      "title": "대전 세트 「염무왕 EX vs 토게키스 EX」 (26장)",
+      "displayName": "대전 세트 「염무왕 EX vs 토게키스 EX」",
+      "cardCount": 26,
+      "firstCardCode": "xye_001/022",
+      "lastCardCode": "xye_026/022",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 26,
+        "illustrator": 26
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP2",
+      "title": "레전드 컬렉션 (27장)",
+      "displayName": "레전드 컬렉션",
+      "cardCount": 27,
+      "firstCardCode": "cp2_001/027",
+      "lastCardCode": "cp2_027/027",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 27,
+        "illustrator": 27
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY7",
+      "title": "밴디트링 (97장)",
+      "displayName": "밴디트링",
+      "cardCount": 97,
+      "firstCardCode": "xy7_001/081",
+      "lastCardCode": "xy7_097/081",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 97,
+        "illustrator": 97
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY6",
+      "title": "에메랄드 브레이크 (91장)",
+      "displayName": "에메랄드 브레이크",
+      "cardCount": 91,
+      "firstCardCode": "xy6_001/078",
+      "lastCardCode": "xy6_091/078",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 91,
+        "illustrator": 91
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYD",
+      "title": "메가 배틀 덱 「M레쿠쟈 EX」 (20장)",
+      "displayName": "메가 배틀 덱 「M레쿠쟈 EX」",
+      "cardCount": 20,
+      "firstCardCode": "xyd_001/018",
+      "lastCardCode": "xyd_020/018",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "XY",
+      "code": "CP1",
+      "title": "마그마단vs아쿠아단 더블크라이시스 (34장)",
+      "displayName": "마그마단vs아쿠아단 더블크라이시스",
+      "cardCount": 34,
+      "firstCardCode": "cp1_001/034",
+      "lastCardCode": "cp1_034/034",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 34,
+        "illustrator": 34
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bg",
+      "title": "가이아 볼케이노 (80장)",
+      "displayName": "가이아 볼케이노",
+      "cardCount": 80,
+      "firstCardCode": "xy5-bg_001/070",
+      "lastCardCode": "xy5-bg_080/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 80,
+        "illustrator": 80
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bt",
+      "title": "타이달스톰 (80장)",
+      "displayName": "타이달스톰",
+      "cardCount": 80,
+      "firstCardCode": "xy5-bt_001/070",
+      "lastCardCode": "xy5-bt_080/070",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 80,
+        "illustrator": 80
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYC",
+      "title": "레전드 배틀 덱 「제르네아스 EX+이벨타르 EX」 (25장)",
+      "displayName": "레전드 배틀 덱 「제르네아스 EX+이벨타르 EX」",
+      "cardCount": 25,
+      "firstCardCode": "xyc_001/023",
+      "lastCardCode": "xyc_025/023",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 25,
+        "illustrator": 25
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYB",
+      "title": "하이퍼 메탈 체인 덱 「디아루가 EX+킬가르도 EX」 (20장)",
+      "displayName": "하이퍼 메탈 체인 덱 「디아루가 EX+킬가르도 EX」",
+      "cardCount": 20,
+      "firstCardCode": "xyb_001/018",
+      "lastCardCode": "xyb_020/018",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 20,
+        "illustrator": 20
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY4",
+      "title": "팬텀게이트 (97장)",
+      "displayName": "팬텀게이트",
+      "cardCount": 97,
+      "firstCardCode": "xy4_001/088",
+      "lastCardCode": "xy4_097/088",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 97,
+        "illustrator": 97
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY3",
+      "title": "라이징피스트 (105장)",
+      "displayName": "라이징피스트",
+      "cardCount": 105,
+      "firstCardCode": "xy3_001/096",
+      "lastCardCode": "xy3_105/096",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 105,
+        "illustrator": 105
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYA",
+      "title": "메가 배틀 덱 「M리자몽 EX」 (23장)",
+      "displayName": "메가 배틀 덱 「M리자몽 EX」",
+      "cardCount": 23,
+      "firstCardCode": "xya_001/021",
+      "lastCardCode": "xya_023/021",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 23,
+        "illustrator": 23
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY2",
+      "title": "와일드 블레이즈 (90장)",
+      "displayName": "와일드 블레이즈",
+      "cardCount": 90,
+      "firstCardCode": "xy2_001/080",
+      "lastCardCode": "xy2_090/080",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 90,
+        "illustrator": 90
+      }
+    },
+    {
+      "era": "XY",
+      "code": "X30",
+      "title": "제르네아스 덱 (15장)",
+      "displayName": "제르네아스 덱",
+      "cardCount": 15,
+      "firstCardCode": "x30_001/014",
+      "lastCardCode": "x30_015/014",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 15,
+        "illustrator": 15
+      }
+    },
+    {
+      "era": "XY",
+      "code": "Y30",
+      "title": "이벨타르 덱 (15장)",
+      "displayName": "이벨타르 덱",
+      "cardCount": 15,
+      "firstCardCode": "y30_001/014",
+      "lastCardCode": "y30_015/014",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 15,
+        "illustrator": 15
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY1-Bx",
+      "title": "X컬렉션 (63장)",
+      "displayName": "X컬렉션",
+      "cardCount": 63,
+      "firstCardCode": "xy1-bx_001/060",
+      "lastCardCode": "xy1-bx_063/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 63,
+        "illustrator": 63
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY1-By",
+      "title": "Y컬렉션 (63장)",
+      "displayName": "Y컬렉션",
+      "cardCount": 63,
+      "firstCardCode": "xy1-by_001/060",
+      "lastCardCode": "xy1-by_063/060",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 63,
+        "illustrator": 63
+      }
+    },
+    {
+      "era": "XY",
+      "code": "FXY",
+      "title": "XY 퍼스트 세트 (42장)",
+      "displayName": "XY 퍼스트 세트",
+      "cardCount": 42,
+      "firstCardCode": "fxy_001/036",
+      "lastCardCode": "fxy_042",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 42,
+        "illustrator": 42
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYP",
+      "title": "XY 프로모 (191장)",
+      "displayName": "XY 프로모",
+      "cardCount": 191,
+      "firstCardCode": "xyp_001/XY-P",
+      "lastCardCode": "xyp_191",
+      "pokemonNameFallback": 0,
+      "missing": {
+        "code": 0,
+        "name": 0,
+        "label": 0,
+        "image": 0,
+        "source": 0,
+        "rarity": 191,
+        "illustrator": 191
+      }
+    }
+  ]
+}
