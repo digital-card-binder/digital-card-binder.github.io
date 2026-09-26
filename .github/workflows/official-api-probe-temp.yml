@@ -1,0 +1,59 @@
+name: Temporary official API probe
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/official-api-probe-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Probe three official search responses
+        run: |
+          node <<'NODE'
+          const fs=require("fs");
+          const BASE="https://pokemoncard.co.kr";
+          async function call(cardType){
+            const form=new URLSearchParams({
+              action:"get_more_cards", limit:"0", GoodsName:"",
+              CardTypeNum:String(cardType), CardType:"all", order:"ASC", orderby:"CardNum"
+            });
+            if(cardType===1){
+              for(const [k,v] of Object.entries({CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"}))form.set(k,v);
+            }
+            const r=await fetch(BASE+"/v2/ajax2_dev2",{method:"POST",headers:{
+              "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
+              "Content-Type":"application/x-www-form-urlencoded","Referer":BASE+"/cards","X-Requested-With":"XMLHttpRequest"
+            },body:form.toString()});
+            const t=await r.text();
+            const s=t.indexOf('{"status"')>=0?t.indexOf('{"status"'):t.indexOf("{");
+            const j=JSON.parse(t.slice(s));
+            const result=Array.isArray(j.result)?j.result:Object.values(j.result||{});
+            return {
+              cardType,
+              topKeys:Object.keys(j),
+              metadata:Object.fromEntries(Object.entries(j).filter(([k])=>k!=="result")),
+              resultCount:result.length,
+              first:result.slice(0,2),
+              last:result.slice(-2)
+            };
+          }
+          Promise.all([1,2,3].map(call)).then(x=>{
+            fs.writeFileSync("probe.json",JSON.stringify(x,null,2));
+            console.log(JSON.stringify(x.map(v=>({cardType:v.cardType,topKeys:v.topKeys,metadata:v.metadata,resultCount:v.resultCount})),null,2));
+          }).catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-api-probe
+          path: probe.json
