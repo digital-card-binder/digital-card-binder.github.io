@@ -6,6 +6,7 @@ on:
       - audit-official-inventory-20260926
     paths:
       - ".github/workflows/official-inventory-audit-temp.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,264 +14,243 @@ permissions:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Collect official search inventory safely
+      - name: Collect Pokemon Korea official card search inventory
         shell: bash
         run: |
           node <<'NODE'
-          import fs from "node:fs";
-          import crypto from "node:crypto";
+          const fs = require("fs");
+          const BASE = "https://pokemoncard.co.kr";
+          const OUT = "official-inventory.json";
+          const SUMMARY = "official-inventory-summary.json";
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+          const clean = (v) => String(v ?? "").trim();
 
-          const BASE="https://pokemoncard.co.kr";
-          const IMAGE_BASE="https://cards.image.pokemonkorea.co.kr/data/";
-          const OUT="official-inventory.json";
-          const SUMMARY="official-inventory-summary.json";
-          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-          const clean=v=>String(v??"").trim();
-          const normalize=v=>clean(v).toLocaleLowerCase("ko-KR").replace(/[\s·._()"'「」『』\-–—:,+&]/g,"");
-
-          function decodeHtml(v){
-            return String(v||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
-          }
-          function parseProducts(html){
-            const select=html.match(/<select[^>]*name=["']GoodsName["'][^>]*>([\s\S]*?)<\/select>/i)?.[1]||"";
-            const out=[];
-            for(const m of select.matchAll(/<option[^>]*value=["']([^"']+)["'][^>]*>/gi)){
-              const v=decodeHtml(m[1]).trim();
-              if(v&&!out.includes(v))out.push(v);
-            }
-            return out;
-          }
-          async function fetchText(url,options={}){
+          async function request(url, options = {}, attempts = 4) {
             let last;
-            for(let attempt=0;attempt<5;attempt++){
-              try{
-                const res=await fetch(url,{
+            for (let i = 0; i < attempts; i += 1) {
+              try {
+                const res = await fetch(url, {
                   ...options,
-                  headers:{
-                    "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
-                    "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5",
-                    ...(options.headers||{})
+                  headers: {
+                    "User-Agent": "digital-card-binder-official-inventory-audit/1.1 (+https://digital-card-binder.github.io/)",
+                    "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.5",
+                    ...(options.headers || {}),
                   },
-                  signal:AbortSignal.timeout(45000)
                 });
-                if(!res.ok)throw new Error(`HTTP ${res.status}`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 return await res.text();
-              }catch(e){last=e;if(attempt<4)await sleep(1600*(attempt+1));}
+              } catch (error) {
+                last = error;
+                if (i + 1 < attempts) await sleep(1800 * (i + 1));
+              }
             }
             throw last;
           }
-          function parseJson(text){
-            let start=text.indexOf('{"status"');if(start<0)start=text.indexOf("{");
-            if(start<0)throw new Error("official response contained no JSON");
+
+          function decodeHtml(value) {
+            return String(value || "")
+              .replace(/&quot;/gi, '"').replace(/&#39;/gi, "'")
+              .replace(/&amp;/gi, "&").replace(/&lt;/gi, "<").replace(/&gt;/gi, ">");
+          }
+
+          function parseProducts(html) {
+            const select = html.match(/<select[^>]*name=["']GoodsName["'][^>]*>([\s\S]*?)<\/select>/i)?.[1] || "";
+            const products = [];
+            for (const match of select.matchAll(/<option[^>]*value=["']([^"']+)["'][^>]*>/gi)) {
+              const value = decodeHtml(match[1]).trim();
+              if (value && !products.includes(value)) products.push(value);
+            }
+            return products;
+          }
+
+          function parseJson(text) {
+            let start = text.indexOf('{"status"');
+            if (start < 0) start = text.indexOf("{");
+            if (start < 0) throw new Error("No JSON object in response");
             return JSON.parse(text.slice(start));
           }
-          async function ajaxPage({product="",cardType,page}){
-            const form=new URLSearchParams({
-              action:"get_more_cards",limit:String(page),GoodsName:product,CardTypeNum:String(cardType),
-              CardType:"all",order:"ASC",orderby:"CardNum"
+
+          async function ajaxPage(product, cardType, page) {
+            const form = new URLSearchParams({
+              action: "get_more_cards",
+              limit: String(page),
+              GoodsName: product,
+              CardTypeNum: String(cardType),
+              CardType: "all",
+              order: "ASC",
+              orderby: "CardNum",
             });
-            if(cardType===1){
-              for(const [k,v] of Object.entries({
-                CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",
-                ability_label1:"all",hp:"0,380",retreat:"0,5"
-              }))form.set(k,v);
+            if (cardType === 1) {
+              form.set("CardMonType", "all");
+              form.set("Weakness", "all");
+              form.set("Resistance", "all");
+              form.set("TechErg", "all");
+              form.set("ability_label1", "all");
+              form.set("hp", "0,380");
+              form.set("retreat", "0,5");
             }
-            let last;
-            for(let attempt=0;attempt<5;attempt++){
-              try{
-                const text=await fetchText(`${BASE}/v2/ajax2_dev2`,{
-                  method:"POST",
-                  headers:{
-                    "Content-Type":"application/x-www-form-urlencoded",
-                    "Referer":`${BASE}/cards`,
-                    "X-Requested-With":"XMLHttpRequest"
-                  },
-                  body:form.toString()
-                });
-                const obj=parseJson(text);
-                const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
-                return rows;
-              }catch(e){last=e;if(attempt<4)await sleep(1800*(attempt+1));}
-            }
-            throw last;
-          }
-          function imageInfo(value){
-            const raw=clean(value);
-            const path=raw.split("?",1)[0].replace(/^\/+/, "");
-            const m=path.match(/wmimages\/([^/]+)\/([^/]+)\/([^/]+)$/i);
-            if(!m)return {featureImage:raw,imageUrl:path?IMAGE_BASE+path:"",imageEra:"",imageSet:"",actualSetCode:"",printedNumber:""};
-            const [,imageEra,imageSet,filename]=m;
-            const stem=filename.replace(/\.[^.]+$/,"");
-            const actualSetCode=(stem.split("_",1)[0]||imageSet).trim();
-            const numberMatch=stem.match(/_0*([0-9]{1,4})(?:[^0-9]|$)/);
-            const printedNumber=numberMatch?String(Number(numberMatch[1])):"";
-            return {featureImage:raw,imageUrl:IMAGE_BASE+path,imageEra,imageSet,actualSetCode,printedNumber};
-          }
-          function recordKey(row){
-            const info=imageInfo(row.feature_image||row.image||"");
-            return [clean(row.CardNum||row.card_num||row.idx||""),info.imageUrl.split("?",1)[0]].join("|");
+            const text = await request(`${BASE}/v2/ajax2_dev2`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Referer": `${BASE}/cards`,
+                "X-Requested-With": "XMLHttpRequest",
+              },
+              body: form.toString(),
+            });
+            const payload = parseJson(text);
+            const result = payload.result || [];
+            return Array.isArray(result) ? result : Object.values(result);
           }
 
-          const series=JSON.parse(fs.readFileSync("data/series.json","utf8"));
-          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
-          const groups=[...series,...legacy];
-          const legacyGroups=groups.filter(g=>["BW","XY","SM"].includes(clean(g.era).toUpperCase()));
-
-          const cardsIndexHtml=await fetchText(`${BASE}/cards`);
-          const officialOptions=parseProducts(cardsIndexHtml);
-          const optionByNorm=new Map();
-          for(const option of officialOptions){
-            const key=normalize(option);
-            if(!optionByNorm.has(key))optionByNorm.set(key,[]);
-            optionByNorm.get(key).push(option);
+          function rowId(row) {
+            return clean(row.CardNum || row.card_num || row.idx || row.no || "");
           }
 
-          const groupMatches=[];
-          const productTargets=new Map();
-          for(const group of legacyGroups){
-            const era=clean(group.era).toUpperCase();
-            const code=clean(group.code);
-            const display=clean(group.displayName||group.title||group.name);
-            const candidates=[];
-            for(const source of (Array.isArray(group.sourceProducts)?group.sourceProducts:[])){
-              const exact=optionByNorm.get(normalize(source))||[];
-              for(const option of exact)candidates.push({option,method:"sourceProducts-exact"});
+          function rowSignature(rows) {
+            return rows.map((r) => rowId(r) || clean(r.feature_image || r.image || "")).join("|");
+          }
+
+          function imageUrl(v) {
+            const path = clean(v).split("?", 1)[0].replace(/^\/+/, "");
+            return path ? `https://cards.image.pokemonkorea.co.kr/data/${path}` : "";
+          }
+
+          function save(products, productStats, allRows, requestCount, errors) {
+            const uniqueByCardNum = new Map();
+            const noId = [];
+            for (const item of allRows) {
+              const id = rowId(item.row);
+              if (!id) {
+                noId.push(item);
+                continue;
+              }
+              const existing = uniqueByCardNum.get(id);
+              if (!existing) uniqueByCardNum.set(id, {...item, products:[item.product]});
+              else if (!existing.products.includes(item.product)) existing.products.push(item.product);
             }
-            if(!candidates.length){
-              const displayNorm=normalize(display.replace(/\([^)]*\)\s*$/,""));
-              if(displayNorm.length>=4){
-                for(const option of officialOptions){
-                  const n=normalize(option);
-                  const eraOkay=era==="BW"?/bw/i.test(option):era==="XY"?/xy|20th/i.test(option):/썬.?문/i.test(option);
-                  if(eraOkay&&(n.includes(displayNorm)||displayNorm.includes(n))){
-                    candidates.push({option,method:"displayName-fuzzy"});
-                  }
-                }
+            const unique = [...uniqueByCardNum.values()];
+            const imageEraCounts = {}, imageSetCounts = {}, fieldPresence = {};
+            for (const item of unique) {
+              const row = item.row;
+              for (const key of Object.keys(row)) fieldPresence[key] = (fieldPresence[key] || 0) + 1;
+              const feature = clean(row.feature_image || row.image || "");
+              const m = feature.match(/wmimages\/([^/]+)\/([^/]+)\//i);
+              if (m) {
+                imageEraCounts[m[1]] = (imageEraCounts[m[1]] || 0) + 1;
+                imageSetCounts[m[2]] = (imageSetCounts[m[2]] || 0) + 1;
               }
             }
-            const unique=[...new Map(candidates.map(x=>[x.option,x])).values()];
-            groupMatches.push({era,code,displayName:display,matches:unique});
-            for(const match of unique){
-              if(!productTargets.has(match.option))productTargets.set(match.option,{groups:[],methods:new Set()});
-              const target=productTargets.get(match.option);
-              target.groups.push({era,code});
-              target.methods.add(match.method);
-            }
-          }
-
-          console.log(`Official product options: ${officialOptions.length}`);
-          console.log(`Legacy groups: ${legacyGroups.length}; matched official products: ${productTargets.size}; unmatched groups: ${groupMatches.filter(g=>!g.matches.length).length}`);
-          for(const g of groupMatches.filter(g=>!g.matches.length))console.log("UNMATCHED_GROUP="+JSON.stringify(g));
-
-          const merged=new Map();
-          let rawGlobal=0,rawLegacy=0,requestCount=1;
-          const progress={global:{},legacyProductsDone:0};
-          function addRows(rows,context){
-            for(const row of rows){
-              const key=recordKey(row);
-              const info=imageInfo(row.feature_image||row.image||"");
-              const cardNum=clean(row.CardNum||row.card_num||row.idx||"");
-              const base={
-                key,cardNum,cardTypeNum:context.cardType,...info,
-                detailUrl:cardNum?`${BASE}/cards/detail/${cardNum}`:"",
-                officialProducts:[],matchedLegacyGroups:[],sourceModes:[],
-                raw:row
-              };
-              const existing=merged.get(key)||base;
-              if(context.product&&!existing.officialProducts.includes(context.product))existing.officialProducts.push(context.product);
-              for(const g of context.groups||[]){
-                if(!existing.matchedLegacyGroups.some(x=>x.era===g.era&&x.code===g.code))existing.matchedLegacyGroups.push(g);
-              }
-              if(!existing.sourceModes.includes(context.mode))existing.sourceModes.push(context.mode);
-              merged.set(key,existing);
-            }
-          }
-          function savePartial(final=false){
-            const cards=[...merged.values()];
-            const summary=buildSummary(cards,final);
-            fs.writeFileSync(OUT,JSON.stringify({summary,groupMatches,cards},null,2));
-            fs.writeFileSync(SUMMARY,JSON.stringify(summary,null,2));
-          }
-          function buildSummary(cards,final){
-            const eraCounts={},setCounts={},cardTypeCounts={},sourceModeCounts={};
-            for(const c of cards){
-              const era=c.imageEra||"(unknown)",set=c.imageSet||"(unknown)";
-              eraCounts[era]=(eraCounts[era]||0)+1;setCounts[set]=(setCounts[set]||0)+1;
-              cardTypeCounts[c.cardTypeNum]=(cardTypeCounts[c.cardTypeNum]||0)+1;
-              for(const mode of c.sourceModes)sourceModeCounts[mode]=(sourceModeCounts[mode]||0)+1;
-            }
-            return {
-              schemaVersion:1,final,collectedAt:new Date().toISOString(),officialUrl:`${BASE}/cards`,
-              officialProductOptionCount:officialOptions.length,
-              targetLegacyGroupCount:legacyGroups.length,
-              matchedLegacyProductCount:productTargets.size,
-              unmatchedLegacyGroups:groupMatches.filter(g=>!g.matches.length).map(g=>({era:g.era,code:g.code,displayName:g.displayName})),
-              rawGlobalResultCount:rawGlobal,rawLegacyProductResultCount:rawLegacy,
-              uniqueRecordCount:cards.length,requestCount,
-              progress,eraCounts,setCounts,cardTypeCounts,sourceModeCounts,
-              note:"List inventory only. Detail pages were not bulk-fetched; Korean card names/rarities are intentionally deferred to differential checks."
+            const summary = {
+              collectedAt: new Date().toISOString(),
+              officialUrl: `${BASE}/cards`,
+              complete: productStats.length === products.length && errors.length === 0,
+              productOptionCount: products.length,
+              processedProductCount: productStats.length,
+              requestCount,
+              rawAssociationCount: allRows.length,
+              uniqueCardNumCount: unique.length,
+              duplicateAssociations: allRows.length - unique.length - noId.length,
+              missingCardNumRows: noId.length,
+              imageEraCounts,
+              imageSetCounts,
+              fieldPresence: Object.fromEntries(Object.entries(fieldPresence).sort((a,b)=>b[1]-a[1])),
+              productStats,
+              errors,
             };
+            const cards = unique.map((item) => {
+              const row=item.row;
+              return {
+                cardNum: rowId(row),
+                products: item.products,
+                cardTypeNum: item.cardType,
+                name: clean(row.CardName || row.card_name || row.name || row.title || ""),
+                cardNumber: clean(row.CardNo || row.card_no || row.number || ""),
+                rarity: clean(row.Rarity || row.rarity || ""),
+                featureImage: clean(row.feature_image || row.image || ""),
+                imageUrl: imageUrl(row.feature_image || row.image || ""),
+                raw: row,
+              };
+            });
+            fs.writeFileSync(OUT, JSON.stringify({summary,cards,noId}, null, 2));
+            fs.writeFileSync(SUMMARY, JSON.stringify(summary, null, 2));
+            return summary;
           }
 
-          for(const cardType of [1,2,3]){
-            let typeCount=0;
-            for(let page=0;page<600;page++){
-              const rows=await ajaxPage({cardType,page});
-              requestCount+=1;rawGlobal+=rows.length;typeCount+=rows.length;
-              addRows(rows,{mode:"global-current",cardType,product:"",groups:[]});
-              if(page%20===0||rows.length<30)console.log(`GLOBAL type=${cardType} page=${page} +${rows.length} typeTotal=${typeCount} unique=${merged.size}`);
-              if(page%25===0)savePartial(false);
-              if(rows.length<30){progress.global[String(cardType)]={lastPage:page,recordCount:typeCount};break;}
-              await sleep(900);
-              if(page===599)throw new Error(`global pagination safety limit type ${cardType}`);
-            }
-            await sleep(1200);
-          }
+          async function main() {
+            const html = await request(`${BASE}/cards`);
+            const products = parseProducts(html);
+            if (!products.length) throw new Error("No GoodsName product options found");
+            console.log(`Official product options: ${products.length}`);
 
-          let productIndex=0;
-          for(const [product,target] of productTargets){
-            productIndex+=1;
-            let productRaw=0;
-            for(const cardType of [1,2,3]){
-              for(let page=0;page<40;page++){
-                const rows=await ajaxPage({product,cardType,page});
-                requestCount+=1;rawLegacy+=rows.length;productRaw+=rows.length;
-                addRows(rows,{mode:"legacy-product",cardType,product,groups:target.groups});
-                if(rows.length<30)break;
-                await sleep(900);
-                if(page===39)throw new Error(`legacy product pagination safety limit: ${product}`);
+            const allRows = [], productStats = [], errors = [];
+            let requestCount = 1;
+
+            for (let pi = 0; pi < products.length; pi += 1) {
+              const product = products[pi];
+              const perType = {};
+              let productRows = 0;
+              try {
+                for (const cardType of [1,2,3]) {
+                  let rows = 0;
+                  let previousSignature = "";
+                  for (let page = 0; page < 60; page += 1) {
+                    const batch = await ajaxPage(product, cardType, page);
+                    requestCount += 1;
+                    const signature = rowSignature(batch);
+                    if (page > 0 && batch.length && signature === previousSignature) {
+                      console.log(`repeat-stop: product ${pi+1}/${products.length} type ${cardType} page ${page}`);
+                      break;
+                    }
+                    previousSignature = signature;
+                    for (const row of batch) allRows.push({product,cardType,row});
+                    rows += batch.length;
+                    productRows += batch.length;
+                    if (batch.length < 30) break;
+                    await sleep(850);
+                    if (page === 59) throw new Error("pagination safety limit");
+                  }
+                  perType[String(cardType)] = rows;
+                  await sleep(850);
+                }
+                productStats.push({product,rawRows:productRows,perType});
+                console.log(`product ${pi+1}/${products.length}: ${productRows} rows · ${product}`);
+              } catch (error) {
+                errors.push({product,error:String(error)});
+                productStats.push({product,rawRows:productRows,perType,error:String(error)});
+                console.error(`product error ${product}: ${error}`);
               }
-              await sleep(700);
+              save(products,productStats,allRows,requestCount,errors);
+              await sleep(1000);
             }
-            progress.legacyProductsDone=productIndex;
-            if(productIndex%5===0||productIndex===productTargets.size){
-              console.log(`LEGACY product ${productIndex}/${productTargets.size}: ${product} raw=${productRaw} unique=${merged.size}`);
-              savePartial(false);
-            }
-            await sleep(900);
+
+            const summary=save(products,productStats,allRows,requestCount,errors);
+            console.log("FINAL_SUMMARY=" + JSON.stringify({
+              complete:summary.complete,
+              productOptionCount:summary.productOptionCount,
+              processedProductCount:summary.processedProductCount,
+              requestCount:summary.requestCount,
+              rawAssociationCount:summary.rawAssociationCount,
+              uniqueCardNumCount:summary.uniqueCardNumCount,
+              duplicateAssociations:summary.duplicateAssociations,
+              missingCardNumRows:summary.missingCardNumRows,
+              imageEraCounts:summary.imageEraCounts,
+              imageSetCount:Object.keys(summary.imageSetCounts).length,
+              errors:summary.errors.length,
+            }));
+            if (!summary.complete) process.exitCode=2;
           }
 
-          savePartial(true);
-          const finalSummary=JSON.parse(fs.readFileSync(SUMMARY,"utf8"));
-          console.log("FINAL_SUMMARY="+JSON.stringify({
-            officialProductOptionCount:finalSummary.officialProductOptionCount,
-            targetLegacyGroupCount:finalSummary.targetLegacyGroupCount,
-            matchedLegacyProductCount:finalSummary.matchedLegacyProductCount,
-            unmatchedLegacyGroups:finalSummary.unmatchedLegacyGroups,
-            rawGlobalResultCount:finalSummary.rawGlobalResultCount,
-            rawLegacyProductResultCount:finalSummary.rawLegacyProductResultCount,
-            uniqueRecordCount:finalSummary.uniqueRecordCount,
-            requestCount:finalSummary.requestCount,
-            progress:finalSummary.progress,
-            eraCounts:finalSummary.eraCounts,
-            setCount:Object.keys(finalSummary.setCounts).length
-          }));
+          main().catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
           NODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -279,4 +259,4 @@ jobs:
           path: |
             official-inventory.json
             official-inventory-summary.json
-          if-no-files-found: warn
+          if-no-files-found: error
