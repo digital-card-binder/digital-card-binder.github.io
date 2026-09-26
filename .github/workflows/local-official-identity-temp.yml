@@ -1,0 +1,97 @@
+name: Temporary local-official identity audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/local-official-identity-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-inventory-audit
+          run-id: 36231144709
+          github-token: ${{ github.token }}
+          path: audit-input
+      - name: Check local card identity against matched official records
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const strip=v=>clean(v).split(/[?#]/,1)[0].replace(/^http:/i,"https:");
+          const token=v=>{
+            const raw=clean(v);
+            const m=raw.match(/_0*([^/]+)/);
+            if(!m)return norm(raw);
+            return /^\d+$/.test(m[1])?String(Number(m[1])):norm(m[1]);
+          };
+          const merge=(a,b)=>{const o=[...a];for(const x of b){const k=norm(x.code),i=o.findIndex(g=>norm(g.code)===k);if(i>=0)o[i]=x;else o.push(x)}return o};
+          const sourceCardNum=c=>clean(c?.source).match(/\/cards\/detail\/([^/?#]+)/i)?.[1]||"";
+
+          const groups=merge(
+            JSON.parse(fs.readFileSync("data/series.json","utf8")),
+            JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"))
+          );
+          const inv=JSON.parse(fs.readFileSync("audit-input/official-inventory.json","utf8"));
+          const official=inv.cards;
+          const byCard=new Map(),byImage=new Map();
+          official.forEach((o,i)=>{
+            const c=clean(o.cardNum),im=strip(o.imageUrl);
+            if(c){if(!byCard.has(c))byCard.set(c,[]);byCard.get(c).push(i)}
+            if(im){if(!byImage.has(im))byImage.set(im,[]);byImage.get(im).push(i)}
+          });
+
+          const issues=[],checked=[];
+          for(const g of groups){
+            for(const c of g.cards||[]){
+              const localToken=token(c.code||c.meta);
+              const src=sourceCardNum(c),img=strip(c.image);
+              let indices=[],method="";
+              if(src&&byCard.has(src)){indices=byCard.get(src);method="cardnum"}
+              else if(img&&byImage.has(img)){indices=byImage.get(img);method="image"}
+              if(!indices.length)continue;
+              const rows=indices.map(i=>official[i]);
+              const exactGroupRows=rows.filter(o=>
+                (o.matchedLegacyGroups||[]).some(x=>norm(typeof x==="string"?x:x?.code)===norm(g.code)) ||
+                norm(o.actualSetCode)===norm(g.code)
+              );
+              const candidates=exactGroupRows.length?exactGroupRows:rows;
+              const nums=[...new Set(candidates.map(o=>String(o.printedNumber||"")).filter(Boolean))];
+              const groupCompatible=exactGroupRows.length>0;
+              const numberCompatible=nums.includes(localToken);
+              checked.push({groupCode:g.code,cardCode:c.code,method,localToken,officialNumbers:nums,groupCompatible});
+              if(!numberCompatible || !groupCompatible){
+                issues.push({
+                  groupCode:g.code,cardCode:c.code,name:clean(c.name||c.pokemonName),
+                  method,localToken,groupCompatible,officialNumbers:nums,
+                  officialActualSets:[...new Set(candidates.map(o=>o.actualSetCode).filter(Boolean))],
+                  matchedLegacyGroups:[...new Set(candidates.flatMap(o=>o.matchedLegacyGroups||[]).map(x=>typeof x==="string"?x:x?.code).filter(Boolean))],
+                  cardNums:[...new Set(candidates.map(o=>o.cardNum).filter(Boolean))],
+                  images:[...new Set(candidates.map(o=>o.imageUrl).filter(Boolean))].slice(0,4)
+                });
+              }
+            }
+          }
+          const bySet={};
+          for(const x of issues)bySet[x.groupCode]=(bySet[x.groupCode]||0)+1;
+          const summary={checkedStrongMatches:checked.length,issueCount:issues.length,bySet:Object.fromEntries(Object.entries(bySet).sort((a,b)=>b[1]-a[1]))};
+          fs.writeFileSync("local-official-identity-audit.json",JSON.stringify({summary,issues},null,2));
+          console.log("IDENTITY_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: local-official-identity-audit
+          path: local-official-identity-audit.json
