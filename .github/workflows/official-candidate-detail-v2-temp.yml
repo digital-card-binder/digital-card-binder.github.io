@@ -1,0 +1,154 @@
+name: Temporary official candidate detail audit v2
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/official-candidate-detail-v2-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v2
+          run-id: 36236961347
+          github-token: ${{ github.token }}
+          path: diff-input
+      - name: Fetch only high-confidence missing candidate details
+        run: |
+          node <<'NODE'
+          const fs=require("fs");
+          const diff=JSON.parse(fs.readFileSync("diff-input/official-series-diff-v2.json","utf8"));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+          const localTokens=new Map();
+          for(const x of [...diff.matches,...diff.localOnly]){
+            const g=norm(x.groupCode);
+            let token=x.token;
+            if(token==null){
+              const raw=clean(x.cardCode);
+              const m=raw.match(/_0*([^/]+)/);
+              token=m?m[1].replace(/^0+(?=\d)/,""):raw;
+            }
+            if(!localTokens.has(g))localTokens.set(g,new Set());
+            localTokens.get(g).add(String(token));
+          }
+
+          const existing=[];
+          const m6a=[];
+          const nonNumeric=[];
+          for(const slot of diff.officialOnly){
+            const g=norm(slot.logicalGroup);
+            const token=String(slot.token);
+            const exists=localTokens.has(g);
+            const missingInLocal=exists&&!localTokens.get(g).has(token);
+            if(missingInLocal){
+              if(/^\d+$/.test(token))existing.push(slot);
+              else nonNumeric.push(slot);
+            }
+            if(g==="m6a")m6a.push(slot);
+          }
+
+          const byKey=new Map();
+          for(const slot of [...existing,...m6a]){
+            const cardNum=(slot.cardNums||[])[0];
+            if(cardNum&&!byKey.has(cardNum))byKey.set(cardNum,{cardNum,slot});
+          }
+          const targets=[...byKey.values()];
+          console.log(`DETAIL_TARGETS existing=${existing.length} m6a=${m6a.length} unique=${targets.length} nonNumericDeferred=${nonNumeric.length}`);
+
+          function decode(s){return String(s||"").replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();}
+          function parse(html){
+            const name=decode(html.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||"");
+            const p=html.match(/<span[^>]*class=["'][^"']*p_num[^"']*["'][^>]*>\s*([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)\s*<span[^>]*>\s*([^<]*)/i);
+            const alt=html.match(/(?:카드\s*번호|카드번호)[^0-9]{0,40}([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)/i);
+            const number=p?.[1]||alt?.[1]||"";
+            const denominator=p?.[2]||alt?.[2]||"";
+            const rarity=decode(p?.[3]||"");
+            return {name,number,denominator,rarity};
+          }
+
+          async function fetchDetail(item){
+            let last;
+            for(let attempt=0;attempt<4;attempt++){
+              try{
+                const r=await fetch(`https://pokemoncard.co.kr/cards/detail/${item.cardNum}`,{headers:{
+                  "User-Agent":"digital-card-binder-diff-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error(`HTTP ${r.status}`);
+                const html=await r.text();
+                return {...item,detail:parse(html),ok:true};
+              }catch(e){last=e;if(attempt<3)await sleep(1200*(attempt+1));}
+            }
+            return {...item,ok:false,error:String(last)};
+          }
+
+          const results=new Array(targets.length);
+          let cursor=0,done=0;
+          async function worker(id){
+            while(true){
+              const i=cursor++;
+              if(i>=targets.length)return;
+              results[i]=await fetchDetail(targets[i]);
+              done++;
+              if(done%50===0||done===targets.length)console.log(`DETAIL_PROGRESS ${done}/${targets.length}`);
+              await sleep(1400);
+            }
+          }
+          await Promise.all([worker(1),worker(2)]);
+
+          const rows=results.map(r=>{
+            const expected=String(r.slot.token);
+            const actual=String(r.detail?.number||"").replace(/^0+(?=\d)/,"");
+            return {
+              logicalGroup:r.slot.logicalGroup,
+              expectedToken:expected,
+              cardNum:r.cardNum,
+              image:(r.slot.images||[])[0]||"",
+              products:r.slot.products||[],
+              context:r.slot.context,
+              ok:r.ok,
+              name:r.detail?.name||"",
+              detailNumber:actual,
+              denominator:r.detail?.denominator||"",
+              rarity:r.detail?.rarity||"",
+              numberMatches:!!actual&&actual===expected,
+              error:r.error||""
+            };
+          });
+          const summary={
+            targetCount:rows.length,
+            okCount:rows.filter(x=>x.ok).length,
+            parseNameCount:rows.filter(x=>x.name).length,
+            parseNumberCount:rows.filter(x=>x.detailNumber).length,
+            numberMatchCount:rows.filter(x=>x.numberMatches).length,
+            numberMismatchCount:rows.filter(x=>x.detailNumber&&!x.numberMatches).length,
+            noParsedNumberCount:rows.filter(x=>!x.detailNumber).length,
+            existingNumericCandidateCount:existing.length,
+            m6aCandidateCount:m6a.length,
+            deferredNonNumericExistingCandidateCount:nonNumeric.length
+          };
+          const out={schemaVersion:1,generatedAt:new Date().toISOString(),summary,rows,nonNumericDeferred:nonNumeric};
+          fs.writeFileSync("official-candidate-detail-audit.json",JSON.stringify(out,null,2));
+          console.log("DETAIL_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-candidate-detail-audit
+          path: official-candidate-detail-audit.json
+          if-no-files-found: error
