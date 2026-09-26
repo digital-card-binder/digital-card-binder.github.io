@@ -20,8 +20,10 @@
     "shell:check": "node scripts/sync-site-shell.mjs --check",
     "search-index:sync": "node scripts/build-pokemon-search-index.mjs",
     "search-index:check": "node scripts/build-pokemon-search-index.mjs --check",
-    "site:prepare": "npm run search-index:sync && npm run shell:sync && npm run versions:sync",
-    "site:check": "npm run search-index:check && npm run shell:check && npm run versions:check"
+    "site:prepare": "npm run series-inventory:sync && npm run search-index:sync && npm run shell:sync && npm run versions:sync",
+    "site:check": "npm run series-inventory:check && npm run search-index:check && npm run shell:check && npm run versions:check",
+    "series-inventory:sync": "node scripts/audit-series-inventory.mjs",
+    "series-inventory:check": "node scripts/audit-series-inventory.mjs --check"
   },
   "devDependencies": {
     "@firebase/eslint-plugin-security-rules": "0.0.2",

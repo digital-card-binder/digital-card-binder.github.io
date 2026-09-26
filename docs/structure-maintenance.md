@@ -63,6 +63,13 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 - Shared Firestore documents must be audited against the union of all catalogs that legitimately share that document. In particular, pokemonCollectionsDex includes Pokemon collections, Trainer × Pokemon, and Fossil ownership keys and must not flag one catalog's valid keys as disconnected records for another.
 - The health route must not be added to the public collection navigation.
 
+## Series master inventory baseline
+
+- `data/series-inventory-audit.json` is the deterministic baseline for the merged series catalog (`data/series.json` + `data/series-legacy.json`).
+- Run `npm run series-inventory:sync` after any series-data change. `npm run site:check` verifies that the audit stays synchronized.
+- The audit records total sets/cards, era and set counts, duplicate identities, metadata coverage, and image/source-host coverage. It does not alter ownership, card records, or Firestore data.
+- Treat the audit as a quantity/integrity baseline, not proof that every Korean card ever released is present. Official Pokemon Korea reconciliation is a separate validation step.
+
 ## Automatic cache versioning
 
 - Do not manually edit `?v=...` values, `site-version.json`, `SITE_BUILD_VERSION`, or the service-worker cache token.
