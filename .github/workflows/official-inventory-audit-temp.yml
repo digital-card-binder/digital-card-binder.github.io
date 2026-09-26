@@ -13,38 +13,47 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Inspect official row schema
+      - name: Probe official pagination bounds
         shell: bash
         run: |
           node <<'NODE'
           const BASE="https://pokemoncard.co.kr";
-          async function page(cardType){
-            const form=new URLSearchParams({
-              action:"get_more_cards",limit:"0",GoodsName:"",CardTypeNum:String(cardType),CardType:"all",
-              order:"ASC",orderby:"CardNum"
-            });
-            if(cardType===1){
-              for(const [k,v] of Object.entries({CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"})) form.set(k,v);
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          async function request(body){
+            let last;
+            for(let attempt=0;attempt<4;attempt++){
+              try{
+                const res=await fetch(`${BASE}/v2/ajax2_dev2`,{
+                  method:"POST",
+                  headers:{
+                    "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
+                    "Content-Type":"application/x-www-form-urlencoded",
+                    "Referer":`${BASE}/cards`,
+                    "X-Requested-With":"XMLHttpRequest"
+                  },
+                  body,signal:AbortSignal.timeout(45000)
+                });
+                const text=await res.text();
+                let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
+                if(start<0) throw new Error("no JSON");
+                return JSON.parse(text.slice(start));
+              }catch(e){last=e;if(attempt<3) await sleep(1500*(attempt+1));}
             }
-            const res=await fetch(`${BASE}/v2/ajax2_dev2`,{
-              method:"POST",
-              headers:{
-                "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
-                "Content-Type":"application/x-www-form-urlencoded",
-                "Referer":`${BASE}/cards`,
-                "X-Requested-With":"XMLHttpRequest"
-              },
-              body:form.toString(),signal:AbortSignal.timeout(45000)
-            });
-            const text=await res.text(); let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
-            const obj=JSON.parse(text.slice(start));
-            const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
-            console.log("SCHEMA_"+cardType+"="+JSON.stringify({meta:Object.fromEntries(Object.entries(obj).filter(([k])=>k!=="result")),keys:Object.keys(rows[0]||{}),row:rows[0]||null}));
+            throw last;
           }
-          for(const t of [1,2,3]) await page(t);
+          async function probe(cardType,page){
+            const form=new URLSearchParams({action:"get_more_cards",limit:String(page),GoodsName:"",CardTypeNum:String(cardType),CardType:"all",order:"ASC",orderby:"CardNum"});
+            if(cardType===1) for(const [k,v] of Object.entries({CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"})) form.set(k,v);
+            const obj=await request(form.toString());
+            const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
+            const ids=rows.map(r=>String(r.CardNum||""));
+            console.log("BOUND="+JSON.stringify({cardType,page,count:rows.length,first:ids[0]||"",last:ids.at(-1)||"",limitMeta:obj.limit,msg:obj.msg||""}));
+          }
+          const tests=[[1,300],[1,400],[1,500],[1,600],[1,800],[2,0],[2,50],[2,100],[3,0],[3,50],[3,100]];
+          for(const [t,p] of tests){await probe(t,p);await sleep(1500);}
           NODE
