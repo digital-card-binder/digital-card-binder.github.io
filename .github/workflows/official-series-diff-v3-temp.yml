@@ -1,0 +1,153 @@
+name: Temporary official series diff v3
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/official-series-diff-v3-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-inventory-audit
+          run-id: 36231144709
+          github-token: ${{ github.token }}
+          path: audit-input
+      - name: Reconcile all exact identifiers and classify remaining slots
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase().replace(/\s+/g,"");
+          const strip=v=>clean(v).split(/[?#]/,1)[0].replace(/^http:/i,"https:");
+          const simpleNum=v=>/^\d+$/.test(clean(v))?String(Number(v)):clean(v).toLowerCase();
+          const merge=(a,b)=>{const o=[...a];for(const x of b){const k=norm(x?.code),i=o.findIndex(g=>norm(g?.code)===k);if(i>=0)o[i]=x;else o.push(x)}return o};
+          const inferEra=g=>{const e=clean(g?.era).toUpperCase();if(e)return e;const c=norm(g?.code);if(c.startsWith("base")||c.startsWith("origin"))return"ORIGIN";if(c.startsWith("adv"))return"ADV";if(c.startsWith("dp")||/^bs\d/.test(c))return"DP";if(c.startsWith("bw"))return"BW";if(c.startsWith("xy")||c.startsWith("cp"))return"XY";if(c.startsWith("sm"))return"SM";if(c.startsWith("sv"))return"SV";if(c.startsWith("m"))return"M";if(c.startsWith("s"))return"S";return"UNKNOWN"};
+          const sourceCardNum=c=>clean(c?.source).match(/\/cards\/detail\/([^/?#]+)/i)?.[1]||"";
+          function localToken(c){const raw=clean(c?.code||c?.meta),m=raw.match(/_0*([^/]+)/);return m?simpleNum(m[1]):norm(raw)}
+          function officialSuffix(o){
+            const file=strip(o.imageUrl||o.featureImage).split("/").pop()?.replace(/\.[^.]+$/,"")||"";
+            const set=clean(o.actualSetCode);
+            let rest=file;if(set&&file.toLowerCase().startsWith(set.toLowerCase()+"_"))rest=file.slice(set.length+1);
+            rest=rest.replace(/^kr_/i,"");
+            if(/^0*\d+$/.test(rest))return String(Number(rest));
+            if(/(?:^|_)energy(?:_|$)|(?:^|_)en(?:_|$)/i.test(rest))return norm(rest);
+            const nums=[...rest.matchAll(/\d+/g)].map(m=>m[0]);
+            if(nums.length===1)return String(Number(nums[0]));
+            return norm(rest);
+          }
+
+          const groups=merge(JSON.parse(fs.readFileSync("data/series.json","utf8")),JSON.parse(fs.readFileSync("data/series-legacy.json","utf8")));
+          const inv=JSON.parse(fs.readFileSync("audit-input/official-inventory.json","utf8"));
+          const official=inv.cards;
+          const locals=[];
+          groups.forEach((g,gi)=>(g.cards||[]).forEach((c,ci)=>locals.push({
+            idx:locals.length,era:inferEra(g),groupCode:clean(g.code),groupKey:norm(g.code),groupName:clean(g.displayName||g.title||g.name),
+            cardCode:clean(c.code||c.meta),token:localToken(c),name:clean(c.name||c.pokemonName),image:strip(c.image),source:clean(c.source),
+            sourceCardNum:sourceCardNum(c),runtimeKey:[clean(g.code),clean(c.code||c.meta||ci),Number.isInteger(c.accountIndex)?c.accountIndex:ci].join("::")
+          })));
+          const localGroupKeys=new Set(locals.map(x=>x.groupKey));
+          const localTokens=new Map();
+          for(const l of locals){if(!localTokens.has(l.groupKey))localTokens.set(l.groupKey,new Set());localTokens.get(l.groupKey).add(l.token)}
+
+          const byCard=new Map(),byImage=new Map();
+          official.forEach((o,i)=>{
+            const cn=clean(o.cardNum),im=strip(o.imageUrl);
+            if(cn){if(!byCard.has(cn))byCard.set(cn,new Set());byCard.get(cn).add(i)}
+            if(im){if(!byImage.has(im))byImage.set(im,new Set());byImage.get(im).add(i)}
+          });
+
+          const covered=new Set(),matches=[],localOnly=[];
+          // Strong identifiers: union CardNum AND exact-image records, so remaster/reprint
+          // rows sharing the same image are covered rather than left as false official-only.
+          for(const l of locals){
+            const idxs=new Set();
+            if(l.sourceCardNum&&byCard.has(l.sourceCardNum))for(const i of byCard.get(l.sourceCardNum))idxs.add(i);
+            if(l.image&&byImage.has(l.image))for(const i of byImage.get(l.image))idxs.add(i);
+            if(idxs.size){
+              for(const i of idxs)covered.add(i);
+              matches.push({runtimeKey:l.runtimeKey,era:l.era,groupCode:l.groupCode,cardCode:l.cardCode,name:l.name,token:l.token,method:"strong-id",officialRecordCount:idxs.size});
+            }
+          }
+
+          function logicalCandidates(o){
+            const gs=(o.matchedLegacyGroups||[]).map(x=>typeof x==="string"?x:x?.code).map(clean).filter(Boolean);
+            if(gs.length)return gs.map(g=>({groupKey:norm(g),groupCode:g,token:officialSuffix(o),context:"product-group"}));
+            const actual=clean(o.actualSetCode);
+            if(actual&&localGroupKeys.has(norm(actual)))return [{groupKey:norm(actual),groupCode:actual,token:officialSuffix(o),context:"direct-set"}];
+            return [];
+          }
+          const slots=new Map();
+          official.forEach((o,i)=>{
+            if(covered.has(i))return;
+            for(const c of logicalCandidates(o)){
+              if(!c.token)continue;const k=`${c.groupKey}::${c.token}`;
+              if(!slots.has(k))slots.set(k,{...c,records:[]});slots.get(k).records.push(i);
+            }
+          });
+          const matchedLocalKeys=new Set(matches.map(x=>x.runtimeKey));
+          for(const l of locals){
+            if(matchedLocalKeys.has(l.runtimeKey))continue;
+            const k=`${l.groupKey}::${l.token}`,s=slots.get(k);
+            if(s?.records?.length){
+              for(const i of s.records)covered.add(i);
+              matches.push({runtimeKey:l.runtimeKey,era:l.era,groupCode:l.groupCode,cardCode:l.cardCode,name:l.name,token:l.token,method:"same-group-number-slot",officialRecordCount:s.records.length});
+              matchedLocalKeys.add(l.runtimeKey);
+            } else localOnly.push(l);
+          }
+
+          const remaining=official.map((o,i)=>({o,i})).filter(x=>!covered.has(x.i));
+          const onlySlots=new Map();
+          for(const {o,i} of remaining){
+            const cs=logicalCandidates(o);
+            let key,logicalGroup,token,context;
+            if(cs.length===1){({groupCode:logicalGroup,token,context}=cs[0]);key=`ctx::${norm(logicalGroup)}::${token}`}
+            else {logicalGroup=clean(o.actualSetCode)||clean(o.imageSet)||"UNKNOWN";token=officialSuffix(o)||clean(o.cardNum);context="external-set";key=`ext::${norm(logicalGroup)}::${token}`}
+            if(!onlySlots.has(key))onlySlots.set(key,{key,logicalGroup,token,context,recordCount:0,cardNums:new Set(),images:new Set(),imageEras:new Set(),actualSetCodes:new Set(),products:new Set(),matchedLegacyGroups:new Set()});
+            const s=onlySlots.get(key);s.recordCount++;s.cardNums.add(clean(o.cardNum));s.images.add(strip(o.imageUrl));s.imageEras.add(clean(o.imageEra));s.actualSetCodes.add(clean(o.actualSetCode));
+            (o.officialProducts||[]).forEach(x=>s.products.add(clean(x)));(o.matchedLegacyGroups||[]).forEach(x=>s.matchedLegacyGroups.add(typeof x==="string"?clean(x):clean(x?.code)));
+          }
+          const officialOnly=[...onlySlots.values()].map(s=>({...s,cardNums:[...s.cardNums],images:[...s.images],imageEras:[...s.imageEras],actualSetCodes:[...s.actualSetCodes],products:[...s.products],matchedLegacyGroups:[...s.matchedLegacyGroups]}));
+
+          let sameNumberVariant=0,existingMissing=0,external=0;
+          const missingBySet={},variantBySet={},externalBySet={};
+          for(const s of officialOnly){
+            const g=norm(s.logicalGroup);
+            if(localTokens.has(g)){
+              if(localTokens.get(g).has(String(s.token))){sameNumberVariant++;variantBySet[s.logicalGroup]=(variantBySet[s.logicalGroup]||0)+1}
+              else {existingMissing++;missingBySet[s.logicalGroup]=(missingBySet[s.logicalGroup]||0)+1}
+            }else{external++;externalBySet[s.logicalGroup]=(externalBySet[s.logicalGroup]||0)+1}
+          }
+          const eraSummary={};
+          for(const era of ["ORIGIN","ADV","DP","BW","XY","SM","S","SV","M"]){
+            const a=locals.filter(x=>x.era===era),b=localOnly.filter(x=>x.era===era);
+            if(a.length)eraSummary[era]={localCount:a.length,matchedCount:a.length-b.length,localOnlyCount:b.length};
+          }
+          const summary={
+            localCardCount:locals.length,officialRawRecordCount:official.length,matchedLocalCardCount:locals.length-localOnly.length,localOnlyCount:localOnly.length,
+            coveredOfficialRawRecordCount:covered.size,remainingOfficialRawRecordCount:remaining.length,officialOnlyNormalizedSlotCount:officialOnly.length,
+            sameNumberVariantSlotCount:sameNumberVariant,existingSetMissingCandidateCount:existingMissing,externalSetSlotCount:external,
+            missingBySet:Object.fromEntries(Object.entries(missingBySet).sort((a,b)=>b[1]-a[1])),
+            variantBySet:Object.fromEntries(Object.entries(variantBySet).sort((a,b)=>b[1]-a[1])),
+            topExternalSets:Object.entries(externalBySet).sort((a,b)=>b[1]-a[1]).slice(0,80),
+            eraSummary
+          };
+          fs.writeFileSync("official-series-diff-v3.json",JSON.stringify({schemaVersion:3,summary,localOnly,officialOnly,matches},null,2));
+          console.log("DIFF_V3_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-series-diff-v3
+          path: official-series-diff-v3.json
