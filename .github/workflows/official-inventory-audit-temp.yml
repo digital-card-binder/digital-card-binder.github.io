@@ -13,22 +13,22 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Probe official pagination bounds
+      - name: Find exact official pagination bounds
         shell: bash
         run: |
           node <<'NODE'
           const BASE="https://pokemoncard.co.kr";
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-          async function probe(cardType,page){
+          async function fetchPage(cardType,page){
             const form=new URLSearchParams({action:"get_more_cards",limit:String(page),GoodsName:"",CardTypeNum:String(cardType),CardType:"all",order:"ASC",orderby:"CardNum"});
             if(cardType===1) for(const [k,v] of Object.entries({CardMonType:"all",Weakness:"all",Resistance:"all",TechErg:"all",ability_label1:"all",hp:"0,380",retreat:"0,5"})) form.set(k,v);
-            let text="";
-            for(let attempt=0;attempt<3;attempt++){
+            let last;
+            for(let attempt=0;attempt<5;attempt++){
               try{
                 const res=await fetch(`${BASE}/v2/ajax2_dev2`,{
                   method:"POST",headers:{
@@ -36,16 +36,40 @@ jobs:
                     "Content-Type":"application/x-www-form-urlencoded","Referer":`${BASE}/cards`,"X-Requested-With":"XMLHttpRequest"
                   },body:form.toString(),signal:AbortSignal.timeout(45000)
                 });
-                text=await res.text(); break;
-              }catch(e){if(attempt===2) throw e;await sleep(1200*(attempt+1));}
+                const text=await res.text();
+                let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
+                if(start<0) throw new Error("no JSON");
+                const obj=JSON.parse(text.slice(start));
+                const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
+                return {count:rows.length,first:String(rows[0]?.CardNum||""),last:String(rows.at(-1)?.CardNum||"")};
+              }catch(e){last=e;if(attempt<4) await sleep(1500*(attempt+1));}
             }
-            let start=text.indexOf('{"status"'); if(start<0) start=text.indexOf("{");
-            if(start<0){console.log("BOUND="+JSON.stringify({cardType,page,count:0,noJson:true,textLength:text.length,snippet:text.slice(0,80)}));return;}
-            const obj=JSON.parse(text.slice(start));
-            const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
-            const ids=rows.map(r=>String(r.CardNum||""));
-            console.log("BOUND="+JSON.stringify({cardType,page,count:rows.length,first:ids[0]||"",last:ids.at(-1)||"",limitMeta:obj.limit}));
+            throw last;
           }
-          const tests=[[1,299],[1,300],[2,0],[2,25],[2,50],[2,75],[2,100],[2,150],[3,0],[3,25],[3,50],[3,75],[3,100]];
-          for(const [t,p] of tests){await probe(t,p);await sleep(1200);}
+          async function findLast(cardType,knownNonEmpty=0){
+            let lo=knownNonEmpty, hi=Math.max(1,knownNonEmpty||1);
+            let r=await fetchPage(cardType,lo);
+            if(!r.count) throw new Error(`known page empty type=${cardType} page=${lo}`);
+            if(hi===lo) hi=lo+1;
+            while(true){
+              const test=await fetchPage(cardType,hi);
+              console.log("PROBE="+JSON.stringify({cardType,page:hi,...test}));
+              if(!test.count) break;
+              lo=hi; hi*=2;
+              if(hi>4096) throw new Error("bound safety limit");
+              await sleep(1000);
+            }
+            while(lo+1<hi){
+              const mid=Math.floor((lo+hi)/2);
+              const test=await fetchPage(cardType,mid);
+              console.log("PROBE="+JSON.stringify({cardType,page:mid,...test}));
+              if(test.count) lo=mid; else hi=mid;
+              await sleep(1000);
+            }
+            const last=await fetchPage(cardType,lo);
+            console.log("BOUND_RESULT="+JSON.stringify({cardType,lastNonEmptyPage:lo,lastPageCount:last.count,recordCount:lo*30+last.count,first:last.first,last:last.last,firstEmptyPage:hi}));
+          }
+          await findLast(1,300);
+          await findLast(2,75);
+          await findLast(3,0);
           NODE
