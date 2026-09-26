@@ -12,222 +12,87 @@ permissions:
   contents: read
 
 jobs:
-  collect:
+  diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Collect Pokemon Korea official card search inventory
+      - name: Diagnose Pokemon Korea card pagination
         shell: bash
         run: |
           node <<'NODE'
-          const fs = require("fs");
-
+          const crypto = require("crypto");
           const BASE = "https://pokemoncard.co.kr";
-          const OUT = "official-inventory.json";
-          const SUMMARY = "official-inventory-summary.json";
-          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-          async function request(url, options = {}, attempts = 4) {
-            let last;
-            for (let i = 0; i < attempts; i += 1) {
-              try {
-                const res = await fetch(url, {
-                  ...options,
-                  headers: {
-                    "User-Agent": "digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
-                    "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.5",
-                    ...(options.headers || {}),
-                  },
-                });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return await res.text();
-              } catch (error) {
-                last = error;
-                if (i + 1 < attempts) await sleep(1500 * (i + 1));
-              }
-            }
-            throw last;
-          }
-
-          function decodeHtml(value) {
-            return String(value || "")
-              .replace(/&quot;/gi, '"')
-              .replace(/&#39;/gi, "'")
-              .replace(/&amp;/gi, "&")
-              .replace(/&lt;/gi, "<")
-              .replace(/&gt;/gi, ">");
-          }
-
-          function parseProducts(html) {
-            const select = html.match(/<select[^>]*name=["']GoodsName["'][^>]*>([\s\S]*?)<\/select>/i)?.[1] || "";
-            const products = [];
-            for (const match of select.matchAll(/<option[^>]*value=["']([^"']+)["'][^>]*>/gi)) {
-              const value = decodeHtml(match[1]).trim();
-              if (value && !products.includes(value)) products.push(value);
-            }
-            return products;
+          async function get(url, options={}) {
+            const res = await fetch(url, {
+              ...options,
+              headers: {
+                "User-Agent":"digital-card-binder-official-inventory-audit/1.0 (+https://digital-card-binder.github.io/)",
+                "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5",
+                ...(options.headers||{})
+              },
+              signal: AbortSignal.timeout(45000),
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.text();
           }
 
           function parseJson(text) {
-            let start = text.indexOf('{"status"');
-            if (start < 0) start = text.indexOf("{");
-            if (start < 0) throw new Error("No JSON object in response");
+            let start=text.indexOf('{"status"');
+            if(start<0) start=text.indexOf("{");
             return JSON.parse(text.slice(start));
           }
 
-          async function ajaxPage(cardType, page) {
-            const form = new URLSearchParams({
-              action: "get_more_cards",
-              limit: String(page),
-              GoodsName: "",
-              CardTypeNum: String(cardType),
-              CardType: "all",
-              order: "ASC",
-              orderby: "CardNum",
+          async function page(limit) {
+            const form=new URLSearchParams({
+              action:"get_more_cards",
+              limit:String(limit),
+              GoodsName:"",
+              CardTypeNum:"1",
+              CardType:"all",
+              order:"ASC",
+              orderby:"CardNum",
+              CardMonType:"all",
+              Weakness:"all",
+              Resistance:"all",
+              TechErg:"all",
+              ability_label1:"all",
+              hp:"0,380",
+              retreat:"0,5",
             });
-            if (cardType === 1) {
-              form.set("CardMonType", "all");
-              form.set("Weakness", "all");
-              form.set("Resistance", "all");
-              form.set("TechErg", "all");
-              form.set("ability_label1", "all");
-              form.set("hp", "0,380");
-              form.set("retreat", "0,5");
-            }
-
-            const text = await request(`${BASE}/v2/ajax2_dev2`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Referer": `${BASE}/cards`,
-                "X-Requested-With": "XMLHttpRequest",
+            const text=await get(`${BASE}/v2/ajax2_dev2`,{
+              method:"POST",
+              headers:{
+                "Content-Type":"application/x-www-form-urlencoded",
+                "Referer":`${BASE}/cards`,
+                "X-Requested-With":"XMLHttpRequest"
               },
-              body: form.toString(),
+              body:form.toString()
             });
-            const payload = parseJson(text);
-            const result = payload.result || [];
-            return Array.isArray(result) ? result : Object.values(result);
-          }
-
-          function clean(v) {
-            return String(v ?? "").trim();
-          }
-
-          function imageUrl(v) {
-            const path = clean(v).split("?", 1)[0].replace(/^\/+/, "");
-            return path ? `https://cards.image.pokemonkorea.co.kr/data/${path}` : "";
-          }
-
-          function recordKey(row) {
-            return clean(row.CardNum || row.card_num || row.idx || row.no || "");
-          }
-
-          async function main() {
-            const indexHtml = await request(`${BASE}/cards`);
-            const products = parseProducts(indexHtml);
-            console.log(`Official product options: ${products.length}`);
-
-            const all = [];
-            const perType = {};
-            for (const cardType of [1, 2, 3]) {
-              const rows = [];
-              for (let page = 0; page < 300; page += 1) {
-                const batch = await ajaxPage(cardType, page);
-                rows.push(...batch);
-                console.log(`type ${cardType} page ${page}: +${batch.length} (total ${rows.length})`);
-                if (batch.length < 30) break;
-                await sleep(1200);
-                if (page === 299) throw new Error(`Pagination safety limit reached for type ${cardType}`);
-              }
-              perType[String(cardType)] = rows.length;
-              all.push(...rows.map((row) => ({...row, _cardTypeNum: cardType})));
-              await sleep(1200);
-            }
-
-            const byCardNum = new Map();
-            const missingCardNum = [];
-            for (const row of all) {
-              const key = recordKey(row);
-              if (!key) {
-                missingCardNum.push(row);
-                continue;
-              }
-              if (!byCardNum.has(key)) byCardNum.set(key, row);
-            }
-
-            const unique = [...byCardNum.values()];
-            const productCounts = {};
-            const imageSetCounts = {};
-            const imageEraCounts = {};
-            const fields = {};
-            for (const row of unique) {
-              for (const key of Object.keys(row)) fields[key] = (fields[key] || 0) + 1;
-              const goods = clean(row.GoodsName || row.goods_name || row.product || "");
-              if (goods) productCounts[goods] = (productCounts[goods] || 0) + 1;
-              const feature = clean(row.feature_image || row.image || "");
-              const m = feature.match(/wmimages\/([^/]+)\/([^/]+)\//i);
-              if (m) {
-                imageEraCounts[m[1]] = (imageEraCounts[m[1]] || 0) + 1;
-                imageSetCounts[m[2]] = (imageSetCounts[m[2]] || 0) + 1;
-              }
-            }
-
-            const normalized = unique.map((row) => ({
-              cardNum: recordKey(row),
-              cardTypeNum: row._cardTypeNum,
-              name: clean(row.CardName || row.card_name || row.name || row.title || ""),
-              goodsName: clean(row.GoodsName || row.goods_name || row.product || ""),
-              cardNumber: clean(row.CardNo || row.card_no || row.number || ""),
-              rarity: clean(row.Rarity || row.rarity || ""),
-              featureImage: clean(row.feature_image || row.image || ""),
-              imageUrl: imageUrl(row.feature_image || row.image || ""),
-              raw: row,
-            }));
-
-            const summary = {
-              collectedAt: new Date().toISOString(),
-              officialUrl: `${BASE}/cards`,
-              productOptionCount: products.length,
-              productOptions: products,
-              rawResultCount: all.length,
-              uniqueCardNumCount: unique.length,
-              duplicateCardNumRows: all.length - unique.length,
-              missingCardNumRows: missingCardNum.length,
-              perCardType: perType,
-              productCounts,
-              imageEraCounts,
-              imageSetCounts,
-              fieldPresence: Object.fromEntries(Object.entries(fields).sort((a,b)=>b[1]-a[1])),
+            const obj=parseJson(text);
+            const rows=Array.isArray(obj.result)?obj.result:Object.values(obj.result||{});
+            const ids=rows.map(r=>String(r.CardNum||r.card_num||r.idx||""));
+            return {
+              limit,
+              count:rows.length,
+              first:ids[0]||"",
+              last:ids.at(-1)||"",
+              unique:new Set(ids).size,
+              hash:crypto.createHash("sha256").update(JSON.stringify(rows)).digest("hex").slice(0,16),
+              sample:rows.slice(0,2).map(r=>({CardNum:r.CardNum,feature_image:r.feature_image,GoodsName:r.GoodsName}))
             };
-
-            fs.writeFileSync(OUT, JSON.stringify({summary, cards: normalized}, null, 2));
-            fs.writeFileSync(SUMMARY, JSON.stringify(summary, null, 2));
-            console.log("FINAL_SUMMARY=" + JSON.stringify({
-              productOptionCount: summary.productOptionCount,
-              rawResultCount: summary.rawResultCount,
-              uniqueCardNumCount: summary.uniqueCardNumCount,
-              duplicateCardNumRows: summary.duplicateCardNumRows,
-              missingCardNumRows: summary.missingCardNumRows,
-              perCardType: summary.perCardType,
-              imageEraCounts: summary.imageEraCounts,
-              imageSetCount: Object.keys(summary.imageSetCounts).length
-            }));
           }
 
-          main().catch((error) => {
-            console.error(error);
-            process.exit(1);
-          });
+          const html=await get(`${BASE}/cards`);
+          const scripts=[...html.matchAll(/<script[^>]+src=["']([^"']+)["']/gi)].map(m=>m[1]);
+          console.log("SCRIPT_SRCS="+JSON.stringify(scripts));
+          for(const lim of [0,1,2,30,60]) {
+            const result=await page(lim);
+            console.log("PAGE_DIAG="+JSON.stringify(result));
+            await sleep(1500);
+          }
           NODE
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: official-inventory-audit
-          path: |
-            official-inventory.json
-            official-inventory-summary.json
-          if-no-files-found: error
