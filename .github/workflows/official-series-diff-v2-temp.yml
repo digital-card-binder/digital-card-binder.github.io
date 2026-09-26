@@ -1,0 +1,238 @@
+name: Temporary official series diff v2
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/official-series-diff-v2-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-inventory-audit
+          run-id: 36231144709
+          github-token: ${{ github.token }}
+          path: audit-input
+      - name: Conservative normalize and compare
+        run: |
+          node <<'NODE'
+          const fs=require("fs");
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase().replace(/\s+/g,"");
+          const strip=v=>clean(v).split(/[?#]/,1)[0].replace(/^http:/i,"https:");
+          const simpleNum=v=>/^\d+$/.test(clean(v))?String(Number(v)):clean(v).toLowerCase();
+
+          function mergeGroups(base,legacy){
+            const out=[...base];
+            for(const x of legacy){
+              const k=norm(x?.code),i=out.findIndex(g=>norm(g?.code)===k);
+              if(i>=0)out[i]=x;else out.push(x);
+            }
+            return out;
+          }
+          function inferEra(g){
+            const e=clean(g?.era).toUpperCase(); if(e)return e;
+            const c=norm(g?.code);
+            if(c.startsWith("base")||c.startsWith("origin"))return"ORIGIN";
+            if(c.startsWith("adv"))return"ADV";
+            if(c.startsWith("dp")||/^bs\d/.test(c))return"DP";
+            if(c.startsWith("bw"))return"BW";
+            if(c.startsWith("xy")||c.startsWith("cp"))return"XY";
+            if(c.startsWith("sm"))return"SM";
+            if(c.startsWith("sv"))return"SV";
+            if(c.startsWith("m"))return"M";
+            if(c.startsWith("s"))return"S";
+            return"UNKNOWN";
+          }
+          function localToken(card){
+            const raw=clean(card?.code||card?.meta);
+            const p=raw.indexOf("_");
+            if(p<0)return norm(raw);
+            const rest=raw.slice(p+1).split("/",1)[0];
+            return simpleNum(rest.replace(/^0+(?=\d)/,""));
+          }
+          function sourceCardNum(card){
+            return clean(card?.source).match(/\/cards\/detail\/([^/?#]+)/i)?.[1]||"";
+          }
+          function officialSuffix(o, preferLastNumber=false){
+            const file=strip(o.imageUrl||o.featureImage).split("/").pop()?.replace(/\.[^.]+$/,"")||"";
+            const set=clean(o.actualSetCode);
+            let rest=file;
+            if(set && file.toLowerCase().startsWith(set.toLowerCase()+"_")) rest=file.slice(set.length+1);
+            rest=rest.replace(/^kr_/i,"");
+            if(/^0*\d+$/.test(rest))return String(Number(rest));
+            if(/(?:^|_)energy(?:_|$)|(?:^|_)en(?:_|$)/i.test(rest))return norm(rest);
+            const nums=[...rest.matchAll(/\d+/g)].map(m=>m[0]);
+            if(preferLastNumber && nums.length)return String(Number(nums.at(-1)));
+            if(nums.length===1)return String(Number(nums[0]));
+            return norm(rest);
+          }
+
+          const officialPayload=JSON.parse(fs.readFileSync("audit-input/official-inventory.json","utf8"));
+          const official=officialPayload.cards;
+          const groups=mergeGroups(
+            JSON.parse(fs.readFileSync("data/series.json","utf8")),
+            JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"))
+          );
+
+          const locals=[];
+          groups.forEach((g,gi)=>(g.cards||[]).forEach((c,ci)=>locals.push({
+            idx:locals.length,era:inferEra(g),groupCode:clean(g.code),groupKey:norm(g.code),
+            groupName:clean(g.displayName||g.title||g.name),cardCode:clean(c.code||c.meta),
+            token:localToken(c),name:clean(c.name||c.pokemonName),rawName:clean(c.name),
+            rarity:clean(c.rarity),image:strip(c.image),source:clean(c.source),
+            sourceCardNum:sourceCardNum(c),
+            runtimeKey:[clean(g.code),clean(c.code||c.meta||ci),Number.isInteger(c.accountIndex)?c.accountIndex:ci].join("::")
+          })));
+
+          const localGroupKeys=new Set(locals.map(x=>x.groupKey));
+          const localSlot=new Map();
+          for(const l of locals){
+            const k=`${l.groupKey}::${l.token}`;
+            if(!localSlot.has(k))localSlot.set(k,[]);
+            localSlot.get(k).push(l.idx);
+          }
+
+          const offByCard=new Map(),offByImg=new Map();
+          official.forEach((o,oi)=>{
+            const cn=clean(o.cardNum),im=strip(o.imageUrl);
+            if(cn){if(!offByCard.has(cn))offByCard.set(cn,[]);offByCard.get(cn).push(oi);}
+            if(im){if(!offByImg.has(im))offByImg.set(im,[]);offByImg.get(im).push(oi);}
+          });
+
+          const localCovered=new Set(),officialCovered=new Set();
+          const matchRows=[];
+          const addMatch=(li,ois,method)=>{
+            localCovered.add(li);ois.forEach(x=>officialCovered.add(x));
+            matchRows.push({runtimeKey:locals[li].runtimeKey,era:locals[li].era,groupCode:locals[li].groupCode,cardCode:locals[li].cardCode,name:locals[li].name,method,officialRecordCount:ois.length});
+          };
+
+          // Strong identifiers first.
+          for(const l of locals){
+            if(l.sourceCardNum && offByCard.has(l.sourceCardNum)){
+              addMatch(l.idx,offByCard.get(l.sourceCardNum),"official-detail-cardnum");
+              continue;
+            }
+            if(l.image && offByImg.has(l.image)){
+              addMatch(l.idx,offByImg.get(l.image),"official-image-exact");
+            }
+          }
+
+          // Build official logical slots only with product/group context, or with an
+          // actual set code that directly exists as a local group. This prevents
+          // DP/BW shared image-set codes from merging unrelated decks.
+          const logicalSlots=new Map();
+          function logicalCandidates(o){
+            const groups=(o.matchedLegacyGroups||[]).map(x=>typeof x==="string"?x:x?.code).map(clean).filter(Boolean);
+            if(groups.length)return groups.map(g=>({groupKey:norm(g),groupCode:g,token:officialSuffix(o,true),context:"product-group"}));
+            const actual=clean(o.actualSetCode);
+            if(actual && localGroupKeys.has(norm(actual))){
+              return [{groupKey:norm(actual),groupCode:actual,token:officialSuffix(o,false),context:"direct-set"}];
+            }
+            return [];
+          }
+          official.forEach((o,oi)=>{
+            for(const c of logicalCandidates(o)){
+              if(!c.token)continue;
+              const k=`${c.groupKey}::${c.token}`;
+              if(!logicalSlots.has(k))logicalSlots.set(k,{...c,records:[]});
+              logicalSlots.get(k).records.push(oi);
+            }
+          });
+
+          // Remaining local cards may match a same-group/same-card-number official
+          // slot. Multiple official rows in that exact slot are treated as variants.
+          for(const l of locals){
+            if(localCovered.has(l.idx))continue;
+            const k=`${l.groupKey}::${l.token}`;
+            const slot=logicalSlots.get(k);
+            if(slot?.records?.length)addMatch(l.idx,slot.records,"same-group-number-slot");
+          }
+
+          const localOnly=locals.filter(l=>!localCovered.has(l.idx));
+          const remainingOfficial=official.map((o,oi)=>({o,oi})).filter(x=>!officialCovered.has(x.oi));
+
+          // Conservative official-only normalization. Use product/local-group context
+          // when available. Otherwise retain the actual set + full suffix; do not
+          // merge ambiguous shared-set records by bare number.
+          const officialOnlySlots=new Map();
+          for(const {o,oi} of remainingOfficial){
+            const candidates=logicalCandidates(o);
+            let key,logicalGroup,token,context;
+            if(candidates.length===1){
+              ({groupCode:logicalGroup,token,context}=candidates[0]);
+              key=`local-context::${norm(logicalGroup)}::${token}`;
+            }else{
+              logicalGroup=clean(o.actualSetCode)||clean(o.imageSet)||"UNKNOWN";
+              token=officialSuffix(o,false)||clean(o.cardNum);
+              context="external-set";
+              key=`external::${norm(logicalGroup)}::${token}`;
+            }
+            if(!officialOnlySlots.has(key))officialOnlySlots.set(key,{
+              key,logicalGroup,token,context,recordCount:0,cardNums:new Set(),images:new Set(),imageEras:new Set(),imageSets:new Set(),
+              products:new Set(),matchedLegacyGroups:new Set(),actualSetCodes:new Set(),samples:[]
+            });
+            const s=officialOnlySlots.get(key);s.recordCount++;
+            s.cardNums.add(clean(o.cardNum));s.images.add(strip(o.imageUrl));s.imageEras.add(clean(o.imageEra));s.imageSets.add(clean(o.imageSet));
+            s.actualSetCodes.add(clean(o.actualSetCode));
+            (o.officialProducts||[]).forEach(x=>s.products.add(clean(x)));
+            (o.matchedLegacyGroups||[]).forEach(x=>s.matchedLegacyGroups.add(typeof x==="string"?clean(x):clean(x?.code)));
+            if(s.samples.length<5)s.samples.push({cardNum:o.cardNum,image:o.imageUrl,actualSetCode:o.actualSetCode,printedNumber:o.printedNumber});
+          }
+          const officialOnly=[...officialOnlySlots.values()].map(s=>({
+            ...s,cardNums:[...s.cardNums],images:[...s.images].slice(0,8),imageEras:[...s.imageEras],imageSets:[...s.imageSets],
+            products:[...s.products].slice(0,12),matchedLegacyGroups:[...s.matchedLegacyGroups],actualSetCodes:[...s.actualSetCodes]
+          }));
+
+          const methods={};for(const m of matchRows)methods[m.method]=(methods[m.method]||0)+1;
+          const eraSummary={};
+          for(const era of ["ORIGIN","ADV","DP","BW","XY","SM","S","SV","M","UNKNOWN"]){
+            const all=locals.filter(x=>x.era===era),only=localOnly.filter(x=>x.era===era);
+            if(all.length)eraSummary[era]={localCount:all.length,matchedCount:all.length-only.length,localOnlyCount:only.length};
+          }
+          const officialOnlyByImageEra={},officialOnlyByLogicalGroup={};
+          for(const s of officialOnly){
+            const era=s.imageEras[0]||"UNKNOWN";officialOnlyByImageEra[era]=(officialOnlyByImageEra[era]||0)+1;
+            officialOnlyByLogicalGroup[s.logicalGroup]=(officialOnlyByLogicalGroup[s.logicalGroup]||0)+1;
+          }
+
+          const summary={
+            localCardCount:locals.length,officialRawRecordCount:official.length,
+            matchedLocalCardCount:locals.length-localOnly.length,localOnlyCount:localOnly.length,
+            officialCoveredRawRecordCount:officialCovered.size,officialRemainingRawRecordCount:remainingOfficial.length,
+            officialOnlyNormalizedSlotCount:officialOnly.length,
+            officialRowsCollapsedWithinSafeContext:remainingOfficial.length-officialOnly.length,
+            matchMethods:methods,eraSummary,officialOnlyByImageEra
+          };
+
+          const result={schemaVersion:2,generatedAt:new Date().toISOString(),
+            rules:{
+              primaryMatch:["official detail CardNum","exact official image URL","same local group + card token"],
+              safeCollapse:"collapse only inside matched product/local-group context; otherwise preserve actual-set filename suffix",
+              warning:"names and rarity are not compared yet because 2-1 intentionally did not bulk-fetch detail pages"
+            },
+            summary,localOnly,officialOnly,matches:matchRows,
+            topOfficialOnlyGroups:Object.entries(officialOnlyByLogicalGroup).sort((a,b)=>b[1]-a[1]).slice(0,80)
+          };
+          fs.writeFileSync("official-series-diff-v2.json",JSON.stringify(result,null,2));
+          console.log("DIFF_V2_SUMMARY="+JSON.stringify(summary));
+          console.log("TOP_OFFICIAL_ONLY_GROUPS="+JSON.stringify(result.topOfficialOnlyGroups.slice(0,30)));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-series-diff-v2
+          path: official-series-diff-v2.json
+          if-no-files-found: error
