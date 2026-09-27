@@ -1,0 +1,156 @@
+name: Temporary prepare clean 20240 production branch
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/prepare-20240-production-temp.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: series-master-20240
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/download-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          run-id: 36294764981
+          github-token: ${{ github.token }}
+          path: input/recovery
+      - uses: actions/download-artifact@v4
+        with:
+          name: missing-73-records
+          run-id: 36297516610
+          github-token: ${{ github.token }}
+          path: input/missing
+      - name: Apply 4,570 verified additions to series data
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const data=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const rec=JSON.parse(fs.readFileSync("input/recovery/existing-set-recovery-461.json","utf8"));
+          const missing=JSON.parse(fs.readFileSync("input/missing/missing-73-records.json","utf8"));
+          function num(c){const m=clean(c?.code||c?.meta).match(/_0*(\d+)(?:\/|$)/);return m?Number(m[1]):Number.POSITIVE_INFINITY}
+          for(const row of rec.records){
+            const g=data.find(x=>norm(x.code)===norm(row.setCode));
+            if(!g)throw new Error("Missing target "+row.setCode);
+            if((g.cards||[]).some(c=>norm(c.code||c.meta)===norm(row.code)))throw new Error("Duplicate recovery "+row.code);
+            g.cards.push({code:row.code,name:row.name,rarity:row.rarity||"",image:row.image,source:row.source});
+          }
+          const expected=new Map(Object.entries(rec.summary.setSummary).map(([k,v])=>[norm(k),v.expected]));
+          for(const g of data){
+            if(!expected.has(norm(g.code)))continue;
+            g.cards.sort((a,b)=>{
+              const na=num(a),nb=num(b);
+              if(Number.isFinite(na)&&Number.isFinite(nb)&&na!==nb)return na-nb;
+              if(Number.isFinite(na)!==Number.isFinite(nb))return Number.isFinite(na)?-1:1;
+              return clean(a.code||a.meta).localeCompare(clean(b.code||b.meta),"en",{numeric:true});
+            });
+            const n=expected.get(norm(g.code));
+            if(g.cards.length!==n)throw new Error("Count mismatch "+g.code);
+            const denom=clean(g.cards.find(c=>clean(c.code||c.meta).includes("/"))?.code||"").split("/")[1]||"";
+            const baseTitle=clean(g.displayName)||clean(g.title).replace(/\s*\([^)]*\)\s*$/,"")||clean(g.name)||clean(g.code);
+            g.title=denom?baseTitle+" ("+n+"/"+denom+")":baseTitle+" ("+n+"장)";
+          }
+          const codes=new Set(data.map(g=>norm(g.code)));
+          for(const g of missing.groups){
+            if(codes.has(norm(g.code)))throw new Error("New group duplicate "+g.code);
+            data.push(g);codes.add(norm(g.code));
+          }
+          const seriesCount=data.reduce((s,g)=>s+(g.cards||[]).length,0);
+          const legacyCount=legacy.reduce((s,g)=>s+(g.cards||[]).length,0);
+          if(data.length!==177||seriesCount!==15629||data.length+legacy.length!==273||seriesCount+legacyCount!==20240){
+            throw new Error("Final count mismatch "+JSON.stringify({seriesGroups:data.length,seriesCount,mergedGroups:data.length+legacy.length,merged:seriesCount+legacyCount}));
+          }
+          fs.writeFileSync("data/series.json",JSON.stringify(data,null,2)+"\n");
+          NODE
+      - name: Update intentional series baselines
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          function replace(path,from,to){
+            let s=fs.readFileSync(path,"utf8");
+            if(!s.includes(from))throw new Error("Expected text not found in "+path+": "+from);
+            s=s.replace(from,to);
+            fs.writeFileSync(path,s);
+          }
+          replace("collector-collection-registry.js","catalogCount: 15670","catalogCount: 20240");
+          replace("tests/collector-registry.test.mjs","series: 15670","series: 20240");
+          replace("tests/collector-registry.test.mjs","totalCount: 15670","totalCount: 20240");
+          replace("tests/collector-registry.test.mjs","series: 200","series: 273");
+          replace("tests/pokemon-search-index.test.mjs","assert.equal(cardCount, 15670);","assert.equal(cardCount, 20240);");
+
+          let t=fs.readFileSync("tests/collector-registry.test.mjs","utf8");
+          t=t.replace("assert.equal(swordShield.length, 30);","assert.equal(swordShield.length, 60);");
+          t=t.replace("assert.equal(sunMoon.length, 40);","assert.equal(sunMoon.length, 49);");
+          t=t.replace("    6844,","    8719,");
+          t=t.replace(
+            "/^https:\\/\\/cards[.]image[.]pokemonkorea[.]co[.]kr\\/data\\/wmimages\\/S\\//,",
+            "/^https:\\/\\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\\//,"
+          );
+          t=t.replace(
+            "/^https:\\/\\/pokemoncard[.]co[.]kr\\/cards\\/detail\\//,",
+            "/^https:\\/\\/(?:pokemoncard[.]co[.]kr\\/cards\\/detail\\/|www[.]dogam[.]app\\/sets\\/)/,"
+          );
+          t=t.replace('assert.equal(group("s4a").cards.length, 326, "different shiny card numbers stay separate");','assert.equal(group("s4a").cards.length, 330, "different shiny card numbers stay separate");');
+          t=t.replace('assert.equal(group("s9a").cards.length, 87, "same-number parallel foils collapse");','assert.equal(group("s9a").cards.length, 93, "same-number parallel foils collapse");');
+          t=t.replace("assert.equal(preserved.length, 34);","assert.equal(preserved.length, 68);");
+          t=t.replace("    4215,","    6910,");
+          fs.writeFileSync("tests/collector-registry.test.mjs",t);
+          NODE
+      - name: Install dependencies and refresh generated catalog artifacts
+        run: |
+          npm ci
+          npm run site:prepare
+      - name: Run full repository test suite
+        run: npm test
+      - name: Verify final series and image manifest
+        run: |
+          node scripts/audit-series-inventory.mjs --check
+          node scripts/build-card-image-manifest.mjs --output=tmp/card-images/manifest-production-preview.json
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const a=JSON.parse(fs.readFileSync("data/series-inventory-audit.json","utf8"));
+          const m=JSON.parse(fs.readFileSync("tmp/card-images/manifest-production-preview.json","utf8"));
+          if(a.summary.setCount!==273||a.summary.cardCount!==20240)throw new Error("Inventory mismatch "+JSON.stringify(a.summary));
+          if(m.counts.modern+3>20000||m.counts.legacy+3>20000)throw new Error("Cloudflare file limit "+JSON.stringify(m.counts));
+          console.log("PRODUCTION_PREP_SUMMARY="+JSON.stringify({
+            sets:a.summary.setCount,cards:a.summary.cardCount,
+            images:m.counts.total,modern:m.counts.modern,legacy:m.counts.legacy,
+            external:m.counts.external
+          }));
+          NODE
+      - name: Commit tested production candidate
+        run: |
+          rm -rf input tmp/card-images
+          git config user.name "Digital Card Binder Audit"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          echo "=== candidate changes ==="
+          git status --short
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 1
+          fi
+          git commit -m "Complete Korean series catalog to 20,240 cards"
+          git push origin HEAD:series-master-20240
