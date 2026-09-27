@@ -38,6 +38,44 @@
     return merged;
   }
 
+  function applySeriesImageOverrides(groups, payload) {
+    const sets = payload?.sets && typeof payload.sets === "object"
+      ? payload.sets
+      : {};
+    for (const group of asGroups(groups)) {
+      const groupKey = clean(group?.code || group?.name).toLowerCase();
+      const overrides = sets[groupKey];
+      if (!overrides || typeof overrides !== "object") continue;
+      for (const card of Array.isArray(group?.cards) ? group.cards : []) {
+        const code = clean(card?.code || card?.meta);
+        const image = clean(overrides[code] || overrides[code.toLowerCase()]);
+        if (!image) continue;
+        card.image = image;
+        card.originalImage = image;
+      }
+    }
+    return groups;
+  }
+
+  function applySearchImageOverrides(payload, overridesPayload) {
+    const sets = overridesPayload?.sets && typeof overridesPayload.sets === "object"
+      ? overridesPayload.sets
+      : {};
+    for (const group of Array.isArray(payload?.groups) ? payload.groups : []) {
+      const groupKey = clean(group?.[0]).toLowerCase();
+      const overrides = sets[groupKey];
+      if (!overrides || typeof overrides !== "object") continue;
+      for (const entry of Array.isArray(group?.[4]) ? group[4] : []) {
+        const code = clean(entry?.[0]);
+        const image = clean(overrides[code] || overrides[code.toLowerCase()]);
+        if (!image) continue;
+        entry[3] = image;
+        if (entry.length > 8) entry[8] = image;
+      }
+    }
+    return payload;
+  }
+
   async function json(path) {
     if (!cache.has(path)) cache.set(path, fetchJson(path));
     return cache.get(path);
@@ -60,15 +98,23 @@
   }
 
   async function series() {
-    const [base, legacy] = await Promise.all([
+    const [base, legacy, imageOverrides] = await Promise.all([
       json("./data/series.json"),
       json("./data/series-legacy.json").catch(() => []),
+      json("./data/series-image-overrides.json").catch(() => ({ sets: {} })),
     ]);
-    return mergeGroups(base, legacy, "code");
+    return applySeriesImageOverrides(
+      mergeGroups(base, legacy, "code"),
+      imageOverrides,
+    );
   }
 
   async function pokemonSearchIndex() {
-    return json("./data/pokemon-search-index.json");
+    const [payload, imageOverrides] = await Promise.all([
+      json("./data/pokemon-search-index.json"),
+      json("./data/series-image-overrides.json").catch(() => ({ sets: {} })),
+    ]);
+    return applySearchImageOverrides(payload, imageOverrides);
   }
 
   root.catalog = Object.freeze({

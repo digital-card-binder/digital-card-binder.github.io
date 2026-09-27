@@ -51,6 +51,27 @@
     });
   }
 
+  function applySeriesImageOverrides(groups, payload) {
+    const sets = payload?.sets && typeof payload.sets === "object"
+      ? payload.sets
+      : {};
+    for (const group of Array.isArray(groups) ? groups : []) {
+      const groupKey = String(group?.code || group?.name || "").trim().toLowerCase();
+      const overrides = sets[groupKey];
+      if (!overrides || typeof overrides !== "object") continue;
+      for (const card of Array.isArray(group?.cards) ? group.cards : []) {
+        const code = String(card?.code || card?.meta || "").trim();
+        const image = String(
+          overrides[code] || overrides[code.toLowerCase()] || "",
+        ).trim();
+        if (!image) continue;
+        card.image = image;
+        card.originalImage = image;
+      }
+    }
+    return groups;
+  }
+
   async function loadSeriesCatalog(options = {}) {
     const includeLegacy = options.includeLegacy !== false;
     const fetcher = options.fetcher || window.fetch.bind(window);
@@ -61,14 +82,17 @@
         includeLegacy
           ? fetchJson(fetcher, "./data/series-legacy.json").catch(() => [])
           : Promise.resolve([]),
+        fetchJson(fetcher, "./data/series-image-overrides.json").catch(() => ({
+          sets: {},
+        })),
       ])
-        .then(([baseGroups, legacyGroups]) => {
+        .then(([baseGroups, legacyGroups, imageOverrides]) => {
           const merged = new Map();
           [...(baseGroups || []), ...(legacyGroups || [])].forEach((group) => {
             const code = normalizeSetCode(group?.code || group?.name);
             if (code) merged.set(code, group);
           });
-          return [...merged.values()];
+          return applySeriesImageOverrides([...merged.values()], imageOverrides);
         })
         .catch((error) => {
           seriesCatalogPromises.delete(key);
