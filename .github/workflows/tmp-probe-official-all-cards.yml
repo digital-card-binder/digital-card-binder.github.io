@@ -1,0 +1,39 @@
+name: Probe official all-card search
+
+on:
+  push:
+    branches:
+      - feature/series-print-variant-audit-modern-20260928
+    paths:
+      - .github/workflows/tmp-probe-official-all-cards.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe all-card search
+        run: |
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          import build_legacy_series_data as legacy
+
+          for card_type in (1, 2, 3):
+              rows = legacy.ajax_page("all", card_type, 0)
+              print(f"CARD_TYPE {card_type} COUNT {len(rows)}")
+              for row in rows[:8]:
+                  print({
+                      "CardNum": row.get("CardNum"),
+                      "feature_image": row.get("feature_image"),
+                      "GoodsName": row.get("GoodsName"),
+                  })
+          PY
