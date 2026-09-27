@@ -7,6 +7,7 @@ const seriesBaseOnly =
 const SERIES_DATA_URL = "./data/series.json";
 const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
 const SERIES_PRINT_VARIANTS_URL = "./data/series-print-variants.json";
+const SERIES_IMAGE_OVERRIDES_URL = "./data/series-image-overrides.json";
 const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
@@ -131,6 +132,30 @@ function applySeriesPrintVariantMetadata(targetGroups, metadata) {
         : [];
       card.printVariantAuditCovered = covered;
       card.verifiedPrintVariants = [...new Set(extras)];
+    }
+  }
+
+  return targetGroups;
+}
+
+function applySeriesImageOverrides(targetGroups, payload) {
+  const sets = payload?.sets && typeof payload.sets === "object"
+    ? payload.sets
+    : {};
+
+  for (const group of Array.isArray(targetGroups) ? targetGroups : []) {
+    const groupKey = String(group?.code || group?.name || "").trim().toLowerCase();
+    const overrides = sets[groupKey];
+    if (!overrides || typeof overrides !== "object") continue;
+
+    for (const card of Array.isArray(group?.cards) ? group.cards : []) {
+      const code = String(card?.code || card?.meta || "").trim();
+      const image = String(
+        overrides[code] || overrides[code.toLowerCase()] || "",
+      ).trim();
+      if (!image) continue;
+      card.image = image;
+      card.originalImage = image;
     }
   }
 
@@ -996,17 +1021,22 @@ function mergeSeriesGroups(baseGroups, supplementGroups) {
 
 async function loadCatalogGroups() {
   if (mode === "series") {
-    const [baseGroups, legacyGroups, variantMetadata] = await Promise.all([
+    const [baseGroups, legacyGroups, variantMetadata, imageOverrides] = await Promise.all([
       fetchJson(SERIES_DATA_URL),
       fetchJson(LEGACY_SERIES_DATA_URL).catch(() => []),
       fetchJson(SERIES_PRINT_VARIANTS_URL).catch(() => ({
         coverage: {},
         slots: {},
       })),
+      fetchJson(SERIES_IMAGE_OVERRIDES_URL).catch(() => ({ sets: {} })),
     ]);
     seriesPrintVariantMetadata = variantMetadata;
-    return applySeriesPrintVariantMetadata(
+    const mergedGroups = applySeriesImageOverrides(
       mergeSeriesGroups(baseGroups, legacyGroups),
+      imageOverrides,
+    );
+    return applySeriesPrintVariantMetadata(
+      mergedGroups,
       seriesPrintVariantMetadata,
     );
   }
