@@ -1,0 +1,112 @@
+name: Temporary modern set max audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/modern-set-max-audit-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Probe S8 S3a SV5M official detail ranges
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+          const sets = [
+            {
+              code:"S8", prefix:"BS2021018",
+              numbers:[5,6,7,33,39,40,51,105,106,...Array.from({length:30},(_,i)=>111+i)]
+            },
+            {
+              code:"S3a", prefix:"BS2020012",
+              numbers:Array.from({length:26},(_,i)=>85+i)
+            },
+            {
+              code:"SV5M", prefix:"BS2024005",
+              numbers:Array.from({length:30},(_,i)=>96+i)
+            }
+          ];
+
+          function decode(s){
+            return String(s||"")
+              .replace(/&quot;/gi,'"').replace(/&#39;/gi,"'")
+              .replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ")
+              .replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+          }
+          function parse(html, requested){
+            const name = decode(
+              html.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || ""
+            );
+            const p = html.match(/<span[^>]*class=["'][^"']*p_num[^"']*["'][^>]*>\s*([0-9]+)\s*\/\s*([0-9]+)[\s\S]*?<span[^>]*>\s*([^<]*)/i)
+              || html.match(/(?:카드\s*번호|카드번호)[^0-9]{0,60}([0-9]+)\s*\/\s*([0-9]+)/i);
+            const number = p ? Number(p[1]) : null;
+            const denominator = p ? Number(p[2]) : null;
+            const rarity = decode(p?.[3]||"");
+            const gone = /Gone|410|페이지를 찾을 수|존재하지 않는/i.test(decode(html).slice(0,1200));
+            return {requested,name,number,denominator,rarity,gone};
+          }
+          async function fetchOne(set, n){
+            const id=set.prefix+String(n).padStart(3,"0");
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+id,{headers:{
+                  "User-Agent":"digital-card-binder-modern-completeness-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                const html=await r.text();
+                const parsed=parse(html,n);
+                return {set:set.code,id,http:r.status,ok:r.ok,...parsed,exact:r.ok&&parsed.number===n&&!!parsed.name};
+              }catch(e){
+                last=e;
+                if(a<2) await sleep(1200*(a+1));
+              }
+            }
+            return {set:set.code,id,http:null,ok:false,requested:n,error:String(last),exact:false};
+          }
+
+          const rows=[];
+          for(const set of sets){
+            const nums=[...new Set(set.numbers)].sort((a,b)=>a-b);
+            let done=0;
+            for(const n of nums){
+              rows.push(await fetchOne(set,n));
+              done++;
+              if(done%10===0||done===nums.length)console.log(`${set.code}_PROGRESS ${done}/${nums.length}`);
+              await sleep(1200);
+            }
+          }
+
+          const summary={};
+          for(const set of sets){
+            const a=rows.filter(x=>x.set===set.code);
+            const exact=a.filter(x=>x.exact);
+            summary[set.code]={
+              probed:a.length,
+              exactCount:exact.length,
+              exactNumbers:exact.map(x=>x.number),
+              maxExact:exact.length?Math.max(...exact.map(x=>x.number)):null,
+              nonExact:a.filter(x=>!x.exact).map(x=>({requested:x.requested,http:x.http,name:x.name||"",number:x.number,gone:x.gone||false}))
+            };
+          }
+          fs.writeFileSync("modern-set-max-audit.json",JSON.stringify({summary,rows},null,2));
+          console.log("MODERN_MAX_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: modern-set-max-audit
+          path: modern-set-max-audit.json
+          if-no-files-found: error
