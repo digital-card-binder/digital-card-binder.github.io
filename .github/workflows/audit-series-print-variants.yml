@@ -45,8 +45,12 @@ jobs:
               audit = json.loads(path.read_text(encoding="utf-8"))
               era = audit["era"]
               set_codes = []
+              partial_set_codes = []
               for group in audit["sets"]:
-                  set_codes.append(group["code"])
+                  if group["missingProducts"]:
+                      partial_set_codes.append(group["code"])
+                  else:
+                      set_codes.append(group["code"])
                   group_key = group["code"].casefold()
                   for slot in group["variantSlots"]:
                       printed = str(slot["printedNumber"]).strip()
@@ -71,6 +75,7 @@ jobs:
 
               coverage[era] = {
                   "setCodes": set_codes,
+                  "partialSetCodes": partial_set_codes,
                   "configuredSetCount": audit["summary"]["configuredSetCount"],
                   "resolvedProductCount": audit["summary"]["resolvedProductCount"],
                   "missingProductCount": audit["summary"]["missingProductCount"],
@@ -109,7 +114,7 @@ jobs:
           if-no-files-found: error
       - name: Commit compact metadata to audit branch
         run: |
-          if git diff --quiet -- data/series-print-variants.json; then
+          if [ -z "$(git status --porcelain -- data/series-print-variants.json)" ]; then
             echo "No compact metadata change."
             exit 0
           fi
