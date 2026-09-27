@@ -1,0 +1,35 @@
+name: Temporary Dogam raw probe
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/dogam-raw-probe-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Inspect one rendered set page payload
+        run: |
+          node --input-type=module <<'NODE'
+          const url="https://www.dogam.app/sets/01KW0QF9A3206M4WTAF9WTG2Z2";
+          const r=await fetch(url,{headers:{"User-Agent":"digital-card-binder-series-audit/1.0","Accept-Language":"ko-KR,ko;q=0.9"}});
+          const html=await r.text();
+          console.log("STATUS",r.status,"LEN",html.length);
+          for(const needle of ["캐터피","요씽리스","S8","/cards/","001","129장"]){
+            const i=html.indexOf(needle);
+            console.log("NEEDLE",needle,"AT",i);
+            if(i>=0)console.log(html.slice(Math.max(0,i-800),Math.min(html.length,i+1800)));
+          }
+          console.log("SCRIPT_TAGS",(html.match(/<script/gi)||[]).length);
+          console.log("NEXT_DATA",html.includes("__NEXT_DATA__"));
+          console.log("NEXT_PUSH",html.includes("__next_f.push"));
+          NODE
