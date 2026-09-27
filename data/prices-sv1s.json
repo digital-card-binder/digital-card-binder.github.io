@@ -1,0 +1,57 @@
+{
+  "series": "sv1S",
+  "seriesName": "스칼렛 ex",
+  "source": "bunjang",
+  "sourceLabel": "번개장터 공개 매물 기반 참고시세",
+  "updatedAt": "2026-08-31",
+  "currency": "KRW",
+  "method": "Bunjang Global에 공개 노출된 한국 판매자 단품 매물가를 기준으로 확인하고, 원화가 직접 표기된 경우 이를 우선 사용했습니다. USD만 노출된 매물은 2026-08-31 기준 USD/KRW 1,378원으로 환산한 뒤 500원 단위로 반올림했습니다. 동일 카드가 여러 건 확인된 경우 중앙값을 사용합니다.",
+  "fxRateUsed": 1378,
+  "prices": {
+    "sv1S_079/078": {
+      "price": 2000,
+      "sampleCount": 3,
+      "confidence": "medium"
+    },
+    "sv1S_080/078": {
+      "price": 6000,
+      "sampleCount": 1,
+      "confidence": "low"
+    },
+    "sv1S_081/078": {
+      "price": 2000,
+      "sampleCount": 3,
+      "confidence": "medium"
+    },
+    "sv1S_083/078": {
+      "price": 5000,
+      "sampleCount": 1,
+      "confidence": "low"
+    },
+    "sv1S_088/078": {
+      "price": 1000,
+      "sampleCount": 2,
+      "confidence": "low"
+    },
+    "sv1S_097/078": {
+      "price": 10500,
+      "sampleCount": 1,
+      "confidence": "low"
+    },
+    "sv1S_102/078": {
+      "price": 8500,
+      "sampleCount": 2,
+      "confidence": "low"
+    },
+    "sv1S_103/078": {
+      "price": 25000,
+      "sampleCount": 3,
+      "confidence": "medium"
+    },
+    "sv1S_107/078": {
+      "price": 10500,
+      "sampleCount": 1,
+      "confidence": "low"
+    }
+  }
+}
