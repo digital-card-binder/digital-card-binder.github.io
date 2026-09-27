@@ -1,0 +1,98 @@
+name: Temporary verify 132 official images
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/verify-132-official-images-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          run-id: 36294764981
+          github-token: ${{ github.token }}
+          path: input
+      - name: Probe only official image URLs for provisional records
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+
+          const recovery=JSON.parse(fs.readFileSync("input/existing-set-recovery-461.json","utf8"));
+          const series=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const provisional=recovery.records.filter(r=>r.imageProvisional);
+
+          const templates=new Map();
+          for(const row of provisional){
+            const g=series.find(x=>norm(x.code)===norm(row.setCode));
+            if(!g)continue;
+            const sample=(g.cards||[]).map(c=>clean(c.image)).find(url=>url.includes("cards.image.pokemonkorea.co.kr/data/wmimages/"));
+            if(!sample)continue;
+            const m=sample.match(/^(https:\/\/cards\.image\.pokemonkorea\.co\.kr\/data\/wmimages\/.*\/)([^/]+)_\d+\.(png|jpg|jpeg)$/i);
+            if(!m)continue;
+            templates.set(norm(row.setCode),{dir:m[1],filePrefix:m[2],ext:m[3]});
+          }
+
+          const rows=[];
+          for(let i=0;i<provisional.length;i++){
+            const row=provisional[i],t=templates.get(norm(row.setCode));
+            let result={setCode:row.setCode,number:row.number,name:row.name,provisionalImage:row.image,officialUrl:"",status:null,contentType:"",ok:false};
+            if(t){
+              const officialUrl=`${t.dir}${t.filePrefix}_${String(row.number).padStart(3,"0")}.${t.ext}`;
+              result.officialUrl=officialUrl;
+              let last;
+              for(let a=0;a<3;a++){
+                try{
+                  const r=await fetch(officialUrl,{method:"GET",headers:{
+                    "User-Agent":"digital-card-binder-image-audit/1.0 (+https://digital-card-binder.github.io/)",
+                    "Range":"bytes=0-63"
+                  }});
+                  result.status=r.status;
+                  result.contentType=clean(r.headers.get("content-type"));
+                  result.ok=r.ok && result.contentType.startsWith("image/");
+                  break;
+                }catch(e){last=e;if(a<2)await sleep(1000*(a+1));}
+              }
+              if(last&&!result.status)result.error=String(last);
+            }else result.error="No official template";
+            rows.push(result);
+            if((i+1)%20===0||i+1===provisional.length)console.log(`OFFICIAL_IMAGE_PROGRESS ${i+1}/${provisional.length}`);
+            await sleep(450);
+          }
+
+          const bySet={};
+          for(const r of rows){
+            if(!bySet[r.setCode])bySet[r.setCode]={total:0,officialFound:0,notFound:0};
+            bySet[r.setCode].total++;
+            if(r.ok)bySet[r.setCode].officialFound++;else bySet[r.setCode].notFound++;
+          }
+          const summary={
+            total:rows.length,
+            officialFound:rows.filter(r=>r.ok).length,
+            notFound:rows.filter(r=>!r.ok).length,
+            bySet
+          };
+          fs.writeFileSync("official-image-verification-132.json",JSON.stringify({summary,rows},null,2));
+          console.log("OFFICIAL_IMAGE_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-image-verification-132
+          path: official-image-verification-132.json
+          if-no-files-found: error
