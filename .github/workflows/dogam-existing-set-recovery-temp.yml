@@ -1,0 +1,140 @@
+name: Temporary Dogam existing-set recovery audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/dogam-existing-set-recovery-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Discover Dogam set links and build missing-card candidates
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+
+          const base=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const merged=[...base];
+          for(const x of legacy){
+            const k=norm(x.code),i=merged.findIndex(g=>norm(g.code)===k);
+            if(i>=0)merged[i]=x;else merged.push(x);
+          }
+
+          const targetCounts={
+            "s1W":75,"s1H":75,"s1a":86,"s2":115,"s2a":86,"s3":119,"s3a":94,"s4":121,"s4a":330,
+            "s5I":91,"s5R":91,"s5a":96,"s6H":95,"s6K":95,"s6a":101,"s7D":90,"s7R":90,"s8":129,"s8a":38,
+            "s8b":293,"s9":127,"s9a":93,"s10P":88,"s10D":88,"s10a":99,"s10b":109,"s11":127,"s11a":94,
+            "s12":125,"s12a":262,"sv4a":360,"sv5M":100
+          };
+          const targets=Object.keys(targetCounts);
+
+          async function get(url){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            throw last;
+          }
+          function decode(s){
+            return String(s||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ")
+              .replace(/&#x27;/gi,"'").replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+          }
+          function stripTags(s){return decode(String(s||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim())}
+
+          const indexHtml=await get("https://www.dogam.app/sets");
+          const anchors=[...indexHtml.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+            .map(m=>({href:m[1],text:stripTags(m[2])}));
+          const discovered={};
+          for(const code of targets){
+            const exact=anchors.find(a=>new RegExp("(^|\\s)"+code.replace(/[+]/g,"\\+")+"(?:\\s|·|$)","i").test(a.text));
+            const loose=anchors.find(a=>a.text.toLowerCase().includes(code.toLowerCase()));
+            const hit=exact||loose;
+            if(hit)discovered[code]={...hit};
+          }
+          console.log("DOGAM_DISCOVERED="+JSON.stringify(discovered));
+
+          function localNumber(card){
+            const m=clean(card?.code||card?.meta).match(/_0*(\d+)(?:\/|$)/);
+            return m?Number(m[1]):null;
+          }
+          function parseCards(html){
+            const cards=new Map();
+            // Primary: card detail anchors that include a visible trailing number.
+            for(const m of html.matchAll(/<a[^>]+href=["'](\/cards\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)){
+              const href=m[1],inner=m[2],text=stripTags(inner);
+              const nm=text.match(/^(.*?)(?:\s+)(\d{1,4})$/);
+              if(!nm)continue;
+              const name=clean(nm[1]),number=Number(nm[2]);
+              if(!name||!Number.isFinite(number))continue;
+              const img=inner.match(/<img[^>]+(?:src|data-src)=["']([^"']+)["']/i)?.[1]||"";
+              if(!cards.has(number))cards.set(number,{number,name,href,img:decode(img)});
+            }
+            // Secondary: Next/JSON text patterns for card name+number+slug/id.
+            if(cards.size<20){
+              for(const m of html.matchAll(/"href":"(\/cards\/[A-Za-z0-9_-]+)"[\s\S]{0,500}?"name":"([^"]+)"[\s\S]{0,300}?"number":"?(\d{1,4})"?/gi)){
+                const number=Number(m[3]);
+                if(!cards.has(number))cards.set(number,{number,name:decode(m[2]),href:m[1],img:""});
+              }
+            }
+            return [...cards.values()].sort((a,b)=>a.number-b.number);
+          }
+
+          const results=[];
+          for(let i=0;i<targets.length;i++){
+            const code=targets[i],disc=discovered[code];
+            if(!disc){
+              results.push({code,expected:targetCounts[code],found:false,error:"set link not found"});
+              continue;
+            }
+            const html=await get("https://www.dogam.app"+disc.href);
+            const cards=parseCards(html);
+            const local=merged.find(g=>norm(g.code)===norm(code));
+            const localNums=new Set((local?.cards||[]).map(localNumber).filter(Number.isFinite));
+            const missing=cards.filter(c=>!localNums.has(c.number));
+            results.push({
+              code,expected:targetCounts[code],found:true,setUrl:"https://www.dogam.app"+disc.href,
+              anchorText:disc.text,parsedCardCount:cards.length,currentLocalCount:(local?.cards||[]).length,
+              missingCount:missing.length,missing,cardsSample:cards.slice(0,4),tailSample:cards.slice(-4)
+            });
+            console.log(`DOGAM_SET ${i+1}/${targets.length} ${code}: parsed=${cards.length} missing=${missing.length}`);
+            await sleep(900);
+          }
+
+          const summary={
+            targetSetCount:targets.length,
+            discoveredCount:Object.keys(discovered).length,
+            fullParsedCount:results.filter(r=>r.parsedCardCount===r.expected).length,
+            totalParsedMissing:results.reduce((a,r)=>a+(r.missingCount||0),0),
+            incomplete:results.filter(r=>r.found&&r.parsedCardCount!==r.expected).map(r=>({code:r.code,expected:r.expected,parsed:r.parsedCardCount})),
+            notFound:results.filter(r=>!r.found).map(r=>r.code)
+          };
+          fs.writeFileSync("dogam-existing-set-recovery.json",JSON.stringify({summary,results},null,2));
+          console.log("DOGAM_RECOVERY_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dogam-existing-set-recovery
+          path: dogam-existing-set-recovery.json
+          if-no-files-found: error
