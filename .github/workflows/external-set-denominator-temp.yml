@@ -1,0 +1,96 @@
+name: Temporary external set denominator audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/external-set-denominator-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v3
+          run-id: 36238072443
+          github-token: ${{ github.token }}
+          path: input
+      - name: Resolve printed denominator for external set codes
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const diff=JSON.parse(fs.readFileSync("input/official-series-diff-v3.json","utf8"));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const localCodes=new Set([...diff.matches,...diff.localOnly].map(x=>norm(x.groupCode)));
+          const groups=new Map();
+          for(const s of diff.officialOnly){
+            if(localCodes.has(norm(s.logicalGroup)))continue;
+            if(!groups.has(s.logicalGroup))groups.set(s.logicalGroup,{code:s.logicalGroup,slots:0,cardNums:[],tokens:[]});
+            const g=groups.get(s.logicalGroup);g.slots++;
+            for(const c of s.cardNums||[])if(c&&!g.cardNums.includes(c))g.cardNums.push(c);
+            if(!g.tokens.includes(String(s.token)))g.tokens.push(String(s.token));
+          }
+          function decode(s){return String(s||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()}
+          function parse(html){
+            const name=decode(html.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||"");
+            const p=html.match(/<span[^>]*class=["'][^"']*p_num[^"']*["'][^>]*>\s*([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)[\s\S]*?<span[^>]*>\s*([^<]*)/i)
+              || html.match(/(?:카드\s*번호|카드번호)[^0-9]{0,60}([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)/i);
+            return {name,number:p?Number(p[1]):null,denominator:p?String(p[2]):"",rarity:decode(p?.[3]||"")};
+          }
+          async function fetchOne(cardNum){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+cardNum,{headers:{
+                  "User-Agent":"digital-card-binder-external-denominator-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                const html=await r.text();
+                return {http:r.status,ok:r.ok,...parse(html)};
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            return {ok:false,error:String(last)};
+          }
+          const rows=[];
+          let i=0;
+          for(const g of [...groups.values()].sort((a,b)=>b.slots-a.slots)){
+            // try up to first 3 records until one exposes a printed number
+            let picked=null;
+            for(const cardNum of g.cardNums.slice(0,3)){
+              const d=await fetchOne(cardNum);
+              picked={cardNum,...d};
+              if(d.number!==null||d.name)break;
+              await sleep(900);
+            }
+            rows.push({...g,sample:picked});
+            i++;
+            if(i%10===0||i===groups.size)console.log(`DENOM_PROGRESS ${i}/${groups.size}`);
+            await sleep(1100);
+          }
+          const summary={
+            groupCount:rows.length,
+            parsedDenominatorCount:rows.filter(x=>x.sample?.denominator).length,
+            noDenominator:rows.filter(x=>!x.sample?.denominator).map(x=>x.code)
+          };
+          fs.writeFileSync("external-set-denominator-audit.json",JSON.stringify({summary,rows},null,2));
+          console.log("DENOM_SUMMARY="+JSON.stringify(summary));
+          console.log("DENOM_ROWS="+JSON.stringify(rows.map(x=>({code:x.code,slots:x.slots,number:x.sample?.number,denominator:x.sample?.denominator,name:x.sample?.name}))));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-set-denominator-audit
+          path: external-set-denominator-audit.json
+          if-no-files-found: error
