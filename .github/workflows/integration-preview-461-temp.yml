@@ -143,7 +143,12 @@ jobs:
             changedSamples
           };
           if(before.length!==data.length)throw new Error("Group count changed");
-          if(total!==16131)throw new Error("Expected 16131 cards, got "+total);
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const legacyCount=legacy.reduce((sum,g)=>sum+(Array.isArray(g.cards)?g.cards.length:0),0);
+          summary.legacyCardCount=legacyCount;
+          summary.mergedCardCount=total+legacyCount;
+          if(total!==11520)throw new Error("Expected series.json 11520 cards, got "+total);
+          if(total+legacyCount!==16131)throw new Error("Expected merged 16131 cards, got "+(total+legacyCount));
           if(newCards.length!==461)throw new Error("Expected 461 new cards, got "+newCards.length);
           if(changedOriginal||deletedOriginal||compatConflict||dupCompat.length)throw new Error("Safety audit failed "+JSON.stringify(summary));
 
