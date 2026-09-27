@@ -1,0 +1,125 @@
+name: Temporary 73 missing-set number audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/missing-73-number-audit-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Audit raw vs unique card numbers for 73 missing Korean sets
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").replace(/&amp;/g,"&").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+
+          const eras={
+            M:["M6a","MC","MBD","MBG","MA","M-P"],
+            SV:["SVOM","SVOD","SVN","SVM","SVP2","SVLS","SVLN","SVK","SVJP","SVJL","SVI","SVHK","SVHM","SVG","SVEM","SVEL","SVF","SVD","SVP1","SVC","SVB","SVAL","SVAW","SVAM","SV-P","CLF","CLK","CLL"],
+            S:["SO","SP6","SPD","SPZ","SLD","SLL","SI","SN","S8a-G","SJ","S8a-P","SP5","SH","SP4","SGG","SGI","SP3","SEK","SEF","SP2","SCR","SCD","SP1","SB","SA-F","SA-R","SA-G","SA-L","SA-W","S-P"],
+            SM:["SMM","SML","SMN","SMK","SMI","SME","SMD","SMC","SMA"]
+          };
+          const targets=Object.entries(eras).flatMap(([era,codes])=>codes.map(code=>({era,code})));
+
+          async function get(url){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                },signal:AbortSignal.timeout(12000)});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(a<2)await sleep(1500*(a+1))}
+            }
+            throw last;
+          }
+
+          const index=await get("https://www.dogam.app/sets");
+          const anchors=[...index.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+            .map(m=>({href:m[1],text:clean(m[2])}));
+          function findLink(code){
+            return anchors.find(a=>new RegExp("(^|\\s)"+code+"(?:\\s|·|$)","i").test(a.text));
+          }
+          function cardsFromPage(html){
+            const rows=[];
+            for(const m of html.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/([A-Za-z0-9_-]+))["'][^>]*>([\s\S]*?)<\/a>/gi)){
+              const href=m[1],itemId=m[2],inner=m[3],text=clean(inner);
+              const nm=text.match(/^(.*?)(?:\s+)(\d{1,4})$/);
+              if(!nm)continue;
+              const name=clean(nm[1]),number=Number(nm[2]);
+              const img=inner.match(/<img[^>]+data-full=["']([^"']+)["']/i)?.[1]||"";
+              if(name&&Number.isFinite(number))rows.push({itemId,number,name,image:img,href});
+            }
+            return [...new Map(rows.map(x=>[x.itemId,x])).values()];
+          }
+
+          const results=[];
+          let idx=0;
+          for(const t of targets){
+            idx++;
+            const link=findLink(t.code);
+            if(!link){
+              results.push({...t,found:false});
+              console.log("SETNUM "+idx+"/"+targets.length+" "+t.code+": NOT_FOUND");
+              continue;
+            }
+            const html=await get("https://www.dogam.app"+link.href);
+            const cards=cardsFromPage(html);
+            const byNum=new Map();
+            for(const c of cards){
+              if(!byNum.has(c.number))byNum.set(c.number,[]);
+              byNum.get(c.number).push(c);
+            }
+            const duplicateNumbers=[...byNum].filter(([,a])=>a.length>1).map(([number,a])=>({
+              number,count:a.length,
+              names:[...new Set(a.map(x=>x.name))],
+              itemIds:a.map(x=>x.itemId),
+              images:a.map(x=>x.image)
+            }));
+            const countText=link.text.match(/·\s*(\d+)장/);
+            results.push({
+              ...t,found:true,setUrl:"https://www.dogam.app"+link.href,
+              anchorText:link.text,listedCount:countText?Number(countText[1]):null,
+              rawCardCount:cards.length,uniqueNumberCount:byNum.size,
+              duplicateNumberCount:duplicateNumbers.length,
+              duplicateExtraRows:cards.length-byNum.size,
+              duplicateNumbers
+            });
+            console.log("SETNUM "+idx+"/"+targets.length+" "+t.code+": raw="+cards.length+" uniqueNum="+byNum.size+" dupExtra="+(cards.length-byNum.size));
+            await sleep(1250);
+          }
+
+          const summary={
+            targetSets:targets.length,
+            found:results.filter(x=>x.found).length,
+            notFound:results.filter(x=>!x.found).map(x=>x.code),
+            rawCards:results.reduce((s,x)=>s+(x.rawCardCount||0),0),
+            uniqueNumberCards:results.reduce((s,x)=>s+(x.uniqueNumberCount||0),0),
+            duplicateExtraRows:results.reduce((s,x)=>s+(x.duplicateExtraRows||0),0),
+            setsWithDuplicateNumbers:results.filter(x=>x.duplicateExtraRows>0).map(x=>({
+              era:x.era,code:x.code,raw:x.rawCardCount,unique:x.uniqueNumberCount,extra:x.duplicateExtraRows,
+              differentNameDuplicateNumbers:x.duplicateNumbers.filter(d=>d.names.length>1).length
+            }))
+          };
+          fs.writeFileSync("missing-73-number-audit.json",JSON.stringify({summary,results},null,2));
+          console.log("MISSING73_NUMBER_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: missing-73-number-audit
+          path: missing-73-number-audit.json
+          if-no-files-found: error
