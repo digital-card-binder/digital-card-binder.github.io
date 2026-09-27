@@ -1,0 +1,189 @@
+name: Temporary complete existing-set recovery records
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/complete-existing-set-recovery-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: dogam-existing-set-recovery
+          run-id: 36294375580
+          github-token: ${{ github.token }}
+          path: input
+      - name: Fetch Dogam detail metadata for 461 missing cards
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+
+          const recovery=JSON.parse(fs.readFileSync("input/dogam-existing-set-recovery.json","utf8"));
+          const series=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const merged=[...series];
+          for(const x of legacy){
+            const k=norm(x.code),i=merged.findIndex(g=>norm(g.code)===k);
+            if(i>=0)merged[i]=x;else merged.push(x);
+          }
+
+          const jobs=[];
+          for(const r of recovery.results){
+            const group=merged.find(g=>norm(g.code)===norm(r.code));
+            const sample=(group?.cards||[]).find(c=>clean(c.code||c.meta).includes("_"));
+            const sampleCode=clean(sample?.code||sample?.meta);
+            const m=sampleCode.match(/^([^_]+)_([0-9]+)(?:\/|$)/);
+            const prefix=m?.[1] || clean(group?.code).toLowerCase();
+            const width=m?.[2]?.length || 3;
+            for(const c of r.missing){
+              jobs.push({
+                setCode:r.code,
+                setName:clean(group?.displayName||group?.title||group?.name),
+                era:clean(group?.era),
+                prefix,width,
+                expectedNumber:c.number,
+                expectedName:c.name,
+                listImage:c.img,
+                href:c.href
+              });
+            }
+          }
+
+          function decodeEntities(s){
+            return String(s||"")
+              .replace(/&quot;/gi,'"').replace(/&#39;/gi,"'")
+              .replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ")
+              .replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
+          }
+          function parseProduct(html){
+            for(const m of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){
+              try{
+                const j=JSON.parse(decodeEntities(m[1]));
+                const items=Array.isArray(j)?j:[j];
+                for(const x of items){
+                  if(String(x?.["@type"]||"").toLowerCase()!=="product")continue;
+                  const props=Array.isArray(x.additionalProperty)?x.additionalProperty:[];
+                  const rarityLabel=clean(props.find(p=>clean(p?.name)==="레어도")?.value);
+                  const rarityCode=rarityLabel.match(/\(([A-Z0-9+_-]+)\)\s*$/i)?.[1] || "";
+                  return {
+                    canonicalUrl:clean(x.url),
+                    detailName:clean(x.name).replace(/\s*한글판\s*$/,""),
+                    image:clean(x.image),
+                    identifier:clean(x.identifier),
+                    rarityLabel,
+                    rarityCode
+                  };
+                }
+              }catch{}
+            }
+            return null;
+          }
+          async function fetchDetail(job){
+            const url="https://www.dogam.app"+job.href;
+            let last;
+            for(let a=0;a<4;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                const html=await r.text();
+                const p=parseProduct(html);
+                if(!p)throw new Error("Product JSON-LD missing");
+                return {ok:true,http:r.status,url,...p};
+              }catch(e){
+                last=e;
+                if(a<3)await sleep(1400*(a+1));
+              }
+            }
+            return {ok:false,url,error:String(last)};
+          }
+
+          const rows=new Array(jobs.length);
+          let cursor=0,done=0;
+          async function worker(){
+            while(true){
+              const i=cursor++;
+              if(i>=jobs.length)return;
+              const j=jobs[i],d=await fetchDetail(j);
+              let denominator="",actualNumber=null;
+              const im=clean(d.identifier).match(/^(\d+)\s*\/\s*([^\s]+)$/);
+              if(im){actualNumber=Number(im[1]);denominator=im[2];}
+              const padded=String(j.expectedNumber).padStart(j.width,"0");
+              const cardCode=denominator ? `${j.prefix}_${padded}/${denominator}` : `${j.prefix}_${padded}`;
+              rows[i]={
+                era:j.era,setCode:j.setCode,setName:j.setName,
+                number:j.expectedNumber,cardCode,
+                name:j.expectedName,
+                rarity:clean(d.rarityCode),
+                rarityLabel:clean(d.rarityLabel),
+                image:clean(d.image)||clean(j.listImage),
+                source:clean(d.canonicalUrl)||d.url,
+                dogamSetCardUrl:d.url,
+                identifier:clean(d.identifier),
+                detailName:clean(d.detailName),
+                checks:{
+                  httpOk:!!d.ok,
+                  numberMatch:actualNumber===j.expectedNumber,
+                  nameMatch:norm(d.detailName)===norm(j.expectedName),
+                  imageMatch:!d.image||!j.listImage||clean(d.image)===clean(j.listImage),
+                  hasRarity:!!clean(d.rarityCode)
+                },
+                error:d.error||""
+              };
+              done++;
+              if(done%50===0||done===jobs.length)console.log(`DETAIL_PROGRESS ${done}/${jobs.length}`);
+              await sleep(900);
+            }
+          }
+          await Promise.all([worker(),worker()]);
+
+          const bySet={};
+          for(const row of rows){
+            if(!bySet[row.setCode])bySet[row.setCode]={count:0,numberMismatch:0,nameMismatch:0,imageMismatch:0,missingRarity:0,failed:0};
+            const s=bySet[row.setCode];s.count++;
+            if(!row.checks.httpOk)s.failed++;
+            if(!row.checks.numberMatch)s.numberMismatch++;
+            if(!row.checks.nameMatch)s.nameMismatch++;
+            if(!row.checks.imageMatch)s.imageMismatch++;
+            if(!row.checks.hasRarity)s.missingRarity++;
+          }
+          const summary={
+            total:rows.length,
+            httpSuccess:rows.filter(r=>r.checks.httpOk).length,
+            numberMatch:rows.filter(r=>r.checks.numberMatch).length,
+            nameMatch:rows.filter(r=>r.checks.nameMatch).length,
+            imageMatch:rows.filter(r=>r.checks.imageMatch).length,
+            rarityPresent:rows.filter(r=>r.checks.hasRarity).length,
+            failed:rows.filter(r=>!r.checks.httpOk).length,
+            numberMismatch:rows.filter(r=>!r.checks.numberMatch).length,
+            nameMismatch:rows.filter(r=>!r.checks.nameMatch).length,
+            imageMismatch:rows.filter(r=>!r.checks.imageMatch).length,
+            missingRarity:rows.filter(r=>!r.checks.hasRarity).length,
+            bySet
+          };
+          fs.writeFileSync("existing-set-recovery-complete.json",JSON.stringify({summary,records:rows},null,2));
+          console.log("RECOVERY_COMPLETE_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: existing-set-recovery-complete
+          path: existing-set-recovery-complete.json
+          if-no-files-found: error
