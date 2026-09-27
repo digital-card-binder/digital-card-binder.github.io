@@ -1,5 +1,6 @@
 {
   "mode": "repair_only",
-  "requestId": "m6a-korean-base-001-103-repair-20260928-2",
-  "reason": "Recheck and repair all Korean M6a base-set images 001-103 in the existing Cloudflare Pages archive."
+  "requestId": "m6a-korean-base-001-103-forced-refresh-20260928-3",
+  "refreshM6aBase": true,
+  "reason": "Force refresh M6a_001-M6a_103 from official Korean sources before Cloudflare Pages redeploy."
 }
