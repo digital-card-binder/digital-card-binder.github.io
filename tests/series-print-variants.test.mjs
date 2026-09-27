@@ -14,14 +14,40 @@ test("series print variants stay inside one ownership override", async () => {
   assert.doesNotMatch(manager, /printVariants.*accountKey/);
 });
 
-test("series dialog offers base holo mirror and other without creating extra cards", async () => {
+test("verified print variant metadata keeps canonical card counts unchanged", async () => {
+  const metadata = JSON.parse(await read("data/series-print-variants.json"));
+
+  assert.equal(metadata.schemaVersion, 1);
+  assert.equal(Object.keys(metadata.slots).length, 248);
+  assert.equal(metadata.coverage.S.variantSlotCount, 222);
+  assert.deepEqual(metadata.coverage.S.variantCounts, {
+    holo: 0,
+    mirror: 222,
+    other: 0,
+  });
+  assert.equal(metadata.coverage.SM.variantSlotCount, 26);
+  assert.deepEqual(metadata.coverage.SM.variantCounts, {
+    holo: 0,
+    mirror: 21,
+    other: 5,
+  });
+  assert.deepEqual(metadata.slots["s9a::s9a::1"], ["mirror"]);
+  assert.deepEqual(metadata.slots["smp2::smp2::1"], ["mirror"]);
+});
+
+test("series dialog prioritizes verified print forms without creating extra cards", async () => {
   const catalog = await read("catalog.js");
 
+  assert.match(catalog, /SERIES_PRINT_VARIANTS_URL = "\.\/data\/series-print-variants\.json"/);
   assert.match(catalog, /\{ id: "normal", label: "기본" \}/);
   assert.match(catalog, /\{ id: "holo", label: "홀로" \}/);
   assert.match(catalog, /\{ id: "mirror", label: "미러" \}/);
   assert.match(catalog, /\{ id: "other", label: "기타" \}/);
-  assert.match(catalog, /name="series-print-variant"/);
+  assert.match(catalog, /function applySeriesPrintVariantMetadata\(/);
+  assert.match(catalog, /card\.printVariantAuditCovered = coveredSets\.has\(groupKey\)/);
+  assert.match(catalog, /card\.verifiedPrintVariants = extras/);
+  assert.match(catalog, /input\.name = "series-print-variant"/);
+  assert.match(catalog, /id="series-print-variant-options"/);
   assert.match(catalog, /const printVariants = owned \? seriesEditorPrintVariants\(\) : \[\]/);
   assert.match(catalog, /saveOverride\(activeCard\.accountKey, \{\s*owned,\s*printVariants,/);
 });
