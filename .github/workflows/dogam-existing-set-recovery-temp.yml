@@ -82,20 +82,20 @@ jobs:
           function parseCards(html){
             const cards=new Map();
             // Primary: card detail anchors that include a visible trailing number.
-            for(const m of html.matchAll(/<a[^>]+href=["'](\/cards\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)){
+            for(const m of html.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)){
               const href=m[1],inner=m[2],text=stripTags(inner);
               const nm=text.match(/^(.*?)(?:\s+)(\d{1,4})$/);
               if(!nm)continue;
               const name=clean(nm[1]),number=Number(nm[2]);
               if(!name||!Number.isFinite(number))continue;
-              const img=inner.match(/<img[^>]+(?:src|data-src)=["']([^"']+)["']/i)?.[1]||"";
+              const img=inner.match(/<img[^>]+data-full=["']([^"']+)["']/i)?.[1] || inner.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1] || "";
               if(!cards.has(number))cards.set(number,{number,name,href,img:decode(img)});
             }
             // Secondary: Next/JSON text patterns for card name+number+slug/id.
             if(cards.size<20){
-              for(const m of html.matchAll(/"href":"(\/cards\/[A-Za-z0-9_-]+)"[\s\S]{0,500}?"name":"([^"]+)"[\s\S]{0,300}?"number":"?(\d{1,4})"?/gi)){
-                const number=Number(m[3]);
-                if(!cards.has(number))cards.set(number,{number,name:decode(m[2]),href:m[1],img:""});
+              for(const m of html.matchAll(/"url":"https:\/\/www\.dogam\.app(\/sets\/[A-Za-z0-9_-]+\/cards\/[A-Za-z0-9_-]+)"[\s\S]{0,120}?"position":(\d+)[\s\S]{0,120}?"name":"([^"]+)"/gi)){
+                const number=Number(m[2]);
+                if(!cards.has(number))cards.set(number,{number,name:decode(m[3]),href:m[1],img:""});
               }
             }
             return [...cards.values()].sort((a,b)=>a.number-b.number);
