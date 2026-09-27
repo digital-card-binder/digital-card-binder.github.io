@@ -1,0 +1,193 @@
+name: Temporary 20240 integration and image manifest preview
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/integration-preview-20240-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          run-id: 36294764981
+          github-token: ${{ github.token }}
+          path: input/recovery
+      - uses: actions/download-artifact@v4
+        with:
+          name: missing-73-records
+          run-id: 36297516610
+          github-token: ${{ github.token }}
+          path: input/missing
+      - name: Build 20,240-card in-memory integration and audit ownership identity
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const clone=v=>JSON.parse(JSON.stringify(v));
+          const seriesPath="data/series.json";
+          const before=JSON.parse(fs.readFileSync(seriesPath,"utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const rec=JSON.parse(fs.readFileSync("input/recovery/existing-set-recovery-461.json","utf8"));
+          const missing=JSON.parse(fs.readFileSync("input/missing/missing-73-records.json","utf8"));
+          const data=clone(before);
+
+          function cardId(g,c){return norm(g.code)+"::"+norm(c.code||c.meta)}
+          function compat(g,c){return "series::"+norm(g.code||g.name||g.title)+"::"+norm(c.code||c.meta)}
+          function runtime(g,c,i){
+            const ai=Number.isInteger(c?.accountIndex)?c.accountIndex:i;
+            return [clean(g.code||g.name||g.title),clean(c.code||c.meta||i),ai].join("::");
+          }
+          function num(c){
+            const m=clean(c?.code||c?.meta).match(/_0*(\d+)(?:\/|$)/);
+            return m?Number(m[1]):Number.POSITIVE_INFINITY;
+          }
+
+          const beforeCards=new Map(),beforeRuntime=new Map();
+          for(const g of before){
+            (g.cards||[]).forEach((c,i)=>{
+              const id=cardId(g,c);
+              if(beforeCards.has(id))throw new Error("Duplicate before id "+id);
+              beforeCards.set(id,JSON.stringify(c));
+              beforeRuntime.set(id,runtime(g,c,i));
+            });
+          }
+          const beforeMergedCount=before.reduce((s,g)=>s+(g.cards||[]).length,0)+legacy.reduce((s,g)=>s+(g.cards||[]).length,0);
+          if(beforeMergedCount!==15670)throw new Error("Unexpected baseline "+beforeMergedCount);
+
+          // 1) Fill 461 missing cards into existing 32 groups.
+          const expectedExisting=new Map(Object.entries(rec.summary.setSummary).map(([k,v])=>[norm(k),v.expected]));
+          for(const row of rec.records){
+            const g=data.find(x=>norm(x.code)===norm(row.setCode));
+            if(!g)throw new Error("Missing existing target group "+row.setCode);
+            if((g.cards||[]).some(c=>norm(c.code||c.meta)===norm(row.code)))throw new Error("Recovery duplicate "+row.setCode+" "+row.code);
+            g.cards.push({code:row.code,name:row.name,rarity:row.rarity||"",image:row.image,source:row.source});
+          }
+          for(const g of data){
+            if(!expectedExisting.has(norm(g.code)))continue;
+            g.cards.sort((a,b)=>{
+              const na=num(a),nb=num(b);
+              if(Number.isFinite(na)&&Number.isFinite(nb)&&na!==nb)return na-nb;
+              if(Number.isFinite(na)!==Number.isFinite(nb))return Number.isFinite(na)?-1:1;
+              return clean(a.code||a.meta).localeCompare(clean(b.code||b.meta),"en",{numeric:true});
+            });
+            const expected=expectedExisting.get(norm(g.code));
+            if(g.cards.length!==expected)throw new Error("Existing target count mismatch "+g.code+" "+g.cards.length+" != "+expected);
+            const denom=clean(g.cards.find(c=>clean(c.code||c.meta).includes("/"))?.code||"").split("/")[1]||"";
+            const baseTitle=clean(g.displayName)||clean(g.title).replace(/\s*\([^)]*\)\s*$/,"")||clean(g.name)||clean(g.code);
+            g.title=denom?baseTitle+" ("+expected+"/"+denom+")":baseTitle+" ("+expected+"장)";
+          }
+
+          // 2) Add 73 wholly missing groups without touching any existing group ordering/content.
+          const existingGroupCodes=new Set(data.map(g=>norm(g.code)));
+          for(const group of missing.groups){
+            if(existingGroupCodes.has(norm(group.code)))throw new Error("Missing-set group already exists "+group.code);
+            data.push(clone(group));
+            existingGroupCodes.add(norm(group.code));
+          }
+
+          const afterCards=new Map(),afterRuntime=new Map(),afterCompat=new Map();
+          let seriesCount=0;
+          for(const g of data){
+            seriesCount+=(g.cards||[]).length;
+            (g.cards||[]).forEach((c,i)=>{
+              const id=cardId(g,c);
+              if(afterCards.has(id))throw new Error("Duplicate after id "+id);
+              afterCards.set(id,JSON.stringify(c));
+              afterRuntime.set(id,runtime(g,c,i));
+              const k=compat(g,c);
+              afterCompat.set(k,(afterCompat.get(k)||0)+1);
+            });
+          }
+          const legacyCount=legacy.reduce((s,g)=>s+(g.cards||[]).length,0);
+          const mergedCount=seriesCount+legacyCount;
+
+          let unchanged=0,changed=0,deleted=0,runtimeChanged=0,reconnectable=0,compatConflict=0;
+          for(const [id,json] of beforeCards){
+            if(!afterCards.has(id)){deleted++;continue}
+            if(afterCards.get(id)===json)unchanged++; else changed++;
+            if(beforeRuntime.get(id)!==afterRuntime.get(id)){
+              runtimeChanged++;
+              const [groupCode,cardCode]=id.split("::");
+              const n=afterCompat.get("series::"+groupCode+"::"+cardCode)||0;
+              if(n===1)reconnectable++;else compatConflict++;
+            }
+          }
+          const newIds=[...afterCards.keys()].filter(k=>!beforeCards.has(k));
+          const dupCompat=[...afterCompat].filter(([,n])=>n>1);
+
+          const era={};
+          for(const g of [...legacy,...data]){
+            const e=clean(g.era)||"UNKNOWN";
+            era[e]??={sets:0,cards:0};
+            era[e].sets++;era[e].cards+=(g.cards||[]).length;
+          }
+          const audit={
+            baseline:{groups:before.length+legacy.length,cards:beforeMergedCount},
+            final:{groups:data.length+legacy.length,cards:mergedCount,seriesGroups:data.length,seriesCards:seriesCount,legacyGroups:legacy.length,legacyCards:legacyCount},
+            additions:{recoveryCards:rec.records.length,newGroups:missing.groups.length,newGroupCards:missing.records.length,totalNewCards:newIds.length},
+            preservation:{unchangedOriginal:unchanged,changedOriginal:changed,deletedOriginal:deleted,runtimeChanged,reconnectable,compatConflict,duplicateCompatibilityKeys:dupCompat.length},
+            era
+          };
+          if(data.length!==177)throw new Error("Expected 177 series groups, got "+data.length);
+          if(data.length+legacy.length!==273)throw new Error("Expected 273 merged groups");
+          if(seriesCount!==15629)throw new Error("Expected 15629 series cards, got "+seriesCount);
+          if(mergedCount!==20240)throw new Error("Expected 20240 merged cards, got "+mergedCount);
+          if(newIds.length!==4570)throw new Error("Expected 4570 new cards, got "+newIds.length);
+          if(unchanged!==beforeCards.size||changed||deleted||compatConflict||dupCompat.length)throw new Error("Ownership/data preservation audit failed "+JSON.stringify(audit));
+
+          fs.writeFileSync("series-20240-preview.json",JSON.stringify(data,null,2));
+          fs.writeFileSync("series-20240-preview-audit.json",JSON.stringify(audit,null,2));
+          fs.writeFileSync(seriesPath,JSON.stringify(data,null,2)+"\n");
+          console.log("PREVIEW_20240_SUMMARY="+JSON.stringify(audit));
+          NODE
+      - name: Build preview card-image manifest and validate Cloudflare file limits
+        run: |
+          node scripts/build-card-image-manifest.mjs --output=preview-image-manifest.json
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const m=JSON.parse(fs.readFileSync("preview-image-manifest.json","utf8"));
+          const baseline={total:16660,modern:8277,legacy:8383};
+          const result={
+            counts:m.counts,
+            baseline,
+            delta:{
+              total:m.counts.total-baseline.total,
+              modern:m.counts.modern-baseline.modern,
+              legacy:m.counts.legacy-baseline.legacy
+            },
+            cloudflareFiles:{
+              modern:m.counts.modern+3,
+              legacy:m.counts.legacy+3,
+              limit:20000,
+              modernHeadroom:20000-(m.counts.modern+3),
+              legacyHeadroom:20000-(m.counts.legacy+3)
+            }
+          };
+          if(result.cloudflareFiles.modern>20000||result.cloudflareFiles.legacy>20000)throw new Error("Cloudflare Pages file limit exceeded "+JSON.stringify(result));
+          fs.writeFileSync("series-20240-image-manifest-audit.json",JSON.stringify(result,null,2));
+          console.log("PREVIEW_IMAGE_SUMMARY="+JSON.stringify(result));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: series-20240-integration-preview
+          path: |
+            series-20240-preview.json
+            series-20240-preview-audit.json
+            series-20240-image-manifest-audit.json
+            preview-image-manifest.json
+          if-no-files-found: error
