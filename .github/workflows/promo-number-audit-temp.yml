@@ -1,0 +1,64 @@
+name: Temporary promo number audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/promo-number-audit-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Audit MP SVP SP promo card numbers
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").replace(/&amp;/g,"&").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+          async function get(url){
+            const r=await fetch(url,{headers:{"User-Agent":"digital-card-binder-series-audit/1.0","Accept-Language":"ko-KR,ko;q=0.9"},signal:AbortSignal.timeout(12000)});
+            if(!r.ok)throw new Error("HTTP "+r.status);
+            return await r.text();
+          }
+          const index=await get("https://www.dogam.app/sets");
+          const anchors=[...index.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map(m=>({href:m[1],text:clean(m[2])}));
+          const targets=[["M","MP",65],["SV","SVP",248],["S","SP",204]];
+          const results=[];
+          for(const [era,code,expected] of targets){
+            const link=anchors.find(a=>new RegExp("(^|\\s)"+code+"(?:\\s|·|$)","i").test(a.text));
+            if(!link)throw new Error("Missing promo "+code);
+            const html=await get("https://www.dogam.app"+link.href);
+            const rows=[];
+            for(const m of html.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/([A-Za-z0-9_-]+))["'][^>]*>([\s\S]*?)<\/a>/gi)){
+              const inner=m[3],text=clean(inner);
+              const nm=text.match(/^(.*?)(?:\s+)([^\s]+)$/);
+              if(!nm)continue;
+              const name=clean(nm[1]),numberText=clean(nm[2]);
+              if(name)rows.push({itemId:m[2],name,numberText});
+            }
+            const cards=[...new Map(rows.map(x=>[x.itemId,x])).values()];
+            const byNum=new Map();
+            for(const c of cards){
+              if(!byNum.has(c.numberText))byNum.set(c.numberText,[]);
+              byNum.get(c.numberText).push(c);
+            }
+            const dup=[...byNum].filter(([,a])=>a.length>1).map(([number,a])=>({number,count:a.length,names:[...new Set(a.map(x=>x.name))]}));
+            results.push({era,code,expected,setUrl:"https://www.dogam.app"+link.href,raw:cards.length,uniqueNumbers:byNum.size,duplicateExtra:cards.length-byNum.size,duplicates:dup});
+            await sleep(1000);
+          }
+          const summary={raw:results.reduce((s,x)=>s+x.raw,0),uniqueNumbers:results.reduce((s,x)=>s+x.uniqueNumbers,0),duplicateExtra:results.reduce((s,x)=>s+x.duplicateExtra,0),results};
+          fs.writeFileSync("promo-number-audit.json",JSON.stringify(summary,null,2));
+          console.log("PROMO_NUMBER_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: promo-number-audit
+          path: promo-number-audit.json
