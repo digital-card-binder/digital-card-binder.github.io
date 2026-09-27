@@ -63,6 +63,10 @@ def resolve_product(product: str, official_values: dict[str, str]) -> str | None
 
 def classify_filename(value: str) -> str:
     filename = clean(value).split("?", 1)[0].rsplit("/", 1)[-1]
+    # Pokemon Korea's official image archive uses "_m" for mirror-print
+    # companions (for example S9a_001.png / S9a_001_m.png).
+    if re.search(r"_m(?=\.[^.]+$)", filename, re.I):
+        return "mirror"
     for variant, pattern in VARIANT_PATTERNS:
         if pattern.search(filename):
             return variant
