@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
@@ -25,10 +25,96 @@ jobs:
         with:
           python-version: "3.12"
       - name: Audit Sword & Shield print variants
-        run: python3 scripts/audit-series-print-variants.py --era S --workers 4 --output series-print-variant-audit.json
-      - name: Upload audit result
+        run: python3 scripts/audit-series-print-variants.py --era S --workers 4 --output series-print-variant-audit-s.json
+      - name: Audit Sun & Moon print variants
+        run: python3 scripts/audit-series-print-variants.py --era SM --workers 4 --output series-print-variant-audit-sm.json
+      - name: Build compact site metadata
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = [
+              Path("series-print-variant-audit-s.json"),
+              Path("series-print-variant-audit-sm.json"),
+          ]
+          coverage = {}
+          slots = {}
+
+          for path in paths:
+              audit = json.loads(path.read_text(encoding="utf-8"))
+              era = audit["era"]
+              set_codes = []
+              for group in audit["sets"]:
+                  set_codes.append(group["code"])
+                  group_key = group["code"].casefold()
+                  for slot in group["variantSlots"]:
+                      printed = str(slot["printedNumber"]).strip()
+                      if printed.isdigit():
+                          printed = str(int(printed))
+                      else:
+                          printed = printed.casefold()
+                      key = "::".join(
+                          [
+                              group_key,
+                              str(slot["actualSetCode"]).casefold(),
+                              printed,
+                          ]
+                      )
+                      extras = [
+                          value
+                          for value in slot["availablePrintVariants"]
+                          if value != "normal"
+                      ]
+                      if extras:
+                          slots[key] = extras
+
+              coverage[era] = {
+                  "setCodes": set_codes,
+                  "configuredSetCount": audit["summary"]["configuredSetCount"],
+                  "resolvedProductCount": audit["summary"]["resolvedProductCount"],
+                  "missingProductCount": audit["summary"]["missingProductCount"],
+                  "variantSlotCount": audit["summary"]["variantSlotCount"],
+                  "variantCounts": audit["summary"]["variantCounts"],
+              }
+
+          payload = {
+              "schemaVersion": 1,
+              "source": "https://pokemoncard.co.kr/cards",
+              "policy": (
+                  "One canonical catalog card per slot. 'normal' is always the base "
+                  "choice; this file lists only additional print forms verified from "
+                  "Pokemon Korea official duplicate card-search images."
+              ),
+              "coverage": coverage,
+              "slots": dict(sorted(slots.items())),
+          }
+          target = Path("data/series-print-variants.json")
+          target.write_text(
+              json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(
+              f"Compact metadata: {len(slots)} variant slots / "
+              f"{', '.join(sorted(coverage))}"
+          )
+          PY
+      - name: Upload full audit evidence
         uses: actions/upload-artifact@v4
         with:
-          name: series-print-variant-audit-s
-          path: series-print-variant-audit.json
+          name: series-print-variant-audit-sm-s
+          path: |
+            series-print-variant-audit-s.json
+            series-print-variant-audit-sm.json
           if-no-files-found: error
+      - name: Commit compact metadata to audit branch
+        run: |
+          if git diff --quiet -- data/series-print-variants.json; then
+            echo "No compact metadata change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series-print-variants.json
+          git commit -m "Add verified series print variant metadata"
+          git push
