@@ -1,0 +1,201 @@
+name: Temporary existing-set recovery from set payload
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/existing-set-recovery-payload-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build 461 complete records from 32 Dogam set pages
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+
+          const targetCounts={
+            "s1W":75,"s1H":75,"s1a":86,"s2":115,"s2a":86,"s3":119,"s3a":94,"s4":121,"s4a":330,
+            "s5I":91,"s5R":91,"s5a":96,"s6H":95,"s6K":95,"s6a":101,"s7D":90,"s7R":90,"s8":129,"s8a":38,
+            "s8b":293,"s9":127,"s9a":93,"s10P":88,"s10D":88,"s10a":99,"s10b":109,"s11":127,"s11a":94,
+            "s12":125,"s12a":262,"sv4a":360,"sv5M":100
+          };
+
+          const base=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const legacy=JSON.parse(fs.readFileSync("data/series-legacy.json","utf8"));
+          const merged=[...base];
+          for(const x of legacy){
+            const k=norm(x.code),i=merged.findIndex(g=>norm(g.code)===k);
+            if(i>=0)merged[i]=x;else merged.push(x);
+          }
+
+          async function get(url){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            throw last;
+          }
+          function decode(s){
+            return String(s||"")
+              .replace(/\\u0026/g,"&")
+              .replace(/\\u003c/g,"<")
+              .replace(/\\u003e/g,">")
+              .replace(/\\n/g," ")
+              .replace(/\\\"/g,'"')
+              .replace(/\\\\/g,"\\");
+          }
+          function stripTags(s){
+            return String(s||"").replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
+          }
+          function parseSetCards(html){
+            const decoded=decode(html);
+            const map=new Map();
+            const re=/\{"id":"([^"]+)","number":"([^"]+)","name":"([^"]*)","name_ko":"([^"]*)","rarity":"([^"]*)","rarity_code":"([^"]*)","rarity_ko":"([^"]*)","image_url":"([^"]*)","image_provisional":(true|false),"item_id":"([^"]+)","variant_codes":(\[[^\]]*\])/g;
+            for(const m of decoded.matchAll(re)){
+              const numberText=clean(m[2]);
+              if(!/^\d+$/.test(numberText))continue;
+              const number=Number(numberText);
+              const itemId=clean(m[10]);
+              if(!itemId)continue;
+              map.set(itemId,{
+                id:clean(m[1]),
+                itemId,
+                number,
+                numberText,
+                nameEn:clean(m[3]),
+                name:clean(m[4])||clean(m[3]),
+                rarityEn:clean(m[5]),
+                rarity:clean(m[6]),
+                rarityKo:clean(m[7]),
+                image:clean(m[8]),
+                imageProvisional:m[9]==="true",
+                variantCodes:JSON.parse(m[11]||"[]")
+              });
+            }
+            return [...map.values()].sort((a,b)=>a.number-b.number);
+          }
+          function localNumber(card){
+            const m=clean(card?.code||card?.meta).match(/_0*(\d+)(?:\/|$)/);
+            return m?Number(m[1]):null;
+          }
+          function groupCodeShape(group){
+            const c=(group?.cards||[]).map(x=>clean(x.code||x.meta)).find(x=>x.includes("_"))||"";
+            const m=c.match(/^([^_]+)_([0-9]+)(?:\/([^\s]+))?/);
+            return {prefix:m?.[1]||clean(group?.code).toLowerCase(),width:m?.[2]?.length||3,denominator:m?.[3]||""};
+          }
+
+          const indexHtml=await get("https://www.dogam.app/sets");
+          const anchors=[...indexHtml.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+            .map(m=>({href:m[1],text:stripTags(m[2])}));
+
+          const setLinks={};
+          for(const code of Object.keys(targetCounts)){
+            const esc=code.replace(/[+]/g,"\\+");
+            const exact=anchors.find(a=>new RegExp("(^|\\s)"+esc+"(?:\\s|·|$)","i").test(a.text));
+            if(exact)setLinks[code]=exact;
+          }
+
+          const records=[];
+          const setSummary={};
+          let setIndex=0;
+          for(const [code,expected] of Object.entries(targetCounts)){
+            setIndex++;
+            const link=setLinks[code];
+            if(!link)throw new Error("Dogam set link missing: "+code);
+            const html=await get("https://www.dogam.app"+link.href);
+            const cards=parseSetCards(html);
+            const group=merged.find(g=>norm(g.code)===norm(code));
+            if(!group)throw new Error("Local group missing: "+code);
+            const localNums=new Set((group.cards||[]).map(localNumber).filter(Number.isFinite));
+            const shape=groupCodeShape(group);
+            const missing=cards.filter(c=>!localNums.has(c.number));
+            const expectedMissing=expected-(group.cards||[]).length;
+
+            setSummary[code]={
+              setName:clean(group.displayName||group.title||group.name),
+              current:(group.cards||[]).length,
+              expected,
+              parsed:cards.length,
+              missing:missing.length,
+              expectedMissing,
+              shape
+            };
+            if(cards.length!==expected)throw new Error(`Dogam parsed count mismatch ${code}: ${cards.length} != ${expected}`);
+            if(missing.length!==expectedMissing)throw new Error(`Missing count mismatch ${code}: ${missing.length} != ${expectedMissing}`);
+
+            for(const c of missing){
+              const num=String(c.number).padStart(shape.width,"0");
+              const cardCode=shape.denominator
+                ? `${shape.prefix}_${num}/${shape.denominator}`
+                : `${shape.prefix}_${num}`;
+              records.push({
+                era:clean(group.era),
+                setCode:clean(group.code),
+                setName:clean(group.displayName||group.title||group.name),
+                number:c.number,
+                code:cardCode,
+                name:c.name,
+                rarity:c.rarity,
+                rarityLabel:c.rarityKo,
+                image:c.image,
+                source:`https://www.dogam.app/cards/${c.itemId}`,
+                dogamSetUrl:"https://www.dogam.app"+link.href,
+                dogamItemId:c.itemId,
+                imageProvisional:c.imageProvisional,
+                variantCodes:c.variantCodes
+              });
+            }
+            console.log(`PAYLOAD_SET ${setIndex}/${Object.keys(targetCounts).length} ${code}: parsed=${cards.length} missing=${missing.length}`);
+            await sleep(850);
+          }
+
+          const identity=new Map();
+          const duplicate=[];
+          for(const r of records){
+            const k=norm(r.setCode)+"::"+norm(r.code);
+            if(identity.has(k))duplicate.push({key:k,a:identity.get(k),b:r});
+            else identity.set(k,r);
+          }
+          const summary={
+            targetSets:Object.keys(targetCounts).length,
+            totalMissingRecords:records.length,
+            withName:records.filter(r=>!!r.name).length,
+            withImage:records.filter(r=>!!r.image).length,
+            withSource:records.filter(r=>!!r.source).length,
+            withRarity:records.filter(r=>!!r.rarity).length,
+            provisionalImages:records.filter(r=>r.imageProvisional).length,
+            duplicateIdentities:duplicate.length,
+            setSummary
+          };
+          if(records.length!==461)throw new Error("Expected 461 recovery records, got "+records.length);
+          if(duplicate.length)throw new Error("Duplicate recovery identities: "+duplicate.length);
+
+          fs.writeFileSync("existing-set-recovery-461.json",JSON.stringify({summary,records},null,2));
+          console.log("PAYLOAD_RECOVERY_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          path: existing-set-recovery-461.json
+          if-no-files-found: error
