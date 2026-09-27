@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Probe newest all-card search
+      - name: Inspect all-card response metadata
         run: |
           python3 - <<'PY'
           import json
@@ -29,45 +29,42 @@ jobs:
           sys.path.insert(0, str(Path("scripts").resolve()))
           import build_legacy_series_data as legacy
 
-          def newest(card_type):
-              form = {
-                  "action": "get_more_cards",
-                  "limit": "0",
-                  "GoodsName": "all",
-                  "CardTypeNum": str(card_type),
-                  "CardType": "all",
-                  "order": "DESC",
-                  "orderby": "CardNum",
-              }
-              if card_type == 1:
-                  form.update({
-                      "CardMonType": "all",
-                      "Weakness": "all",
-                      "Resistance": "all",
-                      "TechErg": "all",
-                      "ability_label1": "all",
-                      "hp": "0,380",
-                      "retreat": "0,5",
-                  })
-              body = urlencode(form).encode("utf-8")
-              payload = legacy.request_bytes(
-                  f"{legacy.OFFICIAL_BASE}/v2/ajax2_dev2",
-                  data=body,
-                  headers={
-                      "Content-Type": "application/x-www-form-urlencoded",
-                      "Referer": f"{legacy.OFFICIAL_BASE}/cards",
-                      "X-Requested-With": "XMLHttpRequest",
-                  },
-              )
-              result = legacy.parse_json_response(payload).get("result") or []
-              return list(result.values()) if isinstance(result, dict) else list(result)
-
-          for card_type in (1, 2, 3):
-              rows = newest(card_type)
-              print(f"CARD_TYPE {card_type} COUNT {len(rows)}")
-              for row in rows[:12]:
-                  print({
-                      "CardNum": row.get("CardNum"),
-                      "feature_image": row.get("feature_image"),
-                  })
+          form = {
+              "action": "get_more_cards",
+              "limit": "0",
+              "GoodsName": "all",
+              "CardTypeNum": "1",
+              "CardType": "all",
+              "order": "ASC",
+              "orderby": "CardNum",
+              "CardMonType": "all",
+              "Weakness": "all",
+              "Resistance": "all",
+              "TechErg": "all",
+              "ability_label1": "all",
+              "hp": "0,380",
+              "retreat": "0,5",
+          }
+          body = urlencode(form).encode("utf-8")
+          payload = legacy.request_bytes(
+              f"{legacy.OFFICIAL_BASE}/v2/ajax2_dev2",
+              data=body,
+              headers={
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  "Referer": f"{legacy.OFFICIAL_BASE}/cards",
+                  "X-Requested-With": "XMLHttpRequest",
+              },
+              attempts=6,
+          )
+          response = legacy.parse_json_response(payload)
+          print("TOP_KEYS", sorted(response.keys()))
+          for key, value in response.items():
+              if key == "result":
+                  rows = list(value.values()) if isinstance(value, dict) else list(value or [])
+                  print("RESULT_COUNT", len(rows))
+                  print("FIRST", rows[0] if rows else None)
+                  print("LAST", rows[-1] if rows else None)
+              else:
+                  preview = value if isinstance(value, (str, int, float, bool, type(None))) else str(value)[:500]
+                  print("META", key, preview)
           PY
