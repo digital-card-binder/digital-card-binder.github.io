@@ -241,6 +241,21 @@ jobs:
             card-images-v2-${{ runner.os }}-legacy-
             card-images-v1-${{ runner.os }}-legacy-
 
+      - name: Refresh requested M6a Korean base images
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          REFRESH_M6A_BASE="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync('.github/card-image-deploy-request.json','utf8')); process.stdout.write(x.refreshM6aBase===true?'true':'false')")"
+          if [ "$REFRESH_M6A_BASE" = "true" ]; then
+            for number in $(seq 1 103); do
+              token=$(printf "%03d" "$number")
+              rm -f "tmp/card-images/build/modern/data/wmimages/MEGA/M6a/M6a_${token}.webp"
+            done
+            echo "Removed cached M6a_001-M6a_103 WebP files so official Korean sources will be downloaded again."
+          else
+            echo "No forced M6a base refresh requested."
+          fi
+
       - name: Repair missing images in restored archives
         run: |
           set -euo pipefail
