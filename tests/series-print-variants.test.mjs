@@ -46,7 +46,7 @@ test("series dialog prioritizes verified print forms without creating extra card
   assert.match(catalog, /function applySeriesPrintVariantMetadata\(/);
   assert.match(catalog, /const covered = coveredSets\.has\(groupKey\)/);
   assert.match(catalog, /card\.printVariantAuditCovered = covered/);
-  assert.match(catalog, /card\.verifiedPrintVariants = extras/);
+  assert.match(catalog, /card\.verifiedPrintVariants = \[\.\.\.new Set\(extras\)\]/);
   assert.match(catalog, /input\.name = "series-print-variant"/);
   assert.match(catalog, /id="series-print-variant-options"/);
   assert.match(catalog, /const printVariants = owned \? seriesEditorPrintVariants\(\) : \[\]/);
