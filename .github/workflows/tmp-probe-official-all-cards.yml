@@ -16,33 +16,42 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: 22
-      - name: Analyze existing image manifest paths
+          python-version: "3.12"
+      - name: Probe unfiltered card stream
         run: |
-          node scripts/build-card-image-manifest.mjs --output=/tmp/card-image-manifest.json
           python3 - <<'PY'
-          import json
-          import re
+          import sys
+          from pathlib import Path
+          from urllib.parse import urlencode
+          sys.path.insert(0, str(Path("scripts").resolve()))
+          import build_legacy_series_data as legacy
 
-          manifest = json.load(open("/tmp/card-image-manifest.json", encoding="utf-8"))
-          variants = []
-          roots = {}
-          for asset in manifest["assets"]:
-              if asset["project"] != "modern":
-                  continue
-              root = asset.get("root", "")
-              roots[root] = roots.get(root, 0) + 1
-              joined = " ".join(asset.get("sourceUrls", []))
-              if re.search(r"(?:_m(?:\.|_)|mirror|reverse|foil|holo|master.?ball|poke.?ball)", joined, re.I):
-                  variants.append({
-                      "root": root,
-                      "path": asset["relativePath"],
-                      "sources": asset["sourceUrls"],
-                  })
-          print("MODERN_ROOT_COUNTS", roots)
-          print("VARIANT_NAMED_COUNT", len(variants))
-          for item in variants[:200]:
-              print("VARIANT", item)
+          form = {
+              "action": "get_more_cards",
+              "limit": "0",
+              "GoodsName": "all",
+              "CardType": "all",
+              "order": "ASC",
+              "orderby": "CardNum",
+          }
+          body = urlencode(form).encode("utf-8")
+          payload = legacy.request_bytes(
+              f"{legacy.OFFICIAL_BASE}/v2/ajax2_dev2",
+              data=body,
+              headers={
+                  "Content-Type": "application/x-www-form-urlencoded",
+                  "Referer": f"{legacy.OFFICIAL_BASE}/cards",
+                  "X-Requested-With": "XMLHttpRequest",
+              },
+              attempts=6,
+          )
+          response = legacy.parse_json_response(payload)
+          rows = response.get("result") or []
+          rows = list(rows.values()) if isinstance(rows, dict) else list(rows)
+          print("COUNT", len(rows))
+          print("MSG", response.get("msg"))
+          for row in rows[:12]:
+              print("ROW", row.get("CardNum"), row.get("feature_image"))
           PY
