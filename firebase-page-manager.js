@@ -38,11 +38,32 @@
     return accountCore.configured(CONFIG, { requireOwnerEmail: true });
   }
 
+  const SERIES_PRINT_VARIANTS = new Set(["normal", "holo", "mirror", "other"]);
+
+  function normalizePrintVariants(value, owned = false) {
+    const variants = Array.isArray(value)
+      ? [...new Set(
+          value
+            .map((item) => String(item || "").trim().toLowerCase())
+            .filter((item) => SERIES_PRINT_VARIANTS.has(item)),
+        )]
+      : [];
+    return variants.length ? variants : owned ? ["normal"] : [];
+  }
+
   function normalizeOverride(value) {
-    if (typeof value === "boolean") return { owned: value };
+    if (typeof value === "boolean") {
+      const item = { owned: value };
+      if (mode === "series") {
+        item.printVariants = normalizePrintVariants([], value);
+      }
+      return item;
+    }
     if (!value || typeof value !== "object" || Array.isArray(value)) return null;
-    return {
-      owned: Boolean(value.owned),
+
+    const owned = Boolean(value.owned);
+    const item = {
+      owned,
       setCode: String(value.setCode || "").trim(),
       cardNumber: String(value.cardNumber || "").trim(),
       cardName: String(value.cardName || "").trim(),
@@ -50,6 +71,10 @@
       updatedAt: value.updatedAt || null,
       updatedBy: String(value.updatedBy || "").trim(),
     };
+    if (mode === "series") {
+      item.printVariants = normalizePrintVariants(value.printVariants, owned);
+    }
+    return item;
   }
 
   function sanitizeOverrides(source) {
@@ -131,6 +156,10 @@
         const key = cardIdentity(group, card, groupIndex, cardIndex);
         const override = normalizeOverride(resolvedOverrides[key]);
         card.owned = override ? override.owned : useLegacy && card.legacyOwned;
+        card.printVariants =
+          mode === "series"
+            ? normalizePrintVariants(override?.printVariants, card.owned)
+            : [];
         card.accountKey = key;
         const usesFixedSeriesCard = mode === "series" || mode === "ar";
         const usesOwnedCardDetails =
@@ -628,11 +657,19 @@
       normalizeOverride(remoteOverrides[key]) ||
       normalizeOverride(resolvedOverrides[key]) ||
       {};
+    const nextOwned = Boolean(owned);
     return saveOverride(
       key,
       {
         ...current,
-        owned: Boolean(owned),
+        owned: nextOwned,
+        ...(mode === "series"
+          ? {
+              printVariants: nextOwned
+                ? normalizePrintVariants(current.printVariants, true)
+                : [],
+            }
+          : {}),
       },
       { backgroundPublicSync: mode === "ar" },
     );
