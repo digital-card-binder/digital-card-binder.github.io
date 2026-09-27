@@ -1,0 +1,39 @@
+name: Temporary missing-set metadata probe
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/missing-set-metadata-probe-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Inspect Dogam payload fields for special set numbering
+        run: |
+          node --input-type=module <<'NODE'
+          const urls=[
+            ["CLF","https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2"],
+            ["S8a-P","https://www.dogam.app/sets/01KW0T53P8G0PY582R4XHQVPJF"],
+            ["SA-F","https://www.dogam.app/sets/01KW0T58CVENBQMSPCQX5BFDK6"]
+          ];
+          const clean=v=>String(v??"").replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
+          for(const [code,url] of urls){
+            const r=await fetch(url,{headers:{"User-Agent":"digital-card-binder-metadata-probe/1.0","Accept-Language":"ko-KR,ko;q=0.9"}});
+            const html=await r.text();
+            const m=[...html.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/([A-Za-z0-9_-]+))["'][^>]*>([\s\S]*?)<\/a>/gi)][0];
+            const itemId=m?.[2]||"", text=clean(m?.[3]||"");
+            const pos=html.indexOf('"item_id":"'+itemId+'"');
+            const chunk=pos>=0?html.slice(Math.max(0,pos-1800),Math.min(html.length,pos+2500)):"";
+            console.log("META_PROBE",code,"ITEM",itemId,"TEXT",text);
+            console.log(chunk);
+          }
+          NODE
