@@ -1,0 +1,102 @@
+name: Temporary external-set product classification
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/external-set-products-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v3
+          run-id: 36238072443
+          github-token: ${{ github.token }}
+          path: input
+      - name: Resolve one official product label per external set code
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const diff=JSON.parse(fs.readFileSync("input/official-series-diff-v3.json","utf8"));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const localGroups=new Set([...diff.matches,...diff.localOnly].map(x=>norm(x.groupCode)));
+          const external=diff.officialOnly.filter(s=>!localGroups.has(norm(s.logicalGroup)));
+          const groups=new Map();
+          for(const s of external){
+            if(!groups.has(s.logicalGroup))groups.set(s.logicalGroup,{code:s.logicalGroup,count:0,cardNums:[],imageEras:new Set(),actual:new Set()});
+            const g=groups.get(s.logicalGroup);g.count++;
+            for(const x of s.cardNums||[])if(x&&!g.cardNums.includes(x))g.cardNums.push(x);
+            for(const x of s.imageEras||[])if(x)g.imageEras.add(x);
+            for(const x of s.actualSetCodes||[])if(x)g.actual.add(x);
+          }
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          function htmlToText(html){
+            return html
+              .replace(/<script[\s\S]*?<\/script>/gi," ")
+              .replace(/<style[\s\S]*?<\/style>/gi," ")
+              .replace(/<br\s*\/?\s*>/gi,"\n")
+              .replace(/<\/(?:p|div|li|h1|h2|h3|h4|section|article|td|tr)>/gi,"\n")
+              .replace(/<[^>]+>/g," ")
+              .replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,"&").replace(/&nbsp;/g," ")
+              .split("\n").map(x=>x.replace(/\s+/g," ").trim()).filter(Boolean);
+          }
+          function productCandidates(lines){
+            const re=/(확장팩|하이클래스팩|스타터|스타트|덱|프로모|스페셜|배틀|컬렉션|세트|강화팩|랜덤)/i;
+            const bad=/(카드검색|메뉴|로그인|회원|고객|검색|덱 만들기|내 덱|배틀파트너즈)/i;
+            return lines.filter(x=>re.test(x)&&!bad.test(x)&&x.length<180).slice(-12);
+          }
+          async function fetchText(cardNum){
+            let last;
+            for(let i=0;i<3;i++){
+              try{
+                const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+cardNum,{headers:{
+                  "User-Agent":"digital-card-binder-external-set-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(i<2)await sleep(1200*(i+1));}
+            }
+            throw last;
+          }
+          const result=[];
+          let n=0;
+          for(const g of [...groups.values()].sort((a,b)=>b.count-a.count)){
+            const cardNum=g.cardNums[0]||"";
+            let row={code:g.code,slotCount:g.count,cardNum,imageEras:[...g.imageEras],actualSetCodes:[...g.actual],ok:false,candidates:[]};
+            if(cardNum){
+              try{
+                const html=await fetchText(cardNum);
+                const lines=htmlToText(html);
+                row.ok=true;
+                row.candidates=productCandidates(lines);
+                row.tail=lines.slice(-25);
+              }catch(e){row.error=String(e)}
+            }
+            result.push(row);n++;
+            if(n%10===0||n===groups.size)console.log(`PRODUCT_PROGRESS ${n}/${groups.size}`);
+            await sleep(1100);
+          }
+          const summary={groupCount:result.length,success:result.filter(x=>x.ok).length,failed:result.filter(x=>!x.ok).length};
+          fs.writeFileSync("external-set-products.json",JSON.stringify({summary,groups:result},null,2));
+          console.log("PRODUCT_SUMMARY="+JSON.stringify(summary));
+          console.log("PRODUCT_LABELS="+JSON.stringify(result.map(x=>({code:x.code,count:x.slotCount,candidates:x.candidates.slice(-3)}))));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-set-products
+          path: external-set-products.json
