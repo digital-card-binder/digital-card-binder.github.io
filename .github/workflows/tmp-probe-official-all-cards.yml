@@ -16,29 +16,33 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
-      - name: Locate modern-card page range
+          node-version: 22
+      - name: Analyze existing image manifest paths
         run: |
+          node scripts/build-card-image-manifest.mjs --output=/tmp/card-image-manifest.json
           python3 - <<'PY'
-          import sys
-          import time
-          from pathlib import Path
-          sys.path.insert(0, str(Path("scripts").resolve()))
-          import build_legacy_series_data as legacy
+          import json
+          import re
 
-          for page in (60, 100, 140, 180, 220):
-              rows = legacy.ajax_page("all", 1, page)
-              first = rows[0] if rows else {}
-              last = rows[-1] if rows else {}
-              print(
-                  "PAGE", page,
-                  "COUNT", len(rows),
-                  "FIRST", first.get("CardNum"), first.get("feature_image"),
-                  "LAST", last.get("CardNum"), last.get("feature_image"),
-              )
-              if len(rows) < 30:
-                  break
-              time.sleep(1.5)
+          manifest = json.load(open("/tmp/card-image-manifest.json", encoding="utf-8"))
+          variants = []
+          roots = {}
+          for asset in manifest["assets"]:
+              if asset["project"] != "modern":
+                  continue
+              root = asset.get("root", "")
+              roots[root] = roots.get(root, 0) + 1
+              joined = " ".join(asset.get("sourceUrls", []))
+              if re.search(r"(?:_m(?:\.|_)|mirror|reverse|foil|holo|master.?ball|poke.?ball)", joined, re.I):
+                  variants.append({
+                      "root": root,
+                      "path": asset["relativePath"],
+                      "sources": asset["sourceUrls"],
+                  })
+          print("MODERN_ROOT_COUNTS", roots)
+          print("VARIANT_NAMED_COUNT", len(variants))
+          for item in variants[:200]:
+              print("VARIANT", item)
           PY
