@@ -148,9 +148,9 @@ jobs:
             '  ["SMD", "대전 세트 「지우 VS 로켓단」", 30],',
             '  ["SMC", "개조 스타터 세트 「카푸브루루 GX」", 23],',
             '  ["SMA", "스타터세트 3종", 60],'
-          ].join("\\n");
+          ].join("\n");
           if(!sm.includes(insertAfter))throw new Error("SM expected insertion point not found");
-          sm=sm.replace(insertAfter,insertAfter+"\\n"+extra);
+          sm=sm.replace(insertAfter,insertAfter+"\n"+extra);
           sm=sm.replace('test("SM 한국판 카탈로그는 Dogam 기준 40세트 3608장이다"', 'test("SM 한국판 카탈로그는 Dogam 기준 49세트 3950장이다"');
           sm=sm.replace("  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3608);","  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3950);");
           sm=sm.replace('    assert.equal(group.referenceSource, "https://www.dogam.app/sets", group.code);','    assert.match(group.referenceSource, /^https:\\/\\/www[.]dogam[.]app\\/sets(?:\\/|$)/, group.code);');
