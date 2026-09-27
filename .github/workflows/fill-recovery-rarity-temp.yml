@@ -1,0 +1,103 @@
+name: Temporary fill 17 recovery rarities
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/fill-recovery-rarity-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          run-id: 36294764981
+          github-token: ${{ github.token }}
+          path: input
+      - name: Fill only missing rarity values from Dogam details
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const data=JSON.parse(fs.readFileSync("input/existing-set-recovery-461.json","utf8"));
+          const clean=v=>String(v??"").trim();
+
+          function decodeEntities(s){
+            return String(s||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ");
+          }
+          function parseProduct(html){
+            for(const m of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)){
+              try{
+                const j=JSON.parse(decodeEntities(m[1]));
+                const items=Array.isArray(j)?j:[j];
+                for(const x of items){
+                  if(String(x?.["@type"]||"").toLowerCase()!=="product")continue;
+                  const props=Array.isArray(x.additionalProperty)?x.additionalProperty:[];
+                  const label=clean(props.find(p=>clean(p?.name)==="레어도")?.value);
+                  const code=label.match(/\(([A-Z0-9+_-]+)\)\s*$/i)?.[1]||"";
+                  return {label,code,identifier:clean(x.identifier),image:clean(x.image),url:clean(x.url)};
+                }
+              }catch{}
+            }
+            return null;
+          }
+          async function get(url){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            throw last;
+          }
+
+          const missing=data.records.filter(r=>!clean(r.rarity));
+          console.log("MISSING_RARITY_TARGETS="+missing.length);
+          const filled=[];
+          for(let i=0;i<missing.length;i++){
+            const row=missing[i];
+            const html=await get(row.source);
+            const p=parseProduct(html)||{};
+            row.rarity=clean(p.code);
+            row.rarityLabel=clean(p.label);
+            if(p.image)row.image=p.image;
+            if(p.url)row.source=p.url;
+            filled.push({setCode:row.setCode,number:row.number,name:row.name,rarity:row.rarity,rarityLabel:row.rarityLabel,identifier:p.identifier||""});
+            console.log(`RARITY_PROGRESS ${i+1}/${missing.length} ${row.setCode} ${row.number} -> ${row.rarity||"(blank)"}`);
+            await sleep(850);
+          }
+
+          data.summary.withRarity=data.records.filter(r=>!!clean(r.rarity)).length;
+          data.summary.missingRarity=data.records.filter(r=>!clean(r.rarity)).length;
+          data.summary.rarityFallbackFilled=filled.filter(x=>x.rarity).length;
+          data.rarityFallback=filled;
+          fs.writeFileSync("existing-set-recovery-461-final.json",JSON.stringify(data,null,2));
+          console.log("RARITY_FINAL_SUMMARY="+JSON.stringify({
+            total:data.records.length,
+            withRarity:data.summary.withRarity,
+            missingRarity:data.summary.missingRarity,
+            filled
+          }));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: existing-set-recovery-461-final
+          path: existing-set-recovery-461-final.json
+          if-no-files-found: error
