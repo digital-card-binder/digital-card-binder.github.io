@@ -155,6 +155,25 @@ jobs:
           sm=sm.replace("  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3608);","  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3950);");
           sm=sm.replace('    assert.equal(group.referenceSource, "https://www.dogam.app/sets", group.code);','    assert.match(group.referenceSource, /^https:\\/\\/www[.]dogam[.]app\\/sets(?:\\/|$)/, group.code);');
           fs.writeFileSync("tests/sm-series-dex.test.mjs",sm);
+
+          // Preserve the existing curated labels and fill names for every newly added series group.
+          const seriesGroups=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const tradeNames=JSON.parse(fs.readFileSync("data/trade-series-names.json","utf8"));
+          for(const group of seriesGroups){
+            const key=String(group.code||"").trim().toLowerCase();
+            if(!key||tradeNames[key])continue;
+            const label=String(group.displayName||group.title||group.name||group.code)
+              .replace(/\\s*\\([^)]*\\)\\s*$/,"").trim();
+            tradeNames[key]=label;
+          }
+          fs.writeFileSync("data/trade-series-names.json",JSON.stringify(tradeNames,null,2)+"\\n");
+
+          let trades=fs.readFileSync("trades.js","utf8");
+          trades=trades.replace(
+            /const TRADE_SERIES_NAMES_URL = "[^"]+";/,
+            'const TRADE_SERIES_NAMES_URL = "./data/trade-series-names.json?v=20260927-1";'
+          );
+          fs.writeFileSync("trades.js",trades);
           NODE
       - name: Install dependencies and refresh generated catalog artifacts
         run: |
