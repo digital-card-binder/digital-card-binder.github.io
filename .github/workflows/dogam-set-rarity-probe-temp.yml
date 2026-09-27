@@ -1,0 +1,39 @@
+name: Temporary Dogam set rarity probe
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/dogam-set-rarity-probe-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Inspect rarity payload inside S8 set page
+        run: |
+          node --input-type=module <<'NODE'
+          const url="https://www.dogam.app/sets/01KW0QF9A3206M4WTAF9WTG2Z2";
+          const r=await fetch(url,{headers:{"User-Agent":"digital-card-binder-series-audit/1.0","Accept-Language":"ko-KR,ko;q=0.9"}});
+          const html=await r.text();
+          console.log("LEN",html.length);
+          for(const needle of ['"rarity"', '"rarityCode"', '"cardNumber"', '"number"', '트리플 레어', '스페셜 아트 레어']){
+            const all=[];
+            let at=0;
+            while(true){
+              const i=html.indexOf(needle,at);
+              if(i<0)break;
+              all.push(i);at=i+needle.length;
+              if(all.length>=5)break;
+            }
+            console.log("NEEDLE",needle,"COUNT5",all.length,"AT",all);
+            for(const i of all.slice(0,2))console.log(html.slice(Math.max(0,i-500),Math.min(html.length,i+1200)));
+          }
+          NODE
