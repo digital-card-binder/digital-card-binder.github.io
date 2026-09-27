@@ -1,0 +1,86 @@
+name: Temporary S-era gap audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/s-era-gap-audit-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Probe missing S-era numbers and short tails
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const sets=[
+            {code:"S8a",prefix:"BS2021015",max:38,missing:[21,22,26,27,28,29,30]},
+            {code:"S8b",prefix:"BS2022001",max:285,missing:[21,32,33,56,57,58,59,116,128,211,226,227,228,229,249]},
+            {code:"S9",prefix:"BS2022002",max:127,missing:[11,37]},
+            {code:"S9a",prefix:"BS2022004",max:93,missing:[17,54,75,79,83,84]},
+            {code:"S10P",prefix:"BS2022008",max:88,missing:[44,74,75]},
+            {code:"S10a",prefix:"BS2022011",max:99,missing:[21,41,42,43]},
+            {code:"S10b",prefix:"BS2022010",max:101,missing:[33]},
+            {code:"S11",prefix:"BS2022014",max:127,missing:[2,38,90,101]},
+            {code:"S11a",prefix:"BS2022016",max:94,missing:[3,6,58,86,92]},
+            {code:"S12",prefix:"BS2022017",max:125,missing:[28,32,34,74,115]},
+            {code:"S12a",prefix:"BS2023001",max:262,missing:[42,46,53,54,73,104,109,188,194,220]}
+          ];
+          function decode(s){return String(s||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()}
+          function parse(html,n){
+            const name=decode(html.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||"");
+            const p=html.match(/<span[^>]*class=["'][^"']*p_num[^"']*["'][^>]*>\s*([0-9]+)\s*\/\s*([0-9]+)[\s\S]*?<span[^>]*>\s*([^<]*)/i)
+              || html.match(/(?:카드\s*번호|카드번호)[^0-9]{0,60}([0-9]+)\s*\/\s*([0-9]+)/i);
+            return {name,number:p?Number(p[1]):null,denominator:p?Number(p[2]):null,rarity:decode(p?.[3]||""),exact:!!name&&p&&Number(p[1])===n};
+          }
+          async function one(s,n){
+            const id=s.prefix+String(n).padStart(3,"0");
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+id,{headers:{
+                  "User-Agent":"digital-card-binder-s-era-gap-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                const html=await r.text(),p=parse(html,n);
+                return {set:s.code,id,requested:n,http:r.status,ok:r.ok,...p};
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            return {set:s.code,id,requested:n,ok:false,exact:false,error:String(last)};
+          }
+          const rows=[];
+          for(const s of sets){
+            const nums=[...new Set([...s.missing,...Array.from({length:5},(_,i)=>s.max+1+i)])].sort((a,b)=>a-b);
+            for(let i=0;i<nums.length;i++){
+              rows.push(await one(s,nums[i]));
+              if((i+1)%10===0||i+1===nums.length)console.log(`${s.code}_PROGRESS ${i+1}/${nums.length}`);
+              await sleep(1200);
+            }
+          }
+          const summary={};
+          for(const s of sets){
+            const a=rows.filter(x=>x.set===s.code);
+            const missingExact=a.filter(x=>s.missing.includes(x.requested)&&x.exact).map(x=>x.requested);
+            const missingNotExact=a.filter(x=>s.missing.includes(x.requested)&&!x.exact).map(x=>x.requested);
+            const tailExact=a.filter(x=>x.requested>s.max&&x.exact).map(x=>x.requested);
+            summary[s.code]={localMax:s.max,missingCandidateCount:s.missing.length,confirmedMissing:missingExact,notExistingOrUnparsed:missingNotExact,tailExact};
+          }
+          fs.writeFileSync("s-era-gap-audit.json",JSON.stringify({summary,rows},null,2));
+          console.log("S_GAP_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: s-era-gap-audit
+          path: s-era-gap-audit.json
+          if-no-files-found: error
