@@ -1,0 +1,124 @@
+name: Fix M6a rarity audit
+
+on:
+  push:
+    branches:
+      - fix/m6a-rarity-audit-20260927
+    paths:
+      - .github/workflows/fix-m6a-rarity-audit.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/m6a-rarity-audit-20260927
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Patch reviewed M6a rarities
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/series.json")
+          groups = json.loads(path.read_text(encoding="utf-8"))
+          m6a = next(group for group in groups if str(group.get("code", "")).lower() == "m6a")
+          assert len(m6a["cards"]) == 176
+
+          rr = {9, 15, 47, 48, 55, 57, 59, 76, 81, 88}
+
+          def rarity(code):
+              code = str(code or "").lower()
+              if code in {"m6a_r/rgb", "m6a_g/rgb", "m6a_b/rgb"}:
+                  return "RGB"
+              if not code.startswith("m6a_") or not code.endswith("/103"):
+                  return ""
+              try:
+                  number = int(code.split("_", 1)[1].split("/", 1)[0])
+              except ValueError:
+                  return ""
+              if number in rr:
+                  return "RR"
+              if 104 <= number <= 123:
+                  return "AR"
+              if 124 <= number <= 133:
+                  return "SAR"
+              if 134 <= number <= 135:
+                  return "FUR"
+              return ""
+
+          for card in m6a["cards"]:
+              card["rarity"] = rarity(card.get("code"))
+
+          path.write_text(
+              json.dumps(groups, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+
+          test_path = Path("tests/mega-latest-data.test.mjs")
+          marker = 'M6a 30th CELEBRATION rarity mapping matches the reviewed Korean catalog'
+          source = test_path.read_text(encoding="utf-8")
+          if marker not in source:
+              source += r'''
+
+          test("M6a 30th CELEBRATION rarity mapping matches the reviewed Korean catalog", () => {
+            const m6a = group("m6a");
+            assert.ok(m6a);
+            assert.equal(m6a.cards.length, 176);
+
+            const codesFor = (rarity) =>
+              m6a.cards.filter((card) => card.rarity === rarity).map((card) => card.code);
+
+            assert.deepEqual(codesFor("RR"), [
+              "m6a_009/103", "m6a_015/103", "m6a_047/103", "m6a_048/103",
+              "m6a_055/103", "m6a_057/103", "m6a_059/103", "m6a_076/103",
+              "m6a_081/103", "m6a_088/103",
+            ]);
+            assert.deepEqual(
+              codesFor("AR"),
+              Array.from({ length: 20 }, (_, index) => `m6a_${String(index + 104).padStart(3, "0")}/103`),
+            );
+            assert.deepEqual(
+              codesFor("SAR"),
+              Array.from({ length: 10 }, (_, index) => `m6a_${String(index + 124).padStart(3, "0")}/103`),
+            );
+            assert.deepEqual(codesFor("FUR"), ["m6a_134/103", "m6a_135/103"]);
+            assert.deepEqual(codesFor("RGB"), ["m6a_R/RGB", "m6a_G/RGB", "m6a_B/RGB"]);
+            assert.equal(m6a.cards.find((card) => card.code === "m6a_011/103")?.rarity, "");
+            assert.equal(m6a.cards.find((card) => card.code === "m6a_017/103")?.rarity, "");
+          });
+          '''
+              test_path.write_text(source, encoding="utf-8")
+          PY
+
+      - name: Regenerate derived catalog data
+        run: |
+          npm run series-inventory:sync
+          npm run search-index:sync
+
+      - name: Verify focused data
+        run: |
+          node --test tests/mega-latest-data.test.mjs
+          npm run series-inventory:check
+          npm run search-index:check
+
+      - name: Commit branch-only correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-inventory-audit.json data/pokemon-search-index.json tests/mega-latest-data.test.mjs
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Correct M6a rarity mapping"
+          git push origin HEAD:fix/m6a-rarity-audit-20260927
