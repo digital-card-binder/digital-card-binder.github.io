@@ -1,0 +1,95 @@
+name: Temporary 2-3 classification report
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/series-2-3-classification-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v3
+          run-id: 36238072443
+          github-token: ${{ github.token }}
+          path: input/diff
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-candidate-detail-audit
+          run-id: 36237523524
+          github-token: ${{ github.token }}
+          path: input/detail
+      - name: Build final 2-3 classification
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const diff=JSON.parse(fs.readFileSync("input/diff/official-series-diff-v3.json","utf8"));
+          const det=JSON.parse(fs.readFileSync("input/detail/official-candidate-detail-audit.json","utf8"));
+          const norm=v=>String(v??"").trim().toLowerCase();
+          const localTokens=new Map();
+          for(const x of [...diff.matches,...diff.localOnly]){
+            const g=norm(x.groupCode);
+            if(!localTokens.has(g))localTokens.set(g,new Set());
+            localTokens.get(g).add(String(x.token));
+          }
+          const detailMap=new Map(det.rows.map(r=>[[norm(r.logicalGroup),String(r.expectedToken)].join("::"),r]));
+          const cats={trueMissingNumbered:[],trueMissingDetailUnparsed:[],trueMissingEnergy:[],reprintAlias:[],sameNumberVariant:[],unresolved:[]};
+          for(const s of diff.officialOnly){
+            const g=norm(s.logicalGroup),tok=String(s.token);
+            if(!localTokens.has(g)||localTokens.get(g).has(tok))continue;
+            const r=detailMap.get(g+"::"+tok);
+            if(r){
+              if(r.numberMatches)cats.trueMissingNumbered.push({slot:s,detail:r});
+              else if(r.detailNumber&&localTokens.get(g).has(String(r.detailNumber)))cats.reprintAlias.push({slot:s,detail:r});
+              else if(!r.detailNumber)cats.trueMissingDetailUnparsed.push({slot:s,detail:r});
+              else cats.unresolved.push({slot:s,detail:r});
+            }else{
+              const t=tok.toLowerCase();
+              if((g==="smp"&&/^\d+-/.test(t))||(g==="xyp"&&/^\d+m\d+$/.test(t)))cats.sameNumberVariant.push({slot:s});
+              else if(t.includes("energy")||t.includes("_en")||t.startsWith("en_")||t.endsWith("_en")||t==="e")cats.trueMissingEnergy.push({slot:s});
+              else cats.unresolved.push({slot:s});
+            }
+          }
+          const trueMissing=[...cats.trueMissingNumbered,...cats.trueMissingDetailUnparsed,...cats.trueMissingEnergy];
+          const bySet={};
+          for(const x of trueMissing){const g=x.slot.logicalGroup;bySet[g]=(bySet[g]||0)+1}
+          const external=diff.officialOnly.filter(s=>!localTokens.has(norm(s.logicalGroup)));
+          const promos=/^(?:SV-P|S-P|M-P|SM-P|S-PN)$/i;
+          const externalPromo=external.filter(s=>promos.test(s.logicalGroup));
+          const m6a=external.filter(s=>norm(s.logicalGroup)==="m6a");
+          const externalOther=external.filter(s=>!promos.test(s.logicalGroup)&&norm(s.logicalGroup)!=="m6a");
+          const otherBySet={};
+          for(const s of externalOther)otherBySet[s.logicalGroup]=(otherBySet[s.logicalGroup]||0)+1;
+          const summary={
+            existingSetCandidateCount:trueMissing.length+cats.reprintAlias.length+cats.sameNumberVariant.length+cats.unresolved.length,
+            trueMissingCount:trueMissing.length,
+            reprintAliasCount:cats.reprintAlias.length,
+            sameNumberVariantCount:cats.sameNumberVariant.length,
+            unresolvedCount:cats.unresolved.length,
+            trueMissingBySet:Object.fromEntries(Object.entries(bySet).sort((a,b)=>b[1]-a[1])),
+            externalSetSlotCount:external.length,
+            m6aObservedSlotCount:m6a.length,
+            promoFamilySlotCount:externalPromo.length,
+            otherExternalProductSlotCount:externalOther.length,
+            topOtherExternalSets:Object.entries(otherBySet).sort((a,b)=>b[1]-a[1]).slice(0,80)
+          };
+          const out={schemaVersion:1,summary,categories:cats,external:{m6a,promo:externalPromo,other:externalOther}};
+          fs.writeFileSync("series-2-3-classification.json",JSON.stringify(out,null,2));
+          console.log("CLASSIFICATION_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: series-2-3-classification
+          path: series-2-3-classification.json
