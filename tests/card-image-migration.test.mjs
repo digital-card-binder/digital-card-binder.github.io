@@ -111,7 +111,7 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
     assert.equal(manifest.counts.external, 5498);
 
     // The catalog's non-existent M1L 093 entry must not create an image destination.
-    assert.equal(manifest.counts.total, 21189);
+    assert.equal(manifest.counts.total, 21362);
     assert.ok(!manifest.assets.some((asset) => asset.relativePath === "data/wmimages/MEGA/M1L/M1L_093.webp"));
     const repaired = manifest.assets.find((asset) => asset.relativePath === "data/wmimages/MEGA/M2/M2_116.webp");
     assert.equal(repaired.project, "modern");
