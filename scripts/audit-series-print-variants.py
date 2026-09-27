@@ -57,10 +57,6 @@ def group_products(era: str) -> list[dict[str, Any]]:
     return [groups[key] for key in order]
 
 
-def resolve_product(product: str, official_values: dict[str, str]) -> str | None:
-    return official_values.get(legacy.compact(product))
-
-
 def classify_filename(value: str) -> str:
     filename = clean(value).split("?", 1)[0].rsplit("/", 1)[-1]
     # Pokemon Korea's official image archive uses "_m" for mirror-print
@@ -87,20 +83,23 @@ def fetch_product_records(product: str) -> list[dict[str, str]]:
     return records
 
 
-def audit_group(group: dict[str, Any], official_values: dict[str, str]) -> dict[str, Any]:
+def audit_group(group: dict[str, Any]) -> dict[str, Any]:
     resolved_products: list[str] = []
     missing_products: list[str] = []
     all_records: list[dict[str, str]] = []
 
     for requested in group["products"]:
-        resolved = resolve_product(requested, official_values)
-        if not resolved:
+        # The configured Korean product strings already match the official
+        # GoodsName values used by the existing catalog builder. Avoid
+        # re-fetching /cards just to resolve them; that endpoint is more
+        # fragile and adds unnecessary traffic.
+        records = fetch_product_records(requested)
+        if not records:
             missing_products.append(requested)
             continue
-        resolved_products.append(resolved)
-        records = fetch_product_records(resolved)
+        resolved_products.append(requested)
         for record in records:
-            all_records.append({**record, "_product": resolved})
+            all_records.append({**record, "_product": requested})
 
     slots: dict[tuple[str, str], list[dict[str, str]]] = {}
     unresolved_records = 0
@@ -189,11 +188,10 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
 
-    official_values = legacy.official_product_values()
     results: dict[str, dict[str, Any]] = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {
-            pool.submit(audit_group, group, official_values): group["code"]
+            pool.submit(audit_group, group): group["code"]
             for group in groups
         }
         for future in concurrent.futures.as_completed(futures):
