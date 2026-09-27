@@ -1,0 +1,131 @@
+name: Temporary 2-4 TCGdex completeness audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/series-2-4-tcgdex-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v3
+          run-id: 36238072443
+          github-token: ${{ github.token }}
+          path: input/diff
+      - name: Compare Korean set coverage with current TCGdex Asia database
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os, re, subprocess, tempfile
+          from pathlib import Path
+          from collections import defaultdict
+
+          diff=json.loads(Path("input/diff/official-series-diff-v3.json").read_text(encoding="utf-8"))
+          base=json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+          legacy=json.loads(Path("data/series-legacy.json").read_text(encoding="utf-8"))
+          def norm(v): return str(v or "").strip().casefold()
+
+          merged=list(base)
+          for x in legacy:
+              k=norm(x.get("code"))
+              i=next((i for i,g in enumerate(merged) if norm(g.get("code"))==k),None)
+              if i is None: merged.append(x)
+              else: merged[i]=x
+          local={norm(g.get("code")):g for g in merged}
+          local_codes=set(local)
+
+          external={}
+          for s in diff["officialOnly"]:
+              code=str(s.get("logicalGroup") or "").strip()
+              if norm(code) in local_codes: continue
+              external.setdefault(code,0)
+              external[code]+=1
+
+          targets=set(external)
+          # Include incomplete/high-interest existing sets from 2-3.
+          targets.update(["SV4a","M6a","SMP","sm1+","sm5+","sm12a","sm30A","FXY","SV5M","S8","FS","XYC","XYA","S3a","XYB","X30","Y30"])
+
+          with tempfile.TemporaryDirectory() as td:
+              repo=os.path.join(td,"cards-database")
+              subprocess.run(["git","clone","--filter=blob:none","-q","https://github.com/tcgdex/cards-database.git",repo],check=True)
+              head=subprocess.check_output(["git","-C",repo,"rev-parse","HEAD"],text=True).strip()
+              base_dir=Path(repo)/"data-asia"
+
+              # index set metadata and card files
+              found=defaultdict(list)
+              for era_dir in base_dir.iterdir():
+                  if not era_dir.is_dir(): continue
+                  era=era_dir.name
+                  for item in era_dir.iterdir():
+                      if item.is_dir():
+                          setcode=item.name
+                          files=[p for p in item.iterdir() if p.is_file() and re.fullmatch(r"0*\d+\.ts",p.name)]
+                          if files:
+                              found[norm(setcode)].append((era,setcode,item,files))
+                      elif item.suffix==".ts":
+                          # set metadata file; handled via directories primarily
+                          pass
+
+              rows=[]
+              for code in sorted(targets,key=lambda x:x.casefold()):
+                  entries=found.get(norm(code),[])
+                  if not entries:
+                      rows.append({"code":code,"found":False,"localCount":len(local.get(norm(code),{}).get("cards",[])) if norm(code) in local else 0,"officialOnlySlots":external.get(code,0)})
+                      continue
+                  for era,setcode,path,files in entries:
+                      nums=sorted({int(p.stem) for p in files})
+                      ko_count=0
+                      ko_nums=[]
+                      illustrator_count=0
+                      for p in files:
+                          txt=p.read_text(encoding="utf-8",errors="ignore")
+                          # TCGdex card files usually include locale map, count Korean-present cards.
+                          if re.search(r"\bko\s*:",txt) or re.search(r"['\"]ko['\"]\s*:",txt):
+                              ko_count+=1; ko_nums.append(int(p.stem))
+                          if re.search(r"illustrator\s*:",txt): illustrator_count+=1
+                      meta_candidates=[]
+                      for mp in [path.with_suffix(".ts"), path.parent/(setcode+".ts")]:
+                          if mp.exists():
+                              mt=mp.read_text(encoding="utf-8",errors="ignore")
+                              meta_candidates.append(mt[:12000])
+                      meta="\n".join(meta_candidates)
+                      official_count=None
+                      for pat in [r"cardCount\s*:\s*\{[^}]*total\s*:\s*(\d+)",r"total\s*:\s*(\d+)"]:
+                          m=re.search(pat,meta,re.S)
+                          if m:
+                              official_count=int(m.group(1)); break
+                      rows.append({
+                          "code":code,"found":True,"era":era,"tcgdexSetCode":setcode,
+                          "fileCount":len(files),"minNumber":min(nums) if nums else None,"maxNumber":max(nums) if nums else None,
+                          "numericGapCount":(max(nums)-min(nums)+1-len(nums)) if nums else 0,
+                          "missingWithinRange":[n for n in range(min(nums),max(nums)+1) if n not in nums][:100] if nums else [],
+                          "koreanLocaleCardCount":ko_count,"koreanMin":min(ko_nums) if ko_nums else None,"koreanMax":max(ko_nums) if ko_nums else None,
+                          "metadataTotal":official_count,
+                          "localCount":len(local.get(norm(code),{}).get("cards",[])) if norm(code) in local else 0,
+                          "officialOnlySlots":external.get(code,0),
+                          "illustratorCount":illustrator_count
+                      })
+
+          out={"tcgdexHead":head,"targetCount":len(targets),"rows":rows}
+          Path("series-2-4-tcgdex-audit.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print("TCGDEX_HEAD="+head)
+          print("TCGDEX_ROWS="+json.dumps(rows,ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: series-2-4-tcgdex-audit
+          path: series-2-4-tcgdex-audit.json
