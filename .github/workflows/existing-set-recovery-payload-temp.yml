@@ -70,30 +70,40 @@ jobs:
           }
           function parseSetCards(html){
             const decoded=decode(html);
-            const map=new Map();
-            const re=/\{"id":"([^"]+)","number":"([^"]+)","name":"([^"]*)","name_ko":"([^"]*)","rarity":"([^"]*)","rarity_code":"([^"]*)","rarity_ko":"([^"]*)","image_url":"([^"]*)","image_provisional":(true|false),"item_id":"([^"]+)","variant_codes":(\[[^\]]*\])/g;
-            for(const m of decoded.matchAll(re)){
-              const numberText=clean(m[2]);
-              if(!/^\d+$/.test(numberText))continue;
-              const number=Number(numberText);
-              const itemId=clean(m[10]);
-              if(!itemId)continue;
-              map.set(itemId,{
-                id:clean(m[1]),
-                itemId,
-                number,
-                numberText,
-                nameEn:clean(m[3]),
-                name:clean(m[4])||clean(m[3]),
-                rarityEn:clean(m[5]),
-                rarity:clean(m[6]),
-                rarityKo:clean(m[7]),
-                image:clean(m[8]),
-                imageProvisional:m[9]==="true",
-                variantCodes:JSON.parse(m[11]||"[]")
+            const cards=new Map();
+
+            // Base card list comes from the rendered grid: number/name/image/card id.
+            for(const m of html.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/([A-Za-z0-9_-]+))["'][^>]*>([\s\S]*?)<\/a>/gi)){
+              const href=m[1],itemId=m[2],inner=m[3];
+              const text=stripTags(inner);
+              const nm=text.match(/^(.*?)(?:\s+)(\d{1,4})$/);
+              if(!nm)continue;
+              const name=clean(nm[1]),number=Number(nm[2]);
+              if(!name||!Number.isFinite(number))continue;
+              const image=inner.match(/<img[^>]+data-full=["']([^"']+)["']/i)?.[1]
+                || inner.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1]
+                || "";
+
+              // Rarity lives in the Next.js payload. Find the same item id and inspect
+              // a bounded window around it so field order differences do not matter.
+              let rarity="",rarityKo="",imageProvisional=false,variantCodes=[];
+              const needle='"item_id":"'+itemId+'"';
+              const pos=decoded.indexOf(needle);
+              if(pos>=0){
+                const chunk=decoded.slice(Math.max(0,pos-1200),Math.min(decoded.length,pos+900));
+                rarity=clean(chunk.match(/"rarity_code":"([^"]*)"/i)?.[1]);
+                rarityKo=clean(chunk.match(/"rarity_ko":"([^"]*)"/i)?.[1]);
+                imageProvisional=/"image_provisional":true/i.test(chunk);
+                const variants=chunk.match(/"variant_codes":(\[[^\]]*\])/i)?.[1];
+                if(variants){try{variantCodes=JSON.parse(variants)}catch{}}
+              }
+
+              if(!cards.has(itemId))cards.set(itemId,{
+                itemId,number,name,image:clean(image),href,
+                rarity,rarityKo,imageProvisional,variantCodes
               });
             }
-            return [...map.values()].sort((a,b)=>a.number-b.number);
+            return [...cards.values()].sort((a,b)=>a.number-b.number);
           }
           function localNumber(card){
             const m=clean(card?.code||card?.meta).match(/_0*(\d+)(?:\/|$)/);
