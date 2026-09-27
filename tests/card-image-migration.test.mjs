@@ -130,6 +130,21 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
         `M6_${token} is missing`,
       );
     }
+    // M6a base set 001-103 must always resolve to the Korean official image archive.
+    for (let number = 1; number <= 103; number += 1) {
+      const token = String(number).padStart(3, "0");
+      const asset = manifest.assets.find(
+        (entry) => entry.relativePath === `data/wmimages/MEGA/M6a/M6a_${token}.webp`,
+      );
+      assert.ok(asset, `M6a_${token} is missing`);
+      assert.equal(asset.project, "modern");
+      assert.ok(
+        asset.sourceUrls.includes(
+          `https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_${token}.png`,
+        ),
+        `M6a_${token} is not using the Korean official source`,
+      );
+    }
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }
