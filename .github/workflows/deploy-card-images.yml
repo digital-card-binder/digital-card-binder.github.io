@@ -48,8 +48,22 @@ jobs:
       - name: Select recovery mode
         id: mode
         env:
-          REQUESTED_REPAIR: ${{ github.event_name == 'push' || inputs.repair_only }}
-        run: echo "repair_only=$REQUESTED_REPAIR" >> "$GITHUB_OUTPUT"
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_REPAIR: ${{ inputs.repair_only }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "push" ]; then
+            REQUEST_MODE="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync('.github/card-image-deploy-request.json','utf8')); process.stdout.write(String(x.mode||'repair_only'))")"
+            if [ "$REQUEST_MODE" = "full" ]; then
+              REPAIR_ONLY=false
+            else
+              REPAIR_ONLY=true
+            fi
+          else
+            REPAIR_ONLY="${DISPATCH_REPAIR:-false}"
+          fi
+          echo "repair_only=$REPAIR_ONLY" >> "$GITHUB_OUTPUT"
+          echo "Selected image deployment mode: $([ "$REPAIR_ONLY" = "true" ] && echo repair_only || echo full)"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
