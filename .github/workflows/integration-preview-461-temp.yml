@@ -1,0 +1,160 @@
+name: Temporary 461 integration preview
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/integration-preview-461-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: existing-set-recovery-461
+          run-id: 36294764981
+          github-token: ${{ github.token }}
+          path: input
+      - name: Apply recovery to an in-memory copy and audit
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const clone=v=>JSON.parse(JSON.stringify(v));
+          const before=JSON.parse(fs.readFileSync("data/series.json","utf8"));
+          const data=clone(before);
+          const rec=JSON.parse(fs.readFileSync("input/existing-set-recovery-461.json","utf8"));
+
+          function numberOf(card){
+            const m=clean(card?.code||card?.meta).match(/_0*(\d+)(?:\/|$)/);
+            return m?Number(m[1]):Number.POSITIVE_INFINITY;
+          }
+          function compat(group,card){
+            return `series::${norm(group.code||group.name||group.title)}::${norm(card.code||card.meta)}`;
+          }
+          function runtime(group,card,index){
+            const ai=Number.isInteger(card?.accountIndex)?card.accountIndex:index;
+            return [clean(group.code||group.name||group.title),clean(card.code||card.meta||index),ai].join("::");
+          }
+
+          const beforeCardMap=new Map();
+          const beforeRuntime=new Map();
+          const beforeCompat=new Map();
+          for(const g of before){
+            (g.cards||[]).forEach((c,i)=>{
+              const id=`${norm(g.code)}::${norm(c.code||c.meta)}`;
+              beforeCardMap.set(id,JSON.stringify(c));
+              beforeRuntime.set(id,runtime(g,c,i));
+              const k=compat(g,c);beforeCompat.set(k,(beforeCompat.get(k)||0)+1);
+            });
+          }
+
+          const expectedBySet=new Map(Object.entries(rec.summary.setSummary).map(([k,v])=>[norm(k),v.expected]));
+          for(const row of rec.records){
+            const g=data.find(x=>norm(x.code)===norm(row.setCode));
+            if(!g)throw new Error("Missing target group "+row.setCode);
+            if((g.cards||[]).some(c=>norm(c.code||c.meta)===norm(row.code)))throw new Error("Duplicate target code "+row.setCode+" "+row.code);
+            g.cards.push({
+              code:row.code,
+              name:row.name,
+              rarity:row.rarity||"",
+              image:row.image,
+              source:row.source
+            });
+          }
+
+          for(const g of data){
+            if(!expectedBySet.has(norm(g.code)))continue;
+            g.cards.sort((a,b)=>{
+              const d=numberOf(a)-numberOf(b);
+              return Number.isFinite(d)&&d!==0?d:clean(a.code||a.meta).localeCompare(clean(b.code||b.meta),"en",{numeric:true});
+            });
+            const expected=expectedBySet.get(norm(g.code));
+            if(g.cards.length!==expected)throw new Error(`Count mismatch ${g.code}: ${g.cards.length} != ${expected}`);
+            const denom=clean(g.cards.find(c=>clean(c.code||c.meta).includes("/"))?.code||"").split("/")[1]||"";
+            const baseTitle=clean(g.displayName)||clean(g.title).replace(/\s*\([^)]*\)\s*$/,"")||clean(g.name)||clean(g.code);
+            if(denom)g.title=`${baseTitle} (${expected}/${denom})`;
+            else g.title=`${baseTitle} (${expected}장)`;
+          }
+
+          const afterCardMap=new Map();
+          const afterRuntime=new Map();
+          const afterCompat=new Map();
+          let total=0;
+          for(const g of data){
+            total+=(g.cards||[]).length;
+            (g.cards||[]).forEach((c,i)=>{
+              const id=`${norm(g.code)}::${norm(c.code||c.meta)}`;
+              if(afterCardMap.has(id))throw new Error("Duplicate identity "+id);
+              afterCardMap.set(id,JSON.stringify(c));
+              afterRuntime.set(id,runtime(g,c,i));
+              const k=compat(g,c);afterCompat.set(k,(afterCompat.get(k)||0)+1);
+            });
+          }
+
+          let unchangedOriginal=0,changedOriginal=0,deletedOriginal=0,runtimeChanged=0,reconnectable=0,compatConflict=0;
+          const changedSamples=[];
+          for(const [id,json] of beforeCardMap){
+            if(!afterCardMap.has(id)){deletedOriginal++;continue;}
+            if(afterCardMap.get(id)===json)unchangedOriginal++;
+            else{changedOriginal++;if(changedSamples.length<20)changedSamples.push(id);}
+            if(beforeRuntime.get(id)!==afterRuntime.get(id)){
+              runtimeChanged++;
+              const [groupCode,cardCode]=id.split("::");
+              const key=`series::${groupCode}::${cardCode}`;
+              const n=afterCompat.get(key)||0;
+              if(n===1)reconnectable++;else compatConflict++;
+            }
+          }
+          const newCards=[...afterCardMap.keys()].filter(k=>!beforeCardMap.has(k));
+          const dupCompat=[...afterCompat].filter(([,n])=>n>1);
+          const targetCounts={};
+          for(const [code,expected] of expectedBySet){
+            const g=data.find(x=>norm(x.code)===code);
+            targetCounts[g.code]={count:g.cards.length,expected,title:g.title};
+          }
+          const provisionalBySet={};
+          for(const r of rec.records.filter(x=>x.imageProvisional)){
+            provisionalBySet[r.setCode]=(provisionalBySet[r.setCode]||0)+1;
+          }
+
+          const summary={
+            beforeGroups:before.length,afterGroups:data.length,
+            beforeCardCount:[...beforeCardMap].length,
+            afterCardCount:total,
+            newCardCount:newCards.length,
+            unchangedOriginal,changedOriginal,deletedOriginal,
+            runtimeChanged,reconnectable,compatConflict,
+            duplicateCompatibilityKeys:dupCompat.length,
+            provisionalImageCount:rec.summary.provisionalImages,
+            provisionalBySet,
+            targetCounts,
+            changedSamples
+          };
+          if(before.length!==data.length)throw new Error("Group count changed");
+          if(total!==16131)throw new Error("Expected 16131 cards, got "+total);
+          if(newCards.length!==461)throw new Error("Expected 461 new cards, got "+newCards.length);
+          if(changedOriginal||deletedOriginal||compatConflict||dupCompat.length)throw new Error("Safety audit failed "+JSON.stringify(summary));
+
+          fs.writeFileSync("series-461-preview.json",JSON.stringify(data,null,2));
+          fs.writeFileSync("series-461-preview-audit.json",JSON.stringify(summary,null,2));
+          console.log("PREVIEW_461_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: series-461-integration-preview
+          path: |
+            series-461-preview.json
+            series-461-preview-audit.json
+          if-no-files-found: error
