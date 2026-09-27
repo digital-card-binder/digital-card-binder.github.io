@@ -39,3 +39,31 @@ test("M5 canonical names include the former runtime corrections", () => {
   assert.equal(byNumber.get(63)?.name, "메가몰드류 ex");
   assert.equal(m5.cards.filter((card) => !String(card.name || "").trim()).length, 0);
 });
+
+
+test("M6a 30th CELEBRATION rarity mapping matches the reviewed Korean catalog", () => {
+  const m6a = group("m6a");
+  assert.ok(m6a);
+  assert.equal(m6a.cards.length, 176);
+
+  const codesFor = (rarity) =>
+    m6a.cards.filter((card) => card.rarity === rarity).map((card) => card.code);
+
+  assert.deepEqual(codesFor("RR"), [
+    "m6a_009/103", "m6a_015/103", "m6a_047/103", "m6a_048/103",
+    "m6a_055/103", "m6a_057/103", "m6a_059/103", "m6a_076/103",
+    "m6a_081/103", "m6a_088/103",
+  ]);
+  assert.deepEqual(
+    codesFor("AR"),
+    Array.from({ length: 20 }, (_, index) => `m6a_${String(index + 104).padStart(3, "0")}/103`),
+  );
+  assert.deepEqual(
+    codesFor("SAR"),
+    Array.from({ length: 10 }, (_, index) => `m6a_${String(index + 124).padStart(3, "0")}/103`),
+  );
+  assert.deepEqual(codesFor("FUR"), ["m6a_134/103", "m6a_135/103"]);
+  assert.deepEqual(codesFor("RGB"), ["m6a_R/RGB", "m6a_G/RGB", "m6a_B/RGB"]);
+  assert.equal(m6a.cards.find((card) => card.code === "m6a_011/103")?.rarity, "");
+  assert.equal(m6a.cards.find((card) => card.code === "m6a_017/103")?.rarity, "");
+});
