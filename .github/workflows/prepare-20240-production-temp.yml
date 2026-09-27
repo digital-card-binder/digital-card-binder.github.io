@@ -166,7 +166,7 @@ jobs:
               .replace(/\\s*\\([^)]*\\)\\s*$/,"").trim();
             tradeNames[key]=label;
           }
-          fs.writeFileSync("data/trade-series-names.json",JSON.stringify(tradeNames,null,2)+"\\n");
+          fs.writeFileSync("data/trade-series-names.json",JSON.stringify(tradeNames,null,2)+"\n");
 
           let trades=fs.readFileSync("trades.js","utf8");
           trades=trades.replace(
