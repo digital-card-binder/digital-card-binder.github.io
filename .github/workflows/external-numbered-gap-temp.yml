@@ -1,0 +1,129 @@
+name: Temporary external numbered gap audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/external-numbered-gap-temp.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: official-series-diff-v3
+          run-id: 36238072443
+          github-token: ${{ github.token }}
+          path: input/diff
+      - uses: actions/download-artifact@v4
+        with:
+          name: external-set-denominator-audit
+          run-id: 36292397910
+          github-token: ${{ github.token }}
+          path: input/denom
+      - name: Probe missing printed numbers for external groups
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const diff=JSON.parse(fs.readFileSync("input/diff/official-series-diff-v3.json","utf8"));
+          const den=JSON.parse(fs.readFileSync("input/denom/external-set-denominator-audit.json","utf8"));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const localCodes=new Set([...diff.matches,...diff.localOnly].map(x=>norm(x.groupCode)));
+          const by=new Map();
+          for(const s of diff.officialOnly){
+            if(localCodes.has(norm(s.logicalGroup)))continue;
+            if(!by.has(s.logicalGroup))by.set(s.logicalGroup,[]);
+            by.get(s.logicalGroup).push(s);
+          }
+
+          const skips=new Set(["SH","MG"]); // multi-deck / already split locally
+          const targets=[];
+          for(const row of den.rows){
+            const code=row.code;
+            if(skips.has(code))continue;
+            const ds=String(row.sample?.denominator||"");
+            if(!/^\d+$/.test(ds))continue;
+            const d=Number(ds),slots=by.get(code)||[];
+            const existing=new Set(slots.map(s=>String(s.token)).filter(x=>/^\d+$/.test(x)).map(Number));
+            const missing=[];for(let n=1;n<=d;n++)if(!existing.has(n))missing.push(n);
+            if(!missing.length)continue;
+
+            const models=new Map();
+            for(const s of slots){
+              if(!/^\d+$/.test(String(s.token)))continue;
+              const tok=Number(s.token);
+              for(const cn of s.cardNums||[]){
+                const m=String(cn).match(/^(.*?)(\d{3})$/);
+                if(!m)continue;
+                const key=m[1]+"||"+(Number(m[2])-tok);
+                models.set(key,(models.get(key)||0)+1);
+              }
+            }
+            const best=[...models.entries()].sort((a,b)=>b[1]-a[1])[0];
+            if(!best)continue;
+            const [prefix,offText]=best[0].split("||"),offset=Number(offText);
+            targets.push({code,denominator:d,missing,prefix,offset,modelSupport:best[1]});
+          }
+
+          function decode(s){return String(s||"").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'").replace(/&amp;/gi,"&").replace(/&nbsp;/gi," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()}
+          function parse(html,n){
+            const name=decode(html.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||"");
+            const p=html.match(/<span[^>]*class=["'][^"']*p_num[^"']*["'][^>]*>\s*([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)[\s\S]*?<span[^>]*>\s*([^<]*)/i)
+              || html.match(/(?:카드\s*번호|카드번호)[^0-9]{0,60}([0-9]+)\s*\/\s*([A-Za-z0-9+_-]+)/i);
+            return {name,number:p?Number(p[1]):null,denominator:p?String(p[2]):"",rarity:decode(p?.[3]||""),exact:!!name&&p&&Number(p[1])===n};
+          }
+          async function one(t,n){
+            const suffix=n+t.offset;
+            const id=t.prefix+String(suffix).padStart(3,"0");
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+id,{headers:{
+                  "User-Agent":"digital-card-binder-external-gap-audit/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                }});
+                const html=await r.text(),p=parse(html,n);
+                return {code:t.code,requested:n,id,http:r.status,ok:r.ok,...p};
+              }catch(e){last=e;if(a<2)await sleep(1200*(a+1))}
+            }
+            return {code:t.code,requested:n,id,ok:false,exact:false,error:String(last)};
+          }
+          const rows=[];let done=0,total=targets.reduce((a,t)=>a+t.missing.length,0);
+          for(const t of targets){
+            for(const n of t.missing){
+              rows.push(await one(t,n));done++;
+              if(done%10===0||done===total)console.log(`EXT_GAP_PROGRESS ${done}/${total}`);
+              await sleep(1200);
+            }
+          }
+          const summary={};
+          for(const t of targets){
+            const a=rows.filter(x=>x.code===t.code);
+            summary[t.code]={
+              denominator:t.denominator,modelPrefix:t.prefix,modelOffset:t.offset,modelSupport:t.modelSupport,
+              searchedMissing:t.missing,
+              confirmed:a.filter(x=>x.exact).map(x=>x.requested),
+              nonExact:a.filter(x=>!x.exact).map(x=>({requested:x.requested,http:x.http,name:x.name||"",number:x.number,denominator:x.denominator||""}))
+            };
+          }
+          fs.writeFileSync("external-numbered-gap-audit.json",JSON.stringify({summary,rows},null,2));
+          console.log("EXT_GAP_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-numbered-gap-audit
+          path: external-numbered-gap-audit.json
+          if-no-files-found: error
