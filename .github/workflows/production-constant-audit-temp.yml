@@ -1,0 +1,25 @@
+name: Temporary production constant audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/production-constant-audit-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find series baseline constants and affected generated files
+        run: |
+          echo "=== 15670 ==="
+          grep -RIn --exclude-dir=.git --exclude='*.map' '15670\|15,670' . || true
+          echo "=== 200 sets / series inventory refs ==="
+          grep -RIn --exclude-dir=.git --exclude='*.map' 'series-inventory-audit\|catalogCount' . || true
+          echo "=== sv4a/s8 assertions ==="
+          grep -RIn --exclude-dir=.git --exclude='*.map' 'sv4a.*190\|s8.*101\|VMAX 클라이맥스.*270' tests scripts . || true
