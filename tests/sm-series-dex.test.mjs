@@ -49,19 +49,28 @@ const expected = [
   ["SMP", "썬&문 프로모 카드", 249],
   ["sm30A", "썬&문 랜덤30장덱", 89],
   ["sm60B", "전격 스타터 세트 「라이코 GX」", 23],
+  ["SMM", "스타터 세트 TAG TEAM GX", 33],
+  ["SML", "패밀리 포켓몬 카드 게임", 57],
+  ["SMN", "파워업덱 BOX 「TAG TEAM GX」", 44],
+  ["SMK", "스타터 세트 롱스톤 GX·아쿠스타 GX", 32],
+  ["SMI", "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」", 41],
+  ["SME", "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」", 22],
+  ["SMD", "대전 세트 「지우 VS 로켓단」", 30],
+  ["SMC", "개조 스타터 세트 「카푸브루루 GX」", 23],
+  ["SMA", "스타터세트 3종", 60],
 ];
 
-test("SM 한국판 카탈로그는 Dogam 기준 40세트 3608장이다", () => {
+test("SM 한국판 카탈로그는 Dogam 기준 49세트 3950장이다", () => {
   assert.deepEqual(
     sm.map((group) => [group.code, group.displayName, group.cards.length]),
     expected,
   );
-  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3608);
+  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3950);
 });
 
 test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 소스를 가진다", () => {
   for (const group of sm) {
-    assert.equal(group.referenceSource, "https://www.dogam.app/sets", group.code);
+    assert.match(group.referenceSource, /^https:\/\/www[.]dogam[.]app\/sets(?:\/|$)/, group.code);
     assert.equal(group.referenceImageRegion, "KR", group.code);
     assert.match(group.referenceNote, /한글판/, group.code);
     assert.equal(new Set(group.cards.map((card) => card.code)).size, group.cards.length, group.code);

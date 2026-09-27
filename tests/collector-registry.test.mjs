@@ -51,7 +51,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4838,
-    series: 15670,
+    series: 20240,
     pokemon: 1192,
     ar: 510,
     people: 179,
@@ -94,7 +94,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 15670,
+    totalCount: 20240,
     promoOwnedCount: 0,
   });
 });
@@ -126,7 +126,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     national: 9,
     pack: 3,
     artist: 40,
-    series: 200,
+    series: 273,
     pokemon: 67,
     ar: 32,
     people: 9,
@@ -211,14 +211,14 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
   const swordShield = groups.filter((group) => group.era === "S");
   const sunMoon = groups.filter((group) => group.era === "SM");
 
-  assert.equal(swordShield.length, 30);
-  assert.equal(sunMoon.length, 40);
+  assert.equal(swordShield.length, 60);
+  assert.equal(sunMoon.length, 49);
   assert.equal(
     [...swordShield, ...sunMoon].reduce(
       (total, group) => total + group.cards.length,
       0,
     ),
-    6844,
+    8719,
   );
 
   for (const group of swordShield) {
@@ -232,12 +232,12 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
     for (const card of group.cards) {
       assert.match(
         card.image,
-        /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\/data\/wmimages\/S\//,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
         card.code,
       );
       assert.match(
         card.source,
-        /^https:\/\/pokemoncard[.]co[.]kr\/cards\/detail\//,
+        /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)/,
         card.code,
       );
     }
@@ -260,8 +260,8 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
   }
 
   const group = (code) => groups.find((item) => item.code === code);
-  assert.equal(group("s4a").cards.length, 326, "different shiny card numbers stay separate");
-  assert.equal(group("s9a").cards.length, 87, "same-number parallel foils collapse");
+  assert.equal(group("s4a").cards.length, 330, "different shiny card numbers stay separate");
+  assert.equal(group("s9a").cards.length, 93, "same-number parallel foils collapse");
   assert.equal(group("sm4+").cards.length, 125, "Korean GX Battle Boost catalog is complete");
   assert.equal(group("sm7a").cards.length, 73, "Korean Plasma Spark catalog is complete");
   assert.equal(group("sm12a").cards.length, 235, "Korean Tag All Stars catalog is complete");
@@ -275,10 +275,10 @@ test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", asy
   const preserved = groups.filter(
     (group) => group.era !== "S" && group.era !== "SM",
   );
-  assert.equal(preserved.length, 34);
+  assert.equal(preserved.length, 68);
   assert.equal(
     preserved.reduce((total, group) => total + group.cards.length, 0),
-    4215,
+    6910,
   );
   const m6 = groups.find((group) => group.code === "m6");
   assert.equal(m6?.cards.length, 113);
@@ -396,16 +396,16 @@ test("the same physical card remains independent across catalogs", async () => {
 test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
   const seriesCatalog = await registry.loadCatalog("series");
   const series = registry.resolveOverrides("series", seriesCatalog, {
-    "sv5M::sv5m_067/071::66": { owned: true },
+    "sv5M::sv5m_067/071::69": { owned: true },
   });
   assert.deepEqual(JSON.parse(JSON.stringify(series.reconnectedKeys)), [
     {
-      legacyKey: "sv5M::sv5m_067/071::66",
-      currentKey: "sv5M::sv5m_067/071::69",
+      legacyKey: "sv5M::sv5m_067/071::69",
+      currentKey: "sv5M::sv5m_067/071::66",
       status: "compatibility",
     },
   ]);
-  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::69"].owned, true);
+  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);
   assert.deepEqual([...series.orphanKeys], []);
 
   const artistCatalog = await registry.loadCatalog("artist");

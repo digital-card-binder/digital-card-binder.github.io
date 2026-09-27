@@ -130,7 +130,7 @@ test("generated search index v2 preserves catalog order, identity, and core fiel
     });
   });
 
-  assert.equal(cardCount, 15670);
+  assert.equal(cardCount, 20240);
   assert.deepEqual(
     decoded.pokedex.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
     pokedex.records.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
