@@ -19,39 +19,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Probe unfiltered card stream
+      - name: List modern official products
         run: |
           python3 - <<'PY'
           import sys
           from pathlib import Path
-          from urllib.parse import urlencode
           sys.path.insert(0, str(Path("scripts").resolve()))
           import build_legacy_series_data as legacy
 
-          form = {
-              "action": "get_more_cards",
-              "limit": "0",
-              "GoodsName": "all",
-              "CardType": "all",
-              "order": "ASC",
-              "orderby": "CardNum",
-          }
-          body = urlencode(form).encode("utf-8")
-          payload = legacy.request_bytes(
-              f"{legacy.OFFICIAL_BASE}/v2/ajax2_dev2",
-              data=body,
-              headers={
-                  "Content-Type": "application/x-www-form-urlencoded",
-                  "Referer": f"{legacy.OFFICIAL_BASE}/cards",
-                  "X-Requested-With": "XMLHttpRequest",
-              },
-              attempts=6,
-          )
-          response = legacy.parse_json_response(payload)
-          rows = response.get("result") or []
-          rows = list(rows.values()) if isinstance(rows, dict) else list(rows)
-          print("COUNT", len(rows))
-          print("MSG", response.get("msg"))
-          for row in rows[:12]:
-              print("ROW", row.get("CardNum"), row.get("feature_image"))
+          values = legacy.official_product_values()
+          products = sorted(set(values.values()))
+          modern = [
+              value for value in products
+              if (
+                  "스칼렛" in value
+                  or "바이올렛" in value
+                  or "MEGA" in value.upper()
+                  or "메가" in value
+              )
+          ]
+          print("ALL_PRODUCTS", len(products))
+          print("MODERN_PRODUCTS", len(modern))
+          for value in modern:
+              print("PRODUCT", repr(value))
           PY
