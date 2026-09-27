@@ -1,0 +1,32 @@
+name: Temporary Dogam card detail probe
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/dogam-card-detail-probe-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Inspect one missing card detail payload
+        run: |
+          node --input-type=module <<'NODE'
+          const url="https://www.dogam.app/sets/01KW0QME0K2K0PYQEDSPAMR1C9/cards/01KW1C64R5N6S5GBPEDPKQZHBC";
+          const r=await fetch(url,{headers:{"User-Agent":"digital-card-binder-series-audit/1.0","Accept-Language":"ko-KR,ko;q=0.9"}});
+          const html=await r.text();
+          console.log("STATUS",r.status,"LEN",html.length);
+          for(const needle of ["레어도","rarity","라프라스 VMAX","069","SR","RRR","HR"]){
+            const i=html.indexOf(needle);
+            console.log("NEEDLE",needle,"AT",i);
+            if(i>=0)console.log(html.slice(Math.max(0,i-700),Math.min(html.length,i+1600)));
+          }
+          NODE
