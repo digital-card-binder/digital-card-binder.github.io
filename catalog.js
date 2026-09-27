@@ -6,6 +6,7 @@ const seriesBaseOnly =
   mode === "series" && document.body.dataset.seriesScope === "base";
 const SERIES_DATA_URL = "./data/series.json";
 const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
+const SERIES_PRINT_VARIANTS_URL = "./data/series-print-variants.json";
 const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
@@ -67,6 +68,7 @@ let query = "";
 let activeCard = null;
 let activeEra = mode === "series" ? "ALL" : "SM";
 let mobileCatalogPreferences = {};
+let seriesPrintVariantMetadata = { coverage: {}, slots: {} };
 
 const SERIES_PRINT_VARIANTS = Object.freeze([
   { id: "normal", label: "기본" },
@@ -87,6 +89,113 @@ function normalizedSeriesPrintVariants(value, owned = false) {
       )]
     : [];
   return variants.length ? variants : owned ? ["normal"] : [];
+}
+
+function seriesPrintVariantKey(group, card) {
+  const groupCode = String(group?.code || "").trim().toLowerCase();
+  const code = String(card?.code || card?.meta || "").trim();
+  const match = code.match(/^([^_]+)_0*([0-9]+)(?:\/|$)/i);
+  if (!groupCode || !match) return "";
+  return `${groupCode}::${match[1].toLowerCase()}::${Number(match[2])}`;
+}
+
+function applySeriesPrintVariantMetadata(targetGroups, metadata) {
+  const coverage = metadata?.coverage && typeof metadata.coverage === "object"
+    ? metadata.coverage
+    : {};
+  const slots = metadata?.slots && typeof metadata.slots === "object"
+    ? metadata.slots
+    : {};
+  const coveredSets = new Set();
+
+  for (const era of Object.values(coverage)) {
+    for (const code of Array.isArray(era?.setCodes) ? era.setCodes : []) {
+      coveredSets.add(String(code || "").trim().toLowerCase());
+    }
+  }
+
+  for (const group of Array.isArray(targetGroups) ? targetGroups : []) {
+    const groupKey = String(group?.code || "").trim().toLowerCase();
+    const covered = coveredSets.has(groupKey);
+    group.printVariantAuditCovered = covered;
+
+    for (const card of Array.isArray(group?.cards) ? group.cards : []) {
+      const key = seriesPrintVariantKey(group, card);
+      const extras = key && Array.isArray(slots[key])
+        ? slots[key]
+            .map((value) => String(value || "").trim().toLowerCase())
+            .filter(
+              (value) =>
+                value !== "normal" && SERIES_PRINT_VARIANT_IDS.has(value),
+            )
+        : [];
+      card.printVariantAuditCovered = covered;
+      card.verifiedPrintVariants = [...new Set(extras)];
+    }
+  }
+
+  return targetGroups;
+}
+
+function seriesVariantChoices(card) {
+  const allowed = new Set(["normal"]);
+  if (card?.printVariantAuditCovered) {
+    for (const variant of card.verifiedPrintVariants || []) {
+      if (SERIES_PRINT_VARIANT_IDS.has(variant)) allowed.add(variant);
+    }
+    // Keep a manual escape hatch for legitimate special prints that are not
+    // represented as duplicate images in Pokemon Korea's current archive.
+    allowed.add("other");
+  } else {
+    for (const variant of SERIES_PRINT_VARIANTS) allowed.add(variant.id);
+  }
+
+  for (const variant of normalizedSeriesPrintVariants(
+    card?.printVariants,
+    card?.owned,
+  )) {
+    allowed.add(variant);
+  }
+
+  return SERIES_PRINT_VARIANTS.filter((variant) => allowed.has(variant.id));
+}
+
+function renderSeriesVariantOptions(card) {
+  const container = $("series-print-variant-options");
+  if (!container) return;
+
+  const fragment = document.createDocumentFragment();
+  for (const variant of seriesVariantChoices(card)) {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.name = "series-print-variant";
+    input.type = "checkbox";
+    input.value = variant.id;
+    input.addEventListener("change", updateSeriesEditorState);
+
+    const text = document.createElement("span");
+    text.textContent = variant.label;
+    label.append(input, text);
+    fragment.append(label);
+  }
+  container.replaceChildren(fragment);
+}
+
+function updateSeriesVariantHelp(card) {
+  const help = $("series-variant-help");
+  if (!help) return;
+
+  if (!card?.printVariantAuditCovered) {
+    help.textContent =
+      "이 세트는 인쇄 형태 전수검수 전입니다. 기본·홀로·미러·기타를 직접 선택할 수 있습니다.";
+    return;
+  }
+
+  const verified = seriesVariantChoices(card)
+    .filter((variant) => variant.id !== "other")
+    .map((variant) => variant.label);
+  help.textContent =
+    `포켓몬코리아 공식 이미지 기준 확인 형태: ${verified.join(" · ")}. 기타는 직접 확인용이며 같은 카드번호는 1장으로 집계됩니다.`;
 }
 
 const mobileCatalogMedia = typeof window.matchMedia === "function"
@@ -556,6 +665,9 @@ function updateSeriesEditorState() {
 function fillSeriesEditor(card) {
   if (mode !== "series" || !card) return;
 
+  renderSeriesVariantOptions(card);
+  updateSeriesVariantHelp(card);
+
   const ownedValue = card.owned ? "owned" : "missing";
   const statusInput = document.querySelector(
     `input[name="series-owned-status"][value="${ownedValue}"]`,
@@ -582,10 +694,6 @@ function createSeriesEditor() {
   const editor = document.createElement("section");
   editor.id = "series-card-editor";
   editor.className = "collection-editor series-card-editor";
-  const variantOptions = SERIES_PRINT_VARIANTS.map(
-    (variant) =>
-      `<label><input name="series-print-variant" type="checkbox" value="${variant.id}"><span>${variant.label}</span></label>`,
-  ).join("");
 
   editor.innerHTML = `
     <div class="collection-editor-heading">
@@ -597,10 +705,8 @@ function createSeriesEditor() {
     </div>
     <div class="series-variant-section">
       <span class="series-variant-label">보유 형태</span>
-      <div class="series-variant-options" role="group" aria-label="인쇄 형태">
-        ${variantOptions}
-      </div>
-      <p>기본이 대표 카드입니다. 홀로·미러 등 같은 카드번호의 인쇄 차이는 별도 장수로 계산하지 않습니다.</p>
+      <div id="series-print-variant-options" class="series-variant-options" role="group" aria-label="인쇄 형태"></div>
+      <p id="series-variant-help">기본이 대표 카드입니다. 같은 카드번호의 인쇄 차이는 별도 장수로 계산하지 않습니다.</p>
     </div>
     <p id="series-editor-message" class="series-editor-message"></p>
     <div class="collection-editor-actions">
@@ -613,9 +719,6 @@ function createSeriesEditor() {
 
   editor
     .querySelectorAll('input[name="series-owned-status"]')
-    .forEach((input) => input.addEventListener("change", updateSeriesEditorState));
-  editor
-    .querySelectorAll('input[name="series-print-variant"]')
     .forEach((input) => input.addEventListener("change", updateSeriesEditorState));
   $("series-card-save")?.addEventListener("click", saveSeriesCard);
   updateSeriesEditorState();
@@ -893,11 +996,19 @@ function mergeSeriesGroups(baseGroups, supplementGroups) {
 
 async function loadCatalogGroups() {
   if (mode === "series") {
-    const [baseGroups, legacyGroups] = await Promise.all([
+    const [baseGroups, legacyGroups, variantMetadata] = await Promise.all([
       fetchJson(SERIES_DATA_URL),
       fetchJson(LEGACY_SERIES_DATA_URL).catch(() => []),
+      fetchJson(SERIES_PRINT_VARIANTS_URL).catch(() => ({
+        coverage: {},
+        slots: {},
+      })),
     ]);
-    return mergeSeriesGroups(baseGroups, legacyGroups);
+    seriesPrintVariantMetadata = variantMetadata;
+    return applySeriesPrintVariantMetadata(
+      mergeSeriesGroups(baseGroups, legacyGroups),
+      seriesPrintVariantMetadata,
+    );
   }
 
   const [baseGroups, sequenceGroups, pokedex] = await Promise.all([
