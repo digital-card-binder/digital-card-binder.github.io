@@ -68,6 +68,27 @@ let activeCard = null;
 let activeEra = mode === "series" ? "ALL" : "SM";
 let mobileCatalogPreferences = {};
 
+const SERIES_PRINT_VARIANTS = Object.freeze([
+  { id: "normal", label: "기본" },
+  { id: "holo", label: "홀로" },
+  { id: "mirror", label: "미러" },
+  { id: "other", label: "기타" },
+]);
+const SERIES_PRINT_VARIANT_IDS = new Set(
+  SERIES_PRINT_VARIANTS.map((variant) => variant.id),
+);
+
+function normalizedSeriesPrintVariants(value, owned = false) {
+  const variants = Array.isArray(value)
+    ? [...new Set(
+        value
+          .map((item) => String(item || "").trim().toLowerCase())
+          .filter((item) => SERIES_PRINT_VARIANT_IDS.has(item)),
+      )]
+    : [];
+  return variants.length ? variants : owned ? ["normal"] : [];
+}
+
 const mobileCatalogMedia = typeof window.matchMedia === "function"
   ? window.matchMedia("(max-width: 690px)")
   : null;
@@ -390,8 +411,11 @@ async function toggleCatalogCompletion(card, button) {
   try {
     const saved = await account.saveOwned(card.accountKey, nextOwned);
     card.owned = saved.owned;
-
     if (mode === "series") {
+      card.printVariants = normalizedSeriesPrintVariants(
+        saved.printVariants,
+        saved.owned,
+      );
       card.actualSetCode = "";
       card.actualCardNumber = "";
       card.actualName = "";
@@ -472,17 +496,40 @@ function seriesEditorOwned() {
   );
 }
 
+function seriesEditorPrintVariants() {
+  if (!seriesEditorOwned()) return [];
+  const selected = [
+    ...document.querySelectorAll('input[name="series-print-variant"]:checked'),
+  ]
+    .map((input) => String(input.value || "").trim().toLowerCase())
+    .filter((value) => SERIES_PRINT_VARIANT_IDS.has(value));
+  return selected.length ? [...new Set(selected)] : ["normal"];
+}
+
 function updateSeriesEditorState() {
   const editor = $("series-card-editor");
   if (!editor) return;
 
   const account = window.PokemonDexPageAccount;
   const canEdit = Boolean(account?.canEdit?.());
+  const owned = seriesEditorOwned();
+
   editor
     .querySelectorAll('input[name="series-owned-status"]')
     .forEach((field) => {
       field.disabled = !canEdit;
     });
+
+  const variantInputs = [
+    ...editor.querySelectorAll('input[name="series-print-variant"]'),
+  ];
+  variantInputs.forEach((field) => {
+    field.disabled = !canEdit || !owned;
+  });
+  if (canEdit && owned && !variantInputs.some((field) => field.checked)) {
+    const base = variantInputs.find((field) => field.value === "normal");
+    if (base) base.checked = true;
+  }
 
   const save = $("series-card-save");
   if (save) {
@@ -492,12 +539,16 @@ function updateSeriesEditorState() {
 
   if (!canEdit) {
     setSeriesEditorMessage(
-      "Google 로그인 후 이 카드의 보유 상태를 변경할 수 있습니다.",
+      "Google 로그인 후 이 카드의 보유 상태와 인쇄 형태를 변경할 수 있습니다.",
       "guest",
+    );
+  } else if (owned) {
+    setSeriesEditorMessage(
+      "기본 카드가 기준이며, 같은 카드번호의 홀로·미러 등은 추가 보유 형태로 기록됩니다.",
     );
   } else {
     setSeriesEditorMessage(
-      "시리즈와 카드번호는 고정되어 있으며 보유 여부만 저장됩니다.",
+      "미보유로 저장하면 인쇄 형태 선택은 집계에서 제외됩니다.",
     );
   }
 }
@@ -510,6 +561,15 @@ function fillSeriesEditor(card) {
     `input[name="series-owned-status"][value="${ownedValue}"]`,
   );
   if (statusInput) statusInput.checked = true;
+
+  const selectedVariants = new Set(
+    normalizedSeriesPrintVariants(card.printVariants, card.owned),
+  );
+  document
+    .querySelectorAll('input[name="series-print-variant"]')
+    .forEach((input) => {
+      input.checked = selectedVariants.has(input.value);
+    });
   updateSeriesEditorState();
 }
 
@@ -522,6 +582,11 @@ function createSeriesEditor() {
   const editor = document.createElement("section");
   editor.id = "series-card-editor";
   editor.className = "collection-editor series-card-editor";
+  const variantOptions = SERIES_PRINT_VARIANTS.map(
+    (variant) =>
+      `<label><input name="series-print-variant" type="checkbox" value="${variant.id}"><span>${variant.label}</span></label>`,
+  ).join("");
+
   editor.innerHTML = `
     <div class="collection-editor-heading">
       <div><span>MY COLLECTION</span><strong>이 카드의 보유 상태</strong></div>
@@ -530,17 +595,27 @@ function createSeriesEditor() {
         <label><input name="series-owned-status" type="radio" value="missing"><span>미보유</span></label>
       </div>
     </div>
+    <div class="series-variant-section">
+      <span class="series-variant-label">보유 형태</span>
+      <div class="series-variant-options" role="group" aria-label="인쇄 형태">
+        ${variantOptions}
+      </div>
+      <p>기본이 대표 카드입니다. 홀로·미러 등 같은 카드번호의 인쇄 차이는 별도 장수로 계산하지 않습니다.</p>
+    </div>
     <p id="series-editor-message" class="series-editor-message"></p>
     <div class="collection-editor-actions">
       <span></span>
       <button id="series-card-save" class="primary-button" type="button">보유 상태 저장</button>
     </div>
-    <p class="collection-save-hint">카드 이미지는 시리즈 원본으로 고정되며, 보유 상태만 로그인한 계정에 반영됩니다.</p>
+    <p class="collection-save-hint">검색과 도감 집계는 카드번호 기준 1장으로 유지되고, 선택한 인쇄 형태만 계정에 함께 저장됩니다.</p>
   `;
   details.after(editor);
 
   editor
     .querySelectorAll('input[name="series-owned-status"]')
+    .forEach((input) => input.addEventListener("change", updateSeriesEditorState));
+  editor
+    .querySelectorAll('input[name="series-print-variant"]')
     .forEach((input) => input.addEventListener("change", updateSeriesEditorState));
   $("series-card-save")?.addEventListener("click", saveSeriesCard);
   updateSeriesEditorState();
@@ -567,6 +642,7 @@ async function saveSeriesCard() {
   }
 
   const owned = seriesEditorOwned();
+  const printVariants = owned ? seriesEditorPrintVariants() : [];
   const save = $("series-card-save");
 
   save.disabled = true;
@@ -575,9 +651,14 @@ async function saveSeriesCard() {
   try {
     const saved = await account.saveOverride(activeCard.accountKey, {
       owned,
+      printVariants,
     });
 
     activeCard.owned = saved.owned;
+    activeCard.printVariants = normalizedSeriesPrintVariants(
+      saved.printVariants,
+      saved.owned,
+    );
     activeCard.actualSetCode = "";
     activeCard.actualCardNumber = "";
     activeCard.actualName = "";
@@ -589,7 +670,15 @@ async function saveSeriesCard() {
     updateDialog(activeCard);
     fillSeriesEditor(activeCard);
     setSeriesEditorMessage(
-      owned ? "보유 카드로 저장되었습니다." : "미보유 카드로 저장되었습니다.",
+      owned
+        ? `보유 카드로 저장되었습니다. · ${activeCard.printVariants
+            .map(
+              (id) =>
+                SERIES_PRINT_VARIANTS.find((variant) => variant.id === id)?.label ||
+                id,
+            )
+            .join(" · ")}`
+        : "미보유 카드로 저장되었습니다.",
       "success",
     );
   } catch (error) {
