@@ -1,0 +1,74 @@
+name: Temporary M6a hidden-range audit
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/m6a-hidden-range-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Probe only M6a cards omitted from current search
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const nums=[25,57,96,...Array.from({length:65},(_,i)=>104+i)];
+          function parse(html,n){
+            const text=html.replace(/<script[\s\S]*?<\/script>/gi," ").replace(/<style[\s\S]*?<\/style>/gi," ");
+            const p=text.match(/(?:card-hp[^>]*>[\s\S]*?)?([0-9]{1,3})\s*\/\s*([0-9]{1,3})\s*(?:<[^>]+>\s*)?([A-Z]{1,4})?/i)
+              || text.match(/([0-9]{1,3})\s*\/\s*([0-9]{1,3})\s*([A-Z]{1,4})?/i);
+            const nameMatch=text.match(/<span[^>]*class=["'][^"']*card-hp\s+title[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
+            const name=String(nameMatch?.[1]||"").replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/\s+/g," ").trim();
+            const product=/MEGA\s*확장팩\s*[「"][^」"]*30th CELEBRATION[^」"]*[」"]/i.test(text);
+            return {requested:n,number:p?Number(p[1]):null,denominator:p?Number(p[2]):null,rarity:p?.[3]||"",name,product};
+          }
+          const rows=[];
+          for(let i=0;i<nums.length;i++){
+            const n=nums[i];
+            const id="BS2026006"+String(113+n).padStart(3,"0");
+            let row={requested:n,id,ok:false};
+            try{
+              const r=await fetch("https://pokemoncard.co.kr/cards/detail/"+id,{headers:{
+                "User-Agent":"digital-card-binder-m6a-audit/1.0 (+https://digital-card-binder.github.io/)",
+                "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+              }});
+              row.http=r.status;
+              if(r.ok){
+                const html=await r.text();
+                row={...row,...parse(html,n),ok:true};
+              }
+            }catch(e){row.error=String(e)}
+            rows.push(row);
+            if((i+1)%10===0||i+1===nums.length)console.log("M6A_PROGRESS "+(i+1)+"/"+nums.length);
+            await sleep(1200);
+          }
+          const valid=rows.filter(x=>x.ok&&x.product&&x.number===x.requested);
+          const summary={
+            probed:rows.length,
+            validExact:valid.length,
+            failed:rows.filter(x=>!x.ok).length,
+            wrongProduct:rows.filter(x=>x.ok&&!x.product).length,
+            numberMismatch:rows.filter(x=>x.ok&&x.product&&x.number!==x.requested).length,
+            exactNumbers:valid.map(x=>x.number),
+            maxExact:valid.length?Math.max(...valid.map(x=>x.number)):null
+          };
+          fs.writeFileSync("m6a-hidden-range-audit.json",JSON.stringify({summary,rows},null,2));
+          console.log("M6A_SUMMARY="+JSON.stringify(summary));
+          console.log("M6A_ROWS="+JSON.stringify(rows));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m6a-hidden-range-audit
+          path: m6a-hidden-range-audit.json
