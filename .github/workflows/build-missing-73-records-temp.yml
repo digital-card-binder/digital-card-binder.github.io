@@ -1,0 +1,189 @@
+name: Temporary build 4109 missing-set records
+
+on:
+  push:
+    branches:
+      - audit-official-inventory-20260926
+    paths:
+      - ".github/workflows/build-missing-73-records-temp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build complete records for 73 missing Korean sets
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const clean=v=>String(v??"").trim();
+          const norm=v=>clean(v).toLowerCase();
+          const stripTags=s=>String(s||"").replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/&nbsp;/g," ").replace(/\s+/g," ").trim();
+          const decode=s=>String(s||"")
+            .replace(/\\u0026/g,"&").replace(/\\u003c/g,"<").replace(/\\u003e/g,">")
+            .replace(/\\n/g," ").replace(/\\\"/g,'"').replace(/\\\\/g,"\\");
+
+          const configs=[
+            ["M","M6a","M6a",176,"103"],["M","MC","MC",774,"742"],["M","MBD","MBD",23,"021"],["M","MBG","MBG",23,"021"],["M","MA","MA",51,"043"],["M","M-P","MP",65,"M-P"],
+            ["SV","SVOM","SVOM",21,"019"],["SV","SVOD","SVOD",21,"018"],["SV","SVN","SVN",53,"045"],["SV","SVM","SVM",183,"175"],["SV","SVP2","SVP2",12,"009"],
+            ["SV","SVLS","SVLS",25,"022"],["SV","SVLN","SVLN",25,"022"],["SV","SVK","SVK",52,"044"],["SV","SVJP","SVJP",20,"019"],["SV","SVJL","SVJL",22,"021"],
+            ["SV","SVI","SVI",74,"066"],["SV","SVHK","SVHK",61,"053"],["SV","SVHM","SVHM",61,"053"],["SV","SVG","SVG",55,"049"],["SV","SVEM","SVEM",21,"020"],
+            ["SV","SVEL","SVEL",21,"020"],["SV","SVF","SVF",46,"038"],["SV","SVD","SVD",147,"139"],["SV","SVP1","SVP1",7,"007"],["SV","SVC","SVC",22,"021"],
+            ["SV","SVB","SVB",36,"028"],["SV","SVAL","SVAL",23,"021"],["SV","SVAW","SVAW",25,"023"],["SV","SVAM","SVAM",25,"023"],["SV","SV-P","SVP",248,"SV-P"],
+            ["SV","CLF","CLF",34,"032"],["SV","CLK","CLK",34,"032"],["SV","CLL","CLL",34,"032"],
+            ["S","SO","SO",34,"030"],["S","SP6","SP6",6,"006"],["S","SPD","SPD",21,"020"],["S","SPZ","SPZ",21,"020"],["S","SLD","SLD",21,"020"],
+            ["S","SLL","SLL",22,"021"],["S","SI","SI",430,"414"],["S","SN","SN",26,"024"],["S","S8a-G","S8a-G",16,"015"],["S","SJ","SJ",32,"028"],
+            ["S","S8a-P","S8a-P",25,"025"],["S","SP5","SP5",13,"013"],["S","SH","SH",59,"053"],["S","SP4","SP4",8,"004"],["S","SGG","SGG",21,"019"],
+            ["S","SGI","SGI",24,"022"],["S","SP3","SP3",6,"006"],["S","SEK","SEK",21,"020"],["S","SEF","SEF",22,"021"],["S","SP2","SP2",8,"004"],
+            ["S","SCR","SCR",23,"021"],["S","SCD","SCD",21,"020"],["S","SP1","SP1",8,"007"],["S","SB","SB",33,"024"],
+            ["S","SA-F","SA-F",25,"024"],["S","SA-R","SA-R",24,"023"],["S","SA-G","SA-G",24,"023"],["S","SA-L","SA-L",25,"024"],["S","SA-W","SA-W",24,"023"],["S","S-P","SP",204,"S-P"],
+            ["SM","SMM","SMM",33,""],["SM","SML","SML",57,"051"],["SM","SMN","SMN",44,""],["SM","SMK","SMK",32,""],["SM","SMI","SMI",41,""],
+            ["SM","SME","SME",22,""],["SM","SMD","SMD",30,""],["SM","SMC","SMC",23,""],["SM","SMA","SMA",60,""]
+          ].map(x=>({era:x[0],code:x[1],lookup:x[2],expected:x[3],denominator:x[4]}));
+          if(configs.length!==73)throw new Error("Expected 73 configs");
+
+          async function get(url){
+            let last;
+            for(let a=0;a<3;a++){
+              try{
+                const r=await fetch(url,{headers:{
+                  "User-Agent":"digital-card-binder-series-build/1.0 (+https://digital-card-binder.github.io/)",
+                  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.5"
+                },signal:AbortSignal.timeout(15000)});
+                if(!r.ok)throw new Error("HTTP "+r.status);
+                return await r.text();
+              }catch(e){last=e;if(a<2)await sleep(1300*(a+1))}
+            }
+            throw last;
+          }
+
+          function parseCardText(text){
+            const t=clean(text);
+            const special=t.match(/^(.*?)([RGB]\/RGB)$/i);
+            if(special)return {name:clean(special[1]),numberText:special[2].toUpperCase(),numeric:false};
+            const m=t.match(/^(.*?)(?:\s+)(\d{1,4})$/);
+            if(!m)return null;
+            const name=clean(m[1]).replace(/\s+No\.$/i,"").trim();
+            return {name,numberText:String(Number(m[2])),numeric:true,number:Number(m[2])};
+          }
+
+          function parseSetCards(html){
+            const decoded=decode(html);
+            const cards=new Map();
+            const re=/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+\/cards\/([A-Za-z0-9_-]+)(?:\/[^"']+)?)["'][^>]*>([\s\S]*?)<\/a>/gi;
+            for(const m of html.matchAll(re)){
+              const href=m[1],itemId=m[2],inner=m[3],text=stripTags(inner);
+              const parsed=parseCardText(text);
+              if(!parsed)continue;
+              const image=inner.match(/<img[^>]+data-full=["']([^"']+)["']/i)?.[1]
+                || inner.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1] || "";
+              let rarity="",rarityKo="",imageProvisional=false,variantCodes=[];
+              const needle='"item_id":"'+itemId+'"';
+              let pos=decoded.indexOf(needle);
+              if(pos<0)pos=decoded.indexOf(itemId);
+              if(pos>=0){
+                const chunk=decoded.slice(Math.max(0,pos-1500),Math.min(decoded.length,pos+1200));
+                rarity=clean(chunk.match(/"rarity_code":"([^"]*)"/i)?.[1]);
+                rarityKo=clean(chunk.match(/"rarity_ko":"([^"]*)"/i)?.[1]);
+                imageProvisional=/"image_provisional":true/i.test(chunk);
+                const variants=chunk.match(/"variant_codes":(\[[^\]]*\])/i)?.[1];
+                if(variants){try{variantCodes=JSON.parse(variants)}catch{}}
+              }
+              if(!cards.has(itemId))cards.set(itemId,{itemId,href,image:clean(image),...parsed,rarity,rarityKo,imageProvisional,variantCodes});
+            }
+            return [...cards.values()].sort((a,b)=>{
+              if(a.numeric&&b.numeric)return a.number-b.number;
+              if(a.numeric)return -1;if(b.numeric)return 1;
+              const rank={"R/RGB":1,"G/RGB":2,"B/RGB":3};
+              return (rank[a.numberText]||99)-(rank[b.numberText]||99) || a.numberText.localeCompare(b.numberText);
+            });
+          }
+
+          const index=await get("https://www.dogam.app/sets");
+          const anchors=[...index.matchAll(/<a[^>]+href=["'](\/sets\/[A-Za-z0-9_-]+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+            .map(m=>({href:m[1],text:stripTags(m[2])}));
+          const esc=s=>String(s).replace(/[.*+?^$()|[\]{}\\]/g,"\\$&");
+          const findLink=lookup=>anchors.find(a=>new RegExp("(^|\\s)"+esc(lookup)+"(?:\\s|·|$)","i").test(a.text));
+          const nameFromAnchor=(text,lookup)=>clean(text.replace(new RegExp("\\s+"+esc(lookup)+"\\s*·\\s*\\d+장\\s*$","i"),""));
+          const pad=n=>String(n).padStart(3,"0");
+          function codeFor(cfg,c){
+            const prefix=cfg.code.toLowerCase();
+            if(!c.numeric)return prefix+"_"+c.numberText;
+            const token=pad(c.number);
+            return cfg.denominator ? prefix+"_"+token+"/"+cfg.denominator : prefix+"_"+token;
+          }
+
+          const supportedHosts=new Set(["cards.image.pokemonkorea.co.kr","static.tcgexchange.kr","tcgbox.co.kr","cdn.collectory.cc","k-tcgpanda.com","cdn6966.templcdn.com"]);
+          const groups=[],records=[],setSummary={};
+          let i=0;
+          for(const cfg of configs){
+            i++;
+            const link=findLink(cfg.lookup);
+            if(!link)throw new Error("Dogam set link missing: "+cfg.code+" lookup="+cfg.lookup);
+            const html=await get("https://www.dogam.app"+link.href);
+            const cards=parseSetCards(html);
+            if(cards.length!==cfg.expected)throw new Error("Parsed count mismatch "+cfg.code+": "+cards.length+" != "+cfg.expected);
+            const setName=nameFromAnchor(link.text,cfg.lookup);
+            const cardRows=cards.map(c=>({
+              code:codeFor(cfg,c),name:c.name,rarity:c.rarity||"",image:c.image,source:"https://www.dogam.app"+c.href,
+              _numberText:c.numberText,_rarityLabel:c.rarityKo||"",_dogamItemId:c.itemId,_imageProvisional:!!c.imageProvisional,_variantCodes:c.variantCodes
+            }));
+            const group={
+              code:cfg.code,
+              title:cfg.denominator && /^\d+$/.test(cfg.denominator) ? setName+" ("+cfg.expected+"/"+cfg.denominator+")" : setName+" ("+cfg.expected+"장)",
+              displayName:setName,era:cfg.era,release:"",sourceProducts:[setName],referenceImageRegion:"KR",
+              referenceNote:"한글판 "+cfg.expected+"장 기준 · Dogam 카드 목록 교차검증",
+              referenceSource:"https://www.dogam.app"+link.href,
+              cards:cardRows.map(r=>({code:r.code,name:r.name,rarity:r.rarity,image:r.image,source:r.source}))
+            };
+            groups.push(group);
+            for(const row of cardRows)records.push({era:cfg.era,setCode:cfg.code,setName,numberText:row._numberText,...row});
+            const unsupported=cardRows.filter(r=>{try{return !supportedHosts.has(new URL(r.image).hostname)}catch{return true}});
+            setSummary[cfg.code]={
+              era:cfg.era,setName,expected:cfg.expected,parsed:cards.length,denominator:cfg.denominator,
+              withImage:cardRows.filter(x=>!!x.image).length,withRarity:cardRows.filter(x=>!!x.rarity).length,
+              provisionalImages:cardRows.filter(x=>x._imageProvisional).length,unsupportedImages:unsupported.length,
+              specialNumbers:cardRows.filter(x=>!/^[0-9]+$/.test(x._numberText)).map(x=>x._numberText)
+            };
+            console.log("BUILD73 "+i+"/"+configs.length+" "+cfg.code+": cards="+cards.length+" rarity="+setSummary[cfg.code].withRarity+" provisional="+setSummary[cfg.code].provisionalImages);
+            await sleep(700);
+          }
+
+          const ids=new Map(),dups=[];
+          for(const r of records){const k=norm(r.setCode)+"::"+norm(r.code);if(ids.has(k))dups.push({key:k});else ids.set(k,r)}
+          const groupCodes=new Set(),dupGroups=[];
+          for(const g of groups){const k=norm(g.code);if(groupCodes.has(k))dupGroups.push(g.code);else groupCodes.add(k)}
+          const hostCounts={};
+          for(const r of records){let host="(invalid)";try{host=new URL(r.image).hostname}catch{}hostCounts[host]=(hostCounts[host]||0)+1}
+          const byEra={};
+          for(const g of groups){if(!byEra[g.era])byEra[g.era]={sets:0,cards:0};byEra[g.era].sets++;byEra[g.era].cards+=g.cards.length}
+          const unsupportedImages=records.filter(r=>{try{return !supportedHosts.has(new URL(r.image).hostname)}catch{return true}}).length;
+          const summary={
+            targetSets:groups.length,totalRecords:records.length,withName:records.filter(r=>!!r.name).length,
+            withImage:records.filter(r=>!!r.image).length,withSource:records.filter(r=>!!r.source).length,
+            withRarity:records.filter(r=>!!r.rarity).length,provisionalImages:records.filter(r=>r._imageProvisional).length,
+            unsupportedImages,duplicateCardIdentities:dups.length,duplicateGroupCodes:dupGroups.length,
+            specialNumberRecords:records.filter(r=>!/^[0-9]+$/.test(r.numberText)).map(r=>({setCode:r.setCode,numberText:r.numberText,name:r.name,code:r.code,image:r.image})),
+            byEra,hostCounts,setSummary
+          };
+          if(groups.length!==73)throw new Error("Expected 73 groups, got "+groups.length);
+          if(records.length!==4109)throw new Error("Expected 4109 records, got "+records.length);
+          if(summary.withName!==4109||summary.withImage!==4109||summary.withSource!==4109)throw new Error("Missing required fields "+JSON.stringify(summary));
+          if(unsupportedImages||dups.length||dupGroups.length)throw new Error("Safety validation failed "+JSON.stringify(summary));
+
+          fs.writeFileSync("missing-73-records.json",JSON.stringify({summary,groups,records},null,2));
+          console.log("BUILD73_SUMMARY="+JSON.stringify(summary));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: missing-73-records
+          path: missing-73-records.json
+          if-no-files-found: error
