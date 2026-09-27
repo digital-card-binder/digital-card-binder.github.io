@@ -25,6 +25,13 @@ import build_legacy_series_data as legacy  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
+OFFICIAL_PRODUCT_OVERRIDES = {
+    "소드&실드 하이클래스팩 「샤이니스타 V」": "소드&실드 하이클래스팩 「샤이니스타 V」  ",
+    "소드&실드 확장팩 「창공스트림」": "소드 & 실드   확장팩   「창공스트림」",
+    "소드&실드 확장팩 「스페이스 저글러」": "소드&실드 확장팩 「스페이스 저글러」        ",
+    "소드&실드 확장팩 「패러다임트리거」": "소드 & 실드   확장팩   「패러다임트리거」",
+}
+
 VARIANT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("mirror", re.compile(r"(?:mirror|reverse|master[-_ ]?ball|poke[-_ ]?ball|pokeball|ball)", re.I)),
     ("holo", re.compile(r"(?:holo|foil)", re.I)),
@@ -93,13 +100,14 @@ def audit_group(group: dict[str, Any]) -> dict[str, Any]:
         # GoodsName values used by the existing catalog builder. Avoid
         # re-fetching /cards just to resolve them; that endpoint is more
         # fragile and adds unnecessary traffic.
-        records = fetch_product_records(requested)
+        resolved = OFFICIAL_PRODUCT_OVERRIDES.get(requested, requested)
+        records = fetch_product_records(resolved)
         if not records:
             missing_products.append(requested)
             continue
-        resolved_products.append(requested)
+        resolved_products.append(resolved)
         for record in records:
-            all_records.append({**record, "_product": requested})
+            all_records.append({**record, "_product": resolved})
 
     slots: dict[tuple[str, str], list[dict[str, str]]] = {}
     unresolved_records = 0
