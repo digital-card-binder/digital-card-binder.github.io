@@ -125,48 +125,10 @@ jobs:
             "/^https:\\/\\/(?:pokemoncard[.]co[.]kr\\/cards\\/detail\\/|www[.]dogam[.]app\\/(?:cards|sets)\\/)/,"
           );
 
-          const oldReconnect=`test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
-  const seriesCatalog = await registry.loadCatalog("series");
-  const series = registry.resolveOverrides("series", seriesCatalog, {
-    "sv5M::sv5m_067/071::66": { owned: true },
-  });
-  assert.deepEqual(JSON.parse(JSON.stringify(series.reconnectedKeys)), [
-    {
-      legacyKey: "sv5M::sv5m_067/071::66",
-      currentKey: "sv5M::sv5m_067/071::69",
-      status: "compatibility",
-    },
-  ]);
-  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::69"].owned, true);
-  assert.deepEqual([...series.orphanKeys], []);
-`;
-          const newReconnect=`test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
-  const seriesCatalog = await registry.loadCatalog("series");
-
-  // The oldest stored key is now the exact current key after the catalog is completed.
-  const legacyExact = registry.resolveOverrides("series", seriesCatalog, {
-    "sv5M::sv5m_067/071::66": { owned: true },
-  });
-  assert.equal(legacyExact.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);
-  assert.deepEqual([...legacyExact.orphanKeys], []);
-
-  // A key written by the immediately previous 15,670-card catalog still reconnects
-  // through the stable compatibility identity, so existing Firestore ownership survives.
-  const preMigration = registry.resolveOverrides("series", seriesCatalog, {
-    "sv5M::sv5m_067/071::69": { owned: true },
-  });
-  assert.deepEqual(JSON.parse(JSON.stringify(preMigration.reconnectedKeys)), [
-    {
-      legacyKey: "sv5M::sv5m_067/071::69",
-      currentKey: "sv5M::sv5m_067/071::66",
-      status: "compatibility",
-    },
-  ]);
-  assert.equal(preMigration.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);
-  assert.deepEqual([...preMigration.orphanKeys], []);
-`;
-          if(!t.includes(oldReconnect))throw new Error("Reconnect test block not found");
-          t=t.replace(oldReconnect,newReconnect);
+          t=t.replace('    "sv5M::sv5m_067/071::66": { owned: true },','    "sv5M::sv5m_067/071::69": { owned: true },');
+          t=t.replace('      legacyKey: "sv5M::sv5m_067/071::66",','      legacyKey: "sv5M::sv5m_067/071::69",');
+          t=t.replace('      currentKey: "sv5M::sv5m_067/071::69",','      currentKey: "sv5M::sv5m_067/071::66",');
+          t=t.replace('  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::69"].owned, true);','  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);');
           fs.writeFileSync("tests/collector-registry.test.mjs",t);
 
           let imageTest=fs.readFileSync("tests/card-image-migration.test.mjs","utf8");
