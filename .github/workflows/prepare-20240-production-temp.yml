@@ -73,8 +73,10 @@ jobs:
             g.title=denom?baseTitle+" ("+n+"/"+denom+")":baseTitle+" ("+n+"장)";
           }
           const codes=new Set(data.map(g=>norm(g.code)));
-          for(const g of missing.groups){
-            if(codes.has(norm(g.code)))throw new Error("New group duplicate "+g.code);
+          for(const sourceGroup of missing.groups){
+            if(codes.has(norm(sourceGroup.code)))throw new Error("New group duplicate "+sourceGroup.code);
+            const g=JSON.parse(JSON.stringify(sourceGroup));
+            g.cards=(g.cards||[]).map((card,index)=>({...card,order:index+1}));
             data.push(g);codes.add(norm(g.code));
           }
           const seriesCount=data.reduce((s,g)=>s+(g.cards||[]).length,0);
@@ -116,7 +118,81 @@ jobs:
           t=t.replace('assert.equal(group("s9a").cards.length, 87, "same-number parallel foils collapse");','assert.equal(group("s9a").cards.length, 93, "same-number parallel foils collapse");');
           t=t.replace("assert.equal(preserved.length, 34);","assert.equal(preserved.length, 68);");
           t=t.replace("    4215,","    6910,");
+
+          // S cards recovered from Dogam may use either /cards/ or /sets/.../cards/.
+          t=t.replace(
+            "/^https:\\/\\/(?:pokemoncard[.]co[.]kr\\/cards\\/detail\\/|www[.]dogam[.]app\\/sets\\/)/,",
+            "/^https:\\/\\/(?:pokemoncard[.]co[.]kr\\/cards\\/detail\\/|www[.]dogam[.]app\\/(?:cards|sets)\\/)/,"
+          );
+
+          const oldReconnect=`test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
+  const seriesCatalog = await registry.loadCatalog("series");
+  const series = registry.resolveOverrides("series", seriesCatalog, {
+    "sv5M::sv5m_067/071::66": { owned: true },
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(series.reconnectedKeys)), [
+    {
+      legacyKey: "sv5M::sv5m_067/071::66",
+      currentKey: "sv5M::sv5m_067/071::69",
+      status: "compatibility",
+    },
+  ]);
+  assert.equal(series.effectiveOverrides["sv5M::sv5m_067/071::69"].owned, true);
+  assert.deepEqual([...series.orphanKeys], []);
+`;
+          const newReconnect=`test("legacy series and artist override keys reconnect to one current card without rewriting storage", async () => {
+  const seriesCatalog = await registry.loadCatalog("series");
+
+  // The oldest stored key is now the exact current key after the catalog is completed.
+  const legacyExact = registry.resolveOverrides("series", seriesCatalog, {
+    "sv5M::sv5m_067/071::66": { owned: true },
+  });
+  assert.equal(legacyExact.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);
+  assert.deepEqual([...legacyExact.orphanKeys], []);
+
+  // A key written by the immediately previous 15,670-card catalog still reconnects
+  // through the stable compatibility identity, so existing Firestore ownership survives.
+  const preMigration = registry.resolveOverrides("series", seriesCatalog, {
+    "sv5M::sv5m_067/071::69": { owned: true },
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(preMigration.reconnectedKeys)), [
+    {
+      legacyKey: "sv5M::sv5m_067/071::69",
+      currentKey: "sv5M::sv5m_067/071::66",
+      status: "compatibility",
+    },
+  ]);
+  assert.equal(preMigration.effectiveOverrides["sv5M::sv5m_067/071::66"].owned, true);
+  assert.deepEqual([...preMigration.orphanKeys], []);
+`;
+          if(!t.includes(oldReconnect))throw new Error("Reconnect test block not found");
+          t=t.replace(oldReconnect,newReconnect);
           fs.writeFileSync("tests/collector-registry.test.mjs",t);
+
+          let imageTest=fs.readFileSync("tests/card-image-migration.test.mjs","utf8");
+          imageTest=imageTest.replace("assert.equal(manifest.counts.external, 969);","assert.equal(manifest.counts.external, 5498);");
+          imageTest=imageTest.replace("assert.equal(manifest.counts.total, 16660);","assert.equal(manifest.counts.total, 21189);");
+          fs.writeFileSync("tests/card-image-migration.test.mjs",imageTest);
+
+          let sm=fs.readFileSync("tests/sm-series-dex.test.mjs","utf8");
+          const insertAfter='  ["sm60B", "전격 스타터 세트 「라이코 GX」", 23],';
+          const extra=[
+            '  ["SMM", "스타터 세트 TAG TEAM GX", 33],',
+            '  ["SML", "패밀리 포켓몬 카드 게임", 57],',
+            '  ["SMN", "파워업덱 BOX 「TAG TEAM GX」", 44],',
+            '  ["SMK", "스타터 세트 롱스톤 GX·아쿠스타 GX", 32],',
+            '  ["SMI", "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」", 41],',
+            '  ["SME", "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」", 22],',
+            '  ["SMD", "대전 세트 「지우 VS 로켓단」", 30],',
+            '  ["SMC", "개조 스타터 세트 「카푸브루루 GX」", 23],',
+            '  ["SMA", "스타터세트 3종", 60],'
+          ].join("\\n");
+          if(!sm.includes(insertAfter))throw new Error("SM expected insertion point not found");
+          sm=sm.replace(insertAfter,insertAfter+"\\n"+extra);
+          sm=sm.replace('test("SM 한국판 카탈로그는 Dogam 기준 40세트 3608장이다"', 'test("SM 한국판 카탈로그는 Dogam 기준 49세트 3950장이다"');
+          sm=sm.replace("  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3608);","  assert.equal(sm.reduce((sum, group) => sum + group.cards.length, 0), 3950);");
+          sm=sm.replace('    assert.equal(group.referenceSource, "https://www.dogam.app/sets", group.code);','    assert.match(group.referenceSource, /^https:\\/\\/www[.]dogam[.]app\\/sets(?:\\/|$)/, group.code);');
+          fs.writeFileSync("tests/sm-series-dex.test.mjs",sm);
           NODE
       - name: Install dependencies and refresh generated catalog artifacts
         run: |
