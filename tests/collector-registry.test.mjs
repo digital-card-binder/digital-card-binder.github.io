@@ -80,6 +80,8 @@ test("all existing catalogs retain their expected item counts", async () => {
     ar: 530,
     people: 179,
     trainerPokemon: 245,
+    fossil: 122,
+    world: 108,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -96,15 +98,27 @@ test("all existing catalogs retain their expected item counts", async () => {
 test("collection order follows the current main and theme navigation", () => {
   assert.deepEqual(
     [...registry.COLLECTION_ORDER],
-    ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon"],
+    ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world"],
   );
   assert.deepEqual(
     Array.from(
       registry.COLLECTION_ORDER,
       (id) => String(registry.COLLECTIONS[id].number),
     ),
-    ["01", "02", "03", "04", "05", "06", "07", "08"],
+    ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
   );
+});
+
+test("fossil and world catalogs are first-class registry collections", async () => {
+  const fossil = await registry.loadCatalog("fossil");
+  const world = await registry.loadCatalog("world");
+
+  assert.equal(fossil.items.length, 122);
+  assert.equal(fossil.groups.length, 26);
+  assert.equal(world.items.length, 108);
+  assert.equal(world.groups.length, 9);
+  assert.equal(new Set(world.items.map((item) => item.key)).size, 108);
+  assert.ok(world.items.every((item) => item.groupKey.startsWith("generation-")));
 });
 
 test("public projection summaries use the current catalog total", () => {
@@ -152,9 +166,11 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     artist: 40,
     series: 273,
     pokemon: 67,
-    ar: 33,
+    ar: 34,
     people: 9,
     trainerPokemon: 172,
+    fossil: 26,
+    world: 9,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -491,7 +507,7 @@ test("people ownership stays inside nationalDex peopleOwned", async () => {
   assert.deepEqual([...owned.ownedKeys], [personId]);
 });
 
-test("dashboard defaults preserve the old six-category summary", () => {
+test("dashboard defaults cover all ten registered dexes", () => {
   for (const collectionId of registry.COLLECTION_ORDER) {
     const setting = registry.defaultSetting(collectionId);
     assert.equal(
@@ -501,6 +517,9 @@ test("dashboard defaults preserve the old six-category summary", () => {
     );
     assert.equal(setting.visibility, "private");
   }
+  assert.equal(registry.COLLECTIONS.fossil.number, "09");
+  assert.equal(registry.COLLECTIONS.world.number, "10");
+  assert.equal(registry.COLLECTIONS.world.documentId, "worldDex");
 });
 
 test("custom dex extension exposes dashboard ownership with per-dex keys", async () => {
