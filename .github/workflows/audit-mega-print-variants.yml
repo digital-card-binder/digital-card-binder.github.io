@@ -55,13 +55,18 @@ jobs:
       - name: Build canonical printed-slot baseline
         run: node scripts/audit-series-canonical-slots.mjs
 
-      - name: Audit Korean MEGA products
+      - name: Refresh Korean MEGA product audit
+        if: github.event_name == 'workflow_dispatch'
         run: |
           mkdir -p data/audits
           python3 scripts/audit-series-print-variants.py \
             --era M \
             --workers 2 \
             --output data/audits/series-print-variant-audit-M.json
+
+      - name: Reuse verified Korean MEGA audit on push
+        if: github.event_name == 'push'
+        run: test -s data/audits/series-print-variant-audit-M.json
 
       - name: Build MEGA gap evidence
         run: node scripts/audit-mega-gap-evidence.mjs
