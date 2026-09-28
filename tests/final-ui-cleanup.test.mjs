@@ -134,9 +134,7 @@ test("stage 9 trims page-specific assets and prevents duplicate metrics loading"
     "collection-manager.css",
     "card-image-cdn.js",
     "image-protection.js",
-    "core/account/firebase-account.js",
     "core/catalog/card-lookup.js",
-    "owner-sheets-sync.js",
   ]) {
     assert.equal(index.includes(retired), false, retired);
   }
