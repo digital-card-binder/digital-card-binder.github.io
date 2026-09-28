@@ -9,6 +9,7 @@ on:
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/audit-mega-gap-evidence.mjs'
+      - 'scripts/fix-mega-master-data.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - 'tests/series-print-variants.test.mjs'
       - '.github/workflows/audit-mega-print-variants.yml'
@@ -43,6 +44,9 @@ jobs:
           restore-keys: |
             mega-print-audit-v1-
 
+      - name: Normalize confirmed MEGA master data
+        run: node scripts/fix-mega-master-data.mjs
+
       - name: Build canonical printed-slot baseline
         run: node scripts/audit-series-canonical-slots.mjs
 
@@ -75,6 +79,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            data/series.json \
+            data/series-legacy.json \
             data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-M.json \
             data/audits/mega-gap-evidence.json \
