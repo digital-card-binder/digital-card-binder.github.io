@@ -46,6 +46,30 @@ vm.runInContext(identitySource, context);
 vm.runInContext(source, context);
 const registry = context.window.CollectorCollectionRegistry;
 
+test("generated catalog metrics cover every core and extended dex", () => {
+  const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
+  const expected = {
+    national: [1025, 9],
+    series: [20240, 273],
+    ar: [530, 34],
+    pack: [64, 3],
+    pokemon: [1333, 67],
+    artist: [4873, 40],
+    people: [179, 9],
+    trainerPokemon: [245, 172],
+    fossil: [122, 26],
+    world: [108, 9],
+  };
+
+  for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
+    assert.equal(metrics[collectionId]?.itemCount, itemCount, `${collectionId} item count`);
+    assert.equal(metrics[collectionId]?.groupCount, groupCount, `${collectionId} group count`);
+  }
+  assert.equal(metrics.pack.promoItemCount, 222);
+  assert.equal(metrics.pack.promoPackCount, 36);
+  assert.equal(metrics.pack.promoCardCount, 186);
+});
+
 test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
