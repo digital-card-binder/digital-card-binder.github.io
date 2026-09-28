@@ -9,7 +9,7 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-  min-height: 54px;
+  min-height: 68px;
   margin: 14px 0 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -297,7 +297,7 @@
   .dashboard-news-strip {
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 7px;
-    min-height: 52px;
+    min-height: 68px;
     margin-top: 12px;
     padding: 7px 8px 7px 11px;
   }
