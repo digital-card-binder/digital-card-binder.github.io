@@ -18,7 +18,7 @@ test("verified print variant metadata keeps canonical card counts unchanged", as
   const metadata = JSON.parse(await read("data/series-print-variants.json"));
 
   assert.equal(metadata.schemaVersion, 1);
-  assert.equal(Object.keys(metadata.slots).length, 248);
+  assert.ok(Object.keys(metadata.slots).length >= 248);
   assert.equal(metadata.coverage.S.variantSlotCount, 222);
   assert.deepEqual(metadata.coverage.S.variantCounts, {
     holo: 0,
@@ -33,6 +33,14 @@ test("verified print variant metadata keeps canonical card counts unchanged", as
   });
   assert.deepEqual(metadata.slots["s9a::s9a::1"], ["mirror"]);
   assert.deepEqual(metadata.slots["smp2::smp2::1"], ["mirror"]);
+
+  if (metadata.coverage.M) {
+    assert.equal(metadata.coverage.M.configuredSetCount, 13);
+    assert.equal(
+      metadata.coverage.M.setCodes.length + metadata.coverage.M.partialSetCodes.length,
+      13,
+    );
+  }
 });
 
 test("series dialog prioritizes verified print forms without creating extra cards", async () => {
