@@ -4,6 +4,65 @@
   const root = (window.DigitalCardBinder = window.DigitalCardBinder || {});
   const cache = new Map();
 
+  // <catalog-metrics-generated>
+  const CATALOG_METRICS = Object.freeze({
+    "national": {
+      "itemCount": 1025,
+      "groupCount": 9,
+      "unit": "종"
+    },
+    "series": {
+      "itemCount": 20240,
+      "groupCount": 273,
+      "unit": "장"
+    },
+    "ar": {
+      "itemCount": 530,
+      "groupCount": 34,
+      "unit": "장"
+    },
+    "pack": {
+      "itemCount": 64,
+      "groupCount": 3,
+      "unit": "팩",
+      "promoItemCount": 222,
+      "promoPackCount": 36,
+      "promoCardCount": 186
+    },
+    "pokemon": {
+      "itemCount": 1333,
+      "groupCount": 67,
+      "unit": "장"
+    },
+    "artist": {
+      "itemCount": 4873,
+      "groupCount": 40,
+      "unit": "장"
+    },
+    "people": {
+      "itemCount": 179,
+      "groupCount": 9,
+      "unit": "명"
+    },
+    "trainerPokemon": {
+      "itemCount": 245,
+      "groupCount": 172,
+      "unit": "장"
+    },
+    "fossil": {
+      "itemCount": 122,
+      "groupCount": 26,
+      "unit": "장"
+    },
+    "world": {
+      "itemCount": 108,
+      "groupCount": 9,
+      "unit": "장"
+    }
+  });
+  // </catalog-metrics-generated>
+
+
   async function fetchJson(path) {
     const response = await fetch(path, { cache: "no-store" });
     if (!response.ok) throw new Error(`${path} ${response.status}`);
@@ -118,6 +177,10 @@
   }
 
   root.catalog = Object.freeze({
+    catalogMetrics: CATALOG_METRICS,
+    metric(collectionId) {
+      return CATALOG_METRICS[clean(collectionId)] || null;
+    },
     json,
     asGroups,
     mergeGroups,
