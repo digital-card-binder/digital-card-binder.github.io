@@ -37,6 +37,17 @@ test("shared asset cache versions follow site-version.json", async () => {
     pwa,
     new RegExp(`sw[.]js[?]v=${escapeRegExp(manifest.assets["sw.js"])}`),
   );
+  assert.match(
+    pwa,
+    new RegExp(
+      `manifest[.]webmanifest[?]v=${escapeRegExp(manifest.assets["manifest.webmanifest"])}`,
+    ),
+  );
+
+  const webManifest = JSON.parse(await source("manifest.webmanifest"));
+  for (const icon of webManifest.icons || []) {
+    assert.match(icon.src, /[?]v=[0-9a-f]{12}$/);
+  }
 });
 
 test("PWA and news responsibilities stay separated", async () => {
@@ -46,7 +57,11 @@ test("PWA and news responsibilities stay separated", async () => {
   const news = await source("news.js");
   const pwa = await source("pwa.js");
 
-  assert.match(index, /rel="manifest" href="[.]\/manifest[.]webmanifest"/);
+  assert.ok(
+    index.includes(
+      `rel="manifest" href="./manifest.webmanifest?v=${manifest.assets["manifest.webmanifest"]}"`,
+    ),
+  );
   assert.ok(index.includes(`pwa.css?v=${manifest.assets["pwa.css"]}`));
   assert.ok(index.includes(`pwa.js?v=${manifest.assets["pwa.js"]}`));
   assert.ok(newsPage.includes(`pwa.js?v=${manifest.assets["pwa.js"]}`));
