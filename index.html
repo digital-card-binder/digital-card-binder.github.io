@@ -80,28 +80,30 @@
       </aside>
 
       <main id="main-content" class="main-content dashboard-main">
-        <section class="hero dashboard-hero" aria-labelledby="page-title">
-          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
-          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
-          <div class="hero-content">
-            <h1 id="page-title">통합 대시보드</h1>
-            <p class="hero-description">
-              전국도감부터 팩·작가·시리즈·포켓몬·AR 컬렉션과 인물도감까지,<br />
-              나의 수집 현황과 카드 아카이브를 한눈에 확인하세요.
-            </p>
+        <section class="dashboard-overview" aria-labelledby="page-title">
+          <div class="dashboard-overview-copy">
+            <span class="dashboard-overview-kicker">내 수집 현황</span>
+            <h1 id="page-title">내 카드 바인더</h1>
+            <p>카드를 찾고, 도감으로 이동하고, 다음 수집 목표를 한 화면에서 확인하세요.</p>
           </div>
-          <div class="hero-progress" aria-label="전체 도감 수집 현황">
-            <div class="progress-ring" id="dashboard-progress-ring" aria-hidden="true">
-              <div><strong id="dashboard-rate">—</strong><span>완성률</span></div>
-            </div>
-            <div class="hero-progress-copy">
-              <span>전체 도감 항목</span>
-              <strong>
-                <b id="dashboard-owned">—</b>
-                <small>/ <span id="dashboard-total">—</span></small>
-              </strong>
-              <p>남은 항목 <b id="dashboard-missing">—</b></p>
-            </div>
+
+          <form class="dashboard-search" action="./pokemon-search.html" method="get" role="search">
+            <label class="sr-only" for="dashboard-card-search">카드 검색</label>
+            <span class="dashboard-search-icon" aria-hidden="true">⌕</span>
+            <input
+              id="dashboard-card-search"
+              name="q"
+              type="search"
+              autocomplete="off"
+              placeholder="포켓몬·카드명·세트·작가 검색"
+            />
+            <button type="submit">검색</button>
+          </form>
+
+          <div class="dashboard-overview-meta" aria-label="대시보드 도감 요약">
+            <span>사용 도감 <strong id="dashboard-active-collections">—</strong>개</span>
+            <i aria-hidden="true"></i>
+            <span>완성 <strong id="dashboard-complete-collections">—</strong>개</span>
           </div>
         </section>
 
@@ -113,21 +115,6 @@
           <span class="dashboard-news-arrow" aria-hidden="true">›</span>
         </a>
 
-        <section class="stats-grid" aria-label="통합 수집 요약">
-          <article class="stat-card stat-card--owned">
-            <span class="stat-icon" aria-hidden="true">✓</span>
-            <div><span>수집완료 항목</span><strong><b id="stat-dashboard-owned">—</b><small>개</small></strong></div>
-          </article>
-          <article class="stat-card stat-card--missing">
-            <span class="stat-icon" aria-hidden="true">○</span>
-            <div><span>남은 항목</span><strong><b id="stat-dashboard-missing">—</b><small>개</small></strong></div>
-          </article>
-          <article class="stat-card stat-card--rate">
-            <span class="stat-icon" aria-hidden="true">★</span>
-            <div><span>완성한 하위 도감</span><strong><b id="stat-dashboard-complete-groups">—</b><small>개</small></strong></div>
-          </article>
-        </section>
-
         <section id="dashboard-account-note" class="dashboard-account-note" aria-live="polite">
           <span class="dashboard-account-icon" aria-hidden="true">i</span>
           <div>
@@ -137,26 +124,66 @@
           <button id="dashboard-login-cta" type="button">내 도감 로그인</button>
         </section>
 
-        <section class="catalog-panel dashboard-collections-panel" aria-labelledby="collections-title">
-          <div class="catalog-heading">
+        <section class="dashboard-section dashboard-primary-section" aria-labelledby="primary-collections-title">
+          <div class="dashboard-section-heading">
             <div>
-              <h2 id="collections-title">도감별 수집 현황</h2>
+              <h2 id="primary-collections-title">주요 도감</h2>
+              <p>수집의 중심이 되는 도감을 빠르게 확인합니다.</p>
             </div>
-            <p class="catalog-caption">카드를 누르면 해당 도감으로 이동합니다.</p>
+            <a href="./collector-settings.html">표시 설정</a>
           </div>
           <div
-            id="dashboard-collection-grid"
-            class="dashboard-collection-grid"
+            id="dashboard-primary-grid"
+            class="dashboard-collection-grid dashboard-collection-grid--primary"
             aria-live="polite"
             aria-busy="true"
           ></div>
+        </section>
+
+        <details id="dashboard-theme-section" class="dashboard-theme-section">
+          <summary class="dashboard-theme-summary">
+            <span>
+              <strong>테마 도감</strong>
+              <small>포켓몬·작가·인물·트레이너 × 포켓몬·화석·월드탐험</small>
+            </span>
+            <span class="dashboard-theme-summary-meta">
+              <b id="dashboard-theme-count">—</b>개
+              <i aria-hidden="true">⌄</i>
+            </span>
+          </summary>
+          <div
+            id="dashboard-theme-grid"
+            class="dashboard-collection-grid dashboard-collection-grid--theme"
+            aria-live="polite"
+            aria-busy="true"
+          ></div>
+        </details>
+
+        <section class="dashboard-shortcut-section" aria-labelledby="dashboard-shortcut-title">
+          <div class="dashboard-section-heading dashboard-section-heading--compact">
+            <div>
+              <h2 id="dashboard-shortcut-title">내 컬렉션 · 커뮤니티</h2>
+            </div>
+          </div>
+          <div class="dashboard-shortcut-grid">
+            <a class="dashboard-shortcut-card dashboard-shortcut-card--custom" href="./custom.html">
+              <span class="dashboard-shortcut-icon" aria-hidden="true">나</span>
+              <span><strong>나만의 도감</strong><small>원하는 테마로 직접 만드는 도감</small></span>
+              <b aria-hidden="true">→</b>
+            </a>
+            <a class="dashboard-shortcut-card dashboard-shortcut-card--community" href="./collectors.html">
+              <span class="dashboard-shortcut-icon" aria-hidden="true">모</span>
+              <span><strong>커뮤니티</strong><small>다른 컬렉터의 공개 도감 둘러보기</small></span>
+              <b aria-hidden="true">→</b>
+            </a>
+          </div>
         </section>
 
         <div class="dashboard-insights">
           <section class="catalog-panel dashboard-insight-panel" aria-labelledby="nearest-title">
             <div class="dashboard-panel-heading">
               <div>
-                <h2 id="nearest-title">완성에 가까운 도감</h2>
+                <h2 id="nearest-title">다음 수집 목표</h2>
               </div>
               <span id="nearest-count" class="dashboard-count-badge">—</span>
             </div>
@@ -169,13 +196,13 @@
           <section class="catalog-panel dashboard-insight-panel" aria-labelledby="recent-title">
             <div class="dashboard-panel-heading">
               <div>
-                <h2 id="recent-title">최근 업데이트</h2>
+                <h2 id="recent-title">최근 수집 기록</h2>
               </div>
               <span class="dashboard-live-badge"><i aria-hidden="true"></i> 최신</span>
             </div>
             <ul id="dashboard-recent-list" class="dashboard-recent-list"></ul>
             <div id="dashboard-recent-empty" class="dashboard-list-empty" hidden>
-              아직 기록된 변경 내역이 없습니다.
+              아직 기록된 수집 변경 내역이 없습니다.
             </div>
           </section>
         </div>
@@ -238,7 +265,7 @@
             <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
             <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
           </div>
-          <p class="site-footer-note">각 도감의 수집 상태를 로그인 계정 기준으로 합산합니다.</p>
+          <p class="site-footer-note">각 도감의 수집 상태는 로그인 계정 기준으로 표시됩니다.</p>
         </footer>
       </main>
     </div>
