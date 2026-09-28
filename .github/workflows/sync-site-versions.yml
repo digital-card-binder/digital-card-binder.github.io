@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - '.github/workflows/sync-site-versions.yml'
+      - 'index.html'
+      - 'dashboard.js'
+      - 'dashboard.css'
+      - 'news.js'
+      - 'news.css'
   workflow_dispatch:
 
 permissions:
