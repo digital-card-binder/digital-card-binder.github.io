@@ -10,6 +10,7 @@ const pokemonSearch = read("pokemon-search.js");
 const sheets = read("owner-sheets-sync.js");
 const catalogService = read("core/catalog/catalog-service.js");
 const identityService = read("core/catalog/card-identity.js");
+const firestoreRules = read("firestore.rules");
 const pageManager = read("firebase-page-manager.js");
 const verify = read(".github/workflows/verify.yml");
 
@@ -101,6 +102,16 @@ test("static navigation does not ship known stale collection counts", () => {
   }
 });
 
+
+test("fossil and world are authorized first-class collector collections", () => {
+  for (const collectionId of ["fossil", "world"]) {
+    assert.match(registry, new RegExp(`\\b${collectionId}: \\{`), collectionId);
+    assert.match(firestoreRules, new RegExp(`collectionId == "${collectionId}"`), collectionId);
+  }
+  assert.match(registry, /documentId: "worldDex"/);
+  assert.match(firestoreRules, /collectionId == "worldDex"/);
+  assert.match(registry, /catalogGroupCount: catalogGroupCount/);
+});
 
 test("shared navigation derives collection counts from canonical metrics", () => {
   const shell = read("scripts/sync-site-shell.mjs");
