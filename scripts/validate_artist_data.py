@@ -55,7 +55,7 @@ NEW_ARTISTS = {
     "5ban Graphics", "Naoki Saito", "kawayoo", "Oswaldo KATO", "kantaro", "Saboteri",
     "Ryo Ueda", "Kagemaru Himeno", "Mitsuhiro Arita", "kodama", "Hitoshi Ariga",
 }
-EXPECTED_CARD_COUNT = 4838
+EXPECTED_CARD_COUNT = 4873
 OFFICIAL_CARDS_URL = "https://pokemoncard.co.kr/cards"
 OFFICIAL_IMAGE_PREFIX = "https://cards.image.pokemonkorea.co.kr/data/"
 OFFICIAL_DETAIL_PREFIX = "https://pokemoncard.co.kr/cards/detail/"
@@ -139,7 +139,7 @@ def main() -> None:
                 hyogo_special = True
             elif card["source"].startswith(OFFICIAL_DETAIL_PREFIX):
                 pass
-            elif (artist_name in NEW_ARTISTS or card["set"] == "M6") and card["source"] == OFFICIAL_CARDS_URL:
+            elif (artist_name in NEW_ARTISTS or card["set"] in {"M6", "M6a"}) and card["source"] == OFFICIAL_CARDS_URL:
                 # Some committed Korean catalog rows have an official image/name but
                 # no retained detail id. Keep Pokemon Korea's official card search
                 # page as source rather than fabricating a detail URL.
