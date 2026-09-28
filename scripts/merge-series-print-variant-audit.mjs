@@ -21,13 +21,17 @@ const era = String(audit?.era || "").trim().toUpperCase();
 if (!era) throw new Error("Audit era is missing.");
 
 const sets = Array.isArray(audit?.sets) ? audit.sets : [];
-const completeSets = sets.filter(
-  (set) =>
+const completeSets = sets.filter((set) => {
+  const expected = Number(set?.expectedSlotCount || 0);
+  const parsed = Number(set?.parsedSlotCount || 0);
+  return (
     Array.isArray(set?.missingProducts) &&
     set.missingProducts.length === 0 &&
     Number(set?.unresolvedRecordCount || 0) === 0 &&
-    Number(set?.rawRecordCount || 0) > 0,
-);
+    Number(set?.rawRecordCount || 0) > 0 &&
+    (!expected || parsed === expected)
+  );
+});
 const partialSets = sets.filter((set) => !completeSets.includes(set));
 const completeCodes = completeSets.map((set) => String(set.code || "").trim());
 const partialCodes = partialSets.map((set) => String(set.code || "").trim());
