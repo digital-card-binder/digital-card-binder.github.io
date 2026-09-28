@@ -321,9 +321,15 @@ def audit_group(
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
     legacy.warm_official_session()
-    # Product names are pinned in build_legacy_series_data.py after official
-    # verification. Avoid loading the full /cards page on every audit run.
+    # Older Scarlet & Violet product option values can contain historical
+    # whitespace differences. Resolve those values once from Pokemon Korea's
+    # official search form, while other eras keep their pinned product names.
     official_values: dict[str, str] = {}
+    if era.upper() == "SV":
+        try:
+            official_values = legacy.official_product_values()
+        except Exception as error:  # noqa: BLE001
+            legacy.log(f"SV 공식 제품 옵션 조회 생략: {error}")
     groups = group_products(era)
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
