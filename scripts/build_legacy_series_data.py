@@ -139,6 +139,7 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "M", "code": "MBD", "title": "스타터 세트 MEGA 「메가디안시 ex」", "product": "스타터 세트 MEGA 「메가디안시 ex」"},
     {"era": "M", "code": "MBG", "title": "스타터 세트 MEGA 「메가팬텀 ex」", "product": "스타터 세트 MEGA 「메가팬텀 ex」"},
     {"era": "M", "code": "MA", "title": "MEGA 프리미엄 트레이너 박스", "product": "MEGA 프리미엄 트레이너 박스 MEGA"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "__DISCOVER_MEGA_PROMO__"},
 ]
 
 
