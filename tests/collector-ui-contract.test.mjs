@@ -252,7 +252,8 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   const client = await source("pokemon-search.js");
   const manager = await source("firebase-page-manager.js");
 
-  assert.match(page, /보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합/);
+  assert.doesNotMatch(page, /class="catalog-caption"/);
+  assert.doesNotMatch(page, /보유 여부는 카드 단위로 식별 가능한 내 도감 전체를 종합/);
   assert.match(page, /id="pokemon-search-dialog-sources"/);
   assert.ok(client.includes('addOwnershipSource(index, parts[1], parts[2], "작가 도감")'));
   assert.ok(client.includes('"AR 전종도감"'));
