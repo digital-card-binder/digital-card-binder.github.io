@@ -51,6 +51,12 @@ function countCards(groups) {
   );
 }
 
+function countPopulatedGroups(groups) {
+  return asGroups(groups).filter(
+    (group) => Array.isArray(group?.cards) && group.cards.length > 0,
+  ).length;
+}
+
 async function buildMetrics() {
   const [
     pokedex,
@@ -120,7 +126,7 @@ async function buildMetrics() {
     },
     ar: {
       itemCount: countCards(ar),
-      groupCount: ar.length,
+      groupCount: countPopulatedGroups(ar),
       unit: "장",
     },
     pack: {
