@@ -46,6 +46,9 @@ USER_AGENT = (
     "+https://digital-card-binder.github.io/)"
 )
 
+COOKIE_JAR = CookieJar()
+HTTP_OPENER = build_opener(HTTPCookieProcessor(COOKIE_JAR))
+
 
 # Product order is the Korean release order shown in the catalog. Alternate
 # packaging with the same set is kept in the source list because it can expose
@@ -174,13 +177,13 @@ def request_bytes(
     for attempt in range(attempts):
         try:
             request = Request(url, data=data, headers=request_headers)
-            with urlopen(request, timeout=75) as response:
+            with HTTP_OPENER.open(request, timeout=75) as response:
                 return response.read()
         except (HTTPError, URLError, TimeoutError) as error:
             last_error = error
             if attempt + 1 < attempts:
                 time.sleep(1.5 * (attempt + 1))
-    raise RuntimeError(f"request failed: {url}") from last_error
+    raise RuntimeError(f"request failed: {url} ({last_error})") from last_error
 
 
 def cached_request(
@@ -218,6 +221,19 @@ class GoodsOptionsParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag == "select" and self.in_goods_select:
             self.in_goods_select = False
+
+
+def warm_official_session() -> None:
+    request = Request(
+        f"{OFFICIAL_BASE}/cards",
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.6",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
+    )
+    with HTTP_OPENER.open(request, timeout=75) as response:
+        response.read(1024)
 
 
 def official_product_values() -> dict[str, str]:
@@ -274,6 +290,8 @@ def ajax_page(product: str, card_type: int, page: int) -> list[dict[str, str]]:
         headers={
             "Content-Type": "application/x-www-form-urlencoded",
             "Referer": f"{OFFICIAL_BASE}/cards",
+            "Origin": OFFICIAL_BASE,
+            "Accept": "application/json, text/javascript, */*; q=0.01",
             "X-Requested-With": "XMLHttpRequest",
         },
         suffix=".json",
