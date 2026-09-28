@@ -37,19 +37,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Sync generated asset versions
-        run: npm run versions:sync
-
-      - name: Commit synchronized versions
+      - name: Sync and publish generated asset versions
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet; then
-            echo "Site versions already synchronized"
-            exit 0
-          fi
-          git add collector-nav.js pwa.js site-version.json ./*.html
-          git commit -m "Sync site asset versions"
-          git pull --rebase origin main
-          git push
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            npm run versions:sync
+
+            if git diff --quiet; then
+              echo "Site versions already synchronized"
+              exit 0
+            fi
+
+            git add collector-nav.js pwa.js site-version.json ./*.html
+            git commit -m "Sync site asset versions"
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push raced with another commit; recalculating from latest main (attempt $attempt)."
+          done
+
+          echo "::error::Could not publish synchronized site versions after 3 attempts."
+          exit 1
