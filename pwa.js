@@ -4,6 +4,9 @@
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
   const SERVICE_WORKER_URL = "/sw.js?v=632392d98c06";
+  const ANDROID_VERSION_URL = "/app-version.json";
+  const ANDROID_UPDATE_DISMISS_KEY = "digitalCardBinderAndroidUpdateDismissV1";
+  const ANDROID_UPDATE_REMIND_MS = 24 * 60 * 60 * 1000;
 
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -17,6 +20,134 @@
   function isAndroidNativeApp() {
     return window.POKEMON_DEX_ANDROID_APP === true
       || typeof window.DigitalCardBinderApp !== "undefined";
+  }
+
+  function installedAndroidVersionCode() {
+    try {
+      const bridge = window.DigitalCardBinderApp;
+      if (bridge && typeof bridge.getVersionCode === "function") {
+        const value = Number(bridge.getVersionCode());
+        return Number.isFinite(value) && value > 0 ? value : 0;
+      }
+    } catch (error) {
+      console.warn("안드로이드 앱 버전을 확인하지 못했습니다.", error);
+    }
+
+    // v0.8/v0.9처럼 버전 조회 브리지가 없는 구형 앱은 업데이트 대상으로 봅니다.
+    return 0;
+  }
+
+  function recentlyDismissedAndroidUpdate(versionCode) {
+    try {
+      const saved = JSON.parse(
+        window.localStorage.getItem(ANDROID_UPDATE_DISMISS_KEY) || "null",
+      );
+      return Number(saved?.versionCode) === versionCode
+        && Date.now() - Number(saved?.dismissedAt || 0) < ANDROID_UPDATE_REMIND_MS;
+    } catch {
+      return false;
+    }
+  }
+
+  function rememberDismissedAndroidUpdate(versionCode) {
+    try {
+      window.localStorage.setItem(
+        ANDROID_UPDATE_DISMISS_KEY,
+        JSON.stringify({
+          versionCode,
+          dismissedAt: Date.now(),
+        }),
+      );
+    } catch {
+      // 저장소 접근이 제한되어도 업데이트 안내 자체는 정상 동작합니다.
+    }
+  }
+
+  function showAndroidUpdatePrompt(payload) {
+    if (document.getElementById("android-update-overlay")) return;
+
+    const latestVersionCode = Number(payload?.versionCode || 0);
+    const versionName = String(payload?.versionName || "").trim();
+    const message = String(
+      payload?.message || "새 버전이 준비되었습니다. 최신 버전으로 업데이트해 주세요.",
+    ).trim();
+    const apkUrl = String(payload?.apkUrl || "").trim();
+    const required = payload?.required === true;
+    if (!latestVersionCode || !apkUrl) return;
+
+    const overlay = document.createElement("div");
+    overlay.id = "android-update-overlay";
+    overlay.className = "android-update-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "android-update-title");
+
+    const card = document.createElement("section");
+    card.className = "android-update-dialog";
+
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "android-update-eyebrow";
+    eyebrow.textContent = "Android App";
+
+    const title = document.createElement("h2");
+    title.id = "android-update-title";
+    title.textContent = versionName
+      ? `디지털 카드 바인더 v${versionName}`
+      : "새 앱 버전이 있습니다";
+
+    const copy = document.createElement("p");
+    copy.textContent = message;
+
+    const actions = document.createElement("div");
+    actions.className = "android-update-actions";
+
+    if (!required) {
+      const later = document.createElement("button");
+      later.type = "button";
+      later.className = "android-update-later";
+      later.textContent = "나중에";
+      later.addEventListener("click", () => {
+        rememberDismissedAndroidUpdate(latestVersionCode);
+        overlay.remove();
+      });
+      actions.append(later);
+    }
+
+    const update = document.createElement("button");
+    update.type = "button";
+    update.className = "android-update-now";
+    update.textContent = "v1.0 업데이트";
+    update.addEventListener("click", () => {
+      window.location.href = apkUrl;
+    });
+    actions.append(update);
+
+    card.append(eyebrow, title, copy, actions);
+    overlay.append(card);
+    document.body.append(overlay);
+  }
+
+  async function maybePromptAndroidNativeUpdate() {
+    if (!isAndroid() || !isAndroidNativeApp()) return;
+
+    try {
+      const response = await fetch(
+        `${ANDROID_VERSION_URL}?t=${Date.now()}`,
+        { cache: "no-store" },
+      );
+      if (!response.ok) return;
+
+      const payload = await response.json();
+      const latestVersionCode = Number(payload?.versionCode || 0);
+      const installedVersionCode = installedAndroidVersionCode();
+      if (!latestVersionCode || installedVersionCode >= latestVersionCode) return;
+
+      const required = payload?.required === true;
+      if (!required && recentlyDismissedAndroidUpdate(latestVersionCode)) return;
+      showAndroidUpdatePrompt(payload);
+    } catch (error) {
+      console.warn("안드로이드 앱 업데이트 확인 실패", error);
+    }
   }
 
   function isMobilePlatform() {
@@ -337,6 +468,7 @@
     if (document.body?.dataset.page === "dashboard" || document.getElementById("dashboard-news-strip")) {
       configureAppCards();
       bindAndroidDownload();
+      await maybePromptAndroidNativeUpdate();
       await refreshCard();
     }
   }
