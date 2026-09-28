@@ -48,13 +48,18 @@ jobs:
       - name: Build canonical printed-slot baseline
         run: node scripts/audit-series-canonical-slots.mjs
 
-      - name: Audit Korean SV expansion products
+      - name: Refresh Korean SV expansion audit
+        if: github.event_name == 'workflow_dispatch'
         run: |
           mkdir -p data/audits
           python3 scripts/audit-series-print-variants.py \
             --era SV \
             --workers 2 \
             --output data/audits/series-print-variant-audit-SV.json
+
+      - name: Reuse verified Korean SV audit on push
+        if: github.event_name == 'push'
+        run: test -s data/audits/series-print-variant-audit-SV.json
 
       - name: Build SV expansion gap evidence
         run: |
