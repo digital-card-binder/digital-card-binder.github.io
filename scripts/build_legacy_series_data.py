@@ -139,7 +139,17 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "M", "code": "MBD", "title": "스타터 세트 MEGA 「메가디안시 ex」", "product": "스타터 세트 MEGA 「메가디안시 ex」"},
     {"era": "M", "code": "MBG", "title": "스타터 세트 MEGA 「메가팬텀 ex」", "product": "스타터 세트 MEGA 「메가팬텀 ex」"},
     {"era": "M", "code": "MA", "title": "MEGA 프리미엄 트레이너 박스", "product": "MEGA 프리미엄 트레이너 박스 MEGA"},
-    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "__DISCOVER_MEGA_PROMO__"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "2026 코리안리그 시즌1 프로모"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "2026 코리안리그 시즌2 프로모"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "2026 코리안리그 시즌3 프로모"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "2026 코리안리그 시즌4 프로모"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "2026 코리안리그 파이널 프로모"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "MEGA 「ex 스페셜 세트」"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "MEGA 스페셜 카드 세트 「메가엘레이드 ex」"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "MEGA 프로모 카드 팩 제1탄"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "MEGA 프로모 카드 팩 제2탄"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "MEGA 프로모 카드 팩 제3탄"},
+    {"era": "M", "code": "M-P", "title": "MEGA 프로모 카드", "product": "포켓몬스쿨 프로모"},
 ]
 
 
