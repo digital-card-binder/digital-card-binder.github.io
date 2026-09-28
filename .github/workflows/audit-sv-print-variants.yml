@@ -8,6 +8,7 @@ on:
       - 'scripts/build_legacy_series_data.py'
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
+      - 'scripts/audit-series-gap-evidence.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - '.github/workflows/audit-sv-print-variants.yml'
 
@@ -55,6 +56,12 @@ jobs:
             --workers 2 \
             --output data/audits/series-print-variant-audit-SV.json
 
+      - name: Build SV expansion gap evidence
+        run: |
+          node scripts/audit-series-gap-evidence.mjs \
+            data/audits/series-print-variant-audit-SV.json \
+            data/audits/sv-expansion-gap-evidence.json
+
       - name: Merge verified SV print variants
         run: |
           node scripts/merge-series-print-variant-audit.mjs \
@@ -76,6 +83,7 @@ jobs:
             data/series-inventory-audit.json \
             data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-SV.json \
+            data/audits/sv-expansion-gap-evidence.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
           if git diff --cached --quiet; then
