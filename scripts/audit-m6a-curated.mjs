@@ -1,6 +1,18 @@
 import fs from "node:fs";
 const read=(p)=>JSON.parse(fs.readFileSync(new URL("../"+p,import.meta.url),"utf8"));
-const artists=read("data/artists.json");
+const artistsPayload=read("data/artists.json");
+const artists=Array.isArray(artistsPayload)
+  ? artistsPayload
+  : Array.isArray(artistsPayload.artists)
+    ? artistsPayload.artists
+    : Array.isArray(artistsPayload.groups)
+      ? artistsPayload.groups
+      : Object.entries(artistsPayload).flatMap(([key,value]) => {
+          if (value && typeof value === "object" && Array.isArray(value.cards)) {
+            return [{ ...value, name: value.name || key }];
+          }
+          return [];
+        });
 const trainer=read("data/trainer-pokemon.json");
 const fossil=read("data/fossil.json");
 const hasM6a=(card)=>/\bM6a\b/i.test(String(card?.meta||"")) || /\/MEGA\/M6a\//i.test(String(card?.image||""));
