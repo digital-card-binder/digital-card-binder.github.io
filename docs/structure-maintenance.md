@@ -6,10 +6,18 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 ## Canonical catalog rules
 
 - AR: the effective catalog is `data/ar.json` plus `data/ar-supplement.json`, merged by set code. All dashboard, public summary, page and owner-Sheets consumers must see the same effective catalog.
-- Pokemon collections: the effective populated catalog is `data/pokemon-collections.json` plus `data/pokemon-collections-21-40.json`, merged by Pokemon name. Current populated groups: 67; current cards: 1134.
+- Pokemon collections: the effective populated catalog is `data/pokemon-collections.json` plus `data/pokemon-collections-21-40.json`, merged by Pokemon name. Counts must be read from the generated catalog metrics rather than duplicated in documentation or UI.
 - Trainer x Pokemon: account keys are namespaced with `trainerPokemon::` and use `accountIndex` when present.
 - Custom dex: stored under `pokemonCollectionsDex.customDexes`. `custom-sharing.js` remains a compatibility extension and must load before dashboard/settings consumers that need the custom registry entry.
 - World exploration: ownership and representative-card overrides are currently browser-local (`localStorage`) by design. Do not silently migrate them into Firestore during unrelated cleanup.
+
+## Canonical catalog metrics
+
+- `scripts/sync-catalog-metrics.mjs` derives collection counts from the canonical catalog sources and writes the generated block in `core/catalog/catalog-service.js`.
+- The generated metrics cover National, Series, AR, Packs, Pokemon Collections, Artists, People, Trainer × Pokemon, Fossil, and World Exploration.
+- `collector-collection-registry.js` must read public summary counts from `catalogService.catalogMetrics`; do not hard-code card/group totals in registry metadata.
+- Run `npm run catalog-metrics:sync` after canonical catalog changes. `npm run catalog-metrics:check` is part of `npm run site:check`.
+- Visible page/menu counts will be migrated to the same metrics in the UI synchronization phase; canonical data remains the source of truth.
 
 ## Deployment safety
 
