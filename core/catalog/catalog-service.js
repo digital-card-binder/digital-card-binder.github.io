@@ -12,7 +12,7 @@
       "unit": "종"
     },
     "series": {
-      "itemCount": 20240,
+      "itemCount": 20243,
       "groupCount": 273,
       "unit": "장"
     },
