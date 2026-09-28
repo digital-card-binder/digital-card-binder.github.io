@@ -10,17 +10,20 @@ const manifestPath = path.join(root, "site-version.json");
 const navPath = path.join(root, "collector-nav.js");
 const pwaPath = path.join(root, "pwa.js");
 const swPath = path.join(root, "sw.js");
-const LOCAL_ASSET_RE = /((?:src|href)=["']\.\/)([^"'?#]+\.(?:js|css))(?:\?v=[^"']*)?(["'])/g;
+const webManifestPath = path.join(root, "manifest.webmanifest");
+const LOCAL_ASSET_RE = /((?:src|href)=["']\.\/)([^"'?#]+\.(?:js|css|webmanifest))(?:\?v=[^"']*)?(["'])/g;
 const NAV_BUILD_RE = /const SITE_BUILD_VERSION = "[^"]*";/;
 const SW_URL_RE = /const SERVICE_WORKER_URL = "\/sw[.]js(?:\?v=[^"]+)?";/;
+const MANIFEST_URL_RE = /const MANIFEST_URL = "\/manifest[.]webmanifest(?:\?v=[^"]+)?";/;
+const MANIFEST_ICON_RE = /("src"\s*:\s*"\/)(assets\/brand\/[^"?]+\.(?:png|webp))(?:\?v=[^"]*)?(")/g;
 const EXTRA_ASSETS = Object.freeze(["trade-offer.js"]);
 
 function hashText(text) {
   return createHash("sha256").update(text, "utf8").digest("hex").slice(0, 12);
 }
 
-function gitBlobVersion(text) {
-  const body = Buffer.from(text, "utf8");
+function gitBlobVersion(content) {
+  const body = Buffer.isBuffer(content) ? content : Buffer.from(content, "utf8");
   return createHash("sha1")
     .update(Buffer.from(`blob ${body.length}\0`, "utf8"))
     .update(body)
@@ -60,6 +63,22 @@ async function readable(relativePath) {
   await access(path.join(root, relativePath), constants.R_OK);
 }
 
+async function rewriteWebManifest(source) {
+  const versions = new Map();
+  for (const match of source.matchAll(MANIFEST_ICON_RE)) {
+    const asset = match[2];
+    if (versions.has(asset)) continue;
+    await readable(asset);
+    versions.set(asset, gitBlobVersion(await readFile(path.join(root, asset))));
+  }
+  MANIFEST_ICON_RE.lastIndex = 0;
+  return source.replace(
+    MANIFEST_ICON_RE,
+    (_match, prefix, asset, quote) =>
+      `${prefix}${asset}?v=${versions.get(asset)}${quote}`,
+  );
+}
+
 async function main() {
   const htmlFiles = (await readdir(root))
     .filter((name) => name.endsWith(".html"))
@@ -78,14 +97,27 @@ async function main() {
 
   const swSource = await readFile(swPath, "utf8");
   const swVersion = gitBlobVersion(swSource);
+
+  const rawWebManifest = await readFile(webManifestPath, "utf8");
+  const expectedWebManifest = await rewriteWebManifest(rawWebManifest);
+  const webManifestVersion = gitBlobVersion(expectedWebManifest);
+
   const rawPwa = await readFile(pwaPath, "utf8");
   if (!SW_URL_RE.test(rawPwa)) {
     throw new Error("pwa.js: SERVICE_WORKER_URL marker missing");
   }
-  const expectedPwa = rawPwa.replace(
-    SW_URL_RE,
-    `const SERVICE_WORKER_URL = "/sw.js?v=${swVersion}";`,
-  );
+  if (!MANIFEST_URL_RE.test(rawPwa)) {
+    throw new Error("pwa.js: MANIFEST_URL marker missing");
+  }
+  const expectedPwa = rawPwa
+    .replace(
+      SW_URL_RE,
+      `const SERVICE_WORKER_URL = "/sw.js?v=${swVersion}";`,
+    )
+    .replace(
+      MANIFEST_URL_RE,
+      `const MANIFEST_URL = "/manifest.webmanifest?v=${webManifestVersion}";`,
+    );
 
   const rawNav = await readFile(navPath, "utf8");
   const normalizedNav = normalizeNav(rawNav);
@@ -94,7 +126,9 @@ async function main() {
   const assetSources = new Map();
   for (const asset of [...assets].sort()) {
     await readable(asset);
-    let source = await readFile(path.join(root, asset), "utf8");
+    let source = asset === "manifest.webmanifest"
+      ? expectedWebManifest
+      : await readFile(path.join(root, asset), "utf8");
     if (asset === "pwa.js") source = expectedPwa;
     assetSources.set(asset, source);
     buildBasisAssets[asset] = asset === "collector-nav.js"
@@ -142,6 +176,7 @@ async function main() {
   const stale = [];
   if (rawNav !== expectedNav) stale.push("collector-nav.js");
   if (rawPwa !== expectedPwa) stale.push("pwa.js");
+  if (rawWebManifest !== expectedWebManifest) stale.push("manifest.webmanifest");
 
   for (const [page, expected] of expectedPages) {
     if (htmlSources.get(page) !== expected) stale.push(page);
@@ -170,6 +205,9 @@ async function main() {
 
   if (rawNav !== expectedNav) await writeFile(navPath, expectedNav);
   if (rawPwa !== expectedPwa) await writeFile(pwaPath, expectedPwa);
+  if (rawWebManifest !== expectedWebManifest) {
+    await writeFile(webManifestPath, expectedWebManifest);
+  }
   for (const [page, expected] of expectedPages) {
     if (htmlSources.get(page) !== expected) {
       await writeFile(path.join(root, page), expected);
