@@ -9,6 +9,7 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   const rootGradle = read("android-app/build.gradle");
   const manifest = read("android-app/app/src/main/AndroidManifest.xml");
   const application = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/BinderApplication.java");
+  const activity = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/MainActivity.java");
   const messaging = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/DigitalCardBinderMessagingService.java");
   const version = JSON.parse(read("app-version.json"));
   const buildWorkflow = read(".github/workflows/build-android-apk.yml");
@@ -29,6 +30,10 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   assert.match(application, /getLongVersionCode\(\)/);
   assert.doesNotMatch(application, /CURRENT_VERSION_CODE/);
   assert.match(messaging, /NOTIFICATION_CHANNEL_ID/);
+  assert.match(activity, /freshHomeUrl\(\)/);
+  assert.match(activity, /[?]native=android&launch=/);
+  assert.match(activity, /System[.]currentTimeMillis\(\)/);
+  assert.match(activity, /webView[.]loadUrl\(freshHomeUrl\(\)\)/);
 
   assert.equal(version.versionCode, 13);
   assert.equal(version.versionName, "1.0");
