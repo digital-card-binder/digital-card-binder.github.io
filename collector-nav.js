@@ -594,9 +594,11 @@
   window.addEventListener("pageshow", () => {
     void refreshStaleShell();
   }, { passive: true });
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) void refreshStaleShell();
-  });
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) void refreshStaleShell();
+    });
+  }
   activateCollectionUiShell();
   arrangeCollectorNavigation();
   centerActiveNavigationOnMobile();
