@@ -68,7 +68,10 @@ for (const group of supplementData) {
   mergedByCode.set(String(group.code).toLowerCase(), group);
 }
 const mergedGroups = [...mergedByCode.values()];
-assert.equal(mergedGroups.length, arMetric.groupCount);
+assert.equal(
+  mergedGroups.filter((group) => (group.cards || []).length > 0).length,
+  arMetric.groupCount,
+);
 assert.equal(
   mergedGroups.reduce((total, group) => total + group.cards.length, 0),
   arMetric.itemCount,
