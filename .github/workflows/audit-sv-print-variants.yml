@@ -10,6 +10,7 @@ on:
       - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/audit-series-gap-evidence.mjs'
       - 'scripts/audit-series-korean-membership.mjs'
+      - 'scripts/audit-series-local-evidence.mjs'
       - 'scripts/audit-master-card-db.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - '.github/workflows/audit-sv-print-variants.yml'
@@ -76,6 +77,13 @@ jobs:
             data/audits/sv-expansion-gap-evidence.json \
             data/audits/sv-expansion-korean-membership.json
 
+      - name: Audit remaining SV local Korean evidence
+        run: |
+          node scripts/audit-series-local-evidence.mjs \
+            --era SV \
+            --exclude-membership data/audits/sv-expansion-korean-membership.json \
+            --output data/audits/sv-pending-local-evidence.json
+
       - name: Merge verified SV print variants
         run: |
           node scripts/merge-series-print-variant-audit.mjs \
@@ -99,6 +107,7 @@ jobs:
             data/audits/series-print-variant-audit-SV.json \
             data/audits/sv-expansion-gap-evidence.json \
             data/audits/sv-expansion-korean-membership.json \
+            data/audits/sv-pending-local-evidence.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
           if git diff --cached --quiet; then
