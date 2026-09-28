@@ -103,7 +103,7 @@
     const dashboardNews = ensureDashboardNewsContainer();
     if (!dashboardNews) return;
 
-    const previewItems = items.slice(0, 2);
+    const previewItems = items.slice(0, 1);
     dashboardNews.list.replaceChildren(...previewItems.map(createDashboardNewsLink));
     dashboardNews.container.setAttribute("aria-label", `최신 새소식 ${previewItems.length}건`);
     dashboardNews.container.hidden = false;
