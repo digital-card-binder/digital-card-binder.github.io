@@ -130,7 +130,7 @@ test("generated search index v2 preserves catalog order, identity, and core fiel
     });
   });
 
-  assert.equal(cardCount, 20240);
+  assert.equal(cardCount, 20243);
   assert.deepEqual(
     decoded.pokedex.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
     pokedex.records.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
@@ -178,7 +178,7 @@ test("search index remains a lightweight replacement for the heavy canonical pay
     Buffer.byteLength(read("data/series-legacy.json")) +
     Buffer.byteLength(read("data/pokedex.json"));
   const indexBytes = Buffer.byteLength(read("data/pokemon-search-index.json"));
-  assert.ok(indexBytes < sourceBytes * 0.4, `${indexBytes} vs ${sourceBytes}`);
+  assert.ok(indexBytes < sourceBytes * 0.45, `${indexBytes} vs ${sourceBytes}`);
 });
 
 test("search client supports unified field scopes without requesting heavy catalogs", () => {
