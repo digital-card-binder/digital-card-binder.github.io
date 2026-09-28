@@ -119,7 +119,7 @@ def fetch_product_records(product: str) -> list[dict[str, str]]:
 def audit_group(
     group: dict[str, Any],
     official_values: dict[str, str],
-    expected_slot_count: int = 0,
+    expected_slots: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     resolved_products: list[str] = []
     missing_products: list[str] = []
@@ -226,6 +226,36 @@ def audit_group(
             }
         )
 
+    expected_slots = expected_slots or []
+    expected_keys = {
+        (
+            clean(slot.get("actualSetCode")).casefold(),
+            clean(slot.get("printedNumber")).lstrip("0") or "0",
+        )
+        for slot in expected_slots
+    }
+    official_keys = {
+        (
+            actual_code.casefold(),
+            printed_number.lstrip("0") or "0",
+        )
+        for actual_code, printed_number in slots
+    }
+    missing_expected_slots = [
+        {
+            "actualSetCode": actual_code,
+            "printedNumber": printed_number,
+        }
+        for actual_code, printed_number in sorted(expected_keys - official_keys)
+    ]
+    unexpected_official_slots = [
+        {
+            "actualSetCode": actual_code,
+            "printedNumber": printed_number,
+        }
+        for actual_code, printed_number in sorted(official_keys - expected_keys)
+    ]
+
     return {
         "era": group["era"],
         "code": group["code"],
@@ -233,7 +263,11 @@ def audit_group(
         "requestedProducts": group["products"],
         "resolvedProducts": resolved_products,
         "discoveryCandidateCount": discovery_candidate_count,
-        "expectedSlotCount": expected_slot_count,
+        "expectedSlotCount": len(expected_slots),
+        "missingExpectedSlotCount": len(missing_expected_slots),
+        "missingExpectedSlots": missing_expected_slots,
+        "unexpectedOfficialSlotCount": len(unexpected_official_slots),
+        "unexpectedOfficialSlots": unexpected_official_slots,
         "missingProducts": missing_products,
         "rawRecordCount": len(all_records),
         "parsedSlotCount": len(slots),
@@ -251,11 +285,11 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
         raise RuntimeError(f"No configured products for era {era}")
 
     canonical_path = ROOT / "data" / "series-canonical-slot-audit.json"
-    expected_by_code: dict[str, int] = {}
+    expected_by_code: dict[str, list[dict[str, Any]]] = {}
     if canonical_path.exists():
         canonical = json.loads(canonical_path.read_text(encoding="utf-8"))
         expected_by_code = {
-            clean(item.get("code")).casefold(): int(item.get("canonicalSlotCount") or 0)
+            clean(item.get("code")).casefold(): list(item.get("slots") or [])
             for item in canonical.get("sets", [])
         }
 
@@ -266,7 +300,7 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
                 audit_group,
                 group,
                 official_values,
-                expected_by_code.get(clean(group["code"]).casefold(), 0),
+                expected_by_code.get(clean(group["code"]).casefold(), []),
             ): group["code"]
             for group in groups
         }
