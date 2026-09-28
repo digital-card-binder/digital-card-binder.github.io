@@ -58,6 +58,7 @@ async function headExists(url) {
     const response = await fetch(url, {
       method: "HEAD",
       redirect: "follow",
+      signal: AbortSignal.timeout(4000),
       headers: {
         "User-Agent":
           "Mozilla/5.0 (compatible; DigitalCardBinderDataAudit/1.0; +https://digital-card-binder.github.io/)",
