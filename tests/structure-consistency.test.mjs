@@ -52,6 +52,27 @@ test("shared catalog service is the single owner of staged catalog sources", () 
   assert.match(registry, /catalogService[.]series[(][)]/);
 });
 
+test("collection counts come from generated canonical catalog metrics", () => {
+  assert.match(catalogService, /const CATALOG_METRICS = Object[.]freeze/);
+  assert.match(catalogService, /catalogMetrics: CATALOG_METRICS/);
+  assert.match(registry, /catalogService[.]catalogMetrics/);
+  assert.doesNotMatch(registry, /catalogCount:\s*\d+/);
+  for (const key of [
+    "national",
+    "series",
+    "ar",
+    "pack",
+    "pokemon",
+    "artist",
+    "people",
+    "trainerPokemon",
+    "fossil",
+    "world",
+  ]) {
+    assert.match(catalogService, new RegExp(`"${key}"\\s*:\\s*[{]`), key);
+  }
+});
+
 test("collection identity semantics live in one shared helper", () => {
   assert.match(identityService, /const accountIndex = Number[.]isInteger\(card[?][.]accountIndex\)/);
   assert.match(identityService, /collectionId === "trainerPokemon"/);
