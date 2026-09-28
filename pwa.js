@@ -4,6 +4,7 @@
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
   const SERVICE_WORKER_URL = "/sw.js?v=632392d98c06";
+  const MANIFEST_URL = "/manifest.webmanifest";
   const ANDROID_VERSION_URL = "/app-version.json";
   const ANDROID_UPDATE_DISMISS_KEY = "digitalCardBinderAndroidUpdateDismissV1";
   const ANDROID_UPDATE_REMIND_MS = 24 * 60 * 60 * 1000;
@@ -176,6 +177,20 @@
       .join("");
   }
 
+  function installServiceWorkerRefreshGuard() {
+    if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) return;
+
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (refreshing) return;
+      refreshing = true;
+      const url = new URL(window.location.href);
+      const workerVersion = SERVICE_WORKER_URL.split("?v=")[1] || "current";
+      url.searchParams.set("sw", workerVersion);
+      window.location.replace(url.href);
+    });
+  }
+
   async function ensureServiceWorker() {
     if (!("serviceWorker" in navigator)) {
       throw new Error("이 기기에서는 웹앱 알림을 지원하지 않습니다.");
@@ -287,12 +302,13 @@
   }
 
   function installPwaMetadata() {
-    if (!document.querySelector('link[rel="manifest"]')) {
-      const manifest = document.createElement("link");
+    let manifest = document.querySelector('link[rel="manifest"]');
+    if (!manifest) {
+      manifest = document.createElement("link");
       manifest.rel = "manifest";
-      manifest.href = "/manifest.webmanifest";
       document.head.append(manifest);
     }
+    manifest.href = MANIFEST_URL;
 
     const metaValues = [
       ["apple-mobile-web-app-capable", "yes"],
@@ -459,6 +475,7 @@
 
   async function initialize() {
     installPwaMetadata();
+    installServiceWorkerRefreshGuard();
     try {
       await ensureServiceWorker();
     } catch (error) {
