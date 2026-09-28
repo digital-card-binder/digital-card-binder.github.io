@@ -387,6 +387,33 @@
     button.setAttribute("aria-label", button.title);
   }
 
+  function activateCollectionUiShell() {
+    const collectionId = registry?.collectionIdForPage?.() || "";
+    if (!collectionId || collectionId === "custom") return;
+
+    document.body?.classList?.add?.("collector-collection-page");
+    if (document.body?.dataset) {
+      document.body.dataset.collectionUi = "unified";
+      document.body.dataset.collectionId = collectionId;
+    }
+
+    document.querySelector(".main-content")?.classList?.add?.("collector-collection-main");
+    document.querySelector(".hero")?.classList?.add?.("collector-collection-hero");
+    document.querySelector(".stats-grid")?.classList?.add?.("collector-collection-stats");
+
+    document.querySelectorAll?.(
+      ".catalog-panel, .world-generation-panel, .world-binder-panel, .tp-rule-panel, .fossil-rule-panel",
+    )?.forEach?.((panel) => panel.classList?.add?.("collector-content-panel"));
+
+    document.querySelectorAll?.(
+      ".filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .catalog-toolbar",
+    )?.forEach?.((panel) => panel.classList?.add?.("collector-filter-surface"));
+
+    document.querySelectorAll?.(
+      ".catalog-summary, .artist-selection-summary, .tp-selection-summary, .fossil-selection-summary",
+    )?.forEach?.((summary) => summary.classList?.add?.("collector-selection-summary"));
+  }
+
   function addCardLayoutToggle() {
     if (!registry?.collectionIdForPage?.()) return;
     const resultsBar = document.querySelector(
@@ -404,7 +431,7 @@
     button.type = "button";
     button.className = "card-layout-toggle";
     const filterTarget = document.querySelector(
-      ".catalog-era-filter, .filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .catalog-toolbar",
+      ".catalog-era-filter, .filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .catalog-toolbar",
     );
     if (filterTarget) {
       const filterButton = document.createElement("button");
@@ -554,6 +581,7 @@
 
   window.addEventListener("pokemon-dex:public-sync-error", showPublicSyncWarning);
   void refreshStaleShell();
+  activateCollectionUiShell();
   arrangeCollectorNavigation();
   centerActiveNavigationOnMobile();
   if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
