@@ -53,22 +53,32 @@ async function readPrevious() {
   }
 }
 
-async function headExists(url) {
+async function probeExists(url) {
   try {
     const response = await fetch(url, {
-      method: "HEAD",
+      method: "GET",
       redirect: "follow",
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(5000),
       headers: {
         "User-Agent":
           "Mozilla/5.0 (compatible; DigitalCardBinderDataAudit/1.0; +https://digital-card-binder.github.io/)",
         "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.6",
+        "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+        "Range": "bytes=0-0",
       },
     });
+    const contentType = response.headers.get("content-type") || "";
+    const exists =
+      (response.status === 200 || response.status === 206) &&
+      /^image\//i.test(contentType);
+    try {
+      await response.body?.cancel();
+    } catch {}
     return {
       checked: true,
-      exists: response.ok,
+      exists,
       status: response.status,
+      contentType,
     };
   } catch (error) {
     return {
@@ -148,7 +158,7 @@ for (const set of evidence.sets || []) {
     ) {
       slots[key] = cached;
     } else {
-      const result = await headExists(candidate);
+      const result = await probeExists(candidate);
       networkChecks += 1;
       slots[key] = {
         setCode: set.code,
@@ -156,12 +166,13 @@ for (const set of evidence.sets || []) {
         printedNumber: missing.printedNumber,
         verified: Boolean(result.exists),
         evidence: result.exists
-          ? "official-image-head"
+          ? "official-image-range-get"
           : result.checked
             ? "official-image-not-found"
             : "official-image-check-error",
         url: candidate,
         httpStatus: result.status,
+        ...(result.contentType ? { contentType: result.contentType } : {}),
         ...(result.error ? { error: result.error } : {}),
       };
       await sleep(80);
