@@ -1,4 +1,5 @@
 name: Verify
+# stage10-cache-stability
 # stage9-assets-post-sync
 # stage9-assets-final
 # stage8-performance-final
@@ -44,5 +45,8 @@ jobs:
           java-version: 21
       - name: Install dependencies
         run: npm ci
+      - name: Prepare generated site state for push verification
+        if: github.event_name == 'push'
+        run: npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync
       - name: Run verification suite
         run: npm test
