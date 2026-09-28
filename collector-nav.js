@@ -9,7 +9,8 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-d6bae8d75eed";
+  const SITE_BUILD_VERSION = "b-nav-accordion-20260928";
+  const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
 
   async function refreshStaleShell() {
@@ -78,11 +79,102 @@
     });
   }
 
+  function savedNavigationGroup() {
+    try {
+      const saved = window.localStorage.getItem(NAV_ACCORDION_STORAGE_KEY);
+      return ["main", "theme", "none"].includes(saved) ? saved : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function saveNavigationGroup(groupKey) {
+    try {
+      window.localStorage.setItem(NAV_ACCORDION_STORAGE_KEY, groupKey || "none");
+    } catch {
+      // 저장소 접근이 제한되어도 현재 메뉴의 접기/펼치기는 정상 동작합니다.
+    }
+  }
+
+  function buildNavigationAccordion(nav) {
+    if (!nav || nav.dataset.accordionReady === "true") return;
+
+    const sectionLabels = [...nav.querySelectorAll(".collection-nav-section")];
+    if (!sectionLabels.length) return;
+
+    const groups = [];
+
+    sectionLabels.forEach((label, index) => {
+      const title = String(label.textContent || "").trim();
+      const key = title.includes("테마") ? "theme" : index === 0 ? "main" : `group-${index + 1}`;
+      const links = [];
+      let next = label.nextElementSibling;
+
+      while (next && !next.classList.contains("collection-nav-section")) {
+        const candidate = next;
+        next = next.nextElementSibling;
+        if (candidate.classList.contains("collection-link")) links.push(candidate);
+      }
+
+      if (!links.length) return;
+
+      const group = document.createElement("div");
+      group.className = "collection-nav-group";
+      group.dataset.navGroup = key;
+      group.id = `collection-nav-group-${key}`;
+      links.forEach((link) => group.append(link));
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "collection-nav-section-toggle";
+      button.dataset.navGroupToggle = key;
+      button.setAttribute("aria-controls", group.id);
+      button.innerHTML = `
+        <span class="collection-nav-section-title">${title}</span>
+        <span class="collection-nav-section-meta" aria-hidden="true">
+          <small>${links.length}</small>
+          <i>⌄</i>
+        </span>
+      `;
+
+      label.replaceWith(button);
+      button.after(group);
+      groups.push({ key, button, group });
+    });
+
+    if (!groups.length) return;
+
+    const activeGroup = groups.find(({ group }) => group.querySelector(".collection-link.is-active"));
+    const preferredGroup = activeGroup?.key || savedNavigationGroup() || "main";
+
+    const applyOpenGroup = (groupKey, { persist = true } = {}) => {
+      groups.forEach(({ key, button, group }) => {
+        const open = key === groupKey;
+        button.classList.toggle("is-open", open);
+        button.setAttribute("aria-expanded", String(open));
+        group.hidden = !open;
+      });
+      if (persist) saveNavigationGroup(groupKey);
+      window.requestAnimationFrame(centerActiveNavigationOnMobile);
+    };
+
+    groups.forEach(({ key, button }) => {
+      button.addEventListener("click", () => {
+        const alreadyOpen = button.getAttribute("aria-expanded") === "true";
+        applyOpenGroup(alreadyOpen ? "none" : key);
+      });
+    });
+
+    applyOpenGroup(preferredGroup, { persist: false });
+    nav.dataset.accordionReady = "true";
+  }
+
   function arrangeCollectorNavigation() {
     const nav = document.querySelector(".collection-nav");
     if (!nav) return;
     nav.querySelector('[href*="trades.html"]')?.remove();
     normalizeNavigationState(nav);
+    buildNavigationAccordion(nav);
   }
 
   function decorateAccountProfileEntry(panel) {
@@ -356,11 +448,17 @@
     if (!mobileCardLayoutMedia?.matches) return;
     const sidebar = document.querySelector(".sidebar");
     const active = sidebar?.querySelector(".collection-link.is-active");
-    if (!sidebar || !active) return;
+    if (!sidebar || !active || active.closest(".collection-nav-group")?.hidden) return;
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
     const left = Math.max(
       0,
-      active.offsetLeft - (sidebar.clientWidth - active.offsetWidth) / 2,
+      sidebar.scrollLeft +
+        (activeRect.left - sidebarRect.left) -
+        (sidebar.clientWidth - activeRect.width) / 2,
     );
+
     if (typeof sidebar.scrollTo === "function") {
       sidebar.scrollTo({ left, behavior: "auto" });
     } else {
