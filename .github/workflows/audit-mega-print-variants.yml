@@ -9,6 +9,7 @@ on:
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
+      - 'tests/series-print-variants.test.mjs'
       - '.github/workflows/audit-mega-print-variants.yml'
 
 permissions:
