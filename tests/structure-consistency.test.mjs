@@ -132,3 +132,44 @@ test("pokemon search consumes the generated lightweight search index", () => {
   assert.doesNotMatch(pokemonSearch, /catalogService[.]series[(][)]/);
   assert.doesNotMatch(pokemonSearch, /[.]\/data\/(?:series|series-legacy|pokedex)[.]json/);
 });
+
+
+test("stage 6 keeps catalog metrics, registry, dashboard, and shared navigation aligned", () => {
+  const metricMatch = catalogService.match(
+    /const CATALOG_METRICS = Object[.]freeze[(]([\s\S]*?)[)][;]/,
+  );
+  assert.ok(metricMatch, "generated catalog metrics");
+  const metricIds = Object.keys(JSON.parse(metricMatch[1])).sort();
+
+  const orderMatch = registry.match(
+    /const COLLECTION_ORDER = \[([\s\S]*?)\];/,
+  );
+  assert.ok(orderMatch, "registry collection order");
+  const registryIds = [...orderMatch[1].matchAll(/"([^"]+)"/g)]
+    .map((match) => match[1])
+    .sort();
+
+  const shell = read("scripts/sync-site-shell.mjs");
+  const shellIds = [...shell.matchAll(/catalogId: "([^"]+)"/g)]
+    .map((match) => match[1])
+    .sort();
+
+  assert.deepEqual(metricIds, registryIds, "canonical metrics and registry must cover the same collections");
+  assert.deepEqual(shellIds, registryIds, "shared navigation must cover every registry collection");
+
+  const primaryMatch = dashboard.match(/const PRIMARY_CATEGORIES = new Set\(\[([\s\S]*?)\]\);/);
+  const themeMatch = dashboard.match(/const THEME_CATEGORIES = new Set\(\[([\s\S]*?)\]\);/);
+  assert.ok(primaryMatch, "dashboard primary collection set");
+  assert.ok(themeMatch, "dashboard theme collection set");
+
+  const dashboardIds = [
+    ...primaryMatch[1].matchAll(/"([^"]+)"/g),
+    ...themeMatch[1].matchAll(/"([^"]+)"/g),
+  ].map((match) => match[1]).sort();
+
+  assert.deepEqual(
+    dashboardIds,
+    registryIds,
+    "dashboard sections must account for every first-class registry collection",
+  );
+});
