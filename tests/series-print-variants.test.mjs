@@ -35,10 +35,10 @@ test("verified print variant metadata keeps canonical card counts unchanged", as
   assert.deepEqual(metadata.slots["smp2::smp2::1"], ["mirror"]);
 
   if (metadata.coverage.M) {
-    assert.equal(metadata.coverage.M.configuredSetCount, 13);
+    assert.equal(metadata.coverage.M.configuredSetCount, 14);
     assert.equal(
       metadata.coverage.M.setCodes.length + metadata.coverage.M.partialSetCodes.length,
-      13,
+      14,
     );
   }
 });
