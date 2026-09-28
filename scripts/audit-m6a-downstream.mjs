@@ -60,4 +60,9 @@ const summary = {
   baseCards: cards.filter((card) => /^m6a_\d{3}\/103$/i.test(card.code) && card.order <= 103),
 };
 
-console.log("M6A_AUDIT_JSON=" + JSON.stringify(summary));
+const compact = {
+  pokemonCollectionMatches: summary.pokemonCollectionMatches.map(({ code, name, rarity, image, source, order }) => ({ code, name, rarity, image, source, order })),
+  fossilPokemonMatches: summary.fossilPokemonMatches.map(({ code, name, rarity, image, source, order }) => ({ code, name, rarity, image, source, order })),
+  trainerPokemonNameCandidates: summary.trainerPokemonNameCandidates.map(({ code, name, rarity, image, source, order }) => ({ code, name, rarity, image, source, order })),
+};
+console.log("M6A_COMPACT_AUDIT=" + JSON.stringify(compact));
