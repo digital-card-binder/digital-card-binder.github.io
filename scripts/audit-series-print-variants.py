@@ -18,6 +18,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import time
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -87,6 +88,7 @@ def fetch_product_records(product: str) -> list[dict[str, str]]:
             if len(page_records) < 30:
                 break
             page += 1
+            time.sleep(0.15)
     return records
 
 
@@ -192,6 +194,7 @@ def audit_group(group: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
+    legacy.warm_official_session()
     groups = group_products(era)
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
