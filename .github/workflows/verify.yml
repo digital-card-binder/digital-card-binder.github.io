@@ -36,3 +36,5 @@ jobs:
         run: npm ci
       - name: Run verification suite
         run: npm test
+      - name: Audit M6a downstream dex candidates
+        run: node scripts/audit-m6a-downstream.mjs
