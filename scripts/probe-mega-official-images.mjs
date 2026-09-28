@@ -150,12 +150,18 @@ for (const set of evidence.sets || []) {
     }
 
     const cached = previousSlots[key];
-    if (
+    const reusableCache =
       cached &&
       cached.url === candidate &&
       typeof cached.verified === "boolean" &&
-      Number.isInteger(cached.httpStatus)
-    ) {
+      Number.isInteger(cached.httpStatus) &&
+      (
+        cached.verified === true ||
+        cached.evidence === "official-image-range-get" ||
+        cached.httpStatus === 404
+      );
+
+    if (reusableCache) {
       slots[key] = cached;
     } else {
       const result = await probeExists(candidate);
