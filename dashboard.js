@@ -191,41 +191,6 @@
     return accountCore.configured(CONFIG);
   }
 
-  function groupIdentity(group, groupIndex) {
-    return identityService.groupIdentity(group, groupIndex);
-  }
-
-  function pageCardIdentity(category, group, card, groupIndex, cardIndex) {
-    return identityService.cardIdentity(
-      category,
-      group,
-      card,
-      groupIndex,
-      cardIndex,
-    );
-  }
-
-  async function fetchPacks() {
-    const response = await fetch("./packs.js", { cache: "no-store" });
-    if (!response.ok) throw new Error(`./packs.js ${response.status}`);
-    const source = await response.text();
-    const result = [];
-    const pattern = /\["([^"]+)","([^"]+)","([^"]+)",([01])\]/g;
-    let match;
-
-    while ((match = pattern.exec(source))) {
-      result.push({
-        era: match[1],
-        name: match[2],
-        code: match[3],
-        legacyOwned: match[4] === "1",
-      });
-    }
-
-    if (!result.length) throw new Error("팩도감 목록을 확인하지 못했습니다.");
-    return result;
-  }
-
   function createCategory(key, items, groups) {
     return {
       key,
@@ -236,194 +201,30 @@
     };
   }
 
-  function buildCatalogs(
-    pokedex,
-    artistData,
-    seriesData,
-    pokemonData,
-    arData,
-    packData,
-    peopleData,
-    trainerPokemonData,
-  ) {
-    const nationalItems = pokedex.records.map((record) => ({
-      key: String(record.number),
-      name: record.nameKo,
-      group: `${record.generation}세대`,
-      baselineOwned: Boolean(record.owned),
+  function cloneRegistryCatalog(category, catalog) {
+    const items = (catalog?.items || []).map((item) => ({ ...item }));
+    const groups = (catalog?.groups || []).map((group) => ({
+      ...group,
+      itemKeys: [...(group.itemKeys || [])],
     }));
-    const nationalGroups = (pokedex.generations || []).map((generation) => ({
-      key: `generation-${generation.generation}`,
-      name: `${generation.generation}세대 전국도감`,
-      itemKeys: nationalItems
-        .filter((item) => item.group === `${generation.generation}세대`)
-        .map((item) => item.key),
-    }));
-
-    const packItems = packData.map((pack) => ({
-      key: pack.code,
-      name: pack.name,
-      group: `${pack.era} 시리즈`,
-      baselineOwned: Boolean(pack.legacyOwned),
-    }));
-    const packGroups = [...new Set(packData.map((pack) => pack.era))].map((era) => ({
-      key: `pack-${era}`,
-      name: `${era} 팩 컬렉션`,
-      itemKeys: packItems
-        .filter((item) => item.group === `${era} 시리즈`)
-        .map((item) => item.key),
-    }));
-
-    const artistItems = [];
-    const artistGroups = (artistData.artists || []).map((group, groupIndex) => {
-      const itemKeys = (group.cards || []).map((card, cardIndex) => {
-        const key = pageCardIdentity("artist", group, card, groupIndex, cardIndex);
-        artistItems.push({
-          key,
-          name: card.name || "이름 미상 카드",
-          group: group.name,
-          baselineOwned: Boolean(card.owned),
-        });
-        return key;
-      });
-      return { key: groupIdentity(group, groupIndex), name: group.name, itemKeys };
-    });
-
-    const seriesItems = [];
-    const seriesGroups = (seriesData || []).map((group, groupIndex) => {
-      const itemKeys = (group.cards || []).map((card, cardIndex) => {
-        const key = pageCardIdentity("series", group, card, groupIndex, cardIndex);
-        seriesItems.push({
-          key,
-          name: card.name || card.pokemonName || card.code || `${group.code} 카드`,
-          group: group.code || group.title,
-          baselineOwned: Boolean(card.owned),
-        });
-        return key;
-      });
-      return {
-        key: groupIdentity(group, groupIndex),
-        name: `${group.code || ""} ${group.title || ""}`.trim(),
-        itemKeys,
-      };
-    });
-
-    const pokemonItems = [];
-    const pokemonGroups = (pokemonData || []).map((group, groupIndex) => {
-      const itemKeys = (group.cards || []).map((card, cardIndex) => {
-        const key = pageCardIdentity("pokemon", group, card, groupIndex, cardIndex);
-        pokemonItems.push({
-          key,
-          name: card.name || group.name,
-          group: group.name,
-          baselineOwned: Boolean(card.owned),
-        });
-        return key;
-      });
-      return { key: groupIdentity(group, groupIndex), name: group.name, itemKeys };
-    });
-
-    const arItems = [];
-    const arGroups = (arData || []).map((group, groupIndex) => {
-      const itemKeys = (group.cards || []).map((card, cardIndex) => {
-        const key = pageCardIdentity("ar", group, card, groupIndex, cardIndex);
-        arItems.push({
-          key,
-          name: card.name || card.code || `${group.code} AR`,
-          group: `${group.code} · ${group.title}`,
-          baselineOwned: Boolean(card.owned),
-        });
-        return key;
-      });
-      return {
-        key: groupIdentity(group, groupIndex),
-        name: `${group.code} · ${group.title}`,
-        itemKeys,
-      };
-    });
-
-    const peopleItems = (peopleData.people || []).map((person) => ({
-      key: String(person.id),
-      name: person.nameKo,
-      group: `${person.generation}세대`,
-      baselineOwned: false,
-    }));
-    const peopleGroups = [...new Set(
-      (peopleData.people || []).map((person) => person.generation),
-    )].map((generation) => ({
-      key: `generation-${generation}`,
-      name: `${generation}세대 인물도감`,
-      itemKeys: peopleItems
-        .filter((item) => item.group === `${generation}세대`)
-        .map((item) => item.key),
-    }));
-
-    const trainerPokemonItems = [];
-    const trainerPokemonGroups = (trainerPokemonData.groups || []).map((group, groupIndex) => {
-      const itemKeys = (group.cards || []).map((card, cardIndex) => {
-        const key = pageCardIdentity("trainerPokemon", group, card, groupIndex, cardIndex);
-        trainerPokemonItems.push({
-          key,
-          name: card.name || card.pokemonName || group.name || "이름 미상 카드",
-          group: group.name,
-          baselineOwned: Boolean(card.owned),
-        });
-        return key;
-      });
-      return {
-        key: groupIdentity(group, groupIndex),
-        name: group.name,
-        itemKeys,
-      };
-    });
-
-    return {
-      national: createCategory("national", nationalItems, nationalGroups),
-      pack: createCategory("pack", packItems, packGroups),
-      artist: createCategory("artist", artistItems, artistGroups),
-      series: createCategory("series", seriesItems, seriesGroups),
-      pokemon: createCategory("pokemon", pokemonItems, pokemonGroups),
-      ar: createCategory("ar", arItems, arGroups),
-      people: createCategory("people", peopleItems, peopleGroups),
-      trainerPokemon: createCategory(
-        "trainerPokemon",
-        trainerPokemonItems,
-        trainerPokemonGroups,
-      ),
-      custom: createCategory("custom", [], []),
-    };
+    return createCategory(category, items, groups);
   }
 
   async function loadCatalogs() {
-    const [
-      pokedex,
-      artists,
-      series,
-      pokemon,
-      ar,
-      packs,
-      people,
-      trainerPokemon,
-    ] = await Promise.all([
-      catalogService.json("./data/pokedex.json"),
-      catalogService.json("./data/artists.json"),
-      catalogService.series(),
-      catalogService.pokemonCollections(),
-      catalogService.ar(),
-      fetchPacks(),
-      catalogService.json("./data/people.json"),
-      catalogService.json("./data/trainer-pokemon.json"),
-    ]);
-    return buildCatalogs(
-      pokedex,
-      artists,
-      series,
-      pokemon,
-      ar,
-      packs,
-      people,
-      trainerPokemon,
+    const categories = CATEGORY_ORDER.filter(
+      (category) => category !== "custom" && registry?.COLLECTIONS?.[category],
     );
+    const entries = await Promise.all(
+      categories.map(async (category) => [
+        category,
+        cloneRegistryCatalog(category, await registry.loadCatalog(category)),
+      ]),
+    );
+    const loaded = Object.fromEntries(entries);
+    if (CATEGORY_ORDER.includes("custom")) {
+      loaded.custom = createCategory("custom", [], []);
+    }
+    return loaded;
   }
 
   function createAuthUi() {
@@ -861,7 +662,16 @@
       applyOwnership(category);
       const catalog = catalogs[category];
       const owned = catalog.items.filter((item) => item.owned).length;
-      const total = catalog.items.length;
+      const canonicalTotal = Number(CATEGORY_META[category]?.catalogCount);
+      const total =
+        Number.isInteger(canonicalTotal) && canonicalTotal >= 0
+          ? canonicalTotal
+          : catalog.items.length;
+      if (category !== "custom" && total !== catalog.items.length) {
+        console.warn(
+          `${category} 대시보드 분모가 카탈로그와 다릅니다: ${total} / ${catalog.items.length}`,
+        );
+      }
       const groups = catalog.groups.map((group) => {
         const groupItems = group.itemKeys
           .map((key) => catalog.itemMap.get(key))
