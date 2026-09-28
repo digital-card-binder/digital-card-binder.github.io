@@ -50,7 +50,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
   const expected = {
     national: [1025, 9],
-    series: [20240, 273],
+    series: [20243, 273],
     ar: [530, 33],
     pack: [64, 3],
     pokemon: [1333, 67],
@@ -75,7 +75,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     national: 1025,
     pack: 64,
     artist: 4873,
-    series: 20240,
+    series: 20243,
     pokemon: 1333,
     ar: 530,
     people: 179,
@@ -149,7 +149,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 20240,
+    totalCount: 20243,
     promoOwnedCount: 0,
   });
 });
@@ -335,7 +335,7 @@ test("legacy eras do not mutate the corrected SV, MEGA, or starter catalog", asy
   assert.equal(preserved.length, 68);
   assert.equal(
     preserved.reduce((total, group) => total + group.cards.length, 0),
-    6910,
+    6913,
   );
   const m6 = groups.find((group) => group.code === "m6");
   assert.equal(m6?.cards.length, 113);
