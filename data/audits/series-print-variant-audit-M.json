@@ -913,7 +913,7 @@
       ],
       "discoveryCandidateCount": 11,
       "expectedSlotCount": 68,
-      "missingExpectedSlotCount": 28,
+      "missingExpectedSlotCount": 25,
       "missingExpectedSlots": [
         {
           "actualSetCode": "m-p",
@@ -1014,89 +1014,10 @@
         {
           "actualSetCode": "m-p",
           "printedNumber": "9"
-        },
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "fir/m-p"
-        },
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "gra/m-p"
-        },
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "wat/m-p"
         }
       ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "fir",
-          "officialRecords": [
-            {
-              "product": "MEGA 「ex 스페셜 세트」",
-              "cardNum": "MP002026002",
-              "cardType": "3",
-              "imageFile": "M-P_FIR.png",
-              "raw": {
-                "CardNum": "MP002026002",
-                "feature_image": "wmimages/MEGA/M-P/M-P_FIR.png?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "gra",
-          "officialRecords": [
-            {
-              "product": "MEGA 「ex 스페셜 세트」",
-              "cardNum": "MP002026001",
-              "cardType": "3",
-              "imageFile": "M-P_GRA.png",
-              "raw": {
-                "CardNum": "MP002026001",
-                "feature_image": "wmimages/MEGA/M-P/M-P_GRA.png?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "m-p",
-          "printedNumber": "wat",
-          "officialRecords": [
-            {
-              "product": "MEGA 「ex 스페셜 세트」",
-              "cardNum": "MP002026003",
-              "cardType": "3",
-              "imageFile": "M-P_WAT.png",
-              "raw": {
-                "CardNum": "MP002026003",
-                "feature_image": "wmimages/MEGA/M-P/M-P_WAT.png?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 43,
       "parsedSlotCount": 43,
