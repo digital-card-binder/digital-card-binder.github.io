@@ -9,20 +9,69 @@ const navigation = Object.freeze([
   { href: "./", page: "index.html", icon: "홈", title: "통합 대시보드", subtitle: "모든 도감" },
   { href: "./pokemon-search.html", page: "pokemon-search.html", icon: "⌕", title: "카드 검색", subtitle: "통합 카드 검색" },
   { section: "주요 도감" },
-  { href: "./national.html", page: "national.html", icon: "01", title: "전국도감", subtitle: "1세대–9세대" },
-  { href: "./series.html", page: "series.html", icon: "02", title: "시리즈 도감", subtitle: "ORIGIN · ADV · DP · BW · XY · SM · S · SV · M" },
-  { href: "./ar.html", page: "ar.html", icon: "03", title: "AR 전종도감", subtitle: "SV · M · 510장" },
-  { href: "./packs.html", page: "packs.html", icon: "04", title: "팩 전종수집", subtitle: "S · SV · M · 프로모" },
+  { href: "./national.html", page: "national.html", icon: "01", title: "전국도감", catalogId: "national" },
+  { href: "./series.html", page: "series.html", icon: "02", title: "시리즈 도감", catalogId: "series" },
+  { href: "./ar.html", page: "ar.html", icon: "03", title: "AR 전종도감", catalogId: "ar" },
+  { href: "./packs.html", page: "packs.html", icon: "04", title: "팩 전종수집", catalogId: "pack" },
   { section: "테마 도감" },
-  { href: "./pokemon-collections.html", page: "pokemon-collections.html", icon: "05", title: "포켓몬 컬렉션", subtitle: "67종 포켓몬" },
-  { href: "./artists.html", page: "artists.html", icon: "06", title: "작가 도감", subtitle: "40명 작가" },
-  { href: "./people.html", page: "people.html", icon: "07", title: "인물도감", subtitle: "인물 아카이브" },
-  { href: "./trainer-pokemon.html", page: "trainer-pokemon.html", icon: "08", title: "트레이너 × 포켓몬", subtitle: "트레이너 × 포켓몬" },
-  { href: "./fossil.html", page: "fossil.html", icon: "09", title: "화석 도감", subtitle: "화석 카드" },
-  { href: "./world.html", page: "world.html", icon: "10", title: "월드탐험도감", subtitle: "4×3 스토리 바인더" },
+  { href: "./pokemon-collections.html", page: "pokemon-collections.html", icon: "05", title: "포켓몬 컬렉션", catalogId: "pokemon" },
+  { href: "./artists.html", page: "artists.html", icon: "06", title: "작가 도감", catalogId: "artist" },
+  { href: "./people.html", page: "people.html", icon: "07", title: "인물도감", catalogId: "people" },
+  { href: "./trainer-pokemon.html", page: "trainer-pokemon.html", icon: "08", title: "트레이너 × 포켓몬", catalogId: "trainerPokemon" },
+  { href: "./fossil.html", page: "fossil.html", icon: "09", title: "화석 도감", catalogId: "fossil" },
+  { href: "./world.html", page: "world.html", icon: "10", title: "월드탐험도감", catalogId: "world" },
   { href: "./custom.html", page: "custom.html", icon: "나", title: "나만의 도감", subtitle: "직접 만드는 도감" },
   { href: "./collectors.html", page: "collectors.html", icon: "모", title: "커뮤니티", subtitle: "공개 컬렉션" },
 ]);
+
+let catalogMetrics = Object.freeze({});
+
+function formatCount(value) {
+  return new Intl.NumberFormat("ko-KR").format(Number(value) || 0);
+}
+
+function navigationSubtitle(item) {
+  if (!item.catalogId) return item.subtitle || "";
+  const metric = catalogMetrics[item.catalogId] || {};
+  const items = formatCount(metric.itemCount);
+  const groups = formatCount(metric.groupCount);
+
+  switch (item.catalogId) {
+    case "national":
+      return `${items}종 · 1–9세대`;
+    case "series":
+      return `${groups}세트 · ${items}장`;
+    case "ar":
+      return `${groups}세트 · ${items}장`;
+    case "pack":
+      return `${items}팩 · 프로모 ${formatCount(metric.promoItemCount)}`;
+    case "pokemon":
+      return `${groups}종 · ${items}장`;
+    case "artist":
+      return `${groups}명 · ${items}장`;
+    case "people":
+      return `${items}명`;
+    case "trainerPokemon":
+    case "fossil":
+      return `${items}장`;
+    case "world":
+      return `${groups}세대 · ${items}장`;
+    default:
+      return `${items}`;
+  }
+}
+
+async function loadCatalogMetrics() {
+  const source = await readFile(
+    path.join(root, "core/catalog/catalog-service.js"),
+    "utf8",
+  );
+  const match = source.match(
+    /\/\/ <catalog-metrics-generated>[\s\S]*?const CATALOG_METRICS = Object[.]freeze[(]([\s\S]*?)[)][;][\s\S]*?\/\/ <\/catalog-metrics-generated>/,
+  );
+  if (!match) throw new Error("Generated catalog metrics are missing.");
+  return Object.freeze(JSON.parse(match[1]));
+}
 
 const brand = `<a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
         <img class="brand-horizontal" src="./assets/brand/logo-horizontal.png" alt="디지털 카드 바인더" />
@@ -47,7 +96,7 @@ function renderNavigation(filename) {
     const iconClass = active ? "collection-icon collection-icon--red" : "collection-icon";
     const current = active ? ' aria-current="page"' : "";
     lines.push(
-      `          <a class="${linkClass}" href="${item.href}"${current}><span class="${iconClass}" aria-hidden="true">${item.icon}</span><span><strong>${item.title}</strong><small>${item.subtitle}</small></span></a>`,
+      `          <a class="${linkClass}" href="${item.href}"${current}><span class="${iconClass}" aria-hidden="true">${item.icon}</span><span><strong>${item.title}</strong><small>${navigationSubtitle(item)}</small></span></a>`,
     );
   }
   lines.push("        </nav>");
@@ -98,6 +147,7 @@ function synchronize(filename, source) {
 }
 
 async function main() {
+  catalogMetrics = await loadCatalogMetrics();
   const htmlFiles = (await readdir(root))
     .filter((name) => name.endsWith(".html"))
     .sort();
