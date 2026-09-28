@@ -9,14 +9,14 @@
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 12px;
-  min-height: 74px;
-  margin: 18px 0 0;
+  min-height: 54px;
+  margin: 14px 0 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 15px;
   background: rgba(255, 255, 255, 0.96);
   color: var(--ink);
-  padding: 9px 12px 9px 16px;
+  padding: 8px 12px 8px 14px;
   box-shadow: 0 7px 20px rgba(28, 38, 68, 0.05);
 }
 
@@ -47,7 +47,7 @@
   align-items: center;
   gap: 10px;
   min-width: 0;
-  min-height: 26px;
+  min-height: 30px;
   border-radius: 8px;
   color: var(--ink);
   padding: 2px 7px;
@@ -297,9 +297,9 @@
   .dashboard-news-strip {
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 7px;
-    min-height: 72px;
-    margin-top: 14px;
-    padding: 8px 8px 8px 11px;
+    min-height: 52px;
+    margin-top: 12px;
+    padding: 7px 8px 7px 11px;
   }
 
   .dashboard-news-preview-list {
@@ -309,7 +309,7 @@
   .dashboard-news-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    min-height: 27px;
+    min-height: 30px;
     padding: 3px 5px;
   }
 
