@@ -145,3 +145,26 @@ test("stage 9 trims page-specific assets and prevents duplicate metrics loading"
   assert.doesNotMatch(legal, /site-metrics[.]js[?]v=20260813-2/);
   assert.match(nav, /"operations", "news"/);
 });
+
+
+test("stage 10 keeps cached clients and deployment verification synchronized", () => {
+  const pwa = read("pwa.js");
+  const nav = read("collector-nav.js");
+  const verify = read(".github/workflows/verify.yml");
+  const syncWorkflow = read(".github/workflows/sync-site-versions.yml");
+  const versionScript = read("scripts/sync-site-versions.mjs");
+
+  assert.match(pwa, /serviceWorker[.]addEventListener\("controllerchange"/);
+  assert.match(pwa, /window[.]location[.]replace\(url[.]href\)/);
+  assert.match(pwa, /manifest[.]href = MANIFEST_URL/);
+  assert.match(nav, /window[.]addEventListener\("pageshow"/);
+  assert.match(nav, /document[.]addEventListener\("visibilitychange"/);
+  assert.match(nav, /BUILD_CHECK_MIN_INTERVAL_MS = 15_000/);
+  assert.match(
+    verify,
+    /Prepare generated site state for push verification[\s\S]*?github[.]event_name == 'push'[\s\S]*?versions:sync/,
+  );
+  assert.match(syncWorkflow, /assets\/brand\/[*][*]/);
+  assert.match(versionScript, /MANIFEST_ICON_RE/);
+  assert.match(versionScript, /manifest[.]webmanifest/);
+});
