@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/build_legacy_series_data.py'
       - 'scripts/audit-series-print-variants.py'
+      - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - '.github/workflows/audit-mega-print-variants.yml'
 
@@ -40,6 +41,9 @@ jobs:
           restore-keys: |
             mega-print-audit-v1-
 
+      - name: Build canonical printed-slot baseline
+        run: node scripts/audit-series-canonical-slots.mjs
+
       - name: Audit Korean MEGA products
         run: |
           mkdir -p data/audits
@@ -66,6 +70,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-M.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
