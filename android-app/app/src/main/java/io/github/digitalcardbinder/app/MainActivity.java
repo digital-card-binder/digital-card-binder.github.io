@@ -167,7 +167,11 @@ public class MainActivity extends Activity {
         if (savedInstanceState != null && webView.restoreState(savedInstanceState) != null) {
             return;
         }
-        webView.loadUrl(HOME_URL);
+        webView.loadUrl(freshHomeUrl());
+    }
+
+    private String freshHomeUrl() {
+        return HOME_URL + "?native=android&launch=" + System.currentTimeMillis();
     }
 
     private void installNativeLoginBridge(WebView view) {
