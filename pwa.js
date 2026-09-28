@@ -4,7 +4,7 @@
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
   const SERVICE_WORKER_URL = "/sw.js?v=632392d98c06";
-  const MANIFEST_URL = "/manifest.webmanifest";
+  const MANIFEST_URL = "/manifest.webmanifest?v=a54b174a6bc6";
   const ANDROID_VERSION_URL = "/app-version.json";
   const ANDROID_UPDATE_DISMISS_KEY = "digitalCardBinderAndroidUpdateDismissV1";
   const ANDROID_UPDATE_REMIND_MS = 24 * 60 * 60 * 1000;
