@@ -10,11 +10,13 @@ const ERA_ORDER = ["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"];
 const clean = (value) => String(value ?? "").trim();
 const normalized = (value) => clean(value).toLowerCase();
 
-function buildAudit(inventory, variants, membershipEvidence = null, koreanMembership = null) {
+function buildAudit(inventory, variants, membershipEvidence = null, koreanMembership = null, svKoreanMembership = null) {
   const eras = {};
   let verifiedVariantSetCount = 0;
   let firstPartyMembershipVerifiedSetCount = 0;
   let koreanMembershipVerifiedSetCount = 0;
+  let koreanMembershipPendingSetCount = 0;
+  let koreanMembershipScopedSetCount = 0;
 
   for (const era of ERA_ORDER) {
     const eraSummary = inventory.eras.find((item) => item.era === era);
@@ -106,6 +108,8 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         (item) => koreanByCode.get(normalized(item.code))?.complete !== true,
       );
       koreanMembershipVerifiedSetCount += verifiedKoreanSets.length;
+      koreanMembershipPendingSetCount += pendingKoreanSets.length;
+      koreanMembershipScopedSetCount += eraSets.length;
       eras[era].koreanMembershipAudit = {
         status:
           verifiedKoreanSets.length === eraSets.length
@@ -113,6 +117,7 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
             : verifiedKoreanSets.length
               ? "partial"
               : "pending",
+        auditedSetCount: Number(koreanMembership.summary?.setCount || 0),
         verifiedSetCount: verifiedKoreanSets.length,
         pendingSetCount: pendingKoreanSets.length,
         verifiedSetCodes: verifiedKoreanSets.map((item) => item.code),
@@ -133,6 +138,50 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
           koreanMembership.summary?.unresolvedGapCount || 0,
         ),
         evidencePolicy: koreanMembership.evidencePolicy || {},
+      };
+    }
+
+    if (era === "SV" && svKoreanMembership?.sets) {
+      const koreanByCode = new Map(
+        svKoreanMembership.sets.map((item) => [normalized(item.code), item]),
+      );
+      const verifiedKoreanSets = eraSets.filter(
+        (item) => koreanByCode.get(normalized(item.code))?.complete === true,
+      );
+      const pendingKoreanSets = eraSets.filter(
+        (item) => koreanByCode.get(normalized(item.code))?.complete !== true,
+      );
+      koreanMembershipVerifiedSetCount += verifiedKoreanSets.length;
+      koreanMembershipPendingSetCount += pendingKoreanSets.length;
+      koreanMembershipScopedSetCount += eraSets.length;
+      eras[era].koreanMembershipAudit = {
+        status:
+          verifiedKoreanSets.length === eraSets.length
+            ? "complete"
+            : verifiedKoreanSets.length
+              ? "partial"
+              : "pending",
+        auditedSetCount: Number(svKoreanMembership.summary?.setCount || 0),
+        verifiedSetCount: verifiedKoreanSets.length,
+        pendingSetCount: pendingKoreanSets.length,
+        verifiedSetCodes: verifiedKoreanSets.map((item) => item.code),
+        pendingSetCodes: pendingKoreanSets.map((item) => item.code),
+        expectedSlotCount: Number(
+          svKoreanMembership.summary?.expectedSlotCount || 0,
+        ),
+        productSearchSlotCount: Number(
+          svKoreanMembership.summary?.productSearchSlotCount || 0,
+        ),
+        firstPartyVerifiedGapCount: Number(
+          svKoreanMembership.summary?.firstPartyVerifiedGapCount || 0,
+        ),
+        koreanSecondaryVerifiedGapCount: Number(
+          svKoreanMembership.summary?.koreanSecondaryVerifiedGapCount || 0,
+        ),
+        unresolvedGapCount: Number(
+          svKoreanMembership.summary?.unresolvedGapCount || 0,
+        ),
+        evidencePolicy: svKoreanMembership.evidencePolicy || {},
       };
     }
   }
@@ -186,6 +235,9 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
       ...(koreanMembership
         ? ["data/audits/mega-korean-membership-audit.json"]
         : []),
+      ...(svKoreanMembership
+        ? ["data/audits/sv-expansion-korean-membership.json"]
+        : []),
     ],
     summary: {
       setCount: inventory.summary.setCount,
@@ -205,12 +257,11 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
               firstPartyMembershipVerifiedSetCount,
           }
         : {}),
-      ...(koreanMembership
+      ...(koreanMembership || svKoreanMembership
         ? {
+            koreanMembershipScopedSetCount,
             koreanMembershipVerifiedSetCount,
-            koreanMembershipPendingSetCount:
-              Number(koreanMembership.summary?.setCount || 0) -
-              koreanMembershipVerifiedSetCount,
+            koreanMembershipPendingSetCount,
           }
         : {}),
       metadataGaps: inventory.summary.metadata,
@@ -229,11 +280,18 @@ async function readOptionalJson(relativePath) {
   }
 }
 
-const [inventory, variants, membershipEvidence, koreanMembership] = await Promise.all([
+const [
+  inventory,
+  variants,
+  membershipEvidence,
+  koreanMembership,
+  svKoreanMembership,
+] = await Promise.all([
   readFile(path.join(root, "data", "series-inventory-audit.json"), "utf8").then(JSON.parse),
   readFile(path.join(root, "data", "series-print-variants.json"), "utf8").then(JSON.parse),
   readOptionalJson("data/audits/mega-official-image-probe.json"),
   readOptionalJson("data/audits/mega-korean-membership-audit.json"),
+  readOptionalJson("data/audits/sv-expansion-korean-membership.json"),
 ]);
 
 const audit = buildAudit(
@@ -241,6 +299,7 @@ const audit = buildAudit(
   variants,
   membershipEvidence,
   koreanMembership,
+  svKoreanMembership,
 );
 const expected = `${JSON.stringify(audit, null, 2)}\n`;
 

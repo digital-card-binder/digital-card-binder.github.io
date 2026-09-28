@@ -9,6 +9,8 @@ on:
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/audit-series-gap-evidence.mjs'
+      - 'scripts/audit-series-korean-membership.mjs'
+      - 'scripts/audit-master-card-db.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - '.github/workflows/audit-sv-print-variants.yml'
 
@@ -67,6 +69,13 @@ jobs:
             data/audits/series-print-variant-audit-SV.json \
             data/audits/sv-expansion-gap-evidence.json
 
+      - name: Build SV expansion Korean membership evidence
+        run: |
+          node scripts/audit-series-korean-membership.mjs \
+            SV \
+            data/audits/sv-expansion-gap-evidence.json \
+            data/audits/sv-expansion-korean-membership.json
+
       - name: Merge verified SV print variants
         run: |
           node scripts/merge-series-print-variant-audit.mjs \
@@ -89,6 +98,7 @@ jobs:
             data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-SV.json \
             data/audits/sv-expansion-gap-evidence.json \
+            data/audits/sv-expansion-korean-membership.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
           if git diff --cached --quiet; then
