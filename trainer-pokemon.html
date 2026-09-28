@@ -86,17 +86,17 @@
           <article class="stat-card stat-card--rate"><span class="stat-icon" aria-hidden="true">↗</span><div><span>전체 수집률</span><strong><b id="tp-stat-rate">—</b><small>%</small></strong></div></article>
         </section>
 
-        <section class="tp-rule-panel" aria-labelledby="tp-rule-title">
-          <div><h2 id="tp-rule-title">이 도감에 들어가는 기준</h2></div>
-          <div class="tp-rule-grid">
+        <details class="collector-guide-panel">
+          <summary id="tp-rule-title">도감 수록 기준</summary>
+          <div class="collector-guide-grid tp-rule-grid">
             <p><strong>포함</strong><span>트레이너·주요 인물 또는 일반 사람이 포켓몬과 같은 일러스트 안에 실제로 함께 등장</span></p>
             <p><strong>이름 없는 사람도 포함</strong><span>이름 없는 NPC·가족·직원·학생 등도 장면의 주체로 포켓몬과 함께 있으면 포함</span></p>
             <p><strong>제외</strong><span>트레이너 얼굴 아이콘·마크·사진만 있거나 배경 군중처럼 관계성이 없는 경우</span></p>
           </div>
-        </section>
+        </details>
 
         <section class="catalog-panel" aria-labelledby="tp-catalog-title">
-          <div class="catalog-heading"><div><h2 id="tp-catalog-title">인물과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"><p class="catalog-caption">미보유 카드는 흑백으로 표시됩니다.</p></div></div>
+          <div class="catalog-heading"><div><h2 id="tp-catalog-title">인물과 포켓몬이 함께한 카드</h2></div><div class="catalog-actions"></div></div>
           <div class="tp-filter-panel">
             <div id="tp-view-mode" class="segmented-control tp-view-mode" role="group" aria-label="보기 기준"><button class="is-active" type="button" data-mode="pokemon">포켓몬별</button><button type="button" data-mode="trainer">트레이너별</button></div>
             <label class="tp-select-field"><span id="tp-filter-label" class="filter-label">포켓몬</span><select id="tp-group-select" aria-label="포켓몬 또는 트레이너 선택"></select></label>
