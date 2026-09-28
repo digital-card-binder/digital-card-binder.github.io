@@ -7,6 +7,14 @@
   if (!catalogService || !identityService) {
     throw new Error("공통 도감 코어를 불러오지 못했습니다.");
   }
+
+  function catalogCount(collectionId) {
+    const value = Number(catalogService.catalogMetrics?.[collectionId]?.itemCount);
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error(`도감 집계 메타데이터를 확인할 수 없습니다: ${collectionId}`);
+    }
+    return value;
+  }
   const COLLECTION_ORDER = [
     "national",
     "series",
@@ -25,7 +33,7 @@
       href: "./national.html",
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "종",
-      catalogCount: 1025,
+      catalogCount: catalogCount("national"),
       defaultDashboardVisible: true,
     },
     pack: {
@@ -35,7 +43,7 @@
       href: "./packs.html",
       documentId: "packDex",
       unit: "팩",
-      catalogCount: 64,
+      catalogCount: catalogCount("pack"),
       defaultDashboardVisible: true,
     },
     artist: {
@@ -45,7 +53,7 @@
       href: "./artists.html",
       documentId: "artistDex",
       unit: "장",
-      catalogCount: 4873,
+      catalogCount: catalogCount("artist"),
       defaultDashboardVisible: true,
     },
     series: {
@@ -55,7 +63,7 @@
       href: "./series.html",
       documentId: "seriesDex",
       unit: "장",
-      catalogCount: 20240,
+      catalogCount: catalogCount("series"),
       defaultDashboardVisible: true,
     },
     pokemon: {
@@ -65,7 +73,7 @@
       href: "./pokemon-collections.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
-      catalogCount: 1333,
+      catalogCount: catalogCount("pokemon"),
       defaultDashboardVisible: true,
     },
     ar: {
@@ -75,7 +83,7 @@
       href: "./ar.html",
       documentId: "arDex",
       unit: "장",
-      catalogCount: 530,
+      catalogCount: catalogCount("ar"),
       defaultDashboardVisible: true,
     },
     people: {
@@ -85,7 +93,7 @@
       href: "./people.html",
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "명",
-      catalogCount: 179,
+      catalogCount: catalogCount("people"),
       defaultDashboardVisible: false,
     },
     trainerPokemon: {
@@ -95,7 +103,7 @@
       href: "./trainer-pokemon.html",
       documentId: "pokemonCollectionsDex",
       unit: "장",
-      catalogCount: 245,
+      catalogCount: catalogCount("trainerPokemon"),
       defaultDashboardVisible: true,
     },
   };
