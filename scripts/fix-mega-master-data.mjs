@@ -21,19 +21,22 @@ const mcMappings = [
 
 const promoAdditions = [
   {
-    code: "m-p_GRA/M-P",
+    code: "m-p_GRA",
+    legacyCode: "m-p_GRA/M-P",
     name: "기본 풀 에너지",
     image: "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_GRA.png",
     source: "https://pokemoncard.co.kr/cards/detail/MP002026001",
   },
   {
-    code: "m-p_FIR/M-P",
+    code: "m-p_FIR",
+    legacyCode: "m-p_FIR/M-P",
     name: "기본 불꽃 에너지",
     image: "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_FIR.png",
     source: "https://pokemoncard.co.kr/cards/detail/MP002026002",
   },
   {
-    code: "m-p_WAT/M-P",
+    code: "m-p_WAT",
+    legacyCode: "m-p_WAT/M-P",
     name: "기본 물 에너지",
     image: "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_WAT.png",
     source: "https://pokemoncard.co.kr/cards/detail/MP002026003",
@@ -84,15 +87,39 @@ function fixMegaPromo(group) {
   ) + 1;
 
   for (const addition of promoAdditions) {
-    if (
-      cards.some(
-        (card) => normalized(card?.code) === normalized(addition.code),
-      )
-    ) {
+    const current = cards.find(
+      (card) => normalized(card?.code) === normalized(addition.code),
+    );
+    if (current) {
+      current.image = addition.image;
+      current.source = addition.source;
+      current.name = addition.name;
+      current.rarity = current.rarity || "PROMO";
       continue;
     }
+
+    const legacy = cards.find(
+      (card) => normalized(card?.code) === normalized(addition.legacyCode),
+    );
+    if (legacy) {
+      legacy.code = addition.code;
+      legacy.legacyCodes = [
+        ...new Set([
+          ...(Array.isArray(legacy.legacyCodes) ? legacy.legacyCodes : []),
+          addition.legacyCode,
+        ]),
+      ];
+      legacy.image = addition.image;
+      legacy.source = addition.source;
+      legacy.name = addition.name;
+      legacy.rarity = legacy.rarity || "PROMO";
+      changed = true;
+      continue;
+    }
+
     cards.push({
       code: addition.code,
+      legacyCodes: [addition.legacyCode],
       image: addition.image,
       owned: false,
       status: "구함",
