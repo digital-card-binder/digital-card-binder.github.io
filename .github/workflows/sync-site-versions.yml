@@ -17,6 +17,7 @@ on:
       - 'core/catalog/catalog-service.js'
       - 'collector-collection-registry.js'
       - 'scripts/sync-catalog-metrics.mjs'
+      - 'scripts/sync-site-shell.mjs'
       - 'package.json'
       - 'packs.js'
       - 'data/pokedex.json'
@@ -68,6 +69,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             npm run catalog-metrics:sync
+            npm run shell:sync
             npm run versions:sync
 
             if git diff --quiet; then
