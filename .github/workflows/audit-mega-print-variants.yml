@@ -47,6 +47,9 @@ jobs:
       - name: Normalize confirmed MEGA master data
         run: node scripts/fix-mega-master-data.mjs
 
+      - name: Refresh series inventory audit
+        run: node scripts/audit-series-inventory.mjs
+
       - name: Build canonical printed-slot baseline
         run: node scripts/audit-series-canonical-slots.mjs
 
@@ -81,6 +84,7 @@ jobs:
           git add \
             data/series.json \
             data/series-legacy.json \
+            data/series-inventory-audit.json \
             data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-M.json \
             data/audits/mega-gap-evidence.json \
