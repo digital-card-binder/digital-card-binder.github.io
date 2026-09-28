@@ -1,0 +1,78 @@
+name: Audit MEGA print variants
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_legacy_series_data.py'
+      - 'scripts/audit-series-print-variants.py'
+      - 'scripts/merge-series-print-variant-audit.mjs'
+      - '.github/workflows/audit-mega-print-variants.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mega-print-variant-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Restore Pokemon Korea audit cache
+        uses: actions/cache@v4
+        with:
+          path: tmp/legacy-series-cache
+          key: mega-print-audit-v1-${{ runner.os }}
+          restore-keys: |
+            mega-print-audit-v1-
+
+      - name: Audit Korean MEGA products
+        run: |
+          mkdir -p data/audits
+          python3 scripts/audit-series-print-variants.py \
+            --era M \
+            --workers 2 \
+            --output data/audits/series-print-variant-audit-M.json
+
+      - name: Merge verified print variants
+        run: |
+          node scripts/merge-series-print-variant-audit.mjs \
+            data/audits/series-print-variant-audit-M.json
+          node scripts/audit-master-card-db.mjs
+
+      - name: Verify master DB contracts
+        run: |
+          node --test \
+            tests/series-print-variants.test.mjs \
+            tests/master-card-db-audit.test.mjs
+
+      - name: Commit verified audit data
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/audits/series-print-variant-audit-M.json \
+            data/series-print-variants.json \
+            data/master-card-db-audit.json
+          if git diff --cached --quiet; then
+            echo "No MEGA audit data changes."
+            exit 0
+          fi
+          git commit -m "Audit Korean MEGA print variants"
+          git pull --rebase origin main
+          git push origin HEAD:main
