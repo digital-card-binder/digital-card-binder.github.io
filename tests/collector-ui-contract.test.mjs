@@ -278,11 +278,12 @@ test("Pokemon search aggregates exact-card ownership without linking dexes", asy
   assert.ok(manager.includes("readCollectionDocument,"));
 });
 
-test("dashboard loads the trainer and Pokemon catalog registered in collection order", async () => {
+test("dashboard loads every registered catalog through the shared registry", async () => {
   const dashboard = await source("dashboard.js");
-  assert.match(dashboard, /catalogService[.]json\("[.]\/data\/trainer-pokemon[.]json"\)/);
-  assert.match(dashboard, /trainerPokemon:\s*createCategory\(/);
-  assert.match(dashboard, /pageCardIdentity\("trainerPokemon"/);
+  assert.match(dashboard, /CATEGORY_ORDER[.]filter/);
+  assert.match(dashboard, /registry[.]loadCatalog\(category\)/);
+  assert.match(dashboard, /cloneRegistryCatalog/);
+  assert.doesNotMatch(dashboard, /[.]\/data\/trainer-pokemon[.]json/);
 });
 
 test("dashboard ignores stale saved displayOrder and follows the current navigation order", async () => {
@@ -304,7 +305,9 @@ test("dashboard polish follows navigation labels and restrained motion", async (
   const sheets = await source("owner-sheets-sync.js");
   assert.match(dashboard, /AR 전종도감/);
   assert.match(dashboard, /트레이너 × 포켓몬/);
-  assert.match(dashboard, /SV · M 시리즈 AR 510장/);
+  assert.doesNotMatch(dashboard, /SV · M 시리즈 AR 510장/);
+  assert.match(dashboard, /canonicalTotal/);
+  assert.match(dashboard, /catalogMetrics[?][.]\[collection[.]key\]/);
   assert.match(css, /[.]dashboard-collection-card:hover \{[\s\S]*?translateY\(-3px\)/);
   assert.match(css, /data-category="people"/);
   assert.match(css, /data-category="trainerPokemon"/);
@@ -355,7 +358,9 @@ test("decorative English UI labels are retired while official series codes remai
     assert.equal(page.includes(retired), false, retired);
     assert.equal(shell.includes(retired), false, retired);
   }
-  assert.match(shell, /ORIGIN · ADV · DP · BW · XY · SM · S · SV · M/);
+  assert.match(shell, /catalogId: "series"/);
+  assert.match(shell, /navigationSubtitle/);
+  assert.match(shell, /273|groupCount/);
   assert.match(styles, /[.]eyebrow,[.]section-kicker\{display:none!important\}/);
 });
 
