@@ -99,20 +99,34 @@
   const DOCUMENT_IDS = Object.fromEntries(
     CATEGORY_ORDER.map((key) => [key, CATEGORY_META[key].documentId]),
   );
+  const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
+  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon"]);
+  const EXTRA_THEME_COLLECTIONS = Object.freeze([
+    {
+      key: "fossil",
+      number: "09",
+      title: "화석 도감",
+      description: "화석과 발굴 장면을 모은 카드",
+      href: "./fossil.html",
+    },
+    {
+      key: "world",
+      number: "10",
+      title: "월드탐험도감",
+      description: "4×3 스토리 바인더",
+      href: "./world.html",
+    },
+  ]);
 
   const elements = {
     headerChip: document.querySelector(".header-chip"),
-    rate: document.querySelector("#dashboard-rate"),
-    owned: document.querySelector("#dashboard-owned"),
-    total: document.querySelector("#dashboard-total"),
-    missing: document.querySelector("#dashboard-missing"),
-    ring: document.querySelector("#dashboard-progress-ring"),
-    statOwned: document.querySelector("#stat-dashboard-owned"),
-    statMissing: document.querySelector("#stat-dashboard-missing"),
-    statCompleteGroups: document.querySelector("#stat-dashboard-complete-groups"),
+    activeCollections: document.querySelector("#dashboard-active-collections"),
+    completeCollections: document.querySelector("#dashboard-complete-collections"),
     accountNote: document.querySelector("#dashboard-account-note"),
     loginCta: document.querySelector("#dashboard-login-cta"),
-    collectionGrid: document.querySelector("#dashboard-collection-grid"),
+    primaryGrid: document.querySelector("#dashboard-primary-grid"),
+    themeGrid: document.querySelector("#dashboard-theme-grid"),
+    themeCount: document.querySelector("#dashboard-theme-count"),
     nearestList: document.querySelector("#dashboard-nearest-list"),
     nearestEmpty: document.querySelector("#dashboard-nearest-empty"),
     nearestCount: document.querySelector("#nearest-count"),
@@ -888,19 +902,21 @@
       completedGroups: allGroups.filter(
         (group) => group.total > 0 && group.owned === group.total,
       ).length,
+      completedCollections: visibleCategories.filter((category) => {
+        const metric = categoryMetrics[category];
+        return metric && metric.total > 0 && metric.owned === metric.total;
+      }).length,
       visibleCategories,
     };
   }
 
   function renderSummary(metrics) {
-    elements.rate.textContent = `${metrics.rate.toFixed(1)}%`;
-    elements.owned.textContent = formatNumber(metrics.owned);
-    elements.total.textContent = formatNumber(metrics.total);
-    elements.missing.textContent = formatNumber(metrics.missing);
-    elements.ring.style.setProperty("--progress", metrics.rate);
-    elements.statOwned.textContent = formatNumber(metrics.owned);
-    elements.statMissing.textContent = formatNumber(metrics.missing);
-    elements.statCompleteGroups.textContent = formatNumber(metrics.completedGroups);
+    if (elements.activeCollections) {
+      elements.activeCollections.textContent = formatNumber(metrics.visibleCategories.length);
+    }
+    if (elements.completeCollections) {
+      elements.completeCollections.textContent = formatNumber(metrics.completedCollections);
+    }
   }
 
   function createCollectionCard(metric) {
@@ -914,45 +930,76 @@
       `${metric.title} ${metric.owned}/${metric.total}${metric.unit}, ${metric.rate.toFixed(1)}%`,
     );
     link.innerHTML = `
-      <div>
-        <div class="dashboard-card-top">
-          <span class="dashboard-card-icon" aria-hidden="true">${metric.number}</span>
-          <span class="dashboard-card-rate">${metric.rate.toFixed(1)}%</span>
-        </div>
-        <div class="dashboard-card-title">
-          <strong>${metric.title}</strong>
-          <span>${metric.description}</span>
-        </div>
-        <div class="dashboard-card-count">
-          <strong>${formatNumber(metric.owned)}</strong>
-          <span>/ ${formatNumber(metric.total)}${metric.unit}</span>
-        </div>
+      <div class="dashboard-card-top">
+        <span class="dashboard-card-icon" aria-hidden="true">${metric.number}</span>
+        <span class="dashboard-card-rate">${metric.rate.toFixed(1)}%</span>
       </div>
-      <div>
-        <div class="dashboard-card-progress" aria-hidden="true"><span></span></div>
-        <div class="dashboard-card-footer">
-          <span>남은 항목 ${formatNumber(metric.missing)}${metric.unit}</span>
-          <span class="dashboard-card-arrow" aria-hidden="true">→</span>
-        </div>
+      <div class="dashboard-card-title">
+        <strong>${escapeHtml(metric.title)}</strong>
+      </div>
+      <div class="dashboard-card-count">
+        <strong>${formatNumber(metric.owned)}</strong>
+        <span>/ ${formatNumber(metric.total)}${metric.unit}</span>
+      </div>
+      <div class="dashboard-card-progress" aria-hidden="true"><span></span></div>
+    `;
+    return link;
+  }
+
+  function createStaticCollectionCard(collection) {
+    const link = document.createElement("a");
+    link.className = "dashboard-collection-card dashboard-collection-card--static";
+    link.dataset.category = collection.key;
+    link.href = collection.href;
+    link.setAttribute("aria-label", `${collection.title} 바로가기`);
+    link.innerHTML = `
+      <div class="dashboard-card-top">
+        <span class="dashboard-card-icon" aria-hidden="true">${collection.number}</span>
+        <span class="dashboard-card-arrow" aria-hidden="true">→</span>
+      </div>
+      <div class="dashboard-card-title">
+        <strong>${escapeHtml(collection.title)}</strong>
+        <span>${escapeHtml(collection.description)}</span>
       </div>
     `;
     return link;
   }
 
   function renderCollections(metrics) {
-    const fragment = document.createDocumentFragment();
+    const primaryFragment = document.createDocumentFragment();
+    const themeFragment = document.createDocumentFragment();
+    let primaryCount = 0;
+    let themeCount = 0;
+
     for (const category of metrics.visibleCategories) {
-      fragment.append(createCollectionCard(metrics.categories[category]));
+      const metric = metrics.categories[category];
+      if (PRIMARY_CATEGORIES.has(category)) {
+        primaryFragment.append(createCollectionCard(metric));
+        primaryCount += 1;
+      } else if (THEME_CATEGORIES.has(category)) {
+        themeFragment.append(createCollectionCard(metric));
+        themeCount += 1;
+      }
     }
-    if (!metrics.visibleCategories.length) {
+
+    for (const collection of EXTRA_THEME_COLLECTIONS) {
+      themeFragment.append(createStaticCollectionCard(collection));
+      themeCount += 1;
+    }
+
+    if (!primaryCount) {
       const empty = document.createElement("div");
-      empty.className = "dashboard-list-empty";
+      empty.className = "dashboard-list-empty dashboard-list-empty--compact";
       empty.innerHTML =
-        '대시보드에 표시할 도감이 없습니다. <a href="./collector-settings.html">대시보드 편집</a>에서 선택해 주세요.';
-      fragment.append(empty);
+        '표시할 주요 도감이 없습니다. <a href="./collector-settings.html">표시 설정</a>에서 선택해 주세요.';
+      primaryFragment.append(empty);
     }
-    elements.collectionGrid.replaceChildren(fragment);
-    elements.collectionGrid.setAttribute("aria-busy", "false");
+
+    elements.primaryGrid?.replaceChildren(primaryFragment);
+    elements.themeGrid?.replaceChildren(themeFragment);
+    elements.primaryGrid?.setAttribute("aria-busy", "false");
+    elements.themeGrid?.setAttribute("aria-busy", "false");
+    if (elements.themeCount) elements.themeCount.textContent = formatNumber(themeCount);
   }
 
   function renderNearest(metrics) {
@@ -970,7 +1017,7 @@
           b.total - a.total ||
           a.name.localeCompare(b.name, "ko-KR"),
       )
-      .slice(0, 6);
+      .slice(0, 3);
 
     elements.nearestCount.textContent = `${nearest.length}개`;
     elements.nearestEmpty.hidden = nearest.length > 0;
@@ -1099,7 +1146,7 @@
 
     return entries
       .sort((a, b) => b.date.getTime() - a.date.getTime())
-      .slice(0, 6);
+      .slice(0, 5);
   }
 
   function renderRecent() {
@@ -1229,7 +1276,7 @@
       elements.accountNote.hidden = false;
       elements.accountNote.dataset.state = "readonly";
       elements.accountNote.querySelector("strong").textContent =
-        "드기 도감을 읽기 전용으로 보고 있습니다.";
+        "공개 도감을 읽기 전용으로 보고 있습니다.";
       elements.accountNote.querySelector("p").textContent =
         "수집 현황은 확인할 수 있지만 카드 상태를 수정하거나 동기화할 수 없습니다.";
       elements.loginCta.hidden = true;
@@ -1237,6 +1284,31 @@
     }
 
     elements.accountNote.hidden = true;
+  }
+
+  function initializeThemeDisclosure() {
+    const section = document.querySelector("#dashboard-theme-section");
+    if (!section) return;
+
+    const storageKey = "digitalCardBinderDashboardThemeOpenV1";
+    let stored = null;
+    try {
+      stored = window.localStorage.getItem(storageKey);
+    } catch {}
+
+    if (stored === "open") {
+      section.open = true;
+    } else if (stored === "closed") {
+      section.open = false;
+    } else {
+      section.open = window.matchMedia("(min-width: 761px)").matches;
+    }
+
+    section.addEventListener("toggle", () => {
+      try {
+        window.localStorage.setItem(storageKey, section.open ? "open" : "closed");
+      } catch {}
+    });
   }
 
   function renderDashboard() {
@@ -1251,6 +1323,7 @@
 
   async function initialize() {
     createAuthUi();
+    initializeThemeDisclosure();
 
     try {
       const [loadedCatalogs] = await Promise.all([
