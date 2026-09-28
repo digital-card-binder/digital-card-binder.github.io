@@ -10,9 +10,10 @@ const ERA_ORDER = ["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"];
 const clean = (value) => String(value ?? "").trim();
 const normalized = (value) => clean(value).toLowerCase();
 
-function buildAudit(inventory, variants) {
+function buildAudit(inventory, variants, membershipEvidence = null) {
   const eras = {};
   let verifiedVariantSetCount = 0;
+  let firstPartyMembershipVerifiedSetCount = 0;
 
   for (const era of ERA_ORDER) {
     const eraSummary = inventory.eras.find((item) => item.era === era);
@@ -53,6 +54,45 @@ function buildAudit(inventory, variants) {
         },
       },
     };
+
+    if (era === "M" && membershipEvidence?.sets) {
+      const evidenceByCode = new Map(
+        membershipEvidence.sets.map((item) => [normalized(item.code), item]),
+      );
+      const verifiedMembershipSets = eraSets.filter(
+        (item) =>
+          evidenceByCode.get(normalized(item.code))
+            ?.allExpectedSlotsHaveFirstPartyEvidence === true,
+      );
+      const pendingMembershipSets = eraSets.filter(
+        (item) =>
+          evidenceByCode.get(normalized(item.code))
+            ?.allExpectedSlotsHaveFirstPartyEvidence !== true,
+      );
+      firstPartyMembershipVerifiedSetCount += verifiedMembershipSets.length;
+      eras[era].firstPartyMembershipAudit = {
+        status:
+          verifiedMembershipSets.length === eraSets.length
+            ? "complete"
+            : verifiedMembershipSets.length
+              ? "partial"
+              : "pending",
+        verifiedSetCount: verifiedMembershipSets.length,
+        pendingSetCount: pendingMembershipSets.length,
+        verifiedSetCodes: verifiedMembershipSets.map((item) => item.code),
+        pendingSetCodes: pendingMembershipSets.map((item) => item.code),
+        productSearchGapCount: Number(
+          membershipEvidence.summary?.missingExpectedSlotCount || 0,
+        ),
+        firstPartyVerifiedGapCount: Number(
+          membershipEvidence.summary?.verifiedMissingSlotCount || 0,
+        ),
+        unresolvedGapCount: Number(
+          membershipEvidence.summary?.unresolvedMissingSlotCount || 0,
+        ),
+        evidencePolicy: clean(membershipEvidence.sourcePolicy),
+      };
+    }
   }
 
   const verifiedVariantCounts = Object.values(variants.coverage || {}).reduce(
@@ -98,6 +138,9 @@ function buildAudit(inventory, variants) {
       "data/series-legacy.json",
       "data/series-inventory-audit.json",
       "data/series-print-variants.json",
+      ...(membershipEvidence
+        ? ["data/audits/mega-official-image-probe.json"]
+        : []),
     ],
     summary: {
       setCount: inventory.summary.setCount,
@@ -109,6 +152,14 @@ function buildAudit(inventory, variants) {
         inventory.summary.setCount - verifiedVariantSetCount,
       officialVariantVerifiedSlotCount: Object.keys(variants.slots || {}).length,
       verifiedVariantCounts,
+      ...(membershipEvidence
+        ? {
+            firstPartyMembershipVerifiedSetCount,
+            firstPartyMembershipPendingSetCount:
+              Number(membershipEvidence.summary?.setCount || 0) -
+              firstPartyMembershipVerifiedSetCount,
+          }
+        : {}),
       metadataGaps: inventory.summary.metadata,
     },
     eras,
@@ -117,12 +168,21 @@ function buildAudit(inventory, variants) {
   };
 }
 
-const [inventory, variants] = await Promise.all([
+async function readOptionalJson(relativePath) {
+  try {
+    return JSON.parse(await readFile(path.join(root, relativePath), "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+const [inventory, variants, membershipEvidence] = await Promise.all([
   readFile(path.join(root, "data", "series-inventory-audit.json"), "utf8").then(JSON.parse),
   readFile(path.join(root, "data", "series-print-variants.json"), "utf8").then(JSON.parse),
+  readOptionalJson("data/audits/mega-official-image-probe.json"),
 ]);
 
-const audit = buildAudit(inventory, variants);
+const audit = buildAudit(inventory, variants, membershipEvidence);
 const expected = `${JSON.stringify(audit, null, 2)}\n`;
 
 if (checkOnly) {
