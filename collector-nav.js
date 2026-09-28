@@ -12,8 +12,14 @@
   const SITE_BUILD_VERSION = "b-29d69c68e630";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
+  const BUILD_CHECK_MIN_INTERVAL_MS = 15_000;
+  let lastBuildCheckAt = 0;
 
-  async function refreshStaleShell() {
+  async function refreshStaleShell({ force = false } = {}) {
+    const now = Date.now();
+    if (!force && now - lastBuildCheckAt < BUILD_CHECK_MIN_INTERVAL_MS) return;
+    lastBuildCheckAt = now;
+
     try {
       const response = await fetch(
         `${SITE_BUILD_CHECK_URL}?t=${Date.now()}`,
@@ -584,7 +590,13 @@
   }
 
   window.addEventListener("pokemon-dex:public-sync-error", showPublicSyncWarning);
-  void refreshStaleShell();
+  void refreshStaleShell({ force: true });
+  window.addEventListener("pageshow", () => {
+    void refreshStaleShell();
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) void refreshStaleShell();
+  });
   activateCollectionUiShell();
   arrangeCollectorNavigation();
   centerActiveNavigationOnMobile();
