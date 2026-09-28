@@ -42,7 +42,8 @@
     "data/series-inventory-audit.json",
     "data/series-print-variants.json",
     "data/audits/mega-official-image-probe.json",
-    "data/audits/mega-korean-membership-audit.json"
+    "data/audits/mega-korean-membership-audit.json",
+    "data/audits/sv-expansion-korean-membership.json"
   ],
   "summary": {
     "setCount": 273,
@@ -59,8 +60,9 @@
     },
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
-    "koreanMembershipVerifiedSetCount": 14,
-    "koreanMembershipPendingSetCount": 0,
+    "koreanMembershipScopedSetCount": 67,
+    "koreanMembershipVerifiedSetCount": 39,
+    "koreanMembershipPendingSetCount": 28,
     "metadataGaps": {
       "missingCode": 0,
       "missingName": 3156,
@@ -477,6 +479,79 @@
           "mirror": 286,
           "other": 119
         }
+      },
+      "koreanMembershipAudit": {
+        "status": "partial",
+        "auditedSetCount": 25,
+        "verifiedSetCount": 25,
+        "pendingSetCount": 28,
+        "verifiedSetCodes": [
+          "sv1S",
+          "sv1V",
+          "sv1a",
+          "sv2D",
+          "sv2P",
+          "sv2a",
+          "sv3",
+          "sv3a",
+          "sv4K",
+          "sv4M",
+          "sv4a",
+          "sv5K",
+          "sv5M",
+          "sv5a",
+          "sv6",
+          "sv6a",
+          "sv7",
+          "sv7a",
+          "sv8",
+          "sv8a",
+          "sv9",
+          "sv9a",
+          "sv10",
+          "sv11B",
+          "sv11W"
+        ],
+        "pendingSetCodes": [
+          "SVOM",
+          "SVOD",
+          "SVN",
+          "SVM",
+          "SVP2",
+          "SVLS",
+          "SVLN",
+          "SVK",
+          "SVJP",
+          "SVJL",
+          "SVI",
+          "SVHK",
+          "SVHM",
+          "SVG",
+          "SVEM",
+          "SVEL",
+          "SVF",
+          "SVD",
+          "SVP1",
+          "SVC",
+          "SVB",
+          "SVAL",
+          "SVAW",
+          "SVAM",
+          "SV-P",
+          "CLF",
+          "CLK",
+          "CLL"
+        ],
+        "expectedSlotCount": 3341,
+        "productSearchSlotCount": 3253,
+        "firstPartyVerifiedGapCount": 79,
+        "koreanSecondaryVerifiedGapCount": 9,
+        "unresolvedGapCount": 0,
+        "evidencePolicy": {
+          "tier1": "Pokemon Korea official product-search/detail/image evidence.",
+          "tier2": "Korean secondary card database plus Korean card image evidence, used only when Pokemon Korea product search omits a slot.",
+          "japaneseReference": "Reference-only. Japanese existence alone never verifies a Korean master slot."
+        }
       }
     },
     "M": {
@@ -540,6 +615,7 @@
       },
       "koreanMembershipAudit": {
         "status": "complete",
+        "auditedSetCount": 14,
         "verifiedSetCount": 14,
         "pendingSetCount": 0,
         "verifiedSetCodes": [
