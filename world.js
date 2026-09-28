@@ -2,6 +2,7 @@
 
 (function () {
   const OWNED_STORAGE_KEY = "digitalCardBinderWorldExplorationOwnedV1";
+  const OWNED_MIGRATION_KEY = "digitalCardBinderWorldExplorationOwnedMigratedV1";
   const cardLookup = window.DigitalCardBinder?.cardLookup;
   if (!cardLookup) {
     throw new Error("공통 카드 탐색 코어를 불러오지 못했습니다.");
@@ -12,6 +13,8 @@
     people: null,
     generation: 1,
     owned: new Set(),
+    accountKeys: new Map(),
+    accountManaged: false,
     cardOverrides: {},
     activeSlotId: "",
   };
@@ -27,11 +30,83 @@
     }
   }
 
-  function saveOwned() {
+  function saveOwnedLocal() {
     try {
       localStorage.setItem(OWNED_STORAGE_KEY, JSON.stringify([...state.owned]));
     } catch {
       // 저장소 접근이 제한되어도 현재 세션의 체크 상태는 유지한다.
+    }
+  }
+
+  function ownedMigrationDone() {
+    try {
+      return localStorage.getItem(OWNED_MIGRATION_KEY) === "done";
+    } catch {
+      return false;
+    }
+  }
+
+  function markOwnedMigrationDone() {
+    try {
+      localStorage.setItem(OWNED_MIGRATION_KEY, "done");
+    } catch {
+      // 마이그레이션 표식을 저장하지 못해도 원격 저장 결과는 유지된다.
+    }
+  }
+
+  function accountGroups() {
+    return (state.data?.generations || []).map((generation) => ({
+      code: `generation-${generation.generation}`,
+      name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
+      cards: (generation.slots || []).map((slot) => ({
+        code: slot.id,
+        name: slot.title,
+        owned: false,
+        slotId: slot.id,
+      })),
+    }));
+  }
+
+  async function applyAccountOwnership() {
+    const account = window.PokemonDexPageAccount;
+    if (!account || !state.data) return;
+
+    await account.ready;
+    const groups = accountGroups();
+    account.applyGroups(groups);
+
+    const remoteOwned = new Set();
+    const accountKeys = new Map();
+    groups.forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        if (!card.slotId || !card.accountKey) return;
+        accountKeys.set(card.slotId, card.accountKey);
+        if (card.owned) remoteOwned.add(card.slotId);
+      });
+    });
+    state.accountKeys = accountKeys;
+
+    const legacyOwned = new Set(state.owned);
+    if (account.canEdit?.() && legacyOwned.size && !ownedMigrationDone()) {
+      for (const slotId of legacyOwned) {
+        const key = accountKeys.get(slotId);
+        if (!key || remoteOwned.has(slotId)) continue;
+        try {
+          const saved = await account.saveOwned(key, true);
+          if (saved?.owned) remoteOwned.add(slotId);
+        } catch (error) {
+          console.warn(`월드탐험도감 기존 보유상태 이전 실패: ${slotId}`, error);
+        }
+      }
+      markOwnedMigrationDone();
+    }
+
+    state.accountManaged = Boolean(
+      account.currentUser || window.CollectorPublicView?.requested,
+    );
+    if (state.accountManaged) {
+      state.owned = remoteOwned;
+      saveOwnedLocal();
     }
   }
 
@@ -258,12 +333,36 @@
       applyOwnedBadge(statusBadge, isOwned);
     };
     refreshOwnedButton();
-    ownedButton.addEventListener("click", () => {
-      if (state.owned.has(slot.id)) state.owned.delete(slot.id);
-      else state.owned.add(slot.id);
-      saveOwned();
-      refreshOwnedButton();
-      updateProgress();
+    const publicReadOnly = Boolean(window.CollectorPublicView?.requested);
+    if (publicReadOnly) {
+      ownedButton.disabled = true;
+      ownedButton.title = "공개 도감은 읽기 전용입니다.";
+    }
+    ownedButton.addEventListener("click", async () => {
+      if (publicReadOnly) return;
+      const nextOwned = !state.owned.has(slot.id);
+      const account = window.PokemonDexPageAccount;
+      const accountKey = state.accountKeys.get(slot.id);
+
+      ownedButton.disabled = true;
+      try {
+        let effectiveOwned = nextOwned;
+        if (account?.canEdit?.() && accountKey) {
+          const saved = await account.saveOwned(accountKey, nextOwned);
+          effectiveOwned = Boolean(saved?.owned);
+          state.accountManaged = true;
+        }
+        if (effectiveOwned) state.owned.add(slot.id);
+        else state.owned.delete(slot.id);
+        saveOwnedLocal();
+        refreshOwnedButton();
+        updateProgress();
+      } catch (error) {
+        console.error(error);
+        alert(error?.message || "수집 상태를 저장하지 못했습니다.");
+      } finally {
+        ownedButton.disabled = false;
+      }
     });
 
     article.append(openButton, ownedButton);
@@ -533,6 +632,7 @@
       if (!worldResponse.ok) throw new Error("월드탐험도감 데이터를 불러오지 못했습니다.");
       state.data = await worldResponse.json();
       state.people = peopleResponse.ok ? await peopleResponse.json() : null;
+      await applyAccountOwnership();
       renderAll();
     } catch (error) {
       console.error(error);
