@@ -51,7 +51,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const expected = {
     national: [1025, 9],
     series: [20240, 273],
-    ar: [530, 34],
+    ar: [530, 33],
     pack: [64, 3],
     pokemon: [1333, 67],
     artist: [4873, 40],
@@ -166,7 +166,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     artist: 40,
     series: 273,
     pokemon: 67,
-    ar: 34,
+    ar: 33,
     people: 9,
     trainerPokemon: 172,
     fossil: 26,
