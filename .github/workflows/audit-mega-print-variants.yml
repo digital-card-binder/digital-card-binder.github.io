@@ -8,6 +8,7 @@ on:
       - 'scripts/build_legacy_series_data.py'
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
+      - 'scripts/audit-mega-gap-evidence.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
       - 'tests/series-print-variants.test.mjs'
       - '.github/workflows/audit-mega-print-variants.yml'
@@ -53,6 +54,9 @@ jobs:
             --workers 2 \
             --output data/audits/series-print-variant-audit-M.json
 
+      - name: Build MEGA gap evidence
+        run: node scripts/audit-mega-gap-evidence.mjs
+
       - name: Merge verified print variants
         run: |
           node scripts/merge-series-print-variant-audit.mjs \
@@ -73,6 +77,7 @@ jobs:
           git add \
             data/series-canonical-slot-audit.json \
             data/audits/series-print-variant-audit-M.json \
+            data/audits/mega-gap-evidence.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
           if git diff --cached --quiet; then
