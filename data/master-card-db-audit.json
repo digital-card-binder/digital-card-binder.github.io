@@ -43,7 +43,7 @@
     "data/series-print-variants.json",
     "data/audits/mega-official-image-probe.json",
     "data/audits/mega-korean-membership-audit.json",
-    "data/audits/sv-expansion-korean-membership.json"
+    "data/audits/sv-korean-membership-audit.json"
   ],
   "summary": {
     "setCount": 273,
@@ -61,8 +61,8 @@
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
     "koreanMembershipScopedSetCount": 67,
-    "koreanMembershipVerifiedSetCount": 39,
-    "koreanMembershipPendingSetCount": 28,
+    "koreanMembershipVerifiedSetCount": 67,
+    "koreanMembershipPendingSetCount": 0,
     "metadataGaps": {
       "missingCode": 0,
       "missingName": 3156,
@@ -481,10 +481,10 @@
         }
       },
       "koreanMembershipAudit": {
-        "status": "partial",
-        "auditedSetCount": 25,
-        "verifiedSetCount": 25,
-        "pendingSetCount": 28,
+        "status": "complete",
+        "auditedSetCount": 53,
+        "verifiedSetCount": 53,
+        "pendingSetCount": 0,
         "verifiedSetCodes": [
           "sv1S",
           "sv1V",
@@ -510,9 +510,7 @@
           "sv9a",
           "sv10",
           "sv11B",
-          "sv11W"
-        ],
-        "pendingSetCodes": [
+          "sv11W",
           "SVOM",
           "SVOD",
           "SVN",
@@ -542,14 +540,15 @@
           "CLK",
           "CLL"
         ],
-        "expectedSlotCount": 3341,
+        "pendingSetCodes": [],
+        "expectedSlotCount": 4749,
         "productSearchSlotCount": 3253,
         "firstPartyVerifiedGapCount": 79,
-        "koreanSecondaryVerifiedGapCount": 9,
+        "koreanSecondaryVerifiedGapCount": 1417,
         "unresolvedGapCount": 0,
         "evidencePolicy": {
           "tier1": "Pokemon Korea official product-search/detail/image evidence.",
-          "tier2": "Korean secondary card database plus Korean card image evidence, used only when Pokemon Korea product search omits a slot.",
+          "tier2": "Known Korean card database source paired with Korean card image evidence.",
           "japaneseReference": "Reference-only. Japanese existence alone never verifies a Korean master slot."
         }
       }
