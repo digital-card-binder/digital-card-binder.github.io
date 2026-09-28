@@ -40,7 +40,8 @@
     "data/series.json",
     "data/series-legacy.json",
     "data/series-inventory-audit.json",
-    "data/series-print-variants.json"
+    "data/series-print-variants.json",
+    "data/audits/mega-official-image-probe.json"
   ],
   "summary": {
     "setCount": 273,
@@ -55,6 +56,8 @@
       "mirror": 243,
       "other": 5
     },
+    "firstPartyMembershipVerifiedSetCount": 11,
+    "firstPartyMembershipPendingSetCount": 3,
     "metadataGaps": {
       "missingCode": 0,
       "missingName": 3156,
@@ -503,6 +506,33 @@
           "mirror": 0,
           "other": 0
         }
+      },
+      "firstPartyMembershipAudit": {
+        "status": "partial",
+        "verifiedSetCount": 11,
+        "pendingSetCount": 3,
+        "verifiedSetCodes": [
+          "m1S",
+          "m1L",
+          "m2",
+          "m2a",
+          "m3",
+          "m4",
+          "m5",
+          "m6",
+          "MBD",
+          "MBG",
+          "MA"
+        ],
+        "pendingSetCodes": [
+          "M6a",
+          "MC",
+          "M-P"
+        ],
+        "productSearchGapCount": 164,
+        "firstPartyVerifiedGapCount": 88,
+        "unresolvedGapCount": 76,
+        "evidencePolicy": "Pokemon Korea product-search results first; Pokemon Korea official image host is accepted as first-party fallback evidence for catalog membership only."
       }
     }
   },
