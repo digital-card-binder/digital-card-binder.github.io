@@ -22,13 +22,24 @@ const registry = readFileSync(
   new URL("../collector-collection-registry.js", import.meta.url),
   "utf8",
 );
+const catalogService = readFileSync(
+  new URL("../core/catalog/catalog-service.js", import.meta.url),
+  "utf8",
+);
+const metricMatch = catalogService.match(
+  /const CATALOG_METRICS = Object[.]freeze[(]([\s\S]*?)[)][;]/,
+);
+assert.ok(metricMatch, "generated catalog metrics");
+const catalogMetrics = JSON.parse(metricMatch[1]);
+const arMetric = catalogMetrics.ar;
 
 assert.doesNotMatch(html, /ar-count-ui-fix[.]js/);
 assert.doesNotMatch(html, /ar-mega-supplement[.]js/);
 assert.match(html, /ar-card-editor[.]js[?]v=[0-9a-f]{12}/);
 assert.match(html, /ar[.]js[?]v=[0-9a-f]{12}/);
-assert.match(ar, /const EXPECTED_GROUPS = 34;/);
-assert.match(ar, /const EXPECTED_TOTAL = 530;/);
+assert.match(ar, /catalogMetrics[?][.]ar/);
+assert.match(ar, /const EXPECTED_GROUPS = Number\(AR_METRIC[.]groupCount\) \|\| 0;/);
+assert.match(ar, /const EXPECTED_TOTAL = Number\(AR_METRIC[.]itemCount\) \|\| 0;/);
 assert.match(ar, /const SUPPLEMENT_URL = "[.]\/data\/ar-supplement[.]json";/);
 assert.match(ar, /const AR_VIEW = new URLSearchParams/);
 assert.match(ar, /function scopedNationalGroups/);
@@ -57,12 +68,12 @@ for (const group of supplementData) {
   mergedByCode.set(String(group.code).toLowerCase(), group);
 }
 const mergedGroups = [...mergedByCode.values()];
-assert.equal(mergedGroups.length, 34);
+assert.equal(mergedGroups.length, arMetric.groupCount);
 assert.equal(
   mergedGroups.reduce((total, group) => total + group.cards.length, 0),
-  530,
+  arMetric.itemCount,
 );
 assert.match(registry, /ar:\s*\{[\s\S]*?documentId: "arDex"/);
 assert.match(manager, /registry[.]COLLECTIONS[?][.]\[mode\]/);
 
-console.log("AR integrated loader regression contract passed: 34 sets / 530 cards");
+console.log(`AR integrated loader regression contract passed: ${arMetric.groupCount} sets / ${arMetric.itemCount} cards`);
