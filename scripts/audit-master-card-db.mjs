@@ -236,7 +236,7 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         ? ["data/audits/mega-korean-membership-audit.json"]
         : []),
       ...(svKoreanMembership
-        ? ["data/audits/sv-expansion-korean-membership.json"]
+        ? ["data/audits/sv-korean-membership-audit.json"]
         : []),
     ],
     summary: {
@@ -291,7 +291,7 @@ const [
   readFile(path.join(root, "data", "series-print-variants.json"), "utf8").then(JSON.parse),
   readOptionalJson("data/audits/mega-official-image-probe.json"),
   readOptionalJson("data/audits/mega-korean-membership-audit.json"),
-  readOptionalJson("data/audits/sv-expansion-korean-membership.json"),
+  readOptionalJson("data/audits/sv-korean-membership-audit.json"),
 ]);
 
 const audit = buildAudit(
