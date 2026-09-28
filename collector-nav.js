@@ -504,7 +504,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "world-exploration", "pokemon-search", "health", "operations"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "pokemon-search", "health", "operations"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
@@ -589,7 +589,7 @@
   } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
     mobileCardLayoutMedia.addListener(centerActiveNavigationOnMobile);
   }
-  const standaloneAccountHeaderPages = new Set(["custom-dex", "world-exploration"]);
+  const standaloneAccountHeaderPages = new Set(["custom-dex"]);
   if (standaloneAccountHeaderPages.has(document.body?.dataset?.page)) {
     void window.DigitalCardBinder?.firebaseAccount?.installHeaderPanel?.(CONFIG);
   }
