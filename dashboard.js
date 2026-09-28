@@ -4,10 +4,8 @@
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const registry = window.CollectorCollectionRegistry;
-  const catalogService = window.DigitalCardBinder?.catalog;
   const accountCore = window.DigitalCardBinder?.firebaseAccount;
-  const identityService = window.DigitalCardBinder?.cardIdentity;
-  if (!catalogService || !accountCore || !identityService) {
+  if (!registry || !accountCore) {
     throw new Error("공통 도감 코어를 불러오지 못했습니다.");
   }
   const FALLBACK_CATEGORY_META = {
