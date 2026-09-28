@@ -98,24 +98,7 @@
     CATEGORY_ORDER.map((key) => [key, CATEGORY_META[key].documentId]),
   );
   const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
-  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon"]);
-  const EXTRA_THEME_COLLECTIONS = Object.freeze([
-    {
-      key: "fossil",
-      number: "09",
-      title: "화석 도감",
-      description: "화석과 발굴 장면을 모은 카드",
-      href: "./fossil.html",
-    },
-    {
-      key: "world",
-      number: "10",
-      title: "월드탐험도감",
-      description: "4×3 스토리 바인더",
-      href: "./world.html",
-    },
-  ]);
-
+  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
   const elements = {
     headerChip: document.querySelector(".header-chip"),
     activeCollections: document.querySelector("#dashboard-active-collections"),
@@ -754,29 +737,6 @@
     return link;
   }
 
-  function createStaticCollectionCard(collection) {
-    const link = document.createElement("a");
-    link.className = "dashboard-collection-card dashboard-collection-card--static";
-    link.dataset.category = collection.key;
-    link.href = collection.href;
-    const metric = window.DigitalCardBinder?.catalog?.catalogMetrics?.[collection.key];
-    const metricCopy = metric
-      ? `${formatNumber(metric.itemCount)}장 · ${formatNumber(metric.groupCount)}${collection.key === "world" ? "세대" : "그룹"}`
-      : collection.description;
-    link.setAttribute("aria-label", `${collection.title} ${metricCopy} 바로가기`);
-    link.innerHTML = `
-      <div class="dashboard-card-top">
-        <span class="dashboard-card-icon" aria-hidden="true">${collection.number}</span>
-        <span class="dashboard-card-arrow" aria-hidden="true">→</span>
-      </div>
-      <div class="dashboard-card-title">
-        <strong>${escapeHtml(collection.title)}</strong>
-        <span>${escapeHtml(metricCopy)}</span>
-      </div>
-    `;
-    return link;
-  }
-
   function renderCollections(metrics) {
     const primaryFragment = document.createDocumentFragment();
     const themeFragment = document.createDocumentFragment();
@@ -792,11 +752,6 @@
         themeFragment.append(createCollectionCard(metric));
         themeCount += 1;
       }
-    }
-
-    for (const collection of EXTRA_THEME_COLLECTIONS) {
-      themeFragment.append(createStaticCollectionCard(collection));
-      themeCount += 1;
     }
 
     if (!primaryCount) {
