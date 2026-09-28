@@ -14,8 +14,9 @@ const total = merged.reduce((sum, group) => sum + (group.cards || []).length, 0)
 assert.equal(base.length, 32);
 assert.equal(base.reduce((sum, group) => sum + (group.cards || []).length, 0), 498);
 assert.equal(base.some((group) => String(group.code).toLowerCase() === "m5"), true);
-assert.equal(merged.length, 33);
-assert.equal(total, 510);
+assert.equal(merged.length, 34);
+assert.equal(total, 530);
 assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6"), true);
+assert.equal(merged.some((group) => String(group.code).toLowerCase() === "m6a"), true);
 
-console.log("AR current baseline is 33 sets / 510 cards");
+console.log("AR current baseline is 34 sets / 530 cards");
