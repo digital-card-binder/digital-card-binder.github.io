@@ -145,7 +145,15 @@
     if (!groups.length) return;
 
     const activeGroup = groups.find(({ group }) => group.querySelector(".collection-link.is-active"));
-    const preferredGroup = activeGroup?.key || savedNavigationGroup() || "main";
+    const savedGroup = savedNavigationGroup();
+    const mobileTopLevelActive = Boolean(
+      mobileCardLayoutMedia?.matches &&
+      nav.querySelector(":scope > .collection-link.is-active"),
+    );
+    const preferredGroup =
+      activeGroup?.key ||
+      savedGroup ||
+      (mobileTopLevelActive ? "none" : "main");
 
     const applyOpenGroup = (groupKey, { persist = true } = {}) => {
       groups.forEach(({ key, button, group }) => {
@@ -445,7 +453,9 @@
   }
 
   function centerActiveNavigationOnMobile() {
-    if (!mobileCardLayoutMedia?.matches) return;
+    // 691–920px에서는 가로형 압축 메뉴를 유지하므로 활성 항목을 가운데로 맞춥니다.
+    // 690px 이하 모바일은 세로 아코디언이므로 가로 스크롤 보정이 필요하지 않습니다.
+    if (!compactCardLayoutMedia?.matches || mobileCardLayoutMedia?.matches) return;
     const sidebar = document.querySelector(".sidebar");
     const active = sidebar?.querySelector(".collection-link.is-active");
     if (!sidebar || !active || active.closest(".collection-nav-group")?.hidden) return;
