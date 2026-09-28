@@ -3,7 +3,7 @@
 (function () {
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
-  const SERVICE_WORKER_URL = "/sw.js?v=a41319a63db7";
+  const SERVICE_WORKER_URL = "/sw.js?v=632392d98c06";
 
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -207,7 +207,7 @@
     button.dataset.downloadBound = "true";
 
     button.addEventListener("click", async () => {
-      const apkUrl = "./DigitalCardBinder_v0.9.apk";
+      const apkUrl = "./DigitalCardBinder_v1.0.apk";
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = "확인 중…";
@@ -218,12 +218,12 @@
 
         const link = document.createElement("a");
         link.href = apkUrl;
-        link.download = "DigitalCardBinder_v0.9.apk";
+        link.download = "DigitalCardBinder_v1.0.apk";
         document.body.append(link);
         link.click();
         link.remove();
       } catch {
-        window.alert("안드로이드 앱 v0.9 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.");
+        window.alert("안드로이드 앱 v1.0 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.");
       } finally {
         button.disabled = false;
         button.textContent = originalText;

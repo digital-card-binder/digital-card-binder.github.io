@@ -115,7 +115,31 @@ img {
   text-decoration: none;
 }
 
-.brand-mark,
+.brand-horizontal {
+  display: block;
+  width: auto;
+  height: 44px;
+  max-width: min(250px, 35vw);
+  object-fit: contain;
+}
+
+.brand-symbol,
+.site-header .brand-copy {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .brand-horizontal { display: none; }
+  .brand-symbol {
+    display: block;
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    flex: 0 0 38px;
+  }
+  .site-header .brand-copy { display: grid; }
+}
+
 .empty-ball,
 .fallback-ball {
   position: relative;
@@ -130,7 +154,6 @@ img {
   background: linear-gradient(to bottom, var(--red) 0 46%, var(--navy) 46% 55%, #fff 55%);
 }
 
-.brand-mark::after,
 .empty-ball::after,
 .fallback-ball::after {
   content: "";

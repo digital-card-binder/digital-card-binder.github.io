@@ -25,7 +25,8 @@ const navigation = Object.freeze([
 ]);
 
 const brand = `<a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
-        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <img class="brand-horizontal" src="./assets/brand/logo-horizontal.png" alt="디지털 카드 바인더" />
+        <img class="brand-symbol" src="./assets/brand/logo-symbol.png" alt="" aria-hidden="true" />
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>`;
 

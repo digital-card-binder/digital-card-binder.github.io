@@ -54,5 +54,5 @@ test("obsolete Android v0.8 website migration references are retired", () => {
 
   assert.doesNotMatch(workflow, /v0\.8|DigitalCardBinder_v0\.8/);
   assert.doesNotMatch(readme, /v0\.8|DigitalCardBinder_v0\.8/);
-  assert.match(workflow, /git add -- DigitalCardBinder_v0\.9\.apk/);
+  assert.match(workflow, /git add -- DigitalCardBinder_v1\.0\.apk/);
 });
