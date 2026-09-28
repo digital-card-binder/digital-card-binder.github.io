@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_legacy_series_data as legacy  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
+MEGA_PROMO_SENTINEL = "__DISCOVER_MEGA_PROMO__"
 
 OFFICIAL_PRODUCT_OVERRIDES = {
     "소드&실드 하이클래스팩 「샤이니스타 V」": "소드&실드 하이클래스팩 「샤이니스타 V」  ",
@@ -41,6 +42,23 @@ VARIANT_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 
 def clean(value: Any) -> str:
     return str(value or "").strip()
+
+
+def mega_promo_products(official_values: dict[str, str]) -> list[str]:
+    configured = {
+        legacy.compact(item["product"])
+        for item in legacy.PRODUCTS
+        if clean(item.get("era")).upper() == "M"
+        and clean(item.get("product")) != MEGA_PROMO_SENTINEL
+    }
+    candidates = []
+    for compact_name, official_name in official_values.items():
+        if compact_name in configured:
+            continue
+        label = clean(official_name)
+        if "프로모" in label or "MEGA" in label.upper():
+            candidates.append(label)
+    return sorted(set(candidates))
 
 
 def group_products(era: str) -> list[dict[str, Any]]:
@@ -92,21 +110,45 @@ def fetch_product_records(product: str) -> list[dict[str, str]]:
     return records
 
 
-def audit_group(group: dict[str, Any]) -> dict[str, Any]:
+def audit_group(
+    group: dict[str, Any],
+    official_values: dict[str, str],
+    expected_slot_count: int = 0,
+) -> dict[str, Any]:
     resolved_products: list[str] = []
     missing_products: list[str] = []
     all_records: list[dict[str, str]] = []
+    discovery_candidate_count = 0
 
-    for requested in group["products"]:
-        # The configured Korean product strings already match the official
-        # GoodsName values used by the existing catalog builder. Avoid
-        # re-fetching /cards just to resolve them; that endpoint is more
-        # fragile and adds unnecessary traffic.
-        resolved = OFFICIAL_PRODUCT_OVERRIDES.get(requested, requested)
+    requested_products = list(group["products"])
+    if MEGA_PROMO_SENTINEL in requested_products:
+        product_candidates = mega_promo_products(official_values)
+        discovery_candidate_count = len(product_candidates)
+        requested_products = product_candidates
+        promo_mode = True
+    else:
+        promo_mode = False
+
+    for requested in requested_products:
+        resolved = (
+            OFFICIAL_PRODUCT_OVERRIDES.get(requested)
+            or official_values.get(legacy.compact(requested))
+            or requested
+        )
         records = fetch_product_records(resolved)
-        if not records:
+        if promo_mode:
+            matched_records = []
+            for record in records:
+                identity = legacy.image_identity(clean(record.get("feature_image")))
+                if identity and identity[0].casefold() == "m-p":
+                    matched_records.append(record)
+            if not matched_records:
+                continue
+            records = matched_records
+        elif not records:
             missing_products.append(requested)
             continue
+
         resolved_products.append(resolved)
         for record in records:
             all_records.append({**record, "_product": resolved})
@@ -184,6 +226,8 @@ def audit_group(group: dict[str, Any]) -> dict[str, Any]:
         "title": group["title"],
         "requestedProducts": group["products"],
         "resolvedProducts": resolved_products,
+        "discoveryCandidateCount": discovery_candidate_count,
+        "expectedSlotCount": expected_slot_count,
         "missingProducts": missing_products,
         "rawRecordCount": len(all_records),
         "parsedSlotCount": len(slots),
@@ -195,14 +239,29 @@ def audit_group(group: dict[str, Any]) -> dict[str, Any]:
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
     legacy.warm_official_session()
+    official_values = legacy.official_product_values()
     groups = group_products(era)
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
 
+    canonical_path = ROOT / "data" / "series-canonical-slot-audit.json"
+    expected_by_code: dict[str, int] = {}
+    if canonical_path.exists():
+        canonical = json.loads(canonical_path.read_text(encoding="utf-8"))
+        expected_by_code = {
+            clean(item.get("code")).casefold(): int(item.get("canonicalSlotCount") or 0)
+            for item in canonical.get("sets", [])
+        }
+
     results: dict[str, dict[str, Any]] = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {
-            pool.submit(audit_group, group): group["code"]
+            pool.submit(
+                audit_group,
+                group,
+                official_values,
+                expected_by_code.get(clean(group["code"]).casefold(), 0),
+            ): group["code"]
             for group in groups
         }
         for future in concurrent.futures.as_completed(futures):
