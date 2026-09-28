@@ -251,7 +251,7 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--era", choices=("S", "SM"), default="S")
+    parser.add_argument("--era", choices=("S", "SM", "M"), default="S")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--output",
