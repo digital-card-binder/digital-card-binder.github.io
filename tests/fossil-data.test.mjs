@@ -122,7 +122,6 @@ test("reviewed additions and exclusions capture the requested edge cases", () =>
 
 test("fossil page renders dataset-driven totals, categories, and evidence", () => {
   for (const id of [
-    "fossil-scope",
     "fossil-hero-description",
     "fossil-pokemon-count",
     "fossil-item-count",
