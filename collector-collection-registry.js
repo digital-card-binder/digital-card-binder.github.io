@@ -8,10 +8,26 @@
     throw new Error("공통 도감 코어를 불러오지 못했습니다.");
   }
 
-  function catalogCount(collectionId) {
-    const value = Number(catalogService.catalogMetrics?.[collectionId]?.itemCount);
-    if (!Number.isInteger(value) || value < 0) {
+  function catalogMetric(collectionId) {
+    const metric = catalogService.catalogMetrics?.[collectionId];
+    if (!metric || typeof metric !== "object") {
       throw new Error(`도감 집계 메타데이터를 확인할 수 없습니다: ${collectionId}`);
+    }
+    return metric;
+  }
+
+  function catalogCount(collectionId) {
+    const value = Number(catalogMetric(collectionId).itemCount);
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error(`도감 카드 수를 확인할 수 없습니다: ${collectionId}`);
+    }
+    return value;
+  }
+
+  function catalogGroupCount(collectionId) {
+    const value = Number(catalogMetric(collectionId).groupCount);
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error(`도감 그룹 수를 확인할 수 없습니다: ${collectionId}`);
     }
     return value;
   }
@@ -36,6 +52,7 @@
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "종",
       catalogCount: catalogCount("national"),
+      catalogGroupCount: catalogGroupCount("national"),
       defaultDashboardVisible: true,
     },
     pack: {
@@ -46,6 +63,7 @@
       documentId: "packDex",
       unit: "팩",
       catalogCount: catalogCount("pack"),
+      catalogGroupCount: catalogGroupCount("pack"),
       defaultDashboardVisible: true,
     },
     artist: {
@@ -56,6 +74,7 @@
       documentId: "artistDex",
       unit: "장",
       catalogCount: catalogCount("artist"),
+      catalogGroupCount: catalogGroupCount("artist"),
       defaultDashboardVisible: true,
     },
     series: {
@@ -66,6 +85,7 @@
       documentId: "seriesDex",
       unit: "장",
       catalogCount: catalogCount("series"),
+      catalogGroupCount: catalogGroupCount("series"),
       defaultDashboardVisible: true,
     },
     pokemon: {
@@ -76,6 +96,7 @@
       documentId: "pokemonCollectionsDex",
       unit: "장",
       catalogCount: catalogCount("pokemon"),
+      catalogGroupCount: catalogGroupCount("pokemon"),
       defaultDashboardVisible: true,
     },
     ar: {
@@ -86,6 +107,7 @@
       documentId: "arDex",
       unit: "장",
       catalogCount: catalogCount("ar"),
+      catalogGroupCount: catalogGroupCount("ar"),
       defaultDashboardVisible: true,
     },
     people: {
@@ -96,6 +118,7 @@
       documentId: CONFIG.userDocument || "nationalDex",
       unit: "명",
       catalogCount: catalogCount("people"),
+      catalogGroupCount: catalogGroupCount("people"),
       defaultDashboardVisible: false,
     },
     trainerPokemon: {
@@ -106,6 +129,7 @@
       documentId: "pokemonCollectionsDex",
       unit: "장",
       catalogCount: catalogCount("trainerPokemon"),
+      catalogGroupCount: catalogGroupCount("trainerPokemon"),
       defaultDashboardVisible: true,
     },
     fossil: {
@@ -116,6 +140,7 @@
       documentId: "pokemonCollectionsDex",
       unit: "장",
       catalogCount: catalogCount("fossil"),
+      catalogGroupCount: catalogGroupCount("fossil"),
       defaultDashboardVisible: true,
     },
     world: {
@@ -126,6 +151,7 @@
       documentId: "worldDex",
       unit: "장",
       catalogCount: catalogCount("world"),
+      catalogGroupCount: catalogGroupCount("world"),
       defaultDashboardVisible: true,
     },
   };
