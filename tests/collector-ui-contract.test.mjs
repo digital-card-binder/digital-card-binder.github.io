@@ -674,6 +674,11 @@ test("ten native dexes activate one responsive collection UX shell", async () =>
   assert.match(navigation, /collector-collection-stats/);
   assert.match(navigation, /collector-content-panel/);
   assert.match(navigation, /collector-filter-surface/);
+  assert.doesNotMatch(
+    navigation,
+    /standaloneAccountHeaderPages = new Set\(\["custom-dex", "world-exploration"\]\)/,
+  );
+  assert.match(navigation, /standaloneAccountHeaderPages = new Set\(\["custom-dex"\]\)/);
   assert.match(
     navigation,
     /people-filter-panel, [.]fossil-filter-panel, [.]tp-filter-panel, [.]catalog-toolbar/,
