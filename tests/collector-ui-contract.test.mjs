@@ -663,6 +663,42 @@ test("collection pages share the same default header state", async () => {
   }
 });
 
+test("ten native dexes activate one responsive collection UX shell", async () => {
+  const navigation = await source("collector-nav.js");
+  const css = await source("collector.css");
+
+  assert.match(navigation, /function activateCollectionUiShell\(\)/);
+  assert.match(navigation, /collectionId === "custom"/);
+  assert.match(navigation, /collector-collection-page/);
+  assert.match(navigation, /collector-collection-hero/);
+  assert.match(navigation, /collector-collection-stats/);
+  assert.match(navigation, /collector-content-panel/);
+  assert.match(navigation, /collector-filter-surface/);
+  assert.match(
+    navigation,
+    /people-filter-panel, [.]fossil-filter-panel, [.]tp-filter-panel, [.]catalog-toolbar/,
+  );
+  assert.ok(
+    navigation.indexOf("activateCollectionUiShell();") <
+      navigation.indexOf("addCardLayoutToggle();"),
+    "shared page shell should be active before page controls are enhanced",
+  );
+
+  assert.match(css, /4단계: 정식 도감 10종/);
+  assert.match(css, /body[.]collector-collection-page [.]collector-collection-hero/);
+  assert.match(css, /body[.]collector-collection-page [.]collector-filter-surface/);
+  assert.match(css, /body[.]collector-collection-page [.]collector-selection-summary/);
+  assert.match(css, /data-collection-id="people"/);
+  assert.match(
+    css,
+    /@media \(max-width: 690px\)[\s\S]*?body[.]collector-collection-page [.]catalog-heading/,
+  );
+  assert.match(
+    css,
+    /body[.]collector-collection-page [.]world-generation-panel,[\s\S]*?body[.]collector-collection-page [.]world-binder-panel/,
+  );
+});
+
 test("shared collection UI uses one calm panel and interaction system", async () => {
   const css = await source("collector.css");
   assert.match(css, /--collector-filter-surface: #f8fafc/);
