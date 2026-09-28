@@ -26,6 +26,8 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   assert.match(manifest, /com\.google\.firebase\.MESSAGING_EVENT/);
   assert.match(application, /NOTIFICATION_TOPIC\s*=\s*"updates"/);
   assert.match(application, /app-version\.json/);
+  assert.match(application, /getLongVersionCode\(\)/);
+  assert.doesNotMatch(application, /CURRENT_VERSION_CODE/);
   assert.match(messaging, /NOTIFICATION_CHANNEL_ID/);
 
   assert.equal(version.versionCode, 13);
