@@ -145,5 +145,6 @@ jobs:
             echo "APK and download links unchanged"
           else
             git commit -m "Build DigitalCardBinder v1.0 APK"
+            git pull --rebase origin main
             git push
           fi
