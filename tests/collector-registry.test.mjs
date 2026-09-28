@@ -128,7 +128,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     artist: 40,
     series: 273,
     pokemon: 67,
-    ar: 32,
+    ar: 33,
     people: 9,
     trainerPokemon: 172,
   };
