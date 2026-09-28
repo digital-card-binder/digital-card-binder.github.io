@@ -354,12 +354,6 @@ function syncSeriesView() {
     "catalog-section-title",
     dashboardMode ? "시리즈 전체 현황" : "시리즈별 카드 목록",
   );
-  setText(
-    "catalog-section-caption",
-    dashboardMode
-      ? "시리즈를 선택하면 세트별 카드 목록을 확인할 수 있습니다."
-      : "미보유 카드는 흑백으로 표시됩니다.",
-  );
 }
 
 function renderSeriesDashboard() {
