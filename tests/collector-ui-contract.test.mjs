@@ -13,6 +13,8 @@ const collectionPages = {
   ar: ["ar.html", "firebase-page-manager.js"],
   people: ["people.html", "firebase-people-manager.js"],
   trainerPokemon: ["trainer-pokemon.html", "firebase-page-manager.js"],
+  fossil: ["fossil.html", "firebase-page-manager.js"],
+  world: ["world.html", "firebase-page-manager.js"],
 };
 const sitePages = [
   "index.html",
@@ -24,6 +26,8 @@ const sitePages = [
   "ar.html",
   "people.html",
   "trainer-pokemon.html",
+  "fossil.html",
+  "world.html",
   "custom.html",
   "collectors.html",
   "collector.html",
@@ -529,6 +533,23 @@ test("collector settings restores the existing login before showing its sign-in 
   assert.match(settingsClient, /auth[.]authStateReady/);
   assert.match(settingsClient, /현재 세션 확인/);
   assert.equal(settingsClient.includes('prompt: "select_account"'), false);
+});
+
+test("fossil and world pages use their own registry collection identities", async () => {
+  const fossil = await source("fossil.html");
+  const world = await source("world.html");
+  const worldClient = await source("world.js");
+
+  assert.match(fossil, /<body data-catalog="fossil">/);
+  assert.match(world, /data-catalog="world"/);
+  for (const html of [fossil, world]) {
+    assert.match(html, /collector-public-view[.]js[?]v=[0-9a-f]{12}/);
+    assert.match(html, /collector-public-sync[.]js[?]v=[0-9a-f]{12}/);
+    assert.match(html, /firebase-page-manager[.]js[?]v=[0-9a-f]{12}/);
+  }
+  assert.match(worldClient, /applyAccountOwnership/);
+  assert.match(worldClient, /OWNED_MIGRATION_KEY/);
+  assert.match(worldClient, /account[.]saveOwned/);
 });
 
 test("navigation uses Korean main and theme groups with standalone custom and community links", async () => {
