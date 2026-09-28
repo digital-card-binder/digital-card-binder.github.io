@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const HEADER_METRICS_VERSION = 3;
+  const HEADER_METRICS_VERSION = 4;
   if (window.PokemonDexSiteMetrics?.headerMetricsVersion === HEADER_METRICS_VERSION) return;
 
   const SDK_VERSION = "12.16.0";
@@ -9,117 +9,14 @@
   const OWNER_EMAIL = String(CONFIG.ownerEmail || "").trim().toLowerCase();
   const KNOWN_VIEWER_UID = "9K11y6y4U4dlVmmi9bkxaT4Ci8u2";
   const VISITOR_STORAGE_KEY = "pokemonDexVisitorIdV1";
+  const DAILY_RECORDED_STORAGE_KEY = "pokemonDexDailyVisitRecordedV2";
+  const REGISTERED_USER_STORAGE_KEY = "pokemonDexRegisteredUserV1";
+  const SEEDED_VIEWER_STORAGE_KEY = "pokemonDexKnownViewerSeededV1";
   const METRICS_COLLECTION = "siteMetrics";
   const METRICS_DOCUMENT = "public";
   const DAILY_COLLECTION = "siteDailyMetrics";
   const USER_COLLECTION = "siteUserRegistry";
   const DISPLAY_PUBLIC_METRICS = false;
-
-  function installStyles() {
-    if (!DISPLAY_PUBLIC_METRICS) return;
-    if (document.querySelector("#site-header-metrics-style")) return;
-    const style = document.createElement("style");
-    style.id = "site-header-metrics-style";
-    style.textContent = `
-      .site-header-metrics{display:flex;align-items:center;gap:0;min-width:0;margin-left:clamp(18px,3.2vw,52px);color:#73798a;white-space:nowrap}
-      .site-header-metric{display:inline-flex;align-items:baseline;gap:5px;min-height:30px;padding:6px 11px;border-left:1px solid #e7e9f1;font-size:.6rem;font-weight:800;line-height:1}
-      .site-header-metric:first-of-type{border-left:0;padding-left:0}
-      .site-header-metric-label{color:#8b91a1;font-weight:700}
-      .site-header-metric strong{color:#26365b;font-size:.76rem;font-weight:900;letter-spacing:-.025em}
-      .site-header-metric small{color:#9aa0ae;font-size:.52rem;font-weight:700}
-      .site-header-metric--today strong{color:#13795b}
-      .site-header-metric--users strong{color:#6b50c8}
-      .site-header-metric[hidden]{display:none!important}
-      .site-header-metrics-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-      body[data-page="dashboard"] .site-header-metrics{display:none!important}
-      #dashboard-traffic[hidden]{display:none!important}
-      body[data-page="dashboard"] #dashboard-traffic{display:block!important;margin:12px 0 12px}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(100%,440px);margin:0 auto}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:58px;padding:11px 15px;border:1px solid #e3e6ed;border-radius:15px;background:#fff;box-shadow:0 7px 20px rgba(28,38,68,.055);text-align:left}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card--users{display:none!important}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label{justify-content:flex-start;gap:5px;font-size:.64rem;white-space:nowrap}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong{justify-content:flex-end;gap:3px;white-space:nowrap}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong b{font-size:1.05rem}
-      body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong small{font-size:.58rem}
-      @media(max-width:1180px){.site-header-metrics{margin-left:20px}.site-header-metric{padding-right:7px;padding-left:7px;font-size:.55rem}.site-header-metric strong{font-size:.7rem}}
-      @media(max-width:860px){.site-header-metrics{display:none!important}}
-      @media(max-width:690px){
-        body[data-page="dashboard"] #dashboard-traffic{margin:10px 0 10px}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-grid{width:100%;max-width:none;gap:0;overflow:hidden;border:1px solid #e3e6ed;border-radius:15px;background:#fff;box-shadow:0 6px 18px rgba(28,38,68,.05)}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card{min-height:44px;padding:8px 11px;border:0;border-radius:0;box-shadow:none}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card+ .dashboard-traffic-card{border-left:1px solid #e7e9ef}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label{font-size:.58rem;gap:0}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-label span:first-child{display:none}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong b{font-size:.82rem}
-        body[data-page="dashboard"] #dashboard-traffic .dashboard-traffic-card strong small{font-size:.5rem}
-      }
-      @media print{.site-header-metrics,#dashboard-traffic{display:none!important}}
-    `;
-    document.head.append(style);
-  }
-
-  function ensureDashboardTraffic() {
-    if (!DISPLAY_PUBLIC_METRICS) return null;
-    const traffic = document.querySelector("#dashboard-traffic");
-    if (!traffic) return null;
-    traffic.removeAttribute("hidden");
-    traffic.querySelector(".dashboard-traffic-card--users")?.setAttribute("hidden", "");
-    const todayLabel = traffic.querySelector(".dashboard-traffic-card--today .dashboard-traffic-label span:last-child");
-    if (todayLabel) todayLabel.textContent = "금일 방문자";
-    const hero = document.querySelector(".dashboard-hero");
-    if (hero && hero.nextElementSibling !== traffic) hero.after(traffic);
-    return traffic;
-  }
-
-  function ensureHeaderMetrics() {
-    if (!DISPLAY_PUBLIC_METRICS) return null;
-    installStyles();
-    const header = document.querySelector(".site-header");
-    if (!header) return null;
-    let panel = document.querySelector("#site-header-metrics");
-    if (panel) return panel;
-
-    panel = document.createElement("div");
-    panel.id = "site-header-metrics";
-    panel.className = "site-header-metrics";
-    panel.setAttribute("role", "status");
-    panel.setAttribute("aria-label", "사이트 이용 현황");
-    panel.innerHTML = `
-      <span class="site-header-metric site-header-metric--today">
-        <span class="site-header-metric-label">오늘 방문자</span>
-        <strong id="header-metric-today-visits">—</strong><small>명</small>
-      </span>
-      <span class="site-header-metric site-header-metric--total">
-        <span class="site-header-metric-label">누적 방문자</span>
-        <strong id="header-metric-total-visits">—</strong><small>명</small>
-      </span>
-      <span id="header-metric-users-wrap" class="site-header-metric site-header-metric--users" hidden>
-        <span class="site-header-metric-label">사용 인원</span>
-        <strong id="header-metric-users">—</strong><small>명</small>
-      </span>
-      <span id="site-header-metrics-status" class="site-header-metrics-status" aria-live="polite">이용 현황을 불러오는 중입니다.</span>
-    `;
-    const brand = header.querySelector(".brand");
-    if (brand) brand.after(panel);
-    else header.prepend(panel);
-    return panel;
-  }
-
-  installStyles();
-  const dashboardPanel = ensureDashboardTraffic();
-  const panel = ensureHeaderMetrics();
-  const elements = {
-    panel,
-    dashboardPanel,
-    total: document.querySelector("#header-metric-total-visits"),
-    today: document.querySelector("#header-metric-today-visits"),
-    users: document.querySelector("#header-metric-users"),
-    usersWrap: document.querySelector("#header-metric-users-wrap"),
-    status: document.querySelector("#site-header-metrics-status"),
-    dashboardTotal: document.querySelector("#metric-total-visits"),
-    dashboardToday: document.querySelector("#metric-today-visits"),
-    dashboardStatus: document.querySelector("#dashboard-traffic-status"),
-  };
 
   function configured() {
     const config = CONFIG.config || {};
@@ -131,49 +28,9 @@
     );
   }
 
-  function formatNumber(value) {
-    return new Intl.NumberFormat("ko-KR").format(Math.max(0, Number(value) || 0));
-  }
-
   function counter(value) {
     const number = Number(value);
     return Number.isSafeInteger(number) && number >= 0 ? number : 0;
-  }
-
-  function updateMetric(element, value) {
-    if (element) element.textContent = value === null ? "—" : formatNumber(value);
-  }
-
-  function updateStatus(message) {
-    if (elements.status) elements.status.textContent = message;
-    if (elements.dashboardStatus) elements.dashboardStatus.textContent = message;
-  }
-
-  function isOwner(user) {
-    return Boolean(
-      user &&
-        OWNER_EMAIL &&
-        String(user.email || "").trim().toLowerCase() === OWNER_EMAIL,
-    );
-  }
-
-  function setOwnerVisibility(user) {
-    if (elements.usersWrap) elements.usersWrap.hidden = !isOwner(user);
-  }
-
-  function renderMetrics(summary = null, daily = null, user = null) {
-    const totalVisits = summary ? counter(summary.cumulativeVisits) : null;
-    const todayVisits = daily ? counter(daily.visits) : 0;
-    updateMetric(elements.total, totalVisits);
-    updateMetric(elements.today, todayVisits);
-    updateMetric(elements.dashboardTotal, totalVisits);
-    updateMetric(elements.dashboardToday, todayVisits);
-    setOwnerVisibility(user);
-    if (isOwner(user)) {
-      updateMetric(elements.users, summary ? counter(summary.userCount) : null);
-    }
-    elements.panel?.setAttribute("aria-busy", "false");
-    elements.dashboardPanel?.setAttribute("aria-busy", "false");
   }
 
   function dateKeyInKorea(date = new Date()) {
@@ -190,7 +47,7 @@
           .map((part) => [part.type, part.value]),
       );
       return `${values.year}-${values.month}-${values.day}`;
-    } catch (error) {
+    } catch {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
@@ -214,12 +71,29 @@
     return /^[A-Za-z0-9-]{24,64}$/.test(String(value || ""));
   }
 
+  function storageValue(key) {
+    try {
+      return window.localStorage.getItem(key) || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function setStorageValue(key, value) {
+    try {
+      window.localStorage.setItem(key, value);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   function visitorId() {
     for (const storage of [window.localStorage, window.sessionStorage]) {
       try {
         const stored = storage.getItem(VISITOR_STORAGE_KEY);
         if (validVisitorId(stored)) return stored;
-      } catch (error) {
+      } catch {
         // Continue with the next browser storage option.
       }
     }
@@ -229,14 +103,33 @@
       try {
         storage.setItem(VISITOR_STORAGE_KEY, created);
         return created;
-      } catch (error) {
+      } catch {
         // Continue with the next browser storage option.
       }
     }
     return created;
   }
 
+  function dailyVisitRecorded(day, id) {
+    return storageValue(DAILY_RECORDED_STORAGE_KEY) === `${day}:${id}`;
+  }
+
+  function markDailyVisitRecorded(day, id) {
+    setStorageValue(DAILY_RECORDED_STORAGE_KEY, `${day}:${id}`);
+  }
+
+  function userRegisteredLocally(userId) {
+    return storageValue(REGISTERED_USER_STORAGE_KEY) === userId;
+  }
+
+  function markUserRegistered(userId) {
+    setStorageValue(REGISTERED_USER_STORAGE_KEY, userId);
+  }
+
   function firstAuthUser(auth, authModule) {
+    if (typeof auth.authStateReady === "function") {
+      return auth.authStateReady().then(() => auth.currentUser || null);
+    }
     return new Promise((resolve) => {
       let unsubscribe = () => {};
       unsubscribe = authModule.onAuthStateChanged(
@@ -286,11 +179,10 @@
 
     await firestoreModule.runTransaction(db, async (transaction) => {
       const visitorSnapshot = await transaction.get(visitorRef);
-      const summarySnapshot = await transaction.get(summaryRef);
-      const dailySnapshot = await transaction.get(dailyRef);
-
       if (visitorSnapshot.exists()) return;
 
+      const summarySnapshot = await transaction.get(summaryRef);
+      const dailySnapshot = await transaction.get(dailyRef);
       const summary = summarySnapshot.exists()
         ? summarySnapshot.data() || {}
         : {};
@@ -322,12 +214,7 @@
     });
   }
 
-  async function registerUser(
-    db,
-    firestoreModule,
-    userId,
-    source = "login",
-  ) {
+  async function registerUser(db, firestoreModule, userId, source = "login") {
     const summaryRef = firestoreModule.doc(
       db,
       METRICS_COLLECTION,
@@ -337,9 +224,10 @@
 
     await firestoreModule.runTransaction(db, async (transaction) => {
       const userSnapshot = await transaction.get(userRef);
-      const summarySnapshot = await transaction.get(summaryRef);
+      if (userSnapshot.exists()) return;
 
-      if (userSnapshot.exists() || !summarySnapshot.exists()) return;
+      const summarySnapshot = await transaction.get(summaryRef);
+      if (!summarySnapshot.exists()) return;
 
       const summary = summarySnapshot.data() || {};
       transaction.set(userRef, {
@@ -357,32 +245,19 @@
     });
   }
 
-  async function loadMetrics(db, firestoreModule, day, user) {
-    const [summarySnapshot, dailySnapshot] = await Promise.all([
-      firestoreModule.getDoc(
-        firestoreModule.doc(db, METRICS_COLLECTION, METRICS_DOCUMENT),
-      ),
-      firestoreModule.getDoc(
-        firestoreModule.doc(db, DAILY_COLLECTION, day),
-      ),
-    ]);
-    renderMetrics(
-      summarySnapshot.exists() ? summarySnapshot.data() || {} : {},
-      dailySnapshot.exists() ? dailySnapshot.data() || {} : {},
-      user,
+  function isOwner(user) {
+    return Boolean(
+      user &&
+        OWNER_EMAIL &&
+        String(user.email || "").trim().toLowerCase() === OWNER_EMAIL,
     );
   }
 
   async function initialize() {
-    if (!configured()) {
-      renderMetrics();
-      updateStatus("집계 기능을 연결하지 못했습니다.");
-      return;
-    }
+    if (!configured()) return;
 
     const day = dateKeyInKorea();
     const id = visitorId();
-    let writeFailed = false;
 
     try {
       const [appModule, authModule, firestoreModule] = await Promise.all([
@@ -396,49 +271,57 @@
       const auth = authModule.getAuth(app);
       const db = firestoreModule.getFirestore(app);
 
-      try {
-        await ensureDailyVisit(db, firestoreModule, day, id);
-      } catch (error) {
-        writeFailed = true;
-        console.warn("사이트 접속 집계를 저장하지 못했습니다.", error);
+      if (!dailyVisitRecorded(day, id)) {
+        try {
+          await ensureDailyVisit(db, firestoreModule, day, id);
+          markDailyVisitRecorded(day, id);
+        } catch (error) {
+          console.warn("사이트 접속 집계를 저장하지 못했습니다.", error);
+        }
       }
 
       const user = await firstAuthUser(auth, authModule);
-      setOwnerVisibility(user);
-      if (user) {
+      if (user && !userRegisteredLocally(user.uid)) {
         try {
           await registerUser(db, firestoreModule, user.uid, "login");
-          if (isOwner(user)) {
-            await registerUser(
-              db,
-              firestoreModule,
-              KNOWN_VIEWER_UID,
-              "seeded",
-            );
-          }
+          markUserRegistered(user.uid);
         } catch (error) {
-          writeFailed = true;
           console.warn("사이트 사용 인원을 저장하지 못했습니다.", error);
         }
       }
 
-      await loadMetrics(db, firestoreModule, day, user);
-      updateStatus(
-        writeFailed
-          ? "현재 수치를 표시하고 있습니다. 새 접속 반영은 잠시 지연될 수 있습니다."
-          : "같은 기기에서는 하루에 한 번만 집계됩니다.",
-      );
+      if (
+        isOwner(user) &&
+        storageValue(SEEDED_VIEWER_STORAGE_KEY) !== "done"
+      ) {
+        try {
+          await registerUser(db, firestoreModule, KNOWN_VIEWER_UID, "seeded");
+          setStorageValue(SEEDED_VIEWER_STORAGE_KEY, "done");
+        } catch (error) {
+          console.warn("기존 사용 인원 기준값을 확인하지 못했습니다.", error);
+        }
+      }
     } catch (error) {
-      console.warn("사이트 이용 현황을 불러오지 못했습니다.", error);
-      renderMetrics();
-      updateStatus("이용 현황을 불러오지 못했습니다.");
+      console.warn("사이트 이용 현황 집계를 초기화하지 못했습니다.", error);
     }
   }
 
-  window.PokemonDexSiteMetrics = {
-    dateKeyInKorea,
-    headerMetricsVersion: HEADER_METRICS_VERSION,
-  };
+  function scheduleInitialize() {
+    const run = () => {
+      void initialize();
+    };
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(run, { timeout: 1800 });
+      return;
+    }
+    window.setTimeout(run, 450);
+  }
 
-  initialize();
+  window.PokemonDexSiteMetrics = Object.freeze({
+    dateKeyInKorea,
+    displayPublicMetrics: DISPLAY_PUBLIC_METRICS,
+    headerMetricsVersion: HEADER_METRICS_VERSION,
+  });
+
+  scheduleInitialize();
 })();

@@ -83,3 +83,19 @@ test("stage 7 keeps dashboard interactions keyboard-visible and mobile touch tar
     /@media \(max-width: 690px\)[\s\S]*?[.]android-app-download-button,[\s\S]*?[.]ios-pwa-button \{[\s\S]*?min-height: 44px/,
   );
 });
+
+
+test("stage 8 removes retired traffic UI and keeps metrics collection off the critical path", () => {
+  const dashboardCss = read("dashboard.css");
+  const metrics = read("site-metrics.js");
+
+  assert.doesNotMatch(dashboardCss, /dashboard-traffic/);
+  assert.doesNotMatch(dashboardCss, /dashboard-hero/);
+  assert.match(metrics, /const DISPLAY_PUBLIC_METRICS = false;/);
+  assert.doesNotMatch(metrics, /function loadMetrics/);
+  assert.doesNotMatch(metrics, /site-header-metrics/);
+  assert.match(metrics, /DAILY_RECORDED_STORAGE_KEY/);
+  assert.match(metrics, /dailyVisitRecorded\(day, id\)/);
+  assert.match(metrics, /requestIdleCallback/);
+  assert.match(metrics, /setTimeout\(run, 450\)/);
+});
