@@ -21,7 +21,7 @@ const navigation = Object.freeze([
   { href: "./fossil.html", page: "fossil.html", icon: "09", title: "화석 도감", catalogId: "fossil" },
   { href: "./world.html", page: "world.html", icon: "10", title: "월드탐험도감", catalogId: "world" },
   { href: "./custom.html", page: "custom.html", icon: "나", title: "나만의 도감", subtitle: "직접 만드는 도감" },
-  { href: "./collectors.html", page: "collectors.html", icon: "모", title: "커뮤니티", subtitle: "공개 컬렉션" },
+  { href: "./collectors.html", page: "collectors.html", icon: "모", title: "커뮤니티", subtitle: "공개 컬렉션", standalone: true },
 ]);
 
 let catalogMetrics = Object.freeze({});
@@ -95,8 +95,9 @@ function renderNavigation(filename) {
     const linkClass = active ? "collection-link is-active" : "collection-link";
     const iconClass = active ? "collection-icon collection-icon--red" : "collection-icon";
     const current = active ? ' aria-current="page"' : "";
+    const standalone = item.standalone ? ' data-nav-standalone="true"' : "";
     lines.push(
-      `          <a class="${linkClass}" href="${item.href}"${current}><span class="${iconClass}" aria-hidden="true">${item.icon}</span><span><strong>${item.title}</strong><small>${navigationSubtitle(item)}</small></span></a>`,
+      `          <a class="${linkClass}" href="${item.href}"${current}${standalone}><span class="${iconClass}" aria-hidden="true">${item.icon}</span><span><strong>${item.title}</strong><small>${navigationSubtitle(item)}</small></span></a>`,
     );
   }
   lines.push("        </nav>");

@@ -99,3 +99,51 @@ test("stage 8 removes retired traffic UI and keeps metrics collection off the cr
   assert.match(metrics, /requestIdleCallback/);
   assert.match(metrics, /setTimeout\(run, 450\)/);
 });
+
+
+test("community stays outside theme accordion and remains the final navigation item", () => {
+  const shell = read("scripts/sync-site-shell.mjs");
+  const nav = read("collector-nav.js");
+  const styles = read("styles.css");
+
+  assert.match(
+    shell,
+    /href: "[.]\/collectors[.]html"[\s\S]*?standalone: true/,
+  );
+  assert.match(
+    nav,
+    /candidate[.]dataset[.]navStandalone === "true"/,
+  );
+  assert.match(
+    nav,
+    /collection-link\[data-nav-standalone="true"\][.]is-active/,
+  );
+  assert.match(
+    styles,
+    /[.]collection-link\[data-nav-standalone="true"\]/,
+  );
+});
+
+test("stage 9 trims page-specific assets and prevents duplicate metrics loading", () => {
+  const index = read("index.html");
+  const news = read("news.html");
+  const legal = read("legal.js");
+  const nav = read("collector-nav.js");
+
+  for (const retired of [
+    "collection-manager.css",
+    "card-image-cdn.js",
+    "image-protection.js",
+    "core/account/firebase-account.js",
+    "core/catalog/card-lookup.js",
+    "owner-sheets-sync.js",
+  ]) {
+    assert.equal(index.includes(retired), false, retired);
+  }
+
+  assert.equal(news.includes("collector.css"), false);
+  assert.match(legal, /CURRENT_METRICS_SCRIPT = "[.]\/site-metrics[.]js"/);
+  assert.match(legal, /pathname[.]endsWith\("\/site-metrics[.]js"\)/);
+  assert.doesNotMatch(legal, /site-metrics[.]js[?]v=20260813-2/);
+  assert.match(nav, /"operations", "news"/);
+});

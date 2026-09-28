@@ -2101,3 +2101,16 @@ img {
     padding-inline: 10px;
   }
 }
+
+
+/* Standalone community navigation: keep it outside collection accordions and last in the menu. */
+.collection-link[data-nav-standalone="true"] {
+  margin-top: 8px;
+}
+
+@media (max-width: 690px) {
+  .collection-nav > .collection-link[data-nav-standalone="true"] {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+  }
+}

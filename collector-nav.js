@@ -113,6 +113,7 @@
       while (next && !next.classList.contains("collection-nav-section")) {
         const candidate = next;
         next = next.nextElementSibling;
+        if (candidate.dataset.navStandalone === "true") break;
         if (candidate.classList.contains("collection-link")) links.push(candidate);
       }
 
@@ -146,13 +147,16 @@
 
     const activeGroup = groups.find(({ group }) => group.querySelector(".collection-link.is-active"));
     const savedGroup = savedNavigationGroup();
+    const standaloneActive = Boolean(
+      nav.querySelector(':scope > .collection-link[data-nav-standalone="true"].is-active'),
+    );
     const mobileTopLevelActive = Boolean(
       mobileCardLayoutMedia?.matches &&
       nav.querySelector(":scope > .collection-link.is-active"),
     );
     const preferredGroup =
       activeGroup?.key ||
-      savedGroup ||
+      (standaloneActive ? "none" : savedGroup) ||
       (mobileTopLevelActive ? "none" : "main");
 
     const applyOpenGroup = (groupKey, { persist = true } = {}) => {
@@ -504,7 +508,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "pokemon-search", "health", "operations"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "pokemon-search", "health", "operations", "news"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");

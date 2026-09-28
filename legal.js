@@ -5,7 +5,7 @@
   const LOGIN_SELECTOR = "#firebase-login, #dashboard-login-cta";
   const SDK_VERSION = "12.16.0";
   const PROFILE_HREF = "./collector-settings.html";
-  const CURRENT_METRICS_SCRIPT = "./site-metrics.js?v=20260813-2";
+  const CURRENT_METRICS_SCRIPT = "./site-metrics.js";
 
   function policyLinks(className = "login-policy-links") {
     const wrapper = document.createElement("span");
@@ -39,13 +39,17 @@
 
   function ensureCurrentSiteMetrics() {
     if (!document.querySelector(".site-layout")) return;
-    const alreadyLoaded = [...document.scripts].some((script) =>
-      script.src.includes("site-metrics.js?v=20260813-2"),
-    );
+    const alreadyLoaded = [...document.scripts].some((script) => {
+      try {
+        return new URL(script.src, window.location.href).pathname.endsWith("/site-metrics.js");
+      } catch {
+        return false;
+      }
+    });
     if (alreadyLoaded) return;
     const script = document.createElement("script");
     script.src = CURRENT_METRICS_SCRIPT;
-    script.defer = true;
+    script.async = true;
     document.head.append(script);
   }
 
