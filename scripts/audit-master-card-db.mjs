@@ -10,10 +10,11 @@ const ERA_ORDER = ["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"];
 const clean = (value) => String(value ?? "").trim();
 const normalized = (value) => clean(value).toLowerCase();
 
-function buildAudit(inventory, variants, membershipEvidence = null) {
+function buildAudit(inventory, variants, membershipEvidence = null, koreanMembership = null) {
   const eras = {};
   let verifiedVariantSetCount = 0;
   let firstPartyMembershipVerifiedSetCount = 0;
+  let koreanMembershipVerifiedSetCount = 0;
 
   for (const era of ERA_ORDER) {
     const eraSummary = inventory.eras.find((item) => item.era === era);
@@ -93,6 +94,47 @@ function buildAudit(inventory, variants, membershipEvidence = null) {
         evidencePolicy: clean(membershipEvidence.sourcePolicy),
       };
     }
+
+    if (era === "M" && koreanMembership?.sets) {
+      const koreanByCode = new Map(
+        koreanMembership.sets.map((item) => [normalized(item.code), item]),
+      );
+      const verifiedKoreanSets = eraSets.filter(
+        (item) => koreanByCode.get(normalized(item.code))?.complete === true,
+      );
+      const pendingKoreanSets = eraSets.filter(
+        (item) => koreanByCode.get(normalized(item.code))?.complete !== true,
+      );
+      koreanMembershipVerifiedSetCount += verifiedKoreanSets.length;
+      eras[era].koreanMembershipAudit = {
+        status:
+          verifiedKoreanSets.length === eraSets.length
+            ? "complete"
+            : verifiedKoreanSets.length
+              ? "partial"
+              : "pending",
+        verifiedSetCount: verifiedKoreanSets.length,
+        pendingSetCount: pendingKoreanSets.length,
+        verifiedSetCodes: verifiedKoreanSets.map((item) => item.code),
+        pendingSetCodes: pendingKoreanSets.map((item) => item.code),
+        expectedSlotCount: Number(
+          koreanMembership.summary?.expectedSlotCount || 0,
+        ),
+        productSearchSlotCount: Number(
+          koreanMembership.summary?.productSearchSlotCount || 0,
+        ),
+        firstPartyVerifiedGapCount: Number(
+          koreanMembership.summary?.firstPartyVerifiedGapCount || 0,
+        ),
+        koreanSecondaryVerifiedGapCount: Number(
+          koreanMembership.summary?.koreanSecondaryVerifiedGapCount || 0,
+        ),
+        unresolvedGapCount: Number(
+          koreanMembership.summary?.unresolvedGapCount || 0,
+        ),
+        evidencePolicy: koreanMembership.evidencePolicy || {},
+      };
+    }
   }
 
   const verifiedVariantCounts = Object.values(variants.coverage || {}).reduce(
@@ -141,6 +183,9 @@ function buildAudit(inventory, variants, membershipEvidence = null) {
       ...(membershipEvidence
         ? ["data/audits/mega-official-image-probe.json"]
         : []),
+      ...(koreanMembership
+        ? ["data/audits/mega-korean-membership-audit.json"]
+        : []),
     ],
     summary: {
       setCount: inventory.summary.setCount,
@@ -160,6 +205,14 @@ function buildAudit(inventory, variants, membershipEvidence = null) {
               firstPartyMembershipVerifiedSetCount,
           }
         : {}),
+      ...(koreanMembership
+        ? {
+            koreanMembershipVerifiedSetCount,
+            koreanMembershipPendingSetCount:
+              Number(koreanMembership.summary?.setCount || 0) -
+              koreanMembershipVerifiedSetCount,
+          }
+        : {}),
       metadataGaps: inventory.summary.metadata,
     },
     eras,
@@ -176,13 +229,19 @@ async function readOptionalJson(relativePath) {
   }
 }
 
-const [inventory, variants, membershipEvidence] = await Promise.all([
+const [inventory, variants, membershipEvidence, koreanMembership] = await Promise.all([
   readFile(path.join(root, "data", "series-inventory-audit.json"), "utf8").then(JSON.parse),
   readFile(path.join(root, "data", "series-print-variants.json"), "utf8").then(JSON.parse),
   readOptionalJson("data/audits/mega-official-image-probe.json"),
+  readOptionalJson("data/audits/mega-korean-membership-audit.json"),
 ]);
 
-const audit = buildAudit(inventory, variants, membershipEvidence);
+const audit = buildAudit(
+  inventory,
+  variants,
+  membershipEvidence,
+  koreanMembership,
+);
 const expected = `${JSON.stringify(audit, null, 2)}\n`;
 
 if (checkOnly) {

@@ -9,6 +9,7 @@ on:
       - 'scripts/audit-series-print-variants.py'
       - 'scripts/audit-series-canonical-slots.mjs'
       - 'scripts/audit-mega-gap-evidence.mjs'
+      - 'scripts/audit-mega-korean-membership.mjs'
       - 'scripts/fix-mega-master-data.mjs'
       - 'scripts/probe-mega-official-images.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
@@ -74,6 +75,9 @@ jobs:
       - name: Probe official MEGA image evidence
         run: node scripts/probe-mega-official-images.mjs
 
+      - name: Build Korean MEGA membership evidence
+        run: node scripts/audit-mega-korean-membership.mjs
+
       - name: Merge verified print variants
         run: |
           node scripts/merge-series-print-variant-audit.mjs \
@@ -99,6 +103,7 @@ jobs:
             data/audits/series-print-variant-audit-M.json \
             data/audits/mega-gap-evidence.json \
             data/audits/mega-official-image-probe.json \
+            data/audits/mega-korean-membership-audit.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json
           if git diff --cached --quiet; then

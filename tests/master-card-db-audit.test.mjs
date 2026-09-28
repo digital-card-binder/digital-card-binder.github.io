@@ -57,3 +57,30 @@ test("master DB audit exposes an explicit official-review queue for every era", 
     assert.ok(["complete", "partial", "pending"].includes(review.status));
   }
 });
+
+
+test("MEGA Korean membership audit closes all currently evidenced Korean slots", async () => {
+  const [audit, membership] = await Promise.all([
+    read("data/master-card-db-audit.json").then(JSON.parse),
+    read("data/audits/mega-korean-membership-audit.json").then(JSON.parse),
+  ]);
+
+  assert.equal(membership.summary.setCount, 14);
+  assert.equal(membership.summary.completeSetCount, 14);
+  assert.equal(membership.summary.pendingSetCount, 0);
+  assert.equal(membership.summary.unresolvedGapCount, 0);
+  assert.equal(
+    membership.summary.productSearchSlotCount +
+      membership.summary.firstPartyVerifiedGapCount +
+      membership.summary.koreanSecondaryVerifiedGapCount,
+    membership.summary.expectedSlotCount,
+  );
+
+  const mega = audit.eras.M.koreanMembershipAudit;
+  assert.equal(mega.status, "complete");
+  assert.equal(mega.verifiedSetCount, 14);
+  assert.equal(mega.pendingSetCount, 0);
+  assert.equal(mega.unresolvedGapCount, 0);
+  assert.equal(audit.summary.koreanMembershipVerifiedSetCount, 14);
+  assert.equal(audit.summary.koreanMembershipPendingSetCount, 0);
+});
