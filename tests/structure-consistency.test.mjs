@@ -44,12 +44,12 @@ test("shared catalog service is the single owner of staged catalog sources", () 
     }
   }
   assert.match(registry, /catalogService[.]pokemonCollections[(][)]/);
-  assert.match(dashboard, /catalogService[.]pokemonCollections[(][)]/);
   assert.match(sheets, /catalogService[.]pokemonCollections[(][)]/);
   assert.match(registry, /catalogService[.]ar[(][)]/);
-  assert.match(dashboard, /catalogService[.]ar[(][)]/);
   assert.match(sheets, /catalogService[.]ar[(][)]/);
   assert.match(registry, /catalogService[.]series[(][)]/);
+  assert.match(dashboard, /registry[.]loadCatalog[(]category[)]/);
+  assert.doesNotMatch(dashboard, /catalogService[.](?:pokemonCollections|ar|series)[(]/);
 });
 
 test("collection counts come from generated canonical catalog metrics", () => {
@@ -79,12 +79,13 @@ test("collection identity semantics live in one shared helper", () => {
   assert.match(identityService, /"trainerPokemon",\s*groupId,/s);
   for (const [name, source] of [
     ["registry", registry],
-    ["dashboard", dashboard],
     ["owner sheets", sheets],
     ["page manager", pageManager],
   ]) {
     assert.match(source, /identityService[.]cardIdentity/, name);
   }
+  assert.match(dashboard, /registry[.]loadCatalog[(]category[)]/);
+  assert.doesNotMatch(dashboard, /identityService[.]cardIdentity/);
 });
 
 test("main pushes run the verification suite", () => {
@@ -100,6 +101,17 @@ test("static navigation does not ship known stale collection counts", () => {
   }
 });
 
+
+test("shared navigation derives collection counts from canonical metrics", () => {
+  const shell = read("scripts/sync-site-shell.mjs");
+  assert.match(shell, /loadCatalogMetrics/);
+  assert.match(shell, /catalogId: "series"/);
+  assert.match(shell, /catalogId: "ar"/);
+  assert.match(shell, /catalogId: "artist"/);
+  assert.doesNotMatch(shell, /SV · M · 510장/);
+  assert.doesNotMatch(shell, /67종 포켓몬/);
+  assert.doesNotMatch(shell, /40명 작가/);
+});
 
 test("pokemon search consumes the generated lightweight search index", () => {
   assert.match(catalogService, /async function pokemonSearchIndex[(][)]/);
