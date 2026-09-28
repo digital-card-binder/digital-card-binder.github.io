@@ -210,6 +210,28 @@ public class MainActivity extends Activity {
         public void startSheetsAuthorization() {
             runOnUiThread(MainActivity.this::beginSheetsAuthorization);
         }
+
+        @JavascriptInterface
+        public long getVersionCode() {
+            try {
+                PackageInfo installed = getPackageManager().getPackageInfo(getPackageName(), 0);
+                return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                        ? installed.getLongVersionCode()
+                        : installed.versionCode;
+            } catch (PackageManager.NameNotFoundException ignored) {
+                return 0L;
+            }
+        }
+
+        @JavascriptInterface
+        public String getVersionName() {
+            try {
+                PackageInfo installed = getPackageManager().getPackageInfo(getPackageName(), 0);
+                return installed.versionName == null ? "" : installed.versionName;
+            } catch (PackageManager.NameNotFoundException ignored) {
+                return "";
+            }
+        }
     }
 
     private void beginGoogleSignIn(boolean authorizedOnly) {
