@@ -5,19 +5,6 @@
   background: conic-gradient(#d32a37 calc(var(--progress) * 1%), rgba(255,255,255,.16) 0);
 }
 
-.fossil-rule-panel {
-  display: grid;
-  grid-template-columns: minmax(190px,.7fr) minmax(0,2fr);
-  gap: 24px;
-  margin: 24px 0;
-  padding: 24px;
-  border: 1px solid rgba(31,50,89,.1);
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 14px 34px rgba(26,40,73,.06);
-}
-
-.fossil-rule-panel h2 { margin: 4px 0 0; }
 .fossil-rule-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
 .fossil-rule-grid p { margin: 0; padding: 16px; border-radius: 18px; background: #f7f8fb; line-height: 1.55; }
 .fossil-rule-grid strong { display: block; margin-bottom: 5px; color: #182641; font-size: 13px; }
@@ -122,7 +109,6 @@ html[data-card-columns="3"] .fossil-grid { grid-template-columns: repeat(3,minma
 html[data-card-columns="4"] .fossil-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
 
 @media (max-width: 920px) {
-  .fossil-rule-panel { grid-template-columns: 1fr; }
   .fossil-rule-grid { grid-template-columns: 1fr; }
   .fossil-filter-panel { grid-template-columns: 1fr 1fr; }
   .fossil-status-filters { grid-column: 1 / -1; justify-content: stretch; }

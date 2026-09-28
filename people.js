@@ -374,8 +374,7 @@ function renderPeopleSummary() {
   setPeopleText("people-missing", missing);
   setPeopleText("stat-people-total", counts.total);
   setPeopleText("stat-people-owned", owned);
-  setPeopleText("stat-people-missing", missing);
-  setPeopleText("stat-people-confirmed", counts.cardConfirmed);
+  setPeopleText("stat-people-rate", rate);
   peopleElement("people-progress-ring")?.style.setProperty("--progress", rate);
 }
 

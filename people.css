@@ -4,25 +4,6 @@
     linear-gradient(135deg, #17233f 0%, #24385d 58%, #192946 100%);
 }
 
-.people-stats-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.people-stats-grid .stat-card--rate .stat-icon {
-  background: #eaf2fa;
-  color: var(--blue);
-}
-
-.people-stats-grid .stat-card--missing .stat-icon {
-  background: #fcebed;
-  color: var(--red);
-}
-
-.people-stats-grid .stat-card--verified .stat-icon {
-  background: #fff6de;
-  color: #ad7610;
-}
-
 .people-catalog-heading {
   gap: 22px;
 }
@@ -437,9 +418,6 @@
 }
 
 @media (max-width: 1180px) {
-  .people-stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
   .people-generation-summary {
     grid-template-columns: repeat(5, minmax(64px, 1fr));
@@ -447,17 +425,9 @@
 }
 
 @media (max-width: 690px) {
-  .people-stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
   .people-catalog-heading {
     display: grid;
-  }
-
-  .people-catalog-heading .catalog-caption {
-    max-width: none;
-    text-align: left;
   }
 
   .people-overview-heading {

@@ -5,21 +5,6 @@
     var(--navy);
 }
 
-.ar-hero-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.ar-hero-meta span[aria-hidden="true"] {
-  color: rgba(255, 255, 255, 0.22);
-}
-
 .ar-order-note {
   align-self: center;
   color: var(--ink-faint);

@@ -516,9 +516,6 @@ body.collector-collection-page .collector-collection-stats .stat-card strong b {
   font-size: 1.42rem;
 }
 
-body.collector-collection-page[data-collection-id="people"] .collector-collection-stats {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
 
 body.collector-collection-page .collector-content-panel,
 body.collector-collection-page .catalog-panel {
@@ -664,12 +661,50 @@ body.collector-collection-page .empty-state {
   border-radius: 16px;
 }
 
-body.collector-collection-page :is(.tp-rule-panel, .fossil-rule-panel) {
+body.collector-collection-page .collector-guide-panel {
   margin: 0 0 var(--collection-ui-gap);
-  border-color: var(--collection-ui-border);
-  border-radius: var(--collection-ui-panel-radius);
+  overflow: hidden;
+  border: 1px solid var(--collection-ui-border);
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: var(--collector-panel-shadow);
+}
+
+body.collector-collection-page .collector-guide-panel summary {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 17px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+  list-style: none;
+}
+
+body.collector-collection-page .collector-guide-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+body.collector-collection-page .collector-guide-panel summary::after {
+  flex: 0 0 auto;
+  color: var(--ink-faint);
+  content: "+";
+  font-size: 1rem;
+}
+
+body.collector-collection-page .collector-guide-panel[open] summary {
+  border-bottom: 1px solid #e8ebf1;
+}
+
+body.collector-collection-page .collector-guide-panel[open] summary::after {
+  content: "−";
+}
+
+body.collector-collection-page .collector-guide-grid {
+  padding: 14px 16px 16px;
 }
 
 body.collector-collection-page .world-generation-panel,
@@ -718,10 +753,6 @@ body.collector-collection-page .world-story-header {
   body.collector-collection-page .collector-collection-hero .hero-progress {
     margin-left: 0;
   }
-
-  body.collector-collection-page[data-collection-id="people"] .collector-collection-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 690px) {
@@ -750,10 +781,6 @@ body.collector-collection-page .world-story-header {
   body.collector-collection-page .collector-collection-stats {
     gap: 6px;
     margin: 10px 0 var(--collection-ui-gap);
-  }
-
-  body.collector-collection-page[data-collection-id="people"] .collector-collection-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   body.collector-collection-page .collector-collection-stats .stat-card {
@@ -819,8 +846,18 @@ body.collector-collection-page .world-story-header {
     padding-inline: 4px;
   }
 
-  body.collector-collection-page :is(.tp-rule-panel, .fossil-rule-panel) {
-    border-radius: var(--collection-ui-panel-radius);
+    body.collector-collection-page .collector-guide-panel {
+    border-radius: 14px;
+  }
+
+  body.collector-collection-page .collector-guide-panel summary {
+    min-height: 46px;
+    padding: 0 13px;
+    font-size: 0.7rem;
+  }
+
+  body.collector-collection-page .collector-guide-grid {
+    padding: 10px 11px 12px;
   }
 
   body.collector-collection-page .world-generation-panel,

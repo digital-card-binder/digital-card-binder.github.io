@@ -258,8 +258,6 @@ function refreshCounts() {
   setText("stat-catalog-groups", groups.length);
   setText("stat-catalog-total", total);
   setText("stat-catalog-rate", rate);
-  setText("ar-hero-group-count", groups.length);
-  setText("ar-hero-total-count", total);
   setText("ar-footer-note", `포켓몬코리아 카드번호 기준 · 세트별 카드번호 오름차순 · ${total}장`);
   setText("selected-name", selectedLabel());
   setText(

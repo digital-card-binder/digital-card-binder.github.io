@@ -128,7 +128,6 @@ function setSummary() {
   fossilEl("fossil-illustration-count").textContent = categoryCounts["일러스트 속 화석"] || 0;
   fossilEl("fossil-rule-title").textContent = `${cards.length}장 수록 기준`;
   fossilEl("fossil-catalog-title").textContent = `${fossilDataset.scope} 화석 카드 · ${cards.length}장`;
-  fossilEl("fossil-scope").textContent = `FOSSIL DEX · ${fossilDataset.scope} · ${cards.length} CARDS`;
   fossilEl("fossil-hero-description").textContent =
     `S ${seriesCounts.S || 0}장 · SV ${seriesCounts.SV || 0}장 · MEGA ${seriesCounts.MEGA || 0}장, 총 ${cards.length}장을 공식 카드 이미지 기준으로 관리합니다.`;
   fossilEl("fossil-footer-note").textContent =

@@ -402,7 +402,7 @@
     document.querySelector(".stats-grid")?.classList?.add?.("collector-collection-stats");
 
     document.querySelectorAll?.(
-      ".catalog-panel, .world-generation-panel, .world-binder-panel, .tp-rule-panel, .fossil-rule-panel",
+      ".catalog-panel, .world-generation-panel, .world-binder-panel",
     )?.forEach?.((panel) => panel.classList?.add?.("collector-content-panel"));
 
     document.querySelectorAll?.(

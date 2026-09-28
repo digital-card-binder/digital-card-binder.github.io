@@ -693,7 +693,7 @@ test("ten native dexes activate one responsive collection UX shell", async () =>
   assert.match(css, /body[.]collector-collection-page [.]collector-collection-hero/);
   assert.match(css, /body[.]collector-collection-page [.]collector-filter-surface/);
   assert.match(css, /body[.]collector-collection-page [.]collector-selection-summary/);
-  assert.match(css, /data-collection-id="people"/);
+  assert.doesNotMatch(css, /data-collection-id="people"/);
   assert.match(
     css,
     /@media \(max-width: 690px\)[\s\S]*?body[.]collector-collection-page [.]catalog-heading/,
@@ -702,6 +702,43 @@ test("ten native dexes activate one responsive collection UX shell", async () =>
     css,
     /body[.]collector-collection-page [.]world-generation-panel,[\s\S]*?body[.]collector-collection-page [.]world-binder-panel/,
   );
+});
+
+test("native dex pages retire one-off heading clutter and share compact guide disclosures", async () => {
+  const nativePages = [
+    "national.html",
+    "series.html",
+    "ar.html",
+    "packs.html",
+    "pokemon-collections.html",
+    "artists.html",
+    "people.html",
+    "trainer-pokemon.html",
+    "fossil.html",
+    "world.html",
+  ];
+  for (const page of nativePages) {
+    const html = await source(page);
+    assert.doesNotMatch(html, /class="catalog-caption"/, page);
+  }
+
+  const ar = await source("ar.html");
+  const fossil = await source("fossil.html");
+  const trainer = await source("trainer-pokemon.html");
+  const people = await source("people.html");
+  const peopleClient = await source("people.js");
+  const css = await source("collector.css");
+
+  assert.doesNotMatch(ar, /ar-hero-meta/);
+  assert.doesNotMatch(fossil, /id="fossil-scope"/);
+  assert.match(fossil, /<details class="collector-guide-panel">/);
+  assert.match(trainer, /<details class="collector-guide-panel">/);
+  assert.equal((people.match(/class="stat-card /g) || []).length, 3);
+  assert.match(people, /id="stat-people-rate"/);
+  assert.doesNotMatch(people, /stat-people-confirmed/);
+  assert.doesNotMatch(peopleClient, /stat-people-confirmed/);
+  assert.match(css, /[.]collector-guide-panel summary::after/);
+  assert.match(css, /[.]collector-guide-panel\[open\] summary::after/);
 });
 
 test("shared collection UI uses one calm panel and interaction system", async () => {
