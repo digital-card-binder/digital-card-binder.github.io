@@ -126,9 +126,17 @@
 
   .platform-app-card {
     width: 100%;
+    min-height: 54px;
     border-left: 0;
     border-top: 1px solid var(--line);
     padding: 10px 0 0;
+  }
+
+  .android-app-download-button,
+  .ios-pwa-button {
+    min-height: 44px;
+    padding-inline: 12px;
+    touch-action: manipulation;
   }
 }
 

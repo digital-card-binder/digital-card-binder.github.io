@@ -56,3 +56,30 @@ test("obsolete Android v0.8 website migration references are retired", () => {
   assert.doesNotMatch(readme, /v0\.8|DigitalCardBinder_v0\.8/);
   assert.match(workflow, /git add -- DigitalCardBinder_v1\.0\.apk/);
 });
+
+
+test("stage 7 keeps dashboard interactions keyboard-visible and mobile touch targets comfortable", () => {
+  const dashboardCss = read("dashboard.css");
+  const pwaCss = read("pwa.css");
+
+  assert.match(
+    dashboardCss,
+    /[.]dashboard-collection-card:focus-visible,[\s\S]*?[.]dashboard-shortcut-card:focus-visible,[\s\S]*?[.]dashboard-theme-summary:focus-visible/,
+  );
+  assert.match(
+    dashboardCss,
+    /@media \(max-width: 690px\)[\s\S]*?[.]feedback-action \{[\s\S]*?min-height: 44px/,
+  );
+  assert.match(
+    dashboardCss,
+    /@media \(max-width: 690px\)[\s\S]*?[.]dashboard-search button \{[\s\S]*?min-height: 44px/,
+  );
+  assert.match(
+    dashboardCss,
+    /[.]dashboard-section-heading > a \{[\s\S]*?min-height: 44px/,
+  );
+  assert.match(
+    pwaCss,
+    /@media \(max-width: 690px\)[\s\S]*?[.]android-app-download-button,[\s\S]*?[.]ios-pwa-button \{[\s\S]*?min-height: 44px/,
+  );
+});

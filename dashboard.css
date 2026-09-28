@@ -641,6 +641,16 @@
   box-shadow: 0 14px 30px rgba(29, 43, 72, 0.09);
 }
 
+.dashboard-collection-card:focus-visible,
+.dashboard-shortcut-card:focus-visible,
+.dashboard-theme-summary:focus-visible,
+.dashboard-section-heading > a:focus-visible,
+.dashboard-search button:focus-visible,
+.feedback-action:focus-visible {
+  outline: 3px solid rgba(42, 117, 187, 0.24);
+  outline-offset: 3px;
+}
+
 .dashboard-collection-card[data-category="national"] {
   --collection-accent: #ef4351;
 }
@@ -1000,9 +1010,10 @@
   }
 
   .feedback-action {
-    min-height: 35px;
-    font-size: 0.6rem;
-    padding: 7px 11px;
+    min-height: 44px;
+    font-size: 0.62rem;
+    padding: 8px 12px;
+    touch-action: manipulation;
   }
 
   .dashboard-account-note {
@@ -1623,10 +1634,11 @@
   }
 
   .dashboard-search button {
-    min-height: 34px;
+    min-height: 44px;
     border-radius: 10px;
-    font-size: 0.62rem;
-    padding: 0 12px;
+    font-size: 0.64rem;
+    padding: 0 13px;
+    touch-action: manipulation;
   }
 
   .dashboard-overview-meta {
@@ -1650,6 +1662,19 @@
 
   .dashboard-section-heading p {
     font-size: 0.58rem;
+  }
+
+  .dashboard-section-heading > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 2px;
+    touch-action: manipulation;
+  }
+
+  .dashboard-theme-summary {
+    min-height: 54px;
+    touch-action: manipulation;
   }
 
   .dashboard-collection-grid,
