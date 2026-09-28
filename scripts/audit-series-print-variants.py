@@ -248,13 +248,40 @@ def audit_group(
         }
         for actual_code, printed_number in sorted(expected_keys - official_keys)
     ]
-    unexpected_official_slots = [
-        {
-            "actualSetCode": actual_code,
-            "printedNumber": printed_number,
-        }
-        for actual_code, printed_number in sorted(official_keys - expected_keys)
-    ]
+    records_by_official_key: dict[tuple[str, str], list[dict[str, str]]] = {}
+    for (actual_code, printed_number), slot_records in slots.items():
+        normalized_key = (
+            actual_code.casefold(),
+            printed_number.lstrip("0") or "0",
+        )
+        records_by_official_key.setdefault(normalized_key, []).extend(slot_records)
+
+    unexpected_official_slots = []
+    for actual_code, printed_number in sorted(official_keys - expected_keys):
+        official_records = []
+        for record in records_by_official_key.get((actual_code, printed_number), []):
+            image = clean(record.get("feature_image"))
+            raw_scalars = {
+                key: value
+                for key, value in record.items()
+                if not key.startswith("_") and isinstance(value, (str, int, float, bool))
+            }
+            official_records.append(
+                {
+                    "product": clean(record.get("_product")),
+                    "cardNum": clean(record.get("CardNum")),
+                    "cardType": clean(record.get("_cardType")),
+                    "imageFile": image.split("?", 1)[0].rsplit("/", 1)[-1],
+                    "raw": raw_scalars,
+                }
+            )
+        unexpected_official_slots.append(
+            {
+                "actualSetCode": actual_code,
+                "printedNumber": printed_number,
+                "officialRecords": official_records,
+            }
+        )
 
     return {
         "era": group["era"],
