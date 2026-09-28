@@ -124,6 +124,33 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SM", "code": "sm11b", "title": "드림리그", "product": "썬&문 강화 확장팩 「드림리그」"},
     {"era": "SM", "code": "sm12", "title": "얼터제네시스", "product": "썬&문 확장팩 제12탄 「얼터제네시스」"},
     {"era": "SM", "code": "sm12a", "title": "TAG TEAM GX 태그올스타즈", "product": "썬&문 하이클래스팩 「TAG TEAM GX 태그올스타즈」"},
+    # Scarlet & Violet — Korean official expansion product names.
+    # Deck/support products and SV-P promos are audited in a later batch.
+    {"era": "SV", "code": "sv1S", "title": "스칼렛 ex", "product": "스칼렛&바이올렛 확장팩 「스칼렛 ex」"},
+    {"era": "SV", "code": "sv1V", "title": "바이올렛 ex", "product": "스칼렛&바이올렛 확장팩 「바이올렛 ex」"},
+    {"era": "SV", "code": "sv1a", "title": "트리플렛비트", "product": "스칼렛&바이올렛 강화 확장팩 「트리플렛비트」"},
+    {"era": "SV", "code": "sv2D", "title": "클레이버스트", "product": "스칼렛&바이올렛 확장팩 「클레이버스트」"},
+    {"era": "SV", "code": "sv2P", "title": "스노해저드", "product": "스칼렛&바이올렛 확장팩 「스노해저드」"},
+    {"era": "SV", "code": "sv2a", "title": "포켓몬 카드 151", "product": "스칼렛&바이올렛 강화 확장팩 「포켓몬 카드 151」"},
+    {"era": "SV", "code": "sv3", "title": "흑염의 지배자", "product": "스칼렛&바이올렛 확장팩 「흑염의 지배자」"},
+    {"era": "SV", "code": "sv3a", "title": "레이징서프", "product": "스칼렛&바이올렛 강화 확장팩 「레이징서프」"},
+    {"era": "SV", "code": "sv4K", "title": "고대의 포효", "product": "스칼렛&바이올렛 확장팩 「고대의 포효」"},
+    {"era": "SV", "code": "sv4M", "title": "미래의 일섬", "product": "스칼렛&바이올렛 확장팩 「미래의 일섬」"},
+    {"era": "SV", "code": "sv4a", "title": "샤이니트레저 ex", "product": "스칼렛&바이올렛 하이클래스팩 「샤이니트레저 ex」"},
+    {"era": "SV", "code": "sv5K", "title": "와일드포스", "product": "스칼렛&바이올렛 확장팩 「와일드포스」"},
+    {"era": "SV", "code": "sv5M", "title": "사이버저지", "product": "스칼렛&바이올렛 확장팩 「사이버저지」"},
+    {"era": "SV", "code": "sv5a", "title": "크림슨헤이즈", "product": "스칼렛&바이올렛 강화 확장팩 「크림슨헤이즈」"},
+    {"era": "SV", "code": "sv6", "title": "변환의 가면", "product": "스칼렛&바이올렛 확장팩 「변환의 가면」"},
+    {"era": "SV", "code": "sv6a", "title": "나이트원더러", "product": "스칼렛&바이올렛 강화 확장팩 「나이트원더러」"},
+    {"era": "SV", "code": "sv7", "title": "스텔라미라클", "product": "스칼렛&바이올렛 확장팩 「스텔라미라클」"},
+    {"era": "SV", "code": "sv7a", "title": "낙원드래고나", "product": "스칼렛&바이올렛 강화 확장팩 「낙원드래고나」"},
+    {"era": "SV", "code": "sv8", "title": "초전브레이커", "product": "스칼렛&바이올렛 확장팩 「초전브레이커」"},
+    {"era": "SV", "code": "sv8a", "title": "테라스탈 페스타 ex", "product": "스칼렛&바이올렛 하이클래스팩 「테라스탈 페스타 ex」"},
+    {"era": "SV", "code": "sv9", "title": "배틀파트너즈", "product": "스칼렛&바이올렛 확장팩 「배틀파트너즈」"},
+    {"era": "SV", "code": "sv9a", "title": "열풍의 아레나", "product": "스칼렛&바이올렛 강화 확장팩 「열풍의 아레나」"},
+    {"era": "SV", "code": "sv10", "title": "로켓단의 영광", "product": "스칼렛&바이올렛 확장팩 「로켓단의 영광」"},
+    {"era": "SV", "code": "sv11B", "title": "블랙볼트", "product": "스칼렛&바이올렛 확장팩 「블랙볼트」"},
+    {"era": "SV", "code": "sv11W", "title": "화이트플레어", "product": "스칼렛&바이올렛 확장팩 「화이트플레어」"},
     # MEGA — Korean official product names. M-P promo cards are audited separately
     # because one set code spans many event/promo distribution products.
     {"era": "M", "code": "m1S", "title": "메가심포니아", "product": "MEGA 확장팩 「메가심포니아」"},
@@ -341,7 +368,7 @@ def feature_image_url(value: str) -> str:
 
 def image_identity(value: str) -> tuple[str, str] | None:
     path = value.split("?", 1)[0]
-    match = re.search(r"wmimages/(?:S|SM|MEGA)/([^/]+)/([^/]+)$", path, re.IGNORECASE)
+    match = re.search(r"wmimages/(?:S|SM|SV|MEGA)/([^/]+)/([^/]+)$", path, re.IGNORECASE)
     if not match:
         return None
     filename = match.group(2).rsplit(".", 1)[0]

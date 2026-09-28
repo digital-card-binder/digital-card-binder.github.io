@@ -1,0 +1,87 @@
+name: Audit SV expansion print variants
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_legacy_series_data.py'
+      - 'scripts/audit-series-print-variants.py'
+      - 'scripts/audit-series-canonical-slots.mjs'
+      - 'scripts/merge-series-print-variant-audit.mjs'
+      - '.github/workflows/audit-sv-print-variants.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sv-expansion-print-variant-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Restore Pokemon Korea audit cache
+        uses: actions/cache@v4
+        with:
+          path: tmp/legacy-series-cache
+          key: sv-expansion-print-audit-v1-${{ runner.os }}
+          restore-keys: |
+            sv-expansion-print-audit-v1-
+
+      - name: Refresh series inventory audit
+        run: node scripts/audit-series-inventory.mjs
+
+      - name: Build canonical printed-slot baseline
+        run: node scripts/audit-series-canonical-slots.mjs
+
+      - name: Audit Korean SV expansion products
+        run: |
+          mkdir -p data/audits
+          python3 scripts/audit-series-print-variants.py \
+            --era SV \
+            --workers 2 \
+            --output data/audits/series-print-variant-audit-SV.json
+
+      - name: Merge verified SV print variants
+        run: |
+          node scripts/merge-series-print-variant-audit.mjs \
+            data/audits/series-print-variant-audit-SV.json
+          node scripts/audit-master-card-db.mjs
+
+      - name: Verify master DB contracts
+        run: |
+          node --test \
+            tests/series-print-variants.test.mjs \
+            tests/master-card-db-audit.test.mjs
+
+      - name: Commit verified SV audit data
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/series-inventory-audit.json \
+            data/series-canonical-slot-audit.json \
+            data/audits/series-print-variant-audit-SV.json \
+            data/series-print-variants.json \
+            data/master-card-db-audit.json
+          if git diff --cached --quiet; then
+            echo "No SV expansion audit data changes."
+            exit 0
+          fi
+          git commit -m "Audit Korean SV expansion print variants"
+          git pull --rebase origin main
+          git push origin HEAD:main
