@@ -57,9 +57,11 @@ def mega_promo_products(official_values: dict[str, str]) -> list[str]:
             continue
         label = clean(official_name)
         if (
-            "프로모" in label
-            or "스페셜 카드 세트" in label
-            or "ex 스페셜 세트" in label
+            label.startswith("MEGA 프로모")
+            or label.startswith("2026 코리안리그")
+            or label == "포켓몬스쿨 프로모"
+            or label.startswith("MEGA 스페셜 카드 세트")
+            or label == "MEGA 「ex 스페셜 세트」"
         ):
             candidates.append(label)
     return sorted(set(candidates))
