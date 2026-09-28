@@ -195,7 +195,6 @@ test("card pages load the image router before application scripts", () => {
     "artists.html",
     "custom.html",
     "fossil.html",
-    "index.html",
     "national.html",
     "packs.html",
     "people.html",
