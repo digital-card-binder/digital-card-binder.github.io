@@ -52,6 +52,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
+            npm run search-index:sync
             npm run catalog-metrics:sync
             npm run shell:sync
             npm run versions:sync
@@ -61,7 +62,7 @@ jobs:
               exit 0
             fi
 
-            git add core/catalog/catalog-service.js collector-nav.js pwa.js manifest.webmanifest site-version.json ./*.html
+            git add data/pokemon-search-index.json core/catalog/catalog-service.js collector-nav.js pwa.js manifest.webmanifest site-version.json ./*.html
             git commit -m "Sync catalog metrics and site asset versions"
 
             if git push origin HEAD:main; then
