@@ -9,6 +9,8 @@ on:
       - '*.html'
       - '*.js'
       - '*.css'
+      - 'manifest.webmanifest'
+      - 'assets/brand/**'
       - 'core/catalog/**'
       - 'data/**'
       - 'scripts/sync-catalog-metrics.mjs'
@@ -59,7 +61,7 @@ jobs:
               exit 0
             fi
 
-            git add core/catalog/catalog-service.js collector-nav.js pwa.js site-version.json ./*.html
+            git add core/catalog/catalog-service.js collector-nav.js pwa.js manifest.webmanifest site-version.json ./*.html
             git commit -m "Sync catalog metrics and site asset versions"
 
             if git push origin HEAD:main; then
