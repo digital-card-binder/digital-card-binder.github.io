@@ -44,6 +44,32 @@ def clean(value: Any) -> str:
     return str(value or "").strip()
 
 
+def resolve_official_product(
+    requested: str,
+    official_values: dict[str, str],
+) -> str:
+    override = OFFICIAL_PRODUCT_OVERRIDES.get(requested)
+    if override:
+        return override
+
+    exact = official_values.get(legacy.compact(requested))
+    if exact:
+        return exact
+
+    title_match = re.search(r"「([^」]+)」", requested)
+    if title_match and official_values:
+        token = legacy.compact(title_match.group(1))
+        candidates = [
+            value
+            for key, value in official_values.items()
+            if token and token in key
+        ]
+        if len(candidates) == 1:
+            return candidates[0]
+
+    return requested
+
+
 def mega_promo_products(official_values: dict[str, str]) -> list[str]:
     configured = {
         legacy.compact(item["product"])
@@ -136,11 +162,7 @@ def audit_group(
         promo_mode = False
 
     for requested in requested_products:
-        resolved = (
-            OFFICIAL_PRODUCT_OVERRIDES.get(requested)
-            or official_values.get(legacy.compact(requested))
-            or requested
-        )
+        resolved = resolve_official_product(requested, official_values)
         records = fetch_product_records(resolved)
         if promo_mode:
             matched_records = []
