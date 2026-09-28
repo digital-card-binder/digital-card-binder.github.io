@@ -4,10 +4,9 @@ const $ = (id) => document.getElementById(id);
 const DATA_URL = "./data/ar.json";
 const SUPPLEMENT_URL = "./data/ar-supplement.json";
 const NATIONAL_DEX_URL = "./data/pokedex.json";
-const EXPECTED_GROUPS = 34;
-const EXPECTED_TOTAL = 530;
-const BASE_GROUPS = 32;
-const BASE_TOTAL = 498;
+const AR_METRIC = window.DigitalCardBinder?.catalog?.catalogMetrics?.ar || {};
+const EXPECTED_GROUPS = Number(AR_METRIC.groupCount) || 0;
+const EXPECTED_TOTAL = Number(AR_METRIC.itemCount) || 0;
 const AR_VIEW = new URLSearchParams(window.location.search).get("view") === "series" ? "series" : "national";
 
 let groups = [];
@@ -143,11 +142,10 @@ function normalizeGroups(sourceGroups) {
   allCards = groups.flatMap((group) => group.cards);
 
   const isCurrent =
-    groups.length === EXPECTED_GROUPS && allCards.length === EXPECTED_TOTAL;
-  const isBase =
-    groups.length === BASE_GROUPS && allCards.length === BASE_TOTAL;
+    (!EXPECTED_GROUPS || groups.length === EXPECTED_GROUPS) &&
+    (!EXPECTED_TOTAL || allCards.length === EXPECTED_TOTAL);
 
-  if (!isCurrent && !isBase) {
+  if (!isCurrent) {
     console.warn(
       `AR 데이터 수가 예상과 다릅니다: ${groups.length}세트 ${allCards.length}장`,
     );
@@ -260,6 +258,9 @@ function refreshCounts() {
   setText("stat-catalog-groups", groups.length);
   setText("stat-catalog-total", total);
   setText("stat-catalog-rate", rate);
+  setText("ar-hero-group-count", groups.length);
+  setText("ar-hero-total-count", total);
+  setText("ar-footer-note", `포켓몬코리아 카드번호 기준 · 세트별 카드번호 오름차순 · ${total}장`);
   setText("selected-name", selectedLabel());
   setText(
     "selected-progress",
@@ -616,7 +617,7 @@ async function applyAccountState() {
 
 async function init() {
   try {
-    // 1) 카드 데이터는 일반 fetch만 사용한다. 보충 데이터 실패 시 기존 498장으로라도 연다.
+    // 1) 카드 데이터는 일반 fetch만 사용한다. 보충 데이터 실패 시 기본 목록으로라도 연다.
     const [baseData, supplementData] = await Promise.all([
       fetchJson(DATA_URL, true),
       fetchJson(SUPPLEMENT_URL, false),
