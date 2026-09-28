@@ -105,6 +105,26 @@ async function buildAudit() {
     duplicateNormalizedSlotCount += duplicates.length;
     extraRecordCount += cards.length - bySlot.size;
 
+    const slots = [...bySlot.values()]
+      .map((slot) => ({
+        actualSetCode: slot.actualSetCode,
+        printedNumber: slot.printedNumber,
+      }))
+      .sort((left, right) => {
+        const codeCompare = left.actualSetCode.localeCompare(
+          right.actualSetCode,
+          undefined,
+          { sensitivity: "base" },
+        );
+        if (codeCompare) return codeCompare;
+        const leftNumber = Number(left.printedNumber);
+        const rightNumber = Number(right.printedNumber);
+        if (Number.isFinite(leftNumber) && Number.isFinite(rightNumber)) {
+          return leftNumber - rightNumber;
+        }
+        return left.printedNumber.localeCompare(right.printedNumber);
+      });
+
     sets.push({
       era: inferEra(group),
       code: clean(group?.code),
@@ -113,6 +133,7 @@ async function buildAudit() {
       canonicalSlotCount: bySlot.size,
       duplicateSlotCount: duplicates.length,
       extraRecordCount: cards.length - bySlot.size,
+      slots,
       duplicates,
     });
   }
