@@ -13,6 +13,7 @@ const NETWORK_FIRST_PATHS = new Set([
   "/collector-nav.js",
   "/firebase-config.js",
   "/site-version.json",
+  "/manifest.webmanifest",
   "/styles.css",
   "/pwa.js",
 ]);
@@ -59,7 +60,7 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(title, {
       body,
-      icon: "/assets/favicon.svg",
+      icon: "/assets/brand/icon-192.png",
       tag: payload.tag || "digital-card-binder-news",
       renotify: true,
       data: { url },

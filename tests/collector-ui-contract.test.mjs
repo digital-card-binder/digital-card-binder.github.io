@@ -1050,7 +1050,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /PokemonDexOwnerSheetsNativeResult/);
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
-  assert.match(androidGradle, /versionCode 12/);
+  assert.match(androidGradle, /versionCode 13/);
   assert.match(dashboard, /owner-sheets-sync[.]js[?]v=[0-9a-f]{12}/);
 });
 

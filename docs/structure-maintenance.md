@@ -80,7 +80,7 @@ Structural cleanup must not migrate or reset user collection data unless a separ
 ## Repository hygiene
 
 - Do not commit `.tmp-*` trigger files.
-- Keep only the live root `DigitalCardBinder_v0.9.apk`; old build outputs belong in GitHub Actions artifacts/releases, not duplicate repository paths.
+- Keep only the live root `DigitalCardBinder_v1.0.apk`; old build outputs belong in GitHub Actions artifacts/releases, not duplicate repository paths.
 - Do not introduce runtime `*-fix.js`, `*-supplement.js`, or `*-fallback.js` files for permanent behavior. Stable behavior belongs in the owning module; staged card data belongs in canonical or explicitly staged data files.
 
 
