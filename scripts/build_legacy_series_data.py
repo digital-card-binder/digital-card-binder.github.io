@@ -224,7 +224,7 @@ class GoodsOptionsParser(HTMLParser):
             self.in_goods_select = False
 
 
-def warm_official_session() -> None:
+def warm_official_session() -> bool:
     request = Request(
         f"{OFFICIAL_BASE}/cards",
         headers={
@@ -233,8 +233,13 @@ def warm_official_session() -> None:
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         },
     )
-    with HTTP_OPENER.open(request, timeout=75) as response:
-        response.read(1024)
+    try:
+        with HTTP_OPENER.open(request, timeout=75) as response:
+            response.read(1024)
+        return True
+    except (HTTPError, URLError, TimeoutError) as error:
+        log(f"공식 세션 워밍업 생략: {error}")
+        return False
 
 
 def official_product_values() -> dict[str, str]:
