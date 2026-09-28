@@ -11,11 +11,11 @@
     "other": "multiple distinct official images share the same set/card-number slot but no known variant token is present"
   },
   "summary": {
-    "configuredSetCount": 13,
-    "resolvedProductCount": 13,
+    "configuredSetCount": 14,
+    "resolvedProductCount": 24,
     "missingProductCount": 0,
-    "rawRecordCount": 1926,
-    "parsedSlotCount": 1926,
+    "rawRecordCount": 1969,
+    "parsedSlotCount": 1969,
     "duplicateSlotCount": 0,
     "variantSlotCount": 0,
     "variantCounts": {
@@ -35,6 +35,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「메가심포니아」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 92,
       "missingProducts": [],
       "rawRecordCount": 86,
       "parsedSlotCount": 86,
@@ -52,6 +54,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「메가브레이브」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 92,
       "missingProducts": [],
       "rawRecordCount": 89,
       "parsedSlotCount": 89,
@@ -69,6 +73,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「인페르노X」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 116,
       "missingProducts": [],
       "rawRecordCount": 112,
       "parsedSlotCount": 112,
@@ -86,6 +92,8 @@
       "resolvedProducts": [
         "MEGA 하이클래스팩 「MEGA 드림 ex」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 250,
       "missingProducts": [],
       "rawRecordCount": 242,
       "parsedSlotCount": 242,
@@ -103,6 +111,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「니힐제로」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 117,
       "missingProducts": [],
       "rawRecordCount": 111,
       "parsedSlotCount": 111,
@@ -120,6 +130,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「닌자스피너」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 120,
       "missingProducts": [],
       "rawRecordCount": 118,
       "parsedSlotCount": 118,
@@ -137,6 +149,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「어비스아이」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 118,
       "missingProducts": [],
       "rawRecordCount": 115,
       "parsedSlotCount": 115,
@@ -154,6 +168,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「스톰에메랄다」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 113,
       "missingProducts": [],
       "rawRecordCount": 99,
       "parsedSlotCount": 99,
@@ -171,6 +187,8 @@
       "resolvedProducts": [
         "MEGA 확장팩 「30th CELEBRATION」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 176,
       "missingProducts": [],
       "rawRecordCount": 108,
       "parsedSlotCount": 108,
@@ -188,6 +206,8 @@
       "resolvedProducts": [
         "MEGA 「스타트 덱 100 배틀컬렉션」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 774,
       "missingProducts": [],
       "rawRecordCount": 752,
       "parsedSlotCount": 752,
@@ -205,6 +225,8 @@
       "resolvedProducts": [
         "스타터 세트 MEGA 「메가디안시 ex」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 23,
       "missingProducts": [],
       "rawRecordCount": 23,
       "parsedSlotCount": 23,
@@ -222,6 +244,8 @@
       "resolvedProducts": [
         "스타터 세트 MEGA 「메가팬텀 ex」"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 23,
       "missingProducts": [],
       "rawRecordCount": 23,
       "parsedSlotCount": 23,
@@ -239,9 +263,40 @@
       "resolvedProducts": [
         "MEGA 프리미엄 트레이너 박스 MEGA"
       ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 51,
       "missingProducts": [],
       "rawRecordCount": 48,
       "parsedSlotCount": 48,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "M",
+      "code": "M-P",
+      "title": "MEGA 프로모 카드",
+      "requestedProducts": [
+        "__DISCOVER_MEGA_PROMO__"
+      ],
+      "resolvedProducts": [
+        "2026 코리안리그 시즌1 프로모",
+        "2026 코리안리그 시즌2 프로모",
+        "2026 코리안리그 시즌3 프로모",
+        "2026 코리안리그 시즌4 프로모",
+        "2026 코리안리그 파이널 프로모",
+        "MEGA 「ex 스페셜 세트」",
+        "MEGA 스페셜 카드 세트 「메가엘레이드 ex」",
+        "MEGA 프로모 카드 팩 제1탄",
+        "MEGA 프로모 카드 팩 제2탄",
+        "MEGA 프로모 카드 팩 제3탄",
+        "포켓몬스쿨 프로모"
+      ],
+      "discoveryCandidateCount": 11,
+      "expectedSlotCount": 65,
+      "missingProducts": [],
+      "rawRecordCount": 43,
+      "parsedSlotCount": 43,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
       "variantSlots": []

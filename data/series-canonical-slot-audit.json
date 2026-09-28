@@ -1,0 +1,2821 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Normalize the Korean series catalog to one canonical slot per Korean set + printed card number before print variants are attached.",
+  "sourceFiles": [
+    "data/series.json",
+    "data/series-legacy.json"
+  ],
+  "summary": {
+    "setCount": 273,
+    "rawCardCount": 20240,
+    "canonicalSlotCount": 20240,
+    "duplicateNormalizedSlotCount": 0,
+    "extraRecordCount": 0
+  },
+  "eras": [
+    {
+      "era": "S",
+      "setCount": 61,
+      "rawCardCount": 4800,
+      "canonicalSlotCount": 4800,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "SM",
+      "setCount": 49,
+      "rawCardCount": 3950,
+      "canonicalSlotCount": 3950,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "SV",
+      "setCount": 53,
+      "rawCardCount": 4749,
+      "canonicalSlotCount": 4749,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "M",
+      "setCount": 14,
+      "rawCardCount": 2130,
+      "canonicalSlotCount": 2130,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "ORIGIN",
+      "setCount": 1,
+      "rawCardCount": 102,
+      "canonicalSlotCount": 102,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "ADV",
+      "setCount": 5,
+      "rawCardCount": 121,
+      "canonicalSlotCount": 121,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "DP",
+      "setCount": 16,
+      "rawCardCount": 598,
+      "canonicalSlotCount": 598,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "BW",
+      "setCount": 37,
+      "rawCardCount": 1477,
+      "canonicalSlotCount": 1477,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    },
+    {
+      "era": "XY",
+      "setCount": 37,
+      "rawCardCount": 2313,
+      "canonicalSlotCount": 2313,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0
+    }
+  ],
+  "sets": [
+    {
+      "era": "S",
+      "code": "s1W",
+      "title": "소드 (75/060)",
+      "rawCardCount": 75,
+      "canonicalSlotCount": 75,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s1H",
+      "title": "실드 (75/060)",
+      "rawCardCount": 75,
+      "canonicalSlotCount": 75,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s1a",
+      "title": "VMAX라이징 (86/070)",
+      "rawCardCount": 86,
+      "canonicalSlotCount": 86,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s2",
+      "title": "반역크래시 (115/096)",
+      "rawCardCount": 115,
+      "canonicalSlotCount": 115,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s2a",
+      "title": "폭염워커 (86/070)",
+      "rawCardCount": 86,
+      "canonicalSlotCount": 86,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s3",
+      "title": "무한존 (119/100)",
+      "rawCardCount": 119,
+      "canonicalSlotCount": 119,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s3a",
+      "title": "전설의 고동 (94/076)",
+      "rawCardCount": 94,
+      "canonicalSlotCount": 94,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s4",
+      "title": "앙천의 볼트태클 (121/100)",
+      "rawCardCount": 121,
+      "canonicalSlotCount": 121,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s4a",
+      "title": "샤이니스타 V (330/190)",
+      "rawCardCount": 330,
+      "canonicalSlotCount": 330,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s5I",
+      "title": "일격마스터 (91/070)",
+      "rawCardCount": 91,
+      "canonicalSlotCount": 91,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s5R",
+      "title": "연격마스터 (91/070)",
+      "rawCardCount": 91,
+      "canonicalSlotCount": 91,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s5a",
+      "title": "쌍벽의 파이터 (96/070)",
+      "rawCardCount": 96,
+      "canonicalSlotCount": 96,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s6H",
+      "title": "백은의 랜스 (95/070)",
+      "rawCardCount": 95,
+      "canonicalSlotCount": 95,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s6K",
+      "title": "칠흑의 가이스트 (95/070)",
+      "rawCardCount": 95,
+      "canonicalSlotCount": 95,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s6a",
+      "title": "이브이 히어로즈 (101/069)",
+      "rawCardCount": 101,
+      "canonicalSlotCount": 101,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s7D",
+      "title": "마천퍼펙트 (90/067)",
+      "rawCardCount": 90,
+      "canonicalSlotCount": 90,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s7R",
+      "title": "창공스트림 (90/067)",
+      "rawCardCount": 90,
+      "canonicalSlotCount": 90,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s8",
+      "title": "퓨전아츠 (129/100)",
+      "rawCardCount": 129,
+      "canonicalSlotCount": 129,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s8a",
+      "title": "25th ANNIVERSARY COLLECTION (38/028)",
+      "rawCardCount": 38,
+      "canonicalSlotCount": 38,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s8b",
+      "title": "VMAX 클라이맥스 (293/184)",
+      "rawCardCount": 293,
+      "canonicalSlotCount": 293,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s9",
+      "title": "스타버스 (127/100)",
+      "rawCardCount": 127,
+      "canonicalSlotCount": 127,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s9a",
+      "title": "배틀리전 (93/067)",
+      "rawCardCount": 93,
+      "canonicalSlotCount": 93,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s10P",
+      "title": "스페이스 저글러 (88/067)",
+      "rawCardCount": 88,
+      "canonicalSlotCount": 88,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s10D",
+      "title": "타임게이저 (88/067)",
+      "rawCardCount": 88,
+      "canonicalSlotCount": 88,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s10a",
+      "title": "다크판타스마 (99/071)",
+      "rawCardCount": 99,
+      "canonicalSlotCount": 99,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s10b",
+      "title": "Pokémon GO (109/071)",
+      "rawCardCount": 109,
+      "canonicalSlotCount": 109,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s11",
+      "title": "로스트어비스 (127/100)",
+      "rawCardCount": 127,
+      "canonicalSlotCount": 127,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s11a",
+      "title": "백열의 아르카나 (94/068)",
+      "rawCardCount": 94,
+      "canonicalSlotCount": 94,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s12",
+      "title": "패러다임트리거 (125/098)",
+      "rawCardCount": 125,
+      "canonicalSlotCount": 125,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "s12a",
+      "title": "VSTAR 유니버스 (262/172)",
+      "rawCardCount": 262,
+      "canonicalSlotCount": 262,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm1S",
+      "title": "썬 컬렉션 (73장)",
+      "rawCardCount": 73,
+      "canonicalSlotCount": 73,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm1M",
+      "title": "문 컬렉션 (73장)",
+      "rawCardCount": 73,
+      "canonicalSlotCount": 73,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm1+",
+      "title": "썬&문 (77장)",
+      "rawCardCount": 77,
+      "canonicalSlotCount": 77,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm60A",
+      "title": "전력 배틀 스타터 세트 「루가루암 GX」 (27장)",
+      "rawCardCount": 27,
+      "canonicalSlotCount": 27,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm2K",
+      "title": "알로라의 햇빛 (62장)",
+      "rawCardCount": 62,
+      "canonicalSlotCount": 62,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm2L",
+      "title": "알로라의 달빛 (62장)",
+      "rawCardCount": 62,
+      "canonicalSlotCount": 62,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm2+",
+      "title": "새로운 시련 (75장)",
+      "rawCardCount": 75,
+      "canonicalSlotCount": 75,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm3H",
+      "title": "어둠을 밝힌 무지개 (64장)",
+      "rawCardCount": 64,
+      "canonicalSlotCount": 64,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm3N",
+      "title": "빛을 삼킨 어둠 (64장)",
+      "rawCardCount": 64,
+      "canonicalSlotCount": 64,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm3+",
+      "title": "빛나는 전설 (91장)",
+      "rawCardCount": 91,
+      "canonicalSlotCount": 91,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm4S",
+      "title": "각성의 용사 (62장)",
+      "rawCardCount": 62,
+      "canonicalSlotCount": 62,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm4A",
+      "title": "초차원의 침략자 (62장)",
+      "rawCardCount": 62,
+      "canonicalSlotCount": 62,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm4+",
+      "title": "GX 배틀부스트 (125장)",
+      "rawCardCount": 125,
+      "canonicalSlotCount": 125,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm5S",
+      "title": "울트라썬 (78장)",
+      "rawCardCount": 78,
+      "canonicalSlotCount": 78,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm5M",
+      "title": "울트라문 (78장)",
+      "rawCardCount": 78,
+      "canonicalSlotCount": 78,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm5+",
+      "title": "울트라포스 (72장)",
+      "rawCardCount": 72,
+      "canonicalSlotCount": 72,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm6",
+      "title": "금단의 빛 (110장)",
+      "rawCardCount": 110,
+      "canonicalSlotCount": 110,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm6a",
+      "title": "드래곤스톰 (75장)",
+      "rawCardCount": 75,
+      "canonicalSlotCount": 75,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm6b",
+      "title": "챔피언로드 (86장)",
+      "rawCardCount": 86,
+      "canonicalSlotCount": 86,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm7",
+      "title": "창공의 카리스마 (112장)",
+      "rawCardCount": 112,
+      "canonicalSlotCount": 112,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm7a",
+      "title": "플라스마 스파크 (73장)",
+      "rawCardCount": 73,
+      "canonicalSlotCount": 73,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm7b",
+      "title": "페어리라이즈 (63장)",
+      "rawCardCount": 63,
+      "canonicalSlotCount": 63,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm8",
+      "title": "버스트임팩트 (111장)",
+      "rawCardCount": 111,
+      "canonicalSlotCount": 111,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm8a",
+      "title": "다크오더 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm8b",
+      "title": "GX 울트라샤이니 (250장)",
+      "rawCardCount": 250,
+      "canonicalSlotCount": 250,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm9",
+      "title": "태그볼트 (118장)",
+      "rawCardCount": 118,
+      "canonicalSlotCount": 118,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm9a",
+      "title": "나이트유니슨 (70장)",
+      "rawCardCount": 70,
+      "canonicalSlotCount": 70,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm9b",
+      "title": "풀메탈월 (69장)",
+      "rawCardCount": 69,
+      "canonicalSlotCount": 69,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm10",
+      "title": "더블블레이즈 (116장)",
+      "rawCardCount": 116,
+      "canonicalSlotCount": 116,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm10a",
+      "title": "GG엔드 (69장)",
+      "rawCardCount": 69,
+      "canonicalSlotCount": 69,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm10b",
+      "title": "스카이레전드 (69장)",
+      "rawCardCount": 69,
+      "canonicalSlotCount": 69,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "smp2",
+      "title": "영화 스페셜 팩 「명탐정 피카츄」 (24장)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm11",
+      "title": "미라클트윈 (115장)",
+      "rawCardCount": 115,
+      "canonicalSlotCount": 115,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm11a",
+      "title": "리믹스바우트 (80장)",
+      "rawCardCount": 80,
+      "canonicalSlotCount": 80,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm11b",
+      "title": "드림리그 (75장)",
+      "rawCardCount": 75,
+      "canonicalSlotCount": 75,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm12",
+      "title": "얼터제네시스 (117장)",
+      "rawCardCount": 117,
+      "canonicalSlotCount": 117,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm12a",
+      "title": "TAG TEAM GX 태그올스타즈 (235장)",
+      "rawCardCount": 235,
+      "canonicalSlotCount": 235,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMP",
+      "title": "썬&문 프로모 카드 (249장)",
+      "rawCardCount": 249,
+      "canonicalSlotCount": 249,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm30A",
+      "title": "썬&문 랜덤30장덱 (89장)",
+      "rawCardCount": 89,
+      "canonicalSlotCount": 89,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "sm60B",
+      "title": "전격 스타터 세트 「라이코 GX」 (23장)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv1S",
+      "title": "스칼렛 ex (108/78)",
+      "rawCardCount": 108,
+      "canonicalSlotCount": 108,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv1V",
+      "title": "바이올렛 ex (108/78)",
+      "rawCardCount": 108,
+      "canonicalSlotCount": 108,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv1a",
+      "title": "트리플렛비트 (103/73)",
+      "rawCardCount": 103,
+      "canonicalSlotCount": 103,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv2D",
+      "title": "클레이버스트 (99/071)",
+      "rawCardCount": 99,
+      "canonicalSlotCount": 99,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv2P",
+      "title": "스노해저드 (99/71)",
+      "rawCardCount": 99,
+      "canonicalSlotCount": 99,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv2a",
+      "title": "포켓몬카드 151 (210/165)",
+      "rawCardCount": 210,
+      "canonicalSlotCount": 210,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv3",
+      "title": "흑염의 지배자 (114/108)",
+      "rawCardCount": 141,
+      "canonicalSlotCount": 141,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv3a",
+      "title": "레이징서프 (92/062)",
+      "rawCardCount": 92,
+      "canonicalSlotCount": 92,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv4K",
+      "title": "고대의 포효 (95/066)",
+      "rawCardCount": 95,
+      "canonicalSlotCount": 95,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv4M",
+      "title": "미래의 일섬 (95/066)",
+      "rawCardCount": 95,
+      "canonicalSlotCount": 95,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv4a",
+      "title": "샤이니트레져 ex (360/190)",
+      "rawCardCount": 360,
+      "canonicalSlotCount": 360,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv5K",
+      "title": "와일드포스 (100/071)",
+      "rawCardCount": 100,
+      "canonicalSlotCount": 100,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv5M",
+      "title": "사이버저지 (100/071)",
+      "rawCardCount": 100,
+      "canonicalSlotCount": 100,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv5a",
+      "title": "크림슨헤이즈 (96/066)",
+      "rawCardCount": 96,
+      "canonicalSlotCount": 96,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv6",
+      "title": "변환의 가면 (133/101)",
+      "rawCardCount": 133,
+      "canonicalSlotCount": 133,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv6a",
+      "title": "나이트 원더러 (94/064)",
+      "rawCardCount": 94,
+      "canonicalSlotCount": 94,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv7",
+      "title": "스텔라미라클 (135/102)",
+      "rawCardCount": 135,
+      "canonicalSlotCount": 135,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv7a",
+      "title": "낙원드래고나 (94/064)",
+      "rawCardCount": 94,
+      "canonicalSlotCount": 94,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv8",
+      "title": "초전브레이커 (138/106)",
+      "rawCardCount": 138,
+      "canonicalSlotCount": 138,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv8a",
+      "title": "테라스탈 페스타 ex (237/187)",
+      "rawCardCount": 237,
+      "canonicalSlotCount": 237,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv9",
+      "title": "sv9 도감 (132/100)",
+      "rawCardCount": 132,
+      "canonicalSlotCount": 132,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv9a",
+      "title": "sv9a 도감 (92/063)",
+      "rawCardCount": 92,
+      "canonicalSlotCount": 92,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv10",
+      "title": "sv10 도감 (132/098)",
+      "rawCardCount": 132,
+      "canonicalSlotCount": 132,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv11B",
+      "title": "sv11B 도감 (174/086)",
+      "rawCardCount": 174,
+      "canonicalSlotCount": 174,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "sv11W",
+      "title": "sv11W 도감 (174/086)",
+      "rawCardCount": 174,
+      "canonicalSlotCount": 174,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m1S",
+      "title": "메가심포니아 (92/063)",
+      "rawCardCount": 92,
+      "canonicalSlotCount": 92,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m1L",
+      "title": "메가브레이브 (92/063)",
+      "rawCardCount": 92,
+      "canonicalSlotCount": 92,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m2",
+      "title": "인페르노X (116/080)",
+      "rawCardCount": 116,
+      "canonicalSlotCount": 116,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m2a",
+      "title": "MEGA 드림 ex (250/193)",
+      "rawCardCount": 250,
+      "canonicalSlotCount": 250,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m3",
+      "title": "니힐제로 (117/080)",
+      "rawCardCount": 117,
+      "canonicalSlotCount": 117,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m4",
+      "title": "닌자스피너 (120/083)",
+      "rawCardCount": 120,
+      "canonicalSlotCount": 120,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m5",
+      "title": "어비스아이 (118/081)",
+      "rawCardCount": 118,
+      "canonicalSlotCount": 118,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "m6",
+      "title": "스톰에메랄다 (113/076)",
+      "rawCardCount": 113,
+      "canonicalSlotCount": 113,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "sD",
+      "title": "sD 도감 (31/031)",
+      "rawCardCount": 31,
+      "canonicalSlotCount": 31,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "M6a",
+      "title": "30th CELEBRATION (176/103)",
+      "rawCardCount": 176,
+      "canonicalSlotCount": 176,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "MC",
+      "title": "스타트 덱 100 배틀컬렉션 (774/742)",
+      "rawCardCount": 774,
+      "canonicalSlotCount": 774,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "MBD",
+      "title": "스타터 세트 MEGA 「메가디안시 ex」 (23/021)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "MBG",
+      "title": "스타터 세트 MEGA 「메가팬텀 ex」 (23/021)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "MA",
+      "title": "MEGA 프리미엄 트레이너 박스 (51/043)",
+      "rawCardCount": 51,
+      "canonicalSlotCount": 51,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "M",
+      "code": "M-P",
+      "title": "메가 진화 프로모 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVOM",
+      "title": "스타터 세트 ex 「마리의 모르페코&오롱털 ex」 (21/019)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVOD",
+      "title": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」 (21/018)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVN",
+      "title": "배틀 강화 BOX 「배틀파트너즈」 (53/045)",
+      "rawCardCount": 53,
+      "canonicalSlotCount": 53,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVM",
+      "title": "스타트 덱 Generations 스페셜 배틀 세트 (183/175)",
+      "rawCardCount": 183,
+      "canonicalSlotCount": 183,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVP2",
+      "title": "ex 스페셜 세트 ver.2 (12/009)",
+      "rawCardCount": 12,
+      "canonicalSlotCount": 12,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVLS",
+      "title": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」 (25/022)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVLN",
+      "title": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」 (25/022)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVK",
+      "title": "배틀 강화 BOX 「스텔라미라클」 (52/044)",
+      "rawCardCount": 52,
+      "canonicalSlotCount": 52,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVJP",
+      "title": "배틀 마스터 덱 「파오젠 ex」 (20/019)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVJL",
+      "title": "배틀 마스터 덱 「테라스탈 리자몽 ex」 (22/021)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVI",
+      "title": "배틀 아카데미 (74/066)",
+      "rawCardCount": 74,
+      "canonicalSlotCount": 74,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVHK",
+      "title": "스타터 덱&강화 세트 「고대의 코라이돈 ex」 (61/053)",
+      "rawCardCount": 61,
+      "canonicalSlotCount": 61,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVHM",
+      "title": "스타터 덱&강화 세트 「미래의 미라이돈 ex」 (61/053)",
+      "rawCardCount": 61,
+      "canonicalSlotCount": 61,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVG",
+      "title": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」 (55/049)",
+      "rawCardCount": 55,
+      "canonicalSlotCount": 55,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVEM",
+      "title": "스타터 세트 테라스탈 「뮤츠 ex」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVEL",
+      "title": "스타터 세트 테라스탈 「라우드본 ex」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVF",
+      "title": "배틀 강화 BOX 「흑염의 지배자」 (46/038)",
+      "rawCardCount": 46,
+      "canonicalSlotCount": 46,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVD",
+      "title": "ex 스타트 덱 (147/139)",
+      "rawCardCount": 147,
+      "canonicalSlotCount": 147,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVP1",
+      "title": "ex 스페셜 세트 (7/007)",
+      "rawCardCount": 7,
+      "canonicalSlotCount": 7,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVC",
+      "title": "스타터 세트 ex 피카츄 스페셜 세트 (22/021)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVB",
+      "title": "프리미엄 트레이너 박스 ex (36/028)",
+      "rawCardCount": 36,
+      "canonicalSlotCount": 36,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVAL",
+      "title": "스타터 세트 ex 「뜨아거&전룡 ex」 (23/021)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVAW",
+      "title": "스타터 세트 ex 「꾸왁스&따라큐 ex」 (25/023)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SVAM",
+      "title": "스타터 세트 ex 「나오하&루카리오 ex」 (25/023)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "SV-P",
+      "title": "스칼렛&바이올렛 프로모 카드 (248장)",
+      "rawCardCount": 248,
+      "canonicalSlotCount": 248,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "CLF",
+      "title": "포켓몬 카드 게임 클래식 (이상해꽃) (34/032)",
+      "rawCardCount": 34,
+      "canonicalSlotCount": 34,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "CLK",
+      "title": "포켓몬 카드 게임 클래식 (거북왕) (34/032)",
+      "rawCardCount": 34,
+      "canonicalSlotCount": 34,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SV",
+      "code": "CLL",
+      "title": "포켓몬 카드 게임 클래식 (리자몽) (34/032)",
+      "rawCardCount": 34,
+      "canonicalSlotCount": 34,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SO",
+      "title": "스페셜 덱 세트 「리자몽 VSTAR VS 레쿠쟈 VMAX」 (34/030)",
+      "rawCardCount": 34,
+      "canonicalSlotCount": 34,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP6",
+      "title": "VSTAR 스페셜 세트 (6/006)",
+      "rawCardCount": 6,
+      "canonicalSlotCount": 6,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SPD",
+      "title": "VSTAR&VMAX 하이클래스 덱 「테오키스」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SPZ",
+      "title": "VSTAR&VMAX 하이클래스 덱 「제라오라」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SLD",
+      "title": "스타터 세트 VSTAR 「다크라이」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SLL",
+      "title": "스타터 세트 VSTAR 「루카리오」 (22/021)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SI",
+      "title": "스타트 덱 100 (430/414)",
+      "rawCardCount": 430,
+      "canonicalSlotCount": 430,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SN",
+      "title": "스타트 덱 100 「피카츄 V & 이브이 V」 (26/024)",
+      "rawCardCount": 26,
+      "canonicalSlotCount": 26,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "S8a-G",
+      "title": "「25th ANNIVERSARY GOLDEN BOX」 (16/015)",
+      "rawCardCount": 16,
+      "canonicalSlotCount": 16,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SJ",
+      "title": "스페셜 덱 세트 「자시안·자마젠타 VS 무한다이노」 (32/028)",
+      "rawCardCount": 32,
+      "canonicalSlotCount": 32,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "S8a-P",
+      "title": "프로모 카드 팩 25th ANNIVERSARY edition (25/025)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP5",
+      "title": "스페셜 카드 세트 「뮤츠 V-UNION」 「개굴닌자 V-UNION」 「자시안 V-UNION」 (13/013)",
+      "rawCardCount": 13,
+      "canonicalSlotCount": 13,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SH",
+      "title": "패밀리 포켓몬 카드 게임 (59/053)",
+      "rawCardCount": 59,
+      "canonicalSlotCount": 59,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP4",
+      "title": "VMAX 스페셜 세트 「이브이 히어로즈」 (8/004)",
+      "rawCardCount": 8,
+      "canonicalSlotCount": 8,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SGG",
+      "title": "하이클래스 덱 「팬텀 VMAX」 (21/019)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SGI",
+      "title": "하이클래스 덱 「인텔리레온 VMAX」 (24/022)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP3",
+      "title": "「백은의 랜스&칠흑의 가이스트」 BOX (6/006)",
+      "rawCardCount": 6,
+      "canonicalSlotCount": 6,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SEK",
+      "title": "스타터 세트 VMAX 「거북왕」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SEF",
+      "title": "스타터 세트 VMAX 「이상해꽃」 (22/021)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP2",
+      "title": "VMAX 스페셜 세트 (8/004)",
+      "rawCardCount": 8,
+      "canonicalSlotCount": 8,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SCR",
+      "title": "스타터 세트 VMAX 「리자몽」 (23/021)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SCD",
+      "title": "스타터 세트 VMAX 「오롱털」 (21/020)",
+      "rawCardCount": 21,
+      "canonicalSlotCount": 21,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SP1",
+      "title": "자시안+자마젠타 BOX (8/007)",
+      "rawCardCount": 8,
+      "canonicalSlotCount": 8,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SB",
+      "title": "프리미엄 트레이너 박스 「소드&실드」 (33/024)",
+      "rawCardCount": 33,
+      "canonicalSlotCount": 33,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SA-F",
+      "title": "스타터 세트 V 「격투」 (25/024)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SA-R",
+      "title": "스타터 세트 V 「불꽃」 (24/023)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SA-G",
+      "title": "스타터 세트 V 「풀」 (24/023)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SA-L",
+      "title": "스타터 세트 V 「번개」 (25/024)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "SA-W",
+      "title": "스타터 세트 V 「물」 (24/023)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "S",
+      "code": "S-P",
+      "title": "소드&실드 프로모 카드 (204장)",
+      "rawCardCount": 204,
+      "canonicalSlotCount": 204,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMM",
+      "title": "스타터 세트 TAG TEAM GX (33장)",
+      "rawCardCount": 33,
+      "canonicalSlotCount": 33,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SML",
+      "title": "패밀리 포켓몬 카드 게임 (57/051)",
+      "rawCardCount": 57,
+      "canonicalSlotCount": 57,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMN",
+      "title": "파워업덱 BOX 「TAG TEAM GX」 (44장)",
+      "rawCardCount": 44,
+      "canonicalSlotCount": 44,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMK",
+      "title": "스타터 세트 롱스톤 GX·아쿠스타 GX (32장)",
+      "rawCardCount": 32,
+      "canonicalSlotCount": 32,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMI",
+      "title": "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」 (41장)",
+      "rawCardCount": 41,
+      "canonicalSlotCount": 41,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SME",
+      "title": "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」 (22장)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMD",
+      "title": "대전 세트 「지우 VS 로켓단」 (30장)",
+      "rawCardCount": 30,
+      "canonicalSlotCount": 30,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMC",
+      "title": "개조 스타터 세트 「카푸브루루 GX」 (23장)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "SM",
+      "code": "SMA",
+      "title": "스타터세트 3종 (60장)",
+      "rawCardCount": 60,
+      "canonicalSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ORIGIN",
+      "code": "BASE",
+      "title": "Base Set (102/102)",
+      "rawCardCount": 102,
+      "canonicalSlotCount": 102,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1",
+      "title": "제1탄 확장팩 (63장)",
+      "rawCardCount": 63,
+      "canonicalSlotCount": 63,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-K",
+      "title": "구성완료스타터 나무지기덱 (19/019)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-A",
+      "title": "구성완료스타터 아차모덱 (19/019)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-M",
+      "title": "구성완료스타터 물짱이덱 (19/019)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "ADV",
+      "code": "ADVP",
+      "title": "ADV 프로모 카드 (1장)",
+      "rawCardCount": 1,
+      "canonicalSlotCount": 1,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS1",
+      "title": "모험의 시작 (60장)",
+      "rawCardCount": 60,
+      "canonicalSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS2",
+      "title": "불꽃 튀는 대결 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS3",
+      "title": "시공의 격돌 (60장)",
+      "rawCardCount": 60,
+      "canonicalSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS4",
+      "title": "또 다른 세계 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS5",
+      "title": "7개의 신비 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS6",
+      "title": "암흑의 초승달 (60장)",
+      "rawCardCount": 60,
+      "canonicalSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS7",
+      "title": "보이지 않는 힘 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS8",
+      "title": "화려한 전설 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS9",
+      "title": "호수의 기적 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "BS10",
+      "title": "고대의 수호자 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "CSD",
+      "title": "크레세리아 덱 (14장)",
+      "rawCardCount": 14,
+      "canonicalSlotCount": 14,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "DGD",
+      "title": "디아루가 덱 (15장)",
+      "rawCardCount": 15,
+      "canonicalSlotCount": 15,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "DRD",
+      "title": "다크라이 덱 (13장)",
+      "rawCardCount": 13,
+      "canonicalSlotCount": 13,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "PKD",
+      "title": "펄기아 덱 (15장)",
+      "rawCardCount": 15,
+      "canonicalSlotCount": 15,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "ST1",
+      "title": "DP 랜덤 구축덱 (59장)",
+      "rawCardCount": 59,
+      "canonicalSlotCount": 59,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "DP",
+      "code": "DPP",
+      "title": "DP 프로모 카드 (22장)",
+      "rawCardCount": 22,
+      "canonicalSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bb",
+      "title": "블랙 컬렉션 (56장)",
+      "rawCardCount": 56,
+      "canonicalSlotCount": 56,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bw",
+      "title": "화이트 컬렉션 (56장)",
+      "rawCardCount": 56,
+      "canonicalSlotCount": 56,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BD",
+      "title": "볼트로스 덱 (16장)",
+      "rawCardCount": 16,
+      "canonicalSlotCount": 16,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "TD",
+      "title": "토네로스 덱 (16장)",
+      "rawCardCount": 16,
+      "canonicalSlotCount": 16,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "FS",
+      "title": "BW 퍼스트 세트 (40장)",
+      "rawCardCount": 40,
+      "canonicalSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW2",
+      "title": "레드 컬렉션 (72장)",
+      "rawCardCount": 72,
+      "canonicalSlotCount": 72,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BTV",
+      "title": "배틀 체인지덱 비크티니 덱 (24장)",
+      "rawCardCount": 24,
+      "canonicalSlotCount": 24,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGc",
+      "title": "배틀 강화덱 - 코바르온 덱 (16장)",
+      "rawCardCount": 16,
+      "canonicalSlotCount": 16,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "PBG",
+      "title": "플라스마단 스페셜 세트 (18장)",
+      "rawCardCount": 18,
+      "canonicalSlotCount": 18,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGt",
+      "title": "배틀 강화덱 - 테라키온 덱 (17장)",
+      "rawCardCount": 17,
+      "canonicalSlotCount": 17,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGv",
+      "title": "배틀 강화덱 - 비리디온 덱 (17장)",
+      "rawCardCount": 17,
+      "canonicalSlotCount": 17,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bh",
+      "title": "헤일 블리자드 (57장)",
+      "rawCardCount": 57,
+      "canonicalSlotCount": 57,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bp",
+      "title": "사이코 드라이브 (57장)",
+      "rawCardCount": 57,
+      "canonicalSlotCount": 57,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW4",
+      "title": "다크러시 (76장)",
+      "rawCardCount": 76,
+      "canonicalSlotCount": 76,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BKR",
+      "title": "배틀 강화 60장 덱 - 레시라무 EX (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGZ",
+      "title": "배틀 강화 60장 덱 - 제크로무 EX (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "DC",
+      "title": "드래곤 컬렉션 (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brn",
+      "title": "드래곤 블레이드 (55장)",
+      "rawCardCount": 55,
+      "canonicalSlotCount": 55,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brz",
+      "title": "드래곤 블라스트 (55장)",
+      "rawCardCount": 55,
+      "canonicalSlotCount": 55,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "GBR",
+      "title": "한카리아스 덱 (18장)",
+      "rawCardCount": 18,
+      "canonicalSlotCount": 18,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "SZD",
+      "title": "삼삼드래 덱 (18장)",
+      "rawCardCount": 18,
+      "canonicalSlotCount": 18,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bc",
+      "title": "콜드플레어 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bf",
+      "title": "프리즈볼트 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "KD",
+      "title": "트레이너 세트 「케르디오」 (18장)",
+      "rawCardCount": 18,
+      "canonicalSlotCount": 18,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW7",
+      "title": "플라스마게일 (79장)",
+      "rawCardCount": 79,
+      "canonicalSlotCount": 79,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "PPD",
+      "title": "플라스마단 파워 덱 (19장)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGB",
+      "title": "배틀 강화 60장 덱 - 블랙큐레무 EX (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BGW",
+      "title": "배틀 강화 60장 덱 - 화이트큐레무 EX (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brf",
+      "title": "스파이럴포스 (58장)",
+      "rawCardCount": 58,
+      "canonicalSlotCount": 58,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brn",
+      "title": "볼트너클 (58장)",
+      "rawCardCount": 58,
+      "canonicalSlotCount": 58,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "SC",
+      "title": "샤이니 컬렉션 (25장)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BW9",
+      "title": "메갈로캐논 (86장)",
+      "rawCardCount": 86,
+      "canonicalSlotCount": 86,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "K+K",
+      "title": "최강 폭류 덱 「거북왕 + 큐레무 EX」 (19장)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bg",
+      "title": "30장 덱 대전 게노세크트 (17장)",
+      "rawCardCount": 17,
+      "canonicalSlotCount": 17,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bm",
+      "title": "30장 덱 대전 뮤츠 (17장)",
+      "rawCardCount": 17,
+      "canonicalSlotCount": 17,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "EBB",
+      "title": "EX 배틀 부스트 (95장)",
+      "rawCardCount": 95,
+      "canonicalSlotCount": 95,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "BW",
+      "code": "BWP",
+      "title": "BW 프로모 카드 (72장)",
+      "rawCardCount": 72,
+      "canonicalSlotCount": 72,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY",
+      "title": "THE BEST OF XY (188장)",
+      "rawCardCount": 188,
+      "canonicalSlotCount": 188,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP6",
+      "title": "확장팩 BASE PACK 20th Anniversary (113장)",
+      "rawCardCount": 113,
+      "canonicalSlotCount": 113,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP5",
+      "title": "환상 전설 드림 컬렉션 (38장)",
+      "rawCardCount": 38,
+      "canonicalSlotCount": 38,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Br",
+      "title": "냉혹한 반역자 (59장)",
+      "rawCardCount": 59,
+      "canonicalSlotCount": 59,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Bb",
+      "title": "타오르는 투사 (59장)",
+      "rawCardCount": 59,
+      "canonicalSlotCount": 59,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP4",
+      "title": "프리미엄 챔피언팩 (140장)",
+      "rawCardCount": 140,
+      "canonicalSlotCount": 140,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY10",
+      "title": "초능력의 제왕 (88장)",
+      "rawCardCount": 88,
+      "canonicalSlotCount": 88,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYH",
+      "title": "메가 배틀 덱 「M다부니 EX」 (27장)",
+      "rawCardCount": 27,
+      "canonicalSlotCount": 27,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYG",
+      "title": "퍼펙트 배틀 덱 「지가르데 EX」 (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP3",
+      "title": "포켓심쿵 컬렉션 (32장)",
+      "rawCardCount": 32,
+      "canonicalSlotCount": 32,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "20th",
+      "title": "트레이너 세트 20th Anniversary (71장)",
+      "rawCardCount": 71,
+      "canonicalSlotCount": 71,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY9",
+      "title": "천공의 분노 (89장)",
+      "rawCardCount": 89,
+      "canonicalSlotCount": 89,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYF",
+      "title": "콤보 덱 「골덕 BREAK +펄기아 EX」 (17장)",
+      "rawCardCount": 17,
+      "canonicalSlotCount": 17,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Bb",
+      "title": "푸른 충격 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "UBD",
+      "title": "덱 「음번 BREAK」 (19장)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "RBD",
+      "title": "덱 「라이츄 BREAK」 (19장)",
+      "rawCardCount": 19,
+      "canonicalSlotCount": 19,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Br",
+      "title": "붉은 섬광 (65장)",
+      "rawCardCount": 65,
+      "canonicalSlotCount": 65,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYE",
+      "title": "대전 세트 「염무왕 EX vs 토게키스 EX」 (26장)",
+      "rawCardCount": 26,
+      "canonicalSlotCount": 26,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP2",
+      "title": "레전드 컬렉션 (27장)",
+      "rawCardCount": 27,
+      "canonicalSlotCount": 27,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY7",
+      "title": "밴디트링 (97장)",
+      "rawCardCount": 97,
+      "canonicalSlotCount": 97,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY6",
+      "title": "에메랄드 브레이크 (91장)",
+      "rawCardCount": 91,
+      "canonicalSlotCount": 91,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYD",
+      "title": "메가 배틀 덱 「M레쿠쟈 EX」 (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "CP1",
+      "title": "마그마단vs아쿠아단 더블크라이시스 (34장)",
+      "rawCardCount": 34,
+      "canonicalSlotCount": 34,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bg",
+      "title": "가이아 볼케이노 (80장)",
+      "rawCardCount": 80,
+      "canonicalSlotCount": 80,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bt",
+      "title": "타이달스톰 (80장)",
+      "rawCardCount": 80,
+      "canonicalSlotCount": 80,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYC",
+      "title": "레전드 배틀 덱 「제르네아스 EX+이벨타르 EX」 (25장)",
+      "rawCardCount": 25,
+      "canonicalSlotCount": 25,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYB",
+      "title": "하이퍼 메탈 체인 덱 「디아루가 EX+킬가르도 EX」 (20장)",
+      "rawCardCount": 20,
+      "canonicalSlotCount": 20,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY4",
+      "title": "팬텀게이트 (97장)",
+      "rawCardCount": 97,
+      "canonicalSlotCount": 97,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY3",
+      "title": "라이징피스트 (105장)",
+      "rawCardCount": 105,
+      "canonicalSlotCount": 105,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYA",
+      "title": "메가 배틀 덱 「M리자몽 EX」 (23장)",
+      "rawCardCount": 23,
+      "canonicalSlotCount": 23,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY2",
+      "title": "와일드 블레이즈 (90장)",
+      "rawCardCount": 90,
+      "canonicalSlotCount": 90,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "X30",
+      "title": "제르네아스 덱 (15장)",
+      "rawCardCount": 15,
+      "canonicalSlotCount": 15,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "Y30",
+      "title": "이벨타르 덱 (15장)",
+      "rawCardCount": 15,
+      "canonicalSlotCount": 15,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY1-Bx",
+      "title": "X컬렉션 (63장)",
+      "rawCardCount": 63,
+      "canonicalSlotCount": 63,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XY1-By",
+      "title": "Y컬렉션 (63장)",
+      "rawCardCount": 63,
+      "canonicalSlotCount": 63,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "FXY",
+      "title": "XY 퍼스트 세트 (42장)",
+      "rawCardCount": 42,
+      "canonicalSlotCount": 42,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    },
+    {
+      "era": "XY",
+      "code": "XYP",
+      "title": "XY 프로모 (191장)",
+      "rawCardCount": 191,
+      "canonicalSlotCount": 191,
+      "duplicateSlotCount": 0,
+      "extraRecordCount": 0,
+      "duplicates": []
+    }
+  ]
+}
