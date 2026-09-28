@@ -12,6 +12,7 @@ on:
       - 'scripts/fix-mega-master-data.mjs'
       - 'scripts/probe-mega-official-images.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
+      - 'scripts/audit-master-card-db.mjs'
       - 'tests/series-print-variants.test.mjs'
       - '.github/workflows/audit-mega-print-variants.yml'
 
