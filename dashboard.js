@@ -28,7 +28,7 @@
     ar: {
       number: "03",
       title: "AR 전종도감",
-      description: "SV · M 시리즈 AR 510장",
+      description: "SV · M 시리즈 AR",
       href: "./ar.html",
       documentId: "arDex",
       unit: "장",
@@ -759,7 +759,11 @@
     link.className = "dashboard-collection-card dashboard-collection-card--static";
     link.dataset.category = collection.key;
     link.href = collection.href;
-    link.setAttribute("aria-label", `${collection.title} 바로가기`);
+    const metric = window.DigitalCardBinder?.catalog?.catalogMetrics?.[collection.key];
+    const metricCopy = metric
+      ? `${formatNumber(metric.itemCount)}장 · ${formatNumber(metric.groupCount)}${collection.key === "world" ? "세대" : "그룹"}`
+      : collection.description;
+    link.setAttribute("aria-label", `${collection.title} ${metricCopy} 바로가기`);
     link.innerHTML = `
       <div class="dashboard-card-top">
         <span class="dashboard-card-icon" aria-hidden="true">${collection.number}</span>
@@ -767,7 +771,7 @@
       </div>
       <div class="dashboard-card-title">
         <strong>${escapeHtml(collection.title)}</strong>
-        <span>${escapeHtml(collection.description)}</span>
+        <span>${escapeHtml(metricCopy)}</span>
       </div>
     `;
     return link;
