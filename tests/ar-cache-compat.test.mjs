@@ -27,8 +27,8 @@ assert.doesNotMatch(html, /ar-count-ui-fix[.]js/);
 assert.doesNotMatch(html, /ar-mega-supplement[.]js/);
 assert.match(html, /ar-card-editor[.]js[?]v=[0-9a-f]{12}/);
 assert.match(html, /ar[.]js[?]v=[0-9a-f]{12}/);
-assert.match(ar, /const EXPECTED_GROUPS = 33;/);
-assert.match(ar, /const EXPECTED_TOTAL = 510;/);
+assert.match(ar, /const EXPECTED_GROUPS = 34;/);
+assert.match(ar, /const EXPECTED_TOTAL = 530;/);
 assert.match(ar, /const SUPPLEMENT_URL = "[.]\/data\/ar-supplement[.]json";/);
 assert.match(ar, /const AR_VIEW = new URLSearchParams/);
 assert.match(ar, /function scopedNationalGroups/);
@@ -48,7 +48,7 @@ assert.equal(
   baseData.reduce((total, group) => total + group.cards.length, 0),
   498,
 );
-assert.equal(supplementData.length, 2);
+assert.equal(supplementData.length, 3);
 
 const mergedByCode = new Map(
   baseData.map((group) => [String(group.code).toLowerCase(), group]),
@@ -57,12 +57,12 @@ for (const group of supplementData) {
   mergedByCode.set(String(group.code).toLowerCase(), group);
 }
 const mergedGroups = [...mergedByCode.values()];
-assert.equal(mergedGroups.length, 33);
+assert.equal(mergedGroups.length, 34);
 assert.equal(
   mergedGroups.reduce((total, group) => total + group.cards.length, 0),
-  510,
+  530,
 );
 assert.match(registry, /ar:\s*\{[\s\S]*?documentId: "arDex"/);
 assert.match(manager, /registry[.]COLLECTIONS[?][.]\[mode\]/);
 
-console.log("AR integrated loader regression contract passed: 33 sets / 510 cards");
+console.log("AR integrated loader regression contract passed: 34 sets / 530 cards");
