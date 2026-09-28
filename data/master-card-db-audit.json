@@ -41,7 +41,8 @@
     "data/series-legacy.json",
     "data/series-inventory-audit.json",
     "data/series-print-variants.json",
-    "data/audits/mega-official-image-probe.json"
+    "data/audits/mega-official-image-probe.json",
+    "data/audits/mega-korean-membership-audit.json"
   ],
   "summary": {
     "setCount": 273,
@@ -58,6 +59,8 @@
     },
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
+    "koreanMembershipVerifiedSetCount": 14,
+    "koreanMembershipPendingSetCount": 0,
     "metadataGaps": {
       "missingCode": 0,
       "missingName": 3156,
@@ -533,6 +536,38 @@
         "firstPartyVerifiedGapCount": 88,
         "unresolvedGapCount": 76,
         "evidencePolicy": "Pokemon Korea product-search results first; Pokemon Korea official image host is accepted as first-party fallback evidence for catalog membership only."
+      },
+      "koreanMembershipAudit": {
+        "status": "complete",
+        "verifiedSetCount": 14,
+        "pendingSetCount": 0,
+        "verifiedSetCodes": [
+          "m1S",
+          "m1L",
+          "m2",
+          "m2a",
+          "m3",
+          "m4",
+          "m5",
+          "m6",
+          "M6a",
+          "MC",
+          "MBD",
+          "MBG",
+          "MA",
+          "M-P"
+        ],
+        "pendingSetCodes": [],
+        "expectedSlotCount": 2133,
+        "productSearchSlotCount": 1969,
+        "firstPartyVerifiedGapCount": 88,
+        "koreanSecondaryVerifiedGapCount": 76,
+        "unresolvedGapCount": 0,
+        "evidencePolicy": {
+          "tier1": "Pokemon Korea official product-search/detail/image evidence.",
+          "tier2": "Korean secondary card database plus Korean card image evidence, used only when Pokemon Korea product search omits a slot.",
+          "japaneseReference": "Reference-only. Japanese existence alone never verifies a Korean master slot."
+        }
       }
     }
   },
