@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -38,7 +39,6 @@ public class BinderApplication extends Application implements Application.Activi
     private static final String PREF_DISMISSED_VERSION_CODE = "dismissed_version_code";
     private static final String PREF_DISMISSED_AT = "dismissed_at";
     private static final String VERSION_URL = "https://digital-card-binder.github.io/app-version.json";
-    private static final int CURRENT_VERSION_CODE = 12;
     private static final long UPDATE_CHECK_INTERVAL_MS = 6L * 60L * 60L * 1000L;
     private static final long UPDATE_REMIND_INTERVAL_MS = 24L * 60L * 60L * 1000L;
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 9031;
@@ -138,7 +138,7 @@ public class BinderApplication extends Application implements Application.Activi
             try {
                 JSONObject payload = fetchVersionPayload();
                 int latestVersionCode = payload.optInt("versionCode", 0);
-                if (latestVersionCode <= CURRENT_VERSION_CODE) return;
+                if (latestVersionCode <= installedVersionCode()) return;
 
                 boolean required = payload.optBoolean("required", false);
                 int dismissedVersionCode = prefs.getInt(PREF_DISMISSED_VERSION_CODE, 0);
@@ -169,6 +169,18 @@ public class BinderApplication extends Application implements Application.Activi
                 updateCheckInProgress = false;
             }
         });
+    }
+
+    private long installedVersionCode() {
+        try {
+            PackageInfo installed = getPackageManager().getPackageInfo(getPackageName(), 0);
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                    ? installed.getLongVersionCode()
+                    : installed.versionCode;
+        } catch (PackageManager.NameNotFoundException ignored) {
+            // 버전을 확인할 수 없으면 잘못된 업데이트 안내를 표시하지 않는다.
+            return Long.MAX_VALUE;
+        }
     }
 
     private JSONObject fetchVersionPayload() throws Exception {
