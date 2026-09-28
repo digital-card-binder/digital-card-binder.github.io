@@ -47,6 +47,6 @@ jobs:
         run: npm ci
       - name: Prepare generated site state for push verification
         if: github.event_name == 'push'
-        run: npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync
+        run: npm run search-index:sync && npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync
       - name: Run verification suite
         run: npm test
