@@ -121,6 +121,21 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SM", "code": "sm11b", "title": "드림리그", "product": "썬&문 강화 확장팩 「드림리그」"},
     {"era": "SM", "code": "sm12", "title": "얼터제네시스", "product": "썬&문 확장팩 제12탄 「얼터제네시스」"},
     {"era": "SM", "code": "sm12a", "title": "TAG TEAM GX 태그올스타즈", "product": "썬&문 하이클래스팩 「TAG TEAM GX 태그올스타즈」"},
+    # MEGA — Korean official product names. M-P promo cards are audited separately
+    # because one set code spans many event/promo distribution products.
+    {"era": "M", "code": "m1S", "title": "메가심포니아", "product": "MEGA 확장팩 「메가심포니아」"},
+    {"era": "M", "code": "m1L", "title": "메가브레이브", "product": "MEGA 확장팩 「메가브레이브」"},
+    {"era": "M", "code": "m2", "title": "인페르노X", "product": "MEGA 확장팩 「인페르노X」"},
+    {"era": "M", "code": "m2a", "title": "MEGA 드림 ex", "product": "MEGA 하이클래스팩 「MEGA 드림 ex」"},
+    {"era": "M", "code": "m3", "title": "니힐제로", "product": "MEGA 확장팩 「니힐제로」"},
+    {"era": "M", "code": "m4", "title": "닌자스피너", "product": "MEGA 확장팩 「닌자스피너」"},
+    {"era": "M", "code": "m5", "title": "어비스아이", "product": "MEGA 확장팩 「어비스아이」"},
+    {"era": "M", "code": "m6", "title": "스톰에메랄다", "product": "MEGA 확장팩 「스톰에메랄다」"},
+    {"era": "M", "code": "M6a", "title": "30th CELEBRATION", "product": "MEGA 확장팩 「30th CELEBRATION」"},
+    {"era": "M", "code": "MC", "title": "스타트 덱 100 배틀컬렉션", "product": "MEGA 「스타트 덱 100 배틀컬렉션」"},
+    {"era": "M", "code": "MBD", "title": "스타터 세트 MEGA 「메가디안시 ex」", "product": "스타터 세트 MEGA 「메가디안시 ex」"},
+    {"era": "M", "code": "MBG", "title": "스타터 세트 MEGA 「메가팬텀 ex」", "product": "스타터 세트 MEGA 「메가팬텀 ex」"},
+    {"era": "M", "code": "MA", "title": "MEGA 프리미엄 트레이너 박스", "product": "MEGA 프리미엄 트레이너 박스 MEGA"},
 ]
 
 
@@ -292,7 +307,7 @@ def feature_image_url(value: str) -> str:
 
 def image_identity(value: str) -> tuple[str, str] | None:
     path = value.split("?", 1)[0]
-    match = re.search(r"wmimages/(?:S|SM)/([^/]+)/([^/]+)$", path, re.IGNORECASE)
+    match = re.search(r"wmimages/(?:S|SM|MEGA)/([^/]+)/([^/]+)$", path, re.IGNORECASE)
     if not match:
         return None
     filename = match.group(2).rsplit(".", 1)[0]
