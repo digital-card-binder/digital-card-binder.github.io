@@ -75,8 +75,15 @@
     const groupId = normalizedPart(groupIdentity(group, groupIndex));
 
     if (collectionId === "series") {
-      const code = normalizedPart(card?.code || card?.meta || cardIndex);
-      return code ? [`series::${groupId}::${code}`] : [];
+      const codes = [
+        card?.code || card?.meta || cardIndex,
+        ...(Array.isArray(card?.legacyCodes) ? card.legacyCodes : []),
+      ]
+        .map(normalizedPart)
+        .filter(Boolean);
+      return [...new Set(codes)].map(
+        (code) => `series::${groupId}::${code}`,
+      );
     }
 
     if (collectionId === "artist") {
