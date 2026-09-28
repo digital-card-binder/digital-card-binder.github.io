@@ -168,3 +168,19 @@ test("stage 10 keeps cached clients and deployment verification synchronized", (
   assert.match(versionScript, /MANIFEST_ICON_RE/);
   assert.match(versionScript, /manifest[.]webmanifest/);
 });
+
+
+test("shared account header styling remains available without collection manager CSS", () => {
+  const index = read("index.html");
+  const collectorCss = read("collector.css");
+
+  assert.equal(index.includes("collection-manager.css"), false);
+  assert.match(index, /collector[.]css[?]v=/);
+  assert.match(collectorCss, /[.]firebase-auth-panel \{/);
+  assert.match(collectorCss, /[.]owner-sheets-status \{/);
+  assert.match(collectorCss, /[.]owner-sheets-link \{/);
+  assert.match(
+    collectorCss,
+    /[.]owner-sheets-status\[data-state="loading"\][\s\S]*?background: #eef5fc/,
+  );
+});
