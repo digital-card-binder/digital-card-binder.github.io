@@ -92,6 +92,11 @@ test("all existing catalogs retain their expected item counts", async () => {
       count,
       `${collectionId} public summary count`,
     );
+    assert.equal(
+      registry.COLLECTIONS[collectionId].catalogGroupCount,
+      (await registry.loadCatalog(collectionId)).groups.length,
+      `${collectionId} public group count`,
+    );
   }
 });
 
@@ -119,6 +124,18 @@ test("fossil and world catalogs are first-class registry collections", async () 
   assert.equal(world.groups.length, 9);
   assert.equal(new Set(world.items.map((item) => item.key)).size, 108);
   assert.ok(world.items.every((item) => item.groupKey.startsWith("generation-")));
+});
+
+test("fossil registry identity preserves the previous Pokemon-mode override keys", async () => {
+  const fossilData = JSON.parse(
+    await readFile(new URL("../data/fossil.json", import.meta.url), "utf8"),
+  );
+  const group = fossilData.groups[0];
+  const card = group.cards[0];
+  assert.equal(
+    registry.cardIdentity("fossil", group, card, 0, 0),
+    registry.cardIdentity("pokemon", group, card, 0, 0),
+  );
 });
 
 test("public projection summaries use the current catalog total", () => {
