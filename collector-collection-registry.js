@@ -24,6 +24,8 @@
     "artist",
     "people",
     "trainerPokemon",
+    "fossil",
+    "world",
   ];
   const COLLECTIONS = {
     national: {
@@ -104,6 +106,26 @@
       documentId: "pokemonCollectionsDex",
       unit: "장",
       catalogCount: catalogCount("trainerPokemon"),
+      defaultDashboardVisible: true,
+    },
+    fossil: {
+      number: "09",
+      title: "화석 도감",
+      description: "화석과 발굴 장면을 모은 카드",
+      href: "./fossil.html",
+      documentId: "pokemonCollectionsDex",
+      unit: "장",
+      catalogCount: catalogCount("fossil"),
+      defaultDashboardVisible: true,
+    },
+    world: {
+      number: "10",
+      title: "월드탐험도감",
+      description: "세대별 장소·스타디움 스토리 바인더",
+      href: "./world.html",
+      documentId: "worldDex",
+      unit: "장",
+      catalogCount: catalogCount("world"),
       defaultDashboardVisible: true,
     },
   };
@@ -220,6 +242,8 @@
       pokemon: "./data/pokemon-collections.json",
       ar: "./data/ar.json",
       trainerPokemon: "./data/trainer-pokemon.json",
+      fossil: "./data/fossil.json",
+      world: "./data/world-exploration.json",
     };
     let payload;
     if (collectionId === "pokemon") {
@@ -231,11 +255,26 @@
     } else {
       payload = await catalogService.json(pathByCollection[collectionId]);
     }
-    let sourceGroups = collectionId === "artist"
-      ? payload.artists || []
-      : collectionId === "trainerPokemon"
-        ? payload.groups || []
-        : payload || [];
+
+    let sourceGroups;
+    if (collectionId === "artist") {
+      sourceGroups = payload.artists || [];
+    } else if (collectionId === "trainerPokemon" || collectionId === "fossil") {
+      sourceGroups = payload.groups || [];
+    } else if (collectionId === "world") {
+      sourceGroups = (payload.generations || []).map((generation) => ({
+        code: `generation-${generation.generation}`,
+        name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
+        cards: (generation.slots || []).map((slot) => ({
+          code: slot.id,
+          name: slot.title,
+          owned: false,
+          slotId: slot.id,
+        })),
+      }));
+    } else {
+      sourceGroups = payload || [];
+    }
     const items = [];
 
     sourceGroups.forEach((group, groupIndex) => {
@@ -247,7 +286,7 @@
             ? `${group.code || ""} ${group.title || ""}`.trim()
             : collectionId === "ar"
               ? `${group.code || ""} · ${group.title || ""}`.trim()
-              : group.name;
+              : group.name || group.title || group.code;
 
       (group.cards || []).forEach((card, cardIndex) => {
         items.push({
