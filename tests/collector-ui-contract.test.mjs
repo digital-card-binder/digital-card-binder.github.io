@@ -380,7 +380,7 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
 
   assert.match(client, /CATEGORY_ORDER = registry[?][.]COLLECTION_ORDER/);
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
-  assert.match(client, /custom: createCategory\("custom", \[\], \[\]\)/);
+  assert.match(client, /loaded[.]custom = createCategory\("custom", \[\], \[\]\)/);
   assert.match(client, /category === "custom"[\s\S]*?registry[?][.]customOwnership/);
   assert.match(client, /document[.]customDexes/);
   assert.match(client, /escapeHtml\(group[.]name\)/);
@@ -450,13 +450,13 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   assert.equal(page.includes("33 SETS"), false);
 });
 
-test("series era labels include legacy through MEGA order across navigation", async () => {
+test("series navigation summary uses the generated set and card totals", async () => {
   for (const file of [...sitePages, "trades.html"]) {
     const html = await source(file);
     if (!html.includes('href="./series.html"')) continue;
     assert.match(
       html,
-      /시리즈 도감<\/strong><small>ORIGIN · ADV · DP · BW · XY · SM · S · SV · M<\/small>/,
+      /시리즈 도감<\/strong><small>[\d,]+세트 · [\d,]+장<\/small>/,
       file,
     );
   }
