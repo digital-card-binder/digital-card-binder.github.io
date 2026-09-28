@@ -34,7 +34,7 @@ jobs:
           java-version: 21
       - name: Install dependencies
         run: npm ci
-      - name: Run verification suite
-        run: npm test
       - name: Audit M6a downstream dex candidates
         run: node scripts/audit-m6a-downstream.mjs
+      - name: Run verification suite
+        run: npm test
