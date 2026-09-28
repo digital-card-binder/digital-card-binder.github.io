@@ -49,13 +49,13 @@
     "cardCount": 20243,
     "duplicateSetCodeCount": 0,
     "duplicateCardIdentityCount": 0,
-    "officialVariantVerifiedSetCount": 68,
-    "officialVariantPendingSetCount": 205,
-    "officialVariantVerifiedSlotCount": 248,
+    "officialVariantVerifiedSetCount": 72,
+    "officialVariantPendingSetCount": 201,
+    "officialVariantVerifiedSlotCount": 653,
     "verifiedVariantCounts": {
       "holo": 0,
-      "mirror": 243,
-      "other": 5
+      "mirror": 529,
+      "other": 124
     },
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
@@ -411,16 +411,19 @@
       "setCount": 53,
       "cardCount": 4749,
       "officialVariantAudit": {
-        "status": "pending",
-        "verifiedSetCount": 0,
-        "pendingSetCount": 53,
-        "verifiedSetCodes": [],
+        "status": "partial",
+        "verifiedSetCount": 4,
+        "pendingSetCount": 49,
+        "verifiedSetCodes": [
+          "sv2D",
+          "sv2P",
+          "sv5a",
+          "sv8"
+        ],
         "pendingSetCodes": [
           "sv1S",
           "sv1V",
           "sv1a",
-          "sv2D",
-          "sv2P",
           "sv2a",
           "sv3",
           "sv3a",
@@ -429,12 +432,10 @@
           "sv4a",
           "sv5K",
           "sv5M",
-          "sv5a",
           "sv6",
           "sv6a",
           "sv7",
           "sv7a",
-          "sv8",
           "sv8a",
           "sv9",
           "sv9a",
@@ -470,11 +471,11 @@
           "CLK",
           "CLL"
         ],
-        "verifiedVariantSlotCount": 0,
+        "verifiedVariantSlotCount": 405,
         "variantCounts": {
           "holo": 0,
-          "mirror": 0,
-          "other": 0
+          "mirror": 286,
+          "other": 119
         }
       }
     },
