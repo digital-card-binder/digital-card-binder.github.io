@@ -275,6 +275,21 @@ def audit_group(
                     "raw": raw_scalars,
                 }
             )
+        for official_record in official_records:
+            card_num = clean(official_record.get("cardNum"))
+            if not card_num:
+                continue
+            try:
+                detail = legacy.parse_detail(legacy.detail_payload(card_num))
+            except Exception:
+                detail = {}
+            official_record["detail"] = {
+                "name": clean(detail.get("name")),
+                "number": clean(detail.get("number")),
+                "denominator": clean(detail.get("denominator")),
+                "rarity": clean(detail.get("rarity")),
+            }
+
         unexpected_official_slots.append(
             {
                 "actualSetCode": actual_code,
