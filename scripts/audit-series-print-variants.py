@@ -321,7 +321,9 @@ def audit_group(
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
     legacy.warm_official_session()
-    official_values = legacy.official_product_values()
+    # Product names are pinned in build_legacy_series_data.py after official
+    # verification. Avoid loading the full /cards page on every audit run.
+    official_values: dict[str, str] = {}
     groups = group_products(era)
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
