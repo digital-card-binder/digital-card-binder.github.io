@@ -3,7 +3,7 @@
 const SPRITE_COLUMNS = 10;
 const SPRITE_ROWS = 7;
 const FIREBASE_SDK_VERSION = "10.12.5";
-const PROMO_DATA_URL = "./data/promo-packs.json?v=20260810-3";
+const PROMO_DATA_URL = "./data/promo-packs.json?v=20260929-1";
 
 // 정규 확장팩 목록은 대시보드와 Google Sheets 동기화에서도 이 배열을 읽는다.
 // 프로모팩·단일 배포 카드는 data/promo-packs.json에서 별도로 불러온다.
@@ -89,6 +89,7 @@ const defaultPromoTypeLabels = {
   event: "이벤트",
   bundle: "상품 동봉",
   gift: "기프트 캠페인",
+  movie: "영화 특전",
   other: "기타"
 };
 
@@ -814,7 +815,9 @@ function createPromoFallback(pack) {
   series.textContent = `${promoEraLabels[pack.era]} PROMO`;
   const title = document.createElement("span");
   title.className = "promo-pack-title";
-  title.textContent = pack.kind === "card" ? "프로모 카드" : "프로모 카드 팩";
+  title.textContent = pack.kind === "card"
+    ? pack.type === "movie" ? "영화 특전 카드" : "프로모 카드"
+    : pack.type === "movie" ? "영화 특전 팩" : "프로모 카드 팩";
   const volume = document.createElement("b");
   volume.className = "promo-pack-volume";
   volume.textContent = pack.volume > 0
@@ -832,7 +835,9 @@ function createPromoVisual(pack) {
   visual.className = "promo-card-art";
   const badge = document.createElement("span");
   badge.className = "promo-badge";
-  badge.textContent = pack.kind === "card" ? "배포 카드" : "프로모팩";
+  badge.textContent = pack.kind === "card"
+    ? pack.type === "movie" ? "영화 특전 카드" : "배포 카드"
+    : pack.type === "movie" ? "미개봉 영화팩" : "프로모팩";
   if (pack.image) {
     const image = document.createElement("img");
     image.className = "promo-pack-photo";
@@ -978,7 +983,9 @@ function promoMatches(pack) {
   return normalizeSearch([
     pack.name,
     pack.cardNumber,
-    pack.kind === "card" ? "프로모 카드 단일 카드 배포 카드" : "프로모팩 프로모 팩",
+    pack.kind === "card"
+      ? "프로모 카드 단일 카드 배포 카드 영화 특전 카드 극장 특전"
+      : "프로모팩 프로모 팩 미개봉팩 미개봉 프로모팩 배포팩 영화 특전 팩 극장 특전 팩",
     pack.era,
     promoEraLabels[pack.era],
     pack.year,

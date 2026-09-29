@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="포켓몬 카드 정규 확장팩 전종수집과 프로모팩·행사 배포 카드 컬렉션" />
+    <meta name="description" content="포켓몬 카드 정규 확장팩 전종수집과 프로모팩·미개봉 배포팩·영화 및 행사 배포 카드 컬렉션" />
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
     <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
@@ -29,7 +29,7 @@
     <script src="./collector-public-view.js?v=fbcabd853c6b" defer></script>
     <script src="./collector-public-sync.js?v=8e49aaaa2670" defer></script>
     <script src="./collector-nav.js?v=774fd31af49c" defer></script>
-    <script src="./packs.js?v=ff3a72b83dfe" defer></script>
+    <script src="./packs.js?v=8d5318f48c3a" defer></script>
     <script src="./packs-promo-helper.js?v=d3bbfc1a7996" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./print.js?v=be96135f3c90" defer></script>
@@ -71,7 +71,7 @@
       <main id="main-content" class="main-content">
         <section class="hero pack-hero" aria-labelledby="page-title">
           <div class="hero-glow hero-glow--one" aria-hidden="true"></div><div class="hero-glow hero-glow--two" aria-hidden="true"></div>
-          <div class="hero-content"><h1 id="page-title">팩 전종수집</h1><p class="hero-description">S·SV·M 정규 확장팩은 전종수집으로,<br />프로모팩·행사 배포 카드는 검색해 실제 보유 항목만 기록하는 컬렉션</p></div>
+          <div class="hero-content"><h1 id="page-title">팩 전종수집</h1><p class="hero-description">S·SV·M 정규 확장팩은 전종수집으로,<br />프로모팩·미개봉 배포팩·영화 및 행사 배포 카드는 검색해 실제 보유 항목만 기록하는 컬렉션</p></div>
           <div class="hero-progress" aria-label="정규팩 수집 현황">
             <div class="progress-ring" id="pack-progress-ring" aria-hidden="true"><div><strong id="pack-rate">—</strong><span>완성률</span></div></div>
             <div class="hero-progress-copy"><span>정규팩 수집 현황</span><strong><b id="pack-owned">—</b><small> / <span id="pack-total">—</span>팩</small></strong><p>미수집 <b id="pack-missing">—</b>팩</p></div>
@@ -128,11 +128,11 @@
             <label class="search-field promo-search-field">
               <span class="search-icon" aria-hidden="true"></span>
               <span class="sr-only">프로모 검색</span>
-              <input id="promo-search" type="search" autocomplete="off" placeholder="카드명·번호·프로모팩·행사명 검색 (예: 잉어킹, 173/SV-P)" />
+              <input id="promo-search" type="search" autocomplete="off" placeholder="카드명·번호·프로모팩·영화·행사명 검색 (예: 고대 뮤, 173/SV-P)" />
             </label>
             <div class="promo-select-row">
               <label class="promo-select-field"><span>시대</span><select id="promo-era-filter"><option value="all">전체</option><option value="S">S</option><option value="SV">SV</option><option value="M">M</option><option value="OTHER">기타</option></select></label>
-              <label class="promo-select-field"><span>유형</span><select id="promo-type-filter"><option value="all">전체</option><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="other">기타</option></select></label>
+              <label class="promo-select-field"><span>유형</span><select id="promo-type-filter"><option value="all">전체</option><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="movie">영화 특전</option><option value="other">기타</option></select></label>
             </div>
           </div>
 
@@ -180,15 +180,15 @@
         <div class="promo-create-heading">
           
           <h2 id="promo-create-title">새 프로모 직접 등록</h2>
-          <p>마스터 DB에 없는 프로모팩이나 단일 배포 카드를 내 계정에 저장합니다.</p>
+          <p>마스터 DB에 없는 프로모팩·미개봉 배포팩이나 단일 배포 카드를 내 계정에 저장합니다.</p>
         </div>
         <div class="promo-form-grid">
           <label class="promo-form-wide"><span>프로모 이름</span><input id="promo-create-name" name="name" type="text" maxlength="100" required /></label>
-          <label><span>구분</span><select id="promo-create-kind" name="kind" required><option value="pack">프로모팩</option><option value="card">단일 배포 카드</option></select></label>
+          <label><span>구분</span><select id="promo-create-kind" name="kind" required><option value="pack">프로모팩 / 미개봉 배포팩</option><option value="card">단일 배포 카드</option></select></label>
           <label><span>카드 번호</span><input id="promo-create-card-number" name="cardNumber" type="text" maxlength="30" placeholder="예: 040/M-P" /></label>
           <label><span>시리즈</span><select id="promo-create-era" name="era" required><option value="S">S</option><option value="SV">SV</option><option value="M">M</option><option value="OTHER">기타</option></select></label>
           <label><span>연도</span><input id="promo-create-year" name="year" type="number" min="1996" max="2100" inputmode="numeric" required /></label>
-          <label class="promo-form-wide"><span>유형</span><select id="promo-create-type" name="type" required><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="other">기타</option></select></label>
+          <label class="promo-form-wide"><span>유형</span><select id="promo-create-type" name="type" required><option value="regular">정규 프로모팩</option><option value="campaign">캠페인</option><option value="purchase">구매 특전</option><option value="event">이벤트</option><option value="bundle">상품 동봉</option><option value="gift">기프트 캠페인</option><option value="movie">영화 특전</option><option value="other">기타</option></select></label>
           <label class="promo-form-wide"><span>이미지 URL</span><input id="promo-create-image" name="image" type="url" inputmode="url" maxlength="500" placeholder="https://... (없으면 기본 PROMO 이미지 사용)" /></label>
           <label class="promo-form-wide"><span>간단한 설명</span><textarea id="promo-create-description" name="description" rows="3" maxlength="300" required></textarea></label>
           <label class="promo-form-wide"><span>메모</span><textarea id="promo-create-note" name="note" rows="3" maxlength="500" placeholder="구입처·배포 행사·보관 위치 등"></textarea></label>
