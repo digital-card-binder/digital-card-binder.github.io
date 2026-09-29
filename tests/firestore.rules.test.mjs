@@ -867,6 +867,17 @@ test("current series catalog can be published empty or fully owned and revoked s
   await assertFails(setDoc(publicRef, { ...fullyOwned, note: "private" }));
   await assertFails(setDoc(publicRef, { ...fullyOwned, ownedCount: ownedKeys.length - 1 }));
   await assertFails(deleteDoc(publicRef));
+  // The capacity increase applies only to series, and remains bounded.
+  await assertFails(setDoc(doc(alice, "publicProfiles", PUBLIC_ID, "collections", "national"), {
+    ...projection(), totalCount: 20001,
+  }));
+  const boundaryKeys = Array.from({ length: 30000 }, (_, index) => `k${index}`);
+  await assertSucceeds(setDoc(publicRef, {
+    ...empty, ownedKeys: boundaryKeys, ownedCount: 30000, totalCount: 30000,
+  }));
+  await assertFails(setDoc(publicRef, {
+    ...empty, ownedKeys: [...boundaryKeys, "overflow"], ownedCount: 30001, totalCount: 30001,
+  }));
   await assertFails(
     setDoc(publicRef, {
       ...projection("series"),
