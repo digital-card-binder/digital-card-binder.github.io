@@ -125,7 +125,8 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SM", "code": "sm12", "title": "얼터제네시스", "product": "썬&문 확장팩 제12탄 「얼터제네시스」"},
     {"era": "SM", "code": "sm12a", "title": "TAG TEAM GX 태그올스타즈", "product": "썬&문 하이클래스팩 「TAG TEAM GX 태그올스타즈」"},
     # Scarlet & Violet — Korean official expansion product names.
-    # Deck/support products and SV-P promos are audited in a later batch.
+    # Deck/support products are now included below; SV-P promos and Classic
+    # remain separate audit batches because each spans many distribution/card groups.
     {"era": "SV", "code": "sv1S", "title": "스칼렛 ex", "product": "스칼렛&바이올렛 확장팩 「스칼렛 ex」"},
     {"era": "SV", "code": "sv1V", "title": "바이올렛 ex", "product": "스칼렛&바이올렛 확장팩 「바이올렛 ex」"},
     {"era": "SV", "code": "sv1a", "title": "트리플렛비트", "product": "스칼렛&바이올렛 강화 확장팩 「트리플렛비트」"},
@@ -151,6 +152,31 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SV", "code": "sv10", "title": "로켓단의 영광", "product": "스칼렛&바이올렛 확장팩 「로켓단의 영광」"},
     {"era": "SV", "code": "sv11B", "title": "블랙볼트", "product": "스칼렛&바이올렛 확장팩 「블랙볼트」"},
     {"era": "SV", "code": "sv11W", "title": "화이트플레어", "product": "스칼렛&바이올렛 확장팩 「화이트플레어」"},
+    # Scarlet & Violet — Korean official deck/support product names.
+    {"era": "SV", "code": "SVOM", "title": "스타터 세트 ex 「마리의 모르페코&오롱털 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「마리의 모르페코&오롱털 ex」"},
+    {"era": "SV", "code": "SVOD", "title": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「성호의 메탕&메타그로스 ex」"},
+    {"era": "SV", "code": "SVN", "title": "배틀 강화 BOX 「배틀파트너즈」", "product": "스칼렛&바이올렛 배틀 강화 BOX 「배틀파트너즈」"},
+    {"era": "SV", "code": "SVM", "title": "스타트 덱 Generations 스페셜 배틀 세트", "product": "스칼렛&바이올렛 스타트 덱 Generations 스페셜 배틀 세트"},
+    {"era": "SV", "code": "SVP2", "title": "ex 스페셜 세트 ver.2", "product": "스칼렛&바이올렛 「ex 스페셜 세트 ver.2」"},
+    {"era": "SV", "code": "SVLS", "title": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」"},
+    {"era": "SV", "code": "SVLN", "title": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈타입:스텔라 「님피아 ex」"},
+    {"era": "SV", "code": "SVK", "title": "배틀 강화 BOX 「스텔라미라클」", "product": "스칼렛&바이올렛 배틀 강화 BOX 「스텔라미라클」"},
+    {"era": "SV", "code": "SVJP", "title": "배틀 마스터 덱 「파오젠 ex」", "product": "스칼렛&바이올렛 배틀 마스터 덱 「파오젠 ex」"},
+    {"era": "SV", "code": "SVJL", "title": "배틀 마스터 덱 「테라스탈 리자몽 ex」", "product": "스칼렛&바이올렛 배틀 마스터 덱 「테라스탈 리자몽 ex」"},
+    {"era": "SV", "code": "SVI", "title": "배틀 아카데미", "product": "스칼렛&바이올렛 「배틀 아카데미」"},
+    {"era": "SV", "code": "SVHK", "title": "스타터 덱&강화 세트 「고대의 코라이돈 ex」", "product": "스칼렛&바이올렛 스타터 덱&강화 세트 「고대의 코라이돈 ex」"},
+    {"era": "SV", "code": "SVHM", "title": "스타터 덱&강화 세트 「미래의 미라이돈 ex」", "product": "스칼렛&바이올렛 스타터 덱&강화 세트 「미래의 미라이돈 ex」"},
+    {"era": "SV", "code": "SVG", "title": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」", "product": "스칼렛&바이올렛 스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」"},
+    {"era": "SV", "code": "SVEM", "title": "스타터 세트 테라스탈 「뮤츠 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈 「뮤츠 ex」"},
+    {"era": "SV", "code": "SVEL", "title": "스타터 세트 테라스탈 「라우드본 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈 「라우드본 ex」"},
+    {"era": "SV", "code": "SVF", "title": "배틀 강화 BOX 「흑염의 지배자」", "product": "스칼렛&바이올렛 배틀 강화 BOX 「흑염의 지배자」"},
+    {"era": "SV", "code": "SVD", "title": "ex 스타트 덱", "product": "스칼렛&바이올렛 「ex 스타트 덱」"},
+    {"era": "SV", "code": "SVP1", "title": "ex 스페셜 세트", "product": "스칼렛&바이올렛 「ex 스페셜 세트」"},
+    {"era": "SV", "code": "SVC", "title": "스타터 세트 ex 피카츄 스페셜 세트", "product": "포켓몬 카드 게임 스칼렛&바이올렛 스타터 세트 ex 피카츄 스페셜 세트"},
+    {"era": "SV", "code": "SVB", "title": "프리미엄 트레이너 박스 ex", "product": "포켓몬 카드 게임 스칼렛&바이올렛 프리미엄 트레이너 박스 ex"},
+    {"era": "SV", "code": "SVAL", "title": "스타터 세트 ex 「뜨아거&전룡 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「뜨아거&전룡 ex」"},
+    {"era": "SV", "code": "SVAW", "title": "스타터 세트 ex 「꾸왁스&따라큐 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「꾸왁스&따라큐 ex」"},
+    {"era": "SV", "code": "SVAM", "title": "스타터 세트 ex 「나오하&루카리오 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「나오하&루카리오 ex」"},
     # MEGA — Korean official product names. M-P promo cards are audited separately
     # because one set code spans many event/promo distribution products.
     {"era": "M", "code": "m1S", "title": "메가심포니아", "product": "MEGA 확장팩 「메가심포니아」"},
