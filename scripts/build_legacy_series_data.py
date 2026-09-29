@@ -178,6 +178,9 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SV", "code": "SVAL", "title": "스타터 세트 ex 「뜨아거&전룡 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「뜨아거&전룡 ex」"},
     {"era": "SV", "code": "SVAW", "title": "스타터 세트 ex 「꾸왁스&따라큐 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「꾸왁스&따라큐 ex」"},
     {"era": "SV", "code": "SVAM", "title": "스타터 세트 ex 「나오하&루카리오 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「나오하&루카리오 ex」"},
+    {"era": "SV", "code": "CLF", "title": "포켓몬 카드 게임 클래식 (이상해꽃)", "product": "포켓몬 카드 게임 Classic"},
+    {"era": "SV", "code": "CLK", "title": "포켓몬 카드 게임 클래식 (거북왕)", "product": "포켓몬 카드 게임 Classic"},
+    {"era": "SV", "code": "CLL", "title": "포켓몬 카드 게임 클래식 (리자몽)", "product": "포켓몬 카드 게임 Classic"},
     # MEGA — Korean official product names. M-P promo cards are audited separately
     # because one set code spans many event/promo distribution products.
     {"era": "M", "code": "m1S", "title": "메가심포니아", "product": "MEGA 확장팩 「메가심포니아」"},
