@@ -337,7 +337,7 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.match(page, /id="ios-pwa-card"/);
   assert.match(page, /안드로이드·아이폰 앱/);
   assert.ok(
-    page.indexOf("dashboard-utility-panel") > page.indexOf("dashboard-insights"),
+    page.indexOf("dashboard-utility-panel") > page.indexOf("dashboard-shortcut-section"),
     "utility actions should follow primary dashboard content",
   );
   assert.match(css, /[.]dashboard-utility-panel\{/);
@@ -372,7 +372,7 @@ test("decorative English UI labels are retired while official series codes remai
   assert.match(styles, /[.]eyebrow,[.]section-kicker\{display:none!important\}/);
 });
 
-test("dashboard includes custom dex in cards, totals, activity, and settings order", async () => {
+test("dashboard includes custom dex in cards, totals, and settings order", async () => {
   const page = await source("index.html");
   const client = await source("dashboard.js");
   const css = await source("dashboard.css");
@@ -390,9 +390,6 @@ test("dashboard includes custom dex in cards, totals, activity, and settings ord
   assert.match(client, /documentId: "pokemonCollectionsDex"/);
   assert.match(client, /loaded[.]custom = createCategory\("custom", \[\], \[\]\)/);
   assert.match(client, /category === "custom"[\s\S]*?registry[?][.]customOwnership/);
-  assert.match(client, /document[.]customDexes/);
-  assert.match(client, /escapeHtml\(group[.]name\)/);
-  assert.match(client, /escapeHtml\(entry[.]name\)/);
   assert.match(css, /dashboard-collection-card\[data-category="custom"\]/);
   assert.match(customSharing, /registry[.]customOwnership = customOwnership/);
 });

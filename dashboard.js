@@ -108,11 +108,6 @@
     primaryGrid: document.querySelector("#dashboard-primary-grid"),
     themeGrid: document.querySelector("#dashboard-theme-grid"),
     themeCount: document.querySelector("#dashboard-theme-count"),
-    nearestList: document.querySelector("#dashboard-nearest-list"),
-    nearestEmpty: document.querySelector("#dashboard-nearest-empty"),
-    nearestCount: document.querySelector("#nearest-count"),
-    recentList: document.querySelector("#dashboard-recent-list"),
-    recentEmpty: document.querySelector("#dashboard-recent-empty"),
     error: document.querySelector("#dashboard-error"),
   };
 
@@ -794,174 +789,6 @@
     if (elements.themeCount) elements.themeCount.textContent = formatNumber(themeCount);
   }
 
-  function renderNearest(metrics) {
-    const nearest = metrics.groups
-      .filter(
-        (group) =>
-          group.total > 0 &&
-          group.owned > 0 &&
-          group.missing > 0,
-      )
-      .sort(
-        (a, b) =>
-          a.missing - b.missing ||
-          b.rate - a.rate ||
-          b.total - a.total ||
-          a.name.localeCompare(b.name, "ko-KR"),
-      )
-      .slice(0, 3);
-
-    elements.nearestCount.textContent = `${nearest.length}개`;
-    elements.nearestEmpty.hidden = nearest.length > 0;
-    elements.nearestList.hidden = nearest.length === 0;
-
-    const items = nearest.map((group, index) => {
-      const item = document.createElement("li");
-      item.className = "dashboard-ranking-item";
-      item.innerHTML = `
-        <a class="dashboard-ranking-link" href="${escapeHtml(group.href)}">
-          <span class="dashboard-rank">${index + 1}</span>
-          <span class="dashboard-list-copy">
-            <span class="dashboard-list-title">${escapeHtml(group.name)}</span>
-            <span class="dashboard-list-meta">${CATEGORY_META[group.category].title} · ${formatNumber(group.owned)}/${formatNumber(group.total)}</span>
-          </span>
-          <span class="dashboard-list-progress">
-            <strong>${formatNumber(group.missing)}개 남음</strong>
-            <span>${group.rate.toFixed(1)}%</span>
-          </span>
-        </a>
-      `;
-      return item;
-    });
-    elements.nearestList.replaceChildren(...items);
-  }
-
-  function timestampToDate(value) {
-    if (!value) return null;
-    if (typeof value.toDate === "function") return value.toDate();
-    if (Number.isFinite(value.seconds)) return new Date(value.seconds * 1000);
-    const date = new Date(value);
-    return Number.isNaN(date.getTime()) ? null : date;
-  }
-
-  function formatRelativeTime(date) {
-    const elapsed = Date.now() - date.getTime();
-    if (elapsed < 0) {
-      return new Intl.DateTimeFormat("ko-KR", {
-        month: "numeric",
-        day: "numeric",
-      }).format(date);
-    }
-    const minutes = Math.floor(elapsed / 60_000);
-    if (minutes < 1) return "방금 전";
-    if (minutes < 60) return `${minutes}분 전`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}시간 전`;
-    const days = Math.floor(hours / 24);
-    if (days < 7) return `${days}일 전`;
-    return new Intl.DateTimeFormat("ko-KR", {
-      month: "numeric",
-      day: "numeric",
-    }).format(date);
-  }
-
-  function getRecentEntries() {
-    if (!currentUser) return [];
-    const entries = [];
-
-    for (const category of CATEGORY_ORDER.filter(
-      (key) => collectionSettings[key]?.dashboardVisible !== false,
-    )) {
-      const document = documents[category] || {};
-      const catalog = catalogs[category];
-
-      if (category === "pack") {
-        const date = timestampToDate(document.updatedAt);
-        if (date) {
-          entries.push({
-            category,
-            name: "팩 수집 상태 업데이트",
-            meta: `${Array.isArray(document.ownedCodes) ? document.ownedCodes.length : 0}팩 수집완료`,
-            date,
-          });
-        }
-        continue;
-      }
-
-      if (category === "custom") {
-        const customDexes =
-          document.customDexes &&
-          typeof document.customDexes === "object" &&
-          !Array.isArray(document.customDexes)
-            ? Object.values(document.customDexes)
-            : [];
-        customDexes.forEach((dex) => {
-          if (!dex || typeof dex !== "object" || Array.isArray(dex)) return;
-          const date = timestampToDate(dex.updatedAt || document.updatedAt);
-          if (!date) return;
-          const cards = Array.isArray(dex.cards) ? dex.cards : [];
-          const owned = cards.filter((card) => card?.owned === true).length;
-          entries.push({
-            category,
-            name: String(dex.title || "나만의 도감").trim().slice(0, 60),
-            meta: `${formatNumber(owned)}/${formatNumber(cards.length)}장 보유`,
-            date,
-          });
-        });
-        continue;
-      }
-
-      // peopleOwned에는 항목별 수정 시각이 없고 nationalDex.updatedAt을 함께
-      // 사용하므로, 전국도감 변경을 인물도감 변경으로 잘못 표시하지 않습니다.
-      if (category === "people") continue;
-
-      const overrides =
-        document.overrides &&
-        typeof document.overrides === "object" &&
-        !Array.isArray(document.overrides)
-          ? document.overrides
-          : {};
-
-      for (const [key, value] of Object.entries(overrides)) {
-        if (!value || typeof value !== "object") continue;
-        const date = timestampToDate(value.updatedAt);
-        if (!date) continue;
-        const catalogItem = catalog.itemMap.get(key);
-        entries.push({
-          category,
-          name: catalogItem?.name || "수집 상태 업데이트",
-          meta: catalogItem?.group || CATEGORY_META[category].title,
-          date,
-        });
-      }
-    }
-
-    return entries
-      .sort((a, b) => b.date.getTime() - a.date.getTime())
-      .slice(0, 5);
-  }
-
-  function renderRecent() {
-    const recent = getRecentEntries();
-    elements.recentEmpty.hidden = recent.length > 0;
-    elements.recentList.hidden = recent.length === 0;
-
-    const items = recent.map((entry) => {
-      const item = document.createElement("li");
-      item.className = "dashboard-recent-item";
-      item.innerHTML = `
-        <span class="dashboard-recent-icon" aria-hidden="true">${CATEGORY_META[entry.category].number}</span>
-        <span class="dashboard-list-copy">
-          <span class="dashboard-list-title">${escapeHtml(entry.name)}</span>
-          <span class="dashboard-list-meta">${escapeHtml(CATEGORY_META[entry.category].title)} · ${escapeHtml(entry.meta)}</span>
-        </span>
-        <time class="dashboard-recent-time" datetime="${entry.date.toISOString()}">${formatRelativeTime(entry.date)}</time>
-      `;
-      return item;
-    });
-    elements.recentList.replaceChildren(...items);
-  }
-
   function updateCollectorShortcut() {
     const shortcut = document.querySelector("#collector-profile-shortcut");
     if (!shortcut) return;
@@ -1109,8 +936,6 @@
     renderSummary(metrics);
     renderHomeFeatureMetrics(metrics);
     renderCollections(metrics);
-    renderNearest(metrics);
-    renderRecent();
     renderAccountNote();
   }
 
