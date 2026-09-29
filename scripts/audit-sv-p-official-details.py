@@ -3,11 +3,13 @@
 
 from __future__ import annotations
 
+import concurrent.futures
 import json
 import re
 import time
 from pathlib import Path
 from typing import Any
+from urllib.error import HTTPError
 
 import build_legacy_series_data as official
 
@@ -81,40 +83,50 @@ def main() -> int:
     name_mismatches = 0
     network_checks = 0
 
-    for index, number in enumerate(sorted(expected), start=1):
+    def check_one(number: int) -> tuple[int, dict[str, Any], bool]:
         card = expected[number]
         card_num = f"{CARD_PREFIX}{number:09d}"
         source = f"{official.OFFICIAL_BASE}/cards/detail/{card_num}"
         cache = official.cache_path("details", card_num, ".html")
         cached_before = cache.exists() and cache.stat().st_size > 0
+        error = ""
+        status = None
 
         try:
-            payload = official.detail_payload(card_num)
-            detail = official.parse_detail(payload)
+            if cached_before:
+                payload = cache.read_bytes().decode("utf-8", errors="replace")
+            else:
+                try:
+                    raw = official.request_bytes(source, attempts=1)
+                    cache.parent.mkdir(parents=True, exist_ok=True)
+                    cache.write_bytes(raw)
+                    payload = raw.decode("utf-8", errors="replace")
+                    status = 200
+                except HTTPError as exc:
+                    status = int(exc.code)
+                    if status not in (404, 410):
+                        raise
+                    payload = ""
+                finally:
+                    time.sleep(0.25)
+
+            detail = official.parse_detail(payload) if payload else {}
             is_verified = (
                 detail.get("number") == f"{number:03d}"
                 and str(detail.get("denominator") or "").upper() == SET_CODE
             )
-            error = ""
         except Exception as exc:
             detail = {}
             is_verified = False
             error = str(exc)
-
-        if not cached_before:
-            network_checks += 1
-            time.sleep(0.12)
 
         expected_name = str(
             card.get("name") or card.get("pokemonName") or card.get("actualName") or ""
         ).strip()
         official_name = str(detail.get("name") or "").strip()
         name_match = not expected_name or not official_name or expected_name == official_name
-        if is_verified and not name_match:
-            name_mismatches += 1
-
         key = f"sv-p::sv-p::{number}"
-        slots[key] = {
+        row = {
             "setCode": SET_CODE,
             "actualSetCode": SET_CODE,
             "printedNumber": str(number),
@@ -128,19 +140,42 @@ def main() -> int:
             "officialName": official_name,
             "nameMatch": name_match,
             **({"rarity": detail.get("rarity", "")} if detail.get("rarity") else {}),
+            **({"httpStatus": status} if status is not None else {}),
             **({"error": error} if error else {}),
         }
-        if is_verified:
-            verified += 1
-        else:
-            pending += 1
+        return number, {key: row}, not cached_before
 
-        if index % 25 == 0 or index == len(expected):
-            print(
-                f"SV-P official detail audit: {index}/{len(expected)} checked; "
-                f"{verified} verified; {pending} pending",
-                flush=True,
-            )
+    numbers = sorted(expected)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(check_one, number) for number in numbers]
+        for index, future in enumerate(
+            concurrent.futures.as_completed(futures),
+            start=1,
+        ):
+            number, row, did_network = future.result()
+            key, value = next(iter(row.items()))
+            slots[key] = value
+            network_checks += int(did_network)
+            if value["verified"]:
+                verified += 1
+                if not value["nameMatch"]:
+                    name_mismatches += 1
+            else:
+                pending += 1
+
+            if index % 25 == 0 or index == len(numbers):
+                print(
+                    f"SV-P official detail audit: {index}/{len(numbers)} checked; "
+                    f"{verified} verified; {pending} pending",
+                    flush=True,
+                )
+
+    slots = dict(
+        sorted(
+            slots.items(),
+            key=lambda item: int(item[1]["printedNumber"]),
+        )
+    )
 
     output = {
         "schemaVersion": 1,
