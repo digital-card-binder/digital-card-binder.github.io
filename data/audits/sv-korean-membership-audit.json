@@ -16,13 +16,14 @@
     "pendingSetCount": 6,
     "koreanSupportedCompleteSetCount": 53,
     "productSearchAuditedSetCount": 52,
-    "localEvidenceOnlySetCount": 1,
+    "localEvidenceOnlySetCount": 0,
+    "directOfficialDetailAuditedSetCount": 1,
     "expectedSlotCount": 4749,
     "productSearchSlotCount": 4292,
-    "firstPartyVerifiedGapCount": 105,
-    "koreanSecondaryVerifiedGapCount": 352,
+    "firstPartyVerifiedGapCount": 303,
+    "koreanSecondaryVerifiedGapCount": 154,
     "notProductSearchAuditedSlotCount": 248,
-    "pendingOfficialEvidenceCount": 352,
+    "pendingOfficialEvidenceCount": 154,
     "unresolvedGapCount": 0
   },
   "sets": [
@@ -1124,17 +1125,18 @@
       "expectedSlotCount": 248,
       "productSearchSlotCount": 0,
       "productSearchGapCount": 0,
-      "firstPartyVerifiedGapCount": 0,
-      "koreanSecondaryVerifiedGapCount": 248,
+      "firstPartyVerifiedGapCount": 198,
+      "koreanSecondaryVerifiedGapCount": 50,
       "unresolvedGapCount": 0,
-      "officialVerifiedSlotCount": 0,
+      "officialVerifiedSlotCount": 198,
       "koreanSupportedSlotCount": 248,
-      "pendingOfficialEvidenceCount": 248,
-      "verifiedSlotCount": 0,
+      "pendingOfficialEvidenceCount": 50,
+      "verifiedSlotCount": 198,
       "complete": false,
       "koreanSupportedComplete": true,
-      "verificationMode": "local-korean-evidence",
+      "verificationMode": "official-card-detail-scan-plus-local-korean-evidence",
       "productSearchAudited": false,
+      "directOfficialDetailAudited": true,
       "notProductSearchAuditedSlotCount": 248,
       "sourceHosts": {
         "www.dogam.app": 248
@@ -1146,6 +1148,7 @@
   ],
   "sources": [
     "data/audits/sv-expansion-korean-membership.json",
-    "data/audits/sv-pending-local-evidence.json"
+    "data/audits/sv-pending-local-evidence.json",
+    "data/audits/sv-p-official-detail-audit.json"
   ]
 }
