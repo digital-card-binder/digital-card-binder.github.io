@@ -1171,6 +1171,42 @@ test("trainer Pokemon filter includes an explicit all-cards option and neutral s
   assert.equal(page.includes("사람과 포켓몬이 함께한 카드"), false);
 });
 
+test("approved collection preview styling covers public collection flows without data writes", async () => {
+  const css = await source("collection-preview.css");
+  const client = await source("collection-preview.js");
+  const pages = [
+    "national.html",
+    "series.html",
+    "ar.html",
+    "packs.html",
+    "pokemon-collections.html",
+    "artists.html",
+    "people.html",
+    "trainer-pokemon.html",
+    "fossil.html",
+    "world.html",
+    "custom.html",
+    "collector-settings.html",
+    "pokemon-search.html",
+    "collectors.html",
+    "collector.html",
+    "news.html",
+  ];
+
+  for (const pageName of pages) {
+    const page = await source(pageName);
+    assert.match(page, /collection-preview[.]css[?]v=[0-9a-f]{12}/, pageName);
+    assert.match(page, /collection-preview[.]js[?]v=[0-9a-f]{12}/, pageName);
+  }
+
+  assert.match(css, /[.]collection-mobile-tabs/);
+  assert.match(css, /@media \(max-width: 690px\)/);
+  assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(client, /모바일 주요 메뉴/);
+  assert.match(client, /도감 메뉴 열기/);
+  assert.doesNotMatch(client, /firebase|firestore|ownedCodes|localStorage/i);
+});
+
 test("current dashboard is the only production shell and carries the latest nav", async () => {
   const current = await source("index.html");
   assert.match(current, /주요 도감/);
