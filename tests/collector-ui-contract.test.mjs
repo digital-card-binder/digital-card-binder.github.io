@@ -329,6 +329,8 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.equal(page.includes('id="dashboard-traffic"'), false);
   assert.equal(page.includes("오늘 방문자"), false);
   assert.equal(page.includes("누적 방문자"), false);
+  assert.equal(page.includes("카드 미리보기"), false);
+  assert.doesNotMatch(page, /home-recent-preview/);
   assert.match(metrics, /DISPLAY_PUBLIC_METRICS = false/);
   assert.match(page, /class="dashboard-utility-panel"/);
   assert.match(page, /id="feedback-open"/);
