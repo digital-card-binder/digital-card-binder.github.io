@@ -61,9 +61,9 @@
     "firstPartyMembershipVerifiedSetCount": 11,
     "firstPartyMembershipPendingSetCount": 3,
     "koreanMembershipScopedSetCount": 67,
-    "koreanMembershipVerifiedSetCount": 64,
-    "koreanMembershipPendingSetCount": 3,
-    "koreanSupportedSetCount": 14,
+    "koreanMembershipVerifiedSetCount": 35,
+    "koreanMembershipPendingSetCount": 32,
+    "koreanSupportedSetCount": 67,
     "metadataGaps": {
       "missingCode": 0,
       "missingName": 3156,
@@ -482,10 +482,10 @@
         }
       },
       "koreanMembershipAudit": {
-        "status": "complete",
+        "status": "partial",
         "auditedSetCount": 53,
-        "verifiedSetCount": 53,
-        "pendingSetCount": 0,
+        "verifiedSetCount": 24,
+        "pendingSetCount": 29,
         "verifiedSetCodes": [
           "sv1S",
           "sv1V",
@@ -497,7 +497,6 @@
           "sv3a",
           "sv4K",
           "sv4M",
-          "sv4a",
           "sv5K",
           "sv5M",
           "sv5a",
@@ -511,7 +510,10 @@
           "sv9a",
           "sv10",
           "sv11B",
-          "sv11W",
+          "sv11W"
+        ],
+        "pendingSetCodes": [
+          "sv4a",
           "SVOM",
           "SVOD",
           "SVN",
@@ -541,17 +543,16 @@
           "CLK",
           "CLL"
         ],
-        "pendingSetCodes": [],
-        "koreanSupportedCompleteSetCount": 0,
+        "koreanSupportedCompleteSetCount": 53,
         "expectedSlotCount": 4749,
         "productSearchSlotCount": 3253,
         "firstPartyVerifiedGapCount": 79,
         "koreanSecondaryVerifiedGapCount": 1417,
-        "pendingOfficialEvidenceCount": 0,
+        "pendingOfficialEvidenceCount": 1417,
         "unresolvedGapCount": 0,
         "evidencePolicy": {
           "tier1": "Pokemon Korea official product-search/detail/image evidence.",
-          "tier2": "Known Korean card database source paired with Korean card image evidence.",
+          "tier2": "Known Korean card database source paired with Korean card image evidence is provisional support only and never finalizes official Korean membership.",
           "japaneseReference": "Reference-only. Japanese existence alone never verifies a Korean master slot."
         }
       }
