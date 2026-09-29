@@ -20,6 +20,30 @@ import {
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 import test, { after, before } from "node:test";
+import vm from "node:vm";
+
+// Exercise the browser's real projection and current catalog, so catalog growth
+// cannot silently outgrow the Firestore rules again.
+async function currentSeriesProjection() {
+  const root = new URL("../", import.meta.url);
+  const location = { href: "https://digital-card-binder.github.io/", pathname: "/" };
+  const context = vm.createContext({
+    URL, Map, Set, Promise, console, location,
+    document: { body: { dataset: {} } },
+    window: { location, POKEMON_DEX_FIREBASE: { userDocument: "nationalDex" } },
+    fetch: async (input) => {
+      const body = await readFile(new URL(String(input), root), "utf8");
+      return { ok: true, text: async () => body, json: async () => JSON.parse(body) };
+    },
+  });
+  for (const file of ["core/catalog/catalog-service.js", "core/catalog/card-identity.js", "collector-collection-registry.js"]) {
+    vm.runInContext(await readFile(new URL(file, root), "utf8"), context);
+  }
+  const registry = context.window.CollectorCollectionRegistry;
+  const catalog = await registry.loadCatalog("series");
+  const empty = await registry.buildProjection("series", {}, PUBLIC_ID);
+  return { empty: JSON.parse(JSON.stringify(empty)), keys: Array.from(catalog.items, (item) => item.key) };
+}
 
 const projectId = "demo-digital-card-binder";
 const rules = await readFile(new URL("../firestore.rules", import.meta.url), "utf8");
@@ -799,7 +823,7 @@ test("public projection is readable but private source and extra fields stay blo
   assert.equal(publicList.size, 1);
 });
 
-test("large series projections can exceed the former 10,000-card limit", async () => {
+test("current series catalog can be published empty or fully owned and revoked safely", async () => {
   const settingRef = doc(
     alice,
     "users",
@@ -814,7 +838,8 @@ test("large series projections can exceed the former 10,000-card limit", async (
     "collections",
     "series",
   );
-  const ownedKeys = Array.from({ length: 10001 }, (_, index) => `k${index}`);
+  const { empty, keys: ownedKeys } = await currentSeriesProjection();
+  assert.ok(empty.totalCount > 20000, "exercise the former 20,000-card limit");
   const publish = writeBatch(alice);
 
   publish.set(settingRef, {
@@ -827,17 +852,25 @@ test("large series projections can exceed the former 10,000-card limit", async (
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
-  publish.set(publicRef, {
-    ...projection("series"),
+  publish.set(publicRef, empty);
+  await assertSucceeds(publish.commit());
+  const fullyOwned = {
+    ...empty,
     ownedKeys,
     ownedCount: ownedKeys.length,
-    totalCount: 10321,
-  });
-  await assertSucceeds(publish.commit());
+  };
+  await assertSucceeds(setDoc(publicRef, fullyOwned));
+  const guestRef = doc(guest, "publicProfiles", PUBLIC_ID, "collections", "series");
+  assert.equal((await assertSucceeds(getDoc(guestRef))).data().ownedCount, ownedKeys.length);
+  await assertFails(setDoc(doc(bob, "publicProfiles", PUBLIC_ID, "collections", "series"), fullyOwned));
+  await assertFails(setDoc(guestRef, fullyOwned));
+  await assertFails(setDoc(publicRef, { ...fullyOwned, note: "private" }));
+  await assertFails(setDoc(publicRef, { ...fullyOwned, ownedCount: ownedKeys.length - 1 }));
+  await assertFails(deleteDoc(publicRef));
   await assertFails(
     setDoc(publicRef, {
       ...projection("series"),
-      totalCount: 20001,
+      totalCount: 30001,
     }),
   );
 
@@ -850,6 +883,8 @@ test("large series projections can exceed the former 10,000-card limit", async (
   });
   revoke.delete(publicRef);
   await assertSucceeds(revoke.commit());
+  assert.equal((await assertSucceeds(getDoc(guestRef))).exists(), false);
+  await assertFails(setDoc(publicRef, fullyOwned));
 });
 
 test("a PUBLIC collector can enter the list without exposing UID or email", async () => {
