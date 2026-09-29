@@ -73,12 +73,7 @@ jobs:
         run: node scripts/audit-mega-gap-evidence.mjs
 
       - name: Refresh official MEGA image evidence
-        if: github.event_name == 'workflow_dispatch'
         run: node scripts/probe-mega-official-images.mjs
-
-      - name: Reuse verified MEGA image evidence on push
-        if: github.event_name == 'push'
-        run: test -s data/audits/mega-official-image-probe.json
 
       - name: Build Korean MEGA membership evidence
         run: node scripts/audit-mega-korean-membership.mjs
