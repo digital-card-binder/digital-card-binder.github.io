@@ -520,12 +520,10 @@
           <input type="checkbox" data-setting="dashboard" />
           <i aria-hidden="true"></i>
         </label>
-        <label class="collector-setting-visibility">
-          <span>공개 범위</span>
-          <select data-setting="visibility">
-            <option value="private">나만 보기</option>
-            <option value="public">공개</option>
-          </select>
+        <label class="collector-public-switch">
+          <span>공개 프로필에 표시</span>
+          <input type="checkbox" data-setting="visibility" />
+          <i aria-hidden="true"></i>
         </label>
       `;
       card.querySelector(".collector-setting-identity strong").textContent = meta.title;
@@ -534,7 +532,7 @@
       const dashboard = card.querySelector('[data-setting="dashboard"]');
       const visibility = card.querySelector('[data-setting="visibility"]');
       dashboard.checked = setting.dashboardVisible;
-      visibility.value = setting.visibility === "public" ? "public" : "private";
+      visibility.checked = setting.visibility === "public";
       dashboard.addEventListener("change", () => markSettingDirty(card));
       visibility.addEventListener("change", () => markSettingDirty(card));
       return card;
@@ -556,7 +554,9 @@
     return {
       ...current,
       dashboardVisible: card.querySelector('[data-setting="dashboard"]').checked,
-      visibility: card.querySelector('[data-setting="visibility"]').value,
+      visibility: card.querySelector('[data-setting="visibility"]').checked
+        ? "public"
+        : "private",
     };
   }
 
