@@ -1217,8 +1217,11 @@ test("series era filters use representative cards without changing filter keys",
   for (const era of eraKeys) {
     assert.match(page, new RegExp(`data-era="${era}"`));
   }
+  assert.match(page, /data-card-tier="SAR"/);
+  assert.match(page, /data-card-tier="MUR"/);
   assert.match(css, /[.]era-card-thumb img/);
-  assert.match(css, /object-fit: cover/);
+  assert.match(css, /aspect-ratio: 5 \/ 7/);
+  assert.match(css, /object-fit: contain/);
 });
 
 test("current dashboard is the only production shell and carries the latest nav", async () => {
