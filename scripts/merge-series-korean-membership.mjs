@@ -37,6 +37,26 @@ const primarySets = (primary.sets || []).map((item) => ({
   verificationMode: "official-product-search-plus-gap-evidence",
   productSearchAudited: true,
   notProductSearchAuditedSlotCount: 0,
+  officialVerifiedSlotCount: Number(
+    item.officialVerifiedSlotCount ??
+      Number(item.productSearchSlotCount || 0) +
+        Number(item.firstPartyVerifiedGapCount || 0),
+  ),
+  koreanSupportedSlotCount: Number(
+    item.koreanSupportedSlotCount ??
+      Number(item.productSearchSlotCount || 0) +
+        Number(item.firstPartyVerifiedGapCount || 0) +
+        Number(item.koreanSecondaryVerifiedGapCount || 0),
+  ),
+  pendingOfficialEvidenceCount: Number(
+    item.pendingOfficialEvidenceCount ??
+      Math.max(
+        0,
+        Number(item.expectedSlotCount || 0) -
+          Number(item.productSearchSlotCount || 0) -
+          Number(item.firstPartyVerifiedGapCount || 0),
+      ),
+  ),
 }));
 
 const localSets = (local.sets || [])
@@ -54,10 +74,18 @@ const localSets = (local.sets || [])
       item.koreanSecondaryCount || 0,
     ),
     unresolvedGapCount: Number(item.unresolvedCount || 0),
-    verifiedSlotCount:
+    officialVerifiedSlotCount: Number(item.firstPartyCount || 0),
+    koreanSupportedSlotCount:
       Number(item.firstPartyCount || 0) +
       Number(item.koreanSecondaryCount || 0),
+    pendingOfficialEvidenceCount: Number(
+      item.pendingOfficialEvidenceCount ??
+        Number(item.koreanSecondaryCount || 0) +
+          Number(item.unresolvedCount || 0),
+    ),
+    verifiedSlotCount: Number(item.firstPartyCount || 0),
     complete: item.complete === true,
+    koreanSupportedComplete: item.koreanSupportedComplete === true,
     verificationMode: "local-korean-evidence",
     productSearchAudited: false,
     notProductSearchAuditedSlotCount: Number(item.cardCount || 0),
@@ -77,7 +105,7 @@ const output = {
     tier1:
       "Pokemon Korea official product-search/detail/image evidence.",
     tier2:
-      "Known Korean card database source paired with Korean card image evidence.",
+      "Known Korean card database source paired with Korean card image evidence is provisional support only and never finalizes official Korean membership.",
     japaneseReference:
       "Reference-only. Japanese existence alone never verifies a Korean master slot.",
   },
@@ -85,6 +113,9 @@ const output = {
     setCount: sets.length,
     completeSetCount: sets.filter((item) => item.complete).length,
     pendingSetCount: sets.filter((item) => !item.complete).length,
+    koreanSupportedCompleteSetCount: sets.filter(
+      (item) => item.koreanSupportedComplete,
+    ).length,
     productSearchAuditedSetCount: primarySets.length,
     localEvidenceOnlySetCount: localSets.length,
     expectedSlotCount: sets.reduce(
@@ -108,6 +139,10 @@ const output = {
         sum + Number(item.notProductSearchAuditedSlotCount || 0),
       0,
     ),
+    pendingOfficialEvidenceCount: sets.reduce(
+      (sum, item) => sum + Number(item.pendingOfficialEvidenceCount || 0),
+      0,
+    ),
     unresolvedGapCount: sets.reduce(
       (sum, item) => sum + Number(item.unresolvedGapCount || 0),
       0,
@@ -122,5 +157,5 @@ const output = {
 
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
-  `${era} combined Korean membership: ${output.summary.completeSetCount}/${output.summary.setCount} sets complete; ${output.summary.unresolvedGapCount} unresolved slots.`,
+  `${era} combined Korean membership: ${output.summary.completeSetCount}/${output.summary.setCount} sets officially complete; ${output.summary.koreanSupportedCompleteSetCount} Korean-supported; ${output.summary.pendingOfficialEvidenceCount} slots pending official evidence.`,
 );

@@ -47,6 +47,8 @@ for (const set of gapEvidence?.sets || []) {
         actualSetCode: missing.actualSetCode,
         printedNumber: missing.printedNumber,
         verified: true,
+        officialConfirmed: true,
+        koreanSupported: true,
         evidenceTier: "first-party",
         evidence: official.evidence,
         source: official.url || "",
@@ -61,7 +63,9 @@ for (const set of gapEvidence?.sets || []) {
         setCode: set.code,
         actualSetCode: missing.actualSetCode,
         printedNumber: missing.printedNumber,
-        verified: true,
+        verified: false,
+        officialConfirmed: false,
+        koreanSupported: true,
         evidenceTier: "korean-secondary",
         evidence: "korean-card-database-and-image",
         source: clean(secondary.source),
@@ -78,6 +82,8 @@ for (const set of gapEvidence?.sets || []) {
       actualSetCode: missing.actualSetCode,
       printedNumber: missing.printedNumber,
       verified: false,
+      officialConfirmed: false,
+      koreanSupported: false,
       evidenceTier: "unresolved",
       evidence: "no-accepted-korean-evidence",
       source: "",
@@ -86,8 +92,14 @@ for (const set of gapEvidence?.sets || []) {
 
   const productSearchSlotCount = Number(set.officialParsedSlotCount || 0);
   const expectedSlotCount = Number(set.expectedSlotCount || 0);
-  const verifiedGapCount =
-    firstPartyVerifiedGapCount + koreanSecondaryVerifiedGapCount;
+  const officialVerifiedSlotCount =
+    productSearchSlotCount + firstPartyVerifiedGapCount;
+  const koreanSupportedSlotCount =
+    officialVerifiedSlotCount + koreanSecondaryVerifiedGapCount;
+  const pendingOfficialEvidenceCount = Math.max(
+    0,
+    expectedSlotCount - officialVerifiedSlotCount,
+  );
 
   sets.push({
     code: set.code,
@@ -98,10 +110,16 @@ for (const set of gapEvidence?.sets || []) {
     firstPartyVerifiedGapCount,
     koreanSecondaryVerifiedGapCount,
     unresolvedGapCount,
-    verifiedSlotCount: productSearchSlotCount + verifiedGapCount,
+    officialVerifiedSlotCount,
+    koreanSupportedSlotCount,
+    pendingOfficialEvidenceCount,
+    verifiedSlotCount: officialVerifiedSlotCount,
     complete:
+      pendingOfficialEvidenceCount === 0 &&
+      officialVerifiedSlotCount === expectedSlotCount,
+    koreanSupportedComplete:
       unresolvedGapCount === 0 &&
-      productSearchSlotCount + verifiedGapCount === expectedSlotCount,
+      koreanSupportedSlotCount === expectedSlotCount,
   });
 }
 
@@ -116,7 +134,7 @@ const output = {
     tier1:
       "Pokemon Korea official product-search/detail/image evidence.",
     tier2:
-      "Korean secondary card database plus Korean card image evidence, used only when Pokemon Korea product search omits a slot.",
+      "Korean secondary card database plus Korean card image evidence is provisional support only and never finalizes official Korean membership.",
     japaneseReference:
       "Reference-only. Japanese existence alone never verifies a Korean master slot.",
   },
@@ -124,6 +142,9 @@ const output = {
     setCount: sets.length,
     completeSetCount: sets.filter((set) => set.complete).length,
     pendingSetCount: sets.filter((set) => !set.complete).length,
+    koreanSupportedCompleteSetCount: sets.filter(
+      (set) => set.koreanSupportedComplete,
+    ).length,
     expectedSlotCount: sets.reduce((sum, set) => sum + set.expectedSlotCount, 0),
     productSearchSlotCount: sets.reduce(
       (sum, set) => sum + set.productSearchSlotCount,
@@ -141,6 +162,10 @@ const output = {
       (sum, set) => sum + set.koreanSecondaryVerifiedGapCount,
       0,
     ),
+    pendingOfficialEvidenceCount: sets.reduce(
+      (sum, set) => sum + set.pendingOfficialEvidenceCount,
+      0,
+    ),
     unresolvedGapCount: sets.reduce(
       (sum, set) => sum + set.unresolvedGapCount,
       0,
@@ -152,5 +177,5 @@ const output = {
 
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
-  `MEGA Korean membership: ${output.summary.completeSetCount}/${output.summary.setCount} sets complete; ${output.summary.unresolvedGapCount} unresolved gaps.`,
+  `MEGA Korean membership: ${output.summary.completeSetCount}/${output.summary.setCount} sets officially complete; ${output.summary.koreanSupportedCompleteSetCount} Korean-supported; ${output.summary.pendingOfficialEvidenceCount} slots pending official evidence.`,
 );

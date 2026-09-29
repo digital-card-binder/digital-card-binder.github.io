@@ -59,15 +59,17 @@ test("master DB audit exposes an explicit official-review queue for every era", 
 });
 
 
-test("MEGA Korean membership audit closes all currently evidenced Korean slots", async () => {
+test("MEGA Korean membership keeps secondary evidence provisional until Pokemon Korea confirms it", async () => {
   const [audit, membership] = await Promise.all([
     read("data/master-card-db-audit.json").then(JSON.parse),
     read("data/audits/mega-korean-membership-audit.json").then(JSON.parse),
   ]);
 
   assert.equal(membership.summary.setCount, 14);
-  assert.equal(membership.summary.completeSetCount, 14);
-  assert.equal(membership.summary.pendingSetCount, 0);
+  assert.equal(membership.summary.completeSetCount, 11);
+  assert.equal(membership.summary.pendingSetCount, 3);
+  assert.equal(membership.summary.koreanSupportedCompleteSetCount, 14);
+  assert.equal(membership.summary.pendingOfficialEvidenceCount, 76);
   assert.equal(membership.summary.unresolvedGapCount, 0);
   assert.equal(
     membership.summary.productSearchSlotCount +
@@ -77,10 +79,14 @@ test("MEGA Korean membership audit closes all currently evidenced Korean slots",
   );
 
   const mega = audit.eras.M.koreanMembershipAudit;
-  assert.equal(mega.status, "complete");
-  assert.equal(mega.verifiedSetCount, 14);
-  assert.equal(mega.pendingSetCount, 0);
+  assert.equal(mega.status, "partial");
+  assert.equal(mega.verifiedSetCount, 11);
+  assert.equal(mega.pendingSetCount, 3);
+  assert.deepEqual(mega.pendingSetCodes, ["M6a", "MC", "M-P"]);
+  assert.equal(mega.koreanSupportedCompleteSetCount, 14);
+  assert.equal(mega.pendingOfficialEvidenceCount, 76);
   assert.equal(mega.unresolvedGapCount, 0);
-  assert.ok(audit.summary.koreanMembershipVerifiedSetCount >= 14);
-  assert.ok(audit.summary.koreanMembershipPendingSetCount >= 0);
+  assert.ok(audit.summary.koreanMembershipVerifiedSetCount >= 11);
+  assert.ok(audit.summary.koreanMembershipPendingSetCount >= 3);
+  assert.ok(audit.summary.koreanSupportedSetCount >= 14);
 });

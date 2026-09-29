@@ -17,6 +17,7 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
   let koreanMembershipVerifiedSetCount = 0;
   let koreanMembershipPendingSetCount = 0;
   let koreanMembershipScopedSetCount = 0;
+  let koreanSupportedSetCount = 0;
 
   for (const era of ERA_ORDER) {
     const eraSummary = inventory.eras.find((item) => item.era === era);
@@ -110,6 +111,10 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
       koreanMembershipVerifiedSetCount += verifiedKoreanSets.length;
       koreanMembershipPendingSetCount += pendingKoreanSets.length;
       koreanMembershipScopedSetCount += eraSets.length;
+      koreanSupportedSetCount += eraSets.filter(
+        (item) =>
+          koreanByCode.get(normalized(item.code))?.koreanSupportedComplete === true,
+      ).length;
       eras[era].koreanMembershipAudit = {
         status:
           verifiedKoreanSets.length === eraSets.length
@@ -122,6 +127,9 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         pendingSetCount: pendingKoreanSets.length,
         verifiedSetCodes: verifiedKoreanSets.map((item) => item.code),
         pendingSetCodes: pendingKoreanSets.map((item) => item.code),
+        koreanSupportedCompleteSetCount: Number(
+          koreanMembership.summary?.koreanSupportedCompleteSetCount || 0,
+        ),
         expectedSlotCount: Number(
           koreanMembership.summary?.expectedSlotCount || 0,
         ),
@@ -133,6 +141,9 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         ),
         koreanSecondaryVerifiedGapCount: Number(
           koreanMembership.summary?.koreanSecondaryVerifiedGapCount || 0,
+        ),
+        pendingOfficialEvidenceCount: Number(
+          koreanMembership.summary?.pendingOfficialEvidenceCount || 0,
         ),
         unresolvedGapCount: Number(
           koreanMembership.summary?.unresolvedGapCount || 0,
@@ -154,6 +165,10 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
       koreanMembershipVerifiedSetCount += verifiedKoreanSets.length;
       koreanMembershipPendingSetCount += pendingKoreanSets.length;
       koreanMembershipScopedSetCount += eraSets.length;
+      koreanSupportedSetCount += eraSets.filter(
+        (item) =>
+          koreanByCode.get(normalized(item.code))?.koreanSupportedComplete === true,
+      ).length;
       eras[era].koreanMembershipAudit = {
         status:
           verifiedKoreanSets.length === eraSets.length
@@ -166,6 +181,9 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         pendingSetCount: pendingKoreanSets.length,
         verifiedSetCodes: verifiedKoreanSets.map((item) => item.code),
         pendingSetCodes: pendingKoreanSets.map((item) => item.code),
+        koreanSupportedCompleteSetCount: Number(
+          svKoreanMembership.summary?.koreanSupportedCompleteSetCount || 0,
+        ),
         expectedSlotCount: Number(
           svKoreanMembership.summary?.expectedSlotCount || 0,
         ),
@@ -177,6 +195,9 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         ),
         koreanSecondaryVerifiedGapCount: Number(
           svKoreanMembership.summary?.koreanSecondaryVerifiedGapCount || 0,
+        ),
+        pendingOfficialEvidenceCount: Number(
+          svKoreanMembership.summary?.pendingOfficialEvidenceCount || 0,
         ),
         unresolvedGapCount: Number(
           svKoreanMembership.summary?.unresolvedGapCount || 0,
@@ -262,13 +283,14 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
             koreanMembershipScopedSetCount,
             koreanMembershipVerifiedSetCount,
             koreanMembershipPendingSetCount,
+            koreanSupportedSetCount,
           }
         : {}),
       metadataGaps: inventory.summary.metadata,
     },
     eras,
     nextWorkRule:
-      "pendingSetCodes를 한국판 공식 자료로 시대별·세트별 검수해 officialVariantAudit의 verified 범위를 확장한다.",
+      "membership pendingSetCodes는 포켓몬코리아 공식 자료로만 확정하고, 한국 2차 자료는 보조 근거로 유지한다. print variant pendingSetCodes는 별도로 공식 변형 검수를 진행한다.",
   };
 }
 

@@ -142,7 +142,13 @@ for (const group of groups) {
     firstPartyCount,
     koreanSecondaryCount,
     unresolvedCount,
-    complete: cards.length > 0 && unresolvedCount === 0,
+    pendingOfficialEvidenceCount: koreanSecondaryCount + unresolvedCount,
+    complete:
+      cards.length > 0 &&
+      firstPartyCount === cards.length,
+    koreanSupportedComplete:
+      cards.length > 0 &&
+      unresolvedCount === 0,
     sourceHosts,
     imageHosts,
   });
@@ -159,7 +165,7 @@ const output = {
     firstParty:
       "Pokemon Korea card source or cards.image.pokemonkorea.co.kr image.",
     koreanSecondary:
-      "Known Korean card database source paired with its Korean card image host.",
+      "Known Korean card database source paired with its Korean card image host; provisional support only, not official confirmation.",
     japaneseReference:
       "Reference-only. Japanese evidence does not satisfy Korean membership.",
   },
@@ -168,9 +174,16 @@ const output = {
     cardCount: sets.reduce((sum, set) => sum + set.cardCount, 0),
     completeSetCount: sets.filter((set) => set.complete).length,
     pendingSetCount: sets.filter((set) => !set.complete).length,
+    koreanSupportedCompleteSetCount: sets.filter(
+      (set) => set.koreanSupportedComplete,
+    ).length,
     firstPartyCount: sets.reduce((sum, set) => sum + set.firstPartyCount, 0),
     koreanSecondaryCount: sets.reduce(
       (sum, set) => sum + set.koreanSecondaryCount,
+      0,
+    ),
+    pendingOfficialEvidenceCount: sets.reduce(
+      (sum, set) => sum + set.pendingOfficialEvidenceCount,
       0,
     ),
     unresolvedCount: unresolved.length,
@@ -181,5 +194,5 @@ const output = {
 
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
-  `${era} local evidence: ${output.summary.completeSetCount}/${output.summary.setCount} sets complete; ${output.summary.unresolvedCount} unresolved cards.`,
+  `${era} local evidence: ${output.summary.completeSetCount}/${output.summary.setCount} sets officially complete; ${output.summary.koreanSupportedCompleteSetCount} Korean-supported; ${output.summary.pendingOfficialEvidenceCount} cards pending official evidence.`,
 );
