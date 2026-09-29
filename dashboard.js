@@ -220,7 +220,7 @@
       <button id="firebase-login" type="button">Google 로그인</button>
       <button id="firebase-logout" type="button" hidden>로그아웃</button>
     `;
-    document.querySelector(".site-header")?.append(panel);
+    (document.querySelector(".home-header-actions") || document.querySelector(".site-header"))?.append(panel);
     panel.querySelector("#firebase-login")?.addEventListener("click", signIn);
     panel.querySelector("#firebase-logout")?.addEventListener("click", signOutUser);
     elements.loginCta?.addEventListener("click", signIn);
@@ -710,6 +710,31 @@
     }
   }
 
+  function renderHomeFeatureMetrics(metrics) {
+    document.querySelectorAll("[data-home-metric]").forEach((card) => {
+      const metric = metrics.categories[card.dataset.homeMetric];
+      if (!metric) return;
+      const copy = card.querySelector("[data-home-metric-copy]");
+      if (copy) {
+        copy.textContent = currentUser || sharedViewActive
+          ? `${formatNumber(metric.owned)} / ${formatNumber(metric.total)}${metric.unit} 수집`
+          : `${formatNumber(metric.total)}${metric.unit} 둘러보기`;
+      }
+      card.style.setProperty("--home-rate", metric.rate);
+    });
+
+    const seriesMetric = metrics.categories.series;
+    if (!seriesMetric) return;
+    const owned = document.querySelector("#home-series-owned");
+    const total = document.querySelector("#home-series-total");
+    const rate = document.querySelector("#home-series-rate");
+    const progress = document.querySelector("#home-series-progress");
+    if (owned) owned.textContent = formatNumber(seriesMetric.owned);
+    if (total) total.textContent = formatNumber(seriesMetric.total);
+    if (rate) rate.textContent = `${seriesMetric.rate.toFixed(1)}%`;
+    if (progress) progress.style.width = `${seriesMetric.rate}%`;
+  }
+
   function createCollectionCard(metric) {
     const link = document.createElement("a");
     link.className = "dashboard-collection-card";
@@ -1082,6 +1107,7 @@
     if (!catalogs) return;
     const metrics = getMetrics();
     renderSummary(metrics);
+    renderHomeFeatureMetrics(metrics);
     renderCollections(metrics);
     renderNearest(metrics);
     renderRecent();

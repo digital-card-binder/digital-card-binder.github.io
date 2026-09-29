@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="./collector.css?v=c0e350f670f6" />
     <link rel="stylesheet" href="./news.css?v=e95e6064eadc" />
     <link rel="stylesheet" href="./pwa.css?v=a88f945c52db" />
+    <link rel="stylesheet" href="./home-preview.css?v=0384f0cd50b6" />
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
     <script src="./legal.js?v=ca76fb29682d" defer></script>
@@ -30,7 +31,7 @@
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
     <script src="./collector-public-sync.js?v=b55013b5dcd5" defer></script>
     <script src="./collector-nav.js?v=fd5bcf302792" defer></script>
-    <script src="./dashboard.js?v=29fe8b1e0048" defer></script>
+    <script src="./dashboard.js?v=7893b484eafd" defer></script>
     <script src="./feedback.js?v=37639a6a4d0c" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./pwa.js?v=be21d09548f5" defer></script>
@@ -45,7 +46,30 @@
         <img class="brand-symbol" src="./assets/brand/logo-symbol.png" alt="" aria-hidden="true" />
         <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
       </a>
-      <span class="header-chip">공개 보기</span>
+      <nav class="home-top-nav" aria-label="주요 메뉴">
+        <a href="./pokemon-search.html">카드 검색</a>
+        <a href="./series.html">시리즈</a>
+        <a href="./national.html">전국도감</a>
+        <a href="#dashboard-theme-section">테마도감</a>
+        <a href="./packs.html">팩도감</a>
+        <a href="./custom.html">나의 수집</a>
+      </nav>
+      <div class="home-header-actions">
+        <span class="header-chip">공개 보기</span>
+        <details class="home-menu">
+          <summary aria-label="메뉴 열기"><span aria-hidden="true"></span>메뉴</summary>
+          <nav aria-label="모바일 주요 메뉴">
+            <a href="./pokemon-search.html">카드 검색</a>
+            <a href="./series.html">시리즈 도감</a>
+            <a href="./national.html">전국도감</a>
+            <a href="#dashboard-theme-section">테마도감</a>
+            <a href="./packs.html">팩도감</a>
+            <a href="./custom.html">나의 수집</a>
+            <a href="./collectors.html">커뮤니티</a>
+            <a href="./news.html">새소식</a>
+          </nav>
+        </details>
+      </div>
     </header>
 
     <div class="site-layout">
@@ -76,30 +100,143 @@
       </aside>
 
       <main id="main-content" class="main-content dashboard-main">
-        <section class="dashboard-overview" aria-labelledby="page-title">
-          <div class="dashboard-overview-copy">
-            <span class="dashboard-overview-kicker">내 수집 현황</span>
-            <h1 id="page-title">내 카드 바인더</h1>
-            <p>카드를 찾고, 도감으로 이동하고, 다음 수집 목표를 한 화면에서 확인하세요.</p>
+        <section class="home-hero" aria-labelledby="page-title">
+          <div class="home-hero-copy">
+            <span class="home-kicker">포켓몬 카드, 이제 디지털 바인더로</span>
+            <h1 id="page-title">나만의 <span>포켓몬 카드 바인더</span></h1>
+            <p>한국판 포켓몬 카드를 한 곳에서<br />수집하고, 정리하고, 더 재미있게.</p>
+
+            <form class="dashboard-search home-search" action="./pokemon-search.html" method="get" role="search">
+              <label class="sr-only" for="dashboard-card-search">포켓몬 카드 검색</label>
+              <span class="dashboard-search-icon" aria-hidden="true">⌕</span>
+              <input
+                id="dashboard-card-search"
+                name="q"
+                type="search"
+                autocomplete="off"
+                placeholder="포켓몬·카드명·세트·작가 검색"
+              />
+              <button type="submit">카드 검색</button>
+            </form>
+
+            <div class="home-search-examples" aria-label="추천 검색어">
+              <span>예시</span>
+              <a href="./pokemon-search.html?q=피카츄">피카츄</a>
+              <a href="./pokemon-search.html?q=리자몽">리자몽</a>
+              <a href="./pokemon-search.html?q=30th%20CELEBRATION">30th CELEBRATION</a>
+              <a href="./pokemon-search.html?q=AR">AR 카드</a>
+            </div>
           </div>
 
-          <form class="dashboard-search" action="./pokemon-search.html" method="get" role="search">
-            <label class="sr-only" for="dashboard-card-search">카드 검색</label>
-            <span class="dashboard-search-icon" aria-hidden="true">⌕</span>
-            <input
-              id="dashboard-card-search"
-              name="q"
-              type="search"
-              autocomplete="off"
-              placeholder="포켓몬·카드명·세트·작가 검색"
-            />
-            <button type="submit">검색</button>
-          </form>
+          <div class="home-card-fan" aria-hidden="true">
+            <span class="home-card-fan-glow"></span>
+            <img class="home-card-fan-item home-card-fan-item--left" src="https://static.tcgexchange.kr/cdf70cd44293bf1d51dbcb2129f4e53c.webp" alt="" />
+            <img class="home-card-fan-item home-card-fan-item--center" src="https://static.tcgexchange.kr/26ea0ab17af13ce30b786fdbc3726d0e.png" alt="" />
+            <img class="home-card-fan-item home-card-fan-item--right" src="https://static.tcgexchange.kr/67e5c3c89bd9d98ebc830085389f4087.webp" alt="" />
+          </div>
 
-          <div class="dashboard-overview-meta" aria-label="대시보드 도감 요약">
+          <div class="home-hero-panels">
+            <section class="home-collection-snapshot" aria-labelledby="home-collection-title">
+              <span class="home-panel-icon" aria-hidden="true"><img src="./assets/brand/logo-symbol.png" alt="" /></span>
+              <div class="home-collection-copy">
+                <span id="home-collection-title">나의 수집 현황</span>
+                <strong><b id="home-series-owned">0</b> <small>/ <span id="home-series-total">—</span></small></strong>
+                <span class="home-progress-track" aria-hidden="true"><i id="home-series-progress"></i></span>
+              </div>
+              <b id="home-series-rate" class="home-collection-rate">0%</b>
+            </section>
+
+            <section class="home-recent-preview" aria-labelledby="home-recent-title">
+              <div class="home-recent-heading">
+                <span id="home-recent-title">카드 미리보기</span>
+                <a href="./pokemon-search.html">전체 보기</a>
+              </div>
+              <div class="home-recent-cards" aria-hidden="true">
+                <img src="https://static.tcgexchange.kr/cdf70cd44293bf1d51dbcb2129f4e53c.webp" alt="" loading="lazy" />
+                <img src="https://static.tcgexchange.kr/26ea0ab17af13ce30b786fdbc3726d0e.png" alt="" loading="lazy" />
+                <img src="https://static.tcgexchange.kr/5db4f4d3f0fc66dddcd69ee68cc7b023.webp" alt="" loading="lazy" />
+                <img src="https://static.tcgexchange.kr/67e5c3c89bd9d98ebc830085389f4087.webp" alt="" loading="lazy" />
+              </div>
+            </section>
+          </div>
+
+          <div class="home-hero-meta sr-only" aria-label="대시보드 도감 요약">
             <span>사용 도감 <strong id="dashboard-active-collections">—</strong>개</span>
-            <i aria-hidden="true"></i>
-            <span>완성 <strong id="dashboard-complete-collections">—</strong>개</span>
+            <span>완성한 도감 <strong id="dashboard-complete-collections">—</strong>개</span>
+          </div>
+        </section>
+
+        <section class="home-browse" aria-labelledby="home-browse-title">
+          <div class="home-section-heading">
+            <div>
+              <span class="home-kicker">COLLECTION GUIDE</span>
+              <h2 id="home-browse-title">도감 둘러보기</h2>
+              <p>수집하고 싶은 방식으로 도감을 선택하세요.</p>
+            </div>
+            <a href="./collector-settings.html">홈 표시 설정</a>
+          </div>
+
+          <div class="home-feature-grid">
+            <a class="home-feature-card home-feature-card--series" href="./series.html" data-home-metric="series">
+              <span class="home-feature-collage" aria-hidden="true">
+                <img src="https://static.tcgexchange.kr/cdf70cd44293bf1d51dbcb2129f4e53c.webp" alt="" loading="lazy" decoding="async" />
+                <img src="https://static.tcgexchange.kr/26ea0ab17af13ce30b786fdbc3726d0e.png" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>확장팩별로 한눈에</small>
+                <strong>시리즈 도감</strong>
+                <em>역대 시리즈와 카드 목록을 세트별로 탐색하세요.</em>
+                <span class="home-feature-meta" data-home-metric-copy>20,243장 둘러보기</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
+            <a class="home-feature-card home-feature-card--national" href="./national.html" data-home-metric="national">
+              <span class="home-feature-collage" aria-hidden="true">
+                <img src="https://static.tcgexchange.kr/5db4f4d3f0fc66dddcd69ee68cc7b023.webp" alt="" loading="lazy" decoding="async" />
+                <img src="https://static.tcgexchange.kr/67e5c3c89bd9d98ebc830085389f4087.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>1세대부터 9세대까지</small>
+                <strong>전국도감</strong>
+                <em>도감번호 순서로 포켓몬을 수집하세요.</em>
+                <span class="home-feature-meta" data-home-metric-copy>1,025종 둘러보기</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
+            <a class="home-feature-card home-feature-card--theme" href="#dashboard-theme-section">
+              <span class="home-feature-collage" aria-hidden="true">
+                <img src="https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM12a/SM12a_191.webp" alt="" loading="lazy" decoding="async" />
+                <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_083.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>좋아하는 장면과 작가로</small>
+                <strong>테마도감</strong>
+                <em>포켓몬·작가·인물 테마를 골라보세요.</em>
+                <span class="home-feature-meta">10가지 테마</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
+            <a class="home-feature-card home-feature-card--pack" href="./packs.html" data-home-metric="pack">
+              <span class="home-feature-collage home-feature-collage--packs" aria-hidden="true">
+                <img src="./assets/packs/m6.webp" alt="" loading="lazy" decoding="async" />
+                <img src="./assets/packs/m6a.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>개봉한 팩을 기록하는</small>
+                <strong>팩도감</strong>
+                <em>확장팩과 프로모 팩 수집을 관리하세요.</em>
+                <span class="home-feature-meta" data-home-metric-copy>64팩 둘러보기</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
           </div>
         </section>
 
@@ -120,11 +257,11 @@
           <button id="dashboard-login-cta" type="button">내 도감 로그인</button>
         </section>
 
-        <section class="dashboard-section dashboard-primary-section" aria-labelledby="primary-collections-title">
+        <section class="dashboard-section dashboard-primary-section home-progress-section" aria-labelledby="primary-collections-title">
           <div class="dashboard-section-heading">
             <div>
-              <h2 id="primary-collections-title">주요 도감</h2>
-              <p>수집의 중심이 되는 도감을 빠르게 확인합니다.</p>
+              <h2 id="primary-collections-title">내 수집 현황</h2>
+              <p>로그인하면 도감별 진행률을 한눈에 확인할 수 있습니다.</p>
             </div>
             <a href="./collector-settings.html">표시 설정</a>
           </div>
@@ -265,6 +402,14 @@
         </footer>
       </main>
     </div>
+
+    <nav class="home-mobile-tabbar" aria-label="모바일 주요 메뉴">
+      <a class="is-active" href="./" aria-current="page"><span aria-hidden="true">◆</span><strong>홈</strong></a>
+      <a href="./pokemon-search.html"><span aria-hidden="true">⌕</span><strong>검색</strong></a>
+      <a href="./series.html"><span aria-hidden="true">▣</span><strong>도감</strong></a>
+      <a href="./custom.html"><span aria-hidden="true">▤</span><strong>나의 수집</strong></a>
+      <a href="./collectors.html"><span aria-hidden="true">☰</span><strong>메뉴</strong></a>
+    </nav>
 
     <div id="dashboard-error" class="app-error" role="alert" hidden>
       <strong>대시보드 데이터를 모두 불러오지 못했습니다.</strong>
