@@ -799,7 +799,7 @@ test("public projection is readable but private source and extra fields stay blo
   assert.equal(publicList.size, 1);
 });
 
-test("large series projections can exceed the former 10,000-card limit", async () => {
+test("large series projections support catalog totals up to 50,000 cards", async () => {
   const settingRef = doc(
     alice,
     "users",
@@ -831,13 +831,20 @@ test("large series projections can exceed the former 10,000-card limit", async (
     ...projection("series"),
     ownedKeys,
     ownedCount: ownedKeys.length,
-    totalCount: 10321,
+    totalCount: 20243,
   });
   await assertSucceeds(publish.commit());
+
+  await assertSucceeds(
+    setDoc(publicRef, {
+      ...projection("series"),
+      totalCount: 50000,
+    }),
+  );
   await assertFails(
     setDoc(publicRef, {
       ...projection("series"),
-      totalCount: 20001,
+      totalCount: 50001,
     }),
   );
 
