@@ -53,10 +53,10 @@ async function readPrevious() {
   }
 }
 
-async function probeExists(url) {
+async function requestImage(url, method, extraHeaders = {}) {
   try {
     const response = await fetch(url, {
-      method: "GET",
+      method,
       redirect: "follow",
       signal: AbortSignal.timeout(5000),
       headers: {
@@ -64,7 +64,7 @@ async function probeExists(url) {
           "Mozilla/5.0 (compatible; DigitalCardBinderDataAudit/1.0; +https://digital-card-binder.github.io/)",
         "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.6",
         "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
-        "Range": "bytes=0-0",
+        ...extraHeaders,
       },
     });
     const contentType = response.headers.get("content-type") || "";
@@ -79,15 +79,30 @@ async function probeExists(url) {
       exists,
       status: response.status,
       contentType,
+      method,
     };
   } catch (error) {
     return {
       checked: false,
       exists: false,
       status: 0,
+      method,
       error: String(error?.message || error),
     };
   }
+}
+
+async function probeExists(url) {
+  const head = await requestImage(url, "HEAD");
+  if (head.exists || head.status === 404) return head;
+
+  const ranged = await requestImage(url, "GET", { Range: "bytes=0-0" });
+  if (ranged.exists || ranged.status === 404) return ranged;
+
+  // Pokemon Korea's image server can reject Range requests with 415 even
+  // when the image exists. A plain GET lets us validate response headers,
+  // then the body is immediately cancelled to keep traffic minimal.
+  return requestImage(url, "GET");
 }
 
 const evidence = JSON.parse(await readFile(evidencePath, "utf8"));
@@ -158,6 +173,8 @@ for (const set of evidence.sets || []) {
       (
         cached.verified === true ||
         cached.evidence === "official-image-range-get" ||
+        cached.evidence === "official-image-get" ||
+        cached.evidence === "official-image-head" ||
         cached.httpStatus === 404
       );
 
@@ -172,13 +189,18 @@ for (const set of evidence.sets || []) {
         printedNumber: missing.printedNumber,
         verified: Boolean(result.exists),
         evidence: result.exists
-          ? "official-image-range-get"
+          ? result.method === "HEAD"
+            ? "official-image-head"
+            : result.method === "GET"
+              ? "official-image-get"
+              : "official-image-probe"
           : result.checked
             ? "official-image-not-found"
             : "official-image-check-error",
         url: candidate,
         httpStatus: result.status,
         ...(result.contentType ? { contentType: result.contentType } : {}),
+        ...(result.method ? { method: result.method } : {}),
         ...(result.error ? { error: result.error } : {}),
       };
       await sleep(80);
