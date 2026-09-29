@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="컬렉터 프로필, 대시보드 표시 도감과 도감별 공개 범위를 관리합니다."
+      content="컬렉터 프로필, 대시보드 표시와 공개 프로필에 보여줄 도감을 관리합니다."
     />
     <meta name="theme-color" content="#17233f" />
     <title>디지털 카드 바인더</title>
@@ -75,13 +75,13 @@
             
             <h1 id="page-title">내 프로필 관리</h1>
             <p class="hero-description">
-              대시보드에 표시할 도감과 다른 사람에게 보여줄 범위를<br />
-              서로 독립적으로 설정할 수 있습니다.
+              내 대시보드에 표시할 도감과 공개 프로필에 보여줄 도감을<br />
+              스위치로 간단히 설정할 수 있습니다.
             </p>
           </div>
-          <div class="collector-privacy-badge" aria-label="기본 공개 범위 비공개">
+          <div class="collector-privacy-badge" aria-label="공개 프로필 표시 설정 안내">
             <span aria-hidden="true">◉</span>
-            <div><strong>기본은 나만 보기</strong><small>공개를 직접 선택할 수 있습니다</small></div>
+            <div><strong>보여줄 도감만 켜기</strong><small>꺼진 도감은 공개 프로필에 표시되지 않습니다</small></div>
           </div>
         </section>
 
@@ -163,13 +163,9 @@
                 
                 <h2 id="collector-collections-title">도감별 설정</h2>
               </div>
-              <div class="collector-setting-legend" aria-label="공개 범위 설명">
-                <span><i data-visibility="private"></i>나만 보기</span>
-                <span><i data-visibility="public"></i>공개</span>
-              </div>
             </div>
             <p class="collector-settings-help">
-              대시보드 표시를 꺼도 실제 도감 데이터는 삭제되지 않습니다. 공개 도감이 하나 이상이면 커뮤니티에도 자동으로 표시됩니다.
+              각 스위치는 표시 여부만 바꿉니다. 실제 도감 데이터는 삭제되지 않으며, 공개 프로필에 표시한 도감이 하나 이상이면 커뮤니티에도 자동으로 나타납니다.
             </p>
             <div id="collector-settings-grid" class="collector-settings-grid" aria-live="polite"></div>
             <p id="collector-settings-status" class="collector-form-status" aria-live="polite"></p>
