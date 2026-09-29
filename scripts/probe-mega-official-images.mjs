@@ -201,6 +201,10 @@ for (const set of evidence.sets || []) {
     }
 
     const cached = previousSlots[key];
+    const automationBlocked =
+      cached &&
+      cached.url === candidate &&
+      Number(cached.httpStatus) === 415;
     const reusableCache =
       cached &&
       cached.url === candidate &&
@@ -214,7 +218,13 @@ for (const set of evidence.sets || []) {
         cached.httpStatus === 404
       );
 
-    if (reusableCache) {
+    if (automationBlocked) {
+      slots[key] = {
+        ...cached,
+        verified: false,
+        evidence: "official-probe-blocked",
+      };
+    } else if (reusableCache) {
       slots[key] = cached;
     } else {
       const result = await probeExists(candidate);
