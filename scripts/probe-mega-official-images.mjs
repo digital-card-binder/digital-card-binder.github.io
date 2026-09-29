@@ -45,6 +45,25 @@ function candidateUrl(actualSetCode, printedNumber) {
   return `https://${OFFICIAL_HOST}/data/wmimages/MEGA/${folder}/${folder}_${token}.png`;
 }
 
+function deferredOfficialIndex(actualSetCode, printedNumber) {
+  const setCode = norm(actualSetCode);
+  const printed = norm(printedNumber);
+
+  // 30th CELEBRATION's Korean high-number cards are known Korean releases,
+  // but Pokemon Korea has not fully exposed/indexed these slots on the
+  // official card search/image host yet. Do not repeatedly probe them on
+  // routine pushes; retain them as official-index-pending instead.
+  if (setCode === "m6a") {
+    if (/^\d+$/.test(printed)) {
+      const number = Number(printed);
+      if (number >= 104 && number <= 165) return true;
+    }
+    if (["b/rgb", "g/rgb", "r/rgb"].includes(printed)) return true;
+  }
+
+  return false;
+}
+
 async function readPrevious() {
   try {
     return JSON.parse(await readFile(outputPath, "utf8"));
@@ -143,6 +162,23 @@ for (const set of evidence.sets || []) {
       };
       verifiedMissingSlotCount += 1;
       officialLocalImageCount += 1;
+      continue;
+    }
+
+    if (deferredOfficialIndex(
+      missing.actualSetCode,
+      missing.printedNumber,
+    )) {
+      slots[key] = {
+        setCode: set.code,
+        actualSetCode: missing.actualSetCode,
+        printedNumber: missing.printedNumber,
+        verified: false,
+        evidence: "official-index-pending",
+        url: "",
+        httpStatus: null,
+      };
+      unresolvedMissingSlotCount += 1;
       continue;
     }
 
@@ -263,5 +299,5 @@ const output = {
 
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
-  `MEGA official-image evidence: ${output.summary.fullyFirstPartyBackedSetCount}/${output.summary.setCount} sets fully backed; ${output.summary.verifiedMissingSlotCount}/${output.summary.missingExpectedSlotCount} search gaps verified; ${networkChecks} new HEAD checks.`,
+  `MEGA official-image evidence: ${output.summary.fullyFirstPartyBackedSetCount}/${output.summary.setCount} sets fully backed; ${output.summary.verifiedMissingSlotCount}/${output.summary.missingExpectedSlotCount} search gaps verified; ${networkChecks} new network checks.`,
 );
