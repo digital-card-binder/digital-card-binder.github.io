@@ -84,7 +84,6 @@ jobs:
             data/audits/sv-expansion-korean-membership.json
 
       - name: Audit SV-P official detail pages
-        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Audit SV-P official details')
         run: python3 scripts/audit-sv-p-official-details.py
 
       - name: Ensure SV-P official detail audit exists
