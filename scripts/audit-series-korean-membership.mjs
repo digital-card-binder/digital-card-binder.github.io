@@ -16,6 +16,20 @@ const inputPath = path.resolve(root, inputArg);
 const outputPath = path.resolve(root, outputArg);
 const clean = (value) => String(value ?? "").trim();
 
+function isOfficialDetailEvidence(record) {
+  if (record?.verified !== true) return false;
+  try {
+    const url = new URL(clean(record?.source));
+    return (
+      (url.hostname === "pokemoncard.co.kr" ||
+        url.hostname.endsWith(".pokemoncard.co.kr")) &&
+      url.pathname.startsWith("/cards/detail/")
+    );
+  } catch {
+    return false;
+  }
+}
+
 function isFirstParty(record) {
   return (
     clean(record?.image).startsWith(
@@ -42,6 +56,18 @@ function isKoreanSecondary(record) {
 }
 
 const gapEvidence = JSON.parse(await readFile(inputPath, "utf8"));
+let officialDetailEvidence = { eras: {} };
+try {
+  officialDetailEvidence = JSON.parse(
+    await readFile(
+      path.join(root, "data", "audits", "series-official-gap-evidence.json"),
+      "utf8",
+    ),
+  );
+} catch {}
+const officialOverrideSlots =
+  officialDetailEvidence?.eras?.[era]?.slots || {};
+
 if (String(gapEvidence?.era || "").toUpperCase() !== era) {
   throw new Error(
     `Gap evidence era mismatch: expected ${era}, got ${gapEvidence?.era || "(missing)"}`,
@@ -63,6 +89,26 @@ for (const set of gapEvidence.sets || []) {
       String(missing.printedNumber || "").toLowerCase(),
     ].join("::");
     const records = missing.localRecords || [];
+    const officialDetail = officialOverrideSlots[key];
+    if (isOfficialDetailEvidence(officialDetail)) {
+      firstPartyVerifiedGapCount += 1;
+      slots[key] = {
+        setCode: set.code,
+        actualSetCode: missing.actualSetCode,
+        printedNumber: missing.printedNumber,
+        verified: true,
+        officialConfirmed: true,
+        koreanSupported: true,
+        evidenceTier: "first-party",
+        evidence: "pokemon-korea-card-detail",
+        source: clean(officialDetail.source),
+        image: clean(officialDetail.image),
+        name: clean(officialDetail.name),
+        rarity: clean(officialDetail.rarity),
+      };
+      continue;
+    }
+
     const firstParty = records.find(isFirstParty);
     if (firstParty) {
       firstPartyVerifiedGapCount += 1;

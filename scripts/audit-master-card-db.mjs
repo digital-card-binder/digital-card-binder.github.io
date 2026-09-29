@@ -257,7 +257,10 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         ? ["data/audits/mega-korean-membership-audit.json"]
         : []),
       ...(svKoreanMembership
-        ? ["data/audits/sv-korean-membership-audit.json"]
+        ? [
+            "data/audits/sv-korean-membership-audit.json",
+            "data/audits/series-official-gap-evidence.json",
+          ]
         : []),
     ],
     summary: {
