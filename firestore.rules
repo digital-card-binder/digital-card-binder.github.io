@@ -331,8 +331,8 @@ service cloud.firestore {
 
     function validProjection(collectionId, publicId) {
       // The series catalog already exceeds 20,000 canonical slots. Keep a
-      // bounded allowance for growth without widening other collections.
-      let maxCards = collectionId == "series" ? 30000 : 20000;
+      // bounded 90,000-slot allowance for growth without widening other collections.
+      let maxCards = collectionId == "series" ? 90000 : 20000;
       return supportedCollectorCollection(collectionId)
         && validPublicId(publicId)
         && request.resource.data.keys().hasAll([

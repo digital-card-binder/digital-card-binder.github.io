@@ -871,17 +871,18 @@ test("current series catalog can be published empty or fully owned and revoked s
   await assertFails(setDoc(doc(alice, "publicProfiles", PUBLIC_ID, "collections", "national"), {
     ...projection(), totalCount: 20001,
   }));
-  const boundaryKeys = Array.from({ length: 30000 }, (_, index) => `k${index}`);
+  // Validate the catalog-size policy without manufacturing a 90,000-key
+  // document that would exceed Firestore's separate document-size limit.
   await assertSucceeds(setDoc(publicRef, {
-    ...empty, ownedKeys: boundaryKeys, ownedCount: 30000, totalCount: 30000,
+    ...empty, totalCount: 90000,
   }));
   await assertFails(setDoc(publicRef, {
-    ...empty, ownedKeys: [...boundaryKeys, "overflow"], ownedCount: 30001, totalCount: 30001,
+    ...empty, totalCount: 90001,
   }));
   await assertFails(
     setDoc(publicRef, {
       ...projection("series"),
-      totalCount: 30001,
+      totalCount: 90001,
     }),
   );
 
