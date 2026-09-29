@@ -13,6 +13,8 @@ on:
       - 'scripts/audit-series-korean-membership.mjs'
       - 'data/audits/series-official-gap-evidence.json'
       - 'scripts/audit-series-local-evidence.mjs'
+      - 'scripts/audit-sv-p-official-details.py'
+      - 'data/audits/sv-p-official-detail-audit.json'
       - 'scripts/merge-series-korean-membership.mjs'
       - 'scripts/audit-master-card-db.mjs'
       - 'scripts/merge-series-print-variant-audit.mjs'
@@ -44,8 +46,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: tmp/legacy-series-cache
-          key: sv-expansion-print-audit-v1-${{ runner.os }}
+          key: sv-expansion-print-audit-v2-${{ runner.os }}
           restore-keys: |
+            sv-expansion-print-audit-v2-
             sv-expansion-print-audit-v1-
 
       - name: Refresh series inventory audit
@@ -79,6 +82,13 @@ jobs:
             SV \
             data/audits/sv-expansion-gap-evidence.json \
             data/audits/sv-expansion-korean-membership.json
+
+      - name: Audit SV-P official detail pages
+        if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'Audit SV-P official details')
+        run: python3 scripts/audit-sv-p-official-details.py
+
+      - name: Ensure SV-P official detail audit exists
+        run: test -s data/audits/sv-p-official-detail-audit.json
 
       - name: Audit remaining SV local Korean evidence
         run: |
@@ -119,6 +129,7 @@ jobs:
             data/audits/sv-expansion-gap-evidence.json \
             data/audits/sv-expansion-korean-membership.json \
             data/audits/sv-pending-local-evidence.json \
+            data/audits/sv-p-official-detail-audit.json \
             data/audits/sv-korean-membership-audit.json \
             data/series-print-variants.json \
             data/master-card-db-audit.json

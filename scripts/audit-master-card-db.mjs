@@ -260,6 +260,7 @@ function buildAudit(inventory, variants, membershipEvidence = null, koreanMember
         ? [
             "data/audits/sv-korean-membership-audit.json",
             "data/audits/series-official-gap-evidence.json",
+            "data/audits/sv-p-official-detail-audit.json",
           ]
         : []),
     ],

@@ -21,6 +21,18 @@ const [primary, local] = await Promise.all([
   readFile(localPath, "utf8").then(JSON.parse),
 ]);
 
+let directOfficialDetailAudit = null;
+if (era === "SV") {
+  try {
+    directOfficialDetailAudit = JSON.parse(
+      await readFile(
+        path.join(root, "data", "audits", "sv-p-official-detail-audit.json"),
+        "utf8",
+      ),
+    );
+  } catch {}
+}
+
 if (String(primary?.scope?.era || "").toUpperCase() !== era) {
   throw new Error("Primary membership era mismatch.");
 }
@@ -63,35 +75,66 @@ const localSets = (local.sets || [])
   .filter(
     (item) => !primaryCodes.has(String(item.code || "").toLowerCase()),
   )
-  .map((item) => ({
-    code: item.code,
-    title: item.title,
-    expectedSlotCount: Number(item.cardCount || 0),
-    productSearchSlotCount: 0,
-    productSearchGapCount: 0,
-    firstPartyVerifiedGapCount: Number(item.firstPartyCount || 0),
-    koreanSecondaryVerifiedGapCount: Number(
-      item.koreanSecondaryCount || 0,
-    ),
-    unresolvedGapCount: Number(item.unresolvedCount || 0),
-    officialVerifiedSlotCount: Number(item.firstPartyCount || 0),
-    koreanSupportedSlotCount:
-      Number(item.firstPartyCount || 0) +
-      Number(item.koreanSecondaryCount || 0),
-    pendingOfficialEvidenceCount: Number(
-      item.pendingOfficialEvidenceCount ??
-        Number(item.koreanSecondaryCount || 0) +
-          Number(item.unresolvedCount || 0),
-    ),
-    verifiedSlotCount: Number(item.firstPartyCount || 0),
-    complete: item.complete === true,
-    koreanSupportedComplete: item.koreanSupportedComplete === true,
-    verificationMode: "local-korean-evidence",
-    productSearchAudited: false,
-    notProductSearchAuditedSlotCount: Number(item.cardCount || 0),
-    sourceHosts: item.sourceHosts || {},
-    imageHosts: item.imageHosts || {},
-  }));
+  .map((item) => {
+    const expectedSlotCount = Number(item.cardCount || 0);
+    const localFirstPartyCount = Number(item.firstPartyCount || 0);
+    const localSupportedSlotCount =
+      localFirstPartyCount + Number(item.koreanSecondaryCount || 0);
+    const isSvPromo =
+      era === "SV" && String(item.code || "").toLowerCase() === "sv-p";
+    const directVerifiedSlotCount =
+      isSvPromo &&
+      Number(directOfficialDetailAudit?.summary?.expectedSlotCount || 0) ===
+        expectedSlotCount
+        ? Number(directOfficialDetailAudit?.summary?.verifiedSlotCount || 0)
+        : 0;
+    const officialVerifiedSlotCount = Math.max(
+      localFirstPartyCount,
+      directVerifiedSlotCount,
+    );
+    const koreanSupportedSlotCount = Math.max(
+      localSupportedSlotCount,
+      officialVerifiedSlotCount,
+    );
+    const koreanSecondaryVerifiedGapCount = Math.max(
+      0,
+      koreanSupportedSlotCount - officialVerifiedSlotCount,
+    );
+    const pendingOfficialEvidenceCount = Math.max(
+      0,
+      expectedSlotCount - officialVerifiedSlotCount,
+    );
+
+    return {
+      code: item.code,
+      title: item.title,
+      expectedSlotCount,
+      productSearchSlotCount: 0,
+      productSearchGapCount: 0,
+      firstPartyVerifiedGapCount: officialVerifiedSlotCount,
+      koreanSecondaryVerifiedGapCount,
+      unresolvedGapCount: Number(item.unresolvedCount || 0),
+      officialVerifiedSlotCount,
+      koreanSupportedSlotCount,
+      pendingOfficialEvidenceCount,
+      verifiedSlotCount: officialVerifiedSlotCount,
+      complete:
+        expectedSlotCount > 0 &&
+        pendingOfficialEvidenceCount === 0,
+      koreanSupportedComplete:
+        expectedSlotCount > 0 &&
+        koreanSupportedSlotCount === expectedSlotCount,
+      verificationMode:
+        directVerifiedSlotCount > 0
+          ? "official-card-detail-scan-plus-local-korean-evidence"
+          : "local-korean-evidence",
+      productSearchAudited: false,
+      directOfficialDetailAudited: directVerifiedSlotCount > 0,
+      notProductSearchAuditedSlotCount: expectedSlotCount,
+      sourceHosts: item.sourceHosts || {},
+      imageHosts: item.imageHosts || {},
+    };
+  });
 
 const sets = [...primarySets, ...localSets];
 const output = {
@@ -117,7 +160,12 @@ const output = {
       (item) => item.koreanSupportedComplete,
     ).length,
     productSearchAuditedSetCount: primarySets.length,
-    localEvidenceOnlySetCount: localSets.length,
+    localEvidenceOnlySetCount: localSets.filter(
+      (item) => !item.directOfficialDetailAudited,
+    ).length,
+    directOfficialDetailAuditedSetCount: localSets.filter(
+      (item) => item.directOfficialDetailAudited,
+    ).length,
     expectedSlotCount: sets.reduce(
       (sum, item) => sum + Number(item.expectedSlotCount || 0),
       0,
@@ -152,6 +200,9 @@ const output = {
   sources: [
     path.relative(root, primaryPath).replaceAll("\\", "/"),
     path.relative(root, localPath).replaceAll("\\", "/"),
+    ...(directOfficialDetailAudit
+      ? ["data/audits/sv-p-official-detail-audit.json"]
+      : []),
   ],
 };
 
