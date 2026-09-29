@@ -118,8 +118,19 @@ for (const set of gapEvidence.sets || []) {
     };
   }
 
-  const productSearchSlotCount = Number(set.officialParsedSlotCount || 0);
   const expectedSlotCount = Number(set.expectedSlotCount || 0);
+  const productSearchGapCount = Number(set.missingExpectedSlotCount || 0);
+  // A product can legitimately bundle cards from another set code (for
+  // example SVM Generations includes SV-P promos). Count only expected
+  // canonical slots matched by official search, never all parsed records.
+  const productSearchSlotCount = Math.max(
+    0,
+    expectedSlotCount - productSearchGapCount,
+  );
+  const officialParsedSlotCount = Number(set.officialParsedSlotCount || 0);
+  const unexpectedOfficialSlotCount = Number(
+    set.unexpectedOfficialSlotCount || 0,
+  );
   const officialVerifiedSlotCount =
     productSearchSlotCount + firstPartyVerifiedGapCount;
   const koreanSupportedSlotCount =
@@ -134,7 +145,9 @@ for (const set of gapEvidence.sets || []) {
     title: set.title,
     expectedSlotCount,
     productSearchSlotCount,
-    productSearchGapCount: Number(set.missingExpectedSlotCount || 0),
+    productSearchGapCount,
+    officialParsedSlotCount,
+    unexpectedOfficialSlotCount,
     firstPartyVerifiedGapCount,
     koreanSecondaryVerifiedGapCount,
     unresolvedGapCount,
