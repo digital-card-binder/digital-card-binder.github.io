@@ -97,11 +97,20 @@ def main() -> int:
                 payload = cache.read_bytes().decode("utf-8", errors="replace")
             else:
                 try:
-                    raw = official.request_bytes(source, attempts=1)
+                    request = official.Request(
+                        source,
+                        headers={
+                            "User-Agent": official.USER_AGENT,
+                            "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.6",
+                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                        },
+                    )
+                    with official.HTTP_OPENER.open(request, timeout=8) as response:
+                        raw = response.read()
+                        status = int(response.status)
                     cache.parent.mkdir(parents=True, exist_ok=True)
                     cache.write_bytes(raw)
                     payload = raw.decode("utf-8", errors="replace")
-                    status = 200
                 except HTTPError as exc:
                     status = int(exc.code)
                     if status not in (404, 410):
