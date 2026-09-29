@@ -854,6 +854,20 @@ test("mobile, compact, and desktop column choices restore independently", async 
   assert.equal(layout.button.textContent, "▦ 2열");
 });
 
+test("signed-in visitors automatically repair stale public projections once", async () => {
+  const navigation = await source("collector-nav.js");
+  const publicSync = await source("collector-public-sync.js");
+
+  assert.match(navigation, /PUBLIC_PROJECTION_REPAIR_VERSION = "projection-50k-v1"/);
+  assert.match(navigation, /schedulePublicProjectionRepair/);
+  assert.match(navigation, /CollectorPublicSync[?][.]syncCollectionWithRetry/);
+  assert.match(navigation, /preferServer: true/);
+  assert.match(navigation, /registry[.]COLLECTION_ORDER/);
+  assert.match(navigation, /digitalCardBinderPublicProjectionRepairV1/);
+  assert.match(publicSync, /getDocFromServer/);
+  assert.match(publicSync, /preferServer: Boolean\(options[?][.]preferServer\)/);
+});
+
 test("public collector board reads only directory and existing public projections", async () => {
   const boardPage = await source("collectors.html");
   const boardClient = await source("collector-directory.js");
