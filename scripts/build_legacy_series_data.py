@@ -157,6 +157,7 @@ PRODUCTS: list[dict[str, str]] = [
     {"era": "SV", "code": "SVOD", "title": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」", "product": "스칼렛&바이올렛 스타터 세트 ex 「성호의 메탕&메타그로스 ex」"},
     {"era": "SV", "code": "SVN", "title": "배틀 강화 BOX 「배틀파트너즈」", "product": "스칼렛&바이올렛 배틀 강화 BOX 「배틀파트너즈」"},
     {"era": "SV", "code": "SVM", "title": "스타트 덱 Generations 스페셜 배틀 세트", "product": "스칼렛&바이올렛 스타트 덱 Generations 스페셜 배틀 세트"},
+    {"era": "SV", "code": "SVM", "title": "스타트 덱 Generations 스페셜 배틀 세트", "product": "스칼렛&바이올렛 랜덤 스타트 덱 Generations"},
     {"era": "SV", "code": "SVP2", "title": "ex 스페셜 세트 ver.2", "product": "스칼렛&바이올렛 「ex 스페셜 세트 ver.2」"},
     {"era": "SV", "code": "SVLS", "title": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」"},
     {"era": "SV", "code": "SVLN", "title": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」", "product": "스칼렛&바이올렛 스타터 세트 테라스탈타입:스텔라 「님피아 ex」"},
