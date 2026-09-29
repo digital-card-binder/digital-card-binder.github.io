@@ -1207,6 +1207,22 @@ test("approved collection preview styling covers public collection flows without
   assert.doesNotMatch(client, /firebase|firestore|ownedCodes|localStorage/i);
 });
 
+test("stage 5 mobile precision preserves touch targets and narrow-screen grids", async () => {
+  const collectionCss = await source("collection-preview.css");
+  const homeCss = await source("home-preview.css");
+
+  assert.match(collectionCss, /[.]collection-mobile-menu-button \{[\s\S]*?min-height: 44px/);
+  assert.match(collectionCss, /[.]pill-group button \{\s*min-width: 44px/);
+  assert.match(
+    collectionCss,
+    /body[.]collector-collection-page :is\([\s\S]*?[.]segmented-control[\s\S]*?\) button \{\s*min-height: 44px/,
+  );
+  assert.match(
+    homeCss,
+    /@media \(max-width: 340px\) \{[\s\S]*?[.]home-feature-grid \{\s*grid-template-columns: minmax\(0, 1fr\)/,
+  );
+});
+
 test("series era filters use representative cards without changing filter keys", async () => {
   const page = await source("series.html");
   const css = await source("series-era-thumbnails.css");

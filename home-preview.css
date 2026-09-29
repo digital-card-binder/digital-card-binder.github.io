@@ -1677,3 +1677,9 @@ body[data-page="dashboard"] .site-footer {
     grid-column: auto;
   }
 }
+
+@media (max-width: 340px) {
+  .home-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

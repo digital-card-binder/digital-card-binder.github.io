@@ -494,7 +494,7 @@ body[data-page="custom-dex"] .custom-dex-card.is-active {
   .collection-mobile-menu-button {
     display: inline-grid;
     min-width: 46px;
-    min-height: 42px;
+    min-height: 44px;
     place-items: center;
     gap: 1px;
     margin-left: auto;
@@ -692,6 +692,19 @@ body[data-page="custom-dex"] .custom-dex-card.is-active {
   .catalog-panel .results-bar {
     top: 62px;
     background: rgba(255, 255, 255, 0.96);
+  }
+
+  body.collector-collection-page :is(
+    .segmented-control,
+    .pill-group,
+    .fossil-status-filters,
+    .tp-view-mode
+  ) button {
+    min-height: 44px;
+  }
+
+  body.collector-collection-page .pill-group button {
+    min-width: 44px;
   }
 
   .pokemon-card-button:hover,
