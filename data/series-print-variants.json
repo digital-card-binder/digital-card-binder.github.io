@@ -131,7 +131,21 @@
         "sv2D",
         "sv2P",
         "sv5a",
-        "sv8"
+        "sv8",
+        "SVOD",
+        "SVP2",
+        "SVLS",
+        "SVLN",
+        "SVJP",
+        "SVJL",
+        "SVI",
+        "SVEL",
+        "SVF",
+        "SVP1",
+        "SVC",
+        "SVB",
+        "SVAL",
+        "SVAM"
       ],
       "partialSetCodes": [
         "sv1S",
@@ -154,16 +168,26 @@
         "sv9a",
         "sv10",
         "sv11B",
-        "sv11W"
+        "sv11W",
+        "SVOM",
+        "SVN",
+        "SVM",
+        "SVK",
+        "SVHK",
+        "SVHM",
+        "SVG",
+        "SVEM",
+        "SVD",
+        "SVAW"
       ],
-      "configuredSetCount": 25,
-      "resolvedProductCount": 25,
+      "configuredSetCount": 49,
+      "resolvedProductCount": 49,
       "missingProductCount": 0,
-      "variantSlotCount": 405,
+      "variantSlotCount": 433,
       "variantCounts": {
         "holo": 0,
-        "mirror": 286,
-        "other": 119
+        "mirror": 298,
+        "other": 135
       }
     }
   },
@@ -2126,6 +2150,90 @@
     ],
     "sv8a::sv8a::99": [
       "mirror"
+    ],
+    "sval::sval::2": [
+      "mirror"
+    ],
+    "sval::sval::3": [
+      "mirror"
+    ],
+    "sval::sval::4": [
+      "mirror"
+    ],
+    "svam::svam::4": [
+      "mirror"
+    ],
+    "svam::svam::5": [
+      "mirror"
+    ],
+    "svam::svam::6": [
+      "mirror"
+    ],
+    "svaw::svaw::2": [
+      "mirror"
+    ],
+    "svaw::svaw::3": [
+      "mirror"
+    ],
+    "svaw::svaw::4": [
+      "mirror"
+    ],
+    "svc::svc::7": [
+      "mirror"
+    ],
+    "svc::svc::8": [
+      "mirror"
+    ],
+    "svc::svc::9": [
+      "mirror"
+    ],
+    "svel::svel::5": [
+      "other"
+    ],
+    "svel::svel::6": [
+      "other"
+    ],
+    "svem::svem::4": [
+      "other"
+    ],
+    "svem::svem::5": [
+      "other"
+    ],
+    "svi::svi::49": [
+      "other"
+    ],
+    "svi::svi::50": [
+      "other"
+    ],
+    "svi::svi::51": [
+      "other"
+    ],
+    "svi::svi::55": [
+      "other"
+    ],
+    "svi::svi::56": [
+      "other"
+    ],
+    "svi::svi::58": [
+      "other"
+    ],
+    "svi::svi::59": [
+      "other"
+    ],
+    "svi::svi::60": [
+      "other"
+    ],
+    "svi::svi::61": [
+      "other"
+    ],
+    "svi::svi::62": [
+      "other"
+    ],
+    "svi::svi::64": [
+      "other"
+    ],
+    "svi::svi::66": [
+      "other"
     ]
   }
 }
