@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1">
     <link rel="stylesheet" href="./collector.css?v=c0e350f670f6">
     <link rel="stylesheet" href="./collection-preview.css?v=992bb09d7175">
+    <link rel="stylesheet" href="./series-era-thumbnails.css?v=8777d4127fd7">
     <script src="./card-image-cdn.js?v=99b360ed1730" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -120,16 +121,16 @@
           <div class="catalog-era-filter">
             <span class="filter-label">시리즈 카테고리</span>
             <div id="catalog-era" class="catalog-era-tabs" role="tablist" aria-label="시리즈 카테고리 선택">
-              <button class="is-active" type="button" role="tab" data-era="ALL" aria-selected="true" tabindex="0"><strong>전체</strong><span>ALL</span></button>
-              <button type="button" role="tab" data-era="ORIGIN" aria-selected="false" tabindex="-1"><strong>오리지널</strong><span>ORIGIN</span></button>
-              <button type="button" role="tab" data-era="ADV" aria-selected="false" tabindex="-1"><strong>ADV</strong><span>ADV</span></button>
-              <button type="button" role="tab" data-era="DP" aria-selected="false" tabindex="-1"><strong>DP</strong><span>DP</span></button>
-              <button type="button" role="tab" data-era="BW" aria-selected="false" tabindex="-1"><strong>BW</strong><span>BW</span></button>
-              <button type="button" role="tab" data-era="XY" aria-selected="false" tabindex="-1"><strong>XY</strong><span>XY</span></button>
-              <button type="button" role="tab" data-era="SM" aria-selected="false" tabindex="-1"><strong>썬&amp;문</strong><span>SM</span></button>
-              <button type="button" role="tab" data-era="S" aria-selected="false" tabindex="-1"><strong>소드&amp;실드</strong><span>S</span></button>
-              <button type="button" role="tab" data-era="SV" aria-selected="false" tabindex="-1"><strong>스칼렛&amp;바이올렛</strong><span>SV</span></button>
-              <button type="button" role="tab" data-era="M" aria-selected="false" tabindex="-1"><strong>MEGA</strong><span>M</span></button>
+              <button class="is-active" type="button" role="tab" data-era="ALL" aria-selected="true" tabindex="0"><strong>전체</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://static.tcgexchange.kr/cdf70cd44293bf1d51dbcb2129f4e53c.webp" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="ORIGIN" aria-selected="false" tabindex="-1"><strong>오리지널</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://static.tcgexchange.kr/synthetic/f15fdef8153d00df79e2c59fe26816a9.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="ADV" aria-selected="false" tabindex="-1"><strong>ADV</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://static.tcgexchange.kr/a9a4890b5070d21d0cd6a99769786ccf.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="DP" aria-selected="false" tabindex="-1"><strong>DP</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/BS1/bs1_kr_1.jpg" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="BW" aria-selected="false" tabindex="-1"><strong>BW</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW1/bw1_black_001.jpg" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="XY" aria-selected="false" tabindex="-1"><strong>XY</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SMXY/SMXY_001.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="SM" aria-selected="false" tabindex="-1"><strong>썬&amp;문</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1S/SM1S_001.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="S" aria-selected="false" tabindex="-1"><strong>소드&amp;실드</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S1W/S1W_001.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="SV" aria-selected="false" tabindex="-1"><strong>스칼렛&amp;바이올렛</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://static.tcgexchange.kr/ddd0ccf85346959583d1e1cf43fa47b0.png" alt="" loading="lazy"></span></button>
+              <button type="button" role="tab" data-era="M" aria-selected="false" tabindex="-1"><strong>MEGA</strong><span class="era-card-thumb" aria-hidden="true"><img src="https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6/M6_001.png" alt="" loading="lazy"></span></button>
             </div>
           </div>
           <section id="series-dashboard" class="series-dashboard" aria-label="시리즈별 수집 현황"></section>

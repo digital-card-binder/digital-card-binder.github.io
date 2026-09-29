@@ -1207,6 +1207,20 @@ test("approved collection preview styling covers public collection flows without
   assert.doesNotMatch(client, /firebase|firestore|ownedCodes|localStorage/i);
 });
 
+test("series era filters use representative cards without changing filter keys", async () => {
+  const page = await source("series.html");
+  const css = await source("series-era-thumbnails.css");
+  const eraKeys = ["ALL", "ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"];
+
+  assert.match(page, /series-era-thumbnails[.]css[?]v=[0-9a-f]{12}/);
+  assert.equal([...page.matchAll(/class="era-card-thumb"/g)].length, eraKeys.length);
+  for (const era of eraKeys) {
+    assert.match(page, new RegExp(`data-era="${era}"`));
+  }
+  assert.match(css, /[.]era-card-thumb img/);
+  assert.match(css, /object-fit: cover/);
+});
+
 test("current dashboard is the only production shell and carries the latest nav", async () => {
   const current = await source("index.html");
   assert.match(current, /주요 도감/);
