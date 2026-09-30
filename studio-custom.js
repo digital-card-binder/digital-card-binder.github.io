@@ -69,6 +69,7 @@
     currentBinderId: "",
     currentCreatedAt: null,
     currentChunkCount: 0,
+    currentChunkSet: "",
     saving: false,
     savedWorkCount: 0,
   };
@@ -262,7 +263,7 @@
     }
   }
 
-  async function writeBackgroundChunks(reference, blob, previousCount = 0) {
+  async function writeBackgroundChunks(reference, blob, chunkSet) {
     const { firestoreModule, db } = state.firebase;
     const raw = new Uint8Array(await blob.arrayBuffer());
     const chunkCount = Math.ceil(raw.length / CHUNK_BYTES);
@@ -280,10 +281,11 @@
         const chunkReference = firestoreModule.doc(
           reference,
           "chunks",
-          `chunk_${String(index).padStart(3, "0")}`,
+          `${chunkSet}_${String(index).padStart(3, "0")}`,
         );
         batch.set(chunkReference, {
           ownerUid: state.user.uid,
+          chunkSet,
           index,
           data: firestoreModule.Bytes.fromUint8Array(bytes),
           size: bytes.length,
@@ -293,37 +295,38 @@
       await batch.commit();
     }
 
-    if (previousCount > chunkCount) {
+    return chunkCount;
+  }
+
+  async function deleteChunkSet(reference, chunkSet) {
+    if (!chunkSet) return;
+    const { firestoreModule, db } = state.firebase;
+    const snapshot = await firestoreModule.getDocs(
+      firestoreModule.collection(reference, "chunks"),
+    );
+    const matches = snapshot.docs.filter(
+      (item) => item.data()?.chunkSet === chunkSet,
+    );
+    for (let start = 0; start < matches.length; start += 100) {
       const batch = firestoreModule.writeBatch(db);
-      for (let index = chunkCount; index < previousCount; index += 1) {
-        batch.delete(
-          firestoreModule.doc(
-            reference,
-            "chunks",
-            `chunk_${String(index).padStart(3, "0")}`,
-          ),
-        );
-      }
+      matches.slice(start, start + 100).forEach((item) => batch.delete(item.ref));
       await batch.commit();
     }
-
-    return chunkCount;
   }
 
   async function readBackgroundBlob(reference, background) {
     const { firestoreModule } = state.firebase;
     const chunkCollection = firestoreModule.collection(reference, "chunks");
-    const snapshot = await firestoreModule.getDocs(
-      firestoreModule.query(
-        chunkCollection,
-        firestoreModule.orderBy("index", "asc"),
-      ),
-    );
+    const snapshot = await firestoreModule.getDocs(chunkCollection);
+
+    const chunkRows = snapshot.docs
+      .map((chunkSnapshot) => chunkSnapshot.data() || {})
+      .filter((data) => data.chunkSet === background?.chunkSet)
+      .sort((a, b) => Number(a.index) - Number(b.index));
 
     const chunks = [];
     let total = 0;
-    snapshot.forEach((chunkSnapshot) => {
-      const data = chunkSnapshot.data() || {};
+    chunkRows.forEach((data) => {
       const bytes = data.data?.toUint8Array?.();
       if (!bytes) return;
       chunks.push(bytes);
@@ -402,6 +405,7 @@
       state.currentBinderId = binderId;
       state.currentCreatedAt = data.createdAt || null;
       state.currentChunkCount = Number(data.background?.chunkCount) || 0;
+      state.currentChunkSet = clean(data.background?.chunkSet);
       state.placements = (Array.isArray(data.cards) ? data.cards : [])
         .slice(0, 16)
         .map(restorePlacement);
@@ -466,11 +470,14 @@
 
     try {
       let chunkCount = state.currentChunkCount;
-      if (!state.currentBinderId || state.backgroundDirty || !chunkCount) {
+      let chunkSet = state.currentChunkSet;
+      const previousChunkSet = state.currentChunkSet;
+      if (!state.currentBinderId || state.backgroundDirty || !chunkCount || !chunkSet) {
+        chunkSet = makeId("blob");
         chunkCount = await writeBackgroundChunks(
           reference,
           state.sourceBlob,
-          state.currentChunkCount,
+          chunkSet,
         );
       }
 
@@ -485,6 +492,7 @@
           type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
           size: state.sourceBlob.size,
           chunkCount,
+          chunkSet,
           width: state.sourceWidth,
           height: state.sourceHeight,
         },
@@ -500,7 +508,11 @@
       state.currentBinderId = binderId;
       state.currentCreatedAt = savedData.createdAt || state.currentCreatedAt;
       state.currentChunkCount = chunkCount;
+      state.currentChunkSet = chunkSet;
       state.backgroundDirty = false;
+      if (previousChunkSet && previousChunkSet !== chunkSet) {
+        await deleteChunkSet(reference, previousChunkSet);
+      }
       setBinderUrl(binderId);
       updateSaveUi("나만의도감에 저장했습니다.");
       await refreshLibrary();
@@ -542,6 +554,7 @@
     state.currentBinderId = "";
     state.currentCreatedAt = null;
     state.currentChunkCount = 0;
+    state.currentChunkSet = "";
     state.backgroundDirty = false;
     titleInput.value = "";
     searchInput.value = "";
