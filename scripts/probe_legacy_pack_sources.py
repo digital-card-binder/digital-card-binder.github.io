@@ -92,3 +92,35 @@ for pid in ["431466324","430449269","432817025","411177289","411177637","4111779
             print("COREHEAD",t[:2500])
     except Exception as e:
         print("COREERROR",pid,repr(e))
+
+
+print("\n=== BING IMAGE CACHE CANDIDATES ===")
+import json as _json
+for q in [
+  '"또 다른 세계" 포켓몬 카드 팩',
+  '"보이지 않는 힘" 포켓몬 카드 팩',
+  '"화려한 전설" 포켓몬 카드 팩',
+  '"호수의 기적" 포켓몬 카드 팩',
+  '"고대의 수호자" 포켓몬 카드 팩',
+  '"제1탄 확장팩" 포켓몬 ADV 한국',
+]:
+    url="https://www.bing.com/images/search?q="+quote(q)+"&form=HDRSC2"
+    try:
+        rr=requests.get(url,headers=headers,timeout=30)
+        print("\nBING",q,"status",rr.status_code,"len",len(rr.content))
+        raw=rr.text
+        count=0
+        for m in re.findall(r' m="({[^"]*(?:&quot;|[^"])*})"', raw):
+            try:
+                obj=_json.loads(html.unescape(m))
+            except Exception:
+                continue
+            p=str(obj.get("purl") or "")
+            mu=str(obj.get("murl") or "")
+            tu=str(obj.get("turl") or "")
+            if "namu" in p or "bunjang" in p or "joongna" in p or "ebay" in p or count<3:
+                print("BINGITEM",p,"|",mu,"|",tu)
+                count+=1
+                if count>=12: break
+    except Exception as e:
+        print("BINGERROR",q,repr(e))
