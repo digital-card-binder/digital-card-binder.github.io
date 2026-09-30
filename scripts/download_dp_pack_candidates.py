@@ -76,3 +76,25 @@ for code,q in simple_queries.items():
         saved+=1
         if saved>=8:
             break
+
+
+targeted={
+  "bs8":["DP8 화려한 전설 고대팩","포켓몬카드 DP8 화려한 전설"],
+  "bs9":["DP제9탄 호수의 기적 고대팩","호수의 기적 고대팩"],
+  "bs10":["DP10 고대의 수호자 고대팩","고대의 수호자 고대팩"],
+}
+for code,queries in targeted.items():
+    for q in queries:
+        url=api+"?q="+quote(q)+"&order=score&page=0&request_id=packdex3&stat_device=w&n=100&stat_category_required=1&req_ref=search&version=4"
+        data=requests.get(url,headers=headers,timeout=30).json()
+        for item in data.get("list",[])[:20]:
+            name=str(item.get("name") or "")
+            image=str(item.get("product_image") or "")
+            if not image:
+                continue
+            pid=str(item.get("pid") or "")
+            image=image.replace("{cnt}","1").replace("{res}","840")
+            rr=requests.get(image,headers=headers,timeout=30)
+            if rr.ok and len(rr.content)>=2000:
+                (OUT/f"{code}-target-{pid}.jpg").write_bytes(rr.content)
+                print("target-candidate",code,pid,name,image)
