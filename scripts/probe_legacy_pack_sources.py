@@ -60,3 +60,22 @@ for q in queries:
             print("ITEM",item.get("pid"),"|",item.get("name"),"|",item.get("product_image"))
     except Exception as e:
         print("QUERYERROR",q,repr(e))
+
+
+print("\n=== BUNJANG MISSING DP VARIANTS ===")
+queries2 = [
+  "DP 4탄 고대팩", "또 다른 세계 고대팩", "또다른세계 포켓몬",
+  "DP 7탄 고대팩", "보이지 않는 힘 고대팩", "보이지않는힘 포켓몬",
+  "DP 8탄 고대팩", "화려한 전설 고대팩", "화려한전설 포켓몬",
+  "DP 9탄 고대팩", "호수의 기적 고대팩", "호수의기적 포켓몬",
+  "DP 10탄 고대팩", "고대의 수호자 고대팩", "고대의수호자 포켓몬",
+]
+for q in queries2:
+    url = "https://api.bunjang.co.kr/api/1/find_v2.json?q=" + quote(q) + "&order=score&page=0&request_id=20260930b&stat_device=w&n=30&stat_category_required=1&req_ref=search&version=4"
+    try:
+        data=requests.get(url,headers=headers,timeout=30).json()
+        print("\nQUERY2",q,"count",len(data.get("list",[])))
+        for item in data.get("list",[])[:8]:
+            print("ITEM2",item.get("pid"),"|",item.get("name"),"|",item.get("product_image"))
+    except Exception as e:
+        print("QUERY2ERROR",q,repr(e))
