@@ -24,7 +24,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests pillow
+      - uses: browser-actions/setup-chrome@v1
+      - uses: nanasess/setup-chromedriver@v2
+      - run: pip install requests pillow selenium
       - name: Import and optimize missing Korean pack images
         run: python scripts/import_missing_early_pack_images.py
       - name: Commit self-hosted images
