@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install selenium pillow
+      - run: pip install selenium pillow requests
       - run: python scripts/capture_dp_pack_archive_candidates.py
       - run: |
           git config user.name "github-actions[bot]"
