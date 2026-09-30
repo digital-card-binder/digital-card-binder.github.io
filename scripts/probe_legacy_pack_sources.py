@@ -134,3 +134,14 @@ for needle in ["murl", "&quot;murl&quot;", "class=\"iusc\""]:
     ii=raw.find(needle)
     print("NEEDLE",needle,"INDEX",ii)
     if ii>=0: print("SAMPLE",raw[max(0,ii-500):ii+1800])
+
+
+print("\n=== BUNJANG GENERIC DP PACK RESULTS ===")
+for q in ["dp 포켓몬카드팩 고대팩", "포켓몬카드 고대팩 dp시리즈", "포켓몬 고대팩 DP팩", "포켓몬카드 DP 미개봉 팩"]:
+    url="https://api.bunjang.co.kr/api/1/find_v2.json?q="+quote(q)+"&order=score&page=0&request_id=20260930c&stat_device=w&n=100&stat_category_required=1&req_ref=search&version=4"
+    data=requests.get(url,headers=headers,timeout=30).json()
+    print("\nGENERIC",q,"count",len(data.get("list",[])))
+    for item in data.get("list",[])[:30]:
+        name=str(item.get("name") or "")
+        if any(k in name.lower() for k in ["포켓몬","dp","고대팩"]):
+            print("GITEM",item.get("pid"),"|",name,"|",item.get("product_image"))
