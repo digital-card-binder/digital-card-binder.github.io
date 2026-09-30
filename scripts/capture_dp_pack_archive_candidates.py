@@ -1,44 +1,21 @@
-from pathlib import Path
-from io import BytesIO
-from PIL import Image
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+import requests, re, html
 
-OUT=Path("assets/packs/candidates")
-OUT.mkdir(parents=True, exist_ok=True)
-
-TARGETS={
-  "bs8":"https://file.namu.moe/file/8ae8b528101ede59c2e29eb72bd501d7353393e3d42859beb75499094b49d0d2",
-  "bs9":"https://file.namu.moe/file/2e617578aaaa76b38065aba6f3f5d87d4cfd11616783fa8ca9cecffb3ac9e4f8",
-  "bs10":"https://file.namu.moe/file/954b07d3b8603250dc2f03c02db853cc0b8f9accb0cd0db50bc3c2fef8d39508fa6689c612c7c7a615ed141f0e42c63d",
+pages={
+  "bs8":"https://d.namu.moe/w/%ED%99%94%EB%A0%A4%ED%95%9C%20%EC%A0%84%EC%84%A4",
+  "bs9":"https://d.namu.moe/w/%ED%98%B8%EC%88%98%EC%9D%98%20%EA%B8%B0%EC%A0%81",
+  "bs10":"https://d.namu.moe/w/%EA%B3%A0%EB%8C%80%EC%9D%98%20%EC%88%98%ED%98%B8%EC%9E%90(%ED%8F%AC%EC%BC%93%EB%AA%AC%20%EC%B9%B4%EB%93%9C%20%EA%B2%8C%EC%9E%84)",
 }
-
-opts=webdriver.ChromeOptions()
-opts.add_argument("--headless=new")
-opts.add_argument("--no-sandbox")
-opts.add_argument("--disable-dev-shm-usage")
-opts.add_argument("--window-size=1200,1800")
-opts.add_argument("--lang=ko-KR")
-driver=webdriver.Chrome(options=opts)
-try:
-    for code,url in TARGETS.items():
-        driver.get(url)
-        for _ in range(20):
-            imgs=driver.find_elements(By.TAG_NAME,"img")
-            if imgs:
-                img=imgs[0]
-                nw=driver.execute_script("return arguments[0].naturalWidth||0",img)
-                nh=driver.execute_script("return arguments[0].naturalHeight||0",img)
-                print(code,"DIRECT",nw,nh,driver.current_url)
-                if nw>100 and nh>180:
-                    png=img.screenshot_as_png
-                    Image.open(BytesIO(png)).verify()
-                    (OUT/f"{code}-namu.png").write_bytes(png)
-                    print(code,"saved",len(png))
-                    break
-            time.sleep(1)
-        else:
-            raise RuntimeError(f"{code}: direct image did not load")
-finally:
-    driver.quit()
+headers={"User-Agent":"Mozilla/5.0"}
+for code,url in pages.items():
+    r=requests.get(url,headers=headers,timeout=30)
+    print("\nPAGE",code,r.status_code,len(r.text),r.url)
+    text=html.unescape(r.text)
+    for needle in ["file.namu.moe","화려한 전설.png","호수의 기적.png","고대의 수호자_포케카.png"]:
+        pos=text.find(needle)
+        if pos>=0:
+            print("FRAGMENT",code,needle,text[max(0,pos-1200):pos+2200].replace("\n"," "))
+            break
+    urls=sorted(set(re.findall(r'https?://[^"\'<> ]+',text)))
+    for u in urls:
+        if "namu" in u and ("file" in u or "/i/" in u or "image" in u):
+            print("URL",code,u[:500])
