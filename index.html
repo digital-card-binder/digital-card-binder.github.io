@@ -31,7 +31,7 @@
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
     <script src="./collector-public-sync.js?v=8e49aaaa2670" defer></script>
     <script src="./collector-nav.js?v=7b28f4d413c7" defer></script>
-    <script src="./dashboard.js?v=053fc0a0de1d" defer></script>
+    <script src="./dashboard.js?v=5f59c1a1e999" defer></script>
     <script src="./feedback.js?v=37639a6a4d0c" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./pwa.js?v=be21d09548f5" defer></script>
@@ -56,9 +56,14 @@
       </nav>
       <div class="home-header-actions">
         <span class="header-chip">공개 보기</span>
-        <button id="home-account-trigger" class="home-account-trigger" type="button" aria-label="로그인 및 계정 메뉴" aria-expanded="false">
+        <button id="home-account-trigger" class="home-account-trigger" type="button" aria-label="로그인 및 계정 메뉴" aria-expanded="false" aria-controls="home-account-menu">
           <span class="home-account-icon" aria-hidden="true"></span>
         </button>
+        <div id="home-account-menu" class="home-account-menu" hidden>
+          <a id="home-account-profile" href="./collector-settings.html" hidden>프로필 관리</a>
+          <button id="home-account-login" type="button">Google 로그인</button>
+          <button id="home-account-logout" type="button" hidden>로그아웃</button>
+        </div>
         <details id="home-menu" class="home-menu">
           <summary aria-label="메뉴 열기"><span aria-hidden="true"></span>메뉴</summary>
           <nav aria-label="모바일 주요 메뉴">
