@@ -50,21 +50,34 @@
     return source;
   }
 
-  async function loadPrivateContext({ db, firestoreModule, user, collectionId }) {
+  async function loadPrivateContext({
+    db,
+    firestoreModule,
+    user,
+    collectionId,
+    preferServer = false,
+  }) {
     const registry = window.CollectorCollectionRegistry;
     if (!registry?.supportedCollectionId?.(collectionId)) {
       throw new Error("지원하지 않는 도감입니다.");
     }
     if (!user?.uid) throw new Error("Google 로그인이 필요합니다.");
 
+    const read = async (reference) => {
+      if (preferServer && typeof firestoreModule.getDocFromServer === "function") {
+        try {
+          return await firestoreModule.getDocFromServer(reference);
+        } catch (error) {
+          console.warn("공개 도감 원본 서버 조회 실패, 로컬 캐시로 대체합니다.", error);
+        }
+      }
+      return firestoreModule.getDoc(reference);
+    };
+
     const [profileSnapshot, settingSnapshot, sourceSnapshot] = await Promise.all([
-      firestoreModule.getDoc(profileRef(firestoreModule, db, user.uid)),
-      firestoreModule.getDoc(
-        settingRef(firestoreModule, db, user.uid, collectionId),
-      ),
-      firestoreModule.getDoc(
-        sourceRef(firestoreModule, db, user.uid, collectionId),
-      ),
+      read(profileRef(firestoreModule, db, user.uid)),
+      read(settingRef(firestoreModule, db, user.uid, collectionId)),
+      read(sourceRef(firestoreModule, db, user.uid, collectionId)),
     ]);
     const profile = profileSnapshot.exists() ? profileSnapshot.data() || {} : null;
     const setting = registry.normalizeSetting(
@@ -98,6 +111,7 @@
       firestoreModule,
       user,
       collectionId,
+      preferServer: Boolean(options?.preferServer),
     });
     const { setting, profile } = context;
     if (setting.visibility !== "public") {

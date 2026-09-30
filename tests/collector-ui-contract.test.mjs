@@ -857,6 +857,20 @@ test("mobile, compact, and desktop column choices restore independently", async 
   assert.equal(layout.buttons["4"].attributes.get("aria-pressed"), "true");
 });
 
+test("signed-in visitors automatically repair stale public projections once", async () => {
+  const navigation = await source("collector-nav.js");
+  const publicSync = await source("collector-public-sync.js");
+
+  assert.match(navigation, /PUBLIC_PROJECTION_REPAIR_VERSION = "projection-50k-v1"/);
+  assert.match(navigation, /schedulePublicProjectionRepair/);
+  assert.match(navigation, /CollectorPublicSync[?][.]syncCollectionWithRetry/);
+  assert.match(navigation, /preferServer: true/);
+  assert.match(navigation, /registry[.]COLLECTION_ORDER/);
+  assert.match(navigation, /digitalCardBinderPublicProjectionRepairV1/);
+  assert.match(publicSync, /getDocFromServer/);
+  assert.match(publicSync, /preferServer: Boolean\(options[?][.]preferServer\)/);
+});
+
 test("public collector board reads only directory and existing public projections", async () => {
   const boardPage = await source("collectors.html");
   const boardClient = await source("collector-directory.js");
@@ -1067,10 +1081,27 @@ test("link-only sharing and link-copy controls are removed", async () => {
   assert.equal(settingsPage.includes('id="collector-profile-copy"'), false);
   assert.equal(publicProfilePage.includes("collector-public-share"), false);
   assert.equal(publicProfileClient.includes("navigator.clipboard"), false);
-  assert.match(settingsClient, /<option value="private">나만 보기<[/]option>/);
-  assert.match(settingsClient, /<option value="public">공개<[/]option>/);
-  assert.match(customSettings, /<option value="private">나만 보기<[/]option>/);
-  assert.match(customSettings, /<option value="public">공개<[/]option>/);
+  assert.equal(settingsClient.includes('<option value="private">나만 보기</option>'), false);
+  assert.equal(settingsClient.includes('<option value="public">공개</option>'), false);
+  assert.match(settingsClient, /collector-public-switch/);
+  assert.match(settingsClient, /data-setting="visibility"/);
+  assert.match(settingsClient, /visibility[.]checked/);
+  assert.equal(customSettings.includes('<option value="private">나만 보기</option>'), false);
+  assert.equal(customSettings.includes('<option value="public">공개</option>'), false);
+  assert.match(customSettings, /custom-granular-switch/);
+  assert.match(customSettings, /toggle[.]checked/);
+});
+
+test("collection public visibility uses simple on-off switches while preserving stored public-private compatibility", async () => {
+  const settingsClient = await source("collector-settings.js");
+  const settingsPage = await source("collector-settings.html");
+  const collectorCss = await source("collector.css");
+
+  assert.match(settingsClient, /<span>공개 프로필에 표시<[/]span>/);
+  assert.match(settingsClient, /visibility: card[.]querySelector\('\[data-setting="visibility"\]'\)[.]checked[\s\S]*?\? "public"[\s\S]*?: "private"/);
+  assert.match(settingsPage, /보여줄 도감만 켜기/);
+  assert.equal(settingsPage.includes("나만 보기</span>"), false);
+  assert.match(collectorCss, /[.]collector-public-switch/);
 });
 
 test("the public profile client has no private user-document read route", async () => {

@@ -61,9 +61,9 @@
   }
 
   function setInternalVisibility(card) {
-    const select = card?.querySelector('[data-setting="visibility"]');
-    if (!select) return;
-    select.value = Object.values(draft).some(Boolean) ? "public" : "private";
+    const toggle = card?.querySelector('[data-setting="visibility"]');
+    if (!toggle) return;
+    toggle.checked = Object.values(draft).some(Boolean);
     window.CustomDexVisibilityDraft = { ...draft };
   }
 
@@ -77,19 +77,19 @@
       .custom-granular-heading strong{font-size:.74rem}.custom-granular-heading small{color:#8b91a1;font-size:.6rem;line-height:1.5;text-align:right}
       .custom-granular-list{display:grid;gap:8px}.custom-granular-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;border:1px solid #e4e7ef;border-radius:12px;background:#fafbfc;padding:10px 11px}
       .custom-granular-copy{display:grid;gap:3px;min-width:0}.custom-granular-copy strong{overflow:hidden;font-size:.7rem;text-overflow:ellipsis;white-space:nowrap}.custom-granular-copy small{color:#8b91a1;font-size:.58rem}
-      .custom-granular-row select{min-width:168px;border:1px solid #dfe3ec;border-radius:9px;background:#fff;color:#596078;font-size:.62rem;font-weight:800;padding:8px 9px}
+      .custom-granular-switch{display:flex;align-items:center;gap:8px;color:#596078;font-size:.62rem;font-weight:800}.custom-granular-switch input{position:absolute;opacity:0}.custom-granular-switch i{position:relative;width:42px;height:23px;border-radius:999px;background:#c7ccd5;transition:background .18s ease}.custom-granular-switch i::after{position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,28,50,.28);content:"";transition:transform .18s ease}.custom-granular-switch input:checked+i{background:#3d5e9d}.custom-granular-switch input:checked+i::after{transform:translateX(19px)}
       .custom-granular-empty{border:1px dashed #dfe3ec;border-radius:12px;color:#8b91a1;font-size:.64rem;padding:12px;text-align:center}
       .custom-granular-status{min-height:18px;margin:9px 0 0;color:#8b91a1;font-size:.6rem}.custom-granular-status[data-state=success]{color:#13795b}.custom-granular-status[data-state=error]{color:#b93647}
-      ${CUSTOM_CARD_SELECTOR} .collector-setting-visibility{display:none!important}
-      @media(max-width:620px){.custom-granular-row{grid-template-columns:1fr}.custom-granular-row select{width:100%;min-width:0}.custom-granular-heading{display:grid}.custom-granular-heading small{text-align:left}}
+      ${CUSTOM_CARD_SELECTOR} .collector-public-switch{display:none!important}
+      @media(max-width:620px){.custom-granular-row{grid-template-columns:1fr auto}.custom-granular-heading{display:grid}.custom-granular-heading small{text-align:left}}
     `;
     document.head.append(style);
   }
 
   function migrateLegacyVisibility(card) {
     if (hadVisibilityConfig || !dexes.length) return;
-    const select = card.querySelector('[data-setting="visibility"]');
-    if (select?.value === "public") {
+    const toggle = card.querySelector('[data-setting="visibility"]');
+    if (toggle?.checked) {
       dexes.forEach((dex) => {
         draft[dex.id] = true;
       });
@@ -104,8 +104,8 @@
     section.className = "custom-granular-settings";
     section.innerHTML = `
       <div class="custom-granular-heading">
-        <strong>만든 도감별 공개 설정</strong>
-        <small>공개로 선택한 도감만 내 공개 프로필에 각각 표시됩니다.</small>
+        <strong>만든 도감 공개 표시</strong>
+        <small>스위치를 켠 도감만 내 공개 프로필에 표시됩니다.</small>
       </div>
       <div class="custom-granular-list"></div>
       <p class="custom-granular-status" aria-live="polite"></p>
@@ -115,20 +115,21 @@
       list.innerHTML = '<div class="custom-granular-empty">아직 만든 나만의 도감이 없습니다.</div>';
     } else {
       dexes.forEach((dex) => {
-        const row = document.createElement("label");
+        const row = document.createElement("div");
         row.className = "custom-granular-row";
         row.dataset.dexId = dex.id;
         row.innerHTML = `
           <span class="custom-granular-copy"><strong>${escapeHtml(dex.title)}</strong><small>${dex.owned.toLocaleString("ko-KR")} / ${dex.total.toLocaleString("ko-KR")}장 보유</small></span>
-          <select aria-label="${escapeHtml(dex.title)} 공개 범위">
-            <option value="private">나만 보기</option>
-            <option value="public">공개</option>
-          </select>
+          <label class="custom-granular-switch">
+            <span>표시</span>
+            <input type="checkbox" aria-label="${escapeHtml(dex.title)} 공개 프로필에 표시" />
+            <i aria-hidden="true"></i>
+          </label>
         `;
-        const select = row.querySelector("select");
-        select.value = draft[dex.id] ? "public" : "private";
-        select.addEventListener("change", () => {
-          draft[dex.id] = select.value === "public";
+        const toggle = row.querySelector('input[type="checkbox"]');
+        toggle.checked = Boolean(draft[dex.id]);
+        toggle.addEventListener("change", () => {
+          draft[dex.id] = toggle.checked;
           dirty = true;
           card.classList.add("is-dirty");
           setInternalVisibility(card);

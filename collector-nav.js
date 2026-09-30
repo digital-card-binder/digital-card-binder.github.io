@@ -9,10 +9,12 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-8a1911d022b2";
+  const SITE_BUILD_VERSION = "b-175c1ef6a12a";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
   const BUILD_CHECK_MIN_INTERVAL_MS = 15_000;
+  const PUBLIC_PROJECTION_REPAIR_VERSION = "projection-50k-v1";
+  const PUBLIC_PROJECTION_REPAIR_STORAGE_KEY = "digitalCardBinderPublicProjectionRepairV1";
   let lastBuildCheckAt = 0;
 
   async function refreshStaleShell({ force = false } = {}) {
@@ -334,6 +336,84 @@
     }, 700);
   }
 
+  async function repairPublicProjectionsOnce() {
+    const sync = window.CollectorPublicSync?.syncCollectionWithRetry;
+    if (
+      typeof sync !== "function" ||
+      !registry?.COLLECTION_ORDER?.length
+    ) {
+      return;
+    }
+
+    const config = CONFIG.config || {};
+    if (
+      !CONFIG.enabled ||
+      !config.apiKey ||
+      !config.authDomain ||
+      !config.projectId
+    ) {
+      return;
+    }
+
+    try {
+      const SDK_VERSION = "12.16.0";
+      const [appModule, authModule, firestoreModule] = await Promise.all([
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-app.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-auth.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-firestore.js`),
+      ]);
+      const app = appModule.getApps().length
+        ? appModule.getApp()
+        : appModule.initializeApp(config);
+      const auth = authModule.getAuth(app);
+      const user = await firstAuthUser(auth, authModule);
+      if (!user?.uid) return;
+
+      const marker = `${PUBLIC_PROJECTION_REPAIR_VERSION}:${user.uid}`;
+      try {
+        if (window.localStorage.getItem(PUBLIC_PROJECTION_REPAIR_STORAGE_KEY) === marker) {
+          return;
+        }
+      } catch {
+        // 저장소 접근이 제한되어도 복구 작업은 계속합니다.
+      }
+
+      const db = firestoreModule.getFirestore(app);
+      let failed = false;
+      for (const collectionId of registry.COLLECTION_ORDER) {
+        try {
+          await sync({
+            db,
+            firestoreModule,
+            user,
+            collectionId,
+            preferServer: true,
+          });
+        } catch (error) {
+          failed = true;
+          console.warn(`${collectionId} 공개 도감 자동 복구 실패`, error);
+        }
+      }
+
+      if (!failed) {
+        try {
+          window.localStorage.setItem(PUBLIC_PROJECTION_REPAIR_STORAGE_KEY, marker);
+        } catch {
+          // 다음 방문에 다시 확인해도 안전합니다.
+        }
+      }
+    } catch (error) {
+      console.warn("공개 도감 자동 복구를 완료하지 못했습니다.", error);
+    }
+  }
+
+  function schedulePublicProjectionRepair() {
+    if (typeof window.setTimeout !== "function") return;
+    window.setTimeout(() => {
+      void repairPublicProjectionsOnce();
+    }, 1200);
+  }
+
   function activeCardLayoutMode() {
     if (mobileCardLayoutMedia?.matches) return CARD_LAYOUT_MODES.mobile;
     return compactCardLayoutMedia?.matches
@@ -602,6 +682,7 @@
   }
   watchAccountProfileEntry();
   ensureProfileShortcutWithoutPanel();
+  schedulePublicProjectionRepair();
   addCardLayoutToggle();
   addHeroActions();
 
