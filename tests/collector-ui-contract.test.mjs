@@ -1299,6 +1299,8 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-card-layer"/);
   assert.match(page, /data-custom-action="snap"/);
   assert.match(page, /id="studio-custom-save-button"/);
+  assert.match(page, /id="studio-custom-print-button"/);
+  assert.match(page, /실제 크기로 출력/);
   assert.match(page, /저장한 커스텀 바인더/);
 
   assert.match(editor, /catalogService[?][.]series/);
@@ -1313,6 +1315,13 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /"customBinders"/);
   assert.match(editor, /"chunks"/);
   assert.match(editor, /Bytes[.]fromUint8Array/);
+  assert.match(editor, /function customPrintPlan/);
+  assert.match(editor, /perPage: 9/);
+  assert.match(editor, /Math[.]ceil\(slotCount \/ 9\)/);
+  assert.match(editor, /studio-custom-print-cell/);
+  assert.match(editor, /window[.]DigitalCardBinderApp[.]startPrint\(printTitle, false\)/);
+  assert.match(editor, /CARD_WIDTH_MM/);
+  assert.match(editor, /CARD_HEIGHT_MM/);
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
   assert.doesNotMatch(editor, /function resizeSelected/);
