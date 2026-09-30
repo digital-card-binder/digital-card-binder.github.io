@@ -1887,3 +1887,35 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     display: none !important;
   }
 }
+
+
+/* Native mobile account details: no JavaScript is required to open the profile menu. */
+.home-account {
+  display: none;
+}
+
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .home-account {
+    position: relative;
+    z-index: 84;
+    display: block;
+  }
+
+  body[data-page="dashboard"] .home-account > summary {
+    list-style: none;
+  }
+
+  body[data-page="dashboard"] .home-account > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  body[data-page="dashboard"] .home-account[open] .home-account-trigger {
+    border-color: rgba(94, 231, 238, 0.55);
+    background: rgba(14, 58, 91, 0.98);
+  }
+
+  body[data-page="dashboard"] .home-account .home-account-menu {
+    top: calc(100% + 10px);
+    right: 0;
+  }
+}
