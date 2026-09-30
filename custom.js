@@ -356,7 +356,7 @@
       button.className = `custom-dex-tile${dex.id === state.selectedDexId ? " is-active" : ""}`;
       button.dataset.dexId = dex.id;
       button.innerHTML = `
-        <span class="custom-dex-tile-icon">MY</span>
+        <span class="custom-dex-tile-icon ui-icon ui-icon--binder" aria-hidden="true"></span>
         <span class="custom-dex-tile-copy">
           <strong>${escapeHtml(dex.title)}</strong>
           <small>${owned} / ${dex.cards.length}장 보유</small>

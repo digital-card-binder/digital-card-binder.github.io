@@ -100,7 +100,7 @@
     link.innerHTML = `
       <div>
         <div class="collector-public-card-top">
-          <span class="collector-public-card-number" aria-hidden="true">${number}</span>
+          <span class="collector-public-card-number ui-icon" aria-hidden="true"></span>
           <span class="collector-public-card-rate">${rate.toFixed(1)}%</span>
         </div>
         <h3></h3>
@@ -111,6 +111,9 @@
         <div class="collector-public-card-progress" aria-hidden="true"><span></span></div>
       </div>
     `;
+    const iconPage = new URL(href, window.location.href).pathname.split("/").pop();
+    const iconName = ({ "national.html": "national", "series.html": "series", "ar.html": "ar", "packs.html": "pack", "pokemon-collections.html": "pokemon", "artists.html": "artist", "people.html": "people", "trainer-pokemon.html": "trainerPokemon", "fossil.html": "fossil", "world.html": "world", "custom.html": "binder" })[iconPage] || "binder";
+    link.querySelector(".collector-public-card-number").classList.add(`ui-icon--${iconName}`);
     link.querySelector("h3").textContent = title;
     link.querySelector("p").textContent = description;
     link.querySelector(".collector-public-card-count strong").textContent =

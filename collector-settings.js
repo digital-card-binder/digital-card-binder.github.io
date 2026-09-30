@@ -512,7 +512,7 @@
       card.dataset.collectionId = collectionId;
       card.innerHTML = `
         <div class="collector-setting-identity">
-          <span class="collector-setting-number" aria-hidden="true">${meta.number}</span>
+          <span class="collector-setting-number ui-icon ui-icon--${collectionId}" aria-hidden="true"></span>
           <span><strong></strong><small></small></span>
         </div>
         <label class="collector-dashboard-switch">

@@ -6,8 +6,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const checkOnly = process.argv.includes("--check");
 
 const navigation = Object.freeze([
-  { href: "./", page: "index.html", icon: "홈", title: "통합 대시보드", subtitle: "모든 도감" },
-  { href: "./pokemon-search.html", page: "pokemon-search.html", icon: "⌕", title: "카드 검색", subtitle: "통합 카드 검색" },
+  { href: "./", page: "index.html", icon: "home", title: "통합 대시보드", subtitle: "모든 도감" },
+  { href: "./pokemon-search.html", page: "pokemon-search.html", icon: "search", title: "카드 검색", subtitle: "통합 카드 검색" },
   { section: "주요 도감" },
   { href: "./national.html", page: "national.html", title: "전국도감", catalogId: "national" },
   { href: "./series.html", page: "series.html", title: "시리즈 도감", catalogId: "series" },
@@ -20,8 +20,8 @@ const navigation = Object.freeze([
   { href: "./trainer-pokemon.html", page: "trainer-pokemon.html", title: "트레이너 × 포켓몬", catalogId: "trainerPokemon" },
   { href: "./fossil.html", page: "fossil.html", title: "화석 도감", catalogId: "fossil" },
   { href: "./world.html", page: "world.html", title: "월드탐험도감", catalogId: "world" },
-  { href: "./custom.html", page: "custom.html", icon: "나", title: "나만의 도감", subtitle: "직접 만드는 도감" },
-  { href: "./collectors.html", page: "collectors.html", icon: "모", title: "커뮤니티", subtitle: "공개 컬렉션", standalone: true },
+  { href: "./custom.html", page: "custom.html", icon: "binder", title: "나만의 도감", subtitle: "직접 만드는 도감" },
+  { href: "./collectors.html", page: "collectors.html", icon: "community", title: "커뮤니티", subtitle: "공개 컬렉션", standalone: true },
 ]);
 
 let catalogMetrics = Object.freeze({});
@@ -94,7 +94,7 @@ function renderNavigation(filename) {
     const active = item.page === activePage;
     const linkClass = active ? "collection-link is-active" : "collection-link";
     const iconClass = active ? "collection-icon collection-icon--red" : "collection-icon";
-    const icon = item.icon ? `<span class="${iconClass}" aria-hidden="true">${item.icon}</span>` : "";
+    const icon = item.icon ? `<span class="${iconClass} ui-icon ui-icon--${item.icon}" aria-hidden="true"></span>` : "";
     const current = active ? ' aria-current="page"' : "";
     const standalone = item.standalone ? ' data-nav-standalone="true"' : "";
     lines.push(

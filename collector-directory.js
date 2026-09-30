@@ -147,7 +147,7 @@
     );
     link.innerHTML = `
       <div class="collector-directory-card-head">
-        <span class="collector-directory-avatar" aria-hidden="true"></span>
+        <span class="collector-directory-avatar ui-icon ui-icon--profile" aria-hidden="true"></span>
         <span class="collector-directory-card-title"><strong></strong><small></small></span>
       </div>
       <p class="collector-directory-bio"></p>
@@ -158,9 +158,6 @@
         <b class="collector-directory-rate"></b>
       </div>
     `;
-    link.querySelector(".collector-directory-avatar").textContent = collector.nickname
-      .slice(0, 1)
-      .toUpperCase();
     link.querySelector(".collector-directory-card-title strong").textContent =
       collector.nickname;
     link.querySelector(".collector-directory-card-title small").textContent =

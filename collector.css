@@ -1354,18 +1354,6 @@ body.collector-collection-page .world-story-header {
   gap: 12px;
 }
 
-.collector-setting-number {
-  display: grid;
-  flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border-radius: 12px;
-  background: #edf1f8;
-  color: #273758;
-  font-size: 12px;
-  font-weight: 800;
-}
 
 .collector-setting-identity strong,
 .collector-setting-identity small {
@@ -1539,17 +1527,6 @@ body.collector-collection-page .world-story-header {
   justify-content: space-between;
 }
 
-.collector-public-card-number {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border-radius: 11px;
-  background: #eef1f7;
-  color: #273758;
-  font-size: 11px;
-  font-weight: 800;
-}
 
 .collector-public-card-rate {
   color: #3d5e9d;
@@ -1783,17 +1760,6 @@ body.collector-collection-page .world-story-header {
   padding: 28px;
 }
 
-.collector-onboarding-icon {
-  display: grid;
-  width: 54px;
-  height: 54px;
-  place-items: center;
-  border-radius: 16px;
-  background: var(--collector-purple-soft);
-  color: var(--collector-purple);
-  font-size: 23px;
-  font-weight: 800;
-}
 
 .collector-onboarding-dialog h2 {
   margin: 18px 0 8px;
@@ -1971,18 +1937,6 @@ body.collector-collection-page .world-story-header {
   gap: 13px;
 }
 
-.collector-directory-avatar {
-  display: grid;
-  flex: 0 0 auto;
-  width: 54px;
-  height: 54px;
-  place-items: center;
-  border-radius: 17px;
-  background: linear-gradient(145deg, #2a3c63, #17233f);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 800;
-}
 
 .collector-directory-card-title {
   min-width: 0;

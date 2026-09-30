@@ -10,7 +10,7 @@ test("dashboard keeps compact feedback and app actions while public traffic stay
   const metrics = read("site-metrics.js");
   const pwa = read("pwa.js");
 
-  assert.match(index, /id="feedback-open"[^>]*>건의하기<\/button>/);
+  assert.match(index, /id="feedback-open"[^>]*>[\s\S]*?건의하기<\/button>/);
   assert.match(index, /platform-app-logo--android/);
   assert.match(index, /<strong>안드로이드<\/strong>/);
   assert.match(index, /android-app-download-button"[^>]*>다운로드<\/button>/);
@@ -24,9 +24,9 @@ test("dashboard keeps compact feedback and app actions while public traffic stay
 test("decorative English navigation initials are retired from the generated shell", () => {
   const shell = read("scripts/sync-site-shell.mjs");
   assert.doesNotMatch(shell, /icon: "(?:DB|MY|CM)"/);
-  assert.match(shell, /icon: "홈", title: "통합 대시보드"/);
-  assert.match(shell, /icon: "나", title: "나만의 도감"/);
-  assert.match(shell, /icon: "모", title: "커뮤니티"/);
+  assert.match(shell, /icon: "home", title: "통합 대시보드"/);
+  assert.match(shell, /icon: "binder", title: "나만의 도감"/);
+  assert.match(shell, /icon: "community", title: "커뮤니티"/);
 
   for (const file of readdirSync(root).filter((name) => name.endsWith(".html"))) {
     const html = read(file);

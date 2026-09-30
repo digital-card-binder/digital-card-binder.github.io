@@ -106,18 +106,6 @@
   color: #6b50c8;
 }
 
-.dashboard-account-icon {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: #e6f1fb;
-  color: var(--blue);
-  font-size: 0.78rem;
-  font-weight: 900;
-}
 
 .dashboard-account-note > div {
   min-width: 0;
@@ -1365,17 +1353,6 @@
   box-shadow: 0 8px 20px rgba(23, 35, 63, 0.06);
 }
 
-.dashboard-shortcut-icon {
-  display: grid;
-  place-items: center;
-  width: 37px;
-  height: 37px;
-  border-radius: 11px;
-  background: #f0f2f7;
-  color: var(--navy);
-  font-size: 0.66rem;
-  font-weight: 900;
-}
 
 .dashboard-shortcut-card > span:nth-child(2) {
   display: grid;
@@ -1613,10 +1590,6 @@
     padding: 9px 11px;
   }
 
-  .dashboard-shortcut-icon {
-    width: 34px;
-    height: 34px;
-  }
 
   .dashboard-shortcut-card small {
     font-size: 0.55rem;
@@ -1642,13 +1615,13 @@
   --collection-accent: #3fa7b9;
 }
 
-.dashboard-shortcut-card--studio .dashboard-shortcut-icon {
-  background: #e7f7f8;
-  color: #176477;
-}
 
 @media (min-width: 921px) {
   .dashboard-shortcut-card--studio {
     grid-column: 1 / -1;
   }
 }
+
+/* Feedback actions share decorative menu icons. */
+.feedback-action { display: inline-flex; align-items: center; gap: 7px; }
+.feedback-action[hidden] { display: none; }
