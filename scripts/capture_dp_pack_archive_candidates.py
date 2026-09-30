@@ -1,41 +1,48 @@
 from pathlib import Path
-import requests, re
-from PIL import Image
 from io import BytesIO
+from PIL import Image
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
 
 OUT=Path("assets/packs/candidates")
 OUT.mkdir(parents=True, exist_ok=True)
 
-TARGETS={
-  "bs8":("https://d.namu.moe/w/%ED%99%94%EB%A0%A4%ED%95%9C%20%EC%A0%84%EC%84%A4","화려한 전설.png"),
-  "bs9":("https://d.namu.moe/w/%ED%98%B8%EC%88%98%EC%9D%98%20%EA%B8%B0%EC%A0%81","호수의 기적.png"),
-  "bs10":("https://d.namu.moe/w/%EA%B3%A0%EB%8C%80%EC%9D%98%20%EC%88%98%ED%98%B8%EC%9E%90(%ED%8F%AC%EC%BC%93%EB%AA%AC%20%EC%B9%B4%EB%93%9C%20%EA%B2%8C%EC%9E%84)","고대의 수호자_포케카.png"),
-}
+items={"bs9":"432817025"}
 
-headers={
-  "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/154 Safari/537.36",
-  "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.7",
-}
-for code,(page,alt) in TARGETS.items():
-    s=requests.Session()
-    r=s.get(page,headers=headers,timeout=30)
-    r.raise_for_status()
-    pattern=rf"<img[^>]+alt=['\"]파일:{re.escape(alt)}['\"][^>]+(?:data-original|src)=['\"]([^'\"]+)"
-    m=re.search(pattern,r.text,re.I)
-    if not m:
-        pattern=rf"<img[^>]+(?:data-original|src)=['\"]([^'\"]+)['\"][^>]+alt=['\"]파일:{re.escape(alt)}['\"]"
-        m=re.search(pattern,r.text,re.I)
-    if not m:
-        raise RuntimeError(f"{code}: target image URL not found")
-    imgurl=m.group(1)
-    if imgurl.startswith("//"):
-        imgurl="https:"+imgurl
-    print(code,"URL",imgurl)
-    ih={**headers,"Referer":page,"Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8"}
-    ir=s.get(imgurl,headers=ih,timeout=60)
-    print(code,"FETCH",ir.status_code,ir.headers.get("content-type"),len(ir.content))
-    ir.raise_for_status()
-    image=Image.open(BytesIO(ir.content))
-    image.load()
-    print(code,"SIZE",image.size,image.format)
-    (OUT/f"{code}-namu-source.png").write_bytes(ir.content)
+opts=webdriver.ChromeOptions()
+opts.add_argument("--headless=new")
+opts.add_argument("--no-sandbox")
+opts.add_argument("--disable-dev-shm-usage")
+opts.add_argument("--window-size=1400,2200")
+opts.add_argument("--lang=ko-KR")
+driver=webdriver.Chrome(options=opts)
+try:
+    for code,pid in items.items():
+        url=f"https://m.bunjang.co.kr/products/{pid}"
+        driver.get(url)
+        time.sleep(5)
+        candidates=[]
+        for img in driver.find_elements(By.TAG_NAME,"img"):
+            src=img.get_attribute("currentSrc") or img.get_attribute("src") or ""
+            alt=img.get_attribute("alt") or ""
+            try:
+                nw=driver.execute_script("return arguments[0].naturalWidth||0",img)
+                nh=driver.execute_script("return arguments[0].naturalHeight||0",img)
+            except Exception:
+                nw=nh=0
+            if pid in src or "product/" in src:
+                candidates.append((nw*nh,nw,nh,src,alt,img))
+        candidates.sort(key=lambda x:x[0],reverse=True)
+        if not candidates:
+            raise RuntimeError(f"{code}: no product images on {url}")
+        area,nw,nh,src,alt,img=candidates[0]
+        print(code,"PICK",nw,nh,src,alt)
+        driver.execute_script("arguments[0].scrollIntoView({block:'center'})",img)
+        time.sleep(1)
+        png=img.screenshot_as_png
+        Image.open(BytesIO(png)).verify()
+        (OUT/f"{code}-bunjang-{pid}.png").write_bytes(png)
+        print(code,"saved",len(png))
+finally:
+    driver.quit()
