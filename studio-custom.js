@@ -754,6 +754,7 @@
         `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · ${(file.size / 1024 / 1024).toFixed(2)}MB`;
       updateRatioNote(state.sourceWidth, state.sourceHeight);
       renderSearchResults(searchInput.value);
+      updateSaveUi();
     };
   }
 
@@ -1183,14 +1184,11 @@
     updateEditorUi();
   });
 
-  resetButton.addEventListener("click", () => {
-    const defaultGrid = gridInputs.find((input) => input.value === "3x4");
-    if (defaultGrid) defaultGrid.checked = true;
-    searchInput.value = "";
-    renderGrid();
-    clearImage();
-    renderSearchResults("");
-  });
+  resetButton.addEventListener("click", () => resetEditor(true));
+  saveButton.addEventListener("click", () => void saveCurrentBinder());
+  newButton.addEventListener("click", () => resetEditor(true));
+  deleteButton.addEventListener("click", () => void deleteCurrentBinder());
+  titleInput.addEventListener("input", () => updateSaveUi());
 
   window.addEventListener("resize", () => {
     state.placements.forEach(clampPlacement);
@@ -1211,4 +1209,6 @@
   clearImage();
   renderSearchResults("");
   activateTab(window.location.hash === "#studio-custom" ? "custom" : "print", false);
+  updateSaveUi();
+  void initializePersistence();
 })();
