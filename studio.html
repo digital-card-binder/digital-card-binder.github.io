@@ -3,16 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="바인더 확장아트와 카드 이미지를 A4, 실제 카드 크기, 슬리브 크기로 인쇄하는 디지털 카드 바인더 스튜디오" />
+    <meta name="description" content="도감에서 카드를 불러와 A4, 실제 카드 크기, 슬리브 크기로 인쇄하는 디지털 카드 바인더 스튜디오" />
     <meta name="theme-color" content="#17233f" />
     <title>바인더 스튜디오 · 디지털 카드 바인더</title>
     <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <link rel="stylesheet" href="./styles.css?v=56f26c9df3d2" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./studio.css?v=1edafd99d1ce" />
+    <link rel="stylesheet" href="./studio.css?v=2" />
+    <script src="./firebase-config.js?v=0844fbabed65" defer></script>
+    <script src="./site-metrics.js?v=1a2c63965420" defer></script>
     <script src="./legal.js?v=ca76fb29682d" defer></script>
-    <script src="./studio.js?v=c92a7b3a796e" defer></script>
+    <script src="./core/catalog/catalog-service.js?v=5fe7bd8fa5fa" defer></script>
+    <script src="./core/catalog/card-identity.js?v=a0d7639998bd" defer></script>
+    <script src="./core/account/firebase-account.js?v=795928688f9e" defer></script>
+    <script src="./collector-collection-registry.js?v=a547ab2fed3a" defer></script>
+    <script src="./studio.js?v=2" defer></script>
   </head>
   <body data-page="binder-studio">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -28,7 +34,7 @@
         <a class="is-active" href="#studio-print">인쇄하기</a>
         <span aria-disabled="true">커스텀 바인더</span>
       </nav>
-      <span class="header-chip">바인더 스튜디오</span>
+      <a class="studio-account-link" href="./collector-settings.html">프로필</a>
     </header>
 
     <main id="main-content" class="studio-main">
@@ -36,11 +42,11 @@
         <div>
           <span class="studio-kicker">BINDER STUDIO</span>
           <h1 id="page-title">바인더 스튜디오</h1>
-          <p>완성한 바인더 이미지를 원하는 실제 크기로 나누어 인쇄하세요.</p>
+          <p>내 도감의 카드를 불러와 원하는 범위와 실제 크기로 바로 인쇄하세요.</p>
         </div>
         <div class="studio-hero-badge">
-          <strong>1단계 · 인쇄하기</strong>
-          <span>커스텀 바인더 만들기는 다음 단계에서 이 페이지에 이어집니다.</span>
+          <strong>1단계 · 도감 인쇄</strong>
+          <span>각 도감의 보유 기록은 서로 독립적으로 읽습니다. 다른 도감의 보유 상태를 섞지 않습니다.</span>
         </div>
       </section>
 
@@ -48,7 +54,7 @@
         <a class="is-active" href="#studio-print" aria-current="page">
           <span>01</span>
           <strong>인쇄하기</strong>
-          <small>A4 · 카드 · 슬리브 크기</small>
+          <small>도감 선택 · 보유 필터 · 실제 크기</small>
         </a>
         <div class="is-upcoming" aria-disabled="true">
           <span>02</span>
@@ -61,8 +67,8 @@
         <div class="studio-section-heading">
           <div>
             <span class="studio-kicker">PRINT WORKSPACE</span>
-            <h2 id="studio-print-title">인쇄 설정</h2>
-            <p>이미지는 이 기기에서만 처리되며 서버에 업로드하지 않습니다.</p>
+            <h2 id="studio-print-title">도감에서 인쇄하기</h2>
+            <p id="studio-auth-status">로그인 상태를 확인하고 있습니다.</p>
           </div>
           <button id="studio-reset" class="studio-text-button" type="button">초기화</button>
         </div>
@@ -72,67 +78,69 @@
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>1</span>
-                <div><strong>이미지 선택</strong><small>완성한 바인더/확장아트 이미지 1장을 선택하세요.</small></div>
+                <div><strong>도감 선택</strong><small>인쇄할 카드가 들어 있는 도감을 고르세요.</small></div>
               </div>
-              <label id="studio-dropzone" class="studio-dropzone" for="studio-file">
-                <input id="studio-file" type="file" accept="image/png,image/jpeg,image/webp" />
-                <span class="studio-upload-icon" aria-hidden="true">＋</span>
-                <strong id="studio-file-label">이미지 불러오기</strong>
-                <small>PNG · JPG · WEBP</small>
+              <label class="studio-field">
+                <span>도감</span>
+                <select id="studio-collection" aria-label="인쇄할 도감 선택">
+                  <option value="series">시리즈 도감</option>
+                  <option value="national">전국도감</option>
+                  <option value="ar">AR 전종도감</option>
+                  <option value="pokemon">포켓몬 컬렉션</option>
+                  <option value="artist">작가 도감</option>
+                  <option value="people">인물도감</option>
+                  <option value="trainerPokemon">트레이너 × 포켓몬</option>
+                  <option value="fossil">화석 도감</option>
+                  <option value="world">월드탐험도감</option>
+                </select>
               </label>
+              <p class="studio-inline-note">팩도감은 카드 규격과 달라 이번 인쇄 기능에서는 제외했습니다.</p>
             </section>
 
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>2</span>
-                <div><strong>바인더 배열</strong><small>원본 이미지의 가로 × 세로 칸 수를 지정합니다.</small></div>
+                <div><strong>범위와 보유 상태</strong><small>선택한 도감 안에서 출력 범위를 좁힐 수 있습니다.</small></div>
               </div>
-              <div class="studio-preset-row" aria-label="배열 빠른 선택">
-                <button type="button" data-grid-preset="3x3">3 × 3</button>
-                <button type="button" data-grid-preset="3x4" class="is-active">3 × 4</button>
-                <button type="button" data-grid-preset="4x4">4 × 4</button>
-              </div>
-              <div class="studio-grid-selects">
-                <label>가로
-                  <select id="studio-cols" aria-label="가로 칸 수">
-                    <option value="2">2칸</option><option value="3" selected>3칸</option><option value="4">4칸</option><option value="5">5칸</option><option value="6">6칸</option>
-                  </select>
-                </label>
-                <span aria-hidden="true">×</span>
-                <label>세로
-                  <select id="studio-rows" aria-label="세로 칸 수">
-                    <option value="2">2칸</option><option value="3">3칸</option><option value="4" selected>4칸</option><option value="5">5칸</option><option value="6">6칸</option>
-                  </select>
-                </label>
+              <label class="studio-field">
+                <span>세부 범위</span>
+                <select id="studio-scope" aria-label="도감 세부 범위 선택" disabled>
+                  <option>도감을 불러오는 중…</option>
+                </select>
+              </label>
+              <div class="studio-owned-options" aria-label="보유 상태 선택">
+                <label><input type="radio" name="studio-owned" value="all" checked /><span><strong>전체</strong><small>미보유 포함</small></span></label>
+                <label><input type="radio" name="studio-owned" value="owned" /><span><strong>보유만</strong><small>이 도감에서 보유한 카드</small></span></label>
+                <label><input type="radio" name="studio-owned" value="missing" /><span><strong>미보유만</strong><small>체크리스트용</small></span></label>
               </div>
             </section>
 
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>3</span>
-                <div><strong>인쇄 크기</strong><small>실제 크기 모드는 칸 크기를 유지한 채 여러 A4로 자동 분할합니다.</small></div>
+                <div><strong>인쇄 크기</strong><small>실제 크기 모드는 카드 크기를 유지한 채 A4 여러 장으로 자동 분할합니다.</small></div>
               </div>
               <div class="studio-size-options">
                 <label>
                   <input type="radio" name="studio-size" value="fit" />
-                  <span><strong>A4 한 장 맞춤</strong><small>전체 이미지를 한 장에 비율 유지</small></span>
+                  <span><strong>A4 한 장 맞춤</strong><small>선택한 모든 카드를 한 장에 비율 유지</small></span>
                 </label>
                 <label>
                   <input type="radio" name="studio-size" value="card" checked />
-                  <span><strong>실제 카드 63 × 88 mm</strong><small>한 칸을 포켓몬 카드 실제 크기로 인쇄</small></span>
+                  <span><strong>실제 카드 63 × 88 mm</strong><small>A4 한 장당 최대 3 × 3 자동 배치</small></span>
                 </label>
                 <label>
                   <input type="radio" name="studio-size" value="sleeve" />
-                  <span><strong>슬리브 65 × 90 mm</strong><small>한 칸을 일반 슬리브 기준 크기로 인쇄</small></span>
+                  <span><strong>슬리브 65 × 90 mm</strong><small>A4 한 장당 최대 3 × 3 자동 배치</small></span>
                 </label>
               </div>
             </section>
 
             <section class="studio-control-card studio-print-summary-card">
               <div class="studio-print-summary">
-                <span>예상 출력</span>
-                <strong id="studio-page-count">이미지를 선택하세요</strong>
-                <small id="studio-page-note">실제 크기 인쇄 시 A4 방향도 자동으로 최적화합니다.</small>
+                <span>선택 결과</span>
+                <strong id="studio-selection-count">도감을 불러오는 중…</strong>
+                <small id="studio-page-note">선택한 카드 수와 예상 A4 페이지를 계산합니다.</small>
               </div>
               <button id="studio-print-button" class="studio-primary-button" type="button" disabled>인쇄 · PDF 저장</button>
               <p class="studio-scale-warning"><strong>중요</strong> 실제 카드/슬리브 크기 인쇄 시 인쇄 대화상자에서 배율을 <b>100% · 실제 크기</b>로 설정하세요.</p>
@@ -144,13 +152,17 @@
               <div><span class="studio-kicker">PREVIEW</span><h2 id="studio-preview-title">출력 미리보기</h2></div>
               <span id="studio-orientation-badge" class="studio-orientation-badge">A4 자동</span>
             </div>
-
-            <div id="studio-empty-preview" class="studio-empty-preview">
-              <span aria-hidden="true">▧</span>
-              <strong>이미지를 선택하면 출력 페이지를 미리 볼 수 있습니다.</strong>
-              <p>3×4 확장아트라면 가로 3칸 · 세로 4칸으로 두고 실제 카드 또는 슬리브 크기를 선택하세요.</p>
+            <div id="studio-loading" class="studio-empty-preview">
+              <span aria-hidden="true">◌</span>
+              <strong>도감 데이터를 불러오고 있습니다.</strong>
+              <p>카드 이미지와 현재 도감의 보유 상태를 함께 확인합니다.</p>
             </div>
-            <div id="studio-page-preview" class="studio-page-preview" aria-live="polite" hidden></div>
+            <div id="studio-empty-preview" class="studio-empty-preview" hidden>
+              <span aria-hidden="true">▧</span>
+              <strong>선택 조건에 맞는 카드가 없습니다.</strong>
+              <p>도감 범위 또는 보유 상태를 변경해 주세요.</p>
+            </div>
+            <div id="studio-card-preview" class="studio-card-preview" aria-live="polite" hidden></div>
           </section>
         </div>
       </section>
@@ -159,22 +171,21 @@
         <div>
           <span class="studio-kicker">NEXT</span>
           <h2>다음은 커스텀 바인더 만들기</h2>
-          <p>같은 바인더 스튜디오 안에서 확장아트 업로드, 그리드 지정, 공개/비공개 저장 기능을 이어서 붙일 예정입니다.</p>
+          <p>기존에 만들었던 이미지 업로드·그리드 기능은 2단계 커스텀 바인더 쪽으로 이어 붙입니다.</p>
         </div>
         <span class="studio-next-badge">2단계 준비 중</span>
       </section>
 
       <footer class="site-footer studio-footer">
         <div class="site-footer-main">
-            <nav class="site-footer-links" aria-label="정책 및 문의">
-              <a href="./news.html">새소식</a>
-              <a href="./privacy.html">개인정보처리방침</a>
-              <a href="./terms.html">이용약관</a>
-              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
-            </nav>
-            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
-            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
-          </div>
+          <nav class="site-footer-links" aria-label="정책 및 문의">
+            <a href="./">홈</a>
+            <a href="./privacy.html">개인정보처리방침</a>
+            <a href="./terms.html">이용약관</a>
+            <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+          </nav>
+          <p>인쇄 기능은 도감 데이터를 읽기만 하며 보유 기록이나 도감 설정을 변경하지 않습니다.</p>
+        </div>
       </footer>
     </main>
 
