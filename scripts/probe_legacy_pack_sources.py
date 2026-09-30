@@ -79,3 +79,16 @@ for q in queries2:
             print("ITEM2",item.get("pid"),"|",item.get("name"),"|",item.get("product_image"))
     except Exception as e:
         print("QUERY2ERROR",q,repr(e))
+
+
+print("\n=== CORE API PRODUCT DETAIL ===")
+for pid in ["431466324","430449269","432817025","411177289","411177637","411177951","422715439"]:
+    url=f"https://core-api.bunjang.co.kr/api/1/product/{pid}/detail_info.json?stat_uid=9056251&version=2"
+    try:
+        r=requests.get(url,headers=headers,timeout=30)
+        print("\nCORE",pid,"status",r.status_code,"len",len(r.content),r.headers.get("content-type"))
+        if r.ok:
+            t=html.unescape(r.text)
+            print("COREHEAD",t[:2500])
+    except Exception as e:
+        print("COREERROR",pid,repr(e))
