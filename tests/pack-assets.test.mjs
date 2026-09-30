@@ -139,3 +139,17 @@ test("self-hosted legacy pack image manifest covers all pre-S regular packs", as
     assert.ok(evidence.items[code]?.sourcePage, code);
   }
 });
+
+
+test("individual pack artwork is never stretched", async () => {
+  const css = await source("packs.css");
+  const block = css.match(
+    /[.]pack-image[.]has-individual-pack-image,[\s\S]*?background-size:\s*contain,\s*100% 100%;/
+  );
+  assert.ok(block, "individual pack images must render with contain");
+  assert.doesNotMatch(
+    block[0],
+    /background-size:\s*100% 100%,\s*100% 100%/,
+    "individual pack artwork must not be stretched to the container",
+  );
+});
