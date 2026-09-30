@@ -19,6 +19,7 @@
     <script src="./core/account/firebase-account.js?v=795928688f9e" defer></script>
     <script src="./collector-collection-registry.js?v=a547ab2fed3a" defer></script>
     <script src="./studio.js?v=585171356ef2" defer></script>
+    <script src="./studio-custom.js?v=5c1aa4f1ad5c" defer></script>
   </head>
   <body data-page="binder-studio">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -31,8 +32,8 @@
       </a>
       <nav class="studio-top-nav" aria-label="바인더 스튜디오 메뉴">
         <a href="./">홈</a>
-        <a class="is-active" href="#studio-print">인쇄하기</a>
-        <span aria-disabled="true">커스텀 바인더</span>
+        <a class="is-active" href="#studio-print" data-studio-tab="print">인쇄하기</a>
+        <a href="#studio-custom" data-studio-tab="custom">커스텀 바인더</a>
       </nav>
       <a class="studio-account-link" href="./collector-settings.html">프로필</a>
     </header>
@@ -51,19 +52,19 @@
       </section>
 
       <section class="studio-tabs" aria-label="바인더 스튜디오 기능">
-        <a class="is-active" href="#studio-print" aria-current="page">
+        <a class="is-active" href="#studio-print" aria-current="page" data-studio-tab="print">
           <span>01</span>
           <strong>인쇄하기</strong>
           <small>도감 선택 · 보유 필터 · 실제 크기</small>
         </a>
-        <div class="is-upcoming" aria-disabled="true">
+        <a href="#studio-custom" data-studio-tab="custom">
           <span>02</span>
           <strong>커스텀 바인더</strong>
-          <small>확장아트 제작 · 업로드</small>
-        </div>
+          <small>확장아트 이미지 · 그리드 미리보기</small>
+        </a>
       </section>
 
-      <section id="studio-print" class="studio-workspace" aria-labelledby="studio-print-title">
+      <section id="studio-print" class="studio-workspace" aria-labelledby="studio-print-title" data-studio-panel="print">
         <div class="studio-section-heading">
           <div>
             <span class="studio-kicker">PRINT WORKSPACE</span>
@@ -167,13 +168,82 @@
         </div>
       </section>
 
-      <section class="studio-next-panel">
-        <div>
-          <span class="studio-kicker">NEXT</span>
-          <h2>다음은 커스텀 바인더 만들기</h2>
-          <p>기존에 만들었던 이미지 업로드·그리드 기능은 2단계 커스텀 바인더 쪽으로 이어 붙입니다.</p>
+      <section id="studio-custom" class="studio-workspace studio-custom-workspace" aria-labelledby="studio-custom-title" data-studio-panel="custom" hidden>
+        <div class="studio-section-heading">
+          <div>
+            <span class="studio-kicker">CUSTOM BINDER</span>
+            <h2 id="studio-custom-title">커스텀 바인더 만들기</h2>
+            <p>완성한 확장아트 이미지를 올리고 바인더 그리드에 맞는지 먼저 확인해 보세요.</p>
+          </div>
+          <button id="studio-custom-reset" class="studio-text-button" type="button">초기화</button>
         </div>
-        <span class="studio-next-badge">2단계 준비 중</span>
+
+        <div class="studio-custom-safe-note">
+          <strong>현재 2-1 단계는 미리보기 전용입니다.</strong>
+          <span>이미지는 서버에 업로드하거나 Firestore에 저장하지 않고 이 기기에서만 표시합니다. 기존 도감·보유 데이터에는 접근하거나 기록하지 않습니다.</span>
+        </div>
+
+        <div class="studio-layout studio-custom-layout">
+          <div class="studio-controls">
+            <section class="studio-control-card">
+              <div class="studio-step-heading">
+                <span>1</span>
+                <div><strong>바인더 그리드</strong><small>완성 이미지의 카드 칸 배열을 선택하세요.</small></div>
+              </div>
+              <div class="studio-custom-grid-options" aria-label="커스텀 바인더 그리드 선택">
+                <label><input type="radio" name="studio-custom-grid" value="3x3" /><span><strong>3 × 3</strong><small>9칸</small></span></label>
+                <label><input type="radio" name="studio-custom-grid" value="3x4" checked /><span><strong>3 × 4</strong><small>12칸</small></span></label>
+                <label><input type="radio" name="studio-custom-grid" value="4x4" /><span><strong>4 × 4</strong><small>16칸</small></span></label>
+              </div>
+            </section>
+
+            <section class="studio-control-card">
+              <div class="studio-step-heading">
+                <span>2</span>
+                <div><strong>완성 이미지</strong><small>PNG · JPG · WEBP, 최대 10MB</small></div>
+              </div>
+              <label id="studio-custom-dropzone" class="studio-custom-dropzone" for="studio-custom-file">
+                <input id="studio-custom-file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+                <span class="studio-custom-upload-icon" aria-hidden="true">＋</span>
+                <strong id="studio-custom-file-label">이미지를 선택하거나 여기에 놓으세요</strong>
+                <small id="studio-custom-image-meta">PNG · JPG · WEBP · 최대 10MB</small>
+              </label>
+            </section>
+
+            <section class="studio-control-card">
+              <div class="studio-custom-summary">
+                <span><small>선택 그리드</small><strong id="studio-custom-grid-label">3 × 4</strong></span>
+                <span><small>카드 슬롯</small><strong id="studio-custom-slot-label">12칸</strong></span>
+              </div>
+              <p id="studio-custom-ratio-note" class="studio-custom-ratio-note">이미지를 올리면 선택한 그리드와 비율을 확인합니다.</p>
+            </section>
+
+            <section class="studio-control-card studio-custom-next-card">
+              <strong>다음 단계</strong>
+              <p>미리보기 구조가 안정되면 2-2에서 로그인 사용자용 ‘내 작업 저장’을 별도 저장소 구조로 연결합니다.</p>
+              <button class="studio-primary-button" type="button" disabled>내 작업 저장 · 2-2 예정</button>
+            </section>
+          </div>
+
+          <section class="studio-preview-panel studio-custom-preview-panel" aria-labelledby="studio-custom-preview-title">
+            <div class="studio-preview-heading">
+              <div><span class="studio-kicker">PREVIEW</span><h2 id="studio-custom-preview-title">바인더 미리보기</h2></div>
+              <span class="studio-orientation-badge">로컬 미리보기</span>
+            </div>
+            <div id="studio-custom-preview-empty" class="studio-empty-preview">
+              <span aria-hidden="true">▧</span>
+              <strong>완성 이미지를 선택해 주세요.</strong>
+              <p>이미지를 서버로 보내지 않고 현재 기기에서만 그리드 오버레이를 확인합니다.</p>
+            </div>
+            <div id="studio-custom-preview-wrap" class="studio-custom-preview-wrap" hidden>
+              <div class="studio-custom-preview-stage">
+                <img id="studio-custom-preview-image" alt="" />
+                <div id="studio-custom-grid-overlay" class="studio-custom-grid-overlay" aria-hidden="true"></div>
+              </div>
+              <p class="studio-custom-preview-help">그리드 선은 확인용이며 원본 이미지에는 합성되지 않습니다.</p>
+            </div>
+          </section>
+        </div>
       </section>
 
       <footer class="site-footer studio-footer">
