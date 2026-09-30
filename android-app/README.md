@@ -8,6 +8,7 @@ This Android WebView shell opens the live Digital Card Binder site so site updat
 - Android notification permission prompt and dedicated `updates` notification channel.
 - Remote app version manifest (`/app-version.json`) with in-app update prompts for future APK releases.
 - Firebase Android configuration is generated only during the GitHub Actions build and is not committed to the repository.
+- Native Android print bridge opens the system PrintManager from Binder Studio, including Save as PDF.
 - The Android build workflow publishes `DigitalCardBinder_v1.0.apk` only after a successful build.
 
 The package ID intentionally remains `io.github.digitalcardbinder.app.test` so app updates install over the existing app when they use the same test signing key.
