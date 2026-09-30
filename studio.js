@@ -419,6 +419,9 @@
   function createPreviewCard(item) {
     const card = document.createElement("article");
     card.className = "studio-preview-card";
+    if (state.currentUser && state.ownershipReady && !state.ownedKeys.has(item.key)) {
+      card.classList.add("is-missing");
+    }
 
     const imageWrap = document.createElement("div");
     imageWrap.className = "studio-preview-card-image";
@@ -565,6 +568,9 @@
   function createPrintCard(item, width, height) {
     const card = document.createElement("article");
     card.className = "studio-print-card";
+    if (state.currentUser && state.ownershipReady && !state.ownedKeys.has(item.key)) {
+      card.classList.add("is-missing");
+    }
     card.style.width = `${width}mm`;
     card.style.height = `${height}mm`;
 
