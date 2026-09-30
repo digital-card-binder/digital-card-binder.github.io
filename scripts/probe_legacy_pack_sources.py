@@ -145,3 +145,18 @@ for q in ["dp 포켓몬카드팩 고대팩", "포켓몬카드 고대팩 dp시리
         name=str(item.get("name") or "")
         if any(k in name.lower() for k in ["포켓몬","dp","고대팩"]):
             print("GITEM",item.get("pid"),"|",name,"|",item.get("product_image"))
+
+
+print("\n=== PMS V3 PRODUCT DETAIL ===")
+for pid in ["431466324","430449269","432817025","411176949","411177289","411177637","411177951","422715439","396838239","234574785"]:
+    url=f"https://api.bunjang.co.kr/api/pms/v3/products-detail/{pid}?viewerUid=-1"
+    try:
+        r=requests.get(url,headers={"Accept":"application/json"},timeout=30)
+        print("\nPMS",pid,"status",r.status_code,"len",len(r.content),r.headers.get("content-type"))
+        if r.ok:
+            data=r.json()
+            p=((data.get("data") or {}).get("product") or {})
+            print("PMSITEM",p.get("name"),"| imageUrl",p.get("imageUrl"),"| keys",sorted(p.keys()))
+            print("PMSDATAHEAD",str(data)[:5000])
+    except Exception as e:
+        print("PMSERROR",pid,repr(e))
