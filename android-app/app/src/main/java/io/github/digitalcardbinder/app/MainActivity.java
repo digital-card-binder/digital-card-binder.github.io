@@ -25,6 +25,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -65,10 +66,12 @@ public class MainActivity extends Activity {
     private static final String SHEETS_SCOPE =
             "https://www.googleapis.com/auth/spreadsheets";
     private static final int SHEETS_AUTH_REQUEST_CODE = 4108;
+    private static final int FILE_CHOOSER_REQUEST_CODE = 4109;
 
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private WebView webView;
     private CredentialManager credentialManager;
+    private ValueCallback<Uri[]> fileChooserCallback;
     private boolean signInInProgress = false;
     private boolean sheetsAuthorizationInProgress = false;
 
@@ -132,6 +135,32 @@ public class MainActivity extends Activity {
             public void onProgressChanged(WebView view, int newProgress) {
                 progress.setProgress(newProgress);
                 progress.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
+            }
+
+            @Override
+            public boolean onShowFileChooser(
+                    WebView view,
+                    ValueCallback<Uri[]> filePathCallback,
+                    FileChooserParams fileChooserParams) {
+                if (fileChooserCallback != null) {
+                    fileChooserCallback.onReceiveValue(null);
+                }
+                fileChooserCallback = filePathCallback;
+
+                try {
+                    Intent chooserIntent = fileChooserParams.createIntent();
+                    chooserIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                    startActivityForResult(chooserIntent, FILE_CHOOSER_REQUEST_CODE);
+                    return true;
+                } catch (Throwable error) {
+                    fileChooserCallback = null;
+                    Toast.makeText(
+                            MainActivity.this,
+                            "이미지 선택 화면을 열지 못했습니다.",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    return false;
+                }
             }
         });
 
@@ -432,6 +461,17 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
+            ValueCallback<Uri[]> callback = fileChooserCallback;
+            fileChooserCallback = null;
+            if (callback != null) {
+                Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
+                callback.onReceiveValue(result);
+            }
+            return;
+        }
+
         if (requestCode != SHEETS_AUTH_REQUEST_CODE) return;
 
         if (resultCode != RESULT_OK || data == null) {
@@ -620,6 +660,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        if (fileChooserCallback != null) {
+            fileChooserCallback.onReceiveValue(null);
+            fileChooserCallback = null;
+        }
         if (webView != null) {
             webView.removeJavascriptInterface("DigitalCardBinderApp");
             webView.stopLoading();
