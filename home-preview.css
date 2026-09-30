@@ -1687,3 +1687,134 @@ body[data-page="dashboard"] .dashboard-news-row:hover,
 body[data-page="dashboard"] .dashboard-news-more:hover {
   background: rgba(255, 255, 255, 0.055);
 }
+
+
+/* Mobile header account access: the bottom tab bar owns site navigation. */
+.home-account-trigger {
+  display: none;
+}
+
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .home-header-actions {
+    position: relative;
+  }
+
+  body[data-page="dashboard"] .home-account-trigger {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(105, 164, 210, 0.3);
+    border-radius: 12px;
+    background: rgba(9, 43, 72, 0.9);
+    color: #dcecff;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  body[data-page="dashboard"] .home-account-trigger:focus-visible {
+    outline: 3px solid rgba(94, 231, 238, 0.3);
+    outline-offset: 2px;
+  }
+
+  body[data-page="dashboard"] .home-account-icon {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+
+  body[data-page="dashboard"] .home-account-icon::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+
+  body[data-page="dashboard"] .home-account-icon::after {
+    content: "";
+    position: absolute;
+    right: 1px;
+    bottom: 0;
+    left: 1px;
+    height: 7px;
+    border: 2px solid currentColor;
+    border-bottom: 0;
+    border-radius: 9px 9px 0 0;
+  }
+
+  body[data-page="dashboard"] .home-account-trigger.is-account::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 7px;
+    height: 7px;
+    border: 2px solid #031a2c;
+    border-radius: 50%;
+    background: #5ee7ee;
+  }
+
+  /* The top-right control is now account/profile; the site menu is opened from the bottom tab bar. */
+  body[data-page="dashboard"] .home-menu > summary {
+    display: none !important;
+  }
+
+  body[data-page="dashboard"] .firebase-auth-panel {
+    display: none;
+  }
+
+  body[data-page="dashboard"] .home-header-actions .firebase-auth-panel.is-mobile-open {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 70;
+    display: flex;
+    min-width: 210px;
+    max-width: calc(100vw - 24px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    border: 1px solid rgba(105, 164, 210, 0.3);
+    border-radius: 16px;
+    background: rgba(3, 25, 45, 0.985);
+    padding: 10px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+  }
+
+  body[data-page="dashboard"] .home-header-actions .firebase-auth-panel.is-mobile-open .firebase-auth-dot {
+    display: block !important;
+  }
+
+  body[data-page="dashboard"] .home-header-actions .firebase-auth-panel.is-mobile-open #firebase-auth-status {
+    display: inline-flex !important;
+    align-items: center;
+    min-height: 32px;
+    max-width: 150px;
+    color: #dcecff;
+  }
+
+  body[data-page="dashboard"] .home-header-actions .firebase-auth-panel.is-mobile-open #firebase-auth-status.firebase-profile-link {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f4f8ff;
+    padding: 0 9px;
+  }
+
+  body[data-page="dashboard"] .home-header-actions .firebase-auth-panel.is-mobile-open button {
+    min-height: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #f4f8ff;
+  }
+
+  body[data-page="dashboard"] .home-menu[open] > nav {
+    top: calc(100% + 10px);
+    right: 0;
+  }
+}
