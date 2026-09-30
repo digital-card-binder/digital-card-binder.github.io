@@ -129,8 +129,10 @@
   background-image:
     var(--pack-image),
     linear-gradient(135deg, var(--pack-a), var(--pack-b));
+  background-repeat: no-repeat, no-repeat;
   background-position: center, center;
-  background-size: 100% 100%, 100% 100%;
+  /* Preserve the original pack aspect ratio. Never stretch archived pack art. */
+  background-size: contain, 100% 100%;
 }
 
 .pack-image.is-pack-placeholder,
