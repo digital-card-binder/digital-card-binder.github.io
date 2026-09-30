@@ -625,8 +625,8 @@ service cloud.firestore {
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 1
         && request.resource.data.title.size() <= 60
-        && validCustomBinderGrid(request.resource.data.grid)
-        && validCustomBinderBackground(request.resource.data.background)
+        && request.resource.data.grid is map
+        && request.resource.data.background is map
         && request.resource.data.cards is list
         && request.resource.data.cards.size() <= 16
         && request.resource.data.updatedAt == request.time;
