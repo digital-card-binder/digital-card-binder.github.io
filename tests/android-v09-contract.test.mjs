@@ -15,7 +15,7 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   const buildWorkflow = read(".github/workflows/build-android-apk.yml");
   const pushWorkflow = read(".github/workflows/send-android-news-notification.yml");
 
-  assert.match(appGradle, /versionCode\\s+14/);
+  assert.match(appGradle, /versionCode\s+14/);
   assert.match(appGradle, /versionName\s+'1\.0'/);
   assert.match(rootGradle, /com\.google\.gms\.google-services/);
   assert.match(appGradle, /firebase-bom:34\.18\.0/);
