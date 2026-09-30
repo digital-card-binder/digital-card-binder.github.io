@@ -124,3 +124,13 @@ for q in [
                 if count>=12: break
     except Exception as e:
         print("BINGERROR",q,repr(e))
+
+
+print("\n=== BING RAW SAMPLE ===")
+q='"또 다른 세계" 포켓몬 카드 팩'
+rr=requests.get("https://www.bing.com/images/search?q="+quote(q)+"&form=HDRSC2",headers=headers,timeout=30)
+raw=rr.text
+for needle in ["murl", "&quot;murl&quot;", "class=\"iusc\""]:
+    ii=raw.find(needle)
+    print("NEEDLE",needle,"INDEX",ii)
+    if ii>=0: print("SAMPLE",raw[max(0,ii-500):ii+1800])
