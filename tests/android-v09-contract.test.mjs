@@ -15,7 +15,7 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   const buildWorkflow = read(".github/workflows/build-android-apk.yml");
   const pushWorkflow = read(".github/workflows/send-android-news-notification.yml");
 
-  assert.match(appGradle, /versionCode\s+14/);
+  assert.match(appGradle, /versionCode\\s+15/);
   assert.match(appGradle, /versionName\s+'1\.0'/);
   assert.match(rootGradle, /com\.google\.gms\.google-services/);
   assert.match(appGradle, /firebase-bom:34\.18\.0/);
@@ -37,8 +37,11 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   assert.match(activity, /startPrint\(String jobName, boolean landscape\)/);
   assert.match(activity, /createPrintDocumentAdapter/);
   assert.match(activity, /PrintAttributes[.]MediaSize[.]ISO_A4/);
+  assert.match(activity, /onShowFileChooser/);
+  assert.match(activity, /FILE_CHOOSER_REQUEST_CODE/);
+  assert.match(activity, /FileChooserParams[.]parseResult/);
 
-  assert.equal(version.versionCode, 14);
+  assert.equal(version.versionCode, 15);
   assert.equal(version.versionName, "1.0");
   assert.match(version.apkUrl, /DigitalCardBinder_v1\.0\.apk$/);
 
