@@ -26,9 +26,9 @@ SPECS = {
     "BS5": ("bs5.jpg", (0.31, 0.17, 0.69, 0.86)),
     "BS6": ("bs6.jpg", (0.14, 0.02, 0.86, 0.99)),
     "BS7": ("multi.jpg", (0.63, 0.20, 1.00, 0.99)),
-    "BS8": ("wanted.jpg", (0.36, 0.49, 0.63, 1.00)),
-    "BS9": ("wanted.jpg", (0.57, 0.49, 0.84, 1.00)),
-    "BS10": ("wanted.jpg", (0.78, 0.49, 1.00, 1.00)),
+    "BS8": ("wanted.jpg", (0.40, 0.49, 0.60, 1.00)),
+    "BS9": ("wanted.jpg", (0.60, 0.49, 0.80, 1.00)),
+    "BS10": ("wanted.jpg", (0.80, 0.49, 1.00, 1.00)),
 }
 
 NAMES = {
@@ -110,8 +110,15 @@ def crop_proportional(image: Image.Image, box: tuple[float, float, float, float]
 
 def fit_canvas(image: Image.Image) -> Image.Image:
     # Match the pack-dex display ratio without stretching the source artwork.
+    # Upscaling is intentional for low-resolution archive crops because the
+    # final UI only renders them at small pack-card dimensions.
     canvas = Image.new("RGBA", (700, 900), (0, 0, 0, 0))
-    image.thumbnail((680, 880), Image.Resampling.LANCZOS)
+    scale = min(680 / image.width, 880 / image.height)
+    size = (
+        max(1, round(image.width * scale)),
+        max(1, round(image.height * scale)),
+    )
+    image = image.resize(size, Image.Resampling.LANCZOS)
     x = (canvas.width - image.width) // 2
     y = (canvas.height - image.height) // 2
     canvas.alpha_composite(image, (x, y))
