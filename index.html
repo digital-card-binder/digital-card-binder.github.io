@@ -13,10 +13,10 @@
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <meta property="og:image" content="https://digital-card-binder.github.io/assets/brand/og-image.png" />
     <link rel="manifest" href="./manifest.webmanifest?v=a54b174a6bc6" />
-    <link rel="stylesheet" href="./styles.css?v=56f26c9df3d2" />
+    <link rel="stylesheet" href="./styles.css?v=41006a39d41c" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./dashboard.css?v=ca7384b6f794" />
-    <link rel="stylesheet" href="./collector.css?v=8cf60d80d7d0" />
+    <link rel="stylesheet" href="./dashboard.css?v=359e5cf01894" />
+    <link rel="stylesheet" href="./collector.css?v=9cd461ff9146" />
     <link rel="stylesheet" href="./news.css?v=e95e6064eadc" />
     <link rel="stylesheet" href="./pwa.css?v=a88f945c52db" />
     <link rel="stylesheet" href="./home-preview.css?v=33275b6f3eb2" />
@@ -30,8 +30,8 @@
     <script src="./collector-collection-registry.js?v=a547ab2fed3a" defer></script>
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
     <script src="./collector-public-sync.js?v=8e49aaaa2670" defer></script>
-    <script src="./collector-nav.js?v=10a2999095e1" defer></script>
-    <script src="./dashboard.js?v=9baf3214bbf8" defer></script>
+    <script src="./collector-nav.js?v=bf39ee3b614e" defer></script>
+    <script src="./dashboard.js?v=8478da447a15" defer></script>
     <script src="./feedback.js?v=37639a6a4d0c" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./pwa.js?v=be21d09548f5" defer></script>
@@ -81,8 +81,8 @@
       <aside class="sidebar" aria-label="도감 메뉴">
         <div class="sidebar-label">도감 메뉴</div>
         <nav class="collection-nav">
-          <a class="collection-link is-active" href="./" aria-current="page"><span class="collection-icon collection-icon--red" aria-hidden="true">홈</span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
-          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon" aria-hidden="true">⌕</span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
+          <a class="collection-link is-active" href="./" aria-current="page"><span class="collection-icon collection-icon--red ui-icon ui-icon--home" aria-hidden="true"></span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon ui-icon ui-icon--search" aria-hidden="true"></span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
           <div class="sidebar-label collection-nav-section">주요 도감</div>
           <a class="collection-link" href="./national.html"><span><strong>전국도감</strong><small>1,025종 · 1–9세대</small></span></a>
           <a class="collection-link" href="./series.html"><span><strong>시리즈 도감</strong><small>273세트 · 20,243장</small></span></a>
@@ -95,8 +95,8 @@
           <a class="collection-link" href="./trainer-pokemon.html"><span><strong>트레이너 × 포켓몬</strong><small>245장</small></span></a>
           <a class="collection-link" href="./fossil.html"><span><strong>화석 도감</strong><small>122장</small></span></a>
           <a class="collection-link" href="./world.html"><span><strong>월드탐험도감</strong><small>9세대 · 108장</small></span></a>
-          <a class="collection-link" href="./custom.html"><span class="collection-icon" aria-hidden="true">나</span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
-          <a class="collection-link" href="./collectors.html" data-nav-standalone="true"><span class="collection-icon" aria-hidden="true">모</span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon ui-icon ui-icon--binder" aria-hidden="true"></span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html" data-nav-standalone="true"><span class="collection-icon ui-icon ui-icon--community" aria-hidden="true"></span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
         </nav>
         <div class="sidebar-note">
           <span aria-hidden="true">✦</span>
@@ -241,7 +241,7 @@
         </a>
 
         <section id="dashboard-account-note" class="dashboard-account-note" aria-live="polite">
-          <span class="dashboard-account-icon" aria-hidden="true">i</span>
+          <span class="dashboard-account-icon ui-icon ui-icon--help" aria-hidden="true"></span>
           <div>
             <strong>Google 로그인 후 내 수집 현황을 확인할 수 있습니다.</strong>
             <p>로그인하지 않은 공개 화면에서는 모든 도감이 미수집 상태로 표시됩니다.</p>
@@ -292,17 +292,17 @@
           </div>
           <div class="dashboard-shortcut-grid">
             <a class="dashboard-shortcut-card dashboard-shortcut-card--custom" href="./custom.html">
-              <span class="dashboard-shortcut-icon" aria-hidden="true">나</span>
+              <span class="dashboard-shortcut-icon ui-icon ui-icon--binder" aria-hidden="true"></span>
               <span><strong>나만의 도감</strong><small>원하는 테마로 직접 만드는 도감</small></span>
               <b aria-hidden="true">→</b>
             </a>
             <a class="dashboard-shortcut-card dashboard-shortcut-card--studio" href="./studio.html">
-              <span class="dashboard-shortcut-icon" aria-hidden="true">출력</span>
+              <span class="dashboard-shortcut-icon ui-icon ui-icon--studio" aria-hidden="true"></span>
               <span><strong>바인더 스튜디오</strong><small>확장아트를 실제 카드·슬리브 크기로 인쇄</small></span>
               <b aria-hidden="true">→</b>
             </a>
             <a class="dashboard-shortcut-card dashboard-shortcut-card--community" href="./collectors.html">
-              <span class="dashboard-shortcut-icon" aria-hidden="true">모</span>
+              <span class="dashboard-shortcut-icon ui-icon ui-icon--community" aria-hidden="true"></span>
               <span><strong>커뮤니티</strong><small>다른 컬렉터의 공개 도감 둘러보기</small></span>
               <b aria-hidden="true">→</b>
             </a>
@@ -316,14 +316,14 @@
           </div>
           <div class="dashboard-utility-actions">
             <div class="dashboard-feedback-actions" aria-label="의견 및 건의 메뉴">
-              <button id="feedback-open" class="feedback-action feedback-action--send" type="button">건의하기</button>
+              <button id="feedback-open" class="feedback-action feedback-action--send" type="button"><span class="ui-icon ui-icon--feedback ui-icon--compact" aria-hidden="true"></span>건의하기</button>
               <button
                 id="feedback-admin-open"
                 class="feedback-action feedback-action--admin"
                 type="button"
                 hidden
               >
-                의견 확인
+                <span class="ui-icon ui-icon--inbox ui-icon--compact" aria-hidden="true"></span>의견 확인
                 <b id="feedback-new-count" class="feedback-new-count" hidden>0</b>
               </button>
             </div>

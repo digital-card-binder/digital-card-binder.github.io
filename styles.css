@@ -260,19 +260,6 @@ img {
   display: none;
 }
 
-.collection-icon {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  border: 1px solid #dfe2ea;
-  border-radius: 10px;
-  background: #f0f1f5;
-  color: #9297a8;
-  font-size: 0.65rem;
-  font-weight: 800;
-}
 
 .collection-link.is-active {
   border-color: #f0d8dc;
@@ -1349,12 +1336,6 @@ img {
     scroll-snap-align: center;
   }
 
-  .collection-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    font-size: 0.58rem;
-  }
 
   .collection-link strong {
     font-size: 0.76rem;
@@ -2113,4 +2094,72 @@ img {
     grid-column: 1 / -1;
     margin-top: 2px;
   }
+}
+
+/* Shared decorative menu thumbnails. Meaning stays in the adjacent title. */
+.ui-icon.ui-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: var(--ui-icon-size, 40px);
+  height: var(--ui-icon-size, 40px);
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(101, 211, 226, .24);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #123b54, #182e4c);
+  color: #75e0e4;
+}
+.ui-icon::before {
+  content: "";
+  display: block;
+  width: 64%;
+  height: 64%;
+  background: currentColor;
+  -webkit-mask: var(--ui-icon) center / contain no-repeat;
+  mask: var(--ui-icon) center / contain no-repeat;
+}
+.ui-icon { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--home { --ui-icon: url("./assets/ui/icons/home.svg"); }
+.ui-icon--search { --ui-icon: url("./assets/ui/icons/search.svg"); }
+.ui-icon--binder { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--studio { --ui-icon: url("./assets/ui/icons/studio.svg"); }
+.ui-icon--community { --ui-icon: url("./assets/ui/icons/community.svg"); }
+.ui-icon--profile { --ui-icon: url("./assets/ui/icons/profile.svg"); }
+.ui-icon--art { --ui-icon: url("./assets/ui/icons/art.svg"); }
+.ui-icon--artist { --ui-icon: url("./assets/ui/icons/artist.svg"); }
+.ui-icon--scene { --ui-icon: url("./assets/ui/icons/scene.svg"); }
+.ui-icon--world { --ui-icon: url("./assets/ui/icons/world.svg"); }
+.ui-icon--fossil { --ui-icon: url("./assets/ui/icons/fossil.svg"); }
+.ui-icon--pack { --ui-icon: url("./assets/ui/icons/pack.svg"); }
+.ui-icon--help { --ui-icon: url("./assets/ui/icons/help.svg"); }
+.ui-icon--feedback { --ui-icon: url("./assets/ui/icons/feedback.svg"); }
+.ui-icon--inbox { --ui-icon: url("./assets/ui/icons/inbox.svg"); }
+.ui-icon--custom { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--national { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--series { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--ar { --ui-icon: url("./assets/ui/icons/art.svg"); }
+.ui-icon--pokemon { --ui-icon: url("./assets/ui/icons/binder.svg"); }
+.ui-icon--artist { --ui-icon: url("./assets/ui/icons/artist.svg"); }
+.ui-icon--people { --ui-icon: url("./assets/ui/icons/profile.svg"); }
+.ui-icon--trainerPokemon { --ui-icon: url("./assets/ui/icons/scene.svg"); }
+
+.collection-icon.ui-icon { --ui-icon-size: 34px; border-radius: 10px; }
+.dashboard-shortcut-icon.ui-icon { --ui-icon-size: 44px; }
+.theme-card-icon.ui-icon, .collector-directory-avatar.ui-icon { --ui-icon-size: 48px; }
+.custom-dex-tile-icon.ui-icon { --ui-icon-size: 38px; }
+.collector-onboarding-icon.ui-icon { --ui-icon-size: 54px; }
+.ui-icon--compact.ui-icon { --ui-icon-size: 26px; border-radius: 8px; }
+.is-active .ui-icon.ui-icon {
+  background: linear-gradient(145deg, #16526b, #353e70);
+  color: #a4f5f3;
+  border-color: rgba(120, 229, 235, .45);
+}
+@media (max-width: 690px) {
+  .collection-nav .collection-icon.ui-icon { --ui-icon-size: 29px; flex-basis: 29px; border-radius: 9px; }
+  .dashboard-shortcut-icon.ui-icon { --ui-icon-size: 38px; }
+}
+@media (forced-colors: active) {
+  .ui-icon.ui-icon { border-color: ButtonText; color: ButtonText; }
+  .ui-icon::before { forced-color-adjust: none; background: ButtonText; }
 }

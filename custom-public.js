@@ -203,7 +203,7 @@
       button.type = "button";
       button.className = `custom-dex-tile${dex.id === state.selectedDexId ? " is-active" : ""}`;
       button.innerHTML = `
-        <span class="custom-dex-tile-icon">MY</span>
+        <span class="custom-dex-tile-icon ui-icon ui-icon--binder" aria-hidden="true"></span>
         <span class="custom-dex-tile-copy"><strong>${escapeHtml(dex.title)}</strong><small>${owned} / ${dex.cards.length}장 보유</small></span>
         <span class="custom-dex-tile-arrow">›</span>`;
       button.addEventListener("click", () => {

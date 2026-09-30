@@ -857,7 +857,7 @@
     dialog.className = "collector-onboarding-dialog";
     dialog.innerHTML = `
       <div class="collector-onboarding-shell">
-        <span class="collector-onboarding-icon" aria-hidden="true">CP</span>
+        <span class="collector-onboarding-icon ui-icon ui-icon--profile" aria-hidden="true"></span>
         <h2>컬렉터 프로필 만들기</h2>
         <p>Google 실명 대신 사용할 컬렉터 닉네임을 정하고, 원하는 도감만 다른 사람에게 공유할 수 있습니다.</p>
         <ul class="collector-onboarding-points">
