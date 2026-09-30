@@ -4,6 +4,9 @@ on:
     paths:
       - "scripts/probe_dp8910_listings.py"
       - ".github/workflows/probe-dp8910-listings.yml"
+
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
