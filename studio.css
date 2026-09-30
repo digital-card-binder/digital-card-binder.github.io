@@ -1668,10 +1668,14 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 }
 
 
-/* Custom Binder 2-4 print */
+/* Custom Binder 2-4/2-5 print */
 .studio-custom-print-card {
   border-color: #d4e2e8;
   background: linear-gradient(145deg, #fbfdfe, #f5f9fb);
+}
+
+.studio-custom-print-size-options {
+  margin-top: 13px;
 }
 
 .studio-custom-print-summary {
@@ -1701,11 +1705,15 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 
 @media print {
   .studio-custom-print-sheet {
-    grid-template-columns: repeat(3, 63mm) !important;
-    grid-template-rows: repeat(3, 88mm) !important;
     align-content: center !important;
     justify-content: center !important;
     gap: 0 !important;
+  }
+
+  .studio-custom-print-sheet--fit {
+    display: grid !important;
+    align-content: center !important;
+    justify-content: center !important;
   }
 
   .studio-custom-print-cell {
@@ -1714,8 +1722,16 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     box-sizing: border-box;
     overflow: hidden;
     background: #fff;
-    outline: .12mm solid rgba(70,70,70,.34);
-    outline-offset: -.12mm;
+  }
+
+  .studio-custom-print-cell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 9999;
+    box-sizing: border-box;
+    border: .25mm solid #4b4b4b;
+    pointer-events: none;
   }
 
   .studio-custom-print-composition {
