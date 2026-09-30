@@ -5,6 +5,7 @@ const SPRITE_ROWS = 7;
 const SPRITE_BACKED_PACK_COUNT = 62;
 const FIREBASE_SDK_VERSION = "10.12.5";
 const PROMO_DATA_URL = "./data/promo-packs.json?v=20260929-1";
+const LEGACY_PACK_IMAGE_MANIFEST_URL = "./assets/packs/legacy/manifest.json";
 
 // 정규 확장팩 목록은 대시보드와 Google Sheets 동기화에서도 이 배열을 읽는다.
 // 프로모팩·단일 배포 카드는 data/promo-packs.json에서 별도로 불러온다.
@@ -55,6 +56,30 @@ const individualPackImages = new Map([
 
 function packPalette(pack) {
   return specialPackPalettes[String(pack?.code || "").toLowerCase()] || palettes[pack.era];
+}
+
+async function loadLegacyPackImages() {
+  const response = await fetch(
+    `${LEGACY_PACK_IMAGE_MANIFEST_URL}?t=${Date.now()}`,
+    { cache: "no-store" }
+  );
+  if (!response.ok) throw new Error(`legacy pack image manifest HTTP ${response.status}`);
+  const payload = await response.json();
+  const images = payload?.images && typeof payload.images === "object"
+    ? payload.images
+    : {};
+  const next = new Map();
+  for (const [code, path] of Object.entries(images)) {
+    const key = String(code || "").trim().toLowerCase();
+    const value = String(path || "").trim();
+    if (
+      /^[a-z0-9+_-]+$/i.test(key) &&
+      /^\.\/assets\/packs\/legacy\/[a-z0-9+_.-]+\.webp$/i.test(value)
+    ) {
+      next.set(key, value);
+    }
+  }
+  legacyPackImages = next;
 }
 
 const promoPalettes = {
@@ -142,6 +167,7 @@ let packSharedViewActive = false;
 let packCollectorPublicViewActive = false;
 let packSaveQueue = Promise.resolve();
 let activePack = null;
+let legacyPackImages = new Map();
 
 const $ = (id) => document.getElementById(id);
 const pct = (n, d) => (d ? Math.round((n / d) * 1000) / 10 : 0);
@@ -693,9 +719,11 @@ function spritePosition(index) {
 function configurePackImage(image, pack) {
   const colors = packPalette(pack);
   const pos = spritePosition(pack.i);
-  const individualImage = individualPackImages.get(
-    String(pack.code || "").toLowerCase()
-  ) || "";
+  const packCode = String(pack.code || "").toLowerCase();
+  const individualImage =
+    individualPackImages.get(packCode) ||
+    legacyPackImages.get(packCode) ||
+    "";
   const hasSpriteImage = pack.i < SPRITE_BACKED_PACK_COUNT;
   const placeholder = !individualImage && !hasSpriteImage;
 
@@ -1280,6 +1308,11 @@ async function bootstrapPackDex() {
   initFilters();
   initDialogs();
   initPromoControls();
+  try {
+    await loadLegacyPackImages();
+  } catch (error) {
+    console.warn("이전 시리즈 팩 이미지를 불러오지 못했습니다.", error);
+  }
   applyPackDocument({}, []);
   try {
     await loadPromoMaster();
