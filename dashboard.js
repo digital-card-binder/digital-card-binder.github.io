@@ -233,6 +233,17 @@
 
     panel.classList.toggle("is-account", Boolean(currentUser));
     panel.classList.toggle("is-owner", isOwner(currentUser));
+
+    const accountTrigger = document.querySelector("#home-account-trigger");
+    if (accountTrigger) {
+      accountTrigger.classList.toggle("is-account", Boolean(currentUser));
+      accountTrigger.setAttribute(
+        "aria-label",
+        currentUser ? "프로필 및 계정 메뉴" : "로그인 및 계정 메뉴",
+      );
+      accountTrigger.title = currentUser ? "프로필 및 계정" : "로그인";
+    }
+
     if (elements.headerChip) {
       elements.headerChip.textContent = sharedViewActive
         ? "읽기 전용"
@@ -931,27 +942,63 @@
 
   function initializeMobileTabbar() {
     const menu = document.querySelector("#home-menu");
-    const trigger = document.querySelector("#home-mobile-menu-trigger");
-    if (!menu || !trigger) return;
+    const menuTrigger = document.querySelector("#home-mobile-menu-trigger");
+    const accountTrigger = document.querySelector("#home-account-trigger");
+    const authPanel = document.querySelector("#firebase-auth-panel");
 
-    const syncExpandedState = () => {
-      trigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
+    const closeAccountPanel = () => {
+      if (!authPanel || !accountTrigger) return;
+      authPanel.classList.remove("is-mobile-open");
+      accountTrigger.setAttribute("aria-expanded", "false");
     };
 
-    trigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      menu.open = !menu.open;
+    const closeSiteMenu = () => {
+      if (!menu || !menuTrigger) return;
+      menu.open = false;
+      menuTrigger.setAttribute("aria-expanded", "false");
+    };
+
+    if (menu && menuTrigger) {
+      const syncExpandedState = () => {
+        menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
+        if (menu.open) closeAccountPanel();
+      };
+
+      menuTrigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeAccountPanel();
+        menu.open = !menu.open;
+        syncExpandedState();
+      });
+
+      menu.addEventListener("toggle", syncExpandedState);
       syncExpandedState();
+    }
 
-      if (menu.open) {
-        window.requestAnimationFrame(() => {
-          menu.querySelector("summary")?.focus({ preventScroll: true });
-        });
-      }
+    if (accountTrigger && authPanel) {
+      accountTrigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        closeSiteMenu();
+        const willOpen = !authPanel.classList.contains("is-mobile-open");
+        authPanel.classList.toggle("is-mobile-open", willOpen);
+        accountTrigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      });
+
+      authPanel.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+
+      document.addEventListener("click", () => {
+        closeAccountPanel();
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      closeAccountPanel();
+      closeSiteMenu();
     });
-
-    menu.addEventListener("toggle", syncExpandedState);
-    syncExpandedState();
   }
 
   function renderDashboard() {
