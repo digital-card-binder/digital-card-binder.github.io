@@ -179,8 +179,8 @@
         </div>
 
         <div class="studio-custom-safe-note">
-          <strong>2-2 카드 배치 편집기</strong>
-          <span>우리 도감의 카드 데이터는 검색·이미지 불러오기 용도로만 읽습니다. 기존 도감과 보유 상태에는 어떤 값도 기록하지 않습니다. 현재 작업은 아직 서버에 저장되지 않습니다.</span>
+          <strong>2-3 나만의도감 저장</strong>
+          <span>커스텀 바인더 작업은 기존 도감 문서와 분리된 개인 저장 영역에 저장합니다. 시리즈도감과 보유 상태에는 어떤 값도 기록하지 않습니다.</span>
         </div>
 
         <div class="studio-layout studio-custom-layout">
@@ -247,10 +247,21 @@
               <p class="studio-custom-fixed-size-note"><strong>카드 크기 고정</strong> 미리보기와 향후 출력 모두 63 × 88 mm 기준을 유지합니다. 그리드가 커지면 카드가 줄어드는 대신 작업 영역이 넓어집니다.</p>
             </section>
 
-            <section class="studio-control-card studio-custom-next-card">
-              <strong>다음 단계</strong>
-              <p>편집 구조를 그대로 유지해 2-3에서 ‘나만의도감 > 커스텀 바인더’에 별도 저장하고, 이후 현재 인쇄 엔진과 연결합니다.</p>
-              <button class="studio-primary-button" type="button" disabled>나만의도감 저장 · 2-3 예정</button>
+            <section class="studio-control-card studio-custom-save-card">
+              <div class="studio-step-heading">
+                <span>5</span>
+                <div><strong>나만의도감에 저장</strong><small>배경 이미지와 카드 배치 정보를 개인 계정에 함께 저장합니다.</small></div>
+              </div>
+              <label class="studio-field">
+                <span>작업 이름</span>
+                <input id="studio-custom-title-input" class="studio-custom-search-input" type="text" maxlength="60" placeholder="예: 이브이 3×4 바인더" />
+              </label>
+              <p id="studio-custom-save-status" class="studio-custom-save-status">로그인 상태를 확인하고 있습니다.</p>
+              <div class="studio-custom-save-actions">
+                <button id="studio-custom-save-button" class="studio-primary-button" type="button" disabled>나만의도감에 저장</button>
+                <button id="studio-custom-new-button" class="studio-text-button" type="button">새 작업</button>
+                <button id="studio-custom-delete-button" class="studio-text-button is-danger" type="button" hidden>저장 작업 삭제</button>
+              </div>
             </section>
           </div>
 
@@ -270,8 +281,20 @@
                 <div id="studio-custom-grid-overlay" class="studio-custom-grid-overlay" aria-hidden="true"></div>
                 <div id="studio-custom-card-layer" class="studio-custom-card-layer" aria-label="배치한 카드"></div>
               </div>
-              <p class="studio-custom-preview-help">카드를 드래그해 이동할 수 있습니다. 카드 선택 후 크기·회전·칸 맞춤도 사용할 수 있습니다.</p>
+              <p class="studio-custom-preview-help">카드를 드래그해 이동할 수 있습니다. 카드 선택 후 회전·칸 맞춤도 사용할 수 있습니다.</p>
             </div>
+
+            <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">
+              <div class="studio-custom-library-heading">
+                <div>
+                  <span class="studio-kicker">MY WORKS</span>
+                  <h3 id="studio-custom-library-title">저장한 커스텀 바인더</h3>
+                </div>
+                <a href="./custom.html#custom-binders">나만의도감에서 보기</a>
+              </div>
+              <div id="studio-custom-library" class="studio-custom-library"></div>
+              <p id="studio-custom-library-empty" class="studio-custom-library-empty">저장한 작업이 없습니다.</p>
+            </section>
           </section>
         </div>
       </section>
