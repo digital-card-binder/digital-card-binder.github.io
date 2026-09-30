@@ -1656,3 +1656,34 @@ body[data-page="dashboard"] .site-footer {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+/* Dashboard dark news contrast fix 2026-09-30 */
+body[data-page="dashboard"] .dashboard-news-label {
+  color: #ff5b6b;
+}
+
+body[data-page="dashboard"] .dashboard-news-row {
+  color: #f4f8ff;
+}
+
+body[data-page="dashboard"] .dashboard-news-row-category {
+  color: #5edcf0;
+}
+
+body[data-page="dashboard"] .dashboard-news-row-title {
+  color: #f5f9ff;
+}
+
+body[data-page="dashboard"] .dashboard-news-row-date {
+  color: #92aac4;
+}
+
+body[data-page="dashboard"] .dashboard-news-more {
+  color: #68e9f1;
+}
+
+body[data-page="dashboard"] .dashboard-news-row:hover,
+body[data-page="dashboard"] .dashboard-news-more:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
