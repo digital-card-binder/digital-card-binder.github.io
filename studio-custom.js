@@ -42,6 +42,9 @@
   const deleteButton = panel.querySelector("#studio-custom-delete-button");
   const library = panel.querySelector("#studio-custom-library");
   const libraryEmpty = panel.querySelector("#studio-custom-library-empty");
+  const customPrintButton = panel.querySelector("#studio-custom-print-button");
+  const customPrintSummary = panel.querySelector("#studio-custom-print-summary");
+  const printRoot = document.querySelector("#studio-print-root");
 
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
@@ -117,6 +120,44 @@
     return { cols, rows, value };
   }
 
+  function customPrintPlan() {
+    const grid = selectedGrid();
+    const slotCount = grid.cols * grid.rows;
+    return {
+      ...grid,
+      slotCount,
+      perPage: 9,
+      pageCount: Math.ceil(slotCount / 9),
+      orientation: "portrait",
+    };
+  }
+
+  function isAndroidAppShell() {
+    return window.POKEMON_DEX_ANDROID_APP === true ||
+      (
+        typeof window.DigitalCardBinderApp !== "undefined" &&
+        typeof window.DigitalCardBinderApp.getVersionCode === "function"
+      );
+  }
+
+  function supportsNativePrint() {
+    return typeof window.DigitalCardBinderApp !== "undefined" &&
+      typeof window.DigitalCardBinderApp.startPrint === "function";
+  }
+
+  function updateCustomPrintUi() {
+    if (!customPrintButton || !customPrintSummary) return;
+    const plan = customPrintPlan();
+    customPrintSummary.textContent =
+      `${plan.cols} × ${plan.rows} · ${plan.slotCount}칸 · A4 ${plan.pageCount}페이지`;
+    customPrintButton.disabled = !state.sourceBlob;
+    customPrintButton.textContent = supportsNativePrint()
+      ? "인쇄 · PDF로 저장"
+      : isAndroidAppShell()
+        ? "인쇄 · 앱 업데이트 필요"
+        : "인쇄 · PDF 저장";
+  }
+
   function applyStageGeometry() {
     const { cols, rows } = selectedGrid();
     previewStage.style.width = `${cols * CARD_WIDTH_MM * PREVIEW_PX_PER_MM}px`;
@@ -150,6 +191,7 @@
     });
     if (state.placements.length) renderPlacements();
     else renderSearchResults(searchInput.value);
+    updateCustomPrintUi();
   }
 
   function updateRatioNote(width, height) {
@@ -215,6 +257,7 @@
     ratioNote.textContent = "이미지를 올리면 선택한 그리드와 비율을 확인합니다.";
     ratioNote.className = "studio-custom-ratio-note";
     clearPlacements();
+    updateCustomPrintUi();
   }
 
   function loadFile(file) {
@@ -251,6 +294,7 @@
       updateRatioNote(state.sourceWidth, state.sourceHeight);
       renderSearchResults(searchInput.value);
       updateSaveUi();
+      updateCustomPrintUi();
     };
   }
 
@@ -632,6 +676,139 @@
         z: entry.z,
       })),
     };
+  }
+
+  function installCustomPrintPageStyle() {
+    document.querySelector("#studio-dynamic-page-style")?.remove();
+    const style = document.createElement("style");
+    style.id = "studio-dynamic-page-style";
+    style.textContent = "@media print { @page { size: A4 portrait; margin: 0; } }";
+    document.head.append(style);
+  }
+
+  function createCustomPrintComposition() {
+    const grid = selectedGrid();
+    const canvasWidth = grid.cols * CARD_WIDTH_MM;
+    const canvasHeight = grid.rows * CARD_HEIGHT_MM;
+    const composition = document.createElement("div");
+    composition.className = "studio-custom-print-composition";
+    composition.style.width = `${canvasWidth}mm`;
+    composition.style.height = `${canvasHeight}mm`;
+
+    const background = document.createElement("img");
+    background.className = "studio-custom-print-background";
+    background.src = state.objectUrl;
+    background.alt = "";
+    composition.append(background);
+
+    state.placements
+      .slice()
+      .sort((a, b) => a.z - b.z)
+      .forEach((entry) => {
+        const image = document.createElement("img");
+        image.className = "studio-custom-print-card-image";
+        image.src = entry.card.image;
+        image.alt = "";
+        image.style.left = `${(entry.x / 100) * canvasWidth}mm`;
+        image.style.top = `${(entry.y / 100) * canvasHeight}mm`;
+        image.style.width = `${CARD_WIDTH_MM}mm`;
+        image.style.height = `${CARD_HEIGHT_MM}mm`;
+        image.style.zIndex = String(entry.z);
+        image.style.transform = `rotate(${entry.rotation}deg)`;
+        composition.append(image);
+      });
+
+    return composition;
+  }
+
+  function createCustomPrintCell(index) {
+    const grid = selectedGrid();
+    const col = index % grid.cols;
+    const row = Math.floor(index / grid.cols);
+    const cell = document.createElement("article");
+    cell.className = "studio-custom-print-cell";
+    cell.style.width = `${CARD_WIDTH_MM}mm`;
+    cell.style.height = `${CARD_HEIGHT_MM}mm`;
+
+    const composition = createCustomPrintComposition();
+    composition.style.left = `-${col * CARD_WIDTH_MM}mm`;
+    composition.style.top = `-${row * CARD_HEIGHT_MM}mm`;
+    cell.append(composition);
+    return cell;
+  }
+
+  function buildCustomPrintSheets() {
+    if (!printRoot || !state.sourceBlob) return null;
+    const plan = customPrintPlan();
+    installCustomPrintPageStyle();
+    printRoot.replaceChildren();
+
+    for (let start = 0; start < plan.slotCount; start += plan.perPage) {
+      const sheet = document.createElement("section");
+      sheet.className = "studio-print-sheet studio-print-sheet--exact studio-custom-print-sheet";
+      const end = Math.min(plan.slotCount, start + plan.perPage);
+      for (let index = start; index < end; index += 1) {
+        sheet.append(createCustomPrintCell(index));
+      }
+      const calibration = document.createElement("div");
+      calibration.className = "studio-calibration";
+      calibration.textContent = "10 mm";
+      sheet.append(calibration);
+      printRoot.append(sheet);
+    }
+    return plan;
+  }
+
+  async function waitForCustomPrintImages() {
+    if (!printRoot) return;
+    const images = [...printRoot.querySelectorAll("img")];
+    const tasks = images.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    });
+    await Promise.race([
+      Promise.all(tasks),
+      new Promise((resolve) => window.setTimeout(resolve, 5000)),
+    ]);
+  }
+
+  async function startCustomPrint() {
+    if (!state.sourceBlob || !printRoot) return;
+
+    if (isAndroidAppShell() && !supportsNativePrint()) {
+      window.alert(
+        "현재 설치된 Android 앱은 시스템 인쇄를 지원하지 않습니다.\n" +
+        "디지털 카드 바인더 앱을 최신 버전으로 업데이트한 뒤 다시 시도해 주세요.",
+      );
+      return;
+    }
+
+    const plan = buildCustomPrintSheets();
+    if (!plan) return;
+
+    const originalTitle = document.title;
+    const title = clean(titleInput.value) || "커스텀바인더";
+    const printTitle = `바인더스튜디오_${title}_${plan.cols}x${plan.rows}`;
+    document.title = printTitle;
+    customPrintButton.disabled = true;
+    customPrintButton.textContent = "인쇄 준비 중…";
+
+    try {
+      await waitForCustomPrintImages();
+      if (supportsNativePrint()) {
+        window.DigitalCardBinderApp.startPrint(printTitle, false);
+      } else {
+        window.print();
+      }
+    } finally {
+      updateCustomPrintUi();
+      window.setTimeout(() => {
+        document.title = originalTitle;
+      }, 500);
+    }
   }
 
   function configured() {
@@ -1203,6 +1380,7 @@
   newButton.addEventListener("click", () => resetEditor(true));
   deleteButton.addEventListener("click", () => void deleteCurrentBinder());
   titleInput.addEventListener("input", () => updateSaveUi());
+  customPrintButton.addEventListener("click", () => void startCustomPrint());
 
   window.addEventListener("resize", () => {
     state.placements.forEach(clampPlacement);
@@ -1224,5 +1402,6 @@
   renderSearchResults("");
   activateTab(window.location.hash === "#studio-custom" ? "custom" : "print", false);
   updateSaveUi();
+  updateCustomPrintUi();
   void initializePersistence();
 })();
