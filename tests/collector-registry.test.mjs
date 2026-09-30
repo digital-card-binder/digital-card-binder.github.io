@@ -52,7 +52,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     national: [1025, 9],
     series: [20243, 273],
     ar: [530, 33],
-    pack: [64, 3],
+    pack: [151, 9],
     pokemon: [1333, 67],
     artist: [4873, 40],
     people: [179, 9],
@@ -73,7 +73,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
 test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
-    pack: 64,
+    pack: 151,
     artist: 4873,
     series: 20243,
     pokemon: 1333,
@@ -179,7 +179,7 @@ test("removing the non-existent M1L 093 preserves every later collection key", a
 test("existing nonempty top-level catalog group counts stay unchanged", async () => {
   const expected = {
     national: 9,
-    pack: 3,
+    pack: 9,
     artist: 40,
     series: 273,
     pokemon: 67,
