@@ -31,7 +31,7 @@
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
     <script src="./collector-public-sync.js?v=8e49aaaa2670" defer></script>
     <script src="./collector-nav.js?v=fcd566e44078" defer></script>
-    <script src="./dashboard.js?v=9b0f2efd8b56" defer></script>
+    <script src="./dashboard.js?v=5eb79ca270a1" defer></script>
     <script src="./feedback.js?v=37639a6a4d0c" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./pwa.js?v=be21d09548f5" defer></script>
@@ -52,11 +52,11 @@
         <a href="./national.html">전국도감</a>
         <a href="#dashboard-theme-section">테마도감</a>
         <a href="./packs.html">팩도감</a>
-        <a href="./custom.html">나의 수집</a>
+        <a href="#home-collection-section">나의 수집</a>
       </nav>
       <div class="home-header-actions">
         <span class="header-chip">공개 보기</span>
-        <details class="home-menu">
+        <details id="home-menu" class="home-menu">
           <summary aria-label="메뉴 열기"><span aria-hidden="true"></span>메뉴</summary>
           <nav aria-label="모바일 주요 메뉴">
             <a href="./pokemon-search.html">카드 검색</a>
@@ -64,7 +64,7 @@
             <a href="./national.html">전국도감</a>
             <a href="#dashboard-theme-section">테마도감</a>
             <a href="./packs.html">팩도감</a>
-            <a href="./custom.html">나의 수집</a>
+            <a href="#home-collection-section">나의 수집</a>
             <a href="./collectors.html">커뮤니티</a>
             <a href="./news.html">새소식</a>
           </nav>
@@ -153,7 +153,7 @@
           </div>
         </section>
 
-        <section class="home-browse" aria-labelledby="home-browse-title">
+        <section id="home-dex-section" class="home-browse" aria-labelledby="home-browse-title">
           <div class="home-section-heading">
             <div>
               <span class="home-kicker">COLLECTION GUIDE</span>
@@ -244,7 +244,7 @@
           <button id="dashboard-login-cta" type="button">내 도감 로그인</button>
         </section>
 
-        <section class="dashboard-section dashboard-primary-section home-progress-section" aria-labelledby="primary-collections-title">
+        <section id="home-collection-section" class="dashboard-section dashboard-primary-section home-progress-section" aria-labelledby="primary-collections-title">
           <div class="dashboard-section-heading">
             <div>
               <h2 id="primary-collections-title">내 수집 현황</h2>
@@ -365,9 +365,9 @@
     <nav class="home-mobile-tabbar" aria-label="모바일 주요 메뉴">
       <a class="is-active" href="./" aria-current="page"><span aria-hidden="true">◆</span><strong>홈</strong></a>
       <a href="./pokemon-search.html"><span aria-hidden="true">⌕</span><strong>검색</strong></a>
-      <a href="./series.html"><span aria-hidden="true">▣</span><strong>도감</strong></a>
-      <a href="./custom.html"><span aria-hidden="true">▤</span><strong>나의 수집</strong></a>
-      <a href="./collectors.html"><span aria-hidden="true">☰</span><strong>메뉴</strong></a>
+      <a href="#home-dex-section"><span aria-hidden="true">▣</span><strong>도감</strong></a>
+      <a href="#home-collection-section"><span aria-hidden="true">▤</span><strong>나의 수집</strong></a>
+      <a id="home-mobile-menu-trigger" href="#home-menu" role="button" aria-controls="home-menu" aria-expanded="false"><span aria-hidden="true">☰</span><strong>메뉴</strong></a>
     </nav>
 
     <div id="dashboard-error" class="app-error" role="alert" hidden>
