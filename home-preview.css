@@ -1818,3 +1818,72 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     right: 0;
   }
 }
+
+
+/* Dedicated mobile account popover. */
+.home-account-menu {
+  display: none;
+}
+
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .home-header-actions {
+    z-index: 80;
+  }
+
+  body[data-page="dashboard"] .home-account-trigger {
+    z-index: 82;
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+
+  body[data-page="dashboard"] .home-account-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 81;
+    display: grid;
+    width: min(220px, calc(100vw - 24px));
+    gap: 8px;
+    border: 1px solid rgba(105, 164, 210, 0.3);
+    border-radius: 16px;
+    background: rgba(3, 25, 45, 0.985);
+    padding: 10px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+  }
+
+  body[data-page="dashboard"] .home-account-menu[hidden] {
+    display: none !important;
+  }
+
+  body[data-page="dashboard"] .home-account-menu a,
+  body[data-page="dashboard"] .home-account-menu button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    width: 100%;
+    border: 1px solid rgba(105, 164, 210, 0.2);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #f4f8ff;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-decoration: none;
+    touch-action: manipulation;
+  }
+
+  body[data-page="dashboard"] .home-account-menu a:hover,
+  body[data-page="dashboard"] .home-account-menu button:hover,
+  body[data-page="dashboard"] .home-account-menu a:focus-visible,
+  body[data-page="dashboard"] .home-account-menu button:focus-visible {
+    background: rgba(94, 231, 238, 0.12);
+    outline: none;
+  }
+
+  body[data-page="dashboard"] .home-account-menu a[hidden],
+  body[data-page="dashboard"] .home-account-menu button[hidden] {
+    display: none !important;
+  }
+}
