@@ -5,6 +5,7 @@ import {
 } from "@firebase/rules-unit-testing";
 import {
   addDoc,
+  Bytes,
   collection,
   deleteDoc,
   doc,
@@ -1041,5 +1042,121 @@ test("collector settings never allow a private state while projection remains", 
   );
   await assertFails(
     setDoc(doc(guest, "sharedCollections", SHARE_ID), projection()),
+  );
+});
+
+
+test("custom binder work is private, size-bounded, and isolated from collection documents", async () => {
+  const binderRef = doc(alice, "users", ALICE_UID, "customBinders", "binder_test");
+  const binder = {
+    schemaVersion: 1,
+    ownerUid: ALICE_UID,
+    title: "이브이 3x4",
+    grid: {
+      cols: 3,
+      rows: 4,
+      slotCount: 12,
+      cardWidthMm: 63,
+      cardHeightMm: 88,
+      canvasWidthMm: 189,
+      canvasHeightMm: 352,
+    },
+    background: {
+      name: "eevee.webp",
+      type: "image/webp",
+      size: 4,
+      chunkCount: 1,
+      width: 756,
+      height: 1408,
+    },
+    cards: [
+      {
+        placementId: "card_1",
+        sourceKey: "series::m1::001",
+        name: "이브이",
+        setCode: "m1",
+        setTitle: "테스트 세트",
+        cardNumber: "001/100",
+        rarity: "AR",
+        imageUrl: "https://cards.example/eevee.webp",
+        x: 0,
+        y: 0,
+        width: 33.3333,
+        widthMm: 63,
+        heightMm: 88,
+        rotation: 0,
+        z: 1,
+      },
+    ],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+
+  await assertSucceeds(setDoc(binderRef, binder));
+  await assertSucceeds(getDoc(binderRef));
+  await assertFails(
+    getDoc(doc(bob, "users", ALICE_UID, "customBinders", "binder_test")),
+  );
+
+  const chunkRef = doc(
+    alice,
+    "users",
+    ALICE_UID,
+    "customBinders",
+    "binder_test",
+    "chunks",
+    "chunk_000",
+  );
+  await assertSucceeds(
+    setDoc(chunkRef, {
+      ownerUid: ALICE_UID,
+      index: 0,
+      data: Bytes.fromUint8Array(new Uint8Array([1, 2, 3, 4])),
+      size: 4,
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  await assertSucceeds(getDoc(chunkRef));
+  await assertFails(
+    setDoc(
+      doc(
+        bob,
+        "users",
+        ALICE_UID,
+        "customBinders",
+        "binder_test",
+        "chunks",
+        "chunk_001",
+      ),
+      {
+        ownerUid: ALICE_UID,
+        index: 1,
+        data: Bytes.fromUint8Array(new Uint8Array([5])),
+        size: 1,
+        updatedAt: serverTimestamp(),
+      },
+    ),
+  );
+
+  await assertFails(
+    setDoc(doc(alice, "users", ALICE_UID, "customBinders", "binder_bad"), {
+      ...binder,
+      title: "",
+    }),
+  );
+
+  const collectionRef = doc(
+    alice,
+    "users",
+    ALICE_UID,
+    "collections",
+    "pokemonCollectionsDex",
+  );
+  await assertFails(
+    setDoc(
+      collectionRef,
+      { customBinderDrafts: { binder_test: binder } },
+      { merge: true },
+    ),
   );
 });
