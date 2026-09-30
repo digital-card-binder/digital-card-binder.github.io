@@ -161,13 +161,21 @@
     const isSleeve = mode === "sleeve";
     const cellWidth = isSleeve ? SLEEVE_WIDTH_MM : CARD_WIDTH_MM;
     const cellHeight = isSleeve ? SLEEVE_HEIGHT_MM : CARD_HEIGHT_MM;
+    const availableWidth = A4_WIDTH_MM - PRINT_MARGIN_MM * 2;
+    const availableHeight = A4_HEIGHT_MM - PRINT_MARGIN_MM * 2;
+    const pageCols = Math.max(1, Math.floor(availableWidth / cellWidth));
+    const pageRows = Math.max(1, Math.floor(availableHeight / cellHeight));
+    const perPage = pageCols * pageRows;
+
     return {
       ...grid,
       mode,
       label: isSleeve ? "실제 슬리브" : "실제 카드",
       slotCount,
-      perPage: 9,
-      pageCount: Math.ceil(slotCount / 9),
+      pageCols,
+      pageRows,
+      perPage,
+      pageCount: Math.ceil(slotCount / perPage),
       orientation: "portrait",
       cellWidth,
       cellHeight,
@@ -196,7 +204,7 @@
     if (customPrintNote) {
       customPrintNote.textContent = plan.mode === "fit"
         ? "전체 바인더를 A4 한 장에 맞추며 각 칸 구분선이 함께 출력됩니다."
-        : `각 칸은 ${plan.cellWidth} × ${plan.cellHeight} mm이며 재단선이 함께 출력됩니다.`;
+        : `각 칸은 ${plan.cellWidth} × ${plan.cellHeight} mm 고정 · A4 한 장당 최대 ${plan.pageCols} × ${plan.pageRows}칸 · 남는 칸은 잘리지 않고 다음 장으로 넘어갑니다.`;
     }
 
     customPrintButton.disabled = !state.sourceBlob;
@@ -776,8 +784,11 @@
     const row = Math.floor(index / grid.cols);
     const cell = document.createElement("article");
     cell.className = "studio-custom-print-cell";
+    cell.dataset.customPrintSlot = String(index + 1);
     cell.style.width = `${plan.cellWidth}mm`;
     cell.style.height = `${plan.cellHeight}mm`;
+    cell.style.pageBreakInside = "avoid";
+    cell.style.breakInside = "avoid";
 
     const composition = createCustomPrintComposition(plan);
     composition.style.left = `-${col * plan.cellWidth}mm`;
@@ -814,8 +825,11 @@
     for (let start = 0; start < plan.slotCount; start += plan.perPage) {
       const sheet = document.createElement("section");
       sheet.className = "studio-print-sheet studio-print-sheet--exact studio-custom-print-sheet";
-      sheet.style.gridTemplateColumns = `repeat(3, ${plan.cellWidth}mm)`;
-      sheet.style.gridTemplateRows = `repeat(3, ${plan.cellHeight}mm)`;
+      sheet.dataset.customPrintPage = String(Math.floor(start / plan.perPage) + 1);
+      sheet.style.gridTemplateColumns = `repeat(${plan.pageCols}, ${plan.cellWidth}mm)`;
+      sheet.style.gridTemplateRows = `repeat(${plan.pageRows}, ${plan.cellHeight}mm)`;
+      sheet.style.pageBreakInside = "avoid";
+      sheet.style.breakInside = "avoid-page";
       const end = Math.min(plan.slotCount, start + plan.perPage);
       for (let index = start; index < end; index += 1) {
         sheet.append(createCustomPrintCell(index, plan));
