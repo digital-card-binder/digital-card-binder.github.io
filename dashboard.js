@@ -234,28 +234,14 @@
     panel.classList.toggle("is-account", Boolean(currentUser));
     panel.classList.toggle("is-owner", isOwner(currentUser));
 
-    const accountDetails = document.querySelector("#home-account");
     const accountTrigger = document.querySelector("#home-account-trigger");
-    const mobileAccountMenu = document.querySelector("#home-account-menu");
-    const mobileAccountLogin = document.querySelector("#home-account-login");
-    const mobileAccountProfile = document.querySelector("#home-account-profile");
-    const mobileAccountLogout = document.querySelector("#home-account-logout");
-
-    if (accountDetails) accountDetails.classList.toggle("is-account", Boolean(currentUser));
-
     if (accountTrigger) {
       accountTrigger.classList.toggle("is-account", Boolean(currentUser));
       accountTrigger.setAttribute(
         "aria-label",
-        currentUser ? "프로필 및 계정 메뉴" : "로그인 및 계정 메뉴",
+        currentUser ? "프로필 관리" : "로그인",
       );
-      accountTrigger.title = currentUser ? "프로필 및 계정" : "로그인";
-    }
-
-    if (mobileAccountMenu) {
-      if (mobileAccountLogin) mobileAccountLogin.hidden = Boolean(currentUser);
-      if (mobileAccountProfile) mobileAccountProfile.hidden = !currentUser;
-      if (mobileAccountLogout) mobileAccountLogout.hidden = !currentUser;
+      accountTrigger.title = currentUser ? "프로필 관리" : "로그인";
     }
 
     if (elements.headerChip) {
@@ -957,55 +943,25 @@
   function initializeMobileTabbar() {
     const menu = document.querySelector("#home-menu");
     const menuTrigger = document.querySelector("#home-mobile-menu-trigger");
-    const accountDetails = document.querySelector("#home-account");
-    const accountLogin = document.querySelector("#home-account-login");
-    const accountLogout = document.querySelector("#home-account-logout");
+    if (!menu || !menuTrigger) return;
 
-    const closeAccountMenu = () => {
-      if (accountDetails) accountDetails.open = false;
+    const syncExpandedState = () => {
+      menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
     };
 
-    const closeSiteMenu = () => {
-      if (!menu || !menuTrigger) return;
-      menu.open = false;
-      menuTrigger.setAttribute("aria-expanded", "false");
-    };
-
-    if (menu && menuTrigger) {
-      const syncExpandedState = () => {
-        menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
-        if (menu.open) closeAccountMenu();
-      };
-
-      menuTrigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        closeAccountMenu();
-        menu.open = !menu.open;
-        syncExpandedState();
-      });
-
-      menu.addEventListener("toggle", syncExpandedState);
+    menuTrigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      menu.open = !menu.open;
       syncExpandedState();
-    }
-
-    accountDetails?.addEventListener("toggle", () => {
-      if (accountDetails.open) closeSiteMenu();
     });
 
-    accountLogin?.addEventListener("click", () => {
-      closeAccountMenu();
-      void signIn();
-    });
-
-    accountLogout?.addEventListener("click", () => {
-      closeAccountMenu();
-      void signOutUser();
-    });
+    menu.addEventListener("toggle", syncExpandedState);
+    syncExpandedState();
 
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
-      closeAccountMenu();
-      closeSiteMenu();
+      menu.open = false;
+      syncExpandedState();
     });
   }
 
