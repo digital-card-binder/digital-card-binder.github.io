@@ -45,5 +45,5 @@ for name,title in FILES.items():
     image=Image.open(BytesIO(ir.content))
     image.load()
     print(name,"SIZE",image.size,"FORMAT",image.format)
-    ext=".png" if image.format=="PNG" else ".jpg"
+    ext={ "PNG":".png", "JPEG":".jpg", "WEBP":".webp" }.get(image.format, ".bin")
     (OUT/f"{name}{ext}").write_bytes(ir.content)
