@@ -94,7 +94,7 @@ test("legacy packs without local artwork use an explicit non-misleading placehol
 });
 
 
-test("official BW, XY, and SM pack image manifest covers every supported legacy pack", async () => {
+test("self-hosted legacy pack image manifest covers all pre-S regular packs", async () => {
   const [javascript, manifestSource, evidenceSource] = await Promise.all([
     source("packs.js"),
     source("assets/packs/legacy/manifest.json"),
@@ -102,18 +102,23 @@ test("official BW, XY, and SM pack image manifest covers every supported legacy 
   ]);
   const manifest = JSON.parse(manifestSource);
   const evidence = JSON.parse(evidenceSource);
-  const supportedEntries = [...javascript.matchAll(/\["([^"]+)","([^"]+)","([^"]+)",([01])\]/g)]
+  const officialEntries = [...javascript.matchAll(/\["([^"]+)","([^"]+)","([^"]+)",([01])\]/g)]
     .map((match) => ({ era: match[1], code: match[3] }))
     .filter((entry) => ["BW", "XY", "SM"].includes(entry.era));
+  const earlyCodes = [
+    "BASE", "ADV1",
+    "BS1", "BS2", "BS3", "BS4", "BS5",
+    "BS6", "BS7", "BS8", "BS9", "BS10",
+  ];
 
-  assert.equal(supportedEntries.length, 75);
-  assert.equal(manifest.count, 75);
-  assert.equal(Object.keys(manifest.images).length, 75);
-  assert.equal(Object.keys(evidence.items).length, 75);
+  assert.equal(officialEntries.length, 75);
+  assert.equal(manifest.count, 87);
+  assert.equal(Object.keys(manifest.images).length, 87);
+  assert.equal(Object.keys(evidence.items).length, 87);
   assert.match(javascript, /loadLegacyPackImages/);
   assert.match(javascript, /legacyPackImages[.]get\(packCode\)/);
 
-  for (const entry of supportedEntries) {
+  for (const entry of officialEntries) {
     const imagePath = manifest.images[entry.code.toLowerCase()];
     assert.ok(imagePath, entry.code);
     const image = await readFile(new URL(`../${imagePath.replace(/^\.\//, "")}`, import.meta.url));
@@ -121,5 +126,16 @@ test("official BW, XY, and SM pack image manifest covers every supported legacy 
     assert.equal(image.subarray(0, 4).toString("ascii"), "RIFF", entry.code);
     assert.equal(image.subarray(8, 12).toString("ascii"), "WEBP", entry.code);
     assert.ok(evidence.items[entry.code]?.officialImage, entry.code);
+  }
+
+  for (const code of earlyCodes) {
+    const imagePath = manifest.images[code.toLowerCase()];
+    assert.ok(imagePath, code);
+    const image = await readFile(new URL(`../${imagePath.replace(/^\.\//, "")}`, import.meta.url));
+    assert.ok(image.length > 5_000, code);
+    assert.equal(image.subarray(0, 4).toString("ascii"), "RIFF", code);
+    assert.equal(image.subarray(8, 12).toString("ascii"), "WEBP", code);
+    assert.equal(evidence.items[code]?.storedLocally, true, code);
+    assert.ok(evidence.items[code]?.sourcePage, code);
   }
 });
