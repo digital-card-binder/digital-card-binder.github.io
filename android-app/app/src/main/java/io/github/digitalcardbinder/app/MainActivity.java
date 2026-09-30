@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.os.Handler;
 import android.os.Looper;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
@@ -218,6 +221,11 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
+        public void startPrint(String jobName, boolean landscape) {
+            runOnUiThread(() -> beginWebPrint(jobName, landscape));
+        }
+
+        @JavascriptInterface
         public long getVersionCode() {
             try {
                 PackageInfo installed = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -237,6 +245,49 @@ public class MainActivity extends Activity {
             } catch (PackageManager.NameNotFoundException ignored) {
                 return "";
             }
+        }
+    }
+
+    private void beginWebPrint(String requestedJobName, boolean landscape) {
+        if (webView == null || !isTrustedWebPage()) {
+            Toast.makeText(
+                    this,
+                    "안전한 바인더 스튜디오 페이지에서만 인쇄할 수 있습니다.",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+
+        PrintManager printManager = (PrintManager) getSystemService(PRINT_SERVICE);
+        if (printManager == null) {
+            Toast.makeText(this, "이 기기에서 인쇄 서비스를 사용할 수 없습니다.", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        String jobName = requestedJobName == null ? "" : requestedJobName.trim();
+        if (jobName.isBlank()) jobName = "디지털 카드 바인더";
+        if (jobName.length() > 80) jobName = jobName.substring(0, 80);
+
+        PrintAttributes.MediaSize mediaSize = landscape
+                ? PrintAttributes.MediaSize.ISO_A4.asLandscape()
+                : PrintAttributes.MediaSize.ISO_A4.asPortrait();
+
+        PrintAttributes attributes = new PrintAttributes.Builder()
+                .setMediaSize(mediaSize)
+                .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .build();
+
+        try {
+            PrintDocumentAdapter adapter = webView.createPrintDocumentAdapter(jobName);
+            printManager.print(jobName, adapter, attributes);
+        } catch (Throwable error) {
+            Toast.makeText(
+                    this,
+                    "인쇄 화면을 열지 못했습니다.\n" + error.getClass().getSimpleName(),
+                    Toast.LENGTH_LONG)
+                    .show();
         }
     }
 
