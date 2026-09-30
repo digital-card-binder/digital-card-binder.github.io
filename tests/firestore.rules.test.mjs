@@ -1066,6 +1066,7 @@ test("custom binder work is private, size-bounded, and isolated from collection 
       type: "image/webp",
       size: 4,
       chunkCount: 1,
+      chunkSet: "blob_test_001",
       width: 756,
       height: 1408,
     },
@@ -1110,6 +1111,7 @@ test("custom binder work is private, size-bounded, and isolated from collection 
   await assertSucceeds(
     setDoc(chunkRef, {
       ownerUid: ALICE_UID,
+      chunkSet: "blob_test_001",
       index: 0,
       data: Bytes.fromUint8Array(new Uint8Array([1, 2, 3, 4])),
       size: 4,
@@ -1130,6 +1132,7 @@ test("custom binder work is private, size-bounded, and isolated from collection 
       ),
       {
         ownerUid: ALICE_UID,
+        chunkSet: "blob_test_001",
         index: 1,
         data: Bytes.fromUint8Array(new Uint8Array([5])),
         size: 1,
