@@ -592,25 +592,15 @@
 .dashboard-card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
 }
 
-.dashboard-card-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 13px;
-  background: color-mix(in srgb, var(--collection-accent) 12%, white);
-  color: var(--collection-accent);
-  font-size: 0.72rem;
-  font-weight: 900;
+.dashboard-card-top {
+  justify-content: flex-end;
 }
 
-.dashboard-collection-card[data-category="ar"] .dashboard-card-icon {
-  background: #f0f1f5;
-  color: #9297a8;
+.dashboard-card-footer {
+  justify-content: space-between;
 }
 
 .dashboard-card-rate {
@@ -1209,13 +1199,6 @@
   height: 120px;
 }
 
-.dashboard-card-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  font-size: 0.64rem;
-}
-
 .dashboard-card-rate {
   font-size: 0.8rem;
 }
@@ -1551,13 +1534,6 @@
     min-height: 132px;
     border-radius: 14px;
     padding: 11px;
-  }
-
-  .dashboard-card-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 9px;
-    font-size: 0.59rem;
   }
 
   .dashboard-card-rate {

@@ -316,6 +316,7 @@ test("dashboard polish follows navigation labels and restrained motion", async (
     /THEME_CATEGORIES = new Set\(\["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"\]\)/,
   );
   assert.doesNotMatch(dashboard, /EXTRA_THEME_COLLECTIONS/);
+  assert.doesNotMatch(dashboard, /dashboard-card-icon/);
   assert.match(css, /[.]dashboard-collection-card:hover \{[\s\S]*?translateY\(-3px\)/);
   assert.match(css, /data-category="people"/);
   assert.match(css, /data-category="trainerPokemon"/);

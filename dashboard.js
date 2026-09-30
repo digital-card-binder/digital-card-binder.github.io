@@ -742,7 +742,6 @@
     );
     link.innerHTML = `
       <div class="dashboard-card-top">
-        <span class="dashboard-card-icon" aria-hidden="true">${metric.number}</span>
         <span class="dashboard-card-rate">${metric.rate.toFixed(1)}%</span>
       </div>
       <div class="dashboard-card-title">
