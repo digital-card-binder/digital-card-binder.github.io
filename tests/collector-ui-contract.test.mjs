@@ -1287,3 +1287,24 @@ test("current dashboard is the only production shell and carries the latest nav"
   assert.equal(current.includes("<strong>팩 도감</strong>"), false);
   assert.match(current, /collector-nav[.]js[?]v=[0-9a-f]{12}/);
 });
+
+
+test("Binder Studio custom editor reads canonical cards without writing collection state", async () => {
+  const page = await source("studio.html");
+  const editor = await source("studio-custom.js");
+
+  assert.match(page, /id="studio-custom-card-search"/);
+  assert.match(page, /id="studio-custom-card-layer"/);
+  assert.match(page, /data-custom-action="snap"/);
+  assert.match(page, /나만의도감 저장 · 2-3 예정/);
+
+  assert.match(editor, /catalogService[?][.]series/);
+  assert.match(editor, /identityService[?][.]cardIdentity/);
+  assert.match(editor, /customBinderEditor/);
+  assert.match(editor, /getDraft: draftSnapshot/);
+  assert.match(editor, /kind: "custom-binder-layout"/);
+  assert.doesNotMatch(editor, /firebase-firestore[.]js/);
+  assert.doesNotMatch(editor, /setDoc[(]/);
+  assert.doesNotMatch(editor, /updateDoc[(]/);
+  assert.doesNotMatch(editor, /deleteDoc[(]/);
+});
