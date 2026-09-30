@@ -203,6 +203,7 @@
       imageMeta.textContent =
         `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · ${(file.size / 1024 / 1024).toFixed(2)}MB`;
       updateRatioNote(state.sourceWidth, state.sourceHeight);
+      renderSearchResults(searchInput.value);
     };
   }
 
@@ -390,8 +391,8 @@
   }
 
   function clampPlacement(entry) {
-    const height = heightPercentForWidth(entry.width);
     entry.width = Math.max(5, Math.min(80, entry.width));
+    const height = heightPercentForWidth(entry.width);
     entry.x = Math.max(0, Math.min(100 - entry.width, entry.x));
     entry.y = Math.max(0, Math.min(Math.max(0, 100 - height), entry.y));
   }
