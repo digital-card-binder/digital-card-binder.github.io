@@ -68,6 +68,31 @@
     return elements.sizeInputs.find((input) => input.checked)?.value || "card";
   }
 
+  function isAndroidAppShell() {
+    return window.POKEMON_DEX_ANDROID_APP === true ||
+      (
+        typeof window.DigitalCardBinderApp !== "undefined" &&
+        typeof window.DigitalCardBinderApp.getVersionCode === "function"
+      );
+  }
+
+  function supportsNativePrint() {
+    return typeof window.DigitalCardBinderApp !== "undefined" &&
+      typeof window.DigitalCardBinderApp.startPrint === "function";
+  }
+
+  function configurePrintButtonLabel() {
+    if (supportsNativePrint()) {
+      elements.print.textContent = "인쇄 · PDF로 저장";
+      return;
+    }
+    if (isAndroidAppShell()) {
+      elements.print.textContent = "인쇄 · 앱 업데이트 필요";
+      return;
+    }
+    elements.print.textContent = "인쇄 · PDF 저장";
+  }
+
   function configured() {
     const config = CONFIG.config || {};
     return Boolean(CONFIG.enabled && config.apiKey && config.authDomain && config.projectId);
@@ -704,6 +729,15 @@
 
   async function startPrint() {
     if (!state.selectedItems.length) return;
+
+    if (isAndroidAppShell() && !supportsNativePrint()) {
+      window.alert(
+        "현재 설치된 Android 앱은 시스템 인쇄를 지원하지 않습니다.\n" +
+        "디지털 카드 바인더 앱을 최신 버전으로 업데이트한 뒤 다시 시도해 주세요.",
+      );
+      return;
+    }
+
     if (state.selectedItems.length > 500) {
       const proceed = window.confirm(
         `선택한 카드가 ${state.selectedItems.length.toLocaleString("ko-KR")}장입니다. 인쇄 준비에 시간이 걸릴 수 있습니다. 계속할까요?`,
@@ -721,17 +755,25 @@
     const meta = registry.COLLECTIONS[state.collectionId];
     const scopeText = elements.scope.selectedOptions?.[0]?.textContent || "전체";
     const originalTitle = document.title;
-    document.title = `바인더스튜디오_${meta?.title || "도감"}_${scopeText}`;
+    const printTitle = `바인더스튜디오_${meta?.title || "도감"}_${scopeText}`;
+    document.title = printTitle;
 
     try {
       await waitForPrintImages();
-      window.print();
+      if (supportsNativePrint()) {
+        window.DigitalCardBinderApp.startPrint(
+          printTitle,
+          plan.orientation === "landscape",
+        );
+      } else {
+        window.print();
+      }
     } finally {
       elements.print.disabled = false;
-      elements.print.textContent = originalLabel;
+      configurePrintButtonLabel();
       window.setTimeout(() => {
         document.title = originalTitle;
-      }, 250);
+      }, 500);
     }
   }
 
@@ -760,9 +802,11 @@
   });
 
   async function initialize() {
+    configurePrintButtonLabel();
     setLoading("도감과 로그인 정보를 준비하고 있습니다.");
     await initializeFirebase();
     await loadCollection(elements.collection.value || "series");
+    configurePrintButtonLabel();
   }
 
   void initialize();
