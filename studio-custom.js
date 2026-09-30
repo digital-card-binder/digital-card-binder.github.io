@@ -98,523 +98,6 @@
       section.hidden = key !== selected;
     });
   
-  function configured() {
-    const config = CONFIG.config || {};
-    return Boolean(
-      CONFIG.enabled &&
-        config.apiKey &&
-        config.authDomain &&
-        config.projectId
-    );
-  }
-
-  async function firstAuthUser(auth, authModule) {
-    if (typeof auth.authStateReady === "function") {
-      await auth.authStateReady();
-      return auth.currentUser || null;
-    }
-    return new Promise((resolve, reject) => {
-      let unsubscribe = () => {};
-      unsubscribe = authModule.onAuthStateChanged(
-        auth,
-        (user) => {
-          unsubscribe();
-          resolve(user || null);
-        },
-        reject,
-      );
-    });
-  }
-
-  function binderRef(binderId) {
-    if (!state.firebase || !state.user || !binderId) return null;
-    return state.firebase.firestoreModule.doc(
-      state.firebase.db,
-      "users",
-      state.user.uid,
-      "customBinders",
-      binderId,
-    );
-  }
-
-  function updateSaveUi(message = "") {
-    if (!saveButton || !saveStatus) return;
-
-    if (!configured()) {
-      saveButton.disabled = true;
-      saveStatus.textContent = "저장 설정을 확인하지 못했습니다.";
-      return;
-    }
-    if (!state.firebase) {
-      saveButton.disabled = true;
-      saveStatus.textContent = "로그인 상태를 확인하고 있습니다.";
-      return;
-    }
-    if (!state.user) {
-      saveButton.disabled = true;
-      saveStatus.textContent = "Google 로그인 후 커스텀 바인더를 나만의도감에 저장할 수 있습니다.";
-      return;
-    }
-    if (message) {
-      saveStatus.textContent = message;
-    } else if (!state.sourceBlob) {
-      saveStatus.textContent = "배경 일러스트를 올리면 저장할 수 있습니다.";
-    } else if (state.currentBinderId) {
-      saveStatus.textContent = "현재 저장 작업을 수정 중입니다.";
-    } else {
-      saveStatus.textContent = "기존 도감과 분리된 개인 커스텀 바인더 영역에 저장됩니다.";
-    }
-
-    saveButton.disabled = state.saving || !state.sourceBlob;
-    saveButton.textContent = state.saving
-      ? "저장 중…"
-      : state.currentBinderId
-        ? "변경 내용 저장"
-        : "나만의도감에 저장";
-    deleteButton.hidden = !state.currentBinderId;
-  }
-
-  function setBinderUrl(binderId = "") {
-    const url = new URL(window.location.href);
-    if (binderId) url.searchParams.set("binder", binderId);
-    else url.searchParams.delete("binder");
-    url.hash = "studio-custom";
-    history.replaceState(null, "", url.pathname + url.search + url.hash);
-  }
-
-  function formatSavedTime(value) {
-    try {
-      const date = typeof value?.toDate === "function"
-        ? value.toDate()
-        : new Date(value || Date.now());
-      return new Intl.DateTimeFormat("ko-KR", {
-        month: "numeric",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(date);
-    } catch {
-      return "";
-    }
-  }
-
-  async function refreshLibrary() {
-    if (!library || !libraryEmpty) return;
-    library.replaceChildren();
-    if (!state.user || !state.firebase) {
-      state.savedWorkCount = 0;
-      libraryEmpty.hidden = false;
-      libraryEmpty.textContent = "Google 로그인 후 저장한 커스텀 바인더가 여기에 표시됩니다.";
-      return;
-    }
-
-    const { firestoreModule, db } = state.firebase;
-    try {
-      const collectionRef = firestoreModule.collection(
-        db,
-        "users",
-        state.user.uid,
-        "customBinders",
-      );
-      const snapshot = await firestoreModule.getDocs(
-        firestoreModule.query(
-          collectionRef,
-          firestoreModule.orderBy("updatedAt", "desc"),
-          firestoreModule.limit(MAX_SAVED_WORKS),
-        ),
-      );
-      state.savedWorkCount = snapshot.size;
-      const fragment = document.createDocumentFragment();
-
-      snapshot.forEach((documentSnapshot) => {
-        const data = documentSnapshot.data() || {};
-        const grid = data.grid || {};
-        const item = document.createElement("article");
-        item.className = "studio-custom-library-item";
-
-        const copy = document.createElement("div");
-        const title = document.createElement("strong");
-        title.textContent = clean(data.title) || "커스텀 바인더";
-        const meta = document.createElement("span");
-        meta.textContent = [
-          grid.cols && grid.rows ? `${grid.cols}×${grid.rows}` : "",
-          Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
-          formatSavedTime(data.updatedAt),
-        ].filter(Boolean).join(" · ");
-        copy.append(title, meta);
-
-        const open = document.createElement("button");
-        open.type = "button";
-        open.textContent = documentSnapshot.id === state.currentBinderId ? "편집 중" : "열기";
-        open.disabled = documentSnapshot.id === state.currentBinderId;
-        open.addEventListener("click", () => void loadSavedBinder(documentSnapshot.id));
-
-        item.append(copy, open);
-        fragment.append(item);
-      });
-
-      library.append(fragment);
-      libraryEmpty.hidden = snapshot.size > 0;
-      if (!snapshot.size) libraryEmpty.textContent = "저장한 작업이 없습니다.";
-    } catch (error) {
-      console.error("커스텀 바인더 목록 불러오기 실패", error);
-      libraryEmpty.hidden = false;
-      libraryEmpty.textContent = "저장한 작업 목록을 불러오지 못했습니다.";
-    }
-  }
-
-  async function writeBackgroundChunks(reference, blob, chunkSet) {
-    const { firestoreModule, db } = state.firebase;
-    const raw = new Uint8Array(await blob.arrayBuffer());
-    const chunkCount = Math.ceil(raw.length / CHUNK_BYTES);
-    if (!chunkCount || chunkCount > 24) {
-      throw new Error("배경 이미지 용량이 저장 한도를 초과했습니다.");
-    }
-
-    for (let start = 0; start < chunkCount; start += 4) {
-      const batch = firestoreModule.writeBatch(db);
-      const end = Math.min(chunkCount, start + 4);
-      for (let index = start; index < end; index += 1) {
-        const from = index * CHUNK_BYTES;
-        const to = Math.min(raw.length, from + CHUNK_BYTES);
-        const bytes = raw.slice(from, to);
-        const chunkReference = firestoreModule.doc(
-          reference,
-          "chunks",
-          `${chunkSet}_${String(index).padStart(3, "0")}`,
-        );
-        batch.set(chunkReference, {
-          ownerUid: state.user.uid,
-          chunkSet,
-          index,
-          data: firestoreModule.Bytes.fromUint8Array(bytes),
-          size: bytes.length,
-          updatedAt: firestoreModule.serverTimestamp(),
-        });
-      }
-      await batch.commit();
-    }
-
-    return chunkCount;
-  }
-
-  async function deleteChunkSet(reference, chunkSet) {
-    if (!chunkSet) return;
-    const { firestoreModule, db } = state.firebase;
-    const snapshot = await firestoreModule.getDocs(
-      firestoreModule.collection(reference, "chunks"),
-    );
-    const matches = snapshot.docs.filter(
-      (item) => item.data()?.chunkSet === chunkSet,
-    );
-    for (let start = 0; start < matches.length; start += 100) {
-      const batch = firestoreModule.writeBatch(db);
-      matches.slice(start, start + 100).forEach((item) => batch.delete(item.ref));
-      await batch.commit();
-    }
-  }
-
-  async function readBackgroundBlob(reference, background) {
-    const { firestoreModule } = state.firebase;
-    const chunkCollection = firestoreModule.collection(reference, "chunks");
-    const snapshot = await firestoreModule.getDocs(chunkCollection);
-
-    const chunkRows = snapshot.docs
-      .map((chunkSnapshot) => chunkSnapshot.data() || {})
-      .filter((data) => data.chunkSet === background?.chunkSet)
-      .sort((a, b) => Number(a.index) - Number(b.index));
-
-    const chunks = [];
-    let total = 0;
-    chunkRows.forEach((data) => {
-      const bytes = data.data?.toUint8Array?.();
-      if (!bytes) return;
-      chunks.push(bytes);
-      total += bytes.length;
-    });
-
-    if (!chunks.length || chunks.length !== Number(background?.chunkCount || 0)) {
-      throw new Error("저장된 배경 이미지 조각을 모두 찾지 못했습니다.");
-    }
-
-    const merged = new Uint8Array(total);
-    let offset = 0;
-    for (const bytes of chunks) {
-      merged.set(bytes, offset);
-      offset += bytes.length;
-    }
-
-    if (background?.size && merged.length !== background.size) {
-      throw new Error("저장된 배경 이미지 크기가 올바르지 않습니다.");
-    }
-
-    return new Blob([merged], { type: clean(background?.type) || "image/webp" });
-  }
-
-  function restorePlacement(entry, index) {
-    return {
-      id: clean(entry?.placementId) || makeId("card"),
-      card: {
-        key: clean(entry?.sourceKey),
-        name: clean(entry?.name) || "카드",
-        setCode: clean(entry?.setCode),
-        setTitle: clean(entry?.setTitle),
-        cardNumber: clean(entry?.cardNumber),
-        rarity: clean(entry?.rarity),
-        image: clean(entry?.imageUrl),
-      },
-      x: Number.isFinite(Number(entry?.x)) ? Number(entry.x) : 0,
-      y: Number.isFinite(Number(entry?.y)) ? Number(entry.y) : 0,
-      width: Number.isFinite(Number(entry?.width)) ? Number(entry.width) : 20,
-      rotation: Number.isFinite(Number(entry?.rotation)) ? Number(entry.rotation) : 0,
-      z: Number.isFinite(Number(entry?.z)) ? Number(entry.z) : index + 1,
-    };
-  }
-
-  async function loadSavedBinder(binderId) {
-    if (!state.user || !state.firebase || !binderId) return;
-    const reference = binderRef(binderId);
-    if (!reference) return;
-
-    saveStatus.textContent = "저장한 작업을 불러오는 중…";
-    saveButton.disabled = true;
-
-    try {
-      const snapshot = await state.firebase.firestoreModule.getDoc(reference);
-      if (!snapshot.exists()) throw new Error("저장한 작업을 찾을 수 없습니다.");
-      const data = snapshot.data() || {};
-      if (data.ownerUid !== state.user.uid) throw new Error("이 작업을 열 권한이 없습니다.");
-
-      const blob = await readBackgroundBlob(reference, data.background || {});
-      if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
-
-      const gridValue = `${data.grid?.cols || 3}x${data.grid?.rows || 4}`;
-      const gridInput = gridInputs.find((input) => input.value === gridValue);
-      if (gridInput) gridInput.checked = true;
-
-      state.objectUrl = URL.createObjectURL(blob);
-      state.sourceBlob = blob;
-      state.sourceFile = {
-        name: clean(data.background?.name) || "saved-background.webp",
-        type: clean(data.background?.type) || blob.type,
-        size: blob.size,
-      };
-      state.backgroundDirty = false;
-      state.sourceWidth = Number(data.background?.width) || 0;
-      state.sourceHeight = Number(data.background?.height) || 0;
-      state.currentBinderId = binderId;
-      state.currentCreatedAt = data.createdAt || null;
-      state.currentChunkCount = Number(data.background?.chunkCount) || 0;
-      state.currentChunkSet = clean(data.background?.chunkSet);
-      state.placements = (Array.isArray(data.cards) ? data.cards : [])
-        .slice(0, 16)
-        .map(restorePlacement);
-      state.nextZ = Math.max(0, ...state.placements.map((entry) => entry.z)) + 1;
-      state.selectedId = "";
-      titleInput.value = clean(data.title);
-
-      previewImage.src = state.objectUrl;
-      previewImage.alt = state.sourceFile.name;
-      fileLabel.textContent = state.sourceFile.name;
-      imageMeta.textContent = "저장된 배경 이미지를 불러오는 중…";
-      previewImage.onload = () => {
-        state.sourceWidth = state.sourceWidth || previewImage.naturalWidth;
-        state.sourceHeight = state.sourceHeight || previewImage.naturalHeight;
-        previewEmpty.hidden = true;
-        previewWrap.hidden = false;
-        imageMeta.textContent =
-          `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · 저장된 작업`;
-        renderGrid();
-        renderPlacements();
-        updateRatioNote(state.sourceWidth, state.sourceHeight);
-      };
-
-      setBinderUrl(binderId);
-      deleteButton.hidden = false;
-      updateSaveUi("저장한 작업을 불러왔습니다. 수정 후 다시 저장할 수 있습니다.");
-      await refreshLibrary();
-    } catch (error) {
-      console.error("커스텀 바인더 불러오기 실패", error);
-      updateSaveUi(clean(error?.message) || "저장한 작업을 불러오지 못했습니다.");
-    }
-  }
-
-  async function saveCurrentBinder() {
-    if (!state.user || !state.firebase) {
-      updateSaveUi("Google 로그인 후 저장할 수 있습니다.");
-      return;
-    }
-    if (!state.sourceBlob) {
-      window.alert("먼저 배경 일러스트를 올려 주세요.");
-      return;
-    }
-
-    const title = clean(titleInput.value).slice(0, 60);
-    if (!title) {
-      titleInput.focus();
-      saveStatus.textContent = "작업 이름을 입력해 주세요.";
-      return;
-    }
-
-    if (!state.currentBinderId && state.savedWorkCount >= MAX_SAVED_WORKS) {
-      window.alert(`커스텀 바인더는 최대 ${MAX_SAVED_WORKS}개까지 저장할 수 있습니다.`);
-      return;
-    }
-
-    state.saving = true;
-    updateSaveUi("배경 이미지와 카드 배치를 저장하고 있습니다…");
-
-    const binderId = state.currentBinderId || makeId("binder");
-    const reference = binderRef(binderId);
-    const draft = draftSnapshot();
-
-    try {
-      let chunkCount = state.currentChunkCount;
-      let chunkSet = state.currentChunkSet;
-      const previousChunkSet = state.currentChunkSet;
-      if (!state.currentBinderId || state.backgroundDirty || !chunkCount || !chunkSet) {
-        chunkSet = makeId("blob");
-        chunkCount = await writeBackgroundChunks(
-          reference,
-          state.sourceBlob,
-          chunkSet,
-        );
-      }
-
-      const firestoreModule = state.firebase.firestoreModule;
-      const metadata = {
-        schemaVersion: 1,
-        ownerUid: state.user.uid,
-        title,
-        grid: draft.grid,
-        background: {
-          name: clean(state.sourceFile?.name) || "background.webp",
-          type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
-          size: state.sourceBlob.size,
-          chunkCount,
-          chunkSet,
-          width: state.sourceWidth,
-          height: state.sourceHeight,
-        },
-        cards: draft.cards,
-        createdAt: state.currentCreatedAt || firestoreModule.serverTimestamp(),
-        updatedAt: firestoreModule.serverTimestamp(),
-      };
-
-      await firestoreModule.setDoc(reference, metadata);
-      const saved = await firestoreModule.getDoc(reference);
-      const savedData = saved.data() || {};
-
-      state.currentBinderId = binderId;
-      state.currentCreatedAt = savedData.createdAt || state.currentCreatedAt;
-      state.currentChunkCount = chunkCount;
-      state.currentChunkSet = chunkSet;
-      state.backgroundDirty = false;
-      if (previousChunkSet && previousChunkSet !== chunkSet) {
-        await deleteChunkSet(reference, previousChunkSet);
-      }
-      setBinderUrl(binderId);
-      updateSaveUi("나만의도감에 저장했습니다.");
-      await refreshLibrary();
-    } catch (error) {
-      console.error("커스텀 바인더 저장 실패", error);
-      updateSaveUi(clean(error?.message) || "저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
-    } finally {
-      state.saving = false;
-      updateSaveUi(saveStatus.textContent);
-    }
-  }
-
-  async function deleteCurrentBinder() {
-    if (!state.user || !state.firebase || !state.currentBinderId) return;
-    const title = clean(titleInput.value) || "이 작업";
-    if (!window.confirm(`‘${title}’ 저장 작업을 삭제할까요?`)) return;
-
-    const reference = binderRef(state.currentBinderId);
-    const { firestoreModule, db } = state.firebase;
-
-    try {
-      const chunks = await firestoreModule.getDocs(
-        firestoreModule.collection(reference, "chunks"),
-      );
-      const batch = firestoreModule.writeBatch(db);
-      chunks.forEach((chunk) => batch.delete(chunk.ref));
-      batch.delete(reference);
-      await batch.commit();
-      resetEditor(true);
-      await refreshLibrary();
-      updateSaveUi("저장 작업을 삭제했습니다.");
-    } catch (error) {
-      console.error("커스텀 바인더 삭제 실패", error);
-      updateSaveUi(clean(error?.message) || "저장 작업을 삭제하지 못했습니다.");
-    }
-  }
-
-  function resetEditor(clearUrl = true) {
-    state.currentBinderId = "";
-    state.currentCreatedAt = null;
-    state.currentChunkCount = 0;
-    state.currentChunkSet = "";
-    state.backgroundDirty = false;
-    titleInput.value = "";
-    searchInput.value = "";
-    const defaultGrid = gridInputs.find((input) => input.value === "3x4");
-    if (defaultGrid) defaultGrid.checked = true;
-    renderGrid();
-    clearImage();
-    renderSearchResults("");
-    if (clearUrl) setBinderUrl("");
-    deleteButton.hidden = true;
-    updateSaveUi();
-    void refreshLibrary();
-  }
-
-  async function initializePersistence() {
-    if (!configured()) {
-      updateSaveUi();
-      void refreshLibrary();
-      return;
-    }
-
-    try {
-      const [appModule, authModule, firestoreModule] = await Promise.all([
-        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-app.js`),
-        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-auth.js`),
-        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-firestore.js`),
-      ]);
-      const app = appModule.getApps().length
-        ? appModule.getApp()
-        : appModule.initializeApp(CONFIG.config);
-      const auth = authModule.getAuth(app);
-      try {
-        await authModule.setPersistence(auth, authModule.browserLocalPersistence);
-      } catch (error) {
-        console.warn("커스텀 바인더 로그인 유지 설정 실패", error);
-      }
-      state.firebase = {
-        auth,
-        authModule,
-        firestoreModule,
-        db: firestoreModule.getFirestore(app),
-      };
-      state.user = await firstAuthUser(auth, authModule);
-      updateSaveUi();
-      await refreshLibrary();
-
-      const requestedBinder = clean(new URLSearchParams(window.location.search).get("binder"));
-      if (requestedBinder && state.user) {
-        activateTab("custom", false);
-        await loadSavedBinder(requestedBinder);
-      }
-    } catch (error) {
-      console.error("커스텀 바인더 저장 초기화 실패", error);
-      state.firebase = null;
-      state.user = null;
-      updateSaveUi("저장 기능을 초기화하지 못했습니다.");
-      await refreshLibrary();
-    }
-  }
-
   tabs.forEach((tab) => {
       const active = tab.dataset.studioTab === selected;
       tab.classList.toggle("is-active", active);
@@ -1150,6 +633,524 @@
       })),
     };
   }
+
+  function configured() {
+    const config = CONFIG.config || {};
+    return Boolean(
+      CONFIG.enabled &&
+        config.apiKey &&
+        config.authDomain &&
+        config.projectId
+    );
+  }
+
+  async function firstAuthUser(auth, authModule) {
+    if (typeof auth.authStateReady === "function") {
+      await auth.authStateReady();
+      return auth.currentUser || null;
+    }
+    return new Promise((resolve, reject) => {
+      let unsubscribe = () => {};
+      unsubscribe = authModule.onAuthStateChanged(
+        auth,
+        (user) => {
+          unsubscribe();
+          resolve(user || null);
+        },
+        reject,
+      );
+    });
+  }
+
+  function binderRef(binderId) {
+    if (!state.firebase || !state.user || !binderId) return null;
+    return state.firebase.firestoreModule.doc(
+      state.firebase.db,
+      "users",
+      state.user.uid,
+      "customBinders",
+      binderId,
+    );
+  }
+
+  function updateSaveUi(message = "") {
+    if (!saveButton || !saveStatus) return;
+
+    if (!configured()) {
+      saveButton.disabled = true;
+      saveStatus.textContent = "저장 설정을 확인하지 못했습니다.";
+      return;
+    }
+    if (!state.firebase) {
+      saveButton.disabled = true;
+      saveStatus.textContent = "로그인 상태를 확인하고 있습니다.";
+      return;
+    }
+    if (!state.user) {
+      saveButton.disabled = true;
+      saveStatus.textContent = "Google 로그인 후 커스텀 바인더를 나만의도감에 저장할 수 있습니다.";
+      return;
+    }
+    if (message) {
+      saveStatus.textContent = message;
+    } else if (!state.sourceBlob) {
+      saveStatus.textContent = "배경 일러스트를 올리면 저장할 수 있습니다.";
+    } else if (state.currentBinderId) {
+      saveStatus.textContent = "현재 저장 작업을 수정 중입니다.";
+    } else {
+      saveStatus.textContent = "기존 도감과 분리된 개인 커스텀 바인더 영역에 저장됩니다.";
+    }
+
+    saveButton.disabled = state.saving || !state.sourceBlob;
+    saveButton.textContent = state.saving
+      ? "저장 중…"
+      : state.currentBinderId
+        ? "변경 내용 저장"
+        : "나만의도감에 저장";
+    deleteButton.hidden = !state.currentBinderId;
+  }
+
+  function setBinderUrl(binderId = "") {
+    const url = new URL(window.location.href);
+    if (binderId) url.searchParams.set("binder", binderId);
+    else url.searchParams.delete("binder");
+    url.hash = "studio-custom";
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  }
+
+  function formatSavedTime(value) {
+    try {
+      const date = typeof value?.toDate === "function"
+        ? value.toDate()
+        : new Date(value || Date.now());
+      return new Intl.DateTimeFormat("ko-KR", {
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(date);
+    } catch {
+      return "";
+    }
+  }
+
+  async function refreshLibrary() {
+    if (!library || !libraryEmpty) return;
+    library.replaceChildren();
+    if (!state.user || !state.firebase) {
+      state.savedWorkCount = 0;
+      libraryEmpty.hidden = false;
+      libraryEmpty.textContent = "Google 로그인 후 저장한 커스텀 바인더가 여기에 표시됩니다.";
+      return;
+    }
+
+    const { firestoreModule, db } = state.firebase;
+    try {
+      const collectionRef = firestoreModule.collection(
+        db,
+        "users",
+        state.user.uid,
+        "customBinders",
+      );
+      const snapshot = await firestoreModule.getDocs(
+        firestoreModule.query(
+          collectionRef,
+          firestoreModule.orderBy("updatedAt", "desc"),
+          firestoreModule.limit(MAX_SAVED_WORKS),
+        ),
+      );
+      state.savedWorkCount = snapshot.size;
+      const fragment = document.createDocumentFragment();
+
+      snapshot.forEach((documentSnapshot) => {
+        const data = documentSnapshot.data() || {};
+        const grid = data.grid || {};
+        const item = document.createElement("article");
+        item.className = "studio-custom-library-item";
+
+        const copy = document.createElement("div");
+        const title = document.createElement("strong");
+        title.textContent = clean(data.title) || "커스텀 바인더";
+        const meta = document.createElement("span");
+        meta.textContent = [
+          grid.cols && grid.rows ? `${grid.cols}×${grid.rows}` : "",
+          Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
+          formatSavedTime(data.updatedAt),
+        ].filter(Boolean).join(" · ");
+        copy.append(title, meta);
+
+        const open = document.createElement("button");
+        open.type = "button";
+        open.textContent = documentSnapshot.id === state.currentBinderId ? "편집 중" : "열기";
+        open.disabled = documentSnapshot.id === state.currentBinderId;
+        open.addEventListener("click", () => void loadSavedBinder(documentSnapshot.id));
+
+        item.append(copy, open);
+        fragment.append(item);
+      });
+
+      library.append(fragment);
+      libraryEmpty.hidden = snapshot.size > 0;
+      if (!snapshot.size) libraryEmpty.textContent = "저장한 작업이 없습니다.";
+    } catch (error) {
+      console.error("커스텀 바인더 목록 불러오기 실패", error);
+      libraryEmpty.hidden = false;
+      libraryEmpty.textContent = "저장한 작업 목록을 불러오지 못했습니다.";
+    }
+  }
+
+  async function writeBackgroundChunks(reference, blob, chunkSet) {
+    const { firestoreModule, db } = state.firebase;
+    const raw = new Uint8Array(await blob.arrayBuffer());
+    const chunkCount = Math.ceil(raw.length / CHUNK_BYTES);
+    if (!chunkCount || chunkCount > 24) {
+      throw new Error("배경 이미지 용량이 저장 한도를 초과했습니다.");
+    }
+
+    for (let start = 0; start < chunkCount; start += 4) {
+      const batch = firestoreModule.writeBatch(db);
+      const end = Math.min(chunkCount, start + 4);
+      for (let index = start; index < end; index += 1) {
+        const from = index * CHUNK_BYTES;
+        const to = Math.min(raw.length, from + CHUNK_BYTES);
+        const bytes = raw.slice(from, to);
+        const chunkReference = firestoreModule.doc(
+          reference,
+          "chunks",
+          `${chunkSet}_${String(index).padStart(3, "0")}`,
+        );
+        batch.set(chunkReference, {
+          ownerUid: state.user.uid,
+          chunkSet,
+          index,
+          data: firestoreModule.Bytes.fromUint8Array(bytes),
+          size: bytes.length,
+          updatedAt: firestoreModule.serverTimestamp(),
+        });
+      }
+      await batch.commit();
+    }
+
+    return chunkCount;
+  }
+
+  async function deleteChunkSet(reference, chunkSet) {
+    if (!chunkSet) return;
+    const { firestoreModule, db } = state.firebase;
+    const snapshot = await firestoreModule.getDocs(
+      firestoreModule.collection(reference, "chunks"),
+    );
+    const matches = snapshot.docs.filter(
+      (item) => item.data()?.chunkSet === chunkSet,
+    );
+    for (let start = 0; start < matches.length; start += 100) {
+      const batch = firestoreModule.writeBatch(db);
+      matches.slice(start, start + 100).forEach((item) => batch.delete(item.ref));
+      await batch.commit();
+    }
+  }
+
+  async function readBackgroundBlob(reference, background) {
+    const { firestoreModule } = state.firebase;
+    const chunkCollection = firestoreModule.collection(reference, "chunks");
+    const snapshot = await firestoreModule.getDocs(chunkCollection);
+
+    const chunkRows = snapshot.docs
+      .map((chunkSnapshot) => chunkSnapshot.data() || {})
+      .filter((data) => data.chunkSet === background?.chunkSet)
+      .sort((a, b) => Number(a.index) - Number(b.index));
+
+    const chunks = [];
+    let total = 0;
+    chunkRows.forEach((data) => {
+      const bytes = data.data?.toUint8Array?.();
+      if (!bytes) return;
+      chunks.push(bytes);
+      total += bytes.length;
+    });
+
+    if (!chunks.length || chunks.length !== Number(background?.chunkCount || 0)) {
+      throw new Error("저장된 배경 이미지 조각을 모두 찾지 못했습니다.");
+    }
+
+    const merged = new Uint8Array(total);
+    let offset = 0;
+    for (const bytes of chunks) {
+      merged.set(bytes, offset);
+      offset += bytes.length;
+    }
+
+    if (background?.size && merged.length !== background.size) {
+      throw new Error("저장된 배경 이미지 크기가 올바르지 않습니다.");
+    }
+
+    return new Blob([merged], { type: clean(background?.type) || "image/webp" });
+  }
+
+  function restorePlacement(entry, index) {
+    return {
+      id: clean(entry?.placementId) || makeId("card"),
+      card: {
+        key: clean(entry?.sourceKey),
+        name: clean(entry?.name) || "카드",
+        setCode: clean(entry?.setCode),
+        setTitle: clean(entry?.setTitle),
+        cardNumber: clean(entry?.cardNumber),
+        rarity: clean(entry?.rarity),
+        image: clean(entry?.imageUrl),
+      },
+      x: Number.isFinite(Number(entry?.x)) ? Number(entry.x) : 0,
+      y: Number.isFinite(Number(entry?.y)) ? Number(entry.y) : 0,
+      width: Number.isFinite(Number(entry?.width)) ? Number(entry.width) : 20,
+      rotation: Number.isFinite(Number(entry?.rotation)) ? Number(entry.rotation) : 0,
+      z: Number.isFinite(Number(entry?.z)) ? Number(entry.z) : index + 1,
+    };
+  }
+
+  async function loadSavedBinder(binderId) {
+    if (!state.user || !state.firebase || !binderId) return;
+    const reference = binderRef(binderId);
+    if (!reference) return;
+
+    saveStatus.textContent = "저장한 작업을 불러오는 중…";
+    saveButton.disabled = true;
+
+    try {
+      const snapshot = await state.firebase.firestoreModule.getDoc(reference);
+      if (!snapshot.exists()) throw new Error("저장한 작업을 찾을 수 없습니다.");
+      const data = snapshot.data() || {};
+      if (data.ownerUid !== state.user.uid) throw new Error("이 작업을 열 권한이 없습니다.");
+
+      const blob = await readBackgroundBlob(reference, data.background || {});
+      if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+
+      const gridValue = `${data.grid?.cols || 3}x${data.grid?.rows || 4}`;
+      const gridInput = gridInputs.find((input) => input.value === gridValue);
+      if (gridInput) gridInput.checked = true;
+
+      state.objectUrl = URL.createObjectURL(blob);
+      state.sourceBlob = blob;
+      state.sourceFile = {
+        name: clean(data.background?.name) || "saved-background.webp",
+        type: clean(data.background?.type) || blob.type,
+        size: blob.size,
+      };
+      state.backgroundDirty = false;
+      state.sourceWidth = Number(data.background?.width) || 0;
+      state.sourceHeight = Number(data.background?.height) || 0;
+      state.currentBinderId = binderId;
+      state.currentCreatedAt = data.createdAt || null;
+      state.currentChunkCount = Number(data.background?.chunkCount) || 0;
+      state.currentChunkSet = clean(data.background?.chunkSet);
+      state.placements = (Array.isArray(data.cards) ? data.cards : [])
+        .slice(0, 16)
+        .map(restorePlacement);
+      state.nextZ = Math.max(0, ...state.placements.map((entry) => entry.z)) + 1;
+      state.selectedId = "";
+      titleInput.value = clean(data.title);
+
+      previewImage.src = state.objectUrl;
+      previewImage.alt = state.sourceFile.name;
+      fileLabel.textContent = state.sourceFile.name;
+      imageMeta.textContent = "저장된 배경 이미지를 불러오는 중…";
+      previewImage.onload = () => {
+        state.sourceWidth = state.sourceWidth || previewImage.naturalWidth;
+        state.sourceHeight = state.sourceHeight || previewImage.naturalHeight;
+        previewEmpty.hidden = true;
+        previewWrap.hidden = false;
+        imageMeta.textContent =
+          `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · 저장된 작업`;
+        renderGrid();
+        renderPlacements();
+        updateRatioNote(state.sourceWidth, state.sourceHeight);
+      };
+
+      setBinderUrl(binderId);
+      deleteButton.hidden = false;
+      updateSaveUi("저장한 작업을 불러왔습니다. 수정 후 다시 저장할 수 있습니다.");
+      await refreshLibrary();
+    } catch (error) {
+      console.error("커스텀 바인더 불러오기 실패", error);
+      updateSaveUi(clean(error?.message) || "저장한 작업을 불러오지 못했습니다.");
+    }
+  }
+
+  async function saveCurrentBinder() {
+    if (!state.user || !state.firebase) {
+      updateSaveUi("Google 로그인 후 저장할 수 있습니다.");
+      return;
+    }
+    if (!state.sourceBlob) {
+      window.alert("먼저 배경 일러스트를 올려 주세요.");
+      return;
+    }
+
+    const title = clean(titleInput.value).slice(0, 60);
+    if (!title) {
+      titleInput.focus();
+      saveStatus.textContent = "작업 이름을 입력해 주세요.";
+      return;
+    }
+
+    if (!state.currentBinderId && state.savedWorkCount >= MAX_SAVED_WORKS) {
+      window.alert(`커스텀 바인더는 최대 ${MAX_SAVED_WORKS}개까지 저장할 수 있습니다.`);
+      return;
+    }
+
+    state.saving = true;
+    updateSaveUi("배경 이미지와 카드 배치를 저장하고 있습니다…");
+
+    const binderId = state.currentBinderId || makeId("binder");
+    const reference = binderRef(binderId);
+    const draft = draftSnapshot();
+
+    try {
+      let chunkCount = state.currentChunkCount;
+      let chunkSet = state.currentChunkSet;
+      const previousChunkSet = state.currentChunkSet;
+      if (!state.currentBinderId || state.backgroundDirty || !chunkCount || !chunkSet) {
+        chunkSet = makeId("blob");
+        chunkCount = await writeBackgroundChunks(
+          reference,
+          state.sourceBlob,
+          chunkSet,
+        );
+      }
+
+      const firestoreModule = state.firebase.firestoreModule;
+      const metadata = {
+        schemaVersion: 1,
+        ownerUid: state.user.uid,
+        title,
+        grid: draft.grid,
+        background: {
+          name: clean(state.sourceFile?.name) || "background.webp",
+          type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
+          size: state.sourceBlob.size,
+          chunkCount,
+          chunkSet,
+          width: state.sourceWidth,
+          height: state.sourceHeight,
+        },
+        cards: draft.cards,
+        createdAt: state.currentCreatedAt || firestoreModule.serverTimestamp(),
+        updatedAt: firestoreModule.serverTimestamp(),
+      };
+
+      await firestoreModule.setDoc(reference, metadata);
+      const saved = await firestoreModule.getDoc(reference);
+      const savedData = saved.data() || {};
+
+      state.currentBinderId = binderId;
+      state.currentCreatedAt = savedData.createdAt || state.currentCreatedAt;
+      state.currentChunkCount = chunkCount;
+      state.currentChunkSet = chunkSet;
+      state.backgroundDirty = false;
+      if (previousChunkSet && previousChunkSet !== chunkSet) {
+        await deleteChunkSet(reference, previousChunkSet);
+      }
+      setBinderUrl(binderId);
+      updateSaveUi("나만의도감에 저장했습니다.");
+      await refreshLibrary();
+    } catch (error) {
+      console.error("커스텀 바인더 저장 실패", error);
+      updateSaveUi(clean(error?.message) || "저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      state.saving = false;
+      updateSaveUi(saveStatus.textContent);
+    }
+  }
+
+  async function deleteCurrentBinder() {
+    if (!state.user || !state.firebase || !state.currentBinderId) return;
+    const title = clean(titleInput.value) || "이 작업";
+    if (!window.confirm(`‘${title}’ 저장 작업을 삭제할까요?`)) return;
+
+    const reference = binderRef(state.currentBinderId);
+    const { firestoreModule, db } = state.firebase;
+
+    try {
+      const chunks = await firestoreModule.getDocs(
+        firestoreModule.collection(reference, "chunks"),
+      );
+      const batch = firestoreModule.writeBatch(db);
+      chunks.forEach((chunk) => batch.delete(chunk.ref));
+      batch.delete(reference);
+      await batch.commit();
+      resetEditor(true);
+      await refreshLibrary();
+      updateSaveUi("저장 작업을 삭제했습니다.");
+    } catch (error) {
+      console.error("커스텀 바인더 삭제 실패", error);
+      updateSaveUi(clean(error?.message) || "저장 작업을 삭제하지 못했습니다.");
+    }
+  }
+
+  function resetEditor(clearUrl = true) {
+    state.currentBinderId = "";
+    state.currentCreatedAt = null;
+    state.currentChunkCount = 0;
+    state.currentChunkSet = "";
+    state.backgroundDirty = false;
+    titleInput.value = "";
+    searchInput.value = "";
+    const defaultGrid = gridInputs.find((input) => input.value === "3x4");
+    if (defaultGrid) defaultGrid.checked = true;
+    renderGrid();
+    clearImage();
+    renderSearchResults("");
+    if (clearUrl) setBinderUrl("");
+    deleteButton.hidden = true;
+    updateSaveUi();
+    void refreshLibrary();
+  }
+
+  async function initializePersistence() {
+    if (!configured()) {
+      updateSaveUi();
+      void refreshLibrary();
+      return;
+    }
+
+    try {
+      const [appModule, authModule, firestoreModule] = await Promise.all([
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-app.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-auth.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-firestore.js`),
+      ]);
+      const app = appModule.getApps().length
+        ? appModule.getApp()
+        : appModule.initializeApp(CONFIG.config);
+      const auth = authModule.getAuth(app);
+      try {
+        await authModule.setPersistence(auth, authModule.browserLocalPersistence);
+      } catch (error) {
+        console.warn("커스텀 바인더 로그인 유지 설정 실패", error);
+      }
+      state.firebase = {
+        auth,
+        authModule,
+        firestoreModule,
+        db: firestoreModule.getFirestore(app),
+      };
+      state.user = await firstAuthUser(auth, authModule);
+      updateSaveUi();
+      await refreshLibrary();
+
+      const requestedBinder = clean(new URLSearchParams(window.location.search).get("binder"));
+      if (requestedBinder && state.user) {
+        activateTab("custom", false);
+        await loadSavedBinder(requestedBinder);
+      }
+    } catch (error) {
+      console.error("커스텀 바인더 저장 초기화 실패", error);
+      state.firebase = null;
+      state.user = null;
+      updateSaveUi("저장 기능을 초기화하지 못했습니다.");
+      await refreshLibrary();
+    }
+  }
+
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", (event) => {
