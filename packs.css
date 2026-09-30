@@ -133,6 +133,25 @@
   background-size: 100% 100%, 100% 100%;
 }
 
+.pack-image.is-pack-placeholder,
+.pack-dialog-image.is-pack-placeholder {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 8px;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.2), transparent 34%),
+    linear-gradient(135deg, var(--pack-a), var(--pack-b));
+  background-size: 100% 100%;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.4;
+  padding: 16px;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
 .pack-card.is-missing .pack-image {
   filter: grayscale(1) drop-shadow(0 7px 8px rgba(23, 35, 63, 0.12));
   opacity: 0.42;
