@@ -13,6 +13,10 @@ URLS={
 "multi":"https://media.bunjang.co.kr/product/396838239_1_1779587841_w840.jpg",
 "wanted":"https://media.bunjang.co.kr/product/430162505_1_1790050194_w840.jpg",
 "bs10-wanted":"https://media.bunjang.co.kr/product/432524947_1_1789638894_w840.jpg",
+"bs10-wanted-2":"https://media.bunjang.co.kr/product/432524947_2_1789638894_w840.jpg",
+"bs10-wanted-3":"https://media.bunjang.co.kr/product/432524947_3_1789638894_w840.jpg",
+"bs10-wanted-4":"https://media.bunjang.co.kr/product/432524947_4_1789638894_w840.jpg",
+"bs10-wanted-5":"https://media.bunjang.co.kr/product/432524947_5_1789638894_w840.jpg",
 }
 headers={"User-Agent":"Mozilla/5.0","Referer":"https://m.bunjang.co.kr/"}
 for name,url in URLS.items():
