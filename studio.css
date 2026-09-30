@@ -877,3 +877,41 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     text-align: center;
   }
 }
+
+
+/* Binder Studio visibility and ownership print states */
+.studio-empty-preview[hidden],
+.studio-card-preview[hidden] {
+  display: none !important;
+}
+
+.studio-preview-card.is-missing .studio-preview-card-image img {
+  filter: grayscale(1);
+  opacity: 0.68;
+}
+
+.studio-preview-card.is-missing .studio-preview-card-image {
+  position: relative;
+}
+
+.studio-preview-card.is-missing .studio-preview-card-image::after {
+  content: "미보유";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 999px;
+  background: rgba(26,39,55,.72);
+  color: #fff;
+  font-size: .5rem;
+  font-weight: 850;
+  padding: 3px 6px;
+  backdrop-filter: blur(5px);
+}
+
+@media print {
+  .studio-print-card.is-missing img {
+    filter: grayscale(1) !important;
+    opacity: .72 !important;
+  }
+}
