@@ -1,0 +1,42 @@
+name: Build legacy pack images
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/build-legacy-pack-images.yml"
+      - "scripts/build_legacy_pack_images.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-pack-images-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install image tools
+        run: pip install requests beautifulsoup4 pillow
+      - name: Build official Korean legacy pack images
+        run: python scripts/build_legacy_pack_images.py
+      - name: Publish generated legacy pack images
+        run: |
+          if git diff --quiet -- assets/packs/legacy && [ -z "$(git status --porcelain -- assets/packs/legacy)" ]; then
+            echo "Legacy pack images are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- assets/packs/legacy
+          git commit -m "Add official Korean legacy pack images"
+          git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
