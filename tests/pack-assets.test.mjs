@@ -92,3 +92,34 @@ test("legacy packs without local artwork use an explicit non-misleading placehol
   assert.match(javascript, /팩 이미지 준비 중/);
   assert.match(css, /[.]pack-image[.]is-pack-placeholder/);
 });
+
+
+test("official BW, XY, and SM pack image manifest covers every supported legacy pack", async () => {
+  const [javascript, manifestSource, evidenceSource] = await Promise.all([
+    source("packs.js"),
+    source("assets/packs/legacy/manifest.json"),
+    source("assets/packs/legacy/evidence.json"),
+  ]);
+  const manifest = JSON.parse(manifestSource);
+  const evidence = JSON.parse(evidenceSource);
+  const supportedEntries = [...javascript.matchAll(/\["([^"]+)","([^"]+)","([^"]+)",([01])\]/g)]
+    .map((match) => ({ era: match[1], code: match[3] }))
+    .filter((entry) => ["BW", "XY", "SM"].includes(entry.era));
+
+  assert.equal(supportedEntries.length, 75);
+  assert.equal(manifest.count, 75);
+  assert.equal(Object.keys(manifest.images).length, 75);
+  assert.equal(Object.keys(evidence.items).length, 75);
+  assert.match(javascript, /loadLegacyPackImages/);
+  assert.match(javascript, /legacyPackImages[.]get\(packCode\)/);
+
+  for (const entry of supportedEntries) {
+    const imagePath = manifest.images[entry.code.toLowerCase()];
+    assert.ok(imagePath, entry.code);
+    const image = await readFile(new URL(`../${imagePath.replace(/^\.\//, "")}`, import.meta.url));
+    assert.ok(image.length > 2_000, entry.code);
+    assert.equal(image.subarray(0, 4).toString("ascii"), "RIFF", entry.code);
+    assert.equal(image.subarray(8, 12).toString("ascii"), "WEBP", entry.code);
+    assert.ok(evidence.items[entry.code]?.officialImage, entry.code);
+  }
+});
