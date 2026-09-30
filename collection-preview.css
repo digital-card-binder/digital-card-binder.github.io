@@ -716,9 +716,6 @@ body[data-page="custom-dex"] .custom-dex-card.is-active {
 }
 
 @media (max-width: 380px) {
-  html[data-card-columns] .card-grid,
-  html[data-card-columns] .pack-grid,
-  html[data-card-columns] .promo-pack-grid,
   .series-dashboard,
   .custom-dex-list {
     grid-template-columns: 1fr;
