@@ -1,475 +1,715 @@
 "use strict";
 
 (function () {
+  const CONFIG = window.POKEMON_DEX_FIREBASE || {};
+  const registry = window.CollectorCollectionRegistry;
+  const catalogService = window.DigitalCardBinder?.catalog;
+  if (!registry || !catalogService) {
+    console.error("바인더 스튜디오에 필요한 도감 코어를 불러오지 못했습니다.");
+    return;
+  }
+
+  const SDK_VERSION = "12.16.0";
   const PRINT_MARGIN_MM = 7;
   const A4 = {
     portrait: { width: 210, height: 297, label: "A4 세로" },
     landscape: { width: 297, height: 210, label: "A4 가로" },
   };
   const SIZE_MODES = {
-    card: { cellWidth: 63, cellHeight: 88, label: "실제 카드 63 × 88 mm" },
-    sleeve: { cellWidth: 65, cellHeight: 90, label: "슬리브 65 × 90 mm" },
+    card: { width: 63, height: 88, label: "실제 카드 63 × 88 mm" },
+    sleeve: { width: 65, height: 90, label: "슬리브 65 × 90 mm" },
   };
+  const PREVIEW_LIMIT = 48;
 
   const elements = {
-    file: document.querySelector("#studio-file"),
-    fileLabel: document.querySelector("#studio-file-label"),
-    dropzone: document.querySelector("#studio-dropzone"),
-    cols: document.querySelector("#studio-cols"),
-    rows: document.querySelector("#studio-rows"),
-    presets: [...document.querySelectorAll("[data-grid-preset]")],
+    collection: document.querySelector("#studio-collection"),
+    scope: document.querySelector("#studio-scope"),
+    ownedInputs: [...document.querySelectorAll('input[name="studio-owned"]')],
     sizeInputs: [...document.querySelectorAll('input[name="studio-size"]')],
     reset: document.querySelector("#studio-reset"),
     print: document.querySelector("#studio-print-button"),
-    pageCount: document.querySelector("#studio-page-count"),
+    selectionCount: document.querySelector("#studio-selection-count"),
     pageNote: document.querySelector("#studio-page-note"),
     orientation: document.querySelector("#studio-orientation-badge"),
+    authStatus: document.querySelector("#studio-auth-status"),
+    loading: document.querySelector("#studio-loading"),
     empty: document.querySelector("#studio-empty-preview"),
-    preview: document.querySelector("#studio-page-preview"),
+    preview: document.querySelector("#studio-card-preview"),
     printRoot: document.querySelector("#studio-print-root"),
   };
 
-  if (!elements.file || !elements.preview || !elements.printRoot) return;
+  if (!elements.collection || !elements.scope || !elements.preview || !elements.printRoot) return;
 
   const state = {
-    objectUrl: "",
-    fileName: "",
-    image: null,
-    cols: 3,
-    rows: 4,
-    mode: "card",
-    plan: null,
+    firebase: null,
+    currentUser: null,
+    collectionId: elements.collection.value || "series",
+    catalog: null,
+    items: [],
+    ownedKeys: new Set(),
+    selectedItems: [],
+    loadToken: 0,
+    authReady: false,
+    ownershipReady: false,
   };
 
-  function selectedMode() {
+  const sourceDocumentCache = new Map();
+  const visualCatalogCache = new Map();
+
+  function clean(value) {
+    return String(value ?? "").trim();
+  }
+
+  function selectedOwnedMode() {
+    return elements.ownedInputs.find((input) => input.checked)?.value || "all";
+  }
+
+  function selectedSizeMode() {
     return elements.sizeInputs.find((input) => input.checked)?.value || "card";
   }
 
-  function printableArea(orientation) {
-    const page = A4[orientation];
-    return {
-      width: page.width - PRINT_MARGIN_MM * 2,
-      height: page.height - PRINT_MARGIN_MM * 2,
-    };
+  function configured() {
+    const config = CONFIG.config || {};
+    return Boolean(CONFIG.enabled && config.apiKey && config.authDomain && config.projectId);
   }
 
-  function exactPlanForOrientation(orientation, cols, rows, mode) {
-    const page = A4[orientation];
-    const area = printableArea(orientation);
-    const size = SIZE_MODES[mode];
-    const perPageCols = Math.max(1, Math.floor((area.width + 0.001) / size.cellWidth));
-    const perPageRows = Math.max(1, Math.floor((area.height + 0.001) / size.cellHeight));
-    const horizontalPages = Math.ceil(cols / perPageCols);
-    const verticalPages = Math.ceil(rows / perPageRows);
-
-    return {
-      orientation,
-      page,
-      area,
-      mode,
-      perPageCols,
-      perPageRows,
-      pageCount: horizontalPages * verticalPages,
-      horizontalPages,
-      verticalPages,
-      cellWidth: size.cellWidth,
-      cellHeight: size.cellHeight,
-    };
-  }
-
-  function chooseExactPlan(cols, rows, mode) {
-    const portrait = exactPlanForOrientation("portrait", cols, rows, mode);
-    const landscape = exactPlanForOrientation("landscape", cols, rows, mode);
-    const candidates = [portrait, landscape].sort((a, b) => {
-      if (a.pageCount !== b.pageCount) return a.pageCount - b.pageCount;
-      const aCapacity = a.perPageCols * a.perPageRows;
-      const bCapacity = b.perPageCols * b.perPageRows;
-      if (aCapacity !== bCapacity) return bCapacity - aCapacity;
-      return a.orientation === "portrait" ? -1 : 1;
+  async function firstAuthUser(auth, authModule) {
+    if (typeof auth.authStateReady === "function") {
+      await auth.authStateReady();
+      return auth.currentUser || null;
+    }
+    return new Promise((resolve, reject) => {
+      let unsubscribe = () => {};
+      unsubscribe = authModule.onAuthStateChanged(
+        auth,
+        (user) => {
+          unsubscribe();
+          resolve(user || null);
+        },
+        reject,
+      );
     });
-    return candidates[0];
   }
 
-  function chooseFitPlan(image) {
-    const candidates = ["portrait", "landscape"].map((orientation) => {
-      const page = A4[orientation];
-      const area = printableArea(orientation);
-      const scale = Math.min(area.width / image.naturalWidth, area.height / image.naturalHeight);
-      return { orientation, page, area, pageCount: 1, scale, mode: "fit" };
+  function updateAuthControls() {
+    const signedIn = Boolean(state.currentUser);
+    elements.ownedInputs.forEach((input) => {
+      if (input.value === "all") return;
+      input.disabled = !signedIn || !state.ownershipReady;
     });
-    return candidates.sort((a, b) => b.scale - a.scale)[0];
-  }
 
-  function buildSlices(plan, cols, rows) {
-    if (plan.mode === "fit") {
-      return [{
-        colStart: 0,
-        rowStart: 0,
-        colCount: cols,
-        rowCount: rows,
-        physicalWidth: null,
-        physicalHeight: null,
-      }];
+    if (!signedIn && selectedOwnedMode() !== "all") {
+      const all = elements.ownedInputs.find((input) => input.value === "all");
+      if (all) all.checked = true;
     }
 
-    const slices = [];
-    for (let rowStart = 0; rowStart < rows; rowStart += plan.perPageRows) {
-      const rowCount = Math.min(plan.perPageRows, rows - rowStart);
-      for (let colStart = 0; colStart < cols; colStart += plan.perPageCols) {
-        const colCount = Math.min(plan.perPageCols, cols - colStart);
-        slices.push({
-          colStart,
-          rowStart,
-          colCount,
-          rowCount,
-          physicalWidth: colCount * plan.cellWidth,
-          physicalHeight: rowCount * plan.cellHeight,
-        });
-      }
-    }
-    return slices;
-  }
-
-  function computePlan() {
-    if (!state.image) return null;
-    const cols = Number(elements.cols.value) || 3;
-    const rows = Number(elements.rows.value) || 4;
-    const mode = selectedMode();
-    const base = mode === "fit"
-      ? chooseFitPlan(state.image)
-      : chooseExactPlan(cols, rows, mode);
-
-    return {
-      ...base,
-      cols,
-      rows,
-      slices: buildSlices(base, cols, rows),
-    };
-  }
-
-  function expectedAspect(plan) {
-    if (!plan || plan.mode === "fit") return null;
-    return (plan.cols * plan.cellWidth) / (plan.rows * plan.cellHeight);
-  }
-
-  function sourceAspect() {
-    if (!state.image) return null;
-    return state.image.naturalWidth / state.image.naturalHeight;
-  }
-
-  function aspectMismatch(plan) {
-    const expected = expectedAspect(plan);
-    const source = sourceAspect();
-    if (!expected || !source) return 0;
-    return Math.abs(source - expected) / expected;
-  }
-
-  function sourceCrop(slice, plan) {
-    const image = state.image;
-    const cellWidthPx = image.naturalWidth / plan.cols;
-    const cellHeightPx = image.naturalHeight / plan.rows;
-    return {
-      sx: slice.colStart * cellWidthPx,
-      sy: slice.rowStart * cellHeightPx,
-      sw: slice.colCount * cellWidthPx,
-      sh: slice.rowCount * cellHeightPx,
-    };
-  }
-
-  function createPreviewCanvas(slice, plan) {
-    const portrait = plan.orientation === "portrait";
-    const width = portrait ? 340 : 480;
-    const height = Math.round(width * plan.page.height / plan.page.width);
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return canvas;
-
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, width, height);
-
-    const mmToPx = width / plan.page.width;
-    const areaX = PRINT_MARGIN_MM * mmToPx;
-    const areaY = PRINT_MARGIN_MM * mmToPx;
-    const areaWidth = plan.area.width * mmToPx;
-    const areaHeight = plan.area.height * mmToPx;
-
-    const crop = sourceCrop(slice, plan);
-
-    if (plan.mode === "fit") {
-      const imageAspect = state.image.naturalWidth / state.image.naturalHeight;
-      const areaAspect = areaWidth / areaHeight;
-      let drawWidth = areaWidth;
-      let drawHeight = areaHeight;
-      if (imageAspect > areaAspect) {
-        drawHeight = drawWidth / imageAspect;
-      } else {
-        drawWidth = drawHeight * imageAspect;
-      }
-      const dx = areaX + (areaWidth - drawWidth) / 2;
-      const dy = areaY + (areaHeight - drawHeight) / 2;
-      ctx.drawImage(state.image, 0, 0, state.image.naturalWidth, state.image.naturalHeight, dx, dy, drawWidth, drawHeight);
+    if (!state.authReady) {
+      elements.authStatus.textContent = "로그인 상태를 확인하고 있습니다.";
+    } else if (!configured()) {
+      elements.authStatus.textContent = "로그인 설정을 확인하지 못해 전체 카드만 인쇄할 수 있습니다.";
+    } else if (!signedIn) {
+      elements.authStatus.textContent = "전체 카드는 바로 인쇄할 수 있습니다. 보유만·미보유만은 Google 로그인 후 사용할 수 있습니다.";
     } else {
-      const drawWidth = slice.physicalWidth * mmToPx;
-      const drawHeight = slice.physicalHeight * mmToPx;
-      const dx = areaX + (areaWidth - drawWidth) / 2;
-      const dy = areaY + (areaHeight - drawHeight) / 2;
-      ctx.drawImage(state.image, crop.sx, crop.sy, crop.sw, crop.sh, dx, dy, drawWidth, drawHeight);
-
-      ctx.save();
-      ctx.strokeStyle = "rgba(42, 64, 84, 0.26)";
-      ctx.lineWidth = 1;
-      for (let c = 1; c < slice.colCount; c += 1) {
-        const x = dx + c * plan.cellWidth * mmToPx;
-        ctx.beginPath();
-        ctx.moveTo(x, dy);
-        ctx.lineTo(x, dy + drawHeight);
-        ctx.stroke();
-      }
-      for (let r = 1; r < slice.rowCount; r += 1) {
-        const y = dy + r * plan.cellHeight * mmToPx;
-        ctx.beginPath();
-        ctx.moveTo(dx, y);
-        ctx.lineTo(dx + drawWidth, y);
-        ctx.stroke();
-      }
-      ctx.restore();
+      elements.authStatus.textContent = "로그인된 계정의 선택 도감 보유 기록을 사용합니다.";
     }
-
-    return canvas;
   }
 
-  function renderPreview() {
-    state.cols = Number(elements.cols.value) || 3;
-    state.rows = Number(elements.rows.value) || 4;
-    state.mode = selectedMode();
-    state.plan = computePlan();
-
-    syncPresetButtons();
-
-    if (!state.plan) {
-      elements.empty.hidden = false;
-      elements.preview.hidden = true;
-      elements.preview.replaceChildren();
-      elements.pageCount.textContent = "이미지를 선택하세요";
-      elements.pageNote.textContent = "실제 크기 인쇄 시 A4 방향도 자동으로 최적화합니다.";
-      elements.orientation.textContent = "A4 자동";
-      elements.print.disabled = true;
+  async function initializeFirebase() {
+    if (!configured()) {
+      state.authReady = true;
+      updateAuthControls();
       return;
     }
 
-    elements.empty.hidden = true;
-    elements.preview.hidden = false;
-    elements.preview.replaceChildren();
-
-    state.plan.slices.forEach((slice, index) => {
-      const item = document.createElement("div");
-      item.className = "studio-preview-page";
-      const canvas = createPreviewCanvas(slice, state.plan);
-      const label = document.createElement("span");
-      label.textContent = state.plan.slices.length === 1
-        ? "1페이지"
-        : `${index + 1} / ${state.plan.slices.length}페이지`;
-      item.append(canvas, label);
-      elements.preview.append(item);
-    });
-
-    const count = state.plan.slices.length;
-    const orientationLabel = A4[state.plan.orientation].label;
-    elements.orientation.textContent = orientationLabel;
-    elements.pageCount.textContent = count === 1
-      ? `A4 1장 · ${orientationLabel}`
-      : `A4 ${count}장 · ${orientationLabel}`;
-
-    const mismatch = aspectMismatch(state.plan);
-    if (state.plan.mode === "fit") {
-      elements.pageNote.textContent = "원본 비율을 유지해 한 장에 맞춥니다.";
-    } else if (mismatch > 0.035) {
-      elements.pageNote.textContent = "원본 비율이 선택한 그리드와 조금 다릅니다. 실제 크기에 맞추며 약간의 비율 보정이 생길 수 있습니다.";
-    } else {
-      const size = SIZE_MODES[state.plan.mode];
-      elements.pageNote.textContent =
-        `한 칸 ${size.cellWidth} × ${size.cellHeight} mm · 칸 경계에서만 페이지를 나눕니다.`;
+    try {
+      const [appModule, authModule, firestoreModule] = await Promise.all([
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-app.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-auth.js`),
+        import(`https://www.gstatic.com/firebasejs/${SDK_VERSION}/firebase-firestore.js`),
+      ]);
+      const app = appModule.getApps().length
+        ? appModule.getApp()
+        : appModule.initializeApp(CONFIG.config);
+      const auth = authModule.getAuth(app);
+      try {
+        await authModule.setPersistence(auth, authModule.browserLocalPersistence);
+      } catch (error) {
+        console.warn("바인더 스튜디오 로그인 유지 설정 실패", error);
+      }
+      state.firebase = {
+        auth,
+        db: firestoreModule.getFirestore(app),
+        authModule,
+        firestoreModule,
+      };
+      state.currentUser = await firstAuthUser(auth, authModule);
+    } catch (error) {
+      console.warn("바인더 스튜디오 Firebase 초기화 실패", error);
+    } finally {
+      state.authReady = true;
+      updateAuthControls();
     }
-    elements.print.disabled = false;
   }
 
-  function syncPresetButtons() {
-    const key = `${elements.cols.value}x${elements.rows.value}`;
-    elements.presets.forEach((button) => {
-      button.classList.toggle("is-active", button.dataset.gridPreset === key);
-    });
-  }
+  async function sourceDocumentFor(collectionId) {
+    if (!state.currentUser || !state.firebase) return {};
+    const documentId = registry.COLLECTIONS[collectionId]?.documentId;
+    if (!documentId) return {};
 
-  function resetFile() {
-    if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
-    state.objectUrl = "";
-    state.fileName = "";
-    state.image = null;
-    elements.file.value = "";
-    elements.fileLabel.textContent = "이미지 불러오기";
-    elements.dropzone.classList.remove("has-file");
-  }
-
-  function resetAll() {
-    resetFile();
-    elements.cols.value = "3";
-    elements.rows.value = "4";
-    elements.sizeInputs.forEach((input) => {
-      input.checked = input.value === "card";
-    });
-    renderPreview();
-  }
-
-  function loadFile(file) {
-    if (!file || !file.type.startsWith("image/")) {
-      window.alert("PNG, JPG 또는 WEBP 이미지 파일을 선택해 주세요.");
-      return;
-    }
-
-    resetFile();
-    const url = URL.createObjectURL(file);
-    const image = new Image();
-    image.onload = () => {
-      state.objectUrl = url;
-      state.fileName = file.name;
-      state.image = image;
-      elements.fileLabel.textContent = file.name;
-      elements.dropzone.classList.add("has-file");
-      renderPreview();
-    };
-    image.onerror = () => {
-      URL.revokeObjectURL(url);
-      window.alert("이미지를 불러오지 못했습니다. 다른 파일로 다시 시도해 주세요.");
-    };
-    image.src = url;
-  }
-
-  function cloneSliceCanvas(slice, plan) {
-    const crop = sourceCrop(slice, plan);
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.round(crop.sw));
-    canvas.height = Math.max(1, Math.round(crop.sh));
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.drawImage(
-        state.image,
-        crop.sx,
-        crop.sy,
-        crop.sw,
-        crop.sh,
-        0,
-        0,
-        canvas.width,
-        canvas.height,
+    if (!sourceDocumentCache.has(documentId)) {
+      const { db, firestoreModule } = state.firebase;
+      const reference = firestoreModule.doc(
+        db,
+        "users",
+        state.currentUser.uid,
+        CONFIG.userCollection || "collections",
+        documentId,
+      );
+      sourceDocumentCache.set(
+        documentId,
+        firestoreModule.getDoc(reference)
+          .then((snapshot) => (snapshot.exists() ? snapshot.data() || {} : {}))
+          .catch((error) => {
+            sourceDocumentCache.delete(documentId);
+            throw error;
+          }),
       );
     }
-    return canvas;
+    return sourceDocumentCache.get(documentId);
   }
 
-  function installDynamicPageStyle(plan) {
+  function cardImage(card) {
+    return clean(
+      card?.imageLarge ||
+      card?.image ||
+      card?.imageUrl ||
+      card?.originalImage ||
+      card?.card?.image ||
+      card?.card?.imageLarge,
+    );
+  }
+
+  function cardMeta(card, item) {
+    const values = [
+      clean(card?.code),
+      clean(card?.meta),
+      clean(card?.cardNumber || card?.number),
+      clean(card?.rarity),
+      clean(card?.set || card?.setName),
+    ].filter(Boolean);
+    return values.length ? values.slice(0, 3).join(" · ") : clean(item?.groupName);
+  }
+
+  function mergeVisual(catalog, visualMap) {
+    return catalog.items.map((item) => ({
+      ...item,
+      image: visualMap.get(item.key)?.image || "",
+      meta: visualMap.get(item.key)?.meta || item.groupName || "",
+    }));
+  }
+
+  async function buildVisualCatalog(collectionId, catalog) {
+    const visualMap = new Map();
+
+    if (collectionId === "national") {
+      const payload = await catalogService.json("./data/pokedex.json");
+      for (const record of payload.records || []) {
+        const key = String(record.number);
+        visualMap.set(key, {
+          image: clean(record.imageUrl),
+          meta: `${record.numberLabel || `#${String(record.number).padStart(4, "0")}`} · ${record.generation}세대`,
+        });
+      }
+      return mergeVisual(catalog, visualMap);
+    }
+
+    if (collectionId === "people") {
+      const payload = await catalogService.json("./data/people.json");
+      for (const person of payload.people || []) {
+        visualMap.set(String(person.id), {
+          image: clean(person.imageLarge || person.image),
+          meta: [person.category, person.region].filter(Boolean).join(" · "),
+        });
+      }
+      return mergeVisual(catalog, visualMap);
+    }
+
+    if (collectionId === "world") {
+      const payload = await catalogService.json("./data/world-exploration.json");
+      (payload.generations || []).forEach((generation, groupIndex) => {
+        const group = {
+          code: `generation-${generation.generation}`,
+          name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
+          cards: (generation.slots || []).map((slot) => ({
+            code: slot.id,
+            name: slot.title,
+            owned: false,
+            slotId: slot.id,
+          })),
+        };
+        group.cards.forEach((card, cardIndex) => {
+          const slot = generation.slots?.[cardIndex] || {};
+          const key = registry.cardIdentity(collectionId, group, card, groupIndex, cardIndex);
+          visualMap.set(key, {
+            image: clean(slot.card?.image || slot.image),
+            meta: clean(slot.subtitle || generation.region || group.name),
+          });
+        });
+      });
+      return mergeVisual(catalog, visualMap);
+    }
+
+    let groups = [];
+    if (collectionId === "series") {
+      groups = await catalogService.series();
+    } else if (collectionId === "pokemon") {
+      groups = await catalogService.pokemonCollections();
+    } else if (collectionId === "ar") {
+      groups = await catalogService.ar();
+    } else if (collectionId === "artist") {
+      const payload = await catalogService.json("./data/artists.json");
+      groups = payload.artists || [];
+    } else if (collectionId === "trainerPokemon") {
+      const payload = await catalogService.json("./data/trainer-pokemon.json");
+      groups = payload.groups || [];
+    } else if (collectionId === "fossil") {
+      const payload = await catalogService.json("./data/fossil.json");
+      groups = payload.groups || [];
+    }
+
+    groups.forEach((group, groupIndex) => {
+      (group.cards || []).forEach((card, cardIndex) => {
+        const key = registry.cardIdentity(collectionId, group, card, groupIndex, cardIndex);
+        visualMap.set(key, {
+          image: cardImage(card),
+          meta: cardMeta(card, catalog.itemMap.get(key)),
+        });
+      });
+    });
+
+    return mergeVisual(catalog, visualMap);
+  }
+
+  async function visualCatalogFor(collectionId, catalog) {
+    if (!visualCatalogCache.has(collectionId)) {
+      visualCatalogCache.set(
+        collectionId,
+        buildVisualCatalog(collectionId, catalog).catch((error) => {
+          visualCatalogCache.delete(collectionId);
+          throw error;
+        }),
+      );
+    }
+    return visualCatalogCache.get(collectionId);
+  }
+
+  function scopeLabel(collectionId) {
+    const labels = {
+      national: "전체 세대",
+      series: "전체 시리즈",
+      ar: "전체 AR",
+      pokemon: "전체 포켓몬 컬렉션",
+      artist: "전체 작가",
+      people: "전체 인물",
+      trainerPokemon: "전체 트레이너 × 포켓몬",
+      fossil: "전체 화석 도감",
+      world: "전체 월드탐험",
+    };
+    return labels[collectionId] || "전체";
+  }
+
+  function populateScopes(catalog, collectionId) {
+    const options = [];
+    const all = document.createElement("option");
+    all.value = "all";
+    all.textContent = scopeLabel(collectionId);
+    options.push(all);
+
+    for (const group of catalog.groups || []) {
+      const option = document.createElement("option");
+      option.value = group.key;
+      option.textContent = `${group.name} · ${group.itemKeys.length.toLocaleString("ko-KR")}장`;
+      options.push(option);
+    }
+
+    elements.scope.replaceChildren(...options);
+    elements.scope.disabled = false;
+    elements.scope.value = "all";
+  }
+
+  function filteredItems() {
+    if (!state.catalog) return [];
+
+    const scope = elements.scope.value || "all";
+    const ownedMode = selectedOwnedMode();
+    let allowedKeys = null;
+
+    if (scope !== "all") {
+      const group = state.catalog.groups.find((entry) => entry.key === scope);
+      allowedKeys = new Set(group?.itemKeys || []);
+    }
+
+    return state.items.filter((item) => {
+      if (allowedKeys && !allowedKeys.has(item.key)) return false;
+      if (ownedMode === "owned") return state.ownedKeys.has(item.key);
+      if (ownedMode === "missing") return !state.ownedKeys.has(item.key);
+      return true;
+    });
+  }
+
+  function fitLayout(count) {
+    if (!count) {
+      return {
+        orientation: "portrait",
+        page: A4.portrait,
+        cols: 1,
+        rows: 1,
+        cardWidth: 63,
+        cardHeight: 88,
+      };
+    }
+
+    let best = null;
+    for (const orientation of ["portrait", "landscape"]) {
+      const page = A4[orientation];
+      const areaWidth = page.width - PRINT_MARGIN_MM * 2;
+      const areaHeight = page.height - PRINT_MARGIN_MM * 2;
+      for (let cols = 1; cols <= count; cols += 1) {
+        const rows = Math.ceil(count / cols);
+        const maxWidth = areaWidth / cols;
+        const maxHeight = areaHeight / rows;
+        const cardWidth = Math.min(maxWidth, maxHeight * (63 / 88));
+        const cardHeight = cardWidth * (88 / 63);
+        const score = cardWidth * cardHeight;
+        if (!best || score > best.score) {
+          best = { orientation, page, cols, rows, cardWidth, cardHeight, score };
+        }
+      }
+    }
+    return best;
+  }
+
+  function printPlan(count) {
+    const mode = selectedSizeMode();
+    if (mode === "fit") {
+      const layout = fitLayout(count);
+      return {
+        mode,
+        orientation: layout.orientation,
+        pageCount: count ? 1 : 0,
+        perPage: count,
+        ...layout,
+      };
+    }
+
+    const size = SIZE_MODES[mode];
+    return {
+      mode,
+      orientation: "portrait",
+      page: A4.portrait,
+      pageCount: Math.ceil(count / 9),
+      perPage: 9,
+      cols: 3,
+      rows: 3,
+      cardWidth: size.width,
+      cardHeight: size.height,
+    };
+  }
+
+  function createPreviewCard(item) {
+    const card = document.createElement("article");
+    card.className = "studio-preview-card";
+
+    const imageWrap = document.createElement("div");
+    imageWrap.className = "studio-preview-card-image";
+    if (item.image) {
+      const image = document.createElement("img");
+      image.src = item.image;
+      image.alt = item.name || "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      imageWrap.append(image);
+    } else {
+      const missing = document.createElement("span");
+      missing.className = "studio-preview-placeholder";
+      missing.textContent = "이미지 없음";
+      imageWrap.append(missing);
+    }
+
+    const copy = document.createElement("div");
+    copy.className = "studio-preview-card-copy";
+    const title = document.createElement("strong");
+    title.textContent = item.name || "카드";
+    const meta = document.createElement("small");
+    meta.textContent = item.meta || item.groupName || "";
+    copy.append(title, meta);
+    card.append(imageWrap, copy);
+    return card;
+  }
+
+  function renderSelection() {
+    state.selectedItems = filteredItems();
+    const count = state.selectedItems.length;
+    const plan = printPlan(count);
+    const meta = registry.COLLECTIONS[state.collectionId];
+    const ownedMode = selectedOwnedMode();
+    const modeLabels = {
+      all: "전체",
+      owned: "보유",
+      missing: "미보유",
+    };
+
+    elements.loading.hidden = true;
+    elements.empty.hidden = count > 0;
+    elements.preview.hidden = count === 0;
+    elements.print.disabled = count === 0;
+
+    elements.selectionCount.textContent =
+      `${meta?.title || "도감"} · ${modeLabels[ownedMode]} ${count.toLocaleString("ko-KR")}장`;
+    elements.orientation.textContent = A4[plan.orientation]?.label || "A4 세로";
+
+    if (!count) {
+      elements.pageNote.textContent = "선택 조건에 맞는 카드가 없습니다.";
+      elements.preview.replaceChildren();
+      return;
+    }
+
+    if (plan.mode === "fit") {
+      elements.pageNote.textContent =
+        `A4 1장 · 자동 ${plan.cols} × ${plan.rows} 배열 · 모든 선택 카드를 한 페이지에 맞춤`;
+    } else {
+      const size = SIZE_MODES[plan.mode];
+      elements.pageNote.textContent =
+        `A4 ${plan.pageCount.toLocaleString("ko-KR")}장 · 페이지당 최대 9장 · ${size.label}`;
+    }
+
+    const previewItems = state.selectedItems.slice(0, PREVIEW_LIMIT);
+    const cards = previewItems.map(createPreviewCard);
+    if (count > PREVIEW_LIMIT) {
+      const more = document.createElement("div");
+      more.className = "studio-preview-more";
+      more.textContent =
+        `미리보기는 앞 ${PREVIEW_LIMIT}장만 표시합니다. 실제 인쇄에는 선택한 ${count.toLocaleString("ko-KR")}장이 모두 포함됩니다.`;
+      cards.push(more);
+    }
+    elements.preview.replaceChildren(...cards);
+  }
+
+  function setLoading(message = "도감 데이터를 불러오고 있습니다.") {
+    elements.loading.hidden = false;
+    elements.loading.querySelector("strong").textContent = message;
+    elements.empty.hidden = true;
+    elements.preview.hidden = true;
+    elements.preview.replaceChildren();
+    elements.scope.disabled = true;
+    elements.print.disabled = true;
+    elements.selectionCount.textContent = "도감을 불러오는 중…";
+    elements.pageNote.textContent = "카드 목록과 선택 도감의 보유 기록을 확인합니다.";
+  }
+
+  function setLoadError(error) {
+    elements.loading.hidden = false;
+    elements.loading.querySelector("strong").textContent = "도감 데이터를 불러오지 못했습니다.";
+    elements.loading.querySelector("p").textContent =
+      "페이지를 새로고침한 뒤 다시 시도해 주세요. 기존 도감 데이터에는 영향을 주지 않습니다.";
+    elements.selectionCount.textContent = "불러오기 실패";
+    elements.pageNote.textContent = clean(error?.message) || "알 수 없는 오류";
+    elements.print.disabled = true;
+  }
+
+  async function loadCollection(collectionId) {
+    const token = ++state.loadToken;
+    state.collectionId = collectionId;
+    state.catalog = null;
+    state.items = [];
+    state.ownedKeys = new Set();
+    state.ownershipReady = false;
+    setLoading();
+    updateAuthControls();
+
+    try {
+      const catalog = await registry.loadCatalog(collectionId);
+      const itemsPromise = visualCatalogFor(collectionId, catalog);
+
+      let ownedKeys = new Set();
+      if (state.currentUser && state.firebase) {
+        try {
+          const source = await sourceDocumentFor(collectionId);
+          const ownership = await registry.ownershipFor(collectionId, source);
+          ownedKeys = new Set(ownership.ownedKeys || []);
+          state.ownershipReady = true;
+        } catch (error) {
+          console.warn(`${collectionId} 보유 기록을 읽지 못했습니다.`, error);
+          state.ownershipReady = false;
+        }
+      } else {
+        state.ownershipReady = false;
+      }
+
+      const items = await itemsPromise;
+      if (token !== state.loadToken) return;
+
+      state.catalog = catalog;
+      state.items = items;
+      state.ownedKeys = ownedKeys;
+      populateScopes(catalog, collectionId);
+      updateAuthControls();
+      renderSelection();
+    } catch (error) {
+      if (token !== state.loadToken) return;
+      console.error("바인더 스튜디오 도감 불러오기 실패", error);
+      setLoadError(error);
+    }
+  }
+
+  function createPrintCard(item, width, height) {
+    const card = document.createElement("article");
+    card.className = "studio-print-card";
+    card.style.width = `${width}mm`;
+    card.style.height = `${height}mm`;
+
+    if (item.image) {
+      const image = document.createElement("img");
+      image.src = item.image;
+      image.alt = "";
+      image.loading = "eager";
+      image.decoding = "sync";
+      card.append(image);
+    } else {
+      card.classList.add("studio-print-card--missing");
+      card.textContent = item.name || "이미지 없음";
+    }
+    return card;
+  }
+
+  function addCalibration(sheet) {
+    const calibration = document.createElement("div");
+    calibration.className = "studio-calibration";
+    calibration.textContent = "10 mm";
+    sheet.append(calibration);
+  }
+
+  function installPageStyle(orientation) {
     document.querySelector("#studio-dynamic-page-style")?.remove();
     const style = document.createElement("style");
     style.id = "studio-dynamic-page-style";
-    style.textContent = `@media print { @page { size: A4 ${plan.orientation}; margin: 0; } }`;
+    style.textContent =
+      `@media print { @page { size: A4 ${orientation}; margin: 0; } }`;
     document.head.append(style);
   }
 
   function buildPrintSheets() {
-    const plan = state.plan || computePlan();
-    if (!plan || !state.image) return false;
+    const items = state.selectedItems;
+    if (!items.length) return null;
 
-    installDynamicPageStyle(plan);
+    const plan = printPlan(items.length);
+    installPageStyle(plan.orientation);
     elements.printRoot.replaceChildren();
 
-    plan.slices.forEach((slice) => {
+    if (plan.mode === "fit") {
       const sheet = document.createElement("section");
-      sheet.className = "studio-print-sheet";
+      sheet.className = "studio-print-sheet studio-print-sheet--fit";
       sheet.style.width = `${plan.page.width}mm`;
       sheet.style.height = `${plan.page.height}mm`;
-      sheet.style.padding = `${PRINT_MARGIN_MM}mm`;
-
-      if (plan.mode === "fit") {
-        const image = document.createElement("img");
-        image.src = state.objectUrl;
-        image.alt = "";
-        image.style.maxWidth = `${plan.area.width}mm`;
-        image.style.maxHeight = `${plan.area.height}mm`;
-        image.style.width = "auto";
-        image.style.height = "auto";
-        image.style.objectFit = "contain";
-        sheet.append(image);
-      } else {
-        const canvas = cloneSliceCanvas(slice, plan);
-        canvas.style.width = `${slice.physicalWidth}mm`;
-        canvas.style.height = `${slice.physicalHeight}mm`;
-        sheet.append(canvas);
-
-        const calibration = document.createElement("div");
-        calibration.className = "studio-calibration";
-        calibration.textContent = "10 mm";
-        sheet.append(calibration);
-      }
-
+      sheet.style.gridTemplateColumns = `repeat(${plan.cols}, ${plan.cardWidth}mm)`;
+      sheet.style.gridTemplateRows = `repeat(${plan.rows}, ${plan.cardHeight}mm)`;
+      items.forEach((item) => {
+        sheet.append(createPrintCard(item, plan.cardWidth, plan.cardHeight));
+      });
       elements.printRoot.append(sheet);
-    });
+    } else {
+      const size = SIZE_MODES[plan.mode];
+      for (let index = 0; index < items.length; index += plan.perPage) {
+        const sheet = document.createElement("section");
+        sheet.className = "studio-print-sheet studio-print-sheet--exact";
+        items.slice(index, index + plan.perPage).forEach((item) => {
+          sheet.append(createPrintCard(item, size.width, size.height));
+        });
+        addCalibration(sheet);
+        elements.printRoot.append(sheet);
+      }
+    }
 
-    return true;
+    return plan;
   }
 
-  function startPrint() {
-    if (!buildPrintSheets()) return;
+  async function waitForPrintImages() {
+    const images = [...elements.printRoot.querySelectorAll("img")];
+    const tasks = images.map((image) => {
+      if (image.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        image.addEventListener("load", resolve, { once: true });
+        image.addEventListener("error", resolve, { once: true });
+      });
+    });
+    await Promise.race([
+      Promise.all(tasks),
+      new Promise((resolve) => window.setTimeout(resolve, 5000)),
+    ]);
+  }
+
+  async function startPrint() {
+    if (!state.selectedItems.length) return;
+    if (state.selectedItems.length > 500) {
+      const proceed = window.confirm(
+        `선택한 카드가 ${state.selectedItems.length.toLocaleString("ko-KR")}장입니다. 인쇄 준비에 시간이 걸릴 수 있습니다. 계속할까요?`,
+      );
+      if (!proceed) return;
+    }
+
+    const plan = buildPrintSheets();
+    if (!plan) return;
+
+    const originalLabel = elements.print.textContent;
     elements.print.disabled = true;
-    const previous = elements.print.textContent;
     elements.print.textContent = "인쇄 준비 중…";
 
-    window.requestAnimationFrame(() => {
+    const meta = registry.COLLECTIONS[state.collectionId];
+    const scopeText = elements.scope.selectedOptions?.[0]?.textContent || "전체";
+    const originalTitle = document.title;
+    document.title = `바인더스튜디오_${meta?.title || "도감"}_${scopeText}`;
+
+    try {
+      await waitForPrintImages();
+      window.print();
+    } finally {
+      elements.print.disabled = false;
+      elements.print.textContent = originalLabel;
       window.setTimeout(() => {
-        elements.print.disabled = false;
-        elements.print.textContent = previous;
-        window.print();
-      }, 80);
-    });
+        document.title = originalTitle;
+      }, 250);
+    }
   }
 
-  elements.file.addEventListener("change", () => {
-    loadFile(elements.file.files?.[0]);
-  });
-
-  elements.dropzone.addEventListener("dragover", (event) => {
-    event.preventDefault();
-    elements.dropzone.classList.add("is-dragging");
-  });
-
-  elements.dropzone.addEventListener("dragleave", () => {
-    elements.dropzone.classList.remove("is-dragging");
-  });
-
-  elements.dropzone.addEventListener("drop", (event) => {
-    event.preventDefault();
-    elements.dropzone.classList.remove("is-dragging");
-    loadFile(event.dataTransfer?.files?.[0]);
-  });
-
-  elements.presets.forEach((button) => {
-    button.addEventListener("click", () => {
-      const [cols, rows] = String(button.dataset.gridPreset || "3x4").split("x");
-      elements.cols.value = cols;
-      elements.rows.value = rows;
-      renderPreview();
+  async function resetStudio() {
+    elements.collection.value = "series";
+    elements.ownedInputs.forEach((input) => {
+      input.checked = input.value === "all";
     });
+    elements.sizeInputs.forEach((input) => {
+      input.checked = input.value === "card";
+    });
+    await loadCollection("series");
+  }
+
+  elements.collection.addEventListener("change", () => {
+    void loadCollection(elements.collection.value);
+  });
+  elements.scope.addEventListener("change", renderSelection);
+  elements.ownedInputs.forEach((input) => input.addEventListener("change", renderSelection));
+  elements.sizeInputs.forEach((input) => input.addEventListener("change", renderSelection));
+  elements.reset.addEventListener("click", () => {
+    void resetStudio();
+  });
+  elements.print.addEventListener("click", () => {
+    void startPrint();
   });
 
-  elements.cols.addEventListener("change", renderPreview);
-  elements.rows.addEventListener("change", renderPreview);
-  elements.sizeInputs.forEach((input) => input.addEventListener("change", renderPreview));
-  elements.reset.addEventListener("click", resetAll);
-  elements.print.addEventListener("click", startPrint);
+  async function initialize() {
+    setLoading("도감과 로그인 정보를 준비하고 있습니다.");
+    await initializeFirebase();
+    await loadCollection(elements.collection.value || "series");
+  }
 
-  window.addEventListener("beforeunload", () => {
-    if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
-  });
-
-  renderPreview();
+  void initialize();
 })();
