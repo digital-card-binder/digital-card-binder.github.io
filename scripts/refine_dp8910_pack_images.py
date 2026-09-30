@@ -11,12 +11,12 @@ EVIDENCE=OUT/"evidence.json"
 SOURCE_URL="https://media.bunjang.co.kr/product/430162505_1_1790050194_w840.jpg"
 SOURCE_PAGE="https://m.bunjang.co.kr/products/430162505"
 
-# Exact crops reviewed against the Korean DP pack lineup.
-# Coordinates are for the 840x840 source photo.
+# Exact proportional crops reviewed against the Korean DP pack lineup.
+# Bunjang may serve the same source at different pixel sizes, so use ratios.
 CROPS={
-  "BS8":(338, 405, 500, 840),
-  "BS9":(505, 405, 669, 840),
-  "BS10":(674, 405, 840, 840),
+  "BS8":(0.402, 0.475, 0.598, 0.995),
+  "BS9":(0.602, 0.475, 0.798, 0.995),
+  "BS10":(0.802, 0.475, 0.998, 0.995),
 }
 NAMES={
   "BS8":"화려한 전설",
@@ -51,7 +51,9 @@ manifest=json.loads(MANIFEST.read_text(encoding="utf-8"))
 evidence=json.loads(EVIDENCE.read_text(encoding="utf-8"))
 
 for code,box in CROPS.items():
-    crop=src.crop(box)
+    l,t,r,b=box
+    px=(round(src.width*l),round(src.height*t),round(src.width*r),round(src.height*b))
+    crop=src.crop(px)
     final=fit_canvas(crop)
     dest=OUT/f"{code.lower()}.webp"
     final.save(dest,"WEBP",quality=92,method=6)
@@ -68,7 +70,7 @@ for code,box in CROPS.items():
       "rendering":"aspect-ratio-preserved",
       "note":"Exact individual-pack crop from a verified Korean DP sealed-pack lineup; no generative reconstruction.",
     }
-    print(code,box,dest.stat().st_size)
+    print(code,px,dest.stat().st_size)
 
 MANIFEST.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 EVIDENCE.write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
