@@ -1106,7 +1106,7 @@ test("custom binder work is private, size-bounded, and isolated from collection 
     "customBinders",
     "binder_test",
     "chunks",
-    "chunk_000",
+    "blob_test_001_000",
   );
   await assertSucceeds(
     setDoc(chunkRef, {
@@ -1128,7 +1128,7 @@ test("custom binder work is private, size-bounded, and isolated from collection 
         "customBinders",
         "binder_test",
         "chunks",
-        "chunk_001",
+        "blob_test_001_001",
       ),
       {
         ownerUid: ALICE_UID,
