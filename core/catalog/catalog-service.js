@@ -22,8 +22,8 @@
       "unit": "장"
     },
     "pack": {
-      "itemCount": 64,
-      "groupCount": 3,
+      "itemCount": 151,
+      "groupCount": 9,
       "unit": "팩",
       "promoItemCount": 222,
       "promoPackCount": 36,
