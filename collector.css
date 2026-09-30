@@ -2302,3 +2302,191 @@ body.collector-collection-page .world-story-header {
     display: none !important;
   }
 }
+
+
+/* Collector settings mobile layout: match the compact density of the main dex pages. */
+@media (max-width: 690px) {
+  body[data-page="collector-settings"] .collector-settings-main {
+    padding: 14px 12px calc(92px + env(safe-area-inset-bottom));
+  }
+
+  body[data-page="collector-settings"] .collector-settings-hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: start;
+    gap: 14px;
+    min-height: 0;
+    border-radius: 21px;
+    padding: 22px 20px;
+  }
+
+  body[data-page="collector-settings"] .collector-settings-hero .hero-content {
+    min-width: 0;
+  }
+
+  body[data-page="collector-settings"] .collector-settings-hero h1 {
+    margin: 0;
+    font-size: clamp(1.55rem, 7vw, 1.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+  }
+
+  body[data-page="collector-settings"] .collector-settings-hero .hero-description {
+    display: none;
+  }
+
+  body[data-page="collector-settings"] .collector-privacy-badge {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    border-radius: 14px;
+    padding: 11px 13px;
+  }
+
+  body[data-page="collector-settings"] .collector-privacy-badge > span {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  body[data-page="collector-settings"] .collector-privacy-badge strong {
+    font-size: 0.72rem;
+    letter-spacing: 0;
+  }
+
+  body[data-page="collector-settings"] .collector-privacy-badge small {
+    margin-top: 3px;
+    font-size: 0.64rem;
+    line-height: 1.45;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-panel,
+  body[data-page="collector-settings"] .collector-collections-panel {
+    margin-top: 14px;
+  }
+
+  body[data-page="collector-settings"] .catalog-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  body[data-page="collector-settings"] .catalog-heading h2 {
+    margin: 0;
+    font-size: 1.22rem;
+  }
+
+  body[data-page="collector-settings"] .catalog-caption {
+    max-width: none;
+    margin: 0;
+    text-align: left;
+    font-size: 0.62rem;
+    line-height: 1.45;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-summary {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  body[data-page="collector-settings"] .collector-avatar--large {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-copy {
+    min-width: 0;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-copy > strong {
+    overflow: hidden;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-copy p {
+    margin: 5px 0 6px;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-copy small {
+    overflow: hidden;
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-actions {
+    grid-column: 1 / -1;
+    justify-content: stretch;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-actions .manager-button {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-form {
+    margin-top: 14px;
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  body[data-page="collector-settings"] .collector-profile-free-note {
+    margin-top: 14px;
+    padding: 10px 12px;
+    font-size: 0.68rem;
+  }
+
+  body[data-page="collector-settings"] .collector-settings-help {
+    margin-top: 12px;
+    padding: 11px 12px;
+    font-size: 0.68rem;
+  }
+
+  body[data-page="collector-settings"] .collector-settings-grid {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  body[data-page="collector-settings"] .collector-setting-card {
+    gap: 11px;
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  body[data-page="collector-settings"] .collector-dashboard-switch,
+  body[data-page="collector-settings"] .collector-public-switch {
+    min-height: 36px;
+  }
+
+  body[data-page="collector-settings"] .collector-signin-gate {
+    gap: 14px;
+    margin: 14px 0;
+    border-radius: 16px;
+    padding: 16px;
+  }
+
+  body[data-page="collector-settings"] .collector-signin-gate strong {
+    font-size: 0.9rem;
+  }
+
+  body[data-page="collector-settings"] .collector-signin-gate p {
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+}
