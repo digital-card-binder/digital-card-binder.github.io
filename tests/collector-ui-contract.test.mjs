@@ -1303,6 +1303,13 @@ test("Binder Studio custom editor reads canonical cards without writing collecti
   assert.match(editor, /customBinderEditor/);
   assert.match(editor, /getDraft: draftSnapshot/);
   assert.match(editor, /kind: "custom-binder-layout"/);
+  assert.match(editor, /CARD_WIDTH_MM = 63/);
+  assert.match(editor, /CARD_HEIGHT_MM = 88/);
+  assert.match(editor, /canvasWidthMm: grid[.]cols \* CARD_WIDTH_MM/);
+  assert.match(editor, /canvasHeightMm: grid[.]rows \* CARD_HEIGHT_MM/);
+  assert.doesNotMatch(page, /data-custom-action="smaller"/);
+  assert.doesNotMatch(page, /data-custom-action="larger"/);
+  assert.doesNotMatch(editor, /function resizeSelected/);
   assert.doesNotMatch(editor, /firebase-firestore[.]js/);
   assert.doesNotMatch(editor, /setDoc[(]/);
   assert.doesNotMatch(editor, /updateDoc[(]/);
