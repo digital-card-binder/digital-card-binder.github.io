@@ -1708,6 +1708,16 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     align-content: center !important;
     justify-content: center !important;
     gap: 0 !important;
+    overflow: hidden !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .studio-custom-print-sheet:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
   }
 
   .studio-custom-print-sheet--fit {
@@ -1722,6 +1732,9 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     box-sizing: border-box;
     overflow: hidden;
     background: #fff;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    flex: none !important;
   }
 
   .studio-custom-print-cell::after {
