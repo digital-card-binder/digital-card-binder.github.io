@@ -23,4 +23,4 @@ jobs:
           git add assets/packs/legacy
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Upgrade BS4 and BS7 pack images"
-          git push origin HEAD:main
+          for i in 1 2 3; do\n            git push origin HEAD:main && exit 0\n            echo "push retry $i"\n            sleep $((i * 5))\n          done\n          exit 1
