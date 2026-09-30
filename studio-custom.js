@@ -36,6 +36,10 @@
   const editorTools = panel.querySelector("#studio-custom-editor-tools");
   const selectedName = panel.querySelector("#studio-custom-selected-name");
 
+  const CARD_WIDTH_MM = 63;
+  const CARD_HEIGHT_MM = 88;
+  const PREVIEW_PX_PER_MM = 1.5;
+
   const state = {
     objectUrl: "",
     sourceFile: null,
@@ -89,8 +93,15 @@
     return { cols, rows, value };
   }
 
+  function applyStageGeometry() {
+    const { cols, rows } = selectedGrid();
+    previewStage.style.width = `${cols * CARD_WIDTH_MM * PREVIEW_PX_PER_MM}px`;
+    previewStage.style.height = `${rows * CARD_HEIGHT_MM * PREVIEW_PX_PER_MM}px`;
+  }
+
   function renderGrid() {
     const { cols, rows } = selectedGrid();
+    applyStageGeometry();
     overlay.replaceChildren();
     overlay.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
     overlay.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
@@ -107,7 +118,14 @@
     if (previewImage.naturalWidth && previewImage.naturalHeight) {
       updateRatioNote(previewImage.naturalWidth, previewImage.naturalHeight);
     }
-    renderSearchResults(searchInput.value);
+
+    const fixedWidth = 100 / cols;
+    state.placements.forEach((entry) => {
+      entry.width = fixedWidth;
+      clampPlacement(entry);
+    });
+    if (state.placements.length) renderPlacements();
+    else renderSearchResults(searchInput.value);
   }
 
   function updateRatioNote(width, height) {
@@ -359,12 +377,8 @@
   }
 
   function stageAspectFactor() {
-    const rect = previewStage.getBoundingClientRect();
-    if (!rect.width || !rect.height) {
-      if (state.sourceWidth && state.sourceHeight) return state.sourceWidth / state.sourceHeight;
-      return 1;
-    }
-    return rect.width / rect.height;
+    const { cols, rows } = selectedGrid();
+    return (cols * CARD_WIDTH_MM) / (rows * CARD_HEIGHT_MM);
   }
 
   function heightPercentForWidth(widthPercent) {
@@ -375,23 +389,21 @@
     const { cols, rows } = selectedGrid();
     const cellW = 100 / cols;
     const cellH = 100 / rows;
-    const stageFactor = stageAspectFactor();
-    const widthFromCell = cellW * 0.9;
-    const widthFromHeight = (cellH * 0.9) / ((88 / 63) * stageFactor);
-    const width = Math.max(5, Math.min(widthFromCell, widthFromHeight));
-    const height = heightPercentForWidth(width);
+    const width = cellW;
+    const height = cellH;
     const slot = ((index % (cols * rows)) + (cols * rows)) % (cols * rows);
     const col = slot % cols;
     const row = Math.floor(slot / cols);
     return {
-      x: col * cellW + (cellW - width) / 2,
-      y: row * cellH + (cellH - height) / 2,
+      x: col * cellW,
+      y: row * cellH,
       width,
     };
   }
 
   function clampPlacement(entry) {
-    entry.width = Math.max(5, Math.min(80, entry.width));
+    const { cols } = selectedGrid();
+    entry.width = 100 / cols;
     const height = heightPercentForWidth(entry.width);
     entry.x = Math.max(0, Math.min(100 - entry.width, entry.x));
     entry.y = Math.max(0, Math.min(Math.max(0, 100 - height), entry.y));
@@ -505,20 +517,6 @@
     renderPlacements();
   }
 
-  function resizeSelected(multiplier) {
-    const entry = selectedPlacement();
-    if (!entry) return;
-    const oldHeight = heightPercentForWidth(entry.width);
-    const centerX = entry.x + entry.width / 2;
-    const centerY = entry.y + oldHeight / 2;
-    entry.width = Math.max(5, Math.min(80, entry.width * multiplier));
-    const newHeight = heightPercentForWidth(entry.width);
-    entry.x = centerX - entry.width / 2;
-    entry.y = centerY - newHeight / 2;
-    clampPlacement(entry);
-    renderPlacements();
-  }
-
   function rotateSelected(delta) {
     const entry = selectedPlacement();
     if (!entry) return;
@@ -560,8 +558,6 @@
   }
 
   function handleToolAction(action) {
-    if (action === "smaller") resizeSelected(0.9);
-    if (action === "larger") resizeSelected(1.1);
     if (action === "rotate-left") rotateSelected(-5);
     if (action === "rotate-right") rotateSelected(5);
     if (action === "snap") snapSelected();
@@ -578,6 +574,10 @@
         cols: grid.cols,
         rows: grid.rows,
         slotCount: grid.cols * grid.rows,
+        cardWidthMm: CARD_WIDTH_MM,
+        cardHeightMm: CARD_HEIGHT_MM,
+        canvasWidthMm: grid.cols * CARD_WIDTH_MM,
+        canvasHeightMm: grid.rows * CARD_HEIGHT_MM,
       },
       background: {
         name: clean(state.sourceFile?.name),
@@ -597,6 +597,8 @@
         x: Number(entry.x.toFixed(4)),
         y: Number(entry.y.toFixed(4)),
         width: Number(entry.width.toFixed(4)),
+        widthMm: CARD_WIDTH_MM,
+        heightMm: CARD_HEIGHT_MM,
         rotation: Number(entry.rotation.toFixed(2)),
         z: entry.z,
       })),
