@@ -47,3 +47,32 @@ for code,q in queries.items():
         saved+=1
         if saved>=5:
             break
+
+
+simple_queries={
+  "bs8":"화려한 전설",
+  "bs9":"호수의 기적",
+  "bs10":"고대의 수호자",
+}
+for code,q in simple_queries.items():
+    url=api+"?q="+quote(q)+"&order=score&page=0&request_id=packdex2&stat_device=w&n=100&stat_category_required=1&req_ref=search&version=4"
+    data=requests.get(url,headers=headers,timeout=30).json()
+    saved=0
+    for item in data.get("list",[]):
+        name=str(item.get("name") or "")
+        image=str(item.get("product_image") or "")
+        if not image:
+            continue
+        required={"bs8":"화려한","bs9":"호수","bs10":"고대"}[code]
+        if required not in name:
+            continue
+        image=image.replace("{cnt}","1").replace("{res}","840")
+        rr=requests.get(image,headers=headers,timeout=30)
+        if not rr.ok or len(rr.content)<2000:
+            continue
+        pid=str(item.get("pid") or saved)
+        (OUT/f"{code}-simple-{pid}.jpg").write_bytes(rr.content)
+        print("simple-candidate",code,pid,name,image)
+        saved+=1
+        if saved>=8:
+            break
