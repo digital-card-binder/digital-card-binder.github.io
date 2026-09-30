@@ -561,6 +561,7 @@ service cloud.firestore {
           "type",
           "size",
           "chunkCount",
+          "chunkSet",
           "width",
           "height"
         ])
@@ -569,6 +570,7 @@ service cloud.firestore {
           "type",
           "size",
           "chunkCount",
+          "chunkSet",
           "width",
           "height"
         ])
@@ -586,6 +588,9 @@ service cloud.firestore {
         && background.chunkCount is int
         && background.chunkCount >= 1
         && background.chunkCount <= 24
+        && background.chunkSet is string
+        && background.chunkSet.size() >= 8
+        && background.chunkSet.size() <= 80
         && background.width is int
         && background.width >= 1
         && background.width <= 20000
@@ -628,9 +633,12 @@ service cloud.firestore {
     }
 
     function validCustomBinderChunk(userId, chunkId) {
-      return chunkId.matches('^chunk_[0-9][0-9][0-9]$')
+      return chunkId is string
+        && chunkId.size() >= 12
+        && chunkId.size() <= 90
         && request.resource.data.keys().hasAll([
           "ownerUid",
+          "chunkSet",
           "index",
           "data",
           "size",
@@ -638,12 +646,16 @@ service cloud.firestore {
         ])
         && request.resource.data.keys().hasOnly([
           "ownerUid",
+          "chunkSet",
           "index",
           "data",
           "size",
           "updatedAt"
         ])
         && request.resource.data.ownerUid == userId
+        && request.resource.data.chunkSet is string
+        && request.resource.data.chunkSet.size() >= 8
+        && request.resource.data.chunkSet.size() <= 80
         && request.resource.data.index is int
         && request.resource.data.index >= 0
         && request.resource.data.index < 24
