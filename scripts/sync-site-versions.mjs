@@ -19,11 +19,11 @@ const MANIFEST_ICON_RE = /("src"\s*:\s*"\/)(assets\/brand\/[^"?]+\.(?:png|webp))
 const EXTRA_ASSETS = Object.freeze(["trade-offer.js"]);
 
 function hashText(text) {
-  return createHash("sha256").update(text, "utf8").digest("hex").slice(0, 12);
+  return createHash("sha256").update(text.replace(/\r\n/g, "\n"), "utf8").digest("hex").slice(0, 12);
 }
 
 function gitBlobVersion(content) {
-  const body = Buffer.isBuffer(content) ? content : Buffer.from(content, "utf8");
+  const body = Buffer.isBuffer(content) ? content : Buffer.from(content.replace(/\r\n/g, "\n"), "utf8");
   return createHash("sha1")
     .update(Buffer.from(`blob ${body.length}\0`, "utf8"))
     .update(body)

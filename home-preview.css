@@ -331,7 +331,7 @@ body[data-page="dashboard"] .main-content {
   width: clamp(146px, 15.5vw, 218px);
   aspect-ratio: 0.714;
   border-radius: 4.5% / 3.3%;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 28px 55px rgba(2, 8, 24, 0.42);
 }
 
@@ -908,6 +908,19 @@ body[data-page="dashboard"] .site-header {
   min-height: 70px;
   border-bottom-color: rgba(107, 164, 207, 0.22);
   background: rgba(2, 20, 38, 0.94);
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+}
+
+body[data-page="dashboard"] .site-header > .home-top-nav {
+  grid-column: 2;
+}
+
+body[data-page="dashboard"] .site-header > .home-header-actions {
+  grid-column: 3;
+}
+
+body[data-page="dashboard"] .site-header > #firebase-auth-panel {
+  grid-column: 4;
 }
 
 body[data-page="dashboard"] .brand-horizontal {
@@ -987,6 +1000,16 @@ body[data-page="dashboard"] .site-header > #firebase-auth-panel button {
   color: #eaf4ff;
   font-size: 0.58rem;
   padding-inline: 10px;
+}
+
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  body[data-page="dashboard"] .site-header > .home-header-actions {
+    grid-column: 2;
+  }
 }
 
 .home-menu summary {
@@ -1268,7 +1291,7 @@ body[data-page="dashboard"] .dashboard-section-heading > a {
   width: 79px;
   height: 110px;
   border-radius: 5px;
-  object-fit: cover;
+  object-fit: contain;
   transform: rotate(9deg);
   filter: drop-shadow(0 10px 9px rgba(0,0,0,0.3));
 }

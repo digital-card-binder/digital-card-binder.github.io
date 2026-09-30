@@ -7,7 +7,7 @@ const root = new URL("../", import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), "utf8");
 
 function gitBlobVersion(source) {
-  const body = Buffer.from(source, "utf8");
+  const body = Buffer.from(source.replace(/\r\n/g, "\n"), "utf8");
   return createHash("sha1")
     .update(Buffer.from(`blob ${body.length}\0`, "utf8"))
     .update(body)

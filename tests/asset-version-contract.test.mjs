@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
 const source = (path) => readFile(new URL(path, root), "utf8");
@@ -13,7 +14,7 @@ function escapeRegExp(value) {
 test("generated asset and build versions are synchronized", () => {
   const result = spawnSync(
     process.execPath,
-    [new URL("../scripts/sync-site-versions.mjs", import.meta.url).pathname, "--check"],
+    [fileURLToPath(new URL("../scripts/sync-site-versions.mjs", import.meta.url)), "--check"],
     { encoding: "utf8" },
   );
   assert.equal(result.status, 0, result.stderr || result.stdout);

@@ -1,9 +1,10 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { extname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
-const rootPath = root.pathname;
+const rootPath = fileURLToPath(root);
 const failures = [];
 const htmlFiles = readdirSync(rootPath).filter((name) => extname(name) === ".html");
 const jsFiles = readdirSync(rootPath).filter((name) => extname(name) === ".js");
