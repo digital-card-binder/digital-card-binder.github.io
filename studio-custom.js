@@ -35,7 +35,18 @@
   const searchResults = panel.querySelector("#studio-custom-card-results");
   const editorTools = panel.querySelector("#studio-custom-editor-tools");
   const selectedName = panel.querySelector("#studio-custom-selected-name");
+  const titleInput = panel.querySelector("#studio-custom-title-input");
+  const saveStatus = panel.querySelector("#studio-custom-save-status");
+  const saveButton = panel.querySelector("#studio-custom-save-button");
+  const newButton = panel.querySelector("#studio-custom-new-button");
+  const deleteButton = panel.querySelector("#studio-custom-delete-button");
+  const library = panel.querySelector("#studio-custom-library");
+  const libraryEmpty = panel.querySelector("#studio-custom-library-empty");
 
+  const SDK_VERSION = "12.16.0";
+  const CONFIG = window.POKEMON_DEX_FIREBASE || {};
+  const CHUNK_BYTES = 600 * 1024;
+  const MAX_SAVED_WORKS = 30;
   const CARD_WIDTH_MM = 63;
   const CARD_HEIGHT_MM = 88;
   const PREVIEW_PX_PER_MM = 1.5;
@@ -43,6 +54,8 @@
   const state = {
     objectUrl: "",
     sourceFile: null,
+    sourceBlob: null,
+    backgroundDirty: false,
     sourceWidth: 0,
     sourceHeight: 0,
     catalog: null,
@@ -51,6 +64,12 @@
     selectedId: "",
     nextZ: 1,
     searchTimer: 0,
+    firebase: null,
+    user: null,
+    currentBinderId: "",
+    currentCreatedAt: null,
+    currentChunkCount: 0,
+    saving: false,
   };
 
   function clean(value) {
@@ -177,6 +196,8 @@
     if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
     state.objectUrl = "";
     state.sourceFile = null;
+    state.sourceBlob = null;
+    state.backgroundDirty = false;
     state.sourceWidth = 0;
     state.sourceHeight = 0;
     fileInput.value = "";
@@ -207,6 +228,8 @@
     if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
     clearPlacements();
     state.sourceFile = file;
+    state.sourceBlob = file;
+    state.backgroundDirty = true;
     state.objectUrl = URL.createObjectURL(file);
     previewImage.src = state.objectUrl;
     previewImage.alt = file.name;
