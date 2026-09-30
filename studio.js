@@ -19,7 +19,7 @@
     card: { width: 63, height: 88, label: "실제 카드 63 × 88 mm" },
     sleeve: { width: 65, height: 90, label: "슬리브 65 × 90 mm" },
   };
-  const PREVIEW_LIMIT = 48;
+  const PREVIEW_PAGE_LIMIT = 6;
 
   const elements = {
     collection: document.querySelector("#studio-collection"),
@@ -450,6 +450,31 @@
     return card;
   }
 
+  function createPreviewPage(items, pageIndex, pageCount, plan) {
+    const page = document.createElement("section");
+    page.className = "studio-preview-page";
+
+    const heading = document.createElement("div");
+    heading.className = "studio-preview-page-heading";
+    const title = document.createElement("strong");
+    title.textContent = pageCount === 1
+      ? "A4 1페이지"
+      : `A4 ${pageIndex + 1} / ${pageCount}페이지`;
+    const meta = document.createElement("span");
+    meta.textContent = plan.mode === "fit"
+      ? `자동 ${plan.cols} × ${plan.rows}`
+      : `3 × 3 · 최대 ${plan.perPage}장`;
+    heading.append(title, meta);
+
+    const grid = document.createElement("div");
+    grid.className = "studio-preview-page-grid";
+    if (plan.mode === "fit") grid.classList.add("studio-preview-page-grid--fit");
+    items.forEach((item) => grid.append(createPreviewCard(item)));
+
+    page.append(heading, grid);
+    return page;
+  }
+
   function renderSelection() {
     state.selectedItems = filteredItems();
     const count = state.selectedItems.length;
@@ -478,24 +503,47 @@
     }
 
     if (plan.mode === "fit") {
-      elements.pageNote.textContent =
-        `A4 1장 · 자동 ${plan.cols} × ${plan.rows} 배열 · 모든 선택 카드를 한 페이지에 맞춤`;
+      elements.pageNote.textContent = count > 30
+        ? `A4 1장 · 자동 ${plan.cols} × ${plan.rows} 배열 · 카드 수가 많아 실제 출력은 작게 보일 수 있습니다.`
+        : `A4 1장 · 자동 ${plan.cols} × ${plan.rows} 배열 · 모든 선택 카드를 한 페이지에 맞춤`;
     } else {
       const size = SIZE_MODES[plan.mode];
       elements.pageNote.textContent =
-        `A4 ${plan.pageCount.toLocaleString("ko-KR")}장 · 페이지당 최대 9장 · ${size.label}`;
+        `A4 ${plan.pageCount.toLocaleString("ko-KR")}장 · 3 × 3 · 페이지당 최대 9장 · ${size.label}`;
     }
 
-    const previewItems = state.selectedItems.slice(0, PREVIEW_LIMIT);
-    const cards = previewItems.map(createPreviewCard);
-    if (count > PREVIEW_LIMIT) {
-      const more = document.createElement("div");
-      more.className = "studio-preview-more";
-      more.textContent =
-        `미리보기는 앞 ${PREVIEW_LIMIT}장만 표시합니다. 실제 인쇄에는 선택한 ${count.toLocaleString("ko-KR")}장이 모두 포함됩니다.`;
-      cards.push(more);
+    const pageNodes = [];
+    if (plan.mode === "fit") {
+      pageNodes.push(createPreviewPage(state.selectedItems.slice(0, 54), 0, 1, plan));
+      if (count > 54) {
+        const more = document.createElement("div");
+        more.className = "studio-preview-more";
+        more.textContent =
+          `A4 맞춤 미리보기는 앞 54장만 표시합니다. 실제 인쇄에는 선택한 ${count.toLocaleString("ko-KR")}장이 모두 포함됩니다.`;
+        pageNodes.push(more);
+      }
+    } else {
+      const previewPageCount = Math.min(plan.pageCount, PREVIEW_PAGE_LIMIT);
+      for (let pageIndex = 0; pageIndex < previewPageCount; pageIndex += 1) {
+        const start = pageIndex * plan.perPage;
+        pageNodes.push(
+          createPreviewPage(
+            state.selectedItems.slice(start, start + plan.perPage),
+            pageIndex,
+            plan.pageCount,
+            plan,
+          ),
+        );
+      }
+      if (plan.pageCount > PREVIEW_PAGE_LIMIT) {
+        const more = document.createElement("div");
+        more.className = "studio-preview-more";
+        more.textContent =
+          `미리보기는 앞 ${PREVIEW_PAGE_LIMIT}페이지만 표시합니다. 실제 인쇄는 총 ${plan.pageCount.toLocaleString("ko-KR")}페이지입니다.`;
+        pageNodes.push(more);
+      }
     }
-    elements.preview.replaceChildren(...cards);
+    elements.preview.replaceChildren(...pageNodes);
   }
 
   function setLoading(message = "도감 데이터를 불러오고 있습니다.") {
