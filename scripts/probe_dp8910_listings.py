@@ -1,15 +1,26 @@
 import requests,re,html
-url="https://cardnaru.com/cards?game=pokemon-card-game&lang=ko&view=series"
-r=requests.get(url,headers={"User-Agent":"Mozilla/5.0"},timeout=30)
-print("STATUS",r.status_code,"LEN",len(r.text))
-text=html.unescape(r.text)
-for title in ["화려한 전설","호수의 기적","고대의 수호자"]:
-    pos=text.find(title)
-    print("\nTITLE",title,"POS",pos)
-    if pos>=0:
-        frag=text[max(0,pos-2500):pos+3500]
-        print("FRAG",frag.replace("\n"," "))
-        urls=re.findall(r'https?://[^"\'<> ]+',frag)
-        for u in urls:
-            if any(ext in u.lower() for ext in [".png",".jpg",".jpeg",".webp","image"]):
-                print("IMGURL",title,u[:700])
+sets={
+ "BS8":"https://cardnaru.com/cards/series/pokemon-set-pkkr-1dae12cd4d023c98?lang=ko",
+ "BS9":"https://cardnaru.com/cards/series/pokemon-set-pkkr-152ab7e0ab09e9c6?lang=ko",
+ "BS10":"https://cardnaru.com/cards/series/pokemon-set-pkkr-7c59fcc59fbead19?lang=ko",
+}
+headers={"User-Agent":"Mozilla/5.0"}
+for code,url in sets.items():
+    r=requests.get(url,headers=headers,timeout=30)
+    print("\nSET",code,r.status_code,len(r.text),r.url)
+    text=html.unescape(r.text)
+    for pat in [
+      r'<img[^>]+src=["\']([^"\']+)["\'][^>]*>',
+      r'"image"\s*:\s*"([^"]+)"',
+      r'/api/card-image\?src=([^"&]+)[^"\']*',
+    ]:
+      vals=re.findall(pat,text,re.I)
+      print("PATTERN",pat,"COUNT",len(vals))
+      for v in vals[:25]:
+        if "card-image" in v or "pokemonkorea" in v or "data1." in v:
+          print("CAND",code,v[:900])
+    for title in ["화려한 전설","호수의 기적","고대의 수호자"]:
+      p=text.find(title)
+      if p>=0:
+        print("FRAG",code,text[max(0,p-1500):p+4000].replace("\n"," "))
+        break
