@@ -184,3 +184,23 @@ test("shared account header styling remains available without collection manager
     /[.]owner-sheets-status\[data-state="loading"\][\s\S]*?background: #eef5fc/,
   );
 });
+
+
+test("core collection pages keep metadata and skip-link accessibility aligned", () => {
+  const pages = ["series.html", "pokemon-collections.html", "ar.html"];
+
+  for (const file of pages) {
+    const page = read(file);
+    assert.match(page, /class="skip-link" href="#main-content"/, file);
+    assert.match(page, /<main id="main-content" class="main-content">/, file);
+  }
+
+  for (const file of ["series.html", "pokemon-collections.html"]) {
+    const page = read(file);
+    assert.match(page, /name="description"/, file);
+    assert.match(page, /name="theme-color"/, file);
+    assert.match(page, /rel="icon"/, file);
+    assert.match(page, /rel="apple-touch-icon"/, file);
+    assert.match(page, /property="og:image"/, file);
+  }
+});
