@@ -12,6 +12,7 @@ test("operations center is owner-only and exposes health, update watch, backup a
   assert.match(page, /도감 데이터 백업/);
   assert.match(page, /백업 복구/);
   assert.match(client, /accountCore[.]isOwner\(CONFIG, state[.]user\)/);
+  assert.match(client, /digital-card-binder-backup-v2/);
   assert.match(client, /digital-card-binder-backup-v1/);
   assert.match(client, /writeBatch/);
   assert.match(client, /update-watch[.]json/);
@@ -21,7 +22,7 @@ test("backup covers all existing account collection documents without touching p
   const client = read("operations.js");
   for (const id of [
     "nationalDex", "packDex", "artistDex", "seriesDex",
-    "pokemonCollectionsDex", "arDex", "trainerPokemonDex",
+    "pokemonCollectionsDex", "arDex", "trainerPokemonDex", "worldDex",
   ]) {
     assert.match(client, new RegExp(`"${id}"`));
   }
@@ -43,4 +44,15 @@ test("official update watch performs one low-frequency product-page fetch and on
   assert.match(workflow, /cron: "30 21 \* \* \*"/);
   assert.match(workflow, /git diff --quiet -- data\/update-watch[.]json/);
   assert.match(workflow, /git add data\/update-watch[.]json/);
+});
+
+
+test("backup includes Studio custom binders and active background chunks", () => {
+  const client = read("operations.js");
+  assert.match(client, /"customBinders"/);
+  assert.match(client, /collection\(binderSnapshot[.]ref, "chunks"\)/);
+  assert.match(client, /data[.]data[?][.]toBase64[?][.]\(\)/);
+  assert.match(client, /Bytes[.]fromBase64String\(chunk[.]dataBase64\)/);
+  assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\]\)/);
+  assert.match(client, /expectedChunkCount !== binder[.]chunks[.]length/);
 });
