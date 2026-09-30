@@ -267,15 +267,29 @@
             <section class="studio-control-card studio-custom-print-card">
               <div class="studio-step-heading">
                 <span>6</span>
-                <div><strong>실제 크기로 출력</strong><small>완성된 바인더를 카드 한 칸씩 63 × 88 mm로 A4에 나누어 인쇄합니다.</small></div>
+                <div><strong>출력 크기</strong><small>A4 맞춤 또는 실제 카드·슬리브 규격으로 출력합니다.</small></div>
+              </div>
+              <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
+                <label>
+                  <input type="radio" name="studio-custom-print-size" value="fit" />
+                  <span><strong>A4 한 장 맞춤</strong><small>전체 바인더를 한 장에 비율 유지</small></span>
+                </label>
+                <label>
+                  <input type="radio" name="studio-custom-print-size" value="card" checked />
+                  <span><strong>실제 카드 63 × 88 mm</strong><small>잘라서 카드 규격으로 바로 사용</small></span>
+                </label>
+                <label>
+                  <input type="radio" name="studio-custom-print-size" value="sleeve" />
+                  <span><strong>실제 슬리브 65 × 90 mm</strong><small>잘라서 슬리브 규격으로 바로 사용</small></span>
+                </label>
               </div>
               <div class="studio-custom-print-summary">
                 <span>출력 방식</span>
-                <strong id="studio-custom-print-summary">3 × 4 · 12칸 · A4 2페이지</strong>
-                <small>카드 크기는 항상 63 × 88 mm로 유지됩니다.</small>
+                <strong id="studio-custom-print-summary">3 × 4 · 12칸 · 실제 카드 · A4 2페이지</strong>
+                <small id="studio-custom-print-note">각 칸은 63 × 88 mm이며 재단선이 함께 출력됩니다.</small>
               </div>
               <button id="studio-custom-print-button" class="studio-primary-button" type="button" disabled>인쇄 · PDF 저장</button>
-              <p class="studio-scale-warning"><strong>중요</strong> 인쇄 대화상자에서 배율을 <b>100% · 실제 크기</b>로 설정하세요. 각 칸은 잘라서 바인더 포켓에 넣을 수 있는 카드 규격으로 출력됩니다.</p>
+              <p class="studio-scale-warning"><strong>중요</strong> 실제 카드/슬리브 출력은 인쇄 대화상자에서 배율을 <b>100% · 실제 크기</b>로 설정하세요. 모든 모드에서 칸 구분선·재단선이 PDF에 표시됩니다.</p>
             </section>
           </div>
 
