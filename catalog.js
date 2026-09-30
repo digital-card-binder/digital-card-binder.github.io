@@ -2,8 +2,8 @@
 
 const $ = (id) => document.getElementById(id);
 const mode = document.body.dataset.catalog;
-const seriesBaseOnly =
-  mode === "series" && document.body.dataset.seriesScope === "base";
+let seriesBaseOnly = mode === "series" &&
+  new URLSearchParams(window.location.search).get("scope") === "base";
 const SERIES_DATA_URL = "./data/series.json";
 const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
 const SERIES_PRINT_VARIANTS_URL = "./data/series-print-variants.json";
@@ -62,6 +62,7 @@ const SERIES_NAMES = Object.freeze({
 });
 
 let groups = [];
+let allSeriesGroups = null;
 let selected = null;
 let cards = [];
 let status = "all";
@@ -226,7 +227,8 @@ function updateSeriesVariantHelp(card) {
 const mobileCatalogMedia = typeof window.matchMedia === "function"
   ? window.matchMedia("(max-width: 690px)")
   : null;
-const MOBILE_CATALOG_PREFERENCES_KEY = `pokemonDexMobileCatalogV1:${mode}:${seriesBaseOnly ? "base" : "all"}`;
+const mobileCatalogPreferencesKey = () =>
+  `pokemonDexMobileCatalogV1:${mode}:${seriesBaseOnly ? "base" : "all"}`;
 
 const pct = (amount, total) =>
   total ? Math.round((amount / total) * 1000) / 10 : 0;
@@ -295,7 +297,7 @@ function selectableGroups() {
 function readMobileCatalogPreferences() {
   if (!mobileCatalogMedia?.matches) return {};
   try {
-    const stored = window.sessionStorage.getItem(MOBILE_CATALOG_PREFERENCES_KEY);
+    const stored = window.sessionStorage.getItem(mobileCatalogPreferencesKey());
     const parsed = stored ? JSON.parse(stored) : {};
     return parsed && typeof parsed === "object" ? parsed : {};
   } catch {
@@ -322,7 +324,7 @@ function rememberMobileCatalogPreferences() {
       }
     }
     window.sessionStorage.setItem(
-      MOBILE_CATALOG_PREFERENCES_KEY,
+      mobileCatalogPreferencesKey(),
       JSON.stringify(mobileCatalogPreferences),
     );
   } catch {
@@ -969,6 +971,35 @@ function applySeriesScope() {
     .filter((group) => group.cards.length > 0);
 }
 
+function setSeriesScope(nextScope) {
+  if (mode !== "series" || !allSeriesGroups) return false;
+  const nextBaseOnly = nextScope === "base";
+  if (seriesBaseOnly === nextBaseOnly) return true;
+
+  const previousGroup = selected?.code || selected?.name || $("catalog-select")?.value;
+  seriesBaseOnly = nextBaseOnly;
+  groups = allSeriesGroups;
+  applySeriesScope();
+  groups.forEach((group) => {
+    group.total = group.cards.length;
+    group.owned = group.cards.filter((card) => card.owned).length;
+  });
+  updateSummary();
+  syncEraTabs();
+  syncSeriesView();
+  renderSeriesDashboard();
+
+  if (activeEra === "ALL") {
+    selected = null;
+    cards = [];
+    render();
+  } else {
+    populateCatalogSelect();
+    loadGroup(previousGroup);
+  }
+  return true;
+}
+
 function loadGroup(value) {
   const fallback = selectableGroups()[0] || (mode === "series" ? null : groups[0]);
   selected =
@@ -1089,6 +1120,7 @@ async function init() {
 
     // 기본 수록 도감은 기존 시리즈도감과 같은 accountKey를 먼저 부여한 뒤
     // 분모 번호 이하 카드만 화면에 남겨 보유 상태를 완전히 공유합니다.
+    if (mode === "series") allSeriesGroups = groups;
     applySeriesScope();
 
     groups.forEach((group) => {
@@ -1158,6 +1190,10 @@ async function init() {
           groups[0].code ||
           groups[0].name,
       );
+    }
+    if (mode === "series") {
+      window.PokemonDexSeriesScope = { setScope: setSeriesScope };
+      window.dispatchEvent(new Event("pokemon-dex:catalog-ready"));
     }
   } catch (error) {
     console.error(error);

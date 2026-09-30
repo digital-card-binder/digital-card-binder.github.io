@@ -73,6 +73,10 @@
       box-shadow: 0 2px 7px rgba(23, 35, 63, .12);
     }
 
+    .series-card-layout-options button[hidden] {
+      display: none;
+    }
+
     @media (max-width: 920px) {
       html[data-card-columns="3"] .card-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -238,6 +242,7 @@
       resultsBar.append(actions);
     }
 
+    actions.querySelector(".card-layout-options")?.remove();
     actions.querySelector(".card-layout-toggle")?.remove();
     actions.querySelector(".series-card-layout-options")?.remove();
 

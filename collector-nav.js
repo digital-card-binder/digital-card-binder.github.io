@@ -9,7 +9,7 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-024f52b34552";
+  const SITE_BUILD_VERSION = "b-8a1911d022b2";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
   const BUILD_CHECK_MIN_INTERVAL_MS = 15_000;
@@ -360,41 +360,20 @@
     }
   }
 
-  function updateCardLayout(columns, button, mode) {
+  function updateCardLayout(columns, buttons, mode) {
     const normalized = columns === mode.alternateColumns
       ? mode.alternateColumns
       : mode.defaultColumns;
-    const compact = mode !== CARD_LAYOUT_MODES.desktop;
-    const mobile = mode === CARD_LAYOUT_MODES.mobile;
-    const alternateActive = normalized === mode.alternateColumns;
     document.documentElement.dataset.cardColumns = normalized;
-    button.dataset.columns = normalized;
-    button.dataset.layoutMode = mobile ? "mobile" : compact ? "compact" : "desktop";
-    button.setAttribute("aria-pressed", String(alternateActive));
-
-    if (mobile) {
-      button.textContent = normalized === "4"
-        ? "▦ 2열"
-        : "▦ 4열";
-      button.title = normalized === "4"
-        ? "카드를 한 줄에 2개씩 크게 표시합니다."
-        : "카드를 한 줄에 4개씩 표시합니다.";
-    } else if (compact) {
-      button.textContent = normalized === "4"
-        ? "▦ 2열 기본 보기"
-        : "▦ 4열로 보기";
-      button.title = normalized === "4"
-        ? "카드를 한 줄에 2개씩 크게 표시합니다."
-        : "카드를 한 줄에 4개씩 표시합니다.";
-    } else {
-      button.textContent = normalized === "3"
-        ? "▦ 4열 기본 보기"
-        : "▦ 3열 크게 보기";
-      button.title = normalized === "3"
-        ? "카드를 한 줄에 4개씩 표시합니다."
-        : "카드를 한 줄에 3개씩 크게 표시합니다.";
+    for (const button of buttons) {
+      const available = [mode.defaultColumns, mode.alternateColumns]
+        .includes(button.dataset.columns);
+      button.hidden = !available;
+      button.setAttribute(
+        "aria-pressed",
+        String(available && button.dataset.columns === normalized),
+      );
     }
-    button.setAttribute("aria-label", button.title);
   }
 
   function activateCollectionUiShell() {
@@ -429,7 +408,7 @@
     const resultsBar = document.querySelector(
       ".catalog-panel .results-bar:not(.promo-results-bar)",
     );
-    if (!resultsBar || resultsBar.querySelector(".card-layout-toggle")) return;
+    if (!resultsBar || resultsBar.querySelector(".card-layout-options")) return;
 
     const actions = document.createElement("div");
     actions.className = "results-bar-actions";
@@ -437,9 +416,27 @@
       if (child.matches("button")) actions.append(child);
     }
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "card-layout-toggle";
+    const layoutOptions = document.createElement("div");
+    layoutOptions.className = "card-layout-options";
+    layoutOptions.setAttribute("role", "group");
+    layoutOptions.setAttribute("aria-label", "카드 배열 선택");
+    const buttons = ["2", "3", "4"].map((columns) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "card-layout-toggle";
+      button.dataset.columns = columns;
+      button.textContent = `${columns}열`;
+      button.title = `카드를 한 줄에 ${columns}개씩 표시합니다.`;
+      button.setAttribute("aria-label", `${columns}열로 보기`);
+      button.addEventListener("click", () => {
+        const mode = activeCardLayoutMode();
+        if (![mode.defaultColumns, mode.alternateColumns].includes(columns)) return;
+        updateCardLayout(columns, buttons, mode);
+        saveCardColumns(columns, mode);
+      });
+      layoutOptions.append(button);
+      return button;
+    });
     const filterTarget = document.querySelector(
       ".catalog-era-filter, .filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .catalog-toolbar",
     );
@@ -459,23 +456,15 @@
       });
       actions.append(filterButton);
     }
-    actions.append(button);
+    actions.append(layoutOptions);
     resultsBar.append(actions);
 
     const restoreLayout = () => {
       const mode = activeCardLayoutMode();
-      updateCardLayout(storedCardColumns(mode), button, mode);
+      updateCardLayout(storedCardColumns(mode), buttons, mode);
     };
 
     restoreLayout();
-    button.addEventListener("click", () => {
-      const mode = activeCardLayoutMode();
-      const next = button.dataset.columns === mode.alternateColumns
-        ? mode.defaultColumns
-        : mode.alternateColumns;
-      updateCardLayout(next, button, mode);
-      saveCardColumns(next, mode);
-    });
 
     if (typeof compactCardLayoutMedia?.addEventListener === "function") {
       compactCardLayoutMedia.addEventListener("change", restoreLayout);

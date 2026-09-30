@@ -10,11 +10,14 @@ const scopeFilter = readFileSync(
   new URL("../series-scope-filter.js", import.meta.url),
   "utf8",
 );
+const catalog = readFileSync(new URL("../catalog.js", import.meta.url), "utf8");
 
 test("시리즈도감 기본 수록 필터는 각 세트의 분모 이하 카드만 표시한다", () => {
   assert.match(scopeFilter, /params\.get\("scope"\) === "base"/);
-  assert.match(scopeFilter, /range\.number <= range\.denominator/);
-  assert.match(scopeFilter, /pathname\.endsWith\("\/data\/series\.json"\)/);
+  assert.match(catalog, /range\.number <= range\.denominator/);
+  assert.match(catalog, /account\.applyGroups\(groups\);[\s\S]*?allSeriesGroups = groups;[\s\S]*?applySeriesScope\(\);/);
+  assert.match(scopeFilter, /history\.pushState/);
+  assert.doesNotMatch(scopeFilter, /window\.fetch\s*=/);
   assert.match(seriesPage, /series-scope-filter\.js/);
 });
 

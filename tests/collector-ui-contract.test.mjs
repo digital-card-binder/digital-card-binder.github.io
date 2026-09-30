@@ -164,8 +164,9 @@ function navigationLayoutContext(moduleSource, initialWidth) {
   };
   vm.createContext(context);
   vm.runInContext(moduleSource, context);
+  const options = resultsBar.querySelector(".card-layout-options");
   return {
-    button: resultsBar.querySelector(".card-layout-toggle"),
+    buttons: Object.fromEntries(options.children.map((button) => [button.dataset.columns, button])),
     documentElement,
     stored,
     setViewportWidth(width) {
@@ -804,10 +805,8 @@ test("desktop keeps four or three columns while phones use two or four", async (
   assert.match(navigation, /MOBILE_CARD_LAYOUT_QUERY = "\(max-width: 690px\)"/);
   assert.match(navigation, /defaultColumns: "2"/);
   assert.match(navigation, /alternateColumns: "4"/);
-  assert.match(navigation, /3열 크게 보기/);
-  assert.match(navigation, /4열 기본 보기/);
-  assert.match(navigation, /4열로 보기/);
-  assert.match(navigation, /2열 기본 보기/);
+  assert.match(navigation, /card-layout-options/);
+  assert.match(navigation, /button[.]textContent = `[$][{]columns[}]열`/);
   assert.match(navigation, /compactCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
   assert.match(navigation, /mobileCardLayoutMedia[.]addEventListener\("change", restoreLayout\)/);
   assert.match(navigation, /localStorage[.]setItem/);
@@ -826,32 +825,36 @@ test("mobile, compact, and desktop column choices restore independently", async 
   const layout = navigationLayoutContext(await source("collector-nav.js"), 390);
 
   assert.equal(layout.documentElement.dataset.cardColumns, "2");
-  assert.equal(layout.button.textContent, "▦ 4열");
+  assert.equal(layout.buttons["2"].attributes.get("aria-pressed"), "true");
+  assert.equal(layout.buttons["4"].attributes.get("aria-pressed"), "false");
 
-  layout.button.trigger("click");
+  layout.buttons["4"].trigger("click");
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
   assert.equal(layout.stored.get("pokemonDexMobileCardColumnsV1"), "4");
-  assert.equal(layout.button.textContent, "▦ 2열");
+  assert.equal(layout.buttons["4"].attributes.get("aria-pressed"), "true");
 
   layout.setViewportWidth(800);
   assert.equal(layout.documentElement.dataset.cardColumns, "2");
-  assert.match(layout.button.textContent, /4열로 보기/);
+  assert.equal(layout.buttons["2"].attributes.get("aria-pressed"), "true");
 
-  layout.button.trigger("click");
+  layout.buttons["4"].trigger("click");
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
   assert.equal(layout.stored.get("pokemonDexCompactCardColumnsV1"), "4");
 
   layout.setViewportWidth(1200);
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
-  assert.match(layout.button.textContent, /3열 크게 보기/);
+  assert.equal(layout.buttons["2"].hidden, true);
+  assert.equal(layout.buttons["3"].hidden, false);
 
-  layout.button.trigger("click");
+  layout.buttons["3"].trigger("click");
   assert.equal(layout.documentElement.dataset.cardColumns, "3");
   assert.equal(layout.stored.get("pokemonDexCardColumnsV1"), "3");
 
   layout.setViewportWidth(390);
   assert.equal(layout.documentElement.dataset.cardColumns, "4");
-  assert.equal(layout.button.textContent, "▦ 2열");
+  assert.equal(layout.buttons["2"].hidden, false);
+  assert.equal(layout.buttons["3"].hidden, true);
+  assert.equal(layout.buttons["4"].attributes.get("aria-pressed"), "true");
 });
 
 test("public collector board reads only directory and existing public projections", async () => {
