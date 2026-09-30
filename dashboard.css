@@ -1635,3 +1635,20 @@
     padding: 30px 16px;
   }
 }
+
+
+/* Binder Studio shortcut */
+.dashboard-shortcut-card--studio {
+  --collection-accent: #3fa7b9;
+}
+
+.dashboard-shortcut-card--studio .dashboard-shortcut-icon {
+  background: #e7f7f8;
+  color: #176477;
+}
+
+@media (min-width: 921px) {
+  .dashboard-shortcut-card--studio {
+    grid-column: 1 / -1;
+  }
+}
