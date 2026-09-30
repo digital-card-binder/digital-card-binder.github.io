@@ -234,11 +234,14 @@
     panel.classList.toggle("is-account", Boolean(currentUser));
     panel.classList.toggle("is-owner", isOwner(currentUser));
 
+    const accountDetails = document.querySelector("#home-account");
     const accountTrigger = document.querySelector("#home-account-trigger");
     const mobileAccountMenu = document.querySelector("#home-account-menu");
     const mobileAccountLogin = document.querySelector("#home-account-login");
     const mobileAccountProfile = document.querySelector("#home-account-profile");
     const mobileAccountLogout = document.querySelector("#home-account-logout");
+
+    if (accountDetails) accountDetails.classList.toggle("is-account", Boolean(currentUser));
 
     if (accountTrigger) {
       accountTrigger.classList.toggle("is-account", Boolean(currentUser));
@@ -954,15 +957,12 @@
   function initializeMobileTabbar() {
     const menu = document.querySelector("#home-menu");
     const menuTrigger = document.querySelector("#home-mobile-menu-trigger");
-    const accountTrigger = document.querySelector("#home-account-trigger");
-    const accountMenu = document.querySelector("#home-account-menu");
+    const accountDetails = document.querySelector("#home-account");
     const accountLogin = document.querySelector("#home-account-login");
     const accountLogout = document.querySelector("#home-account-logout");
 
     const closeAccountMenu = () => {
-      if (!accountMenu || !accountTrigger) return;
-      accountMenu.hidden = true;
-      accountTrigger.setAttribute("aria-expanded", "false");
+      if (accountDetails) accountDetails.open = false;
     };
 
     const closeSiteMenu = () => {
@@ -988,32 +988,19 @@
       syncExpandedState();
     }
 
-    if (accountTrigger && accountMenu) {
-      accountTrigger.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        closeSiteMenu();
-        const willOpen = accountMenu.hidden;
-        accountMenu.hidden = !willOpen;
-        accountTrigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
-      });
+    accountDetails?.addEventListener("toggle", () => {
+      if (accountDetails.open) closeSiteMenu();
+    });
 
-      accountMenu.addEventListener("click", (event) => {
-        event.stopPropagation();
-      });
+    accountLogin?.addEventListener("click", () => {
+      closeAccountMenu();
+      void signIn();
+    });
 
-      accountLogin?.addEventListener("click", () => {
-        closeAccountMenu();
-        void signIn();
-      });
-
-      accountLogout?.addEventListener("click", () => {
-        closeAccountMenu();
-        void signOutUser();
-      });
-
-      document.addEventListener("click", closeAccountMenu);
-    }
+    accountLogout?.addEventListener("click", () => {
+      closeAccountMenu();
+      void signOutUser();
+    });
 
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
