@@ -1289,14 +1289,17 @@ test("current dashboard is the only production shell and carries the latest nav"
 });
 
 
-test("Binder Studio custom editor reads canonical cards without writing collection state", async () => {
+test("Binder Studio custom editor keeps saved work isolated from collection state", async () => {
   const page = await source("studio.html");
   const editor = await source("studio-custom.js");
+  const customPage = await source("custom.html");
+  const library = await source("custom-binder-library.js");
 
   assert.match(page, /id="studio-custom-card-search"/);
   assert.match(page, /id="studio-custom-card-layer"/);
   assert.match(page, /data-custom-action="snap"/);
-  assert.match(page, /나만의도감 저장 · 2-3 예정/);
+  assert.match(page, /id="studio-custom-save-button"/);
+  assert.match(page, /저장한 커스텀 바인더/);
 
   assert.match(editor, /catalogService[?][.]series/);
   assert.match(editor, /identityService[?][.]cardIdentity/);
@@ -1307,11 +1310,16 @@ test("Binder Studio custom editor reads canonical cards without writing collecti
   assert.match(editor, /CARD_HEIGHT_MM = 88/);
   assert.match(editor, /canvasWidthMm: grid[.]cols \* CARD_WIDTH_MM/);
   assert.match(editor, /canvasHeightMm: grid[.]rows \* CARD_HEIGHT_MM/);
+  assert.match(editor, /"customBinders"/);
+  assert.match(editor, /"chunks"/);
+  assert.match(editor, /Bytes[.]fromUint8Array/);
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
   assert.doesNotMatch(editor, /function resizeSelected/);
-  assert.doesNotMatch(editor, /firebase-firestore[.]js/);
-  assert.doesNotMatch(editor, /setDoc[(]/);
-  assert.doesNotMatch(editor, /updateDoc[(]/);
-  assert.doesNotMatch(editor, /deleteDoc[(]/);
+  assert.doesNotMatch(editor, /"collections"[\s\S]{0,100}"pokemonCollectionsDex"/);
+
+  assert.match(customPage, /id="custom-binders"/);
+  assert.match(customPage, /custom-binder-library[.]js[?]v=/);
+  assert.match(library, /"customBinders"/);
+  assert.doesNotMatch(library, /setDoc[(]|updateDoc[(]|deleteDoc[(]/);
 });
