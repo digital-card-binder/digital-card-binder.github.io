@@ -3,7 +3,6 @@
   --studio-navy-2: #0d3151;
   --studio-cyan: #5ee7ee;
   --studio-blue: #5f8cff;
-  --studio-purple: #8f6cff;
   --studio-surface: #ffffff;
   --studio-soft: #f5f8fb;
   --studio-line: #dfe7ef;
@@ -52,9 +51,18 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
   opacity: 0.52;
 }
 
-body[data-page="binder-studio"] .header-chip {
-  border-color: rgba(94, 231, 238, 0.25);
-  color: #bcecf2;
+.studio-account-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid rgba(94, 231, 238, 0.22);
+  border-radius: 999px;
+  color: #dff9fb;
+  font-size: 0.64rem;
+  font-weight: 850;
+  padding: 0 11px;
+  text-decoration: none;
 }
 
 .studio-main {
@@ -286,164 +294,111 @@ body[data-page="binder-studio"] .header-chip {
   line-height: 1.45;
 }
 
-.studio-dropzone {
-  position: relative;
+.studio-field {
   display: grid;
-  place-items: center;
-  gap: 5px;
-  min-height: 128px;
-  margin-top: 14px;
-  border: 1.5px dashed #b9c8d7;
-  border-radius: 15px;
-  background: #fff;
-  color: #53647a;
-  cursor: pointer;
-  padding: 18px;
-  text-align: center;
-  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
-}
-
-.studio-dropzone:hover,
-.studio-dropzone.is-dragging {
-  border-color: #58a8c9;
-  background: #f8fdff;
-  transform: translateY(-1px);
-}
-
-.studio-dropzone.has-file {
-  border-style: solid;
-  border-color: #7cc5ca;
-  background: #f4fdfc;
-}
-
-.studio-dropzone input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.studio-upload-icon {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border-radius: 12px;
-  background: #edf5fa;
-  color: #2a718d;
-  font-size: 1.15rem;
-}
-
-.studio-dropzone strong {
-  font-size: 0.74rem;
-}
-
-.studio-dropzone small {
-  color: #8b96a4;
-  font-size: 0.6rem;
-}
-
-.studio-preset-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
+  gap: 6px;
   margin-top: 14px;
 }
 
-.studio-preset-row button {
-  min-height: 38px;
-  border: 1px solid #d5dfe8;
-  border-radius: 10px;
-  background: #fff;
-  color: #68768a;
-  cursor: pointer;
-  font-size: 0.68rem;
-  font-weight: 800;
-}
-
-.studio-preset-row button.is-active {
-  border-color: #67a7c1;
-  background: #eaf7fa;
-  color: #174d64;
-}
-
-.studio-grid-selects {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: end;
-  gap: 9px;
-  margin-top: 9px;
-}
-
-.studio-grid-selects label {
-  display: grid;
-  gap: 5px;
-  color: #6f7b8c;
+.studio-field > span {
+  color: #66758a;
   font-size: 0.62rem;
-  font-weight: 800;
+  font-weight: 850;
 }
 
-.studio-grid-selects select {
+.studio-field select {
   width: 100%;
-  min-height: 40px;
-  border: 1px solid #d5dfe8;
-  border-radius: 10px;
+  min-height: 44px;
+  border: 1px solid #d4dfe8;
+  border-radius: 11px;
   background: #fff;
   color: var(--studio-ink);
-  padding: 0 10px;
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0 11px;
 }
 
-.studio-grid-selects > span {
-  align-self: end;
-  padding-bottom: 10px;
-  color: #8b97a8;
-  font-weight: 900;
+.studio-field select:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 
+.studio-inline-note {
+  margin: 9px 0 0;
+  color: #8b96a4;
+  font-size: 0.58rem;
+  line-height: 1.45;
+}
+
+.studio-owned-options,
 .studio-size-options {
   display: grid;
   gap: 7px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
+.studio-owned-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.studio-owned-options label,
 .studio-size-options label {
   position: relative;
   display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  min-height: 58px;
   border: 1px solid #dce4eb;
   border-radius: 12px;
   background: #fff;
   cursor: pointer;
+}
+
+.studio-owned-options label {
+  grid-template-columns: 17px minmax(0, 1fr);
+  gap: 8px;
+  min-height: 58px;
+  padding: 9px 10px;
+}
+
+.studio-size-options label {
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 58px;
   padding: 10px 12px;
 }
 
+.studio-owned-options label:has(input:checked),
 .studio-size-options label:has(input:checked) {
   border-color: #62a5bd;
   background: #f2fbfd;
-  box-shadow: inset 0 0 0 1px rgba(62, 135, 161, 0.08);
 }
 
+.studio-owned-options label:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.studio-owned-options input,
 .studio-size-options input {
   accent-color: #146585;
 }
 
+.studio-owned-options span,
 .studio-size-options span {
   display: grid;
-  gap: 3px;
+  gap: 2px;
 }
 
+.studio-owned-options strong,
 .studio-size-options strong {
   color: var(--studio-ink);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
 }
 
+.studio-owned-options small,
 .studio-size-options small {
   color: #8390a1;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
+  line-height: 1.35;
 }
 
 .studio-print-summary-card {
@@ -566,33 +521,80 @@ body[data-page="binder-studio"] .header-chip {
   line-height: 1.6;
 }
 
-.studio-page-preview {
+.studio-card-preview {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
   margin-top: 18px;
 }
 
-.studio-preview-page {
-  display: grid;
-  gap: 7px;
-  justify-items: center;
+.studio-preview-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dbe3ea;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(30, 48, 67, 0.06);
 }
 
-.studio-preview-page canvas {
+.studio-preview-card-image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 63 / 88;
+  overflow: hidden;
+  background: #eef3f7;
+}
+
+.studio-preview-card-image img {
   display: block;
   width: 100%;
-  height: auto;
-  border: 1px solid #dbe2e9;
-  background: #fff;
-  box-shadow: 0 9px 28px rgba(26, 43, 62, 0.12);
+  height: 100%;
+  object-fit: contain;
 }
 
-.studio-preview-page span {
-  color: #68778a;
-  font-size: 0.6rem;
-  font-weight: 800;
+.studio-preview-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: #8390a0;
+  font-size: 0.58rem;
+  padding: 8px;
+  text-align: center;
+}
+
+.studio-preview-card-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 7px 8px 8px;
+}
+
+.studio-preview-card-copy strong,
+.studio-preview-card-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-preview-card-copy strong {
+  color: #26354a;
+  font-size: 0.62rem;
+}
+
+.studio-preview-card-copy small {
+  color: #8490a0;
+  font-size: 0.52rem;
+}
+
+.studio-preview-more {
+  grid-column: 1 / -1;
+  border: 1px dashed #cad6e0;
+  border-radius: 12px;
+  color: #6f7e90;
+  font-size: 0.64rem;
+  padding: 13px;
+  text-align: center;
 }
 
 .studio-next-panel {
@@ -693,13 +695,11 @@ body[data-page="binder-studio"] .header-chip {
   }
 
   .studio-tabs {
-    grid-template-columns: 1fr 1fr;
     gap: 7px;
     margin-top: 10px;
   }
 
   .studio-tabs > * {
-    grid-template-columns: auto minmax(0, 1fr);
     min-height: 64px;
     border-radius: 14px;
     padding: 10px;
@@ -729,7 +729,8 @@ body[data-page="binder-studio"] .header-chip {
   }
 
   .studio-section-heading p {
-    display: none;
+    max-width: 210px;
+    font-size: 0.58rem;
   }
 
   .studio-layout {
@@ -742,8 +743,12 @@ body[data-page="binder-studio"] .header-chip {
     padding: 13px;
   }
 
-  .studio-dropzone {
-    min-height: 108px;
+  .studio-owned-options {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-owned-options label {
+    min-height: 48px;
   }
 
   .studio-preview-panel {
@@ -751,9 +756,13 @@ body[data-page="binder-studio"] .header-chip {
     padding: 13px;
   }
 
-  .studio-page-preview {
-    grid-template-columns: 1fr;
-    gap: 13px;
+  .studio-card-preview {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .studio-preview-card-copy {
+    padding: 6px;
   }
 
   .studio-empty-preview {
@@ -781,6 +790,11 @@ body[data-page="binder-studio"] .header-chip {
     margin: 0;
   }
 
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   html,
   body {
     width: auto !important;
@@ -798,13 +812,13 @@ body[data-page="binder-studio"] .header-chip {
   }
 
   .studio-print-sheet {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
     box-sizing: border-box;
+    display: grid;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
     background: #fff;
+    padding: 7mm;
     page-break-after: always;
     break-after: page;
   }
@@ -814,14 +828,45 @@ body[data-page="binder-studio"] .header-chip {
     break-after: auto;
   }
 
-  .studio-print-sheet canvas,
-  .studio-print-sheet img {
+  .studio-print-sheet--exact {
+    grid-template-columns: repeat(3, max-content);
+    grid-template-rows: repeat(3, max-content);
+    align-content: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .studio-print-sheet--fit {
+    align-content: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .studio-print-card {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #fff;
+  }
+
+  .studio-print-card img {
     display: block;
-    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .studio-print-card--missing {
+    border: 0.2mm solid #cbd2d9;
+    color: #66717d;
+    font: 7pt "Noto Sans KR", Arial, sans-serif;
+    padding: 3mm;
+    text-align: center;
   }
 
   .studio-calibration {
-    position: absolute;
+    position: fixed;
     right: 7mm;
     bottom: 3.5mm;
     width: 10mm;
