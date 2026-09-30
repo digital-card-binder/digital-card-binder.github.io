@@ -929,6 +929,31 @@
     });
   }
 
+  function initializeMobileTabbar() {
+    const menu = document.querySelector("#home-menu");
+    const trigger = document.querySelector("#home-mobile-menu-trigger");
+    if (!menu || !trigger) return;
+
+    const syncExpandedState = () => {
+      trigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
+    };
+
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      menu.open = !menu.open;
+      syncExpandedState();
+
+      if (menu.open) {
+        window.requestAnimationFrame(() => {
+          menu.querySelector("summary")?.focus({ preventScroll: true });
+        });
+      }
+    });
+
+    menu.addEventListener("toggle", syncExpandedState);
+    syncExpandedState();
+  }
+
   function renderDashboard() {
     if (!catalogs) return;
     const metrics = getMetrics();
@@ -941,6 +966,7 @@
   async function initialize() {
     createAuthUi();
     initializeThemeDisclosure();
+    initializeMobileTabbar();
 
     try {
       const [loadedCatalogs] = await Promise.all([
