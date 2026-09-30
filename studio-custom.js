@@ -44,6 +44,8 @@
   const libraryEmpty = panel.querySelector("#studio-custom-library-empty");
   const customPrintButton = panel.querySelector("#studio-custom-print-button");
   const customPrintSummary = panel.querySelector("#studio-custom-print-summary");
+  const customPrintNote = panel.querySelector("#studio-custom-print-note");
+  const customPrintSizeInputs = [...panel.querySelectorAll('input[name="studio-custom-print-size"]')];
   const printRoot = document.querySelector("#studio-print-root");
 
   const SDK_VERSION = "12.16.0";
@@ -52,6 +54,11 @@
   const MAX_SAVED_WORKS = 30;
   const CARD_WIDTH_MM = 63;
   const CARD_HEIGHT_MM = 88;
+  const SLEEVE_WIDTH_MM = 65;
+  const SLEEVE_HEIGHT_MM = 90;
+  const PRINT_MARGIN_MM = 7;
+  const A4_WIDTH_MM = 210;
+  const A4_HEIGHT_MM = 297;
   const PREVIEW_PX_PER_MM = 1.5;
 
   const state = {
@@ -120,15 +127,50 @@
     return { cols, rows, value };
   }
 
+  function selectedCustomPrintMode() {
+    return customPrintSizeInputs.find((input) => input.checked)?.value || "card";
+  }
+
   function customPrintPlan() {
     const grid = selectedGrid();
     const slotCount = grid.cols * grid.rows;
+    const mode = selectedCustomPrintMode();
+
+    if (mode === "fit") {
+      const logicalWidth = grid.cols * CARD_WIDTH_MM;
+      const logicalHeight = grid.rows * CARD_HEIGHT_MM;
+      const availableWidth = A4_WIDTH_MM - PRINT_MARGIN_MM * 2;
+      const availableHeight = A4_HEIGHT_MM - PRINT_MARGIN_MM * 2;
+      const scale = Math.min(
+        availableWidth / logicalWidth,
+        availableHeight / logicalHeight,
+      );
+      return {
+        ...grid,
+        mode,
+        label: "A4 한 장 맞춤",
+        slotCount,
+        perPage: slotCount,
+        pageCount: 1,
+        orientation: "portrait",
+        cellWidth: CARD_WIDTH_MM * scale,
+        cellHeight: CARD_HEIGHT_MM * scale,
+      };
+    }
+
+    const isSleeve = mode === "sleeve";
+    const cellWidth = isSleeve ? SLEEVE_WIDTH_MM : CARD_WIDTH_MM;
+    const cellHeight = isSleeve ? SLEEVE_HEIGHT_MM : CARD_HEIGHT_MM;
     return {
       ...grid,
+      mode,
+      label: isSleeve ? "실제 슬리브" : "실제 카드",
       slotCount,
       perPage: 9,
       pageCount: Math.ceil(slotCount / 9),
       orientation: "portrait",
+      cellWidth,
+      cellHeight,
     };
   }
 
@@ -149,7 +191,14 @@
     if (!customPrintButton || !customPrintSummary) return;
     const plan = customPrintPlan();
     customPrintSummary.textContent =
-      `${plan.cols} × ${plan.rows} · ${plan.slotCount}칸 · A4 ${plan.pageCount}페이지`;
+      `${plan.cols} × ${plan.rows} · ${plan.slotCount}칸 · ${plan.label} · A4 ${plan.pageCount}페이지`;
+
+    if (customPrintNote) {
+      customPrintNote.textContent = plan.mode === "fit"
+        ? "전체 바인더를 A4 한 장에 맞추며 각 칸 구분선이 함께 출력됩니다."
+        : `각 칸은 ${plan.cellWidth} × ${plan.cellHeight} mm이며 재단선이 함께 출력됩니다.`;
+    }
+
     customPrintButton.disabled = !state.sourceBlob;
     customPrintButton.textContent = supportsNativePrint()
       ? "인쇄 · PDF로 저장"
@@ -686,10 +735,10 @@
     document.head.append(style);
   }
 
-  function createCustomPrintComposition() {
+  function createCustomPrintComposition(plan) {
     const grid = selectedGrid();
-    const canvasWidth = grid.cols * CARD_WIDTH_MM;
-    const canvasHeight = grid.rows * CARD_HEIGHT_MM;
+    const canvasWidth = grid.cols * plan.cellWidth;
+    const canvasHeight = grid.rows * plan.cellHeight;
     const composition = document.createElement("div");
     composition.className = "studio-custom-print-composition";
     composition.style.width = `${canvasWidth}mm`;
@@ -711,8 +760,8 @@
         image.alt = "";
         image.style.left = `${(entry.x / 100) * canvasWidth}mm`;
         image.style.top = `${(entry.y / 100) * canvasHeight}mm`;
-        image.style.width = `${CARD_WIDTH_MM}mm`;
-        image.style.height = `${CARD_HEIGHT_MM}mm`;
+        image.style.width = `${plan.cellWidth}mm`;
+        image.style.height = `${plan.cellHeight}mm`;
         image.style.zIndex = String(entry.z);
         image.style.transform = `rotate(${entry.rotation}deg)`;
         composition.append(image);
@@ -721,20 +770,27 @@
     return composition;
   }
 
-  function createCustomPrintCell(index) {
+  function createCustomPrintCell(index, plan) {
     const grid = selectedGrid();
     const col = index % grid.cols;
     const row = Math.floor(index / grid.cols);
     const cell = document.createElement("article");
     cell.className = "studio-custom-print-cell";
-    cell.style.width = `${CARD_WIDTH_MM}mm`;
-    cell.style.height = `${CARD_HEIGHT_MM}mm`;
+    cell.style.width = `${plan.cellWidth}mm`;
+    cell.style.height = `${plan.cellHeight}mm`;
 
-    const composition = createCustomPrintComposition();
-    composition.style.left = `-${col * CARD_WIDTH_MM}mm`;
-    composition.style.top = `-${row * CARD_HEIGHT_MM}mm`;
+    const composition = createCustomPrintComposition(plan);
+    composition.style.left = `-${col * plan.cellWidth}mm`;
+    composition.style.top = `-${row * plan.cellHeight}mm`;
     cell.append(composition);
     return cell;
+  }
+
+  function addCustomPrintCalibration(sheet) {
+    const calibration = document.createElement("div");
+    calibration.className = "studio-calibration";
+    calibration.textContent = "10 mm";
+    sheet.append(calibration);
   }
 
   function buildCustomPrintSheets() {
@@ -743,17 +799,28 @@
     installCustomPrintPageStyle();
     printRoot.replaceChildren();
 
+    if (plan.mode === "fit") {
+      const sheet = document.createElement("section");
+      sheet.className = "studio-print-sheet studio-custom-print-sheet studio-custom-print-sheet--fit";
+      sheet.style.gridTemplateColumns = `repeat(${plan.cols}, ${plan.cellWidth}mm)`;
+      sheet.style.gridTemplateRows = `repeat(${plan.rows}, ${plan.cellHeight}mm)`;
+      for (let index = 0; index < plan.slotCount; index += 1) {
+        sheet.append(createCustomPrintCell(index, plan));
+      }
+      printRoot.append(sheet);
+      return plan;
+    }
+
     for (let start = 0; start < plan.slotCount; start += plan.perPage) {
       const sheet = document.createElement("section");
       sheet.className = "studio-print-sheet studio-print-sheet--exact studio-custom-print-sheet";
+      sheet.style.gridTemplateColumns = `repeat(3, ${plan.cellWidth}mm)`;
+      sheet.style.gridTemplateRows = `repeat(3, ${plan.cellHeight}mm)`;
       const end = Math.min(plan.slotCount, start + plan.perPage);
       for (let index = start; index < end; index += 1) {
-        sheet.append(createCustomPrintCell(index));
+        sheet.append(createCustomPrintCell(index, plan));
       }
-      const calibration = document.createElement("div");
-      calibration.className = "studio-calibration";
-      calibration.textContent = "10 mm";
-      sheet.append(calibration);
+      addCustomPrintCalibration(sheet);
       printRoot.append(sheet);
     }
     return plan;
@@ -791,7 +858,7 @@
 
     const originalTitle = document.title;
     const title = clean(titleInput.value) || "커스텀바인더";
-    const printTitle = `바인더스튜디오_${title}_${plan.cols}x${plan.rows}`;
+    const printTitle = `바인더스튜디오_${title}_${plan.cols}x${plan.rows}_${plan.mode}`;
     document.title = printTitle;
     customPrintButton.disabled = true;
     customPrintButton.textContent = "인쇄 준비 중…";
@@ -1337,6 +1404,9 @@
   });
 
   gridInputs.forEach((input) => input.addEventListener("change", renderGrid));
+  customPrintSizeInputs.forEach((input) =>
+    input.addEventListener("change", updateCustomPrintUi),
+  );
   fileInput.addEventListener("change", () => loadFile(fileInput.files?.[0]));
 
   ["dragenter", "dragover"].forEach((type) => {
