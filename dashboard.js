@@ -235,6 +235,11 @@
     panel.classList.toggle("is-owner", isOwner(currentUser));
 
     const accountTrigger = document.querySelector("#home-account-trigger");
+    const mobileAccountMenu = document.querySelector("#home-account-menu");
+    const mobileAccountLogin = document.querySelector("#home-account-login");
+    const mobileAccountProfile = document.querySelector("#home-account-profile");
+    const mobileAccountLogout = document.querySelector("#home-account-logout");
+
     if (accountTrigger) {
       accountTrigger.classList.toggle("is-account", Boolean(currentUser));
       accountTrigger.setAttribute(
@@ -242,6 +247,12 @@
         currentUser ? "프로필 및 계정 메뉴" : "로그인 및 계정 메뉴",
       );
       accountTrigger.title = currentUser ? "프로필 및 계정" : "로그인";
+    }
+
+    if (mobileAccountMenu) {
+      if (mobileAccountLogin) mobileAccountLogin.hidden = Boolean(currentUser);
+      if (mobileAccountProfile) mobileAccountProfile.hidden = !currentUser;
+      if (mobileAccountLogout) mobileAccountLogout.hidden = !currentUser;
     }
 
     if (elements.headerChip) {
@@ -944,11 +955,13 @@
     const menu = document.querySelector("#home-menu");
     const menuTrigger = document.querySelector("#home-mobile-menu-trigger");
     const accountTrigger = document.querySelector("#home-account-trigger");
-    const authPanel = document.querySelector("#firebase-auth-panel");
+    const accountMenu = document.querySelector("#home-account-menu");
+    const accountLogin = document.querySelector("#home-account-login");
+    const accountLogout = document.querySelector("#home-account-logout");
 
-    const closeAccountPanel = () => {
-      if (!authPanel || !accountTrigger) return;
-      authPanel.classList.remove("is-mobile-open");
+    const closeAccountMenu = () => {
+      if (!accountMenu || !accountTrigger) return;
+      accountMenu.hidden = true;
       accountTrigger.setAttribute("aria-expanded", "false");
     };
 
@@ -961,12 +974,12 @@
     if (menu && menuTrigger) {
       const syncExpandedState = () => {
         menuTrigger.setAttribute("aria-expanded", menu.open ? "true" : "false");
-        if (menu.open) closeAccountPanel();
+        if (menu.open) closeAccountMenu();
       };
 
       menuTrigger.addEventListener("click", (event) => {
         event.preventDefault();
-        closeAccountPanel();
+        closeAccountMenu();
         menu.open = !menu.open;
         syncExpandedState();
       });
@@ -975,28 +988,36 @@
       syncExpandedState();
     }
 
-    if (accountTrigger && authPanel) {
+    if (accountTrigger && accountMenu) {
       accountTrigger.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
         closeSiteMenu();
-        const willOpen = !authPanel.classList.contains("is-mobile-open");
-        authPanel.classList.toggle("is-mobile-open", willOpen);
+        const willOpen = accountMenu.hidden;
+        accountMenu.hidden = !willOpen;
         accountTrigger.setAttribute("aria-expanded", willOpen ? "true" : "false");
       });
 
-      authPanel.addEventListener("click", (event) => {
+      accountMenu.addEventListener("click", (event) => {
         event.stopPropagation();
       });
 
-      document.addEventListener("click", () => {
-        closeAccountPanel();
+      accountLogin?.addEventListener("click", () => {
+        closeAccountMenu();
+        void signIn();
       });
+
+      accountLogout?.addEventListener("click", () => {
+        closeAccountMenu();
+        void signOutUser();
+      });
+
+      document.addEventListener("click", closeAccountMenu);
     }
 
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
-      closeAccountPanel();
+      closeAccountMenu();
       closeSiteMenu();
     });
   }
