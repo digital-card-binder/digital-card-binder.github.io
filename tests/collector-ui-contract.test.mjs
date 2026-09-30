@@ -1323,8 +1323,10 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /SLEEVE_WIDTH_MM = 65/);
   assert.match(editor, /SLEEVE_HEIGHT_MM = 90/);
   assert.match(editor, /mode === "fit"/);
-  assert.match(editor, /perPage: 9/);
-  assert.match(editor, /Math[.]ceil\(slotCount \/ 9\)/);
+  assert.match(editor, /pageCols = Math[.]max\(1, Math[.]floor\(availableWidth \/ cellWidth\)\)/);
+  assert.match(editor, /pageRows = Math[.]max\(1, Math[.]floor\(availableHeight \/ cellHeight\)\)/);
+  assert.match(editor, /perPage = pageCols \* pageRows/);
+  assert.match(editor, /pageCount: Math[.]ceil\(slotCount \/ perPage\)/);
   assert.match(editor, /studio-custom-print-cell/);
   assert.match(editor, /window[.]DigitalCardBinderApp[.]startPrint\(printTitle, false\)/);
   assert.match(editor, /CARD_WIDTH_MM/);
@@ -1332,6 +1334,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   const studioCss = await source("studio.css");
   assert.match(studioCss, /studio-custom-print-cell::after/);
   assert.match(studioCss, /border: [. ]*25mm solid #4b4b4b/);
+  assert.match(studioCss, /studio-custom-print-sheet \{[\s\S]{0,320}page-break-inside: avoid !important/);
+  assert.match(studioCss, /studio-custom-print-cell \{[\s\S]{0,320}break-inside: avoid !important/);
+  assert.match(editor, /남는 칸은 잘리지 않고 다음 장으로 넘어갑니다/);
   assert.doesNotMatch(studioCss, /studio-custom-print-sheet \{[\s\S]{0,180}grid-template-columns: repeat\(3, 63mm\) !important/);
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
