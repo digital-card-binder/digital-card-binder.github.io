@@ -1300,7 +1300,10 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /data-custom-action="snap"/);
   assert.match(page, /id="studio-custom-save-button"/);
   assert.match(page, /id="studio-custom-print-button"/);
-  assert.match(page, /실제 크기로 출력/);
+  assert.match(page, /A4 한 장 맞춤/);
+  assert.match(page, /실제 카드 63 × 88 mm/);
+  assert.match(page, /실제 슬리브 65 × 90 mm/);
+  assert.match(page, /name="studio-custom-print-size"/);
   assert.match(page, /저장한 커스텀 바인더/);
 
   assert.match(editor, /catalogService[?][.]series/);
@@ -1316,12 +1319,20 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /"chunks"/);
   assert.match(editor, /Bytes[.]fromUint8Array/);
   assert.match(editor, /function customPrintPlan/);
+  assert.match(editor, /selectedCustomPrintMode/);
+  assert.match(editor, /SLEEVE_WIDTH_MM = 65/);
+  assert.match(editor, /SLEEVE_HEIGHT_MM = 90/);
+  assert.match(editor, /mode === "fit"/);
   assert.match(editor, /perPage: 9/);
   assert.match(editor, /Math[.]ceil\(slotCount \/ 9\)/);
   assert.match(editor, /studio-custom-print-cell/);
   assert.match(editor, /window[.]DigitalCardBinderApp[.]startPrint\(printTitle, false\)/);
   assert.match(editor, /CARD_WIDTH_MM/);
   assert.match(editor, /CARD_HEIGHT_MM/);
+  const studioCss = await source("studio.css");
+  assert.match(studioCss, /studio-custom-print-cell::after/);
+  assert.match(studioCss, /border: [. ]*25mm solid #4b4b4b/);
+  assert.doesNotMatch(studioCss, /studio-custom-print-sheet \{[\s\S]{0,180}grid-template-columns: repeat\(3, 63mm\) !important/);
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
   assert.doesNotMatch(editor, /function resizeSelected/);
