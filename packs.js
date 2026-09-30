@@ -2,6 +2,7 @@
 
 const SPRITE_COLUMNS = 10;
 const SPRITE_ROWS = 7;
+const SPRITE_BACKED_PACK_COUNT = 62;
 const FIREBASE_SDK_VERSION = "10.12.5";
 const PROMO_DATA_URL = "./data/promo-packs.json?v=20260929-1";
 
@@ -10,7 +11,14 @@ const PROMO_DATA_URL = "./data/promo-packs.json?v=20260929-1";
 const packs = [
   ["S","소드","s1W",0],["S","실드","s1H",0],["S","VMAX라이징","s1a",0],["S","반역크래시","s2",0],["S","폭염워커","s2a",0],["S","무한존","s3",0],["S","전설의 고동","s3a",0],["S","앙천의 볼트태클","s4",0],["S","샤이니스타V","s4a",0],["S","일격마스터","s5I",0],["S","연격마스터","s5R",0],["S","쌍벽의 파이터","s5a",0],["S","백은의 랜스","s6H",0],["S","칠흑의 가이스트","s6K",0],["S","이브이 히어로즈","s6a",0],["S","마천퍼펙트","s7D",0],["S","창공스트림","s7R",0],["S","퓨전아츠","s8",0],["S","25th","s8a",0],["S","VMAX 클라이맥스","s8b",0],["S","스타버스","s9",0],["S","배틀리전","s9a",0],["S","스페이스저글러","s10P",0],["S","타임게이저","s10D",0],["S","다크판타스마","s10a",0],["S","Pokémon GO","s10b",0],["S","로스트어비스","s11",0],["S","백열의 아르카나","s11a",0],["S","패러다임트리거","s12",0],["S","VSTAR유니버스","s12a",0],
   ["SV","스칼렛ex","sv1S",1],["SV","바이올렛ex","sv1V",0],["SV","트리플렛비트","sv1a",1],["SV","클레이버스트","sv2D",0],["SV","스노해저드","sv2P",0],["SV","포켓몬카드 151","sv2a",0],["SV","흑염의 지배자","sv3",1],["SV","레이징서프","sv3a",1],["SV","고대의 포효","sv4K",0],["SV","미래의 일섬","sv4M",0],["SV","샤이니트레저ex","sv4a",0],["SV","와일드포스","sv5K",1],["SV","사이버저지","sv5M",0],["SV","크림슨헤이즈","sv5a",1],["SV","변환의 가면","sv6",0],["SV","나이트원더러","sv6a",1],["SV","스텔라미라클","sv7",0],["SV","낙원드래고나","sv7a",1],["SV","초전브레이커","sv8",1],["SV","테라스탈페스ex","sv8a",0],["SV","배틀파트너즈","sv9",1],["SV","열풍의 아레나","sv9a",0],["SV","로켓단의 영광","sv10",1],["SV","블랙볼트","sv11B",0],["SV","화이트플레어","sv11W",0],
-  ["M","메가심포니아","m1S",0],["M","메가브레이브","m1L",0],["M","인페르노X","m2",1],["M","MEGA드림ex","m2a",0],["M","니힐제로","m3",0],["M","닌자스피너","m4",1],["M","어비스아이","m5",1],["M","스톰에메랄다","m6",0],["M","30th CELEBRATION","m6a",0]
+  ["M","메가심포니아","m1S",0],["M","메가브레이브","m1L",0],["M","인페르노X","m2",1],["M","MEGA드림ex","m2a",0],["M","니힐제로","m3",0],["M","닌자스피너","m4",1],["M","어비스아이","m5",1],["M","스톰에메랄다","m6",0],["M","30th CELEBRATION","m6a",0],
+
+  ["ORIGIN","Base Set","BASE",0],
+  ["ADV","제1탄 확장팩","ADV1",0],
+  ["DP","모험의 시작","BS1",0],["DP","불꽃 튀는 대결","BS2",0],["DP","시공의 격돌","BS3",0],["DP","또 다른 세계","BS4",0],["DP","7개의 신비","BS5",0],["DP","암흑의 초승달","BS6",0],["DP","보이지 않는 힘","BS7",0],["DP","화려한 전설","BS8",0],["DP","호수의 기적","BS9",0],["DP","고대의 수호자","BS10",0],
+  ["BW","블랙 컬렉션","BW1-Bb",0],["BW","화이트 컬렉션","BW1-Bw",0],["BW","레드 컬렉션","BW2",0],["BW","사이코 드라이브","BW3-Bp",0],["BW","헤일 블리자드","BW3-Bh",0],["BW","다크러시","BW4",0],["BW","드래곤 컬렉션","DC",0],["BW","드래곤 블라스트","BW5-Brz",0],["BW","드래곤 블레이드","BW5-Brn",0],["BW","프리즈볼트","BW6-Bf",0],["BW","콜드플레어","BW6-Bc",0],["BW","플라스마게일","BW7",0],["BW","스파이럴포스","BW8-Brf",0],["BW","볼트너클","BW8-Brn",0],["BW","샤이니 컬렉션","SC",0],["BW","메갈로캐논","BW9",0],["BW","EX 배틀 부스트","EBB",0],
+  ["XY","X컬렉션","XY1-Bx",0],["XY","Y컬렉션","XY1-By",0],["XY","와일드 블레이즈","XY2",0],["XY","라이징피스트","XY3",0],["XY","팬텀게이트","XY4",0],["XY","가이아 볼케이노","XY5-Bg",0],["XY","타이달스톰","XY5-Bt",0],["XY","마그마단vs아쿠아단 더블크라이시스","CP1",0],["XY","에메랄드 브레이크","XY6",0],["XY","밴디트링","XY7",0],["XY","푸른 충격","XY8-Bb",0],["XY","붉은 섬광","XY8-Br",0],["XY","레전드 컬렉션","CP2",0],["XY","천공의 분노","XY9",0],["XY","초능력의 제왕","XY10",0],["XY","포켓심쿵 컬렉션","CP3",0],["XY","프리미엄 챔피언팩","CP4",0],["XY","타오르는 투사","XY11-Bb",0],["XY","냉혹한 반역자","XY11-Br",0],["XY","환상 전설 드림 컬렉션","CP5",0],["XY","BASE PACK 20th Anniversary","CP6",0],["XY","THE BEST OF XY","XY",0],
+  ["SM","썬 컬렉션","sm1S",0],["SM","문 컬렉션","sm1M",0],["SM","썬&문","sm1+",0],["SM","알로라의 햇빛","sm2K",0],["SM","알로라의 달빛","sm2L",0],["SM","새로운 시련","sm2+",0],["SM","어둠을 밝힌 무지개","sm3H",0],["SM","빛을 삼킨 어둠","sm3N",0],["SM","빛나는 전설","sm3+",0],["SM","각성의 용사","sm4S",0],["SM","초차원의 침략자","sm4A",0],["SM","GX 배틀부스트","sm4+",0],["SM","울트라썬","sm5S",0],["SM","울트라문","sm5M",0],["SM","울트라포스","sm5+",0],["SM","금단의 빛","sm6",0],["SM","드래곤스톰","sm6a",0],["SM","챔피언로드","sm6b",0],["SM","창공의 카리스마","sm7",0],["SM","플라스마 스파크","sm7a",0],["SM","페어리라이즈","sm7b",0],["SM","버스트임팩트","sm8",0],["SM","다크오더","sm8a",0],["SM","GX 울트라샤이니","sm8b",0],["SM","태그볼트","sm9",0],["SM","나이트유니슨","sm9a",0],["SM","풀메탈월","sm9b",0],["SM","더블블레이즈","sm10",0],["SM","GG엔드","sm10a",0],["SM","스카이레전드","sm10b",0],["SM","영화 스페셜 팩 「명탐정 피카츄」","smp2",0],["SM","미라클트윈","sm11",0],["SM","리믹스바우트","sm11a",0],["SM","드림리그","sm11b",0],["SM","얼터제네시스","sm12",0],["SM","TAG TEAM GX 태그올스타즈","sm12a",0]
 ].map(([era, name, code, owned], index) => ({
   era,
   name,
@@ -22,6 +30,12 @@ const packs = [
 }));
 
 const palettes = {
+  ORIGIN: ["#a66f2f", "#35619a"],
+  ADV: ["#3e8a63", "#d77a36"],
+  DP: ["#536da9", "#8b95ad"],
+  BW: ["#27364f", "#6483b7"],
+  XY: ["#3e63af", "#cc4f5e"],
+  SM: ["#e0a72c", "#396aa9"],
   S: ["#3759b6", "#8a5bd4"],
   SV: ["#d94c60", "#6366c7"],
   M: ["#24314f", "#19a690"]
@@ -70,10 +84,22 @@ const promoPalettes = {
 };
 
 const packGroups = [
-  ["S", "S 시리즈"],
-  ["SV", "SV 시리즈"],
-  ["M", "M 시리즈"]
+  ["ORIGIN", "오리지널"],
+  ["ADV", "ADV"],
+  ["DP", "DP"],
+  ["BW", "BW"],
+  ["XY", "XY"],
+  ["SM", "썬&문"],
+  ["S", "소드&실드"],
+  ["SV", "스칼렛&바이올렛"],
+  ["M", "MEGA"]
 ];
+
+const packGroupLabels = new Map(packGroups);
+
+function packGroupLabel(pack) {
+  return packGroupLabels.get(pack?.era) || String(pack?.era || "");
+}
 
 const promoEraLabels = {
   S: "S",
@@ -670,17 +696,26 @@ function configurePackImage(image, pack) {
   const individualImage = individualPackImages.get(
     String(pack.code || "").toLowerCase()
   ) || "";
+  const hasSpriteImage = pack.i < SPRITE_BACKED_PACK_COUNT;
+  const placeholder = !individualImage && !hasSpriteImage;
+
   image.style.setProperty("--pack-a", colors[0]);
   image.style.setProperty("--pack-b", colors[1]);
   image.style.setProperty("--sprite-x", `${pos.x}%`);
   image.style.setProperty("--sprite-y", `${pos.y}%`);
   image.classList.toggle("has-individual-pack-image", Boolean(individualImage));
+  image.classList.toggle("is-pack-placeholder", placeholder);
+  image.textContent = placeholder ? "팩 이미지 준비 중" : "";
+
   if (individualImage) {
     image.style.setProperty("--pack-image", `url("${individualImage}")`);
   } else {
     image.style.removeProperty("--pack-image");
   }
-  image.setAttribute("aria-label", `${pack.name} 팩 이미지`);
+  image.setAttribute(
+    "aria-label",
+    placeholder ? `${pack.name} 팩 이미지 준비 중` : `${pack.name} 팩 이미지`
+  );
 }
 
 function updatePackDialog(pack) {
@@ -692,7 +727,7 @@ function updatePackDialog(pack) {
     pack.owned ? "is-owned" : "is-missing"
   }`;
   $("pack-dialog-name").textContent = pack.name;
-  $("pack-dialog-era").textContent = `${pack.era} 시리즈`;
+  $("pack-dialog-era").textContent = packGroupLabel(pack);
   $("pack-dialog-category").textContent = "BOOSTER PACK COLLECTION";
   $("pack-dialog-ownership").textContent = pack.owned ? "보유 중" : "아직 미수집";
 }
@@ -1174,7 +1209,7 @@ async function saveCustomPromo(event) {
 
 function initFilters() {
   const host = $("era-filters");
-  [["all", "전체"], ["S", "S"], ["SV", "SV"], ["M", "M"]].forEach(
+  [["all", "전체"], ...packGroups].forEach(
     ([value, label]) => {
       const button = document.createElement("button");
       button.type = "button";
