@@ -10,6 +10,7 @@
   const CARD_OVERRIDE_STORAGE_KEY = "digitalCardBinderWorldExplorationCardOverridesV1";
   const state = {
     data: null,
+    groups: [],
     people: null,
     pokedex: null,
     generation: 1,
@@ -19,6 +20,9 @@
     accountManaged: false,
     cardOverrides: {},
     activeItem: null,
+    localUid: "",
+    legacyOwned: new Set(),
+    legacyCardOverrides: {},
   };
 
   const el = (id) => document.getElementById(id);
@@ -27,14 +31,24 @@
     try {
       const saved = JSON.parse(localStorage.getItem(OWNED_STORAGE_KEY) || "[]");
       state.owned = new Set(Array.isArray(saved) ? saved : []);
+      state.legacyOwned = new Set(state.owned);
     } catch {
       state.owned = new Set();
     }
   }
 
+  function localKey(key) {
+    return state.localUid ? `${key}:${state.localUid}` : key;
+  }
+
+  function publicReadOnly() {
+    return Boolean(window.CollectorPublicView?.requested || window.PokemonDexPageAccount?.readOnly);
+  }
+
   function saveOwnedLocal() {
+    if (publicReadOnly()) return;
     try {
-      localStorage.setItem(OWNED_STORAGE_KEY, JSON.stringify([...state.owned]));
+      localStorage.setItem(localKey(OWNED_STORAGE_KEY), JSON.stringify([...state.owned]));
     } catch {
       // 저장소 접근이 제한되어도 현재 세션의 체크 상태는 유지한다.
     }
@@ -42,7 +56,7 @@
 
   function ownedMigrationDone() {
     try {
-      return localStorage.getItem(OWNED_MIGRATION_KEY) === "done";
+      return Boolean(state.localUid) && localStorage.getItem(localKey(OWNED_MIGRATION_KEY)) === "done";
     } catch {
       return false;
     }
@@ -50,7 +64,7 @@
 
   function markOwnedMigrationDone() {
     try {
-      localStorage.setItem(OWNED_MIGRATION_KEY, "done");
+      localStorage.setItem(localKey(OWNED_MIGRATION_KEY), "done");
     } catch {
       // 마이그레이션 표식을 저장하지 못해도 원격 저장 결과는 유지된다.
     }
@@ -73,43 +87,7 @@
   }
 
   function accountGroups() {
-    return (state.data?.generations || []).map((generation) => {
-      const placeCards = (generation.slots || []).map((slot, index) => ({
-        code: slot.id,
-        name: slot.title,
-        image: slot.card?.image || "",
-        owned: false,
-        slotId: slot.id,
-        accountIndex: index,
-      }));
-      const pokemonCards = (generation.pokemonRefs || []).map((number, index) => {
-        const slot = referenceSlot("pokemon", number);
-        return {
-          code: slot.id,
-          name: slot.title,
-          image: slot.card?.image || "",
-          owned: false,
-          slotId: slot.id,
-          accountIndex: 12 + index,
-        };
-      });
-      const peopleCards = (generation.peopleRefs || []).map((personId, index) => {
-        const slot = referenceSlot("person", personId);
-        return {
-          code: slot.id,
-          name: slot.title,
-          image: slot.card?.image || "",
-          owned: false,
-          slotId: slot.id,
-          accountIndex: 18 + index,
-        };
-      });
-      return {
-        code: `generation-${generation.generation}`,
-        name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
-        cards: [...placeCards, ...pokemonCards, ...peopleCards],
-      };
-    });
+    return state.groups.map((group) => ({ ...group, cards: group.cards.map((card) => ({ ...card })) }));
   }
 
   async function applyAccountOwnership() {
@@ -134,27 +112,44 @@
     state.accountKeys = accountKeys;
     state.accountCards = accountCards;
 
-    const legacyOwned = new Set(state.owned);
-    if (account.canEdit?.() && legacyOwned.size && !ownedMigrationDone()) {
-      for (const slotId of legacyOwned) {
+    const readOnly = publicReadOnly();
+    state.localUid = readOnly ? "" : account.currentUser?.uid || "";
+    let migrationAllowed = false;
+    if (state.localUid) {
+      try {
+        const claimKey = `${OWNED_MIGRATION_KEY}:owner`;
+        const owner = localStorage.getItem(claimKey);
+        migrationAllowed = !owner || owner === state.localUid;
+        if (migrationAllowed && (state.legacyOwned.size || Object.keys(state.legacyCardOverrides).length)) localStorage.setItem(claimKey, state.localUid);
+        const cached = localStorage.getItem(localKey(CARD_OVERRIDE_STORAGE_KEY));
+        const saved = cached === null && migrationAllowed ? state.legacyCardOverrides : JSON.parse(cached || "{}");
+        state.cardOverrides = saved && typeof saved === "object" && !Array.isArray(saved) ? { ...saved } : {};
+      } catch {
+        migrationAllowed = false;
+      }
+    }
+    const pendingOwned = new Set();
+    if (!readOnly && account.canEdit?.() && migrationAllowed && state.legacyOwned.size && !ownedMigrationDone()) {
+      for (const slotId of state.legacyOwned) {
         const key = accountKeys.get(slotId);
-        if (!key || remoteOwned.has(slotId)) continue;
+        if (remoteOwned.has(slotId)) continue;
+        if (!key) { pendingOwned.add(slotId); continue; }
         try {
           const saved = await account.saveOwned(key, true);
           if (saved?.owned) remoteOwned.add(slotId);
+          else pendingOwned.add(slotId);
         } catch (error) {
+          pendingOwned.add(slotId);
           console.warn(`월드탐험도감 기존 보유상태 이전 실패: ${slotId}`, error);
         }
       }
-      markOwnedMigrationDone();
+      if (!pendingOwned.size) markOwnedMigrationDone();
     }
 
-    state.accountManaged = Boolean(
-      account.currentUser || window.CollectorPublicView?.requested,
-    );
+    state.accountManaged = Boolean(account.currentUser || readOnly);
     if (state.accountManaged) {
-      state.owned = remoteOwned;
-      saveOwnedLocal();
+      state.owned = new Set([...remoteOwned, ...pendingOwned]);
+      if (!readOnly) saveOwnedLocal();
     }
   }
 
@@ -171,41 +166,8 @@
   }
 
   function referenceSlot(kind, reference) {
-    if (kind === "pokemon") {
-      const source = pokemonByNumber(reference);
-      if (!source) return null;
-      return {
-        id: worldPokemonItemId(source.number),
-        worldType: "pokemon",
-        title: source.nameKo || source.nameEn || `#${source.number}`,
-        subtitle: `#${String(source.number).padStart(4, "0")} · ${source.nameEn || ""}`,
-        card: {
-          image: source.imageUrl || "",
-          name: source.nameKo || source.nameEn || "",
-          setCode: inferSetCodeFromImage(source.imageUrl),
-        },
-      };
-    }
-
-    const source = personById(reference);
-    if (!source) return null;
-    const card = source.cards?.[0] || {};
-    const image = card.imageLarge || card.image || source.imageLarge || source.image || "";
-    return {
-      id: worldPersonItemId(source.id),
-      worldType: "person",
-      title: source.nameKo || source.nameEn || source.id,
-      subtitle: source.role || source.affiliation || source.nameEn || "",
-      card: {
-        image,
-        name: card.name || source.nameKo || source.nameEn || "",
-        set: card.set || "",
-        setCode: card.setCode || inferSetCodeFromImage(image),
-        number: card.number || "",
-        rarity: card.rarity || "",
-        source: card.source || "",
-      },
-    };
+    const id = kind === "pokemon" ? worldPokemonItemId(reference) : worldPersonItemId(reference);
+    return state.groups.flatMap((group) => group.cards).find((card) => card.slotId === id)?.slot || null;
   }
 
   function normalizeCardOverride(value) {
@@ -234,14 +196,16 @@
         }
       }
       state.cardOverrides = normalized;
+      state.legacyCardOverrides = { ...normalized };
     } catch {
       state.cardOverrides = {};
     }
   }
 
   function saveCardOverrides() {
+    if (publicReadOnly()) return;
     try {
-      localStorage.setItem(CARD_OVERRIDE_STORAGE_KEY, JSON.stringify(state.cardOverrides));
+      localStorage.setItem(localKey(CARD_OVERRIDE_STORAGE_KEY), JSON.stringify(state.cardOverrides));
     } catch {
       // 저장소 접근이 제한되어도 현재 세션에서는 변경 결과를 유지한다.
     }
@@ -277,7 +241,7 @@
 
   function resolvedSlot(slot) {
     const base = baseSlotCard(slot);
-    const localOverride = normalizeCardOverride(state.cardOverrides[slot.id]);
+    const localOverride = publicReadOnly() ? null : normalizeCardOverride(state.cardOverrides[slot.id]);
     const accountCard = state.accountCards.get(slot.id);
     const remoteCustomized = Boolean(
       accountCard?.actualImage ||
@@ -394,7 +358,8 @@
     imageWrap.className = "card-image-wrap";
     const image = document.createElement("img");
     image.className = "card-image";
-    image.src = item.image;
+    if (item.image) image.src = item.image;
+    else article.classList.add("has-image-error");
     image.alt = `${item.cardName} 한국어판 포켓몬 카드`;
     image.loading = "lazy";
     image.decoding = "async";
@@ -458,13 +423,13 @@
       applyOwnedBadge(statusBadge, isOwned);
     };
     refreshOwnedButton();
-    const publicReadOnly = Boolean(window.CollectorPublicView?.requested);
-    if (publicReadOnly) {
+    const isReadOnly = publicReadOnly();
+    if (isReadOnly) {
       ownedButton.disabled = true;
       ownedButton.title = "공개 도감은 읽기 전용입니다.";
     }
     ownedButton.addEventListener("click", async () => {
-      if (publicReadOnly) return;
+      if (isReadOnly) return;
       const nextOwned = !state.owned.has(slot.id);
       const account = window.PokemonDexPageAccount;
       const accountKey = state.accountKeys.get(slot.id);
@@ -669,7 +634,9 @@
     const item = resolvedSlot(slot);
     const dialogImage = el("world-dialog-image");
     if (dialogImage) {
-      dialogImage.src = item.image;
+      if (item.image) dialogImage.src = item.image;
+      else dialogImage.removeAttribute("src");
+      dialogImage.hidden = !item.image;
       dialogImage.alt = `${item.cardName} 한국어판 포켓몬 카드 크게 보기`;
       dialogImage.closest(".dialog-card-image")?.classList.toggle(
         "is-missing",
@@ -697,7 +664,11 @@
     if (el("world-edit-image-url")) el("world-edit-image-url").value = "";
 
     const resetButton = el("world-reset-card");
-    if (resetButton) resetButton.disabled = !item.customized;
+    const readOnly = publicReadOnly();
+    for (const id of ["world-edit-set-code", "world-edit-card-number", "world-edit-card-name", "world-edit-rarity", "world-edit-image-url", "world-save-card"]) {
+      if (el(id)) el(id).disabled = readOnly;
+    }
+    if (resetButton) resetButton.disabled = readOnly || !item.customized;
     setCardEditorMessage("세트 코드와 카드번호를 입력하면 전국도감과 같은 방식으로 실제 카드 이미지를 자동 검색합니다.");
   }
 
@@ -708,6 +679,7 @@
   }
 
   async function applyCardOverride() {
+    if (publicReadOnly()) return;
     const slot = activeSlot();
     if (!slot) return;
 
@@ -770,13 +742,14 @@
       setCardEditorMessage(error?.message || "카드를 변경하지 못했습니다.", "error");
     } finally {
       if (saveButton) {
-        saveButton.disabled = false;
+        saveButton.disabled = publicReadOnly();
         saveButton.textContent = "이미지 찾아 적용";
       }
     }
   }
 
   async function resetCardOverride() {
+    if (publicReadOnly()) return;
     const slot = activeSlot();
     if (!slot) return;
     const account = window.PokemonDexPageAccount;
@@ -827,15 +800,17 @@
     loadCardOverrides();
     bindCardDialog();
     try {
-      const [worldResponse, peopleResponse, pokedexResponse] = await Promise.all([
-        fetch("./data/world-exploration.json", { cache: "no-store" }),
-        fetch("./data/people.json", { cache: "no-store" }),
-        fetch("./data/pokedex.json", { cache: "no-store" }),
+      const catalogService = window.DigitalCardBinder.catalog;
+      const [world, people, pokedex, groups] = await Promise.all([
+        catalogService.json("./data/world-exploration.json"),
+        catalogService.json("./data/people.json"),
+        catalogService.json("./data/pokedex.json"),
+        catalogService.worldGroups(),
       ]);
-      if (!worldResponse.ok) throw new Error("월드탐험도감 데이터를 불러오지 못했습니다.");
-      state.data = await worldResponse.json();
-      state.people = peopleResponse.ok ? await peopleResponse.json() : null;
-      state.pokedex = pokedexResponse.ok ? await pokedexResponse.json() : null;
+      state.data = world;
+      state.people = people;
+      state.pokedex = pokedex;
+      state.groups = groups;
       await applyAccountOwnership();
       renderAll();
     } catch (error) {

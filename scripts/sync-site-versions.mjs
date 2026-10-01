@@ -16,7 +16,11 @@ const NAV_BUILD_RE = /const SITE_BUILD_VERSION = "[^"]*";/;
 const SW_URL_RE = /const SERVICE_WORKER_URL = "\/sw[.]js(?:\?v=[^"]+)?";/;
 const MANIFEST_URL_RE = /const MANIFEST_URL = "\/manifest[.]webmanifest(?:\?v=[^"]+)?";/;
 const MANIFEST_ICON_RE = /("src"\s*:\s*"\/)(assets\/brand\/[^"?]+\.(?:png|webp))(?:\?v=[^"]*)?(")/g;
-const EXTRA_ASSETS = Object.freeze(["trade-offer.js"]);
+const DYNAMIC_MODULES = {
+  "custom-loader.js": { marker: "DYNAMIC_ASSET_VERSIONS", assets: ["custom-public.js", "custom-granular-sharing.js", "custom.js", "custom-mobile-actions.js", "custom-sync.js"] },
+  "print.js": { marker: "PRINT_ASSET_VERSIONS", assets: ["packs-promo-helper.js"] },
+};
+const EXTRA_ASSETS = Object.freeze(["trade-offer.js", ...Object.values(DYNAMIC_MODULES).flatMap((item) => item.assets)]);
 
 function hashText(text) {
   return createHash("sha256").update(text.replace(/\r\n/g, "\n"), "utf8").digest("hex").slice(0, 12);
@@ -95,6 +99,17 @@ async function main() {
 
   for (const asset of EXTRA_ASSETS) assets.add(asset);
 
+  const dynamicSources = new Map();
+  for (const [owner, config] of Object.entries(DYNAMIC_MODULES)) {
+    const raw = await readFile(path.join(root, owner), "utf8");
+    const tokens = {};
+    for (const asset of config.assets) tokens[`./${asset}`] = gitBlobVersion(await readFile(path.join(root, asset)));
+    const marker = new RegExp(`const ${config.marker} = \\{[^;]*\\};`);
+    if (!marker.test(raw)) throw new Error(`Missing dynamic asset marker: ${owner}`);
+    const expected = raw.replace(marker, `const ${config.marker} = ${JSON.stringify(tokens)};`);
+    dynamicSources.set(owner, { raw, expected });
+  }
+
   const swSource = await readFile(swPath, "utf8");
   const swVersion = gitBlobVersion(swSource);
 
@@ -130,6 +145,7 @@ async function main() {
       ? expectedWebManifest
       : await readFile(path.join(root, asset), "utf8");
     if (asset === "pwa.js") source = expectedPwa;
+    if (dynamicSources.has(asset)) source = dynamicSources.get(asset).expected;
     assetSources.set(asset, source);
     buildBasisAssets[asset] = asset === "collector-nav.js"
       ? gitBlobVersion(normalizedNav)
@@ -174,6 +190,7 @@ async function main() {
   const expectedManifest = `${JSON.stringify(manifest, null, 2)}\n`;
 
   const stale = [];
+  for (const [owner, { raw, expected }] of dynamicSources) if (raw !== expected) stale.push(owner);
   if (rawNav !== expectedNav) stale.push("collector-nav.js");
   if (rawPwa !== expectedPwa) stale.push("pwa.js");
   if (rawWebManifest !== expectedWebManifest) stale.push("manifest.webmanifest");
@@ -203,6 +220,7 @@ async function main() {
     return;
   }
 
+  for (const [owner, { raw, expected }] of dynamicSources) if (raw !== expected) await writeFile(path.join(root, owner), expected);
   if (rawNav !== expectedNav) await writeFile(navPath, expectedNav);
   if (rawPwa !== expectedPwa) await writeFile(pwaPath, expectedPwa);
   if (rawWebManifest !== expectedWebManifest) {

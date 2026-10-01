@@ -192,7 +192,7 @@
       );
       sourceDocumentCache.set(
         documentId,
-        firestoreModule.getDoc(reference)
+        window.DigitalCardBinder.firebaseAccount.readCollectionSnapshot(firestoreModule, reference)
           .then((snapshot) => (snapshot.exists() ? snapshot.data() || {} : {}))
           .catch((error) => {
             sourceDocumentCache.delete(documentId);
@@ -228,6 +228,7 @@
   function mergeVisual(catalog, visualMap) {
     return catalog.items.map((item) => ({
       ...item,
+      name: visualMap.get(item.key)?.name || item.name,
       image: visualMap.get(item.key)?.image || "",
       meta: visualMap.get(item.key)?.meta || item.groupName || "",
     }));
@@ -260,24 +261,14 @@
     }
 
     if (collectionId === "world") {
-      const payload = await catalogService.json("./data/world-exploration.json");
-      (payload.generations || []).forEach((generation, groupIndex) => {
-        const group = {
-          code: `generation-${generation.generation}`,
-          name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
-          cards: (generation.slots || []).map((slot) => ({
-            code: slot.id,
-            name: slot.title,
-            owned: false,
-            slotId: slot.id,
-          })),
-        };
+      const groups = await catalogService.worldGroups();
+      groups.forEach((group, groupIndex) => {
         group.cards.forEach((card, cardIndex) => {
-          const slot = generation.slots?.[cardIndex] || {};
           const key = registry.cardIdentity(collectionId, group, card, groupIndex, cardIndex);
           visualMap.set(key, {
-            image: clean(slot.card?.image || slot.image),
-            meta: clean(slot.subtitle || generation.region || group.name),
+            image: clean(card.image),
+            name: card.name,
+            meta: clean(card.slot?.subtitle || group.name),
           });
         });
       });
@@ -608,9 +599,10 @@
       const itemsPromise = visualCatalogFor(collectionId, catalog);
 
       let ownedKeys = new Set();
+      let source = {};
       if (state.currentUser && state.firebase) {
         try {
-          const source = await sourceDocumentFor(collectionId);
+          source = await sourceDocumentFor(collectionId);
           const ownership = await registry.ownershipFor(collectionId, source);
           ownedKeys = new Set(ownership.ownedKeys || []);
           state.ownershipReady = true;
@@ -622,7 +614,15 @@
         state.ownershipReady = false;
       }
 
-      const items = await itemsPromise;
+      let items = await itemsPromise;
+      if (collectionId === "world") {
+        const effective = registry.resolveOverrides("world", catalog, source.overrides || {}).effectiveOverrides;
+        items = items.map((item) => ({
+          ...item,
+          image: effective[item.key]?.imageUrl || item.image,
+          name: effective[item.key]?.cardName || item.name,
+        }));
+      }
       if (token !== state.loadToken) return;
 
       state.catalog = catalog;

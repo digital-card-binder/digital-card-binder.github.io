@@ -459,7 +459,8 @@
       if (!byDocument.has(documentId)) {
         byDocument.set(
           documentId,
-          firebase.firestoreModule.getDoc(
+          window.DigitalCardBinder.firebaseAccount.readCollectionSnapshot(
+            firebase.firestoreModule,
             sync.sourceRef(
               firebase.firestoreModule,
               firebase.db,

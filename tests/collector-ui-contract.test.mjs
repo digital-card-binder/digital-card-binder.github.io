@@ -248,7 +248,8 @@ test("Pokemon search refreshes and reuses series ownership state", async () => {
   assert.ok(client.includes("account.applyGroups(state.groups);"));
   assert.match(client, /card[.]owned/);
   assert.ok(client.includes("await account.saveOwned(item.card.accountKey, nextOwned);"));
-  assert.match(manager, /getDocFromServer/);
+  assert.match(manager, /readCollectionSnapshot/);
+  assert.match(await source("core/account/firebase-account.js"), /getDocFromServer/);
   assert.match(manager, /refreshAccountData/);
 });
 

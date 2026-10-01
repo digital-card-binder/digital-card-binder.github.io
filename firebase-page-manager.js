@@ -322,15 +322,7 @@
     userDocumentRef = documentRef;
 
     try {
-      let snapshot;
-      if (options.preferServer && typeof firestoreModule.getDocFromServer === "function") {
-        try {
-          snapshot = await firestoreModule.getDocFromServer(documentRef);
-        } catch (error) {
-          console.warn(`${page.documentId} 서버 보유상태 확인 실패, 로컬 상태로 대체합니다.`, error);
-        }
-      }
-      if (!snapshot) snapshot = await firestoreModule.getDoc(documentRef);
+      const snapshot = await accountCore.readCollectionSnapshot(firestoreModule, documentRef, options);
       if (snapshot.exists()) {
         const data = snapshot.data() || {};
         accountProfile = {
@@ -508,15 +500,7 @@
     );
 
     try {
-      let snapshot;
-      if (typeof firestoreModule.getDocFromServer === "function") {
-        try {
-          snapshot = await firestoreModule.getDocFromServer(ref);
-        } catch (error) {
-          console.warn(`${id} 서버 조회 실패, 로컬 캐시로 대체합니다.`, error);
-        }
-      }
-      if (!snapshot) snapshot = await firestoreModule.getDoc(ref);
+      const snapshot = await accountCore.readCollectionSnapshot(firestoreModule, ref, { preferServer: true });
       return snapshot.exists() ? snapshot.data() || {} : {};
     } catch (error) {
       console.warn(`${id} 도감 데이터를 읽지 못했습니다.`, error);
@@ -581,35 +565,7 @@
         mode === "series" || Boolean(options.backgroundPublicSync);
 
       if (isLargeFixedCatalog) {
-        const { firestoreModule } = firebase;
-        try {
-          await firestoreModule.updateDoc(
-            userDocumentRef,
-            new firestoreModule.FieldPath("overrides", key),
-            savedItem,
-            "baseMode",
-            accountProfile.baseMode,
-            "email",
-            currentUser.email || "",
-            "displayName",
-            currentUser.displayName || "",
-            "updatedAt",
-            firestoreModule.serverTimestamp(),
-          );
-        } catch (error) {
-          if (error?.code !== "not-found") throw error;
-          await firestoreModule.setDoc(
-            userDocumentRef,
-            {
-              baseMode: accountProfile.baseMode,
-              email: currentUser.email || "",
-              displayName: currentUser.displayName || "",
-              overrides: nextOverrides,
-              updatedAt: firestoreModule.serverTimestamp(),
-            },
-            { merge: true },
-          );
-        }
+        await accountCore.writeOverrideEntry(firebase.firestoreModule, userDocumentRef, key, savedItem);
       } else {
         await firebase.firestoreModule.setDoc(
           userDocumentRef,

@@ -196,7 +196,7 @@
               CONFIG.userCollection || "collections",
               documentId,
             );
-            const item = await firestoreModule.getDoc(ref);
+            const item = await window.DigitalCardBinder.firebaseAccount.readCollectionSnapshot(firestoreModule, ref);
             return item.exists()
               ? [
                   documentId,
