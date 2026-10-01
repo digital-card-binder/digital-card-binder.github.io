@@ -132,7 +132,7 @@
     if (!readOnly && account.canEdit?.() && migrationAllowed && state.legacyOwned.size && !ownedMigrationDone()) {
       for (const slotId of state.legacyOwned) {
         const key = accountKeys.get(slotId);
-        if (remoteOwned.has(slotId)) continue;
+        if (remoteOwned.has(slotId) || accountCards.get(slotId)?.hasAccountOverride) continue;
         if (!key) { pendingOwned.add(slotId); continue; }
         try {
           const saved = await account.saveOwned(key, true);

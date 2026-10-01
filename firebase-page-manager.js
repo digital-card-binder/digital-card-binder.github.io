@@ -155,6 +155,7 @@
 
         const key = cardIdentity(group, card, groupIndex, cardIndex);
         const override = normalizeOverride(resolvedOverrides[key]);
+        card.hasAccountOverride = Boolean(override);
         card.owned = override ? override.owned : useLegacy && card.legacyOwned;
         card.printVariants =
           mode === "series"

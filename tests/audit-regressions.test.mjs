@@ -151,6 +151,15 @@ test("world failure retains guest and pending records, retries, and marks only t
   await scene.api.applyAccountOwnership();
   assert.equal(scene.api.state.owned.size, 0);
   assert.equal(scene.api.resolvedSlot({ id: "mine", title: "Mine", card: { image: "base" } }).image, "base");
+
+  const explicit = worldScenario();
+  explicit.account.applyGroups = groups => groups.forEach(group => group.cards.forEach(card => {
+    card.accountKey = card.slotId; card.owned = false; card.hasAccountOverride = true;
+  }));
+  explicit.account.saveOwned = async () => assert.fail("existing explicit unowned state must win over guest ownership");
+  await explicit.api.applyAccountOwnership();
+  assert.equal(explicit.api.state.owned.size, 0);
+  assert.equal(explicit.store.records.get(explicit.ownedKey), '["mine"]');
 });
 
 test("public world viewing and forced edit handlers leave all visitor storage and remote writes untouched", async () => {
