@@ -671,6 +671,10 @@
     if (dialogImage) {
       dialogImage.src = item.image;
       dialogImage.alt = `${item.cardName} 한국어판 포켓몬 카드 크게 보기`;
+      dialogImage.closest(".dialog-card-image")?.classList.toggle(
+        "is-missing",
+        !state.owned.has(slot.id),
+      );
     }
     if (el("world-dialog-slot")) {
       const typeLabel = slot.worldType === "pokemon"
