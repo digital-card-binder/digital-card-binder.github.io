@@ -871,6 +871,12 @@ function refreshCounts() {
     group.owned = group.cards.filter((card) => card.owned).length;
   });
   updateSummary();
+  if (mode === "series" && activeEra !== "ALL") {
+    const currentValue = selected?.code || selected?.name || "";
+    const select = $("catalog-select");
+    populateCatalogSelect();
+    if (select && currentValue) select.value = currentValue;
+  }
   renderSeriesDashboard();
   updateSelected();
 }
