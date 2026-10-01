@@ -321,7 +321,7 @@
     state.ocrLoading = (async () => {
       await loadExternalScript(OCR_SCRIPT);
       if (!window.Tesseract?.createWorker) throw new Error("OCR 모듈을 초기화하지 못했습니다.");
-      const worker = await window.Tesseract.createWorker("eng", 1, {
+      const worker = await window.Tesseract.createWorker(["kor", "eng"], 1, {
         logger(message) {
           if (message?.status === "recognizing text") {
             setProgress(15 + Math.round((Number(message.progress) || 0) * 70));
@@ -409,36 +409,77 @@
   async function makeOcrCanvases(file) {
     const image = await imageBitmapFromFile(file);
     try {
-      // Korean cards place set code / collector number near the lower-left edge.
-      // Read that tiny region first, then widen the search only when necessary.
+      // Standard Korean card layout:
+      // - set code / collector number: extreme lower-left
+      // - card name: large text near the upper-left
+      // The tight crops are first because they work better than reading the
+      // whole lower strip on photographed cards.
       return [
-        makeOcrRegionCanvas(image, {
-          x: 0.00,
-          y: 0.76,
-          width: 0.70,
-          height: 0.24,
-          scale: 4.2,
-          maxWidth: 2400,
-          mode: "contrast",
-        }),
-        makeOcrRegionCanvas(image, {
-          x: 0.00,
-          y: 0.68,
-          width: 1.00,
-          height: 0.32,
-          scale: 2.8,
-          maxWidth: 2200,
-          mode: "contrast",
-        }),
-        makeOcrRegionCanvas(image, {
-          x: 0.00,
-          y: 0.58,
-          width: 1.00,
-          height: 0.42,
-          scale: 2.2,
-          maxWidth: 2000,
-          mode: "binary",
-        }),
+        {
+          kind: "number",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.03,
+            y: 0.84,
+            width: 0.55,
+            height: 0.14,
+            scale: 5.2,
+            maxWidth: 2600,
+            mode: "contrast",
+          }),
+          psm: "6",
+        },
+        {
+          kind: "title",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.12,
+            y: 0.01,
+            width: 0.55,
+            height: 0.10,
+            scale: 5.0,
+            maxWidth: 2200,
+            mode: "contrast",
+          }),
+          psm: "7",
+        },
+        {
+          kind: "number",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.00,
+            y: 0.76,
+            width: 0.70,
+            height: 0.24,
+            scale: 4.2,
+            maxWidth: 2400,
+            mode: "contrast",
+          }),
+          psm: "6",
+        },
+        {
+          kind: "title",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.05,
+            y: 0.00,
+            width: 0.78,
+            height: 0.16,
+            scale: 3.2,
+            maxWidth: 2200,
+            mode: "contrast",
+          }),
+          psm: "6",
+        },
+        {
+          kind: "number",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.00,
+            y: 0.58,
+            width: 1.00,
+            height: 0.42,
+            scale: 2.2,
+            maxWidth: 2000,
+            mode: "binary",
+          }),
+          psm: "6",
+        },
       ];
     } finally {
       if (typeof image.close === "function") image.close();
@@ -450,6 +491,48 @@
       ocrFractions(text).length ||
       (detectedSetCodes(text).length && ocrNumberTokens(text).length),
     );
+  }
+
+  function compactCardName(value) {
+    return clean(value)
+      .toLocaleLowerCase("ko-KR")
+      .replace(/[^가-힣a-z0-9♀♂]+/gi, "");
+  }
+
+  function detectedCardNames(text) {
+    const source = compactCardName(text);
+    if (!source || !state.cards) return [];
+    const names = [...new Set(
+      state.cards
+        .flatMap((card) => [clean(card.name), clean(card.pokemonName)])
+        .filter((name) => compactCardName(name).length >= 2),
+    )]
+      .sort((a, b) => compactCardName(b).length - compactCardName(a).length);
+
+    const exact = names.filter((name) => source.includes(compactCardName(name)));
+    if (exact.length) return exact.slice(0, 8);
+
+    const fuzzy = [];
+    for (const name of names) {
+      const target = compactCardName(name);
+      if (target.length < 2 || target.length > 12) continue;
+      for (let start = 0; start < source.length; start += 1) {
+        for (const length of [target.length - 1, target.length, target.length + 1]) {
+          if (length < 2 || start + length > source.length) continue;
+          if (editDistanceAtMostOne(source.slice(start, start + length), target)) {
+            fuzzy.push(name);
+            start = source.length;
+            break;
+          }
+        }
+      }
+      if (fuzzy.length >= 8) break;
+    }
+    return fuzzy;
+  }
+
+  function hasStrongNameSignal(text) {
+    return detectedCardNames(text).length > 0;
   }
 
   async function onPhotoSelected(event) {
@@ -472,24 +555,58 @@
     try {
       await loadSearchCards();
       const worker = await ensureOcrWorker();
-      const canvases = await makeOcrCanvases(file);
-      const texts = [];
+      const regions = await makeOcrCanvases(file);
+      const numberTexts = [];
+      const titleTexts = [];
       let candidates = [];
 
-      for (let index = 0; index < canvases.length; index += 1) {
-        setProgress(18 + Math.round((index / canvases.length) * 60));
-        const result = await worker.recognize(canvases[index]);
+      for (let index = 0; index < regions.length; index += 1) {
+        const region = regions[index];
+        setProgress(18 + Math.round((index / regions.length) * 60));
+
+        if (typeof worker.setParameters === "function") {
+          await worker.setParameters(
+            region.kind === "number"
+              ? {
+                  tessedit_pageseg_mode: region.psm || "6",
+                  tessedit_char_whitelist:
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/+-. ",
+                  preserve_interword_spaces: "1",
+                }
+              : {
+                  tessedit_pageseg_mode: region.psm || "7",
+                  tessedit_char_whitelist: "",
+                  preserve_interword_spaces: "1",
+                },
+          );
+        }
+
+        const result = await worker.recognize(region.canvas);
         const text = clean(result?.data?.text);
-        if (text) texts.push(text);
-        const combined = texts.join("\n");
-        candidates = findCandidatesFromOcr(combined);
-        if (candidates.length && hasStrongOcrSignal(combined)) break;
+        if (text) {
+          if (region.kind === "title") titleTexts.push(text);
+          else numberTexts.push(text);
+        }
+
+        const numberText = numberTexts.join("\n");
+        const titleText = titleTexts.join("\n");
+        candidates = findCandidatesFromOcr(numberText, titleText);
+
+        if (
+          candidates.length &&
+          (hasStrongOcrSignal(numberText) || hasStrongNameSignal(titleText))
+        ) {
+          break;
+        }
       }
 
-      const combinedText = texts.join(" ");
-      els.ocrText.textContent = combinedText
-        ? "인식: " + combinedText.replace(/\s+/g, " ").slice(0, 120)
-        : "카드번호 텍스트를 읽지 못했습니다.";
+      const numberText = numberTexts.join(" ").replace(/\s+/g, " ").trim();
+      const titleText = titleTexts.join(" ").replace(/\s+/g, " ").trim();
+      const recognized = [
+        titleText ? "카드명: " + titleText.slice(0, 55) : "",
+        numberText ? "번호: " + numberText.slice(0, 75) : "",
+      ].filter(Boolean).join(" / ");
+      els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
       renderCandidates(candidates);
       if (!candidates.length) {
@@ -597,38 +714,61 @@
     return fuzzy;
   }
 
-  function findCandidatesFromOcr(text) {
+  function findCandidatesFromOcr(numberText, titleText = "") {
     if (!state.cards) return [];
-    const fractions = ocrFractions(text);
-    const numbers = ocrNumberTokens(text);
-    const sets = detectedSetCodes(text);
-    const compact = compactOcr(text);
+    const fractions = ocrFractions(numberText);
+    const numbers = ocrNumberTokens(numberText);
+    const sets = detectedSetCodes(numberText);
+    const compact = compactOcr(numberText);
+    const detectedNames = detectedCardNames(titleText);
+    const normalizedDetectedNames = detectedNames.map(compactCardName);
     const scored = [];
 
     for (const card of state.cards) {
       let score = 0;
       const set = normalizeSetCode(card.setCode);
-      if (sets.includes(set)) score += 120;
+      if (sets.includes(set)) score += 140;
 
       for (const fraction of fractions) {
         if (card.numerator === fraction.numerator) {
-          score += 65;
-          if (card.denominator && card.denominator === fraction.denominator) score += 95;
+          score += 70;
+          if (card.denominator && card.denominator === fraction.denominator) {
+            score += 120;
+          }
         }
       }
-      if (!fractions.length && numbers.includes(card.numerator)) score += 38;
+      if (!fractions.length && numbers.includes(card.numerator)) score += 42;
 
       const rawCompact = compactOcr(card.rawCode);
-      if (rawCompact && compact.includes(rawCompact)) score += 220;
+      if (rawCompact && compact.includes(rawCompact)) score += 240;
+
+      const cardNames = [card.name, card.pokemonName]
+        .map(compactCardName)
+        .filter(Boolean);
+      if (
+        normalizedDetectedNames.some((name) => cardNames.includes(name))
+      ) {
+        score += 220;
+      } else if (
+        normalizedDetectedNames.some((name) =>
+          cardNames.some((cardName) =>
+            cardName.length >= 2 && editDistanceAtMostOne(cardName, name),
+          ),
+        )
+      ) {
+        score += 150;
+      }
+
       if (score > 0) scored.push({ card, score });
     }
 
     scored.sort((a, b) => b.score - a.score);
     if (!scored.length) return [];
     const top = scored[0].score;
+    const hasName = normalizedDetectedNames.length > 0;
     return scored
-      .filter((item) => item.score >= Math.max(38, top - 85))
-      .slice(0, 10)
+      .filter((item) => item.score >= Math.max(hasName ? 120 : 38, top - 110))
+      .slice(0, hasName ? 24 : 12)
       .map((item) => item.card);
   }
 
