@@ -31,8 +31,9 @@ const peopleById = new Map(
   (people.people || []).map((person) => [person.id, person]),
 );
 
-test('world exploration v5 preserves the 108 legacy place slots and adds linked region references', () => {
-  assert.equal(world.metadata?.version, 5);
+test('world exploration v6 preserves legacy place slots and lays every reference into story chapters', () => {
+  assert.equal(world.metadata?.version, 6);
+  assert.equal(world.metadata?.presentation, 'story-chapter-sequence');
   assert.equal(world.metadata?.ownershipModel, 'place-slots-v1-compatible');
   assert.equal(world.metadata?.referenceOwnership, 'source-dex-linked');
   assert.equal(world.generations?.length, 9);
@@ -45,6 +46,7 @@ test('world exploration v5 preserves the 108 legacy place slots and adds linked 
     assert.equal(generation.pokemonRefs?.length, 6, `${generation.generation}세대 대표 포켓몬이 6종이 아님`);
     assert.equal(generation.peopleRefs?.length, 4, `${generation.generation}세대 주요 인물이 4명이 아님`);
     assert.equal(generation.stories?.length, 3, `${generation.generation}세대 스토리가 3개가 아님`);
+    assert.equal(generation.chapters?.length, 3, `${generation.generation}세대 챕터가 3개가 아님`);
 
     const phaseIds = new Set((generation.phases || []).map((phase) => phase.id));
     for (const slot of generation.slots) {
@@ -70,6 +72,25 @@ test('world exploration v5 preserves the 108 legacy place slots and adds linked 
 
     for (const story of generation.stories) {
       assert.ok(story.id && story.title && story.description, `${generation.generation}세대 스토리 데이터 누락`);
+    }
+
+    const chapterItems = generation.chapters.flatMap((chapter) => chapter.items || []);
+    const chapterPlaces = chapterItems.filter((item) => item.type === 'place').map((item) => item.ref);
+    const chapterPokemon = chapterItems.filter((item) => item.type === 'pokemon').map((item) => Number(item.ref));
+    const chapterPeople = chapterItems.filter((item) => item.type === 'person').map((item) => item.ref);
+
+    assert.equal(chapterPlaces.length, 12, `${generation.generation}세대 챕터 장소 수`);
+    assert.deepEqual(new Set(chapterPlaces), new Set(generation.slots.map((slot) => slot.id)), `${generation.generation}세대 장소 배치 누락/중복`);
+    assert.deepEqual(new Set(chapterPokemon), new Set(generation.pokemonRefs), `${generation.generation}세대 포켓몬 배치 누락/중복`);
+    assert.deepEqual(new Set(chapterPeople), new Set(generation.peopleRefs), `${generation.generation}세대 인물 배치 누락/중복`);
+    assert.equal(chapterPokemon.length, generation.pokemonRefs.length, `${generation.generation}세대 포켓몬 중복 배치`);
+    assert.equal(chapterPeople.length, generation.peopleRefs.length, `${generation.generation}세대 인물 중복 배치`);
+
+    for (const chapter of generation.chapters) {
+      assert.ok(chapter.id && chapter.title && chapter.description, `${generation.generation}세대 챕터 정보 누락`);
+      assert.equal((chapter.items || []).filter((item) => item.type === 'place').length, 4, `${generation.generation}세대 ${chapter.id}: 장소 4장이 아님`);
+      assert.equal((chapter.items || []).filter((item) => item.type === 'pokemon').length, 2, `${generation.generation}세대 ${chapter.id}: 포켓몬 2종이 아님`);
+      assert.ok(chapter.items.every((item) => ['place','pokemon','person'].includes(item.type)), `${generation.generation}세대 ${chapter.id}: 지원하지 않는 타입`);
     }
   }
 
@@ -112,4 +133,16 @@ test('world client reads linked ownership without writing duplicate Pokemon or p
   assert.match(client, /referenceSource[?][.]peopleOverrides/);
   assert.doesNotMatch(client, /pokemonOwned\s*:/);
   assert.doesNotMatch(client, /peopleOwned\s*:/);
+});
+
+
+test('world client renders story chapters instead of separate Pokemon, people and place sections', () => {
+  const client = fs.readFileSync('world.js', 'utf8');
+  assert.match(client, /function renderStoryChapter\(/);
+  assert.match(client, /function renderStoryJourney\(/);
+  assert.match(client, /storyItem\(generation, item\)/);
+  assert.match(client, /makeSlot\(slot, index, \{ story: true \}\)/);
+  assert.doesNotMatch(client, /function renderReferenceGroup\(/);
+  assert.doesNotMatch(client, /function renderStoryGroup\(/);
+  assert.doesNotMatch(client, /function renderBinderPage\(/);
 });
