@@ -369,16 +369,95 @@ function syncSeriesView() {
   );
 }
 
+const SERIES_REPRESENTATIVE_RARITY_SCORE = Object.freeze({
+  MUR: 1200,
+  FUR: 1180,
+  RGB: 1170,
+  SAR: 1150,
+  HR: 1100,
+  UR: 1080,
+  SSR: 1060,
+  CSR: 1050,
+  SR: 1030,
+  AR: 980,
+  CHR: 970,
+  S: 960,
+  RRR: 900,
+  RR: 850,
+  R: 800,
+  U: 700,
+  C: 600,
+  PROMO: 500,
+});
+
+function seriesRepresentativeNumber(card) {
+  const range = seriesCardRange(card);
+  if (range) return range.number;
+  const match = String(card?.code || card?.meta || "").match(
+    /_0*([0-9]+)(?:\/|$)/,
+  );
+  if (match) return Number(match[1]);
+  const order = Number(card?.order);
+  return Number.isFinite(order) ? order : 0;
+}
+
+function isSeriesSpecialPokemon(card) {
+  const name = String(card?.name || card?.pokemonName || "").toUpperCase();
+  return (
+    [" EX", " GX", " VMAX", " VSTAR", " V-UNION", " LV.X", " LVX", " BREAK"]
+      .some((token) => name.includes(token)) ||
+    /(?:^|\s)V(?:\s|$)/.test(name) ||
+    name.includes("프라임") ||
+    name.includes("LEGEND")
+  );
+}
+
+function isSeriesPokemonCard(card) {
+  return Boolean(String(card?.pokemonName || "").trim()) ||
+    isSeriesSpecialPokemon(card);
+}
+
+function seriesRepresentativeCard(group) {
+  const candidates = (group?.cards || []).filter((card) => imageFor(card));
+  if (!candidates.length) return null;
+
+  const hasRarityMetadata = candidates.some((card) =>
+    String(card?.rarity || "").trim(),
+  );
+
+  return candidates.reduce((best, card) => {
+    const rarity = String(card?.rarity || "").trim().toUpperCase();
+    const range = seriesCardRange(card);
+    const number = seriesRepresentativeNumber(card);
+    const pokemonBonus = isSeriesPokemonCard(card) ? 35 : 0;
+    const specialBonus = isSeriesSpecialPokemon(card) ? 15 : 0;
+
+    const score = hasRarityMetadata
+      ? (SERIES_REPRESENTATIVE_RARITY_SCORE[rarity] || 0) +
+        pokemonBonus +
+        specialBonus +
+        number / 100000
+      : (range && range.number > range.denominator ? 1000 : 0) +
+        (isSeriesPokemonCard(card) ? 200 : 0) +
+        (isSeriesSpecialPokemon(card) ? 40 : 0) +
+        number / 100000;
+
+    if (!best || score > best.score) return { card, score };
+    return best;
+  }, null)?.card || null;
+}
+
 function seriesGroupThumbnail(group) {
-  const direct =
-    group?.packImage ||
+  const card = seriesRepresentativeCard(group);
+  if (card) return imageFor(card);
+
+  return (
     group?.thumbnail ||
     group?.thumbnailImage ||
     group?.image ||
-    "";
-  if (direct) return direct;
-  const card = (group?.cards || []).find((item) => imageFor(item));
-  return card ? imageFor(card) : "";
+    group?.packImage ||
+    ""
+  );
 }
 
 function selectSeriesGroup(group) {
@@ -428,13 +507,29 @@ function renderSeriesDashboard() {
 
       const thumbnail = document.createElement("span");
       thumbnail.className = "series-set-thumbnail";
-      const thumbnailUrl = seriesGroupThumbnail(group);
+      const representativeCard = seriesRepresentativeCard(group);
+      const thumbnailUrl = representativeCard
+        ? imageFor(representativeCard)
+        : seriesGroupThumbnail(group);
       if (thumbnailUrl) {
         const image = document.createElement("img");
         image.src = thumbnailUrl;
         image.alt = "";
         image.loading = "lazy";
         image.decoding = "async";
+        if (representativeCard) {
+          const representativeName =
+            representativeCard.name ||
+            representativeCard.pokemonName ||
+            representativeCard.code ||
+            "";
+          const representativeRarity = String(
+            representativeCard.rarity || "",
+          ).trim();
+          thumbnail.title = representativeRarity
+            ? `대표 카드 · ${representativeName} · ${representativeRarity}`
+            : `대표 카드 · ${representativeName}`;
+        }
         thumbnail.append(image);
       } else {
         thumbnail.classList.add("is-empty");
