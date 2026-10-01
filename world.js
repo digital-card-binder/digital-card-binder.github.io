@@ -309,12 +309,15 @@
     return fallback;
   }
 
-  function makeSlot(slot, index) {
+  function makeSlot(slot, index, options = {}) {
     const item = resolvedSlot(slot);
+    const storyMode = Boolean(options.story);
     const owned = state.owned.has(slot.id);
 
     const article = document.createElement("article");
     article.className = "pokemon-card world-slot has-completion-action";
+    article.classList.toggle("world-journey-card", storyMode);
+    article.classList.toggle("world-journey-card--place", storyMode);
     article.classList.toggle("is-missing", !owned);
     article.classList.toggle("has-custom-card", item.customized);
 
@@ -344,7 +347,9 @@
     topline.className = "card-topline";
     const numberBadge = document.createElement("span");
     numberBadge.className = "number-badge";
-    numberBadge.textContent = String(index + 1).padStart(2, "0");
+    numberBadge.textContent = storyMode
+      ? "장소"
+      : String(index + 1).padStart(2, "0");
     const statusBadge = document.createElement("span");
     statusBadge.className = "status-badge";
     applyOwnedBadge(statusBadge, owned);
@@ -425,59 +430,6 @@
     return article;
   }
 
-  function renderPhase(generation, phaseId) {
-    const phase = generation.phases?.find((item) => item.id === phaseId);
-    if (!phase) return null;
-
-    const section = document.createElement("section");
-    section.className = "world-phase";
-
-    const heading = document.createElement("div");
-    heading.className = "world-phase-heading";
-    const label = document.createElement("strong");
-    label.textContent = phase.label;
-    const description = document.createElement("span");
-    description.textContent = phase.description;
-    heading.append(label, description);
-
-    const grid = document.createElement("div");
-    grid.className = "world-slot-grid";
-    const phaseSlots = generation.slots.filter((slot) => slot.phase === phase.id);
-    phaseSlots.forEach((slot) => {
-      const overallIndex = generation.slots.findIndex((item) => item.id === slot.id);
-      grid.append(makeSlot(slot, overallIndex));
-    });
-
-    section.append(heading, grid);
-    return section;
-  }
-
-  function renderBinderPage(generation, page, pageIndex) {
-    const pageSection = document.createElement("section");
-    pageSection.className = "world-binder-page";
-    pageSection.dataset.page = String(pageIndex + 1);
-
-    const pageHeading = document.createElement("div");
-    pageHeading.className = "world-page-heading";
-    const titleWrap = document.createElement("div");
-    const label = document.createElement("span");
-    label.textContent = page.label || `PAGE ${pageIndex + 1}`;
-    const title = document.createElement("strong");
-    title.textContent = page.title || "";
-    titleWrap.append(label, title);
-    const description = document.createElement("p");
-    description.textContent = page.description || "";
-    pageHeading.append(titleWrap, description);
-    pageSection.append(pageHeading);
-
-    (page.phases || []).forEach((phaseId) => {
-      const phase = renderPhase(generation, phaseId);
-      if (phase) pageSection.append(phase);
-    });
-
-    return pageSection;
-  }
-
   function referenceImageUrl(kind, source) {
     if (kind === "pokemon") {
       const override = state.referenceSource?.overrides?.[String(source.number)];
@@ -509,15 +461,24 @@
       : personById(reference);
     if (!source) return null;
 
+    const key = isPokemon ? source.number : source.id;
+    const owned = state.referenceOwnershipLoaded
+      ? state.referenceOwned[kind]?.has(String(key))
+      : null;
+
     const link = document.createElement("a");
-    link.className = "world-reference-card";
+    link.className = `world-reference-card world-journey-card world-journey-card--${kind}`;
+    link.classList.toggle("is-missing", owned === false);
     link.href = isPokemon ? "./national.html" : "./people.html";
     link.setAttribute(
       "aria-label",
-      `${isPokemon ? source.nameKo : source.nameKo} 원본 도감 보기`,
+      `${source.nameKo || source.nameEn || ""} 원본 도감 보기`,
     );
 
+    const imageWrap = document.createElement("span");
+    imageWrap.className = "card-image-wrap";
     const image = document.createElement("img");
+    image.className = "card-image";
     image.loading = "lazy";
     image.decoding = "async";
     image.src = referenceImageUrl(kind, source);
@@ -525,115 +486,105 @@
     image.addEventListener("error", () => link.classList.add("has-image-error"), {
       once: true,
     });
+    const missingOverlay = document.createElement("span");
+    missingOverlay.className = "missing-overlay";
+    missingOverlay.textContent = "미보유";
+    imageWrap.append(image, missingOverlay, makeImageFallback());
 
     const copy = document.createElement("span");
-    copy.className = "world-reference-copy";
-    const type = document.createElement("small");
-    type.textContent = isPokemon
-      ? `전국도감 #${String(source.number).padStart(4, "0")}`
-      : source.category || "인물도감";
+    copy.className = "card-body world-card-body world-reference-copy";
+    const topline = document.createElement("span");
+    topline.className = "card-topline";
+    const type = document.createElement("span");
+    type.className = "number-badge";
+    type.textContent = isPokemon ? "포켓몬" : "인물";
+    const ownedBadge = referenceBadge(kind, key);
+    ownedBadge.classList.add("status-badge");
+    topline.append(type, ownedBadge);
+
     const name = document.createElement("strong");
+    name.className = "card-name-ko";
     name.textContent = source.nameKo || source.nameEn || "";
     const sub = document.createElement("span");
+    sub.className = "card-name-en world-story-subtitle";
     sub.textContent = isPokemon
-      ? source.nameEn || ""
+      ? `#${String(source.number).padStart(4, "0")} · ${source.nameEn || ""}`
       : source.role || source.affiliation || source.nameEn || "";
-    copy.append(type, name, sub, referenceBadge(kind, isPokemon ? source.number : source.id));
+    const origin = document.createElement("span");
+    origin.className = "world-reference-origin";
+    origin.textContent = isPokemon ? "전국도감에서 보기" : "인물도감에서 보기";
 
-    link.append(image, copy);
+    copy.append(topline, name, sub, origin);
+    link.append(imageWrap, copy);
     return link;
   }
 
-  function renderReferenceGroup(title, description, className, items) {
+  function storyItem(generation, item) {
+    if (!item || !item.type) return null;
+    if (item.type === "place") {
+      const slot = generation.slots?.find((candidate) => candidate.id === item.ref);
+      if (!slot) return null;
+      const index = generation.slots.findIndex((candidate) => candidate.id === slot.id);
+      return makeSlot(slot, index, { story: true });
+    }
+    if (item.type === "pokemon") return makeReferenceCard("pokemon", item.ref);
+    if (item.type === "person") return makeReferenceCard("people", item.ref);
+    return null;
+  }
+
+  function renderStoryChapter(generation, chapter, index) {
     const section = document.createElement("section");
-    section.className = `world-reference-group ${className}`;
+    section.className = "world-journey-chapter";
 
     const heading = document.createElement("div");
-    heading.className = "world-reference-heading";
+    heading.className = "world-chapter-heading";
+    const number = document.createElement("span");
+    number.className = "world-chapter-number";
+    number.textContent = String(index + 1).padStart(2, "0");
     const copy = document.createElement("div");
-    const strong = document.createElement("strong");
-    strong.textContent = title;
-    const paragraph = document.createElement("p");
-    paragraph.textContent = description;
-    copy.append(strong, paragraph);
-    heading.append(copy);
-    section.append(heading);
+    const title = document.createElement("strong");
+    title.textContent = chapter.title || "";
+    const description = document.createElement("p");
+    description.textContent = chapter.description || "";
+    copy.append(title, description);
+    heading.append(number, copy);
 
-    const grid = document.createElement("div");
-    grid.className = "world-reference-grid";
-    items.filter(Boolean).forEach((item) => grid.append(item));
-    section.append(grid);
+    const sequence = document.createElement("div");
+    sequence.className = "world-chapter-sequence";
+    for (const item of chapter.items || []) {
+      const card = storyItem(generation, item);
+      if (card) sequence.append(card);
+    }
+
+    section.append(heading, sequence);
     return section;
   }
 
-  function renderStoryGroup(stories = []) {
-    const section = document.createElement("section");
-    section.className = "world-reference-group world-story-group";
-    const heading = document.createElement("div");
-    heading.className = "world-reference-heading";
-    const copy = document.createElement("div");
-    const strong = document.createElement("strong");
-    strong.textContent = "스토리";
-    const paragraph = document.createElement("p");
-    paragraph.textContent = "카드와 인물을 지역의 이야기 흐름으로 연결합니다.";
-    copy.append(strong, paragraph);
-    heading.append(copy);
-    section.append(heading);
-
-    const grid = document.createElement("div");
-    grid.className = "world-story-grid";
-    stories.forEach((story, index) => {
-      const article = document.createElement("article");
-      article.className = "world-story-card";
-      const number = document.createElement("span");
-      number.textContent = String(index + 1).padStart(2, "0");
-      const title = document.createElement("strong");
-      title.textContent = story.title || "";
-      const description = document.createElement("p");
-      description.textContent = story.description || "";
-      article.append(number, title, description);
-      grid.append(article);
-    });
-    section.append(grid);
-    return section;
-  }
-
-  function renderExplorationIndex(generation) {
+  function renderStoryJourney(generation) {
     const wrapper = document.createElement("section");
-    wrapper.className = "world-reference-index";
+    wrapper.className = "world-journey";
 
     const intro = document.createElement("div");
-    intro.className = "world-reference-intro";
+    intro.className = "world-journey-intro";
     const kicker = document.createElement("span");
-    kicker.textContent = "지역 탐험 인덱스";
+    kicker.textContent = "스토리 탐험";
     const title = document.createElement("strong");
-    title.textContent = `${generation.region}을 구성하는 포켓몬·인물·이야기`;
+    title.textContent = `${generation.region}의 이야기를 카드로 따라가기`;
     const description = document.createElement("p");
     description.textContent =
-      "포켓몬과 인물의 보유상태는 전국도감·인물도감에서 읽기만 하며 월드탐험에 중복 저장하지 않습니다.";
+      "장소·포켓몬·인물을 이야기 순서에 맞춰 함께 배치했습니다. 포켓몬과 인물의 보유상태는 원본 도감에서 읽으며 중복 저장하지 않습니다.";
     intro.append(kicker, title, description);
     wrapper.append(intro);
 
-    wrapper.append(
-      renderReferenceGroup(
-        "대표 포켓몬",
-        "전국도감의 대표 포켓몬을 지역 탐험에 연결합니다.",
-        "world-reference-group--pokemon",
-        (generation.pokemonRefs || []).map((number) =>
-          makeReferenceCard("pokemon", number),
-        ),
-      ),
-      renderReferenceGroup(
-        "주요 인물",
-        "인물도감의 주요 인물을 지역 탐험에 연결합니다.",
-        "world-reference-group--people",
-        (generation.peopleRefs || []).map((personId) =>
-          makeReferenceCard("people", personId),
-        ),
-      ),
-      renderStoryGroup(generation.stories || []),
-    );
+    (generation.chapters || []).forEach((chapter, index) => {
+      wrapper.append(renderStoryChapter(generation, chapter, index));
+    });
 
+    const note = document.createElement("p");
+    note.className = "world-journey-note";
+    note.textContent =
+      "이 지역의 기존 장소 카드 12장은 위 3개 챕터에 모두 포함되어 있으며 기존 worldDex 수집완료·대표카드 변경값을 그대로 사용합니다.";
+    wrapper.append(note);
     return wrapper;
   }
 
@@ -678,28 +629,7 @@
       return;
     }
 
-    binder.append(renderExplorationIndex(generation));
-
-    const placeHeading = document.createElement("div");
-    placeHeading.className = "world-place-heading";
-    const placeKicker = document.createElement("span");
-    placeKicker.textContent = "장소 카드 아카이브";
-    const placeTitle = document.createElement("strong");
-    placeTitle.textContent = "기존 108장 장소 슬롯";
-    const placeDescription = document.createElement("p");
-    placeDescription.textContent =
-      "기존 worldDex 슬롯 ID와 수집완료 상태, 대표 카드 변경값을 그대로 유지합니다.";
-    placeHeading.append(placeKicker, placeTitle, placeDescription);
-    binder.append(placeHeading);
-
-    const pages = generation.pages?.length
-      ? generation.pages
-      : [{ id: "page1", label: "PLACE PAGE", title: "장소 카드 페이지", description: generation.tagline, phases: generation.phases.map((phase) => phase.id) }];
-
-    pages.forEach((page, index) => {
-      binder.append(renderBinderPage(generation, page, index));
-    });
-
+    binder.append(renderStoryJourney(generation));
     updateProgress();
   }
 

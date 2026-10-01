@@ -359,21 +359,20 @@
 }
 
 
-/* 월드탐험 v5: 장소 슬롯은 그대로 두고 원본 도감 참조를 탐험 인덱스로 확장한다. */
-.world-reference-index {
-  margin: 0 0 26px;
+/* 월드탐험 v6: 스토리 챕터 안에서 장소·포켓몬·인물을 같은 카드 흐름으로 배치한다. */
+.world-journey {
+  margin: 0;
   padding: 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,249,253,.98));
 }
 
-.world-reference-intro {
-  margin-bottom: 20px;
+.world-journey-intro {
+  margin-bottom: 22px;
 }
 
-.world-reference-intro > span,
-.world-place-heading > span {
+.world-journey-intro > span {
   display: block;
   color: var(--red);
   font-size: .64rem;
@@ -381,56 +380,74 @@
   letter-spacing: .12em;
 }
 
-.world-reference-intro > strong,
-.world-place-heading > strong {
+.world-journey-intro > strong {
   display: block;
   margin-top: 5px;
   color: var(--ink);
   font-size: 1.08rem;
 }
 
-.world-reference-intro > p,
-.world-place-heading > p {
+.world-journey-intro > p,
+.world-journey-note {
   margin: 7px 0 0;
   color: var(--ink-faint);
   font-size: .68rem;
   line-height: 1.55;
 }
 
-.world-reference-group + .world-reference-group {
-  margin-top: 22px;
+.world-journey-chapter + .world-journey-chapter {
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
 }
 
-.world-reference-heading {
-  margin-bottom: 10px;
-}
-
-.world-reference-heading strong {
-  color: var(--ink);
-  font-size: .82rem;
-}
-
-.world-reference-heading p {
-  margin: 3px 0 0;
-  color: var(--ink-faint);
-  font-size: .62rem;
-}
-
-.world-reference-grid {
+.world-chapter-heading {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: 38px minmax(0, 1fr);
   gap: 10px;
+  align-items: start;
+  margin-bottom: 13px;
 }
 
-.world-reference-group--people .world-reference-grid {
+.world-chapter-number {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--surface-soft);
+  color: var(--red);
+  font-size: .65rem;
+  font-weight: 900;
+}
+
+.world-chapter-heading strong {
+  color: var(--ink);
+  font-size: .9rem;
+}
+
+.world-chapter-heading p {
+  margin: 4px 0 0;
+  color: var(--ink-faint);
+  font-size: .64rem;
+  line-height: 1.5;
+}
+
+.world-chapter-sequence {
+  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 11px;
+}
+
+.world-journey-card {
+  min-width: 0;
 }
 
 .world-reference-card {
-  min-width: 0;
+  display: block;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 13px;
+  border-radius: var(--radius-sm);
   background: #fff;
   color: inherit;
   text-decoration: none;
@@ -444,64 +461,19 @@
   box-shadow: var(--shadow-sm);
 }
 
-.world-reference-card > img {
+.world-reference-card .world-reference-origin {
   display: block;
-  width: 100%;
-  aspect-ratio: 63 / 88;
-  object-fit: contain;
-  background: var(--surface-soft);
-}
-
-.world-reference-card.has-image-error > img {
-  opacity: .2;
-}
-
-.world-reference-copy {
-  display: block;
-  padding: 9px;
-}
-
-.world-reference-copy > small,
-.world-reference-copy > strong,
-.world-reference-copy > span {
-  display: block;
-}
-
-.world-reference-copy > small {
-  color: var(--ink-faint);
+  overflow: hidden;
+  margin-top: 8px;
+  color: var(--blue);
   font-size: .54rem;
-  font-weight: 700;
-}
-
-.world-reference-copy > strong {
-  overflow: hidden;
-  margin-top: 3px;
-  color: var(--ink);
-  font-size: .72rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.world-reference-copy > span:not(.world-reference-badge) {
-  overflow: hidden;
-  margin-top: 2px;
-  min-height: 1.35em;
-  color: var(--ink-faint);
-  font-size: .53rem;
-  line-height: 1.35;
+  font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .world-reference-badge {
-  width: fit-content;
-  margin-top: 7px;
-  padding: 4px 6px;
-  border-radius: 999px;
-  background: var(--surface-soft);
-  color: var(--ink-faint);
-  font-size: .49rem;
-  font-weight: 800;
+  margin: 0;
 }
 
 .world-reference-badge.is-owned {
@@ -514,39 +486,26 @@
   color: #94606a;
 }
 
-.world-story-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+.world-chapter-sequence .world-card-body {
+  min-height: 145px;
 }
 
-.world-story-card {
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-  background: var(--surface-soft);
+.world-chapter-sequence .world-slot .world-selected-card,
+.world-chapter-sequence .world-slot .world-card-meta,
+.world-chapter-sequence .world-slot .world-custom-badge {
+  display: none;
 }
 
-.world-story-card > span {
-  color: var(--red);
-  font-size: .58rem;
-  font-weight: 800;
+.world-chapter-sequence .world-slot.pokemon-card.has-completion-action .card-body {
+  padding-bottom: 54px;
 }
 
-.world-story-card > strong {
-  display: block;
-  margin-top: 5px;
-  color: var(--ink);
-  font-size: .76rem;
+.world-chapter-sequence .world-reference-card .card-body {
+  padding-bottom: 12px;
 }
 
-.world-story-card > p {
-  margin: 5px 0 0;
-  color: var(--ink-faint);
-  font-size: .59rem;
-  line-height: 1.5;
-}
-
-.world-place-heading {
-  margin: 0 2px 14px;
+.world-journey-note {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
 }

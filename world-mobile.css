@@ -274,116 +274,83 @@
 }
 
 
+
 @media (max-width: 690px) {
-  .world-reference-index {
-    margin-bottom: 16px;
+  .world-journey {
     padding: 13px 10px;
     border-radius: 14px;
   }
 
-  .world-reference-intro {
-    margin-bottom: 14px;
+  .world-journey-intro {
+    margin-bottom: 16px;
   }
 
-  .world-reference-intro > strong,
-  .world-place-heading > strong {
+  .world-journey-intro > strong {
     font-size: .9rem;
   }
 
-  .world-reference-intro > p,
-  .world-place-heading > p {
-    font-size: .58rem;
+  .world-journey-intro > p,
+  .world-journey-note {
+    font-size: .57rem;
   }
 
-  .world-reference-group + .world-reference-group {
-    margin-top: 16px;
+  .world-journey-chapter + .world-journey-chapter {
+    margin-top: 20px;
+    padding-top: 18px;
   }
 
-  .world-reference-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .world-chapter-heading {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 7px;
+    margin-bottom: 9px;
+  }
+
+  .world-chapter-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    font-size: .53rem;
+  }
+
+  .world-chapter-heading strong {
+    font-size: .72rem;
+  }
+
+  .world-chapter-heading p {
+    margin-top: 2px;
+    font-size: .53rem;
+    line-height: 1.45;
+  }
+
+  .world-chapter-sequence {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
   }
 
-  .world-reference-group--people .world-reference-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .world-chapter-sequence .world-card-body {
+    min-height: 116px;
+    padding: 7px 6px 43px;
   }
 
-  .world-reference-copy {
-    padding: 7px 6px;
+  .world-chapter-sequence .world-reference-card .world-card-body {
+    min-height: 95px;
+    padding-bottom: 8px;
   }
 
-  .world-reference-copy > strong {
-    font-size: .62rem;
-  }
-
-  .world-reference-copy > small,
-  .world-reference-copy > span:not(.world-reference-badge) {
+  .world-chapter-sequence .world-reference-origin {
+    margin-top: 5px;
     font-size: .47rem;
   }
 
-  .world-reference-badge {
-    margin-top: 5px;
-    padding: 3px 5px;
-    font-size: .43rem;
+  .world-chapter-sequence .world-reference-card .missing-overlay {
+    top: 6px;
+    left: 6px;
+    padding: 4px 5px;
+    font-size: .48rem;
   }
 
-  .world-story-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .world-story-card {
-    width: 100%;
-    min-width: 0;
-    min-height: 0;
-    height: auto;
-    max-width: 100%;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 30px minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    column-gap: 8px;
-    row-gap: 2px;
-    align-items: start;
-    padding: 9px 10px;
-    overflow: hidden;
-  }
-
-  .world-story-card > span {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    align-self: start;
-    margin-top: 1px;
-    font-size: .52rem;
-    line-height: 1.25;
-  }
-
-  .world-story-card > strong {
-    grid-column: 2;
-    grid-row: 1;
-    min-width: 0;
-    margin-top: 0;
-    font-size: .68rem;
-    line-height: 1.35;
-  }
-
-  .world-story-card > p {
-    grid-column: 2;
-    grid-row: 2;
-    min-width: 0;
-    margin: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    color: var(--ink-faint);
-    font-size: .52rem;
-    line-height: 1.45;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-  }
-
-  .world-place-heading {
-    margin: 0 2px 10px;
+  .world-journey-note {
+    margin-top: 16px;
+    padding-top: 10px;
   }
 }
