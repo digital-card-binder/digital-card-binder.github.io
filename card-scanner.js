@@ -11,7 +11,6 @@
   const SDK_VERSION = "12.16.0";
   const OCR_SCRIPT = "https://cdn.jsdelivr.net/npm/tesseract.js@6.0.0/dist/tesseract.min.js";
   const FIXED_COLLECTIONS = [
-    "series",
     "ar",
     "pokemon",
     "artist",
@@ -619,20 +618,69 @@
     if (!fingerprint) return [];
     const output = [];
 
-    for (const collectionId of FIXED_COLLECTIONS) {
+    if (Number.isInteger(card.accountIndex)) {
+      const group = { code: card.setCode };
+      const sourceCard = {
+        code: card.rawCode,
+        meta: card.meta,
+        accountIndex: card.accountIndex,
+      };
+      const key = registry.cardIdentity("series", group, sourceCard, 0, card.accountIndex);
+      output.push({
+        id: "series:" + key,
+        collectionId: "series",
+        key,
+        title: registry.COLLECTIONS?.series?.title || "시리즈 도감",
+        groupName: [card.setCode, card.setTitle].filter(Boolean).join(" · "),
+        mode: "fixed",
+        owned: false,
+        baselineOwned: Boolean(card.baselineOwned),
+        defaultSelected: true,
+      });
+    } else {
+      const groups = await groupsForCollection("series");
+      groups.forEach((group, groupIndex) => {
+        (group.cards || []).forEach((candidate, cardIndex) => {
+          if (fingerprintForCollectionCard("series", group, candidate) !== fingerprint) return;
+          const key = registry.cardIdentity("series", group, candidate, groupIndex, cardIndex);
+          output.push({
+            id: "series:" + key,
+            collectionId: "series",
+            key,
+            title: registry.COLLECTIONS?.series?.title || "시리즈 도감",
+            groupName: groupName("series", group),
+            mode: "fixed",
+            owned: false,
+            baselineOwned: Boolean(candidate.owned),
+            defaultSelected: true,
+          });
+        });
+      });
+    }
+
+    const collections = FIXED_COLLECTIONS.filter((collectionId) => {
+      if (collectionId === "pokemon" && !clean(card.pokemonName)) return false;
+      if (collectionId === "artist" && !(card.illustrators || []).length) return false;
+      if (collectionId === "trainerPokemon" && !(card.trainers || []).length) return false;
+      return true;
+    });
+
+    for (const collectionId of collections) {
       const groups = await groupsForCollection(collectionId);
       groups.forEach((group, groupIndex) => {
         (group.cards || []).forEach((candidate, cardIndex) => {
           if (fingerprintForCollectionCard(collectionId, group, candidate) !== fingerprint) return;
+          const key = registry.cardIdentity(collectionId, group, candidate, groupIndex, cardIndex);
           output.push({
-            id: collectionId + ":" + registry.cardIdentity(collectionId, group, candidate, groupIndex, cardIndex),
+            id: collectionId + ":" + key,
             collectionId,
-            key: registry.cardIdentity(collectionId, group, candidate, groupIndex, cardIndex),
+            key,
             title: registry.COLLECTIONS?.[collectionId]?.title || collectionId,
             groupName: groupName(collectionId, group),
             mode: "fixed",
             owned: false,
-            defaultSelected: collectionId === "series",
+            baselineOwned: Boolean(candidate.owned),
+            defaultSelected: false,
           });
         });
       });
@@ -649,6 +697,7 @@
         groupName: "#" + String(pokemon.number).padStart(4, "0") + " " + pokemon.nameKo + " · 이 카드를 대표카드로 등록",
         mode: "representative",
         owned: false,
+        baselineOwned: false,
         defaultSelected: false,
       });
     }
@@ -692,10 +741,7 @@
   async function readDocument(documentId) {
     if (state.documentCache.has(documentId)) return state.documentCache.get(documentId);
     await ensureFirebase();
-    if (!state.user) {
-      state.documentCache.set(documentId, {});
-      return {};
-    }
+    if (!state.user) return {};
     const ref = accountCore.documentRef(
       state.firebase.firestoreModule,
       state.firebase.db,
@@ -703,39 +749,75 @@
       CONFIG,
       documentId,
     );
-    const snapshot = await accountCore.readCollectionSnapshot(
-      state.firebase.firestoreModule,
-      ref,
-      { preferServer: true },
-    );
+    const snapshot = await state.firebase.firestoreModule.getDoc(ref);
     const data = snapshot.exists() ? snapshot.data() || {} : {};
     state.documentCache.set(documentId, data);
     return data;
+  }
+
+  function overrideOwned(value) {
+    if (typeof value === "boolean") return value;
+    return Boolean(value && typeof value === "object" && !Array.isArray(value) && value.owned);
+  }
+
+  async function existingOverride(documentId, key) {
+    await ensureFirebase();
+    if (!state.user) return null;
+    const ref = accountCore.documentRef(
+      state.firebase.firestoreModule,
+      state.firebase.db,
+      state.user,
+      CONFIG,
+      documentId,
+    );
+
+    if (accountCore.usesOverrideShards(documentId)) {
+      const shard = state.firebase.firestoreModule.doc(
+        ref,
+        "overrideShards",
+        accountCore.overrideShardId(key),
+      );
+      const snapshot = await state.firebase.firestoreModule.getDoc(shard);
+      const overrides = snapshot.exists() ? snapshot.data()?.overrides || {} : {};
+      return Object.prototype.hasOwnProperty.call(overrides, key)
+        ? overrides[key]
+        : null;
+    }
+
+    const data = await readDocument(documentId);
+    const overrides =
+      data?.overrides && typeof data.overrides === "object" && !Array.isArray(data.overrides)
+        ? data.overrides
+        : {};
+    return Object.prototype.hasOwnProperty.call(overrides, key)
+      ? overrides[key]
+      : null;
   }
 
   async function applyOwnedState(memberships) {
     await ensureFirebase().catch(() => null);
     if (!state.user) return memberships;
 
-    const documentIds = [...new Set(
-      memberships
-        .map((item) => registry.COLLECTIONS?.[item.collectionId]?.documentId)
-        .filter(Boolean),
-    )];
-    await Promise.all(documentIds.map((id) => readDocument(id).catch(() => ({}))));
-
-    const byCollection = new Map();
     for (const membership of memberships) {
-      if (!byCollection.has(membership.collectionId)) {
-        const meta = registry.COLLECTIONS?.[membership.collectionId];
-        const doc = meta?.documentId ? state.documentCache.get(meta.documentId) || {} : {};
-        const ownership = await registry.ownershipFor(membership.collectionId, doc).catch(() => null);
-        byCollection.set(
-          membership.collectionId,
-          new Set(ownership?.ownedKeys || []),
-        );
+      const meta = registry.COLLECTIONS?.[membership.collectionId];
+      if (!meta?.documentId) continue;
+
+      if (membership.collectionId === "national") {
+        const data = await readDocument(meta.documentId).catch(() => ({}));
+        const value = data?.overrides?.[membership.key];
+        membership.owned = Object.prototype.hasOwnProperty.call(data?.overrides || {}, membership.key)
+          ? overrideOwned(value)
+          : data?.baseMode === "legacy" && Boolean(membership.baselineOwned);
+        continue;
       }
-      membership.owned = byCollection.get(membership.collectionId).has(membership.key);
+
+      const value = await existingOverride(meta.documentId, membership.key).catch(() => null);
+      if (value !== null) {
+        membership.owned = overrideOwned(value);
+        continue;
+      }
+      const root = await readDocument(meta.documentId).catch(() => ({}));
+      membership.owned = root?.baseMode === "legacy" && Boolean(membership.baselineOwned);
     }
     return memberships;
   }
@@ -852,13 +934,7 @@
     const meta = registry.COLLECTIONS?.[membership.collectionId];
     if (!meta?.documentId) throw new Error("저장 위치를 확인할 수 없습니다.");
     const ref = await ensureRootDocument(meta.documentId);
-    const source = await readDocument(meta.documentId).catch(() => ({}));
-    const previous =
-      source?.overrides &&
-      typeof source.overrides === "object" &&
-      !Array.isArray(source.overrides)
-        ? source.overrides[membership.key]
-        : null;
+    const previous = await existingOverride(meta.documentId, membership.key).catch(() => null);
 
     const value = {
       ...(previous && typeof previous === "object" && !Array.isArray(previous) ? previous : {}),
