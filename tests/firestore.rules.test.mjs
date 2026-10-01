@@ -6,6 +6,7 @@ import {
 import {
   addDoc,
   Bytes,
+  FieldPath,
   collection,
   deleteDoc,
   doc,
@@ -1095,6 +1096,17 @@ test("custom binder work is private, size-bounded, and isolated from collection 
 
   await assertSucceeds(setDoc(binderRef, binder));
   await assertSucceeds(getDoc(binderRef));
+  for (const patch of [
+    { grid: { ...binder.grid, cols: 99 } },
+    { grid: { ...binder.grid, canvasWidthMm: 100 } },
+    { background: { ...binder.background, type: "text/html" } },
+    { background: { ...binder.background, size: 10485761 } },
+    { background: { ...binder.background, chunkCount: 0 } },
+  ]) {
+    await assertFails(updateDoc(binderRef, { ...patch, updatedAt: serverTimestamp() }));
+  }
+  await assertSucceeds(updateDoc(binderRef, { title: "Compatible edit", updatedAt: serverTimestamp() }));
+
   await assertFails(
     getDoc(doc(bob, "users", ALICE_UID, "customBinders", "binder_test")),
   );
@@ -1162,4 +1174,31 @@ test("custom binder work is private, size-bounded, and isolated from collection 
       { merge: true },
     ),
   );
+});
+
+
+test("large catalog shards are private, additive and support safe nested card updates", async () => {
+  const reference = doc(alice, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "s00");
+  await assertSucceeds(setDoc(reference, {
+    schemaVersion: 1, overrides: { existing: { owned: true } }, updatedAt: serverTimestamp(),
+  }));
+  await assertSucceeds(updateDoc(reference, { "overrides.next": { owned: false }, updatedAt: serverTimestamp() }));
+  const rgbKey = "M6a::m6a_R/RGB::165";
+  await assertSucceeds(setDoc(reference, {
+    schemaVersion: 1, overrides: { [rgbKey]: { owned: true, printVariants: ["normal"] } }, updatedAt: serverTimestamp(),
+  }, { mergeFields: ["schemaVersion", new FieldPath("overrides", rgbKey), "updatedAt"] }));
+  const snapshot = await assertSucceeds(getDoc(reference));
+  assert.equal(snapshot.data().overrides.existing.owned, true);
+  assert.equal(snapshot.data().overrides.next.owned, false);
+  await assertSucceeds(getDocs(collection(alice, "users", ALICE_UID, "collections", "seriesDex", "overrideShards")));
+  await assertFails(getDoc(doc(bob, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "s00")));
+  await assertFails(getDoc(doc(guest, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "s00")));
+  await assertFails(setDoc(doc(bob, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "s00"), { schemaVersion: 1, overrides: {}, updatedAt: serverTimestamp() }));
+  await assertFails(setDoc(reference, {
+    schemaVersion: 1, overrides: Object.fromEntries(Array.from({ length: 2001 }, (_, i) => [`key${i}`, true])), updatedAt: serverTimestamp(),
+  }));
+  await assertFails(deleteDoc(reference));
+  await assertFails(setDoc(doc(alice, "users", ALICE_UID, "collections", "worldDex", "overrideShards", "s00"), { schemaVersion: 1, overrides: {}, updatedAt: serverTimestamp() }));
+  await assertFails(setDoc(doc(alice, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "sff"), { schemaVersion: 1, overrides: {}, updatedAt: serverTimestamp() }));
+  await assertFails(setDoc(reference, { schemaVersion: 1, overrides: [true, false], updatedAt: serverTimestamp() }));
 });
