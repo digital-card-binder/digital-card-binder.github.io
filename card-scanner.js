@@ -685,6 +685,7 @@
     const result = await firebase.authModule.signInWithPopup(firebase.auth, provider);
     state.user = result.user || firebase.auth.currentUser;
     if (!state.user) throw new Error("Google 로그인 후 다시 시도해 주세요.");
+    state.documentCache.clear();
     return state.user;
   }
 
@@ -982,8 +983,11 @@
       return;
     }
 
-    if (window.CollectorPublicView?.requested) {
-      setStatus("공개 도감 보기에서는 보유 상태를 수정할 수 없습니다.", "error");
+    if (
+      window.CollectorPublicView?.requested ||
+      window.PokemonDexSharedReadonly?.isActive?.(state.user)
+    ) {
+      setStatus("읽기 전용 화면에서는 보유 상태를 수정할 수 없습니다.", "error");
       return;
     }
 
