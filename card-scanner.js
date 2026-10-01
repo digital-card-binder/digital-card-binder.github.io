@@ -702,6 +702,45 @@
       });
     }
 
+    await ensureFirebase().catch(() => null);
+    if (state.user) {
+      const customDocument = await readDocument("pokemonCollectionsDex").catch(() => ({}));
+      const customDexes =
+        customDocument?.customDexes &&
+        typeof customDocument.customDexes === "object" &&
+        !Array.isArray(customDocument.customDexes)
+          ? customDocument.customDexes
+          : {};
+
+      Object.entries(customDexes).forEach(([dexId, dex]) => {
+        const entries = Array.isArray(dex?.cards) ? dex.cards : [];
+        entries.forEach((entry) => {
+          const entryFingerprint = entry?.manual
+            ? cardFingerprint(entry.manual.setCode, entry.manual.cardNumber)
+            : (() => {
+                const parts = clean(entry?.key).split("::");
+                return parts.length >= 2
+                  ? cardFingerprint(parts[0], parts.slice(1).join("::"))
+                  : "";
+              })();
+          if (!entryFingerprint || entryFingerprint !== fingerprint) return;
+
+          output.push({
+            id: "custom:" + dexId + ":" + clean(entry.key),
+            collectionId: "custom",
+            key: clean(entry.key),
+            title: "나만의 도감",
+            groupName: clean(dex?.title) || "커스텀 도감",
+            mode: "custom",
+            customDexId: dexId,
+            owned: Boolean(entry.owned),
+            baselineOwned: false,
+            defaultSelected: false,
+          });
+        });
+      });
+    }
+
     return output;
   }
 
@@ -977,6 +1016,64 @@
     state.documentCache.delete(meta.documentId);
   }
 
+  async function writeCustomMembership(membership) {
+    const firebase = await ensureFirebase();
+    const user = await ensureSignedIn();
+    const documentId = "pokemonCollectionsDex";
+    const ref = await ensureRootDocument(documentId);
+    const source = await readDocument(documentId).catch(() => ({}));
+    const customDexes =
+      source?.customDexes &&
+      typeof source.customDexes === "object" &&
+      !Array.isArray(source.customDexes)
+        ? source.customDexes
+        : {};
+    const dex = customDexes[membership.customDexId];
+    if (!dex || !Array.isArray(dex.cards)) {
+      throw new Error("나만의 도감에서 해당 카드를 찾지 못했습니다.");
+    }
+
+    let found = false;
+    const cards = dex.cards.map((entry) => {
+      if (clean(entry?.key) !== membership.key) return entry;
+      found = true;
+      return { ...entry, owned: true };
+    });
+    if (!found) throw new Error("나만의 도감에서 해당 카드를 찾지 못했습니다.");
+
+    const nextDex = {
+      ...dex,
+      cards,
+      updatedAt: new Date().toISOString(),
+    };
+
+    await firebase.firestoreModule.setDoc(
+      ref,
+      {
+        customDexes: { [membership.customDexId]: nextDex },
+        updatedAt: firebase.firestoreModule.serverTimestamp(),
+      },
+      {
+        mergeFields: [
+          new firebase.firestoreModule.FieldPath("customDexes", membership.customDexId),
+          "updatedAt",
+        ],
+      },
+    );
+
+    membership.owned = true;
+    state.documentCache.delete(documentId);
+    window.dispatchEvent(
+      new CustomEvent("pokemon-dex:custom-changed", {
+        detail: {
+          dexId: membership.customDexId,
+          key: membership.key,
+          source: "card-scanner",
+        },
+      }),
+    );
+  }
+
   async function writeNationalRepresentative(membership) {
     const firebase = await ensureFirebase();
     const user = await ensureSignedIn();
@@ -1079,11 +1176,15 @@
       for (const membership of targets) {
         if (membership.mode === "representative") {
           await writeNationalRepresentative(membership);
+        } else if (membership.mode === "custom") {
+          await writeCustomMembership(membership);
         } else {
           await writeFixedMembership(membership);
         }
         completed += 1;
-        changed.push(membership.collectionId);
+        if (membership.collectionId !== "custom") {
+          changed.push(membership.collectionId);
+        }
         setProgress(12 + Math.round((completed / targets.length) * 72));
         window.dispatchEvent(
           new CustomEvent("pokemon-dex:collection-changed", {
