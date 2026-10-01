@@ -12,8 +12,10 @@ test("series and AR use single-entry Firestore writes without migrating user dat
 
   assert.ok(start >= 0 && end > start, "saveOverride block must exist");
   assert.match(block, /const isLargeFixedCatalog = mode === "series" \|\| mode === "ar"/);
-  assert.match(block, /firestoreModule\.updateDoc\(/);
-  assert.match(block, /new firestoreModule\.FieldPath\("overrides", key\)/);
+  assert.match(block, /accountCore\.writeOverrideEntry\(/);
+  const core = await read("core/account/firebase-account.js");
+  assert.match(core, /new firestoreModule\.FieldPath\("overrides", key\)/);
+  assert.match(core, /mergeFields/);
   assert.match(block, /const savedItem = \{[\s\S]*?\.\.\.item,[\s\S]*?updatedAt:[\s\S]*?updatedBy:/);
   assert.match(block, /remoteOverrides = nextOverrides/);
   assert.equal(block.includes("deleteField"), false, "must not delete override entries");

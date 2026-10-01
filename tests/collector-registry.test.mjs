@@ -629,6 +629,6 @@ test("world registry preserves all legacy place account keys and appends standal
     const legacyKey = registry.cardIdentity("world", group, group.cards[index], 0, index);
     assert.ok(catalog.itemMap.has(legacyKey), `legacy world key missing: ${legacyKey}`);
   }
-  assert.ok(catalog.items.some((item) => item.name.includes("포켓몬")));
-  assert.ok(catalog.items.some((item) => item.name.includes("인물")));
+  assert.ok(catalog.items.some((item) => item.key.includes("world-pokemon-") && item.name === "피카츄"));
+  assert.ok(catalog.items.some((item) => item.key.includes("world-person-") && item.name === "레드"));
 });

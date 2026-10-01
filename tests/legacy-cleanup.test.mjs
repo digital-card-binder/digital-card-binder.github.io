@@ -17,9 +17,11 @@ test("retired navigation and temporary diagnostic artifacts stay removed", async
 
 test("collector-nav is the only runtime navigation writer", async () => {
   const collectorNav = await source("collector-nav.js");
-  assert.match(collectorNav, /nav[.]replaceChildren\(/);
-  assert.match(collectorNav, /navigationSection\("주요 도감"\)/);
-  assert.match(collectorNav, /navigationSection\("테마 도감"\)/);
+  assert.match(collectorNav, /function normalizeNavigationState\(nav\)/);
+  assert.match(collectorNav, /function buildNavigationAccordion\(nav\)/);
+  const shell = await source("scripts/sync-site-shell.mjs");
+  assert.match(shell, /section: "주요 도감"/);
+  assert.match(shell, /section: "테마 도감"/);
 
   for (const path of [
     "firebase-config.js",

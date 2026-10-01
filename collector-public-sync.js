@@ -84,7 +84,9 @@
       collectionId,
       settingSnapshot.exists() ? settingSnapshot.data() || {} : null,
     );
-    const source = sourceDocumentFromSnapshot(sourceSnapshot, user);
+    const reference = sourceRef(firestoreModule, db, user.uid, collectionId);
+    const shards = await window.DigitalCardBinder.firebaseAccount.readOverrideShards(firestoreModule, reference, { preferServer });
+    const source = window.DigitalCardBinder.firebaseAccount.mergedCollectionData(sourceDocumentFromSnapshot(sourceSnapshot, user), shards);
     return { profile, setting, source };
   }
 

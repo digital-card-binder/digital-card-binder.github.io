@@ -97,6 +97,15 @@
     return merged;
   }
 
+  // Verified image labels. Stored catalog records and ownership identities stay intact.
+  const REVIEWED_CARD_NAMES = Object.freeze({
+    "sv5m_033/071": "에블리",
+    "sv5m_034/071": "에리본",
+  });
+  function reviewedCardName(code, fallback) {
+    return REVIEWED_CARD_NAMES[clean(code).toLowerCase()] || fallback;
+  }
+
   function applySeriesImageOverrides(groups, payload) {
     const sets = payload?.sets && typeof payload.sets === "object"
       ? payload.sets
@@ -112,6 +121,9 @@
         card.image = image;
         card.originalImage = image;
       }
+    }
+    for (const group of asGroups(groups)) {
+      for (const card of group.cards || []) card.name = reviewedCardName(card.code, card.name);
     }
     return groups;
   }
@@ -130,6 +142,12 @@
         if (!image) continue;
         entry[3] = image;
         if (entry.length > 8) entry[8] = image;
+      }
+    }
+    for (const group of payload?.groups || []) {
+      for (const entry of group[4] || []) {
+        const name = REVIEWED_CARD_NAMES[clean(entry[0]).toLowerCase()];
+        if (name) { entry[1] = name; entry[2] = name; }
       }
     }
     return payload;
@@ -176,6 +194,54 @@
     return applySearchImageOverrides(payload, imageOverrides);
   }
 
+  // Reference metadata only: each world item keeps its independent worldDex key.
+  async function worldGroups() {
+    const [world, pokedex, people] = await Promise.all([
+      json("./data/world-exploration.json"),
+      json("./data/pokedex.json"),
+      json("./data/people.json"),
+    ]);
+    const pokemonMap = new Map((pokedex.records || []).map((item) => [Number(item.number), item]));
+    const personMap = new Map((people.people || []).map((item) => [item.id, item]));
+    return (world.generations || []).map((generation) => {
+      const slots = [
+        ...(generation.slots || []).map((slot, accountIndex) => ({ ...slot, accountIndex })),
+        ...(generation.pokemonRefs || []).map((number, index) => {
+          const source = pokemonMap.get(Number(number)) || {};
+          return {
+            id: `world-pokemon-${String(Number(number)).padStart(4, "0")}`,
+            worldType: "pokemon",
+            title: source.nameKo || source.nameEn || `포켓몬 #${number}`,
+            subtitle: `#${String(Number(number)).padStart(4, "0")} · ${source.nameEn || ""}`,
+            accountIndex: 12 + index,
+            card: { image: source.imageUrl || "", name: source.nameKo || source.nameEn || "" },
+          };
+        }),
+        ...(generation.peopleRefs || []).map((id, index) => {
+          const source = personMap.get(id) || {};
+          const card = source.cards?.[0] || {};
+          return {
+            id: `world-person-${id}`,
+            worldType: "person",
+            title: source.nameKo || source.nameEn || id,
+            subtitle: source.role || source.affiliation || source.nameEn || "",
+            accountIndex: 18 + index,
+            card: { ...card, image: card.imageLarge || card.image || source.imageLarge || source.image || "" },
+          };
+        }),
+      ];
+      return {
+        code: `generation-${generation.generation}`,
+        name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
+        cards: slots.map((slot) => ({
+          code: slot.id, slotId: slot.id, name: slot.title,
+          image: slot.card?.image || "", owned: false,
+          accountIndex: slot.accountIndex, slot,
+        })),
+      };
+    });
+  }
+
   root.catalog = Object.freeze({
     catalogMetrics: CATALOG_METRICS,
     metric(collectionId) {
@@ -188,5 +254,6 @@
     ar,
     series,
     pokemonSearchIndex,
+    worldGroups,
   });
 })();

@@ -53,6 +53,6 @@ test("backup includes Studio custom binders and active background chunks", () =>
   assert.match(client, /collection\(binderSnapshot[.]ref, "chunks"\)/);
   assert.match(client, /data[.]data[?][.]toBase64[?][.]\(\)/);
   assert.match(client, /Bytes[.]fromBase64String\(chunk[.]dataBase64\)/);
-  assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\]\)/);
+  assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\], batch\)/);
   assert.match(client, /expectedChunkCount !== binder[.]chunks[.]length/);
 });

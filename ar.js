@@ -141,13 +141,14 @@ function normalizeGroups(sourceGroups) {
 
   allCards = groups.flatMap((group) => group.cards);
 
+  const populatedGroupCount = groups.filter((group) => group.cards.length > 0).length;
   const isCurrent =
-    (!EXPECTED_GROUPS || groups.length === EXPECTED_GROUPS) &&
+    (!EXPECTED_GROUPS || populatedGroupCount === EXPECTED_GROUPS) &&
     (!EXPECTED_TOTAL || allCards.length === EXPECTED_TOTAL);
 
   if (!isCurrent) {
     console.warn(
-      `AR 데이터 수가 예상과 다릅니다: ${groups.length}세트 ${allCards.length}장`,
+      `AR 데이터 수가 예상과 다릅니다: ${populatedGroupCount}세트 ${allCards.length}장`,
     );
   }
 }
@@ -255,7 +256,7 @@ function refreshCounts() {
   setText("catalog-total", total);
   setText("catalog-missing", total - owned);
   setText("catalog-rate", `${rate}%`);
-  setText("stat-catalog-groups", groups.length);
+  setText("stat-catalog-groups", groups.filter((group) => group.cards.length > 0).length);
   setText("stat-catalog-total", total);
   setText("stat-catalog-rate", rate);
   setText("ar-footer-note", `포켓몬코리아 카드번호 기준 · 세트별 카드번호 오름차순 · ${total}장`);

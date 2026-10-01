@@ -1261,8 +1261,10 @@
     const binderId = state.currentBinderId || makeId("binder");
     const reference = binderRef(binderId);
     const draft = draftSnapshot();
-
     try {
+      if (!state.sourceWidth || !state.sourceHeight || state.sourceWidth > 20000 || state.sourceHeight > 20000) {
+        throw new Error("배경 이미지의 가로·세로는 1~20,000px이어야 합니다.");
+      }
       let chunkCount = state.currentChunkCount;
       let chunkSet = state.currentChunkSet;
       const previousChunkSet = state.currentChunkSet;
@@ -1282,7 +1284,7 @@
         title,
         grid: draft.grid,
         background: {
-          name: clean(state.sourceFile?.name) || "background.webp",
+          name: (clean(state.sourceFile?.name) || "background.webp").slice(0, 180),
           type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
           size: state.sourceBlob.size,
           chunkCount,

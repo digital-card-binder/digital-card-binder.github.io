@@ -625,8 +625,8 @@ service cloud.firestore {
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 1
         && request.resource.data.title.size() <= 60
-        && request.resource.data.grid is map
-        && request.resource.data.background is map
+        && validCustomBinderGrid(request.resource.data.grid)
+        && validCustomBinderBackground(request.resource.data.background)
         && request.resource.data.cards is list
         && request.resource.data.cards.size() <= 16
         && request.resource.data.updatedAt == request.time;
@@ -1447,6 +1447,23 @@ service cloud.firestore {
 
       allow delete: if ownsDocument(userId)
         && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
     }
 
     // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.

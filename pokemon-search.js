@@ -331,43 +331,34 @@
     return match?.[1] || "";
   }
 
-  async function addWorldOwnership(index) {
-    let ownedIds = [];
-    let overrides = {};
+  async function addWorldOwnership(index, documentData = null) {
     try {
-      const savedOwned = JSON.parse(
-        localStorage.getItem("digitalCardBinderWorldExplorationOwnedV1") || "[]",
-      );
-      ownedIds = Array.isArray(savedOwned) ? savedOwned : [];
-      const savedOverrides = JSON.parse(
-        localStorage.getItem("digitalCardBinderWorldExplorationCardOverridesV1") || "{}",
-      );
-      overrides =
-        savedOverrides && typeof savedOverrides === "object" && !Array.isArray(savedOverrides)
-          ? savedOverrides
-          : {};
-    } catch {
-      return;
-    }
-    if (!ownedIds.length) return;
-
-    try {
-      const data = await catalogService.json("./data/world-exploration.json");
-      const slotMap = new Map();
-      (data?.generations || []).forEach((generation) => {
-        (generation?.slots || []).forEach((slot) => slotMap.set(slot.id, slot));
-      });
-
-      ownedIds.forEach((slotId) => {
-        const slot = slotMap.get(slotId);
-        if (!slot) return;
-        const override = overrides[slotId] || {};
-        const setCode =
-          clean(override.setCode) ||
-          inferSetCodeFromImage(override.image || slot.card?.image);
-        const cardNumberValue = clean(override.number || slot.card?.number);
-        addOwnershipSource(index, setCode, cardNumberValue, "월드탐험도감");
-      });
+      const groups = await catalogService.worldGroups();
+      const registry = window.CollectorCollectionRegistry;
+      const catalog = await registry.loadCatalog("world");
+      const effective = documentData
+        ? registry.resolveOverrides("world", catalog, documentData.overrides || {}).effectiveOverrides
+        : {};
+      let ownedIds = new Set();
+      let localOverrides = {};
+      // A signed-in account uses worldDex, never another account's browser cache.
+      if (!documentData && !window.PokemonDexPageAccount?.currentUser) {
+        const saved = JSON.parse(localStorage.getItem("digitalCardBinderWorldExplorationOwnedV1") || "[]");
+        ownedIds = new Set(Array.isArray(saved) ? saved : []);
+        localOverrides = JSON.parse(localStorage.getItem("digitalCardBinderWorldExplorationCardOverridesV1") || "{}");
+      }
+      groups.forEach((group, groupIndex) => group.cards.forEach((card, cardIndex) => {
+        const key = registry.cardIdentity("world", group, card, groupIndex, cardIndex);
+        const remote = effective[key];
+        const owned = documentData ? remote === true || remote?.owned === true : ownedIds.has(card.slotId);
+        if (!owned) return;
+        const override = documentData ? remote || {} : localOverrides?.[card.slotId] || {};
+        const base = card.slot?.card || {};
+        const image = override.imageUrl || override.image || card.image;
+        const setCode = clean(override.setCode || base.setCode) || inferSetCodeFromImage(image);
+        const number = clean(override.cardNumber || override.number || base.number) || inferCardNumberFromImage(image);
+        addOwnershipSource(index, setCode, number, "월드탐험도감");
+      }));
     } catch (error) {
       console.warn("월드탐험도감 보유 상태를 검색에 반영하지 못했습니다.", error);
     }
@@ -378,16 +369,19 @@
     const account = window.PokemonDexPageAccount;
     const registry = window.CollectorCollectionRegistry;
 
+    let world = null;
     if (account?.currentUser && typeof account.readCollectionDocument === "function") {
       const nationalDocumentId =
         registry?.COLLECTIONS?.national?.documentId || "nationalDex";
-      const [national, artist, pokemon, ar] = await Promise.all([
+      const [national, artist, pokemon, ar, worldDocument] = await Promise.all([
         account.readCollectionDocument(nationalDocumentId),
         account.readCollectionDocument("artistDex"),
         account.readCollectionDocument("pokemonCollectionsDex"),
         account.readCollectionDocument("arDex"),
+        account.readCollectionDocument("worldDex"),
       ]);
 
+      world = worldDocument;
       if (national) {
         addNationalOwnership(index, national);
         addPeopleOwnership(index, national);
@@ -397,7 +391,7 @@
       if (ar) addArOwnership(index, ar);
     }
 
-    await addWorldOwnership(index);
+    await addWorldOwnership(index, world);
     return index;
   }
 

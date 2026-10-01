@@ -421,7 +421,7 @@
           user.uid,
           collectionId,
         );
-        byDocument.set(documentId, firebase.firestoreModule.getDoc(reference));
+        byDocument.set(documentId, window.DigitalCardBinder.firebaseAccount.readCollectionSnapshot(firebase.firestoreModule, reference));
       }
     }
 

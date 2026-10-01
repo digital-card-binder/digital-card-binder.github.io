@@ -194,6 +194,11 @@
         const data = await readCollection(documentId);
         if (data) documents[documentId] = data;
       }
+      const overrideShards = {};
+      for (const documentId of DOCUMENT_IDS.filter(accountCore.usesOverrideShards)) {
+        const reference = accountCore.documentRef(state.firebase.firestoreModule, state.firebase.db, state.user, CONFIG, documentId);
+        overrideShards[documentId] = await accountCore.readOverrideShards(state.firebase.firestoreModule, reference, { preferServer: true });
+      }
       const customBinders = await readCustomBinders();
       let siteVersion = "";
       try {
@@ -213,6 +218,7 @@
         createdAt: new Date().toISOString(),
         siteVersion,
         documents,
+        overrideShards,
         local,
         customBinders,
       };
@@ -250,6 +256,7 @@
       throw new Error("백업의 커스텀 바인더 목록이 올바르지 않습니다.");
     }
 
+    const seenBinders = new Set();
     for (const binder of binders) {
       if (
         !binder ||
@@ -258,6 +265,8 @@
       ) {
         throw new Error("백업의 커스텀 바인더 ID가 올바르지 않습니다.");
       }
+      if (seenBinders.has(binder.id)) throw new Error("백업에 중복된 바인더 ID가 있습니다.");
+      seenBinders.add(binder.id);
       const metadata = binder.metadata;
       if (
         !metadata ||
@@ -275,12 +284,28 @@
         throw new Error(`커스텀 바인더 ‘${binder.id}’의 메타데이터가 올바르지 않습니다.`);
       }
 
-      if (!Array.isArray(binder.chunks) || binder.chunks.length > 24) {
+      const grid = metadata.grid;
+      const background = metadata.background;
+      if (!((grid.cols === 3 && [3, 4].includes(grid.rows)) || (grid.cols === 4 && grid.rows === 4))
+        || grid.slotCount !== grid.cols * grid.rows || grid.cardWidthMm !== 63 || grid.cardHeightMm !== 88
+        || grid.canvasWidthMm !== grid.cols * 63 || grid.canvasHeightMm !== grid.rows * 88
+        || Object.keys(grid).some((key) => !["cols", "rows", "slotCount", "cardWidthMm", "cardHeightMm", "canvasWidthMm", "canvasHeightMm"].includes(key))
+        || typeof background.name !== "string" || !background.name.length || background.name.length > 180
+        || !["image/png", "image/jpeg", "image/webp"].includes(background.type)
+        || !Number.isInteger(background.size) || background.size < 1 || background.size > 10485760
+        || !Number.isInteger(background.width) || background.width < 1 || background.width > 20000
+        || !Number.isInteger(background.height) || background.height < 1 || background.height > 20000
+        || Object.keys(background).some((key) => !["name", "type", "size", "chunkCount", "chunkSet", "width", "height"].includes(key))) {
+        throw new Error(`커스텀 바인더 ‘${binder.id}’의 그리드/배경 정보가 올바르지 않습니다.`);
+      }
+      if (!Array.isArray(binder.chunks) || !binder.chunks.length || binder.chunks.length > 24) {
         throw new Error(`커스텀 바인더 ‘${binder.id}’의 이미지 조각이 올바르지 않습니다.`);
       }
       const activeChunkSet = String(metadata.background.chunkSet || "");
       const expectedChunkCount = Number(metadata.background.chunkCount || 0);
       const seenIndexes = new Set();
+      const seenChunkIds = new Set();
+      let totalBytes = 0;
       for (const chunk of binder.chunks) {
         const validChunk = chunk
           && /^[A-Za-z0-9_-]{12,90}$/.test(String(chunk.id || ""))
@@ -297,13 +322,20 @@
           && typeof chunk.dataBase64 === "string"
           && chunk.dataBase64.length > 0
           && chunk.dataBase64.length <= 820000;
-        if (!validChunk || seenIndexes.has(chunk.index)) {
+        if (!validChunk || seenIndexes.has(chunk.index) || seenChunkIds.has(chunk.id)) {
           throw new Error(`커스텀 바인더 ‘${binder.id}’의 이미지 조각이 손상되었습니다.`);
         }
+        // Decode every chunk before any database write is permitted.
+        const bytes = state.firebase.firestoreModule.Bytes.fromBase64String(chunk.dataBase64);
+        if (bytes.toUint8Array().length !== chunk.size) {
+          throw new Error(`커스텀 바인더 ‘${binder.id}’의 이미지 조각 크기가 맞지 않습니다.`);
+        }
+        totalBytes += chunk.size;
+        seenChunkIds.add(chunk.id);
         seenIndexes.add(chunk.index);
       }
       if (
-        !activeChunkSet ||
+        !activeChunkSet || !Number.isInteger(background.chunkCount) || totalBytes !== background.size ||
         expectedChunkCount !== binder.chunks.length ||
         binder.chunks.some((chunk) => chunk.index >= expectedChunkCount)
       ) {
@@ -325,8 +357,30 @@
       throw new Error("백업의 도감 문서가 올바르지 않습니다.");
     }
     for (const key of Object.keys(payload.documents)) {
-      if (!DOCUMENT_IDS.includes(key)) {
+      if (!DOCUMENT_IDS.includes(key) || !payload.documents[key] || typeof payload.documents[key] !== "object" || Array.isArray(payload.documents[key])) {
         throw new Error(`지원하지 않는 도감 문서가 포함되어 있습니다: ${key}`);
+      }
+    }
+    if (payload.overrideShards !== undefined) {
+      if (!payload.overrideShards || typeof payload.overrideShards !== "object" || Array.isArray(payload.overrideShards)) throw new Error("백업의 분할 보유 문서가 올바르지 않습니다.");
+      for (const [documentId, shards] of Object.entries(payload.overrideShards)) {
+        if (!accountCore.usesOverrideShards(documentId) || !Array.isArray(shards) || shards.length > 128) throw new Error("지원하지 않는 분할 보유 문서입니다.");
+        const seen = new Set();
+        for (const shard of shards) {
+          if (!shard || !/^s[0-7][0-9a-f]$/.test(shard.id) || seen.has(shard.id) || shard.schemaVersion !== 1
+            || !shard.overrides || typeof shard.overrides !== "object" || Array.isArray(shard.overrides)
+            || Object.keys(shard.overrides).length > 2000) throw new Error("분할 보유 문서가 손상되었습니다.");
+          seen.add(shard.id);
+        }
+      }
+    }
+    if (payload.local !== undefined) {
+      if (!payload.local || typeof payload.local !== "object" || Array.isArray(payload.local)) throw new Error("로컬 백업이 올바르지 않습니다.");
+      for (const key of WORLD_KEYS) {
+        if (payload.local[key] === undefined) continue;
+        if (typeof payload.local[key] !== "string") throw new Error("로컬 백업이 올바르지 않습니다.");
+        const value = JSON.parse(payload.local[key]);
+        if (key === WORLD_KEYS[0] ? !Array.isArray(value) : !value || typeof value !== "object" || Array.isArray(value)) throw new Error("월드 로컬 백업이 올바르지 않습니다.");
       }
     }
     if (isCurrent) validateCustomBinderBackup(payload.customBinders);
@@ -334,74 +388,69 @@
     return payload;
   }
 
-  async function restoreCustomBinders(binders) {
-    if (!binders.length) return 0;
-    const { firestoreModule, db } = state.firebase;
-    let restored = 0;
+  function restoreDocumentWrites(payload) {
+    const writes = [];
+    const timestamp = new Date().toISOString();
+    for (const [documentId, source] of Object.entries(payload.documents)) {
+      const data = { ...source };
+      data.baseMode = source.baseMode === "legacy" && accountCore.baseMode(CONFIG, state.user) === "legacy"
+        ? "legacy" : accountCore.baseMode(CONFIG, state.user);
+      data.email = state.user.email || "";
+      data.displayName = state.user.displayName || "";
+      if (accountCore.usesOverrideShards(documentId)) {
+        const effective = accountCore.mergedCollectionData(source, payload.overrideShards?.[documentId] || []);
+        const buckets = new Map();
+        for (const [key, raw] of Object.entries(effective.overrides)) {
+          const value = typeof raw === "boolean" ? { owned: raw } : raw;
+          if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("백업의 보유 값이 올바르지 않습니다.");
+          const id = accountCore.overrideShardId(key);
+          if (!buckets.has(id)) buckets.set(id, {});
+          buckets.get(id)[key] = { ...value, updatedAt: timestamp };
+        }
+        delete data.overrides; // Do not enlarge or erase legacy root overrides.
+        for (const [shardId, overrides] of buckets) {
+          if (Object.keys(overrides).length > 2000 || new TextEncoder().encode(JSON.stringify(overrides)).length > 750000) throw new Error("복구할 분할 문서가 너무 큽니다.");
+          writes.push({ documentId, shardId, data: { schemaVersion: 1, overrides } });
+        }
+      }
+      writes.push({ documentId, data });
+    }
+    const bytes = writes.reduce((sum, write) => sum + new TextEncoder().encode(JSON.stringify(write.data)).length, 0)
+      + (payload.customBinders || []).reduce((sum, binder) => sum + new TextEncoder().encode(JSON.stringify(binder.metadata)).length, 0);
+    if (writes.length + (payload.customBinders?.length || 0) > 450 || bytes > 8 * 1024 * 1024) {
+      throw new Error("백업이 한 번에 안전하게 반영할 수 있는 크기를 초과합니다. 아무 도감도 변경하지 않았습니다.");
+    }
+    return writes;
+  }
 
+  async function restoreCustomBinders(binders, finalBatch) {
+    const { firestoreModule, db } = state.firebase;
     for (const binder of binders) {
       const reference = customBinderDocumentRef(binder.id);
-      const [current, currentChunks] = await Promise.all([
-        firestoreModule.getDoc(reference),
-        firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
-      ]);
-      const restoredChunkIds = new Set();
-
-      for (let start = 0; start < binder.chunks.length; start += 20) {
-        const batch = firestoreModule.writeBatch(db);
-        for (const chunk of binder.chunks.slice(start, start + 20)) {
-          const chunkReference = firestoreModule.doc(
-            reference,
-            "chunks",
-            chunk.id,
-          );
+      const current = await firestoreModule.getDoc(reference);
+      // Stage new immutable chunk sets; an interrupted upload leaves the active image intact.
+      const chunkSet = `restore_${crypto.randomUUID().replaceAll("-", "")}`;
+      for (let start = 0; start < binder.chunks.length; start += 4) {
+        const chunkBatch = firestoreModule.writeBatch(db);
+        for (const chunk of binder.chunks.slice(start, start + 4)) {
           const bytes = firestoreModule.Bytes.fromBase64String(chunk.dataBase64);
-          if (bytes.toUint8Array().length !== chunk.size) {
-            throw new Error(
-              `커스텀 바인더 ‘${binder.metadata.title}’의 이미지 조각 크기가 맞지 않습니다.`,
-            );
-          }
-          restoredChunkIds.add(chunk.id);
-          batch.set(chunkReference, {
-            ownerUid: state.user.uid,
-            chunkSet: chunk.chunkSet,
-            index: chunk.index,
-            data: bytes,
-            size: chunk.size,
+          chunkBatch.set(firestoreModule.doc(reference, "chunks", `${chunkSet}_${String(chunk.index).padStart(3, "0")}`), {
+            ownerUid: state.user.uid, chunkSet, index: chunk.index, data: bytes, size: chunk.size,
             updatedAt: firestoreModule.serverTimestamp(),
           });
         }
-        await batch.commit();
+        await chunkBatch.commit();
       }
-
-      const previousCreatedAt = current.exists()
-        ? current.data()?.createdAt
-        : null;
-      await firestoreModule.setDoc(reference, {
-        schemaVersion: 1,
-        ownerUid: state.user.uid,
-        title: binder.metadata.title,
+      finalBatch.set(reference, {
+        schemaVersion: 1, ownerUid: state.user.uid, title: binder.metadata.title,
         grid: binder.metadata.grid,
-        background: binder.metadata.background,
+        background: { ...binder.metadata.background, chunkSet },
         cards: binder.metadata.cards,
-        createdAt: previousCreatedAt || firestoreModule.serverTimestamp(),
+        createdAt: current.exists() ? current.data().createdAt : firestoreModule.serverTimestamp(),
         updatedAt: firestoreModule.serverTimestamp(),
       });
-
-      const obsoleteChunks = currentChunks.docs.filter(
-        (chunk) => !restoredChunkIds.has(chunk.id),
-      );
-      for (let start = 0; start < obsoleteChunks.length; start += 100) {
-        const batch = firestoreModule.writeBatch(db);
-        obsoleteChunks
-          .slice(start, start + 100)
-          .forEach((chunk) => batch.delete(chunk.ref));
-        await batch.commit();
-      }
-      restored += 1;
     }
-
-    return restored;
+    return binders.length;
   }
 
   async function readRestoreFile(file) {
@@ -424,32 +473,24 @@
     button.disabled = true;
     setStatus($("operations-restore-status"), "백업을 복구하고 있습니다.");
     try {
+      validateBackup(payload);
+      const writes = restoreDocumentWrites(payload);
       const { firestoreModule, db } = state.firebase;
       const batch = firestoreModule.writeBatch(db);
-      const requiredBaseMode = accountCore.baseMode(CONFIG, state.user);
-
-      for (const [documentId, source] of Object.entries(payload.documents)) {
-        const data = source && typeof source === "object" && !Array.isArray(source)
-          ? { ...source }
-          : {};
-        data.baseMode = data.baseMode === "legacy" && requiredBaseMode === "legacy"
-          ? "legacy"
-          : requiredBaseMode;
-        data.email = state.user.email || "";
-        data.displayName = state.user.displayName || "";
-        data.updatedAt = firestoreModule.serverTimestamp();
-        const ref = accountCore.documentRef(
-          firestoreModule,
-          db,
-          state.user,
-          CONFIG,
-          documentId,
-        );
-        batch.set(ref, data);
+      for (const write of writes) {
+        let ref = accountCore.documentRef(firestoreModule, db, state.user, CONFIG, write.documentId);
+        if (write.shardId) ref = firestoreModule.doc(ref, "overrideShards", write.shardId);
+        const data = { ...write.data, updatedAt: firestoreModule.serverTimestamp() };
+        if (write.shardId) {
+          batch.set(ref, data, { mergeFields: ["schemaVersion", "updatedAt", ...Object.keys(data.overrides).map((key) => new firestoreModule.FieldPath("overrides", key))] });
+        } else {
+          batch.set(ref, data, { merge: true });
+        }
       }
+      const restoredBinders = await restoreCustomBinders(payload.customBinders || [], batch);
       await batch.commit();
-      const restoredBinders = await restoreCustomBinders(payload.customBinders || []);
 
+      try {
       if (payload.local && typeof payload.local === "object") {
         for (const key of WORLD_KEYS) {
           if (typeof payload.local[key] === "string") {
@@ -458,6 +499,7 @@
         }
       }
 
+      } catch (error) { console.warn("원격 복구는 완료됐지만 로컬 캐시 반영을 건너뛰었습니다.", error); }
       setStatus(
         $("operations-restore-status"),
         `복구를 완료했습니다. 도감 ${documentCount}개와 커스텀 바인더 ${restoredBinders}개를 반영했습니다. 새로고침하면 복구된 상태가 적용됩니다.`,
@@ -467,7 +509,7 @@
       console.error("백업 복구 실패", error);
       setStatus(
         $("operations-restore-status"),
-        error?.message || "백업을 복구하지 못했습니다.",
+        `${error?.message || "백업을 복구하지 못했습니다."} 도감과 활성 바인더 변경은 한 번에 반영됩니다. 원격 반영 전 실패라면 기존 내용이 유지되며 같은 백업으로 재시도할 수 있습니다.`,
         "error",
       );
       button.disabled = false;

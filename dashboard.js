@@ -183,7 +183,7 @@
       ...group,
       itemKeys: [...(group.itemKeys || [])],
     }));
-    return createCategory(category, items, groups);
+    return { ...createCategory(category, items, groups), compatibilityMap: catalog.compatibilityMap };
   }
 
   async function loadCatalogs() {
@@ -416,7 +416,7 @@
         );
         readsByDocument.set(
           documentId,
-          firebase.firestoreModule.getDoc(reference)
+          accountCore.readCollectionSnapshot(firebase.firestoreModule, reference)
             .then((snapshot) => (
               snapshot.exists() ? snapshot.data() || {} : null
             ))
@@ -510,8 +510,8 @@
         CONFIG.userCollection || "collections",
         documentId,
       );
-      const unsubscribe = firebase.firestoreModule.onSnapshot(
-        reference,
+      const unsubscribe = accountCore.subscribeCollection(
+        firebase.firestoreModule, reference,
         (snapshot) => {
           const data = snapshot.exists() ? snapshot.data() || {} : null;
           categories.forEach((category) => {
@@ -626,8 +626,9 @@
         ? document.overrides
         : {};
 
+    const effective = registry.resolveOverrides(category, catalog, overrides).effectiveOverrides;
     catalog.items.forEach((item) => {
-      const explicit = overrideOwned(overrides[item.key]);
+      const explicit = overrideOwned(effective[item.key]);
       item.owned =
         explicit === null
           ? baseMode === "legacy" && item.baselineOwned

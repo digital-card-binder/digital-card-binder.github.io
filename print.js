@@ -1,5 +1,7 @@
 "use strict";
 
+const PRINT_ASSET_VERSIONS = {"./packs-promo-helper.js":"d3bbfc1a7996"};
+
 (function(){
   const button=document.querySelector("[data-print-page]");
   if(!button)return;
@@ -41,7 +43,7 @@
   function loadPackPromoHelper(){
     if(!document.querySelector("#era-filters")||document.querySelector("script[data-pack-promo-helper]"))return;
     const script=document.createElement("script");
-    script.src="./packs-promo-helper.js?v=20260822-1";
+    script.src=`./packs-promo-helper.js?v=${PRINT_ASSET_VERSIONS["./packs-promo-helper.js"]}`;
     script.dataset.packPromoHelper="true";
     document.head.append(script);
   }

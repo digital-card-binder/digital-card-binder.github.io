@@ -150,6 +150,89 @@
     return panel;
   }
 
+  const OVERRIDE_SHARDS = "overrideShards";
+  function usesOverrideShards(documentId) {
+    return documentId === "seriesDex" || documentId === "arDex";
+  }
+
+  function overrideShardId(key) {
+    let hash = 2166136261;
+    for (const char of String(key)) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
+    // Mix high and low bits: repeated numeric codes/indices must not crowd a bucket.
+    hash ^= hash >>> 16;
+    hash = Math.imul(hash, 0x85ebca6b);
+    hash ^= hash >>> 13;
+    hash = Math.imul(hash, 0xc2b2ae35);
+    hash ^= hash >>> 16;
+    return `s${(hash >>> 0 & 127).toString(16).padStart(2, "0")}`;
+  }
+
+  function mergedCollectionData(source, shards) {
+    const result = { ...(source || {}), overrides: { ...(source?.overrides || {}) } };
+    for (const shard of shards) {
+      for (const [key, value] of Object.entries(shard?.overrides || {})) {
+        const previous = result.overrides[key];
+        const oldTime = typeof previous?.updatedAt === "string" ? previous.updatedAt : "";
+        const newTime = typeof value?.updatedAt === "string" ? value.updatedAt : "";
+        if (!oldTime || newTime >= oldTime) result.overrides[key] = value;
+      }
+    }
+    return result;
+  }
+
+  async function readOverrideShards(firestoreModule, reference, options = {}) {
+    if (!usesOverrideShards(reference.id)) return [];
+    const query = firestoreModule.collection(reference, OVERRIDE_SHARDS);
+    let snapshot;
+    if (options.preferServer && firestoreModule.getDocsFromServer) {
+      try { snapshot = await firestoreModule.getDocsFromServer(query); } catch { /* offline cache */ }
+    }
+    snapshot ||= await firestoreModule.getDocs(query);
+    return snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+  }
+
+  async function readCollectionSnapshot(firestoreModule, reference, options = {}) {
+    let snapshot;
+    if (options.preferServer && firestoreModule.getDocFromServer) {
+      try { snapshot = await firestoreModule.getDocFromServer(reference); } catch { /* offline cache */ }
+    }
+    snapshot ||= await firestoreModule.getDoc(reference);
+    if (!usesOverrideShards(reference.id)) return snapshot;
+    const shards = await readOverrideShards(firestoreModule, reference, options);
+    const data = mergedCollectionData(snapshot.exists() ? snapshot.data() : {}, shards);
+    return { ref: reference, id: reference.id, exists: () => snapshot.exists() || shards.length > 0, data: () => data };
+  }
+
+  async function writeOverrideEntry(firestoreModule, reference, key, value) {
+    if (!usesOverrideShards(reference.id)) throw new Error("분할 저장 대상이 아닙니다.");
+    const shard = firestoreModule.doc(reference, OVERRIDE_SHARDS, overrideShardId(key));
+    // Only this entry is replaced; legacy data and other cards are untouched.
+    await firestoreModule.setDoc(shard, {
+      schemaVersion: 1,
+      overrides: { [key]: value },
+      updatedAt: firestoreModule.serverTimestamp(),
+    }, { mergeFields: ["schemaVersion", new firestoreModule.FieldPath("overrides", key), "updatedAt"] });
+  }
+
+  function subscribeCollection(firestoreModule, reference, changed, failed) {
+    if (!usesOverrideShards(reference.id)) return firestoreModule.onSnapshot(reference, changed, failed);
+    let source = null;
+    let shards = null;
+    let exists = false;
+    const publish = () => {
+      if (source === null || shards === null) return;
+      const data = mergedCollectionData(source, shards);
+      changed({ exists: () => exists || shards.length > 0, data: () => data });
+    };
+    const rootStop = firestoreModule.onSnapshot(reference, (snapshot) => {
+      exists = snapshot.exists(); source = exists ? snapshot.data() : {}; publish();
+    }, failed);
+    const shardsStop = firestoreModule.onSnapshot(firestoreModule.collection(reference, OVERRIDE_SHARDS), (snapshot) => {
+      shards = snapshot.docs.map((item) => item.data()); publish();
+    }, failed);
+    return () => { rootStop(); shardsStop(); };
+  }
+
   root.firebaseAccount = Object.freeze({
     normalizeEmail,
     configured,
@@ -158,5 +241,12 @@
     firstAuthUser,
     documentRef,
     installHeaderPanel,
+    usesOverrideShards,
+    overrideShardId,
+    mergedCollectionData,
+    readOverrideShards,
+    readCollectionSnapshot,
+    writeOverrideEntry,
+    subscribeCollection,
   });
 })();
