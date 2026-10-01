@@ -9,7 +9,7 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-card-scan-v1";
+  const SITE_BUILD_VERSION = "b-a25286b584f1";
   const CARD_SCANNER_JS_VERSION = "21c65281cfc1";
   const CARD_SCANNER_CSS_VERSION = "290b5889921e";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
