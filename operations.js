@@ -30,6 +30,10 @@
 
   const $ = (id) => document.getElementById(id);
 
+  function worldLocalKeys() {
+    return state.user?.uid ? [...WORLD_KEYS, ...WORLD_KEYS.map((key) => `${key}:${state.user.uid}`)] : [...WORLD_KEYS];
+  }
+
   function setStatus(element, message, type = "") {
     if (!element) return;
     element.textContent = message;
@@ -207,7 +211,7 @@
       } catch {}
 
       const local = {};
-      for (const key of WORLD_KEYS) {
+      for (const key of worldLocalKeys()) {
         const value = localStorage.getItem(key);
         if (value !== null) local[key] = value;
       }
@@ -376,11 +380,11 @@
     }
     if (payload.local !== undefined) {
       if (!payload.local || typeof payload.local !== "object" || Array.isArray(payload.local)) throw new Error("로컬 백업이 올바르지 않습니다.");
-      for (const key of WORLD_KEYS) {
+      for (const key of worldLocalKeys()) {
         if (payload.local[key] === undefined) continue;
         if (typeof payload.local[key] !== "string") throw new Error("로컬 백업이 올바르지 않습니다.");
         const value = JSON.parse(payload.local[key]);
-        if (key === WORLD_KEYS[0] ? !Array.isArray(value) : !value || typeof value !== "object" || Array.isArray(value)) throw new Error("월드 로컬 백업이 올바르지 않습니다.");
+        if (key.startsWith(WORLD_KEYS[0]) ? !Array.isArray(value) : !value || typeof value !== "object" || Array.isArray(value)) throw new Error("월드 로컬 백업이 올바르지 않습니다.");
       }
     }
     if (isCurrent) validateCustomBinderBackup(payload.customBinders);
@@ -492,7 +496,7 @@
 
       try {
       if (payload.local && typeof payload.local === "object") {
-        for (const key of WORLD_KEYS) {
+        for (const key of worldLocalKeys()) {
           if (typeof payload.local[key] === "string") {
             localStorage.setItem(key, payload.local[key]);
           }

@@ -22,6 +22,7 @@
     activeItem: null,
     localUid: "",
     legacyOwned: new Set(),
+    legacyCardOverrides: {},
   };
 
   const el = (id) => document.getElementById(id);
@@ -119,9 +120,10 @@
         const claimKey = `${OWNED_MIGRATION_KEY}:owner`;
         const owner = localStorage.getItem(claimKey);
         migrationAllowed = !owner || owner === state.localUid;
-        if (migrationAllowed && state.legacyOwned.size) localStorage.setItem(claimKey, state.localUid);
-        const saved = JSON.parse(localStorage.getItem(localKey(CARD_OVERRIDE_STORAGE_KEY)) || "{}");
-        state.cardOverrides = saved && typeof saved === "object" && !Array.isArray(saved) ? saved : {};
+        if (migrationAllowed && (state.legacyOwned.size || Object.keys(state.legacyCardOverrides).length)) localStorage.setItem(claimKey, state.localUid);
+        const cached = localStorage.getItem(localKey(CARD_OVERRIDE_STORAGE_KEY));
+        const saved = cached === null && migrationAllowed ? state.legacyCardOverrides : JSON.parse(cached || "{}");
+        state.cardOverrides = saved && typeof saved === "object" && !Array.isArray(saved) ? { ...saved } : {};
       } catch {
         migrationAllowed = false;
       }
@@ -194,6 +196,7 @@
         }
       }
       state.cardOverrides = normalized;
+      state.legacyCardOverrides = { ...normalized };
     } catch {
       state.cardOverrides = {};
     }

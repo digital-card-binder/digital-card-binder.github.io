@@ -141,6 +141,7 @@ test("world failure retains guest and pending records, retries, and marks only t
   assert.equal(scene.store.records.get(scene.ownedKey), '["mine"]');
   assert.equal(scene.store.records.get("digitalCardBinderWorldExplorationOwnedMigratedV2:alice"), undefined);
   assert.ok(scene.api.state.owned.has("mine"));
+  assert.equal(scene.api.resolvedSlot({ id: "mine", title: "Mine", card: { image: "base" } }).image, "private-image");
   scene.account.saveOwned = async () => ({ owned: true });
   await scene.api.applyAccountOwnership();
   assert.equal(scene.store.records.get("digitalCardBinderWorldExplorationOwnedMigratedV2:alice"), "done");
@@ -149,6 +150,7 @@ test("world failure retains guest and pending records, retries, and marks only t
   scene.account.saveOwned = async () => assert.fail("must not copy Alice's records to Bob");
   await scene.api.applyAccountOwnership();
   assert.equal(scene.api.state.owned.size, 0);
+  assert.equal(scene.api.resolvedSlot({ id: "mine", title: "Mine", card: { image: "base" } }).image, "base");
 });
 
 test("public world viewing and forced edit handlers leave all visitor storage and remote writes untouched", async () => {
