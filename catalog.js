@@ -346,16 +346,52 @@ function syncEraTabs() {
 
 function syncSeriesView() {
   if (mode !== "series") return;
-  const dashboardMode = activeEra === "ALL";
-  document.body.classList.toggle("series-dashboard-mode", dashboardMode);
+  const overviewMode = activeEra === "ALL";
+  document.body.classList.toggle("series-dashboard-mode", overviewMode);
 
   const dashboard = $("series-dashboard");
-  if (dashboard) dashboard.hidden = !dashboardMode;
+  if (dashboard) {
+    dashboard.hidden = false;
+    dashboard.classList.toggle("is-set-dashboard", !overviewMode);
+    dashboard.setAttribute(
+      "aria-label",
+      overviewMode
+        ? "시리즈 시대별 수집 현황"
+        : `${SERIES_ERA_LABELS[activeEra] || activeEra} 세트별 수집 현황`,
+    );
+  }
 
   setText(
     "catalog-section-title",
-    dashboardMode ? "시리즈 전체 현황" : "시리즈별 카드 목록",
+    overviewMode
+      ? "시리즈 전체 현황"
+      : `${SERIES_ERA_LABELS[activeEra] || activeEra} 세트별 수집 현황`,
   );
+}
+
+function seriesGroupThumbnail(group) {
+  const direct =
+    group?.packImage ||
+    group?.thumbnail ||
+    group?.thumbnailImage ||
+    group?.image ||
+    "";
+  if (direct) return direct;
+  const card = (group?.cards || []).find((item) => imageFor(item));
+  return card ? imageFor(card) : "";
+}
+
+function selectSeriesGroup(group) {
+  if (!group) return;
+  const value = group.code || group.name;
+  const select = $("catalog-select");
+  if (select) select.value = value;
+  loadGroup(value);
+  window.requestAnimationFrame(() => {
+    document.querySelector(".catalog-toolbar")?.scrollIntoView({
+      block: "start",
+    });
+  });
 }
 
 function renderSeriesDashboard() {
@@ -364,6 +400,90 @@ function renderSeriesDashboard() {
   if (!dashboard) return;
 
   const fragment = document.createDocumentFragment();
+
+  if (activeEra !== "ALL") {
+    const eraGroups = groups.filter((group) => seriesEra(group) === activeEra);
+
+    for (const group of eraGroups) {
+      const total = Number(group.total || group.cards?.length || 0);
+      const owned = Number(group.owned || 0);
+      const missing = Math.max(0, total - owned);
+      const rate = pct(owned, total);
+      const value = group.code || group.name;
+      const isActive =
+        Boolean(selected) && (selected.code || selected.name) === value;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "series-dashboard-card series-set-dashboard-card";
+      button.dataset.group = value;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute(
+        "aria-label",
+        `${groupName(group)} ${owned}/${total}장, 수집률 ${rate}% 카드 목록 보기`,
+      );
+
+      const heading = document.createElement("span");
+      heading.className = "series-dashboard-card-heading series-set-dashboard-heading";
+
+      const thumbnail = document.createElement("span");
+      thumbnail.className = "series-set-thumbnail";
+      const thumbnailUrl = seriesGroupThumbnail(group);
+      if (thumbnailUrl) {
+        const image = document.createElement("img");
+        image.src = thumbnailUrl;
+        image.alt = "";
+        image.loading = "lazy";
+        image.decoding = "async";
+        thumbnail.append(image);
+      } else {
+        thumbnail.classList.add("is-empty");
+        thumbnail.textContent = String(group.code || "SET").slice(0, 4);
+      }
+
+      const titleWrap = document.createElement("span");
+      const code = document.createElement("span");
+      code.className = "series-dashboard-code";
+      code.textContent = group.code || activeEra;
+      const title = document.createElement("strong");
+      title.textContent = groupName(group);
+      titleWrap.append(code, title);
+
+      const arrow = document.createElement("span");
+      arrow.className = "series-dashboard-arrow";
+      arrow.textContent = "›";
+      heading.append(thumbnail, titleWrap, arrow);
+
+      const metrics = document.createElement("span");
+      metrics.className = "series-dashboard-metrics";
+      const count = document.createElement("strong");
+      count.textContent = `${owned} / ${total}`;
+      const rateText = document.createElement("span");
+      rateText.textContent = `${rate}%`;
+      metrics.append(count, rateText);
+
+      const progress = document.createElement("span");
+      progress.className = "series-dashboard-progress";
+      const progressBar = document.createElement("span");
+      progressBar.style.width = `${Math.min(100, Math.max(0, rate))}%`;
+      progress.append(progressBar);
+
+      const footer = document.createElement("span");
+      footer.className = "series-dashboard-footer";
+      const state = document.createElement("span");
+      state.textContent = rate === 100 && total > 0 ? "완성" : `미보유 ${missing}장`;
+      const hint = document.createElement("span");
+      hint.textContent = isActive ? "현재 선택" : "카드 보기";
+      footer.append(state, hint);
+
+      button.append(heading, metrics, progress, footer);
+      button.addEventListener("click", () => selectSeriesGroup(group));
+      fragment.append(button);
+    }
+
+    dashboard.replaceChildren(fragment);
+    return;
+  }
 
   for (const era of SERIES_ERA_ORDER) {
     const eraGroups = groups.filter((group) => seriesEra(group) === era);
@@ -374,7 +494,7 @@ function renderSeriesDashboard() {
 
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "series-dashboard-card";
+    button.className = "series-dashboard-card series-era-dashboard-card";
     button.dataset.era = era;
     button.setAttribute(
       "aria-label",
@@ -447,7 +567,7 @@ function populateCatalogSelect() {
     option.value = group.code || group.name;
     option.textContent =
       mode === "series"
-        ? `${groupName(group)} · ${group.code} · ${group.total}장`
+        ? `${groupName(group)} · ${group.code} · ${group.owned}/${group.total}장 · ${pct(group.owned, group.total)}%`
         : `${pokemonGroupLabel(group)} · ${group.total}장`;
     select.append(option);
   });
@@ -1013,6 +1133,7 @@ function loadGroup(value) {
   if (!selected) {
     cards = [];
     updateSelected();
+    renderSeriesDashboard();
     render();
     rememberMobileCatalogPreferences();
     return;
@@ -1025,6 +1146,7 @@ function loadGroup(value) {
         )
       : selected.cards;
   updateSelected();
+  renderSeriesDashboard();
   render();
   rememberMobileCatalogPreferences();
 }
