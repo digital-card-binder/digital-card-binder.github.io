@@ -352,34 +352,104 @@
     }
   }
 
-  async function makeOcrCanvas(file) {
-    const image = await imageBitmapFromFile(file);
-    const width = image.width || image.naturalWidth;
-    const height = image.height || image.naturalHeight;
-    const cropY = Math.floor(height * 0.58);
-    const cropH = Math.max(1, height - cropY);
-    const maxWidth = 1800;
-    const scale = Math.min(3, Math.max(1.4, maxWidth / Math.max(1, width)));
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.round(width * scale));
-    canvas.height = Math.max(1, Math.round(cropH * scale));
+  function enhanceOcrCanvas(canvas, mode = "contrast") {
     const context = canvas.getContext("2d", { willReadFrequently: true });
-    context.drawImage(image, 0, cropY, width, cropH, 0, 0, canvas.width, canvas.height);
-
     const pixels = context.getImageData(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < pixels.data.length; i += 4) {
       const gray =
         pixels.data[i] * 0.299 +
         pixels.data[i + 1] * 0.587 +
         pixels.data[i + 2] * 0.114;
-      const adjusted = gray > 145 ? Math.min(255, gray * 1.18) : Math.max(0, gray * 0.72);
+      const adjusted =
+        mode === "binary"
+          ? gray > 150 ? 255 : 0
+          : gray > 145
+            ? Math.min(255, gray * 1.22)
+            : Math.max(0, gray * 0.66);
       pixels.data[i] = adjusted;
       pixels.data[i + 1] = adjusted;
       pixels.data[i + 2] = adjusted;
     }
     context.putImageData(pixels, 0, 0);
-    if (typeof image.close === "function") image.close();
     return canvas;
+  }
+
+  function makeOcrRegionCanvas(image, region) {
+    const width = image.width || image.naturalWidth;
+    const height = image.height || image.naturalHeight;
+    const sourceX = Math.max(0, Math.floor(width * region.x));
+    const sourceY = Math.max(0, Math.floor(height * region.y));
+    const sourceW = Math.max(1, Math.floor(width * region.width));
+    const sourceH = Math.max(1, Math.floor(height * region.height));
+    const targetWidth = Math.min(
+      region.maxWidth || 2200,
+      Math.max(1200, Math.round(sourceW * (region.scale || 3))),
+    );
+    const scale = targetWidth / sourceW;
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(sourceW * scale));
+    canvas.height = Math.max(1, Math.round(sourceH * scale));
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(
+      image,
+      sourceX,
+      sourceY,
+      sourceW,
+      sourceH,
+      0,
+      0,
+      canvas.width,
+      canvas.height,
+    );
+    return enhanceOcrCanvas(canvas, region.mode || "contrast");
+  }
+
+  async function makeOcrCanvases(file) {
+    const image = await imageBitmapFromFile(file);
+    try {
+      // Korean cards place set code / collector number near the lower-left edge.
+      // Read that tiny region first, then widen the search only when necessary.
+      return [
+        makeOcrRegionCanvas(image, {
+          x: 0.00,
+          y: 0.76,
+          width: 0.70,
+          height: 0.24,
+          scale: 4.2,
+          maxWidth: 2400,
+          mode: "contrast",
+        }),
+        makeOcrRegionCanvas(image, {
+          x: 0.00,
+          y: 0.68,
+          width: 1.00,
+          height: 0.32,
+          scale: 2.8,
+          maxWidth: 2200,
+          mode: "contrast",
+        }),
+        makeOcrRegionCanvas(image, {
+          x: 0.00,
+          y: 0.58,
+          width: 1.00,
+          height: 0.42,
+          scale: 2.2,
+          maxWidth: 2000,
+          mode: "binary",
+        }),
+      ];
+    } finally {
+      if (typeof image.close === "function") image.close();
+    }
+  }
+
+  function hasStrongOcrSignal(text) {
+    return Boolean(
+      ocrFractions(text).length ||
+      (detectedSetCodes(text).length && ocrNumberTokens(text).length),
+    );
   }
 
   async function onPhotoSelected(event) {
@@ -391,7 +461,7 @@
     els.previewImage.src = state.previewUrl;
     els.preview.hidden = false;
     els.previewTitle.textContent = "카드번호 인식 중";
-    els.previewMeta.textContent = "하단 카드번호 영역을 분석하고 있습니다.";
+    els.previewMeta.textContent = "카드 왼쪽 아래의 세트코드·카드번호를 먼저 확대 분석합니다.";
     els.ocrText.textContent = "";
     els.candidateSection.hidden = true;
     els.membershipSection.hidden = true;
@@ -402,17 +472,31 @@
     try {
       await loadSearchCards();
       const worker = await ensureOcrWorker();
-      const canvas = await makeOcrCanvas(file);
-      setProgress(18);
-      const result = await worker.recognize(canvas);
-      const text = clean(result?.data?.text);
-      els.ocrText.textContent = text
-        ? "인식: " + text.replace(/\s+/g, " ").slice(0, 90)
+      const canvases = await makeOcrCanvases(file);
+      const texts = [];
+      let candidates = [];
+
+      for (let index = 0; index < canvases.length; index += 1) {
+        setProgress(18 + Math.round((index / canvases.length) * 60));
+        const result = await worker.recognize(canvases[index]);
+        const text = clean(result?.data?.text);
+        if (text) texts.push(text);
+        const combined = texts.join("\n");
+        candidates = findCandidatesFromOcr(combined);
+        if (candidates.length && hasStrongOcrSignal(combined)) break;
+      }
+
+      const combinedText = texts.join(" ");
+      els.ocrText.textContent = combinedText
+        ? "인식: " + combinedText.replace(/\s+/g, " ").slice(0, 120)
         : "카드번호 텍스트를 읽지 못했습니다.";
-      const candidates = findCandidatesFromOcr(text);
+
       renderCandidates(candidates);
       if (!candidates.length) {
-        setStatus("자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.", "error");
+        setStatus(
+          "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
+          "error",
+        );
       } else {
         setStatus("후보 카드가 맞는지 확인해 주세요.", "success");
       }
@@ -432,7 +516,10 @@
 
   function ocrFractions(text) {
     const values = [];
-    const source = clean(text).replace(/[|]/g, "/");
+    const source = clean(text)
+      .replace(/[|\\]/g, "/")
+      .replace(/[Oo]/g, "0")
+      .replace(/[Il]/g, "1");
     const regex = /(\d{1,4})\s*\/\s*(\d{1,4})/g;
     let match;
     while ((match = regex.exec(source))) {
@@ -445,11 +532,39 @@
   }
 
   function ocrNumberTokens(text) {
+    const source = clean(text)
+      .replace(/[Oo]/g, "0")
+      .replace(/[Il]/g, "1");
     return [...new Set(
-      (clean(text).match(/\b\d{2,4}\b/g) || [])
+      (source.match(/\b\d{1,4}\b/g) || [])
         .map((value) => String(Number(value)))
         .filter((value) => value !== "0"),
     )];
+  }
+
+  function editDistanceAtMostOne(left, right) {
+    if (left === right) return true;
+    if (Math.abs(left.length - right.length) > 1) return false;
+    let i = 0;
+    let j = 0;
+    let edits = 0;
+    while (i < left.length && j < right.length) {
+      if (left[i] === right[j]) {
+        i += 1;
+        j += 1;
+        continue;
+      }
+      edits += 1;
+      if (edits > 1) return false;
+      if (left.length > right.length) i += 1;
+      else if (right.length > left.length) j += 1;
+      else {
+        i += 1;
+        j += 1;
+      }
+    }
+    if (i < left.length || j < right.length) edits += 1;
+    return edits <= 1;
   }
 
   function detectedSetCodes(text) {
@@ -457,7 +572,29 @@
     if (!compact || !state.cards) return [];
     const codes = [...new Set(state.cards.map((card) => normalizeSetCode(card.setCode)).filter(Boolean))]
       .sort((a, b) => b.length - a.length);
-    return codes.filter((code) => compact.includes(code.replace(/[^a-z0-9+]/g, ""))).slice(0, 4);
+
+    const exact = codes.filter((code) =>
+      compact.includes(code.replace(/[^a-z0-9+]/g, "")),
+    );
+    if (exact.length) return exact.slice(0, 4);
+
+    const fuzzy = [];
+    for (const code of codes) {
+      const target = code.replace(/[^a-z0-9+]/g, "");
+      if (target.length < 4 || compact.length < Math.max(3, target.length - 1)) continue;
+      for (let start = 0; start < compact.length; start += 1) {
+        for (const length of [target.length - 1, target.length, target.length + 1]) {
+          if (length < 3 || start + length > compact.length) continue;
+          if (editDistanceAtMostOne(compact.slice(start, start + length), target)) {
+            fuzzy.push(code);
+            start = compact.length;
+            break;
+          }
+        }
+      }
+      if (fuzzy.length >= 4) break;
+    }
+    return fuzzy;
   }
 
   function findCandidatesFromOcr(text) {
