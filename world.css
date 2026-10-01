@@ -357,3 +357,196 @@
     min-height: 150px;
   }
 }
+
+
+/* 월드탐험 v5: 장소 슬롯은 그대로 두고 원본 도감 참조를 탐험 인덱스로 확장한다. */
+.world-reference-index {
+  margin: 0 0 26px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,249,253,.98));
+}
+
+.world-reference-intro {
+  margin-bottom: 20px;
+}
+
+.world-reference-intro > span,
+.world-place-heading > span {
+  display: block;
+  color: var(--red);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.world-reference-intro > strong,
+.world-place-heading > strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: 1.08rem;
+}
+
+.world-reference-intro > p,
+.world-place-heading > p {
+  margin: 7px 0 0;
+  color: var(--ink-faint);
+  font-size: .68rem;
+  line-height: 1.55;
+}
+
+.world-reference-group + .world-reference-group {
+  margin-top: 22px;
+}
+
+.world-reference-heading {
+  margin-bottom: 10px;
+}
+
+.world-reference-heading strong {
+  color: var(--ink);
+  font-size: .82rem;
+}
+
+.world-reference-heading p {
+  margin: 3px 0 0;
+  color: var(--ink-faint);
+  font-size: .62rem;
+}
+
+.world-reference-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.world-reference-group--people .world-reference-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.world-reference-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(28, 38, 68, .04);
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.world-reference-card:hover {
+  transform: translateY(-2px);
+  border-color: #cfd7e8;
+  box-shadow: var(--shadow-sm);
+}
+
+.world-reference-card > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 63 / 88;
+  object-fit: contain;
+  background: var(--surface-soft);
+}
+
+.world-reference-card.has-image-error > img {
+  opacity: .2;
+}
+
+.world-reference-copy {
+  display: block;
+  padding: 9px;
+}
+
+.world-reference-copy > small,
+.world-reference-copy > strong,
+.world-reference-copy > span {
+  display: block;
+}
+
+.world-reference-copy > small {
+  color: var(--ink-faint);
+  font-size: .54rem;
+  font-weight: 700;
+}
+
+.world-reference-copy > strong {
+  overflow: hidden;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: .72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.world-reference-copy > span:not(.world-reference-badge) {
+  overflow: hidden;
+  margin-top: 2px;
+  min-height: 1.35em;
+  color: var(--ink-faint);
+  font-size: .53rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.world-reference-badge {
+  width: fit-content;
+  margin-top: 7px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--ink-faint);
+  font-size: .49rem;
+  font-weight: 800;
+}
+
+.world-reference-badge.is-owned {
+  background: #eef8f1;
+  color: #287346;
+}
+
+.world-reference-badge.is-missing {
+  background: #f6f1f2;
+  color: #94606a;
+}
+
+.world-story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.world-story-card {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface-soft);
+}
+
+.world-story-card > span {
+  color: var(--red);
+  font-size: .58rem;
+  font-weight: 800;
+}
+
+.world-story-card > strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: .76rem;
+}
+
+.world-story-card > p {
+  margin: 5px 0 0;
+  color: var(--ink-faint);
+  font-size: .59rem;
+  line-height: 1.5;
+}
+
+.world-place-heading {
+  margin: 0 2px 14px;
+}
