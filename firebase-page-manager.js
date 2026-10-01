@@ -163,7 +163,7 @@
         card.accountKey = key;
         const usesFixedSeriesCard = mode === "series" || mode === "ar";
         const usesOwnedCardDetails =
-          !usesFixedSeriesCard && Boolean(override?.owned);
+          !usesFixedSeriesCard && (Boolean(override?.owned) || mode === "world");
         card.actualSetCode = !usesOwnedCardDetails
           ? ""
           : override?.setCode || "";
