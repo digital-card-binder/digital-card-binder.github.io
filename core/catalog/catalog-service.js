@@ -55,9 +55,9 @@
       "unit": "장"
     },
     "world": {
-      "itemCount": 108,
+      "itemCount": 198,
       "groupCount": 9,
-      "unit": "장"
+      "unit": "개"
     }
   });
   // </catalog-metrics-generated>
