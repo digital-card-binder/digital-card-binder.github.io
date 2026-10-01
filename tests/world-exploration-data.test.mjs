@@ -102,3 +102,14 @@ test('every generation 2-9 place slot resolves to the reviewed Korean series cat
     }
   }
 });
+
+
+test('world client reads linked ownership without writing duplicate Pokemon or people state', () => {
+  const client = fs.readFileSync('world.js', 'utf8');
+  assert.match(client, /registry[.]ownershipFor\("national", source\)/);
+  assert.match(client, /registry[.]ownershipFor\("people", source\)/);
+  assert.match(client, /referenceSource[?][.]overrides/);
+  assert.match(client, /referenceSource[?][.]peopleOverrides/);
+  assert.doesNotMatch(client, /pokemonOwned\s*:/);
+  assert.doesNotMatch(client, /peopleOwned\s*:/);
+});
