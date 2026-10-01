@@ -1051,6 +1051,14 @@ function mergeSeriesGroups(baseGroups, supplementGroups) {
 
 async function loadCatalogGroups() {
   if (mode === "series") {
+    if (window.DigitalCardBinder?.catalog?.series) {
+      const [seriesGroups, variantMetadata] = await Promise.all([
+        window.DigitalCardBinder.catalog.series(),
+        fetchJson(SERIES_PRINT_VARIANTS_URL).catch(() => ({ coverage: {}, slots: {} })),
+      ]);
+      seriesPrintVariantMetadata = variantMetadata;
+      return applySeriesPrintVariantMetadata(seriesGroups, variantMetadata);
+    }
     const [baseGroups, legacyGroups, variantMetadata, imageOverrides] = await Promise.all([
       fetchJson(SERIES_DATA_URL),
       fetchJson(LEGACY_SERIES_DATA_URL).catch(() => []),

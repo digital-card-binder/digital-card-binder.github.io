@@ -175,6 +175,13 @@ test("Studio supplies every available world image and keeps the two explicitly u
   assert.equal(visuals.length, 198); assert.equal(visuals.filter((card) => card.image).length, 196);
   assert.deepEqual(plain(groups.flatMap(group => group.cards.filter(card => !card.image).map(card => card.slotId))), ["world-person-silver", "world-person-may"]);
   assert.ok(visuals.some((card) => card.name === "피카츄")); assert.ok(visuals.some((card) => card.name === "레드"));
+  const series = await catalogService.series();
+  for (const [slotId, cardCode] of [["kanto-pokemon-center", "bw3-bh_051/052"], ["kanto-pokestop", "s10b_071/071"]]) {
+    const source = series.flatMap((group) => group.cards).find((card) => card.code === cardCode);
+    const card = groups.flatMap((group) => group.cards).find((item) => item.slotId === slotId);
+    assert.equal(card.image, source.image);
+    assert.equal(card.slot.card.image, source.image);
+  }
   assert.deepEqual(visuals.map((item) => item.key), catalog.items.map((item) => item.key));
 });
 
@@ -200,7 +207,13 @@ test("world search reads account ownership for place, Pokemon and person, ignori
 test("reviewed SV5M names agree between search and series without rewriting source files", async () => {
   const ctx = context(); const service = ctx.window.DigitalCardBinder.catalog;
   const original = read("data/series.json");
-  const series = (await service.series()).find((group) => group.code.toLowerCase() === "sv5m");
+  const page = read("catalog.js");
+  ctx.mode = "series";
+  ctx.SERIES_PRINT_VARIANTS_URL = "data/series-print-variants.json";
+  ctx.fetchJson = async (path) => JSON.parse(read(path));
+  vm.runInContext(page.slice(page.indexOf("const SERIES_PRINT_VARIANTS ="), page.indexOf("function applySeriesImageOverrides(")), ctx);
+  vm.runInContext(page.slice(page.indexOf("async function loadCatalogGroups()"), page.indexOf("async function init()")), ctx);
+  const series = (await ctx.loadCatalogGroups()).find((group) => group.code.toLowerCase() === "sv5m");
   const search = (await service.pokemonSearchIndex()).groups.find((group) => group[0].toLowerCase() === "sv5m");
   for (const [code, name] of [["sv5m_033/071", "에블리"], ["sv5m_034/071", "에리본"]]) {
     assert.equal(series.cards.find((card) => card.code === code).name, name);
