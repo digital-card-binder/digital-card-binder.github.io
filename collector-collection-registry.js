@@ -149,7 +149,7 @@
       description: "지역별 장소·포켓몬·인물 탐험 허브",
       href: "./world.html",
       documentId: "worldDex",
-      unit: "장",
+      unit: "개",
       catalogCount: catalogCount("world"),
       catalogGroupCount: catalogGroupCount("world"),
       defaultDashboardVisible: true,
@@ -291,12 +291,29 @@
       sourceGroups = (payload.generations || []).map((generation) => ({
         code: `generation-${generation.generation}`,
         name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
-        cards: (generation.slots || []).map((slot) => ({
-          code: slot.id,
-          name: slot.title,
-          owned: false,
-          slotId: slot.id,
-        })),
+        cards: [
+          ...(generation.slots || []).map((slot, index) => ({
+            code: slot.id,
+            name: slot.title,
+            owned: false,
+            slotId: slot.id,
+            accountIndex: index,
+          })),
+          ...(generation.pokemonRefs || []).map((number, index) => ({
+            code: `world-pokemon-${String(Number(number)).padStart(4, "0")}`,
+            name: `포켓몬 #${String(Number(number)).padStart(4, "0")}`,
+            owned: false,
+            slotId: `world-pokemon-${String(Number(number)).padStart(4, "0")}`,
+            accountIndex: 12 + index,
+          })),
+          ...(generation.peopleRefs || []).map((personId, index) => ({
+            code: `world-person-${String(personId)}`,
+            name: `인물 ${String(personId)}`,
+            owned: false,
+            slotId: `world-person-${String(personId)}`,
+            accountIndex: 18 + index,
+          })),
+        ],
       }));
     } else {
       sourceGroups = payload || [];

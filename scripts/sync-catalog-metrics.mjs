@@ -97,8 +97,13 @@ async function buildMetrics() {
   const trainerGroups = Array.isArray(trainerPokemon?.groups) ? trainerPokemon.groups : [];
   const fossilGroups = Array.isArray(fossil?.groups) ? fossil.groups : [];
   const worldGenerations = Array.isArray(world?.generations) ? world.generations : [];
-  const worldSlots = worldGenerations.flatMap((generation) =>
-    Array.isArray(generation?.slots) ? generation.slots : [],
+  const worldItems = worldGenerations.reduce(
+    (total, generation) =>
+      total +
+      (Array.isArray(generation?.slots) ? generation.slots.length : 0) +
+      (Array.isArray(generation?.pokemonRefs) ? generation.pokemonRefs.length : 0) +
+      (Array.isArray(generation?.peopleRefs) ? generation.peopleRefs.length : 0),
+    0,
   );
 
   const regularPacks = [
@@ -163,9 +168,9 @@ async function buildMetrics() {
       unit: "장",
     },
     world: {
-      itemCount: worldSlots.length,
+      itemCount: worldItems,
       groupCount: worldGenerations.length,
-      unit: "장",
+      unit: "개",
     },
   };
 }

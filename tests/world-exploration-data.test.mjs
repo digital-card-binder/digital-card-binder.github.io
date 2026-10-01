@@ -31,11 +31,12 @@ const peopleById = new Map(
   (people.people || []).map((person) => [person.id, person]),
 );
 
-test('world exploration v6 preserves legacy place slots and lays every reference into story chapters', () => {
-  assert.equal(world.metadata?.version, 6);
+test('world exploration v7 is a standalone 198-item story collection while preserving legacy place slots', () => {
+  assert.equal(world.metadata?.version, 7);
   assert.equal(world.metadata?.presentation, 'story-chapter-sequence');
-  assert.equal(world.metadata?.ownershipModel, 'place-slots-v1-compatible');
-  assert.equal(world.metadata?.referenceOwnership, 'source-dex-linked');
+  assert.equal(world.metadata?.ownershipModel, 'standalone-world-items-v2');
+  assert.equal(world.metadata?.referenceOwnership, 'worldDex-only');
+  assert.equal(world.metadata?.itemCount, 198);
   assert.equal(world.generations?.length, 9);
   assert.deepEqual(world.generations.map((item) => item.generation), [1,2,3,4,5,6,7,8,9]);
 
@@ -98,13 +99,21 @@ test('world exploration v6 preserves legacy place slots and lays every reference
   assert.equal(new Set(allSlotIds).size, 108, '월드탐험도감 기존 slot id 중복');
 });
 
-test('world references contain identities only and do not duplicate source dex ownership', () => {
+test('world chapter items expose stable world-only ids for Pokemon and people', () => {
+  const ids = [];
   for (const generation of world.generations) {
-    assert.ok(generation.pokemonRefs.every(Number.isInteger));
-    assert.ok(generation.peopleRefs.every((value) => typeof value === 'string'));
-    assert.equal(Object.prototype.hasOwnProperty.call(generation, 'pokemonOwned'), false);
-    assert.equal(Object.prototype.hasOwnProperty.call(generation, 'peopleOwned'), false);
+    for (const chapter of generation.chapters || []) {
+      for (const item of chapter.items || []) {
+        assert.ok(item.id, `${generation.generation}세대 ${chapter.id}: item id 누락`);
+        if (item.type === 'place') assert.equal(item.id, item.ref);
+        if (item.type === 'pokemon') assert.match(item.id, /^world-pokemon-\d{4}$/);
+        if (item.type === 'person') assert.match(item.id, /^world-person-[a-z0-9_-]+$/);
+        ids.push(item.id);
+      }
+    }
   }
+  assert.equal(ids.length, 198);
+  assert.equal(new Set(ids).size, 198);
 });
 
 test('every generation 2-9 place slot resolves to the reviewed Korean series catalog card', () => {
@@ -125,14 +134,16 @@ test('every generation 2-9 place slot resolves to the reviewed Korean series cat
 });
 
 
-test('world client reads linked ownership without writing duplicate Pokemon or people state', () => {
+test('world client owns Pokemon and people only through worldDex', () => {
   const client = fs.readFileSync('world.js', 'utf8');
-  assert.match(client, /registry[.]ownershipFor\("national", source\)/);
-  assert.match(client, /registry[.]ownershipFor\("people", source\)/);
-  assert.match(client, /referenceSource[?][.]overrides/);
-  assert.match(client, /referenceSource[?][.]peopleOverrides/);
-  assert.doesNotMatch(client, /pokemonOwned\s*:/);
-  assert.doesNotMatch(client, /peopleOwned\s*:/);
+  assert.match(client, /worldPokemonItemId/);
+  assert.match(client, /worldPersonItemId/);
+  assert.match(client, /account[.]saveOwned\(accountKey, nextOwned\)/);
+  assert.match(client, /account[.]saveOverride\(accountKey/);
+  assert.doesNotMatch(client, /ownershipFor\("national"/);
+  assert.doesNotMatch(client, /ownershipFor\("people"/);
+  assert.doesNotMatch(client, /readCollectionDocument/);
+  assert.doesNotMatch(client, /원본도감/);
 });
 
 

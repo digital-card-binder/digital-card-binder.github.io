@@ -2,7 +2,7 @@
 
 (function () {
   const OWNED_STORAGE_KEY = "digitalCardBinderWorldExplorationOwnedV1";
-  const OWNED_MIGRATION_KEY = "digitalCardBinderWorldExplorationOwnedMigratedV1";
+  const OWNED_MIGRATION_KEY = "digitalCardBinderWorldExplorationOwnedMigratedV2";
   const cardLookup = window.DigitalCardBinder?.cardLookup;
   if (!cardLookup) {
     throw new Error("공통 카드 탐색 코어를 불러오지 못했습니다.");
@@ -13,17 +13,12 @@
     people: null,
     pokedex: null,
     generation: 1,
-    referenceOwned: {
-      pokemon: new Set(),
-      people: new Set(),
-    },
-    referenceOwnershipLoaded: false,
-    referenceSource: null,
     owned: new Set(),
     accountKeys: new Map(),
+    accountCards: new Map(),
     accountManaged: false,
     cardOverrides: {},
-    activeSlotId: "",
+    activeItem: null,
   };
 
   const el = (id) => document.getElementById(id);
@@ -61,17 +56,60 @@
     }
   }
 
+  function worldPokemonItemId(number) {
+    return `world-pokemon-${String(Number(number)).padStart(4, "0")}`;
+  }
+
+  function worldPersonItemId(personId) {
+    return `world-person-${String(personId || "").trim()}`;
+  }
+
+  function generationItemIds(generation) {
+    return [
+      ...(generation?.slots || []).map((slot) => slot.id),
+      ...(generation?.pokemonRefs || []).map(worldPokemonItemId),
+      ...(generation?.peopleRefs || []).map(worldPersonItemId),
+    ];
+  }
+
   function accountGroups() {
-    return (state.data?.generations || []).map((generation) => ({
-      code: `generation-${generation.generation}`,
-      name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
-      cards: (generation.slots || []).map((slot) => ({
+    return (state.data?.generations || []).map((generation) => {
+      const placeCards = (generation.slots || []).map((slot, index) => ({
         code: slot.id,
         name: slot.title,
+        image: slot.card?.image || "",
         owned: false,
         slotId: slot.id,
-      })),
-    }));
+        accountIndex: index,
+      }));
+      const pokemonCards = (generation.pokemonRefs || []).map((number, index) => {
+        const slot = referenceSlot("pokemon", number);
+        return {
+          code: slot.id,
+          name: slot.title,
+          image: slot.card?.image || "",
+          owned: false,
+          slotId: slot.id,
+          accountIndex: 12 + index,
+        };
+      });
+      const peopleCards = (generation.peopleRefs || []).map((personId, index) => {
+        const slot = referenceSlot("person", personId);
+        return {
+          code: slot.id,
+          name: slot.title,
+          image: slot.card?.image || "",
+          owned: false,
+          slotId: slot.id,
+          accountIndex: 18 + index,
+        };
+      });
+      return {
+        code: `generation-${generation.generation}`,
+        name: `${generation.generation}세대 ${generation.region || ""}`.trim(),
+        cards: [...placeCards, ...pokemonCards, ...peopleCards],
+      };
+    });
   }
 
   async function applyAccountOwnership() {
@@ -84,14 +122,17 @@
 
     const remoteOwned = new Set();
     const accountKeys = new Map();
+    const accountCards = new Map();
     groups.forEach((group) => {
       (group.cards || []).forEach((card) => {
         if (!card.slotId || !card.accountKey) return;
         accountKeys.set(card.slotId, card.accountKey);
+        accountCards.set(card.slotId, card);
         if (card.owned) remoteOwned.add(card.slotId);
       });
     });
     state.accountKeys = accountKeys;
+    state.accountCards = accountCards;
 
     const legacyOwned = new Set(state.owned);
     if (account.canEdit?.() && legacyOwned.size && !ownedMigrationDone()) {
@@ -117,40 +158,6 @@
     }
   }
 
-  async function loadReferenceOwnership() {
-    const account = window.PokemonDexPageAccount;
-    const registry = window.CollectorCollectionRegistry;
-    state.referenceOwned = {
-      pokemon: new Set(),
-      people: new Set(),
-    };
-    state.referenceOwnershipLoaded = false;
-    state.referenceSource = null;
-
-    if (!account || !registry || window.CollectorPublicView?.requested) return;
-    await account.ready;
-    const documentId = window.POKEMON_DEX_FIREBASE?.userDocument || "nationalDex";
-    const source = await account.readCollectionDocument?.(documentId);
-    if (!source) return;
-    state.referenceSource = source;
-
-    try {
-      const [pokemonOwnership, peopleOwnership] = await Promise.all([
-        registry.ownershipFor("national", source),
-        registry.ownershipFor("people", source),
-      ]);
-      state.referenceOwned.pokemon = new Set(
-        (pokemonOwnership?.ownedKeys || []).map((value) => String(value)),
-      );
-      state.referenceOwned.people = new Set(
-        (peopleOwnership?.ownedKeys || []).map((value) => String(value)),
-      );
-      state.referenceOwnershipLoaded = true;
-    } catch (error) {
-      console.warn("월드탐험 원본 도감 보유상태를 불러오지 못했습니다.", error);
-    }
-  }
-
   function personById(personId) {
     if (!personId || !state.people?.people) return null;
     return state.people.people.find((person) => person.id === personId) || null;
@@ -161,6 +168,44 @@
     return state.pokedex.records.find(
       (pokemon) => Number(pokemon.number) === Number(number),
     ) || null;
+  }
+
+  function referenceSlot(kind, reference) {
+    if (kind === "pokemon") {
+      const source = pokemonByNumber(reference);
+      if (!source) return null;
+      return {
+        id: worldPokemonItemId(source.number),
+        worldType: "pokemon",
+        title: source.nameKo || source.nameEn || `#${source.number}`,
+        subtitle: `#${String(source.number).padStart(4, "0")} · ${source.nameEn || ""}`,
+        card: {
+          image: source.imageUrl || "",
+          name: source.nameKo || source.nameEn || "",
+          setCode: inferSetCodeFromImage(source.imageUrl),
+        },
+      };
+    }
+
+    const source = personById(reference);
+    if (!source) return null;
+    const card = source.cards?.[0] || {};
+    const image = card.imageLarge || card.image || source.imageLarge || source.image || "";
+    return {
+      id: worldPersonItemId(source.id),
+      worldType: "person",
+      title: source.nameKo || source.nameEn || source.id,
+      subtitle: source.role || source.affiliation || source.nameEn || "",
+      card: {
+        image,
+        name: card.name || source.nameKo || source.nameEn || "",
+        set: card.set || "",
+        setCode: card.setCode || inferSetCodeFromImage(image),
+        number: card.number || "",
+        rarity: card.rarity || "",
+        source: card.source || "",
+      },
+    };
   }
 
   function normalizeCardOverride(value) {
@@ -223,7 +268,7 @@
       image,
       cardName: card.name || slot.card?.name || slot.title,
       setName: card.set || slot.card?.set || "",
-      setCode: inferSetCodeFromImage(image),
+      setCode: card.setCode || slot.card?.setCode || inferSetCodeFromImage(image),
       number: card.number || slot.card?.number || "",
       rarity: card.rarity || slot.card?.rarity || "",
       source: card.source || slot.card?.source || "",
@@ -232,7 +277,25 @@
 
   function resolvedSlot(slot) {
     const base = baseSlotCard(slot);
-    const override = normalizeCardOverride(state.cardOverrides[slot.id]);
+    const localOverride = normalizeCardOverride(state.cardOverrides[slot.id]);
+    const accountCard = state.accountCards.get(slot.id);
+    const remoteCustomized = Boolean(
+      accountCard?.actualImage ||
+      accountCard?.actualSetCode ||
+      accountCard?.actualCardNumber ||
+      accountCard?.actualName
+    );
+    const remoteOverride = remoteCustomized
+      ? {
+          image: accountCard.actualImage || accountCard.image || base.image,
+          cardName: accountCard.actualName || base.cardName,
+          setName: accountCard.actualSetCode || base.setName,
+          setCode: accountCard.actualSetCode || base.setCode,
+          number: accountCard.actualCardNumber || base.number,
+          rarity: base.rarity,
+        }
+      : null;
+    const override = remoteOverride || localOverride;
     return {
       ...slot,
       ...base,
@@ -243,9 +306,9 @@
 
   function updateProgress() {
     const generation = generationData();
-    const slots = generation?.slots || [];
-    const owned = slots.filter((slot) => state.owned.has(slot.id)).length;
-    const total = slots.length;
+    const itemIds = generationItemIds(generation);
+    const owned = itemIds.filter((itemId) => state.owned.has(itemId)).length;
+    const total = itemIds.length;
     const rate = total ? Math.round((owned / total) * 100) : 0;
 
     if (el("world-rate")) el("world-rate").textContent = `${rate}%`;
@@ -317,7 +380,8 @@
     const article = document.createElement("article");
     article.className = "pokemon-card world-slot has-completion-action";
     article.classList.toggle("world-journey-card", storyMode);
-    article.classList.toggle("world-journey-card--place", storyMode);
+    const worldType = options.type || slot.worldType || "place";
+    article.classList.toggle(`world-journey-card--${worldType}`, storyMode);
     article.classList.toggle("is-missing", !owned);
     article.classList.toggle("has-custom-card", item.customized);
 
@@ -348,7 +412,7 @@
     const numberBadge = document.createElement("span");
     numberBadge.className = "number-badge";
     numberBadge.textContent = storyMode
-      ? "장소"
+      ? options.typeLabel || (worldType === "pokemon" ? "포켓몬" : worldType === "person" ? "인물" : "장소")
       : String(index + 1).padStart(2, "0");
     const statusBadge = document.createElement("span");
     statusBadge.className = "status-badge";
@@ -430,93 +494,15 @@
     return article;
   }
 
-  function referenceImageUrl(kind, source) {
-    if (kind === "pokemon") {
-      const override = state.referenceSource?.overrides?.[String(source.number)];
-      if (override?.owned && override.imageUrl) return String(override.imageUrl);
-      return source.imageUrl || "";
-    }
-    const override = state.referenceSource?.peopleOverrides?.[source.id];
-    return override?.imageUrl || source.imageLarge || source.image || "";
-  }
-
-  function referenceBadge(kind, key) {
-    const badge = document.createElement("span");
-    badge.className = "world-reference-badge";
-    if (!state.referenceOwnershipLoaded) {
-      badge.textContent = "원본 도감 연동";
-      return badge;
-    }
-    const owned = state.referenceOwned[kind]?.has(String(key));
-    badge.classList.toggle("is-owned", owned);
-    badge.classList.toggle("is-missing", !owned);
-    badge.textContent = owned ? "✓ 원본도감 보유" : "○ 원본도감 미보유";
-    return badge;
-  }
-
   function makeReferenceCard(kind, reference) {
-    const isPokemon = kind === "pokemon";
-    const source = isPokemon
-      ? pokemonByNumber(reference)
-      : personById(reference);
-    if (!source) return null;
-
-    const key = isPokemon ? source.number : source.id;
-    const owned = state.referenceOwnershipLoaded
-      ? state.referenceOwned[kind]?.has(String(key))
-      : null;
-
-    const link = document.createElement("a");
-    link.className = `world-reference-card world-journey-card world-journey-card--${kind}`;
-    link.classList.toggle("is-missing", owned === false);
-    link.href = isPokemon ? "./national.html" : "./people.html";
-    link.setAttribute(
-      "aria-label",
-      `${source.nameKo || source.nameEn || ""} 원본 도감 보기`,
-    );
-
-    const imageWrap = document.createElement("span");
-    imageWrap.className = "card-image-wrap";
-    const image = document.createElement("img");
-    image.className = "card-image";
-    image.loading = "lazy";
-    image.decoding = "async";
-    image.src = referenceImageUrl(kind, source);
-    image.alt = "";
-    image.addEventListener("error", () => link.classList.add("has-image-error"), {
-      once: true,
+    const normalizedKind = kind === "people" ? "person" : kind;
+    const slot = referenceSlot(normalizedKind, reference);
+    if (!slot) return null;
+    return makeSlot(slot, -1, {
+      story: true,
+      type: normalizedKind,
+      typeLabel: normalizedKind === "pokemon" ? "포켓몬" : "인물",
     });
-    const missingOverlay = document.createElement("span");
-    missingOverlay.className = "missing-overlay";
-    missingOverlay.textContent = "미보유";
-    imageWrap.append(image, missingOverlay, makeImageFallback());
-
-    const copy = document.createElement("span");
-    copy.className = "card-body world-card-body world-reference-copy";
-    const topline = document.createElement("span");
-    topline.className = "card-topline";
-    const type = document.createElement("span");
-    type.className = "number-badge";
-    type.textContent = isPokemon ? "포켓몬" : "인물";
-    const ownedBadge = referenceBadge(kind, key);
-    ownedBadge.classList.add("status-badge");
-    topline.append(type, ownedBadge);
-
-    const name = document.createElement("strong");
-    name.className = "card-name-ko";
-    name.textContent = source.nameKo || source.nameEn || "";
-    const sub = document.createElement("span");
-    sub.className = "card-name-en world-story-subtitle";
-    sub.textContent = isPokemon
-      ? `#${String(source.number).padStart(4, "0")} · ${source.nameEn || ""}`
-      : source.role || source.affiliation || source.nameEn || "";
-    const origin = document.createElement("span");
-    origin.className = "world-reference-origin";
-    origin.textContent = isPokemon ? "전국도감에서 보기" : "인물도감에서 보기";
-
-    copy.append(topline, name, sub, origin);
-    link.append(imageWrap, copy);
-    return link;
   }
 
   function storyItem(generation, item) {
@@ -528,7 +514,7 @@
       return makeSlot(slot, index, { story: true });
     }
     if (item.type === "pokemon") return makeReferenceCard("pokemon", item.ref);
-    if (item.type === "person") return makeReferenceCard("people", item.ref);
+    if (item.type === "person") return makeReferenceCard("person", item.ref);
     return null;
   }
 
@@ -572,7 +558,7 @@
     title.textContent = `${generation.region}의 이야기를 카드로 따라가기`;
     const description = document.createElement("p");
     description.textContent =
-      "장소·포켓몬·인물을 이야기 순서에 맞춰 함께 배치했습니다. 포켓몬과 인물의 보유상태는 원본 도감에서 읽으며 중복 저장하지 않습니다.";
+      "장소·포켓몬·인물을 이야기 순서에 맞춰 함께 배치했습니다. 모든 항목은 월드탐험도감 안에서 독립적으로 수집하고 대표 카드를 바꿀 수 있습니다.";
     intro.append(kicker, title, description);
     wrapper.append(intro);
 
@@ -583,7 +569,7 @@
     const note = document.createElement("p");
     note.className = "world-journey-note";
     note.textContent =
-      "이 지역의 기존 장소 카드 12장은 위 3개 챕터에 모두 포함되어 있으며 기존 worldDex 수집완료·대표카드 변경값을 그대로 사용합니다.";
+      "이 지역은 장소 12장·포켓몬 6종·인물 4명을 월드탐험 전용 수집 대상으로 관리합니다. 기존 장소 108개의 worldDex 보유값은 그대로 유지됩니다.";
     wrapper.append(note);
     return wrapper;
   }
@@ -669,8 +655,7 @@
   }
 
   function activeSlot() {
-    const generation = generationData();
-    return generation?.slots?.find((slot) => slot.id === state.activeSlotId) || null;
+    return state.activeItem || null;
   }
 
   function setCardEditorMessage(message, status = "") {
@@ -686,8 +671,19 @@
     if (dialogImage) {
       dialogImage.src = item.image;
       dialogImage.alt = `${item.cardName} 한국어판 포켓몬 카드 크게 보기`;
+      dialogImage.closest(".dialog-card-image")?.classList.toggle(
+        "is-missing",
+        !state.owned.has(slot.id),
+      );
     }
-    if (el("world-dialog-slot")) el("world-dialog-slot").textContent = `SLOT ${String((generationData()?.slots || []).findIndex((candidate) => candidate.id === slot.id) + 1).padStart(2, "0")}`;
+    if (el("world-dialog-slot")) {
+      const typeLabel = slot.worldType === "pokemon"
+        ? "포켓몬"
+        : slot.worldType === "person"
+          ? "인물"
+          : "장소";
+      el("world-dialog-slot").textContent = typeLabel;
+    }
     if (el("world-dialog-title")) el("world-dialog-title").textContent = slot.title;
     if (el("world-dialog-subtitle")) el("world-dialog-subtitle").textContent = slot.subtitle || "";
     if (el("world-dialog-card-name")) el("world-dialog-card-name").textContent = item.cardName || "—";
@@ -706,7 +702,7 @@
   }
 
   function openCardDialog(slot) {
-    state.activeSlotId = slot.id;
+    state.activeItem = slot;
     populateCardDialog(slot);
     el("world-card-dialog")?.showModal();
   }
@@ -742,7 +738,7 @@
         throw new Error("해당 세트 코드와 카드번호로 이미지를 찾지 못했습니다. 번호를 확인하거나 이미지 URL을 직접 입력해 주세요.");
       }
 
-      state.cardOverrides[slot.id] = {
+      const nextOverride = {
         image: match.imageUrl,
         cardName: match.cardName || cardName || slot.title,
         setName: match.setName || setCode,
@@ -750,10 +746,26 @@
         number: cardNumber,
         rarity,
       };
-      saveCardOverrides();
+      const account = window.PokemonDexPageAccount;
+      const accountKey = state.accountKeys.get(slot.id);
+      if (account?.canEdit?.() && accountKey) {
+        await account.saveOverride(accountKey, {
+          owned: state.owned.has(slot.id),
+          setCode,
+          cardNumber,
+          cardName: nextOverride.cardName,
+          imageUrl: nextOverride.image,
+        });
+        delete state.cardOverrides[slot.id];
+        saveCardOverrides();
+        await applyAccountOwnership();
+      } else {
+        state.cardOverrides[slot.id] = nextOverride;
+        saveCardOverrides();
+      }
       renderAll();
       populateCardDialog(slot);
-      setCardEditorMessage("대표 카드를 변경했습니다. 이 슬롯에는 선택한 카드가 표시됩니다.", "success");
+      setCardEditorMessage("월드탐험도감의 대표 카드를 변경했습니다.", "success");
     } catch (error) {
       setCardEditorMessage(error?.message || "카드를 변경하지 못했습니다.", "error");
     } finally {
@@ -764,14 +776,40 @@
     }
   }
 
-  function resetCardOverride() {
+  async function resetCardOverride() {
     const slot = activeSlot();
-    if (!slot || !state.cardOverrides[slot.id]) return;
-    delete state.cardOverrides[slot.id];
-    saveCardOverrides();
-    renderAll();
-    populateCardDialog(slot);
-    setCardEditorMessage("이 슬롯을 월드탐험도감의 기본 대표 카드로 되돌렸습니다.", "success");
+    if (!slot) return;
+    const account = window.PokemonDexPageAccount;
+    const accountKey = state.accountKeys.get(slot.id);
+    const accountCard = state.accountCards.get(slot.id);
+    const remoteCustomized = Boolean(
+      accountCard?.actualImage ||
+      accountCard?.actualSetCode ||
+      accountCard?.actualCardNumber ||
+      accountCard?.actualName
+    );
+    const localCustomized = Boolean(state.cardOverrides[slot.id]);
+    if (!remoteCustomized && !localCustomized) return;
+
+    try {
+      if (account?.canEdit?.() && accountKey && remoteCustomized) {
+        await account.saveOverride(accountKey, {
+          owned: state.owned.has(slot.id),
+          setCode: "",
+          cardNumber: "",
+          cardName: "",
+          imageUrl: "",
+        });
+        await applyAccountOwnership();
+      }
+      delete state.cardOverrides[slot.id];
+      saveCardOverrides();
+      renderAll();
+      populateCardDialog(slot);
+      setCardEditorMessage("월드탐험도감의 기본 대표 카드로 되돌렸습니다.", "success");
+    } catch (error) {
+      setCardEditorMessage(error?.message || "대표 카드를 초기화하지 못했습니다.", "error");
+    }
   }
 
   function bindCardDialog() {
@@ -799,7 +837,6 @@
       state.people = peopleResponse.ok ? await peopleResponse.json() : null;
       state.pokedex = pokedexResponse.ok ? await pokedexResponse.json() : null;
       await applyAccountOwnership();
-      await loadReferenceOwnership();
       renderAll();
     } catch (error) {
       console.error(error);
