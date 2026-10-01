@@ -942,7 +942,12 @@ function render() {
 
 function seriesCardNumber(card) {
   const match = String(card.code || card.meta || "").match(/_([0-9]+)/);
-  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
+  if (match) return Number(match[1]);
+
+  const explicitOrder = Number(card?.order);
+  return Number.isFinite(explicitOrder)
+    ? explicitOrder
+    : Number.POSITIVE_INFINITY;
 }
 
 function seriesCardRange(card) {
