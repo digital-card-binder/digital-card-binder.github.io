@@ -146,7 +146,7 @@
     world: {
       number: "10",
       title: "월드탐험도감",
-      description: "세대별 장소·스타디움 스토리 바인더",
+      description: "지역별 장소·포켓몬·인물 탐험 허브",
       href: "./world.html",
       documentId: "worldDex",
       unit: "장",
