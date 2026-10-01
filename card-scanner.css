@@ -1,0 +1,514 @@
+
+.card-scan-fab,
+.card-scan-sheet,
+.card-scan-sheet * {
+  box-sizing: border-box;
+}
+
+.card-scan-fab {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 86;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 76px;
+  height: 54px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--navy, #17233f);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(23, 35, 63, .28);
+  cursor: pointer;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 900;
+  padding: 0 15px;
+  touch-action: manipulation;
+}
+
+.card-scan-fab svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.card-scan-fab:focus-visible {
+  outline: 3px solid rgba(42, 117, 187, .3);
+  outline-offset: 3px;
+}
+
+.card-scan-sheet {
+  width: min(100% - 24px, 560px);
+  max-height: min(88dvh, 840px);
+  overflow: hidden;
+  border: 1px solid rgba(223, 227, 236, .95);
+  border-radius: 24px;
+  background: #fff;
+  color: var(--ink, #182038);
+  padding: 0;
+  box-shadow: 0 28px 90px rgba(16, 24, 43, .34);
+}
+
+.card-scan-sheet::backdrop {
+  background: rgba(16, 24, 43, .54);
+  backdrop-filter: blur(5px);
+}
+
+.card-scan-shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: min(88dvh, 840px);
+}
+
+.card-scan-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid #eceff4;
+}
+
+.card-scan-head > div {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.card-scan-head strong {
+  font-size: 1.08rem;
+  letter-spacing: -.035em;
+}
+
+.card-scan-head span {
+  color: var(--ink-faint, #898fa2);
+  font-size: .64rem;
+}
+
+.card-scan-close {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border: 1px solid #e3e6ed;
+  border-radius: 50%;
+  background: #fff;
+  color: #596078;
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.card-scan-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 18px calc(20px + env(safe-area-inset-bottom));
+}
+
+.card-scan-start {
+  display: grid;
+  gap: 12px;
+}
+
+.card-scan-camera,
+.card-scan-secondary,
+.card-scan-save,
+.card-scan-next {
+  min-height: 48px;
+  border-radius: 13px;
+  cursor: pointer;
+  font: inherit;
+  font-size: .76rem;
+  font-weight: 850;
+  touch-action: manipulation;
+}
+
+.card-scan-camera,
+.card-scan-save {
+  border: 1px solid var(--navy, #17233f);
+  background: var(--navy, #17233f);
+  color: #fff;
+}
+
+.card-scan-secondary,
+.card-scan-next {
+  border: 1px solid #dfe4ec;
+  background: #fff;
+  color: var(--ink, #182038);
+}
+
+.card-scan-camera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card-scan-camera svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.card-scan-help {
+  margin: 0;
+  color: var(--ink-soft, #596078);
+  font-size: .68rem;
+  line-height: 1.65;
+}
+
+.card-scan-manual {
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  gap: 8px;
+}
+
+.card-scan-manual input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid #dfe3ec;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink, #182038);
+  padding: 0 12px;
+  font-size: .72rem;
+}
+
+.card-scan-manual button {
+  grid-column: 1 / -1;
+}
+
+.card-scan-preview {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 13px;
+  margin-top: 14px;
+  border: 1px solid #e2e6ed;
+  border-radius: 15px;
+  background: #f8fafc;
+  padding: 10px;
+}
+
+.card-scan-preview img {
+  width: 104px;
+  height: 142px;
+  border-radius: 9px;
+  background: #eef1f5;
+  object-fit: contain;
+}
+
+.card-scan-preview-copy {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.card-scan-preview-copy strong {
+  overflow: hidden;
+  font-size: .86rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-scan-preview-copy span,
+.card-scan-preview-copy small {
+  color: var(--ink-soft, #596078);
+  font-size: .64rem;
+  line-height: 1.5;
+}
+
+.card-scan-status {
+  min-height: 22px;
+  margin: 12px 0 0;
+  border-radius: 10px;
+  color: var(--ink-soft, #596078);
+  font-size: .67rem;
+  line-height: 1.55;
+  padding: 0;
+}
+
+.card-scan-status[data-state="loading"] {
+  color: #2a75bb;
+}
+
+.card-scan-status[data-state="error"] {
+  color: #b93647;
+}
+
+.card-scan-status[data-state="success"] {
+  color: #13795b;
+}
+
+.card-scan-progress {
+  height: 5px;
+  overflow: hidden;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: #edf0f5;
+}
+
+.card-scan-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--navy, #17233f);
+  transition: width .18s ease;
+}
+
+.card-scan-section {
+  margin-top: 18px;
+  border-top: 1px solid #eceff4;
+  padding-top: 16px;
+}
+
+.card-scan-section[hidden] {
+  display: none;
+}
+
+.card-scan-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-scan-section-head strong {
+  font-size: .84rem;
+}
+
+.card-scan-section-head span {
+  color: var(--ink-faint, #898fa2);
+  font-size: .6rem;
+}
+
+.card-scan-candidates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.card-scan-candidate {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid #e1e5ed;
+  border-radius: 12px;
+  background: #fff;
+  color: inherit;
+  cursor: pointer;
+  padding: 7px;
+  text-align: left;
+}
+
+.card-scan-candidate.is-selected {
+  border-color: var(--navy, #17233f);
+  box-shadow: 0 0 0 2px rgba(23, 35, 63, .08);
+}
+
+.card-scan-candidate img {
+  width: 52px;
+  height: 71px;
+  border-radius: 6px;
+  background: #f1f3f7;
+  object-fit: contain;
+}
+
+.card-scan-candidate > span {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.card-scan-candidate strong,
+.card-scan-candidate small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-scan-candidate strong {
+  font-size: .68rem;
+}
+
+.card-scan-candidate small {
+  color: var(--ink-faint, #898fa2);
+  font-size: .56rem;
+}
+
+.card-scan-memberships {
+  display: grid;
+  gap: 8px;
+}
+
+.card-scan-membership {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  border: 1px solid #e2e6ed;
+  border-radius: 13px;
+  background: #fff;
+  padding: 10px 11px;
+}
+
+.card-scan-membership input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--navy, #17233f);
+}
+
+.card-scan-membership-copy {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.card-scan-membership-copy strong {
+  overflow: hidden;
+  font-size: .72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-scan-membership-copy small {
+  color: var(--ink-faint, #898fa2);
+  font-size: .58rem;
+  line-height: 1.4;
+}
+
+.card-scan-membership-state {
+  border-radius: 999px;
+  background: #f0f2f7;
+  color: #68718a;
+  font-size: .55rem;
+  font-weight: 850;
+  padding: 5px 7px;
+  white-space: nowrap;
+}
+
+.card-scan-membership.is-owned .card-scan-membership-state {
+  background: #eaf7f1;
+  color: #13795b;
+}
+
+.card-scan-membership.is-representative .card-scan-membership-state {
+  background: #eef3fb;
+  color: #41649c;
+}
+
+.card-scan-membership-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 9px 0 0;
+}
+
+.card-scan-membership-actions button {
+  border: 0;
+  background: transparent;
+  color: #526aa4;
+  cursor: pointer;
+  font-size: .62rem;
+  font-weight: 800;
+  padding: 5px 0;
+}
+
+.card-scan-save-row {
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.card-scan-save:disabled,
+.card-scan-next:disabled,
+.card-scan-camera:disabled,
+.card-scan-secondary:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.card-scan-privacy {
+  margin: 10px 0 0;
+  color: var(--ink-faint, #898fa2);
+  font-size: .56rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 690px) {
+  .card-scan-fab {
+    display: inline-flex;
+  }
+
+  body:has(.card-scan-sheet[open]) .card-scan-fab {
+    display: none;
+  }
+
+  .card-scan-sheet[open] {
+    width: 100%;
+    max-width: none;
+    max-height: calc(92dvh - env(safe-area-inset-top));
+    margin: auto 0 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .card-scan-shell {
+    max-height: calc(92dvh - env(safe-area-inset-top));
+  }
+
+  .card-scan-head {
+    padding: 16px 16px 12px;
+  }
+
+  .card-scan-body {
+    padding: 14px 14px calc(18px + env(safe-area-inset-bottom));
+  }
+
+  .card-scan-candidates {
+    grid-template-columns: 1fr;
+  }
+
+  .card-scan-candidate {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .card-scan-candidate img {
+    width: 48px;
+    height: 66px;
+  }
+}
+
+@media (min-width: 691px) {
+  .card-scan-fab[data-desktop="true"] {
+    display: inline-flex;
+  }
+}
+
+@media print {
+  .card-scan-fab,
+  .card-scan-sheet {
+    display: none !important;
+  }
+}
