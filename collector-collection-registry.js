@@ -149,7 +149,7 @@
       description: "지역별 장소·포켓몬·인물 탐험 허브",
       href: "./world.html",
       documentId: "worldDex",
-      unit: "장",
+      unit: "개",
       catalogCount: catalogCount("world"),
       catalogGroupCount: catalogGroupCount("world"),
       defaultDashboardVisible: true,
