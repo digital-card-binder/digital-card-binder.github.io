@@ -170,7 +170,7 @@ async function buildMetrics() {
     world: {
       itemCount: worldItems,
       groupCount: worldGenerations.length,
-      unit: "장",
+      unit: "개",
     },
   };
 }
