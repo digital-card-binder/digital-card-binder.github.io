@@ -194,6 +194,13 @@
     return applySearchImageOverrides(payload, imageOverrides);
   }
 
+  // Existing series records provide the same cards at their correct image paths.
+  // Keep world JSON, slot numbers and ownership identities unchanged.
+  const REVIEWED_WORLD_IMAGES = Object.freeze({
+    "kanto-pokemon-center": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BGR/bw3_hb_051.jpg",
+    "kanto-pokestop": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10b/S10b_071.png",
+  });
+
   // Reference metadata only: each world item keeps its independent worldDex key.
   async function worldGroups() {
     const [world, pokedex, people] = await Promise.all([
@@ -205,7 +212,10 @@
     const personMap = new Map((people.people || []).map((item) => [item.id, item]));
     return (world.generations || []).map((generation) => {
       const slots = [
-        ...(generation.slots || []).map((slot, accountIndex) => ({ ...slot, accountIndex })),
+        ...(generation.slots || []).map((slot, accountIndex) => ({
+          ...slot, accountIndex,
+          card: { ...slot.card, image: REVIEWED_WORLD_IMAGES[slot.id] || slot.card?.image || "" },
+        })),
         ...(generation.pokemonRefs || []).map((number, index) => {
           const source = pokemonMap.get(Number(number)) || {};
           return {
