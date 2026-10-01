@@ -58,7 +58,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     people: [179, 9],
     trainerPokemon: [245, 172],
     fossil: [122, 26],
-    world: [108, 9],
+    world: [198, 9],
   };
 
   for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
@@ -81,7 +81,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     people: 179,
     trainerPokemon: 245,
     fossil: 122,
-    world: 108,
+    world: 198,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -120,9 +120,9 @@ test("fossil and world catalogs are first-class registry collections", async () 
 
   assert.equal(fossil.items.length, 122);
   assert.equal(fossil.groups.length, 26);
-  assert.equal(world.items.length, 108);
+  assert.equal(world.items.length, 198);
   assert.equal(world.groups.length, 9);
-  assert.equal(new Set(world.items.map((item) => item.key)).size, 108);
+  assert.equal(new Set(world.items.map((item) => item.key)).size, 198);
   assert.ok(world.items.every((item) => item.groupKey.startsWith("generation-")));
 });
 
@@ -605,4 +605,30 @@ test("trainer Pokemon reuses authorized Pokemon storage with an isolated key nam
   const catalog = await registry.loadCatalog("trainerPokemon");
   assert.ok(catalog.items.length > 0);
   assert.ok(catalog.items.every((item) => item.key.startsWith("trainerPokemon::")));
+});
+
+
+test("world registry preserves all legacy place account keys and appends standalone Pokemon/people keys", async () => {
+  const worldData = JSON.parse(
+    await readFile(new URL("../data/world-exploration.json", import.meta.url), "utf8"),
+  );
+  const catalog = await registry.loadCatalog("world");
+  assert.equal(catalog.items.length, 198);
+  const firstGeneration = worldData.generations[0];
+  const group = {
+    code: "generation-1",
+    name: "1세대 관동",
+    cards: firstGeneration.slots.map((slot) => ({
+      code: slot.id,
+      name: slot.title,
+      owned: false,
+      slotId: slot.id,
+    })),
+  };
+  for (let index = 0; index < group.cards.length; index += 1) {
+    const legacyKey = registry.cardIdentity("world", group, group.cards[index], 0, index);
+    assert.ok(catalog.itemMap.has(legacyKey), `legacy world key missing: ${legacyKey}`);
+  }
+  assert.ok(catalog.items.some((item) => item.name.includes("포켓몬")));
+  assert.ok(catalog.items.some((item) => item.name.includes("인물")));
 });
