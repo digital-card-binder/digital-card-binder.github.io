@@ -18,6 +18,7 @@
       people: new Set(),
     },
     referenceOwnershipLoaded: false,
+    referenceSource: null,
     owned: new Set(),
     accountKeys: new Map(),
     accountManaged: false,
@@ -124,12 +125,14 @@
       people: new Set(),
     };
     state.referenceOwnershipLoaded = false;
+    state.referenceSource = null;
 
     if (!account || !registry || window.CollectorPublicView?.requested) return;
     await account.ready;
     const documentId = window.POKEMON_DEX_FIREBASE?.userDocument || "nationalDex";
     const source = await account.readCollectionDocument?.(documentId);
     if (!source) return;
+    state.referenceSource = source;
 
     try {
       const [pokemonOwnership, peopleOwnership] = await Promise.all([
@@ -475,6 +478,16 @@
     return pageSection;
   }
 
+  function referenceImageUrl(kind, source) {
+    if (kind === "pokemon") {
+      const override = state.referenceSource?.overrides?.[String(source.number)];
+      if (override?.owned && override.imageUrl) return String(override.imageUrl);
+      return source.imageUrl || "";
+    }
+    const override = state.referenceSource?.peopleOverrides?.[source.id];
+    return override?.imageUrl || source.imageLarge || source.image || "";
+  }
+
   function referenceBadge(kind, key) {
     const badge = document.createElement("span");
     badge.className = "world-reference-badge";
@@ -507,9 +520,7 @@
     const image = document.createElement("img");
     image.loading = "lazy";
     image.decoding = "async";
-    image.src = isPokemon
-      ? source.imageUrl || ""
-      : source.imageLarge || source.image || "";
+    image.src = referenceImageUrl(kind, source);
     image.alt = "";
     image.addEventListener("error", () => link.classList.add("has-image-error"), {
       once: true,
