@@ -841,19 +841,29 @@
   }
 
   async function waitForCustomPrintImages() {
-    if (!printRoot) return;
     const images = [...printRoot.querySelectorAll("img")];
+    let timer;
     const tasks = images.map((image) => {
       if (image.complete) return Promise.resolve();
       return new Promise((resolve) => {
-        image.addEventListener("load", resolve, { once: true });
-        image.addEventListener("error", resolve, { once: true });
+        const finish = () => {
+          image.removeEventListener("load", finish);
+          image.removeEventListener("error", finish);
+          resolve();
+        };
+        image.addEventListener("load", finish);
+        image.addEventListener("error", finish);
       });
     });
-    await Promise.race([
-      Promise.all(tasks),
-      new Promise((resolve) => window.setTimeout(resolve, 5000)),
-    ]);
+    try {
+      await Promise.race([
+        Promise.all(tasks),
+        new Promise((resolve) => { timer = window.setTimeout(resolve, 60000); }),
+      ]);
+    } finally { window.clearTimeout(timer); }
+    if (images.some((image) => !image.complete || image.naturalWidth === 0)) {
+      throw new Error("일부 카드 이미지를 준비하지 못했습니다. 잠시 후 다시 인쇄해 주세요.");
+    }
   }
 
   async function startCustomPrint() {
@@ -884,6 +894,8 @@
       } else {
         window.print();
       }
+    } catch (error) {
+      window.alert(error.message || "카드 이미지를 준비하지 못했습니다. 다시 인쇄해 주세요.");
     } finally {
       updateCustomPrintUi();
       window.setTimeout(() => {

@@ -224,7 +224,7 @@
             title: source.nameKo || source.nameEn || `포켓몬 #${number}`,
             subtitle: `#${String(Number(number)).padStart(4, "0")} · ${source.nameEn || ""}`,
             accountIndex: 12 + index,
-            card: { image: source.imageUrl || "", name: source.nameKo || source.nameEn || "" },
+            card: { image: window.DigitalCardBinderImageCdn?.repairSource?.(source.imageUrl) || source.imageUrl || "", name: source.nameKo || source.nameEn || "" },
           };
         }),
         ...(generation.peopleRefs || []).map((id, index) => {

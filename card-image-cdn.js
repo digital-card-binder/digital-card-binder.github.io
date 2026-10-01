@@ -23,10 +23,29 @@
   const IMAGE_EXTENSION = /\.(?:avif|gif|jpe?g|png|webp)$/i;
   const FALLBACK_IMAGE = "/assets/card-image-unavailable.svg";
 
+  // Same set/card numbers already present in the existing series catalog.
+  const SOURCE_IMAGE_REPAIRS = Object.freeze({
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_003.jpg": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_GV_003.jpg",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_017.jpg": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_GV_017.jpg",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_012.jpg": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/XY5/XY5_TS_012.jpg",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/PROMO/XYpromo_190.jpg": "https://static.tcgexchange.kr/756dee0af5bdc4ce6b2a5442fb8728c7.png",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/PROMO/XYpromo_189.jpg": "https://static.tcgexchange.kr/7297e828bbb5000fbf9e1b754366d1fa.png",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/PROMO/BWpromo_015.jpg": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BW1/bw1_tooni_promo_015.jpg",
+    "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP3/CP3_018.jpg": "https://cards.image.pokemonkorea.co.kr/data/wmimages/XY/CP3/CP3_018.png"
+});
+
+  function repairSource(value) {
+    const original = String(value || "").trim();
+    try {
+      const parsed = new URL(original);
+      return SOURCE_IMAGE_REPAIRS[`${parsed.protocol}//${parsed.host}${parsed.pathname}`] || original;
+    } catch { return original; }
+  }
+
   function canonicalize(value) {
     let parsed;
     try {
-      parsed = new URL(String(value || "").trim());
+      parsed = new URL(repairSource(value));
     } catch {
       return null;
     }
@@ -84,8 +103,9 @@
   const enabled = CONFIG.active || previewEnabled;
 
   function resolve(value) {
-    if (!enabled) return String(value || "");
-    return destinationFor(value) || String(value || "");
+    const source = repairSource(value);
+    if (!enabled) return source;
+    return destinationFor(source) || source;
   }
 
   const sourceDescriptor = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, "src");
@@ -94,7 +114,7 @@
   const fallbackAttempts = new WeakSet();
 
   function sourceFor(image, value) {
-    const original = String(value || "");
+    const original = repairSource(value);
     const destination = resolve(original);
     if (enabled && destination && destination !== original) {
       originalSources.set(image, original);
@@ -120,7 +140,8 @@
   }
 
   window.DigitalCardBinderImageCdn = Object.freeze({
-    version: "2026-09-23.2",
+    version: "2026-10-01.1",
+    repairSource,
     enabled,
     resolve,
     destinationFor,

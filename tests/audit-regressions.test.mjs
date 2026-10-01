@@ -281,3 +281,29 @@ test("large legacy backups restore overrides through bounded shards instead of a
   assert.equal("overrides" in root.data, false);
   assert.equal(plan.filter((entry) => entry.shardId).reduce((n, entry) => n + Object.keys(entry.data.overrides).length, 0), 50000);
 });
+
+test("Studio and custom print refuse pending or failed images instead of printing blank cards", async () => {
+  for (const [file, expression, functionName] of [
+    ["studio.js", "{ elements, waitForPrintImages }", "waitForPrintImages"],
+    ["studio-custom.js", "{ waitForCustomPrintImages }", "waitForCustomPrintImages"],
+  ]) {
+    const ctx = context(); let images = [];
+    const node = ctx.document.querySelector();
+    node.querySelectorAll = () => images;
+    ctx.window.setTimeout = (fn) => { fn(); return 1; };
+    ctx.window.clearTimeout = () => {};
+    let api;
+    if (file === "studio-custom.js") {
+      ctx.printRoot = node;
+      const source = read(file);
+      vm.runInContext(source.slice(source.indexOf("  async function waitForCustomPrintImages()"), source.indexOf("  async function startCustomPrint()")), ctx);
+      api = { waitForCustomPrintImages: ctx.waitForCustomPrintImages };
+    } else { api = expose(ctx, file, expression, true); }
+    images = [{ complete: true, naturalWidth: 400 }];
+    await api[functionName]();
+    images = [{ complete: true, naturalWidth: 0 }];
+    await assert.rejects(api[functionName](), /일부 카드 이미지를 준비하지 못했습니다/);
+    images = [{ complete: false, naturalWidth: 0, addEventListener() {}, removeEventListener() {} }];
+    await assert.rejects(api[functionName](), /일부 카드 이미지를 준비하지 못했습니다/);
+  }
+});

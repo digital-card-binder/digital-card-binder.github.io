@@ -234,3 +234,29 @@ test("public pages expose no clickable Pokemon Korea links", () => {
     );
   }
 });
+
+test("broken representative paths resolve to the same catalog cards and preserve a valid fallback", () => {
+  const { window, HTMLImageElement } = loadBrowserRouter();
+  const router = window.DigitalCardBinderImageCdn;
+  const series = JSON.parse(fs.readFileSync(path.join(repositoryRoot, "data/series-legacy.json"), "utf8"));
+  const cases = [
+    ["XY/XY5/XY5_003.jpg", "xy5-bg_003/070"],
+    ["XY/XY5/XY5_017.jpg", "xy5-bg_017/070"],
+    ["XY/XY5/XY5_012.jpg", "xy5-bt_012/070"],
+    ["XY/PROMO/XYpromo_190.jpg", "xyp_190"],
+    ["XY/PROMO/XYpromo_189.jpg", "xyp_189"],
+    ["BW/PROMO/BWpromo_015.jpg", "bwp_015/BW"],
+    ["XY/CP3/CP3_018.jpg", "cp3_018/032"],
+  ];
+  for (const [imagePath, code] of cases) {
+    const original = `https://cards.image.pokemonkorea.co.kr/data/wmimages/${imagePath}?w=512`;
+    const card = series.flatMap(group => group.cards).find(card => card.code === code);
+    assert.ok(card, code);
+    assert.equal(router.repairSource(original), card.image);
+    assert.equal(router.resolve(original), router.resolve(card.image));
+    const image = new HTMLImageElement(); image.src = original;
+    assert.equal(image.src, router.resolve(card.image));
+    assert.equal(router.restoreOriginal(image), true);
+    assert.equal(image.src, card.image);
+  }
+});
