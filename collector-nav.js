@@ -9,7 +9,9 @@
   const MOBILE_CARD_COLUMNS_STORAGE_KEY = "pokemonDexMobileCardColumnsV1";
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
-  const SITE_BUILD_VERSION = "b-a6b65ffe59d5";
+  const SITE_BUILD_VERSION = "b-card-scan-v1";
+  const CARD_SCANNER_JS_VERSION = "21c65281cfc1";
+  const CARD_SCANNER_CSS_VERSION = "290b5889921e";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
   const BUILD_CHECK_MIN_INTERVAL_MS = 15_000;
@@ -64,6 +66,42 @@
       storageKey: MOBILE_CARD_COLUMNS_STORAGE_KEY,
     },
   };
+
+  function loadCardScanner() {
+    const eligiblePages = new Set([
+      "index.html",
+      "pokemon-search.html",
+      "national.html",
+      "series.html",
+      "ar.html",
+      "packs.html",
+      "pokemon-collections.html",
+      "artists.html",
+      "people.html",
+      "trainer-pokemon.html",
+      "fossil.html",
+      "world.html",
+      "custom.html",
+    ]);
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
+    if (!eligiblePages.has(currentPage)) return;
+
+    if (!document.querySelector('link[data-card-scanner-style]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "./card-scanner.css?v=" + CARD_SCANNER_CSS_VERSION;
+      link.dataset.cardScannerStyle = "true";
+      document.head?.append(link);
+    }
+
+    if (!document.querySelector('script[data-card-scanner-script]')) {
+      const script = document.createElement("script");
+      script.src = "./card-scanner.js?v=" + CARD_SCANNER_JS_VERSION;
+      script.dataset.cardScannerScript = "true";
+      script.async = true;
+      document.head?.append(script);
+    }
+  }
 
   function targetPage(link) {
     try {
@@ -670,6 +708,7 @@
   }
   activateCollectionUiShell();
   arrangeCollectorNavigation();
+  loadCardScanner();
   centerActiveNavigationOnMobile();
   if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
     mobileCardLayoutMedia.addEventListener("change", centerActiveNavigationOnMobile);
