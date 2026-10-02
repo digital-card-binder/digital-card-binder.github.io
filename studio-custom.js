@@ -1843,8 +1843,26 @@
     document.head.append(style);
   }
 
-  function createCustomPrintComposition(plan) {
-    const grid = selectedGrid();
+  function pageImageSourceById(page, imageId) {
+    return (page.images || []).find((image) => image.id === imageId) || null;
+  }
+
+  function applyMissingPrintStyle(image, ownership) {
+    if (ownership !== false) return true;
+    if (state.missingCardDisplay === "empty") return false;
+    if (state.missingCardDisplay === "grayscale") {
+      image.style.filter = "grayscale(1)";
+    } else if (state.missingCardDisplay === "dim") {
+      image.style.opacity = "0.35";
+    }
+    return true;
+  }
+
+  function createCustomPrintComposition(page, plan) {
+    const grid = {
+      cols: Math.max(1, Number(page.grid?.cols) || 3),
+      rows: Math.max(1, Number(page.grid?.rows) || 4),
+    };
     const canvasWidth = grid.cols * plan.cellWidth;
     const canvasHeight = grid.rows * plan.cellHeight;
     const composition = document.createElement("div");
@@ -1852,18 +1870,18 @@
     composition.style.width = `${canvasWidth}mm`;
     composition.style.height = `${canvasHeight}mm`;
 
-    if (state.objectUrl) {
+    if (page.objectUrl) {
       const background = document.createElement("img");
       background.className = "studio-custom-print-background";
-      background.src = state.objectUrl;
+      background.src = page.objectUrl;
       background.alt = "";
       composition.append(background);
     }
 
-    state.slots
+    (page.slots || [])
       .filter((slot) => slot.type === "image")
       .forEach((slot) => {
-        const source = imageSourceById(slot.imageId);
+        const source = pageImageSourceById(page, slot.imageId);
         if (!source?.objectUrl) return;
         const col = slot.index % grid.cols;
         const row = Math.floor(slot.index / grid.cols);
@@ -1879,12 +1897,15 @@
         composition.append(tile);
       });
 
-    state.placements
+    (page.placements || [])
       .slice()
       .sort((a, b) => a.z - b.z)
       .forEach((entry) => {
+        const ownership = ownershipForCard(entry.card);
         const image = document.createElement("img");
         image.className = "studio-custom-print-card-image";
+        image.dataset.ownership = ownership === null ? "unlinked" : ownership ? "owned" : "missing";
+        if (!applyMissingPrintStyle(image, ownership)) return;
         image.src = entry.card.image;
         image.alt = "";
         image.style.left = `${(entry.x / 100) * canvasWidth}mm`;
@@ -1899,10 +1920,10 @@
     return composition;
   }
 
-  function createCustomPrintCell(index, plan) {
-    const grid = selectedGrid();
-    const col = index % grid.cols;
-    const row = Math.floor(index / grid.cols);
+  function createCustomPrintCell(page, index, plan) {
+    const cols = Math.max(1, Number(page.grid?.cols) || 3);
+    const col = index % cols;
+    const row = Math.floor(index / cols);
     const cell = document.createElement("article");
     cell.className = "studio-custom-print-cell";
     cell.dataset.customPrintSlot = String(index + 1);
@@ -1911,7 +1932,7 @@
     cell.style.pageBreakInside = "avoid";
     cell.style.breakInside = "avoid";
 
-    const composition = createCustomPrintComposition(plan);
+    const composition = createCustomPrintComposition(page, plan);
     composition.style.left = `-${col * plan.cellWidth}mm`;
     composition.style.top = `-${row * plan.cellHeight}mm`;
     cell.append(composition);
@@ -1925,40 +1946,61 @@
     sheet.append(calibration);
   }
 
+  async function prepareAllPagesForPrint() {
+    captureCurrentPage();
+    for (const page of state.pages) {
+      await hydratePageBackground(page);
+      await hydratePageImages(page);
+    }
+  }
+
   function buildCustomPrintSheets() {
     if (!printRoot) return null;
-    const plan = customPrintPlan();
+    const plans = allCustomPrintPlans();
     installCustomPrintPageStyle();
     printRoot.replaceChildren();
+    let sheetCount = 0;
 
-    if (plan.mode === "fit") {
-      const sheet = document.createElement("section");
-      sheet.className = "studio-print-sheet studio-custom-print-sheet studio-custom-print-sheet--fit";
-      sheet.style.gridTemplateColumns = `repeat(${plan.cols}, ${plan.cellWidth}mm)`;
-      sheet.style.gridTemplateRows = `repeat(${plan.rows}, ${plan.cellHeight}mm)`;
-      for (let index = 0; index < plan.slotCount; index += 1) {
-        sheet.append(createCustomPrintCell(index, plan));
+    plans.forEach(({ page, plan }, binderPageIndex) => {
+      if (plan.mode === "fit") {
+        const sheet = document.createElement("section");
+        sheet.className = "studio-print-sheet studio-custom-print-sheet studio-custom-print-sheet--fit";
+        sheet.dataset.binderPage = String(binderPageIndex + 1);
+        sheet.dataset.customPrintPage = String(++sheetCount);
+        sheet.style.gridTemplateColumns = `repeat(${plan.cols}, ${plan.cellWidth}mm)`;
+        sheet.style.gridTemplateRows = `repeat(${plan.rows}, ${plan.cellHeight}mm)`;
+        for (let index = 0; index < plan.slotCount; index += 1) {
+          sheet.append(createCustomPrintCell(page, index, plan));
+        }
+        printRoot.append(sheet);
+        return;
       }
-      printRoot.append(sheet);
-      return plan;
-    }
 
-    for (let start = 0; start < plan.slotCount; start += plan.perPage) {
-      const sheet = document.createElement("section");
-      sheet.className = "studio-print-sheet studio-print-sheet--exact studio-custom-print-sheet";
-      sheet.dataset.customPrintPage = String(Math.floor(start / plan.perPage) + 1);
-      sheet.style.gridTemplateColumns = `repeat(${plan.pageCols}, ${plan.cellWidth}mm)`;
-      sheet.style.gridTemplateRows = `repeat(${plan.pageRows}, ${plan.cellHeight}mm)`;
-      sheet.style.pageBreakInside = "avoid";
-      sheet.style.breakInside = "avoid-page";
-      const end = Math.min(plan.slotCount, start + plan.perPage);
-      for (let index = start; index < end; index += 1) {
-        sheet.append(createCustomPrintCell(index, plan));
+      for (let start = 0; start < plan.slotCount; start += plan.perPage) {
+        const sheet = document.createElement("section");
+        sheet.className = "studio-print-sheet studio-print-sheet--exact studio-custom-print-sheet";
+        sheet.dataset.binderPage = String(binderPageIndex + 1);
+        sheet.dataset.binderPagePart = String(Math.floor(start / plan.perPage) + 1);
+        sheet.dataset.customPrintPage = String(++sheetCount);
+        sheet.style.gridTemplateColumns = `repeat(${plan.pageCols}, ${plan.cellWidth}mm)`;
+        sheet.style.gridTemplateRows = `repeat(${plan.pageRows}, ${plan.cellHeight}mm)`;
+        sheet.style.pageBreakInside = "avoid";
+        sheet.style.breakInside = "avoid-page";
+        const end = Math.min(plan.slotCount, start + plan.perPage);
+        for (let index = start; index < end; index += 1) {
+          sheet.append(createCustomPrintCell(page, index, plan));
+        }
+        addCustomPrintCalibration(sheet);
+        printRoot.append(sheet);
       }
-      addCustomPrintCalibration(sheet);
-      printRoot.append(sheet);
-    }
-    return plan;
+    });
+
+    return {
+      mode: selectedCustomPrintMode(),
+      label: plans[0]?.plan.label || "출력",
+      pageCount: sheetCount,
+      binderPageCount: state.pages.length,
+    };
   }
 
   async function waitForCustomPrintImages() {
@@ -2022,17 +2064,18 @@
       return;
     }
 
-    const plan = buildCustomPrintSheets();
-    if (!plan) return;
-
     const originalTitle = document.title;
     const title = clean(titleInput.value) || "커스텀바인더";
-    const printTitle = `바인더스튜디오_${title}_${plan.cols}x${plan.rows}_${plan.mode}`;
-    document.title = printTitle;
     customPrintButton.disabled = true;
-    customPrintButton.textContent = "인쇄 준비 중…";
+    customPrintButton.textContent = "전체 페이지 준비 중…";
 
     try {
+      await prepareAllPagesForPrint();
+      const plan = buildCustomPrintSheets();
+      if (!plan) return;
+      const printTitle = `바인더스튜디오_${title}_${plan.binderPageCount}pages_${plan.mode}`;
+      document.title = printTitle;
+      customPrintButton.textContent = "인쇄 준비 중…";
       await waitForCustomPrintImages();
       if (supportsNativePrint()) {
         window.DigitalCardBinderApp.startPrint(printTitle, false);
@@ -2040,7 +2083,7 @@
         window.print();
       }
     } catch (error) {
-      window.alert(error.message || "카드 이미지를 준비하지 못했습니다. 다시 인쇄해 주세요.");
+      window.alert(error.message || "바인더 이미지를 준비하지 못했습니다. 다시 인쇄해 주세요.");
     } finally {
       updateCustomPrintUi();
       window.setTimeout(() => {
