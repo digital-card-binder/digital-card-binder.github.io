@@ -1309,6 +1309,10 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-page-left"/);
   assert.match(page, /id="studio-custom-page-right"/);
   assert.match(page, /id="studio-custom-page-delete"/);
+  assert.match(page, /사진으로 바인더 가져오기/);
+  assert.match(page, /id="studio-custom-photo-camera"/);
+  assert.match(page, /id="studio-custom-photo-album"/);
+  assert.match(page, /id="studio-custom-photo-status"/);
   assert.match(page, /id="studio-custom-slot-layer"/);
   assert.match(page, /id="studio-custom-art-file"/);
   assert.match(page, /id="studio-custom-slot-select-toggle"/);
@@ -1334,8 +1338,8 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /data-studio-help="4"/);
   assert.match(page, /data-studio-help="9"/);
   assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
-  assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 4);
-  assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 5);
+  assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 3);
+  assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 6);
   assert.match(page, /바인더 페이지 <span class="studio-step-badge is-required">필수<\/span>/);
   assert.match(page, /확장 이미지 배치 <span class="studio-step-badge is-optional">선택<\/span>/);
   assert.match(page, /확장 이미지 배치/);
@@ -1375,6 +1379,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /customDexKey/);
   assert.match(editor, /linkedDexId: state[.]linkedDexId/);
   assert.match(editor, /missingCardDisplay: state[.]missingCardDisplay/);
+  assert.match(editor, /function importBinderPhoto/);
+  assert.match(editor, /function normalizeBinderPhoto/);
+  assert.match(editor, /currentPageHasSlotContent/);
+  assert.match(editor, /photoCameraInput[?][.]addEventListener/);
+  assert.match(editor, /photoAlbumInput[?][.]addEventListener/);
   assert.match(editor, /function loadArtFile/);
   assert.match(editor, /function applyArtToSelectedSlots/);
   assert.match(editor, /function movePlacementToSlot/);
