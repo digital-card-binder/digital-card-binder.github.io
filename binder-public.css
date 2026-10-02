@@ -165,19 +165,127 @@
   min-height: 300px;
   place-items: center;
   overflow: auto;
-  border-radius: 16px;
-  background: #edf2f5;
-  padding: 14px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,.9), transparent 36%),
+    linear-gradient(145deg, #eef3f6, #e5ebef);
+  padding: 18px;
 }
 
-.binder-public-canvas img {
+.binder-public-shell {
+  --binder-cover: #173650;
+  --binder-cover-dark: #0d293f;
+  --binder-ring: #dce7eb;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(16, 45, 67, .42);
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.05), transparent 12%),
+    linear-gradient(145deg, var(--binder-cover), var(--binder-cover-dark));
+  padding: 12px 12px 12px 9px;
+  box-shadow:
+    0 18px 38px rgba(18, 43, 62, .2),
+    inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.binder-public-spine {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 7% 0;
+}
+
+.binder-public-spine span {
+  position: relative;
   display: block;
+  width: 15px;
+  height: 15px;
+  border: 3px solid var(--binder-ring);
+  border-radius: 50%;
+  background: #7690a1;
+  box-shadow:
+    inset 0 0 0 2px #29495e,
+    0 1px 2px rgba(0,0,0,.2);
+}
+
+.binder-public-spine span::after {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 14px;
+  height: 5px;
+  border: 2px solid var(--binder-ring);
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.binder-public-page-frame {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  border: 8px solid rgba(244, 248, 249, .9);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1px rgba(95, 120, 137, .18),
+    0 5px 14px rgba(2, 23, 38, .16);
+}
+
+.binder-public-page-frame > * {
+  grid-area: 1 / 1;
+}
+
+.binder-public-page-frame img {
+  display: block;
+  width: auto;
   max-width: min(100%, 920px);
   max-height: 78vh;
-  border-radius: 8px;
+  border-radius: 5px;
   background: #fff;
-  box-shadow: 0 12px 34px rgba(18, 43, 62, .16);
   object-fit: contain;
+}
+
+.binder-public-pocket-grid {
+  z-index: 2;
+  align-self: stretch;
+  justify-self: stretch;
+  pointer-events: none;
+  border: 1px solid rgba(73, 96, 112, .2);
+  border-radius: 5px;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc((100% / var(--binder-cols)) - 1px),
+      rgba(76, 98, 113, .26) calc((100% / var(--binder-cols)) - 1px),
+      rgba(76, 98, 113, .26) calc(100% / var(--binder-cols))
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc((100% / var(--binder-rows)) - 1px),
+      rgba(76, 98, 113, .26) calc((100% / var(--binder-rows)) - 1px),
+      rgba(76, 98, 113, .26) calc(100% / var(--binder-rows))
+    );
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
+}
+
+.binder-public-sheet-shine {
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 5px;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.16), transparent 22% 78%, rgba(255,255,255,.08)),
+    linear-gradient(to bottom, rgba(255,255,255,.08), transparent 8%);
+  mix-blend-mode: screen;
 }
 
 .binder-public-note {
@@ -218,10 +326,39 @@
 
   .binder-public-canvas {
     min-height: 220px;
-    padding: 8px;
+    padding: 8px 4px;
   }
 
-  .binder-public-canvas img {
+  .binder-public-shell {
+    grid-template-columns: 22px minmax(0, 1fr);
+    max-width: 100%;
+    border-radius: 19px;
+    padding: 7px 7px 7px 5px;
+  }
+
+  .binder-public-spine span {
+    width: 11px;
+    height: 11px;
+    border-width: 2px;
+  }
+
+  .binder-public-spine span::after {
+    left: 7px;
+    width: 10px;
+    height: 4px;
+    border-width: 1.5px;
+  }
+
+  .binder-public-page-frame {
+    border-width: 5px;
+    border-radius: 10px;
+  }
+
+  .binder-public-page-frame img {
     max-height: 72vh;
+  }
+
+  .binder-public-pocket-grid {
+    border-radius: 4px;
   }
 }
