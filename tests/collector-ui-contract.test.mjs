@@ -1084,7 +1084,8 @@ test("link-only sharing and link-copy controls are removed", async () => {
   assert.equal(customSync.includes("navigator.clipboard"), false);
   assert.equal(settingsClient.includes("unlisted"), false);
   assert.equal(settingsClient.includes("data-copy-share"), false);
-  assert.equal(settingsClient.includes("navigator.clipboard"), false);
+  assert.match(settingsClient, /copyPublicBinderLink/);
+  assert.match(settingsClient, /navigator[.]clipboard[.]writeText/);
   assert.equal(settingsPage.includes('id="collector-profile-copy"'), false);
   assert.equal(publicProfilePage.includes("collector-public-share"), false);
   assert.equal(publicProfileClient.includes("navigator.clipboard"), false);
