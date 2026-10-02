@@ -72,7 +72,7 @@ jobs:
       - name: Commit generated fingerprints
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/card-visual-fingerprints.json data/card-visual-fingerprints-failures.json; then
+          if [ -z "$(git status --porcelain -- data/card-visual-fingerprints.json data/card-visual-fingerprints-failures.json)" ]; then
             echo "Fingerprint index is already current."
             exit 0
           fi
