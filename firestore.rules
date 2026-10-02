@@ -417,7 +417,9 @@ service cloud.firestore {
         && request.resource.data.keys().hasOnly(["publicId", "updatedAt"])
         && request.resource.data.publicId == publicId
         && request.resource.data.updatedAt == request.time
-        && hasPublicCollectionAfter(request.auth.uid);
+        && getAfter(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
     }
 
     function sharedSettingEnabled(userId, collectionId, shareId) {
@@ -1516,8 +1518,8 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
-    // PUBLIC 도감이 하나 이상인 프로필의 무작위 공개 ID만 보드에 등재합니다.
-    // 닉네임·소개·도감 projection은 기존 공개 경로에서 별도로 읽습니다.
+    // 공개 도감 또는 공개 커스텀 바인더가 있는 프로필을 보드에 등재합니다.
+    // 실제 공개 항목의 존재 여부는 각 공개 projection 경로에서 확인합니다.
     match /publicCollectorDirectory/{publicId} {
       allow get, list: if true;
       allow create, update: if validPublicCollectorDirectory(publicId);
