@@ -1139,8 +1139,9 @@ service cloud.firestore {
     }
 
     function validTradeCard(card) {
+      // hasOnly plus direct field access rejects missing/extra keys while keeping
+      // the per-card expression budget low enough for the documented 6+6 limit.
       return card is map
-        && card.keys().hasAll(["name", "imageUrl", "detail", "sourcePage"])
         && card.keys().hasOnly(["name", "imageUrl", "detail", "sourcePage"])
         && card.name is string
         && card.name.size() >= 1
@@ -1149,7 +1150,6 @@ service cloud.firestore {
         && card.imageUrl.size() <= 500
         && card.detail is string
         && card.detail.size() <= 160
-        && card.sourcePage is string
         && card.sourcePage in [
           "national.html",
           "artists.html",
