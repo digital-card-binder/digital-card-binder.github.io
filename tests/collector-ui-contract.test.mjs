@@ -1387,7 +1387,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
   assert.doesNotMatch(editor, /function resizeSelected/);
-  assert.doesNotMatch(editor, /"collections"[\s\S]{0,100}"pokemonCollectionsDex"/);
+  assert.match(editor, /"pokemonCollectionsDex"/);
+  assert.match(editor, /const snapshot = await firestoreModule[.]getDoc\(reference\)/);
+  assert.doesNotMatch(editor, /customDexes:\s*state[.]customDexes/);
 
   assert.match(customPage, /id="custom-binders"/);
   assert.match(customPage, /custom-binder-library[.]js[?]v=/);
