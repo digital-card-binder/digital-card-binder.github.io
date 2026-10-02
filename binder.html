@@ -73,7 +73,16 @@
           </div>
           <div id="binder-public-page-list" class="binder-public-page-list" aria-label="페이지 선택"></div>
           <div class="binder-public-canvas">
-            <img id="binder-public-image" alt="" />
+            <div id="binder-public-shell" class="binder-public-shell" style="--binder-cols:3; --binder-rows:4;">
+              <div class="binder-public-spine" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="binder-public-page-frame">
+                <img id="binder-public-image" alt="" />
+                <div class="binder-public-pocket-grid" aria-hidden="true"></div>
+                <div class="binder-public-sheet-shine" aria-hidden="true"></div>
+              </div>
+            </div>
           </div>
           <p class="binder-public-note">컬렉터가 공개한 읽기 전용 스냅샷입니다. 원본 편집 데이터와 계정 정보는 공개되지 않습니다.</p>
         </section>
