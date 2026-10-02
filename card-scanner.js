@@ -416,6 +416,32 @@
       // whole lower strip on photographed cards.
       return [
         {
+          kind: "title",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.12,
+            y: 0.01,
+            width: 0.55,
+            height: 0.10,
+            scale: 5.4,
+            maxWidth: 2400,
+            mode: "contrast",
+          }),
+          psm: "7",
+        },
+        {
+          kind: "number",
+          canvas: makeOcrRegionCanvas(image, {
+            x: 0.04,
+            y: 0.89,
+            width: 0.22,
+            height: 0.07,
+            scale: 7.0,
+            maxWidth: 2200,
+            mode: "contrast",
+          }),
+          psm: "7",
+        },
+        {
           kind: "number",
           canvas: makeOcrRegionCanvas(image, {
             x: 0.03,
@@ -431,15 +457,15 @@
         {
           kind: "title",
           canvas: makeOcrRegionCanvas(image, {
-            x: 0.12,
-            y: 0.01,
-            width: 0.55,
-            height: 0.10,
-            scale: 5.0,
+            x: 0.05,
+            y: 0.00,
+            width: 0.78,
+            height: 0.16,
+            scale: 3.2,
             maxWidth: 2200,
             mode: "contrast",
           }),
-          psm: "7",
+          psm: "6",
         },
         {
           kind: "number",
@@ -450,19 +476,6 @@
             height: 0.24,
             scale: 4.2,
             maxWidth: 2400,
-            mode: "contrast",
-          }),
-          psm: "6",
-        },
-        {
-          kind: "title",
-          canvas: makeOcrRegionCanvas(image, {
-            x: 0.05,
-            y: 0.00,
-            width: 0.78,
-            height: 0.16,
-            scale: 3.2,
-            maxWidth: 2200,
             mode: "contrast",
           }),
           psm: "6",
@@ -500,17 +513,24 @@
   }
 
   function detectedCardNames(text) {
-    const source = compactCardName(text);
-    if (!source || !state.cards) return [];
+    const raw = clean(text);
+    // Korean cards have a Hangul card name. If OCR returned only Latin noise,
+    // do not turn short strings such as "AZ" into false candidates.
+    if (!/[가-힣]{2,}/.test(raw) || !state.cards) return [];
+
+    const source = compactCardName(raw);
+    if (!source) return [];
+
     const names = [...new Set(
       state.cards
         .flatMap((card) => [clean(card.name), clean(card.pokemonName)])
+        .filter((name) => /[가-힣]{2,}/.test(name))
         .filter((name) => compactCardName(name).length >= 2),
     )]
       .sort((a, b) => compactCardName(b).length - compactCardName(a).length);
 
     const exact = names.filter((name) => source.includes(compactCardName(name)));
-    if (exact.length) return exact.slice(0, 8);
+    if (exact.length) return exact.slice(0, 12);
 
     const fuzzy = [];
     for (const name of names) {
@@ -526,7 +546,7 @@
           }
         }
       }
-      if (fuzzy.length >= 8) break;
+      if (fuzzy.length >= 12) break;
     }
     return fuzzy;
   }
@@ -565,20 +585,10 @@
         setProgress(18 + Math.round((index / regions.length) * 60));
 
         if (typeof worker.setParameters === "function") {
-          await worker.setParameters(
-            region.kind === "number"
-              ? {
-                  tessedit_pageseg_mode: region.psm || "6",
-                  tessedit_char_whitelist:
-                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/+-. ",
-                  preserve_interword_spaces: "1",
-                }
-              : {
-                  tessedit_pageseg_mode: region.psm || "7",
-                  tessedit_char_whitelist: "",
-                  preserve_interword_spaces: "1",
-                },
-          );
+          await worker.setParameters({
+            tessedit_pageseg_mode: region.psm || (region.kind === "title" ? "7" : "6"),
+            preserve_interword_spaces: "1",
+          });
         }
 
         const result = await worker.recognize(region.canvas);
@@ -737,7 +747,7 @@
           }
         }
       }
-      if (!fractions.length && numbers.includes(card.numerator)) score += 42;
+      if (!fractions.length && sets.length && numbers.includes(card.numerator)) score += 42;
 
       const rawCompact = compactOcr(card.rawCode);
       if (rawCompact && compact.includes(rawCompact)) score += 240;
