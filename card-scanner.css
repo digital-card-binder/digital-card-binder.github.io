@@ -162,6 +162,79 @@
   stroke-width: 1.8;
 }
 
+.card-scan-live {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  border-radius: 16px;
+  background: #0d1220;
+}
+
+.card-scan-live[hidden] {
+  display: none;
+}
+
+.card-scan-live video {
+  display: block;
+  width: 100%;
+  height: min(54dvh, 500px);
+  background: #0d1220;
+  object-fit: cover;
+}
+
+.card-scan-live-frame {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: min(70%, 290px);
+  aspect-ratio: 63 / 88;
+  transform: translateX(-50%);
+  border: 2px solid rgba(255, 255, 255, .92);
+  border-radius: 14px;
+  box-shadow: 0 0 0 999px rgba(8, 13, 24, .36);
+  pointer-events: none;
+}
+
+.card-scan-live-copy {
+  position: absolute;
+  right: 12px;
+  bottom: 52px;
+  left: 12px;
+  display: grid;
+  gap: 2px;
+  border-radius: 11px;
+  background: rgba(10, 16, 30, .72);
+  color: #fff;
+  padding: 9px 11px;
+  backdrop-filter: blur(6px);
+}
+
+.card-scan-live-copy strong {
+  font-size: .7rem;
+}
+
+.card-scan-live-copy span {
+  color: rgba(255, 255, 255, .78);
+  font-size: .59rem;
+  line-height: 1.4;
+}
+
+.card-scan-live-close {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 999px;
+  background: rgba(10, 16, 30, .72);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: .6rem;
+  font-weight: 800;
+  padding: 0 12px;
+}
+
 .card-scan-help {
   margin: 0;
   color: var(--ink-soft, #596078);
