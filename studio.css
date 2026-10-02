@@ -2468,3 +2468,45 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     font-size: .6rem;
   }
 }
+
+
+/* Binder Studio required / optional step labels */
+.studio-step-heading > div > strong {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.studio-step-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: .48rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.01em;
+  vertical-align: middle;
+}
+
+.studio-step-badge.is-required {
+  border: 1px solid #9ed8df;
+  background: #e8f8fa;
+  color: #176679;
+}
+
+.studio-step-badge.is-optional {
+  border: 1px solid #d7e0e6;
+  background: #f4f7f9;
+  color: #73808c;
+}
+
+@media (max-width: 690px) {
+  .studio-step-badge {
+    min-height: 18px;
+    padding: 3px 6px;
+    font-size: .45rem;
+  }
+}
