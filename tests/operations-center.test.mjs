@@ -54,6 +54,10 @@ test("backup includes Studio custom binders, schema v2 pages, and active backgro
   assert.match(client, /collection\(binderSnapshot[.]ref, "chunks"\)/);
   assert.match(client, /pages = pageSnapshot[.]docs[.]map\(backupPage\)/);
   assert.match(client, /background: data[.]background [?][?] null/);
+  assert.match(client, /images: Array[.]isArray\(data[.]images\) [?] data[.]images : \[\]/);
+  assert.match(client, /validBackupImageSource/);
+  assert.match(client, /chunkSet: chunkSetMap[.]get\(image[.]chunkSet\)/);
+  assert.match(client, /pageOrder[.]map\(\(pageId\) => backupPage/);
   assert.match(client, /data[.]data[?][.]toBase64[?][.]\(\)/);
   assert.match(client, /Bytes[.]fromBase64String\(chunk[.]dataBase64\)/);
   assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\], batch\)/);
