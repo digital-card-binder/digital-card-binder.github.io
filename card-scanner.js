@@ -35,6 +35,9 @@
     visualIndexLoading: null,
     cardByVisualKey: new Map(),
     busy: false,
+    liveStream: null,
+    liveScanToken: 0,
+    liveConsensus: null,
   };
 
   const els = {};
@@ -196,6 +199,300 @@
     return canvas;
   }
 
+  function sourceCanvas(source, maxWidth = 1200) {
+    const sourceWidth = source.width || source.naturalWidth;
+    const sourceHeight = source.height || source.naturalHeight;
+    const scale = Math.min(1, maxWidth / Math.max(1, sourceWidth));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(sourceWidth * scale));
+    canvas.height = Math.max(1, Math.round(sourceHeight * scale));
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(source, 0, 0, canvas.width, canvas.height);
+    return canvas;
+  }
+
+  function fitLinear(points, independent, dependent) {
+    if (!Array.isArray(points) || points.length < 8) return null;
+    let active = points.slice();
+    let result = null;
+    for (let pass = 0; pass < 3; pass += 1) {
+      let sx = 0;
+      let sy = 0;
+      let sxx = 0;
+      let sxy = 0;
+      for (const point of active) {
+        const x = point[independent];
+        const y = point[dependent];
+        sx += x;
+        sy += y;
+        sxx += x * x;
+        sxy += x * y;
+      }
+      const count = active.length;
+      const denominator = count * sxx - sx * sx;
+      if (Math.abs(denominator) < 1e-6) return null;
+      const slope = (count * sxy - sx * sy) / denominator;
+      const intercept = (sy - slope * sx) / count;
+      result = { slope, intercept };
+      const residuals = active
+        .map((point) => Math.abs(point[dependent] - (slope * point[independent] + intercept)))
+        .sort((a, b) => a - b);
+      const median = residuals[Math.floor(residuals.length / 2)] || 0;
+      const limit = Math.max(2.2, median * 2.8);
+      const filtered = active.filter(
+        (point) =>
+          Math.abs(point[dependent] - (slope * point[independent] + intercept)) <= limit,
+      );
+      if (filtered.length < Math.max(8, active.length * 0.55) || filtered.length === active.length) {
+        break;
+      }
+      active = filtered;
+    }
+    return result;
+  }
+
+  function lineIntersection(vertical, horizontal) {
+    if (!vertical || !horizontal) return null;
+    const denominator = 1 - vertical.slope * horizontal.slope;
+    if (Math.abs(denominator) < 1e-5) return null;
+    const x =
+      (vertical.slope * horizontal.intercept + vertical.intercept) /
+      denominator;
+    const y = horizontal.slope * x + horizontal.intercept;
+    return { x, y };
+  }
+
+  function pointDistance(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
+
+  function polygonArea(points) {
+    let area = 0;
+    for (let index = 0; index < points.length; index += 1) {
+      const current = points[index];
+      const next = points[(index + 1) % points.length];
+      area += current.x * next.y - next.x * current.y;
+    }
+    return Math.abs(area) / 2;
+  }
+
+  function detectCardQuad(source) {
+    const working = sourceCanvas(source, 420);
+    const width = working.width;
+    const height = working.height;
+    if (width < 80 || height < 110) return null;
+
+    const context = working.getContext("2d", { willReadFrequently: true });
+    const pixels = context.getImageData(0, 0, width, height).data;
+    const gray = new Float32Array(width * height);
+    for (let index = 0, pixel = 0; index < pixels.length; index += 4, pixel += 1) {
+      gray[pixel] =
+        pixels[index] * 0.299 +
+        pixels[index + 1] * 0.587 +
+        pixels[index + 2] * 0.114;
+    }
+
+    const valueAt = (x, y) =>
+      gray[Math.max(0, Math.min(height - 1, y)) * width + Math.max(0, Math.min(width - 1, x))];
+
+    const leftPoints = [];
+    const rightPoints = [];
+    const topPoints = [];
+    const bottomPoints = [];
+    const yStart = Math.round(height * 0.12);
+    const yEnd = Math.round(height * 0.88);
+    const xStart = Math.round(width * 0.12);
+    const xEnd = Math.round(width * 0.88);
+
+    for (let y = yStart; y <= yEnd; y += 3) {
+      let leftBest = { score: 0, x: 0 };
+      let rightBest = { score: 0, x: 0 };
+      for (let x = Math.round(width * 0.025); x <= Math.round(width * 0.48); x += 1) {
+        const score = Math.abs(valueAt(x + 2, y) - valueAt(x - 2, y));
+        if (score > leftBest.score) leftBest = { score, x };
+      }
+      for (let x = Math.round(width * 0.52); x <= Math.round(width * 0.975); x += 1) {
+        const score = Math.abs(valueAt(x + 2, y) - valueAt(x - 2, y));
+        if (score > rightBest.score) rightBest = { score, x };
+      }
+      if (leftBest.score >= 13) leftPoints.push({ x: leftBest.x, y });
+      if (rightBest.score >= 13) rightPoints.push({ x: rightBest.x, y });
+    }
+
+    for (let x = xStart; x <= xEnd; x += 3) {
+      let topBest = { score: 0, y: 0 };
+      let bottomBest = { score: 0, y: 0 };
+      for (let y = Math.round(height * 0.025); y <= Math.round(height * 0.43); y += 1) {
+        const score = Math.abs(valueAt(x, y + 2) - valueAt(x, y - 2));
+        if (score > topBest.score) topBest = { score, y };
+      }
+      for (let y = Math.round(height * 0.57); y <= Math.round(height * 0.975); y += 1) {
+        const score = Math.abs(valueAt(x, y + 2) - valueAt(x, y - 2));
+        if (score > bottomBest.score) bottomBest = { score, y };
+      }
+      if (topBest.score >= 13) topPoints.push({ x, y: topBest.y });
+      if (bottomBest.score >= 13) bottomPoints.push({ x, y: bottomBest.y });
+    }
+
+    const left = fitLinear(leftPoints, "y", "x");
+    const right = fitLinear(rightPoints, "y", "x");
+    const top = fitLinear(topPoints, "x", "y");
+    const bottom = fitLinear(bottomPoints, "x", "y");
+    const tl = lineIntersection(left, top);
+    const tr = lineIntersection(right, top);
+    const br = lineIntersection(right, bottom);
+    const bl = lineIntersection(left, bottom);
+    if (![tl, tr, br, bl].every(Boolean)) return null;
+
+    const points = [tl, tr, br, bl];
+    const margin = Math.max(width, height) * 0.06;
+    if (
+      points.some(
+        (point) =>
+          point.x < -margin ||
+          point.y < -margin ||
+          point.x > width + margin ||
+          point.y > height + margin,
+      )
+    ) {
+      return null;
+    }
+
+    const averageWidth = (pointDistance(tl, tr) + pointDistance(bl, br)) / 2;
+    const averageHeight = (pointDistance(tl, bl) + pointDistance(tr, br)) / 2;
+    const ratio = averageWidth / Math.max(1, averageHeight);
+    const area = polygonArea(points);
+    if (
+      area < width * height * 0.20 ||
+      averageWidth < width * 0.32 ||
+      averageHeight < height * 0.38 ||
+      ratio < 0.46 ||
+      ratio > 0.98
+    ) {
+      return null;
+    }
+
+    const scaleX = (source.width || source.naturalWidth) / width;
+    const scaleY = (source.height || source.naturalHeight) / height;
+    return points.map((point) => ({
+      x: point.x * scaleX,
+      y: point.y * scaleY,
+    }));
+  }
+
+  function solveLinearSystem(matrix, vector) {
+    const size = vector.length;
+    const augmented = matrix.map((row, index) => row.concat(vector[index]));
+    for (let col = 0; col < size; col += 1) {
+      let pivot = col;
+      for (let row = col + 1; row < size; row += 1) {
+        if (Math.abs(augmented[row][col]) > Math.abs(augmented[pivot][col])) pivot = row;
+      }
+      if (Math.abs(augmented[pivot][col]) < 1e-9) return null;
+      [augmented[col], augmented[pivot]] = [augmented[pivot], augmented[col]];
+      const divisor = augmented[col][col];
+      for (let index = col; index <= size; index += 1) augmented[col][index] /= divisor;
+      for (let row = 0; row < size; row += 1) {
+        if (row === col) continue;
+        const factor = augmented[row][col];
+        if (!factor) continue;
+        for (let index = col; index <= size; index += 1) {
+          augmented[row][index] -= factor * augmented[col][index];
+        }
+      }
+    }
+    return augmented.map((row) => row[size]);
+  }
+
+  function homographyForQuad(quad) {
+    const destinations = [
+      [0, 0],
+      [1, 0],
+      [1, 1],
+      [0, 1],
+    ];
+    const matrix = [];
+    const vector = [];
+    destinations.forEach(([u, v], index) => {
+      const { x, y } = quad[index];
+      matrix.push([u, v, 1, 0, 0, 0, -u * x, -v * x]);
+      vector.push(x);
+      matrix.push([0, 0, 0, u, v, 1, -u * y, -v * y]);
+      vector.push(y);
+    });
+    return solveLinearSystem(matrix, vector);
+  }
+
+  function warpCardPerspective(source, quad, width = 504, height = 704) {
+    const working = sourceCanvas(source, 1200);
+    const scaleX = working.width / (source.width || source.naturalWidth);
+    const scaleY = working.height / (source.height || source.naturalHeight);
+    const scaledQuad = quad.map((point) => ({
+      x: point.x * scaleX,
+      y: point.y * scaleY,
+    }));
+    const coefficients = homographyForQuad(scaledQuad);
+    if (!coefficients) return cropCanvas(working, { x: 0, y: 0, width: 1, height: 1 }, width, height);
+
+    const sourceContext = working.getContext("2d", { willReadFrequently: true });
+    const sourcePixels = sourceContext.getImageData(0, 0, working.width, working.height).data;
+    const output = document.createElement("canvas");
+    output.width = width;
+    output.height = height;
+    const outputContext = output.getContext("2d", { willReadFrequently: true });
+    const outputImage = outputContext.createImageData(width, height);
+    const [a, b, c, d, e, f, g, h] = coefficients;
+
+    for (let y = 0; y < height; y += 1) {
+      const v = y / Math.max(1, height - 1);
+      for (let x = 0; x < width; x += 1) {
+        const u = x / Math.max(1, width - 1);
+        const denominator = g * u + h * v + 1;
+        const sourceX = Math.max(
+          0,
+          Math.min(working.width - 1, Math.round((a * u + b * v + c) / denominator)),
+        );
+        const sourceY = Math.max(
+          0,
+          Math.min(working.height - 1, Math.round((d * u + e * v + f) / denominator)),
+        );
+        const sourceIndex = (sourceY * working.width + sourceX) * 4;
+        const outputIndex = (y * width + x) * 4;
+        outputImage.data[outputIndex] = sourcePixels[sourceIndex];
+        outputImage.data[outputIndex + 1] = sourcePixels[sourceIndex + 1];
+        outputImage.data[outputIndex + 2] = sourcePixels[sourceIndex + 2];
+        outputImage.data[outputIndex + 3] = 255;
+      }
+    }
+    outputContext.putImageData(outputImage, 0, 0);
+    return output;
+  }
+
+  function normalizeCardCanvas(source) {
+    const quad = detectCardQuad(source);
+    if (quad) {
+      return {
+        canvas: warpCardPerspective(source, quad),
+        corrected: true,
+      };
+    }
+    return {
+      canvas: cropCanvas(source, { x: 0, y: 0, width: 1, height: 1 }, 504, 704),
+      corrected: false,
+    };
+  }
+
+  async function normalizedCanvasFromFile(file) {
+    const image = await imageBitmapFromFile(file);
+    try {
+      return normalizeCardCanvas(image);
+    } finally {
+      if (typeof image.close === "function") image.close();
+    }
+  }
+
   function regionPixels(canvas, region, width, height) {
     const sample = document.createElement("canvas");
     sample.width = width;
@@ -285,20 +582,15 @@
     };
   }
 
-  async function visualSignaturesFromFile(file) {
-    const image = await imageBitmapFromFile(file);
-    try {
-      const crops = [
-        { x: 0.00, y: 0.00, width: 1.00, height: 1.00 },
-        { x: 0.02, y: 0.02, width: 0.96, height: 0.96 },
-        { x: 0.04, y: 0.02, width: 0.92, height: 0.96 },
-        { x: 0.02, y: 0.04, width: 0.96, height: 0.92 },
-        { x: 0.06, y: 0.04, width: 0.88, height: 0.92 },
-      ];
-      return crops.map((crop) => visualSignature(cropCanvas(image, crop)));
-    } finally {
-      if (typeof image.close === "function") image.close();
-    }
+  function visualSignaturesFromCanvas(image) {
+    const crops = [
+      { x: 0.00, y: 0.00, width: 1.00, height: 1.00 },
+      { x: 0.02, y: 0.02, width: 0.96, height: 0.96 },
+      { x: 0.04, y: 0.02, width: 0.92, height: 0.96 },
+      { x: 0.02, y: 0.04, width: 0.96, height: 0.92 },
+      { x: 0.06, y: 0.04, width: 0.88, height: 0.92 },
+    ];
+    return crops.map((crop) => visualSignature(cropCanvas(image, crop)));
   }
 
   function hammingDistance(left, right) {
@@ -332,11 +624,11 @@
     );
   }
 
-  async function findVisualCandidates(file) {
+  async function findVisualCandidates(source) {
     await loadSearchCards();
     const [index, signatures] = await Promise.all([
       loadVisualIndex(),
-      visualSignaturesFromFile(file),
+      Promise.resolve(visualSignaturesFromCanvas(source)),
     ]);
     const ranked = [];
 
@@ -353,34 +645,128 @@
     }
 
     ranked.sort((left, right) => left.distance - right.distance);
-    return ranked.slice(0, 24);
+    return ranked.slice(0, 12);
   }
 
-  function mergeScanCandidates(visualMatches, ocrCards) {
-    if (!visualMatches?.length) return ocrCards || [];
-    const ocrRank = new Map(
-      (ocrCards || []).map((card, index) => [
-        visualCardKey(card.setCode, card.rawCode),
-        index,
-      ]),
-    );
+  function mergeScanCandidates(visualMatches, ocrCards, liveConsensus = null) {
+    const combined = new Map();
 
-    return visualMatches
-      .map((match, index) => {
-        const key = visualCardKey(match.card.setCode, match.card.rawCode);
-        const textRank = ocrRank.has(key) ? ocrRank.get(key) : null;
-        const score =
-          match.distance +
-          (textRank === null ? 0 : Math.min(10, textRank) * 0.35 - 8);
-        return { ...match, score, visualRank: index + 1 };
+    (visualMatches || []).forEach((match, index) => {
+      const key = visualCardKey(match.card.setCode, match.card.rawCode);
+      combined.set(key, {
+        card: match.card,
+        distance: match.distance,
+        visualRank: index + 1,
+      });
+    });
+
+    (ocrCards || []).forEach((card, index) => {
+      const key = visualCardKey(card.setCode, card.rawCode);
+      const current = combined.get(key) || {
+        card,
+        distance: null,
+        visualRank: null,
+      };
+      current.ocrRank = index + 1;
+      combined.set(key, current);
+    });
+
+    const ranked = [...combined.entries()]
+      .map(([key, entry]) => {
+        const card = entry.card;
+        let score = Number.isFinite(entry.distance) ? entry.distance : 52;
+        if (Number.isFinite(card.scanOcrScore)) {
+          score -= Math.min(24, card.scanOcrScore / 20);
+        }
+        if (card.scanExactIdentifier) score -= 30;
+        if (card.scanNameExact) score -= 7;
+        if (liveConsensus?.key === key) {
+          score -= Math.min(20, (liveConsensus.count || 0) * 5 + (liveConsensus.avgGap || 0));
+        }
+        return { key, ...entry, score };
       })
       .sort((left, right) => left.score - right.score)
-      .slice(0, 16)
-      .map((match) => {
-        match.card.scanVisualRank = match.visualRank;
-        match.card.scanVisualDistance = match.distance;
-        return match.card;
-      });
+      .slice(0, 8);
+
+    return ranked.map((match) => {
+      match.card.scanVisualRank = match.visualRank;
+      match.card.scanVisualDistance = match.distance;
+      match.card.scanCombinedScore = match.score;
+      match.card.scanLiveConsensus =
+        liveConsensus?.key === match.key ? Number(liveConsensus.count) || 0 : 0;
+      return match.card;
+    });
+  }
+
+  function autoMatchDecision(candidates) {
+    if (!candidates?.length) return null;
+    const exact = candidates.filter((card) => card.scanExactIdentifier);
+    if (exact.length === 1) {
+      return { card: exact[0], reason: "세트코드와 카드번호가 일치했습니다." };
+    }
+
+    const top = candidates[0];
+    const second = candidates[1];
+    const gap = second
+      ? (Number(second.scanCombinedScore) || 0) - (Number(top.scanCombinedScore) || 0)
+      : Number.POSITIVE_INFINITY;
+    const distance = Number(top.scanVisualDistance);
+
+    if (
+      Number(top.scanOcrScore) >= 300 &&
+      Number(top.scanVisualRank) <= 3 &&
+      gap >= 3.5
+    ) {
+      return { card: top, reason: "문자와 이미지가 같은 카드를 가리킵니다." };
+    }
+
+    if (
+      top.scanNameExact &&
+      Number(top.scanVisualRank) === 1 &&
+      Number.isFinite(distance) &&
+      distance <= 12 &&
+      gap >= 4
+    ) {
+      return { card: top, reason: "카드명과 이미지가 함께 일치했습니다." };
+    }
+
+    if (
+      Number(top.scanLiveConsensus) >= 3 &&
+      Number(top.scanVisualRank) === 1 &&
+      Number.isFinite(distance) &&
+      distance <= 14 &&
+      gap >= 3
+    ) {
+      return { card: top, reason: "카메라 연속 프레임에서 같은 카드로 확인됐습니다." };
+    }
+
+    if (
+      Number(top.scanLiveConsensus) >= 2 &&
+      Number(top.scanOcrScore) >= 180 &&
+      Number(top.scanVisualRank) <= 2 &&
+      gap >= 3
+    ) {
+      return { card: top, reason: "연속 프레임과 문자 인식 결과가 일치했습니다." };
+    }
+
+    if (
+      Number(top.scanVisualRank) === 1 &&
+      Number.isFinite(distance) &&
+      distance <= 7.5 &&
+      gap >= 6
+    ) {
+      return { card: top, reason: "이미지 특징이 다른 후보와 충분히 구분됩니다." };
+    }
+
+    return null;
+  }
+
+  function visibleScanCandidates(candidates) {
+    if (!candidates?.length) return [];
+    if (candidates.length <= 3) return candidates;
+    const top = Number(candidates[0]?.scanCombinedScore) || 0;
+    const second = Number(candidates[1]?.scanCombinedScore) || top;
+    return candidates.slice(0, second - top >= 5 ? 3 : 5);
   }
 
   function cameraSvg() {
@@ -411,9 +797,15 @@
           '<div class="card-scan-start">' +
             '<input id="card-scan-camera-input" type="file" accept="image/*" capture="environment" hidden>' +
             '<input id="card-scan-file-input" type="file" accept="image/*" hidden>' +
+            '<div id="card-scan-live" class="card-scan-live" hidden>' +
+              '<video id="card-scan-live-video" autoplay playsinline muted></video>' +
+              '<div class="card-scan-live-frame" aria-hidden="true"></div>' +
+              '<div class="card-scan-live-copy"><strong>카드를 틀 안에 맞춰주세요</strong><span id="card-scan-live-status">카드 형태를 확인하고 있습니다.</span></div>' +
+              '<button id="card-scan-live-close" class="card-scan-live-close" type="button">카메라 닫기</button>' +
+            '</div>' +
             '<button id="card-scan-camera" class="card-scan-camera" type="button">' + cameraSvg() + '<span>카드 촬영</span></button>' +
             '<button id="card-scan-file" class="card-scan-secondary" type="button">앨범에서 선택</button>' +
-            '<p class="card-scan-help">카드 전체가 프레임 안에 들어오도록 찍어주세요. 이미지 자체를 먼저 비교하고 카드명·번호는 보조로 사용합니다.</p>' +
+            '<p class="card-scan-help">지원되는 기기에서는 연속 프레임을 비교하고, 카드 테두리를 자동 보정한 뒤 카드명·번호와 이미지를 함께 확인합니다.</p>' +
             '<div class="card-scan-manual">' +
               '<input id="card-scan-set" type="text" autocomplete="off" placeholder="세트코드 예: sv2a">' +
               '<input id="card-scan-number" type="text" autocomplete="off" placeholder="카드번호 예: 142/165">' +
@@ -452,6 +844,10 @@
       fileInput: dialog.querySelector("#card-scan-file-input"),
       camera: dialog.querySelector("#card-scan-camera"),
       file: dialog.querySelector("#card-scan-file"),
+      live: dialog.querySelector("#card-scan-live"),
+      liveVideo: dialog.querySelector("#card-scan-live-video"),
+      liveStatus: dialog.querySelector("#card-scan-live-status"),
+      liveClose: dialog.querySelector("#card-scan-live-close"),
       manualSet: dialog.querySelector("#card-scan-set"),
       manualNumber: dialog.querySelector("#card-scan-number"),
       manualSearch: dialog.querySelector("#card-scan-manual-search"),
@@ -477,7 +873,13 @@
     els.dialog.addEventListener("click", (event) => {
       if (event.target === els.dialog) closeScanner();
     });
-    els.camera.addEventListener("click", () => els.cameraInput.click());
+    els.camera.addEventListener("click", () => {
+      void openLiveCamera().catch((error) => {
+        console.warn("실시간 카메라를 사용할 수 없어 기본 촬영으로 전환합니다.", error);
+        els.cameraInput.click();
+      });
+    });
+    els.liveClose.addEventListener("click", () => stopLiveCamera());
     els.file.addEventListener("click", () => els.fileInput.click());
     els.cameraInput.addEventListener("change", onPhotoSelected);
     els.fileInput.addEventListener("change", onPhotoSelected);
@@ -501,13 +903,124 @@
   }
 
   function closeScanner() {
+    stopLiveCamera();
     if (typeof els.dialog.close === "function") els.dialog.close();
     else els.dialog.removeAttribute("open");
   }
 
+  function waitFor(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
+  }
+
+  function stopLiveCamera(clearConsensus = true) {
+    state.liveScanToken += 1;
+    if (state.liveStream) {
+      state.liveStream.getTracks().forEach((track) => track.stop());
+      state.liveStream = null;
+    }
+    if (els.liveVideo) els.liveVideo.srcObject = null;
+    if (els.live) els.live.hidden = true;
+    if (clearConsensus) state.liveConsensus = null;
+  }
+
+  async function videoFrameFile(video, index) {
+    const sourceWidth = video.videoWidth || 1280;
+    const sourceHeight = video.videoHeight || 1920;
+    const scale = Math.min(1, 1100 / Math.max(1, sourceWidth));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round(sourceWidth * scale));
+    canvas.height = Math.max(1, Math.round(sourceHeight * scale));
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
+    if (!blob) throw new Error("카메라 프레임을 읽지 못했습니다.");
+    return new File([blob], "card-live-" + index + ".jpg", { type: "image/jpeg" });
+  }
+
+  async function runLiveConsensus(token) {
+    const votes = new Map();
+    let lastFile = null;
+    await loadSearchCards();
+    await loadVisualIndex();
+
+    for (let index = 0; index < 3; index += 1) {
+      await waitFor(index === 0 ? 700 : 420);
+      if (token !== state.liveScanToken || !state.liveStream) return;
+      lastFile = await videoFrameFile(els.liveVideo, index + 1);
+      const prepared = await normalizedCanvasFromFile(lastFile);
+      const matches = await findVisualCandidates(prepared.canvas);
+      const top = matches[0];
+      const second = matches[1];
+      if (top) {
+        const key = visualCardKey(top.card.setCode, top.card.rawCode);
+        const vote = votes.get(key) || {
+          key,
+          card: top.card,
+          count: 0,
+          totalDistance: 0,
+          totalGap: 0,
+        };
+        vote.count += 1;
+        vote.totalDistance += top.distance;
+        vote.totalGap += second ? Math.max(0, second.distance - top.distance) : 8;
+        votes.set(key, vote);
+      }
+      if (els.liveStatus) {
+        els.liveStatus.textContent = "연속 인식 " + (index + 1) + "/3 · 흔들리지 않게 유지해 주세요.";
+      }
+    }
+
+    if (token !== state.liveScanToken || !lastFile) return;
+    const winner = [...votes.values()]
+      .map((vote) => ({
+        ...vote,
+        avgDistance: vote.totalDistance / Math.max(1, vote.count),
+        avgGap: vote.totalGap / Math.max(1, vote.count),
+      }))
+      .sort((left, right) => right.count - left.count || left.avgDistance - right.avgDistance)[0] || null;
+
+    state.liveConsensus = winner;
+    stopLiveCamera(false);
+    await analyzeFile(lastFile, { liveConsensus: winner });
+  }
+
+  async function openLiveCamera() {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      throw new Error("이 브라우저는 실시간 카메라를 지원하지 않습니다.");
+    }
+    stopLiveCamera();
+    const token = state.liveScanToken;
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { ideal: "environment" },
+        width: { ideal: 1280 },
+        height: { ideal: 1920 },
+      },
+      audio: false,
+    });
+    if (token !== state.liveScanToken) {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
+    state.liveStream = stream;
+    els.liveVideo.srcObject = stream;
+    els.live.hidden = false;
+    els.liveStatus.textContent = "카메라를 준비하고 있습니다.";
+    await els.liveVideo.play();
+    els.liveStatus.textContent = "카드 테두리를 맞춘 채 잠시 유지해 주세요.";
+    void runLiveConsensus(token).catch((error) => {
+      console.warn("연속 카메라 인식 실패", error);
+      stopLiveCamera();
+      setStatus("실시간 인식이 어려워 기본 촬영으로 전환합니다.", "error");
+      window.setTimeout(() => els.cameraInput.click(), 50);
+    });
+  }
+
   function resetScanner() {
+    stopLiveCamera();
     state.selected = null;
     state.memberships = [];
+    state.liveConsensus = null;
     state.documentCache.clear();
     if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
     state.previewUrl = "";
@@ -660,10 +1173,8 @@
     return enhanceOcrCanvas(canvas, region.mode || "contrast");
   }
 
-  async function makeOcrCanvases(file) {
-    const image = await imageBitmapFromFile(file);
-    try {
-      // Standard Korean card layout:
+  async function makeOcrCanvases(image) {
+    // Standard Korean card layout:
       // - set code / collector number: extreme lower-left
       // - card name: large text near the upper-left
       // The tight crops are first because they work better than reading the
@@ -748,9 +1259,6 @@
           psm: "6",
         },
       ];
-    } finally {
-      if (typeof image.close === "function") image.close();
-    }
   }
 
   function hasStrongOcrSignal(text) {
@@ -812,35 +1320,45 @@
   async function onPhotoSelected(event) {
     const file = event.target.files?.[0];
     if (!file) return;
+    await analyzeFile(file, { liveConsensus: null });
+  }
+
+  async function analyzeFile(file, options = {}) {
+    if (!file) return;
 
     if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
     state.previewUrl = URL.createObjectURL(file);
     els.previewImage.src = state.previewUrl;
     els.preview.hidden = false;
-    els.previewTitle.textContent = "카드 이미지 비교 중";
-    els.previewMeta.textContent = "전체 카드와 일러스트 영역을 먼저 비교하고 문자 인식으로 보정합니다.";
+    els.previewTitle.textContent = "카드 분석 중";
+    els.previewMeta.textContent = "카드 영역을 찾고 이미지와 문자 정보를 함께 비교합니다.";
     els.ocrText.textContent = "";
     els.candidateSection.hidden = true;
     els.membershipSection.hidden = true;
     setBusy(true);
-    setProgress(8);
-    setStatus("이미지 유사도와 카드명·번호를 함께 분석하고 있습니다.", "loading");
+    setProgress(6);
+    setStatus("카드 테두리와 이미지 특징을 분석하고 있습니다.", "loading");
 
     try {
       await loadSearchCards();
-      const visualPromise = findVisualCandidates(file).catch((error) => {
+      const prepared = await normalizedCanvasFromFile(file);
+      els.previewMeta.textContent = prepared.corrected
+        ? "카드 테두리를 감지해 원근을 보정했습니다."
+        : "카드 영역 자동 보정이 어려워 원본 비율 기준으로 분석합니다.";
+
+      const visualPromise = findVisualCandidates(prepared.canvas).catch((error) => {
         console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
         return [];
       });
       const worker = await ensureOcrWorker();
-      const regions = await makeOcrCanvases(file);
+      const regions = await makeOcrCanvases(prepared.canvas);
       const numberTexts = [];
       const titleTexts = [];
       let candidates = [];
 
       for (let index = 0; index < regions.length; index += 1) {
         const region = regions[index];
-        setProgress(18 + Math.round((index / regions.length) * 60));
+        setProgress(18 + Math.round((index / regions.length) * 58));
 
         if (typeof worker.setParameters === "function") {
           await worker.setParameters({
@@ -877,21 +1395,34 @@
       els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
       const visualMatches = await visualPromise;
-      const mergedCandidates = mergeScanCandidates(visualMatches, candidates);
-      renderCandidates(mergedCandidates);
+      const mergedCandidates = mergeScanCandidates(
+        visualMatches,
+        candidates,
+        options.liveConsensus || state.liveConsensus,
+      );
+      const auto = autoMatchDecision(mergedCandidates);
 
-      if (!mergedCandidates.length) {
-        setStatus(
-          "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
-          "error",
-        );
-      } else if (visualMatches.length) {
-        setStatus(
-          "이미지 유사도를 중심으로 후보를 정렬했습니다. 실제 카드가 맞는지 확인해 주세요.",
-          "success",
-        );
+      if (auto) {
+        els.candidateSection.hidden = true;
+        els.candidates.replaceChildren();
+        els.candidateCount.textContent = "";
+        setProgress(94);
+        await selectCard(auto.card);
+        setStatus("자동 인식 완료 · " + auto.reason + " 등록할 도감을 선택해 주세요.", "success");
       } else {
-        setStatus("문자 인식 후보가 맞는지 확인해 주세요.", "success");
+        const visible = visibleScanCandidates(mergedCandidates);
+        renderCandidates(visible);
+        if (!visible.length) {
+          setStatus(
+            "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
+            "error",
+          );
+        } else {
+          setStatus(
+            "확신이 부족한 경우만 후보를 표시합니다. 실제 카드와 같은 항목을 선택해 주세요.",
+            "success",
+          );
+        }
       }
       setProgress(100);
     } catch (error) {
@@ -900,6 +1431,7 @@
       setProgress(0);
     } finally {
       setBusy(false);
+      state.liveConsensus = null;
     }
   }
 
@@ -1001,29 +1533,42 @@
     const scored = [];
 
     for (const card of state.cards) {
+      card.scanOcrRank = null;
+      card.scanOcrScore = null;
+      card.scanExactIdentifier = false;
+      card.scanNameExact = false;
+
       let score = 0;
       const set = normalizeSetCode(card.setCode);
-      if (sets.includes(set)) score += 140;
+      const setExact = sets.includes(set);
+      if (setExact) score += 140;
 
+      let exactFraction = false;
+      let numeratorMatch = false;
       for (const fraction of fractions) {
         if (card.numerator === fraction.numerator) {
+          numeratorMatch = true;
           score += 70;
           if (card.denominator && card.denominator === fraction.denominator) {
+            exactFraction = true;
             score += 120;
           }
         }
       }
-      if (!fractions.length && sets.length && numbers.includes(card.numerator)) score += 42;
+      if (!fractions.length && sets.length && numbers.includes(card.numerator)) {
+        numeratorMatch = true;
+        score += 42;
+      }
 
       const rawCompact = compactOcr(card.rawCode);
-      if (rawCompact && compact.includes(rawCompact)) score += 240;
+      const rawExact = Boolean(rawCompact && compact.includes(rawCompact));
+      if (rawExact) score += 240;
 
       const cardNames = [card.name, card.pokemonName]
         .map(compactCardName)
         .filter(Boolean);
-      if (
-        normalizedDetectedNames.some((name) => cardNames.includes(name))
-      ) {
+      const nameExact = normalizedDetectedNames.some((name) => cardNames.includes(name));
+      if (nameExact) {
         score += 220;
       } else if (
         normalizedDetectedNames.some((name) =>
@@ -1035,17 +1580,33 @@
         score += 150;
       }
 
-      if (score > 0) scored.push({ card, score });
+      const exactIdentifier = rawExact || (setExact && exactFraction);
+      if (score > 0) {
+        scored.push({
+          card,
+          score,
+          exactIdentifier,
+          nameExact,
+          numeratorMatch,
+        });
+      }
     }
 
     scored.sort((a, b) => b.score - a.score);
     if (!scored.length) return [];
     const top = scored[0].score;
     const hasName = normalizedDetectedNames.length > 0;
-    return scored
+    const filtered = scored
       .filter((item) => item.score >= Math.max(hasName ? 120 : 38, top - 110))
-      .slice(0, hasName ? 24 : 12)
-      .map((item) => item.card);
+      .slice(0, hasName ? 24 : 12);
+
+    filtered.forEach((item, index) => {
+      item.card.scanOcrRank = index + 1;
+      item.card.scanOcrScore = item.score;
+      item.card.scanExactIdentifier = item.exactIdentifier;
+      item.card.scanNameExact = item.nameExact;
+    });
+    return filtered.map((item) => item.card);
   }
 
   function manualSearch() {
@@ -1091,9 +1652,13 @@
       const name = document.createElement("strong");
       name.textContent = card.name || card.pokemonName || card.rawCode;
       const meta = document.createElement("small");
-      const matchLabel = Number.isFinite(card.scanVisualRank)
-        ? "이미지 후보 " + card.scanVisualRank + "위"
-        : "";
+      const matchLabel = card.scanExactIdentifier
+        ? "번호 일치"
+        : Number(card.scanLiveConsensus) >= 2
+          ? "연속 인식"
+          : Number.isFinite(card.scanVisualRank)
+            ? "이미지 " + card.scanVisualRank + "위"
+            : "";
       meta.textContent = [
         card.setCode,
         card.cardNumber || card.rawCode,
@@ -1770,6 +2335,7 @@
   buildUi();
 
   window.addEventListener("beforeunload", () => {
+    stopLiveCamera();
     if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
     if (state.ocrWorker?.terminate) {
       try {
