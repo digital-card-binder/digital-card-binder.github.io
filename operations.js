@@ -182,12 +182,20 @@
         const pageSnapshot = await firestoreModule.getDocs(
           firestoreModule.collection(binderSnapshot.ref, "pages"),
         );
-        if (!pageSnapshot.size || pageSnapshot.size > MAX_CUSTOM_BINDER_PAGES) {
+        const pageOrder = Array.isArray(data.pageOrder)
+          ? data.pageOrder.map((pageId) => String(pageId || "")).filter(Boolean)
+          : [];
+        const pageById = new Map(pageSnapshot.docs.map((page) => [page.id, page]));
+        if (
+          !pageOrder.length ||
+          pageOrder.length > MAX_CUSTOM_BINDER_PAGES ||
+          pageOrder.some((pageId) => !pageById.has(pageId))
+        ) {
           throw new Error(
             `커스텀 바인더 ‘${String(data.title || binderSnapshot.id)}’의 페이지 수가 올바르지 않아 백업을 중단했습니다.`,
           );
         }
-        pages = pageSnapshot.docs.map(backupPage);
+        pages = pageOrder.map((pageId) => backupPage(pageById.get(pageId)));
         for (const page of pages) {
           const sources = [
             page.metadata.background || null,
