@@ -304,6 +304,13 @@
                 <span>작업 이름</span>
                 <input id="studio-custom-title-input" class="studio-custom-search-input" type="text" maxlength="60" placeholder="예: 이브이 3×4 바인더" />
               </label>
+              <label class="studio-field">
+                <span>연결할 나만의 도감</span>
+                <select id="studio-custom-linked-dex" class="studio-custom-link-select" disabled>
+                  <option value="">연결하지 않음</option>
+                </select>
+              </label>
+              <p id="studio-custom-linked-dex-status" class="studio-custom-link-status">로그인 후 나만의 도감과 연결할 수 있습니다.</p>
               <p id="studio-custom-save-status" class="studio-custom-save-status">로그인 상태를 확인하고 있습니다.</p>
               <div class="studio-custom-save-actions">
                 <button id="studio-custom-save-button" class="studio-primary-button" type="button" disabled>나만의도감에 저장</button>
@@ -315,7 +322,7 @@
             <section class="studio-control-card studio-custom-print-card">
               <div class="studio-step-heading">
                 <span>8</span>
-                <div><strong>출력 크기</strong><small>현재 페이지를 기존 출력 방식으로 확인합니다. 전체 페이지 출력은 후속 단계에서 연결합니다.</small></div>
+                <div><strong>전체 바인더 출력</strong><small>모든 페이지를 순서대로 출력하며 페이지별 그리드와 실제 크기를 유지합니다.</small></div>
               </div>
               <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
                 <label>
@@ -330,6 +337,12 @@
                   <input type="radio" name="studio-custom-print-size" value="sleeve" />
                   <span><strong>실제 슬리브 65 × 90 mm</strong><small>잘라서 슬리브 규격으로 바로 사용</small></span>
                 </label>
+              </div>
+              <div class="studio-custom-missing-options" aria-label="미보유 카드 출력 방식">
+                <span>연결 도감의 미보유 카드</span>
+                <label><input type="radio" name="studio-custom-missing-display" value="color" checked /><strong>컬러</strong></label>
+                <label><input type="radio" name="studio-custom-missing-display" value="grayscale" /><strong>흑백</strong></label>
+                <label><input type="radio" name="studio-custom-missing-display" value="empty" /><strong>빈칸</strong></label>
               </div>
               <div class="studio-custom-print-summary">
                 <span>출력 방식</span>
