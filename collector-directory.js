@@ -59,6 +59,25 @@
     };
   }
 
+  function normalizedBinder(snapshot, publicId) {
+    const data = snapshot.data() || {};
+    const title = String(data.title || "").trim();
+    const summary = data.summary || {};
+    if (
+      data.schemaVersion !== 1 ||
+      data.publicId !== publicId ||
+      data.binderId !== snapshot.id ||
+      !title
+    ) {
+      return null;
+    }
+    return {
+      id: snapshot.id,
+      title,
+      pageCount: Math.max(1, Number(summary.pageCount) || 1),
+    };
+  }
+
   function projectionDexCount(projection) {
     if (projection.collectionId !== "custom") return 1;
     return projection.customDexes.length || 1;
@@ -88,7 +107,7 @@
       return null;
     }
 
-    const [profileSnapshot, collectionSnapshots] = await Promise.all([
+    const [profileSnapshot, collectionSnapshots, binderSnapshots] = await Promise.all([
       firestoreModule.getDoc(
         firestoreModule.doc(db, "publicProfiles", publicId),
       ),
@@ -100,6 +119,14 @@
           "collections",
         ),
       ),
+      firestoreModule.getDocs(
+        firestoreModule.collection(
+          db,
+          "publicProfiles",
+          publicId,
+          "binders",
+        ),
+      ),
     ]);
     const profile = profileSnapshot.data() || {};
     if (!profileSnapshot.exists() || profile.profileCompleted !== true) {
@@ -109,7 +136,10 @@
     const projections = collectionSnapshots.docs
       .map((snapshot) => normalizedProjection(snapshot, publicId))
       .filter(Boolean);
-    if (!projections.length) return null;
+    const binders = binderSnapshots.docs
+      .map((snapshot) => normalizedBinder(snapshot, publicId))
+      .filter(Boolean);
+    if (!projections.length && !binders.length) return null;
 
     const ownedCount = projections.reduce(
       (total, projection) => total + projection.ownedCount,
@@ -124,7 +154,8 @@
       nickname: String(profile.nickname || "컬렉터").trim() || "컬렉터",
       bio: String(profile.bio || "").trim(),
       projections,
-      dexCount: publicDexCount(projections),
+      binders,
+      dexCount: publicDexCount(projections) + binders.length,
       ownedCount,
       totalCount,
       rate: totalCount ? (ownedCount / totalCount) * 100 : 0,
@@ -164,9 +195,10 @@
       `PUBLIC ID · ${collector.publicId}`;
     link.querySelector(".collector-directory-bio").textContent =
       collector.bio || "한 줄 소개가 없습니다.";
-    const tags = collector.projections
-      .flatMap((projection) => projectionTagNames(projection))
-      .map((name) => {
+    const tags = [
+      ...collector.projections.flatMap((projection) => projectionTagNames(projection)),
+      ...(collector.binders || []).map((binder) => binder.title),
+    ].map((name) => {
         const tag = document.createElement("span");
         tag.textContent = name;
         return tag;
@@ -189,9 +221,10 @@
 
   function matchesSearch(collector, query) {
     if (!query) return true;
-    const collectionNames = collector.projections
-      .flatMap((projection) => projectionTagNames(projection))
-      .join(" ");
+    const collectionNames = [
+      ...collector.projections.flatMap((projection) => projectionTagNames(projection)),
+      ...(collector.binders || []).map((binder) => binder.title),
+    ].join(" ");
     return normalizedSearch(
       `${collector.nickname} ${collector.bio} ${collectionNames}`,
     ).includes(query);
