@@ -1749,6 +1749,20 @@
 
   async function waitForCustomPrintImages() {
     const images = [...printRoot.querySelectorAll("img")];
+    const tileUrls = [...new Set(
+      state.slots
+        .filter((slot) => slot.type === "image")
+        .map((slot) => imageSourceById(slot.imageId)?.objectUrl)
+        .filter(Boolean),
+    )];
+    const tilePreloads = tileUrls.map((url) => {
+      const image = new Image();
+      return new Promise((resolve) => {
+        image.onload = () => resolve({ ok: true, image });
+        image.onerror = () => resolve({ ok: false, image });
+        image.src = url;
+      });
+    });
     let timer;
     const tasks = images.map((image) => {
       if (image.complete) return Promise.resolve();
@@ -1762,14 +1776,25 @@
         image.addEventListener("error", finish);
       });
     });
+    let tileResults = [];
     try {
-      await Promise.race([
-        Promise.all(tasks),
-        new Promise((resolve) => { timer = window.setTimeout(resolve, 60000); }),
+      const result = await Promise.race([
+        Promise.all([
+          Promise.all(tasks),
+          Promise.all(tilePreloads),
+        ]),
+        new Promise((resolve) => {
+          timer = window.setTimeout(() => resolve([null, []]), 60000);
+        }),
       ]);
+      tileResults = Array.isArray(result?.[1]) ? result[1] : [];
     } finally { window.clearTimeout(timer); }
-    if (images.some((image) => !image.complete || image.naturalWidth === 0)) {
-      throw new Error("일부 카드 이미지를 준비하지 못했습니다. 잠시 후 다시 인쇄해 주세요.");
+    if (
+      images.some((image) => !image.complete || image.naturalWidth === 0) ||
+      tileResults.length !== tileUrls.length ||
+      tileResults.some((result) => !result.ok || result.image.naturalWidth === 0)
+    ) {
+      throw new Error("일부 카드 또는 확장 이미지를 준비하지 못했습니다. 잠시 후 다시 인쇄해 주세요.");
     }
   }
 
