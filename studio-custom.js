@@ -704,7 +704,7 @@
     const grid = selectedGrid();
     return {
       schemaVersion: BINDER_SCHEMA_VERSION,
-      kind: "custom-binder-page",
+      kind: "custom-binder-layout",
       grid: {
         cols: grid.cols,
         rows: grid.rows,
