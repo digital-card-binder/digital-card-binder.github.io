@@ -1178,6 +1178,7 @@
   function availableCardTargetIndex() {
     const selected = selectedSlotIndexes();
     if (selected.length === 1) return selected[0];
+    if (selected.length > 1) return -1;
     return state.slots.findIndex((slot) => slot.type === "empty");
   }
 
@@ -1312,6 +1313,8 @@
     const selected = selectedSlotIndexes();
     if (selected.length === 1) {
       searchStatus.textContent = `${matches.length}장 찾음 · 선택한 ${selected[0] + 1}번 슬롯의 내용을 카드로 교체할 수 있습니다.`;
+    } else if (selected.length > 1) {
+      searchStatus.textContent = `${matches.length}장 찾음 · 카드 교체는 슬롯 한 칸만 선택해 주세요.`;
     } else if (!state.slots.some((slot) => slot.type === "empty")) {
       searchStatus.textContent = `${matches.length}장 찾음 · 빈 슬롯이 없습니다. 교체할 슬롯 하나를 먼저 선택하세요.`;
     } else {
