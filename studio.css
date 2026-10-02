@@ -2242,3 +2242,71 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     min-width: 0;
   }
 }
+
+
+/* Custom Binder 12: public sharing */
+.studio-custom-share-card {
+  border-color: #d6e4e9;
+  background: linear-gradient(145deg, #fbfdfe, #f1f9fa);
+}
+
+.studio-custom-share-status {
+  margin: 12px 0 0;
+  color: #647789;
+  font-size: .6rem;
+  line-height: 1.55;
+}
+
+.studio-custom-share-status a {
+  color: #176b82;
+  font-weight: 850;
+}
+
+.studio-custom-share-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.studio-custom-share-link-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.studio-custom-share-link-wrap[hidden] {
+  display: none !important;
+}
+
+.studio-custom-share-link-wrap input {
+  min-width: 0;
+  height: 40px;
+  border: 1px solid #d3e0e7;
+  border-radius: 10px;
+  background: #fff;
+  color: #435a6e;
+  font: inherit;
+  font-size: .55rem;
+  padding: 0 10px;
+}
+
+.studio-custom-share-note {
+  margin: 9px 0 0;
+  color: #83909d;
+  font-size: .53rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 690px) {
+  .studio-custom-share-actions,
+  .studio-custom-share-link-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-custom-share-actions button,
+  .studio-custom-share-link-wrap button {
+    width: 100%;
+  }
+}
