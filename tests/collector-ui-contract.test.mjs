@@ -1419,6 +1419,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(visualMatcher, /function confident/);
   assert.match(visualMatcher, /card-visual-fingerprints[.]json/);
   assert.match(editor, /function normalizeBinderPhoto/);
+  assert.doesNotMatch(editor, /사진은 최대 25MB/);
+  assert.doesNotMatch(editor, /최적화한 뒤에도 용량이 큽니다/);
+  assert.match(editor, /targetBytes = 8[.]5 \* 1024 \* 1024/);
+  assert.match(editor, /while \(blob[.]size > targetBytes/);
+  assert.match(editor, /originalSize: Number\(file[.]size\)/);
   assert.match(editor, /currentPageHasSlotContent/);
   assert.match(editor, /photoCameraInput[?][.]addEventListener/);
   assert.match(editor, /photoAlbumInput[?][.]addEventListener/);
