@@ -1912,3 +1912,174 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     min-height: 36px;
   }
 }
+
+
+/* Custom Binder 6-8: slot drag/drop and extended-art slicing */
+.studio-custom-art-card {
+  border-color: #d7e2eb;
+  background: linear-gradient(145deg, #fbfdfe, #f5f9fc);
+}
+
+.studio-custom-art-upload {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  min-height: 64px;
+  margin-top: 13px;
+  border: 1px dashed #b9cbd8;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  padding: 10px 11px;
+}
+
+.studio-custom-art-upload > span {
+  grid-row: 1 / 3;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 10px;
+  background: #123d5b;
+  color: #79edf1;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.studio-custom-art-upload strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #30445a;
+  font-size: .64rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-custom-art-upload small {
+  color: #8390a0;
+  font-size: .55rem;
+}
+
+.studio-custom-slot-select-actions,
+.studio-custom-art-actions {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.studio-custom-slot-select-actions {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.studio-custom-art-actions {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.studio-custom-slot-select-actions button,
+.studio-custom-art-actions .studio-text-button {
+  min-height: 38px;
+  border: 1px solid #d8e3ea;
+  border-radius: 10px;
+  background: #fff;
+  color: #3c5368;
+  cursor: pointer;
+  font: inherit;
+  font-size: .56rem;
+  font-weight: 850;
+  padding: 7px 8px;
+}
+
+.studio-custom-slot-select-actions button.is-active {
+  border-color: #4a9eb4;
+  background: #edf9fb;
+  color: #15556c;
+}
+
+.studio-custom-slot-select-actions button:disabled,
+.studio-custom-art-actions button:disabled {
+  cursor: default;
+  opacity: .38;
+}
+
+.studio-custom-art-status {
+  margin: 9px 0 0;
+  color: #708092;
+  font-size: .58rem;
+  line-height: 1.5;
+}
+
+.studio-custom-slot-layer {
+  overflow: hidden;
+}
+
+.studio-custom-slot {
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: transparent;
+  font: inherit;
+  padding: 0;
+}
+
+.studio-custom-slot.is-image {
+  background-color: #e7edf2;
+}
+
+.studio-custom-slot.is-image::after {
+  content: none;
+}
+
+.studio-custom-preview-stage.is-slot-selecting .studio-custom-slot-layer {
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.studio-custom-preview-stage.is-slot-selecting .studio-custom-slot {
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(55, 91, 116, .28);
+}
+
+.studio-custom-preview-stage.is-slot-selecting .studio-custom-slot:hover {
+  box-shadow: inset 0 0 0 2px rgba(61, 157, 180, .7);
+}
+
+.studio-custom-preview-stage.is-slot-selecting .studio-custom-slot.is-selected {
+  box-shadow:
+    inset 0 0 0 3px #50cbd5,
+    inset 0 0 0 5px rgba(10, 55, 79, .62);
+}
+
+.studio-custom-preview-stage.is-slot-selecting .studio-custom-card-placement {
+  pointer-events: none;
+}
+
+.studio-custom-card-placement.is-dragging {
+  opacity: .9;
+  scale: 1.025;
+}
+
+.studio-custom-print-image-tile {
+  overflow: hidden;
+  background-color: #fff;
+}
+
+@media (max-width: 690px) {
+  .studio-custom-slot-select-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .studio-custom-art-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-custom-art-actions .studio-text-button {
+    width: 100%;
+  }
+}
