@@ -1314,6 +1314,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-card-search"/);
   assert.match(page, /id="studio-custom-card-layer"/);
   assert.match(page, /data-custom-action="snap"/);
+  assert.match(page, /id="studio-custom-linked-dex"/);
+  assert.match(page, /id="studio-custom-linked-dex-status"/);
+  assert.match(page, /name="studio-custom-missing-display"/);
   assert.match(page, /id="studio-custom-save-button"/);
   assert.match(page, /id="studio-custom-print-button"/);
   assert.match(page, /A4 한 장 맞춤/);
@@ -1330,6 +1333,12 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /function movePage/);
   assert.match(editor, /function switchPage/);
   assert.match(editor, /function normalizeSlots/);
+  assert.match(editor, /function loadCustomDexes/);
+  assert.match(editor, /function ownershipForCard/);
+  assert.match(editor, /function binderOwnershipStats/);
+  assert.match(editor, /customDexKey/);
+  assert.match(editor, /linkedDexId: state[.]linkedDexId/);
+  assert.match(editor, /missingCardDisplay: state[.]missingCardDisplay/);
   assert.match(editor, /function loadArtFile/);
   assert.match(editor, /function applyArtToSelectedSlots/);
   assert.match(editor, /function movePlacementToSlot/);
@@ -1351,6 +1360,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /"chunks"/);
   assert.match(editor, /Bytes[.]fromUint8Array/);
   assert.match(editor, /function customPrintPlan/);
+  assert.match(editor, /function customPrintPlanForGrid/);
+  assert.match(editor, /function allCustomPrintPlans/);
+  assert.match(editor, /function prepareAllPagesForPrint/);
+  assert.match(editor, /data[.]binderPage/);
+  assert.match(editor, /plans[.]forEach/);
   assert.match(editor, /selectedCustomPrintMode/);
   assert.match(editor, /SLEEVE_WIDTH_MM = 65/);
   assert.match(editor, /SLEEVE_HEIGHT_MM = 90/);
@@ -1378,5 +1392,8 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(customPage, /id="custom-binders"/);
   assert.match(customPage, /custom-binder-library[.]js[?]v=/);
   assert.match(library, /"customBinders"/);
+  assert.match(library, /customDexTitles/);
+  assert.match(library, /linkedDexId/);
+  assert.match(library, /pokemonCollectionsDex/);
   assert.doesNotMatch(library, /setDoc[(]|updateDoc[(]|deleteDoc[(]/);
 });
