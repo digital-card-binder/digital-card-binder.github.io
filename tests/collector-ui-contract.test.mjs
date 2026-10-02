@@ -1092,6 +1092,14 @@ test("link-only sharing and link-copy controls are removed", async () => {
   assert.equal(settingsClient.includes('<option value="public">공개</option>'), false);
   assert.match(settingsClient, /collector-public-switch/);
   assert.match(settingsClient, /data-setting="visibility"/);
+  assert.match(settingsPage, /id="binder-settings"/);
+  assert.match(settingsPage, /id="collector-binder-settings-grid"/);
+  assert.match(settingsClient, /function loadBinderSettings/);
+  assert.match(settingsClient, /function renderBinderSettings/);
+  assert.match(settingsClient, /function changeBinderVisibility/);
+  assert.match(settingsClient, /function deletePublicBinderProjection/);
+  assert.match(settingsClient, /publicBinderIds/);
+  assert.match(settingsClient, /hasPublicContent/);
   assert.match(settingsClient, /visibility[.]checked/);
   assert.equal(customSettings.includes('<option value="private">나만 보기</option>'), false);
   assert.equal(customSettings.includes('<option value="public">공개</option>'), false);
@@ -1302,6 +1310,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   const customPage = await source("custom.html");
   const library = await source("custom-binder-library.js");
   const help = await source("studio-help.js");
+  const visualMatcher = await source("card-visual-matcher.js");
 
   assert.match(page, /id="studio-custom-page-list"/);
   assert.match(page, /id="studio-custom-page-add"/);
@@ -1313,6 +1322,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-photo-camera"/);
   assert.match(page, /id="studio-custom-photo-album"/);
   assert.match(page, /id="studio-custom-photo-status"/);
+  assert.match(page, /id="studio-custom-photo-recognize"/);
+  assert.match(page, /id="studio-custom-photo-recognition-results"/);
+  assert.match(page, /card-visual-matcher[.]js/);
   assert.match(page, /id="studio-custom-slot-layer"/);
   assert.match(page, /id="studio-custom-art-file"/);
   assert.match(page, /id="studio-custom-slot-select-toggle"/);
@@ -1366,6 +1378,9 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /function loadCustomDexes/);
   assert.match(editor, /function loadPublicProfile/);
   assert.match(editor, /function publishCurrentBinder/);
+  assert.match(editor, /저장 후 공개하기/);
+  assert.match(editor, /params[.]get\("publish"\) === "1"/);
+  assert.match(editor, /params[.]get\("return"\) === "settings"/);
   assert.match(editor, /function removePublicBinderProjection/);
   assert.match(editor, /function renderPublicPageSnapshot/);
   assert.match(editor, /function writePublicBlobChunks/);
@@ -1380,6 +1395,14 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /linkedDexId: state[.]linkedDexId/);
   assert.match(editor, /missingCardDisplay: state[.]missingCardDisplay/);
   assert.match(editor, /function importBinderPhoto/);
+  assert.match(editor, /function recognizeImportedPhotoCards/);
+  assert.match(editor, /function renderPhotoRecognitionReview/);
+  assert.match(editor, /function replaceSlotWithCard/);
+  assert.match(editor, /root[.]visualMatcher/);
+  assert.match(editor, /rawCode: rawCustomCode/);
+  assert.match(visualMatcher, /function rankImageCrop/);
+  assert.match(visualMatcher, /function confident/);
+  assert.match(visualMatcher, /card-visual-fingerprints[.]json/);
   assert.match(editor, /function normalizeBinderPhoto/);
   assert.match(editor, /currentPageHasSlotContent/);
   assert.match(editor, /photoCameraInput[?][.]addEventListener/);
