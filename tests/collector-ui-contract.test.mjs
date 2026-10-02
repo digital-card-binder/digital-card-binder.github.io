@@ -1303,6 +1303,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-page-right"/);
   assert.match(page, /id="studio-custom-page-delete"/);
   assert.match(page, /id="studio-custom-slot-layer"/);
+  assert.match(page, /id="studio-custom-art-file"/);
+  assert.match(page, /id="studio-custom-slot-select-toggle"/);
+  assert.match(page, /id="studio-custom-slot-select-all"/);
+  assert.match(page, /id="studio-custom-art-apply"/);
+  assert.match(page, /id="studio-custom-slot-clear"/);
   for (const grid of ["2x2", "3x3", "3x4", "4x3", "4x4", "4x5", "5x4"]) {
     assert.match(page, new RegExp(`value="${grid}"`));
   }
@@ -1325,6 +1330,12 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /function movePage/);
   assert.match(editor, /function switchPage/);
   assert.match(editor, /function normalizeSlots/);
+  assert.match(editor, /function loadArtFile/);
+  assert.match(editor, /function applyArtToSelectedSlots/);
+  assert.match(editor, /function movePlacementToSlot/);
+  assert.match(editor, /function applyCropStyle/);
+  assert.match(editor, /images: \(page[.]images \|\| \[\]\)[.]map\(persistedImageSource\)/);
+  assert.match(editor, /studio-custom-print-image-tile/);
   assert.match(editor, /type: "empty"/);
   assert.match(editor, /type: "card"/);
   assert.match(editor, /type === "image"/);
