@@ -1771,3 +1771,144 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     transform-origin: center center;
   }
 }
+
+
+/* Custom Binder multi-page editor */
+.studio-custom-page-card {
+  border-color: #cfe0e8;
+  background: linear-gradient(145deg, #fbfdfe, #f3f9fb);
+}
+
+.studio-custom-page-toolbar {
+  display: grid;
+  grid-template-columns: 38px minmax(64px, auto) 38px 1fr;
+  align-items: center;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.studio-custom-page-toolbar button,
+.studio-custom-page-actions button,
+.studio-custom-page-chip {
+  min-height: 38px;
+  border: 1px solid #d5e1e8;
+  border-radius: 10px;
+  background: #fff;
+  color: #3a5368;
+  cursor: pointer;
+  font: inherit;
+  font-size: .58rem;
+  font-weight: 850;
+}
+
+.studio-custom-page-toolbar button:disabled,
+.studio-custom-page-actions button:disabled,
+.studio-custom-page-chip:disabled {
+  cursor: default;
+  opacity: .38;
+}
+
+.studio-custom-page-position {
+  color: #29445a;
+  font-size: .7rem;
+  text-align: center;
+}
+
+.studio-custom-page-list {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding: 2px 1px 5px;
+  scrollbar-width: thin;
+}
+
+.studio-custom-page-chip {
+  flex: 0 0 38px;
+  min-width: 38px;
+  padding: 0;
+}
+
+.studio-custom-page-chip.is-active {
+  border-color: #4f9fb5;
+  background: #eaf8fb;
+  color: #15546c;
+  box-shadow: inset 0 0 0 1px rgba(79, 159, 181, .16);
+}
+
+.studio-custom-page-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.studio-custom-page-actions button.is-danger {
+  border-color: #efd6d8;
+  color: #a0444c;
+}
+
+.studio-custom-grid-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.studio-custom-slot-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  pointer-events: none;
+}
+
+.studio-custom-slot {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+.studio-custom-slot.is-image::after {
+  content: "이미지";
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 999px;
+  background: rgba(14,53,76,.72);
+  color: #fff;
+  font-size: .48rem;
+  font-weight: 850;
+  padding: 2px 5px;
+}
+
+.studio-custom-slot.is-card::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(77,177,197,.22);
+  border-radius: 5px;
+}
+
+.studio-custom-card-layer {
+  z-index: 3;
+}
+
+@media (max-width: 690px) {
+  .studio-custom-page-toolbar {
+    grid-template-columns: 36px minmax(52px, auto) 36px minmax(96px, 1fr);
+    gap: 5px;
+  }
+
+  .studio-custom-page-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .studio-custom-grid-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .studio-custom-page-chip {
+    flex-basis: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
