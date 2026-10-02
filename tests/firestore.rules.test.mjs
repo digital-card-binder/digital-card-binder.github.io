@@ -1177,6 +1177,220 @@ test("custom binder work is private, size-bounded, and isolated from collection 
 });
 
 
+
+test("custom binder schema v2 stores page data separately and remains owner-only", async () => {
+  const binderRef = doc(alice, "users", ALICE_UID, "customBinders", "binder_v2");
+  const root = {
+    schemaVersion: 2,
+    ownerUid: ALICE_UID,
+    title: "페이지형 바인더",
+    linkedDexId: "",
+    pageOrder: ["page_1"],
+    summary: {
+      pageCount: 1,
+      cardCount: 1,
+      firstGrid: { cols: 3, rows: 4 },
+    },
+    settings: {
+      defaultPrintMode: "card",
+      missingCardDisplay: "color",
+    },
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+
+  await assertSucceeds(setDoc(binderRef, root));
+  await assertSucceeds(getDoc(binderRef));
+
+  const pageRef = doc(
+    alice,
+    "users",
+    ALICE_UID,
+    "customBinders",
+    "binder_v2",
+    "pages",
+    "page_1",
+  );
+  const page = {
+    schemaVersion: 2,
+    ownerUid: ALICE_UID,
+    pageId: "page_1",
+    title: "1페이지",
+    grid: {
+      cols: 3,
+      rows: 4,
+      slotCount: 12,
+      cardWidthMm: 63,
+      cardHeightMm: 88,
+      canvasWidthMm: 189,
+      canvasHeightMm: 352,
+    },
+    background: {
+      name: "page-1.webp",
+      type: "image/webp",
+      size: 4,
+      chunkCount: 1,
+      chunkSet: "blob_v2_test_001",
+      width: 756,
+      height: 1408,
+    },
+    cards: [
+      {
+        placementId: "card_1",
+        sourceKey: "series::m1::001",
+        name: "이브이",
+        setCode: "m1",
+        setTitle: "테스트 세트",
+        cardNumber: "001/100",
+        rarity: "AR",
+        imageUrl: "https://cards.example/eevee.webp",
+        x: 0,
+        y: 0,
+        width: 33.3333,
+        widthMm: 63,
+        heightMm: 88,
+        rotation: 0,
+        z: 1,
+      },
+    ],
+    slots: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+
+  await assertSucceeds(setDoc(pageRef, page));
+  await assertSucceeds(getDoc(pageRef));
+  await assertFails(
+    getDoc(
+      doc(
+        bob,
+        "users",
+        ALICE_UID,
+        "customBinders",
+        "binder_v2",
+        "pages",
+        "page_1",
+      ),
+    ),
+  );
+  await assertFails(
+    updateDoc(binderRef, {
+      pageOrder: [],
+      summary: { ...root.summary, pageCount: 0 },
+      updatedAt: serverTimestamp(),
+    }),
+  );
+  await assertFails(
+    setDoc(
+      doc(
+        alice,
+        "users",
+        ALICE_UID,
+        "customBinders",
+        "binder_v2",
+        "pages",
+        "bad_page",
+      ),
+      {
+        ...page,
+        pageId: "bad_page",
+        grid: {
+          ...page.grid,
+          cols: 6,
+          rows: 6,
+          slotCount: 36,
+          canvasWidthMm: 378,
+          canvasHeightMm: 528,
+        },
+      },
+    ),
+  );
+});
+
+test("legacy custom binder can be upgraded from schema v1 to v2 without changing createdAt", async () => {
+  const binderRef = doc(alice, "users", ALICE_UID, "customBinders", "binder_upgrade");
+  const legacy = {
+    schemaVersion: 1,
+    ownerUid: ALICE_UID,
+    title: "기존 바인더",
+    grid: {
+      cols: 3,
+      rows: 3,
+      slotCount: 9,
+      cardWidthMm: 63,
+      cardHeightMm: 88,
+      canvasWidthMm: 189,
+      canvasHeightMm: 264,
+    },
+    background: {
+      name: "legacy.webp",
+      type: "image/webp",
+      size: 4,
+      chunkCount: 1,
+      chunkSet: "blob_upgrade_001",
+      width: 756,
+      height: 1056,
+    },
+    cards: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+  await assertSucceeds(setDoc(binderRef, legacy));
+
+  const legacySnapshot = await getDoc(binderRef);
+  const createdAt = legacySnapshot.data().createdAt;
+  const pageRef = doc(
+    alice,
+    "users",
+    ALICE_UID,
+    "customBinders",
+    "binder_upgrade",
+    "pages",
+    "page_1",
+  );
+  await assertSucceeds(
+    setDoc(pageRef, {
+      schemaVersion: 2,
+      ownerUid: ALICE_UID,
+      pageId: "page_1",
+      title: "1페이지",
+      grid: legacy.grid,
+      background: legacy.background,
+      cards: [],
+      slots: [],
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    }),
+  );
+
+  await assertSucceeds(
+    setDoc(binderRef, {
+      schemaVersion: 2,
+      ownerUid: ALICE_UID,
+      title: legacy.title,
+      linkedDexId: "",
+      pageOrder: ["page_1"],
+      summary: {
+        pageCount: 1,
+        cardCount: 0,
+        firstGrid: { cols: 3, rows: 3 },
+      },
+      settings: {
+        defaultPrintMode: "card",
+        missingCardDisplay: "color",
+      },
+      createdAt,
+      updatedAt: serverTimestamp(),
+    }),
+  );
+
+  const upgraded = await getDoc(binderRef);
+  assert.equal(upgraded.data().schemaVersion, 2);
+  assert.deepEqual(upgraded.data().pageOrder, ["page_1"]);
+  assert.equal(upgraded.data().createdAt.toMillis(), createdAt.toMillis());
+});
+
+
 test("large catalog shards are private, additive and support safe nested card updates", async () => {
   const reference = doc(alice, "users", ALICE_UID, "collections", "seriesDex", "overrideShards", "s00");
   await assertSucceeds(setDoc(reference, {
