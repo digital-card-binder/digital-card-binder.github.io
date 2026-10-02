@@ -1331,6 +1331,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-photo-status"/);
   assert.match(page, /id="studio-custom-photo-recognize"/);
   assert.match(page, /id="studio-custom-photo-recognition-results"/);
+  assert.match(page, /data-studio-help="photo"/);
   assert.match(page, /card-visual-matcher[.]js/);
   assert.match(page, /id="studio-custom-slot-layer"/);
   assert.match(page, /id="studio-custom-art-file"/);
@@ -1359,7 +1360,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /data-studio-help="4"/);
   assert.match(page, /data-studio-help="8"/);
   assert.doesNotMatch(page, /data-studio-help="9"/);
-  assert.equal((page.match(/data-studio-help="/g) || []).length, 8);
+  assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
   assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 3);
   assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 5);
   assert.match(page, /바인더 페이지 <span class="studio-step-badge is-required">필수<\/span>/);
@@ -1375,6 +1376,8 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(help, /const HELP =/);
   assert.match(help, /"1": \{/);
   assert.match(help, /"8": \{/);
+  assert.match(help, /"photo": \{/);
+  assert.match(help, /카드 자동인식/);
   assert.doesNotMatch(help, /"9": \{/);
   assert.doesNotMatch(help, /공개 · 공유/);
   assert.match(help, /showModal/);
