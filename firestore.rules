@@ -779,6 +779,7 @@ service cloud.firestore {
           "background",
           "cards",
           "slots",
+          "images",
           "createdAt",
           "updatedAt"
         ])
@@ -791,6 +792,7 @@ service cloud.firestore {
           "background",
           "cards",
           "slots",
+          "images",
           "createdAt",
           "updatedAt"
         ])
@@ -809,6 +811,8 @@ service cloud.firestore {
         && request.resource.data.cards.size() <= 20
         && request.resource.data.slots is list
         && request.resource.data.slots.size() <= 20
+        && request.resource.data.images is list
+        && request.resource.data.images.size() <= 20
         && request.resource.data.updatedAt == request.time;
     }
 
