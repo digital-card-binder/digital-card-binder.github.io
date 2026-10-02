@@ -2860,3 +2860,318 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     gap: 6px;
   }
 }
+
+
+/* 2026 refined Binder Studio visual system */
+body[data-page="binder-studio"] {
+  background: #f6f7f9;
+}
+
+.studio-hero {
+  border: 1px solid #19384d;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #0d2538, #15364b);
+  box-shadow: 0 14px 34px rgba(16, 38, 55, .12);
+}
+
+.studio-hero-badge {
+  border-color: rgba(255,255,255,.12);
+  border-radius: 15px;
+  background: rgba(255,255,255,.045);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.studio-tabs > * {
+  border-color: #e2e7ec;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.studio-tabs .is-active {
+  border-color: #cbd8e1;
+  background: #f7f9fb;
+  box-shadow: inset 0 -2px 0 #163f5b;
+}
+
+.studio-tabs .is-active > span {
+  background: #183f59;
+  color: #fff;
+}
+
+.studio-workspace {
+  border-color: #e2e6eb;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(31, 45, 58, .055);
+}
+
+.studio-control-card,
+.studio-custom-page-card,
+.studio-custom-art-card,
+.studio-custom-save-card,
+.studio-custom-print-card,
+.studio-photo-import-card {
+  border: 1px solid #e2e7eb;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(37, 51, 65, .035);
+}
+
+.studio-step-heading > span {
+  border: 1px solid #d6dfe6;
+  border-radius: 9px;
+  background: #f3f6f8;
+  color: #37556a;
+  box-shadow: none;
+}
+
+.studio-step-heading strong {
+  color: #263746;
+}
+
+.studio-step-heading small {
+  color: #7d8994;
+}
+
+.studio-step-badge {
+  min-height: 18px;
+  border-radius: 999px;
+  padding: 3px 6px;
+  font-size: .44rem;
+  letter-spacing: 0;
+}
+
+.studio-step-badge.is-required {
+  border-color: #c9dce6;
+  background: #f0f7fa;
+  color: #315f73;
+}
+
+.studio-step-badge.is-optional {
+  border-color: #e1e4e8;
+  background: #f7f8f9;
+  color: #7d858d;
+}
+
+.studio-help-button {
+  width: 26px;
+  height: 26px;
+  flex-basis: 26px;
+  border-color: #d9e0e5;
+  background: #fff;
+  color: #6e7c87;
+  box-shadow: none;
+  font-size: .65rem;
+}
+
+.studio-help-button:hover {
+  border-color: #b9cbd6;
+  background: #f7f9fa;
+  color: #294b61;
+}
+
+.studio-photo-import-badge,
+.studio-photo-grid-badge {
+  border-color: #d9e2e7;
+  background: #f7f9fa;
+  color: #5e707d;
+}
+
+.studio-photo-import-heading > div > strong {
+  color: #263746;
+}
+
+.studio-photo-import-heading > div > small,
+.studio-photo-import-status,
+.studio-photo-recognition-note,
+.studio-photo-import-tip {
+  color: #7e8a95;
+}
+
+.studio-photo-import-actions {
+  margin-top: 14px;
+}
+
+.studio-photo-import-button {
+  border-color: #dfe5e9;
+  border-radius: 11px;
+  background: #fafbfc;
+  box-shadow: none;
+}
+
+.studio-photo-import-button:hover {
+  border-color: #c7d4dc;
+  background: #f6f8f9;
+  transform: none;
+}
+
+.studio-photo-import-button > span,
+.studio-custom-art-upload > span {
+  border: 1px solid #d8e0e5;
+  border-radius: 9px;
+  background: #f0f4f6;
+  color: #3e6073;
+}
+
+.studio-photo-recognize-button {
+  border-color: #d0dbe2;
+  border-radius: 10px;
+  background: #fff;
+  color: #294f65;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.45);
+}
+
+.studio-photo-recognize-button:not(:disabled):hover {
+  border-color: #aebfc9;
+  background: #f7f9fa;
+}
+
+.studio-photo-import-tip {
+  border: 1px solid #e5e9ec;
+  background: #f8f9fa;
+}
+
+.studio-custom-art-upload {
+  border-color: #d7e0e5;
+  border-radius: 11px;
+  background: #fafbfc;
+}
+
+.studio-custom-page-toolbar button,
+.studio-custom-page-actions button,
+.studio-custom-page-chip,
+.studio-custom-slot-select-actions button,
+.studio-custom-art-actions .studio-text-button,
+.studio-text-button {
+  border-color: #dde3e8;
+  background: #fff;
+  color: #536572;
+  box-shadow: none;
+}
+
+.studio-custom-page-chip.is-active,
+.studio-custom-slot-select-actions button.is-active {
+  border-color: #adc5d2;
+  background: #f0f6f8;
+  color: #294f65;
+  box-shadow: none;
+}
+
+.studio-field select,
+.studio-custom-link-select,
+.studio-custom-search-input {
+  border-color: #dce3e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.studio-primary-button {
+  border: 1px solid #173d56;
+  border-radius: 10px;
+  background: #173d56;
+  color: #fff;
+  box-shadow: none;
+}
+
+.studio-primary-button:not(:disabled):hover {
+  background: #102f44;
+}
+
+.studio-custom-print-summary,
+.studio-custom-missing-options {
+  border-color: #e1e6ea;
+  background: #f8f9fa;
+}
+
+.studio-custom-missing-options label strong {
+  border-color: #dfe4e8;
+  background: #fff;
+}
+
+.studio-custom-missing-options label input:checked + strong {
+  border-color: #b5c9d5;
+  background: #eef4f7;
+  color: #31566a;
+}
+
+.studio-preview-panel {
+  border-color: #e3e7eb;
+  border-radius: 16px;
+  background: #f5f6f8;
+  box-shadow: none;
+}
+
+.studio-custom-preview-stage {
+  box-shadow: 0 10px 24px rgba(34, 47, 59, .08);
+}
+
+.studio-custom-library-item,
+.studio-photo-review-row {
+  border-color: #e2e7eb;
+  background: #fff;
+  box-shadow: none;
+}
+
+.studio-photo-candidate {
+  border-color: #e1e6ea;
+  background: #fafbfc;
+}
+
+.studio-photo-recognition-summary {
+  border: 1px solid #dce7eb;
+  background: #f4f8f9;
+  color: #3f6070;
+}
+
+.studio-help-dialog {
+  border-radius: 18px;
+  box-shadow: 0 22px 56px rgba(23, 34, 45, .22);
+}
+
+.studio-help-dialog::backdrop {
+  background: rgba(18, 27, 34, .48);
+  backdrop-filter: blur(2px);
+}
+
+.studio-help-sheet {
+  border-color: #e0e5e9;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.studio-help-howto {
+  border-color: #e3e7ea;
+  background: #f8f9fa;
+}
+
+.studio-custom-visibility-note {
+  border-top: 1px solid #eceff2;
+  padding-top: 10px;
+}
+
+@media (max-width: 690px) {
+  .studio-workspace {
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .studio-control-card,
+  .studio-custom-page-card,
+  .studio-custom-art-card,
+  .studio-custom-save-card,
+  .studio-custom-print-card,
+  .studio-photo-import-card {
+    border-radius: 13px;
+    padding: 14px;
+  }
+
+  .studio-help-dialog {
+    border-radius: 16px 16px 12px 12px;
+  }
+
+  .studio-help-sheet {
+    border-radius: 16px 16px 12px 12px;
+  }
+}
