@@ -28,6 +28,15 @@
   const pagePosition = panel.querySelector("#studio-custom-page-position");
   const pageList = panel.querySelector("#studio-custom-page-list");
   const pagePreviewLabel = panel.querySelector("#studio-custom-page-preview-label");
+  const artFileInput = panel.querySelector("#studio-custom-art-file");
+  const artFileLabel = panel.querySelector("#studio-custom-art-file-label");
+  const artMeta = panel.querySelector("#studio-custom-art-meta");
+  const artStatus = panel.querySelector("#studio-custom-art-status");
+  const slotSelectToggle = panel.querySelector("#studio-custom-slot-select-toggle");
+  const slotSelectAllButton = panel.querySelector("#studio-custom-slot-select-all");
+  const slotSelectionClearButton = panel.querySelector("#studio-custom-slot-selection-clear");
+  const artApplyButton = panel.querySelector("#studio-custom-art-apply");
+  const slotClearButton = panel.querySelector("#studio-custom-slot-clear");
   const previewEmpty = panel.querySelector("#studio-custom-preview-empty");
   const previewWrap = panel.querySelector("#studio-custom-preview-wrap");
   const previewStage = panel.querySelector("#studio-custom-preview-stage");
@@ -98,6 +107,14 @@
     currentChunkCount: 0,
     currentChunkSet: "",
     slots: [],
+    images: [],
+    selectedSlots: new Set(),
+    slotSelectMode: false,
+    artFile: null,
+    artBlob: null,
+    artObjectUrl: "",
+    artWidth: 0,
+    artHeight: 0,
     pages: [],
     deletedPageIds: new Set(),
     orphanChunkSets: new Set(),
@@ -148,7 +165,13 @@
     }
     if (type === "image") {
       slot.imageId = clean(value?.imageId);
-      slot.imageUrl = clean(value?.imageUrl);
+      const crop = value?.crop || {};
+      slot.crop = {
+        x: Math.max(0, Math.min(1, Number(crop.x) || 0)),
+        y: Math.max(0, Math.min(1, Number(crop.y) || 0)),
+        width: Math.max(0.0001, Math.min(1, Number(crop.width) || 1)),
+        height: Math.max(0.0001, Math.min(1, Number(crop.height) || 1)),
+      };
     }
     return slot;
   }
@@ -171,6 +194,57 @@
       z: Number(entry.z) || 1,
       slotIndex: Number.isInteger(entry.slotIndex) ? entry.slotIndex : null,
     };
+  }
+
+  function restoreImageSource(value) {
+    return {
+      id: clean(value?.id) || makeId("image"),
+      name: clean(value?.name) || "slot-image.webp",
+      type: clean(value?.type) || "image/webp",
+      size: Number(value?.size) || 0,
+      width: Number(value?.width) || 0,
+      height: Number(value?.height) || 0,
+      chunkCount: Number(value?.chunkCount) || 0,
+      chunkSet: clean(value?.chunkSet),
+      blob: null,
+      objectUrl: "",
+      dirty: false,
+    };
+  }
+
+  function cloneImageSource(value, fresh = false) {
+    return {
+      id: fresh ? makeId("image") : clean(value?.id) || makeId("image"),
+      name: clean(value?.name) || "slot-image.webp",
+      type: clean(value?.type) || "image/webp",
+      size: Number(value?.size) || Number(value?.blob?.size) || 0,
+      width: Number(value?.width) || 0,
+      height: Number(value?.height) || 0,
+      chunkCount: fresh ? 0 : Number(value?.chunkCount) || 0,
+      chunkSet: fresh ? "" : clean(value?.chunkSet),
+      blob: value?.blob || null,
+      objectUrl: fresh && value?.blob
+        ? URL.createObjectURL(value.blob)
+        : clean(value?.objectUrl),
+      dirty: fresh ? Boolean(value?.blob) : Boolean(value?.dirty),
+    };
+  }
+
+  function persistedImageSource(value) {
+    return {
+      id: clean(value?.id),
+      name: (clean(value?.name) || "slot-image.webp").slice(0, 180),
+      type: clean(value?.type) || "image/webp",
+      size: Number(value?.size) || Number(value?.blob?.size) || 0,
+      chunkCount: Number(value?.chunkCount) || 0,
+      chunkSet: clean(value?.chunkSet),
+      width: Number(value?.width) || 0,
+      height: Number(value?.height) || 0,
+    };
+  }
+
+  function imageSourceById(imageId) {
+    return state.images.find((image) => image.id === imageId) || null;
   }
 
   function activePageIndex() {
@@ -203,6 +277,7 @@
       createdAt: null,
       placements: [],
       slots: emptySlots(grid.cols * grid.rows),
+      images: [],
       nextZ: 1,
       loaded: true,
       isNew: true,
