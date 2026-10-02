@@ -319,9 +319,26 @@
               </div>
             </section>
 
-            <section class="studio-control-card studio-custom-print-card">
+            <section class="studio-control-card studio-custom-share-card">
               <div class="studio-step-heading">
                 <span>8</span>
+                <div><strong>공개 · 공유</strong><small>완성한 바인더를 읽기 전용 공개본으로 만들어 컬렉터 프로필과 링크로 공유합니다.</small></div>
+              </div>
+              <p id="studio-custom-share-status" class="studio-custom-share-status">컬렉터 프로필과 공개 상태를 확인하고 있습니다.</p>
+              <div class="studio-custom-share-actions">
+                <button id="studio-custom-publish-button" class="studio-primary-button" type="button" disabled>공개하기</button>
+                <button id="studio-custom-unpublish-button" class="studio-text-button is-danger" type="button" hidden>공개 중단</button>
+              </div>
+              <div id="studio-custom-share-link-wrap" class="studio-custom-share-link-wrap" hidden>
+                <input id="studio-custom-share-url" type="text" readonly aria-label="공개 바인더 링크" />
+                <button id="studio-custom-copy-link" class="studio-text-button" type="button">링크 복사</button>
+              </div>
+              <p class="studio-custom-share-note">공개본에는 바인더 페이지의 시각 결과와 보유·미보유 표시만 복제됩니다. 원본 편집 데이터, 계정 이메일, Firebase UID는 공개하지 않습니다.</p>
+            </section>
+
+            <section class="studio-control-card studio-custom-print-card">
+              <div class="studio-step-heading">
+                <span>9</span>
                 <div><strong>전체 바인더 출력</strong><small>모든 페이지를 순서대로 출력하며 페이지별 그리드와 실제 크기를 유지합니다.</small></div>
               </div>
               <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
