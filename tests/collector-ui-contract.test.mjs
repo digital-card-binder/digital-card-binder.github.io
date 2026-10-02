@@ -1301,6 +1301,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   const editor = await source("studio-custom.js");
   const customPage = await source("custom.html");
   const library = await source("custom-binder-library.js");
+  const help = await source("studio-help.js");
 
   assert.match(page, /id="studio-custom-page-list"/);
   assert.match(page, /id="studio-custom-page-add"/);
@@ -1328,6 +1329,12 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-unpublish-button"/);
   assert.match(page, /id="studio-custom-share-url"/);
   assert.match(page, /id="studio-custom-copy-link"/);
+  assert.match(page, /id="studio-help-dialog"/);
+  assert.match(page, /data-studio-help="1"/);
+  assert.match(page, /data-studio-help="4"/);
+  assert.match(page, /data-studio-help="9"/);
+  assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
+  assert.match(page, /확장 이미지 배치/);
   assert.match(page, /id="studio-custom-print-button"/);
   assert.match(page, /A4 한 장 맞춤/);
   assert.match(page, /실제 카드 63 × 88 mm/);
@@ -1335,6 +1342,11 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /name="studio-custom-print-size"/);
   assert.match(page, /저장한 커스텀 바인더/);
 
+  assert.match(help, /const HELP =/);
+  assert.match(help, /"1": \{/);
+  assert.match(help, /"9": \{/);
+  assert.match(help, /showModal/);
+  assert.match(help, /사용 방법/);
   assert.match(editor, /catalogService[?][.]series/);
   assert.match(editor, /identityService[?][.]cardIdentity/);
   assert.match(editor, /function addPage/);
