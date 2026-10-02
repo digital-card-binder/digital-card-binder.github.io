@@ -1,0 +1,237 @@
+"use strict";
+
+(function () {
+  const root = (window.DigitalCardBinder = window.DigitalCardBinder || {});
+  const INDEX_URL = "./data/card-visual-fingerprints.json";
+  let indexPromise = null;
+  let preparedCatalog = null;
+  let preparedIndex = null;
+
+  const clean = (value) => String(value ?? "").trim();
+  const keyFor = (setCode, rawCode) =>
+    clean(setCode).toLowerCase() + "|" + clean(rawCode).toLowerCase();
+
+  function cropCanvas(source, crop, width = 252, height = 352) {
+    const sourceWidth = source.naturalWidth || source.width;
+    const sourceHeight = source.naturalHeight || source.height;
+    const sx = Math.max(0, Math.round(sourceWidth * crop.x));
+    const sy = Math.max(0, Math.round(sourceHeight * crop.y));
+    const sw = Math.max(1, Math.round(sourceWidth * crop.width));
+    const sh = Math.max(1, Math.round(sourceHeight * crop.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context) throw new Error("이미지 비교를 시작하지 못했습니다.");
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(source, sx, sy, sw, sh, 0, 0, width, height);
+    return canvas;
+  }
+
+  function regionPixels(canvas, region, width, height) {
+    const work = document.createElement("canvas");
+    work.width = width;
+    work.height = height;
+    const context = work.getContext("2d", { willReadFrequently: true });
+    if (!context) throw new Error("이미지 특징을 읽지 못했습니다.");
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(
+      canvas,
+      Math.round(canvas.width * region.x),
+      Math.round(canvas.height * region.y),
+      Math.max(1, Math.round(canvas.width * region.width)),
+      Math.max(1, Math.round(canvas.height * region.height)),
+      0,
+      0,
+      width,
+      height,
+    );
+    return context.getImageData(0, 0, width, height).data;
+  }
+
+  const luminance = (r, g, b) => r * 0.299 + g * 0.587 + b * 0.114;
+
+  function differenceHash(canvas, region) {
+    const pixels = regionPixels(canvas, region, 9, 8);
+    let value = 0n;
+    let bit = 0n;
+    for (let row = 0; row < 8; row += 1) {
+      for (let col = 0; col < 8; col += 1) {
+        const leftIndex = (row * 9 + col) * 4;
+        const rightIndex = (row * 9 + col + 1) * 4;
+        const left = luminance(pixels[leftIndex], pixels[leftIndex + 1], pixels[leftIndex + 2]);
+        const right = luminance(pixels[rightIndex], pixels[rightIndex + 1], pixels[rightIndex + 2]);
+        if (left > right) value |= 1n << bit;
+        bit += 1n;
+      }
+    }
+    return value;
+  }
+
+  function averageHash(canvas, region) {
+    const pixels = regionPixels(canvas, region, 8, 8);
+    const values = [];
+    let total = 0;
+    for (let index = 0; index < pixels.length; index += 4) {
+      const value = luminance(pixels[index], pixels[index + 1], pixels[index + 2]);
+      values.push(value);
+      total += value;
+    }
+    const average = total / Math.max(1, values.length);
+    let hash = 0n;
+    values.forEach((value, index) => {
+      if (value >= average) hash |= 1n << BigInt(index);
+    });
+    return hash;
+  }
+
+  function colorGrid(canvas, region) {
+    const pixels = regionPixels(canvas, region, 4, 4);
+    let output = "";
+    for (let index = 0; index < pixels.length; index += 4) {
+      output += Math.round(pixels[index] / 17).toString(16);
+      output += Math.round(pixels[index + 1] / 17).toString(16);
+      output += Math.round(pixels[index + 2] / 17).toString(16);
+    }
+    return output;
+  }
+
+  function signature(canvas) {
+    const fullRegion = { x: 0.03, y: 0.03, width: 0.94, height: 0.94 };
+    const artRegion = { x: 0.07, y: 0.08, width: 0.86, height: 0.43 };
+    return {
+      fullD: differenceHash(canvas, fullRegion),
+      artD: differenceHash(canvas, artRegion),
+      artA: averageHash(canvas, artRegion),
+      colors: colorGrid(canvas, artRegion),
+    };
+  }
+
+  function hammingDistance(left, right) {
+    let value = left ^ right;
+    let count = 0;
+    while (value) {
+      value &= value - 1n;
+      count += 1;
+    }
+    return count;
+  }
+
+  function colorDistance(left, right) {
+    if (!left || !right || left.length !== right.length) return 1;
+    let total = 0;
+    for (let index = 0; index < left.length; index += 1) {
+      const a = parseInt(left[index], 16);
+      const b = parseInt(right[index], 16);
+      if (!Number.isFinite(a) || !Number.isFinite(b)) continue;
+      total += Math.abs(a - b);
+    }
+    return total / (left.length * 15);
+  }
+
+  function distance(query, reference) {
+    return (
+      hammingDistance(query.fullD, reference.fullD) * 0.22 +
+      hammingDistance(query.artD, reference.artD) * 0.36 +
+      hammingDistance(query.artA, reference.artA) * 0.27 +
+      colorDistance(query.colors, reference.colors) * 64 * 0.15
+    );
+  }
+
+  async function rawIndex() {
+    if (!indexPromise) {
+      indexPromise = fetch(INDEX_URL + "?v=2", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error("카드 시각 인덱스를 불러오지 못했습니다.");
+          return response.json();
+        })
+        .then((payload) => Array.isArray(payload?.entries) ? payload.entries : []);
+    }
+    return indexPromise;
+  }
+
+  async function prepare(catalog) {
+    if (preparedCatalog === catalog && preparedIndex?.length) return preparedIndex;
+    const cardMap = new Map(
+      (catalog || [])
+        .filter((card) => clean(card.setCode) && clean(card.rawCode))
+        .map((card) => [keyFor(card.setCode, card.rawCode), card]),
+    );
+    const entries = await rawIndex();
+    const parsed = [];
+    for (const entry of entries) {
+      if (!Array.isArray(entry) || entry.length < 6) continue;
+      const [setCode, rawCode, fullD, artD, artA, colors] = entry;
+      const card = cardMap.get(keyFor(setCode, rawCode));
+      if (!card) continue;
+      try {
+        parsed.push({
+          card,
+          fullD: BigInt("0x" + fullD),
+          artD: BigInt("0x" + artD),
+          artA: BigInt("0x" + artA),
+          colors: clean(colors),
+        });
+      } catch {
+        // Generated malformed fingerprints are ignored.
+      }
+    }
+    if (!parsed.length) throw new Error("비교 가능한 카드 시각 인덱스가 없습니다.");
+    preparedCatalog = catalog;
+    preparedIndex = parsed;
+    return parsed;
+  }
+
+  function insetCrop(crop, inset) {
+    const dx = crop.width * inset;
+    const dy = crop.height * inset;
+    return {
+      x: crop.x + dx,
+      y: crop.y + dy,
+      width: Math.max(0.01, crop.width - dx * 2),
+      height: Math.max(0.01, crop.height - dy * 2),
+    };
+  }
+
+  async function rankImageCrop(source, crop, catalog, limit = 3) {
+    const index = await prepare(catalog);
+    const signatures = [0, 0.025, 0.05].map((inset) =>
+      signature(cropCanvas(source, insetCrop(crop, inset)))
+    );
+    const ranked = [];
+    for (let position = 0; position < index.length; position += 1) {
+      const reference = index[position];
+      let best = Number.POSITIVE_INFINITY;
+      for (const query of signatures) {
+        best = Math.min(best, distance(query, reference));
+      }
+      ranked.push({ card: reference.card, distance: best });
+      if (position && position % 4000 === 0) {
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+      }
+    }
+    ranked.sort((left, right) => left.distance - right.distance);
+    return ranked.slice(0, Math.max(1, limit));
+  }
+
+  function confident(matches) {
+    if (!matches?.length) return null;
+    const top = matches[0];
+    const second = matches[1];
+    const gap = second ? second.distance - top.distance : Number.POSITIVE_INFINITY;
+    if (
+      (top.distance <= 7.5 && gap >= 4.25) ||
+      (top.distance <= 9.0 && gap >= 6.0)
+    ) {
+      return { card: top.card, distance: top.distance, gap };
+    }
+    return null;
+  }
+
+  root.visualMatcher = Object.freeze({
+    rankImageCrop,
+    confident,
+  });
+})();
