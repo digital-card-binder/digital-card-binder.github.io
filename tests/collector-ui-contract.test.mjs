@@ -1308,6 +1308,8 @@ test("current dashboard is the only production shell and carries the latest nav"
   assert.equal(current.includes("도감 갤러리"), false);
   assert.equal(current.includes("<strong>팩 도감</strong>"), false);
   assert.match(current, /collector-nav[.]js[?]v=[0-9a-f]{12}/);
+  assert.match(current, /assets\/home\/custom-dex-binder[.]svg[?]v=[0-9a-f]{12}/);
+  assert.match(current, /assets\/home\/binder-studio[.]svg[?]v=[0-9a-f]{12}/);
 });
 
 
