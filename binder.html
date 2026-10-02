@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="디지털 카드 바인더 공개 커스텀 바인더" />
+    <meta name="theme-color" content="#17233f" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:image" content="https://digital-card-binder.github.io/assets/brand/og-image.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./legal.css" />
+    <link rel="stylesheet" href="./collector.css" />
+    <link rel="stylesheet" href="./binder-public.css" />
+    <script src="./firebase-config.js" defer></script>
+    <script src="./image-protection.js" defer></script>
+    <script src="./legal.js" defer></script>
+    <script src="./binder-public.js" defer></script>
+  </head>
+  <body data-page="public-binder">
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <img class="brand-horizontal" src="./assets/brand/logo-horizontal.png" alt="디지털 카드 바인더" />
+        <img class="brand-symbol" src="./assets/brand/logo-symbol.png" alt="" aria-hidden="true" />
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+      <span class="header-chip">READ ONLY</span>
+    </header>
+
+    <main id="main-content" class="binder-public-main">
+      <section id="binder-public-loading" class="binder-public-state" aria-live="polite">
+        <span class="collector-loading-dot" aria-hidden="true"></span>
+        <strong>공개 바인더를 불러오는 중입니다.</strong>
+      </section>
+
+      <section id="binder-public-error" class="binder-public-state binder-public-state--error" hidden>
+        <strong>이 공개 바인더를 열 수 없습니다.</strong>
+        <p>공개가 중단되었거나 링크가 올바르지 않습니다.</p>
+        <a class="primary-button" href="./collectors.html">커뮤니티로</a>
+      </section>
+
+      <section id="binder-public-view" class="binder-public-view" hidden>
+        <div class="binder-public-heading">
+          <div>
+            <span class="studio-kicker">PUBLIC BINDER</span>
+            <h1 id="binder-public-title">커스텀 바인더</h1>
+            <p id="binder-public-owner"></p>
+          </div>
+          <div class="binder-public-heading-actions">
+            <a id="binder-public-profile-link" class="manager-button" href="./collectors.html">컬렉터 프로필</a>
+            <button id="binder-public-copy-link" class="primary-button" type="button">링크 복사</button>
+          </div>
+        </div>
+
+        <div class="binder-public-summary" aria-label="공개 바인더 요약">
+          <span><small>페이지</small><strong id="binder-public-page-count">0</strong></span>
+          <span><small>배치 카드</small><strong id="binder-public-card-count">0</strong></span>
+          <span><small>보유</small><strong id="binder-public-owned-count">0</strong></span>
+          <span><small>미보유</small><strong id="binder-public-missing-count">0</strong></span>
+        </div>
+
+        <section class="binder-public-reader" aria-labelledby="binder-public-page-title">
+          <div class="binder-public-reader-head">
+            <button id="binder-public-prev" type="button" aria-label="이전 페이지">‹</button>
+            <div>
+              <strong id="binder-public-page-title">1페이지</strong>
+              <small id="binder-public-page-position">1 / 1</small>
+            </div>
+            <button id="binder-public-next" type="button" aria-label="다음 페이지">›</button>
+          </div>
+          <div id="binder-public-page-list" class="binder-public-page-list" aria-label="페이지 선택"></div>
+          <div class="binder-public-canvas">
+            <img id="binder-public-image" alt="" />
+          </div>
+          <p class="binder-public-note">컬렉터가 공개한 읽기 전용 스냅샷입니다. 원본 편집 데이터와 계정 정보는 공개되지 않습니다.</p>
+        </section>
+      </section>
+
+      <footer class="site-footer binder-public-footer">
+        <div class="site-footer-main">
+          <nav class="site-footer-links" aria-label="정책 및 문의">
+            <a href="./news.html">새소식</a>
+            <a href="./privacy.html">개인정보처리방침</a>
+            <a href="./terms.html">이용약관</a>
+            <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+          </nav>
+          <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+          <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
