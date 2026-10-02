@@ -854,7 +854,231 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
     }
 
-    function validPublicBinderId(binderId) {\n      return binderId is string\n        && binderId.size() >= 8\n        && binderId.size() <= 120\n        && binderId.matches('^[A-Za-z0-9_-]+$');\n    }\n\n    function publicProfileCompleted(publicId) {\n      return validPublicId(publicId)\n        && get(\n          /databases/$(database)/documents/publicProfiles/$(publicId)\n        ).data.profileCompleted == true;\n    }\n\n    function validPublicBinderSummary(summary) {\n      return summary is map\n        && summary.keys().hasAll([\n          "pageCount",\n          "cardCount",\n          "matchedCount",\n          "ownedCount",\n          "missingCount"\n        ])\n        && summary.keys().hasOnly([\n          "pageCount",\n          "cardCount",\n          "matchedCount",\n          "ownedCount",\n          "missingCount"\n        ])\n        && summary.pageCount is int\n        && summary.pageCount >= 1\n        && summary.pageCount <= 60\n        && summary.cardCount is int\n        && summary.cardCount >= 0\n        && summary.cardCount <= 1200\n        && summary.matchedCount is int\n        && summary.matchedCount >= 0\n        && summary.matchedCount <= summary.cardCount\n        && summary.ownedCount is int\n        && summary.ownedCount >= 0\n        && summary.missingCount is int\n        && summary.missingCount >= 0\n        && summary.ownedCount + summary.missingCount == summary.matchedCount;\n    }\n\n    function validPublicBinderSettings(settings) {\n      return settings is map\n        && settings.keys().hasAll(["missingCardDisplay"])\n        && settings.keys().hasOnly(["missingCardDisplay"])\n        && (\n          settings.missingCardDisplay == "color"\n          || settings.missingCardDisplay == "grayscale"\n          || settings.missingCardDisplay == "empty"\n        );\n    }\n\n    function validPublicBinderRoot(publicId, binderId) {\n      return request.resource.data.keys().hasAll([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "title",\n          "pageOrder",\n          "summary",\n          "settings",\n          "publishedAt",\n          "updatedAt"\n        ])\n        && request.resource.data.keys().hasOnly([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "title",\n          "pageOrder",\n          "summary",\n          "settings",\n          "publishedAt",\n          "updatedAt"\n        ])\n        && request.resource.data.schemaVersion == 1\n        && request.resource.data.publicId == publicId\n        && request.resource.data.binderId == binderId\n        && validPublicBinderId(binderId)\n        && request.resource.data.title is string\n        && request.resource.data.title.size() >= 1\n        && request.resource.data.title.size() <= 60\n        && request.resource.data.pageOrder is list\n        && request.resource.data.pageOrder.size() >= 1\n        && request.resource.data.pageOrder.size() <= 60\n        && validPublicBinderSummary(request.resource.data.summary)\n        && request.resource.data.summary.pageCount\n          == request.resource.data.pageOrder.size()\n        && validPublicBinderSettings(request.resource.data.settings)\n        && request.resource.data.updatedAt == request.time;\n    }\n\n    function validPublicBinderPreview(preview) {\n      return preview is map\n        && preview.keys().hasAll([\n          "type",\n          "size",\n          "width",\n          "height",\n          "chunkSet",\n          "chunkCount"\n        ])\n        && preview.keys().hasOnly([\n          "type",\n          "size",\n          "width",\n          "height",\n          "chunkSet",\n          "chunkCount"\n        ])\n        && preview.type is string\n        && preview.type.size() >= 5\n        && preview.type.size() <= 40\n        && preview.size is int\n        && preview.size >= 1\n        && preview.size <= 14745600\n        && preview.width is int\n        && preview.width >= 100\n        && preview.width <= 2500\n        && preview.height is int\n        && preview.height >= 100\n        && preview.height <= 2500\n        && preview.chunkSet is string\n        && preview.chunkSet.size() >= 8\n        && preview.chunkSet.size() <= 80\n        && preview.chunkCount is int\n        && preview.chunkCount >= 1\n        && preview.chunkCount <= 24;\n    }\n\n    function validPublicBinderPage(publicId, binderId, pageId) {\n      return request.resource.data.keys().hasAll([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "pageId",\n          "title",\n          "grid",\n          "preview",\n          "updatedAt"\n        ])\n        && request.resource.data.keys().hasOnly([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "pageId",\n          "title",\n          "grid",\n          "preview",\n          "updatedAt"\n        ])\n        && request.resource.data.schemaVersion == 1\n        && request.resource.data.publicId == publicId\n        && request.resource.data.binderId == binderId\n        && request.resource.data.pageId == pageId\n        && request.resource.data.title is string\n        && request.resource.data.title.size() >= 1\n        && request.resource.data.title.size() <= 60\n        && request.resource.data.grid is map\n        && request.resource.data.grid.keys().hasAll(["cols", "rows"])\n        && request.resource.data.grid.keys().hasOnly(["cols", "rows"])\n        && request.resource.data.grid.cols is int\n        && request.resource.data.grid.cols >= 2\n        && request.resource.data.grid.cols <= 5\n        && request.resource.data.grid.rows is int\n        && request.resource.data.grid.rows >= 2\n        && request.resource.data.grid.rows <= 5\n        && validPublicBinderPreview(request.resource.data.preview)\n        && request.resource.data.updatedAt == request.time;\n    }\n\n    function validPublicBinderChunk(publicId, binderId, chunkId) {\n      return chunkId is string\n        && chunkId.size() >= 12\n        && chunkId.size() <= 100\n        && request.resource.data.keys().hasAll([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "chunkSet",\n          "index",\n          "data",\n          "size",\n          "updatedAt"\n        ])\n        && request.resource.data.keys().hasOnly([\n          "schemaVersion",\n          "publicId",\n          "binderId",\n          "chunkSet",\n          "index",\n          "data",\n          "size",\n          "updatedAt"\n        ])\n        && request.resource.data.schemaVersion == 1\n        && request.resource.data.publicId == publicId\n        && request.resource.data.binderId == binderId\n        && request.resource.data.chunkSet is string\n        && request.resource.data.chunkSet.size() >= 8\n        && request.resource.data.chunkSet.size() <= 80\n        && request.resource.data.index is int\n        && request.resource.data.index >= 0\n        && request.resource.data.index < 24\n        && request.resource.data.data is bytes\n        && request.resource.data.size is int\n        && request.resource.data.size == request.resource.data.data.size()\n        && request.resource.data.size >= 1\n        && request.resource.data.size <= 614400\n        && request.resource.data.updatedAt == request.time;\n    }\n\n    function validFeedbackType(type) {\n      return type == "suggestion"\n        || type == "feature"\n        || type == "bug"\n        || type == "data"\n        || type == "other";\n    }\n    function validFeedbackStatus(status) {
+    function validPublicBinderId(binderId) {
+      return binderId is string
+        && binderId.size() >= 8
+        && binderId.size() <= 120
+        && binderId.matches('^[A-Za-z0-9_-]+$');
+    }
+
+    function publicProfileCompleted(publicId) {
+      return validPublicId(publicId)
+        && get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+    }
+
+    function validPublicBinderSummary(summary) {
+      return summary is map
+        && summary.keys().hasAll([
+          "pageCount",
+          "cardCount",
+          "matchedCount",
+          "ownedCount",
+          "missingCount"
+        ])
+        && summary.keys().hasOnly([
+          "pageCount",
+          "cardCount",
+          "matchedCount",
+          "ownedCount",
+          "missingCount"
+        ])
+        && summary.pageCount is int
+        && summary.pageCount >= 1
+        && summary.pageCount <= 60
+        && summary.cardCount is int
+        && summary.cardCount >= 0
+        && summary.cardCount <= 1200
+        && summary.matchedCount is int
+        && summary.matchedCount >= 0
+        && summary.matchedCount <= summary.cardCount
+        && summary.ownedCount is int
+        && summary.ownedCount >= 0
+        && summary.missingCount is int
+        && summary.missingCount >= 0
+        && summary.ownedCount + summary.missingCount == summary.matchedCount;
+    }
+
+    function validPublicBinderSettings(settings) {
+      return settings is map
+        && settings.keys().hasAll(["missingCardDisplay"])
+        && settings.keys().hasOnly(["missingCardDisplay"])
+        && (
+          settings.missingCardDisplay == "color"
+          || settings.missingCardDisplay == "grayscale"
+          || settings.missingCardDisplay == "empty"
+        );
+    }
+
+    function validPublicBinderRoot(publicId, binderId) {
+      return request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "title",
+          "pageOrder",
+          "summary",
+          "settings",
+          "publishedAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "title",
+          "pageOrder",
+          "summary",
+          "settings",
+          "publishedAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.publicId == publicId
+        && request.resource.data.binderId == binderId
+        && validPublicBinderId(binderId)
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 60
+        && request.resource.data.pageOrder is list
+        && request.resource.data.pageOrder.size() >= 1
+        && request.resource.data.pageOrder.size() <= 60
+        && validPublicBinderSummary(request.resource.data.summary)
+        && request.resource.data.summary.pageCount
+          == request.resource.data.pageOrder.size()
+        && validPublicBinderSettings(request.resource.data.settings)
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validPublicBinderPreview(preview) {
+      return preview is map
+        && preview.keys().hasAll([
+          "type",
+          "size",
+          "width",
+          "height",
+          "chunkSet",
+          "chunkCount"
+        ])
+        && preview.keys().hasOnly([
+          "type",
+          "size",
+          "width",
+          "height",
+          "chunkSet",
+          "chunkCount"
+        ])
+        && preview.type is string
+        && preview.type.size() >= 5
+        && preview.type.size() <= 40
+        && preview.size is int
+        && preview.size >= 1
+        && preview.size <= 14745600
+        && preview.width is int
+        && preview.width >= 100
+        && preview.width <= 2500
+        && preview.height is int
+        && preview.height >= 100
+        && preview.height <= 2500
+        && preview.chunkSet is string
+        && preview.chunkSet.size() >= 8
+        && preview.chunkSet.size() <= 80
+        && preview.chunkCount is int
+        && preview.chunkCount >= 1
+        && preview.chunkCount <= 24;
+    }
+
+    function validPublicBinderPage(publicId, binderId, pageId) {
+      return request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "pageId",
+          "title",
+          "grid",
+          "preview",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "pageId",
+          "title",
+          "grid",
+          "preview",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.publicId == publicId
+        && request.resource.data.binderId == binderId
+        && request.resource.data.pageId == pageId
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 60
+        && request.resource.data.grid is map
+        && request.resource.data.grid.keys().hasAll(["cols", "rows"])
+        && request.resource.data.grid.keys().hasOnly(["cols", "rows"])
+        && request.resource.data.grid.cols is int
+        && request.resource.data.grid.cols >= 2
+        && request.resource.data.grid.cols <= 5
+        && request.resource.data.grid.rows is int
+        && request.resource.data.grid.rows >= 2
+        && request.resource.data.grid.rows <= 5
+        && validPublicBinderPreview(request.resource.data.preview)
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validPublicBinderChunk(publicId, binderId, chunkId) {
+      return chunkId is string
+        && chunkId.size() >= 12
+        && chunkId.size() <= 100
+        && request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "chunkSet",
+          "index",
+          "data",
+          "size",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "publicId",
+          "binderId",
+          "chunkSet",
+          "index",
+          "data",
+          "size",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.publicId == publicId
+        && request.resource.data.binderId == binderId
+        && request.resource.data.chunkSet is string
+        && request.resource.data.chunkSet.size() >= 8
+        && request.resource.data.chunkSet.size() <= 80
+        && request.resource.data.index is int
+        && request.resource.data.index >= 0
+        && request.resource.data.index < 24
+        && request.resource.data.data is bytes
+        && request.resource.data.size is int
+        && request.resource.data.size == request.resource.data.data.size()
+        && request.resource.data.size >= 1
+        && request.resource.data.size <= 614400
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validFeedbackType(type) {
+      return type == "suggestion"
+        || type == "feature"
+        || type == "bug"
+        || type == "data"
+        || type == "other";
+    }
+    function validFeedbackStatus(status) {
       return status == "new"
         || status == "reviewed"
         || status == "completed";
