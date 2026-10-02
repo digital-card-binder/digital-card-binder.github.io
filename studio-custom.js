@@ -360,6 +360,7 @@
     page.createdAt = state.currentPageCreatedAt;
     page.placements = state.placements.map(clonePlacement);
     page.slots = normalizeSlots(state.slots, grid.cols * grid.rows);
+    page.images = state.images.map((image) => ({ ...image }));
     page.nextZ = state.nextZ;
     page.loaded = true;
     if (page.sourceBlob) {
@@ -380,8 +381,136 @@
 
   function releasePageObjectUrls() {
     const urls = new Set(state.pages.map((page) => page.objectUrl).filter(Boolean));
+    state.pages.forEach((page) => {
+      (page.images || []).forEach((image) => {
+        if (image.objectUrl) urls.add(image.objectUrl);
+      });
+    });
+    state.images.forEach((image) => {
+      if (image.objectUrl) urls.add(image.objectUrl);
+    });
     if (state.objectUrl) urls.add(state.objectUrl);
+    if (state.artObjectUrl) urls.add(state.artObjectUrl);
     urls.forEach((url) => URL.revokeObjectURL(url));
+    state.artObjectUrl = "";
+  }
+
+  function selectedSlotIndexes() {
+    const count = selectedGrid().cols * selectedGrid().rows;
+    return [...state.selectedSlots]
+      .filter((index) => Number.isInteger(index) && index >= 0 && index < count)
+      .sort((a, b) => a - b);
+  }
+
+  function updateArtUi(message = "") {
+    const selected = selectedSlotIndexes();
+    const hasSelection = selected.length > 0;
+    if (slotSelectToggle) {
+      slotSelectToggle.textContent = state.slotSelectMode
+        ? "슬롯 선택 완료"
+        : "슬롯 선택 시작";
+      slotSelectToggle.classList.toggle("is-active", state.slotSelectMode);
+    }
+    if (artApplyButton) artApplyButton.disabled = !state.artBlob || !hasSelection;
+    if (slotClearButton) slotClearButton.disabled = !hasSelection;
+    if (slotSelectionClearButton) slotSelectionClearButton.disabled = !hasSelection;
+    if (artStatus) {
+      artStatus.textContent = message || (
+        hasSelection
+          ? `${selected.length}칸 선택됨 · 이미지 채우기 또는 비우기를 선택하세요.`
+          : state.artBlob
+            ? "미리보기에서 원하는 슬롯을 눌러 선택하세요."
+            : "이미지를 고른 뒤 미리보기의 원하는 슬롯을 눌러 선택하세요."
+      );
+    }
+    previewStage.classList.toggle("is-slot-selecting", state.slotSelectMode);
+  }
+
+  function setSlotSelectMode(enabled) {
+    state.slotSelectMode = Boolean(enabled);
+    if (!state.slotSelectMode) state.selectedSlots = new Set(selectedSlotIndexes());
+    updateArtUi();
+    renderSlotLayer();
+  }
+
+  function toggleSlotSelection(index) {
+    if (!state.slotSelectMode) return;
+    if (state.selectedSlots.has(index)) state.selectedSlots.delete(index);
+    else state.selectedSlots.add(index);
+    renderSlotLayer();
+    updateArtUi();
+  }
+
+  function selectAllSlots() {
+    const count = selectedGrid().cols * selectedGrid().rows;
+    state.selectedSlots = new Set(Array.from({ length: count }, (_, index) => index));
+    state.slotSelectMode = true;
+    renderSlotLayer();
+    updateArtUi();
+  }
+
+  function clearSlotSelection() {
+    state.selectedSlots.clear();
+    renderSlotLayer();
+    updateArtUi();
+  }
+
+  function applyCropStyle(node, source, crop) {
+    if (!source?.objectUrl) return;
+    const safe = crop || { x: 0, y: 0, width: 1, height: 1 };
+    const width = Math.max(0.0001, Math.min(1, Number(safe.width) || 1));
+    const height = Math.max(0.0001, Math.min(1, Number(safe.height) || 1));
+    const x = Math.max(0, Math.min(1 - width, Number(safe.x) || 0));
+    const y = Math.max(0, Math.min(1 - height, Number(safe.y) || 0));
+    const posX = width >= 0.9999 ? 0 : (x / (1 - width)) * 100;
+    const posY = height >= 0.9999 ? 0 : (y / (1 - height)) * 100;
+    node.style.backgroundImage = `url("${source.objectUrl.replaceAll('"', "%22")}")`;
+    node.style.backgroundSize = `${100 / width}% ${100 / height}%`;
+    node.style.backgroundPosition = `${posX}% ${posY}%`;
+    node.style.backgroundRepeat = "no-repeat";
+  }
+
+  function pruneUnusedImages() {
+    const used = new Set(
+      state.slots
+        .filter((slot) => slot.type === "image")
+        .map((slot) => clean(slot.imageId))
+        .filter(Boolean),
+    );
+    const keep = [];
+    state.images.forEach((image) => {
+      if (used.has(image.id)) {
+        keep.push(image);
+        return;
+      }
+      if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
+      if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
+    });
+    state.images = keep;
+  }
+
+  function removeCardAtSlot(index) {
+    const slot = state.slots[index];
+    if (slot?.type !== "card") return;
+    state.placements = state.placements.filter(
+      (entry) => entry.id !== slot.placementId && entry.slotIndex !== index,
+    );
+  }
+
+  function clearSelectedSlots() {
+    const selected = selectedSlotIndexes();
+    if (!selected.length) return;
+    selected.forEach((index) => {
+      removeCardAtSlot(index);
+      state.slots[index] = { index, type: "empty" };
+    });
+    pruneUnusedImages();
+    state.selectedId = "";
+    state.selectedSlots.clear();
+    renderSlotLayer();
+    renderPlacements();
+    captureCurrentPage();
+    updateArtUi("선택한 슬롯을 비웠습니다.");
   }
 
   function renderSlotLayer() {
@@ -392,14 +521,26 @@
     slotLayer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
     slotLayer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     const nodes = state.slots.map((slot) => {
-      const node = document.createElement("span");
+      const node = document.createElement("button");
+      node.type = "button";
       node.className = `studio-custom-slot is-${slot.type}`;
+      node.classList.toggle("is-selected", state.selectedSlots.has(slot.index));
       node.dataset.slotIndex = String(slot.index);
       node.dataset.slotType = slot.type;
-      if (slot.type === "image") node.textContent = "이미지";
+      node.setAttribute("aria-label", `${slot.index + 1}번 슬롯 · ${slot.type}`);
+      if (slot.type === "image") {
+        applyCropStyle(node, imageSourceById(slot.imageId), slot.crop);
+      }
+      node.addEventListener("click", (event) => {
+        if (!state.slotSelectMode) return;
+        event.preventDefault();
+        event.stopPropagation();
+        toggleSlotSelection(slot.index);
+      });
       return node;
     });
     slotLayer.replaceChildren(...nodes);
+    updateArtUi();
   }
 
   function renderPageControls() {
