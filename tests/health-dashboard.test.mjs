@@ -83,3 +83,19 @@ test("health page loads the shared catalog and owner-auth boundaries before its 
     previous = index;
   }
 });
+
+
+test("health catalog audit counts fossil and world from their raw datasets exactly once", () => {
+  const health = read("health.js");
+
+  assert.match(
+    health,
+    /collectionId === "fossil"[\s\S]*fetchJson\("\.\/data\/fossil\.json"\)[\s\S]*sumGroupCards\(payload\?\.groups \|\| \[\]\)/,
+  );
+  assert.match(
+    health,
+    /collectionId === "world"[\s\S]*fetchJson\("\.\/data\/world-exploration\.json"\)[\s\S]*generation\?\.slots[\s\S]*generation\?\.pokemonRefs[\s\S]*generation\?\.peopleRefs/,
+  );
+  assert.doesNotMatch(health, /source:\s*"보조 도감"/);
+  assert.doesNotMatch(health, /return \[\.\.\.rows, \.\.\.auxiliary\]/);
+});
