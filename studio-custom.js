@@ -3706,6 +3706,7 @@
     } finally {
       state.saving = false;
       updateSaveUi(saveStatus.textContent);
+      renderShareUi();
     }
   }
 
