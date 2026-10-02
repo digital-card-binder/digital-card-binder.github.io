@@ -188,7 +188,8 @@
         }
         pages = pageSnapshot.docs.map(backupPage);
         for (const page of pages) {
-          const background = page.metadata.background || {};
+          const background = page.metadata.background || null;
+          if (!background) continue;
           const chunkSet = String(background.chunkSet || "");
           const chunkCount = Number(background.chunkCount || 0);
           if (!chunkSet || !chunkCount || activeChunkSets.has(chunkSet)) {
@@ -448,7 +449,7 @@
             pageData.title.length < 1 ||
             pageData.title.length > 60 ||
             !validBackupGrid(pageData.grid, true) ||
-            !validBackupBackground(pageData.background) ||
+            !(pageData.background == null || validBackupBackground(pageData.background)) ||
             !Array.isArray(pageData.cards) ||
             pageData.cards.length > 20 ||
             !Array.isArray(pageData.slots) ||
@@ -457,10 +458,12 @@
             throw new Error(`커스텀 바인더 ‘${binder.id}’의 페이지 데이터가 올바르지 않습니다.`);
           }
           pageMap.set(pageId, pageData);
-          if (expectedBySet.has(pageData.background.chunkSet)) {
-            throw new Error(`커스텀 바인더 ‘${binder.id}’에 중복된 배경 이미지 세트가 있습니다.`);
+          if (pageData.background) {
+            if (expectedBySet.has(pageData.background.chunkSet)) {
+              throw new Error(`커스텀 바인더 ‘${binder.id}’에 중복된 배경 이미지 세트가 있습니다.`);
+            }
+            expectedBySet.set(pageData.background.chunkSet, pageData.background.chunkCount);
           }
-          expectedBySet.set(pageData.background.chunkSet, pageData.background.chunkCount);
         }
         const orderedIds = pageOrder.map((pageId) => String(pageId));
         if (
@@ -474,7 +477,7 @@
 
       const chunks = Array.isArray(binder.chunks) ? binder.chunks : [];
       const expectedTotal = [...expectedBySet.values()].reduce((sum, count) => sum + count, 0);
-      if (!chunks.length || chunks.length !== expectedTotal) {
+      if (chunks.length !== expectedTotal) {
         throw new Error(`커스텀 바인더 ‘${binder.id}’의 이미지 조각이 올바르지 않습니다.`);
       }
 
@@ -665,7 +668,9 @@
       if (schemaVersion === 2) {
         for (const page of binder.pages || []) {
           const pageData = page.metadata;
-          const restoredChunkSet = chunkSetMap.get(pageData.background.chunkSet);
+          const restoredChunkSet = pageData.background
+            ? chunkSetMap.get(pageData.background.chunkSet)
+            : "";
           const pageReference = firestoreModule.doc(reference, "pages", page.id);
           const existingPage = await firestoreModule.getDoc(pageReference);
           finalBatch.set(pageReference, {
@@ -674,7 +679,9 @@
             pageId: page.id,
             title: pageData.title,
             grid: pageData.grid,
-            background: { ...pageData.background, chunkSet: restoredChunkSet },
+            background: pageData.background
+              ? { ...pageData.background, chunkSet: restoredChunkSet }
+              : null,
             cards: pageData.cards,
             slots: pageData.slots,
             createdAt: existingPage.exists()
