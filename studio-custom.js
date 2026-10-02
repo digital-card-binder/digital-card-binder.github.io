@@ -56,6 +56,9 @@
   const editorTools = panel.querySelector("#studio-custom-editor-tools");
   const selectedName = panel.querySelector("#studio-custom-selected-name");
   const titleInput = panel.querySelector("#studio-custom-title-input");
+  const linkedDexSelect = panel.querySelector("#studio-custom-linked-dex");
+  const linkedDexStatus = panel.querySelector("#studio-custom-linked-dex-status");
+  const missingDisplayInputs = [...panel.querySelectorAll('input[name="studio-custom-missing-display"]')];
   const saveStatus = panel.querySelector("#studio-custom-save-status");
   const saveButton = panel.querySelector("#studio-custom-save-button");
   const newButton = panel.querySelector("#studio-custom-new-button");
@@ -119,6 +122,8 @@
     deletedPageIds: new Set(),
     orphanChunkSets: new Set(),
     linkedDexId: "",
+    customDexes: new Map(),
+    missingCardDisplay: "color",
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
@@ -130,6 +135,164 @@
 
   function normalize(value) {
     return clean(value).toLocaleLowerCase("ko-KR").replace(/\s+/g, " ");
+  }
+
+  function normalizeCustomDexes(source) {
+    const result = new Map();
+    if (!source || typeof source !== "object" || Array.isArray(source)) return result;
+    Object.entries(source).slice(0, 30).forEach(([fallbackId, value]) => {
+      if (!value || typeof value !== "object" || Array.isArray(value)) return;
+      const id = clean(value.id || fallbackId);
+      const title = clean(value.title);
+      if (!id || !title) return;
+      const cards = Array.isArray(value.cards) ? value.cards : [];
+      const cardMap = new Map();
+      cards.forEach((entry) => {
+        const key = clean(entry?.key);
+        if (!key || cardMap.has(key)) return;
+        cardMap.set(key, Boolean(entry?.owned));
+      });
+      result.set(id, { id, title, cardMap, cardCount: cardMap.size });
+    });
+    return result;
+  }
+
+  function linkedDex() {
+    return state.customDexes.get(state.linkedDexId) || null;
+  }
+
+  function customDexKeyCandidates(card) {
+    const candidates = new Set();
+    const direct = clean(card?.customDexKey);
+    const sourceKey = clean(card?.key || card?.sourceKey);
+    if (direct) candidates.add(direct);
+    if (sourceKey) {
+      candidates.add(sourceKey);
+      const parts = sourceKey.split("::");
+      if (parts.length >= 3 && /^\d+$/.test(parts.at(-1))) {
+        candidates.add(parts.slice(0, -1).join("::"));
+      }
+    }
+    return [...candidates];
+  }
+
+  function ownershipForCard(card) {
+    const dex = linkedDex();
+    if (!dex) return null;
+    for (const key of customDexKeyCandidates(card)) {
+      if (dex.cardMap.has(key)) return dex.cardMap.get(key);
+    }
+    return null;
+  }
+
+  function binderOwnershipStats() {
+    const dex = linkedDex();
+    if (!dex) return { linked: false, matched: 0, owned: 0, missing: 0 };
+    let matched = 0;
+    let owned = 0;
+    let missing = 0;
+    state.pages.forEach((page) => {
+      const placements = page.id === state.currentPageId
+        ? state.placements
+        : (page.placements || []);
+      placements.forEach((entry) => {
+        const status = ownershipForCard(entry.card);
+        if (status === null) return;
+        matched += 1;
+        if (status) owned += 1;
+        else missing += 1;
+      });
+    });
+    return { linked: true, matched, owned, missing };
+  }
+
+  function renderLinkedDexUi(message = "") {
+    if (linkedDexSelect) {
+      linkedDexSelect.disabled = !state.user || !state.customDexes.size;
+      const previous = state.linkedDexId;
+      linkedDexSelect.replaceChildren();
+      const none = document.createElement("option");
+      none.value = "";
+      none.textContent = state.customDexes.size ? "연결하지 않음" : "연결할 나만의 도감 없음";
+      linkedDexSelect.append(none);
+      state.customDexes.forEach((dex) => {
+        const option = document.createElement("option");
+        option.value = dex.id;
+        option.textContent = `${dex.title} · ${dex.cardCount}장`;
+        linkedDexSelect.append(option);
+      });
+      if (previous && !state.customDexes.has(previous)) {
+        const unavailable = document.createElement("option");
+        unavailable.value = previous;
+        unavailable.textContent = "연결된 도감을 찾을 수 없음";
+        linkedDexSelect.append(unavailable);
+      }
+      linkedDexSelect.value = previous;
+    }
+    if (!linkedDexStatus) return;
+    if (message) {
+      linkedDexStatus.textContent = message;
+      return;
+    }
+    if (!state.user) {
+      linkedDexStatus.textContent = "로그인 후 나만의 도감과 연결할 수 있습니다.";
+      return;
+    }
+    if (!state.linkedDexId) {
+      linkedDexStatus.textContent = state.customDexes.size
+        ? "도감을 연결하면 배치 카드의 보유·미보유 상태를 읽어서 표시합니다."
+        : "나만의 도감을 먼저 만든 뒤 연결할 수 있습니다.";
+      return;
+    }
+    const dex = linkedDex();
+    if (!dex) {
+      linkedDexStatus.textContent = "연결된 도감을 찾지 못했습니다. 연결 설정을 다시 선택해 주세요.";
+      return;
+    }
+    const stats = binderOwnershipStats();
+    linkedDexStatus.textContent =
+      `${dex.title} 연결 · 일치 ${stats.matched}장 · 보유 ${stats.owned}장 · 미보유 ${stats.missing}장`;
+  }
+
+  async function loadCustomDexes() {
+    state.customDexes = new Map();
+    if (!state.user || !state.firebase) {
+      renderLinkedDexUi();
+      return;
+    }
+    try {
+      const { firestoreModule, db } = state.firebase;
+      const reference = firestoreModule.doc(
+        db,
+        "users",
+        state.user.uid,
+        CONFIG.userCollection || "collections",
+        "pokemonCollectionsDex",
+      );
+      const snapshot = await firestoreModule.getDoc(reference);
+      state.customDexes = normalizeCustomDexes(snapshot.exists() ? snapshot.data()?.customDexes : {});
+      renderLinkedDexUi();
+    } catch (error) {
+      console.error("나만의 도감 연결 정보 불러오기 실패", error);
+      state.customDexes = new Map();
+      renderLinkedDexUi("나만의 도감 목록을 불러오지 못했습니다.");
+    }
+  }
+
+  function selectedMissingDisplay() {
+    const value = missingDisplayInputs.find((input) => input.checked)?.value;
+    return ["color", "grayscale", "dim", "empty"].includes(value)
+      ? value
+      : "color";
+  }
+
+  function applyMissingDisplaySelection(value) {
+    state.missingCardDisplay = ["color", "grayscale", "dim", "empty"].includes(value)
+      ? value
+      : "color";
+    const input = missingDisplayInputs.find((item) => item.value === state.missingCardDisplay)
+      || missingDisplayInputs.find((item) => item.value === "color");
+    if (input) input.checked = true;
   }
 
   function makeId(prefix) {
@@ -1214,8 +1377,11 @@
           const setTitle = clean(group.title || group.name);
           const number = cardNumber(card);
           const rarity = clean(card.rarity);
+          const rawCustomCode = clean(card.code || card.meta || cardIndex);
+          const customDexKey = `${clean(group.code || group.title || groupIndex)}::${rawCustomCode}`;
           cards.push({
             key,
+            customDexKey,
             name,
             setCode,
             setTitle,
@@ -1508,6 +1674,7 @@
         cardNumber: card.cardNumber,
         rarity: card.rarity,
         image: card.image,
+        customDexKey: clean(card.customDexKey),
       },
       x: geometry.x,
       y: geometry.y,
@@ -1612,6 +1779,7 @@
         cardNumber: entry.card.cardNumber,
         rarity: entry.card.rarity,
         imageUrl: entry.card.image,
+        customDexKey: clean(entry.card.customDexKey),
         x: Number(entry.x.toFixed(4)),
         y: Number(entry.y.toFixed(4)),
         width: Number(entry.width.toFixed(4)),
@@ -2156,6 +2324,7 @@
         cardNumber: clean(entry?.cardNumber),
         rarity: clean(entry?.rarity),
         image: clean(entry?.imageUrl),
+        customDexKey: clean(entry?.customDexKey),
       },
       x: Number.isFinite(Number(entry?.x)) ? Number(entry.x) : 0,
       y: Number.isFinite(Number(entry?.y)) ? Number(entry.y) : 0,
@@ -2226,6 +2395,8 @@
       state.currentCreatedAt = data.createdAt || null;
       state.currentSchemaVersion = Number(data.schemaVersion) || 1;
       state.linkedDexId = clean(data.linkedDexId);
+      applyMissingDisplaySelection(data.settings?.missingCardDisplay);
+      renderLinkedDexUi();
       state.deletedPageIds = new Set();
       state.orphanChunkSets = new Set();
       titleInput.value = clean(data.title);
@@ -2382,6 +2553,7 @@
           cardNumber: entry.card.cardNumber,
           rarity: entry.card.rarity,
           imageUrl: entry.card.image,
+          customDexKey: clean(entry.card.customDexKey),
           x: Number(entry.x.toFixed(4)),
           y: Number(entry.y.toFixed(4)),
           width: Number(entry.width.toFixed(4)),
@@ -2432,7 +2604,7 @@
         },
         settings: {
           defaultPrintMode: selectedCustomPrintMode(),
-          missingCardDisplay: "color",
+          missingCardDisplay: state.missingCardDisplay,
         },
         createdAt: state.currentCreatedAt || now,
         updatedAt: now,
@@ -2554,6 +2726,8 @@
     state.deletedPageIds = new Set();
     state.orphanChunkSets = new Set();
     state.linkedDexId = "";
+    applyMissingDisplaySelection("color");
+    renderLinkedDexUi();
     state.placements = [];
     state.selectedId = "";
     state.nextZ = 1;
@@ -2605,7 +2779,7 @@
       };
       state.user = await firstAuthUser(auth, authModule);
       updateSaveUi();
-      await refreshLibrary();
+      await Promise.all([refreshLibrary(), loadCustomDexes()]);
 
       const requestedBinder = clean(new URLSearchParams(window.location.search).get("binder"));
       if (requestedBinder && state.user) {
