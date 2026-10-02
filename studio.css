@@ -2821,3 +2821,23 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     font-size: .49rem;
   }
 }
+
+
+/* Binder visibility is managed from profile settings */
+.studio-custom-visibility-note {
+  margin: 10px 0 0;
+  color: #718292;
+  font-size: .56rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.studio-custom-visibility-note a {
+  color: #27657a;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.studio-custom-visibility-note a:hover {
+  text-decoration: underline;
+}
