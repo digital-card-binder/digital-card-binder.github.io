@@ -52,6 +52,8 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const CHUNK_BYTES = 600 * 1024;
   const MAX_SAVED_WORKS = 30;
+  const BINDER_SCHEMA_VERSION = 2;
+  const DEFAULT_PAGE_ID = "page_1";
   const CARD_WIDTH_MM = 63;
   const CARD_HEIGHT_MM = 88;
   const SLEEVE_WIDTH_MM = 65;
@@ -78,6 +80,9 @@
     user: null,
     currentBinderId: "",
     currentCreatedAt: null,
+    currentSchemaVersion: BINDER_SCHEMA_VERSION,
+    currentPageId: DEFAULT_PAGE_ID,
+    currentPageCreatedAt: null,
     currentChunkCount: 0,
     currentChunkSet: "",
     saving: false,
@@ -698,8 +703,8 @@
   function draftSnapshot() {
     const grid = selectedGrid();
     return {
-      schemaVersion: 1,
-      kind: "custom-binder-layout",
+      schemaVersion: BINDER_SCHEMA_VERSION,
+      kind: "custom-binder-page",
       grid: {
         cols: grid.cols,
         rows: grid.rows,
@@ -943,6 +948,43 @@
     );
   }
 
+  function binderPageRef(binderId, pageId = DEFAULT_PAGE_ID) {
+    const reference = binderRef(binderId);
+    if (!reference || !pageId) return null;
+    return state.firebase.firestoreModule.doc(reference, "pages", pageId);
+  }
+
+  function primaryPageId(data) {
+    const order = Array.isArray(data?.pageOrder) ? data.pageOrder : [];
+    const first = clean(order[0]);
+    return first || DEFAULT_PAGE_ID;
+  }
+
+  async function savedPageData(binderId, binderData) {
+    if (Number(binderData?.schemaVersion) !== BINDER_SCHEMA_VERSION) {
+      return {
+        pageId: DEFAULT_PAGE_ID,
+        page: binderData || {},
+        pageCreatedAt: null,
+        legacy: true,
+      };
+    }
+
+    const pageId = primaryPageId(binderData);
+    const reference = binderPageRef(binderId, pageId);
+    if (!reference) throw new Error("저장된 페이지 위치를 확인하지 못했습니다.");
+    const snapshot = await state.firebase.firestoreModule.getDoc(reference);
+    if (!snapshot.exists()) throw new Error("저장된 첫 페이지를 찾지 못했습니다.");
+    const page = snapshot.data() || {};
+    if (page.ownerUid !== state.user.uid) throw new Error("이 페이지를 열 권한이 없습니다.");
+    return {
+      pageId,
+      page,
+      pageCreatedAt: page.createdAt || null,
+      legacy: false,
+    };
+  }
+
   function updateSaveUi(message = "") {
     if (!saveButton || !saveStatus) return;
 
@@ -1034,7 +1076,8 @@
 
       snapshot.forEach((documentSnapshot) => {
         const data = documentSnapshot.data() || {};
-        const grid = data.grid || {};
+        const isV2 = Number(data.schemaVersion) === BINDER_SCHEMA_VERSION;
+        const grid = isV2 ? (data.summary?.firstGrid || {}) : (data.grid || {});
         const item = document.createElement("article");
         item.className = "studio-custom-library-item";
 
@@ -1044,7 +1087,9 @@
         const meta = document.createElement("span");
         meta.textContent = [
           grid.cols && grid.rows ? `${grid.cols}×${grid.rows}` : "",
-          Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
+          isV2
+            ? `${Number(data.summary?.pageCount) || 1}페이지 · ${Number(data.summary?.cardCount) || 0}장 배치`
+            : Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
           formatSavedTime(data.updatedAt),
         ].filter(Boolean).join(" · ");
         copy.append(title, meta);
@@ -1191,29 +1236,35 @@
       const data = snapshot.data() || {};
       if (data.ownerUid !== state.user.uid) throw new Error("이 작업을 열 권한이 없습니다.");
 
-      const blob = await readBackgroundBlob(reference, data.background || {});
+      const savedPage = await savedPageData(binderId, data);
+      const page = savedPage.page || {};
+      const background = page.background || {};
+      const blob = await readBackgroundBlob(reference, background);
       if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
 
-      const gridValue = `${data.grid?.cols || 3}x${data.grid?.rows || 4}`;
+      const gridValue = `${page.grid?.cols || 3}x${page.grid?.rows || 4}`;
       const gridInput = gridInputs.find((input) => input.value === gridValue);
       if (gridInput) gridInput.checked = true;
 
       state.objectUrl = URL.createObjectURL(blob);
       state.sourceBlob = blob;
       state.sourceFile = {
-        name: clean(data.background?.name) || "saved-background.webp",
-        type: clean(data.background?.type) || blob.type,
+        name: clean(background.name) || "saved-background.webp",
+        type: clean(background.type) || blob.type,
         size: blob.size,
       };
       state.backgroundDirty = false;
-      state.sourceWidth = Number(data.background?.width) || 0;
-      state.sourceHeight = Number(data.background?.height) || 0;
+      state.sourceWidth = Number(background.width) || 0;
+      state.sourceHeight = Number(background.height) || 0;
       state.currentBinderId = binderId;
       state.currentCreatedAt = data.createdAt || null;
-      state.currentChunkCount = Number(data.background?.chunkCount) || 0;
-      state.currentChunkSet = clean(data.background?.chunkSet);
-      state.placements = (Array.isArray(data.cards) ? data.cards : [])
-        .slice(0, 16)
+      state.currentSchemaVersion = Number(data.schemaVersion) || 1;
+      state.currentPageId = savedPage.pageId;
+      state.currentPageCreatedAt = savedPage.pageCreatedAt;
+      state.currentChunkCount = Number(background.chunkCount) || 0;
+      state.currentChunkSet = clean(background.chunkSet);
+      state.placements = (Array.isArray(page.cards) ? page.cards : [])
+        .slice(0, 20)
         .map(restorePlacement);
       state.nextZ = Math.max(0, ...state.placements.map((entry) => entry.z)) + 1;
       state.selectedId = "";
@@ -1237,7 +1288,11 @@
 
       setBinderUrl(binderId);
       deleteButton.hidden = false;
-      updateSaveUi("저장한 작업을 불러왔습니다. 수정 후 다시 저장할 수 있습니다.");
+      updateSaveUi(
+        state.currentSchemaVersion === 1
+          ? "기존 저장 작업을 불러왔습니다. 다음 저장 시 새 바인더 구조(v2)로 안전하게 전환됩니다."
+          : "저장한 작업을 불러왔습니다. 수정 후 다시 저장할 수 있습니다.",
+      );
       await refreshLibrary();
     } catch (error) {
       console.error("커스텀 바인더 불러오기 실패", error);
@@ -1290,31 +1345,71 @@
       }
 
       const firestoreModule = state.firebase.firestoreModule;
+      const pageId = state.currentPageId || DEFAULT_PAGE_ID;
+      const pageReference = binderPageRef(binderId, pageId);
+      if (!pageReference) throw new Error("페이지 저장 위치를 확인하지 못했습니다.");
+
+      const background = {
+        name: (clean(state.sourceFile?.name) || "background.webp").slice(0, 180),
+        type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
+        size: state.sourceBlob.size,
+        chunkCount,
+        chunkSet,
+        width: state.sourceWidth,
+        height: state.sourceHeight,
+      };
+      const now = firestoreModule.serverTimestamp();
+      const pageMetadata = {
+        schemaVersion: BINDER_SCHEMA_VERSION,
+        ownerUid: state.user.uid,
+        pageId,
+        title: "1페이지",
+        grid: draft.grid,
+        background,
+        cards: draft.cards,
+        slots: [],
+        createdAt: state.currentPageCreatedAt || now,
+        updatedAt: now,
+      };
       const metadata = {
-        schemaVersion: 1,
+        schemaVersion: BINDER_SCHEMA_VERSION,
         ownerUid: state.user.uid,
         title,
-        grid: draft.grid,
-        background: {
-          name: (clean(state.sourceFile?.name) || "background.webp").slice(0, 180),
-          type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
-          size: state.sourceBlob.size,
-          chunkCount,
-          chunkSet,
-          width: state.sourceWidth,
-          height: state.sourceHeight,
+        linkedDexId: "",
+        pageOrder: [pageId],
+        summary: {
+          pageCount: 1,
+          cardCount: draft.cards.length,
+          firstGrid: {
+            cols: draft.grid.cols,
+            rows: draft.grid.rows,
+          },
         },
-        cards: draft.cards,
-        createdAt: state.currentCreatedAt || firestoreModule.serverTimestamp(),
-        updatedAt: firestoreModule.serverTimestamp(),
+        settings: {
+          defaultPrintMode: selectedCustomPrintMode(),
+          missingCardDisplay: "color",
+        },
+        createdAt: state.currentCreatedAt || now,
+        updatedAt: now,
       };
 
-      await firestoreModule.setDoc(reference, metadata);
-      const saved = await firestoreModule.getDoc(reference);
+      const batch = firestoreModule.writeBatch(state.firebase.db);
+      batch.set(pageReference, pageMetadata);
+      batch.set(reference, metadata);
+      await batch.commit();
+
+      const [saved, savedPage] = await Promise.all([
+        firestoreModule.getDoc(reference),
+        firestoreModule.getDoc(pageReference),
+      ]);
       const savedData = saved.data() || {};
+      const savedPageData = savedPage.data() || {};
 
       state.currentBinderId = binderId;
       state.currentCreatedAt = savedData.createdAt || state.currentCreatedAt;
+      state.currentSchemaVersion = BINDER_SCHEMA_VERSION;
+      state.currentPageId = pageId;
+      state.currentPageCreatedAt = savedPageData.createdAt || state.currentPageCreatedAt;
       state.currentChunkCount = chunkCount;
       state.currentChunkSet = chunkSet;
       state.backgroundDirty = false;
@@ -1342,11 +1437,13 @@
     const { firestoreModule, db } = state.firebase;
 
     try {
-      const chunks = await firestoreModule.getDocs(
-        firestoreModule.collection(reference, "chunks"),
-      );
+      const [chunks, pages] = await Promise.all([
+        firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
+        firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
+      ]);
       const batch = firestoreModule.writeBatch(db);
       chunks.forEach((chunk) => batch.delete(chunk.ref));
+      pages.forEach((page) => batch.delete(page.ref));
       batch.delete(reference);
       await batch.commit();
       resetEditor(true);
@@ -1361,6 +1458,9 @@
   function resetEditor(clearUrl = true) {
     state.currentBinderId = "";
     state.currentCreatedAt = null;
+    state.currentSchemaVersion = BINDER_SCHEMA_VERSION;
+    state.currentPageId = DEFAULT_PAGE_ID;
+    state.currentPageCreatedAt = null;
     state.currentChunkCount = 0;
     state.currentChunkSet = "";
     state.backgroundDirty = false;
