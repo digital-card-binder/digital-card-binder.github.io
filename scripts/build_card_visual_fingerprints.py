@@ -146,20 +146,54 @@ def normalized_request_url(value: str) -> str:
     parsed = urlsplit(str(value or "").strip())
     if not parsed.scheme or not parsed.netloc:
         return str(value or "").strip()
-    path = quote(parsed.path, safe="/%:@!def read_payload(project: str, relative_path: str, archive_root: Path, remote_fallback: bool) -> bytes:
-    local_path = archive_root / project / relative_path
-    if local_path.is_file() and local_path.stat().st_size:
-        return local_path.read_bytes()
-    if not remote_fallback:
-        raise FileNotFoundError(relative_path)
-    request = urllib.request.Request(
-        public_url(project, relative_path),
-        headers={"User-Agent": USER_AGENT, "Accept": "image/webp,image/*;q=0.8"},
-    )
+    path = quote(parsed.path, safe="/%:@!$&()*+,;=-._~")
+    query = quote(parsed.query, safe="=&%:@!$()*+,;/?-._~")
+    return urlunsplit((parsed.scheme, parsed.netloc, path, query, parsed.fragment))
+
+
+def read_remote_payload(url: str, *, browser_headers: bool = False) -> bytes:
+    normalized = normalized_request_url(url)
+    parsed = urlsplit(normalized)
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT if browser_headers else USER_AGENT,
+        "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+    }
+    if browser_headers and parsed.scheme and parsed.netloc:
+        headers["Referer"] = f"{parsed.scheme}://{parsed.netloc}/"
+    request = urllib.request.Request(normalized, headers=headers)
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read(8 * 1024 * 1024)
-'()*+,;=-._~")
-    query = quote(parsed.query, safe="=&%:@!
+
+
+def payload_candidates(
+    project: str,
+    relative_path: str,
+    source_url: str,
+    archive_root: Path,
+    remote_fallback: bool,
+):
+    local_path = archive_root / project / relative_path
+    if local_path.is_file() and local_path.stat().st_size:
+        yield "local-archive", local_path.read_bytes()
+
+    if not remote_fallback:
+        return
+
+    errors: list[str] = []
+    for label, url, browser_headers in (
+        ("cloudflare-archive", public_url(project, relative_path), False),
+        ("source", source_url, True),
+    ):
+        if not url:
+            continue
+        try:
+            yield label, read_remote_payload(url, browser_headers=browser_headers)
+        except (OSError, ValueError, urllib.error.URLError) as error:
+            errors.append(f"{label}: {error}")
+
+    if errors:
+        raise OSError("; ".join(errors))
+
 
 def collect_cards(index_path: Path) -> list[dict[str, str]]:
     payload = json.loads(index_path.read_text(encoding="utf-8"))
