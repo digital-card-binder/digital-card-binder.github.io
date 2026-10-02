@@ -155,7 +155,7 @@
         pageId: String(data.pageId || pageSnapshot.id),
         title: String(data.title || "페이지"),
         grid: data.grid || {},
-        background: data.background || {},
+        background: data.background ?? null,
         cards: Array.isArray(data.cards) ? data.cards : [],
         slots: Array.isArray(data.slots) ? data.slots : [],
       },
