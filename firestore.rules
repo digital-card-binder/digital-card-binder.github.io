@@ -1150,14 +1150,14 @@ service cloud.firestore {
         && card.detail is string
         && card.detail.size() <= 160
         && card.sourcePage is string
-        && (
-          card.sourcePage == "national.html"
-          || card.sourcePage == "artists.html"
-          || card.sourcePage == "series.html"
-          || card.sourcePage == "pokemon-collections.html"
-          || card.sourcePage == "ar.html"
-          || card.sourcePage == "custom.html"
-        );
+        && card.sourcePage in [
+          "national.html",
+          "artists.html",
+          "series.html",
+          "pokemon-collections.html",
+          "ar.html",
+          "custom.html"
+        ];
     }
 
     function validTradeCardList(cards) {
@@ -1185,7 +1185,8 @@ service cloud.firestore {
 
     function validTradePostCardShape() {
       return (
-          request.resource.data.keys().hasAll([
+          request.resource.data.schemaVersion == 2
+          && request.resource.data.keys().hasAll([
             "schemaVersion",
             "authorUid",
             "authorNickname",
@@ -1207,11 +1208,11 @@ service cloud.firestore {
             "createdAt",
             "updatedAt"
           ])
-          && request.resource.data.schemaVersion == 2
           && validTradeCard(request.resource.data.wantedCard)
         )
         || (
-          request.resource.data.keys().hasAll([
+          request.resource.data.schemaVersion == 3
+          && request.resource.data.keys().hasAll([
             "schemaVersion",
             "authorUid",
             "authorNickname",
@@ -1233,26 +1234,25 @@ service cloud.firestore {
             "createdAt",
             "updatedAt"
           ])
-          && request.resource.data.schemaVersion == 3
           && validTradeCardList(request.resource.data.wantedCards)
         );
     }
 
     function validTradePostCreate() {
       return request.auth != null
-        && validTradePostCardShape()
         && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.acceptOffers is bool
+        && request.resource.data.status == "open"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time
+        && validTradePostCardShape()
         && get(
           /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
         ).data.profileCompleted == true
         && request.resource.data.authorNickname == get(
           /databases/$(database)/documents/users/$(request.auth.uid)/profile/main
         ).data.nickname
-        && validOptionalTradeCardList(request.resource.data.offeredCards)
-        && request.resource.data.acceptOffers is bool
-        && request.resource.data.status == "open"
-        && request.resource.data.createdAt == request.time
-        && request.resource.data.updatedAt == request.time;
+        && validOptionalTradeCardList(request.resource.data.offeredCards);
     }
 
     function validTradeProposalCreate() {
