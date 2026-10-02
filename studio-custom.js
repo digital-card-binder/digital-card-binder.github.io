@@ -1385,7 +1385,7 @@
     const { cols, rows } = selectedGrid();
     photoStatus.textContent = source
       ? `현재 사진을 ${cols} × ${rows} 슬롯로 가져왔습니다. 카드 자동인식을 실행하거나 그대로 저장할 수 있습니다.`
-      : `현재 ${cols} × ${rows} 그리드로 사진을 나눠 가져옵니다. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.`;
+      : `현재 ${cols} × ${rows} 그리드 기준으로 페이지 경계와 원근을 자동 보정한 뒤 슬롯으로 나눕니다.`;
   }
 
   function clearPhotoRecognitionResults() {
@@ -1405,7 +1405,7 @@
     });
   }
 
-  async function normalizeBinderPhoto(file) {
+  async function normalizeBinderPhoto(file, grid) {
     if (!file || !String(file.type || "").startsWith("image/")) {
       throw new Error("이미지 파일을 선택해 주세요.");
     }
@@ -1425,23 +1425,40 @@
         throw new Error("사진 크기를 확인하지 못했습니다.");
       }
 
-      // Camera originals may be very large. Accept the original as-is, then
-      // downscale/encode locally before it is ever stored in Firestore.
-      const maxDimension = 4200;
-      const initialScale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
-      let width = Math.max(1, Math.round(sourceWidth * initialScale));
-      let height = Math.max(1, Math.round(sourceHeight * initialScale));
-      let canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      let context = canvas.getContext("2d", { alpha: false });
-      if (!context) throw new Error("사진 변환 기능을 사용할 수 없습니다.");
-      context.fillStyle = "#ffffff";
-      context.fillRect(0, 0, width, height);
-      context.imageSmoothingEnabled = true;
-      context.imageSmoothingQuality = "high";
-      context.drawImage(image, 0, 0, width, height);
+      const scanner = root.photoScanner;
+      let scanResult = null;
+      if (scanner?.scan) {
+        updatePhotoImportUi("바인더 페이지의 네 모서리와 기울기를 분석하는 중입니다…");
+        try {
+          scanResult = await scanner.scan(image, {
+            cols: grid?.cols || 3,
+            rows: grid?.rows || 4,
+            cardWidth: CARD_WIDTH_MM,
+            cardHeight: CARD_HEIGHT_MM,
+          });
+        } catch (error) {
+          console.warn("바인더 사진 스캔 보정 실패", error);
+        }
+      }
 
+      let canvas = scanResult?.canvas || null;
+      if (!canvas) {
+        const maxDimension = 4200;
+        const scale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
+        canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(sourceWidth * scale));
+        canvas.height = Math.max(1, Math.round(sourceHeight * scale));
+        const fallbackContext = canvas.getContext("2d", { alpha: false });
+        if (!fallbackContext) throw new Error("사진 변환 기능을 사용할 수 없습니다.");
+        fallbackContext.fillStyle = "#ffffff";
+        fallbackContext.fillRect(0, 0, canvas.width, canvas.height);
+        fallbackContext.imageSmoothingEnabled = true;
+        fallbackContext.imageSmoothingQuality = "high";
+        fallbackContext.drawImage(image, 0, 0, canvas.width, canvas.height);
+      }
+
+      let width = canvas.width;
+      let height = canvas.height;
       const targetBytes = 8.5 * 1024 * 1024;
       let quality = 0.9;
       let blob = null;
@@ -1472,14 +1489,11 @@
         reducedContext.imageSmoothingQuality = "high";
         reducedContext.drawImage(canvas, 0, 0, width, height);
         canvas = reduced;
-        context = reducedContext;
         quality = Math.max(0.72, quality - 0.04);
       }
 
       if (!blob) throw new Error("사진을 저장용 이미지로 변환하지 못했습니다.");
 
-      // Extremely unusual originals are allowed too; keep shrinking until the
-      // saved copy is safe to chunk, instead of rejecting based on source MB.
       while (blob.size > targetBytes && Math.max(canvas.width, canvas.height) > 1600) {
         width = Math.max(1, Math.round(canvas.width * 0.82));
         height = Math.max(1, Math.round(canvas.height * 0.82));
@@ -1508,6 +1522,8 @@
         height: canvas.height,
         name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.${outputType === "image/webp" ? "webp" : "jpg"}`,
         originalSize: Number(file.size) || 0,
+        scanMode: clean(scanResult?.mode) || "original",
+        scanConfidence: Number(scanResult?.confidence) || 0,
       };
     } finally {
       URL.revokeObjectURL(sourceUrl);
@@ -1535,7 +1551,7 @@
 
     updatePhotoImportUi("사진을 가져오는 중입니다…");
     try {
-      const prepared = await normalizeBinderPhoto(file);
+      const prepared = await normalizeBinderPhoto(file, { cols, rows });
       state.images.forEach((image) => {
         if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
         if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
@@ -1589,23 +1605,19 @@
       updateSaveUi();
       updateCustomPrintUi();
 
-      const expected = (cols * CARD_WIDTH_MM) / (rows * CARD_HEIGHT_MM);
-      const actual = prepared.width / prepared.height;
-      const gap = Math.abs(actual - expected) / expected;
       const originalMb = prepared.originalSize
         ? ` · 원본 ${(prepared.originalSize / 1024 / 1024).toFixed(1)}MB 자동 최적화`
         : "";
       const sizeText =
         `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px${originalMb}`;
-      if (gap > 0.16) {
-        updatePhotoImportUi(
-          `${cols} × ${rows}로 가져왔습니다 · ${sizeText}. 사진 비율이 그리드와 다르므로 2번 그리드가 실제 바인더와 같은지 확인해 주세요.`,
-        );
-      } else {
-        updatePhotoImportUi(
-          `${cols} × ${rows} · ${count}칸으로 가져왔습니다 · ${sizeText}. 필요한 칸만 카드로 교체하거나 그대로 저장할 수 있습니다.`,
-        );
-      }
+      const scanText = prepared.scanMode === "perspective"
+        ? "문서 스캔 방식으로 네 모서리·기울기·원근 보정 완료"
+        : prepared.scanMode === "crop"
+          ? "페이지 경계가 불확실해 그리드 비율 중심 보정 적용"
+          : "원본 사진 기준으로 가져옴";
+      updatePhotoImportUi(
+        `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 필요한 칸만 실제 카드로 교체하거나 그대로 저장할 수 있습니다.`,
+      );
     } catch (error) {
       console.error("바인더 사진 가져오기 실패", error);
       updatePhotoImportUi(clean(error?.message) || "사진을 가져오지 못했습니다. 다른 사진으로 다시 시도해 주세요.");
