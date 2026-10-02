@@ -235,9 +235,32 @@
               </label>
             </section>
 
-            <section class="studio-control-card">
+            <section class="studio-control-card studio-custom-art-card">
               <div class="studio-step-heading">
                 <span>4</span>
+                <div><strong>슬롯 이미지 자동분할</strong><small>슬롯을 선택한 뒤 한 장의 이미지를 선택 영역에 자동으로 나눠 넣습니다.</small></div>
+              </div>
+              <label class="studio-custom-art-upload" for="studio-custom-art-file">
+                <input id="studio-custom-art-file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+                <span aria-hidden="true">＋</span>
+                <strong id="studio-custom-art-file-label">확장 이미지를 선택하세요</strong>
+                <small id="studio-custom-art-meta">PNG · JPG · WEBP · 최대 10MB</small>
+              </label>
+              <div class="studio-custom-slot-select-actions">
+                <button id="studio-custom-slot-select-toggle" type="button">슬롯 선택 시작</button>
+                <button id="studio-custom-slot-select-all" type="button">전체 선택</button>
+                <button id="studio-custom-slot-selection-clear" type="button">선택 해제</button>
+              </div>
+              <p id="studio-custom-art-status" class="studio-custom-art-status">이미지를 고른 뒤 미리보기의 원하는 슬롯을 눌러 선택하세요.</p>
+              <div class="studio-custom-art-actions">
+                <button id="studio-custom-art-apply" class="studio-primary-button" type="button" disabled>선택 슬롯에 이미지 채우기</button>
+                <button id="studio-custom-slot-clear" class="studio-text-button" type="button" disabled>선택 슬롯 비우기</button>
+              </div>
+            </section>
+
+            <section class="studio-control-card">
+              <div class="studio-step-heading">
+                <span>5</span>
                 <div><strong>카드 추가</strong><small>빈 슬롯에 카드가 들어가며 페이지별로 독립 저장됩니다.</small></div>
               </div>
               <label class="studio-field">
@@ -250,7 +273,7 @@
 
             <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools" hidden>
               <div class="studio-step-heading">
-                <span>5</span>
+                <span>6</span>
                 <div><strong>선택 카드 편집</strong><small id="studio-custom-selected-name">카드를 눌러 선택하세요.</small></div>
               </div>
               <div class="studio-custom-tool-grid">
@@ -274,7 +297,7 @@
 
             <section class="studio-control-card studio-custom-save-card">
               <div class="studio-step-heading">
-                <span>6</span>
+                <span>7</span>
                 <div><strong>나만의도감에 저장</strong><small>모든 페이지와 슬롯 구성을 개인 계정에 함께 저장합니다.</small></div>
               </div>
               <label class="studio-field">
@@ -291,7 +314,7 @@
 
             <section class="studio-control-card studio-custom-print-card">
               <div class="studio-step-heading">
-                <span>7</span>
+                <span>8</span>
                 <div><strong>출력 크기</strong><small>현재 페이지를 기존 출력 방식으로 확인합니다. 전체 페이지 출력은 후속 단계에서 연결합니다.</small></div>
               </div>
               <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
@@ -332,10 +355,10 @@
               <div id="studio-custom-preview-stage" class="studio-custom-preview-stage">
                 <img id="studio-custom-preview-image" alt="" />
                 <div id="studio-custom-grid-overlay" class="studio-custom-grid-overlay" aria-hidden="true"></div>
-                <div id="studio-custom-slot-layer" class="studio-custom-slot-layer" aria-hidden="true"></div>
+                <div id="studio-custom-slot-layer" class="studio-custom-slot-layer" aria-label="바인더 슬롯"></div>
                 <div id="studio-custom-card-layer" class="studio-custom-card-layer" aria-label="배치한 카드"></div>
               </div>
-              <p class="studio-custom-preview-help">페이지별 그리드와 슬롯이 독립적으로 저장됩니다. 카드는 빈 슬롯부터 자동 배치됩니다.</p>
+              <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 이미지 작업 때는 슬롯 선택 모드로 원하는 칸만 골라 자동분할할 수 있습니다.</p>
             </div>
 
             <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">
