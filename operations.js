@@ -519,7 +519,7 @@
         const indexes = seenIndexesBySet.get(chunkSet) || new Set();
         const background = schemaVersion === 1
           ? metadata.background
-          : binder.pages.find((page) => page.metadata.background.chunkSet === chunkSet).metadata.background;
+          : binder.pages.find((page) => page.metadata.background?.chunkSet === chunkSet).metadata.background;
         if (
           indexes.size !== expectedCount ||
           bytesBySet.get(chunkSet) !== background.size
