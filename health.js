@@ -125,6 +125,21 @@
       const payload = await fetchJson("./data/trainer-pokemon.json");
       return sumGroupCards(payload?.groups || []);
     }
+    if (collectionId === "fossil") {
+      const payload = await fetchJson("./data/fossil.json");
+      return sumGroupCards(payload?.groups || []);
+    }
+    if (collectionId === "world") {
+      const payload = await fetchJson("./data/world-exploration.json");
+      return (payload?.generations || []).reduce(
+        (sum, generation) =>
+          sum +
+          (Array.isArray(generation?.slots) ? generation.slots.length : 0) +
+          (Array.isArray(generation?.pokemonRefs) ? generation.pokemonRefs.length : 0) +
+          (Array.isArray(generation?.peopleRefs) ? generation.peopleRefs.length : 0),
+        0,
+      );
+    }
     if (collectionId === "series") {
       return sumGroupCards(await catalogService.series());
     }
@@ -172,52 +187,8 @@
       }),
     );
 
-    const [fossil, world] = await Promise.all([
-      fetchJson("./data/fossil.json"),
-      fetchJson("./data/world-exploration.json"),
-    ]);
 
-    const fossilCards = (fossil?.groups || []).flatMap((group) =>
-      (group.cards || []).map((card) => ({
-        key: `${clean(card.set)}::${clean(card.cardNumber || card.meta)}`,
-        name: card.name,
-      })),
-    );
-    const worldSlots = (world?.generations || []).flatMap((generation) =>
-      (generation.slots || []).map((slot) => ({
-        key: clean(slot.id),
-        name: slot.title,
-      })),
-    );
-
-    const auxiliary = [
-      {
-        id: "fossil",
-        title: "화석 도감",
-        unit: "장",
-        total: fossilCards.length,
-        rawCount: fossilCards.length,
-        expected: Number.isFinite(Number(fossil?.total)) ? Number(fossil.total) : null,
-        duplicates: duplicateValues(fossilCards.map((item) => item.key)),
-        emptyNames: fossilCards.filter((item) => !clean(item.name)).length,
-        renderMismatch: 0,
-        source: "보조 도감",
-      },
-      {
-        id: "world",
-        title: "월드탐험도감",
-        unit: "장",
-        total: worldSlots.length,
-        rawCount: worldSlots.length,
-        expected: null,
-        duplicates: duplicateValues(worldSlots.map((item) => item.key)),
-        emptyNames: worldSlots.filter((item) => !clean(item.name)).length,
-        renderMismatch: 0,
-        source: "보조 도감",
-      },
-    ].map((row) => ({ ...row, state: rowState(row) }));
-
-    return [...rows, ...auxiliary];
+    return rows;
   }
 
   function imageValue(record) {
