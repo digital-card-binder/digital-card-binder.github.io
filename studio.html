@@ -21,6 +21,7 @@
     <script src="./collector-collection-registry.js?v=af95df9173cb" defer></script>
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
     <script src="./card-visual-matcher.js?v=c732c389efa3" defer></script>
+    <script src="./binder-photo-scanner.js" defer></script>
     <script src="./studio-custom.js?v=8e9c8c5c5f65" defer></script>
     <script src="./studio-help.js?v=ba6b46cacf1c" defer></script>
   </head>
@@ -229,7 +230,7 @@
                 <div>
                   <span class="studio-photo-import-badge">빠른 시작</span>
                   <strong>사진으로 바인더 가져오기</strong>
-                  <small>실제 바인더 페이지를 촬영하거나 앨범에서 선택하면 현재 그리드에 맞춰 그대로 나눠 넣습니다.</small>
+                  <small>바인더 페이지를 문서처럼 자동 스캔해 기울기·원근을 보정한 뒤 현재 그리드에 맞춰 나눠 넣습니다.</small>
                 </div>
                 <div class="studio-photo-import-head-actions">
                   <span id="studio-custom-photo-grid" class="studio-photo-grid-badge">3 × 4</span>
@@ -248,11 +249,11 @@
                   <strong>앨범에서 선택</strong>
                 </label>
               </div>
-              <p id="studio-custom-photo-status" class="studio-photo-import-status">2번에서 실제 바인더와 같은 그리드를 선택한 뒤 사진을 가져오세요. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.</p>
+              <p id="studio-custom-photo-status" class="studio-photo-import-status">2번에서 실제 바인더와 같은 그리드를 고른 뒤 사진을 가져오세요. 네 모서리를 자동 감지해 문서 스캔처럼 펴서 가져옵니다.</p>
               <button id="studio-custom-photo-recognize" class="studio-photo-recognize-button" type="button" disabled>카드 자동인식</button>
               <p class="studio-photo-recognition-note">확실한 카드만 자동으로 우리 도감 카드로 교체하고, 애매한 슬롯은 후보를 보여줍니다.</p>
               <div id="studio-custom-photo-recognition-results" class="studio-photo-recognition-results" hidden></div>
-              <p class="studio-photo-import-tip"><strong>촬영 팁</strong> 바인더 페이지 전체가 화면에 들어오도록 가능한 한 정면에서 촬영하면 가장 정확합니다.</p>
+              <p class="studio-photo-import-tip"><strong>촬영 팁</strong> 약간 비스듬해도 괜찮습니다. 네 모서리가 모두 보이고 페이지가 화면 대부분을 차지하게 찍으면 자동 보정이 가장 정확합니다.</p>
             </section>
 
             <section class="studio-control-card">
