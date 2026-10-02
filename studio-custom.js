@@ -1713,7 +1713,13 @@
       width: Number.isFinite(Number(entry?.width)) ? Number(entry.width) : 20,
       rotation: Number.isFinite(Number(entry?.rotation)) ? Number(entry.rotation) : 0,
       z: Number.isFinite(Number(entry?.z)) ? Number(entry.z) : index + 1,
-      slotIndex: Number.isInteger(Number(entry?.slotIndex)) ? Number(entry.slotIndex) : null,
+      slotIndex:
+        entry?.slotIndex !== null &&
+        entry?.slotIndex !== undefined &&
+        entry?.slotIndex !== "" &&
+        Number.isInteger(Number(entry.slotIndex))
+          ? Number(entry.slotIndex)
+          : null,
     };
   }
 
