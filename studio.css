@@ -2310,3 +2310,161 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     width: 100%;
   }
 }
+
+
+/* Binder Studio step help */
+.studio-help-button {
+  display: grid;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  place-items: center;
+  border: 1px solid #c9d9e3;
+  border-radius: 50%;
+  background: #fff;
+  color: #406278;
+  cursor: pointer;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(19, 54, 76, .06);
+}
+
+.studio-help-button:hover {
+  border-color: #72baca;
+  background: #edf9fb;
+  color: #15566b;
+}
+
+.studio-help-button:focus-visible {
+  outline: 3px solid rgba(69, 190, 204, .22);
+  outline-offset: 2px;
+}
+
+.studio-help-dialog {
+  width: min(92vw, 480px);
+  max-width: 480px;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  padding: 0;
+  box-shadow: 0 24px 70px rgba(9, 28, 45, .28);
+}
+
+.studio-help-dialog::backdrop {
+  background: rgba(5, 20, 34, .58);
+  backdrop-filter: blur(3px);
+}
+
+.studio-help-sheet {
+  border: 1px solid #d8e4ea;
+  border-radius: 22px;
+  background: #fff;
+  color: var(--studio-ink);
+  padding: 18px;
+}
+
+.studio-help-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.studio-help-head h2 {
+  margin: 4px 0 0;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.studio-help-close {
+  display: grid;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #d8e3e9;
+  border-radius: 50%;
+  background: #f8fbfc;
+  color: #627487;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.studio-help-description {
+  margin: 14px 0 0;
+  color: #5f7284;
+  font-size: .66rem;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.studio-help-howto {
+  margin-top: 15px;
+  border: 1px solid #dfe8ed;
+  border-radius: 14px;
+  background: #f7fafc;
+  padding: 13px 14px;
+}
+
+.studio-help-howto > strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #355166;
+  font-size: .65rem;
+}
+
+.studio-help-howto ol {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 19px;
+  color: #69798a;
+  font-size: .61rem;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.studio-help-confirm {
+  width: 100%;
+  margin-top: 14px;
+}
+
+@media (max-width: 690px) {
+  .studio-step-heading {
+    gap: 9px;
+  }
+
+  .studio-help-button {
+    flex-basis: 27px;
+    width: 27px;
+    height: 27px;
+    font-size: .68rem;
+  }
+
+  .studio-help-dialog {
+    width: calc(100% - 16px);
+    max-width: none;
+    margin: auto 8px 8px;
+    border-radius: 20px 20px 16px 16px;
+  }
+
+  .studio-help-sheet {
+    max-height: min(78vh, 620px);
+    overflow-y: auto;
+    border-radius: 20px 20px 16px 16px;
+    padding: 16px;
+  }
+
+  .studio-help-description {
+    font-size: .64rem;
+  }
+
+  .studio-help-howto ol {
+    font-size: .6rem;
+  }
+}
