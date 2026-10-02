@@ -33,6 +33,8 @@
   const photoAlbumInput = panel.querySelector("#studio-custom-photo-album");
   const photoGridLabel = panel.querySelector("#studio-custom-photo-grid");
   const photoStatus = panel.querySelector("#studio-custom-photo-status");
+  const photoRecognizeButton = panel.querySelector("#studio-custom-photo-recognize");
+  const photoRecognitionResults = panel.querySelector("#studio-custom-photo-recognition-results");
   const artFileLabel = panel.querySelector("#studio-custom-art-file-label");
   const artMeta = panel.querySelector("#studio-custom-art-meta");
   const artStatus = panel.querySelector("#studio-custom-art-status");
@@ -138,6 +140,8 @@
     publicProfile: null,
     isPublished: false,
     publishing: false,
+    photoRecognizing: false,
+    photoReview: new Map(),
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
@@ -330,12 +334,13 @@
     const canPublish = Boolean(
       state.user &&
       profileReady &&
-      state.currentBinderId &&
+      state.pages.length &&
       !state.publishing &&
       !state.saving,
     );
 
     publishButton.disabled = !canPublish || state.isPublished;
+    publishButton.textContent = state.currentBinderId ? "공개하기" : "저장 후 공개하기";
     publishButton.hidden = state.isPublished;
     unpublishButton.disabled = !canPublish;
     unpublishButton.hidden = !state.isPublished;
@@ -356,7 +361,7 @@
       link.textContent = "프로필 설정";
       shareStatus.append(text, link);
     } else if (!state.currentBinderId) {
-      shareStatus.textContent = "바인더를 먼저 저장하면 공개 링크를 만들 수 있습니다.";
+      shareStatus.textContent = "공개하기를 누르면 먼저 저장한 뒤 공개 링크를 만듭니다.";
     } else if (state.publishing) {
       shareStatus.textContent = "공개본을 만들고 있습니다…";
     } else if (state.isPublished) {
@@ -1351,10 +1356,26 @@
     };
   }
 
+  function importedPhotoSource() {
+    const imageSlots = state.slots.filter((slot) => slot.type === "image");
+    if (!imageSlots.length) return null;
+    const imageId = clean(imageSlots[0]?.imageId);
+    if (!imageId || !imageId.startsWith("photo_")) return null;
+    if (!imageSlots.every((slot) => clean(slot.imageId) === imageId)) return null;
+    return imageSourceById(imageId);
+  }
+
   function updatePhotoImportUi(message = "") {
     if (photoGridLabel) {
       const { cols, rows } = selectedGrid();
       photoGridLabel.textContent = `${cols} × ${rows}`;
+    }
+    const source = importedPhotoSource();
+    if (photoRecognizeButton) {
+      photoRecognizeButton.disabled = !source || state.photoRecognizing;
+      photoRecognizeButton.textContent = state.photoRecognizing
+        ? "카드 인식 중…"
+        : "카드 자동인식";
     }
     if (!photoStatus) return;
     if (message) {
@@ -1362,8 +1383,16 @@
       return;
     }
     const { cols, rows } = selectedGrid();
-    photoStatus.textContent =
-      `현재 ${cols} × ${rows} 그리드로 사진을 나눠 가져옵니다. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.`;
+    photoStatus.textContent = source
+      ? `현재 사진을 ${cols} × ${rows} 슬롯로 가져왔습니다. 카드 자동인식을 실행하거나 그대로 저장할 수 있습니다.`
+      : `현재 ${cols} × ${rows} 그리드로 사진을 나눠 가져옵니다. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.`;
+  }
+
+  function clearPhotoRecognitionResults() {
+    state.photoReview = new Map();
+    if (!photoRecognitionResults) return;
+    photoRecognitionResults.replaceChildren();
+    photoRecognitionResults.hidden = true;
   }
 
   function canvasBlob(canvas, type, quality) {
@@ -1487,6 +1516,7 @@
       state.placements = [];
       state.selectedId = "";
       state.nextZ = 1;
+      clearPhotoRecognitionResults();
       state.selectedSlots.clear();
       state.slotSelectMode = false;
 
@@ -1551,6 +1581,197 @@
     } finally {
       if (photoCameraInput) photoCameraInput.value = "";
       if (photoAlbumInput) photoAlbumInput.value = "";
+    }
+  }
+
+  function replaceSlotWithCard(card, slotIndex, { render = true, select = true } = {}) {
+    if (!card || slotIndex < 0 || slotIndex >= state.slots.length) return null;
+    removeCardAtSlot(slotIndex);
+    const geometry = slotGeometry(slotIndex);
+    const entry = {
+      id: makeId("card"),
+      card: {
+        key: card.key,
+        name: card.name,
+        setCode: card.setCode,
+        setTitle: card.setTitle,
+        cardNumber: card.cardNumber,
+        rarity: card.rarity,
+        image: card.image,
+        customDexKey: clean(card.customDexKey),
+      },
+      x: geometry.x,
+      y: geometry.y,
+      width: geometry.width,
+      rotation: 0,
+      z: state.nextZ++,
+      slotIndex,
+    };
+    state.placements.push(entry);
+    state.slots[slotIndex] = {
+      index: slotIndex,
+      type: "card",
+      placementId: entry.id,
+      sourceKey: clean(card.key),
+    };
+    if (select) state.selectedId = entry.id;
+    if (render) {
+      state.selectedSlots.clear();
+      state.slotSelectMode = false;
+      pruneUnusedImages();
+      renderSlotLayer();
+      renderPlacements();
+      captureCurrentPage();
+      updateArtUi("선택한 슬롯을 실제 카드로 교체했습니다.");
+      updatePhotoImportUi();
+    }
+    return entry;
+  }
+
+  function recognitionCandidateButton(slotIndex, match) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "studio-photo-candidate";
+    const image = document.createElement("img");
+    image.src = match.card.image;
+    image.alt = "";
+    image.loading = "lazy";
+    const copy = document.createElement("span");
+    const name = document.createElement("strong");
+    name.textContent = match.card.name;
+    const meta = document.createElement("small");
+    meta.textContent = [
+      match.card.setCode,
+      match.card.cardNumber,
+      `차이 ${match.distance.toFixed(1)}`,
+    ].filter(Boolean).join(" · ");
+    copy.append(name, meta);
+    button.append(image, copy);
+    button.addEventListener("click", () => {
+      replaceSlotWithCard(match.card, slotIndex);
+      state.photoReview.delete(slotIndex);
+      renderPhotoRecognitionReview();
+      updatePhotoImportUi(`${slotIndex + 1}번 슬롯을 ${match.card.name} 카드로 교체했습니다.`);
+    });
+    return button;
+  }
+
+  function renderPhotoRecognitionReview(summary = "") {
+    if (!photoRecognitionResults) return;
+    const rows = [...state.photoReview.entries()].map(([slotIndex, matches]) => {
+      const row = document.createElement("article");
+      row.className = "studio-photo-review-row";
+      const heading = document.createElement("div");
+      const title = document.createElement("strong");
+      title.textContent = `${slotIndex + 1}번 슬롯 · 후보 확인`;
+      const keep = document.createElement("small");
+      keep.textContent = "맞는 카드가 없으면 사진을 그대로 두세요.";
+      heading.append(title, keep);
+      const candidates = document.createElement("div");
+      candidates.className = "studio-photo-candidates";
+      matches.slice(0, 3).forEach((match) => {
+        candidates.append(recognitionCandidateButton(slotIndex, match));
+      });
+      row.append(heading, candidates);
+      return row;
+    });
+    photoRecognitionResults.replaceChildren();
+    if (summary) {
+      const summaryNode = document.createElement("p");
+      summaryNode.className = "studio-photo-recognition-summary";
+      summaryNode.textContent = summary;
+      photoRecognitionResults.append(summaryNode);
+    }
+    photoRecognitionResults.append(...rows);
+    photoRecognitionResults.hidden = !summary && !rows.length;
+  }
+
+  async function imageFromObjectUrl(url) {
+    const image = new Image();
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = () => reject(new Error("가져온 바인더 사진을 다시 읽지 못했습니다."));
+      image.src = url;
+    });
+    return image;
+  }
+
+  async function recognizeImportedPhotoCards() {
+    if (state.photoRecognizing) return;
+    const source = importedPhotoSource();
+    if (!source?.objectUrl) {
+      updatePhotoImportUi("먼저 바인더 사진을 촬영하거나 앨범에서 선택해 주세요.");
+      return;
+    }
+    const matcher = root.visualMatcher;
+    if (!matcher?.rankImageCrop || !matcher?.confident) {
+      updatePhotoImportUi("카드 자동인식 모듈을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.");
+      return;
+    }
+
+    state.photoRecognizing = true;
+    clearPhotoRecognitionResults();
+    updatePhotoImportUi("우리 도감과 비교할 카드 목록을 준비하는 중입니다…");
+
+    try {
+      await ensureCatalog();
+      const image = await imageFromObjectUrl(source.objectUrl);
+      const targets = state.slots
+        .filter((slot) => slot.type === "image" && clean(slot.imageId) === source.id)
+        .map((slot) => ({ index: slot.index, crop: { ...slot.crop } }));
+      let automatic = 0;
+      let noMatch = 0;
+      const review = new Map();
+
+      for (let position = 0; position < targets.length; position += 1) {
+        const target = targets[position];
+        updatePhotoImportUi(
+          `카드 자동인식 중 · ${position + 1} / ${targets.length}칸`,
+        );
+        const matches = await matcher.rankImageCrop(
+          image,
+          target.crop,
+          state.catalog,
+          3,
+        );
+        const accepted = matcher.confident(matches);
+        if (accepted) {
+          replaceSlotWithCard(accepted.card, target.index, { render: false, select: false });
+          automatic += 1;
+        } else if (matches.length && matches[0].distance <= 19) {
+          review.set(target.index, matches);
+        } else {
+          noMatch += 1;
+        }
+        if (position % 2 === 1) {
+          await new Promise((resolve) => requestAnimationFrame(resolve));
+        }
+      }
+
+      state.photoReview = review;
+      state.selectedId = "";
+      pruneUnusedImages();
+      renderSlotLayer();
+      renderPlacements();
+      captureCurrentPage();
+      updateCustomPrintUi();
+
+      const summary =
+        `자동 인식 ${automatic}칸 · 후보 확인 ${review.size}칸 · 사진 유지 ${noMatch}칸`;
+      renderPhotoRecognitionReview(summary);
+      updatePhotoImportUi(
+        review.size
+          ? `${summary}. 아래 후보에서 맞는 카드만 선택하세요.`
+          : `${summary}. 확실한 카드만 자동으로 교체했습니다.`,
+      );
+    } catch (error) {
+      console.error("바인더 사진 카드 자동인식 실패", error);
+      updatePhotoImportUi(
+        clean(error?.message) || "카드 자동인식에 실패했습니다. 사진 상태로 그대로 저장할 수 있습니다.",
+      );
+    } finally {
+      state.photoRecognizing = false;
+      updatePhotoImportUi(photoStatus?.textContent || "");
     }
   }
 
@@ -1701,6 +1922,7 @@
           const customDexKey = `${clean(group.code || group.title || groupIndex)}::${rawCustomCode}`;
           cards.push({
             key,
+            rawCode: rawCustomCode,
             customDexKey,
             name,
             setCode,
@@ -2007,43 +2229,7 @@
       window.alert("빈 슬롯이 없습니다. 교체할 슬롯 하나를 먼저 선택해 주세요.");
       return;
     }
-
-    removeCardAtSlot(slotIndex);
-    const geometry = slotGeometry(slotIndex);
-    const entry = {
-      id: makeId("card"),
-      card: {
-        key: card.key,
-        name: card.name,
-        setCode: card.setCode,
-        setTitle: card.setTitle,
-        cardNumber: card.cardNumber,
-        rarity: card.rarity,
-        image: card.image,
-        customDexKey: clean(card.customDexKey),
-      },
-      x: geometry.x,
-      y: geometry.y,
-      width: geometry.width,
-      rotation: 0,
-      z: state.nextZ++,
-      slotIndex,
-    };
-    state.placements.push(entry);
-    state.slots[slotIndex] = {
-      index: slotIndex,
-      type: "card",
-      placementId: entry.id,
-      sourceKey: clean(card.key),
-    };
-    state.selectedId = entry.id;
-    state.selectedSlots.clear();
-    state.slotSelectMode = false;
-    pruneUnusedImages();
-    renderSlotLayer();
-    renderPlacements();
-    captureCurrentPage();
-    updateArtUi("선택한 슬롯을 실제 카드로 교체했습니다.");
+    replaceSlotWithCard(card, slotIndex);
   }
 
   function rotateSelected(delta) {
@@ -3644,6 +3830,14 @@
       if (requestedBinder && state.user) {
         activateTab("custom", false);
         await loadSavedBinder(requestedBinder);
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("publish") === "1") {
+          const published = await publishCurrentBinder({ skipSave: true });
+          if (published && params.get("return") === "settings") {
+            window.location.replace(`./collector-settings.html?binder=${encodeURIComponent(requestedBinder)}#binder-settings`);
+            return;
+          }
+        }
       }
     } catch (error) {
       console.error("커스텀 바인더 저장 초기화 실패", error);
@@ -3682,6 +3876,7 @@
   fileInput.addEventListener("change", () => loadFile(fileInput.files?.[0]));
   photoCameraInput?.addEventListener("change", () => void importBinderPhoto(photoCameraInput.files?.[0]));
   photoAlbumInput?.addEventListener("change", () => void importBinderPhoto(photoAlbumInput.files?.[0]));
+  photoRecognizeButton?.addEventListener("click", () => void recognizeImportedPhotoCards());
   artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
   slotSelectToggle?.addEventListener("click", () => {
     setSlotSelectMode(!state.slotSelectMode);
