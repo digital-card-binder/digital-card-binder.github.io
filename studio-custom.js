@@ -18,11 +18,22 @@
   const dropzone = panel.querySelector("#studio-custom-dropzone");
   const resetButton = panel.querySelector("#studio-custom-reset");
   const gridInputs = [...panel.querySelectorAll('input[name="studio-custom-grid"]')];
+  const pagePrevButton = panel.querySelector("#studio-custom-page-prev");
+  const pageNextButton = panel.querySelector("#studio-custom-page-next");
+  const pageAddButton = panel.querySelector("#studio-custom-page-add");
+  const pageDuplicateButton = panel.querySelector("#studio-custom-page-duplicate");
+  const pageLeftButton = panel.querySelector("#studio-custom-page-left");
+  const pageRightButton = panel.querySelector("#studio-custom-page-right");
+  const pageDeleteButton = panel.querySelector("#studio-custom-page-delete");
+  const pagePosition = panel.querySelector("#studio-custom-page-position");
+  const pageList = panel.querySelector("#studio-custom-page-list");
+  const pagePreviewLabel = panel.querySelector("#studio-custom-page-preview-label");
   const previewEmpty = panel.querySelector("#studio-custom-preview-empty");
   const previewWrap = panel.querySelector("#studio-custom-preview-wrap");
   const previewStage = panel.querySelector("#studio-custom-preview-stage");
   const previewImage = panel.querySelector("#studio-custom-preview-image");
   const overlay = panel.querySelector("#studio-custom-grid-overlay");
+  const slotLayer = panel.querySelector("#studio-custom-slot-layer");
   const cardLayer = panel.querySelector("#studio-custom-card-layer");
   const gridLabel = panel.querySelector("#studio-custom-grid-label");
   const slotLabel = panel.querySelector("#studio-custom-slot-label");
@@ -52,6 +63,7 @@
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
   const CHUNK_BYTES = 600 * 1024;
   const MAX_SAVED_WORKS = 30;
+  const MAX_BINDER_PAGES = 60;
   const BINDER_SCHEMA_VERSION = 2;
   const DEFAULT_PAGE_ID = "page_1";
   const CARD_WIDTH_MM = 63;
@@ -85,7 +97,13 @@
     currentPageCreatedAt: null,
     currentChunkCount: 0,
     currentChunkSet: "",
+    slots: [],
+    pages: [],
+    deletedPageIds: new Set(),
+    orphanChunkSets: new Set(),
+    linkedDexId: "",
     saving: false,
+    switchingPage: false,
     savedWorkCount: 0,
   };
 
@@ -105,6 +123,404 @@
       : Math.random().toString(36).slice(2, 14);
     return `${prefix}_${Date.now().toString(36)}_${random}`;
   }
+
+  function gridSpec(value = "3x4") {
+    const [cols, rows] = String(value).split("x").map(Number);
+    return {
+      cols: Number.isInteger(cols) ? cols : 3,
+      rows: Number.isInteger(rows) ? rows : 4,
+    };
+  }
+
+  function emptySlots(count) {
+    return Array.from({ length: Math.max(0, count) }, (_, index) => ({
+      index,
+      type: "empty",
+    }));
+  }
+
+  function normalizeSlot(value, index) {
+    const type = ["card", "image"].includes(value?.type) ? value.type : "empty";
+    const slot = { index, type };
+    if (type === "card") {
+      slot.placementId = clean(value?.placementId);
+      slot.sourceKey = clean(value?.sourceKey);
+    }
+    if (type === "image") {
+      slot.imageId = clean(value?.imageId);
+      slot.imageUrl = clean(value?.imageUrl);
+    }
+    return slot;
+  }
+
+  function normalizeSlots(values, count) {
+    const source = Array.isArray(values) ? values : [];
+    return Array.from({ length: count }, (_, index) =>
+      normalizeSlot(source[index], index)
+    );
+  }
+
+  function clonePlacement(entry) {
+    return {
+      id: entry.id,
+      card: { ...entry.card },
+      x: Number(entry.x) || 0,
+      y: Number(entry.y) || 0,
+      width: Number(entry.width) || 0,
+      rotation: Number(entry.rotation) || 0,
+      z: Number(entry.z) || 1,
+      slotIndex: Number.isInteger(entry.slotIndex) ? entry.slotIndex : null,
+    };
+  }
+
+  function activePageIndex() {
+    return Math.max(0, state.pages.findIndex((page) => page.id === state.currentPageId));
+  }
+
+  function activePage() {
+    return state.pages.find((page) => page.id === state.currentPageId) || null;
+  }
+
+  function pageTitle(index) {
+    return `${index + 1}페이지`;
+  }
+
+  function blankPage(pageId = makeId("page"), gridValue = "3x4") {
+    const grid = gridSpec(gridValue);
+    return {
+      id: pageId,
+      title: "",
+      grid,
+      background: null,
+      sourceBlob: null,
+      sourceFile: null,
+      objectUrl: "",
+      sourceWidth: 0,
+      sourceHeight: 0,
+      backgroundDirty: false,
+      chunkCount: 0,
+      chunkSet: "",
+      createdAt: null,
+      placements: [],
+      slots: emptySlots(grid.cols * grid.rows),
+      nextZ: 1,
+      loaded: true,
+      isNew: true,
+    };
+  }
+
+  function slotIndexFromPlacement(entry) {
+    const { cols, rows } = selectedGrid();
+    const cellW = 100 / cols;
+    const cellH = 100 / rows;
+    const height = heightPercentForWidth(entry.width || 100 / cols);
+    const centerX = (Number(entry.x) || 0) + (Number(entry.width) || 100 / cols) / 2;
+    const centerY = (Number(entry.y) || 0) + height / 2;
+    const col = Math.max(0, Math.min(cols - 1, Math.floor(centerX / cellW)));
+    const row = Math.max(0, Math.min(rows - 1, Math.floor(centerY / cellH)));
+    return row * cols + col;
+  }
+
+  function syncSlotsFromPlacements() {
+    const { cols, rows } = selectedGrid();
+    const count = cols * rows;
+    const next = normalizeSlots(state.slots, count).map((slot) =>
+      slot.type === "card" ? { index: slot.index, type: "empty" } : slot
+    );
+    state.placements.forEach((entry) => {
+      if (!Number.isInteger(entry.slotIndex) || entry.slotIndex < 0 || entry.slotIndex >= count) return;
+      if (next[entry.slotIndex]?.type !== "empty") {
+        entry.slotIndex = null;
+        return;
+      }
+      next[entry.slotIndex] = {
+        index: entry.slotIndex,
+        type: "card",
+        placementId: entry.id,
+        sourceKey: clean(entry.card?.key),
+      };
+    });
+    state.slots = next;
+  }
+
+  function inferPlacementSlots() {
+    const { cols, rows } = selectedGrid();
+    const count = cols * rows;
+    state.slots = normalizeSlots(state.slots, count);
+    const occupied = new Set(
+      state.slots
+        .filter((slot) => slot.type !== "empty")
+        .map((slot) => slot.index)
+    );
+    for (const entry of state.placements) {
+      if (Number.isInteger(entry.slotIndex) && entry.slotIndex >= 0 && entry.slotIndex < count) {
+        occupied.add(entry.slotIndex);
+        continue;
+      }
+      const index = slotIndexFromPlacement(entry);
+      if (!occupied.has(index)) {
+        entry.slotIndex = index;
+        occupied.add(index);
+      } else {
+        entry.slotIndex = null;
+      }
+    }
+    syncSlotsFromPlacements();
+  }
+
+  function captureCurrentPage() {
+    const page = activePage();
+    if (!page) return null;
+    syncSlotsFromPlacements();
+    const grid = selectedGrid();
+    page.grid = { cols: grid.cols, rows: grid.rows };
+    page.sourceBlob = state.sourceBlob;
+    page.sourceFile = state.sourceFile;
+    page.objectUrl = state.objectUrl;
+    page.sourceWidth = state.sourceWidth;
+    page.sourceHeight = state.sourceHeight;
+    page.backgroundDirty = state.backgroundDirty;
+    page.chunkCount = state.currentChunkCount;
+    page.chunkSet = state.currentChunkSet;
+    page.createdAt = state.currentPageCreatedAt;
+    page.placements = state.placements.map(clonePlacement);
+    page.slots = normalizeSlots(state.slots, grid.cols * grid.rows);
+    page.nextZ = state.nextZ;
+    page.loaded = true;
+    if (page.sourceBlob) {
+      page.background = {
+        name: (clean(page.sourceFile?.name) || clean(page.background?.name) || "background.webp").slice(0, 180),
+        type: clean(page.sourceBlob.type || page.sourceFile?.type || page.background?.type) || "image/webp",
+        size: page.sourceBlob.size,
+        chunkCount: page.chunkCount,
+        chunkSet: page.chunkSet,
+        width: page.sourceWidth,
+        height: page.sourceHeight,
+      };
+    } else if (!page.background?.chunkSet) {
+      page.background = null;
+    }
+    return page;
+  }
+
+  function releasePageObjectUrls() {
+    const urls = new Set(state.pages.map((page) => page.objectUrl).filter(Boolean));
+    if (state.objectUrl) urls.add(state.objectUrl);
+    urls.forEach((url) => URL.revokeObjectURL(url));
+  }
+
+  function renderSlotLayer() {
+    if (!slotLayer) return;
+    const { cols, rows } = selectedGrid();
+    const count = cols * rows;
+    state.slots = normalizeSlots(state.slots, count);
+    slotLayer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    slotLayer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    const nodes = state.slots.map((slot) => {
+      const node = document.createElement("span");
+      node.className = `studio-custom-slot is-${slot.type}`;
+      node.dataset.slotIndex = String(slot.index);
+      node.dataset.slotType = slot.type;
+      if (slot.type === "image") node.textContent = "이미지";
+      return node;
+    });
+    slotLayer.replaceChildren(...nodes);
+  }
+
+  function renderPageControls() {
+    const index = activePageIndex();
+    const total = Math.max(1, state.pages.length);
+    if (pagePosition) pagePosition.textContent = `${index + 1} / ${total}`;
+    if (pagePreviewLabel) pagePreviewLabel.textContent = pageTitle(index);
+    if (pagePrevButton) pagePrevButton.disabled = index <= 0 || state.switchingPage;
+    if (pageNextButton) pageNextButton.disabled = index >= total - 1 || state.switchingPage;
+    if (pageLeftButton) pageLeftButton.disabled = index <= 0 || state.switchingPage;
+    if (pageRightButton) pageRightButton.disabled = index >= total - 1 || state.switchingPage;
+    if (pageDeleteButton) pageDeleteButton.disabled = total <= 1 || state.switchingPage;
+    if (pageDuplicateButton) pageDuplicateButton.disabled = total >= MAX_BINDER_PAGES || state.switchingPage;
+    if (pageAddButton) pageAddButton.disabled = total >= MAX_BINDER_PAGES || state.switchingPage;
+    if (!pageList) return;
+    pageList.replaceChildren(...state.pages.map((page, pageIndex) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "studio-custom-page-chip";
+      button.classList.toggle("is-active", page.id === state.currentPageId);
+      button.dataset.pageId = page.id;
+      button.textContent = String(pageIndex + 1);
+      button.title = pageTitle(pageIndex);
+      button.addEventListener("click", () => void switchPage(page.id));
+      return button;
+    }));
+  }
+
+  async function hydratePageBackground(page) {
+    if (!page || page.sourceBlob || !page.background?.chunkSet || !state.currentBinderId) return;
+    const reference = binderRef(state.currentBinderId);
+    const blob = await readBackgroundBlob(reference, page.background);
+    page.sourceBlob = blob;
+    page.sourceFile = {
+      name: clean(page.background.name) || "saved-background.webp",
+      type: clean(page.background.type) || blob.type,
+      size: blob.size,
+    };
+    page.sourceWidth = Number(page.background.width) || 0;
+    page.sourceHeight = Number(page.background.height) || 0;
+    page.chunkCount = Number(page.background.chunkCount) || 0;
+    page.chunkSet = clean(page.background.chunkSet);
+    page.objectUrl = URL.createObjectURL(blob);
+  }
+
+  async function applyPage(page) {
+    if (!page) return;
+    await hydratePageBackground(page);
+    const value = `${page.grid?.cols || 3}x${page.grid?.rows || 4}`;
+    const input = gridInputs.find((item) => item.value === value)
+      || gridInputs.find((item) => item.value === "3x4");
+    if (input) input.checked = true;
+
+    state.currentPageId = page.id;
+    state.currentPageCreatedAt = page.createdAt || null;
+    state.currentChunkCount = Number(page.chunkCount) || 0;
+    state.currentChunkSet = clean(page.chunkSet);
+    state.sourceBlob = page.sourceBlob || null;
+    state.sourceFile = page.sourceFile || null;
+    state.objectUrl = page.objectUrl || "";
+    state.sourceWidth = Number(page.sourceWidth) || 0;
+    state.sourceHeight = Number(page.sourceHeight) || 0;
+    state.backgroundDirty = Boolean(page.backgroundDirty);
+    state.placements = (page.placements || []).map(clonePlacement);
+    state.slots = normalizeSlots(page.slots, selectedGrid().cols * selectedGrid().rows);
+    state.nextZ = Math.max(
+      Number(page.nextZ) || 1,
+      Math.max(0, ...state.placements.map((entry) => Number(entry.z) || 0)) + 1,
+    );
+    state.selectedId = "";
+
+    if (state.objectUrl) {
+      previewImage.src = state.objectUrl;
+      previewImage.alt = clean(state.sourceFile?.name) || pageTitle(activePageIndex());
+      fileLabel.textContent = clean(state.sourceFile?.name) || "배경 이미지";
+      imageMeta.textContent = state.sourceWidth && state.sourceHeight
+        ? `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · 현재 페이지`
+        : "저장된 배경 이미지";
+    } else {
+      previewImage.removeAttribute("src");
+      previewImage.removeAttribute("alt");
+      fileLabel.textContent = "이미지를 선택하거나 여기에 놓으세요";
+      imageMeta.textContent = "선택 사항 · PNG · JPG · WEBP · 최대 10MB";
+    }
+
+    previewEmpty.hidden = true;
+    previewWrap.hidden = false;
+    renderGrid();
+    inferPlacementSlots();
+    renderPlacements();
+    renderSlotLayer();
+    if (state.sourceWidth && state.sourceHeight) {
+      updateRatioNote(state.sourceWidth, state.sourceHeight);
+    } else {
+      ratioNote.textContent = "배경 없이 카드만 배치할 수도 있습니다.";
+      ratioNote.className = "studio-custom-ratio-note";
+    }
+    renderPageControls();
+    updateSaveUi();
+    updateCustomPrintUi();
+  }
+
+  async function switchPage(pageId) {
+    if (state.switchingPage || pageId === state.currentPageId) return;
+    const target = state.pages.find((page) => page.id === pageId);
+    if (!target) return;
+    captureCurrentPage();
+    state.switchingPage = true;
+    renderPageControls();
+    try {
+      await applyPage(target);
+    } catch (error) {
+      console.error("바인더 페이지 전환 실패", error);
+      window.alert(clean(error?.message) || "페이지를 불러오지 못했습니다.");
+    } finally {
+      state.switchingPage = false;
+      renderPageControls();
+    }
+  }
+
+  async function addPage() {
+    if (state.pages.length >= MAX_BINDER_PAGES) {
+      window.alert(`바인더는 최대 ${MAX_BINDER_PAGES}페이지까지 만들 수 있습니다.`);
+      return;
+    }
+    captureCurrentPage();
+    const currentGrid = selectedGrid().value;
+    const page = blankPage(makeId("page"), currentGrid);
+    state.pages.push(page);
+    await applyPage(page);
+  }
+
+  async function duplicatePage() {
+    if (state.pages.length >= MAX_BINDER_PAGES) {
+      window.alert(`바인더는 최대 ${MAX_BINDER_PAGES}페이지까지 만들 수 있습니다.`);
+      return;
+    }
+    const sourcePage = captureCurrentPage();
+    if (!sourcePage) return;
+    await hydratePageBackground(sourcePage);
+    const copy = blankPage(makeId("page"), `${sourcePage.grid.cols}x${sourcePage.grid.rows}`);
+    copy.sourceBlob = sourcePage.sourceBlob;
+    copy.sourceFile = sourcePage.sourceFile
+      ? { ...sourcePage.sourceFile, name: `복제_${clean(sourcePage.sourceFile.name) || "background.webp"}` }
+      : null;
+    copy.sourceWidth = sourcePage.sourceWidth;
+    copy.sourceHeight = sourcePage.sourceHeight;
+    copy.objectUrl = sourcePage.sourceBlob ? URL.createObjectURL(sourcePage.sourceBlob) : "";
+    copy.backgroundDirty = Boolean(sourcePage.sourceBlob);
+    copy.placements = sourcePage.placements.map((entry) => ({
+      ...clonePlacement(entry),
+      id: makeId("card"),
+    }));
+    const placementIdMap = new Map(
+      sourcePage.placements.map((entry, index) => [entry.id, copy.placements[index]?.id || ""])
+    );
+    copy.slots = sourcePage.slots.map((slot, index) => {
+      const normalized = normalizeSlot(slot, index);
+      if (normalized.type === "card") {
+        normalized.placementId = placementIdMap.get(normalized.placementId) || "";
+      }
+      return normalized;
+    });
+    copy.nextZ = Math.max(1, ...copy.placements.map((entry) => entry.z + 1));
+    const index = activePageIndex();
+    state.pages.splice(index + 1, 0, copy);
+    await applyPage(copy);
+  }
+
+  async function deletePage() {
+    if (state.pages.length <= 1) {
+      window.alert("바인더에는 최소 한 페이지가 필요합니다.");
+      return;
+    }
+    const index = activePageIndex();
+    const page = captureCurrentPage();
+    if (!page) return;
+    if (!window.confirm(`${pageTitle(index)}를 삭제할까요?`)) return;
+    if (!page.isNew) state.deletedPageIds.add(page.id);
+    if (page.chunkSet) state.orphanChunkSets.add(page.chunkSet);
+    if (page.objectUrl) URL.revokeObjectURL(page.objectUrl);
+    state.pages.splice(index, 1);
+    const target = state.pages[Math.min(index, state.pages.length - 1)];
+    await applyPage(target);
+  }
+
+  function movePage(delta) {
+    captureCurrentPage();
+    const index = activePageIndex();
+    const next = index + delta;
+    if (next < 0 || next >= state.pages.length) return;
+    const [page] = state.pages.splice(index, 1);
+    state.pages.splice(next, 0, page);
+    renderPageControls();
+  }
+
 
   function activateTab(name, updateHash = true) {
     const selected = name === "custom" ? "custom" : "print";
