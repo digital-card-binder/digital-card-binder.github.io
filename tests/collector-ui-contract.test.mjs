@@ -217,7 +217,9 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsPage, /pwa[.]js[?]v=[0-9a-f]{12}/);
   const pwaClient = await source("pwa.js");
   assert.match(pwaClient, /sw[.]js[?]v=[0-9a-f]{12}/);
-  assert.match(dashboard, /href="[.]\/news[.]html">새소식<\/a>/);
+  assert.match(dashboard, /class="dashboard-news-label"[^>]*href="[.]\/news[.]html"[^>]*>새소식<\/a>/);
+  assert.match(dashboard, /id="dashboard-news-preview-list"/);
+  assert.doesNotMatch(dashboard, /<a id="dashboard-news-strip"/);
   assert.match(newsPage, /id="news-list"[^>]*hidden/);
   assert.match(newsPage, /제목을 누르면 상세 내용을 볼 수 있습니다/);
   assert.match(newsClient, /items[.]slice\(0, 2\)/);
@@ -341,9 +343,13 @@ test("dashboard keeps support and app access secondary while removing public tra
   assert.match(page, /id="android-app-download"/);
   assert.match(page, /id="ios-pwa-card"/);
   assert.match(page, /안드로이드·아이폰 앱/);
+  assert.match(page, /home-feature-card--custom/);
+  assert.match(page, /home-feature-card--studio/);
+  assert.match(page, /class="home-community-banner"/);
+  assert.doesNotMatch(page, /dashboard-shortcut-section/);
   assert.ok(
-    page.indexOf("dashboard-utility-panel") > page.indexOf("dashboard-shortcut-section"),
-    "utility actions should follow primary dashboard content",
+    page.indexOf("dashboard-utility-panel") > page.indexOf("home-community-banner"),
+    "utility actions should follow the promoted collection and community entry points",
   );
   assert.match(css, /[.]dashboard-utility-panel\{/);
   const pwa = await source("pwa.js");
