@@ -3,7 +3,14 @@ name: Deploy card images to Cloudflare Pages
 on:
   push:
     branches: [main]
-    paths: ['.github/card-image-deploy-request.json']
+    paths:
+      - '.github/card-image-deploy-request.json'
+      - 'data/*.json'
+      - 'mega-latest.js'
+      - 'scripts/card-image-routing.mjs'
+      - 'scripts/build-card-image-manifest.mjs'
+      - 'scripts/card-image-source-repairs.json'
+      - 'scripts/download_card_images.py'
   workflow_dispatch:
     inputs:
       repair_only:
@@ -330,15 +337,22 @@ jobs:
       - name: Verify representative deployed images
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location \
-            --retry 8 --retry-delay 5 --retry-all-errors --retry-max-time 120 \
-            "https://$MODERN_PROJECT_NAME.pages.dev/data/wmimages/MEGA/M-P/M-P_012.webp" \
-            --output "$RUNNER_TEMP/card-image-modern.webp"
+          for path in \
+            "data/wmimages/MEGA/M-P/M-P_012.webp" \
+            "data/wmimages/MEGA/M-P/M-P_GRA.webp" \
+            "data/wmimages/MEGA/M-P/M-P_FIR.webp" \
+            "data/wmimages/MEGA/M-P/M-P_WAT.webp"; do
+            filename="${path##*/}"
+            curl --fail --silent --show-error --location \
+              --retry 8 --retry-delay 5 --retry-all-errors --retry-max-time 120 \
+              "https://$MODERN_PROJECT_NAME.pages.dev/$path" \
+              --output "$RUNNER_TEMP/$filename"
+          done
           curl --fail --silent --show-error --location \
             --retry 8 --retry-delay 5 --retry-all-errors --retry-max-time 120 \
             "https://$LEGACY_PROJECT_NAME.pages.dev/data/wmimages/BW/BD/bw_bd_001.webp" \
             --output "$RUNNER_TEMP/card-image-legacy.webp"
-          python -c 'from PIL import Image; import os; [Image.open(os.path.join(os.environ["RUNNER_TEMP"], name)).verify() for name in ("card-image-modern.webp", "card-image-legacy.webp")]'
+          python -c 'from PIL import Image; import os; [Image.open(os.path.join(os.environ["RUNNER_TEMP"], name)).verify() for name in ("M-P_012.webp", "M-P_GRA.webp", "M-P_FIR.webp", "M-P_WAT.webp", "card-image-legacy.webp")]'
 
       - name: Confirm cutover remains enabled
         run: |
