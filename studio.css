@@ -1479,6 +1479,10 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 
 
 /* Custom Binder fixed physical card geometry */
+.studio-custom-layout > * {
+  min-width: 0;
+}
+
 .studio-custom-preview-wrap {
   overflow-x: auto;
   overflow-y: visible;
