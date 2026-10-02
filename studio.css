@@ -2841,3 +2841,22 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 .studio-custom-visibility-note a:hover {
   text-decoration: underline;
 }
+
+
+/* Photo import help affordance */
+.studio-photo-import-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+}
+
+.studio-photo-import-head-actions .studio-help-button {
+  margin-left: 0;
+}
+
+@media (max-width: 690px) {
+  .studio-photo-import-head-actions {
+    gap: 6px;
+  }
+}
