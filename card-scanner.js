@@ -325,8 +325,8 @@
 
   function visualDistance(query, reference) {
     return (
-      hammingDistance(query.fullD, reference.fullD) * 0.12 +
-      hammingDistance(query.artD, reference.artD) * 0.46 +
+      hammingDistance(query.fullD, reference.fullD) * 0.22 +
+      hammingDistance(query.artD, reference.artD) * 0.36 +
       hammingDistance(query.artA, reference.artA) * 0.27 +
       colorGridDistance(query.colors, reference.colors) * 64 * 0.15
     );
