@@ -287,10 +287,13 @@
   }
 
   function applyMissingDisplaySelection(value) {
-    state.missingCardDisplay = ["color", "grayscale", "dim", "empty"].includes(value)
-      ? value
-      : "color";
-    const input = missingDisplayInputs.find((item) => item.value === state.missingCardDisplay)
+    const normalized = value === "dim"
+      ? "grayscale"
+      : ["color", "grayscale", "empty"].includes(value)
+        ? value
+        : "color";
+    state.missingCardDisplay = normalized;
+    const input = missingDisplayInputs.find((item) => item.value === normalized)
       || missingDisplayInputs.find((item) => item.value === "color");
     if (input) input.checked = true;
   }
