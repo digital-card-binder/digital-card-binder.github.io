@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="바인더 편집 스튜디오 일러스트">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#053b57"/>
+      <stop offset=".56" stop-color="#08647d"/>
+      <stop offset="1" stop-color="#2c4f9c"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d2749"/>
+      <stop offset="1" stop-color="#183e6b"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffbb70"/>
+      <stop offset="1" stop-color="#8f4ac8"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#68dcff"/>
+      <stop offset="1" stop-color="#4869d9"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="15" flood-color="#00192a" flood-opacity=".4"/>
+    </filter>
+  </defs>
+  <rect width="640" height="420" rx="36" fill="url(#bg)"/>
+  <path d="M38 96h118M38 128h88M486 336h116" stroke="#64e8ef" stroke-opacity=".18" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(120 52) rotate(-3 220 155)" filter="url(#shadow)">
+    <rect x="0" y="0" width="396" height="304" rx="30" fill="url(#screen)" stroke="#8adfff" stroke-opacity=".38" stroke-width="4"/>
+    <rect x="21" y="24" width="54" height="256" rx="15" fill="#0a315c"/>
+    <rect x="34" y="47" width="28" height="28" rx="6" fill="none" stroke="#72e1ff" stroke-width="4"/>
+    <path d="M34 102h28M34 127h28M34 152h28" stroke="#a9cae4" stroke-width="5" stroke-linecap="round" opacity=".82"/>
+    <circle cx="48" cy="204" r="14" fill="none" stroke="#9cc6dd" stroke-width="4"/>
+    <path d="M34 247h28" stroke="#9cc6dd" stroke-width="5" stroke-linecap="round"/>
+    <rect x="96" y="28" width="276" height="247" rx="18" fill="#dff8ff" fill-opacity=".08" stroke="#9be9ff" stroke-opacity=".34" stroke-width="3"/>
+    <g stroke="#66ecff" stroke-opacity=".68" stroke-width="3">
+      <rect x="115" y="48" width="112" height="92" rx="9" fill="url(#cardA)" fill-opacity=".94"/>
+      <rect x="243" y="48" width="110" height="92" rx="9" fill="url(#cardB)" fill-opacity=".94"/>
+      <rect x="115" y="157" width="112" height="92" rx="9" fill="#dfb366"/>
+      <rect x="243" y="157" width="110" height="92" rx="9" fill="#716bd5"/>
+    </g>
+    <g fill="#0b2d50" fill-opacity=".52">
+      <circle cx="171" cy="91" r="23"/><circle cx="298" cy="92" r="23"/><circle cx="171" cy="201" r="23"/><circle cx="298" cy="201" r="23"/>
+    </g>
+    <g fill="none" stroke="#8cf3ff" stroke-width="4">
+      <path d="M104 39h16v16M364 39h-16v16M104 265h16v-16M364 265h-16v-16"/>
+    </g>
+  </g>
+  <g transform="translate(420 192) rotate(23)" filter="url(#shadow)">
+    <rect x="0" y="0" width="28" height="172" rx="14" fill="#eef8ff"/>
+    <path d="M4 18h20v107H4z" fill="#9eeaff"/>
+    <path d="M7 172h14l-7 24z" fill="#d8efff"/>
+  </g>
+  <circle cx="535" cy="87" r="88" fill="none" stroke="#70ebf4" stroke-opacity=".24" stroke-width="20"/>
+  <circle cx="535" cy="87" r="51" fill="#063652" fill-opacity=".8"/>
+</svg>
