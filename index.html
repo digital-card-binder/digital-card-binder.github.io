@@ -231,16 +231,53 @@
               <b aria-hidden="true">→</b>
             </a>
 
+            <a class="home-feature-card home-feature-card--custom" href="./custom.html">
+              <span class="home-feature-collage" aria-hidden="true">
+                <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV8a/SV8a_224.webp" alt="" loading="lazy" decoding="async" />
+                <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_201.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>내가 직접 구성하는</small>
+                <strong>나만의 도감</strong>
+                <em>원하는 카드와 테마로 나만의 수집 도감을 만드세요.</em>
+                <span class="home-feature-meta">직접 만드는 도감</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
+            <a class="home-feature-card home-feature-card--studio" href="./studio.html">
+              <span class="home-feature-collage" aria-hidden="true">
+                <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_205.webp" alt="" loading="lazy" decoding="async" />
+                <img src="https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_083.webp" alt="" loading="lazy" decoding="async" />
+              </span>
+              <span class="home-feature-shade"></span>
+              <span class="home-feature-content">
+                <small>페이지를 자유롭게 만드는</small>
+                <strong>바인더 스튜디오</strong>
+                <em>카드와 확장 이미지를 배치하고 실제 크기로 출력하세요.</em>
+                <span class="home-feature-meta">페이지 편집 · 출력</span>
+              </span>
+              <b aria-hidden="true">→</b>
+            </a>
+
           </div>
+
+          <a class="home-community-banner" href="./collectors.html">
+            <span class="home-community-icon ui-icon ui-icon--community" aria-hidden="true"></span>
+            <span class="home-community-copy">
+              <strong>커뮤니티</strong>
+              <small>다른 컬렉터의 공개 도감과 커스텀 바인더를 둘러보세요.</small>
+            </span>
+            <b aria-hidden="true">→</b>
+          </a>
         </section>
 
-        <a id="dashboard-news-strip" class="dashboard-news-strip" href="./news.html" hidden>
-          <span class="dashboard-news-label">새소식</span>
-          <span id="dashboard-news-category" class="dashboard-news-category"></span>
-          <strong id="dashboard-news-title" class="dashboard-news-title"></strong>
-          <time id="dashboard-news-date" class="dashboard-news-date"></time>
-          <span class="dashboard-news-arrow" aria-hidden="true">›</span>
-        </a>
+        <section id="dashboard-news-strip" class="dashboard-news-strip" aria-label="최신 새소식" hidden>
+          <a class="dashboard-news-label" href="./news.html" aria-label="전체 새소식 보기">새소식</a>
+          <div id="dashboard-news-preview-list" class="dashboard-news-preview-list"></div>
+          <a class="dashboard-news-more" href="./news.html" aria-label="전체 새소식 보기">›</a>
+        </section>
 
         <section id="dashboard-account-note" class="dashboard-account-note" aria-live="polite">
           <span class="dashboard-account-icon ui-icon ui-icon--help" aria-hidden="true"></span>
@@ -285,31 +322,6 @@
             aria-busy="true"
           ></div>
         </details>
-
-        <section class="dashboard-shortcut-section" aria-labelledby="dashboard-shortcut-title">
-          <div class="dashboard-section-heading dashboard-section-heading--compact">
-            <div>
-              <h2 id="dashboard-shortcut-title">내 컬렉션 · 커뮤니티</h2>
-            </div>
-          </div>
-          <div class="dashboard-shortcut-grid">
-            <a class="dashboard-shortcut-card dashboard-shortcut-card--custom" href="./custom.html">
-              <span class="dashboard-shortcut-icon ui-icon ui-icon--binder" aria-hidden="true"></span>
-              <span><strong>나만의 도감</strong><small>원하는 테마로 직접 만드는 도감</small></span>
-              <b aria-hidden="true">→</b>
-            </a>
-            <a class="dashboard-shortcut-card dashboard-shortcut-card--studio" href="./studio.html">
-              <span class="dashboard-shortcut-icon ui-icon ui-icon--studio" aria-hidden="true"></span>
-              <span><strong>바인더 스튜디오</strong><small>확장아트를 실제 카드·슬리브 크기로 인쇄</small></span>
-              <b aria-hidden="true">→</b>
-            </a>
-            <a class="dashboard-shortcut-card dashboard-shortcut-card--community" href="./collectors.html">
-              <span class="dashboard-shortcut-icon ui-icon ui-icon--community" aria-hidden="true"></span>
-              <span><strong>커뮤니티</strong><small>다른 컬렉터의 공개 도감 둘러보기</small></span>
-              <b aria-hidden="true">→</b>
-            </a>
-          </div>
-        </section>
 
         <section class="dashboard-utility-panel" aria-label="도움말 및 앱">
           <div class="dashboard-utility-copy">
