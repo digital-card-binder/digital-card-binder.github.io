@@ -64,8 +64,9 @@ jobs:
           from pathlib import Path
           p = Path("data/card-visual-fingerprints.json")
           data = json.loads(p.read_text(encoding="utf-8"))
-          assert data["count"] > 10000, data
-          assert data["count"] >= int(data["catalogCount"] * 0.90), data
+          assert data["catalogCount"] > 10000, data
+          assert data["count"] == data["catalogCount"], data
+          assert data["failed"] == 0, data
           print(data["catalogCount"], data["count"], data["failed"])
           PY
 
