@@ -1254,6 +1254,7 @@ test("custom binder schema v2 stores page data separately and remains owner-only
       },
     ],
     slots: [],
+    images: [],
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   };
@@ -1288,6 +1289,7 @@ test("custom binder schema v2 stores page data separately and remains owner-only
         background: null,
         cards: [],
         slots: Array.from({ length: 20 }, (_, index) => ({ index, type: "empty" })),
+        images: [],
       },
     ),
   );
@@ -1389,6 +1391,7 @@ test("legacy custom binder can be upgraded from schema v1 to v2 without changing
       background: legacy.background,
       cards: [],
       slots: [],
+      images: [],
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     }),
