@@ -20,6 +20,7 @@
     <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
     <script src="./collector-collection-registry.js?v=af95df9173cb" defer></script>
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
+    <script src="./card-visual-matcher.js" defer></script>
     <script src="./studio-custom.js?v=d705fb066298" defer></script>
     <script src="./studio-help.js?v=ff2b81a8bd73" defer></script>
   </head>
@@ -245,6 +246,9 @@
                 </label>
               </div>
               <p id="studio-custom-photo-status" class="studio-photo-import-status">2번에서 실제 바인더와 같은 그리드를 선택한 뒤 사진을 가져오세요. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.</p>
+              <button id="studio-custom-photo-recognize" class="studio-photo-recognize-button" type="button" disabled>카드 자동인식</button>
+              <p class="studio-photo-recognition-note">확실한 카드만 자동으로 우리 도감 카드로 교체하고, 애매한 슬롯은 후보를 보여줍니다.</p>
+              <div id="studio-custom-photo-recognition-results" class="studio-photo-recognition-results" hidden></div>
               <p class="studio-photo-import-tip"><strong>촬영 팁</strong> 바인더 페이지 전체가 화면에 들어오도록 가능한 한 정면에서 촬영하면 가장 정확합니다.</p>
             </section>
 
