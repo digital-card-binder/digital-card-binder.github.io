@@ -1260,6 +1260,37 @@ test("custom binder schema v2 stores page data separately and remains owner-only
 
   await assertSucceeds(setDoc(pageRef, page));
   await assertSucceeds(getDoc(pageRef));
+
+  await assertSucceeds(
+    setDoc(
+      doc(
+        alice,
+        "users",
+        ALICE_UID,
+        "customBinders",
+        "binder_v2",
+        "pages",
+        "page_blank",
+      ),
+      {
+        ...page,
+        pageId: "page_blank",
+        title: "빈 페이지",
+        grid: {
+          cols: 5,
+          rows: 4,
+          slotCount: 20,
+          cardWidthMm: 63,
+          cardHeightMm: 88,
+          canvasWidthMm: 315,
+          canvasHeightMm: 352,
+        },
+        background: null,
+        cards: [],
+        slots: Array.from({ length: 20 }, (_, index) => ({ index, type: "empty" })),
+      },
+    ),
+  );
   await assertFails(
     getDoc(
       doc(
