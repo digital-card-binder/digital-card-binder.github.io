@@ -578,6 +578,29 @@
     return url.href;
   }
 
+  function publicBinderUrl(binderId) {
+    if (!profile?.publicId || !binderId) return "";
+    const url = new URL("./binder.html", window.location.href);
+    url.searchParams.set("collector", profile.publicId);
+    url.searchParams.set("binder", binderId);
+    return url.href;
+  }
+
+  async function copyPublicBinderLink(binderId, button) {
+    const url = publicBinderUrl(binderId);
+    if (!url) return;
+    try {
+      await navigator.clipboard.writeText(url);
+      const previous = button.textContent;
+      button.textContent = "복사됨";
+      window.setTimeout(() => {
+        button.textContent = previous;
+      }, 1400);
+    } catch {
+      window.prompt("공개 바인더 링크를 복사하세요.", url);
+    }
+  }
+
   async function deletePublicBinderProjection(binderId) {
     if (!profile?.profileCompleted || !profile?.publicId) return;
     const rootRef = firebase.firestoreModule.doc(
@@ -621,7 +644,7 @@
     if (checked) {
       setStatus(
         elements.binderSettingsStatus,
-        "읽기 전용 공개본을 만드는 중입니다. 바인더 스튜디오로 이동합니다.",
+        "읽기 전용 공개본을 만드는 중입니다.",
         "loading",
       );
       window.location.href = binderStudioPublishUrl(binderId);
@@ -631,6 +654,7 @@
     try {
       setStatus(elements.binderSettingsStatus, "바인더 공개를 중단하는 중입니다.", "loading");
       await deletePublicBinderProjection(binderId);
+      renderBinderSettings();
       setStatus(
         elements.binderSettingsStatus,
         "바인더 공개를 중단했습니다. 편집 원본은 그대로 유지됩니다.",
@@ -684,13 +708,45 @@
       copy.append(title, meta);
       identity.append(icon, copy);
 
+      const isPublic = publicBinderIds.has(id);
+
+      const visibility = document.createElement("div");
+      visibility.className = "collector-binder-visibility";
+      const stateLabel = document.createElement("span");
+      stateLabel.className = `collector-binder-state ${isPublic ? "is-public" : "is-private"}`;
+      stateLabel.textContent = isPublic ? "공개 중" : "비공개";
+      visibility.append(stateLabel);
+
+      if (isPublic) {
+        const actions = document.createElement("div");
+        actions.className = "collector-binder-public-actions";
+
+        const view = document.createElement("a");
+        view.className = "manager-button collector-binder-action";
+        view.href = publicBinderUrl(id);
+        view.target = "_blank";
+        view.rel = "noopener";
+        view.textContent = "공개 페이지 보기";
+
+        const copyLink = document.createElement("button");
+        copyLink.type = "button";
+        copyLink.className = "manager-button collector-binder-action";
+        copyLink.textContent = "링크 복사";
+        copyLink.addEventListener("click", () => {
+          void copyPublicBinderLink(id, copyLink);
+        });
+
+        actions.append(view, copyLink);
+        visibility.append(actions);
+      }
+
       const label = document.createElement("label");
       label.className = "collector-public-switch collector-binder-public-switch";
       const labelText = document.createElement("span");
       labelText.textContent = "공개 프로필에 표시";
       const input = document.createElement("input");
       input.type = "checkbox";
-      input.checked = publicBinderIds.has(id);
+      input.checked = isPublic;
       input.disabled = !profile?.profileCompleted;
       const visual = document.createElement("i");
       visual.setAttribute("aria-hidden", "true");
@@ -700,7 +756,7 @@
         void changeBinderVisibility(id, input.checked, input);
       });
 
-      card.append(identity, label);
+      card.append(identity, visibility, label);
       return card;
     });
     elements.binderSettingsGrid.replaceChildren(...cards);
@@ -718,7 +774,7 @@
     setStatus(
       elements.binderSettingsStatus,
       profile?.profileCompleted
-        ? "스위치를 켜면 읽기 전용 공개본을 만들고, 끄면 공개 링크와 프로필에서 즉시 숨깁니다."
+        ? "바인더 공개는 여기서만 관리합니다. 켜면 공개 프로필에 표시되고, 끄면 공유 링크에서도 즉시 숨겨집니다."
         : "컬렉터 프로필을 만든 뒤 바인더를 공개할 수 있습니다.",
     );
   }
