@@ -1363,7 +1363,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(editor, /function customPrintPlanForGrid/);
   assert.match(editor, /function allCustomPrintPlans/);
   assert.match(editor, /function prepareAllPagesForPrint/);
-  assert.match(editor, /data[.]binderPage/);
+  assert.match(editor, /dataset[.]binderPage/);
   assert.match(editor, /plans[.]forEach/);
   assert.match(editor, /selectedCustomPrintMode/);
   assert.match(editor, /SLEEVE_WIDTH_MM = 65/);
