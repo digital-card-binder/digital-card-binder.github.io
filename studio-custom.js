@@ -1755,7 +1755,7 @@
     const images = [...printRoot.querySelectorAll("img")];
     const tileUrls = [...new Set(
       [...printRoot.querySelectorAll(".studio-custom-print-image-tile[data-image-url]")]
-        .map((tile) => tile.dataset.imageUrl)
+        .map((tile) => tile.dataset?.imageUrl)
         .filter(Boolean),
     )];
     const tilePreloads = tileUrls.map((url) => {
@@ -1797,7 +1797,7 @@
       tileResults.length !== tileUrls.length ||
       tileResults.some((result) => !result.ok || result.image.naturalWidth === 0)
     ) {
-      throw new Error("일부 카드 또는 확장 이미지를 준비하지 못했습니다. 잠시 후 다시 인쇄해 주세요.");
+      throw new Error("일부 카드 이미지를 준비하지 못했습니다. 카드 또는 확장 이미지를 확인한 뒤 다시 인쇄해 주세요.");
     }
   }
 
