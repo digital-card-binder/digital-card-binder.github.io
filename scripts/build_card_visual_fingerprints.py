@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import urllib.request
 from urllib.parse import quote, urlsplit, urlunsplit
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -229,10 +230,65 @@ def source_url_candidates(source_url: str) -> list[str]:
     return candidates
 
 
+def tcgbox_live_image_candidates(set_code: str, raw_code: str) -> list[str]:
+    match = re.search(r"_(\d{1,4})", str(raw_code or ""))
+    if not match:
+        return []
+
+    keyword = f"{set_code} {int(match.group(1)):03d}"
+    search_url = "https://tcgbox.co.kr/product/search.html?keyword=" + quote(keyword)
+    try:
+        html = read_remote_payload(search_url, browser_headers=True).decode("utf-8", "ignore")
+    except (OSError, ValueError, urllib.error.URLError):
+        return []
+
+    hrefs: list[str] = []
+    for href in re.findall(r'href=["\']([^"\']*/product/[^"\']+)["\']', html, flags=re.I):
+        if href.startswith("//"):
+            href = "https:" + href
+        elif href.startswith("/"):
+            href = "https://tcgbox.co.kr" + href
+        elif not href.startswith(("http://", "https://")):
+            href = "https://tcgbox.co.kr/" + href.lstrip("/")
+        if href not in hrefs:
+            hrefs.append(href)
+        if len(hrefs) >= 5:
+            break
+
+    images: list[str] = []
+    for product_url in hrefs:
+        try:
+            product_html = read_remote_payload(product_url, browser_headers=True).decode("utf-8", "ignore")
+        except (OSError, ValueError, urllib.error.URLError):
+            continue
+
+        patterns = (
+            r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']',
+            r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']',
+            r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)["\']',
+            r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+name=["\']twitter:image["\']',
+        )
+        for pattern in patterns:
+            found = re.search(pattern, product_html, flags=re.I)
+            if not found:
+                continue
+            image_url = found.group(1).replace("&amp;", "&").strip()
+            if image_url.startswith("//"):
+                image_url = "https:" + image_url
+            elif image_url.startswith("/"):
+                image_url = "https://tcgbox.co.kr" + image_url
+            if image_url and image_url not in images:
+                images.append(image_url)
+            break
+    return images
+
+
 def payload_candidates(
     project: str,
     relative_path: str,
     source_url: str,
+    set_code: str,
+    raw_code: str,
     archive_root: Path,
     remote_fallback: bool,
 ):
@@ -247,9 +303,14 @@ def payload_candidates(
     remote_candidates = [
         ("cloudflare-archive", public_url(project, relative_path), False),
     ]
+    source_candidates = source_url_candidates(source_url)
+    source_candidates.extend(
+        url for url in tcgbox_live_image_candidates(set_code, raw_code)
+        if url not in source_candidates
+    )
     remote_candidates.extend(
         (f"source-{index + 1}", url, True)
-        for index, url in enumerate(source_url_candidates(source_url))
+        for index, url in enumerate(source_candidates)
     )
 
     for label, url, browser_headers in remote_candidates:
@@ -316,6 +377,8 @@ def main() -> int:
             card["project"],
             card["path"],
             card["source"],
+            card["setCode"],
+            card["rawCode"],
             args.archive_root,
             not args.no_remote_fallback,
         ):
