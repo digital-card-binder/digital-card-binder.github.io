@@ -718,8 +718,8 @@ test("private profile changes cannot leave the public mirror stale", async () =>
   );
 });
 
-test("a profile without a PUBLIC collection cannot enter the public directory", async () => {
-  await assertFails(
+test("a completed profile can enter the public directory without exposing ownership", async () => {
+  await assertSucceeds(
     setDoc(
       doc(alice, "publicCollectorDirectory", PUBLIC_ID),
       publicDirectoryFields(),
@@ -799,6 +799,152 @@ test("public projection is readable but private source and extra fields stay blo
     getDocs(collection(guest, "publicProfiles", PUBLIC_ID, "collections")),
   );
   assert.equal(publicList.size, 1);
+});
+
+test("public Binder Studio projection exposes rendered pages without private owner data", async () => {
+  const binderId = "binder_public_test";
+  const rootRef = doc(
+    alice,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+  );
+  const pageRef = doc(
+    alice,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+    "pages",
+    "page_1",
+  );
+  const chunkRef = doc(
+    alice,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+    "chunks",
+    "publicpage_test_001_000",
+  );
+
+  const batch = writeBatch(alice);
+  batch.set(chunkRef, {
+    schemaVersion: 1,
+    publicId: PUBLIC_ID,
+    binderId,
+    chunkSet: "publicpage_test_001",
+    index: 0,
+    data: Bytes.fromUint8Array(new Uint8Array([1, 2, 3, 4])),
+    size: 4,
+    updatedAt: serverTimestamp(),
+  });
+  batch.set(pageRef, {
+    schemaVersion: 1,
+    publicId: PUBLIC_ID,
+    binderId,
+    pageId: "page_1",
+    title: "1페이지",
+    grid: { cols: 3, rows: 4 },
+    preview: {
+      type: "image/webp",
+      size: 4,
+      width: 756,
+      height: 1408,
+      chunkSet: "publicpage_test_001",
+      chunkCount: 1,
+    },
+    updatedAt: serverTimestamp(),
+  });
+  batch.set(rootRef, {
+    schemaVersion: 1,
+    publicId: PUBLIC_ID,
+    binderId,
+    title: "공개 이브이 바인더",
+    pageOrder: ["page_1"],
+    summary: {
+      pageCount: 1,
+      cardCount: 1,
+      matchedCount: 1,
+      ownedCount: 1,
+      missingCount: 0,
+    },
+    settings: {
+      missingCardDisplay: "color",
+    },
+    publishedAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  await assertSucceeds(batch.commit());
+
+  const guestRoot = await assertSucceeds(getDoc(doc(
+    guest,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+  )));
+  assert.equal(guestRoot.data().title, "공개 이브이 바인더");
+  assert.equal("ownerUid" in guestRoot.data(), false);
+  assert.equal("linkedDexId" in guestRoot.data(), false);
+  await assertSucceeds(getDoc(doc(
+    guest,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+    "pages",
+    "page_1",
+  )));
+  await assertSucceeds(getDocs(collection(
+    guest,
+    "publicProfiles",
+    PUBLIC_ID,
+    "binders",
+    binderId,
+    "chunks",
+  )));
+
+  await assertFails(
+    setDoc(
+      doc(
+        bob,
+        "publicProfiles",
+        PUBLIC_ID,
+        "binders",
+        "binder_bob_write",
+      ),
+      {
+        schemaVersion: 1,
+        publicId: PUBLIC_ID,
+        binderId: "binder_bob_write",
+        title: "불가",
+        pageOrder: ["page_1"],
+        summary: {
+          pageCount: 1,
+          cardCount: 0,
+          matchedCount: 0,
+          ownedCount: 0,
+          missingCount: 0,
+        },
+        settings: { missingCardDisplay: "color" },
+        publishedAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      },
+    ),
+  );
+  await assertFails(
+    setDoc(rootRef, {
+      ...guestRoot.data(),
+      ownerUid: ALICE_UID,
+      updatedAt: serverTimestamp(),
+    }),
+  );
+
+  await assertSucceeds(deleteDoc(chunkRef));
+  await assertSucceeds(deleteDoc(pageRef));
+  await assertSucceeds(deleteDoc(rootRef));
 });
 
 test("large series projections support catalog totals up to 50,000 cards", async () => {
