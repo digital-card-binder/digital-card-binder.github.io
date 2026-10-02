@@ -2510,3 +2510,164 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     font-size: .45rem;
   }
 }
+
+
+/* Binder Studio photo import quick start */
+.studio-photo-import-card {
+  border-color: #bcdde5;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(93, 224, 233, .14), transparent 34%),
+    linear-gradient(145deg, #f8fcfd, #eef8fa);
+}
+
+.studio-photo-import-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.studio-photo-import-heading > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.studio-photo-import-heading > div > strong {
+  color: #234458;
+  font-size: .82rem;
+}
+
+.studio-photo-import-heading > div > small {
+  max-width: 520px;
+  color: #708596;
+  font-size: .6rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.studio-photo-import-badge,
+.studio-photo-grid-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 21px;
+  border-radius: 999px;
+  font-size: .48rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 3px 7px;
+}
+
+.studio-photo-import-badge {
+  border: 1px solid #9edce3;
+  background: #e5f9fb;
+  color: #14677a;
+}
+
+.studio-photo-grid-badge {
+  flex: 0 0 auto;
+  border: 1px solid #b9d2dd;
+  background: #fff;
+  color: #496779;
+}
+
+.studio-photo-import-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.studio-photo-import-button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-height: 50px;
+  border: 1px solid #cbdde4;
+  border-radius: 12px;
+  background: #fff;
+  color: #36566a;
+  cursor: pointer;
+  padding: 8px 10px;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+
+.studio-photo-import-button:hover {
+  transform: translateY(-1px);
+  border-color: #83bfca;
+  background: #fafdfe;
+}
+
+.studio-photo-import-button > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 9px;
+  background: #123d5b;
+  color: #79edf1;
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.studio-photo-import-button > strong {
+  font-size: .62rem;
+}
+
+.studio-photo-import-status {
+  margin: 10px 0 0;
+  color: #5f7585;
+  font-size: .58rem;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+.studio-photo-import-tip {
+  margin: 7px 0 0;
+  border-radius: 9px;
+  background: rgba(20, 103, 122, .06);
+  color: #758795;
+  font-size: .54rem;
+  line-height: 1.5;
+  padding: 7px 9px;
+  word-break: keep-all;
+}
+
+.studio-photo-import-tip strong {
+  color: #3b6576;
+}
+
+@media (max-width: 690px) {
+  .studio-photo-import-heading > div > strong {
+    font-size: .76rem;
+  }
+
+  .studio-photo-import-heading > div > small {
+    font-size: .57rem;
+  }
+
+  .studio-photo-import-actions {
+    gap: 6px;
+  }
+
+  .studio-photo-import-button {
+    min-height: 48px;
+    gap: 7px;
+    padding: 7px 8px;
+  }
+
+  .studio-photo-import-button > span {
+    width: 30px;
+    height: 30px;
+  }
+
+  .studio-photo-import-button > strong {
+    font-size: .58rem;
+  }
+
+  .studio-photo-import-status {
+    font-size: .56rem;
+  }
+}
