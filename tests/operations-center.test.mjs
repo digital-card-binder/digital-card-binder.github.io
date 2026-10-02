@@ -47,12 +47,16 @@ test("official update watch performs one low-frequency product-page fetch and on
 });
 
 
-test("backup includes Studio custom binders and active background chunks", () => {
+test("backup includes Studio custom binders, schema v2 pages, and active background chunks", () => {
   const client = read("operations.js");
   assert.match(client, /"customBinders"/);
+  assert.match(client, /collection\(binderSnapshot[.]ref, "pages"\)/);
   assert.match(client, /collection\(binderSnapshot[.]ref, "chunks"\)/);
+  assert.match(client, /pages = pageSnapshot[.]docs[.]map\(backupPage\)/);
   assert.match(client, /data[.]data[?][.]toBase64[?][.]\(\)/);
   assert.match(client, /Bytes[.]fromBase64String\(chunk[.]dataBase64\)/);
   assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\], batch\)/);
-  assert.match(client, /expectedChunkCount !== binder[.]chunks[.]length/);
+  assert.match(client, /schemaVersion === 2/);
+  assert.match(client, /finalBatch[.]set\(pageReference/);
+  assert.match(client, /restoredPageIds/);
 });
