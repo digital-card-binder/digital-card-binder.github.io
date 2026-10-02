@@ -625,9 +625,6 @@
     for (const binder of binders) {
       const reference = customBinderDocumentRef(binder.id);
       const current = await firestoreModule.getDoc(reference);
-      const currentPages = await firestoreModule.getDocs(
-        firestoreModule.collection(reference, "pages"),
-      );
 
       const chunkSetMap = new Map();
       for (const chunk of binder.chunks) {
@@ -666,15 +663,11 @@
       const schemaVersion = Number(binder.metadata?.schemaVersion) === 2 ? 2 : 1;
 
       if (schemaVersion === 2) {
-        const existingPages = new Map(currentPages.docs.map((page) => [page.id, page.data() || {}]));
-        const restoredPageIds = new Set((binder.pages || []).map((page) => page.id));
-        currentPages.forEach((page) => {
-          if (!restoredPageIds.has(page.id)) finalBatch.delete(page.ref);
-        });
         for (const page of binder.pages || []) {
           const pageData = page.metadata;
           const restoredChunkSet = chunkSetMap.get(pageData.background.chunkSet);
           const pageReference = firestoreModule.doc(reference, "pages", page.id);
+          const existingPage = await firestoreModule.getDoc(pageReference);
           finalBatch.set(pageReference, {
             schemaVersion: 2,
             ownerUid: state.user.uid,
@@ -684,7 +677,9 @@
             background: { ...pageData.background, chunkSet: restoredChunkSet },
             cards: pageData.cards,
             slots: pageData.slots,
-            createdAt: existingPages.get(page.id)?.createdAt || firestoreModule.serverTimestamp(),
+            createdAt: existingPage.exists()
+              ? existingPage.data().createdAt
+              : firestoreModule.serverTimestamp(),
             updatedAt: firestoreModule.serverTimestamp(),
           });
         }
@@ -700,7 +695,6 @@
           updatedAt: firestoreModule.serverTimestamp(),
         });
       } else {
-        currentPages.forEach((page) => finalBatch.delete(page.ref));
         const restoredChunkSet = chunkSetMap.get(binder.metadata.background.chunkSet);
         finalBatch.set(reference, {
           schemaVersion: 1,
