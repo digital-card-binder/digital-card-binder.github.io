@@ -158,6 +158,7 @@
         background: data.background ?? null,
         cards: Array.isArray(data.cards) ? data.cards : [],
         slots: Array.isArray(data.slots) ? data.slots : [],
+        images: Array.isArray(data.images) ? data.images : [],
       },
     };
   }
@@ -188,17 +189,21 @@
         }
         pages = pageSnapshot.docs.map(backupPage);
         for (const page of pages) {
-          const background = page.metadata.background || null;
-          if (!background) continue;
-          const chunkSet = String(background.chunkSet || "");
-          const chunkCount = Number(background.chunkCount || 0);
-          if (!chunkSet || !chunkCount || activeChunkSets.has(chunkSet)) {
-            throw new Error(
-              `커스텀 바인더 ‘${String(data.title || binderSnapshot.id)}’의 페이지 배경 정보가 올바르지 않아 백업을 중단했습니다.`,
-            );
+          const sources = [
+            page.metadata.background || null,
+            ...(Array.isArray(page.metadata.images) ? page.metadata.images : []),
+          ].filter(Boolean);
+          for (const source of sources) {
+            const chunkSet = String(source.chunkSet || "");
+            const chunkCount = Number(source.chunkCount || 0);
+            if (!chunkSet || !chunkCount || activeChunkSets.has(chunkSet)) {
+              throw new Error(
+                `커스텀 바인더 ‘${String(data.title || binderSnapshot.id)}’의 페이지 이미지 정보가 올바르지 않아 백업을 중단했습니다.`,
+              );
+            }
+            activeChunkSets.add(chunkSet);
+            expectedBySet.set(chunkSet, chunkCount);
           }
-          activeChunkSets.add(chunkSet);
-          expectedBySet.set(chunkSet, chunkCount);
         }
       } else {
         const chunkSet = String(data.background?.chunkSet || "");
@@ -367,6 +372,32 @@
     );
   }
 
+  function validBackupImageSource(image) {
+    if (!image || typeof image !== "object" || Array.isArray(image)) return false;
+    const { id, ...background } = image;
+    return (
+      typeof id === "string" &&
+      /^[A-Za-z0-9_-]{8,120}$/.test(id) &&
+      validBackupBackground(background)
+    );
+  }
+
+  function backupSourceForChunkSet(binder, chunkSet) {
+    if (Number(binder?.metadata?.schemaVersion) !== 2) {
+      return binder?.metadata?.background || null;
+    }
+    for (const page of binder.pages || []) {
+      if (page?.metadata?.background?.chunkSet === chunkSet) {
+        return page.metadata.background;
+      }
+      const image = (page?.metadata?.images || []).find(
+        (item) => item?.chunkSet === chunkSet,
+      );
+      if (image) return image;
+    }
+    return null;
+  }
+
   function validateCustomBinderBackup(binders) {
     if (!Array.isArray(binders) || binders.length > MAX_CUSTOM_BINDERS) {
       throw new Error("백업의 커스텀 바인더 목록이 올바르지 않습니다.");
@@ -453,16 +484,23 @@
             !Array.isArray(pageData.cards) ||
             pageData.cards.length > 20 ||
             !Array.isArray(pageData.slots) ||
-            pageData.slots.length > 20
+            pageData.slots.length > 20 ||
+            !(pageData.images === undefined || Array.isArray(pageData.images)) ||
+            (Array.isArray(pageData.images) && pageData.images.length > 20) ||
+            (Array.isArray(pageData.images) && pageData.images.some((image) => !validBackupImageSource(image)))
           ) {
             throw new Error(`커스텀 바인더 ‘${binder.id}’의 페이지 데이터가 올바르지 않습니다.`);
           }
           pageMap.set(pageId, pageData);
-          if (pageData.background) {
-            if (expectedBySet.has(pageData.background.chunkSet)) {
-              throw new Error(`커스텀 바인더 ‘${binder.id}’에 중복된 배경 이미지 세트가 있습니다.`);
+          const sources = [
+            pageData.background || null,
+            ...(Array.isArray(pageData.images) ? pageData.images : []),
+          ].filter(Boolean);
+          for (const source of sources) {
+            if (expectedBySet.has(source.chunkSet)) {
+              throw new Error(`커스텀 바인더 ‘${binder.id}’에 중복된 이미지 세트가 있습니다.`);
             }
-            expectedBySet.set(pageData.background.chunkSet, pageData.background.chunkCount);
+            expectedBySet.set(source.chunkSet, source.chunkCount);
           }
         }
         const orderedIds = pageOrder.map((pageId) => String(pageId));
@@ -517,10 +555,9 @@
 
       for (const [chunkSet, expectedCount] of expectedBySet) {
         const indexes = seenIndexesBySet.get(chunkSet) || new Set();
-        const background = schemaVersion === 1
-          ? metadata.background
-          : binder.pages.find((page) => page.metadata.background?.chunkSet === chunkSet).metadata.background;
+        const background = backupSourceForChunkSet(binder, chunkSet);
         if (
+          !background ||
           indexes.size !== expectedCount ||
           bytesBySet.get(chunkSet) !== background.size
         ) {
@@ -684,6 +721,10 @@
               : null,
             cards: pageData.cards,
             slots: pageData.slots,
+            images: (pageData.images || []).map((image) => ({
+              ...image,
+              chunkSet: chunkSetMap.get(image.chunkSet),
+            })),
             createdAt: existingPage.exists()
               ? existingPage.data().createdAt
               : firestoreModule.serverTimestamp(),
