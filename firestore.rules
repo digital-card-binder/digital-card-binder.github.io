@@ -520,7 +520,7 @@ service cloud.firestore {
         && createsRegisteredUser(userId, source);
     }
 
-    function validCustomBinderGrid(grid) {
+    function validCustomBinderGridV1(grid) {
       return grid is map
         && grid.keys().hasAll([
           "cols",
@@ -548,6 +548,46 @@ service cloud.firestore {
           || (grid.cols == 4 && grid.rows == 4)
         )
         && grid.slotCount == grid.cols * grid.rows
+        && grid.cardWidthMm == 63
+        && grid.cardHeightMm == 88
+        && grid.canvasWidthMm == grid.cols * 63
+        && grid.canvasHeightMm == grid.rows * 88;
+    }
+
+    function validCustomBinderGridV2(grid) {
+      return grid is map
+        && grid.keys().hasAll([
+          "cols",
+          "rows",
+          "slotCount",
+          "cardWidthMm",
+          "cardHeightMm",
+          "canvasWidthMm",
+          "canvasHeightMm"
+        ])
+        && grid.keys().hasOnly([
+          "cols",
+          "rows",
+          "slotCount",
+          "cardWidthMm",
+          "cardHeightMm",
+          "canvasWidthMm",
+          "canvasHeightMm"
+        ])
+        && grid.cols is int
+        && grid.rows is int
+        && (
+          (grid.cols == 2 && grid.rows == 2)
+          || (grid.cols == 3 && grid.rows == 3)
+          || (grid.cols == 3 && grid.rows == 4)
+          || (grid.cols == 4 && grid.rows == 3)
+          || (grid.cols == 4 && grid.rows == 4)
+          || (grid.cols == 4 && grid.rows == 5)
+          || (grid.cols == 5 && grid.rows == 4)
+        )
+        && grid.slotCount == grid.cols * grid.rows
+        && grid.slotCount >= 4
+        && grid.slotCount <= 20
         && grid.cardWidthMm == 63
         && grid.cardHeightMm == 88
         && grid.canvasWidthMm == grid.cols * 63
@@ -599,7 +639,7 @@ service cloud.firestore {
         && background.height <= 20000;
     }
 
-    function validCustomBinderDocument(userId) {
+    function validCustomBinderV1Document(userId) {
       return request.resource.data.keys().hasAll([
           "schemaVersion",
           "ownerUid",
@@ -625,10 +665,147 @@ service cloud.firestore {
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 1
         && request.resource.data.title.size() <= 60
-        && validCustomBinderGrid(request.resource.data.grid)
+        && validCustomBinderGridV1(request.resource.data.grid)
         && validCustomBinderBackground(request.resource.data.background)
         && request.resource.data.cards is list
         && request.resource.data.cards.size() <= 16
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validCustomBinderSummary(summary) {
+      return summary is map
+        && summary.keys().hasAll([
+          "pageCount",
+          "cardCount",
+          "firstGrid"
+        ])
+        && summary.keys().hasOnly([
+          "pageCount",
+          "cardCount",
+          "firstGrid"
+        ])
+        && summary.pageCount is int
+        && summary.pageCount >= 1
+        && summary.pageCount <= 60
+        && summary.cardCount is int
+        && summary.cardCount >= 0
+        && summary.cardCount <= 1200
+        && summary.firstGrid is map
+        && summary.firstGrid.keys().hasAll(["cols", "rows"])
+        && summary.firstGrid.keys().hasOnly(["cols", "rows"])
+        && summary.firstGrid.cols is int
+        && summary.firstGrid.rows is int
+        && summary.firstGrid.cols >= 2
+        && summary.firstGrid.cols <= 5
+        && summary.firstGrid.rows >= 2
+        && summary.firstGrid.rows <= 5;
+    }
+
+    function validCustomBinderSettings(settings) {
+      return settings is map
+        && settings.keys().hasAll([
+          "defaultPrintMode",
+          "missingCardDisplay"
+        ])
+        && settings.keys().hasOnly([
+          "defaultPrintMode",
+          "missingCardDisplay"
+        ])
+        && (
+          settings.defaultPrintMode == "fit"
+          || settings.defaultPrintMode == "card"
+          || settings.defaultPrintMode == "sleeve"
+        )
+        && (
+          settings.missingCardDisplay == "color"
+          || settings.missingCardDisplay == "grayscale"
+          || settings.missingCardDisplay == "dim"
+          || settings.missingCardDisplay == "empty"
+        );
+    }
+
+    function validCustomBinderV2Document(userId) {
+      return request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "ownerUid",
+          "title",
+          "linkedDexId",
+          "pageOrder",
+          "summary",
+          "settings",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "ownerUid",
+          "title",
+          "linkedDexId",
+          "pageOrder",
+          "summary",
+          "settings",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 2
+        && request.resource.data.ownerUid == userId
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 60
+        && request.resource.data.linkedDexId is string
+        && request.resource.data.linkedDexId.size() <= 120
+        && request.resource.data.pageOrder is list
+        && request.resource.data.pageOrder.size() >= 1
+        && request.resource.data.pageOrder.size() <= 60
+        && request.resource.data.summary.pageCount
+          == request.resource.data.pageOrder.size()
+        && validCustomBinderSummary(request.resource.data.summary)
+        && validCustomBinderSettings(request.resource.data.settings)
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    function validCustomBinderDocument(userId) {
+      return validCustomBinderV1Document(userId)
+        || validCustomBinderV2Document(userId);
+    }
+
+    function validCustomBinderPage(userId, pageId) {
+      return request.resource.data.keys().hasAll([
+          "schemaVersion",
+          "ownerUid",
+          "pageId",
+          "title",
+          "grid",
+          "background",
+          "cards",
+          "slots",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "schemaVersion",
+          "ownerUid",
+          "pageId",
+          "title",
+          "grid",
+          "background",
+          "cards",
+          "slots",
+          "createdAt",
+          "updatedAt"
+        ])
+        && request.resource.data.schemaVersion == 2
+        && request.resource.data.ownerUid == userId
+        && request.resource.data.pageId == pageId
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 60
+        && validCustomBinderGridV2(request.resource.data.grid)
+        && validCustomBinderBackground(request.resource.data.background)
+        && request.resource.data.cards is list
+        && request.resource.data.cards.size() <= 20
+        && request.resource.data.slots is list
+        && request.resource.data.slots.size() <= 20
         && request.resource.data.updatedAt == request.time;
     }
 
@@ -1634,6 +1811,17 @@ service cloud.firestore {
         && validCustomBinderDocument(userId)
         && request.resource.data.createdAt == resource.data.createdAt;
       allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
 
       match /chunks/{chunkId} {
         allow read: if ownsDocument(userId);
