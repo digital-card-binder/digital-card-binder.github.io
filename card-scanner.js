@@ -10,6 +10,7 @@
 
   const SDK_VERSION = "12.16.0";
   const OCR_SCRIPT = "https://cdn.jsdelivr.net/npm/tesseract.js@6.0.0/dist/tesseract.min.js";
+  const VISUAL_INDEX_URL = "./data/card-visual-fingerprints.json";
   const FIXED_COLLECTIONS = [
     "ar",
     "pokemon",
@@ -30,6 +31,9 @@
     documentCache: new Map(),
     membershipCatalogs: new Map(),
     previewUrl: "",
+    visualIndex: null,
+    visualIndexLoading: null,
+    cardByVisualKey: new Map(),
     busy: false,
   };
 
@@ -127,6 +131,256 @@
       }
     }
     state.cards = cards;
+    state.cardByVisualKey = new Map(
+      cards.map((card) => [visualCardKey(card.setCode, card.rawCode), card]),
+    );
+  }
+
+  function visualCardKey(setCode, rawCode) {
+    return clean(setCode).toLowerCase() + "|" + clean(rawCode).toLowerCase();
+  }
+
+  async function loadVisualIndex() {
+    if (state.visualIndex) return state.visualIndex;
+    if (state.visualIndexLoading) return state.visualIndexLoading;
+
+    state.visualIndexLoading = (async () => {
+      const response = await fetch(VISUAL_INDEX_URL + "?v=1", { cache: "no-store" });
+      if (!response.ok) throw new Error("시각 지문 인덱스를 아직 사용할 수 없습니다.");
+      const payload = await response.json();
+      const entries = Array.isArray(payload?.entries) ? payload.entries : [];
+      const parsed = [];
+      for (const entry of entries) {
+        if (!Array.isArray(entry) || entry.length < 6) continue;
+        const [setCode, rawCode, fullD, artD, artA, colors] = entry;
+        const card = state.cardByVisualKey.get(visualCardKey(setCode, rawCode));
+        if (!card) continue;
+        try {
+          parsed.push({
+            card,
+            fullD: BigInt("0x" + fullD),
+            artD: BigInt("0x" + artD),
+            artA: BigInt("0x" + artA),
+            colors: clean(colors),
+          });
+        } catch {
+          // Ignore malformed generated entries without breaking the scanner.
+        }
+      }
+      if (!parsed.length) throw new Error("시각 지문 인덱스가 비어 있습니다.");
+      state.visualIndex = parsed;
+      return parsed;
+    })();
+
+    try {
+      return await state.visualIndexLoading;
+    } finally {
+      state.visualIndexLoading = null;
+    }
+  }
+
+  function cropCanvas(source, crop, width = 252, height = 352) {
+    const sourceWidth = source.width || source.naturalWidth;
+    const sourceHeight = source.height || source.naturalHeight;
+    const sx = Math.max(0, Math.round(sourceWidth * crop.x));
+    const sy = Math.max(0, Math.round(sourceHeight * crop.y));
+    const sw = Math.max(1, Math.round(sourceWidth * crop.width));
+    const sh = Math.max(1, Math.round(sourceHeight * crop.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(source, sx, sy, sw, sh, 0, 0, width, height);
+    return canvas;
+  }
+
+  function regionPixels(canvas, region, width, height) {
+    const sample = document.createElement("canvas");
+    sample.width = width;
+    sample.height = height;
+    const context = sample.getContext("2d", { willReadFrequently: true });
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = "high";
+    context.drawImage(
+      canvas,
+      Math.round(canvas.width * region.x),
+      Math.round(canvas.height * region.y),
+      Math.max(1, Math.round(canvas.width * region.width)),
+      Math.max(1, Math.round(canvas.height * region.height)),
+      0,
+      0,
+      width,
+      height,
+    );
+    return context.getImageData(0, 0, width, height).data;
+  }
+
+  function luminance(red, green, blue) {
+    return red * 0.299 + green * 0.587 + blue * 0.114;
+  }
+
+  function differenceHash(canvas, region) {
+    const pixels = regionPixels(canvas, region, 9, 8);
+    let value = 0n;
+    let bit = 0n;
+    for (let row = 0; row < 8; row += 1) {
+      for (let col = 0; col < 8; col += 1) {
+        const leftIndex = (row * 9 + col) * 4;
+        const rightIndex = (row * 9 + col + 1) * 4;
+        const left = luminance(
+          pixels[leftIndex],
+          pixels[leftIndex + 1],
+          pixels[leftIndex + 2],
+        );
+        const right = luminance(
+          pixels[rightIndex],
+          pixels[rightIndex + 1],
+          pixels[rightIndex + 2],
+        );
+        if (left > right) value |= 1n << bit;
+        bit += 1n;
+      }
+    }
+    return value;
+  }
+
+  function averageHash(canvas, region) {
+    const pixels = regionPixels(canvas, region, 8, 8);
+    const values = [];
+    let total = 0;
+    for (let index = 0; index < pixels.length; index += 4) {
+      const value = luminance(pixels[index], pixels[index + 1], pixels[index + 2]);
+      values.push(value);
+      total += value;
+    }
+    const average = total / Math.max(1, values.length);
+    let hash = 0n;
+    values.forEach((value, index) => {
+      if (value >= average) hash |= 1n << BigInt(index);
+    });
+    return hash;
+  }
+
+  function colorGrid(canvas, region) {
+    const pixels = regionPixels(canvas, region, 4, 4);
+    let output = "";
+    for (let index = 0; index < pixels.length; index += 4) {
+      output += Math.round(pixels[index] / 17).toString(16);
+      output += Math.round(pixels[index + 1] / 17).toString(16);
+      output += Math.round(pixels[index + 2] / 17).toString(16);
+    }
+    return output;
+  }
+
+  function visualSignature(canvas) {
+    const fullRegion = { x: 0.03, y: 0.03, width: 0.94, height: 0.94 };
+    const artRegion = { x: 0.07, y: 0.08, width: 0.86, height: 0.43 };
+    return {
+      fullD: differenceHash(canvas, fullRegion),
+      artD: differenceHash(canvas, artRegion),
+      artA: averageHash(canvas, artRegion),
+      colors: colorGrid(canvas, artRegion),
+    };
+  }
+
+  async function visualSignaturesFromFile(file) {
+    const image = await imageBitmapFromFile(file);
+    try {
+      const crops = [
+        { x: 0.00, y: 0.00, width: 1.00, height: 1.00 },
+        { x: 0.02, y: 0.02, width: 0.96, height: 0.96 },
+        { x: 0.04, y: 0.02, width: 0.92, height: 0.96 },
+        { x: 0.02, y: 0.04, width: 0.96, height: 0.92 },
+        { x: 0.06, y: 0.04, width: 0.88, height: 0.92 },
+      ];
+      return crops.map((crop) => visualSignature(cropCanvas(image, crop)));
+    } finally {
+      if (typeof image.close === "function") image.close();
+    }
+  }
+
+  function hammingDistance(left, right) {
+    let value = left ^ right;
+    let count = 0;
+    while (value) {
+      value &= value - 1n;
+      count += 1;
+    }
+    return count;
+  }
+
+  function colorGridDistance(left, right) {
+    if (!left || !right || left.length !== right.length) return 1;
+    let distance = 0;
+    for (let index = 0; index < left.length; index += 1) {
+      const a = parseInt(left[index], 16);
+      const b = parseInt(right[index], 16);
+      if (!Number.isFinite(a) || !Number.isFinite(b)) continue;
+      distance += Math.abs(a - b);
+    }
+    return distance / (left.length * 15);
+  }
+
+  function visualDistance(query, reference) {
+    return (
+      hammingDistance(query.fullD, reference.fullD) * 0.12 +
+      hammingDistance(query.artD, reference.artD) * 0.46 +
+      hammingDistance(query.artA, reference.artA) * 0.27 +
+      colorGridDistance(query.colors, reference.colors) * 64 * 0.15
+    );
+  }
+
+  async function findVisualCandidates(file) {
+    await loadSearchCards();
+    const [index, signatures] = await Promise.all([
+      loadVisualIndex(),
+      visualSignaturesFromFile(file),
+    ]);
+    const ranked = [];
+
+    for (let position = 0; position < index.length; position += 1) {
+      const reference = index[position];
+      let best = Number.POSITIVE_INFINITY;
+      for (const signature of signatures) {
+        best = Math.min(best, visualDistance(signature, reference));
+      }
+      ranked.push({ card: reference.card, distance: best });
+      if (position > 0 && position % 3500 === 0) {
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+      }
+    }
+
+    ranked.sort((left, right) => left.distance - right.distance);
+    return ranked.slice(0, 24);
+  }
+
+  function mergeScanCandidates(visualMatches, ocrCards) {
+    if (!visualMatches?.length) return ocrCards || [];
+    const ocrRank = new Map(
+      (ocrCards || []).map((card, index) => [
+        visualCardKey(card.setCode, card.rawCode),
+        index,
+      ]),
+    );
+
+    return visualMatches
+      .map((match, index) => {
+        const key = visualCardKey(match.card.setCode, match.card.rawCode);
+        const textRank = ocrRank.has(key) ? ocrRank.get(key) : null;
+        const score =
+          match.distance +
+          (textRank === null ? 0 : Math.min(10, textRank) * 0.35 - 8);
+        return { ...match, score, visualRank: index + 1 };
+      })
+      .sort((left, right) => left.score - right.score)
+      .slice(0, 16)
+      .map((match) => {
+        match.card.scanVisualRank = match.visualRank;
+        match.card.scanVisualDistance = match.distance;
+        return match.card;
+      });
   }
 
   function cameraSvg() {
@@ -159,7 +413,7 @@
             '<input id="card-scan-file-input" type="file" accept="image/*" hidden>' +
             '<button id="card-scan-camera" class="card-scan-camera" type="button">' + cameraSvg() + '<span>카드 촬영</span></button>' +
             '<button id="card-scan-file" class="card-scan-secondary" type="button">앨범에서 선택</button>' +
-            '<p class="card-scan-help">카드 전체가 프레임 안에 들어오도록 찍어주세요. 카드번호가 있는 하단 영역을 우선 인식합니다.</p>' +
+            '<p class="card-scan-help">카드 전체가 프레임 안에 들어오도록 찍어주세요. 이미지 자체를 먼저 비교하고 카드명·번호는 보조로 사용합니다.</p>' +
             '<div class="card-scan-manual">' +
               '<input id="card-scan-set" type="text" autocomplete="off" placeholder="세트코드 예: sv2a">' +
               '<input id="card-scan-number" type="text" autocomplete="off" placeholder="카드번호 예: 142/165">' +
@@ -184,7 +438,7 @@
               '<button id="card-scan-next" class="card-scan-next" type="button">다음 카드</button>' +
               '<button id="card-scan-save" class="card-scan-save" type="button">선택한 도감에 등록</button>' +
             '</div>' +
-            '<p class="card-scan-privacy">촬영 이미지는 카드번호 인식을 위해 현재 기기에서 처리하며 도감 저장 시 사진 자체는 업로드하지 않습니다.</p>' +
+            '<p class="card-scan-privacy">촬영 이미지는 현재 기기에서 시각 지문과 문자만 계산합니다. 사진 원본 자체는 도감에 업로드하지 않습니다.</p>' +
           '</section>' +
         '</div>' +
       '</div>';
@@ -563,17 +817,21 @@
     state.previewUrl = URL.createObjectURL(file);
     els.previewImage.src = state.previewUrl;
     els.preview.hidden = false;
-    els.previewTitle.textContent = "카드번호 인식 중";
-    els.previewMeta.textContent = "카드 왼쪽 아래의 세트코드·카드번호를 먼저 확대 분석합니다.";
+    els.previewTitle.textContent = "카드 이미지 비교 중";
+    els.previewMeta.textContent = "전체 카드와 일러스트 영역을 먼저 비교하고 문자 인식으로 보정합니다.";
     els.ocrText.textContent = "";
     els.candidateSection.hidden = true;
     els.membershipSection.hidden = true;
     setBusy(true);
     setProgress(8);
-    setStatus("처음 사용할 때는 OCR 모듈을 내려받아 시간이 조금 더 걸릴 수 있습니다.", "loading");
+    setStatus("이미지 유사도와 카드명·번호를 함께 분석하고 있습니다.", "loading");
 
     try {
       await loadSearchCards();
+      const visualPromise = findVisualCandidates(file).catch((error) => {
+        console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
+        return [];
+      });
       const worker = await ensureOcrWorker();
       const regions = await makeOcrCanvases(file);
       const numberTexts = [];
@@ -618,14 +876,22 @@
       ].filter(Boolean).join(" / ");
       els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
-      renderCandidates(candidates);
-      if (!candidates.length) {
+      const visualMatches = await visualPromise;
+      const mergedCandidates = mergeScanCandidates(visualMatches, candidates);
+      renderCandidates(mergedCandidates);
+
+      if (!mergedCandidates.length) {
         setStatus(
           "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
           "error",
         );
+      } else if (visualMatches.length) {
+        setStatus(
+          "이미지 유사도를 중심으로 후보를 정렬했습니다. 실제 카드가 맞는지 확인해 주세요.",
+          "success",
+        );
       } else {
-        setStatus("후보 카드가 맞는지 확인해 주세요.", "success");
+        setStatus("문자 인식 후보가 맞는지 확인해 주세요.", "success");
       }
       setProgress(100);
     } catch (error) {
@@ -825,10 +1091,14 @@
       const name = document.createElement("strong");
       name.textContent = card.name || card.pokemonName || card.rawCode;
       const meta = document.createElement("small");
+      const matchLabel = Number.isFinite(card.scanVisualRank)
+        ? "이미지 후보 " + card.scanVisualRank + "위"
+        : "";
       meta.textContent = [
         card.setCode,
         card.cardNumber || card.rawCode,
         card.rarity,
+        matchLabel,
       ].filter(Boolean).join(" · ");
       copy.append(name, meta);
       button.append(image, copy);
