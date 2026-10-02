@@ -1334,6 +1334,10 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /data-studio-help="4"/);
   assert.match(page, /data-studio-help="9"/);
   assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
+  assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 4);
+  assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 5);
+  assert.match(page, /바인더 페이지 <span class="studio-step-badge is-required">필수<\/span>/);
+  assert.match(page, /확장 이미지 배치 <span class="studio-step-badge is-optional">선택<\/span>/);
   assert.match(page, /확장 이미지 배치/);
   assert.match(page, /id="studio-custom-print-button"/);
   assert.match(page, /A4 한 장 맞춤/);
