@@ -1382,7 +1382,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(studioCss, /border: [. ]*25mm solid #4b4b4b/);
   assert.match(studioCss, /studio-custom-print-sheet \{[\s\S]{0,320}page-break-inside: avoid !important/);
   assert.match(studioCss, /studio-custom-print-cell \{[\s\S]{0,320}break-inside: avoid !important/);
-  assert.match(editor, /남는 칸은 잘리지 않고 다음 장으로 넘어갑니다/);
+  assert.match(editor, /페이지별로 자동 분할하며 칸이 잘리지 않습니다/);
   assert.doesNotMatch(studioCss, /studio-custom-print-sheet \{[\s\S]{0,180}grid-template-columns: repeat\(3, 63mm\) !important/);
   assert.doesNotMatch(page, /data-custom-action="smaller"/);
   assert.doesNotMatch(page, /data-custom-action="larger"/);
