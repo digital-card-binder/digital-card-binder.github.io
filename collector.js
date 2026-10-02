@@ -12,6 +12,9 @@
     collections: document.querySelector("#collector-public-collections"),
     grid: document.querySelector("#collector-public-grid"),
     empty: document.querySelector("#collector-public-empty"),
+    binders: document.querySelector("#collector-public-binders"),
+    binderGrid: document.querySelector("#collector-public-binder-grid"),
+    binderEmpty: document.querySelector("#collector-public-binder-empty"),
     loading: document.querySelector("#collector-public-loading"),
     error: document.querySelector("#collector-public-error"),
   };
@@ -181,6 +184,61 @@
     elements.collections.hidden = false;
   }
 
+  function normalizePublicBinder(snapshot) {
+    const data = snapshot.data() || {};
+    const summary = data.summary || {};
+    if (
+      data.schemaVersion !== 1 ||
+      data.publicId !== publicId ||
+      data.binderId !== snapshot.id ||
+      !Array.isArray(data.pageOrder) ||
+      !data.pageOrder.length
+    ) {
+      return null;
+    }
+    return {
+      id: snapshot.id,
+      title: clean(data.title, 60) || "커스텀 바인더",
+      pageCount: Math.max(1, Number(summary.pageCount) || data.pageOrder.length),
+      cardCount: Math.max(0, Number(summary.cardCount) || 0),
+      ownedCount: Math.max(0, Number(summary.ownedCount) || 0),
+      missingCount: Math.max(0, Number(summary.missingCount) || 0),
+    };
+  }
+
+  function createBinderCard(binder) {
+    const link = document.createElement("a");
+    const url = new URL("./binder.html", window.location.href);
+    url.searchParams.set("collector", publicId);
+    url.searchParams.set("binder", binder.id);
+    link.href = url.href;
+    link.className = "collector-public-binder-card";
+    link.setAttribute(
+      "aria-label",
+      `${binder.title} · ${binder.pageCount}페이지 · 카드 ${binder.cardCount}장`,
+    );
+    link.innerHTML = `
+      <span class="collector-public-binder-icon ui-icon ui-icon--binder" aria-hidden="true"></span>
+      <span class="collector-public-binder-copy">
+        <strong></strong>
+        <small></small>
+      </span>
+      <span class="collector-public-binder-arrow" aria-hidden="true">›</span>
+    `;
+    link.querySelector("strong").textContent = binder.title;
+    link.querySelector("small").textContent =
+      `${binder.pageCount}페이지 · 카드 ${binder.cardCount}장 · 보유 ${binder.ownedCount} · 미보유 ${binder.missingCount}`;
+    return link;
+  }
+
+  function renderBinders(binders) {
+    const cards = binders.map(createBinderCard);
+    elements.binderGrid.replaceChildren(...cards);
+    elements.binderGrid.hidden = cards.length === 0;
+    elements.binderEmpty.hidden = cards.length > 0;
+    elements.binders.hidden = false;
+  }
+
   function showError(message) {
     elements.loading.hidden = true;
     elements.error.hidden = false;
@@ -219,7 +277,7 @@
         ? appModule.getApp()
         : appModule.initializeApp(CONFIG.config);
       const db = firestoreModule.getFirestore(app);
-      const [profileSnapshot, collectionSnapshots] = await Promise.all([
+      const [profileSnapshot, collectionSnapshots, binderSnapshots] = await Promise.all([
         firestoreModule.getDoc(
           firestoreModule.doc(db, "publicProfiles", publicId),
         ),
@@ -231,6 +289,14 @@
             "collections",
           ),
         ),
+        firestoreModule.getDocs(
+          firestoreModule.collection(
+            db,
+            "publicProfiles",
+            publicId,
+            "binders",
+          ),
+        ),
       ]);
       if (!profileSnapshot.exists() || !profileSnapshot.data()?.profileCompleted) {
         throw new Error(MISSING_PROFILE_MESSAGE);
@@ -239,8 +305,13 @@
       const projections = collectionSnapshots.docs
         .map(normalizedProjection)
         .filter(Boolean);
+      const binders = binderSnapshots.docs
+        .map(normalizePublicBinder)
+        .filter(Boolean)
+        .sort((a, b) => a.title.localeCompare(b.title, "ko-KR", { numeric: true }));
       renderProfile(profile);
       renderCollections(projections);
+      renderBinders(binders);
       elements.loading.hidden = true;
     } catch (error) {
       console.error("공개 컬렉터 프로필 초기화 실패", error);
