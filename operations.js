@@ -462,7 +462,12 @@
           }
           expectedBySet.set(pageData.background.chunkSet, pageData.background.chunkCount);
         }
-        if (pageOrder.some((pageId) => !pageMap.has(String(pageId)))) {
+        const orderedIds = pageOrder.map((pageId) => String(pageId));
+        if (
+          new Set(orderedIds).size !== orderedIds.length ||
+          orderedIds.some((pageId) => !pageMap.has(pageId)) ||
+          [...pageMap.keys()].some((pageId) => !orderedIds.includes(pageId))
+        ) {
           throw new Error(`커스텀 바인더 ‘${binder.id}’의 페이지 순서가 올바르지 않습니다.`);
         }
       }
@@ -659,10 +664,13 @@
       }
 
       const schemaVersion = Number(binder.metadata?.schemaVersion) === 2 ? 2 : 1;
-      currentPages.forEach((page) => finalBatch.delete(page.ref));
 
       if (schemaVersion === 2) {
         const existingPages = new Map(currentPages.docs.map((page) => [page.id, page.data() || {}]));
+        const restoredPageIds = new Set((binder.pages || []).map((page) => page.id));
+        currentPages.forEach((page) => {
+          if (!restoredPageIds.has(page.id)) finalBatch.delete(page.ref);
+        });
         for (const page of binder.pages || []) {
           const pageData = page.metadata;
           const restoredChunkSet = chunkSetMap.get(pageData.background.chunkSet);
@@ -692,6 +700,7 @@
           updatedAt: firestoreModule.serverTimestamp(),
         });
       } else {
+        currentPages.forEach((page) => finalBatch.delete(page.ref));
         const restoredChunkSet = chunkSetMap.get(binder.metadata.background.chunkSet);
         finalBatch.set(reference, {
           schemaVersion: 1,
