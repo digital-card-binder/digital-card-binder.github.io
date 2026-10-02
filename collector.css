@@ -2444,3 +2444,80 @@ body.collector-collection-page .world-story-header {
     line-height: 1.5;
   }
 }
+
+
+/* Public Binder Studio works */
+.collector-public-binder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.collector-public-binder-grid[hidden] {
+  display: none !important;
+}
+
+.collector-public-binder-card {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 11px;
+  min-height: 76px;
+  border: 1px solid #dce5eb;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #fff, #f7fbfc);
+  color: inherit;
+  padding: 12px 13px;
+  text-decoration: none;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.collector-public-binder-card:hover {
+  transform: translateY(-1px);
+  border-color: #b9d6df;
+  box-shadow: 0 9px 24px rgba(25, 60, 82, .08);
+}
+
+.collector-public-binder-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  background: #edf8fa;
+  color: #1e7083;
+}
+
+.collector-public-binder-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.collector-public-binder-copy strong {
+  overflow: hidden;
+  color: #243f55;
+  font-size: .75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collector-public-binder-copy small {
+  overflow: hidden;
+  color: #798694;
+  font-size: .55rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collector-public-binder-arrow {
+  color: #8a99a5;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+@media (max-width: 690px) {
+  .collector-public-binder-grid {
+    grid-template-columns: 1fr;
+  }
+}
