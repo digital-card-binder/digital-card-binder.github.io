@@ -88,7 +88,11 @@
           count += 1;
         }
         const score = count ? hits / count : 0;
-        if (!best || score > best.score) best = { b, slope, score };
+        const progress = side === "left"
+          ? (b - minB) / Math.max(1, maxB - minB)
+          : (maxB - b) / Math.max(1, maxB - minB);
+        const rank = score * (1 - 0.5 * clamp(progress, 0, 1));
+        if (!best || rank > best.rank) best = { b, slope, score, rank };
       }
     }
     return best;
@@ -110,7 +114,11 @@
           count += 1;
         }
         const score = count ? hits / count : 0;
-        if (!best || score > best.score) best = { b, slope, score };
+        const progress = side === "top"
+          ? (b - minB) / Math.max(1, maxB - minB)
+          : (maxB - b) / Math.max(1, maxB - minB);
+        const rank = score * (1 - 0.5 * clamp(progress, 0, 1));
+        if (!best || rank > best.rank) best = { b, slope, score, rank };
       }
     }
     return best;
