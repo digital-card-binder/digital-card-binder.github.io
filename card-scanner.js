@@ -470,46 +470,117 @@
     return output;
   }
 
-  function isNearCardAspectRatio(source) {
+  function isNearCardAspectRatio(source, tolerance = 0.12) {
     const width = source.width || source.naturalWidth;
     const height = source.height || source.naturalHeight;
     if (!width || !height) return false;
     const ratio = width / height;
     const cardRatio = 63 / 88;
-    return Math.abs(ratio - cardRatio) / cardRatio <= 0.04;
+    return Math.abs(ratio - cardRatio) / cardRatio <= tolerance;
   }
 
-  function normalizeCardCanvas(source, options = {}) {
-    if (options.preferWholeIfCardRatio && isNearCardAspectRatio(source)) {
-      return {
-        canvas: cropCanvas(source, { x: 0, y: 0, width: 1, height: 1 }, 504, 704),
+  function cardAspectCropCanvas(source, width = 504, height = 704) {
+    const sourceWidth = source.width || source.naturalWidth;
+    const sourceHeight = source.height || source.naturalHeight;
+    const targetRatio = 63 / 88;
+    const sourceRatio = sourceWidth / Math.max(1, sourceHeight);
+    let x = 0;
+    let y = 0;
+    let cropWidth = 1;
+    let cropHeight = 1;
+
+    if (sourceRatio > targetRatio) {
+      cropWidth = targetRatio / sourceRatio;
+      x = (1 - cropWidth) / 2;
+    } else if (sourceRatio < targetRatio) {
+      cropHeight = sourceRatio / targetRatio;
+      y = (1 - cropHeight) / 2;
+    }
+
+    return cropCanvas(
+      source,
+      { x, y, width: cropWidth, height: cropHeight },
+      width,
+      height,
+    );
+  }
+
+  function prepareCardVariants(source, options = {}) {
+    const variants = [];
+    const whole = cropCanvas(
+      source,
+      { x: 0, y: 0, width: 1, height: 1 },
+      504,
+      704,
+    );
+    variants.push({
+      label: "whole",
+      canvas: whole,
+      corrected: false,
+      description: "원본 전체",
+    });
+
+    if (!isNearCardAspectRatio(source, 0.025)) {
+      variants.push({
+        label: "center",
+        canvas: cardAspectCropCanvas(source),
         corrected: false,
-        preservedWholeCard: true,
-      };
+        description: "카드 비율 중앙 영역",
+      });
     }
 
     const quad = detectCardQuad(source);
     if (quad) {
-      return {
+      variants.push({
+        label: "perspective",
         canvas: warpCardPerspective(source, quad),
         corrected: true,
-        preservedWholeCard: false,
-      };
+        description: "테두리 원근보정",
+      });
     }
+
     return {
-      canvas: cropCanvas(source, { x: 0, y: 0, width: 1, height: 1 }, 504, 704),
-      corrected: false,
-      preservedWholeCard: false,
+      variants,
+      preferredLabel:
+        options.preferWholeIfCardRatio && isNearCardAspectRatio(source)
+          ? "whole"
+          : quad
+            ? "perspective"
+            : "whole",
     };
   }
 
-  async function normalizedCanvasFromFile(file, options = {}) {
+  function normalizeCardCanvas(source, options = {}) {
+    const prepared = prepareCardVariants(source, options);
+    const preferred =
+      prepared.variants.find((variant) => variant.label === prepared.preferredLabel) ||
+      prepared.variants[0];
+    return {
+      canvas: preferred.canvas,
+      corrected: Boolean(preferred.corrected),
+      preservedWholeCard: preferred.label === "whole",
+    };
+  }
+
+  async function preparedCardVariantsFromFile(file, options = {}) {
     const image = await imageBitmapFromFile(file);
     try {
-      return normalizeCardCanvas(image, options);
+      return prepareCardVariants(image, options);
     } finally {
       if (typeof image.close === "function") image.close();
     }
+  }
+
+  async function normalizedCanvasFromFile(file, options = {}) {
+    const prepared = await preparedCardVariantsFromFile(file, options);
+    const preferred =
+      prepared.variants.find((variant) => variant.label === prepared.preferredLabel) ||
+      prepared.variants[0];
+    return {
+      canvas: preferred.canvas,
+      corrected: Boolean(preferred.corrected),
+      preservedWholeCard: preferred.label === "whole",
+    };
   }
 
   function regionPixels(canvas, region, width, height) {
@@ -612,6 +683,16 @@
     return crops.map((crop) => visualSignature(cropCanvas(image, crop)));
   }
 
+  function visualSignatureGroups(source) {
+    const variants = Array.isArray(source) ? source : [{ label: "single", canvas: source }];
+    return variants
+      .filter((variant) => variant?.canvas)
+      .map((variant) => ({
+        label: clean(variant.label) || "single",
+        signatures: visualSignaturesFromCanvas(variant.canvas),
+      }));
+  }
+
   function hammingDistance(left, right) {
     let value = left ^ right;
     let count = 0;
@@ -645,19 +726,32 @@
 
   async function findVisualCandidates(source) {
     await loadSearchCards();
-    const [index, signatures] = await Promise.all([
+    const [index, groups] = await Promise.all([
       loadVisualIndex(),
-      Promise.resolve(visualSignaturesFromCanvas(source)),
+      Promise.resolve(visualSignatureGroups(source)),
     ]);
     const ranked = [];
 
     for (let position = 0; position < index.length; position += 1) {
       const reference = index[position];
       let best = Number.POSITIVE_INFINITY;
-      for (const signature of signatures) {
-        best = Math.min(best, visualDistance(signature, reference));
+      let bestVariant = groups[0]?.label || "single";
+
+      for (const group of groups) {
+        for (const signature of group.signatures) {
+          const distance = visualDistance(signature, reference);
+          if (distance < best) {
+            best = distance;
+            bestVariant = group.label;
+          }
+        }
       }
-      ranked.push({ card: reference.card, distance: best });
+
+      ranked.push({
+        card: reference.card,
+        distance: best,
+        variantLabel: bestVariant,
+      });
       if (position > 0 && position % 3500 === 0) {
         await new Promise((resolve) => requestAnimationFrame(resolve));
       }
@@ -676,6 +770,7 @@
         card: match.card,
         distance: match.distance,
         visualRank: index + 1,
+        variantLabel: match.variantLabel || "",
       });
     });
 
@@ -710,6 +805,7 @@
     return ranked.map((match) => {
       match.card.scanVisualRank = match.visualRank;
       match.card.scanVisualDistance = match.distance;
+      match.card.scanVisualVariant = match.variantLabel || "";
       match.card.scanCombinedScore = match.score;
       match.card.scanLiveConsensus =
         liveConsensus?.key === match.key ? Number(liveConsensus.count) || 0 : 0;
@@ -966,8 +1062,8 @@
       await waitFor(index === 0 ? 700 : 420);
       if (token !== state.liveScanToken || !state.liveStream) return;
       lastFile = await videoFrameFile(els.liveVideo, index + 1);
-      const prepared = await normalizedCanvasFromFile(lastFile);
-      const matches = await findVisualCandidates(prepared.canvas);
+      const prepared = await preparedCardVariantsFromFile(lastFile);
+      const matches = await findVisualCandidates(prepared.variants);
       const top = matches[0];
       const second = matches[1];
       if (top) {
@@ -1363,21 +1459,32 @@
 
     try {
       await loadSearchCards();
-      const prepared = await normalizedCanvasFromFile(file, {
+      const prepared = await preparedCardVariantsFromFile(file, {
         preferWholeIfCardRatio: Boolean(options.preferWholeIfCardRatio),
       });
-      els.previewMeta.textContent = prepared.preservedWholeCard
-        ? "이미 카드 정면 이미지로 판단해 불필요한 원근보정을 생략했습니다."
-        : prepared.corrected
-          ? "카드 테두리를 감지해 원근을 보정했습니다."
-          : "카드 영역 자동 보정이 어려워 원본 비율 기준으로 분석합니다.";
+      els.previewMeta.textContent =
+        prepared.variants.length > 1
+          ? "원본과 보정본을 함께 비교해 더 잘 맞는 쪽을 자동 선택합니다."
+          : "원본 카드 이미지를 기준으로 분석합니다.";
 
-      const visualPromise = findVisualCandidates(prepared.canvas).catch((error) => {
+      const visualMatches = await findVisualCandidates(prepared.variants).catch((error) => {
         console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
         return [];
       });
+      const bestVariantLabel =
+        visualMatches[0]?.variantLabel || prepared.preferredLabel || "whole";
+      const ocrVariant =
+        prepared.variants.find((variant) => variant.label === bestVariantLabel) ||
+        prepared.variants.find((variant) => variant.label === prepared.preferredLabel) ||
+        prepared.variants[0];
+
+      if (ocrVariant?.description) {
+        els.previewMeta.textContent =
+          "비교 결과: " + ocrVariant.description + "을 기준으로 문자까지 확인합니다.";
+      }
+
       const worker = await ensureOcrWorker();
-      const regions = await makeOcrCanvases(prepared.canvas);
+      const regions = await makeOcrCanvases(ocrVariant.canvas);
       const numberTexts = [];
       const titleTexts = [];
       let candidates = [];
@@ -1420,7 +1527,6 @@
       ].filter(Boolean).join(" / ");
       els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
-      const visualMatches = await visualPromise;
       const mergedCandidates = mergeScanCandidates(
         visualMatches,
         candidates,
