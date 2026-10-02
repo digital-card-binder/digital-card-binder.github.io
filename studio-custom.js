@@ -1458,8 +1458,8 @@
         if (blob.size <= targetBytes) break;
 
         const scale = blob.size > targetBytes * 1.8 ? 0.76 : 0.84;
-        width = Math.max(1200, Math.round(canvas.width * scale));
-        height = Math.max(1200, Math.round(canvas.height * scale));
+        width = Math.max(1, Math.round(canvas.width * scale));
+        height = Math.max(1, Math.round(canvas.height * scale));
 
         const reduced = document.createElement("canvas");
         reduced.width = width;
