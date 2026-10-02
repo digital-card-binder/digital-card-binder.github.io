@@ -586,9 +586,30 @@
     page.objectUrl = URL.createObjectURL(blob);
   }
 
+  async function hydrateImageSource(image) {
+    if (!image || image.blob || !image.chunkSet || !state.currentBinderId) return image;
+    const reference = binderRef(state.currentBinderId);
+    const blob = await readBackgroundBlob(reference, image);
+    image.blob = blob;
+    image.size = image.size || blob.size;
+    image.type = clean(image.type) || blob.type || "image/webp";
+    image.objectUrl = URL.createObjectURL(blob);
+    image.dirty = false;
+    return image;
+  }
+
+  async function hydratePageImages(page) {
+    if (!page) return;
+    const images = Array.isArray(page.images) ? page.images : [];
+    for (const image of images) {
+      await hydrateImageSource(image);
+    }
+  }
+
   async function applyPage(page) {
     if (!page) return;
     await hydratePageBackground(page);
+    await hydratePageImages(page);
     const value = `${page.grid?.cols || 3}x${page.grid?.rows || 4}`;
     const input = gridInputs.find((item) => item.value === value)
       || gridInputs.find((item) => item.value === "3x4");
@@ -606,6 +627,9 @@
     state.backgroundDirty = Boolean(page.backgroundDirty);
     state.placements = (page.placements || []).map(clonePlacement);
     state.slots = normalizeSlots(page.slots, selectedGrid().cols * selectedGrid().rows);
+    state.images = (page.images || []).map((image) => ({ ...image }));
+    state.selectedSlots.clear();
+    state.slotSelectMode = false;
     state.nextZ = Math.max(
       Number(page.nextZ) || 1,
       Math.max(0, ...state.placements.map((entry) => Number(entry.z) || 0)) + 1,
@@ -639,6 +663,7 @@
       ratioNote.className = "studio-custom-ratio-note";
     }
     renderPageControls();
+    updateArtUi();
     updateSaveUi();
     updateCustomPrintUi();
   }
@@ -681,6 +706,7 @@
     const sourcePage = captureCurrentPage();
     if (!sourcePage) return;
     await hydratePageBackground(sourcePage);
+    await hydratePageImages(sourcePage);
     const copy = blankPage(makeId("page"), `${sourcePage.grid.cols}x${sourcePage.grid.rows}`);
     copy.sourceBlob = sourcePage.sourceBlob;
     copy.sourceFile = sourcePage.sourceFile
@@ -697,10 +723,17 @@
     const placementIdMap = new Map(
       sourcePage.placements.map((entry, index) => [entry.id, copy.placements[index]?.id || ""])
     );
+    copy.images = (sourcePage.images || []).map((image) => cloneImageSource(image, true));
+    const imageIdMap = new Map(
+      (sourcePage.images || []).map((image, index) => [image.id, copy.images[index]?.id || ""])
+    );
     copy.slots = sourcePage.slots.map((slot, index) => {
       const normalized = normalizeSlot(slot, index);
       if (normalized.type === "card") {
         normalized.placementId = placementIdMap.get(normalized.placementId) || "";
+      }
+      if (normalized.type === "image") {
+        normalized.imageId = imageIdMap.get(normalized.imageId) || "";
       }
       return normalized;
     });
@@ -721,6 +754,10 @@
     if (!window.confirm(`${pageTitle(index)}를 삭제할까요?`)) return;
     if (!page.isNew) state.deletedPageIds.add(page.id);
     if (page.chunkSet) state.orphanChunkSets.add(page.chunkSet);
+    (page.images || []).forEach((image) => {
+      if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
+      if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
+    });
     if (page.objectUrl) URL.revokeObjectURL(page.objectUrl);
     state.pages.splice(index, 1);
     const target = state.pages[Math.min(index, state.pages.length - 1)];
