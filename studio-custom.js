@@ -2466,6 +2466,43 @@
     return chunkCount;
   }
 
+  function publicDirectoryRef(publicId = state.publicProfile?.publicId) {
+    if (!state.firebase || !publicId) return null;
+    return state.firebase.firestoreModule.doc(
+      state.firebase.db,
+      "publicCollectorDirectory",
+      clean(publicId),
+    );
+  }
+
+  async function reconcilePublicDirectory() {
+    if (!state.firebase || !state.publicProfile?.publicId) return;
+    const { firestoreModule } = state.firebase;
+    const publicId = state.publicProfile.publicId;
+    const profileReference = firestoreModule.doc(
+      state.firebase.db,
+      "publicProfiles",
+      publicId,
+    );
+    const [collections, binders] = await Promise.all([
+      firestoreModule.getDocs(firestoreModule.collection(profileReference, "collections")),
+      firestoreModule.getDocs(firestoreModule.collection(profileReference, "binders")),
+    ]);
+    const directoryReference = publicDirectoryRef(publicId);
+    if (!directoryReference) return;
+    if (collections.empty && binders.empty) {
+      await firestoreModule.deleteDoc(directoryReference).catch((error) => {
+        if (String(error?.code || "").includes("not-found")) return;
+        throw error;
+      });
+      return;
+    }
+    await firestoreModule.setDoc(directoryReference, {
+      publicId,
+      updatedAt: firestoreModule.serverTimestamp(),
+    });
+  }
+
   async function removePublicBinderProjection({ confirmUser = false } = {}) {
     if (
       !state.firebase ||
@@ -2490,6 +2527,7 @@
       await batch.commit();
     }
     await firestoreModule.deleteDoc(reference);
+    await reconcilePublicDirectory();
     state.isPublished = false;
     renderShareUi("공개를 중단했습니다. 기존 공유 링크에서는 더 이상 열 수 없습니다.");
     return true;
@@ -2606,6 +2644,10 @@
         publishedAt: existing.exists()
           ? existing.data().publishedAt
           : now,
+        updatedAt: now,
+      });
+      batch.set(publicDirectoryRef(publicId), {
+        publicId,
         updatedAt: now,
       });
       await batch.commit();
