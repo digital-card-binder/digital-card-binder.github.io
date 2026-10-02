@@ -145,6 +145,20 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
         `M6a_${token} is not using the Korean official source`,
       );
     }
+
+    const megaPromoEnergyAssets = {
+      "M-P_GRA": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_GRA.png",
+      "M-P_FIR": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_FIR.png",
+      "M-P_WAT": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_WAT.png",
+    };
+    for (const [token, sourceUrl] of Object.entries(megaPromoEnergyAssets)) {
+      const asset = manifest.assets.find(
+        (entry) => entry.relativePath === `data/wmimages/MEGA/M-P/${token}.webp`,
+      );
+      assert.ok(asset, `${token} is missing from the archive manifest`);
+      assert.equal(asset.project, "modern");
+      assert.ok(asset.sourceUrls.includes(sourceUrl), `${token} lost its official source URL`);
+    }
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }
@@ -258,5 +272,35 @@ test("broken representative paths resolve to the same catalog cards and preserve
     assert.equal(image.src, router.resolve(card.image));
     assert.equal(router.restoreOriginal(image), true);
     assert.equal(image.src, card.image);
+  }
+});
+
+
+test("MEGA promo energy sources route to stable modern archive paths", () => {
+  const { window } = loadBrowserRouter();
+  for (const token of ["GRA", "FIR", "WAT"]) {
+    const source =
+      `https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_${token}.png`;
+    const route = routeCardImage(source);
+    assert.equal(route?.project, "modern");
+    assert.equal(route?.relativePath, `data/wmimages/MEGA/M-P/M-P_${token}.webp`);
+    assert.equal(
+      window.DigitalCardBinderImageCdn.destinationFor(source),
+      `https://dcb-card-images-modern-2026.pages.dev/data/wmimages/MEGA/M-P/M-P_${token}.webp`,
+    );
+  }
+});
+
+test("card image deployment follows catalog changes and verifies MEGA promo energies", () => {
+  const workflow = fs.readFileSync(
+    path.join(repositoryRoot, ".github/workflows/deploy-card-images.yml"),
+    "utf8",
+  );
+  assert.match(workflow, /- 'data\/\*\.json'/);
+  for (const token of ["GRA", "FIR", "WAT"]) {
+    assert.ok(
+      workflow.includes(`data/wmimages/MEGA/M-P/M-P_${token}.webp`),
+      `post-deploy verification is missing M-P_${token}`,
+    );
   }
 });
