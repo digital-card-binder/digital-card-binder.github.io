@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="카드 바인더 일러스트">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a3159"/>
+      <stop offset=".58" stop-color="#31448f"/>
+      <stop offset="1" stop-color="#673ea5"/>
+    </linearGradient>
+    <linearGradient id="cover" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#092642"/>
+      <stop offset="1" stop-color="#102f53"/>
+    </linearGradient>
+    <linearGradient id="pocket" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#effbff" stop-opacity=".92"/>
+      <stop offset="1" stop-color="#a7d7ff" stop-opacity=".72"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb45f"/>
+      <stop offset="1" stop-color="#8743bc"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#69e5ff"/>
+      <stop offset="1" stop-color="#3e62bf"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#001326" flood-opacity=".38"/>
+    </filter>
+  </defs>
+  <rect width="640" height="420" rx="36" fill="url(#bg)"/>
+  <circle cx="535" cy="92" r="92" fill="none" stroke="#7be7ff" stroke-opacity=".28" stroke-width="22"/>
+  <circle cx="535" cy="92" r="54" fill="#082c50" fill-opacity=".8"/>
+  <g transform="translate(130 54) rotate(-7 220 160)" filter="url(#shadow)">
+    <rect x="8" y="30" width="146" height="314" rx="26" fill="url(#cover)"/>
+    <rect x="115" y="28" width="328" height="314" rx="24" fill="#dff4ff" fill-opacity=".18" stroke="#b9eaff" stroke-opacity=".3" stroke-width="3"/>
+    <rect x="136" y="47" width="139" height="127" rx="12" fill="url(#pocket)" stroke="#e8fbff" stroke-opacity=".65" stroke-width="2"/>
+    <rect x="294" y="47" width="126" height="127" rx="12" fill="url(#pocket)" stroke="#e8fbff" stroke-opacity=".65" stroke-width="2"/>
+    <rect x="136" y="191" width="139" height="127" rx="12" fill="url(#pocket)" stroke="#e8fbff" stroke-opacity=".65" stroke-width="2"/>
+    <rect x="294" y="191" width="126" height="127" rx="12" fill="url(#pocket)" stroke="#e8fbff" stroke-opacity=".65" stroke-width="2"/>
+    <g>
+      <rect x="150" y="59" width="111" height="101" rx="8" fill="url(#cardA)"/>
+      <circle cx="205" cy="101" r="26" fill="#122d4f" fill-opacity=".56"/>
+      <path d="M184 116c16-33 39-40 51-15-13 2-22 10-26 23-9-8-17-10-25-8Z" fill="#dff7ff" fill-opacity=".82"/>
+    </g>
+    <g>
+      <rect x="306" y="59" width="101" height="101" rx="8" fill="url(#cardB)"/>
+      <circle cx="356" cy="104" r="29" fill="#0b355f" fill-opacity=".5"/>
+      <path d="M334 118c10-29 34-40 47-12-12 1-21 8-25 20-8-6-15-9-22-8Z" fill="#dff7ff" fill-opacity=".82"/>
+    </g>
+    <g>
+      <rect x="150" y="203" width="111" height="101" rx="8" fill="#e8b66c"/>
+      <circle cx="205" cy="250" r="27" fill="#8c5f2d" fill-opacity=".38"/>
+      <path d="M184 267c14-31 38-39 51-14-13 2-22 10-25 22-9-7-17-10-26-8Z" fill="#fff5da" fill-opacity=".84"/>
+    </g>
+    <g>
+      <rect x="306" y="203" width="101" height="101" rx="8" fill="#6d70d4"/>
+      <circle cx="356" cy="250" r="29" fill="#252e72" fill-opacity=".42"/>
+      <path d="M334 266c11-28 34-39 47-12-12 1-21 8-25 20-8-6-15-9-22-8Z" fill="#eef2ff" fill-opacity=".82"/>
+    </g>
+    <g fill="#d7e7f4">
+      <circle cx="119" cy="102" r="13"/><circle cx="119" cy="184" r="13"/><circle cx="119" cy="266" r="13"/>
+    </g>
+    <g fill="#5f7890">
+      <circle cx="119" cy="102" r="6"/><circle cx="119" cy="184" r="6"/><circle cx="119" cy="266" r="6"/>
+    </g>
+  </g>
+  <path d="M53 81h48M77 57v48" stroke="#55e4f0" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+</svg>
