@@ -3011,13 +3011,14 @@
           : `${state.pages.length}페이지 바인더를 불러왔습니다.`,
       );
       await refreshLibrary();
+      await refreshPublishState();
     } catch (error) {
       console.error("커스텀 바인더 불러오기 실패", error);
       updateSaveUi(clean(error?.message) || "저장한 작업을 불러오지 못했습니다.");
     }
   }
 
-  async function saveCurrentBinder() {
+  async function saveCurrentBinder(options = {}) {
     if (!state.user || !state.firebase) {
       updateSaveUi("Google 로그인 후 저장할 수 있습니다.");
       return;
@@ -3259,6 +3260,10 @@
       renderPageControls();
       updateSaveUi(`${state.pages.length}페이지를 나만의도감에 저장했습니다.`);
       await refreshLibrary();
+      renderShareUi();
+      if (state.isPublished && !options.skipPublicSync) {
+        await publishCurrentBinder({ silent: true, skipSave: true });
+      }
     } catch (error) {
       console.error("커스텀 바인더 저장 실패", error);
       updateSaveUi(clean(error?.message) || "저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
@@ -3277,6 +3282,9 @@
     const { firestoreModule, db } = state.firebase;
 
     try {
+      if (state.isPublished) {
+        await removePublicBinderProjection({ confirmUser: false });
+      }
       const [chunks, pages] = await Promise.all([
         firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
         firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
@@ -3324,6 +3332,8 @@
     state.deletedPageIds = new Set();
     state.orphanChunkSets = new Set();
     state.linkedDexId = "";
+    state.isPublished = false;
+    state.publishing = false;
     applyMissingDisplaySelection("color");
     renderLinkedDexUi();
     state.placements = [];
@@ -3344,6 +3354,7 @@
     if (clearUrl) setBinderUrl("");
     deleteButton.hidden = true;
     updateSaveUi();
+    renderShareUi();
     void refreshLibrary();
   }
 
@@ -3377,7 +3388,7 @@
       };
       state.user = await firstAuthUser(auth, authModule);
       updateSaveUi();
-      await Promise.all([refreshLibrary(), loadCustomDexes()]);
+      await Promise.all([refreshLibrary(), loadCustomDexes(), loadPublicProfile()]);
 
       const requestedBinder = clean(new URLSearchParams(window.location.search).get("binder"));
       if (requestedBinder && state.user) {
@@ -3481,7 +3492,15 @@
   saveButton.addEventListener("click", () => void saveCurrentBinder());
   newButton.addEventListener("click", () => resetEditor(true));
   deleteButton.addEventListener("click", () => void deleteCurrentBinder());
-  titleInput.addEventListener("input", () => updateSaveUi());
+  publishButton?.addEventListener("click", () => void publishCurrentBinder());
+  unpublishButton?.addEventListener("click", () =>
+    void removePublicBinderProjection({ confirmUser: true }),
+  );
+  copyLinkButton?.addEventListener("click", () => void copyPublicBinderLink());
+  titleInput.addEventListener("input", () => {
+    updateSaveUi();
+    renderShareUi();
+  });
   customPrintButton.addEventListener("click", () => void startCustomPrint());
   updateArtUi();
 
@@ -3505,5 +3524,6 @@
   activateTab(window.location.hash === "#studio-custom" ? "custom" : "print", false);
   updateSaveUi();
   updateCustomPrintUi();
+  renderShareUi();
   void initializePersistence();
 })();
