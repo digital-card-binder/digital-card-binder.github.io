@@ -2521,3 +2521,86 @@ body.collector-collection-page .world-story-header {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Custom binder visibility settings */
+.collector-binder-settings-panel {
+  scroll-margin-top: 88px;
+}
+
+.collector-binder-settings-grid .collector-binder-setting-card {
+  grid-template-columns: minmax(0, 1fr) minmax(190px, 240px);
+}
+
+.collector-binder-setting-icon {
+  position: relative;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #173c65, #4962a9);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.collector-binder-setting-icon::before {
+  position: absolute;
+  inset: 8px 7px;
+  border: 2px solid rgba(255,255,255,.86);
+  border-radius: 4px;
+  content: "";
+}
+
+.collector-binder-setting-icon::after {
+  position: absolute;
+  top: 11px;
+  left: 19px;
+  width: 2px;
+  height: 20px;
+  border-radius: 99px;
+  background: rgba(103, 232, 236, .92);
+  content: "";
+}
+
+.collector-binder-setting-card.is-return-highlight {
+  border-color: #79bac8;
+  box-shadow: 0 0 0 3px rgba(61, 158, 180, .1);
+}
+
+.collector-binder-public-switch input:disabled + i {
+  opacity: .48;
+}
+
+.collector-binder-settings-empty {
+  display: grid;
+  gap: 5px;
+  padding: 22px 16px;
+  border: 1px dashed #d5dce7;
+  border-radius: 14px;
+  background: #fafbfc;
+  text-align: center;
+}
+
+.collector-binder-settings-empty strong {
+  color: #344258;
+  font-size: 14px;
+}
+
+.collector-binder-settings-empty span {
+  color: #818a99;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .collector-binder-settings-grid .collector-binder-setting-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .collector-binder-settings-grid .collector-binder-public-switch {
+    min-height: 42px;
+    padding-top: 10px;
+    border-top: 1px solid #edf0f4;
+  }
+}
