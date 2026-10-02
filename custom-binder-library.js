@@ -101,7 +101,8 @@
       const fragment = document.createDocumentFragment();
       snapshot.forEach((documentSnapshot) => {
         const data = documentSnapshot.data() || {};
-        const grid = data.grid || {};
+        const isV2 = Number(data.schemaVersion) === 2;
+        const grid = isV2 ? (data.summary?.firstGrid || {}) : (data.grid || {});
         const item = document.createElement("article");
         item.className = "custom-binder-library-card";
 
@@ -111,7 +112,9 @@
         const meta = document.createElement("span");
         meta.textContent = [
           grid.cols && grid.rows ? `${grid.cols}×${grid.rows}` : "",
-          Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
+          isV2
+            ? `${Number(data.summary?.pageCount) || 1}페이지 · ${Number(data.summary?.cardCount) || 0}장 배치`
+            : Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
           formatTime(data.updatedAt),
         ].filter(Boolean).join(" · ");
         copy.append(title, meta);
