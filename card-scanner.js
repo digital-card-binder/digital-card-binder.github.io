@@ -470,24 +470,43 @@
     return output;
   }
 
-  function normalizeCardCanvas(source) {
+  function isNearCardAspectRatio(source) {
+    const width = source.width || source.naturalWidth;
+    const height = source.height || source.naturalHeight;
+    if (!width || !height) return false;
+    const ratio = width / height;
+    const cardRatio = 63 / 88;
+    return Math.abs(ratio - cardRatio) / cardRatio <= 0.04;
+  }
+
+  function normalizeCardCanvas(source, options = {}) {
+    if (options.preferWholeIfCardRatio && isNearCardAspectRatio(source)) {
+      return {
+        canvas: cropCanvas(source, { x: 0, y: 0, width: 1, height: 1 }, 504, 704),
+        corrected: false,
+        preservedWholeCard: true,
+      };
+    }
+
     const quad = detectCardQuad(source);
     if (quad) {
       return {
         canvas: warpCardPerspective(source, quad),
         corrected: true,
+        preservedWholeCard: false,
       };
     }
     return {
       canvas: cropCanvas(source, { x: 0, y: 0, width: 1, height: 1 }, 504, 704),
       corrected: false,
+      preservedWholeCard: false,
     };
   }
 
-  async function normalizedCanvasFromFile(file) {
+  async function normalizedCanvasFromFile(file, options = {}) {
     const image = await imageBitmapFromFile(file);
     try {
-      return normalizeCardCanvas(image);
+      return normalizeCardCanvas(image, options);
     } finally {
       if (typeof image.close === "function") image.close();
     }
@@ -1320,7 +1339,10 @@
   async function onPhotoSelected(event) {
     const file = event.target.files?.[0];
     if (!file) return;
-    await analyzeFile(file, { liveConsensus: null });
+    await analyzeFile(file, {
+      liveConsensus: null,
+      preferWholeIfCardRatio: event.currentTarget === els.fileInput,
+    });
   }
 
   async function analyzeFile(file, options = {}) {
@@ -1341,10 +1363,14 @@
 
     try {
       await loadSearchCards();
-      const prepared = await normalizedCanvasFromFile(file);
-      els.previewMeta.textContent = prepared.corrected
-        ? "카드 테두리를 감지해 원근을 보정했습니다."
-        : "카드 영역 자동 보정이 어려워 원본 비율 기준으로 분석합니다.";
+      const prepared = await normalizedCanvasFromFile(file, {
+        preferWholeIfCardRatio: Boolean(options.preferWholeIfCardRatio),
+      });
+      els.previewMeta.textContent = prepared.preservedWholeCard
+        ? "이미 카드 정면 이미지로 판단해 불필요한 원근보정을 생략했습니다."
+        : prepared.corrected
+          ? "카드 테두리를 감지해 원근을 보정했습니다."
+          : "카드 영역 자동 보정이 어려워 원본 비율 기준으로 분석합니다.";
 
       const visualPromise = findVisualCandidates(prepared.canvas).catch((error) => {
         console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
