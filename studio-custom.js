@@ -29,6 +29,10 @@
   const pageList = panel.querySelector("#studio-custom-page-list");
   const pagePreviewLabel = panel.querySelector("#studio-custom-page-preview-label");
   const artFileInput = panel.querySelector("#studio-custom-art-file");
+  const photoCameraInput = panel.querySelector("#studio-custom-photo-camera");
+  const photoAlbumInput = panel.querySelector("#studio-custom-photo-album");
+  const photoGridLabel = panel.querySelector("#studio-custom-photo-grid");
+  const photoStatus = panel.querySelector("#studio-custom-photo-status");
   const artFileLabel = panel.querySelector("#studio-custom-art-file-label");
   const artMeta = panel.querySelector("#studio-custom-art-meta");
   const artStatus = panel.querySelector("#studio-custom-art-status");
@@ -1208,6 +1212,7 @@
     if (state.placements.length) renderPlacements();
     else renderSearchResults(searchInput.value);
     updateCustomPrintUi();
+    updatePhotoImportUi();
   }
 
   function handleGridChange() {
@@ -1344,6 +1349,209 @@
       updateSaveUi();
       updateCustomPrintUi();
     };
+  }
+
+  function updatePhotoImportUi(message = "") {
+    if (photoGridLabel) {
+      const { cols, rows } = selectedGrid();
+      photoGridLabel.textContent = `${cols} × ${rows}`;
+    }
+    if (!photoStatus) return;
+    if (message) {
+      photoStatus.textContent = message;
+      return;
+    }
+    const { cols, rows } = selectedGrid();
+    photoStatus.textContent =
+      `현재 ${cols} × ${rows} 그리드로 사진을 나눠 가져옵니다. 현재 페이지의 슬롯 내용은 사진으로 교체됩니다.`;
+  }
+
+  function canvasBlob(canvas, type, quality) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(
+        (blob) => blob ? resolve(blob) : reject(new Error("이미지 변환에 실패했습니다.")),
+        type,
+        quality,
+      );
+    });
+  }
+
+  async function normalizeBinderPhoto(file) {
+    if (!file || !String(file.type || "").startsWith("image/")) {
+      throw new Error("이미지 파일을 선택해 주세요.");
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      throw new Error("사진은 최대 25MB까지 가져올 수 있습니다.");
+    }
+
+    const sourceUrl = URL.createObjectURL(file);
+    try {
+      const image = new Image();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error("사진을 읽지 못했습니다. JPG, PNG 또는 WEBP 사진으로 다시 시도해 주세요."));
+        image.src = sourceUrl;
+      });
+
+      const sourceWidth = image.naturalWidth;
+      const sourceHeight = image.naturalHeight;
+      if (!sourceWidth || !sourceHeight) {
+        throw new Error("사진 크기를 확인하지 못했습니다.");
+      }
+
+      const maxDimension = 4200;
+      const scale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d", { alpha: false });
+      if (!context) throw new Error("사진 변환 기능을 사용할 수 없습니다.");
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, width, height);
+      context.drawImage(image, 0, 0, width, height);
+
+      let blob;
+      try {
+        blob = await canvasBlob(canvas, "image/webp", 0.92);
+      } catch {
+        blob = await canvasBlob(canvas, "image/jpeg", 0.92);
+      }
+      if (blob.size > 10 * 1024 * 1024) {
+        const reducedWidth = Math.max(1, Math.round(width * 0.82));
+        const reducedHeight = Math.max(1, Math.round(height * 0.82));
+        const reduced = document.createElement("canvas");
+        reduced.width = reducedWidth;
+        reduced.height = reducedHeight;
+        const reducedContext = reduced.getContext("2d", { alpha: false });
+        if (!reducedContext) throw new Error("사진 용량을 줄이지 못했습니다.");
+        reducedContext.fillStyle = "#ffffff";
+        reducedContext.fillRect(0, 0, reducedWidth, reducedHeight);
+        reducedContext.drawImage(canvas, 0, 0, reducedWidth, reducedHeight);
+        try {
+          blob = await canvasBlob(reduced, "image/webp", 0.84);
+        } catch {
+          blob = await canvasBlob(reduced, "image/jpeg", 0.84);
+        }
+        return {
+          blob,
+          width: reducedWidth,
+          height: reducedHeight,
+          name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.webp`,
+        };
+      }
+
+      return {
+        blob,
+        width,
+        height,
+        name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.webp`,
+      };
+    } finally {
+      URL.revokeObjectURL(sourceUrl);
+    }
+  }
+
+  function currentPageHasSlotContent() {
+    return Boolean(
+      state.placements.length ||
+      state.slots.some((slot) => slot.type !== "empty"),
+    );
+  }
+
+  async function importBinderPhoto(file) {
+    if (!file) return;
+    const { cols, rows } = selectedGrid();
+    if (
+      currentPageHasSlotContent() &&
+      !window.confirm("현재 페이지의 카드·슬롯 이미지를 사진으로 교체할까요? 저장 전이라면 기존 배치는 사라집니다.")
+    ) {
+      if (photoCameraInput) photoCameraInput.value = "";
+      if (photoAlbumInput) photoAlbumInput.value = "";
+      return;
+    }
+
+    updatePhotoImportUi("사진을 가져오는 중입니다…");
+    try {
+      const prepared = await normalizeBinderPhoto(file);
+      if (prepared.blob.size > 10 * 1024 * 1024) {
+        throw new Error("사진을 최적화한 뒤에도 용량이 큽니다. 더 작은 사진으로 다시 시도해 주세요.");
+      }
+
+      state.images.forEach((image) => {
+        if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
+        if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
+      });
+
+      state.placements = [];
+      state.selectedId = "";
+      state.nextZ = 1;
+      state.selectedSlots.clear();
+      state.slotSelectMode = false;
+
+      const source = {
+        id: makeId("photo"),
+        name: prepared.name.slice(0, 180),
+        type: prepared.blob.type || "image/webp",
+        size: prepared.blob.size,
+        width: prepared.width,
+        height: prepared.height,
+        chunkCount: 0,
+        chunkSet: "",
+        blob: prepared.blob,
+        objectUrl: URL.createObjectURL(prepared.blob),
+        dirty: true,
+      };
+      state.images = [source];
+
+      const count = cols * rows;
+      state.slots = Array.from({ length: count }, (_, index) => {
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        return {
+          index,
+          type: "image",
+          imageId: source.id,
+          crop: {
+            x: Number((col / cols).toFixed(6)),
+            y: Number((row / rows).toFixed(6)),
+            width: Number((1 / cols).toFixed(6)),
+            height: Number((1 / rows).toFixed(6)),
+          },
+        };
+      });
+
+      previewEmpty.hidden = true;
+      previewWrap.hidden = false;
+      renderSlotLayer();
+      renderPlacements();
+      captureCurrentPage();
+      renderPageControls();
+      updateSaveUi();
+      updateCustomPrintUi();
+
+      const expected = (cols * CARD_WIDTH_MM) / (rows * CARD_HEIGHT_MM);
+      const actual = prepared.width / prepared.height;
+      const gap = Math.abs(actual - expected) / expected;
+      const sizeText =
+        `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px`;
+      if (gap > 0.16) {
+        updatePhotoImportUi(
+          `${cols} × ${rows}로 가져왔습니다 · ${sizeText}. 사진 비율이 그리드와 다르므로 2번 그리드가 실제 바인더와 같은지 확인해 주세요.`,
+        );
+      } else {
+        updatePhotoImportUi(
+          `${cols} × ${rows} · ${count}칸으로 가져왔습니다 · ${sizeText}. 필요한 칸만 카드로 교체하거나 그대로 저장할 수 있습니다.`,
+        );
+      }
+    } catch (error) {
+      console.error("바인더 사진 가져오기 실패", error);
+      updatePhotoImportUi(clean(error?.message) || "사진을 가져오지 못했습니다. 다른 사진으로 다시 시도해 주세요.");
+    } finally {
+      if (photoCameraInput) photoCameraInput.value = "";
+      if (photoAlbumInput) photoAlbumInput.value = "";
+    }
   }
 
   async function loadArtFile(file) {
@@ -3472,6 +3680,8 @@
     updateSaveUi();
   });
   fileInput.addEventListener("change", () => loadFile(fileInput.files?.[0]));
+  photoCameraInput?.addEventListener("change", () => void importBinderPhoto(photoCameraInput.files?.[0]));
+  photoAlbumInput?.addEventListener("change", () => void importBinderPhoto(photoAlbumInput.files?.[0]));
   artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
   slotSelectToggle?.addEventListener("click", () => {
     setSlotSelectMode(!state.slotSelectMode);
@@ -3545,6 +3755,7 @@
   });
   customPrintButton.addEventListener("click", () => void startCustomPrint());
   updateArtUi();
+  updatePhotoImportUi();
 
   window.addEventListener("resize", () => {
     state.placements.forEach(clampPlacement);
