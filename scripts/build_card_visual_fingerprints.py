@@ -165,6 +165,70 @@ def read_remote_payload(url: str, *, browser_headers: bool = False) -> bytes:
         return response.read(8 * 1024 * 1024)
 
 
+def source_url_candidates(source_url: str) -> list[str]:
+    source_url = str(source_url or "").strip()
+    if not source_url:
+        return []
+
+    parsed = urlsplit(source_url)
+    candidates: list[str] = []
+    seen: set[str] = set()
+
+    def add(path: str) -> None:
+        value = urlunsplit((parsed.scheme, parsed.netloc, path, parsed.query, parsed.fragment))
+        if value and value not in seen:
+            seen.add(value)
+            candidates.append(value)
+
+    add(parsed.path)
+    if parsed.hostname != "tcgbox.co.kr":
+        return candidates
+
+    parts = parsed.path.split("/")
+    if len(parts) < 2:
+        return candidates
+
+    filename = parts[-1]
+    base, extension = os.path.splitext(filename)
+    bases = [base]
+    no_copy = base
+    if no_copy.lower().endswith(" copy"):
+        no_copy = no_copy[:-5]
+        bases.append(no_copy)
+
+    for value in list(bases):
+        bases.append(value.replace(" ", "_"))
+        bases.append(value.replace("_", " "))
+
+    unique_bases: list[str] = []
+    for value in bases:
+        if value and value not in unique_bases:
+            unique_bases.append(value)
+
+    size_index = next((i for i, value in enumerate(parts) if value in {"big", "medium"}), -1)
+    size_variants = [parts[size_index]] if size_index >= 0 else [""]
+    if size_index >= 0:
+        size_variants.append("medium" if parts[size_index] == "big" else "big")
+
+    folder_index = len(parts) - 2
+    folder_variants = [parts[folder_index]]
+    for value in (parts[folder_index].lower(), parts[folder_index].upper()):
+        if value not in folder_variants:
+            folder_variants.append(value)
+
+    for size in size_variants:
+        for folder in folder_variants:
+            for candidate_base in unique_bases:
+                candidate_parts = list(parts)
+                if size_index >= 0:
+                    candidate_parts[size_index] = size
+                candidate_parts[folder_index] = folder
+                candidate_parts[-1] = candidate_base + extension
+                add("/".join(candidate_parts))
+
+    return candidates
+
+
 def payload_candidates(
     project: str,
     relative_path: str,
@@ -180,10 +244,15 @@ def payload_candidates(
         return
 
     errors: list[str] = []
-    for label, url, browser_headers in (
+    remote_candidates = [
         ("cloudflare-archive", public_url(project, relative_path), False),
-        ("source", source_url, True),
-    ):
+    ]
+    remote_candidates.extend(
+        (f"source-{index + 1}", url, True)
+        for index, url in enumerate(source_url_candidates(source_url))
+    )
+
+    for label, url, browser_headers in remote_candidates:
         if not url:
             continue
         try:
