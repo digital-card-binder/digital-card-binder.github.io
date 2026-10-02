@@ -1065,6 +1065,116 @@
     };
   }
 
+  async function loadArtFile(file) {
+    if (!file) return;
+    const allowed = new Set(["image/png", "image/jpeg", "image/webp"]);
+    if (!allowed.has(file.type)) {
+      window.alert("PNG, JPG, WEBP 이미지만 사용할 수 있습니다.");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      window.alert("이미지는 최대 10MB까지 사용할 수 있습니다.");
+      return;
+    }
+
+    if (state.artObjectUrl) URL.revokeObjectURL(state.artObjectUrl);
+    state.artFile = file;
+    state.artBlob = file;
+    state.artObjectUrl = URL.createObjectURL(file);
+    state.artWidth = 0;
+    state.artHeight = 0;
+    if (artFileLabel) artFileLabel.textContent = file.name;
+    if (artMeta) artMeta.textContent = `${(file.size / 1024 / 1024).toFixed(2)}MB · 이미지 확인 중…`;
+
+    try {
+      const image = new Image();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error("이미지를 읽지 못했습니다."));
+        image.src = state.artObjectUrl;
+      });
+      state.artWidth = image.naturalWidth;
+      state.artHeight = image.naturalHeight;
+      if (artMeta) {
+        artMeta.textContent =
+          `${state.artWidth.toLocaleString("ko-KR")} × ${state.artHeight.toLocaleString("ko-KR")}px · ${(file.size / 1024 / 1024).toFixed(2)}MB`;
+      }
+      state.slotSelectMode = true;
+      updateArtUi("확장 이미지를 준비했습니다. 미리보기에서 넣을 슬롯을 선택하세요.");
+      renderSlotLayer();
+    } catch (error) {
+      console.error("슬롯 이미지 읽기 실패", error);
+      state.artFile = null;
+      state.artBlob = null;
+      state.artWidth = 0;
+      state.artHeight = 0;
+      if (artMeta) artMeta.textContent = "이미지를 읽지 못했습니다.";
+      updateArtUi("이미지를 읽지 못했습니다. 다른 이미지를 선택해 주세요.");
+    }
+  }
+
+  function applyArtToSelectedSlots() {
+    const selected = selectedSlotIndexes();
+    if (!state.artBlob || !selected.length) return;
+    const { cols } = selectedGrid();
+    const coordinates = selected.map((index) => ({
+      index,
+      col: index % cols,
+      row: Math.floor(index / cols),
+    }));
+    const minCol = Math.min(...coordinates.map((item) => item.col));
+    const maxCol = Math.max(...coordinates.map((item) => item.col));
+    const minRow = Math.min(...coordinates.map((item) => item.row));
+    const maxRow = Math.max(...coordinates.map((item) => item.row));
+    const spanCols = maxCol - minCol + 1;
+    const spanRows = maxRow - minRow + 1;
+
+    const source = {
+      id: makeId("image"),
+      name: (clean(state.artFile?.name) || "slot-image.webp").slice(0, 180),
+      type: clean(state.artBlob.type || state.artFile?.type) || "image/webp",
+      size: state.artBlob.size,
+      width: state.artWidth,
+      height: state.artHeight,
+      chunkCount: 0,
+      chunkSet: "",
+      blob: state.artBlob,
+      objectUrl: URL.createObjectURL(state.artBlob),
+      dirty: true,
+    };
+    state.images.push(source);
+
+    coordinates.forEach(({ index, col, row }) => {
+      removeCardAtSlot(index);
+      state.slots[index] = {
+        index,
+        type: "image",
+        imageId: source.id,
+        crop: {
+          x: Number(((col - minCol) / spanCols).toFixed(6)),
+          y: Number(((row - minRow) / spanRows).toFixed(6)),
+          width: Number((1 / spanCols).toFixed(6)),
+          height: Number((1 / spanRows).toFixed(6)),
+        },
+      };
+    });
+
+    pruneUnusedImages();
+    state.selectedId = "";
+    state.selectedSlots.clear();
+    state.slotSelectMode = false;
+    renderSlotLayer();
+    renderPlacements();
+    captureCurrentPage();
+    updateArtUi(`${selected.length}칸에 이미지를 자동분할했습니다.`);
+  }
+
+  function availableCardTargetIndex() {
+    const selected = selectedSlotIndexes();
+    if (selected.length === 1) return selected[0];
+    return state.slots.findIndex((slot) => slot.type === "empty");
+  }
+
   function cardImage(card) {
     return clean(card?.originalImage || card?.image || card?.imageUrl);
   }
@@ -1167,7 +1277,7 @@
     const add = document.createElement("button");
     add.type = "button";
     add.textContent = "추가";
-    add.disabled = !state.slots.some((slot) => slot.type === "empty");
+    add.disabled = availableCardTargetIndex() < 0;
     add.addEventListener("click", () => addCard(card));
 
     row.append(image, copy, add);
@@ -1193,8 +1303,11 @@
     const matches = catalogMatches(normalized);
     searchResults.replaceChildren(...matches.map(resultCard));
     searchResults.hidden = false;
-    if (!state.slots.some((slot) => slot.type === "empty")) {
-      searchStatus.textContent = `${matches.length}장 찾음 · 현재 페이지의 모든 슬롯이 사용 중입니다.`;
+    const selected = selectedSlotIndexes();
+    if (selected.length === 1) {
+      searchStatus.textContent = `${matches.length}장 찾음 · 선택한 ${selected[0] + 1}번 슬롯의 내용을 카드로 교체할 수 있습니다.`;
+    } else if (!state.slots.some((slot) => slot.type === "empty")) {
+      searchStatus.textContent = `${matches.length}장 찾음 · 빈 슬롯이 없습니다. 교체할 슬롯 하나를 먼저 선택하세요.`;
     } else {
       searchStatus.textContent = `${matches.length}장 찾음 · 빈 슬롯부터 자동으로 배치됩니다.`;
     }
@@ -1247,6 +1360,43 @@
     entry.y = Math.max(0, Math.min(Math.max(0, 100 - height), entry.y));
   }
 
+  function snapEntryToSlot(entry, slotIndex) {
+    const geometry = slotGeometry(slotIndex);
+    entry.slotIndex = slotIndex;
+    entry.x = geometry.x;
+    entry.y = geometry.y;
+    entry.width = geometry.width;
+    entry.rotation = 0;
+  }
+
+  function movePlacementToSlot(entry, targetIndex, originIndex = null) {
+    const count = selectedGrid().cols * selectedGrid().rows;
+    if (!entry || targetIndex < 0 || targetIndex >= count) return;
+    const target = state.slots[targetIndex];
+
+    if (target?.type === "card" && target.placementId !== entry.id) {
+      const other = state.placements.find((item) => item.id === target.placementId);
+      if (other) {
+        if (Number.isInteger(originIndex) && originIndex >= 0 && originIndex < count) {
+          snapEntryToSlot(other, originIndex);
+        } else {
+          other.slotIndex = null;
+        }
+      }
+    }
+
+    if (target?.type === "image") {
+      state.slots[targetIndex] = { index: targetIndex, type: "empty" };
+    }
+
+    snapEntryToSlot(entry, targetIndex);
+    syncSlotsFromPlacements();
+    pruneUnusedImages();
+    renderSlotLayer();
+    renderPlacements();
+    captureCurrentPage();
+  }
+
   function placementNode(entry) {
     const node = document.createElement("div");
     node.className = "studio-custom-card-placement";
@@ -1283,15 +1433,17 @@
       const startClientY = event.clientY;
       const startX = entry.x;
       const startY = entry.y;
-      entry.slotIndex = null;
-      syncSlotsFromPlacements();
-      renderSlotLayer();
+      const originSlotIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
+      let moved = false;
       node.setPointerCapture?.(event.pointerId);
       node.classList.add("is-dragging");
 
       const move = (moveEvent) => {
-        const dx = ((moveEvent.clientX - startClientX) / stageRect.width) * 100;
-        const dy = ((moveEvent.clientY - startClientY) / stageRect.height) * 100;
+        const dxPx = moveEvent.clientX - startClientX;
+        const dyPx = moveEvent.clientY - startClientY;
+        if (Math.hypot(dxPx, dyPx) > 4) moved = true;
+        const dx = (dxPx / stageRect.width) * 100;
+        const dy = (dyPx / stageRect.height) * 100;
         entry.x = startX + dx;
         entry.y = startY + dy;
         clampPlacement(entry);
@@ -1304,7 +1456,11 @@
         node.removeEventListener("pointermove", move);
         node.removeEventListener("pointerup", finish);
         node.removeEventListener("pointercancel", finish);
-        captureCurrentPage();
+        if (moved && Number.isInteger(originSlotIndex)) {
+          movePlacementToSlot(entry, slotIndexFromPlacement(entry), originSlotIndex);
+        } else {
+          captureCurrentPage();
+        }
       };
 
       node.addEventListener("pointermove", move);
@@ -1325,12 +1481,13 @@
   }
 
   function addCard(card) {
-    const slotIndex = state.slots.findIndex((slot) => slot.type === "empty");
+    const slotIndex = availableCardTargetIndex();
     if (slotIndex < 0) {
-      window.alert("현재 페이지의 모든 슬롯이 사용 중입니다.");
+      window.alert("빈 슬롯이 없습니다. 교체할 슬롯 하나를 먼저 선택해 주세요.");
       return;
     }
 
+    removeCardAtSlot(slotIndex);
     const geometry = slotGeometry(slotIndex);
     const entry = {
       id: makeId("card"),
@@ -1358,9 +1515,13 @@
       sourceKey: clean(card.key),
     };
     state.selectedId = entry.id;
+    state.selectedSlots.clear();
+    state.slotSelectMode = false;
+    pruneUnusedImages();
     renderSlotLayer();
     renderPlacements();
     captureCurrentPage();
+    updateArtUi("선택한 슬롯을 실제 카드로 교체했습니다.");
   }
 
   function rotateSelected(delta) {
@@ -1382,25 +1543,8 @@
     const col = Math.max(0, Math.min(cols - 1, Math.floor(centerX / cellW)));
     const row = Math.max(0, Math.min(rows - 1, Math.floor(centerY / cellH)));
     const slotIndex = row * cols + col;
-    const occupied = state.slots[slotIndex];
-    if (
-      occupied &&
-      occupied.type !== "empty" &&
-      occupied.placementId !== entry.id
-    ) {
-      window.alert("해당 칸은 이미 사용 중입니다.");
-      return;
-    }
-    entry.slotIndex = slotIndex;
-    const geometry = slotGeometry(slotIndex);
-    entry.x = geometry.x;
-    entry.y = geometry.y;
-    entry.width = geometry.width;
-    entry.rotation = 0;
-    syncSlotsFromPlacements();
-    renderSlotLayer();
-    renderPlacements();
-    captureCurrentPage();
+    const originIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
+    movePlacementToSlot(entry, slotIndex, originIndex);
   }
 
   function frontSelected() {
