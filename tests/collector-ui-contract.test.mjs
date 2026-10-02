@@ -1346,7 +1346,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(help, /"1": \{/);
   assert.match(help, /"9": \{/);
   assert.match(help, /showModal/);
-  assert.match(help, /사용 방법/);
+  assert.match(help, /확장 이미지 배치/);
   assert.match(editor, /catalogService[?][.]series/);
   assert.match(editor, /identityService[?][.]cardIdentity/);
   assert.match(editor, /function addPage/);
