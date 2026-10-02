@@ -69,6 +69,12 @@
   const customPrintSummary = panel.querySelector("#studio-custom-print-summary");
   const customPrintNote = panel.querySelector("#studio-custom-print-note");
   const customPrintSizeInputs = [...panel.querySelectorAll('input[name="studio-custom-print-size"]')];
+  const shareStatus = panel.querySelector("#studio-custom-share-status");
+  const publishButton = panel.querySelector("#studio-custom-publish-button");
+  const unpublishButton = panel.querySelector("#studio-custom-unpublish-button");
+  const shareLinkWrap = panel.querySelector("#studio-custom-share-link-wrap");
+  const shareUrlInput = panel.querySelector("#studio-custom-share-url");
+  const copyLinkButton = panel.querySelector("#studio-custom-copy-link");
   const printRoot = document.querySelector("#studio-print-root");
 
   const SDK_VERSION = "12.16.0";
@@ -86,6 +92,7 @@
   const A4_WIDTH_MM = 210;
   const A4_HEIGHT_MM = 297;
   const PREVIEW_PX_PER_MM = 1.5;
+  const PUBLIC_PREVIEW_PX_PER_MM = 4;
 
   const state = {
     objectUrl: "",
@@ -124,6 +131,9 @@
     linkedDexId: "",
     customDexes: new Map(),
     missingCardDisplay: "color",
+    publicProfile: null,
+    isPublished: false,
+    publishing: false,
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
@@ -296,6 +306,89 @@
     const input = missingDisplayInputs.find((item) => item.value === normalized)
       || missingDisplayInputs.find((item) => item.value === "color");
     if (input) input.checked = true;
+  }
+
+  function publicBinderUrl() {
+    const publicId = clean(state.publicProfile?.publicId);
+    if (!publicId || !state.currentBinderId) return "";
+    const url = new URL("./binder.html", window.location.href);
+    url.searchParams.set("collector", publicId);
+    url.searchParams.set("binder", state.currentBinderId);
+    return url.href;
+  }
+
+  function renderShareUi(message = "") {
+    if (!shareStatus || !publishButton || !unpublishButton || !shareLinkWrap) return;
+    const profileReady = Boolean(
+      state.publicProfile?.profileCompleted &&
+      /^[a-z0-9]{12}$/.test(clean(state.publicProfile?.publicId)),
+    );
+    const canPublish = Boolean(
+      state.user &&
+      profileReady &&
+      state.currentBinderId &&
+      !state.publishing &&
+      !state.saving,
+    );
+
+    publishButton.disabled = !canPublish || state.isPublished;
+    publishButton.hidden = state.isPublished;
+    unpublishButton.disabled = !canPublish;
+    unpublishButton.hidden = !state.isPublished;
+    shareLinkWrap.hidden = !state.isPublished;
+    if (shareUrlInput) shareUrlInput.value = state.isPublished ? publicBinderUrl() : "";
+
+    if (message) {
+      shareStatus.textContent = message;
+      return;
+    }
+    if (!state.user) {
+      shareStatus.textContent = "Google 로그인 후 바인더를 공개할 수 있습니다.";
+    } else if (!profileReady) {
+      shareStatus.innerHTML = "";
+      const text = document.createTextNode("컬렉터 프로필을 먼저 완성해 주세요. ");
+      const link = document.createElement("a");
+      link.href = "./collector-settings.html";
+      link.textContent = "프로필 설정";
+      shareStatus.append(text, link);
+    } else if (!state.currentBinderId) {
+      shareStatus.textContent = "바인더를 먼저 저장하면 공개 링크를 만들 수 있습니다.";
+    } else if (state.publishing) {
+      shareStatus.textContent = "공개본을 만들고 있습니다…";
+    } else if (state.isPublished) {
+      shareStatus.textContent = "공개 중 · 저장할 때마다 공개본도 최신 상태로 갱신됩니다.";
+    } else {
+      shareStatus.textContent = "현재 비공개 · 공개하면 컬렉터 프로필과 공유 링크에서 읽기 전용으로 볼 수 있습니다.";
+    }
+  }
+
+  async function loadPublicProfile() {
+    state.publicProfile = null;
+    if (!state.user || !state.firebase) {
+      renderShareUi();
+      return;
+    }
+    try {
+      const { firestoreModule, db } = state.firebase;
+      const snapshot = await firestoreModule.getDoc(
+        firestoreModule.doc(db, "users", state.user.uid, "profile", "main"),
+      );
+      const data = snapshot.exists() ? snapshot.data() || {} : {};
+      if (
+        data.profileCompleted === true &&
+        /^[a-z0-9]{12}$/.test(clean(data.publicId))
+      ) {
+        state.publicProfile = {
+          publicId: clean(data.publicId),
+          nickname: clean(data.nickname) || "컬렉터",
+          profileCompleted: true,
+        };
+      }
+      renderShareUi();
+    } catch (error) {
+      console.error("바인더 공개 프로필 확인 실패", error);
+      renderShareUi("컬렉터 프로필을 확인하지 못했습니다.");
+    }
   }
 
   function makeId(prefix) {
