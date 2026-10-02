@@ -362,3 +362,150 @@
     border-radius: 4px;
   }
 }
+
+
+/* 2026 refined public binder presentation */
+.binder-public-heading {
+  border-color: #e0e4e8;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(31, 43, 54, .04);
+}
+
+.binder-public-summary > span {
+  border-color: #e2e6e9;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.binder-public-reader {
+  border-color: #e0e5e8;
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(27, 41, 52, .055);
+}
+
+.binder-public-reader-head button,
+.binder-public-page-list button {
+  border-color: #dfe4e8;
+  background: #fff;
+  color: #536675;
+  box-shadow: none;
+}
+
+.binder-public-page-list button.is-active {
+  border-color: #aebfca;
+  background: #f1f4f6;
+  color: #263f51;
+}
+
+.binder-public-canvas {
+  border: 1px solid #e3e6e9;
+  border-radius: 15px;
+  background: #f2f3f4;
+  padding: 20px;
+}
+
+.binder-public-shell {
+  --binder-cover: #26323c;
+  --binder-cover-dark: #1c252d;
+  --binder-ring: #cfd5d9;
+  grid-template-columns: 22px minmax(0, 1fr);
+  border: 1px solid #1d2830;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #202b34 0 22px, #293640 22px 100%);
+  padding: 7px 8px 7px 5px;
+  box-shadow:
+    0 14px 30px rgba(29, 39, 47, .16),
+    inset 0 1px 0 rgba(255,255,255,.045);
+}
+
+.binder-public-spine {
+  padding: 9% 0;
+}
+
+.binder-public-spine span {
+  width: 7px;
+  height: 7px;
+  border: 1px solid #c9d0d5;
+  background: #f3f5f6;
+  box-shadow: 0 0 0 2px rgba(24, 34, 41, .35);
+}
+
+.binder-public-spine span::after {
+  left: 5px;
+  width: 8px;
+  height: 2px;
+  border: 0;
+  border-radius: 999px;
+  background: #c9d0d5;
+}
+
+.binder-public-page-frame {
+  border: 6px solid #f5f6f6;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1px rgba(84, 98, 108, .1),
+    0 3px 10px rgba(25, 35, 43, .12);
+}
+
+.binder-public-page-frame img {
+  border-radius: 3px;
+}
+
+.binder-public-pocket-grid {
+  border-color: rgba(83, 96, 106, .12);
+  border-radius: 3px;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc((100% / var(--binder-cols)) - .7px),
+      rgba(77, 89, 98, .19) calc((100% / var(--binder-cols)) - .7px),
+      rgba(77, 89, 98, .19) calc(100% / var(--binder-cols))
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc((100% / var(--binder-rows)) - .7px),
+      rgba(77, 89, 98, .19) calc((100% / var(--binder-rows)) - .7px),
+      rgba(77, 89, 98, .19) calc(100% / var(--binder-rows))
+    );
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);
+}
+
+.binder-public-sheet-shine {
+  border-radius: 3px;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.11), transparent 24% 78%, rgba(255,255,255,.045));
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 690px) {
+  .binder-public-canvas {
+    padding: 9px 4px;
+  }
+
+  .binder-public-shell {
+    grid-template-columns: 16px minmax(0, 1fr);
+    border-radius: 11px;
+    background: linear-gradient(90deg, #202b34 0 16px, #293640 16px 100%);
+    padding: 5px 5px 5px 3px;
+  }
+
+  .binder-public-spine span {
+    width: 5px;
+    height: 5px;
+  }
+
+  .binder-public-spine span::after {
+    left: 4px;
+    width: 6px;
+    height: 1px;
+  }
+
+  .binder-public-page-frame {
+    border-width: 4px;
+    border-radius: 7px;
+  }
+}
