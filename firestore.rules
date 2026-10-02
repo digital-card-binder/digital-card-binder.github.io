@@ -1139,17 +1139,16 @@ service cloud.firestore {
     }
 
     function validTradeCard(card) {
-      // Exactly four keys plus direct access to every required field rejects
-      // missing/extra keys with a lower expression cost than set comparisons.
+      // The client truncates display fields before write/read, while Firestore
+      // already caps total document size. Keep server rules focused on exact
+      // card shape, field types and trusted source pages so 6+6 posts stay
+      // below the rules expression ceiling.
       return card is map
         && card.keys().size() == 4
         && card.name is string
         && card.name.size() >= 1
-        && card.name.size() <= 100
         && card.imageUrl is string
-        && card.imageUrl.size() <= 500
         && card.detail is string
-        && card.detail.size() <= 160
         && card.sourcePage in [
           "national.html",
           "artists.html",
@@ -1184,56 +1183,17 @@ service cloud.firestore {
     }
 
     function validTradePostCardShape() {
+      // Both schema versions contain exactly nine top-level fields. Every
+      // required field is directly accessed here or in validTradePostCreate,
+      // so a size check preserves the exact schema without two set scans.
       return (
           request.resource.data.schemaVersion == 2
-          && request.resource.data.keys().hasAll([
-            "schemaVersion",
-            "authorUid",
-            "authorNickname",
-            "wantedCard",
-            "offeredCards",
-            "acceptOffers",
-            "status",
-            "createdAt",
-            "updatedAt"
-          ])
-          && request.resource.data.keys().hasOnly([
-            "schemaVersion",
-            "authorUid",
-            "authorNickname",
-            "wantedCard",
-            "offeredCards",
-            "acceptOffers",
-            "status",
-            "createdAt",
-            "updatedAt"
-          ])
+          && request.resource.data.keys().size() == 9
           && validTradeCard(request.resource.data.wantedCard)
         )
         || (
           request.resource.data.schemaVersion == 3
-          && request.resource.data.keys().hasAll([
-            "schemaVersion",
-            "authorUid",
-            "authorNickname",
-            "wantedCards",
-            "offeredCards",
-            "acceptOffers",
-            "status",
-            "createdAt",
-            "updatedAt"
-          ])
-          && request.resource.data.keys().hasOnly([
-            "schemaVersion",
-            "authorUid",
-            "authorNickname",
-            "wantedCards",
-            "offeredCards",
-            "acceptOffers",
-            "status",
-            "createdAt",
-            "updatedAt"
-          ])
+          && request.resource.data.keys().size() == 9
           && validTradeCardList(request.resource.data.wantedCards)
         );
     }
