@@ -1439,29 +1439,44 @@
     return first || DEFAULT_PAGE_ID;
   }
 
-  async function savedPageData(binderId, binderData) {
+  async function savedPagesData(binderId, binderData) {
     if (Number(binderData?.schemaVersion) !== BINDER_SCHEMA_VERSION) {
-      return {
+      return [{
         pageId: DEFAULT_PAGE_ID,
         page: binderData || {},
         pageCreatedAt: null,
         legacy: true,
-      };
+      }];
     }
 
-    const pageId = primaryPageId(binderData);
-    const reference = binderPageRef(binderId, pageId);
-    if (!reference) throw new Error("저장된 페이지 위치를 확인하지 못했습니다.");
-    const snapshot = await state.firebase.firestoreModule.getDoc(reference);
-    if (!snapshot.exists()) throw new Error("저장된 첫 페이지를 찾지 못했습니다.");
-    const page = snapshot.data() || {};
-    if (page.ownerUid !== state.user.uid) throw new Error("이 페이지를 열 권한이 없습니다.");
-    return {
-      pageId,
-      page,
-      pageCreatedAt: page.createdAt || null,
-      legacy: false,
-    };
+    const reference = binderRef(binderId);
+    const snapshot = await state.firebase.firestoreModule.getDocs(
+      state.firebase.firestoreModule.collection(reference, "pages"),
+    );
+    const pageMap = new Map(
+      snapshot.docs.map((documentSnapshot) => [
+        documentSnapshot.id,
+        documentSnapshot.data() || {},
+      ]),
+    );
+    const order = (Array.isArray(binderData.pageOrder) ? binderData.pageOrder : [])
+      .map(clean)
+      .filter(Boolean);
+    if (!order.length) throw new Error("저장된 바인더의 페이지 순서를 찾지 못했습니다.");
+
+    return order.map((pageId) => {
+      const page = pageMap.get(pageId);
+      if (!page) throw new Error(`저장된 페이지를 찾지 못했습니다: ${pageId}`);
+      if (page.ownerUid !== state.user.uid) {
+        throw new Error("이 페이지를 열 권한이 없습니다.");
+      }
+      return {
+        pageId,
+        page,
+        pageCreatedAt: page.createdAt || null,
+        legacy: false,
+      };
+    });
   }
 
   function updateSaveUi(message = "") {
@@ -1484,15 +1499,13 @@
     }
     if (message) {
       saveStatus.textContent = message;
-    } else if (!state.sourceBlob) {
-      saveStatus.textContent = "배경 일러스트를 올리면 저장할 수 있습니다.";
     } else if (state.currentBinderId) {
-      saveStatus.textContent = "현재 저장 작업을 수정 중입니다.";
+      saveStatus.textContent = `현재 ${state.pages.length}페이지 바인더를 수정 중입니다.`;
     } else {
-      saveStatus.textContent = "기존 도감과 분리된 개인 커스텀 바인더 영역에 저장됩니다.";
+      saveStatus.textContent = "배경 이미지 없이도 페이지와 카드 슬롯을 저장할 수 있습니다.";
     }
 
-    saveButton.disabled = state.saving || !state.sourceBlob;
+    saveButton.disabled = state.saving || !state.pages.length;
     saveButton.textContent = state.saving
       ? "저장 중…"
       : state.currentBinderId
@@ -1698,6 +1711,7 @@
       width: Number.isFinite(Number(entry?.width)) ? Number(entry.width) : 20,
       rotation: Number.isFinite(Number(entry?.rotation)) ? Number(entry.rotation) : 0,
       z: Number.isFinite(Number(entry?.z)) ? Number(entry.z) : index + 1,
+      slotIndex: Number.isInteger(Number(entry?.slotIndex)) ? Number(entry.slotIndex) : null,
     };
   }
 
@@ -1715,62 +1729,57 @@
       const data = snapshot.data() || {};
       if (data.ownerUid !== state.user.uid) throw new Error("이 작업을 열 권한이 없습니다.");
 
-      const savedPage = await savedPageData(binderId, data);
-      const page = savedPage.page || {};
-      const background = page.background || {};
-      const blob = await readBackgroundBlob(reference, background);
-      if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+      const savedPages = await savedPagesData(binderId, data);
+      releasePageObjectUrls();
+      state.pages = savedPages.map((saved, index) => {
+        const page = saved.page || {};
+        const cols = Number(page.grid?.cols) || 3;
+        const rows = Number(page.grid?.rows) || 4;
+        const background = page.background || null;
+        const placements = (Array.isArray(page.cards) ? page.cards : [])
+          .slice(0, 20)
+          .map(restorePlacement);
+        const slots = normalizeSlots(page.slots, cols * rows);
+        return {
+          id: saved.pageId,
+          title: clean(page.title) || pageTitle(index),
+          grid: { cols, rows },
+          background,
+          sourceBlob: null,
+          sourceFile: null,
+          objectUrl: "",
+          sourceWidth: Number(background?.width) || 0,
+          sourceHeight: Number(background?.height) || 0,
+          backgroundDirty: false,
+          chunkCount: Number(background?.chunkCount) || 0,
+          chunkSet: clean(background?.chunkSet),
+          createdAt: saved.pageCreatedAt || null,
+          placements,
+          slots,
+          nextZ: Math.max(0, ...placements.map((entry) => Number(entry.z) || 0)) + 1,
+          loaded: true,
+          isNew: saved.legacy,
+        };
+      });
 
-      const gridValue = `${page.grid?.cols || 3}x${page.grid?.rows || 4}`;
-      const gridInput = gridInputs.find((input) => input.value === gridValue);
-      if (gridInput) gridInput.checked = true;
-
-      state.objectUrl = URL.createObjectURL(blob);
-      state.sourceBlob = blob;
-      state.sourceFile = {
-        name: clean(background.name) || "saved-background.webp",
-        type: clean(background.type) || blob.type,
-        size: blob.size,
-      };
-      state.backgroundDirty = false;
-      state.sourceWidth = Number(background.width) || 0;
-      state.sourceHeight = Number(background.height) || 0;
       state.currentBinderId = binderId;
       state.currentCreatedAt = data.createdAt || null;
       state.currentSchemaVersion = Number(data.schemaVersion) || 1;
-      state.currentPageId = savedPage.pageId;
-      state.currentPageCreatedAt = savedPage.pageCreatedAt;
-      state.currentChunkCount = Number(background.chunkCount) || 0;
-      state.currentChunkSet = clean(background.chunkSet);
-      state.placements = (Array.isArray(page.cards) ? page.cards : [])
-        .slice(0, 20)
-        .map(restorePlacement);
-      state.nextZ = Math.max(0, ...state.placements.map((entry) => entry.z)) + 1;
-      state.selectedId = "";
+      state.linkedDexId = clean(data.linkedDexId);
+      state.deletedPageIds = new Set();
+      state.orphanChunkSets = new Set();
       titleInput.value = clean(data.title);
 
-      previewImage.src = state.objectUrl;
-      previewImage.alt = state.sourceFile.name;
-      fileLabel.textContent = state.sourceFile.name;
-      imageMeta.textContent = "저장된 배경 이미지를 불러오는 중…";
-      previewImage.onload = () => {
-        state.sourceWidth = state.sourceWidth || previewImage.naturalWidth;
-        state.sourceHeight = state.sourceHeight || previewImage.naturalHeight;
-        previewEmpty.hidden = true;
-        previewWrap.hidden = false;
-        imageMeta.textContent =
-          `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · 저장된 작업`;
-        renderGrid();
-        renderPlacements();
-        updateRatioNote(state.sourceWidth, state.sourceHeight);
-      };
+      const firstPage = state.pages[0];
+      if (!firstPage) throw new Error("저장된 페이지가 없습니다.");
+      await applyPage(firstPage);
 
       setBinderUrl(binderId);
       deleteButton.hidden = false;
       updateSaveUi(
         state.currentSchemaVersion === 1
-          ? "기존 저장 작업을 불러왔습니다. 다음 저장 시 새 바인더 구조(v2)로 안전하게 전환됩니다."
-          : "저장한 작업을 불러왔습니다. 수정 후 다시 저장할 수 있습니다.",
+          ? "기존 저장 작업을 불러왔습니다. 다음 저장 시 여러 페이지 구조(v2)로 안전하게 전환됩니다."
+          : `${state.pages.length}페이지 바인더를 불러왔습니다.`,
       );
       await refreshLibrary();
     } catch (error) {
@@ -1784,10 +1793,6 @@
       updateSaveUi("Google 로그인 후 저장할 수 있습니다.");
       return;
     }
-    if (!state.sourceBlob) {
-      window.alert("먼저 배경 일러스트를 올려 주세요.");
-      return;
-    }
 
     const title = clean(titleInput.value).slice(0, 60);
     if (!title) {
@@ -1795,73 +1800,136 @@
       saveStatus.textContent = "작업 이름을 입력해 주세요.";
       return;
     }
-
+    if (!state.pages.length) {
+      window.alert("저장할 페이지가 없습니다.");
+      return;
+    }
     if (!state.currentBinderId && state.savedWorkCount >= MAX_SAVED_WORKS) {
       window.alert(`커스텀 바인더는 최대 ${MAX_SAVED_WORKS}개까지 저장할 수 있습니다.`);
       return;
     }
 
+    captureCurrentPage();
     state.saving = true;
-    updateSaveUi("배경 이미지와 카드 배치를 저장하고 있습니다…");
+    updateSaveUi(`${state.pages.length}페이지를 저장하고 있습니다…`);
 
     const binderId = state.currentBinderId || makeId("binder");
     const reference = binderRef(binderId);
-    const draft = draftSnapshot();
+    const firestoreModule = state.firebase.firestoreModule;
+
     try {
-      if (!state.sourceWidth || !state.sourceHeight || state.sourceWidth > 20000 || state.sourceHeight > 20000) {
-        throw new Error("배경 이미지의 가로·세로는 1~20,000px이어야 합니다.");
-      }
-      let chunkCount = state.currentChunkCount;
-      let chunkSet = state.currentChunkSet;
-      const previousChunkSet = state.currentChunkSet;
-      if (!state.currentBinderId || state.backgroundDirty || !chunkCount || !chunkSet) {
-        chunkSet = makeId("blob");
-        chunkCount = await writeBackgroundChunks(
-          reference,
-          state.sourceBlob,
-          chunkSet,
-        );
+      for (const page of state.pages) {
+        if (page.sourceBlob) {
+          if (
+            !page.sourceWidth ||
+            !page.sourceHeight ||
+            page.sourceWidth > 20000 ||
+            page.sourceHeight > 20000
+          ) {
+            throw new Error(`${page.title || "페이지"} 배경 이미지의 가로·세로는 1~20,000px이어야 합니다.`);
+          }
+          if (
+            !state.currentBinderId ||
+            page.backgroundDirty ||
+            !page.chunkCount ||
+            !page.chunkSet
+          ) {
+            if (page.chunkSet) state.orphanChunkSets.add(page.chunkSet);
+            const chunkSet = makeId("blob");
+            const chunkCount = await writeBackgroundChunks(
+              reference,
+              page.sourceBlob,
+              chunkSet,
+            );
+            page.chunkSet = chunkSet;
+            page.chunkCount = chunkCount;
+            page.background = {
+              name: (clean(page.sourceFile?.name) || clean(page.background?.name) || "background.webp").slice(0, 180),
+              type: clean(page.sourceBlob.type || page.sourceFile?.type || page.background?.type) || "image/webp",
+              size: page.sourceBlob.size,
+              chunkCount,
+              chunkSet,
+              width: page.sourceWidth,
+              height: page.sourceHeight,
+            };
+          }
+        } else if (!page.background?.chunkSet) {
+          page.background = null;
+          page.chunkCount = 0;
+          page.chunkSet = "";
+        }
       }
 
-      const firestoreModule = state.firebase.firestoreModule;
-      const pageId = state.currentPageId || DEFAULT_PAGE_ID;
-      const pageReference = binderPageRef(binderId, pageId);
-      if (!pageReference) throw new Error("페이지 저장 위치를 확인하지 못했습니다.");
-
-      const background = {
-        name: (clean(state.sourceFile?.name) || "background.webp").slice(0, 180),
-        type: clean(state.sourceBlob.type || state.sourceFile?.type) || "image/webp",
-        size: state.sourceBlob.size,
-        chunkCount,
-        chunkSet,
-        width: state.sourceWidth,
-        height: state.sourceHeight,
-      };
       const now = firestoreModule.serverTimestamp();
-      const pageMetadata = {
-        schemaVersion: BINDER_SCHEMA_VERSION,
-        ownerUid: state.user.uid,
-        pageId,
-        title: "1페이지",
-        grid: draft.grid,
-        background,
-        cards: draft.cards,
-        slots: [],
-        createdAt: state.currentPageCreatedAt || now,
-        updatedAt: now,
-      };
+      const batch = firestoreModule.writeBatch(state.firebase.db);
+
+      state.pages.forEach((page, index) => {
+        const cols = Number(page.grid?.cols) || 3;
+        const rows = Number(page.grid?.rows) || 4;
+        const slotCount = cols * rows;
+        const grid = {
+          cols,
+          rows,
+          slotCount,
+          cardWidthMm: CARD_WIDTH_MM,
+          cardHeightMm: CARD_HEIGHT_MM,
+          canvasWidthMm: cols * CARD_WIDTH_MM,
+          canvasHeightMm: rows * CARD_HEIGHT_MM,
+        };
+        const cards = page.placements.map((entry) => ({
+          placementId: entry.id,
+          sourceKey: entry.card.key,
+          name: entry.card.name,
+          setCode: entry.card.setCode,
+          setTitle: entry.card.setTitle,
+          cardNumber: entry.card.cardNumber,
+          rarity: entry.card.rarity,
+          imageUrl: entry.card.image,
+          x: Number(entry.x.toFixed(4)),
+          y: Number(entry.y.toFixed(4)),
+          width: Number(entry.width.toFixed(4)),
+          widthMm: CARD_WIDTH_MM,
+          heightMm: CARD_HEIGHT_MM,
+          rotation: Number(entry.rotation.toFixed(2)),
+          z: entry.z,
+          slotIndex: Number.isInteger(entry.slotIndex) ? entry.slotIndex : null,
+        }));
+        const pageReference = binderPageRef(binderId, page.id);
+        batch.set(pageReference, {
+          schemaVersion: BINDER_SCHEMA_VERSION,
+          ownerUid: state.user.uid,
+          pageId: page.id,
+          title: clean(page.title) || pageTitle(index),
+          grid,
+          background: page.background || null,
+          cards,
+          slots: normalizeSlots(page.slots, slotCount).map((slot) => ({ ...slot })),
+          createdAt: page.createdAt || now,
+          updatedAt: now,
+        });
+      });
+
+      state.deletedPageIds.forEach((pageId) => {
+        batch.delete(binderPageRef(binderId, pageId));
+      });
+
+      const first = state.pages[0];
+      const cardCount = state.pages.reduce(
+        (sum, page) => sum + page.placements.length,
+        0,
+      );
       const metadata = {
         schemaVersion: BINDER_SCHEMA_VERSION,
         ownerUid: state.user.uid,
         title,
-        linkedDexId: "",
-        pageOrder: [pageId],
+        linkedDexId: state.linkedDexId || "",
+        pageOrder: state.pages.map((page) => page.id),
         summary: {
-          pageCount: 1,
-          cardCount: draft.cards.length,
+          pageCount: state.pages.length,
+          cardCount,
           firstGrid: {
-            cols: draft.grid.cols,
-            rows: draft.grid.rows,
+            cols: Number(first.grid?.cols) || 3,
+            rows: Number(first.grid?.rows) || 4,
           },
         },
         settings: {
@@ -1871,32 +1939,49 @@
         createdAt: state.currentCreatedAt || now,
         updatedAt: now,
       };
-
-      const batch = firestoreModule.writeBatch(state.firebase.db);
-      batch.set(pageReference, pageMetadata);
       batch.set(reference, metadata);
       await batch.commit();
 
-      const [saved, savedPage] = await Promise.all([
+      const [savedRoot, savedPagesSnapshot] = await Promise.all([
         firestoreModule.getDoc(reference),
-        firestoreModule.getDoc(pageReference),
+        firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
       ]);
-      const savedData = saved.data() || {};
-      const savedPageData = savedPage.data() || {};
+      const savedData = savedRoot.data() || {};
+      const createdMap = new Map(
+        savedPagesSnapshot.docs.map((item) => [item.id, item.data()?.createdAt || null]),
+      );
 
       state.currentBinderId = binderId;
       state.currentCreatedAt = savedData.createdAt || state.currentCreatedAt;
       state.currentSchemaVersion = BINDER_SCHEMA_VERSION;
-      state.currentPageId = pageId;
-      state.currentPageCreatedAt = savedPageData.createdAt || state.currentPageCreatedAt;
-      state.currentChunkCount = chunkCount;
-      state.currentChunkSet = chunkSet;
-      state.backgroundDirty = false;
-      if (previousChunkSet && previousChunkSet !== chunkSet) {
-        await deleteChunkSet(reference, previousChunkSet);
+      state.deletedPageIds = new Set();
+      state.pages.forEach((page) => {
+        page.createdAt = createdMap.get(page.id) || page.createdAt;
+        page.backgroundDirty = false;
+        page.isNew = false;
+      });
+
+      const activeSets = new Set(
+        state.pages.map((page) => clean(page.chunkSet)).filter(Boolean),
+      );
+      for (const chunkSet of state.orphanChunkSets) {
+        if (!activeSets.has(chunkSet)) {
+          await deleteChunkSet(reference, chunkSet);
+        }
       }
+      state.orphanChunkSets = new Set();
+
+      const current = activePage();
+      if (current) {
+        state.currentPageCreatedAt = current.createdAt || null;
+        state.currentChunkCount = Number(current.chunkCount) || 0;
+        state.currentChunkSet = clean(current.chunkSet);
+        state.backgroundDirty = false;
+      }
+
       setBinderUrl(binderId);
-      updateSaveUi("나만의도감에 저장했습니다.");
+      renderPageControls();
+      updateSaveUi(`${state.pages.length}페이지를 나만의도감에 저장했습니다.`);
       await refreshLibrary();
     } catch (error) {
       console.error("커스텀 바인더 저장 실패", error);
@@ -1935,6 +2020,7 @@
   }
 
   function resetEditor(clearUrl = true) {
+    releasePageObjectUrls();
     state.currentBinderId = "";
     state.currentCreatedAt = null;
     state.currentSchemaVersion = BINDER_SCHEMA_VERSION;
@@ -1943,12 +2029,25 @@
     state.currentChunkCount = 0;
     state.currentChunkSet = "";
     state.backgroundDirty = false;
+    state.slots = [];
+    state.pages = [blankPage(DEFAULT_PAGE_ID, "3x4")];
+    state.deletedPageIds = new Set();
+    state.orphanChunkSets = new Set();
+    state.linkedDexId = "";
+    state.placements = [];
+    state.selectedId = "";
+    state.nextZ = 1;
     titleInput.value = "";
     searchInput.value = "";
     const defaultGrid = gridInputs.find((input) => input.value === "3x4");
     if (defaultGrid) defaultGrid.checked = true;
+    state.slots = emptySlots(12);
+    clearImage(true);
+    previewWrap.hidden = false;
+    previewEmpty.hidden = true;
     renderGrid();
-    clearImage();
+    renderSlotLayer();
+    renderPageControls();
     renderSearchResults("");
     if (clearUrl) setBinderUrl("");
     deleteButton.hidden = true;
@@ -2010,7 +2109,7 @@
     });
   });
 
-  gridInputs.forEach((input) => input.addEventListener("change", renderGrid));
+  gridInputs.forEach((input) => input.addEventListener("change", handleGridChange));
   customPrintSizeInputs.forEach((input) =>
     input.addEventListener("change", updateCustomPrintUi),
   );
@@ -2053,6 +2152,19 @@
   });
 
   resetButton.addEventListener("click", () => resetEditor(true));
+  pagePrevButton?.addEventListener("click", () => {
+    const index = activePageIndex();
+    if (index > 0) void switchPage(state.pages[index - 1].id);
+  });
+  pageNextButton?.addEventListener("click", () => {
+    const index = activePageIndex();
+    if (index < state.pages.length - 1) void switchPage(state.pages[index + 1].id);
+  });
+  pageAddButton?.addEventListener("click", () => void addPage());
+  pageDuplicateButton?.addEventListener("click", () => void duplicatePage());
+  pageLeftButton?.addEventListener("click", () => movePage(-1));
+  pageRightButton?.addEventListener("click", () => movePage(1));
+  pageDeleteButton?.addEventListener("click", () => void deletePage());
   saveButton.addEventListener("click", () => void saveCurrentBinder());
   newButton.addEventListener("click", () => resetEditor(true));
   deleteButton.addEventListener("click", () => void deleteCurrentBinder());
@@ -2065,18 +2177,17 @@
   });
 
   window.addEventListener("beforeunload", () => {
-    if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+    releasePageObjectUrls();
   });
 
   root.customBinderEditor = Object.freeze({
     getDraft: draftSnapshot,
     hasBackground: () => Boolean(state.objectUrl),
     getPlacedCount: () => state.placements.length,
+    getPageCount: () => state.pages.length,
   });
 
-  renderGrid();
-  clearImage();
-  renderSearchResults("");
+  resetEditor(false);
   activateTab(window.location.hash === "#studio-custom" ? "custom" : "print", false);
   updateSaveUi();
   updateCustomPrintUi();
