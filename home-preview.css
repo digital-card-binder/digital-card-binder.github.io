@@ -1936,3 +1936,125 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     text-decoration: none;
   }
 }
+
+
+/* Home IA refresh: custom dex + Binder Studio promoted into the main browse grid */
+.home-feature-card--custom {
+  background: linear-gradient(145deg, #293a7f, #4b3fa2);
+}
+
+.home-feature-card--studio {
+  background: linear-gradient(145deg, #075d76, #0a8b94);
+}
+
+.home-feature-card--custom .home-feature-shade,
+.home-feature-card--studio .home-feature-shade {
+  z-index: 1;
+  background: linear-gradient(
+    0deg,
+    rgba(2, 22, 42, 0.95) 0%,
+    rgba(5, 32, 58, 0.57) 55%,
+    rgba(4, 31, 55, 0.04) 100%
+  );
+}
+
+.home-community-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+  min-height: 76px;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(94, 174, 226, 0.34);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 88% 50%, rgba(94, 231, 238, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(7, 49, 81, 0.96), rgba(9, 41, 71, 0.96));
+  color: #f4f8ff;
+  padding: 13px 15px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0, 8, 22, 0.16);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.home-community-banner:hover {
+  transform: translateY(-2px);
+  border-color: rgba(94, 231, 238, 0.55);
+  box-shadow: 0 14px 28px rgba(0, 8, 22, 0.22);
+}
+
+.home-community-banner:focus-visible {
+  outline: 3px solid rgba(94, 231, 238, 0.28);
+  outline-offset: 3px;
+}
+
+.home-community-icon.ui-icon {
+  --ui-icon-size: 44px;
+  border-color: rgba(94, 231, 238, 0.25);
+  background: rgba(18, 70, 101, 0.92);
+  color: #65e5e9;
+}
+
+.home-community-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.home-community-copy strong {
+  color: #fff;
+  font-size: .82rem;
+}
+
+.home-community-copy small {
+  overflow: hidden;
+  color: #91a9bf;
+  font-size: .57rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-community-banner > b {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  color: #cbeaf2;
+  font-size: .72rem;
+}
+
+@media (max-width: 690px) {
+  .home-feature-card--custom,
+  .home-feature-card--studio {
+    min-height: 0;
+  }
+
+  .home-community-banner {
+    min-height: 66px;
+    margin-top: 9px;
+    border-radius: 12px;
+    padding: 10px 11px;
+  }
+
+  .home-community-icon.ui-icon {
+    --ui-icon-size: 38px;
+  }
+
+  .home-community-copy strong {
+    font-size: .72rem;
+  }
+
+  .home-community-copy small {
+    font-size: .5rem;
+  }
+
+  .home-community-banner > b {
+    width: 26px;
+    height: 26px;
+    font-size: .62rem;
+  }
+}
