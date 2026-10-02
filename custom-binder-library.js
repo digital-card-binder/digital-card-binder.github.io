@@ -89,12 +89,30 @@
         user.uid,
         "customBinders",
       );
-      const snapshot = await firestoreModule.getDocs(
-        firestoreModule.query(
-          reference,
-          firestoreModule.orderBy("updatedAt", "desc"),
-          firestoreModule.limit(30),
+      const customDexReference = firestoreModule.doc(
+        db,
+        "users",
+        user.uid,
+        CONFIG.userCollection || "collections",
+        "pokemonCollectionsDex",
+      );
+      const [snapshot, customDexSnapshot] = await Promise.all([
+        firestoreModule.getDocs(
+          firestoreModule.query(
+            reference,
+            firestoreModule.orderBy("updatedAt", "desc"),
+            firestoreModule.limit(30),
+          ),
         ),
+        firestoreModule.getDoc(customDexReference),
+      ]);
+      const customDexSource = customDexSnapshot.exists()
+        ? customDexSnapshot.data()?.customDexes || {}
+        : {};
+      const customDexTitles = new Map(
+        Object.entries(customDexSource)
+          .filter(([, dex]) => dex && typeof dex === "object")
+          .map(([id, dex]) => [String(dex.id || id), String(dex.title || "").trim()]),
       );
 
       list.replaceChildren();
@@ -110,11 +128,13 @@
         const title = document.createElement("strong");
         title.textContent = String(data.title || "커스텀 바인더");
         const meta = document.createElement("span");
+        const linkedDexTitle = customDexTitles.get(String(data.linkedDexId || "")) || "";
         meta.textContent = [
           grid.cols && grid.rows ? `${grid.cols}×${grid.rows}` : "",
           isV2
             ? `${Number(data.summary?.pageCount) || 1}페이지 · ${Number(data.summary?.cardCount) || 0}장 배치`
             : Array.isArray(data.cards) ? `${data.cards.length}장 배치` : "",
+          linkedDexTitle ? `도감 연결: ${linkedDexTitle}` : "",
           formatTime(data.updatedAt),
         ].filter(Boolean).join(" · ");
         copy.append(title, meta);
