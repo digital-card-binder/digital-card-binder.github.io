@@ -769,6 +769,7 @@ service cloud.firestore {
         || validCustomBinderV2Document(userId);
     }
 
+    // v2 pages may include up to 20 slot-image source descriptors; binary data stays in chunks.
     function validCustomBinderPage(userId, pageId) {
       return request.resource.data.keys().hasAll([
           "schemaVersion",
