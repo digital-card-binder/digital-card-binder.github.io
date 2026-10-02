@@ -971,14 +971,14 @@
     return customPrintSizeInputs.find((input) => input.checked)?.value || "card";
   }
 
-  function customPrintPlan() {
-    const grid = selectedGrid();
-    const slotCount = grid.cols * grid.rows;
-    const mode = selectedCustomPrintMode();
+  function customPrintPlanForGrid(gridValue, mode = selectedCustomPrintMode()) {
+    const cols = Math.max(1, Number(gridValue?.cols) || 3);
+    const rows = Math.max(1, Number(gridValue?.rows) || 4);
+    const slotCount = cols * rows;
 
     if (mode === "fit") {
-      const logicalWidth = grid.cols * CARD_WIDTH_MM;
-      const logicalHeight = grid.rows * CARD_HEIGHT_MM;
+      const logicalWidth = cols * CARD_WIDTH_MM;
+      const logicalHeight = rows * CARD_HEIGHT_MM;
       const availableWidth = A4_WIDTH_MM - PRINT_MARGIN_MM * 2;
       const availableHeight = A4_HEIGHT_MM - PRINT_MARGIN_MM * 2;
       const scale = Math.min(
@@ -986,7 +986,8 @@
         availableHeight / logicalHeight,
       );
       return {
-        ...grid,
+        cols,
+        rows,
         mode,
         label: "A4 한 장 맞춤",
         slotCount,
@@ -1008,7 +1009,8 @@
     const perPage = pageCols * pageRows;
 
     return {
-      ...grid,
+      cols,
+      rows,
       mode,
       label: isSleeve ? "실제 슬리브" : "실제 카드",
       slotCount,
@@ -1020,6 +1022,18 @@
       cellWidth,
       cellHeight,
     };
+  }
+
+  function customPrintPlan() {
+    return customPrintPlanForGrid(selectedGrid(), selectedCustomPrintMode());
+  }
+
+  function allCustomPrintPlans() {
+    const mode = selectedCustomPrintMode();
+    return state.pages.map((page) => ({
+      page,
+      plan: customPrintPlanForGrid(page.grid, mode),
+    }));
   }
 
   function isAndroidAppShell() {
@@ -1037,22 +1051,24 @@
 
   function updateCustomPrintUi() {
     if (!customPrintButton || !customPrintSummary) return;
-    const plan = customPrintPlan();
+    const plans = allCustomPrintPlans();
+    const current = customPrintPlan();
+    const totalSheets = plans.reduce((sum, item) => sum + item.plan.pageCount, 0);
     customPrintSummary.textContent =
-      `${plan.cols} × ${plan.rows} · ${plan.slotCount}칸 · ${plan.label} · A4 ${plan.pageCount}페이지`;
+      `바인더 ${state.pages.length}페이지 · ${current.label} · A4 총 ${totalSheets}페이지`;
 
     if (customPrintNote) {
-      customPrintNote.textContent = plan.mode === "fit"
-        ? "전체 바인더를 A4 한 장에 맞추며 각 칸 구분선이 함께 출력됩니다."
-        : `각 칸은 ${plan.cellWidth} × ${plan.cellHeight} mm 고정 · A4 한 장당 최대 ${plan.pageCols} × ${plan.pageRows}칸 · 남는 칸은 잘리지 않고 다음 장으로 넘어갑니다.`;
+      customPrintNote.textContent = current.mode === "fit"
+        ? "각 바인더 페이지를 A4 한 장에 맞춰 순서대로 출력합니다. 페이지별 그리드는 그대로 유지됩니다."
+        : `각 칸은 ${current.cellWidth} × ${current.cellHeight} mm 고정 · 페이지별로 자동 분할하며 칸이 잘리지 않습니다.`;
     }
 
     customPrintButton.disabled = !state.pages.length;
     customPrintButton.textContent = supportsNativePrint()
-      ? "인쇄 · PDF로 저장"
+      ? "전체 바인더 인쇄 · PDF로 저장"
       : isAndroidAppShell()
         ? "인쇄 · 앱 업데이트 필요"
-        : "인쇄 · PDF 저장";
+        : "전체 바인더 인쇄 · PDF 저장";
   }
 
   function applyStageGeometry() {
