@@ -801,7 +801,10 @@ service cloud.firestore {
         && request.resource.data.title.size() >= 1
         && request.resource.data.title.size() <= 60
         && validCustomBinderGridV2(request.resource.data.grid)
-        && validCustomBinderBackground(request.resource.data.background)
+        && (
+          request.resource.data.background == null
+          || validCustomBinderBackground(request.resource.data.background)
+        )
         && request.resource.data.cards is list
         && request.resource.data.cards.size() <= 20
         && request.resource.data.slots is list
