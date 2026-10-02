@@ -1318,6 +1318,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   const library = await source("custom-binder-library.js");
   const help = await source("studio-help.js");
   const visualMatcher = await source("card-visual-matcher.js");
+  const photoScanner = await source("binder-photo-scanner.js");
 
   assert.match(page, /id="studio-custom-page-list"/);
   assert.match(page, /id="studio-custom-page-add"/);
@@ -1333,6 +1334,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(page, /id="studio-custom-photo-recognition-results"/);
   assert.match(page, /data-studio-help="photo"/);
   assert.match(page, /card-visual-matcher[.]js/);
+  assert.match(page, /binder-photo-scanner[.]js/);
   assert.match(page, /id="studio-custom-slot-layer"/);
   assert.match(page, /id="studio-custom-art-file"/);
   assert.match(page, /id="studio-custom-slot-select-toggle"/);
@@ -1419,6 +1421,14 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(visualMatcher, /function confident/);
   assert.match(visualMatcher, /card-visual-fingerprints[.]json/);
   assert.match(editor, /function normalizeBinderPhoto/);
+  assert.match(editor, /photoScanner/);
+  assert.match(editor, /scanMode/);
+  assert.match(editor, /문서 스캔 방식으로 네 모서리·기울기·원근 보정 완료/);
+  assert.match(photoScanner, /function detectPage/);
+  assert.match(photoScanner, /function warpPerspective/);
+  assert.match(photoScanner, /function unitSquareToQuad/);
+  assert.match(photoScanner, /function drawTriangle/);
+  assert.match(photoScanner, /mode: "perspective"/);
   assert.doesNotMatch(editor, /사진은 최대 25MB/);
   assert.doesNotMatch(editor, /최적화한 뒤에도 용량이 큽니다/);
   assert.match(editor, /targetBytes = 8[.]5 \* 1024 \* 1024/);
