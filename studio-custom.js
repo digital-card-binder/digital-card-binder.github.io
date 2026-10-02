@@ -936,6 +936,9 @@
     const { cols, rows } = selectedGrid();
     const count = cols * rows;
     state.slots = normalizeSlots(state.slots, count);
+    state.selectedSlots = new Set(
+      [...state.selectedSlots].filter((index) => index >= 0 && index < count),
+    );
     state.placements.forEach((entry) => {
       if (Number.isInteger(entry.slotIndex) && entry.slotIndex >= count) {
         entry.slotIndex = null;
@@ -1640,6 +1643,24 @@
       background.alt = "";
       composition.append(background);
     }
+
+    state.slots
+      .filter((slot) => slot.type === "image")
+      .forEach((slot) => {
+        const source = imageSourceById(slot.imageId);
+        if (!source?.objectUrl) return;
+        const col = slot.index % grid.cols;
+        const row = Math.floor(slot.index / grid.cols);
+        const tile = document.createElement("div");
+        tile.className = "studio-custom-print-image-tile";
+        tile.style.position = "absolute";
+        tile.style.left = `${col * plan.cellWidth}mm`;
+        tile.style.top = `${row * plan.cellHeight}mm`;
+        tile.style.width = `${plan.cellWidth}mm`;
+        tile.style.height = `${plan.cellHeight}mm`;
+        applyCropStyle(tile, source, slot.crop);
+        composition.append(tile);
+      });
 
     state.placements
       .slice()
@@ -2581,6 +2602,14 @@
     input.addEventListener("change", updateCustomPrintUi),
   );
   fileInput.addEventListener("change", () => loadFile(fileInput.files?.[0]));
+  artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
+  slotSelectToggle?.addEventListener("click", () => {
+    setSlotSelectMode(!state.slotSelectMode);
+  });
+  slotSelectAllButton?.addEventListener("click", () => selectAllSlots());
+  slotSelectionClearButton?.addEventListener("click", () => clearSlotSelection());
+  artApplyButton?.addEventListener("click", () => applyArtToSelectedSlots());
+  slotClearButton?.addEventListener("click", () => clearSelectedSlots());
 
   ["dragenter", "dragover"].forEach((type) => {
     dropzone.addEventListener(type, (event) => {
@@ -2637,6 +2666,7 @@
   deleteButton.addEventListener("click", () => void deleteCurrentBinder());
   titleInput.addEventListener("input", () => updateSaveUi());
   customPrintButton.addEventListener("click", () => void startCustomPrint());
+  updateArtUi();
 
   window.addEventListener("resize", () => {
     state.placements.forEach(clampPlacement);
