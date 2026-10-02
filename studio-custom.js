@@ -1409,16 +1409,13 @@
     if (!file || !String(file.type || "").startsWith("image/")) {
       throw new Error("이미지 파일을 선택해 주세요.");
     }
-    if (file.size > 25 * 1024 * 1024) {
-      throw new Error("사진은 최대 25MB까지 가져올 수 있습니다.");
-    }
 
     const sourceUrl = URL.createObjectURL(file);
     try {
       const image = new Image();
       await new Promise((resolve, reject) => {
         image.onload = resolve;
-        image.onerror = () => reject(new Error("사진을 읽지 못했습니다. JPG, PNG 또는 WEBP 사진으로 다시 시도해 주세요."));
+        image.onerror = () => reject(new Error("사진을 읽지 못했습니다. 기기에서 열 수 있는 JPG, PNG 또는 WEBP 사진으로 다시 시도해 주세요."));
         image.src = sourceUrl;
       });
 
@@ -1428,54 +1425,89 @@
         throw new Error("사진 크기를 확인하지 못했습니다.");
       }
 
+      // Camera originals may be very large. Accept the original as-is, then
+      // downscale/encode locally before it is ever stored in Firestore.
       const maxDimension = 4200;
-      const scale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
-      const width = Math.max(1, Math.round(sourceWidth * scale));
-      const height = Math.max(1, Math.round(sourceHeight * scale));
-      const canvas = document.createElement("canvas");
+      const initialScale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
+      let width = Math.max(1, Math.round(sourceWidth * initialScale));
+      let height = Math.max(1, Math.round(sourceHeight * initialScale));
+      let canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
-      const context = canvas.getContext("2d", { alpha: false });
+      let context = canvas.getContext("2d", { alpha: false });
       if (!context) throw new Error("사진 변환 기능을 사용할 수 없습니다.");
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, width, height);
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = "high";
       context.drawImage(image, 0, 0, width, height);
 
-      let blob;
-      try {
-        blob = await canvasBlob(canvas, "image/webp", 0.92);
-      } catch {
-        blob = await canvasBlob(canvas, "image/jpeg", 0.92);
-      }
-      if (blob.size > 10 * 1024 * 1024) {
-        const reducedWidth = Math.max(1, Math.round(width * 0.82));
-        const reducedHeight = Math.max(1, Math.round(height * 0.82));
-        const reduced = document.createElement("canvas");
-        reduced.width = reducedWidth;
-        reduced.height = reducedHeight;
-        const reducedContext = reduced.getContext("2d", { alpha: false });
-        if (!reducedContext) throw new Error("사진 용량을 줄이지 못했습니다.");
-        reducedContext.fillStyle = "#ffffff";
-        reducedContext.fillRect(0, 0, reducedWidth, reducedHeight);
-        reducedContext.drawImage(canvas, 0, 0, reducedWidth, reducedHeight);
+      const targetBytes = 8.5 * 1024 * 1024;
+      let quality = 0.9;
+      let blob = null;
+      let outputType = "image/webp";
+
+      for (let attempt = 0; attempt < 7; attempt += 1) {
         try {
-          blob = await canvasBlob(reduced, "image/webp", 0.84);
+          blob = await canvasBlob(canvas, outputType, quality);
         } catch {
-          blob = await canvasBlob(reduced, "image/jpeg", 0.84);
+          outputType = "image/jpeg";
+          blob = await canvasBlob(canvas, outputType, quality);
         }
-        return {
-          blob,
-          width: reducedWidth,
-          height: reducedHeight,
-          name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.webp`,
-        };
+
+        if (blob.size <= targetBytes) break;
+
+        const scale = blob.size > targetBytes * 1.8 ? 0.76 : 0.84;
+        width = Math.max(1200, Math.round(canvas.width * scale));
+        height = Math.max(1200, Math.round(canvas.height * scale));
+
+        const reduced = document.createElement("canvas");
+        reduced.width = width;
+        reduced.height = height;
+        const reducedContext = reduced.getContext("2d", { alpha: false });
+        if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
+        reducedContext.fillStyle = "#ffffff";
+        reducedContext.fillRect(0, 0, width, height);
+        reducedContext.imageSmoothingEnabled = true;
+        reducedContext.imageSmoothingQuality = "high";
+        reducedContext.drawImage(canvas, 0, 0, width, height);
+        canvas = reduced;
+        context = reducedContext;
+        quality = Math.max(0.72, quality - 0.04);
+      }
+
+      if (!blob) throw new Error("사진을 저장용 이미지로 변환하지 못했습니다.");
+
+      // Extremely unusual originals are allowed too; keep shrinking until the
+      // saved copy is safe to chunk, instead of rejecting based on source MB.
+      while (blob.size > targetBytes && Math.max(canvas.width, canvas.height) > 1600) {
+        width = Math.max(1, Math.round(canvas.width * 0.82));
+        height = Math.max(1, Math.round(canvas.height * 0.82));
+        const reduced = document.createElement("canvas");
+        reduced.width = width;
+        reduced.height = height;
+        const reducedContext = reduced.getContext("2d", { alpha: false });
+        if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
+        reducedContext.fillStyle = "#ffffff";
+        reducedContext.fillRect(0, 0, width, height);
+        reducedContext.imageSmoothingEnabled = true;
+        reducedContext.imageSmoothingQuality = "high";
+        reducedContext.drawImage(canvas, 0, 0, width, height);
+        canvas = reduced;
+        try {
+          blob = await canvasBlob(canvas, outputType, 0.72);
+        } catch {
+          outputType = "image/jpeg";
+          blob = await canvasBlob(canvas, outputType, 0.72);
+        }
       }
 
       return {
         blob,
-        width,
-        height,
-        name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.webp`,
+        width: canvas.width,
+        height: canvas.height,
+        name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.${outputType === "image/webp" ? "webp" : "jpg"}`,
+        originalSize: Number(file.size) || 0,
       };
     } finally {
       URL.revokeObjectURL(sourceUrl);
@@ -1504,10 +1536,6 @@
     updatePhotoImportUi("사진을 가져오는 중입니다…");
     try {
       const prepared = await normalizeBinderPhoto(file);
-      if (prepared.blob.size > 10 * 1024 * 1024) {
-        throw new Error("사진을 최적화한 뒤에도 용량이 큽니다. 더 작은 사진으로 다시 시도해 주세요.");
-      }
-
       state.images.forEach((image) => {
         if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
         if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
@@ -1564,8 +1592,11 @@
       const expected = (cols * CARD_WIDTH_MM) / (rows * CARD_HEIGHT_MM);
       const actual = prepared.width / prepared.height;
       const gap = Math.abs(actual - expected) / expected;
+      const originalMb = prepared.originalSize
+        ? ` · 원본 ${(prepared.originalSize / 1024 / 1024).toFixed(1)}MB 자동 최적화`
+        : "";
       const sizeText =
-        `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px`;
+        `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px${originalMb}`;
       if (gap > 0.16) {
         updatePhotoImportUi(
           `${cols} × ${rows}로 가져왔습니다 · ${sizeText}. 사진 비율이 그리드와 다르므로 2번 그리드가 실제 바인더와 같은지 확인해 주세요.`,
