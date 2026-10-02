@@ -2117,3 +2117,304 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     object-position: 44% 48%;
   }
 }
+
+
+/* Refined home scenes for Custom Dex and Binder Studio */
+.home-feature-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.home-feature-scene--binder {
+  display: grid;
+  align-items: start;
+  justify-items: end;
+  padding: 9px 10px 0 34%;
+}
+
+.home-binder-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  width: min(78%, 190px);
+  aspect-ratio: 1.28 / 1;
+  border: 5px solid rgba(244, 247, 249, .95);
+  border-left-width: 16px;
+  border-radius: 11px;
+  background: rgba(232, 237, 241, .96);
+  padding: 7px;
+  box-shadow:
+    0 13px 24px rgba(0, 8, 22, .28),
+    inset 0 0 0 1px rgba(63, 77, 88, .08);
+  transform: rotate(-5deg);
+  transform-origin: 58% 40%;
+}
+
+.home-binder-page::before {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 6px;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,.18), transparent 32% 70%, rgba(255,255,255,.07));
+  content: "";
+  pointer-events: none;
+}
+
+.home-binder-ring {
+  position: absolute;
+  left: -12px;
+  z-index: 3;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #b8c0c6;
+  border-radius: 50%;
+  background: #eef1f3;
+  box-shadow: 0 0 0 2px rgba(42, 55, 64, .22);
+}
+
+.home-binder-ring::after {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  width: 8px;
+  height: 1px;
+  border-radius: 99px;
+  background: #c4cbd0;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.home-binder-ring--1 { top: 20%; }
+.home-binder-ring--2 { top: 48%; }
+.home-binder-ring--3 { top: 76%; }
+
+.home-binder-pocket {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid rgba(74, 86, 96, .2);
+  border-radius: 4px;
+  background: rgba(255,255,255,.5);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.38);
+}
+
+.home-binder-pocket::after {
+  position: absolute;
+  inset: 0;
+  border-top: 1px solid rgba(255,255,255,.42);
+  background: linear-gradient(120deg, rgba(255,255,255,.08), transparent 40%);
+  content: "";
+  pointer-events: none;
+}
+
+.home-binder-pocket img {
+  display: block;
+  width: 78%;
+  height: 92%;
+  object-fit: contain;
+  filter: none;
+}
+
+.home-binder-pocket--empty {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.38), rgba(190,202,211,.24));
+}
+
+.home-feature-scene--studio {
+  display: grid;
+  align-items: start;
+  justify-items: end;
+  padding: 8px 9px 0 31%;
+}
+
+.home-studio-window {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  grid-template-rows: 18px minmax(0, 1fr);
+  width: min(82%, 202px);
+  aspect-ratio: 1.36 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(180, 204, 216, .6);
+  border-radius: 10px;
+  background: #f4f6f7;
+  box-shadow: 0 14px 26px rgba(0, 8, 22, .27);
+  transform: rotate(-2deg);
+}
+
+.home-studio-toolbar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid #d9e0e4;
+  background: #edf1f3;
+  padding: 0 6px;
+}
+
+.home-studio-toolbar i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #9aa7af;
+}
+
+.home-studio-sidebar {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  border-right: 1px solid #d8dfe3;
+  background: #e9eef1;
+  padding-top: 8px;
+}
+
+.home-studio-sidebar i {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #9eacb4;
+  border-radius: 3px;
+}
+
+.home-studio-canvas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  background:
+    linear-gradient(45deg, rgba(70, 84, 94, .025) 25%, transparent 25%, transparent 75%, rgba(70, 84, 94, .025) 75%),
+    #f8f9fa;
+  background-size: 12px 12px;
+  padding: 7px 9px 8px 8px;
+}
+
+.home-studio-slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px dashed #bac6cd;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.home-studio-slot img {
+  display: block;
+  width: 72%;
+  height: 90%;
+  object-fit: contain;
+  filter: none;
+}
+
+.home-studio-slot--art {
+  background:
+    linear-gradient(135deg, rgba(46, 117, 143, .22), rgba(121, 91, 154, .2)),
+    #edf2f4;
+}
+
+.home-studio-slot--art::before,
+.home-studio-slot--art::after {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(62, 96, 113, .38);
+  content: "";
+}
+
+.home-studio-slot--art::before {
+  width: 48%;
+  height: 3px;
+  transform: rotate(-25deg);
+}
+
+.home-studio-slot--art::after {
+  width: 34%;
+  height: 3px;
+  transform: rotate(30deg);
+}
+
+.home-studio-slot--empty {
+  background: #f4f6f7;
+}
+
+.home-studio-cursor {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  width: 12px;
+  height: 17px;
+  border: 2px solid rgba(40, 72, 89, .8);
+  border-top: 0;
+  border-left: 0;
+  transform: rotate(34deg);
+}
+
+.home-feature-card--custom {
+  background: linear-gradient(145deg, #22324c, #324b68);
+}
+
+.home-feature-card--studio {
+  background: linear-gradient(145deg, #17495c, #266a73);
+}
+
+.home-feature-card--custom .home-feature-shade,
+.home-feature-card--studio .home-feature-shade {
+  background: linear-gradient(
+    0deg,
+    rgba(3, 22, 38, .96) 0%,
+    rgba(5, 30, 47, .6) 50%,
+    rgba(7, 34, 49, .06) 100%
+  );
+}
+
+@media (max-width: 690px) {
+  .home-feature-scene--binder {
+    padding: 8px 7px 0 29%;
+  }
+
+  .home-binder-page {
+    width: 88%;
+    border-width: 4px;
+    border-left-width: 13px;
+    padding: 5px;
+    gap: 4px;
+    transform: rotate(-4deg);
+  }
+
+  .home-binder-ring {
+    left: -10px;
+    width: 6px;
+    height: 6px;
+  }
+
+  .home-feature-scene--studio {
+    padding: 7px 5px 0 26%;
+  }
+
+  .home-studio-window {
+    width: 91%;
+    grid-template-columns: 22px minmax(0, 1fr);
+    grid-template-rows: 16px minmax(0, 1fr);
+  }
+
+  .home-studio-canvas {
+    gap: 4px;
+    padding: 5px 6px;
+  }
+
+  .home-studio-sidebar {
+    gap: 6px;
+    padding-top: 6px;
+  }
+
+  .home-studio-sidebar i {
+    width: 9px;
+    height: 9px;
+  }
+}
