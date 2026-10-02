@@ -2161,6 +2161,9 @@
           createdAt: saved.pageCreatedAt || null,
           placements,
           slots,
+          images: (Array.isArray(page.images) ? page.images : [])
+            .slice(0, 20)
+            .map(restoreImageSource),
           nextZ: Math.max(0, ...placements.map((entry) => Number(entry.z) || 0)) + 1,
           loaded: true,
           isNew: saved.legacy,
@@ -2224,6 +2227,19 @@
 
     try {
       for (const page of state.pages) {
+        const usedImageIds = new Set(
+          (page.slots || [])
+            .filter((slot) => slot?.type === "image")
+            .map((slot) => clean(slot.imageId))
+            .filter(Boolean),
+        );
+        page.images = (page.images || []).filter((image) => {
+          if (usedImageIds.has(image.id)) return true;
+          if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
+          if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
+          return false;
+        });
+
         if (page.sourceBlob) {
           if (
             !page.sourceWidth ||
@@ -2262,6 +2278,30 @@
           page.background = null;
           page.chunkCount = 0;
           page.chunkSet = "";
+        }
+
+        for (const image of page.images || []) {
+          if (
+            image.blob &&
+            (!image.width || !image.height || image.width > 20000 || image.height > 20000)
+          ) {
+            throw new Error(`${page.title || "페이지"} 슬롯 이미지의 가로·세로는 1~20,000px이어야 합니다.`);
+          }
+          if (
+            image.blob &&
+            (!state.currentBinderId || image.dirty || !image.chunkCount || !image.chunkSet)
+          ) {
+            if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
+            const chunkSet = makeId("tile");
+            const chunkCount = await writeBackgroundChunks(reference, image.blob, chunkSet);
+            image.chunkSet = chunkSet;
+            image.chunkCount = chunkCount;
+            image.size = image.blob.size;
+            image.type = clean(image.blob.type || image.type) || "image/webp";
+          }
+          if (!image.chunkSet || !image.chunkCount) {
+            throw new Error(`${page.title || "페이지"}의 슬롯 이미지 저장 정보가 올바르지 않습니다.`);
+          }
         }
       }
 
@@ -2309,6 +2349,7 @@
           background: page.background || null,
           cards,
           slots: normalizeSlots(page.slots, slotCount).map((slot) => ({ ...slot })),
+          images: (page.images || []).map(persistedImageSource),
           createdAt: page.createdAt || now,
           updatedAt: now,
         });
@@ -2363,12 +2404,19 @@
       state.pages.forEach((page) => {
         page.createdAt = createdMap.get(page.id) || page.createdAt;
         page.backgroundDirty = false;
+        (page.images || []).forEach((image) => {
+          image.dirty = false;
+        });
         page.isNew = false;
       });
 
-      const activeSets = new Set(
-        state.pages.map((page) => clean(page.chunkSet)).filter(Boolean),
-      );
+      const activeSets = new Set();
+      state.pages.forEach((page) => {
+        if (page.chunkSet) activeSets.add(clean(page.chunkSet));
+        (page.images || []).forEach((image) => {
+          if (image.chunkSet) activeSets.add(clean(image.chunkSet));
+        });
+      });
       for (const chunkSet of state.orphanChunkSets) {
         if (!activeSets.has(chunkSet)) {
           await deleteChunkSet(reference, chunkSet);
@@ -2437,6 +2485,18 @@
     state.currentChunkSet = "";
     state.backgroundDirty = false;
     state.slots = [];
+    state.images = [];
+    state.selectedSlots = new Set();
+    state.slotSelectMode = false;
+    state.artFile = null;
+    state.artBlob = null;
+    if (state.artObjectUrl) URL.revokeObjectURL(state.artObjectUrl);
+    state.artObjectUrl = "";
+    state.artWidth = 0;
+    state.artHeight = 0;
+    if (artFileInput) artFileInput.value = "";
+    if (artFileLabel) artFileLabel.textContent = "확장 이미지를 선택하세요";
+    if (artMeta) artMeta.textContent = "PNG · JPG · WEBP · 최대 10MB";
     state.pages = [blankPage(DEFAULT_PAGE_ID, "3x4")];
     state.deletedPageIds = new Set();
     state.orphanChunkSets = new Set();
