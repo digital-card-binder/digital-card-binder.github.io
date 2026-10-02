@@ -2083,3 +2083,162 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     width: 100%;
   }
 }
+
+
+/* Custom Binder 9-11: dex linking, ownership and whole-binder print */
+.studio-custom-link-select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #d6e1e8;
+  border-radius: 11px;
+  background: #fff;
+  color: #30465b;
+  font: inherit;
+  font-size: .64rem;
+  font-weight: 750;
+  padding: 0 11px;
+}
+
+.studio-custom-link-select:disabled {
+  opacity: .58;
+}
+
+.studio-custom-link-status {
+  margin: 8px 0 0;
+  color: #718193;
+  font-size: .57rem;
+  line-height: 1.5;
+}
+
+.studio-custom-ownership-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 8;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(12, 54, 76, .82);
+  color: #fff;
+  font-size: .48rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 4px 6px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(13, 39, 59, .18);
+}
+
+.studio-custom-ownership-badge.is-owned {
+  background: rgba(21, 111, 103, .88);
+}
+
+.studio-custom-ownership-badge.is-missing {
+  background: rgba(102, 111, 122, .86);
+}
+
+.studio-custom-card-placement.is-missing-grayscale > img {
+  filter: grayscale(1);
+}
+
+.studio-custom-card-placement.is-missing-dim > img {
+  opacity: .35;
+}
+
+.studio-custom-card-placement.is-missing-empty > img {
+  visibility: hidden;
+}
+
+.studio-custom-card-result.is-owned {
+  box-shadow: inset 3px 0 0 rgba(37, 145, 128, .72);
+}
+
+.studio-custom-card-result.is-missing {
+  box-shadow: inset 3px 0 0 rgba(134, 145, 157, .58);
+}
+
+.studio-custom-result-ownership {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 3px;
+  border-radius: 999px;
+  background: #eef3f6;
+  color: #66788a;
+  font-size: .5rem;
+  font-weight: 850;
+  padding: 2px 6px;
+}
+
+.studio-custom-result-ownership.is-owned {
+  background: #e8f7f3;
+  color: #1f756d;
+}
+
+.studio-custom-missing-options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, auto);
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  border: 1px solid #dce5eb;
+  border-radius: 11px;
+  background: #f8fbfc;
+  padding: 8px;
+}
+
+.studio-custom-missing-options > span {
+  color: #51677a;
+  font-size: .57rem;
+  font-weight: 800;
+}
+
+.studio-custom-missing-options label {
+  cursor: pointer;
+}
+
+.studio-custom-missing-options label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.studio-custom-missing-options label strong {
+  display: block;
+  min-width: 42px;
+  border: 1px solid #d5e0e7;
+  border-radius: 9px;
+  background: #fff;
+  color: #607285;
+  font-size: .54rem;
+  text-align: center;
+  padding: 7px 8px;
+}
+
+.studio-custom-missing-options label input:checked + strong {
+  border-color: #4d9fb6;
+  background: #eaf8fb;
+  color: #15546c;
+}
+
+.studio-custom-print-sheet[data-binder-page]::before {
+  content: "바인더 " attr(data-binder-page) "페이지";
+  position: absolute;
+  top: 2.5mm;
+  right: 7mm;
+  z-index: 20;
+  color: #65717b;
+  font-size: 7pt;
+  font-weight: 700;
+}
+
+@media (max-width: 690px) {
+  .studio-custom-missing-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .studio-custom-missing-options > span {
+    grid-column: 1 / -1;
+  }
+
+  .studio-custom-missing-options label strong {
+    min-width: 0;
+  }
+}
