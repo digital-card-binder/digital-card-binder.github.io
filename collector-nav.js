@@ -10,7 +10,7 @@
   const COMPACT_CARD_LAYOUT_QUERY = "(max-width: 920px)";
   const MOBILE_CARD_LAYOUT_QUERY = "(max-width: 690px)";
   const SITE_BUILD_VERSION = "b-843ed2184726";
-  const CARD_SCANNER_JS_VERSION = "187e1a76694e";
+  const CARD_SCANNER_JS_VERSION = "03f62e451e5f";
   const CARD_SCANNER_CSS_VERSION = "1f4470ec220e";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
