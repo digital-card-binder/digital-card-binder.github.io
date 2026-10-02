@@ -2233,6 +2233,423 @@
     return state.firebase.firestoreModule.doc(reference, "pages", pageId);
   }
 
+  function publicBinderRef(publicId = state.publicProfile?.publicId, binderId = state.currentBinderId) {
+    if (!state.firebase || !publicId || !binderId) return null;
+    return state.firebase.firestoreModule.doc(
+      state.firebase.db,
+      "publicProfiles",
+      clean(publicId),
+      "binders",
+      clean(binderId),
+    );
+  }
+
+  function publicBinderPageRef(publicId, binderId, pageId) {
+    const reference = publicBinderRef(publicId, binderId);
+    if (!reference || !pageId) return null;
+    return state.firebase.firestoreModule.doc(reference, "pages", pageId);
+  }
+
+  function publicBinderChunkRef(publicId, binderId, chunkId) {
+    const reference = publicBinderRef(publicId, binderId);
+    if (!reference || !chunkId) return null;
+    return state.firebase.firestoreModule.doc(reference, "chunks", chunkId);
+  }
+
+  async function refreshPublishState() {
+    state.isPublished = false;
+    if (
+      !state.user ||
+      !state.firebase ||
+      !state.currentBinderId ||
+      !state.publicProfile?.publicId
+    ) {
+      renderShareUi();
+      return;
+    }
+    try {
+      const snapshot = await state.firebase.firestoreModule.getDoc(publicBinderRef());
+      state.isPublished = snapshot.exists();
+      renderShareUi();
+    } catch (error) {
+      console.error("바인더 공개 상태 확인 실패", error);
+      renderShareUi("공개 상태를 확인하지 못했습니다.");
+    }
+  }
+
+  function imageForCanvas(url, cache) {
+    const key = clean(url);
+    if (!key) return Promise.reject(new Error("이미지 주소가 비어 있습니다."));
+    if (cache.has(key)) return cache.get(key);
+    const promise = new Promise((resolve, reject) => {
+      const image = new Image();
+      try {
+        const parsed = new URL(key, window.location.href);
+        if (parsed.protocol.startsWith("http") && parsed.origin !== window.location.origin) {
+          image.crossOrigin = "anonymous";
+        }
+      } catch {
+        // blob/data URLs need no cross-origin mode.
+      }
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error("공개본에 필요한 이미지를 불러오지 못했습니다."));
+      image.src = key;
+    });
+    cache.set(key, promise);
+    return promise;
+  }
+
+  function canvasBlob(canvas) {
+    return new Promise((resolve, reject) => {
+      try {
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("공개 바인더 이미지를 만들지 못했습니다."));
+              return;
+            }
+            resolve(blob);
+          },
+          "image/webp",
+          0.88,
+        );
+      } catch (error) {
+        reject(
+          new Error(
+            error?.name === "SecurityError"
+              ? "공개본을 만들 수 없는 외부 이미지가 포함되어 있습니다."
+              : "공개 바인더 이미지를 만들지 못했습니다.",
+          ),
+        );
+      }
+    });
+  }
+
+  async function renderPublicPageSnapshot(page) {
+    await hydratePageBackground(page);
+    await hydratePageImages(page);
+
+    const cols = Math.max(1, Number(page.grid?.cols) || 3);
+    const rows = Math.max(1, Number(page.grid?.rows) || 4);
+    const width = Math.round(cols * CARD_WIDTH_MM * PUBLIC_PREVIEW_PX_PER_MM);
+    const height = Math.round(rows * CARD_HEIGHT_MM * PUBLIC_PREVIEW_PX_PER_MM);
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d", { alpha: false });
+    if (!context) throw new Error("공개 바인더 렌더링을 시작하지 못했습니다.");
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, width, height);
+
+    const imageCache = new Map();
+    if (page.objectUrl) {
+      const background = await imageForCanvas(page.objectUrl, imageCache);
+      context.drawImage(background, 0, 0, width, height);
+    }
+
+    for (const slot of page.slots || []) {
+      if (slot.type !== "image") continue;
+      const source = (page.images || []).find((image) => image.id === slot.imageId);
+      if (!source?.objectUrl) continue;
+      const image = await imageForCanvas(source.objectUrl, imageCache);
+      const crop = slot.crop || {};
+      const cropX = Math.max(0, Math.min(1, Number(crop.x) || 0));
+      const cropY = Math.max(0, Math.min(1, Number(crop.y) || 0));
+      const cropWidth = Math.max(0.0001, Math.min(1 - cropX, Number(crop.width) || 1));
+      const cropHeight = Math.max(0.0001, Math.min(1 - cropY, Number(crop.height) || 1));
+      const col = Number(slot.index) % cols;
+      const row = Math.floor(Number(slot.index) / cols);
+      context.drawImage(
+        image,
+        cropX * image.naturalWidth,
+        cropY * image.naturalHeight,
+        cropWidth * image.naturalWidth,
+        cropHeight * image.naturalHeight,
+        (col / cols) * width,
+        (row / rows) * height,
+        width / cols,
+        height / rows,
+      );
+    }
+
+    const placements = (page.placements || []).slice().sort((a, b) => a.z - b.z);
+    for (const entry of placements) {
+      const ownership = ownershipForCard(entry.card);
+      if (ownership === false && state.missingCardDisplay === "empty") continue;
+      const image = await imageForCanvas(entry.card.image, imageCache);
+      const drawWidth = (Number(entry.width) / 100) * width;
+      const drawHeight = drawWidth * (CARD_HEIGHT_MM / CARD_WIDTH_MM);
+      const left = (Number(entry.x) / 100) * width;
+      const top = (Number(entry.y) / 100) * height;
+      const rotation = (Number(entry.rotation) || 0) * Math.PI / 180;
+
+      context.save();
+      context.translate(left + drawWidth / 2, top + drawHeight / 2);
+      context.rotate(rotation);
+      context.filter =
+        ownership === false && state.missingCardDisplay === "grayscale"
+          ? "grayscale(1)"
+          : "none";
+      context.drawImage(
+        image,
+        -drawWidth / 2,
+        -drawHeight / 2,
+        drawWidth,
+        drawHeight,
+      );
+      context.filter = "none";
+
+      if (ownership !== null) {
+        const label = ownership ? "보유" : "미보유";
+        const fontSize = Math.max(11, Math.round(drawWidth * 0.075));
+        context.font = `700 ${fontSize}px sans-serif`;
+        const paddingX = Math.max(5, Math.round(fontSize * 0.5));
+        const paddingY = Math.max(3, Math.round(fontSize * 0.32));
+        const metrics = context.measureText(label);
+        const badgeWidth = metrics.width + paddingX * 2;
+        const badgeHeight = fontSize + paddingY * 2;
+        const badgeX = drawWidth / 2 - badgeWidth - 5;
+        const badgeY = -drawHeight / 2 + 5;
+        context.fillStyle = ownership
+          ? "rgba(21,111,103,.88)"
+          : "rgba(82,91,103,.86)";
+        context.fillRect(badgeX, badgeY, badgeWidth, badgeHeight);
+        context.fillStyle = "#ffffff";
+        context.textBaseline = "top";
+        context.fillText(label, badgeX + paddingX, badgeY + paddingY);
+      }
+      context.restore();
+    }
+
+    const blob = await canvasBlob(canvas);
+    if (blob.size > CHUNK_BYTES * 24) {
+      throw new Error(
+        `${page.title || "페이지"} 공개 이미지 용량이 너무 큽니다. 배경 이미지를 줄인 뒤 다시 시도해 주세요.`,
+      );
+    }
+    return {
+      blob,
+      width,
+      height,
+    };
+  }
+
+  async function writePublicBlobChunks(reference, blob, chunkSet, publicId, binderId) {
+    const { firestoreModule, db } = state.firebase;
+    const raw = new Uint8Array(await blob.arrayBuffer());
+    const chunkCount = Math.ceil(raw.length / CHUNK_BYTES);
+    if (!chunkCount || chunkCount > 24) {
+      throw new Error("공개 페이지 이미지 용량이 저장 한도를 초과했습니다.");
+    }
+
+    for (let start = 0; start < chunkCount; start += 4) {
+      const batch = firestoreModule.writeBatch(db);
+      const end = Math.min(chunkCount, start + 4);
+      for (let index = start; index < end; index += 1) {
+        const from = index * CHUNK_BYTES;
+        const to = Math.min(raw.length, from + CHUNK_BYTES);
+        const bytes = raw.slice(from, to);
+        const chunkId = `${chunkSet}_${String(index).padStart(3, "0")}`;
+        batch.set(publicBinderChunkRef(publicId, binderId, chunkId), {
+          schemaVersion: 1,
+          publicId,
+          binderId,
+          chunkSet,
+          index,
+          data: firestoreModule.Bytes.fromUint8Array(bytes),
+          size: bytes.length,
+          updatedAt: firestoreModule.serverTimestamp(),
+        });
+      }
+      await batch.commit();
+    }
+    return chunkCount;
+  }
+
+  async function removePublicBinderProjection({ confirmUser = false } = {}) {
+    if (
+      !state.firebase ||
+      !state.publicProfile?.publicId ||
+      !state.currentBinderId
+    ) return false;
+    if (
+      confirmUser &&
+      !window.confirm("이 바인더의 공개를 중단할까요? 공유 링크와 컬렉터 프로필에서도 사라집니다.")
+    ) return false;
+
+    const { firestoreModule, db } = state.firebase;
+    const reference = publicBinderRef();
+    const [pages, chunks] = await Promise.all([
+      firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
+      firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
+    ]);
+    const documents = [...pages.docs, ...chunks.docs];
+    for (let start = 0; start < documents.length; start += 300) {
+      const batch = firestoreModule.writeBatch(db);
+      documents.slice(start, start + 300).forEach((item) => batch.delete(item.ref));
+      await batch.commit();
+    }
+    await firestoreModule.deleteDoc(reference);
+    state.isPublished = false;
+    renderShareUi("공개를 중단했습니다. 기존 공유 링크에서는 더 이상 열 수 없습니다.");
+    return true;
+  }
+
+  async function publishCurrentBinder(options = {}) {
+    if (state.publishing) return false;
+    if (!state.user || !state.firebase) {
+      renderShareUi("Google 로그인 후 공개할 수 있습니다.");
+      return false;
+    }
+    if (!state.publicProfile?.profileCompleted || !state.publicProfile?.publicId) {
+      renderShareUi("컬렉터 프로필을 먼저 완성해 주세요.");
+      return false;
+    }
+
+    if (!options.skipSave) {
+      await saveCurrentBinder({ skipPublicSync: true });
+    }
+    if (!state.currentBinderId) {
+      renderShareUi("바인더를 먼저 저장해 주세요.");
+      return false;
+    }
+
+    state.publishing = true;
+    renderShareUi();
+    const { firestoreModule, db } = state.firebase;
+    const publicId = state.publicProfile.publicId;
+    const binderId = state.currentBinderId;
+    const reference = publicBinderRef(publicId, binderId);
+
+    try {
+      captureCurrentPage();
+      await prepareAllPagesForPrint();
+
+      const existing = await firestoreModule.getDoc(reference);
+      const [oldPages, oldChunks] = await Promise.all([
+        firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
+        firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
+      ]);
+      const oldPageIds = new Set(oldPages.docs.map((item) => item.id));
+      const newChunkSets = new Set();
+      const publicPages = [];
+
+      for (let index = 0; index < state.pages.length; index += 1) {
+        const page = state.pages[index];
+        renderShareUi(`공개본 생성 중 · ${index + 1} / ${state.pages.length}페이지`);
+        const snapshot = await renderPublicPageSnapshot(page);
+        const chunkSet = makeId("publicpage");
+        const chunkCount = await writePublicBlobChunks(
+          reference,
+          snapshot.blob,
+          chunkSet,
+          publicId,
+          binderId,
+        );
+        newChunkSets.add(chunkSet);
+        publicPages.push({
+          page,
+          preview: {
+            type: snapshot.blob.type || "image/webp",
+            size: snapshot.blob.size,
+            width: snapshot.width,
+            height: snapshot.height,
+            chunkSet,
+            chunkCount,
+          },
+        });
+      }
+
+      const batch = firestoreModule.writeBatch(db);
+      const now = firestoreModule.serverTimestamp();
+      publicPages.forEach(({ page, preview }, index) => {
+        oldPageIds.delete(page.id);
+        batch.set(publicBinderPageRef(publicId, binderId, page.id), {
+          schemaVersion: 1,
+          publicId,
+          binderId,
+          pageId: page.id,
+          title: clean(page.title) || pageTitle(index),
+          grid: {
+            cols: Math.max(1, Number(page.grid?.cols) || 3),
+            rows: Math.max(1, Number(page.grid?.rows) || 4),
+          },
+          preview,
+          updatedAt: now,
+        });
+      });
+      oldPageIds.forEach((pageId) => {
+        batch.delete(publicBinderPageRef(publicId, binderId, pageId));
+      });
+
+      const stats = binderOwnershipStats();
+      const cardCount = state.pages.reduce(
+        (sum, page) => sum + (page.placements || []).length,
+        0,
+      );
+      batch.set(reference, {
+        schemaVersion: 1,
+        publicId,
+        binderId,
+        title: clean(titleInput.value) || "커스텀 바인더",
+        pageOrder: state.pages.map((page) => page.id),
+        summary: {
+          pageCount: state.pages.length,
+          cardCount,
+          matchedCount: stats.matched,
+          ownedCount: stats.owned,
+          missingCount: stats.missing,
+        },
+        settings: {
+          missingCardDisplay: state.missingCardDisplay,
+        },
+        publishedAt: existing.exists()
+          ? existing.data().publishedAt
+          : now,
+        updatedAt: now,
+      });
+      await batch.commit();
+
+      const staleChunks = oldChunks.docs.filter(
+        (item) => !newChunkSets.has(clean(item.data()?.chunkSet)),
+      );
+      for (let start = 0; start < staleChunks.length; start += 300) {
+        const cleanup = firestoreModule.writeBatch(db);
+        staleChunks.slice(start, start + 300).forEach((item) => cleanup.delete(item.ref));
+        await cleanup.commit();
+      }
+
+      state.isPublished = true;
+      renderShareUi(
+        options.silent
+          ? "공개본도 최신 상태로 갱신했습니다."
+          : "공개 완료 · 컬렉터 프로필과 아래 링크에서 읽기 전용으로 볼 수 있습니다.",
+      );
+      return true;
+    } catch (error) {
+      console.error("커스텀 바인더 공개 실패", error);
+      renderShareUi(clean(error?.message) || "바인더를 공개하지 못했습니다.");
+      return false;
+    } finally {
+      state.publishing = false;
+      renderShareUi(shareStatus?.textContent || "");
+    }
+  }
+
+  async function copyPublicBinderLink() {
+    const url = publicBinderUrl();
+    if (!url) return;
+    try {
+      await navigator.clipboard.writeText(url);
+      renderShareUi("공개 링크를 복사했습니다.");
+    } catch {
+      shareUrlInput?.focus();
+      shareUrlInput?.select();
+      document.execCommand?.("copy");
+      renderShareUi("공개 링크를 복사했습니다.");
+    }
+  }
+
   function primaryPageId(data) {
     const order = Array.isArray(data?.pageOrder) ? data.pageOrder : [];
     const first = clean(order[0]);
