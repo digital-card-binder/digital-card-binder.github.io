@@ -249,6 +249,68 @@
       { x: w * (1 - inset), y: h * (1 - inset) }, { x: w * inset, y: h * (1 - inset) }];
   }
 
+  // Look for repeated dark pocket gutters in page coordinates, rather than
+  // guessing the number of pockets from a photograph's aspect ratio.
+  function detectPocketGrid(image, corners) {
+    if (!validCorners(corners, image.width, image.height)) return null;
+    const source = analysisCanvas(image);
+    const map = unitSquareToQuad(corners.map((p) => ({ x: p.x * source.scale, y: p.y * source.scale })));
+    if (!map) return null;
+    const pixels = source.context.getImageData(0, 0, source.canvas.width, source.canvas.height).data;
+    const samples = 240;
+    function axisCount(vertical) {
+      const profile = Array.from({ length: samples }, (_, i) => {
+        const values = [];
+        for (let j = 0; j < 80; j++) {
+          const across = 0.06 + 0.88 * j / 79;
+          const p = map(vertical ? i / (samples - 1) : across, vertical ? across : i / (samples - 1));
+          const x = clamp(Math.round(p.x), 0, source.canvas.width - 1);
+          const y = clamp(Math.round(p.y), 0, source.canvas.height - 1);
+          const offset = (y * source.canvas.width + x) * 4;
+          values.push(pixels[offset] * 0.299 + pixels[offset + 1] * 0.587 + pixels[offset + 2] * 0.114);
+        }
+        values.sort((a, b) => a - b);
+        return values[56]; // A gutter must be dark across most of the page.
+      });
+      function contrastAt(i) {
+        if (profile[i] > 175) return 0;
+        const neighbors = [-18, -14, -10, 10, 14, 18].map((d) => profile[i + d]).sort((a, b) => a - b);
+        return Math.max(0, ((neighbors[2] + neighbors[3]) / 2 - profile[i]) / 255);
+      }
+      const candidates = [2, 3, 4, 5].map((count) => {
+        const contrasts = [];
+        for (let k = 1; k < count; k++) {
+          let best = 0;
+          const from = Math.round((k / count - 0.045) * (samples - 1));
+          const to = Math.round((k / count + 0.045) * (samples - 1));
+          for (let i = from; i <= to; i++) {
+            best = Math.max(best, contrastAt(i));
+          }
+          contrasts.push(best);
+        }
+        const min = Math.min(...contrasts);
+        const average = contrasts.reduce((sum, value) => sum + value, 0) / contrasts.length;
+        // A 4-pocket axis also has a center gutter. Don't call it 2 pockets
+        // when other strong gutters would be left unexplained.
+        let unexplained = 0;
+        for (let i = 24; i < samples - 24; i++) {
+          const position = i / (samples - 1);
+          const nearDivider = Array.from({ length: count - 1 }, (_, k) => (k + 1) / count)
+            .some((divider) => Math.abs(position - divider) < 0.06);
+          if (!nearDivider) unexplained = Math.max(unexplained, contrastAt(i));
+        }
+        return { count, min, average, score: min * 0.4 + average * 0.6 - unexplained * 0.3 };
+      }).sort((a, b) => b.score - a.score);
+      const [best, second] = candidates;
+      const gap = best.score - second.score;
+      if (best.min < 0.09 || best.average < 0.18 || gap < 0.035) return null;
+      return { count: best.count, confidence: clamp(Math.min(best.average / 0.35, gap / 0.08), 0, 1) };
+    }
+    const cols = axisCount(true), rows = axisCount(false);
+    if (!cols || !rows) return null;
+    return { cols: cols.count, rows: rows.count, confidence: Math.min(cols.confidence, rows.confidence) };
+  }
+
   // Browser decoders apply EXIF exactly once; drawing removes orientation metadata.
   async function decodePhoto(file) {
     if (!file || (!String(file.type).startsWith("image/") &&
@@ -326,13 +388,34 @@
     const stage = dialog.querySelector(".studio-scan-stage");
     const canvas = dialog.querySelector("canvas");
     const outline = dialog.querySelector("polygon");
+    const gridLines = dialog.querySelector("[data-scan-grid-lines]");
+    const gridSelect = dialog.querySelector("[data-scan-grid]");
+    const gridNote = dialog.querySelector("[data-scan-grid-note]");
     const svg = dialog.querySelector("svg");
     const handles = [...dialog.querySelectorAll("[data-scan-corner]")];
     const status = dialog.querySelector("[data-scan-status]");
     const zoom = dialog.querySelector("[data-scan-zoom]");
     const apply = dialog.querySelector('[data-scan-action="apply"]');
-    const controls = [...dialog.querySelectorAll("button, input")];
+    const controls = [...dialog.querySelectorAll("button, input, select")];
     let points = originalCorners(image, 0.025), confidence = 0, busy = false, drag = null;
+    let manualGrid = false;
+    gridSelect.value = `${options.cols || 3}x${options.rows || 4}`;
+    function scanGrid() {
+      const [cols, rows] = gridSelect.value.split("x").map(Number);
+      return { cols, rows };
+    }
+    function checkGrid() {
+      let detected = null;
+      if (!manualGrid) {
+        try { detected = detectPocketGrid(image, points); } catch { /* Manual selection stays available. */ }
+        const value = detected && `${detected.cols}x${detected.rows}`;
+        if (value && [...gridSelect.options].some((option) => option.value === value)) gridSelect.value = value;
+        else detected = null;
+      }
+      const { cols, rows } = scanGrid();
+      gridNote.textContent = `${detected ? "포켓 구분선으로 찾은 배열" : "사진 속 배열을 확인하세요"} · ${cols} × ${rows}, ${cols * rows}칸. 분할선이 실제 포켓 사이에 맞아야 합니다.`;
+      drawPoints();
+    }
     let resolveEdit;
     const done = new Promise((resolve) => { resolveEdit = resolve; });
     const listeners = new AbortController();
@@ -357,6 +440,14 @@
     }
     function drawPoints() {
       outline.setAttribute("points", points.map((p) => `${p.x},${p.y}`).join(" "));
+      const map = validCorners(points, image.width, image.height) && unitSquareToQuad(points);
+      const { cols, rows } = scanGrid();
+      const segments = [];
+      if (map) {
+        for (let col = 1; col < cols; col++) segments.push([map(col / cols, 0), map(col / cols, 1)]);
+        for (let row = 1; row < rows; row++) segments.push([map(0, row / rows), map(1, row / rows)]);
+      }
+      gridLines.setAttribute("d", segments.map(([a, b]) => `M${a.x},${a.y}L${b.x},${b.y}`).join(" "));
       handles.forEach((handle, i) => {
         handle.style.left = `${points[i].x / image.width * 100}%`;
         handle.style.top = `${points[i].y / image.height * 100}%`;
@@ -384,6 +475,7 @@
         confidence = 0;
         status.textContent = "페이지 경계가 불확실합니다. 네 점을 카드 포켓 영역의 모서리로 옮겨 주세요.";
       }
+      checkGrid();
       setBusy(false);
     }
     function finish(result) {
@@ -415,7 +507,7 @@
         drawPoints();
       }, { signal });
       for (const type of ["pointerup", "pointercancel", "lostpointercapture"]) {
-        handle.addEventListener(type, () => { drag = null; }, { signal });
+        handle.addEventListener(type, () => { if (drag) { drag = null; checkGrid(); } }, { signal });
       }
       handle.addEventListener("keydown", (event) => {
         const directions = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
@@ -429,6 +521,7 @@
       }, { signal });
     });
     zoom.addEventListener("input", layout, { signal });
+    gridSelect.addEventListener("change", () => { manualGrid = true; checkGrid(); }, { signal });
     dialog.addEventListener("cancel", (event) => { event.preventDefault(); if (!busy) finish(null); }, { signal });
     dialog.addEventListener("click", async (event) => {
       const action = event.target.closest("[data-scan-action]")?.dataset.scanAction;
@@ -439,7 +532,7 @@
         points = originalCorners(image);
         confidence = 0;
         status.textContent = "사진 전체 영역으로 초기화했습니다. 네 점을 페이지 모서리에 맞춰 주세요.";
-        drawPoints();
+        checkGrid();
       }
       if (action === "rotate") {
         const rotated = document.createElement("canvas");
@@ -461,9 +554,10 @@
         setBusy(true);
         status.textContent = "원근을 보정하고 슬롯을 준비하는 중입니다…";
         try {
-          const aspect = (options.cols * (options.cardWidth || 63)) / (options.rows * (options.cardHeight || 88));
+          const grid = scanGrid();
+          const aspect = (grid.cols * (options.cardWidth || 63)) / (grid.rows * (options.cardHeight || 88));
           const corrected = await warpPerspective(image, points, aspect);
-          finish({ canvas: corrected, mode: "perspective", confidence });
+          finish({ canvas: corrected, mode: "perspective", confidence, grid });
         } catch (error) {
           status.textContent = error.message || "스캔하지 못했습니다. 모서리를 다시 확인해 주세요.";
           setBusy(false);
@@ -478,5 +572,5 @@
     return done;
   }
 
-  root.photoScanner = Object.freeze({ edit, decodePhoto, detectPage, warpPerspective, validCorners, originalCorners, unitSquareToQuad });
+  root.photoScanner = Object.freeze({ edit, decodePhoto, detectPage, detectPocketGrid, warpPerspective, validCorners, originalCorners, unitSquareToQuad });
 })();

@@ -1445,6 +1445,13 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.match(photoScanner, /setPointerCapture/);
   assert.match(page, /id="studio-scan-dialog"/);
   assert.equal((page.match(/data-scan-corner=/g) || []).length, 4);
+  assert.match(page, /data-scan-grid aria-describedby="studio-scan-grid-note"/);
+  assert.match(page, /path data-scan-grid-lines/);
+  assert.match(photoScanner, /function detectPocketGrid/);
+  assert.match(photoScanner, /gridSelect[.]addEventListener\("change"/);
+  assert.match(photoScanner, /confidence, grid/);
+  assert.match(editor, /scanResult[.]grid[?][.]cols/);
+  assert.match(editor, /scanGridInput[.]checked = true/);
   assert.doesNotMatch(page, /빠른 시작|빠른 가져오기/);
   assert.match(photoScanner, /mode: "perspective"/);
   assert.doesNotMatch(editor, /사진은 최대 25MB/);

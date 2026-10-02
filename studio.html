@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <link rel="stylesheet" href="./styles.css?v=41006a39d41c" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./studio.css?v=c2ff99643343" />
+    <link rel="stylesheet" href="./studio.css?v=9529151ee87c" />
     <script src="./card-image-cdn.js?v=e31c346799ab" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -21,9 +21,9 @@
     <script src="./collector-collection-registry.js?v=af95df9173cb" defer></script>
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
     <script src="./card-visual-matcher.js?v=c732c389efa3" defer></script>
-    <script src="./binder-photo-scanner.js?v=1c71c4f5b292" defer></script>
-    <script src="./studio-custom.js?v=8690da591cbb" defer></script>
-    <script src="./studio-help.js?v=6a9fd50a01ee" defer></script>
+    <script src="./binder-photo-scanner.js?v=fdece2138474" defer></script>
+    <script src="./studio-custom.js?v=51226a5a452d" defer></script>
+    <script src="./studio-help.js?v=cccd720fa329" defer></script>
   </head>
   <body data-page="binder-studio">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -230,7 +230,7 @@
                 <div>
                   <span class="studio-photo-import-badge">스캔형 가져오기</span>
                   <strong>사진으로 바인더 가져오기</strong>
-                  <small>사진 선택 → 페이지 영역 맞추기 → 스캔 적용. 반듯하게 보정한 사진을 현재 그리드로 나눕니다.</small>
+                  <small>사진 선택 → 페이지 영역·포켓 배열 확인 → 스캔 적용. 사진과 같은 배열로 나눕니다.</small>
                 </div>
                 <div class="studio-photo-import-head-actions">
                   <span id="studio-custom-photo-grid" class="studio-photo-grid-badge">3 × 4</span>
@@ -249,7 +249,7 @@
                   <strong>앨범에서 선택</strong>
                 </label>
               </div>
-              <p id="studio-custom-photo-status" class="studio-photo-import-status">2번에서 실제 바인더와 같은 그리드를 고른 뒤 사진을 가져오세요. 네 모서리를 확인하고 스캔을 적용하면 슬롯으로 나뉩니다.</p>
+              <p id="studio-custom-photo-status" class="studio-photo-import-status">사진을 선택한 뒤 네 모서리와 사진 속 포켓 배열을 확인하세요. 스캔 적용 시 같은 배열로 슬롯을 만듭니다.</p>
               <button id="studio-custom-photo-recognize" class="studio-photo-recognize-button" type="button" disabled>카드 자동인식</button>
               <p class="studio-photo-recognition-note">확실한 카드만 자동으로 우리 도감 카드로 교체하고, 애매한 슬롯은 후보를 보여줍니다.</p>
               <div id="studio-custom-photo-recognition-results" class="studio-photo-recognition-results" hidden></div>
@@ -444,11 +444,23 @@
           <span class="studio-scan-step">2 / 3 · 스캔형 가져오기</span>
           <h2 id="studio-scan-title">페이지 영역 맞추기</h2>
           <p id="studio-scan-instructions">네 점을 카드 포켓 영역의 모서리에 맞추세요. 선 밖의 책상·손·배경은 제외됩니다.</p>
+          <label class="studio-scan-grid-label">사진 속 포켓 배열
+            <select data-scan-grid aria-describedby="studio-scan-grid-note">
+              <option value="2x2">2 × 2 · 4칸</option>
+              <option value="3x3">3 × 3 · 9칸</option>
+              <option value="3x4">3 × 4 · 12칸</option>
+              <option value="4x3">4 × 3 · 12칸</option>
+              <option value="4x4">4 × 4 · 16칸</option>
+              <option value="4x5">4 × 5 · 20칸</option>
+              <option value="5x4">5 × 4 · 20칸</option>
+            </select>
+          </label>
+          <p id="studio-scan-grid-note" data-scan-grid-note role="status"></p>
         </header>
         <div class="studio-scan-viewport">
           <div class="studio-scan-stage">
             <canvas aria-label="선택한 바인더 사진"></canvas>
-            <svg aria-hidden="true" preserveAspectRatio="none"><polygon /></svg>
+            <svg aria-hidden="true" preserveAspectRatio="none"><polygon /><path data-scan-grid-lines /></svg>
             <button type="button" data-scan-corner="0" aria-label="왼쪽 위 모서리" aria-describedby="studio-scan-instructions"><span>1</span></button>
             <button type="button" data-scan-corner="1" aria-label="오른쪽 위 모서리" aria-describedby="studio-scan-instructions"><span>2</span></button>
             <button type="button" data-scan-corner="2" aria-label="오른쪽 아래 모서리" aria-describedby="studio-scan-instructions"><span>3</span></button>

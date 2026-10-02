@@ -1389,7 +1389,7 @@
     const { cols, rows } = selectedGrid();
     photoStatus.textContent = source
       ? `현재 사진을 ${cols} × ${rows} 슬롯로 가져왔습니다. 카드 자동인식을 실행하거나 그대로 저장할 수 있습니다.`
-      : `사진 선택 → 페이지 영역 맞추기 → 스캔 적용 · 현재 ${cols} × ${rows} 그리드로 나눕니다.`;
+      : `사진 선택 → 페이지 영역·포켓 배열 확인 → 스캔 적용 · 현재 페이지 ${cols} × ${rows}. 사진 속 배열은 스캔 화면에서 맞출 수 있습니다.`;
   }
 
   function clearPhotoRecognitionResults() {
@@ -1492,7 +1492,7 @@
 
   async function importBinderPhoto(file) {
     if (!file || state.photoImporting || state.photoRecognizing || state.saving || state.publishing) return;
-    const { cols, rows } = selectedGrid();
+    let { cols, rows } = selectedGrid();
     state.photoImporting = true;
     updatePhotoImportUi("사진을 열고 있습니다…");
     try {
@@ -1511,6 +1511,11 @@
       }
       updatePhotoImportUi("스캔한 사진을 최적화하고 슬롯으로 나누는 중입니다…");
       const prepared = await normalizeBinderPhoto(file, scanResult);
+      const scanGridInput = gridInputs.find((input) => input.value === `${scanResult.grid?.cols}x${scanResult.grid?.rows}`);
+      if (scanGridInput) {
+        scanGridInput.checked = true;
+        ({ cols, rows } = selectedGrid());
+      }
       state.images.forEach((image) => {
         if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
         if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
@@ -1557,7 +1562,7 @@
 
       previewEmpty.hidden = true;
       previewWrap.hidden = false;
-      renderSlotLayer();
+      renderGrid();
       renderPlacements();
       captureCurrentPage();
       renderPageControls();

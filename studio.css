@@ -3196,6 +3196,9 @@ body[data-page="binder-studio"] {
 .studio-scan-step { color: #577181; font-size: .75rem; }
 .studio-scan-head h2 { margin: 5px 0 7px; font-size: 1.2rem; }
 .studio-scan-head p { margin: 0; font-size: .85rem; color: #667886; line-height: 1.5; }
+.studio-scan-grid-label { display: flex; align-items: center; gap: 12px; margin-top: 12px; font-size: .82rem; font-weight: 700; color: #355363; }
+.studio-scan-grid-label select { flex: 1; min-width: 0; min-height: 44px; padding: 8px 10px; border: 1px solid #d5dfe5; border-radius: 9px; background: #fff; color: #254b63; font: inherit; }
+.studio-scan-head [data-scan-grid-note] { margin-top: 7px; font-size: .75rem; }
 .studio-scan-viewport {
   height: min(48dvh, 470px);
   min-height: 130px;
@@ -3211,6 +3214,7 @@ body[data-page="binder-studio"] {
 .studio-scan-stage canvas, .studio-scan-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .studio-scan-stage svg { pointer-events: none; overflow: visible; }
 .studio-scan-stage polygon { fill: #23b7ae18; stroke: #20b5ad; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.studio-scan-stage [data-scan-grid-lines] { fill: none; stroke: #fff; stroke-width: 1.5; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; filter: drop-shadow(0 1px 1px #102938); }
 .studio-scan-stage button {
   position: absolute;
   display: grid;

@@ -72,6 +72,35 @@ test("uniform photos have no false auto-detected page and safe initial corners r
   assert.equal(api.validCorners(api.originalCorners({ width: 100, height: 100 }, 0.025), 100, 100), true);
 });
 
+test("pocket gutter counts distinguish 3x3, 3x4 and 4x4 even when their aspect is the same", () => {
+  for (const [cols, rows] of [[2, 2], [3, 3], [3, 4], [4, 3], [4, 4], [4, 5], [5, 4]]) {
+    const size = 400;
+    const data = new Uint8ClampedArray(size * size * 4);
+    for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+      const inGutter = (position, count) => Array.from({ length: count - 1 }, (_, i) => (i + 1) * (size - 1) / count)
+        .some((divider) => Math.abs(position - divider) < 5);
+      const value = inGutter(x, cols) || inGutter(y, rows) ? 30 : 210;
+      data.set([value, value, value, 255], (y * size + x) * 4);
+    }
+    const image = canvas(size, size, data);
+    const detected = api.detectPocketGrid(image, api.originalCorners(image));
+    assert.ok(detected, `${cols}x${rows} has repeated gutters`);
+    assert.equal(detected.cols, cols);
+    assert.equal(detected.rows, rows);
+  }
+});
+
+test("grid suggestion does not guess a count from aspect or from just one divider direction", () => {
+  const data = new Uint8ClampedArray(100 * 100 * 4).fill(210);
+  const image = canvas(100, 100, data);
+  assert.equal(api.detectPocketGrid(image, api.originalCorners(image)), null);
+  for (let y = 0; y < 100; y++) for (let x = 0; x < 100; x++) {
+    if (Math.abs(x - 33) < 2 || Math.abs(x - 66) < 2) data.set([20, 20, 20, 255], (y * 100 + x) * 4);
+  }
+  assert.equal(api.detectPocketGrid(image, api.originalCorners(image)), null);
+  assert.equal(api.detectPocketGrid(image, [trapezoid[0], trapezoid[2], trapezoid[1], trapezoid[3]]), null);
+});
+
 test("degenerate scan rejects instead of silently importing a centered crop", async () => {
   await assert.rejects(api.warpPerspective(canvas(100, 100), [trapezoid[0], trapezoid[2], trapezoid[1], trapezoid[3]], 1));
   assert.equal(api.scan, undefined);
