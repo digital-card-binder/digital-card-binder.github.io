@@ -21,6 +21,7 @@
     <script src="./collector-collection-registry.js?v=af95df9173cb" defer></script>
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
     <script src="./studio-custom.js?v=eddfe56edd8b" defer></script>
+    <script src="./studio-help.js" defer></script>
   </head>
   <body data-page="binder-studio">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -189,7 +190,7 @@
             <section class="studio-control-card studio-custom-page-card">
               <div class="studio-step-heading">
                 <span>1</span>
-                <div><strong>바인더 페이지</strong><small>페이지를 추가하고 순서를 바꾸며 실제 바인더처럼 구성하세요.</small></div>
+                <div><strong>바인더 페이지</strong><small>페이지를 추가하고 순서를 바꾸며 실제 바인더처럼 구성하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="1" aria-label="바인더 페이지 도움말">?</button>
               </div>
               <div class="studio-custom-page-toolbar">
                 <button id="studio-custom-page-prev" type="button" aria-label="이전 페이지">‹</button>
@@ -209,7 +210,7 @@
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>2</span>
-                <div><strong>바인더 그리드</strong><small>현재 페이지의 카드 포켓 배열을 선택하세요.</small></div>
+                <div><strong>바인더 그리드</strong><small>현재 페이지의 카드 포켓 배열을 선택하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="2" aria-label="바인더 그리드 도움말">?</button>
               </div>
               <div class="studio-custom-grid-options" aria-label="커스텀 바인더 그리드 선택">
                 <label><input type="radio" name="studio-custom-grid" value="2x2" /><span><strong>2 × 2</strong><small>4칸</small></span></label>
@@ -225,7 +226,7 @@
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>3</span>
-                <div><strong>배경 일러스트</strong><small>선택 사항 · PNG · JPG · WEBP, 최대 10MB</small></div>
+                <div><strong>배경 일러스트</strong><small>선택 사항 · PNG · JPG · WEBP, 최대 10MB</small></div><button class="studio-help-button" type="button" data-studio-help="3" aria-label="배경 일러스트 도움말">?</button>
               </div>
               <label id="studio-custom-dropzone" class="studio-custom-dropzone" for="studio-custom-file">
                 <input id="studio-custom-file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
@@ -238,7 +239,7 @@
             <section class="studio-control-card studio-custom-art-card">
               <div class="studio-step-heading">
                 <span>4</span>
-                <div><strong>슬롯 이미지 자동분할</strong><small>슬롯을 선택한 뒤 한 장의 이미지를 선택 영역에 자동으로 나눠 넣습니다.</small></div>
+                <div><strong>확장 이미지 배치</strong><small>이미지 한 장을 선택한 슬롯에 자동으로 나눠 넣습니다.</small></div><button class="studio-help-button" type="button" data-studio-help="4" aria-label="확장 이미지 배치 도움말">?</button>
               </div>
               <label class="studio-custom-art-upload" for="studio-custom-art-file">
                 <input id="studio-custom-art-file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
@@ -261,7 +262,7 @@
             <section class="studio-control-card">
               <div class="studio-step-heading">
                 <span>5</span>
-                <div><strong>카드 추가</strong><small>빈 슬롯에 카드가 들어가며 페이지별로 독립 저장됩니다.</small></div>
+                <div><strong>카드 추가</strong><small>빈 슬롯에 카드가 들어가며 페이지별로 독립 저장됩니다.</small></div><button class="studio-help-button" type="button" data-studio-help="5" aria-label="카드 추가 도움말">?</button>
               </div>
               <label class="studio-field">
                 <span>우리 도감 카드 검색</span>
@@ -274,7 +275,7 @@
             <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools" hidden>
               <div class="studio-step-heading">
                 <span>6</span>
-                <div><strong>선택 카드 편집</strong><small id="studio-custom-selected-name">카드를 눌러 선택하세요.</small></div>
+                <div><strong>선택 카드 편집</strong><small id="studio-custom-selected-name">카드를 눌러 선택하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="6" aria-label="선택 카드 편집 도움말">?</button>
               </div>
               <div class="studio-custom-tool-grid">
                 <button type="button" data-custom-action="rotate-left">↺ 회전</button>
@@ -298,7 +299,7 @@
             <section class="studio-control-card studio-custom-save-card">
               <div class="studio-step-heading">
                 <span>7</span>
-                <div><strong>나만의도감에 저장</strong><small>모든 페이지와 슬롯 구성을 개인 계정에 함께 저장합니다.</small></div>
+                <div><strong>나만의도감에 저장</strong><small>모든 페이지와 슬롯 구성을 개인 계정에 함께 저장합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="7" aria-label="나만의도감 저장 도움말">?</button>
               </div>
               <label class="studio-field">
                 <span>작업 이름</span>
@@ -322,7 +323,7 @@
             <section class="studio-control-card studio-custom-share-card">
               <div class="studio-step-heading">
                 <span>8</span>
-                <div><strong>공개 · 공유</strong><small>완성한 바인더를 읽기 전용 공개본으로 만들어 컬렉터 프로필과 링크로 공유합니다.</small></div>
+                <div><strong>공개 · 공유</strong><small>완성한 바인더를 읽기 전용 공개본으로 만들어 컬렉터 프로필과 링크로 공유합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="8" aria-label="공개 공유 도움말">?</button>
               </div>
               <p id="studio-custom-share-status" class="studio-custom-share-status">컬렉터 프로필과 공개 상태를 확인하고 있습니다.</p>
               <div class="studio-custom-share-actions">
@@ -339,7 +340,7 @@
             <section class="studio-control-card studio-custom-print-card">
               <div class="studio-step-heading">
                 <span>9</span>
-                <div><strong>전체 바인더 출력</strong><small>모든 페이지를 순서대로 출력하며 페이지별 그리드와 실제 크기를 유지합니다.</small></div>
+                <div><strong>전체 바인더 출력</strong><small>모든 페이지를 순서대로 출력하며 페이지별 그리드와 실제 크기를 유지합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="9" aria-label="전체 바인더 출력 도움말">?</button>
               </div>
               <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
                 <label>
@@ -419,6 +420,24 @@
           </div>
       </footer>
     </main>
+
+    <dialog id="studio-help-dialog" class="studio-help-dialog" aria-labelledby="studio-help-title">
+      <div class="studio-help-sheet">
+        <div class="studio-help-head">
+          <div>
+            <span class="studio-kicker">HELP</span>
+            <h2 id="studio-help-title">기능 도움말</h2>
+          </div>
+          <button class="studio-help-close" type="button" data-studio-help-close aria-label="도움말 닫기">×</button>
+        </div>
+        <p id="studio-help-description" class="studio-help-description"></p>
+        <div class="studio-help-howto">
+          <strong>사용 방법</strong>
+          <ol id="studio-help-steps"></ol>
+        </div>
+        <button class="studio-primary-button studio-help-confirm" type="button" data-studio-help-close>확인</button>
+      </div>
+    </dialog>
 
     <div id="studio-print-root" class="studio-print-root" aria-hidden="true"></div>
   </body>
