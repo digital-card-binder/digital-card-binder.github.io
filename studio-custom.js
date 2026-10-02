@@ -1664,6 +1664,7 @@
         tile.style.top = `${row * plan.cellHeight}mm`;
         tile.style.width = `${plan.cellWidth}mm`;
         tile.style.height = `${plan.cellHeight}mm`;
+        tile.dataset.imageUrl = source.objectUrl;
         applyCropStyle(tile, source, slot.crop);
         composition.append(tile);
       });
@@ -1753,9 +1754,8 @@
   async function waitForCustomPrintImages() {
     const images = [...printRoot.querySelectorAll("img")];
     const tileUrls = [...new Set(
-      state.slots
-        .filter((slot) => slot.type === "image")
-        .map((slot) => imageSourceById(slot.imageId)?.objectUrl)
+      [...printRoot.querySelectorAll(".studio-custom-print-image-tile[data-image-url]")]
+        .map((tile) => tile.dataset.imageUrl)
         .filter(Boolean),
     )];
     const tilePreloads = tileUrls.map((url) => {
