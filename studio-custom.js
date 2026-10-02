@@ -1189,12 +1189,14 @@
         canvasWidthMm: grid.cols * CARD_WIDTH_MM,
         canvasHeightMm: grid.rows * CARD_HEIGHT_MM,
       },
-      background: {
-        name: clean(state.sourceFile?.name),
-        type: clean(state.sourceFile?.type),
-        width: state.sourceWidth,
-        height: state.sourceHeight,
-      },
+      background: state.sourceBlob
+        ? {
+            name: clean(state.sourceFile?.name),
+            type: clean(state.sourceFile?.type),
+            width: state.sourceWidth,
+            height: state.sourceHeight,
+          }
+        : null,
       cards: state.placements.map((entry) => ({
         placementId: entry.id,
         sourceKey: entry.card.key,
@@ -2005,11 +2007,13 @@
         firestoreModule.getDocs(firestoreModule.collection(reference, "chunks")),
         firestoreModule.getDocs(firestoreModule.collection(reference, "pages")),
       ]);
-      const batch = firestoreModule.writeBatch(db);
-      chunks.forEach((chunk) => batch.delete(chunk.ref));
-      pages.forEach((page) => batch.delete(page.ref));
-      batch.delete(reference);
-      await batch.commit();
+      const subdocuments = [...chunks.docs, ...pages.docs];
+      for (let start = 0; start < subdocuments.length; start += 400) {
+        const batch = firestoreModule.writeBatch(db);
+        subdocuments.slice(start, start + 400).forEach((item) => batch.delete(item.ref));
+        await batch.commit();
+      }
+      await firestoreModule.deleteDoc(reference);
       resetEditor(true);
       await refreshLibrary();
       updateSaveUi("저장 작업을 삭제했습니다.");
