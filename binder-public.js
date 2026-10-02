@@ -80,8 +80,13 @@
     const page = state.pages[state.pageIndex];
     if (!page) return;
     const image = $("binder-public-image");
+    const shell = $("binder-public-shell");
     image.src = page.objectUrl;
     image.alt = `${state.binder.title} ${state.pageIndex + 1}페이지`;
+    if (shell) {
+      shell.style.setProperty("--binder-cols", String(Math.max(1, Number(page.grid?.cols) || 3)));
+      shell.style.setProperty("--binder-rows", String(Math.max(1, Number(page.grid?.rows) || 4)));
+    }
     $("binder-public-page-title").textContent = page.title || `${state.pageIndex + 1}페이지`;
     $("binder-public-page-position").textContent = `${state.pageIndex + 1} / ${state.pages.length}`;
     $("binder-public-prev").disabled = state.pageIndex <= 0;
