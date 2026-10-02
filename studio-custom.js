@@ -1432,6 +1432,10 @@
   function resultCard(card) {
     const row = document.createElement("article");
     row.className = "studio-custom-card-result";
+    const ownership = ownershipForCard(card);
+    if (ownership !== null) {
+      row.classList.add(ownership ? "is-owned" : "is-missing");
+    }
 
     const image = document.createElement("img");
     image.src = card.image;
@@ -1446,6 +1450,12 @@
     const set = document.createElement("small");
     set.textContent = card.setTitle || card.setCode;
     copy.append(title, meta, set);
+    if (ownership !== null) {
+      const ownershipLabel = document.createElement("small");
+      ownershipLabel.className = `studio-custom-result-ownership ${ownership ? "is-owned" : "is-missing"}`;
+      ownershipLabel.textContent = ownership ? "연결 도감 · 보유" : "연결 도감 · 미보유";
+      copy.append(ownershipLabel);
+    }
 
     const add = document.createElement("button");
     add.type = "button";
@@ -1583,11 +1593,26 @@
     node.style.transform = `rotate(${entry.rotation}deg)`;
     node.title = entry.card.name;
 
+    const ownership = ownershipForCard(entry.card);
+    node.dataset.ownership = ownership === null ? "unlinked" : ownership ? "owned" : "missing";
+    node.classList.toggle("is-owned", ownership === true);
+    node.classList.toggle("is-missing", ownership === false);
+    if (ownership === false) {
+      node.classList.add(`is-missing-${state.missingCardDisplay}`);
+    }
+
     const image = document.createElement("img");
     image.src = entry.card.image;
     image.alt = `${entry.card.name} 카드`;
     image.draggable = false;
     node.append(image);
+
+    if (ownership !== null) {
+      const badge = document.createElement("span");
+      badge.className = `studio-custom-ownership-badge ${ownership ? "is-owned" : "is-missing"}`;
+      badge.textContent = ownership ? "보유" : "미보유";
+      node.append(badge);
+    }
 
     node.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1652,6 +1677,7 @@
       .sort((a, b) => a.z - b.z)
       .map(placementNode));
     updateEditorUi();
+    renderLinkedDexUi();
     renderSearchResults(searchInput.value);
   }
 
@@ -2807,6 +2833,19 @@
   customPrintSizeInputs.forEach((input) =>
     input.addEventListener("change", updateCustomPrintUi),
   );
+  missingDisplayInputs.forEach((input) =>
+    input.addEventListener("change", () => {
+      state.missingCardDisplay = selectedMissingDisplay();
+      renderPlacements();
+      updateCustomPrintUi();
+    }),
+  );
+  linkedDexSelect?.addEventListener("change", () => {
+    state.linkedDexId = clean(linkedDexSelect.value);
+    renderPlacements();
+    renderLinkedDexUi();
+    updateSaveUi();
+  });
   fileInput.addEventListener("change", () => loadFile(fileInput.files?.[0]));
   artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
   slotSelectToggle?.addEventListener("click", () => {
