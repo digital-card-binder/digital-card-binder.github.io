@@ -1296,6 +1296,16 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   const customPage = await source("custom.html");
   const library = await source("custom-binder-library.js");
 
+  assert.match(page, /id="studio-custom-page-list"/);
+  assert.match(page, /id="studio-custom-page-add"/);
+  assert.match(page, /id="studio-custom-page-duplicate"/);
+  assert.match(page, /id="studio-custom-page-left"/);
+  assert.match(page, /id="studio-custom-page-right"/);
+  assert.match(page, /id="studio-custom-page-delete"/);
+  assert.match(page, /id="studio-custom-slot-layer"/);
+  for (const grid of ["2x2", "3x3", "3x4", "4x3", "4x4", "4x5", "5x4"]) {
+    assert.match(page, new RegExp(`value="${grid}"`));
+  }
   assert.match(page, /id="studio-custom-card-search"/);
   assert.match(page, /id="studio-custom-card-layer"/);
   assert.match(page, /data-custom-action="snap"/);
@@ -1309,6 +1319,16 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
 
   assert.match(editor, /catalogService[?][.]series/);
   assert.match(editor, /identityService[?][.]cardIdentity/);
+  assert.match(editor, /function addPage/);
+  assert.match(editor, /function duplicatePage/);
+  assert.match(editor, /function deletePage/);
+  assert.match(editor, /function movePage/);
+  assert.match(editor, /function switchPage/);
+  assert.match(editor, /function normalizeSlots/);
+  assert.match(editor, /type: "empty"/);
+  assert.match(editor, /type: "card"/);
+  assert.match(editor, /type === "image"/);
+  assert.match(editor, /pageOrder: state[.]pages[.]map/);
   assert.match(editor, /customBinderEditor/);
   assert.match(editor, /getDraft: draftSnapshot/);
   assert.match(editor, /kind: "custom-binder-layout"/);
