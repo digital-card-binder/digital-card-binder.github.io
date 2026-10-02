@@ -628,7 +628,7 @@
         : `각 칸은 ${plan.cellWidth} × ${plan.cellHeight} mm 고정 · A4 한 장당 최대 ${plan.pageCols} × ${plan.pageRows}칸 · 남는 칸은 잘리지 않고 다음 장으로 넘어갑니다.`;
     }
 
-    customPrintButton.disabled = !state.sourceBlob;
+    customPrintButton.disabled = !state.pages.length;
     customPrintButton.textContent = supportsNativePrint()
       ? "인쇄 · PDF로 저장"
       : isAndroidAppShell()
@@ -644,32 +644,53 @@
 
   function renderGrid() {
     const { cols, rows } = selectedGrid();
+    const count = cols * rows;
     applyStageGeometry();
     overlay.replaceChildren();
     overlay.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
     overlay.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 
-    for (let index = 0; index < cols * rows; index += 1) {
+    for (let index = 0; index < count; index += 1) {
       const cell = document.createElement("span");
       cell.setAttribute("aria-hidden", "true");
       overlay.append(cell);
     }
 
     gridLabel.textContent = `${cols} × ${rows}`;
-    slotLabel.textContent = `${cols * rows}칸`;
+    slotLabel.textContent = `${count}칸`;
+    state.slots = normalizeSlots(state.slots, count);
 
-    if (previewImage.naturalWidth && previewImage.naturalHeight) {
-      updateRatioNote(previewImage.naturalWidth, previewImage.naturalHeight);
+    if (state.sourceWidth && state.sourceHeight) {
+      updateRatioNote(state.sourceWidth, state.sourceHeight);
     }
 
     const fixedWidth = 100 / cols;
     state.placements.forEach((entry) => {
       entry.width = fixedWidth;
+      if (Number.isInteger(entry.slotIndex) && entry.slotIndex >= count) {
+        entry.slotIndex = null;
+      }
       clampPlacement(entry);
     });
+    syncSlotsFromPlacements();
+    renderSlotLayer();
     if (state.placements.length) renderPlacements();
     else renderSearchResults(searchInput.value);
     updateCustomPrintUi();
+  }
+
+  function handleGridChange() {
+    const { cols, rows } = selectedGrid();
+    const count = cols * rows;
+    state.slots = normalizeSlots(state.slots, count);
+    state.placements.forEach((entry) => {
+      if (Number.isInteger(entry.slotIndex) && entry.slotIndex >= count) {
+        entry.slotIndex = null;
+      }
+    });
+    renderGrid();
+    captureCurrentPage();
+    renderPageControls();
   }
 
   function updateRatioNote(width, height) {
@@ -717,7 +738,7 @@
     updateEditorUi();
   }
 
-  function clearImage() {
+  function clearImage(clearCards = false) {
     if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
     state.objectUrl = "";
     state.sourceFile = null;
@@ -725,16 +746,22 @@
     state.backgroundDirty = false;
     state.sourceWidth = 0;
     state.sourceHeight = 0;
+    state.currentChunkCount = 0;
+    state.currentChunkSet = "";
     fileInput.value = "";
     previewImage.removeAttribute("src");
     previewImage.removeAttribute("alt");
-    previewWrap.hidden = true;
-    previewEmpty.hidden = false;
+    previewWrap.hidden = false;
+    previewEmpty.hidden = true;
     fileLabel.textContent = "이미지를 선택하거나 여기에 놓으세요";
-    imageMeta.textContent = "PNG · JPG · WEBP · 최대 10MB";
-    ratioNote.textContent = "이미지를 올리면 선택한 그리드와 비율을 확인합니다.";
+    imageMeta.textContent = "선택 사항 · PNG · JPG · WEBP · 최대 10MB";
+    ratioNote.textContent = "배경 없이 카드만 배치할 수도 있습니다.";
     ratioNote.className = "studio-custom-ratio-note";
-    clearPlacements();
+    if (clearCards) {
+      clearPlacements();
+      state.slots = normalizeSlots([], selectedGrid().cols * selectedGrid().rows);
+    }
+    renderSlotLayer();
     updateCustomPrintUi();
   }
 
@@ -751,8 +778,9 @@
       return;
     }
 
+    const page = activePage();
     if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
-    clearPlacements();
+    if (state.currentChunkSet) state.orphanChunkSets.add(state.currentChunkSet);
     state.sourceFile = file;
     state.sourceBlob = file;
     state.backgroundDirty = true;
@@ -770,6 +798,14 @@
       imageMeta.textContent =
         `${state.sourceWidth.toLocaleString("ko-KR")} × ${state.sourceHeight.toLocaleString("ko-KR")}px · ${(file.size / 1024 / 1024).toFixed(2)}MB`;
       updateRatioNote(state.sourceWidth, state.sourceHeight);
+      if (page) {
+        page.sourceFile = state.sourceFile;
+        page.sourceBlob = state.sourceBlob;
+        page.objectUrl = state.objectUrl;
+        page.sourceWidth = state.sourceWidth;
+        page.sourceHeight = state.sourceHeight;
+        page.backgroundDirty = true;
+      }
       renderSearchResults(searchInput.value);
       updateSaveUi();
       updateCustomPrintUi();
@@ -878,7 +914,7 @@
     const add = document.createElement("button");
     add.type = "button";
     add.textContent = "추가";
-    add.disabled = !state.objectUrl || state.placements.length >= selectedGrid().cols * selectedGrid().rows;
+    add.disabled = !state.slots.some((slot) => slot.type === "empty");
     add.addEventListener("click", () => addCard(card));
 
     row.append(image, copy, add);
@@ -904,12 +940,10 @@
     const matches = catalogMatches(normalized);
     searchResults.replaceChildren(...matches.map(resultCard));
     searchResults.hidden = false;
-    if (!state.objectUrl) {
-      searchStatus.textContent = `${matches.length}장 찾음 · 먼저 배경 일러스트를 올려 주세요.`;
-    } else if (state.placements.length >= selectedGrid().cols * selectedGrid().rows) {
-      searchStatus.textContent = `${matches.length}장 찾음 · 현재 그리드의 모든 칸이 사용 중입니다.`;
+    if (!state.slots.some((slot) => slot.type === "empty")) {
+      searchStatus.textContent = `${matches.length}장 찾음 · 현재 페이지의 모든 슬롯이 사용 중입니다.`;
     } else {
-      searchStatus.textContent = `${matches.length}장 찾음 · 원하는 카드를 추가하세요.`;
+      searchStatus.textContent = `${matches.length}장 찾음 · 빈 슬롯부터 자동으로 배치됩니다.`;
     }
   }
 
@@ -996,6 +1030,9 @@
       const startClientY = event.clientY;
       const startX = entry.x;
       const startY = entry.y;
+      entry.slotIndex = null;
+      syncSlotsFromPlacements();
+      renderSlotLayer();
       node.setPointerCapture?.(event.pointerId);
       node.classList.add("is-dragging");
 
@@ -1014,6 +1051,7 @@
         node.removeEventListener("pointermove", move);
         node.removeEventListener("pointerup", finish);
         node.removeEventListener("pointercancel", finish);
+        captureCurrentPage();
       };
 
       node.addEventListener("pointermove", move);
@@ -1034,18 +1072,13 @@
   }
 
   function addCard(card) {
-    if (!state.objectUrl) {
-      window.alert("먼저 배경 일러스트를 올려 주세요.");
+    const slotIndex = state.slots.findIndex((slot) => slot.type === "empty");
+    if (slotIndex < 0) {
+      window.alert("현재 페이지의 모든 슬롯이 사용 중입니다.");
       return;
     }
 
-    const { cols, rows } = selectedGrid();
-    if (state.placements.length >= cols * rows) {
-      window.alert("현재 그리드의 모든 카드 칸이 사용 중입니다.");
-      return;
-    }
-
-    const geometry = slotGeometry(state.placements.length);
+    const geometry = slotGeometry(slotIndex);
     const entry = {
       id: makeId("card"),
       card: {
@@ -1062,10 +1095,19 @@
       width: geometry.width,
       rotation: 0,
       z: state.nextZ++,
+      slotIndex,
     };
     state.placements.push(entry);
+    state.slots[slotIndex] = {
+      index: slotIndex,
+      type: "card",
+      placementId: entry.id,
+      sourceKey: clean(card.key),
+    };
     state.selectedId = entry.id;
+    renderSlotLayer();
     renderPlacements();
+    captureCurrentPage();
   }
 
   function rotateSelected(delta) {
@@ -1086,12 +1128,26 @@
     const centerY = entry.y + height / 2;
     const col = Math.max(0, Math.min(cols - 1, Math.floor(centerX / cellW)));
     const row = Math.max(0, Math.min(rows - 1, Math.floor(centerY / cellH)));
-    const geometry = slotGeometry(row * cols + col);
+    const slotIndex = row * cols + col;
+    const occupied = state.slots[slotIndex];
+    if (
+      occupied &&
+      occupied.type !== "empty" &&
+      occupied.placementId !== entry.id
+    ) {
+      window.alert("해당 칸은 이미 사용 중입니다.");
+      return;
+    }
+    entry.slotIndex = slotIndex;
+    const geometry = slotGeometry(slotIndex);
     entry.x = geometry.x;
     entry.y = geometry.y;
     entry.width = geometry.width;
     entry.rotation = 0;
+    syncSlotsFromPlacements();
+    renderSlotLayer();
     renderPlacements();
+    captureCurrentPage();
   }
 
   function frontSelected() {
@@ -1105,7 +1161,10 @@
     if (!state.selectedId) return;
     state.placements = state.placements.filter((entry) => entry.id !== state.selectedId);
     state.selectedId = "";
+    syncSlotsFromPlacements();
+    renderSlotLayer();
     renderPlacements();
+    captureCurrentPage();
   }
 
   function handleToolAction(action) {
@@ -1152,7 +1211,9 @@
         heightMm: CARD_HEIGHT_MM,
         rotation: Number(entry.rotation.toFixed(2)),
         z: entry.z,
+        slotIndex: Number.isInteger(entry.slotIndex) ? entry.slotIndex : null,
       })),
+      slots: normalizeSlots(state.slots, grid.cols * grid.rows).map((slot) => ({ ...slot })),
     };
   }
 
@@ -1173,11 +1234,13 @@
     composition.style.width = `${canvasWidth}mm`;
     composition.style.height = `${canvasHeight}mm`;
 
-    const background = document.createElement("img");
-    background.className = "studio-custom-print-background";
-    background.src = state.objectUrl;
-    background.alt = "";
-    composition.append(background);
+    if (state.objectUrl) {
+      const background = document.createElement("img");
+      background.className = "studio-custom-print-background";
+      background.src = state.objectUrl;
+      background.alt = "";
+      composition.append(background);
+    }
 
     state.placements
       .slice()
@@ -1226,7 +1289,7 @@
   }
 
   function buildCustomPrintSheets() {
-    if (!printRoot || !state.sourceBlob) return null;
+    if (!printRoot) return null;
     const plan = customPrintPlan();
     installCustomPrintPageStyle();
     printRoot.replaceChildren();
@@ -1288,7 +1351,7 @@
   }
 
   async function startCustomPrint() {
-    if (!state.sourceBlob || !printRoot) return;
+    if (!printRoot) return;
 
     if (isAndroidAppShell() && !supportsNativePrint()) {
       window.alert(
