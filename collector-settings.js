@@ -26,6 +26,8 @@
     settingsGrid: document.querySelector("#collector-settings-grid"),
     settingsStatus: document.querySelector("#collector-settings-status"),
     settingsSave: document.querySelector("#collector-settings-save"),
+    binderSettingsGrid: document.querySelector("#collector-binder-settings-grid"),
+    binderSettingsStatus: document.querySelector("#collector-binder-settings-status"),
     ownerTools: document.querySelector("#collector-owner-tools"),
   };
   let firebase = null;
@@ -33,6 +35,8 @@
   let profile = null;
   let settings = new Map();
   let sourceDocuments = new Map();
+  let customBinders = [];
+  let publicBinderIds = new Set();
 
   function configured() {
     const config = CONFIG.config || {};
@@ -165,6 +169,10 @@
     });
   }
 
+  function hasPublicContent(changedCollectionId = "", nextSetting = null) {
+    return hasPublicCollection(changedCollectionId, nextSetting) || publicBinderIds.size > 0;
+  }
+
   function directoryPayload() {
     return {
       publicId: profile.publicId,
@@ -177,7 +185,7 @@
     try {
       const reference = directoryRef();
       const snapshot = await firebase.firestoreModule.getDoc(reference);
-      const shouldBeListed = hasPublicCollection();
+      const shouldBeListed = hasPublicContent();
       if (shouldBeListed && !snapshot.exists()) {
         await firebase.firestoreModule.setDoc(reference, directoryPayload());
       } else if (!shouldBeListed && snapshot.exists()) {
@@ -190,8 +198,8 @@
 
   function syncDirectoryInBatch(batch, collectionId, nextSetting) {
     if (!profile?.profileCompleted) return;
-    const wasListed = hasPublicCollection();
-    const shouldBeListed = hasPublicCollection(collectionId, nextSetting);
+    const wasListed = hasPublicContent();
+    const shouldBeListed = hasPublicContent(collectionId, nextSetting);
     if (shouldBeListed) {
       batch.set(directoryRef(), directoryPayload());
     } else if (wasListed) {
@@ -396,6 +404,8 @@
         : await createProfile(fields);
 
       renderProfile();
+      await loadBinderSettings();
+      renderBinderSettings();
       renderSettings();
       setStatus(
         elements.profileStatus,
@@ -498,6 +508,219 @@
       console.warn(`${collectionId} 설정용 수집률 계산 실패`, error);
       return { owned: 0, total: 0 };
     }
+  }
+
+  function binderCollectionRef() {
+    return firebase.firestoreModule.collection(
+      firebase.db,
+      "users",
+      currentUser.uid,
+      "customBinders",
+    );
+  }
+
+  function publicBinderCollectionRef() {
+    if (!profile?.profileCompleted || !profile?.publicId) return null;
+    return firebase.firestoreModule.collection(
+      firebase.db,
+      "publicProfiles",
+      profile.publicId,
+      "binders",
+    );
+  }
+
+  async function loadBinderSettings() {
+    customBinders = [];
+    publicBinderIds = new Set();
+    if (!currentUser || !firebase) return;
+
+    const privateSnapshot = await firebase.firestoreModule.getDocs(
+      firebase.firestoreModule.query(
+        binderCollectionRef(),
+        firebase.firestoreModule.orderBy("updatedAt", "desc"),
+        firebase.firestoreModule.limit(30),
+      ),
+    );
+    customBinders = privateSnapshot.docs.map((snapshot) => ({
+      id: snapshot.id,
+      data: snapshot.data() || {},
+    }));
+
+    const publicRef = publicBinderCollectionRef();
+    if (publicRef) {
+      const publicSnapshot = await firebase.firestoreModule.getDocs(publicRef);
+      publicBinderIds = new Set(publicSnapshot.docs.map((snapshot) => snapshot.id));
+    }
+  }
+
+  function formatBinderTime(value) {
+    try {
+      const date = typeof value?.toDate === "function"
+        ? value.toDate()
+        : new Date(value || Date.now());
+      return new Intl.DateTimeFormat("ko-KR", {
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(date);
+    } catch {
+      return "";
+    }
+  }
+
+  function binderStudioPublishUrl(binderId) {
+    const url = new URL("./studio.html", window.location.href);
+    url.searchParams.set("binder", binderId);
+    url.searchParams.set("publish", "1");
+    url.searchParams.set("return", "settings");
+    url.hash = "studio-custom";
+    return url.href;
+  }
+
+  async function deletePublicBinderProjection(binderId) {
+    if (!profile?.profileCompleted || !profile?.publicId) return;
+    const rootRef = firebase.firestoreModule.doc(
+      firebase.db,
+      "publicProfiles",
+      profile.publicId,
+      "binders",
+      binderId,
+    );
+    const [pages, chunks] = await Promise.all([
+      firebase.firestoreModule.getDocs(
+        firebase.firestoreModule.collection(rootRef, "pages"),
+      ),
+      firebase.firestoreModule.getDocs(
+        firebase.firestoreModule.collection(rootRef, "chunks"),
+      ),
+    ]);
+    const documents = [...pages.docs, ...chunks.docs];
+    for (let start = 0; start < documents.length; start += 300) {
+      const batch = firebase.firestoreModule.writeBatch(firebase.db);
+      documents.slice(start, start + 300).forEach((item) => batch.delete(item.ref));
+      await batch.commit();
+    }
+    await firebase.firestoreModule.deleteDoc(rootRef);
+    publicBinderIds.delete(binderId);
+    await reconcileDirectoryEntry();
+  }
+
+  async function changeBinderVisibility(binderId, checked, input) {
+    if (!profile?.profileCompleted) {
+      input.checked = false;
+      setStatus(
+        elements.binderSettingsStatus,
+        "바인더를 공개하려면 컬렉터 프로필을 먼저 만들어 주세요.",
+        "error",
+      );
+      return;
+    }
+
+    input.disabled = true;
+    if (checked) {
+      setStatus(
+        elements.binderSettingsStatus,
+        "읽기 전용 공개본을 만드는 중입니다. 바인더 스튜디오로 이동합니다.",
+        "loading",
+      );
+      window.location.href = binderStudioPublishUrl(binderId);
+      return;
+    }
+
+    try {
+      setStatus(elements.binderSettingsStatus, "바인더 공개를 중단하는 중입니다.", "loading");
+      await deletePublicBinderProjection(binderId);
+      setStatus(
+        elements.binderSettingsStatus,
+        "바인더 공개를 중단했습니다. 편집 원본은 그대로 유지됩니다.",
+        "success",
+      );
+    } catch (error) {
+      console.error("바인더 공개 중단 실패", error);
+      input.checked = true;
+      setStatus(
+        elements.binderSettingsStatus,
+        error.message || "바인더 공개를 중단하지 못했습니다.",
+        "error",
+      );
+    } finally {
+      input.disabled = false;
+    }
+  }
+
+  function renderBinderSettings() {
+    if (!elements.binderSettingsGrid) return;
+    if (!customBinders.length) {
+      const empty = document.createElement("div");
+      empty.className = "collector-binder-settings-empty";
+      empty.innerHTML = '<strong>저장한 커스텀 바인더가 없습니다.</strong><span>바인더 스튜디오에서 만든 바인더를 저장하면 여기서 공개 여부를 관리할 수 있습니다.</span>';
+      elements.binderSettingsGrid.replaceChildren(empty);
+      setStatus(elements.binderSettingsStatus, "");
+      return;
+    }
+
+    const cards = customBinders.map(({ id, data }) => {
+      const card = document.createElement("article");
+      card.className = "collector-setting-card collector-binder-setting-card";
+      card.dataset.binderId = id;
+
+      const identity = document.createElement("div");
+      identity.className = "collector-setting-identity";
+      const icon = document.createElement("span");
+      icon.className = "collector-binder-setting-icon";
+      icon.setAttribute("aria-hidden", "true");
+      const copy = document.createElement("span");
+      const title = document.createElement("strong");
+      title.textContent = String(data.title || "커스텀 바인더");
+      const meta = document.createElement("small");
+      const pageCount = Number(data.summary?.pageCount) || 1;
+      const cardCount = Number(data.summary?.cardCount) || 0;
+      meta.textContent = [
+        `${pageCount}페이지`,
+        `${cardCount}장 배치`,
+        formatBinderTime(data.updatedAt),
+      ].filter(Boolean).join(" · ");
+      copy.append(title, meta);
+      identity.append(icon, copy);
+
+      const label = document.createElement("label");
+      label.className = "collector-public-switch collector-binder-public-switch";
+      const labelText = document.createElement("span");
+      labelText.textContent = "공개 프로필에 표시";
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.checked = publicBinderIds.has(id);
+      input.disabled = !profile?.profileCompleted;
+      const visual = document.createElement("i");
+      visual.setAttribute("aria-hidden", "true");
+      label.append(labelText, input, visual);
+
+      input.addEventListener("change", () => {
+        void changeBinderVisibility(id, input.checked, input);
+      });
+
+      card.append(identity, label);
+      return card;
+    });
+    elements.binderSettingsGrid.replaceChildren(...cards);
+
+    const requested = new URLSearchParams(window.location.search).get("binder");
+    if (requested) {
+      requestAnimationFrame(() => {
+        const card = elements.binderSettingsGrid
+          .querySelector(`[data-binder-id="${CSS.escape(requested)}"]`);
+        card?.classList.add("is-return-highlight");
+        card?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+
+    setStatus(
+      elements.binderSettingsStatus,
+      profile?.profileCompleted
+        ? "스위치를 켜면 읽기 전용 공개본을 만들고, 끄면 공개 링크와 프로필에서 즉시 숨깁니다."
+        : "컬렉터 프로필을 만든 뒤 바인더를 공개할 수 있습니다.",
+    );
   }
 
   async function renderSettings() {
@@ -779,10 +1002,12 @@
       if (!currentUser) return;
 
       setStatus(elements.settingsStatus, "도감 설정을 불러오는 중입니다.", "loading");
-      await Promise.all([loadProfile(), loadSettings(), loadSourceDocuments()]);
+      await loadProfile();
+      await Promise.all([loadSettings(), loadSourceDocuments(), loadBinderSettings()]);
       await reconcileDirectoryEntry();
       renderProfile();
       await renderSettings();
+      renderBinderSettings();
       setStatus(elements.settingsStatus, "");
     } catch (error) {
       console.error("내 프로필 관리 초기화 실패", error);
