@@ -58,5 +58,6 @@ test("backup includes Studio custom binders, schema v2 pages, and active backgro
   assert.match(client, /restoreCustomBinders\(payload[.]customBinders \|\| \[\], batch\)/);
   assert.match(client, /schemaVersion === 2/);
   assert.match(client, /finalBatch[.]set\(pageReference/);
-  assert.match(client, /restoredPageIds/);
+  assert.match(client, /existingPage = await firestoreModule[.]getDoc\(pageReference\)/);
+  assert.doesNotMatch(client, /finalBatch[.]delete\(page[.]ref\)/);
 });
