@@ -1280,6 +1280,10 @@ test("stage 5 mobile precision preserves touch targets and narrow-screen grids",
     homeCss,
     /@media \(max-width: 340px\) \{[\s\S]*?[.]home-feature-grid \{\s*grid-template-columns: minmax\(0, 1fr\)/,
   );
+  assert.match(homeCss, /[.]home-binder-page/);
+  assert.match(homeCss, /[.]home-binder-pocket img/);
+  assert.match(homeCss, /[.]home-studio-window/);
+  assert.match(homeCss, /[.]home-studio-canvas/);
 });
 
 test("series era filters use representative cards without changing filter keys", async () => {
