@@ -212,6 +212,27 @@ test("trade posts are public, isolated, card-only records owned by the author", 
   await assertSucceeds(
     addDoc(collection(tradeUser, "tradePosts"), validPost),
   );
+  await assertSucceeds(
+    addDoc(collection(tradeUser, "tradePosts"), {
+      ...validPost,
+      wantedCards: Array.from(
+        { length: 6 },
+        (_, index) => ({
+          ...wantedCard,
+          name: `구하는 카드 ${index + 1}`,
+          imageUrl: `https://cards.example/wanted-${index + 1}.png`,
+        }),
+      ),
+      offeredCards: Array.from(
+        { length: 6 },
+        (_, index) => ({
+          ...offeredCard,
+          name: `보유 카드 ${index + 1}`,
+          imageUrl: `https://cards.example/offered-${index + 1}.png`,
+        }),
+      ),
+    }),
+  );
   await assertSucceeds(getDocs(collection(guest, "tradePosts")));
 
   await assertFails(
