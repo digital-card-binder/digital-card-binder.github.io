@@ -3175,3 +3175,77 @@ body[data-page="binder-studio"] {
     border-radius: 16px 16px 12px 12px;
   }
 }
+
+/* Four-point page scan editor. Fixed-size handles remain usable at every zoom. */
+.studio-scan-dialog {
+  width: min(760px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid #d9e2e7;
+  border-radius: 18px;
+  color: #263746;
+  background: #fff;
+  box-shadow: 0 24px 80px #152c4b30;
+  overflow: hidden;
+}
+.studio-scan-dialog::backdrop { background: #11243bb3; }
+.studio-scan-sheet { display: flex; flex-direction: column; max-height: calc(100dvh - 26px); overflow-y: auto; }
+.studio-scan-head { padding: 18px 20px 12px; }
+.studio-scan-step { color: #577181; font-size: .75rem; }
+.studio-scan-head h2 { margin: 5px 0 7px; font-size: 1.2rem; }
+.studio-scan-head p { margin: 0; font-size: .85rem; color: #667886; line-height: 1.5; }
+.studio-scan-viewport {
+  height: min(48dvh, 470px);
+  min-height: 130px;
+  flex-shrink: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #e9eef2;
+  touch-action: pan-x pan-y;
+  padding: 32px;
+  box-sizing: border-box;
+}
+.studio-scan-stage { position: relative; margin: 0 auto; flex-shrink: 0; }
+.studio-scan-stage canvas, .studio-scan-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.studio-scan-stage svg { pointer-events: none; overflow: visible; }
+.studio-scan-stage polygon { fill: #23b7ae18; stroke: #20b5ad; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.studio-scan-stage button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: 0;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.studio-scan-stage button span { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: #fff; color: #21656e; border: 3px solid #1d9d99; box-shadow: 0 2px 8px #10293840; font: 700 11px system-ui; pointer-events: none; }
+.studio-scan-stage button:focus-visible { outline: 2px solid #254964; border-radius: 50%; }
+.studio-scan-tools { padding: 10px 16px 0; }
+.studio-scan-tools label { display: flex; align-items: center; gap: 12px; font-size: .85rem; }
+.studio-scan-tools input { flex: 1; min-width: 0; height: 32px; accent-color: #287779; }
+.studio-scan-tools small { display: block; margin: 0 0 10px; color: #687d8a; font-size: .72rem; }
+.studio-scan-secondary { display: flex; gap: 6px; flex-wrap: wrap; }
+.studio-scan-secondary button, .studio-scan-footer > button { min-height: 44px; border-radius: 9px; padding: 8px 10px; border: 1px solid #d5dfe5; background: #f8fafb; color: #355363; font: inherit; font-size: .8rem; cursor: pointer; }
+.studio-scan-status { margin: 10px 16px; min-height: 2.8em; font-size: .8rem; line-height: 1.4; color: #587181; }
+.studio-scan-footer { display: flex; gap: 10px; padding: 0 16px 16px; }
+.studio-scan-footer > button { flex: 1; margin: 0; width: auto; }
+.studio-scan-footer > .studio-primary-button { background: #254b63; border-color: #254b63; color: #fff; }
+.studio-scan-dialog button:disabled { opacity: .5; cursor: wait; }
+@media (max-width: 520px) {
+  .studio-scan-dialog { width: calc(100vw - 12px); max-height: calc(100dvh - 12px); border-radius: 14px; }
+  .studio-scan-sheet { max-height: calc(100dvh - 14px); }
+  .studio-scan-head { padding: 14px 14px 10px; }
+  .studio-scan-head h2 { font-size: 1.1rem; }
+  .studio-scan-head p { font-size: .78rem; }
+  .studio-scan-viewport { height: 43dvh; }
+  .studio-scan-secondary button { font-size: .72rem; padding: 7px 8px; }
+}

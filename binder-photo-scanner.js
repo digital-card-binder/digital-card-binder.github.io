@@ -191,8 +191,8 @@
     const originalScale = 1 / scale;
     return {
       corners: points.map((point) => ({
-        x: clamp(point.x * originalScale, 0, image.naturalWidth || image.width),
-        y: clamp(point.y * originalScale, 0, image.naturalHeight || image.height),
+        x: clamp(point.x * originalScale, 0, (image.naturalWidth || image.width) - 1),
+        y: clamp(point.y * originalScale, 0, (image.naturalHeight || image.height) - 1),
       })),
       confidence: clamp((averageScore - 0.1) / 0.38, 0, 1),
       areaRatio,
@@ -229,178 +229,254 @@
     };
   }
 
-  function affineForTriangle(source, destination) {
-    const [s0, s1, s2] = source;
-    const [d0, d1, d2] = destination;
-    const denominator =
-      s0.x * (s1.y - s2.y) +
-      s1.x * (s2.y - s0.y) +
-      s2.x * (s0.y - s1.y);
-    if (Math.abs(denominator) < 1e-6) return null;
-
-    const a =
-      (d0.x * (s1.y - s2.y) +
-       d1.x * (s2.y - s0.y) +
-       d2.x * (s0.y - s1.y)) / denominator;
-    const c =
-      (d0.x * (s2.x - s1.x) +
-       d1.x * (s0.x - s2.x) +
-       d2.x * (s1.x - s0.x)) / denominator;
-    const e =
-      (d0.x * (s1.x * s2.y - s2.x * s1.y) +
-       d1.x * (s2.x * s0.y - s0.x * s2.y) +
-       d2.x * (s0.x * s1.y - s1.x * s0.y)) / denominator;
-
-    const b =
-      (d0.y * (s1.y - s2.y) +
-       d1.y * (s2.y - s0.y) +
-       d2.y * (s0.y - s1.y)) / denominator;
-    const d =
-      (d0.y * (s2.x - s1.x) +
-       d1.y * (s0.x - s2.x) +
-       d2.y * (s1.x - s0.x)) / denominator;
-    const f =
-      (d0.y * (s1.x * s2.y - s2.x * s1.y) +
-       d1.y * (s2.x * s0.y - s0.x * s2.y) +
-       d2.y * (s0.x * s1.y - s1.x * s0.y)) / denominator;
-
-    return { a, b, c, d, e, f };
+  // Corner order stays TL, TR, BR, BL throughout the editor and warp.
+  function validCorners(points, width, height) {
+    if (!Array.isArray(points) || points.length !== 4) return false;
+    if (points.some((p) => !Number.isFinite(p.x) || !Number.isFinite(p.y) ||
+      p.x < 0 || p.y < 0 || p.x > width - 1 || p.y > height - 1)) return false;
+    for (let i = 0; i < 4; i += 1) {
+      const a = points[i], b = points[(i + 1) % 4], c = points[(i + 2) % 4];
+      if ((b.x - a.x) * (c.y - b.y) - (b.y - a.y) * (c.x - b.x) <= 1) return false;
+      if (Math.hypot(b.x - a.x, b.y - a.y) < 8) return false;
+    }
+    return polygonArea(points) >= width * height * 0.01;
   }
 
-  function drawTriangle(context, image, source, destination) {
-    const transform = affineForTriangle(source, destination);
-    if (!transform) return;
-    context.save();
-    context.beginPath();
-    context.moveTo(destination[0].x, destination[0].y);
-    context.lineTo(destination[1].x, destination[1].y);
-    context.lineTo(destination[2].x, destination[2].y);
-    context.closePath();
-    context.clip();
-    context.setTransform(
-      transform.a,
-      transform.b,
-      transform.c,
-      transform.d,
-      transform.e,
-      transform.f,
-    );
-    context.drawImage(image, 0, 0);
-    context.restore();
+  function originalCorners(image, inset = 0) {
+    const w = (image.naturalWidth || image.width) - 1;
+    const h = (image.naturalHeight || image.height) - 1;
+    return [{ x: w * inset, y: h * inset }, { x: w * (1 - inset), y: h * inset },
+      { x: w * (1 - inset), y: h * (1 - inset) }, { x: w * inset, y: h * (1 - inset) }];
   }
 
-  function warpPerspective(image, corners, targetAspect) {
+  // Browser decoders apply EXIF exactly once; drawing removes orientation metadata.
+  async function decodePhoto(file) {
+    if (!file || (!String(file.type).startsWith("image/") &&
+      !/\.(jpe?g|png|webp|heic|heif)$/i.test(file.name || ""))) {
+      throw new Error("이미지 파일을 선택해 주세요.");
+    }
+    let image, url;
+    try {
+      if (typeof createImageBitmap === "function") {
+        try { image = await createImageBitmap(file, { imageOrientation: "from-image" }); } catch { /* Use native image decoder. */ }
+      }
+      if (!image) {
+        url = URL.createObjectURL(file);
+        image = new Image();
+        await new Promise((resolve, reject) => {
+          image.onload = resolve;
+          image.onerror = () => reject(new Error("사진을 읽지 못했습니다. JPG, PNG 또는 WEBP 사진으로 다시 시도해 주세요."));
+          image.src = url;
+        });
+      }
+      return analysisCanvas(image, 4200).canvas;
+    } finally {
+      image?.close?.();
+      if (url) URL.revokeObjectURL(url);
+    }
+  }
+
+  // Inverse homography with bilinear sampling avoids triangle seams and samples
+  // only inside the selected quadrilateral. Yield between bands on mobile.
+  async function warpPerspective(image, corners, targetAspect, maxDimension = 2800) {
+    const width = image.naturalWidth || image.width;
+    const height = image.naturalHeight || image.height;
+    if (!validCorners(corners, width, height) || !Number.isFinite(targetAspect) || targetAspect <= 0) {
+      throw new Error("네 모서리가 겹치지 않도록 페이지 외곽을 맞춰 주세요.");
+    }
     const sourceMap = unitSquareToQuad(corners);
     if (!sourceMap) throw new Error("바인더 페이지 원근을 계산하지 못했습니다.");
-
-    const longSide = 2800;
-    let outWidth;
-    let outHeight;
-    if (targetAspect >= 1) {
-      outWidth = longSide;
-      outHeight = Math.max(1, Math.round(longSide / targetAspect));
-    } else {
-      outHeight = longSide;
-      outWidth = Math.max(1, Math.round(longSide * targetAspect));
-    }
-
+    const source = analysisCanvas(image, Math.max(width, height));
+    const pixels = source.context.getImageData(0, 0, width, height).data;
     const canvas = document.createElement("canvas");
-    canvas.width = outWidth;
-    canvas.height = outHeight;
+    canvas.width = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension : maxDimension * targetAspect));
+    canvas.height = Math.max(2, Math.round(targetAspect >= 1 ? maxDimension / targetAspect : maxDimension));
     const context = canvas.getContext("2d", { alpha: false });
     if (!context) throw new Error("바인더 스캔 이미지를 만들지 못했습니다.");
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, outWidth, outHeight);
-    context.imageSmoothingEnabled = true;
-    context.imageSmoothingQuality = "high";
-
-    const cols = targetAspect < 0.8 ? 14 : 18;
-    const rows = targetAspect < 0.8 ? 22 : 16;
-    for (let row = 0; row < rows; row += 1) {
-      for (let col = 0; col < cols; col += 1) {
-        const u0 = col / cols;
-        const u1 = (col + 1) / cols;
-        const v0 = row / rows;
-        const v1 = (row + 1) / rows;
-        const s00 = sourceMap(u0, v0);
-        const s10 = sourceMap(u1, v0);
-        const s11 = sourceMap(u1, v1);
-        const s01 = sourceMap(u0, v1);
-        const d00 = { x: u0 * outWidth, y: v0 * outHeight };
-        const d10 = { x: u1 * outWidth, y: v0 * outHeight };
-        const d11 = { x: u1 * outWidth, y: v1 * outHeight };
-        const d01 = { x: u0 * outWidth, y: v1 * outHeight };
-        drawTriangle(context, image, [s00, s10, s11], [d00, d10, d11]);
-        drawTriangle(context, image, [s00, s11, s01], [d00, d11, d01]);
+    const output = context.createImageData(canvas.width, canvas.height);
+    const data = output.data;
+    for (let y = 0; y < canvas.height; y += 1) {
+      for (let x = 0; x < canvas.width; x += 1) {
+        const p = sourceMap(x / (canvas.width - 1), y / (canvas.height - 1));
+        const sx = clamp(p.x, 0, width - 1), sy = clamp(p.y, 0, height - 1);
+        const x0 = Math.floor(sx), y0 = Math.floor(sy);
+        const x1 = Math.min(x0 + 1, width - 1), y1 = Math.min(y0 + 1, height - 1);
+        const dx = sx - x0, dy = sy - y0;
+        const offsets = [(y0 * width + x0) * 4, (y0 * width + x1) * 4,
+          (y1 * width + x0) * 4, (y1 * width + x1) * 4];
+        const i = (y * canvas.width + x) * 4;
+        for (let channel = 0; channel < 3; channel += 1) {
+          data[i + channel] = (pixels[offsets[0] + channel] * (1 - dx) + pixels[offsets[1] + channel] * dx) * (1 - dy) +
+            (pixels[offsets[2] + channel] * (1 - dx) + pixels[offsets[3] + channel] * dx) * dy;
+        }
+        data[i + 3] = 255;
       }
+      if (y % 64 === 63) await new Promise((resolve) => setTimeout(resolve, 0));
     }
+    context.putImageData(output, 0, 0);
     return canvas;
   }
 
-  function centerCrop(image, targetAspect) {
-    const sourceWidth = image.naturalWidth || image.width;
-    const sourceHeight = image.naturalHeight || image.height;
-    const sourceAspect = sourceWidth / sourceHeight;
-    let sx = 0;
-    let sy = 0;
-    let sw = sourceWidth;
-    let sh = sourceHeight;
-    if (sourceAspect > targetAspect) {
-      sw = sourceHeight * targetAspect;
-      sx = (sourceWidth - sw) / 2;
-    } else {
-      sh = sourceWidth / targetAspect;
-      sy = (sourceHeight - sh) / 2;
+  // No automatic fallback crop: every import must pass through the 4-point editor.
+  async function edit(file, options = {}) {
+    const dialog = document.querySelector("#studio-scan-dialog");
+    if (!dialog || dialog.open) throw new Error("스캔 화면을 준비하지 못했습니다. 다시 시도해 주세요.");
+    const image = await decodePhoto(file);
+    const viewport = dialog.querySelector(".studio-scan-viewport");
+    const stage = dialog.querySelector(".studio-scan-stage");
+    const canvas = dialog.querySelector("canvas");
+    const outline = dialog.querySelector("polygon");
+    const svg = dialog.querySelector("svg");
+    const handles = [...dialog.querySelectorAll("[data-scan-corner]")];
+    const status = dialog.querySelector("[data-scan-status]");
+    const zoom = dialog.querySelector("[data-scan-zoom]");
+    const apply = dialog.querySelector('[data-scan-action="apply"]');
+    const controls = [...dialog.querySelectorAll("button, input")];
+    let points = originalCorners(image, 0.025), confidence = 0, busy = false, drag = null;
+    let resolveEdit;
+    const done = new Promise((resolve) => { resolveEdit = resolve; });
+    const listeners = new AbortController();
+    const signal = listeners.signal;
+    let previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    zoom.value = "1";
+
+    function paint() {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      canvas.getContext("2d").drawImage(image, 0, 0);
+      svg.setAttribute("viewBox", `0 0 ${image.width} ${image.height}`);
+      layout();
     }
-    const longSide = 2800;
-    const width = targetAspect >= 1 ? longSide : Math.max(1, Math.round(longSide * targetAspect));
-    const height = targetAspect >= 1 ? Math.max(1, Math.round(longSide / targetAspect)) : longSide;
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    const context = canvas.getContext("2d", { alpha: false });
-    if (!context) throw new Error("사진 비율 보정을 처리하지 못했습니다.");
-    context.fillStyle = "#ffffff";
-    context.fillRect(0, 0, width, height);
-    context.imageSmoothingEnabled = true;
-    context.imageSmoothingQuality = "high";
-    context.drawImage(image, sx, sy, sw, sh, 0, 0, width, height);
-    return canvas;
+    function layout() {
+      const available = Math.max(120, viewport.clientWidth - 64);
+      const fit = Math.min(available / image.width, Math.max(160, viewport.clientHeight - 64) / image.height);
+      stage.style.width = `${image.width * fit * Number(zoom.value)}px`;
+      stage.style.height = `${image.height * fit * Number(zoom.value)}px`;
+      drawPoints();
+    }
+    function drawPoints() {
+      outline.setAttribute("points", points.map((p) => `${p.x},${p.y}`).join(" "));
+      handles.forEach((handle, i) => {
+        handle.style.left = `${points[i].x / image.width * 100}%`;
+        handle.style.top = `${points[i].y / image.height * 100}%`;
+      });
+      apply.disabled = busy || !validCorners(points, image.width, image.height);
+    }
+    function setBusy(value) {
+      busy = value;
+      controls.forEach((control) => { control.disabled = value; });
+      dialog.setAttribute("aria-busy", String(value));
+      drawPoints();
+    }
+    async function detect() {
+      setBusy(true);
+      status.textContent = "페이지의 네 모서리를 찾는 중입니다…";
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      let detected = null;
+      try { detected = detectPage(image); } catch { /* Safe initial corners below. */ }
+      if (detected?.confidence >= 0.4 && validCorners(detected.corners, image.width, image.height)) {
+        points = detected.corners;
+        confidence = detected.confidence;
+        status.textContent = "페이지 외곽을 찾았습니다. 네 점을 확인하고 카드 포켓 영역에 맞춰 주세요.";
+      } else {
+        points = originalCorners(image, 0.025);
+        confidence = 0;
+        status.textContent = "페이지 경계가 불확실합니다. 네 점을 카드 포켓 영역의 모서리로 옮겨 주세요.";
+      }
+      setBusy(false);
+    }
+    function finish(result) {
+      listeners.abort();
+      observer.disconnect();
+      document.body.style.overflow = previousOverflow;
+      dialog.close();
+      canvas.width = canvas.height = 1;
+      image.width = image.height = 1;
+      resolveEdit(result);
+    }
+    handles.forEach((handle, i) => {
+      handle.addEventListener("pointerdown", (event) => {
+        if (busy) return;
+        event.preventDefault();
+        const rect = stage.getBoundingClientRect();
+        drag = { id: event.pointerId, i, x: event.clientX, y: event.clientY,
+          point: { ...points[i] }, scaleX: image.width / rect.width, scaleY: image.height / rect.height };
+        handle.setPointerCapture(event.pointerId);
+      }, { signal });
+      handle.addEventListener("pointermove", (event) => {
+        if (!drag || drag.id !== event.pointerId || drag.i !== i) return;
+        points[i] = { x: clamp(drag.point.x + (event.clientX - drag.x) * drag.scaleX, 0, image.width - 1),
+          y: clamp(drag.point.y + (event.clientY - drag.y) * drag.scaleY, 0, image.height - 1) };
+        confidence = 0;
+        status.textContent = validCorners(points, image.width, image.height)
+          ? "선 안쪽만 스캔됩니다. 확대해서 모서리를 더 정확하게 맞출 수 있습니다."
+          : "모서리가 겹쳤습니다. 네 점을 페이지 외곽 순서에 맞춰 주세요.";
+        drawPoints();
+      }, { signal });
+      for (const type of ["pointerup", "pointercancel", "lostpointercapture"]) {
+        handle.addEventListener(type, () => { drag = null; }, { signal });
+      }
+      handle.addEventListener("keydown", (event) => {
+        const directions = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+        if (!directions[event.key] || busy) return;
+        event.preventDefault();
+        const [dx, dy] = directions[event.key], step = event.shiftKey ? 10 : 1;
+        points[i].x = clamp(points[i].x + dx * step, 0, image.width - 1);
+        points[i].y = clamp(points[i].y + dy * step, 0, image.height - 1);
+        confidence = 0;
+        drawPoints();
+      }, { signal });
+    });
+    zoom.addEventListener("input", layout, { signal });
+    dialog.addEventListener("cancel", (event) => { event.preventDefault(); if (!busy) finish(null); }, { signal });
+    dialog.addEventListener("click", async (event) => {
+      const action = event.target.closest("[data-scan-action]")?.dataset.scanAction;
+      if (!action || busy) return;
+      if (action === "cancel") finish(null);
+      if (action === "detect") await detect();
+      if (action === "reset") {
+        points = originalCorners(image);
+        confidence = 0;
+        status.textContent = "사진 전체 영역으로 초기화했습니다. 네 점을 페이지 모서리에 맞춰 주세요.";
+        drawPoints();
+      }
+      if (action === "rotate") {
+        const rotated = document.createElement("canvas");
+        rotated.width = image.height;
+        rotated.height = image.width;
+        const ctx = rotated.getContext("2d");
+        ctx.translate(rotated.width, 0);
+        ctx.rotate(Math.PI / 2);
+        ctx.drawImage(image, 0, 0);
+        image.width = rotated.width;
+        image.height = rotated.height;
+        image.getContext("2d").drawImage(rotated, 0, 0);
+        points = originalCorners(image, 0.025);
+        zoom.value = "1";
+        paint();
+        await detect();
+      }
+      if (action === "apply") {
+        setBusy(true);
+        status.textContent = "원근을 보정하고 슬롯을 준비하는 중입니다…";
+        try {
+          const aspect = (options.cols * (options.cardWidth || 63)) / (options.rows * (options.cardHeight || 88));
+          const corrected = await warpPerspective(image, points, aspect);
+          finish({ canvas: corrected, mode: "perspective", confidence });
+        } catch (error) {
+          status.textContent = error.message || "스캔하지 못했습니다. 모서리를 다시 확인해 주세요.";
+          setBusy(false);
+        }
+      }
+    }, { signal });
+    const observer = new ResizeObserver(layout);
+    observer.observe(viewport);
+    dialog.showModal();
+    paint();
+    await detect();
+    return done;
   }
 
-  async function scan(image, options = {}) {
-    const cols = Math.max(1, Number(options.cols) || 3);
-    const rows = Math.max(1, Number(options.rows) || 4);
-    const cardWidth = Math.max(1, Number(options.cardWidth) || 63);
-    const cardHeight = Math.max(1, Number(options.cardHeight) || 88);
-    const targetAspect = (cols * cardWidth) / (rows * cardHeight);
-
-    let detection = null;
-    try {
-      detection = detectPage(image);
-    } catch (error) {
-      console.warn("바인더 페이지 자동 경계 인식 실패", error);
-    }
-
-    if (detection?.corners) {
-      return {
-        canvas: warpPerspective(image, detection.corners, targetAspect),
-        mode: "perspective",
-        confidence: detection.confidence,
-        corners: detection.corners,
-      };
-    }
-
-    return {
-      canvas: centerCrop(image, targetAspect),
-      mode: "crop",
-      confidence: 0,
-      corners: null,
-    };
-  }
-
-  root.photoScanner = Object.freeze({
-    scan,
-    detectPage,
-  });
+  root.photoScanner = Object.freeze({ edit, decodePhoto, detectPage, warpPerspective, validCorners, originalCorners, unitSquareToQuad });
 })();

@@ -140,6 +140,7 @@
     publicProfile: null,
     isPublished: false,
     publishing: false,
+    photoImporting: false,
     photoRecognizing: false,
     photoReview: new Map(),
     saving: false,
@@ -1366,13 +1367,16 @@
   }
 
   function updatePhotoImportUi(message = "") {
+    for (const input of [photoCameraInput, photoAlbumInput]) {
+      if (input) input.disabled = state.photoImporting || state.photoRecognizing || state.saving || state.publishing;
+    }
     if (photoGridLabel) {
       const { cols, rows } = selectedGrid();
       photoGridLabel.textContent = `${cols} × ${rows}`;
     }
     const source = importedPhotoSource();
     if (photoRecognizeButton) {
-      photoRecognizeButton.disabled = !source || state.photoRecognizing;
+      photoRecognizeButton.disabled = !source || state.photoRecognizing || state.photoImporting;
       photoRecognizeButton.textContent = state.photoRecognizing
         ? "카드 인식 중…"
         : "카드 자동인식";
@@ -1385,7 +1389,7 @@
     const { cols, rows } = selectedGrid();
     photoStatus.textContent = source
       ? `현재 사진을 ${cols} × ${rows} 슬롯로 가져왔습니다. 카드 자동인식을 실행하거나 그대로 저장할 수 있습니다.`
-      : `현재 ${cols} × ${rows} 그리드 기준으로 페이지 경계와 원근을 자동 보정한 뒤 슬롯으로 나눕니다.`;
+      : `사진 선택 → 페이지 영역 맞추기 → 스캔 적용 · 현재 ${cols} × ${rows} 그리드로 나눕니다.`;
   }
 
   function clearPhotoRecognitionResults() {
@@ -1395,7 +1399,7 @@
     photoRecognitionResults.hidden = true;
   }
 
-  function canvasBlob(canvas, type, quality) {
+  function photoCanvasBlob(canvas, type, quality) {
     return new Promise((resolve, reject) => {
       canvas.toBlob(
         (blob) => blob ? resolve(blob) : reject(new Error("이미지 변환에 실패했습니다.")),
@@ -1405,129 +1409,78 @@
     });
   }
 
-  async function normalizeBinderPhoto(file, grid) {
-    if (!file || !String(file.type || "").startsWith("image/")) {
-      throw new Error("이미지 파일을 선택해 주세요.");
+  async function normalizeBinderPhoto(file, scanResult) {
+    // The editor has already decoded EXIF, selected the page and rectified it.
+    // Keep the existing compression / chunk storage path for the scanned canvas.
+    let canvas = scanResult.canvas;
+    let width = canvas.width;
+    let height = canvas.height;
+    const targetBytes = 8.5 * 1024 * 1024;
+    let quality = 0.9;
+    let blob = null;
+    let outputType = "image/webp";
+
+    for (let attempt = 0; attempt < 7; attempt += 1) {
+      try {
+        blob = await photoCanvasBlob(canvas, outputType, quality);
+      } catch {
+        outputType = "image/jpeg";
+        blob = await photoCanvasBlob(canvas, outputType, quality);
+      }
+
+      if (blob.size <= targetBytes) break;
+
+      const scale = blob.size > targetBytes * 1.8 ? 0.76 : 0.84;
+      width = Math.max(1, Math.round(canvas.width * scale));
+      height = Math.max(1, Math.round(canvas.height * scale));
+
+      const reduced = document.createElement("canvas");
+      reduced.width = width;
+      reduced.height = height;
+      const reducedContext = reduced.getContext("2d", { alpha: false });
+      if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
+      reducedContext.fillStyle = "#ffffff";
+      reducedContext.fillRect(0, 0, width, height);
+      reducedContext.imageSmoothingEnabled = true;
+      reducedContext.imageSmoothingQuality = "high";
+      reducedContext.drawImage(canvas, 0, 0, width, height);
+      canvas = reduced;
+      quality = Math.max(0.72, quality - 0.04);
     }
 
-    const sourceUrl = URL.createObjectURL(file);
-    try {
-      const image = new Image();
-      await new Promise((resolve, reject) => {
-        image.onload = resolve;
-        image.onerror = () => reject(new Error("사진을 읽지 못했습니다. 기기에서 열 수 있는 JPG, PNG 또는 WEBP 사진으로 다시 시도해 주세요."));
-        image.src = sourceUrl;
-      });
+    if (!blob) throw new Error("사진을 저장용 이미지로 변환하지 못했습니다.");
 
-      const sourceWidth = image.naturalWidth;
-      const sourceHeight = image.naturalHeight;
-      if (!sourceWidth || !sourceHeight) {
-        throw new Error("사진 크기를 확인하지 못했습니다.");
+    while (blob.size > targetBytes && Math.max(canvas.width, canvas.height) > 1600) {
+      width = Math.max(1, Math.round(canvas.width * 0.82));
+      height = Math.max(1, Math.round(canvas.height * 0.82));
+      const reduced = document.createElement("canvas");
+      reduced.width = width;
+      reduced.height = height;
+      const reducedContext = reduced.getContext("2d", { alpha: false });
+      if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
+      reducedContext.fillStyle = "#ffffff";
+      reducedContext.fillRect(0, 0, width, height);
+      reducedContext.imageSmoothingEnabled = true;
+      reducedContext.imageSmoothingQuality = "high";
+      reducedContext.drawImage(canvas, 0, 0, width, height);
+      canvas = reduced;
+      try {
+        blob = await photoCanvasBlob(canvas, outputType, 0.72);
+      } catch {
+        outputType = "image/jpeg";
+        blob = await photoCanvasBlob(canvas, outputType, 0.72);
       }
-
-      const scanner = root.photoScanner;
-      let scanResult = null;
-      if (scanner?.scan) {
-        updatePhotoImportUi("바인더 페이지의 네 모서리와 기울기를 분석하는 중입니다…");
-        try {
-          scanResult = await scanner.scan(image, {
-            cols: grid?.cols || 3,
-            rows: grid?.rows || 4,
-            cardWidth: CARD_WIDTH_MM,
-            cardHeight: CARD_HEIGHT_MM,
-          });
-        } catch (error) {
-          console.warn("바인더 사진 스캔 보정 실패", error);
-        }
-      }
-
-      let canvas = scanResult?.canvas || null;
-      if (!canvas) {
-        const maxDimension = 4200;
-        const scale = Math.min(1, maxDimension / Math.max(sourceWidth, sourceHeight));
-        canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.round(sourceWidth * scale));
-        canvas.height = Math.max(1, Math.round(sourceHeight * scale));
-        const fallbackContext = canvas.getContext("2d", { alpha: false });
-        if (!fallbackContext) throw new Error("사진 변환 기능을 사용할 수 없습니다.");
-        fallbackContext.fillStyle = "#ffffff";
-        fallbackContext.fillRect(0, 0, canvas.width, canvas.height);
-        fallbackContext.imageSmoothingEnabled = true;
-        fallbackContext.imageSmoothingQuality = "high";
-        fallbackContext.drawImage(image, 0, 0, canvas.width, canvas.height);
-      }
-
-      let width = canvas.width;
-      let height = canvas.height;
-      const targetBytes = 8.5 * 1024 * 1024;
-      let quality = 0.9;
-      let blob = null;
-      let outputType = "image/webp";
-
-      for (let attempt = 0; attempt < 7; attempt += 1) {
-        try {
-          blob = await canvasBlob(canvas, outputType, quality);
-        } catch {
-          outputType = "image/jpeg";
-          blob = await canvasBlob(canvas, outputType, quality);
-        }
-
-        if (blob.size <= targetBytes) break;
-
-        const scale = blob.size > targetBytes * 1.8 ? 0.76 : 0.84;
-        width = Math.max(1, Math.round(canvas.width * scale));
-        height = Math.max(1, Math.round(canvas.height * scale));
-
-        const reduced = document.createElement("canvas");
-        reduced.width = width;
-        reduced.height = height;
-        const reducedContext = reduced.getContext("2d", { alpha: false });
-        if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
-        reducedContext.fillStyle = "#ffffff";
-        reducedContext.fillRect(0, 0, width, height);
-        reducedContext.imageSmoothingEnabled = true;
-        reducedContext.imageSmoothingQuality = "high";
-        reducedContext.drawImage(canvas, 0, 0, width, height);
-        canvas = reduced;
-        quality = Math.max(0.72, quality - 0.04);
-      }
-
-      if (!blob) throw new Error("사진을 저장용 이미지로 변환하지 못했습니다.");
-
-      while (blob.size > targetBytes && Math.max(canvas.width, canvas.height) > 1600) {
-        width = Math.max(1, Math.round(canvas.width * 0.82));
-        height = Math.max(1, Math.round(canvas.height * 0.82));
-        const reduced = document.createElement("canvas");
-        reduced.width = width;
-        reduced.height = height;
-        const reducedContext = reduced.getContext("2d", { alpha: false });
-        if (!reducedContext) throw new Error("사진 용량을 자동으로 줄이지 못했습니다.");
-        reducedContext.fillStyle = "#ffffff";
-        reducedContext.fillRect(0, 0, width, height);
-        reducedContext.imageSmoothingEnabled = true;
-        reducedContext.imageSmoothingQuality = "high";
-        reducedContext.drawImage(canvas, 0, 0, width, height);
-        canvas = reduced;
-        try {
-          blob = await canvasBlob(canvas, outputType, 0.72);
-        } catch {
-          outputType = "image/jpeg";
-          blob = await canvasBlob(canvas, outputType, 0.72);
-        }
-      }
-
-      return {
-        blob,
-        width: canvas.width,
-        height: canvas.height,
-        name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.${outputType === "image/webp" ? "webp" : "jpg"}`,
-        originalSize: Number(file.size) || 0,
-        scanMode: clean(scanResult?.mode) || "original",
-        scanConfidence: Number(scanResult?.confidence) || 0,
-      };
-    } finally {
-      URL.revokeObjectURL(sourceUrl);
     }
+
+    return {
+      blob,
+      width: canvas.width,
+      height: canvas.height,
+      name: `${clean(file.name).replace(/\.[^.]+$/, "") || "binder-photo"}.${outputType === "image/webp" ? "webp" : "jpg"}`,
+      originalSize: Number(file.size) || 0,
+      scanMode: clean(scanResult?.mode) || "original",
+      scanConfidence: Number(scanResult?.confidence) || 0,
+    };
   }
 
   function currentPageHasSlotContent() {
@@ -1538,20 +1491,26 @@
   }
 
   async function importBinderPhoto(file) {
-    if (!file) return;
+    if (!file || state.photoImporting || state.photoRecognizing || state.saving || state.publishing) return;
     const { cols, rows } = selectedGrid();
-    if (
-      currentPageHasSlotContent() &&
-      !window.confirm("현재 페이지의 카드·슬롯 이미지를 사진으로 교체할까요? 저장 전이라면 기존 배치는 사라집니다.")
-    ) {
-      if (photoCameraInput) photoCameraInput.value = "";
-      if (photoAlbumInput) photoAlbumInput.value = "";
-      return;
-    }
-
-    updatePhotoImportUi("사진을 가져오는 중입니다…");
+    state.photoImporting = true;
+    updatePhotoImportUi("사진을 열고 있습니다…");
     try {
-      const prepared = await normalizeBinderPhoto(file, { cols, rows });
+      if (!root.photoScanner?.edit) throw new Error("스캔 기능을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.");
+      const scanResult = await root.photoScanner.edit(file, {
+        cols, rows, cardWidth: CARD_WIDTH_MM, cardHeight: CARD_HEIGHT_MM,
+      });
+      if (!scanResult) {
+        updatePhotoImportUi("스캔을 취소했습니다. 현재 페이지는 유지됩니다.");
+        return;
+      }
+      if (currentPageHasSlotContent() &&
+        !window.confirm("현재 페이지의 카드·슬롯 이미지를 스캔한 사진으로 교체할까요? 저장 전이라면 기존 배치는 사라집니다.")) {
+        updatePhotoImportUi("스캔 적용을 취소했습니다. 현재 페이지는 유지됩니다.");
+        return;
+      }
+      updatePhotoImportUi("스캔한 사진을 최적화하고 슬롯으로 나누는 중입니다…");
+      const prepared = await normalizeBinderPhoto(file, scanResult);
       state.images.forEach((image) => {
         if (image.chunkSet) state.orphanChunkSets.add(image.chunkSet);
         if (image.objectUrl) URL.revokeObjectURL(image.objectUrl);
@@ -1610,11 +1569,7 @@
         : "";
       const sizeText =
         `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px${originalMb}`;
-      const scanText = prepared.scanMode === "perspective"
-        ? "문서 스캔 방식으로 네 모서리·기울기·원근 보정 완료"
-        : prepared.scanMode === "crop"
-          ? "페이지 경계가 불확실해 그리드 비율 중심 보정 적용"
-          : "원본 사진 기준으로 가져옴";
+      const scanText = "네 모서리·기울기·원근 보정 완료";
       updatePhotoImportUi(
         `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 필요한 칸만 실제 카드로 교체하거나 그대로 저장할 수 있습니다.`,
       );
@@ -1622,6 +1577,8 @@
       console.error("바인더 사진 가져오기 실패", error);
       updatePhotoImportUi(clean(error?.message) || "사진을 가져오지 못했습니다. 다른 사진으로 다시 시도해 주세요.");
     } finally {
+      state.photoImporting = false;
+      updatePhotoImportUi(photoStatus?.textContent || "");
       if (photoCameraInput) photoCameraInput.value = "";
       if (photoAlbumInput) photoAlbumInput.value = "";
     }
@@ -1740,7 +1697,7 @@
   }
 
   async function recognizeImportedPhotoCards() {
-    if (state.photoRecognizing) return;
+    if (state.photoRecognizing || state.photoImporting || state.saving || state.publishing) return;
     const source = importedPhotoSource();
     if (!source?.objectUrl) {
       updatePhotoImportUi("먼저 바인더 사진을 촬영하거나 앨범에서 선택해 주세요.");
@@ -1765,6 +1722,7 @@
       let automatic = 0;
       let noMatch = 0;
       const review = new Map();
+      const replacements = [];
 
       for (let position = 0; position < targets.length; position += 1) {
         const target = targets[position];
@@ -1779,7 +1737,7 @@
         );
         const accepted = matcher.confident(matches);
         if (accepted) {
-          replaceSlotWithCard(accepted.card, target.index, { render: false, select: false });
+          replacements.push({ card: accepted.card, index: target.index });
           automatic += 1;
         } else if (matches.length && matches[0].distance <= 19) {
           review.set(target.index, matches);
@@ -1791,6 +1749,7 @@
         }
       }
 
+      replacements.forEach(({ card, index }) => replaceSlotWithCard(card, index, { render: false, select: false }));
       state.photoReview = review;
       state.selectedId = "";
       pruneUnusedImages();
