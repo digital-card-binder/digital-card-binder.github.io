@@ -2454,6 +2454,7 @@
         state.currentChunkCount = Number(current.chunkCount) || 0;
         state.currentChunkSet = clean(current.chunkSet);
         state.backgroundDirty = false;
+        state.images = (current.images || []).map((image) => ({ ...image }));
       }
 
       setBinderUrl(binderId);
