@@ -439,6 +439,7 @@
     else state.selectedSlots.add(index);
     renderSlotLayer();
     updateArtUi();
+    if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
   }
 
   function selectAllSlots() {
@@ -447,12 +448,14 @@
     state.slotSelectMode = true;
     renderSlotLayer();
     updateArtUi();
+    if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
   }
 
   function clearSlotSelection() {
     state.selectedSlots.clear();
     renderSlotLayer();
     updateArtUi();
+    if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
   }
 
   function applyCropStyle(node, source, crop) {
