@@ -25,6 +25,7 @@ const htmlFiles = [
   "people.html",
   "trainer-pokemon.html",
   "world.html",
+  "art-themes.html",
   "custom.html",
   "collector-settings.html",
 ];
@@ -69,6 +70,7 @@ test("collection counts come from generated canonical catalog metrics", () => {
     "trainerPokemon",
     "fossil",
     "world",
+    "artThemes",
   ]) {
     assert.match(catalogService, new RegExp(`"${key}"\\s*:\\s*[{]`), key);
   }
@@ -103,13 +105,15 @@ test("static navigation does not ship known stale collection counts", () => {
 });
 
 
-test("fossil and world are authorized first-class collector collections", () => {
-  for (const collectionId of ["fossil", "world"]) {
+test("fossil, world, and art themes are authorized first-class collector collections", () => {
+  for (const collectionId of ["fossil", "world", "artThemes"]) {
     assert.match(registry, new RegExp(`\\b${collectionId}: \\{`), collectionId);
     assert.match(firestoreRules, new RegExp(`collectionId == "${collectionId}"`), collectionId);
   }
   assert.match(registry, /documentId: "worldDex"/);
   assert.match(firestoreRules, /collectionId == "worldDex"/);
+  assert.match(registry, /documentId: "artThemesDex"/);
+  assert.match(firestoreRules, /collectionId == "artThemesDex"/);
   assert.match(registry, /catalogGroupCount: catalogGroupCount/);
 });
 
