@@ -71,6 +71,7 @@ async function buildMetrics() {
     trainerPokemon,
     fossil,
     world,
+    artThemes,
     promos,
     packsSource,
   ] = await Promise.all([
@@ -86,6 +87,7 @@ async function buildMetrics() {
     readJson("data/trainer-pokemon.json"),
     readJson("data/fossil.json"),
     readJson("data/world-exploration.json"),
+    readJson("data/art-themes.json"),
     readJson("data/promo-packs.json"),
     readFile(path.join(root, "packs.js"), "utf8"),
   ]);
@@ -96,6 +98,7 @@ async function buildMetrics() {
   const artistGroups = Array.isArray(artists?.artists) ? artists.artists : [];
   const trainerGroups = Array.isArray(trainerPokemon?.groups) ? trainerPokemon.groups : [];
   const fossilGroups = Array.isArray(fossil?.groups) ? fossil.groups : [];
+  const artThemeGroups = Array.isArray(artThemes?.groups) ? artThemes.groups : [];
   const worldGenerations = Array.isArray(world?.generations) ? world.generations : [];
   const worldItems = worldGenerations.reduce(
     (total, generation) =>
@@ -171,6 +174,11 @@ async function buildMetrics() {
       itemCount: worldItems,
       groupCount: worldGenerations.length,
       unit: "개",
+    },
+    artThemes: {
+      itemCount: countCards(artThemeGroups),
+      groupCount: artThemeGroups.length,
+      unit: "장",
     },
   };
 }
