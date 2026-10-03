@@ -1,0 +1,743 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-03",
+  "scope": "해외 수집 커뮤니티에서 실제로 사용되는 테마를 한국판 카드로 재구성한 1차 큐레이션",
+  "sources": [
+    {
+      "name": "Sleepy Pokémon",
+      "url": "https://www.sleepypokemon.com/collection/",
+      "note": "잠자는 포켓몬 테마 체크리스트 참고"
+    },
+    {
+      "name": "ChasingPoké Connected Art",
+      "url": "https://chasingpoke.com/connected-art",
+      "note": "연결 일러스트·스토리 그룹 참고"
+    },
+    {
+      "name": "Bulbapedia Combined illustration",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Combined_illustration_(TCG)",
+      "note": "공식적으로 이어지는 일러스트 그룹 교차검증"
+    },
+    {
+      "name": "Pokécahack",
+      "url": "https://pokecahack.com/illust-connection/",
+      "note": "일러스트 연결 및 시계열 연결 사례 참고"
+    }
+  ],
+  "groups": [
+    {
+      "code": "sleeping",
+      "name": "잠자는 포켓몬",
+      "badge": "SLEEP",
+      "icon": "☾",
+      "description": "잠들거나 느긋하게 쉬는 장면이 중심인 카드. 해외의 Sleepy Pokémon 수집 방식에서 출발한 큐레이션입니다.",
+      "cards": [
+        {
+          "code": "SV2a_166",
+          "name": "이상해씨",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "166/165",
+          "rarity": "AR",
+          "category": "잠·휴식",
+          "evidence": "해외 Sleepy Pokémon 체크리스트에 포함된 대표 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_166.webp"
+        },
+        {
+          "code": "S10b_056",
+          "name": "잠만보",
+          "series": "S",
+          "set": "S10b",
+          "setName": "Pokémon GO",
+          "cardNumber": "056/071",
+          "rarity": "R",
+          "category": "잠·휴식",
+          "evidence": "잠만보의 수면 테마를 대표하는 한국판 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10b/S10b_056.webp"
+        },
+        {
+          "code": "S12a_183",
+          "name": "뮤",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "183/172",
+          "rarity": "AR",
+          "category": "잠·휴식",
+          "evidence": "포근한 숲속 휴식 장면으로 수면·휴식 테마에 자주 함께 묶이는 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_183.webp"
+        },
+        {
+          "code": "S12a_198",
+          "name": "노고치",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "198/172",
+          "rarity": "AR",
+          "category": "잠·휴식",
+          "evidence": "굴 안의 느긋한 분위기를 중심으로 한 휴식 장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_198.webp"
+        },
+        {
+          "code": "SV1V_082",
+          "name": "야돈",
+          "series": "SV",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "cardNumber": "082/078",
+          "rarity": "AR",
+          "category": "잠·휴식",
+          "evidence": "느긋하게 쉬는 야돈의 성격과 장면을 중심으로 선정.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1V/SV1V_082.webp"
+        },
+        {
+          "code": "S12a_209",
+          "name": "메리프",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "209/172",
+          "rarity": "AR",
+          "category": "잠·휴식",
+          "evidence": "포근하고 잔잔한 자연 풍경을 담은 휴식 계열 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_209.webp"
+        }
+      ]
+    },
+    {
+      "code": "connected",
+      "name": "연결 일러스트",
+      "badge": "CONNECTED",
+      "icon": "▦",
+      "description": "두 장 이상을 나란히 놓았을 때 하나의 장면 또는 같은 이야기가 이어지는 카드 그룹입니다.",
+      "cards": [
+        {
+          "code": "S12a_201",
+          "name": "리오르",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "201/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_201.webp"
+        },
+        {
+          "code": "S12a_202",
+          "name": "파비코",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "202/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_202.webp"
+        },
+        {
+          "code": "S12a_203",
+          "name": "해골몽",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "203/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_203.webp"
+        },
+        {
+          "code": "S12a_204",
+          "name": "비버니",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "204/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_204.webp"
+        },
+        {
+          "code": "S12a_205",
+          "name": "피카츄",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "205/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "9장 파노라마의 중앙 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_205.webp"
+        },
+        {
+          "code": "S12a_206",
+          "name": "모부기",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "206/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_206.webp"
+        },
+        {
+          "code": "S12a_207",
+          "name": "파라스",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "207/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_207.webp"
+        },
+        {
+          "code": "S12a_208",
+          "name": "포챠나",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "208/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_208.webp"
+        },
+        {
+          "code": "S12a_209",
+          "name": "메리프",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "209/172",
+          "rarity": "AR",
+          "category": "숲속 9장 파노라마",
+          "evidence": "Kouki Saitou의 9장 연결 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_209.webp"
+        },
+        {
+          "code": "SV1S_083",
+          "name": "랄토스",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "083/078",
+          "rarity": "AR",
+          "category": "가족의 시간",
+          "evidence": "랄토스→킬리아→가디안 ex로 이어지는 가족의 시간 이야기.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_083.webp"
+        },
+        {
+          "code": "SV1S_084",
+          "name": "킬리아",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "084/078",
+          "rarity": "AR",
+          "category": "가족의 시간",
+          "evidence": "랄토스→킬리아→가디안 ex로 이어지는 가족의 시간 이야기.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_084.webp"
+        },
+        {
+          "code": "SV1S_101",
+          "name": "가디안 ex",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "101/078",
+          "rarity": "SAR",
+          "category": "가족의 시간",
+          "evidence": "랄토스→킬리아→가디안 ex로 이어지는 가족의 시간 이야기.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_101.webp"
+        }
+      ]
+    },
+    {
+      "code": "evolution",
+      "name": "진화 스토리",
+      "badge": "EVOLUTION",
+      "icon": "↗",
+      "description": "진화 단계가 바뀌면서 같은 포켓몬의 성장과 장면 변화가 느껴지는 카드들을 한 줄로 모읍니다.",
+      "cards": [
+        {
+          "code": "SV1S_083",
+          "name": "랄토스",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "083/078",
+          "rarity": "AR",
+          "category": "랄토스 계열",
+          "evidence": "가족의 시간 1장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_083.webp"
+        },
+        {
+          "code": "SV1S_084",
+          "name": "킬리아",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "084/078",
+          "rarity": "AR",
+          "category": "랄토스 계열",
+          "evidence": "가족의 시간 2장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_084.webp"
+        },
+        {
+          "code": "SV1S_101",
+          "name": "가디안 ex",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "101/078",
+          "rarity": "SAR",
+          "category": "랄토스 계열",
+          "evidence": "가족의 시간 3장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV1S/SV1S_101.webp"
+        },
+        {
+          "code": "SV2a_166",
+          "name": "이상해씨",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "166/165",
+          "rarity": "AR",
+          "category": "이상해씨 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_166.webp"
+        },
+        {
+          "code": "SV2a_167",
+          "name": "이상해풀",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "167/165",
+          "rarity": "AR",
+          "category": "이상해씨 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_167.webp"
+        },
+        {
+          "code": "SV2a_200",
+          "name": "이상해꽃 ex",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "200/165",
+          "rarity": "SAR",
+          "category": "이상해씨 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_200.webp"
+        },
+        {
+          "code": "SV2a_168",
+          "name": "파이리",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "168/165",
+          "rarity": "AR",
+          "category": "파이리 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_168.webp"
+        },
+        {
+          "code": "SV2a_169",
+          "name": "리자드",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "169/165",
+          "rarity": "AR",
+          "category": "파이리 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_169.webp"
+        },
+        {
+          "code": "SV2a_201",
+          "name": "리자몽 ex",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "201/165",
+          "rarity": "SAR",
+          "category": "파이리 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_201.webp"
+        },
+        {
+          "code": "SV2a_170",
+          "name": "꼬부기",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "170/165",
+          "rarity": "AR",
+          "category": "꼬부기 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_170.webp"
+        },
+        {
+          "code": "SV2a_171",
+          "name": "어니부기",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "171/165",
+          "rarity": "AR",
+          "category": "꼬부기 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_171.webp"
+        },
+        {
+          "code": "SV2a_202",
+          "name": "거북왕 ex",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬 카드 151",
+          "cardNumber": "202/165",
+          "rarity": "SAR",
+          "category": "꼬부기 계열",
+          "evidence": "151 진화 일러스트 라인.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV2a/SV2a_202.webp"
+        }
+      ]
+    },
+    {
+      "code": "night",
+      "name": "밤 · 달빛",
+      "badge": "NIGHT",
+      "icon": "✦",
+      "description": "달, 별, 야경, 어두운 숲처럼 밤의 분위기가 화면을 지배하는 카드들을 모읍니다.",
+      "cards": [
+        {
+          "code": "SV3_113",
+          "name": "삐",
+          "series": "SV",
+          "set": "SV3",
+          "setName": "흑염의 지배자",
+          "cardNumber": "113/108",
+          "rarity": "AR",
+          "category": "별빛",
+          "evidence": "별이 가득한 밤 장면으로 해외 밤 테마 바인더에서 자주 언급되는 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV3/SV3_113.webp"
+        },
+        {
+          "code": "S6a_095",
+          "name": "블래키 VMAX",
+          "series": "S",
+          "set": "S6a",
+          "setName": "이브이 히어로즈",
+          "cardNumber": "095/069",
+          "rarity": "HR",
+          "category": "달빛",
+          "evidence": "달을 배경으로 한 대표적인 블래키 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S6a/S6a_095.webp"
+        },
+        {
+          "code": "S12a_184",
+          "name": "루나톤",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "184/172",
+          "rarity": "AR",
+          "category": "달빛",
+          "evidence": "달을 상징하는 포켓몬과 야간 색조.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_184.webp"
+        },
+        {
+          "code": "S12a_189",
+          "name": "솔록",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "189/172",
+          "rarity": "AR",
+          "category": "천체",
+          "evidence": "루나톤과 함께 천체 테마 페이지를 구성하기 좋은 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_189.webp"
+        },
+        {
+          "code": "S12a_228",
+          "name": "다크라이 VSTAR",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "228/172",
+          "rarity": "SAR",
+          "category": "밤",
+          "evidence": "다크라이의 어두운 야간 분위기를 중심으로 선정.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_228.webp"
+        },
+        {
+          "code": "SV6a_071",
+          "name": "크레세리아",
+          "series": "SV",
+          "set": "SV6a",
+          "setName": "나이트원더러",
+          "cardNumber": "071/064",
+          "rarity": "AR",
+          "category": "달빛",
+          "evidence": "초승달의 화신이라는 설정과 야간 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV6a/SV6a_071.webp"
+        },
+        {
+          "code": "S12a_203",
+          "name": "해골몽",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "203/172",
+          "rarity": "AR",
+          "category": "어두운 숲",
+          "evidence": "어두운 숲의 분위기를 살리는 연결 일러스트 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_203.webp"
+        }
+      ]
+    },
+    {
+      "code": "season",
+      "name": "계절 · 풍경",
+      "badge": "SCENERY",
+      "icon": "⌁",
+      "description": "꽃, 숲, 바다, 눈, 비, 구름처럼 계절감과 자연 풍경이 강한 카드를 장면별로 모읍니다.",
+      "cards": [
+        {
+          "code": "S12a_174",
+          "name": "귀뚤톡크",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "174/172",
+          "rarity": "AR",
+          "category": "초원",
+          "evidence": "풀과 자연 풍경이 중심인 장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_174.webp"
+        },
+        {
+          "code": "S12a_177",
+          "name": "라프라스",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "177/172",
+          "rarity": "AR",
+          "category": "바다",
+          "evidence": "넓은 수면과 자연 풍경 중심의 장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_177.webp"
+        },
+        {
+          "code": "S12a_178",
+          "name": "마나피",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "178/172",
+          "rarity": "AR",
+          "category": "바다",
+          "evidence": "푸른 바다 분위기의 여름 페이지에 적합.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_178.webp"
+        },
+        {
+          "code": "S12a_179",
+          "name": "케르디오",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "179/172",
+          "rarity": "AR",
+          "category": "겨울",
+          "evidence": "눈과 차가운 풍경이 강조되는 겨울 계열 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_179.webp"
+        },
+        {
+          "code": "S12a_182",
+          "name": "가라르 프리져",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "182/172",
+          "rarity": "AR",
+          "category": "겨울",
+          "evidence": "차가운 색조와 설원 계열 페이지에 어울리는 장면.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_182.webp"
+        },
+        {
+          "code": "S12a_187",
+          "name": "큐아링",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "187/172",
+          "rarity": "AR",
+          "category": "봄 · 꽃",
+          "evidence": "꽃과 밝은 자연색이 중심인 봄 테마 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_187.webp"
+        },
+        {
+          "code": "S12a_194",
+          "name": "파비코리",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "194/172",
+          "rarity": "AR",
+          "category": "하늘 · 구름",
+          "evidence": "구름과 하늘이 중심인 풍경 페이지.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_194.webp"
+        },
+        {
+          "code": "S12a_195",
+          "name": "라티아스",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "195/172",
+          "rarity": "AR",
+          "category": "도시 풍경",
+          "evidence": "포켓몬이 살아가는 일상 공간을 풍경 중심으로 감상하는 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_195.webp"
+        },
+        {
+          "code": "S12a_196",
+          "name": "히스이 미끄래곤",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "196/172",
+          "rarity": "AR",
+          "category": "비 · 습지",
+          "evidence": "비와 습한 분위기의 장면을 묶는 풍경 카드.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_196.webp"
+        }
+      ]
+    },
+    {
+      "code": "color",
+      "name": "컬러 도감",
+      "badge": "COLOR",
+      "icon": "◐",
+      "description": "포켓몬 종류보다 일러스트의 대표 색감을 기준으로 페이지를 만드는 해외식 컬러 바인더 테마입니다.",
+      "cards": [
+        {
+          "code": "S12a_173",
+          "name": "히스이 찌리리공",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "173/172",
+          "rarity": "AR",
+          "category": "초록",
+          "evidence": "초록 자연색 중심.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_173.webp"
+        },
+        {
+          "code": "S12a_174",
+          "name": "귀뚤톡크",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "174/172",
+          "rarity": "AR",
+          "category": "연두 · 노랑",
+          "evidence": "초원 계열의 따뜻한 연두·노랑.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_174.webp"
+        },
+        {
+          "code": "S12a_175",
+          "name": "마그마번",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "175/172",
+          "rarity": "AR",
+          "category": "빨강 · 주황",
+          "evidence": "불꽃 계열의 강한 적색.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_175.webp"
+        },
+        {
+          "code": "S12a_176",
+          "name": "춤추새",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "176/172",
+          "rarity": "AR",
+          "category": "분홍",
+          "evidence": "핑크 계열 색감이 중심.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_176.webp"
+        },
+        {
+          "code": "S12a_177",
+          "name": "라프라스",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "177/172",
+          "rarity": "AR",
+          "category": "파랑",
+          "evidence": "수면과 포켓몬이 만드는 청색 계열.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_177.webp"
+        },
+        {
+          "code": "S12a_180",
+          "name": "에레키블",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "180/172",
+          "rarity": "AR",
+          "category": "노랑",
+          "evidence": "전기 타입의 노랑 계열.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_180.webp"
+        },
+        {
+          "code": "S12a_181",
+          "name": "스트린더",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "181/172",
+          "rarity": "AR",
+          "category": "보라",
+          "evidence": "보라·네온 계열의 강한 색감.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_181.webp"
+        },
+        {
+          "code": "S12a_190",
+          "name": "가라르 파이어",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "190/172",
+          "rarity": "AR",
+          "category": "검정 · 빨강",
+          "evidence": "어두운 바탕과 붉은 포인트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_190.webp"
+        },
+        {
+          "code": "S12a_194",
+          "name": "파비코리",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "194/172",
+          "rarity": "AR",
+          "category": "하늘색 · 흰색",
+          "evidence": "구름과 하늘의 밝은 청백색.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S12a/S12a_194.webp"
+        }
+      ]
+    }
+  ]
+}
