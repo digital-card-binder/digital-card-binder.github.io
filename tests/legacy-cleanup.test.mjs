@@ -21,7 +21,8 @@ test("collector-nav is the only runtime navigation writer", async () => {
   assert.match(collectorNav, /function buildNavigationAccordion\(nav\)/);
   const shell = await source("scripts/sync-site-shell.mjs");
   assert.match(shell, /section: "주요 도감"/);
-  assert.match(shell, /section: "테마 도감"/);
+  assert.match(shell, /title: "테마 도감"/);
+  assert.match(shell, /section: "테마 컬렉션"/);
 
   for (const path of [
     "firebase-config.js",
@@ -45,7 +46,7 @@ test("retired navigation labels cannot return through runtime helpers", async ()
   }
 });
 
-test("theme hub remains a compatibility page, not a navigation owner", async () => {
+test("theme hub remains the user-facing theme entry without owning navigation", async () => {
   const theme = await source("theme.html");
   const hrefs = [
     "ar.html",
