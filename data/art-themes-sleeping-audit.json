@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-03",
+  "theme": "sleeping",
+  "source": {
+    "name": "Sleepy Pokémon",
+    "url": "https://www.sleepypokemon.com/collection/",
+    "sourceCount": 158
+  },
+  "result": {
+    "sourceCardsMatchedToKoreanMaster": 130,
+    "additionalKoreanCuratedCards": 2,
+    "themeCardCount": 132,
+    "sourceCardsWithoutKoreanMasterMatch": 28
+  },
+  "methodology": [
+    "해외 체크리스트의 포켓몬명·세트·카드번호를 기준으로 후보를 만든다.",
+    "한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 우선 매칭한다.",
+    "번호가 다른 지역판은 일러스트레이터·HP·기술·카드 텍스트 또는 공식 카드 정보를 교차검증한다.",
+    "동일 포켓몬이라는 이유만으로 다른 일러스트 카드를 대체하지 않는다.",
+    "해외 전용 또는 현재 한국판 Master DB에서 동일 일러스트를 확인하지 못한 카드는 테마 도감에 넣지 않는다."
+  ],
+  "resolvedThisPass": [
+    {
+      "sourceCard": "Eevee",
+      "sourceSet": "Scarlet & Violet Promos",
+      "sourceNumber": "173",
+      "sourceLanguage": "English",
+      "koreanCode": "SV-P_132",
+      "koreanName": "이브이",
+      "koreanSet": "테라스탈 페스타 ex 프로모 카드 팩",
+      "koreanNumber": "132/SV-P",
+      "verification": "Makura Tami 일러스트와 부스트 진화/돌격 기술이 일치하는 한국판 프로모"
+    },
+    {
+      "sourceCard": "Miltank",
+      "sourceSet": "Secret Wonders",
+      "sourceNumber": "55/132",
+      "sourceLanguage": "English",
+      "koreanCode": "ST1_041",
+      "koreanName": "밀탱크",
+      "koreanSet": "DP 랜덤 구축덱",
+      "koreanNumber": "041/055",
+      "verification": "Mitsuhiro Arita 일러스트, HP90, 치유밀크/연속 구르기 기술이 일치"
+    }
+  ],
+  "unmatched": [
+    {
+      "sourceCard": "Bellsprout",
+      "sourceSet": "FireRed & LeafGreen",
+      "sourceNumber": "53/112",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Bulbasaur",
+      "sourceSet": "Expedition Base Set",
+      "sourceNumber": "94/165",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Corsola",
+      "sourceSet": "Expedition Base Set",
+      "sourceNumber": "102/165",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Cubone",
+      "sourceSet": "FireRed & LeafGreen",
+      "sourceNumber": "60/112",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Cubone",
+      "sourceSet": "Gem Pack Vol. 3",
+      "sourceNumber": "04 07/07",
+      "sourceLanguage": "Simplified Chinese",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Drowzee",
+      "sourceSet": "Aquapolis",
+      "sourceNumber": "74/147",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Erika's Clefairy",
+      "sourceSet": "Gym Challenge",
+      "sourceNumber": "40/132",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Espeon VMAX",
+      "sourceSet": "Fusion Strike",
+      "sourceNumber": "270/264",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Whitney's Furret",
+      "sourceSet": "Pokemon VS",
+      "sourceNumber": "018/141",
+      "sourceLanguage": "Japanese",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Geodude",
+      "sourceSet": "Dragon",
+      "sourceNumber": "55/97",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Gloom",
+      "sourceSet": "Aquapolis",
+      "sourceNumber": "49/147",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Gloom",
+      "sourceSet": "HS—Undaunted",
+      "sourceNumber": "27/90",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Growlithe",
+      "sourceSet": "Neo Destiny",
+      "sourceNumber": "68/105",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Kangaskhan",
+      "sourceSet": "HS—Triumphant",
+      "sourceNumber": "36/102",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Komala",
+      "sourceSet": "Sun & Moon Black Star Promos",
+      "sourceNumber": "SM41",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Light Dragonair",
+      "sourceSet": "Neo Destiny",
+      "sourceNumber": "22/105",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Light Piloswine",
+      "sourceSet": "Neo Destiny",
+      "sourceNumber": "26/105",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Miltank",
+      "sourceSet": "Kalos Starter Set",
+      "sourceNumber": "27/39",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Phanpy",
+      "sourceSet": "Holon Phantoms",
+      "sourceNumber": "75/110",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Phanpy",
+      "sourceSet": "Neo Destiny",
+      "sourceNumber": "76/105",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Pikachu",
+      "sourceSet": "Collect 151: Hope",
+      "sourceNumber": "171/151",
+      "sourceLanguage": "Simplified Chinese",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Sabrina's Abra",
+      "sourceSet": "Gym Challenge",
+      "sourceNumber": "94/132",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Slakoth",
+      "sourceSet": "Deoxys",
+      "sourceNumber": "73/107",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Slowpoke",
+      "sourceSet": "Aquapolis",
+      "sourceNumber": "108/147",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Snorlax",
+      "sourceSet": "Wizards Black Star Promos",
+      "sourceNumber": "49",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Togepi",
+      "sourceSet": "P Promos",
+      "sourceNumber": "035/P",
+      "sourceLanguage": "Japanese",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Umbreon",
+      "sourceSet": "Gem Pack Volume 2",
+      "sourceNumber": "06 15/15",
+      "sourceLanguage": "Simplified Chinese",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    },
+    {
+      "sourceCard": "Vulpix",
+      "sourceSet": "Neo Destiny",
+      "sourceNumber": "91/105",
+      "sourceLanguage": "English",
+      "status": "no-identical-korean-print-in-current-master",
+      "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
+    }
+  ]
+}
