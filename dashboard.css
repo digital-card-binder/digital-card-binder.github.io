@@ -1625,3 +1625,7 @@
 /* Feedback actions share decorative menu icons. */
 .feedback-action { display: inline-flex; align-items: center; gap: 7px; }
 .feedback-action[hidden] { display: none; }
+
+.dashboard-theme-hub-link{display:flex;justify-content:flex-end;margin:10px 0 12px}
+.dashboard-theme-hub-link a{display:inline-flex;align-items:center;min-height:34px;border-radius:10px;background:#f4f1ff;color:#5d49a5;font-size:.66rem;font-weight:900;padding:7px 11px;text-decoration:none}
+.dashboard-theme-hub-link a:hover{background:#ece6ff}
