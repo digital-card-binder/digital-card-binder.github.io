@@ -20,6 +20,7 @@ const navigation = Object.freeze([
   { href: "./trainer-pokemon.html", page: "trainer-pokemon.html", title: "트레이너 × 포켓몬", catalogId: "trainerPokemon" },
   { href: "./fossil.html", page: "fossil.html", title: "화석 도감", catalogId: "fossil" },
   { href: "./world.html", page: "world.html", title: "월드탐험도감", catalogId: "world" },
+  { href: "./art-themes.html", page: "art-themes.html", title: "아트 테마 도감", catalogId: "artThemes" },
   { href: "./custom.html", page: "custom.html", icon: "binder", title: "나만의 도감", subtitle: "직접 만드는 도감" },
   { href: "./collectors.html", page: "collectors.html", icon: "community", title: "커뮤니티", subtitle: "공개 컬렉션", standalone: true },
 ]);
@@ -56,6 +57,8 @@ function navigationSubtitle(item) {
       return `${items}장`;
     case "world":
       return `${groups}세대 · ${items}장`;
+    case "artThemes":
+      return `${groups}테마 · ${items}슬롯`;
     default:
       return `${items}`;
   }
