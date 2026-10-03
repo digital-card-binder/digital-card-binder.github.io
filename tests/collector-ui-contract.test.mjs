@@ -319,7 +319,7 @@ test("dashboard polish follows navigation labels and restrained motion", async (
   assert.match(dashboard, /canonicalTotal/);
   assert.match(
     dashboard,
-    /THEME_CATEGORIES = new Set\(\["pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"\]\)/,
+    /THEME_CATEGORIES = new Set\(\["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"\]\)/,
   );
   assert.doesNotMatch(dashboard, /EXTRA_THEME_COLLECTIONS/);
   assert.doesNotMatch(dashboard, /dashboard-card-icon/);
@@ -596,7 +596,6 @@ test("navigation uses Korean main and theme groups with standalone custom and co
     'page: "trainer-pokemon.html"',
     'page: "fossil.html"',
     'page: "world.html"',
-    'page: "art-themes.html"',
     'page: "custom.html"',
     'page: "collectors.html"',
   ].map((token) => menuLayout.indexOf(token));
@@ -628,7 +627,7 @@ test("detail pages use the finalized navigation names in their static markup", a
     ["trainer-pokemon.html", "트레이너 × 포켓몬"],
     ["fossil.html", "화석 도감"],
     ["world.html", "월드탐험도감"],
-    ["art-themes.html", "아트 테마 도감"],
+    ["art-themes.html", "테마 도감"],
     ["custom.html", "나만의 도감"],
     ["collectors.html", "커뮤니티"],
   ];
