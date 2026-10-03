@@ -59,6 +59,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     trainerPokemon: [245, 172],
     fossil: [122, 26],
     world: [198, 9],
+    artThemes: [55, 6],
   };
 
   for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
@@ -82,6 +83,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     trainerPokemon: 245,
     fossil: 122,
     world: 198,
+    artThemes: 55,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -103,14 +105,14 @@ test("all existing catalogs retain their expected item counts", async () => {
 test("collection order follows the current main and theme navigation", () => {
   assert.deepEqual(
     [...registry.COLLECTION_ORDER],
-    ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world"],
+    ["national", "series", "ar", "pack", "pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"],
   );
   assert.deepEqual(
     Array.from(
       registry.COLLECTION_ORDER,
       (id) => String(registry.COLLECTIONS[id].number),
     ),
-    ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
+    ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11"],
   );
 });
 
@@ -188,6 +190,7 @@ test("existing nonempty top-level catalog group counts stay unchanged", async ()
     trainerPokemon: 172,
     fossil: 26,
     world: 9,
+    artThemes: 6,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -524,7 +527,7 @@ test("people ownership stays inside nationalDex peopleOwned", async () => {
   assert.deepEqual([...owned.ownedKeys], [personId]);
 });
 
-test("dashboard defaults cover all ten registered dexes", () => {
+test("dashboard defaults cover all eleven registered dexes", () => {
   for (const collectionId of registry.COLLECTION_ORDER) {
     const setting = registry.defaultSetting(collectionId);
     assert.equal(
@@ -537,6 +540,8 @@ test("dashboard defaults cover all ten registered dexes", () => {
   assert.equal(registry.COLLECTIONS.fossil.number, "09");
   assert.equal(registry.COLLECTIONS.world.number, "10");
   assert.equal(registry.COLLECTIONS.world.documentId, "worldDex");
+  assert.equal(registry.COLLECTIONS.artThemes.number, "11");
+  assert.equal(registry.COLLECTIONS.artThemes.documentId, "artThemesDex");
 });
 
 test("custom dex extension exposes dashboard ownership with per-dex keys", async () => {
