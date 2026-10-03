@@ -29,6 +29,7 @@ const sitePages = [
   "trainer-pokemon.html",
   "fossil.html",
   "world.html",
+  "theme.html",
   "art-themes.html",
   "custom.html",
   "collectors.html",
@@ -570,7 +571,8 @@ test("navigation uses Korean main and theme groups with standalone custom and co
   const shell = await source("scripts/sync-site-shell.mjs");
   const navigation = await source("collector-nav.js");
   assert.match(shell, /section: "주요 도감"/);
-  assert.match(shell, /section: "테마 도감"/);
+  assert.match(shell, /title: "테마 도감"/);
+  assert.match(shell, /section: "테마 컬렉션"/);
   assert.match(shell, /title: "팩 전종수집"/);
   assert.match(shell, /title: "화석 도감"/);
   assert.match(shell, /title: "나만의 도감"/);
@@ -589,7 +591,8 @@ test("navigation uses Korean main and theme groups with standalone custom and co
     'page: "series.html"',
     'page: "ar.html"',
     'page: "packs.html"',
-    'section: "테마 도감"',
+    'page: "theme.html"',
+    'section: "테마 컬렉션"',
     'page: "pokemon-collections.html"',
     'page: "artists.html"',
     'page: "people.html"',
@@ -627,6 +630,7 @@ test("detail pages use the finalized navigation names in their static markup", a
     ["trainer-pokemon.html", "트레이너 × 포켓몬"],
     ["fossil.html", "화석 도감"],
     ["world.html", "월드탐험도감"],
+    ["theme.html", "테마 도감"],
     ["art-themes.html", "테마 도감"],
     ["custom.html", "나만의 도감"],
     ["collectors.html", "커뮤니티"],
@@ -635,7 +639,7 @@ test("detail pages use the finalized navigation names in their static markup", a
     const html = await source(page);
     assert.match(html, /<div class="sidebar-label">도감 메뉴<\/div>/, page);
     assert.match(html, /class="sidebar-label collection-nav-section">주요 도감<\/div>/, page);
-    assert.match(html, /class="sidebar-label collection-nav-section">테마 도감<\/div>/, page);
+    assert.match(html, /class="sidebar-label collection-nav-section">테마 컬렉션<\/div>/, page);
     assert.ok(html.includes(`<strong>${title}</strong>`) || html.includes(`>${title}</h1>`), page);
     assert.equal(html.includes("도감 갤러리"), false, page);
     assert.equal(html.includes("공개 컬렉터"), false, page);
