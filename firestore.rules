@@ -54,7 +54,8 @@ service cloud.firestore {
         || collectionId == "pokemonCollectionsDex"
         || collectionId == "arDex"
         || collectionId == "trainerPokemonDex"
-        || collectionId == "worldDex";
+        || collectionId == "worldDex"
+        || collectionId == "artThemesDex";
     }
 
     function supportedCollectorCollection(collectionId) {
@@ -68,6 +69,7 @@ service cloud.firestore {
         || collectionId == "trainerPokemon"
         || collectionId == "fossil"
         || collectionId == "world"
+        || collectionId == "artThemes"
         || collectionId == "custom";
     }
 
