@@ -81,6 +81,7 @@
       "trainer-pokemon.html",
       "fossil.html",
       "world.html",
+      "art-themes.html",
       "custom.html",
     ]);
     const currentPage = window.location.pathname.split("/").pop() || "index.html";
@@ -227,10 +228,22 @@
     nav.dataset.accordionReady = "true";
   }
 
+  function ensureArtThemesLink(nav) {
+    if (!nav || nav.querySelector('a[href="./art-themes.html"]')) return;
+    const customLink = nav.querySelector('a[href="./custom.html"]');
+    const link = document.createElement("a");
+    link.className = "collection-link";
+    link.href = "./art-themes.html";
+    link.innerHTML = '<span><strong>아트 테마 도감</strong><small>잠·연결·진화·밤·풍경·컬러</small></span>';
+    if (customLink) nav.insertBefore(link, customLink);
+    else nav.append(link);
+  }
+
   function arrangeCollectorNavigation() {
     const nav = document.querySelector(".collection-nav");
     if (!nav) return;
     nav.querySelector('[href*="trades.html"]')?.remove();
+    ensureArtThemesLink(nav);
     normalizeNavigationState(nav);
     buildNavigationAccordion(nav);
   }
