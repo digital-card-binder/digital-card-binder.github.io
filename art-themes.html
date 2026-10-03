@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="잠자는 포켓몬, 연결 일러스트, 진화 스토리, 밤과 달빛, 계절과 풍경, 컬러를 모아보는 디지털 카드 바인더 아트 테마 도감" />
+    <meta name="theme-color" content="#17233f" />
+    <title>아트 테마 도감 · 디지털 카드 바인더</title>
+    <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:image" content="https://digital-card-binder.github.io/assets/brand/og-image.png" />
+    <link rel="stylesheet" href="./styles.css?v=41006a39d41c" />
+    <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
+    <link rel="stylesheet" href="./collection-manager.css?v=1f7b51cbdac1" />
+    <link rel="stylesheet" href="./collector.css?v=bcde2b3fc09c" />
+    <link rel="stylesheet" href="./art-themes.css?v=20261003" />
+    <link rel="stylesheet" href="./card-scanner.css?v=0292b9cf87a2" data-card-scanner-style="true" />
+    <script src="./card-image-cdn.js?v=e31c346799ab" defer></script>
+    <script src="./firebase-config.js?v=0844fbabed65" defer></script>
+    <script src="./site-metrics.js?v=1a2c63965420" defer></script>
+    <script src="./image-protection.js?v=0c2c642e2a17" defer></script>
+    <script src="./legal.js?v=ca76fb29682d" defer></script>
+    <script src="./shared-readonly-view.js?v=562a8afeb943" defer></script>
+    <script src="./core/catalog/catalog-service.js?v=20261003" defer></script>
+    <script src="./core/catalog/card-identity.js?v=a0d7639998bd" defer></script>
+    <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
+    <script src="./collector-collection-registry.js?v=20261003" defer></script>
+    <script src="./collector-public-view.js?v=fbcabd853c6b" defer></script>
+    <script src="./collector-public-sync.js?v=8e39321718c5" defer></script>
+    <script src="./collector-nav.js?v=20261003" defer></script>
+    <script src="./card-scanner.js?v=2d0f166ba56c" defer data-card-scanner-script="true"></script>
+    <script src="./firebase-page-manager.js?v=f09482d3bcd4" defer></script>
+    <script src="./art-themes.js?v=20261003" defer></script>
+  </head>
+  <body data-catalog="artThemes">
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
+        <img class="brand-horizontal" src="./assets/brand/logo-horizontal.png" alt="디지털 카드 바인더" />
+        <img class="brand-symbol" src="./assets/brand/logo-symbol.png" alt="" aria-hidden="true" />
+        <span class="brand-copy"><strong>디지털 카드 바인더</strong></span>
+      </a>
+      <span class="header-chip">공개 보기</span>
+    </header>
+
+    <div class="site-layout">
+      <aside class="sidebar" aria-label="도감 메뉴">
+        <div class="sidebar-label">도감 메뉴</div>
+        <nav class="collection-nav">
+          <a class="collection-link" href="./"><span class="collection-icon ui-icon ui-icon--home" aria-hidden="true"></span><span><strong>통합 대시보드</strong><small>모든 도감</small></span></a>
+          <a class="collection-link" href="./pokemon-search.html"><span class="collection-icon ui-icon ui-icon--search" aria-hidden="true"></span><span><strong>카드 검색</strong><small>통합 카드 검색</small></span></a>
+          <div class="sidebar-label collection-nav-section">주요 도감</div>
+          <a class="collection-link" href="./national.html"><span><strong>전국도감</strong><small>1,025종 · 1–9세대</small></span></a>
+          <a class="collection-link" href="./series.html"><span><strong>시리즈 도감</strong><small>273세트 · 20,243장</small></span></a>
+          <a class="collection-link" href="./ar.html"><span><strong>AR 전종도감</strong><small>33세트 · 530장</small></span></a>
+          <a class="collection-link" href="./packs.html"><span><strong>팩 전종수집</strong><small>151팩 · 프로모 222</small></span></a>
+          <div class="sidebar-label collection-nav-section">테마 도감</div>
+          <a class="collection-link" href="./pokemon-collections.html"><span><strong>포켓몬 컬렉션</strong><small>67종 · 1,333장</small></span></a>
+          <a class="collection-link" href="./artists.html"><span><strong>작가 도감</strong><small>40명 · 4,873장</small></span></a>
+          <a class="collection-link" href="./people.html"><span><strong>인물도감</strong><small>179명</small></span></a>
+          <a class="collection-link" href="./trainer-pokemon.html"><span><strong>트레이너 × 포켓몬</strong><small>245장</small></span></a>
+          <a class="collection-link" href="./fossil.html"><span><strong>화석 도감</strong><small>122장</small></span></a>
+          <a class="collection-link" href="./world.html"><span><strong>월드탐험도감</strong><small>9세대 · 198장</small></span></a>
+          <a class="collection-link is-active" href="./art-themes.html" aria-current="page"><span><strong>아트 테마 도감</strong><small>6테마 · 55슬롯</small></span></a>
+          <a class="collection-link" href="./custom.html"><span class="collection-icon ui-icon ui-icon--binder" aria-hidden="true"></span><span><strong>나만의 도감</strong><small>직접 만드는 도감</small></span></a>
+          <a class="collection-link" href="./collectors.html" data-nav-standalone="true"><span class="collection-icon ui-icon ui-icon--community" aria-hidden="true"></span><span><strong>커뮤니티</strong><small>공개 컬렉션</small></span></a>
+        </nav>
+      </aside>
+
+      <main id="main-content" class="main-content">
+        <section class="hero art-theme-hero" aria-labelledby="page-title">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-content">
+            <span class="art-theme-kicker">COLLECT BY MOOD &amp; STORY</span>
+            <h1 id="page-title">아트 테마 도감</h1>
+            <p class="hero-description">해외 컬렉터들이 실제로 즐기는 장면·스토리·색감 기반 수집법을<br />한국판 카드로 다시 구성한 독립 테마 컬렉션입니다.</p>
+          </div>
+          <div class="hero-progress" aria-label="아트 테마 도감 수집 현황">
+            <div class="progress-ring art-theme-progress-ring" id="art-theme-progress-ring" aria-hidden="true"><div><strong id="art-theme-rate">—</strong><span>완성률</span></div></div>
+            <div class="hero-progress-copy"><span>전체 테마 슬롯</span><strong><b id="art-theme-owned">—</b><small> / <span id="art-theme-total">—</span>장</small></strong><p>미보유 <b id="art-theme-missing">—</b>장</p></div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="아트 테마 도감 요약">
+          <article class="stat-card stat-card--owned"><span class="stat-icon" aria-hidden="true">▦</span><div><span>수집 테마</span><strong><b id="art-theme-group-count">—</b><small>개</small></strong></div></article>
+          <article class="stat-card stat-card--missing"><span class="stat-icon" aria-hidden="true">✦</span><div><span>현재 테마</span><strong><b id="art-theme-current-count">—</b><small>장</small></strong></div></article>
+          <article class="stat-card stat-card--rate"><span class="stat-icon" aria-hidden="true">↗</span><div><span>현재 완성률</span><strong><b id="art-theme-current-rate">—</b><small>%</small></strong></div></article>
+        </section>
+
+        <details class="collector-guide-panel art-theme-guide">
+          <summary>수록 기준 · 1차 큐레이션</summary>
+          <div class="art-theme-guide-copy">
+            <p><strong>해외 컬렉션 방식 참고</strong><span>잠자는 포켓몬, 연결 그림, 밤, 계절, 색상처럼 실제 해외 수집가들이 사용하는 테마를 기준으로 구성했습니다.</span></p>
+            <p><strong>한국판 카드 중심</strong><span>사이트의 한국판 카드 이미지 체계에 연결되는 카드만 우선 수록합니다. 같은 카드는 여러 테마에 독립적으로 포함될 수 있습니다.</span></p>
+            <p><strong>계속 확장</strong><span>현재 55개 슬롯은 시작 버전입니다. 검증되는 한국판 카드가 확인되면 기존 저장값을 깨지 않고 각 테마에 추가합니다.</span></p>
+          </div>
+        </details>
+
+        <section class="catalog-panel art-theme-catalog" aria-labelledby="art-theme-catalog-title">
+          <div class="catalog-heading">
+            <div>
+              <span class="art-theme-section-label">THEME BINDER</span>
+              <h2 id="art-theme-catalog-title">테마를 선택하세요</h2>
+            </div>
+          </div>
+
+          <div id="art-theme-tabs" class="art-theme-tabs" role="tablist" aria-label="아트 테마 선택"></div>
+
+          <div class="art-theme-selected-summary">
+            <div>
+              <span id="art-theme-selected-icon" class="art-theme-selected-icon" aria-hidden="true">✦</span>
+              <div><strong id="art-theme-selected-name">—</strong><p id="art-theme-selected-description">—</p></div>
+            </div>
+            <span id="art-theme-selected-badge" class="art-theme-selected-badge">—</span>
+          </div>
+
+          <div class="art-theme-filter-panel">
+            <label class="art-theme-search-field"><span>카드 검색</span><input id="art-theme-search" type="search" autocomplete="off" placeholder="카드명, 세트, 번호, 장면으로 검색" /></label>
+            <div id="art-theme-status-filters" class="art-theme-status-filters" role="group" aria-label="보유 상태 선택">
+              <button class="is-active" type="button" data-status="all">전체</button>
+              <button type="button" data-status="owned">보유</button>
+              <button type="button" data-status="missing">미보유</button>
+            </div>
+          </div>
+
+          <div class="art-theme-progress-line">
+            <span><b id="art-theme-selected-owned">—</b> / <span id="art-theme-selected-total">—</span>장 보유</span>
+            <strong id="art-theme-selected-rate">—%</strong>
+          </div>
+
+          <div class="results-bar"><p>검색 결과 <strong id="art-theme-result-count">—</strong>장</p></div>
+          <div id="art-theme-card-grid" class="art-theme-card-grid" aria-live="polite" aria-busy="true"></div>
+          <div id="art-theme-empty" class="empty-state" hidden><span class="empty-ball" aria-hidden="true"><span></span></span><h3>조건에 맞는 카드가 없습니다</h3><p>검색어나 보유 상태를 바꿔보세요.</p></div>
+        </section>
+
+        <details class="art-theme-sources">
+          <summary>테마 선정 참고자료</summary>
+          <div id="art-theme-source-list"></div>
+        </details>
+
+        <footer class="site-footer">
+          <div class="site-footer-main">
+            <nav class="site-footer-links" aria-label="정책 및 문의">
+              <a href="./news.html">새소식</a>
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./terms.html">이용약관</a>
+              <a href="mailto:pokemon.dogam.support@gmail.com">문의·삭제 요청</a>
+            </nav>
+            <p>본 사이트는 개인이 운영하는 비공식 팬 사이트이며, 포켓몬 관련 권리자 및 ㈜포켓몬코리아와 제휴·승인·후원 관계가 없습니다.</p>
+            <p>Pokémon 및 관련 명칭·상표·캐릭터, 카드 이미지와 카드 텍스트의 권리는 각 권리자에게 있습니다. ©<span data-current-year>2026</span> Pokémon. ©1995–<span data-current-year>2026</span> Nintendo/Creatures Inc./GAME FREAK inc.</p>
+          </div>
+          <p class="site-footer-note">테마 선정은 외부 수집 사례를 참고하고, 카드 수록과 이미지는 사이트의 한국판 카드 데이터 기준으로 관리합니다.</p>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="art-theme-dialog" class="art-theme-dialog">
+      <button id="art-theme-dialog-close" class="dialog-close" type="button" aria-label="닫기">×</button>
+      <div class="art-theme-dialog-image"><img id="art-theme-dialog-image" src="" alt="" /></div>
+      <div class="art-theme-dialog-copy">
+        <div class="dialog-badges"><span id="art-theme-dialog-number" class="number-badge"></span><span id="art-theme-dialog-status" class="status-badge"></span></div>
+        <h2 id="art-theme-dialog-name"></h2>
+        <p id="art-theme-dialog-theme" class="dialog-name-en"></p>
+        <dl class="art-theme-dialog-details">
+          <div><dt>세트</dt><dd id="art-theme-dialog-set"></dd></div>
+          <div><dt>카드번호</dt><dd id="art-theme-dialog-card-number"></dd></div>
+          <div><dt>레어도</dt><dd id="art-theme-dialog-rarity"></dd></div>
+          <div><dt>장면 분류</dt><dd id="art-theme-dialog-category"></dd></div>
+          <div class="is-wide"><dt>선정 근거</dt><dd id="art-theme-dialog-evidence"></dd></div>
+        </dl>
+      </div>
+    </dialog>
+
+    <div id="art-theme-error" class="app-error" role="alert" hidden><strong>아트 테마 도감 데이터를 불러오지 못했습니다.</strong><span>잠시 후 페이지를 새로고침해 주세요.</span></div>
+  </body>
+</html>
