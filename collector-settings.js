@@ -780,10 +780,13 @@
   }
 
   async function renderSettings() {
-    const metrics = await Promise.all(
-      registry.COLLECTION_ORDER.map((collectionId) => metricFor(collectionId)),
+    const visibleCollectionIds = registry.COLLECTION_ORDER.filter(
+      (collectionId) => registry.COLLECTIONS[collectionId]?.settingsVisible !== false,
     );
-    const cards = registry.COLLECTION_ORDER.map((collectionId, index) => {
+    const metrics = await Promise.all(
+      visibleCollectionIds.map((collectionId) => metricFor(collectionId)),
+    );
+    const cards = visibleCollectionIds.map((collectionId, index) => {
       const meta = registry.COLLECTIONS[collectionId];
       const setting = settings.get(collectionId)?.value || registry.defaultSetting(collectionId);
       const metric = metrics[index];
