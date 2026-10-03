@@ -216,7 +216,7 @@ test("series catalog includes complete sv5a and sv8a sets in release order", asy
       previous: "sv8",
       next: "sv9",
       count: 237,
-      denominator: "189",
+      denominator: "187",
       imageCode: "SV8a",
     },
   ];
