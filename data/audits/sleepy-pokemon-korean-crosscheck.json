@@ -14,10 +14,10 @@
   },
   "summary": {
     "sourceCount": 158,
-    "matched": 127,
-    "needsReview": 31,
-    "themeSleepingSlotsAfter": 129,
-    "newlyAddedThisAudit": 106
+    "matched": 128,
+    "needsReview": 30,
+    "themeSleepingSlotsAfter": 130,
+    "newlyAddedThisAudit": 107
   },
   "entries": [
     {
@@ -923,8 +923,17 @@
       "englishName": "Koraidon",
       "sourceSet": "Scarlet & Violet Black Star Promos",
       "sourceNumber": "14",
-      "status": "needs_review",
-      "reason": "현재 한국판 Master DB에서 동일 일러스트의 한국판 판본을 확정하지 못함"
+      "status": "matched",
+      "koreanName": "코라이돈",
+      "koreanSetCode": "SV-P",
+      "koreanSetName": "스칼렛&바이올렛 프로모 카드",
+      "koreanRawCode": "sv-p_027/SV-P",
+      "koreanCardNumber": "027/SV-P",
+      "image": "https://static.tcgexchange.kr/5e4eb7b34416480e3fe099c849911ad6.png",
+      "rarity": "PROMO",
+      "artist": "Mina Nakai",
+      "matchMethod": "영문 SVP 014 → 일본 049/SV-P → 한국 027/SV-P 및 Master DB 교차확인",
+      "verificationNote": "영문 SVP 014의 Full Art 프로모(Mina Nakai)는 한국판 스칼렛&바이올렛 프로모 027/SV-P로 발매됨."
     },
     {
       "index": 66,
