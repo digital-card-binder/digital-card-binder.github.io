@@ -58,11 +58,6 @@
       "itemCount": 198,
       "groupCount": 9,
       "unit": "개"
-    },
-    "artThemes": {
-      "itemCount": 55,
-      "groupCount": 6,
-      "unit": "장"
     }
   });
   // </catalog-metrics-generated>
