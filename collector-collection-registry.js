@@ -42,6 +42,7 @@
     "trainerPokemon",
     "fossil",
     "world",
+    "artThemes",
   ];
   const COLLECTIONS = {
     national: {
@@ -152,6 +153,17 @@
       unit: "개",
       catalogCount: catalogCount("world"),
       catalogGroupCount: catalogGroupCount("world"),
+      defaultDashboardVisible: true,
+    },
+    artThemes: {
+      number: "11",
+      title: "아트 테마 도감",
+      description: "잠·연결·진화·밤·풍경·컬러",
+      href: "./art-themes.html",
+      documentId: "artThemesDex",
+      unit: "장",
+      catalogCount: catalogCount("artThemes"),
+      catalogGroupCount: catalogGroupCount("artThemes"),
       defaultDashboardVisible: true,
     },
   };
@@ -270,6 +282,7 @@
       trainerPokemon: "./data/trainer-pokemon.json",
       fossil: "./data/fossil.json",
       world: "./data/world-exploration.json",
+      artThemes: "./data/art-themes.json",
     };
     let payload;
     if (collectionId === "pokemon") {
@@ -289,6 +302,8 @@
       sourceGroups = payload.groups || [];
     } else if (collectionId === "world") {
       sourceGroups = await catalogService.worldGroups();
+    } else if (collectionId === "artThemes") {
+      sourceGroups = payload.groups || [];
     } else {
       sourceGroups = payload || [];
     }
