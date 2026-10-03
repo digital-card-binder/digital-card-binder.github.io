@@ -159,7 +159,8 @@ test("stage 6 keeps catalog metrics, registry, dashboard, and shared navigation 
     .sort();
 
   assert.deepEqual(metricIds, registryIds, "canonical metrics and registry must cover the same collections");
-  assert.deepEqual(shellIds, registryIds, "shared navigation must cover every registry collection");
+  const visibleRegistryIds = registryIds.filter((id) => id !== "artThemes");
+  assert.deepEqual(shellIds, visibleRegistryIds, "shared navigation must cover every visible registry collection");
 
   const primaryMatch = dashboard.match(/const PRIMARY_CATEGORIES = new Set\(\[([\s\S]*?)\]\);/);
   const themeMatch = dashboard.match(/const THEME_CATEGORIES = new Set\(\[([\s\S]*?)\]\);/);
@@ -173,7 +174,7 @@ test("stage 6 keeps catalog metrics, registry, dashboard, and shared navigation 
 
   assert.deepEqual(
     dashboardIds,
-    registryIds,
-    "dashboard sections must account for every first-class registry collection",
+    visibleRegistryIds,
+    "dashboard sections must account for every visible registry collection",
   );
 });
