@@ -98,7 +98,7 @@
     CATEGORY_ORDER.map((key) => [key, CATEGORY_META[key].documentId]),
   );
   const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
-  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world", "artThemes"]);
+  const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
   const elements = {
     headerChip: document.querySelector(".header-chip"),
     activeCollections: document.querySelector("#dashboard-active-collections"),
