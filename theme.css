@@ -134,3 +134,7 @@
     padding: 20px;
   }
 }
+
+.theme-card-symbol{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#17233f,#31436d);color:#fff;font-size:20px;font-weight:900;box-shadow:0 8px 18px rgba(23,35,63,.14)}
+.theme-card--art{background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(246,244,255,.96))}
+.theme-card--art .theme-card-badge{background:rgba(123,95,214,.1);color:#654fb3}
