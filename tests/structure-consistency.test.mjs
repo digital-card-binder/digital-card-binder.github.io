@@ -25,6 +25,7 @@ const htmlFiles = [
   "people.html",
   "trainer-pokemon.html",
   "world.html",
+  "theme.html",
   "art-themes.html",
   "custom.html",
   "collector-settings.html",
