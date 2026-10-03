@@ -157,14 +157,16 @@
     },
     artThemes: {
       number: "11",
-      title: "아트 테마 도감",
+      title: "테마 도감",
       description: "잠·연결·진화·밤·풍경·컬러",
       href: "./art-themes.html",
       documentId: "artThemesDex",
       unit: "장",
       catalogCount: catalogCount("artThemes"),
       catalogGroupCount: catalogGroupCount("artThemes"),
-      defaultDashboardVisible: true,
+      defaultDashboardVisible: false,
+      navigationVisible: false,
+      settingsVisible: false,
     },
   };
   const catalogPromises = new Map();
