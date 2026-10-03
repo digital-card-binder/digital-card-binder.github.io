@@ -231,7 +231,7 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "android-app-v10-update-20260928");
+  assert.equal(newsData.items[0].id, "site-major-updates-20261003");
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);
