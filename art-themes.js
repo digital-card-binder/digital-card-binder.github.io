@@ -13,7 +13,7 @@
   const rate = (owned, total) => total ? Math.round((owned / total) * 1000) / 10 : 0;
   const allCards = () => (dataset?.groups || []).flatMap((group) => group.cards || []);
   const currentGroup = () => (dataset?.groups || []).find((group) => group.code === selectedTheme) || dataset?.groups?.[0] || null;
-  const repairedImage = (source) => window.DigitalCardBinderImageCdn?.repairSource?.(source) || source || "";
+  const repairedImage = (source) => window.DigitalCardBinderImageCdn?.resolve?.(source) || window.DigitalCardBinderImageCdn?.repairSource?.(source) || source || "";
 
   function requestedTheme() {
     const value = new URL(window.location.href).searchParams.get("theme") || "";
