@@ -13,7 +13,7 @@ const navigation = Object.freeze([
   { href: "./series.html", page: "series.html", title: "시리즈 도감", catalogId: "series" },
   { href: "./ar.html", page: "ar.html", title: "AR 전종도감", catalogId: "ar" },
   { href: "./packs.html", page: "packs.html", title: "팩 전종수집", catalogId: "pack" },
-  { href: "./theme.html", page: "theme.html", title: "테마 도감", subtitle: "잠·연결·진화·밤·풍경·컬러" },
+  { href: "./theme.html", page: "theme.html", title: "테마 도감", subtitle: "무드·스토리·장면 테마" },
   { section: "테마 컬렉션" },
   { href: "./pokemon-collections.html", page: "pokemon-collections.html", title: "포켓몬 컬렉션", catalogId: "pokemon" },
   { href: "./artists.html", page: "artists.html", title: "작가 도감", catalogId: "artist" },
