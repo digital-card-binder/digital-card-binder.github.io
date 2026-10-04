@@ -766,6 +766,18 @@ test("native dex pages retire one-off heading clutter and share compact guide di
   assert.match(css, /[.]collector-guide-panel\[open\] summary::after/);
 });
 
+test("theme detail page does not repeat selector or implementation guide", async () => {
+  const detail = await source("art-themes.html");
+  const detailClient = await source("art-themes.js");
+  const landing = await source("theme.html");
+
+  assert.doesNotMatch(detail, /collector-guide-panel art-theme-guide/);
+  assert.doesNotMatch(detail, /id="art-theme-tabs"/);
+  assert.doesNotMatch(detailClient, /function renderTabs\(/);
+  assert.doesNotMatch(landing, /class="theme-note"/);
+  assert.doesNotMatch(landing, /기존 보유 데이터와 기능은 그대로 유지/);
+});
+
 test("shared collection UI uses one calm panel and interaction system", async () => {
   const css = await source("collector.css");
   assert.match(css, /--collector-filter-surface: #f8fafc/);
