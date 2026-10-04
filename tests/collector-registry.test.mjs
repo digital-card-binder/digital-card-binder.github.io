@@ -59,7 +59,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     trainerPokemon: [245, 172],
     fossil: [122, 26],
     world: [198, 9],
-    artThemes: [253, 6],
+    artThemes: [273, 6],
   };
 
   for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
@@ -83,7 +83,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     trainerPokemon: 245,
     fossil: 122,
     world: 198,
-    artThemes: 253,
+    artThemes: 273,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
