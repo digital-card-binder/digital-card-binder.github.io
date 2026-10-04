@@ -74,7 +74,7 @@
     el("art-theme-selected-description").textContent = group?.description || "";
     el("art-theme-selected-icon").textContent = group?.icon || "✦";
     el("art-theme-selected-badge").textContent = group?.badge || "THEME";
-    el("art-theme-catalog-title").textContent = `${group?.name || "아트 테마"} · ${selectedCards.length}장`;
+    el("art-theme-catalog-title").textContent = `${group?.name || "테마"} · ${selectedCards.length}장`;
   }
 
   function matches(card) {
