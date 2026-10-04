@@ -22,6 +22,36 @@
       "name": "Pokécahack",
       "url": "https://pokecahack.com/illust-connection/",
       "note": "일러스트 연결 및 시계열 연결 사례 참고"
+    },
+    {
+      "name": "Staiz Sunset",
+      "url": "https://staiz.io/collection/sunset",
+      "note": "해외 Sunset·Golden Hour 카드 컬렉션 참고"
+    },
+    {
+      "name": "Staiz Reflections",
+      "url": "https://staiz.io/collection/reflections",
+      "note": "물·유리·거울 반사 장면 카드 컬렉션 참고"
+    },
+    {
+      "name": "Staiz Cameos",
+      "url": "https://staiz.io/cameos",
+      "note": "다른 카드 일러스트에 숨어 등장하는 포켓몬 카메오 인덱스"
+    },
+    {
+      "name": "PokéCameos",
+      "url": "https://www.pokecameos.com/",
+      "note": "포켓몬별 배경 카메오 카드 교차검증"
+    },
+    {
+      "name": "Reddit PokémonTCG Themed Binder Project",
+      "url": "https://www.reddit.com/r/PokemonTCG/comments/1sxustn/themed_binder_project/",
+      "note": "Street Life·On the Job 등 실제 테마 바인더 사례 참고"
+    },
+    {
+      "name": "Reddit PokémonTCG Food Theme",
+      "url": "https://www.reddit.com/r/PokemonTCG/comments/1v6u9g5/need_help_with_binder_theme/",
+      "note": "음식·요리 테마 바인더 카드 후보 참고"
     }
   ],
   "groups": [
@@ -3364,6 +3394,564 @@
           "category": "은색",
           "evidence": "은색·회색 계열이 일러스트의 주조색을 이루는 카드.",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_043.png"
+        }
+      ]
+    },
+    {
+      "code": "sunset",
+      "name": "노을 · 골든아워",
+      "badge": "SUNSET",
+      "icon": "☀",
+      "description": "해 질 무렵의 주황빛, 낮게 뜬 태양, 붉은 하늘과 도시 실루엣이 장면을 지배하는 카드를 모읍니다.",
+      "cards": [
+        {
+          "code": "SV1a_084",
+          "name": "팔데아 켄타로스",
+          "series": "SV",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "cardNumber": "084/073",
+          "rarity": "AR",
+          "category": "노을 · 초원",
+          "evidence": "Staiz Sunset 컬렉션의 Paldean Tauros 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_084.png"
+        },
+        {
+          "code": "SV2D_075",
+          "name": "모래꿍",
+          "series": "SV",
+          "set": "SV2D",
+          "setName": "클레이버스트",
+          "cardNumber": "075/071",
+          "rarity": "AR",
+          "category": "노을 · 해변",
+          "evidence": "Staiz Sunset 컬렉션의 Sandygast 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_075.png"
+        },
+        {
+          "code": "SV2D_079",
+          "name": "마기라스",
+          "series": "SV",
+          "set": "SV2D",
+          "setName": "클레이버스트",
+          "cardNumber": "079/071",
+          "rarity": "AR",
+          "category": "노을 · 황야",
+          "evidence": "Staiz Sunset 컬렉션의 Tyranitar 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_079.png"
+        },
+        {
+          "code": "SV2D_092",
+          "name": "위유이",
+          "series": "SV",
+          "set": "SV2D",
+          "setName": "클레이버스트",
+          "cardNumber": "092/071",
+          "rarity": "SAR",
+          "category": "노을 · 수면",
+          "evidence": "Staiz Sunset 컬렉션의 Chi-Yu ex 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_092.png"
+        },
+        {
+          "code": "SV8_114",
+          "name": "엠라이트",
+          "series": "SV",
+          "set": "SV8",
+          "setName": "초전브레이커",
+          "cardNumber": "114/106",
+          "rarity": "AR",
+          "category": "노을 · 호수",
+          "evidence": "Staiz Sunset 컬렉션의 Mesprit 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV8/SV8_114.png"
+        },
+        {
+          "code": "SV7a_070",
+          "name": "라티오스",
+          "series": "SV",
+          "set": "SV7a",
+          "setName": "낙원드래고나",
+          "cardNumber": "070/064",
+          "rarity": "AR",
+          "category": "노을 · 도시",
+          "evidence": "따뜻한 석양빛 도시 상공을 나는 장면으로 Sunset 테마에 수록.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_070.png"
+        },
+        {
+          "code": "SV7a_087",
+          "name": "라티아스 ex",
+          "series": "SV",
+          "set": "SV7a",
+          "setName": "낙원드래고나",
+          "cardNumber": "087/064",
+          "rarity": "SAR",
+          "category": "노을 · 도시",
+          "evidence": "라티오스와 이어지는 석양빛 도시 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_087.png"
+        },
+        {
+          "code": "SV2a_179",
+          "name": "마임맨",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "179/165",
+          "rarity": "AR",
+          "category": "노을 · 거리",
+          "evidence": "Staiz Sunset 컬렉션의 Mr. Mime 151 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_179.png"
+        },
+        {
+          "code": "SV1V_086",
+          "name": "슬리프",
+          "series": "SV",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "cardNumber": "086/078",
+          "rarity": "AR",
+          "category": "노을 · 거리",
+          "evidence": "붉은 저녁 하늘과 도시 풍경이 강조되는 골든아워 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_086.png"
+        }
+      ]
+    },
+    {
+      "code": "reflections",
+      "name": "반사 · 거울",
+      "badge": "REFLECTION",
+      "icon": "◇",
+      "description": "물, 유리, 거울과 반짝이는 바닥에 포켓몬이나 주변 풍경이 비치는 장면을 모읍니다.",
+      "cards": [
+        {
+          "code": "SV1a_081",
+          "name": "꾸왁스",
+          "series": "SV",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "cardNumber": "081/073",
+          "rarity": "AR",
+          "category": "거울 · 실내",
+          "evidence": "Staiz Reflections의 Quaxly 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_081.png"
+        },
+        {
+          "code": "SV1a_082",
+          "name": "아꾸왁",
+          "series": "SV",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "cardNumber": "082/073",
+          "rarity": "AR",
+          "category": "거울 · 실내",
+          "evidence": "Staiz Reflections의 Quaxwell 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_082.png"
+        },
+        {
+          "code": "SV1a_098",
+          "name": "웨이니발 ex",
+          "series": "SV",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "cardNumber": "098/073",
+          "rarity": "SAR",
+          "category": "거울 · 실내",
+          "evidence": "Staiz Reflections의 Quaquaval ex 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_098.png"
+        },
+        {
+          "code": "SV2a_167",
+          "name": "이상해풀",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "167/165",
+          "rarity": "AR",
+          "category": "물빛 반사",
+          "evidence": "Staiz Reflections의 Ivysaur 151 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_167.png"
+        },
+        {
+          "code": "SV2a_176",
+          "name": "슈륙챙이",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "176/165",
+          "rarity": "AR",
+          "category": "빗물 반사",
+          "evidence": "Staiz Reflections의 Poliwhirl 151 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_176.png"
+        },
+        {
+          "code": "SV6a_075",
+          "name": "페르시온",
+          "series": "SV",
+          "set": "SV6a",
+          "setName": "나이트 원더러",
+          "cardNumber": "075/064",
+          "rarity": "AR",
+          "category": "유리 · 야경",
+          "evidence": "Staiz Reflections의 Persian 대응 한국판 동일 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6a/SV6a_075.png"
+        },
+        {
+          "code": "S12a_184",
+          "name": "루나톤",
+          "series": "S",
+          "set": "S12a",
+          "setName": "VSTAR 유니버스",
+          "cardNumber": "184/172",
+          "rarity": "AR",
+          "category": "수면 반사",
+          "evidence": "달빛과 수면의 반사가 함께 보이는 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S12a/S12a_184.png"
+        },
+        {
+          "code": "SV3_113",
+          "name": "삐",
+          "series": "SV",
+          "set": "SV3",
+          "setName": "흑염의 지배자",
+          "cardNumber": "113/108",
+          "rarity": "AR",
+          "category": "별빛 · 수면 반사",
+          "evidence": "Staiz Reflections의 Cleffa 대응 한국판 동일 일러스트.",
+          "image": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/SV/SV3/SV3_113.webp"
+        },
+        {
+          "code": "SV3_005",
+          "name": "단단지",
+          "series": "SV",
+          "set": "SV3",
+          "setName": "흑염의 지배자",
+          "cardNumber": "005/108",
+          "rarity": "",
+          "category": "물 · 반사",
+          "evidence": "Staiz Reflections의 Shuckle 005/197과 동일한 일본 원본 005/108 한국판. 일반 카드도 레어도 제한 없이 수록.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3/SV3_005.png"
+        },
+        {
+          "code": "SV6_023",
+          "name": "발챙이",
+          "series": "SV",
+          "set": "SV6",
+          "setName": "변환의 가면",
+          "cardNumber": "023/101",
+          "rarity": "",
+          "category": "물 · 반사",
+          "evidence": "Staiz Reflections의 Poliwag 041/167과 동일한 일본 원본 023/101 한국판. 일반 카드도 레어도 제한 없이 수록.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_023.png"
+        }
+      ]
+    },
+    {
+      "code": "food",
+      "name": "음식 · 먹는 포켓몬",
+      "badge": "FOOD",
+      "icon": "♨",
+      "description": "음식, 디저트, 장보기, 카페와 식사 장면처럼 먹거리와 함께 이야기가 만들어지는 카드를 모읍니다.",
+      "cards": [
+        {
+          "code": "SV1S_085",
+          "name": "쫀도기",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "085/078",
+          "rarity": "AR",
+          "category": "빵 · 베이커리",
+          "evidence": "해외 음식 테마 바인더에서 Fidough가 자주 추천되는 대표 먹거리 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_085.png"
+        },
+        {
+          "code": "SV1a_078",
+          "name": "뜨아거",
+          "series": "SV",
+          "set": "SV1a",
+          "setName": "트리플렛비트",
+          "cardNumber": "078/073",
+          "rarity": "AR",
+          "category": "장보기 · 과일",
+          "evidence": "장보기 스토리의 첫 장면으로 음식 테마에도 독립 수록.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1a/SV1a_078.png"
+        },
+        {
+          "code": "SV7_112",
+          "name": "꼴깍몬",
+          "series": "SV",
+          "set": "SV7",
+          "setName": "스텔라미라클",
+          "cardNumber": "112/102",
+          "rarity": "AR",
+          "category": "먹방 · 간식",
+          "evidence": "해외 음식 테마 추천에서 Gulpin이 반복적으로 언급되는 카드 계열.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_112.png"
+        },
+        {
+          "code": "SV7_129",
+          "name": "바우첼",
+          "series": "SV",
+          "set": "SV7",
+          "setName": "스텔라미라클",
+          "cardNumber": "129/102",
+          "rarity": "SAR",
+          "category": "빵 · 디저트",
+          "evidence": "해외 음식 테마 추천의 Dachsbun 계열 카드.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7/SV7_129.png"
+        },
+        {
+          "code": "SV2D_078",
+          "name": "베베솔트",
+          "series": "SV",
+          "set": "SV2D",
+          "setName": "클레이버스트",
+          "cardNumber": "078/071",
+          "rarity": "AR",
+          "category": "소금 · 식재료",
+          "evidence": "Nacli가 음식·요리 테마 바인더의 식재료 모티프로 추천되는 사례를 반영.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_078.png"
+        },
+        {
+          "code": "S5I_077",
+          "name": "마기라스 V",
+          "series": "S",
+          "set": "S5I",
+          "setName": "일격마스터",
+          "cardNumber": "077/070",
+          "rarity": "SR",
+          "category": "식사 후 휴식",
+          "evidence": "해외 음식 테마에서 식사를 마친 뒤 잠든 Tyranitar V가 대표 카드로 자주 추천됨.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_077.png"
+        }
+      ]
+    },
+    {
+      "code": "work",
+      "name": "일하는 포켓몬",
+      "badge": "ON THE JOB",
+      "icon": "⚙",
+      "description": "건설, 정비, 운반과 현장 작업처럼 포켓몬이 사람의 생활 속에서 역할을 수행하는 장면을 모읍니다.",
+      "cards": [
+        {
+          "code": "SV4M_074",
+          "name": "강철톤",
+          "series": "SV",
+          "set": "SV4M",
+          "setName": "미래의 일섬",
+          "cardNumber": "074/066",
+          "rarity": "AR",
+          "category": "공사 · 현장",
+          "evidence": "해외 On the Job 테마에서 작업 현장의 Steelix 일러스트가 대표적으로 언급됨.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4M/SV4M_074.png"
+        },
+        {
+          "code": "SV5M_080",
+          "name": "메타그로스",
+          "series": "SV",
+          "set": "SV5M",
+          "setName": "사이버저지",
+          "cardNumber": "080/071",
+          "rarity": "AR",
+          "category": "제설 · 작업",
+          "evidence": "해외 Pokémon at Work 테마에서 Metagross 작업 장면이 대표 사례로 언급됨.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_080.png"
+        },
+        {
+          "code": "SV5M_079",
+          "name": "몰드류",
+          "series": "SV",
+          "set": "SV5M",
+          "setName": "사이버저지",
+          "cardNumber": "079/071",
+          "rarity": "AR",
+          "category": "굴착 · 작업",
+          "evidence": "굴착과 현장 작업의 느낌이 강한 Excadrill 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_079.png"
+        },
+        {
+          "code": "SV5M_076",
+          "name": "전지충이",
+          "series": "SV",
+          "set": "SV5M",
+          "setName": "사이버저지",
+          "cardNumber": "076/071",
+          "rarity": "AR",
+          "category": "전기 · 생활",
+          "evidence": "사람의 생활 공간에서 역할을 하는 포켓몬 장면으로 On the Job 테마에 수록.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_076.png"
+        },
+        {
+          "code": "SV6_109",
+          "name": "으랏차",
+          "series": "SV",
+          "set": "SV6",
+          "setName": "변환의 가면",
+          "cardNumber": "109/101",
+          "rarity": "AR",
+          "category": "건설 · 목재",
+          "evidence": "건설 자재를 다루는 Timburr의 작업 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_109.png"
+        }
+      ]
+    },
+    {
+      "code": "street",
+      "name": "도시 · 스트리트",
+      "badge": "STREET",
+      "icon": "▤",
+      "description": "골목, 상점, 도로, 빌딩과 야경처럼 포켓몬이 도시의 일상 속에 녹아든 장면을 모읍니다.",
+      "cards": [
+        {
+          "code": "SV1V_086",
+          "name": "슬리프",
+          "series": "SV",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "cardNumber": "086/078",
+          "rarity": "AR",
+          "category": "거리 · 저녁",
+          "evidence": "도시 거리와 사람들의 일상이 중심인 대표 스트리트 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_086.png"
+        },
+        {
+          "code": "SV1V_102",
+          "name": "미라이돈 ex",
+          "series": "SV",
+          "set": "SV1V",
+          "setName": "바이올렛 ex",
+          "cardNumber": "102/078",
+          "rarity": "SAR",
+          "category": "도시 · 이동",
+          "evidence": "도시 생활과 이동 수단의 분위기가 강한 일상 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1V/SV1V_102.png"
+        },
+        {
+          "code": "SV6a_075",
+          "name": "페르시온",
+          "series": "SV",
+          "set": "SV6a",
+          "setName": "나이트 원더러",
+          "cardNumber": "075/064",
+          "rarity": "AR",
+          "category": "도시 · 야경",
+          "evidence": "도시의 불빛과 건물이 배경을 이루는 야간 스트리트 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6a/SV6a_075.png"
+        },
+        {
+          "code": "SV7a_070",
+          "name": "라티오스",
+          "series": "SV",
+          "set": "SV7a",
+          "setName": "낙원드래고나",
+          "cardNumber": "070/064",
+          "rarity": "AR",
+          "category": "도시 · 상공",
+          "evidence": "빌딩 사이 도시 상공을 가로지르는 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_070.png"
+        },
+        {
+          "code": "SV7a_087",
+          "name": "라티아스 ex",
+          "series": "SV",
+          "set": "SV7a",
+          "setName": "낙원드래고나",
+          "cardNumber": "087/064",
+          "rarity": "SAR",
+          "category": "도시 · 상공",
+          "evidence": "라티오스와 이어지는 도시 풍경을 반대 시점에서 보여주는 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_087.png"
+        },
+        {
+          "code": "SV2a_179",
+          "name": "마임맨",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "179/165",
+          "rarity": "AR",
+          "category": "거리 · 공연",
+          "evidence": "거리 공간과 사람의 생활이 자연스럽게 섞인 151 일러스트.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_179.png"
+        },
+        {
+          "code": "SV2a_176",
+          "name": "슈륙챙이",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "176/165",
+          "rarity": "AR",
+          "category": "거리 · 비",
+          "evidence": "비 내린 도시 거리와 반사되는 빛이 중심인 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_176.png"
+        },
+        {
+          "code": "SV2a_173",
+          "name": "피카츄",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "173/165",
+          "rarity": "AR",
+          "category": "도시 · 일상",
+          "evidence": "여러 포켓몬이 도시의 일상 공간에 함께 등장하는 스트리트 장면.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_173.png"
+        }
+      ]
+    },
+    {
+      "code": "cameo",
+      "name": "카메오 · 숨은 포켓몬",
+      "badge": "CAMEO",
+      "icon": "◎",
+      "description": "주인공 카드 뒤편이나 구석에 다른 포켓몬이 숨어 등장하는 일러스트를 찾아 모읍니다.",
+      "cards": [
+        {
+          "code": "SV2a_173",
+          "name": "피카츄",
+          "series": "SV",
+          "set": "SV2a",
+          "setName": "포켓몬카드 151",
+          "cardNumber": "173/165",
+          "rarity": "AR",
+          "category": "거북왕·고라파덕 등 카메오",
+          "evidence": "Staiz는 Pikachu 151에 Blastoise가 배경 카메오로 등장한다고 인덱싱하며 PokéCameos도 여러 숨은 포켓몬을 기록함.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2a/SV2a_173.png"
+        },
+        {
+          "code": "SV5K_077",
+          "name": "시라칸",
+          "series": "SV",
+          "set": "SV5K",
+          "setName": "와일드포스",
+          "cardNumber": "077/071",
+          "rarity": "AR",
+          "category": "헌테일 카메오",
+          "evidence": "Staiz Cameos에서 Temporal Forces Relicanth의 배경에 Huntail이 등장하는 카드로 확인된 동일 일러스트 한국판.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5K/SV5K_077.png"
+        },
+        {
+          "code": "SV1S_081",
+          "name": "바다그다",
+          "series": "SV",
+          "set": "SV1S",
+          "setName": "스칼렛 ex",
+          "cardNumber": "081/078",
+          "rarity": "AR",
+          "category": "고라파덕 카메오",
+          "evidence": "PokéCameos가 Scarlet & Violet Wiglett의 숨은 Psyduck을 기록한 동일 일본 원본 한국판.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_081.png"
+        },
+        {
+          "code": "SV6_113",
+          "name": "럭키",
+          "series": "SV",
+          "set": "SV6",
+          "setName": "변환의 가면",
+          "cardNumber": "113/101",
+          "rarity": "AR",
+          "category": "고라파덕 카메오",
+          "evidence": "PokéCameos가 Twilight Masquerade Chansey의 배경 Psyduck 카메오를 기록한 동일 일본 원본 한국판.",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_113.png"
         }
       ]
     }
