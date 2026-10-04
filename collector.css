@@ -928,14 +928,52 @@ body.collector-collection-page .world-story-header {
     padding: 20px 18px;
   }
 
+  body.collector-collection-page .collector-collection-hero .hero-content {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   body.collector-collection-page .collector-collection-hero h1 {
     font-size: clamp(1.55rem, 7.4vw, 1.95rem);
+    writing-mode: horizontal-tb;
+    word-break: keep-all;
+    overflow-wrap: normal;
     white-space: normal;
+  }
+
+  body.collector-collection-page .collector-collection-hero .hero-content > :is(.eyebrow, .art-theme-kicker) {
+    max-width: 100%;
+    word-break: keep-all;
+  }
+
+  /* Desktop progress copy has a 270px minimum. Reset it on phones so the title/actions
+     never collapse into a one-character-wide column. */
+  body.collector-collection-page .collector-collection-hero .hero-progress {
+    width: 72px;
+    min-width: 72px;
+    max-width: 72px;
+    gap: 0;
+    margin-left: 0;
+    justify-self: end;
   }
 
   body.collector-collection-page .collector-collection-hero .progress-ring {
     width: 72px;
     height: 72px;
+  }
+
+  body.collector-collection-page .collector-collection-hero .collector-page-actions {
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 14px;
+  }
+
+  body.collector-collection-page .collector-collection-hero .collector-page-actions a {
+    min-width: 0;
+    max-width: 100%;
+    padding-inline: 12px;
+    white-space: nowrap;
+    word-break: keep-all;
   }
 
   body.collector-collection-page .collector-collection-stats {
