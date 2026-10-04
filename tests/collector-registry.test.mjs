@@ -59,7 +59,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     trainerPokemon: [245, 172],
     fossil: [122, 26],
     world: [198, 9],
-    artThemes: [315, 12],
+    artThemes: [333, 12],
   };
 
   for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
@@ -83,7 +83,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     trainerPokemon: 245,
     fossil: 122,
     world: 198,
-    artThemes: 315,
+    artThemes: 333,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
@@ -98,6 +98,18 @@ test("all existing catalogs retain their expected item counts", async () => {
       registry.COLLECTIONS[collectionId].catalogGroupCount,
       (await registry.loadCatalog(collectionId)).groups.length,
       `${collectionId} public group count`,
+    );
+  }
+});
+
+test("popular art themes include regular C/U/R cards", async () => {
+  const payload = JSON.parse(await readFile(new URL("../data/art-themes.json", import.meta.url), "utf8"));
+  for (const code of ["sunset", "reflections", "food", "street", "work", "cameo"]) {
+    const group = payload.groups.find((item) => item.code === code);
+    assert.ok(group, `${code} theme missing`);
+    assert.ok(
+      group.cards.some((card) => ["C", "U", "R"].includes(String(card.rarity || "").toUpperCase())),
+      `${code} must include regular-rarity cards`,
     );
   }
 });
