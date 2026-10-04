@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "auditedAt": "2026-10-03",
+  "auditedAt": "2026-10-04",
   "source": {
     "name": "Sleepy Pokémon",
     "url": "https://www.sleepypokemon.com/collection/",
@@ -14,10 +14,10 @@
   },
   "summary": {
     "sourceCount": 158,
-    "matched": 128,
-    "needsReview": 30,
-    "themeSleepingSlotsAfter": 130,
-    "newlyAddedThisAudit": 107
+    "matched": 130,
+    "needsReview": 28,
+    "themeSleepingSlotsAfter": 132,
+    "newlyAddedThisAudit": 109
   },
   "entries": [
     {
@@ -458,8 +458,15 @@
       "englishName": "Eevee",
       "sourceSet": "Scarlet & Violet Promos",
       "sourceNumber": "173",
-      "status": "needs_review",
-      "reason": "현재 한국판 Master DB에서 동일 일러스트의 한국판 판본을 확정하지 못함"
+      "status": "matched",
+      "koreanName": "이브이",
+      "koreanSetCode": "SV-P",
+      "koreanSetName": "테라스탈 페스타 ex 프로모 카드 팩",
+      "koreanRawCode": "sv-p_132/SV-P",
+      "koreanCardNumber": "132/SV-P",
+      "rarity": "PROMO",
+      "matchMethod": "해외 원본 카드 → 한국판 동일 일러스트·기술·프로모 판본 교차확인",
+      "verificationNote": "Makura Tami 일러스트와 부스트 진화/돌격 기술이 일치하는 한국판 프로모 SV-P 132 확인"
     },
     {
       "index": 32,
@@ -1220,8 +1227,16 @@
       "englishName": "Miltank",
       "sourceSet": "Secret Wonders",
       "sourceNumber": "55/132",
-      "status": "needs_review",
-      "reason": "현재 한국판 Master DB에서 동일 일러스트의 한국판 판본을 확정하지 못함"
+      "status": "matched",
+      "koreanName": "밀탱크",
+      "koreanSetCode": "ST1",
+      "koreanSetName": "DP 랜덤 구축덱",
+      "koreanRawCode": "st1_041/055",
+      "koreanCardNumber": "041/055",
+      "rarity": "U",
+      "artist": "Mitsuhiro Arita",
+      "matchMethod": "해외 원본 카드 → 동일 일러스트·HP·기술 한국판 교차확인",
+      "verificationNote": "Secret Wonders 55/132와 Mitsuhiro Arita 일러스트, HP90, 치유밀크/연속 구르기 기술이 일치"
     },
     {
       "index": 86,
