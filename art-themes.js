@@ -20,35 +20,6 @@
     return (dataset?.groups || []).some((group) => group.code === value) ? value : dataset?.groups?.[0]?.code || "";
   }
 
-  function replaceThemeInUrl(code) {
-    const url = new URL(window.location.href);
-    url.searchParams.set("theme", code);
-    window.history.replaceState({}, "", url);
-  }
-
-  function renderTabs() {
-    const root = el("art-theme-tabs");
-    root.replaceChildren();
-    (dataset.groups || []).forEach((group) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "art-theme-tab";
-      button.dataset.theme = group.code;
-      button.setAttribute("role", "tab");
-      button.setAttribute("aria-selected", String(group.code === selectedTheme));
-      button.classList.toggle("is-active", group.code === selectedTheme);
-      button.innerHTML = `<span class="art-theme-tab-icon" aria-hidden="true">${group.icon || "✦"}</span><strong>${group.name}</strong><small>${(group.cards || []).length}장</small>`;
-      button.addEventListener("click", () => {
-        selectedTheme = group.code;
-        statusFilter = "all";
-        searchQuery = "";
-        el("art-theme-search").value = "";
-        replaceThemeInUrl(group.code);
-        render();
-      });
-      root.append(button);
-    });
-  }
 
   function renderSummary() {
     const cards = allCards();
@@ -187,7 +158,6 @@
   }
 
   function render() {
-    renderTabs();
     renderSummary();
     renderStatusFilters();
     renderCards();
