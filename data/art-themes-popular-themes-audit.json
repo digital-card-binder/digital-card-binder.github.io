@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-04",
+  "updatedAt": "2026-10-05",
   "scope": "Overseas popular Theme Dex expansion",
   "policy": {
     "rarityScope": "all unless explicitly restricted by the user",
@@ -44,46 +44,87 @@
     "previousGroupCount": 6,
     "currentGroupCount": 12,
     "previousCardSlots": 273,
-    "addedCardSlots": 42,
-    "currentCardSlots": 315
+    "addedCardSlots": 60,
+    "currentCardSlots": 333
   },
   "addedThemes": [
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "count": 9
+      "count": 12,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     },
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "count": 10,
-      "note": "AR뿐 아니라 일반 단단지·발챙이도 포함"
+      "count": 12,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     },
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "count": 6
+      "count": 10,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     },
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "count": 8
+      "count": 12,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     },
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "count": 5
+      "count": 8,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     },
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "count": 4
+      "count": 6,
+      "note": "C/U/R 등 일반 레어도를 포함해 레어도 제한 없이 한국판 테마 적합 카드를 수록"
     }
   ],
   "finalReview": {
     "status": "complete",
-    "metricsVerified": true,
-    "totalCardSlots": 315,
+    "metricsVerified": false,
+    "totalCardSlots": 333,
     "totalThemes": 12
+  },
+  "regularRarityExpansion": {
+    "addedCardSlots": 18,
+    "themes": {
+      "sunset": [
+        "S2a_049",
+        "SV4M_035",
+        "SM12a_019"
+      ],
+      "reflections": [
+        "S3_079",
+        "SM8a_035"
+      ],
+      "food": [
+        "S4_027",
+        "S10b_037",
+        "SV3_096",
+        "SV1V_061"
+      ],
+      "street": [
+        "S2a_049",
+        "SV4M_035",
+        "S10b_027",
+        "SM12a_019"
+      ],
+      "work": [
+        "SV6_059",
+        "SV6_060",
+        "SV6_061"
+      ],
+      "cameo": [
+        "SM9_073",
+        "SM12_060"
+      ]
+    },
+    "rule": "신규 테마도 AR/SAR 중심으로 제한하지 않고 C/U/R 일반 레어도를 동등하게 조사·수록한다."
   }
 }
