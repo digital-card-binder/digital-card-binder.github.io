@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-03",
+  "updatedAt": "2026-10-04",
   "scope": "해외 수집 커뮤니티의 실제 체크리스트를 참고해 레어도 제한 없이 한국판 카드로 재구성한 테마 도감",
   "sources": [
     {
@@ -1616,7 +1616,18 @@
           "evidence": "Sleepy Pokémon 158장 체크리스트의 Miltank (Secret Wonders 55/132)와 동일 Mitsuhiro Arita 일러스트·HP90·치유밀크/연속 구르기 기술의 한국판 대응 카드.",
           "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/DP/ST1/st1_kr_41.jpg"
         }
-      ]
+      ],
+      "sourceCoverage": {
+        "source": "Sleepy Pokémon 158-card checklist",
+        "sourceUrl": "https://www.sleepypokemon.com/collection/",
+        "checkedAt": "2026-10-04",
+        "sourceCardCount": 158,
+        "matchedKoreanPrints": 130,
+        "unmatchedForeignOrNoExactKoreanPrint": 28,
+        "additionalKoreanCurated": 2,
+        "displayedCardCount": 132,
+        "auditFile": "./data/audits/sleepy-pokemon-crosswalk.json"
+      }
     },
     {
       "code": "connected",
