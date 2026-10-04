@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-04",
+  "scope": "Overseas popular Theme Dex expansion",
+  "policy": {
+    "rarityScope": "all unless explicitly restricted by the user",
+    "koreanPrintsOnly": true,
+    "duplicateAcrossThemes": true,
+    "rule": "테마 적합성이 확인되면 C/U/R·홀로·프로모·V/VMAX/VSTAR/ex·CHR/CSR·AR/SAR 등 레어도와 카드 타입을 제한하지 않는다."
+  },
+  "sources": [
+    {
+      "name": "Staiz Sunset",
+      "url": "https://staiz.io/collection/sunset",
+      "note": "Sunset / Golden Hour"
+    },
+    {
+      "name": "Staiz Reflections",
+      "url": "https://staiz.io/collection/reflections",
+      "note": "Reflections"
+    },
+    {
+      "name": "Staiz Cameos",
+      "url": "https://staiz.io/cameos",
+      "note": "Background cameos"
+    },
+    {
+      "name": "PokéCameos",
+      "url": "https://www.pokecameos.com/",
+      "note": "Cameo cross-check"
+    },
+    {
+      "name": "Reddit PokémonTCG Themed Binder Project",
+      "url": "https://www.reddit.com/r/PokemonTCG/comments/1sxustn/themed_binder_project/",
+      "note": "Street Life / On the Job"
+    },
+    {
+      "name": "Reddit PokémonTCG Food Theme",
+      "url": "https://www.reddit.com/r/PokemonTCG/comments/1v6u9g5/need_help_with_binder_theme/",
+      "note": "Food / cooking"
+    }
+  ],
+  "result": {
+    "previousGroupCount": 6,
+    "currentGroupCount": 12,
+    "previousCardSlots": 273,
+    "addedCardSlots": 42,
+    "currentCardSlots": 315
+  },
+  "addedThemes": [
+    {
+      "code": "sunset",
+      "name": "노을 · 골든아워",
+      "count": 9
+    },
+    {
+      "code": "reflections",
+      "name": "반사 · 거울",
+      "count": 10,
+      "note": "AR뿐 아니라 일반 단단지·발챙이도 포함"
+    },
+    {
+      "code": "food",
+      "name": "음식 · 먹는 포켓몬",
+      "count": 6
+    },
+    {
+      "code": "street",
+      "name": "도시 · 스트리트",
+      "count": 8
+    },
+    {
+      "code": "work",
+      "name": "일하는 포켓몬",
+      "count": 5
+    },
+    {
+      "code": "cameo",
+      "name": "카메오 · 숨은 포켓몬",
+      "count": 4
+    }
+  ],
+  "finalReview": {
+    "status": "complete"
+  }
+}
