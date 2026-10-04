@@ -776,6 +776,13 @@ test("theme detail page does not repeat selector or implementation guide", async
   assert.doesNotMatch(detailClient, /function renderTabs\(/);
   assert.doesNotMatch(landing, /class="theme-note"/);
   assert.doesNotMatch(landing, /기존 보유 데이터와 기능은 그대로 유지/);
+  for (const theme of ["sunset", "reflections", "food", "street", "work", "cameo"]) {
+    assert.match(
+      landing,
+      new RegExp(`art-themes[.]html[?]theme=${theme}`),
+      `${theme}: Theme Dex overview link`,
+    );
+  }
 });
 
 test("shared collection UI uses one calm panel and interaction system", async () => {
