@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-03",
+  "updatedAt": "2026-10-04",
   "theme": "sleeping",
   "source": {
     "name": "Sleepy Pokémon",
@@ -11,7 +11,9 @@
     "sourceCardsMatchedToKoreanMaster": 130,
     "additionalKoreanCuratedCards": 2,
     "themeCardCount": 132,
-    "sourceCardsWithoutKoreanMasterMatch": 28
+    "sourceCardsWithoutKoreanMasterMatch": 28,
+    "reviewedUnmatched": 28,
+    "remainingUnverified": 0
   },
   "methodology": [
     "해외 체크리스트의 포켓몬명·세트·카드번호를 기준으로 후보를 만든다.",
@@ -269,5 +271,87 @@
       "status": "no-identical-korean-print-in-current-master",
       "note": "현재 한국판 Master DB에서 동일 일러스트의 한국판 인쇄를 확인하지 못해 미수록"
     }
-  ]
+  ],
+  "finalReview": {
+    "status": "complete",
+    "summary": "Sleepy Pokémon 158장 체크리스트를 한국판 Master DB와 재검수했다. 동일 일러스트가 확인된 130장은 수록하고, 한국판 독자 큐레이션 2장을 더해 테마는 132장으로 확정했다. 나머지 28장은 현재 한국판 동일 인쇄를 확인할 수 없어 미수록으로 유지한다.",
+    "buckets": [
+      {
+        "code": "regional-exclusive",
+        "count": 6,
+        "cards": [
+          "Cubone — Gem Pack Vol. 3 04 07/07",
+          "Pikachu — Collect 151: Hope 171/151",
+          "Umbreon — Gem Pack Volume 2 06 15/15",
+          "Whitney's Furret — Pokémon VS 018/141",
+          "Togepi — P Promos 035/P",
+          "Snorlax — Wizards Black Star Promos 49"
+        ],
+        "note": "중국·일본·영문판 전용 수록 또는 전용 일러스트. 동일 한국판 인쇄를 현재 Master DB에서 확인하지 못함."
+      },
+      {
+        "code": "modern-alt-or-promo-no-korean-identical",
+        "count": 2,
+        "cards": [
+          "Espeon VMAX — Fusion Strike 270/264",
+          "Komala — Sun & Moon Black Star Promos SM41"
+        ],
+        "note": "동일 포켓몬의 한국판 카드는 존재하지만 Sleepy 목록의 해당 특별 일러스트와 동일한 한국판 인쇄는 확인되지 않음."
+      },
+      {
+        "code": "legacy-no-identical-korean-master-print",
+        "count": 20,
+        "cards": [
+          "Bellsprout — FireRed & LeafGreen 53/112",
+          "Bulbasaur — Expedition Base Set 94/165",
+          "Corsola — Expedition Base Set 102/165",
+          "Cubone — FireRed & LeafGreen 60/112",
+          "Drowzee — Aquapolis 74/147",
+          "Erika's Clefairy — Gym Challenge 40/132",
+          "Geodude — Dragon 55/97",
+          "Gloom — Aquapolis 49/147",
+          "Gloom — HS—Undaunted 27/90",
+          "Growlithe — Neo Destiny 68/105",
+          "Kangaskhan — HS—Triumphant 36/102",
+          "Light Dragonair — Neo Destiny 22/105",
+          "Light Piloswine — Neo Destiny 26/105",
+          "Miltank — Kalos Starter Set 27/39",
+          "Phanpy — Holon Phantoms 75/110",
+          "Phanpy — Neo Destiny 76/105",
+          "Sabrina's Abra — Gym Challenge 94/132",
+          "Slakoth — Deoxys 73/107",
+          "Slowpoke — Aquapolis 108/147",
+          "Vulpix — Neo Destiny 91/105"
+        ],
+        "note": "일본 원본 번호·일러스트레이터까지 재대조했지만 현재 한국판 Master DB에서 동일 일러스트 인쇄를 확인하지 못함."
+      }
+    ],
+    "spotChecks": [
+      {
+        "sourceCard": "Espeon VMAX",
+        "sourceNumber": "270/264",
+        "verification": "Fusion Strike 특별 일러스트는 일본 189/S-P, Kouki Saitou 작품. 한국 Master DB의 SP4 004/004 및 SI 173/414는 다른 5ban Graphics 일반 일러스트이므로 대체하지 않음."
+      },
+      {
+        "sourceCard": "Komala",
+        "sourceNumber": "SM41",
+        "verification": "SM41은 일본 043/SM-P의 nagimiso 신규 일러스트. 한국 Master DB의 자말라 정규 인쇄와 동일 일러스트가 아니므로 미수록."
+      },
+      {
+        "sourceCard": "Miltank",
+        "sourceNumber": "27/39",
+        "verification": "일본 XY Beginning Set 027/039, Akira Komayama 작품. 한국 XY 퍼스트 세트 및 Master DB에서 동일 인쇄를 확인하지 못함."
+      },
+      {
+        "sourceCard": "Snorlax",
+        "sourceNumber": "49",
+        "verification": "Wizards Black Star Promo 49의 영문판 일러스트는 Craig Turvey의 영문 전용 아트. 일본판은 다른 Keita Takahashi 아트이므로 한국판으로 대체 불가."
+      },
+      {
+        "sourceCard": "Pikachu",
+        "sourceNumber": "171/151",
+        "verification": "Collect 151: Hope의 Simplified Chinese 전용 Pikachu & Psyduck 일러스트로 확인되어 한국판 대체 없음."
+      }
+    ]
+  }
 }
