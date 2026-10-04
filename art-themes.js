@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const DATA_URL = "./data/art-themes.json?v=20261003";
+  const DATA_URL = "./data/art-themes.json?v=20261004-all-rarity";
   const el = (id) => document.getElementById(id);
   const account = () => window.PokemonDexPageAccount;
   let dataset = null;
