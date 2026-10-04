@@ -14,16 +14,17 @@
   ],
   "result": {
     "previousThemeCardCount": 20,
-    "addedKoreanCards": 27,
-    "addedGroups": 12,
-    "themeCardCount": 47,
-    "totalThemeDexCardCount": 216
+    "addedKoreanCards": 45,
+    "addedGroups": 14,
+    "themeCardCount": 65,
+    "totalThemeDexCardCount": 234
   },
   "policy": [
     "한국판 Master DB에 실제 존재하는 동일 일러스트 인쇄만 수록한다.",
     "영문판 번호는 참고만 하고 일본 원본 세트·번호와 한국판 동일 세트 슬롯을 교차검증한다.",
     "포켓몬 이름만 같고 일러스트가 다른 카드는 대체하지 않는다.",
-    "AR/SAR 여부와 무관하게 연결 장면 자체를 기준으로 수록한다."
+    "AR/SAR 여부와 무관하게 연결 장면 자체를 기준으로 수록한다.",
+    "연결 풍경은 AR/SAR에 한정하지 않고, 해외 연결 일러스트 근거와 한국판 동일 인쇄가 확인되면 일반 카드도 포함한다."
   ],
   "addedGroups": [
     {
@@ -124,10 +125,40 @@
         "SV5a_092"
       ],
       "count": 2
+    },
+    {
+      "name": "HYOGONOSUKE 9장 풍경",
+      "cards": [
+        "SV4a_085",
+        "SV3_006",
+        "SV4M_054",
+        "SV1a_022",
+        "SV2D_030",
+        "SV3a_022",
+        "SV3_096",
+        "SV1V_061",
+        "SV4K_017"
+      ],
+      "count": 9
+    },
+    {
+      "name": "Teeziro 9장 풍경",
+      "cards": [
+        "SV7a_026",
+        "SV8_046",
+        "SV6_043",
+        "SV5a_014",
+        "SV7a_031",
+        "SV8_027",
+        "SV6a_028",
+        "SV5K_057",
+        "SV7_038"
+      ],
+      "count": 9
     }
   ],
   "finalReview": {
     "status": "complete",
-    "summary": "해외 연결·내러티브 일러스트 자료에서 한국판 동일 인쇄가 확인된 12개 그룹 27장을 추가해 연결 일러스트 테마를 47장으로 확장했다."
+    "summary": "해외 연결·내러티브 일러스트 자료에서 한국판 동일 인쇄가 확인된 14개 그룹 45장을 추가해 연결 일러스트 테마를 65장으로 확장했다. AR/SAR뿐 아니라 일반 카드로 구성된 9장 풍경 2종도 포함했다."
   }
 }
