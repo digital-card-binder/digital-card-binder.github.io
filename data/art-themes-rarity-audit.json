@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-04",
+  "scope": "Theme Dex rarity-neutral expansion",
+  "defaultPolicy": {
+    "rarityScope": "all",
+    "rule": "사용자가 특정 레어도를 명시하지 않는 한 모든 레어도와 카드 타입을 기본 후보로 사용한다.",
+    "eligible": [
+      "C",
+      "U",
+      "R",
+      "Holo",
+      "PROMO",
+      "V",
+      "VMAX",
+      "VSTAR",
+      "ex",
+      "CHR",
+      "CSR",
+      "AR",
+      "SAR",
+      "기타 공식 한국판 인쇄"
+    ]
+  },
+  "sources": [
+    {
+      "name": "Staiz Moon",
+      "url": "https://staiz.io/collection/moon",
+      "use": "밤·달빛 장면 후보"
+    },
+    {
+      "name": "Staiz Cherry Blossoms",
+      "url": "https://staiz.io/collection/cherry-blossoms",
+      "use": "계절·풍경의 봄·벚꽃 후보"
+    },
+    {
+      "name": "Staiz Pink",
+      "url": "https://staiz.io/color/pink",
+      "use": "컬러 도감 분홍 팔레트 후보"
+    },
+    {
+      "name": "Staiz Teal",
+      "url": "https://staiz.io/color/teal",
+      "use": "컬러 도감 청록 팔레트 후보"
+    },
+    {
+      "name": "Staiz Silver",
+      "url": "https://staiz.io/color/silver",
+      "use": "컬러 도감 은색 팔레트 후보"
+    },
+    {
+      "name": "Bulbapedia TCG card mappings",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Card_Game",
+      "use": "영문 카드와 일본 원본 번호 교차검증"
+    }
+  ],
+  "result": {
+    "previousTotal": 253,
+    "addedCards": 20,
+    "totalThemeDexCards": 273,
+    "night": {
+      "previous": 7,
+      "added": 9,
+      "current": 16
+    },
+    "season": {
+      "previous": 9,
+      "added": 4,
+      "current": 13
+    },
+    "color": {
+      "previous": 9,
+      "added": 7,
+      "current": 16
+    }
+  },
+  "added": {
+    "night": [
+      "SV2a_042",
+      "SV2a_049",
+      "SV2a_057",
+      "SV2a_074",
+      "SV2a_102",
+      "SV2a_104",
+      "SV2a_148",
+      "S10b_012",
+      "SV6a_027"
+    ],
+    "season": [
+      "SV6_086",
+      "S5R_006",
+      "S2a_059",
+      "S5a_061"
+    ],
+    "color": [
+      "SV6_046",
+      "SV1S_030",
+      "SV6a_033",
+      "SV2a_023",
+      "SV5K_043",
+      "SV6a_027",
+      "SV4M_043"
+    ]
+  },
+  "finalReview": {
+    "status": "complete"
+  }
+}
