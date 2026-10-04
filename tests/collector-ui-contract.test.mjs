@@ -715,6 +715,16 @@ test("ten native dexes activate one responsive collection UX shell", async () =>
   );
   assert.match(
     css,
+    /body[.]collector-collection-page [.]collector-collection-hero [.]hero-progress \{[\s\S]*?min-width: 72px[\s\S]*?margin-left: 0/,
+    "mobile collection hero must reset the desktop progress minimum width",
+  );
+  assert.match(
+    css,
+    /body[.]collector-collection-page [.]collector-collection-hero [.]collector-page-actions a \{[\s\S]*?white-space: nowrap[\s\S]*?word-break: keep-all/,
+    "mobile collection hero actions must stay horizontally readable",
+  );
+  assert.match(
+    css,
     /body[.]collector-collection-page [.]world-generation-panel,[\s\S]*?body[.]collector-collection-page [.]world-binder-panel/,
   );
 });
