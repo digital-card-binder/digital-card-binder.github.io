@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-04",
+  "theme": "connected",
+  "sources": [
+    {
+      "name": "ChasingPoké Connected Art",
+      "url": "https://chasingpoke.com/connected-art"
+    },
+    {
+      "name": "Bulbapedia Combined illustration (TCG)",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Combined_illustration_(TCG)"
+    }
+  ],
+  "result": {
+    "previousThemeCardCount": 20,
+    "addedKoreanCards": 19,
+    "addedGroups": 8,
+    "themeCardCount": 39,
+    "totalThemeDexCardCount": 208
+  },
+  "policy": [
+    "한국판 Master DB에 실제 존재하는 동일 일러스트 인쇄만 수록한다.",
+    "영문판 번호는 참고만 하고 일본 원본 세트·번호와 한국판 동일 세트 슬롯을 교차검증한다.",
+    "포켓몬 이름만 같고 일러스트가 다른 카드는 대체하지 않는다.",
+    "AR/SAR 여부와 무관하게 연결 장면 자체를 기준으로 수록한다."
+  ],
+  "addedGroups": [
+    {
+      "name": "나오하의 정원",
+      "cards": [
+        "SV1a_075",
+        "SV1a_076",
+        "SV1a_096"
+      ],
+      "count": 3
+    },
+    {
+      "name": "뜨아거의 장보기",
+      "cards": [
+        "SV1a_078",
+        "SV1a_079",
+        "SV1a_097"
+      ],
+      "count": 3
+    },
+    {
+      "name": "다가오는 유령",
+      "cards": [
+        "SV6a_068",
+        "SV6a_069",
+        "SV6a_070"
+      ],
+      "count": 3
+    },
+    {
+      "name": "모으령 × 타부자고 ex",
+      "cards": [
+        "SV3a_068",
+        "SV3a_087"
+      ],
+      "count": 2
+    },
+    {
+      "name": "플러시 × 마이농",
+      "cards": [
+        "SV3a_065",
+        "SV3a_066"
+      ],
+      "count": 2
+    },
+    {
+      "name": "사철록 × 바라철록",
+      "cards": [
+        "SV5K_073",
+        "SV5K_074"
+      ],
+      "count": 2
+    },
+    {
+      "name": "치라미 × 치라치노",
+      "cards": [
+        "SV5K_082",
+        "SV5K_083"
+      ],
+      "count": 2
+    },
+    {
+      "name": "라티오스 × 라티아스 ex",
+      "cards": [
+        "SV7a_070",
+        "SV7a_087"
+      ],
+      "count": 2
+    }
+  ],
+  "finalReview": {
+    "status": "complete",
+    "summary": "해외 연결 일러스트 자료에서 한국판 동일 인쇄가 확인된 8개 그룹 19장을 추가해 연결 일러스트 테마를 39장으로 확장했다."
+  }
+}
