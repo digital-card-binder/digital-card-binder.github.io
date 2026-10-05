@@ -55,7 +55,15 @@ test("simple dex CSS removes chrome and keeps cards visually first", () => {
   assert.match(css, /Simple dex mode: card-first, low-chrome collection screens/);
   assert.match(css, /body[.]collector-simple-dex > [.]site-layout [.]stats-grid \{\s*display: none !important/);
   assert.match(css, /body[.]collector-simple-dex [.]hero-description/);
-  assert.match(css, /body[.]collector-simple-dex [.]series-dashboard,[\s\S]*?[.]people-generation-overview/);
+  assert.match(css, /Series uses its dashboard as the primary navigation surface/);
+  assert.doesNotMatch(
+    css,
+    /body[.]collector-simple-dex [.]series-dashboard[^{}]*\{[^}]*display:\s*none !important/,
+  );
+  assert.match(
+    css,
+    /body[.]collector-simple-dex [.]people-generation-overview \{\s*display:\s*none !important/,
+  );
   assert.match(css, /body[.]collector-simple-dex [.]catalog-era-tabs [.]era-card-thumb \{\s*display: none !important/);
   assert.match(css, /body[.]collector-simple-dex [.]card-grid,[\s\S]*?[.]art-theme-card-grid \{\s*gap: 9px/);
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*?body[.]collector-simple-dex [.]hero \{[\s\S]*?min-height: 62px/);
