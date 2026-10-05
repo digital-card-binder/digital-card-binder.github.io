@@ -14,6 +14,7 @@ on:
       - 'core/catalog/**'
       - 'data/**'
       - 'scripts/sync-catalog-metrics.mjs'
+      - 'scripts/build-related-dex-index.mjs'
       - 'scripts/sync-site-shell.mjs'
       - 'scripts/sync-site-versions.mjs'
       - 'package.json'
@@ -52,6 +53,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
+            npm run related-dex:sync
             npm run search-index:sync
             npm run catalog-metrics:sync
             npm run shell:sync
@@ -62,7 +64,7 @@ jobs:
               exit 0
             fi
 
-            git add data/pokemon-search-index.json core/catalog/catalog-service.js collector-nav.js custom-loader.js print.js pwa.js manifest.webmanifest site-version.json ./*.html
+            git add data/card-related-dex-index.json data/pokemon-search-index.json core/catalog/catalog-service.js collector-nav.js custom-loader.js print.js pwa.js manifest.webmanifest site-version.json ./*.html
             git commit -m "Sync catalog metrics and site asset versions"
 
             if git push origin HEAD:main; then
