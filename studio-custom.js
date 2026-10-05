@@ -1713,19 +1713,27 @@
       image.alt = "";
       image.loading = "eager";
       let candidateIndex = 0;
+      let usingFallback = false;
       const candidates = [...new Set(choice.imageCandidates || [])];
       const setCandidate = () => {
         if (!candidates[candidateIndex]) return;
         image.src = candidates[candidateIndex];
       };
       image.addEventListener("error", () => {
+        if (usingFallback) {
+          image.removeAttribute("src");
+          button.classList.add("is-preview-fallback");
+          return;
+        }
         candidateIndex += 1;
         if (candidateIndex < candidates.length) {
           setCandidate();
           return;
         }
+        usingFallback = true;
         const fallback = clean(entry.card.normalImage || entry.card.image);
-        if (fallback && image.src !== fallback) image.src = fallback;
+        if (fallback) image.src = fallback;
+        else image.removeAttribute("src");
         button.classList.add("is-preview-fallback");
       });
       if (candidates.length) setCandidate();
