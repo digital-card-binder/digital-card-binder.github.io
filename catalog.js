@@ -71,6 +71,9 @@ let activeCard = null;
 let activeEra = mode === "series" ? "ALL" : "SM";
 let mobileCatalogPreferences = {};
 let seriesPrintVariantMetadata = { coverage: {}, slots: {} };
+let quickCollectMode = false;
+let quickVariantCard = null;
+const QUICK_COLLECT_STORAGE_KEY = `pokemonDexQuickCollectV1:${mode}`;
 
 const SERIES_PRINT_VARIANTS = Object.freeze([
   { id: "normal", label: "기본" },
@@ -715,6 +718,197 @@ function pokemonGroupLabel(group) {
     : name;
 }
 
+function readQuickCollectPreference() {
+  try {
+    return window.localStorage.getItem(QUICK_COLLECT_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeQuickCollectPreference(value) {
+  try {
+    window.localStorage.setItem(QUICK_COLLECT_STORAGE_KEY, value ? "1" : "0");
+  } catch {
+    // 제한된 브라우저에서도 현재 세션의 빠른 수집은 그대로 동작합니다.
+  }
+}
+
+function quickCollectCanEdit() {
+  return Boolean(window.PokemonDexPageAccount?.canEdit?.());
+}
+
+function renderQuickCollectControl() {
+  let wrap = document.querySelector("#catalog-quick-collect");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.id = "catalog-quick-collect";
+    wrap.className = "catalog-quick-collect";
+    wrap.innerHTML = `
+      <div class="catalog-quick-collect-copy">
+        <strong>빠른 수집</strong>
+        <span>카드를 한 번 눌러 보유 · 미보유를 바로 바꿉니다.</span>
+      </div>
+      <label class="catalog-quick-collect-switch">
+        <input id="catalog-quick-collect-toggle" type="checkbox" />
+        <span aria-hidden="true"></span>
+        <b>OFF</b>
+      </label>
+    `;
+
+    const anchor =
+      document.querySelector(".catalog-filter-row") ||
+      document.querySelector(".catalog-toolbar");
+    anchor?.insertAdjacentElement("afterend", wrap);
+
+    const input = wrap.querySelector("#catalog-quick-collect-toggle");
+    input?.addEventListener("change", () => {
+      const next = Boolean(input.checked);
+      if (next && !quickCollectCanEdit()) {
+        input.checked = false;
+        alert("Google 로그인 후 빠른 수집 모드를 사용할 수 있습니다.");
+        return;
+      }
+      quickCollectMode = next;
+      writeQuickCollectPreference(next);
+      document.body.classList.toggle("is-quick-collect", next);
+      renderQuickCollectControl();
+      render();
+    });
+  }
+
+  const input = wrap.querySelector("#catalog-quick-collect-toggle");
+  const label = wrap.querySelector(".catalog-quick-collect-switch b");
+  if (input) input.checked = quickCollectMode;
+  if (label) label.textContent = quickCollectMode ? "ON" : "OFF";
+  wrap.classList.toggle("is-active", quickCollectMode);
+  wrap.dataset.editable = String(quickCollectCanEdit());
+}
+
+function closeQuickVariantPicker() {
+  quickVariantCard = null;
+  document.querySelector("#catalog-quick-variant")?.remove();
+}
+
+async function saveQuickVariantSelection(card, picker) {
+  const account = window.PokemonDexPageAccount;
+  if (!account?.canEdit?.() || !card?.accountKey) return;
+
+  const selected = [
+    ...picker.querySelectorAll('input[name="quick-print-variant"]:checked'),
+  ]
+    .map((field) => String(field.value || "").trim().toLowerCase())
+    .filter((value) => SERIES_PRINT_VARIANT_IDS.has(value));
+
+  const variants = selected.length ? [...new Set(selected)] : ["normal"];
+  const save = picker.querySelector("[data-quick-variant-save]");
+  if (save) {
+    save.disabled = true;
+    save.textContent = "저장 중…";
+  }
+
+  try {
+    const saved = await account.saveOverride(card.accountKey, {
+      owned: true,
+      printVariants: variants,
+    });
+    card.owned = Boolean(saved.owned);
+    card.printVariants = normalizedSeriesPrintVariants(
+      saved.printVariants,
+      saved.owned,
+    );
+    refreshCounts();
+    render();
+    closeQuickVariantPicker();
+  } catch (error) {
+    console.error(error);
+    alert(error.message || "인쇄 형태를 저장하지 못했습니다.");
+    if (save) {
+      save.disabled = false;
+      save.textContent = "완료";
+    }
+  }
+}
+
+function openQuickVariantPicker(card) {
+  if (mode !== "series" || !card?.owned) return;
+  const verified = (card.verifiedPrintVariants || [])
+    .filter((variant) => SERIES_PRINT_VARIANT_IDS.has(variant));
+  if (!verified.length) return;
+
+  closeQuickVariantPicker();
+  quickVariantCard = card;
+
+  const picker = document.createElement("section");
+  picker.id = "catalog-quick-variant";
+  picker.className = "catalog-quick-variant";
+  picker.setAttribute("role", "dialog");
+  picker.setAttribute("aria-modal", "true");
+  picker.setAttribute("aria-label", `${displayName(card)} 보유 형태 선택`);
+
+  const selected = new Set(
+    normalizedSeriesPrintVariants(card.printVariants, card.owned),
+  );
+  const choices = seriesVariantChoices(card).filter(
+    (variant) => variant.id !== "other" || selected.has("other"),
+  );
+
+  picker.innerHTML = `
+    <div class="catalog-quick-variant-head">
+      <div><span>보유 형태</span><strong>${displayName(card)}</strong></div>
+      <button type="button" data-quick-variant-close aria-label="닫기">×</button>
+    </div>
+    <div class="catalog-quick-variant-options"></div>
+    <button type="button" class="primary-button" data-quick-variant-save>완료</button>
+  `;
+
+  const options = picker.querySelector(".catalog-quick-variant-options");
+  choices.forEach((variant) => {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "quick-print-variant";
+    input.value = variant.id;
+    input.checked = selected.has(variant.id);
+    if (variant.id === "normal") input.checked = selected.has("normal");
+    const text = document.createElement("span");
+    text.textContent = variant.label;
+    label.append(input, text);
+    options.append(label);
+  });
+
+  if (![...options.querySelectorAll("input")].some((field) => field.checked)) {
+    const normal = options.querySelector('input[value="normal"]');
+    if (normal) normal.checked = true;
+  }
+
+  picker.querySelector("[data-quick-variant-close]")
+    ?.addEventListener("click", closeQuickVariantPicker);
+  picker.querySelector("[data-quick-variant-save]")
+    ?.addEventListener("click", () => void saveQuickVariantSelection(card, picker));
+  document.body.append(picker);
+}
+
+async function quickToggleCatalogCard(card, button) {
+  if (!quickCollectCanEdit()) {
+    alert("Google 로그인 후 빠른 수집 모드를 사용할 수 있습니다.");
+    return;
+  }
+
+  const wasOwned = Boolean(card.owned);
+  await toggleCatalogCompletion(card, button);
+
+  if (
+    !wasOwned &&
+    card.owned &&
+    mode === "series" &&
+    Array.isArray(card.verifiedPrintVariants) &&
+    card.verifiedPrintVariants.length
+  ) {
+    openQuickVariantPicker(card);
+  }
+}
+
 function badge(owned) {
   const element = document.createElement("span");
   element.className = `status-badge ${owned ? "is-owned" : "is-missing"}`;
@@ -1119,8 +1313,29 @@ function makeCard(card) {
 
   body.append(top, name, group, meta);
   button.append(imageWrap, body);
-  button.onclick = () => openDialog(card);
-  article.append(button, makeCompletionButton(card));
+
+  const completionButton = makeCompletionButton(card);
+  button.onclick = () => {
+    if (quickCollectMode) {
+      void quickToggleCatalogCard(card, completionButton);
+      return;
+    }
+    openDialog(card);
+  };
+
+  const detailButton = document.createElement("button");
+  detailButton.type = "button";
+  detailButton.className = "catalog-card-detail-button";
+  detailButton.textContent = "•••";
+  detailButton.setAttribute("aria-label", `${displayName(card)} 상세 보기`);
+  detailButton.title = "상세 보기";
+  detailButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openDialog(card);
+  });
+
+  article.append(button, completionButton, detailButton);
   return article;
 }
 
@@ -1354,6 +1569,9 @@ async function init() {
       account.applyGroups(groups);
     }
 
+    quickCollectMode = readQuickCollectPreference() && quickCollectCanEdit();
+    document.body.classList.toggle("is-quick-collect", quickCollectMode);
+
     // 기본 수록 도감은 기존 시리즈도감과 같은 accountKey를 먼저 부여한 뒤
     // 분모 번호 이하 카드만 화면에 남겨 보유 상태를 완전히 공유합니다.
     if (mode === "series") allSeriesGroups = groups;
@@ -1365,6 +1583,7 @@ async function init() {
     });
 
     createSeriesEditor();
+    renderQuickCollectControl();
     updateSummary();
     syncEraTabs();
     syncSeriesView();
@@ -1408,6 +1627,10 @@ async function init() {
       render();
       rememberMobileCatalogPreferences();
     };
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && quickVariantCard) closeQuickVariantPicker();
+    });
+
     $("dialog-close").onclick = () => {
       const dialog = $("catalog-dialog");
       if (typeof dialog.close === "function") dialog.close();
