@@ -23,6 +23,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_legacy_series_data as legacy  # noqa: E402
+import build_dp_series_data as dp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 MEGA_PROMO_SENTINEL = "__DISCOVER_MEGA_PROMO__"
@@ -96,8 +97,26 @@ def mega_promo_products(official_values: dict[str, str]) -> list[str]:
     return sorted(set(candidates))
 
 
-def group_products(era: str) -> list[dict[str, Any]]:
+def group_products(
+    era: str,
+    official_values: dict[str, str] | None = None,
+) -> list[dict[str, Any]]:
     era = era.upper()
+    official_values = official_values or {}
+    if era == "DP":
+        groups = []
+        for meta in dp.SETS:
+            product = dp.resolve_product(meta, official_values)
+            groups.append(
+                {
+                    "era": "DP",
+                    "code": clean(meta["code"]),
+                    "title": clean(meta["title"]),
+                    "products": [product],
+                }
+            )
+        return groups
+
     groups: dict[str, dict[str, Any]] = {}
     order: list[str] = []
     for item in legacy.PRODUCTS:
@@ -346,16 +365,18 @@ def audit_group(
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
     legacy.warm_official_session()
-    # Older Scarlet & Violet product option values can contain historical
-    # whitespace differences. Resolve those values once from Pokemon Korea's
-    # official search form, while other eras keep their pinned product names.
+    # DP set names and older Scarlet & Violet option values are resolved
+    # against Pokemon Korea's live product selector. Other eras keep their
+    # pinned product names.
     official_values: dict[str, str] = {}
-    if era.upper() == "SV":
+    if era.upper() in {"DP", "SV"}:
         try:
             official_values = legacy.official_product_values()
         except Exception as error:  # noqa: BLE001
+            if era.upper() == "DP":
+                raise RuntimeError(f"DP 공식 제품 옵션 조회 실패: {error}") from error
             legacy.log(f"SV 공식 제품 옵션 조회 생략: {error}")
-    groups = group_products(era)
+    groups = group_products(era, official_values)
     if not groups:
         raise RuntimeError(f"No configured products for era {era}")
 
@@ -428,7 +449,7 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--era", choices=("S", "SM", "SV", "M"), default="S")
+    parser.add_argument("--era", choices=("DP", "S", "SM", "SV", "M"), default="S")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--output",
