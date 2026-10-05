@@ -822,6 +822,15 @@
       state.pokedex = pokedex;
       state.groups = groups;
       await applyAccountOwnership();
+      const requestedGeneration = Number(
+        new URLSearchParams(window.location.search).get("generation"),
+      );
+      if (
+        requestedGeneration &&
+        state.data?.generations?.some((item) => item.generation === requestedGeneration)
+      ) {
+        state.generation = requestedGeneration;
+      }
       renderAll();
     } catch (error) {
       console.error(error);
