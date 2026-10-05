@@ -2861,8 +2861,8 @@ body.collector-collection-page .collector-quick-filter-surface.is-quick-filter-c
   display: none !important;
 }
 
-body.collector-collection-page [data-collection-id="world"] #world-binder-content .world-slot[hidden],
-body.collector-collection-page [data-collection-id="world"] #world-binder-content .world-journey-chapter[hidden] {
+body.collector-collection-page[data-collection-id="world"] #world-binder-content .world-slot[hidden],
+body.collector-collection-page[data-collection-id="world"] #world-binder-content .world-journey-chapter[hidden] {
   display: none !important;
 }
 
