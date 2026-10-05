@@ -180,6 +180,7 @@
     variantData: null,
     variantDataPromise: null,
   };
+  let activePlacementDrag = null;
 
   function clean(value) {
     return String(value ?? "").trim();
@@ -1220,7 +1221,20 @@
       button.dataset.pageId = page.id;
       button.textContent = String(pageIndex + 1);
       button.title = pageTitle(pageIndex);
-      button.addEventListener("click", () => void switchPage(page.id));
+      button.addEventListener("pointerdown", (event) => {
+        if (!activePlacementDrag || page.id === state.currentPageId) return;
+        event.preventDefault();
+        event.stopPropagation();
+        void activePlacementDrag.switchPage(page.id, "tap");
+      });
+      button.addEventListener("click", (event) => {
+        if (activePlacementDrag) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        void switchPage(page.id);
+      });
       return button;
     }));
     const activeChip = [...pageList.querySelectorAll(".studio-custom-page-chip")]
@@ -3022,73 +3036,186 @@
     chip?.classList.add("is-drag-page-target");
   }
 
-  async function movePlacementToPage(entry, targetPageId) {
-    if (!entry || !targetPageId || targetPageId === state.currentPageId || state.switchingPage) return false;
+  function slotIndexAtPoint(clientX, clientY) {
+    const rect = previewStage.getBoundingClientRect();
+    if (!rect.width || !rect.height) return -1;
+    if (
+      clientX < rect.left || clientX > rect.right ||
+      clientY < rect.top || clientY > rect.bottom
+    ) return -1;
+    const { cols, rows } = selectedGrid();
+    const col = Math.min(cols - 1, Math.max(0, Math.floor(((clientX - rect.left) / rect.width) * cols)));
+    const row = Math.min(rows - 1, Math.max(0, Math.floor(((clientY - rect.top) / rect.height) * rows)));
+    return row * cols + col;
+  }
+
+  function clearDragSlotHighlight() {
+    slotLayer?.querySelectorAll(".is-drag-slot-target, .is-drag-slot-swap").forEach((node) => {
+      node.classList.remove("is-drag-slot-target", "is-drag-slot-swap");
+    });
+  }
+
+  function showDragSlotHighlight(index, draggedId = "") {
+    clearDragSlotHighlight();
+    if (!Number.isInteger(index) || index < 0) return;
+    const node = slotLayer?.querySelector(`[data-slot-index="${index}"]`);
+    if (!node) return;
+    node.classList.add("is-drag-slot-target");
+    const slot = state.slots[index];
+    if (slot?.type === "card" && clean(slot.placementId) !== clean(draggedId)) {
+      node.classList.add("is-drag-slot-swap");
+    }
+  }
+
+  function pageSlotGeometry(page, index) {
+    const cols = Math.max(1, Number(page?.grid?.cols) || 3);
+    const rows = Math.max(1, Number(page?.grid?.rows) || 4);
+    const count = cols * rows;
+    const safe = Math.max(0, Math.min(count - 1, Number(index) || 0));
+    return {
+      x: (safe % cols) * (100 / cols),
+      y: Math.floor(safe / cols) * (100 / rows),
+      width: 100 / cols,
+    };
+  }
+
+  function snapEntryToPageSlot(entry, page, index) {
+    const geometry = pageSlotGeometry(page, index);
+    entry.slotIndex = index;
+    entry.x = geometry.x;
+    entry.y = geometry.y;
+    entry.width = geometry.width;
+    entry.rotation = 0;
+  }
+
+  async function movePlacementToPage(
+    entry,
+    targetPageId,
+    targetIndex = null,
+    sourcePageId = state.currentPageId,
+    originIndex = null,
+  ) {
+    if (!entry || !targetPageId || state.switchingPage) return false;
+    const source = state.pages.find((page) => page.id === sourcePageId);
     const target = state.pages.find((page) => page.id === targetPageId);
-    if (!target) return false;
-    const targetIndex = firstEmptySlotOnPage(target);
-    if (targetIndex < 0) {
-      updateQuickEditorUi(`${pageTitle(state.pages.indexOf(target))}에 빈칸이 없습니다.`);
+    if (!source || !target || source.id === target.id) return false;
+
+    if (state.currentPageId === target.id) captureCurrentPage();
+    source.slots = normalizeSlots(
+      source.slots,
+      Math.max(1, Number(source.grid?.cols) || 3) * Math.max(1, Number(source.grid?.rows) || 4),
+    );
+    target.slots = normalizeSlots(
+      target.slots,
+      Math.max(1, Number(target.grid?.cols) || 3) * Math.max(1, Number(target.grid?.rows) || 4),
+    );
+
+    const resolvedOrigin = Number.isInteger(originIndex)
+      ? originIndex
+      : source.slots.findIndex((slot) => slot.type === "card" && slot.placementId === entry.id);
+    const resolvedTarget = Number.isInteger(targetIndex) ? targetIndex : firstEmptySlotOnPage(target);
+    if (resolvedTarget < 0 || resolvedTarget >= target.slots.length) {
+      updateQuickEditorUi(`${pageTitle(state.pages.indexOf(target))}에 놓을 칸이 없습니다.`);
       return false;
     }
 
-    const source = captureCurrentPage();
-    if (!source) return false;
-    const originIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
-    source.placements = (source.placements || []).filter((item) => item.id !== entry.id);
-    if (
-      Number.isInteger(originIndex) &&
-      source.slots?.[originIndex]?.type === "card" &&
-      source.slots[originIndex]?.placementId === entry.id
-    ) {
-      source.slots[originIndex] = { index: originIndex, type: "empty" };
+    const targetSlot = target.slots[resolvedTarget];
+    const displaced = targetSlot?.type === "card" && targetSlot.placementId !== entry.id
+      ? target.placements.find((item) => item.id === targetSlot.placementId) || null
+      : null;
+    if (displaced && !(resolvedOrigin >= 0 && resolvedOrigin < source.slots.length)) {
+      updateQuickEditorUi("카드가 있는 칸으로 옮기려면 원래 카드 칸이 필요합니다.");
+      return false;
     }
 
-    const cols = Math.max(1, Number(target.grid?.cols) || 3);
-    const rows = Math.max(1, Number(target.grid?.rows) || 4);
-    const col = targetIndex % cols;
-    const row = Math.floor(targetIndex / cols);
-    const movedEntry = clonePlacement(entry);
-    movedEntry.slotIndex = targetIndex;
-    movedEntry.x = col * (100 / cols);
-    movedEntry.y = row * (100 / rows);
-    movedEntry.width = 100 / cols;
-    movedEntry.rotation = 0;
-    movedEntry.z = Math.max(
-      Number(target.nextZ) || 1,
-      Math.max(0, ...(target.placements || []).map((item) => Number(item.z) || 0)) + 1,
-    );
-    target.placements = (target.placements || []).filter((item) => item.id !== movedEntry.id);
-    target.placements.push(movedEntry);
-    target.slots[targetIndex] = {
-      index: targetIndex,
-      type: "card",
-      placementId: movedEntry.id,
-      sourceKey: clean(movedEntry.card?.key),
+    const sourceBackup = {
+      placements: (source.placements || []).map(clonePlacement),
+      slots: source.slots.map((slot, index) => normalizeSlot(slot, index)),
+      nextZ: Number(source.nextZ) || 1,
     };
-    target.nextZ = movedEntry.z + 1;
+    const targetBackup = {
+      placements: (target.placements || []).map(clonePlacement),
+      slots: target.slots.map((slot, index) => normalizeSlot(slot, index)),
+      nextZ: Number(target.nextZ) || 1,
+    };
 
-    state.switchingPage = true;
-    renderPageControls();
     try {
+      source.placements = (source.placements || []).filter((item) => item.id !== entry.id);
+      if (
+        resolvedOrigin >= 0 &&
+        source.slots[resolvedOrigin]?.type === "card" &&
+        source.slots[resolvedOrigin]?.placementId === entry.id
+      ) {
+        source.slots[resolvedOrigin] = { index: resolvedOrigin, type: "empty" };
+      }
+
+      if (displaced) {
+        target.placements = (target.placements || []).filter((item) => item.id !== displaced.id);
+        const swapped = clonePlacement(displaced);
+        snapEntryToPageSlot(swapped, source, resolvedOrigin);
+        swapped.z = Math.max(
+          Number(source.nextZ) || 1,
+          Math.max(0, ...(source.placements || []).map((item) => Number(item.z) || 0)) + 1,
+        );
+        source.placements.push(swapped);
+        source.slots[resolvedOrigin] = {
+          index: resolvedOrigin,
+          type: "card",
+          placementId: swapped.id,
+          sourceKey: clean(swapped.card?.key),
+        };
+        source.nextZ = swapped.z + 1;
+      }
+
+      if (targetSlot?.type === "image") {
+        target.slots[resolvedTarget] = { index: resolvedTarget, type: "empty" };
+      }
+
+      const movedEntry = clonePlacement(entry);
+      snapEntryToPageSlot(movedEntry, target, resolvedTarget);
+      movedEntry.z = Math.max(
+        Number(target.nextZ) || 1,
+        Math.max(0, ...(target.placements || []).map((item) => Number(item.z) || 0)) + 1,
+      );
+      target.placements = (target.placements || []).filter((item) => item.id !== movedEntry.id);
+      target.placements.push(movedEntry);
+      target.slots[resolvedTarget] = {
+        index: resolvedTarget,
+        type: "card",
+        placementId: movedEntry.id,
+        sourceKey: clean(movedEntry.card?.key),
+      };
+      target.nextZ = movedEntry.z + 1;
+
+      state.switchingPage = true;
+      renderPageControls();
       await applyPage(target);
       state.selectedId = movedEntry.id;
-      state.selectedSlots = new Set([targetIndex]);
+      state.selectedSlots = new Set([resolvedTarget]);
       state.slotSelectMode = false;
       renderSlotLayer();
       renderPlacements();
       captureCurrentPage();
       updateQuickEditorUi(
-        `${pageTitle(activePageIndex())} · ${targetIndex + 1}번 칸으로 옮겼습니다.`,
+        displaced
+          ? `${pageTitle(activePageIndex())} · ${resolvedTarget + 1}번 칸으로 옮기고 두 카드를 교환했습니다.`
+          : `${pageTitle(activePageIndex())} · ${resolvedTarget + 1}번 칸으로 옮겼습니다.`,
       );
       return true;
     } catch (error) {
+      source.placements = sourceBackup.placements;
+      source.slots = sourceBackup.slots;
+      source.nextZ = sourceBackup.nextZ;
+      target.placements = targetBackup.placements;
+      target.slots = targetBackup.slots;
+      target.nextZ = targetBackup.nextZ;
       console.error("카드 페이지 이동 실패", error);
       updateQuickEditorUi("다른 페이지로 카드를 옮기지 못했습니다.");
       return false;
     } finally {
       state.switchingPage = false;
       clearDragPageHighlight();
+      clearDragSlotHighlight();
       renderPageControls();
     }
   }
@@ -3139,6 +3266,7 @@
 
     node.addEventListener("pointerdown", (event) => {
       if (event.button !== undefined && event.button !== 0) return;
+      if (activePlacementDrag) return;
       event.preventDefault();
       event.stopPropagation();
       state.selectedId = entry.id;
@@ -3150,94 +3278,193 @@
       updateEditorUi();
       updateQuickEditorUi();
 
+      const sourcePage = captureCurrentPage();
       const stageRect = previewStage.getBoundingClientRect();
-      if (!stageRect.width || !stageRect.height) return;
+      const cardRect = node.getBoundingClientRect();
+      if (!sourcePage || !stageRect.width || !stageRect.height || !cardRect.width || !cardRect.height) return;
+
+      const dragEntry = clonePlacement(entry);
+      const sourcePageId = sourcePage.id;
+      const originSlotIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
       const startClientX = event.clientX;
       const startClientY = event.clientY;
-      const startX = entry.x;
-      const startY = entry.y;
-      const originSlotIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
+      const pointerId = event.pointerId;
+      const offsetX = event.clientX - cardRect.left;
+      const offsetY = event.clientY - cardRect.top;
+      let lastClientX = event.clientX;
+      let lastClientY = event.clientY;
       let moved = false;
-      let transferred = false;
-      let hoverTimer = 0;
-      let hoverTargetId = "";
-      node.setPointerCapture?.(event.pointerId);
-      node.classList.add("is-dragging");
+      let finished = false;
+      let pageGate = false;
+      let switchPromise = Promise.resolve(true);
 
-      const clearPageHover = () => {
-        window.clearTimeout(hoverTimer);
-        hoverTimer = 0;
-        hoverTargetId = "";
-        clearDragPageHighlight();
+      const ghost = node.cloneNode(true);
+      ghost.classList.remove("is-selected");
+      ghost.classList.add("is-dragging", "studio-custom-drag-ghost");
+      ghost.removeAttribute("data-placement-id");
+      ghost.style.width = `${cardRect.width}px`;
+      ghost.style.height = `${cardRect.height}px`;
+      ghost.style.left = `${cardRect.left}px`;
+      ghost.style.top = `${cardRect.top}px`;
+      ghost.style.transform = `rotate(${entry.rotation}deg)`;
+      document.body.append(ghost);
+      node.classList.add("is-drag-source");
+      previewStage.classList.add("is-card-drag-active");
+
+      const moveGhost = (clientX, clientY) => {
+        ghost.style.left = `${clientX - offsetX}px`;
+        ghost.style.top = `${clientY - offsetY}px`;
       };
+
+      const drag = {
+        pointerId,
+        sourcePageId,
+        originSlotIndex,
+        entry: dragEntry,
+        ghost,
+        async switchPage(pageId, trigger = "hover") {
+          if (finished || !pageId || pageId === state.currentPageId || state.switchingPage) return false;
+          const target = state.pages.find((page) => page.id === pageId);
+          if (!target) return false;
+          state.switchingPage = true;
+          renderPageControls();
+          try {
+            await applyPage(target);
+            previewStage.classList.add("is-card-drag-active");
+            updateQuickEditorUi(
+              trigger === "tap"
+                ? `${pageTitle(activePageIndex())}로 전환했습니다. 원하는 칸에 카드를 놓으세요.`
+                : `${pageTitle(activePageIndex())} · 원하는 칸에 놓으세요.`,
+            );
+            return true;
+          } catch (error) {
+            console.error("드래그 중 페이지 전환 실패", error);
+            return false;
+          } finally {
+            state.switchingPage = false;
+            clearDragPageHighlight();
+            renderPageControls();
+          }
+        },
+      };
+      activePlacementDrag = drag;
 
       const detach = () => {
-        node.removeEventListener("pointermove", move);
-        node.removeEventListener("pointerup", finish);
-        node.removeEventListener("pointercancel", finish);
+        window.removeEventListener("pointermove", move, true);
+        window.removeEventListener("pointerup", finish, true);
+        window.removeEventListener("pointercancel", cancel, true);
       };
 
-      const schedulePageMove = (moveEvent) => {
-        const target = pageDropTargetAtPoint(moveEvent.clientX, moveEvent.clientY);
-        if (!target) {
-          clearPageHover();
-          return;
-        }
-        if (target.pageId === hoverTargetId) return;
-        clearPageHover();
-        hoverTargetId = target.pageId;
-        showDragPageHighlight(target);
-        const page = state.pages.find((item) => item.id === target.pageId);
-        const pageIndex = state.pages.findIndex((item) => item.id === target.pageId);
-        updateQuickEditorUi(`${pageTitle(pageIndex)}에 잠시 두면 카드가 이동합니다.`);
-        if (!page || firstEmptySlotOnPage(page) < 0) {
-          updateQuickEditorUi(`${pageTitle(pageIndex)}에 빈칸이 없습니다.`);
-          return;
-        }
-        hoverTimer = window.setTimeout(() => {
-          transferred = true;
-          detach();
-          node.classList.remove("is-dragging");
+      const restoreSource = async (message = "") => {
+        const source = state.pages.find((page) => page.id === sourcePageId);
+        if (!source) return;
+        if (state.currentPageId !== sourcePageId) {
+          state.switchingPage = true;
+          renderPageControls();
           try {
-            node.releasePointerCapture?.(event.pointerId);
-          } catch {
-            // Pointer capture may already be released on some mobile browsers.
+            await applyPage(source);
+          } finally {
+            state.switchingPage = false;
+            renderPageControls();
           }
-          clearPageHover();
-          void movePlacementToPage(entry, target.pageId);
-        }, 650);
+        }
+        state.selectedId = dragEntry.id;
+        if (Number.isInteger(originSlotIndex)) {
+          state.selectedSlots = new Set([originSlotIndex]);
+          renderSlotLayer();
+        }
+        updateEditorUi();
+        updateQuickEditorUi(message);
+      };
+
+      const finishDragVisuals = () => {
+        clearDragPageHighlight();
+        clearDragSlotHighlight();
+        previewStage.classList.remove("is-card-drag-active");
+        node.classList.remove("is-drag-source");
+        ghost.remove();
+      };
+
+      const finalize = async (cancelled = false) => {
+        if (finished) return;
+        finished = true;
+        detach();
+        try {
+          await switchPromise;
+          const targetIndex = slotIndexAtPoint(lastClientX, lastClientY);
+          if (cancelled || !moved || targetIndex < 0) {
+            await restoreSource(cancelled ? "카드 이동을 취소했습니다." : "카드를 칸 위에 놓으면 이동합니다.");
+            return;
+          }
+
+          if (state.currentPageId === sourcePageId) {
+            let currentEntry = state.placements.find((item) => item.id === dragEntry.id) || null;
+            if (!currentEntry) {
+              await restoreSource();
+              currentEntry = state.placements.find((item) => item.id === dragEntry.id) || null;
+            }
+            if (currentEntry) {
+              movePlacementToSlot(currentEntry, targetIndex, originSlotIndex);
+              updateQuickEditorUi(`${targetIndex + 1}번 칸으로 옮겼습니다.`);
+            }
+            return;
+          }
+
+          const movedAcrossPages = await movePlacementToPage(
+            dragEntry,
+            state.currentPageId,
+            targetIndex,
+            sourcePageId,
+            originSlotIndex,
+          );
+          if (!movedAcrossPages) await restoreSource("카드 이동을 취소했습니다.");
+        } finally {
+          activePlacementDrag = null;
+          finishDragVisuals();
+        }
       };
 
       const move = (moveEvent) => {
-        const dxPx = moveEvent.clientX - startClientX;
-        const dyPx = moveEvent.clientY - startClientY;
-        if (Math.hypot(dxPx, dyPx) > 4) moved = true;
-        const dx = (dxPx / stageRect.width) * 100;
-        const dy = (dyPx / stageRect.height) * 100;
-        entry.x = startX + dx;
-        entry.y = startY + dy;
-        clampPlacement(entry);
-        node.style.left = `${entry.x}%`;
-        node.style.top = `${entry.y}%`;
-        if (moved && state.pages.length > 1) schedulePageMove(moveEvent);
-      };
+        if (moveEvent.pointerId !== pointerId || finished) return;
+        moveEvent.preventDefault();
+        lastClientX = moveEvent.clientX;
+        lastClientY = moveEvent.clientY;
+        if (Math.hypot(lastClientX - startClientX, lastClientY - startClientY) > 4) moved = true;
+        moveGhost(lastClientX, lastClientY);
 
-      const finish = () => {
-        clearPageHover();
-        node.classList.remove("is-dragging");
-        detach();
-        if (transferred) return;
-        if (moved && Number.isInteger(originSlotIndex)) {
-          movePlacementToSlot(entry, slotIndexFromPlacement(entry), originSlotIndex);
+        const pageTarget = moved ? pageDropTargetAtPoint(lastClientX, lastClientY) : null;
+        if (!pageTarget) {
+          pageGate = false;
+          clearDragPageHighlight();
         } else {
-          captureCurrentPage();
+          showDragPageHighlight(pageTarget);
+          if (!pageGate && pageTarget.pageId !== state.currentPageId) {
+            pageGate = true;
+            switchPromise = drag.switchPage(pageTarget.pageId, "hover");
+          }
         }
-        updateQuickEditorUi();
+
+        const slotIndex = slotIndexAtPoint(lastClientX, lastClientY);
+        showDragSlotHighlight(slotIndex, dragEntry.id);
       };
 
-      node.addEventListener("pointermove", move);
-      node.addEventListener("pointerup", finish);
-      node.addEventListener("pointercancel", finish);
+      const finish = (upEvent) => {
+        if (upEvent.pointerId !== pointerId) return;
+        upEvent.preventDefault();
+        lastClientX = upEvent.clientX;
+        lastClientY = upEvent.clientY;
+        void finalize(false);
+      };
+
+      const cancel = (cancelEvent) => {
+        if (cancelEvent.pointerId !== pointerId) return;
+        cancelEvent.preventDefault();
+        void finalize(true);
+      };
+
+      window.addEventListener("pointermove", move, { capture: true, passive: false });
+      window.addEventListener("pointerup", finish, { capture: true, passive: false });
+      window.addEventListener("pointercancel", cancel, { capture: true, passive: false });
     });
 
     return node;
