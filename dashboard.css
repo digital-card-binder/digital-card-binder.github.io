@@ -1629,3 +1629,110 @@
 .dashboard-theme-hub-link{display:flex;justify-content:flex-end;margin:10px 0 12px}
 .dashboard-theme-hub-link a{display:inline-flex;align-items:center;min-height:34px;border-radius:10px;background:#f4f1ff;color:#5d49a5;font-size:.66rem;font-weight:900;padding:7px 11px;text-decoration:none}
 .dashboard-theme-hub-link a:hover{background:#ece6ff}
+
+
+/* Mobile compact theme dashboard */
+@media (max-width: 690px) {
+  .dashboard-theme-section {
+    margin-top: 10px;
+    border-radius: 15px;
+  }
+
+  .dashboard-theme-summary {
+    min-height: 0;
+    gap: 10px;
+    padding: 10px 11px;
+  }
+
+  .dashboard-theme-summary > span:first-child {
+    gap: 0;
+  }
+
+  .dashboard-theme-summary strong {
+    font-size: 0.84rem;
+  }
+
+  .dashboard-theme-summary small {
+    display: none;
+  }
+
+  .dashboard-theme-summary-meta {
+    gap: 3px;
+    font-size: 0.55rem;
+  }
+
+  .dashboard-theme-summary-meta i {
+    width: 21px;
+    height: 21px;
+    margin-left: 2px;
+    border-radius: 7px;
+  }
+
+  .dashboard-theme-hub-link {
+    margin: 5px 9px 3px;
+  }
+
+  .dashboard-theme-hub-link a {
+    min-height: 26px;
+    border-radius: 8px;
+    font-size: 0.54rem;
+    padding: 3px 8px;
+  }
+
+  .dashboard-theme-section .dashboard-collection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 5px;
+    padding: 0 9px 9px;
+  }
+
+  .dashboard-theme-section .dashboard-collection-card {
+    min-height: 84px;
+    border-radius: 11px;
+    padding: 9px 10px 8px;
+  }
+
+  .dashboard-theme-section .dashboard-collection-card::before {
+    display: none;
+  }
+
+  .dashboard-theme-section .dashboard-card-top {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+  }
+
+  .dashboard-theme-section .dashboard-card-rate {
+    font-size: 0.55rem;
+  }
+
+  .dashboard-theme-section .dashboard-card-title {
+    margin-top: 0;
+    padding-right: 34px;
+  }
+
+  .dashboard-theme-section .dashboard-card-title strong {
+    overflow: hidden;
+    font-size: 0.67rem;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dashboard-theme-section .dashboard-card-count {
+    margin-top: 5px;
+  }
+
+  .dashboard-theme-section .dashboard-card-count strong {
+    font-size: 0.78rem;
+  }
+
+  .dashboard-theme-section .dashboard-card-count span {
+    font-size: 0.47rem;
+  }
+
+  .dashboard-theme-section .dashboard-card-progress {
+    height: 3px;
+    margin-top: 6px;
+  }
+}
