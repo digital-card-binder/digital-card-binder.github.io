@@ -1748,6 +1748,34 @@
     };
   }
 
+  function centeredCardCrop(width, height, targetAspect = CARD_WIDTH_MM / CARD_HEIGHT_MM) {
+    const sourceWidth = Math.max(1, Number(width) || 1);
+    const sourceHeight = Math.max(1, Number(height) || 1);
+    const sourceAspect = sourceWidth / sourceHeight;
+
+    if (sourceAspect > targetAspect) {
+      const cropWidth = Math.max(0.0001, Math.min(1, targetAspect / sourceAspect));
+      return {
+        x: (1 - cropWidth) / 2,
+        y: 0,
+        width: cropWidth,
+        height: 1,
+      };
+    }
+
+    if (sourceAspect < targetAspect) {
+      const cropHeight = Math.max(0.0001, Math.min(1, sourceAspect / targetAspect));
+      return {
+        x: 0,
+        y: (1 - cropHeight) / 2,
+        width: 1,
+        height: cropHeight,
+      };
+    }
+
+    return { x: 0, y: 0, width: 1, height: 1 };
+  }
+
   async function loadQuickSlotPhoto(file) {
     if (!file) return;
     const slotIndex = quickSelectedSlotIndex();
@@ -1797,7 +1825,7 @@
         index: slotIndex,
         type: "image",
         imageId: source.id,
-        crop: { x: 0, y: 0, width: 1, height: 1 },
+        crop: centeredCardCrop(image.naturalWidth, image.naturalHeight),
       };
       state.selectedId = "";
       state.selectedSlots = new Set([slotIndex]);
