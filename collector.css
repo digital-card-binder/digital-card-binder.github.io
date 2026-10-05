@@ -3075,7 +3075,8 @@ body.collector-simple-dex .collector-simple-catalog-heading {
   display: none !important;
 }
 
-body.collector-simple-dex .series-dashboard,
+/* Series uses its dashboard as the primary navigation surface.
+ * Hiding it leaves the ALL view with no selectable series at all. */
 body.collector-simple-dex .people-generation-overview {
   display: none !important;
 }
