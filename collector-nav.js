@@ -594,6 +594,215 @@
     )?.forEach?.((summary) => summary.classList?.add?.("collector-selection-summary"));
   }
 
+  const UNIFIED_DEX_CONTROL_CONFIG = Object.freeze({
+    national: {
+      status: "#status-filters",
+      surfaces: [".filter-panel"],
+    },
+    series: {
+      status: "#catalog-status",
+      surfaces: [".catalog-era-filter", ".catalog-toolbar", ".catalog-filter-row"],
+    },
+    ar: {
+      status: "#catalog-status",
+      surfaces: [".catalog-toolbar", ".catalog-filter-row"],
+    },
+    pack: {
+      status: "#pack-status-filters",
+      surfaces: [".pack-filter-panel"],
+    },
+    pokemon: {
+      status: "#catalog-status",
+      surfaces: [".catalog-toolbar", ".catalog-filter-row"],
+    },
+    artist: {
+      status: "#artist-status-filters",
+      surfaces: [".artist-filter-panel"],
+    },
+    people: {
+      status: "#people-status-filters",
+      surfaces: [".people-filter-panel"],
+    },
+    trainerPokemon: {
+      status: "#tp-status-filters",
+      surfaces: [".tp-filter-panel"],
+    },
+    fossil: {
+      status: "#fossil-status-filters",
+      surfaces: [".fossil-filter-panel"],
+    },
+    world: {
+      status: "",
+      surfaces: [".world-generation-panel"],
+      worldVisualFilter: true,
+    },
+    artThemes: {
+      status: "#art-theme-status-filters",
+      surfaces: [".art-theme-filter-panel"],
+    },
+  });
+
+  function unifiedFilterSurfaces(config) {
+    return (config?.surfaces || [])
+      .map((selector) => document.querySelector(selector))
+      .filter(Boolean);
+  }
+
+  function activeSourceStatus(source) {
+    const active =
+      source?.querySelector?.("button.is-active[data-status]") ||
+      source?.querySelector?.('button[aria-pressed="true"][data-status]');
+    return active?.dataset?.status || "all";
+  }
+
+  function applyWorldVisualStatus(status) {
+    const normalized = ["all", "owned", "missing"].includes(status)
+      ? status
+      : "all";
+    if (document.body?.dataset) {
+      document.body.dataset.worldQuickStatus = normalized;
+    }
+
+    document.querySelectorAll("#world-binder-content .world-slot").forEach((card) => {
+      const owned = !card.classList.contains("is-missing");
+      card.hidden =
+        normalized === "owned"
+          ? !owned
+          : normalized === "missing"
+            ? owned
+            : false;
+    });
+
+    document.querySelectorAll("#world-binder-content .world-journey-chapter").forEach((chapter) => {
+      const cards = [...chapter.querySelectorAll(".world-slot")];
+      chapter.hidden = Boolean(cards.length) && cards.every((card) => card.hidden);
+    });
+  }
+
+  function installUnifiedDexControls() {
+    const collectionId = registry?.collectionIdForPage?.() || "";
+    const config = UNIFIED_DEX_CONTROL_CONFIG[collectionId];
+    if (!config || document.querySelector(".collector-quick-controls")) return;
+
+    const surfaces = unifiedFilterSurfaces(config);
+    const statusSource = config.status
+      ? document.querySelector(config.status)
+      : null;
+    const anchor = surfaces[0] || document.querySelector(".world-binder-panel");
+    if (!anchor || (!statusSource && !config.worldVisualFilter)) return;
+
+    statusSource?.classList?.add?.("collector-status-source");
+    surfaces.forEach((surface) => {
+      surface.classList.add("collector-quick-filter-surface");
+    });
+
+    const controls = document.createElement("div");
+    controls.className = "collector-quick-controls";
+    controls.setAttribute("role", "group");
+    controls.setAttribute("aria-label", "도감 빠른 보기");
+    controls.innerHTML = `
+      <button type="button" data-quick-status="all" aria-pressed="false">전체</button>
+      <button type="button" data-quick-status="owned" aria-pressed="false">보유</button>
+      <button type="button" data-quick-status="missing" aria-pressed="false">미보유</button>
+      <button type="button" class="collector-quick-filter-button" data-quick-filter aria-expanded="true">필터</button>
+    `;
+    anchor.insertAdjacentElement("beforebegin", controls);
+
+    const quickButtons = [
+      ...controls.querySelectorAll("button[data-quick-status]"),
+    ];
+    const filterButton = controls.querySelector("[data-quick-filter]");
+
+    const currentStatus = () =>
+      config.worldVisualFilter
+        ? document.body?.dataset?.worldQuickStatus || "all"
+        : activeSourceStatus(statusSource);
+
+    const syncQuickStatus = () => {
+      const status = currentStatus();
+      quickButtons.forEach((button) => {
+        const active = button.dataset.quickStatus === status;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+
+    const setFilterOpen = (open) => {
+      surfaces.forEach((surface) => {
+        surface.classList.toggle("is-quick-filter-collapsed", !open);
+      });
+      controls.classList.toggle("is-filter-open", open);
+      filterButton?.setAttribute("aria-expanded", String(open));
+    };
+
+    quickButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const status = button.dataset.quickStatus || "all";
+        if (config.worldVisualFilter) {
+          applyWorldVisualStatus(status);
+          syncQuickStatus();
+          return;
+        }
+
+        const target = statusSource?.querySelector?.(
+          `button[data-status="${status}"]`,
+        );
+        target?.click?.();
+        window.requestAnimationFrame?.(syncQuickStatus);
+      });
+    });
+
+    filterButton?.addEventListener("click", () => {
+      const open = filterButton.getAttribute("aria-expanded") !== "true";
+      setFilterOpen(open);
+      if (open) {
+        surfaces[0]?.scrollIntoView?.({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+    });
+
+    if (statusSource && typeof MutationObserver === "function") {
+      const statusObserver = new MutationObserver(syncQuickStatus);
+      statusObserver.observe(statusSource, {
+        attributes: true,
+        attributeFilter: ["class", "aria-pressed"],
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    if (config.worldVisualFilter) {
+      const binder = document.querySelector("#world-binder-content");
+      if (binder && typeof MutationObserver === "function") {
+        const worldObserver = new MutationObserver(() => {
+          applyWorldVisualStatus(currentStatus());
+        });
+        worldObserver.observe(binder, { childList: true, subtree: true });
+      }
+      applyWorldVisualStatus("all");
+    }
+
+    const syncFilterLayout = () => {
+      const mobile = Boolean(mobileCardLayoutMedia?.matches);
+      if (mobile) {
+        setFilterOpen(false);
+      } else {
+        setFilterOpen(true);
+      }
+    };
+
+    syncQuickStatus();
+    syncFilterLayout();
+
+    if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
+      mobileCardLayoutMedia.addEventListener("change", syncFilterLayout);
+    } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
+      mobileCardLayoutMedia.addListener(syncFilterLayout);
+    }
+  }
+
   function addCardLayoutToggle() {
     if (!registry?.collectionIdForPage?.()) return;
     const resultsBar = document.querySelector(
@@ -631,7 +840,7 @@
     const filterTarget = document.querySelector(
       ".catalog-era-filter, .filter-panel, .pack-filter-panel, .artist-filter-panel, .people-filter-panel, .fossil-filter-panel, .tp-filter-panel, .catalog-toolbar",
     );
-    if (filterTarget) {
+    if (filterTarget && !document.querySelector(".collector-quick-controls")) {
       const filterButton = document.createElement("button");
       filterButton.type = "button";
       filterButton.className = "mobile-filter-jump";
@@ -795,6 +1004,7 @@
   watchAccountProfileEntry();
   ensureProfileShortcutWithoutPanel();
   schedulePublicProjectionRepair();
+  installUnifiedDexControls();
   addCardLayoutToggle();
   addHeroActions();
   rememberCurrentDexPage();
