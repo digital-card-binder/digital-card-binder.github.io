@@ -206,6 +206,7 @@
             <button id="studio-quick-variant" type="button" disabled><span aria-hidden="true">⇄</span><strong>버전 고르기</strong></button>
             <button id="studio-quick-advanced" type="button" aria-expanded="false"><span aria-hidden="true">•••</span><strong>고급 기능</strong></button>
           </div>
+          <button id="studio-quick-source" class="studio-quick-source" type="button" hidden>원본 도감에서 보기</button>
         </section>
 
         <div class="studio-layout studio-custom-layout">
@@ -444,6 +445,33 @@
           </section>
         </div>
       </section>
+
+      <dialog id="studio-card-add-dialog" class="studio-card-add-dialog" aria-labelledby="studio-card-add-title">
+        <div class="studio-card-add-sheet">
+          <div class="studio-card-add-head">
+            <div>
+              <span class="studio-kicker">ADD TO BINDER</span>
+              <h2 id="studio-card-add-title">바인더에 넣기</h2>
+              <p>도감에서 선택한 카드를 넣을 위치만 고르세요. 보유 상태는 바뀌지 않습니다.</p>
+            </div>
+            <button id="studio-card-add-close" type="button" aria-label="바인더에 넣기 닫기">×</button>
+          </div>
+          <div class="studio-card-add-card">
+            <img id="studio-card-add-image" src="" alt="" />
+            <div><strong id="studio-card-add-name">카드</strong><span id="studio-card-add-meta"></span></div>
+          </div>
+          <div class="studio-card-add-targets">
+            <label><span>바인더</span><select id="studio-card-add-binder"></select></label>
+            <label><span>페이지</span><select id="studio-card-add-page"></select></label>
+            <label><span>칸</span><select id="studio-card-add-slot"></select></label>
+          </div>
+          <p id="studio-card-add-status" class="studio-card-add-status" role="status" aria-live="polite"></p>
+          <div class="studio-card-add-actions">
+            <button id="studio-card-add-cancel" type="button">취소</button>
+            <button id="studio-card-add-confirm" class="primary-button" type="button">이 칸에 넣기</button>
+          </div>
+        </div>
+      </dialog>
 
       <dialog id="studio-variant-dialog" class="studio-variant-dialog" aria-labelledby="studio-variant-title">
         <div class="studio-variant-sheet">
