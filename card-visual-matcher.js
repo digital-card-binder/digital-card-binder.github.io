@@ -184,21 +184,51 @@
     return parsed;
   }
 
-  function insetCrop(crop, inset) {
-    const dx = crop.width * inset;
-    const dy = crop.height * inset;
+  function insetCrop(crop, inset, offsetX = 0, offsetY = 0) {
+    const baseWidth = Math.max(0.01, Number(crop?.width) || 0.01);
+    const baseHeight = Math.max(0.01, Number(crop?.height) || 0.01);
+    const dx = baseWidth * inset;
+    const dy = baseHeight * inset;
+    const width = Math.max(0.01, baseWidth - dx * 2);
+    const height = Math.max(0.01, baseHeight - dy * 2);
+    const shiftedX = (Number(crop?.x) || 0) + dx + baseWidth * offsetX;
+    const shiftedY = (Number(crop?.y) || 0) + dy + baseHeight * offsetY;
     return {
-      x: crop.x + dx,
-      y: crop.y + dy,
-      width: Math.max(0.01, crop.width - dx * 2),
-      height: Math.max(0.01, crop.height - dy * 2),
+      x: Math.max(0, Math.min(1 - width, shiftedX)),
+      y: Math.max(0, Math.min(1 - height, shiftedY)),
+      width,
+      height,
     };
+  }
+
+  function photoCropVariants(crop) {
+    const variants = [
+      [0, 0, 0],
+      [0.018, 0, 0],
+      [0.04, 0, 0],
+      [0.018, -0.018, 0],
+      [0.018, 0.018, 0],
+      [0.018, 0, -0.018],
+      [0.018, 0, 0.018],
+      [0.035, -0.012, -0.012],
+      [0.035, 0.012, 0.012],
+    ].map(([inset, offsetX, offsetY]) => insetCrop(crop, inset, offsetX, offsetY));
+
+    const seen = new Set();
+    return variants.filter((item) => {
+      const key = [item.x, item.y, item.width, item.height]
+        .map((value) => Number(value).toFixed(5))
+        .join("|");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
   }
 
   async function rankImageCrop(source, crop, catalog, limit = 3) {
     const index = await prepare(catalog);
-    const signatures = [0, 0.025, 0.05].map((inset) =>
-      signature(cropCanvas(source, insetCrop(crop, inset)))
+    const signatures = photoCropVariants(crop).map((variant) =>
+      signature(cropCanvas(source, variant))
     );
     const ranked = [];
     for (let position = 0; position < index.length; position += 1) {
@@ -233,5 +263,6 @@
   root.visualMatcher = Object.freeze({
     rankImageCrop,
     confident,
+    photoCropVariants,
   });
 })();
