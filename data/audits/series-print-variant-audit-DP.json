@@ -1,0 +1,458 @@
+{
+  "schemaVersion": 1,
+  "purpose": "One canonical series card per slot; preserve verified alternate print forms as metadata only.",
+  "source": "https://pokemoncard.co.kr/cards",
+  "sourcePolicy": "Pokemon Korea official card-search records only for this audit batch.",
+  "era": "DP",
+  "classification": {
+    "normal": "canonical/base entry",
+    "holo": "official duplicate image filename contains holo/foil",
+    "mirror": "official duplicate image filename contains mirror/reverse/ball",
+    "other": "multiple distinct official images share the same set/card-number slot but no known variant token is present"
+  },
+  "summary": {
+    "configuredSetCount": 16,
+    "resolvedProductCount": 16,
+    "missingProductCount": 0,
+    "rawRecordCount": 598,
+    "parsedSlotCount": 584,
+    "duplicateSlotCount": 0,
+    "variantSlotCount": 0,
+    "variantCounts": {
+      "holo": 0,
+      "mirror": 0,
+      "other": 0
+    }
+  },
+  "sets": [
+    {
+      "era": "DP",
+      "code": "BS1",
+      "title": "모험의 시작",
+      "requestedProducts": [
+        "DP 확장팩 모험의 시작"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 모험의 시작"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 60,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 60,
+      "parsedSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS2",
+      "title": "불꽃 튀는 대결",
+      "requestedProducts": [
+        "DP 확장팩 불꽃 튀는 대결"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 불꽃 튀는 대결"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS3",
+      "title": "시공의 격돌",
+      "requestedProducts": [
+        "DP 확장팩 시공의 격돌"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 시공의 격돌"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 60,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 60,
+      "parsedSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS4",
+      "title": "또 다른 세계",
+      "requestedProducts": [
+        "DP 확장팩 또 다른 세계"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 또 다른 세계"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS5",
+      "title": "7개의 신비",
+      "requestedProducts": [
+        "DP 확장팩 7개의 신비"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 7개의 신비"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS6",
+      "title": "암흑의 초승달",
+      "requestedProducts": [
+        "DP 확장팩 암흑의 초승달"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 암흑의 초승달"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 60,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 60,
+      "parsedSlotCount": 60,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS7",
+      "title": "보이지 않는 힘",
+      "requestedProducts": [
+        "DP 확장팩 보이지 않는 힘"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 보이지 않는 힘"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS8",
+      "title": "화려한 전설",
+      "requestedProducts": [
+        "DP 확장팩 화려한 전설"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 화려한 전설"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS9",
+      "title": "호수의 기적",
+      "requestedProducts": [
+        "DP 확장팩 호수의 기적"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 호수의 기적"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "BS10",
+      "title": "고대의 수호자",
+      "requestedProducts": [
+        "DP 확장팩 고대의 수호자"
+      ],
+      "resolvedProducts": [
+        "DP 확장팩 고대의 수호자"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 40,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 40,
+      "parsedSlotCount": 40,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "CSD",
+      "title": "크레세리아 덱",
+      "requestedProducts": [
+        "DP 크레세리아덱"
+      ],
+      "resolvedProducts": [
+        "DP 크레세리아덱"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 14,
+      "missingExpectedSlotCount": 2,
+      "missingExpectedSlots": [
+        {
+          "actualSetCode": "csd",
+          "printedNumber": "energy-fighting"
+        },
+        {
+          "actualSetCode": "csd",
+          "printedNumber": "energy-psychic"
+        }
+      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 14,
+      "parsedSlotCount": 12,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 2,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "DGD",
+      "title": "디아루가 덱",
+      "requestedProducts": [
+        "DP 디아루가 덱"
+      ],
+      "resolvedProducts": [
+        "DP 디아루가 덱"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 15,
+      "missingExpectedSlotCount": 3,
+      "missingExpectedSlots": [
+        {
+          "actualSetCode": "dgd",
+          "printedNumber": "energy-fighting"
+        },
+        {
+          "actualSetCode": "dgd",
+          "printedNumber": "energy-lightning"
+        },
+        {
+          "actualSetCode": "dgd",
+          "printedNumber": "energy-metal"
+        }
+      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 15,
+      "parsedSlotCount": 12,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 3,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "DRD",
+      "title": "다크라이 덱",
+      "requestedProducts": [
+        "DP 다크라이덱"
+      ],
+      "resolvedProducts": [
+        "DP 다크라이덱"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 13,
+      "missingExpectedSlotCount": 2,
+      "missingExpectedSlots": [
+        {
+          "actualSetCode": "drd",
+          "printedNumber": "energy-darkness"
+        },
+        {
+          "actualSetCode": "drd",
+          "printedNumber": "energy-water"
+        }
+      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 13,
+      "parsedSlotCount": 11,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 2,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "PKD",
+      "title": "펄기아 덱",
+      "requestedProducts": [
+        "DP 펄기아 덱"
+      ],
+      "resolvedProducts": [
+        "DP 펄기아 덱"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 15,
+      "missingExpectedSlotCount": 3,
+      "missingExpectedSlots": [
+        {
+          "actualSetCode": "pkd",
+          "printedNumber": "energy-darkness"
+        },
+        {
+          "actualSetCode": "pkd",
+          "printedNumber": "energy-psychic"
+        },
+        {
+          "actualSetCode": "pkd",
+          "printedNumber": "energy-water"
+        }
+      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 15,
+      "parsedSlotCount": 12,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 3,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "ST1",
+      "title": "DP 랜덤 구축덱",
+      "requestedProducts": [
+        "DP 랜덤 구축덱"
+      ],
+      "resolvedProducts": [
+        "DP 랜덤 구축덱"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 59,
+      "missingExpectedSlotCount": 4,
+      "missingExpectedSlots": [
+        {
+          "actualSetCode": "st1",
+          "printedNumber": "energy-fire"
+        },
+        {
+          "actualSetCode": "st1",
+          "printedNumber": "energy-grass"
+        },
+        {
+          "actualSetCode": "st1",
+          "printedNumber": "energy-lightning"
+        },
+        {
+          "actualSetCode": "st1",
+          "printedNumber": "energy-water"
+        }
+      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 59,
+      "parsedSlotCount": 55,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 4,
+      "variantSlots": []
+    },
+    {
+      "era": "DP",
+      "code": "DPP",
+      "title": "DP 프로모 카드",
+      "requestedProducts": [
+        "DP 프로모 카드"
+      ],
+      "resolvedProducts": [
+        "DP 프로모 카드"
+      ],
+      "discoveryCandidateCount": 0,
+      "expectedSlotCount": 22,
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
+      "missingProducts": [],
+      "rawRecordCount": 22,
+      "parsedSlotCount": 22,
+      "duplicateSlotCount": 0,
+      "unresolvedRecordCount": 0,
+      "variantSlots": []
+    }
+  ]
+}
