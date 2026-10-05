@@ -104,15 +104,36 @@ def group_products(
     era = era.upper()
     official_values = official_values or {}
     if era == "DP":
+        # The DP catalog was already built from Pokemon Korea and stores the
+        # exact official GoodsName values in series-legacy.json. Reuse those
+        # pinned values so a transient block on the public /cards index cannot
+        # prevent a reproducible audit.
+        pinned_products: dict[str, list[str]] = {}
+        legacy_path = ROOT / "data" / "series-legacy.json"
+        if legacy_path.exists():
+            existing = json.loads(legacy_path.read_text(encoding="utf-8"))
+            for group in existing:
+                code = clean(group.get("code")).casefold()
+                products = [clean(value) for value in group.get("sourceProducts", []) if clean(value)]
+                if code and products:
+                    pinned_products[code] = products
+
         groups = []
         for meta in dp.SETS:
-            product = dp.resolve_product(meta, official_values)
+            code = clean(meta["code"])
+            products = pinned_products.get(code.casefold(), [])
+            if not products and official_values:
+                products = [dp.resolve_product(meta, official_values)]
+            if not products:
+                # Last-resort fallback for old local checkouts. The audit will
+                # mark the product missing rather than inventing variant data.
+                products = [clean(meta["aliases"][0])]
             groups.append(
                 {
                     "era": "DP",
-                    "code": clean(meta["code"]),
+                    "code": code,
                     "title": clean(meta["title"]),
-                    "products": [product],
+                    "products": products,
                 }
             )
         return groups
@@ -135,6 +156,37 @@ def group_products(
         if product and product not in groups[key]["products"]:
             groups[key]["products"].append(product)
     return [groups[key] for key in order]
+
+
+def record_image_identity(
+    record: dict[str, str],
+    group_code: str,
+) -> tuple[str, str] | None:
+    image = clean(record.get("feature_image"))
+    identity = legacy.image_identity(image)
+    if identity:
+        return identity
+
+    filename = image.split("?", 1)[0].rsplit("/", 1)[-1].rsplit(".", 1)[0]
+    match = re.search(r"^([^_]+)_0*([0-9]{1,4})(?:_|$)", filename, re.I)
+    if match:
+        return match.group(1), str(int(match.group(2)))
+
+    card_num = clean(record.get("CardNum"))
+    if clean(group_code).upper() == "DPP":
+        promo = re.fullmatch(r"PR2010001(\d{3})", card_num)
+        if promo:
+            return "DPP", str(int(promo.group(1)))
+
+    if card_num:
+        try:
+            detail = legacy.parse_detail(legacy.detail_payload(card_num))
+            number = clean(detail.get("number"))
+            if number.isdigit():
+                return clean(group_code), str(int(number))
+        except Exception:
+            pass
+    return None
 
 
 def classify_filename(value: str) -> str:
@@ -207,7 +259,7 @@ def audit_group(
     unresolved_records = 0
     for record in all_records:
         image = clean(record.get("feature_image"))
-        identity = legacy.image_identity(image)
+        identity = record_image_identity(record, group["code"])
         if not identity:
             unresolved_records += 1
             continue
@@ -249,7 +301,7 @@ def audit_group(
         if not extras:
             extras = ["other"]
 
-        representative_identity = legacy.image_identity(clean(distinct[0].get("feature_image")))
+        representative_identity = record_image_identity(distinct[0], group["code"])
         actual_code = representative_identity[0] if representative_identity else actual_code_key
         variant_slots.append(
             {
@@ -365,16 +417,14 @@ def audit_group(
 
 def build_audit(era: str, workers: int) -> dict[str, Any]:
     legacy.warm_official_session()
-    # DP set names and older Scarlet & Violet option values are resolved
-    # against Pokemon Korea's live product selector. Other eras keep their
-    # pinned product names.
+    # Older Scarlet & Violet option values are resolved from the live product
+    # selector. DP uses the exact official product names pinned by the existing
+    # Korean catalog build, avoiding dependence on the public index page.
     official_values: dict[str, str] = {}
-    if era.upper() in {"DP", "SV"}:
+    if era.upper() == "SV":
         try:
             official_values = legacy.official_product_values()
         except Exception as error:  # noqa: BLE001
-            if era.upper() == "DP":
-                raise RuntimeError(f"DP 공식 제품 옵션 조회 실패: {error}") from error
             legacy.log(f"SV 공식 제품 옵션 조회 생략: {error}")
     groups = group_products(era, official_values)
     if not groups:
