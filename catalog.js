@@ -758,10 +758,19 @@ function renderQuickCollectControl() {
       </label>
     `;
 
-    const anchor =
-      document.querySelector(".catalog-filter-row") ||
-      document.querySelector(".catalog-toolbar");
-    anchor?.insertAdjacentElement("afterend", wrap);
+    const simpleFilterSurface =
+      document.body?.classList?.contains?.("collector-simple-dex")
+        ? document.querySelector(".collector-quick-filter-surface")
+        : null;
+    if (simpleFilterSurface) {
+      wrap.classList.add("catalog-quick-collect--nested");
+      simpleFilterSurface.append(wrap);
+    } else {
+      const anchor =
+        document.querySelector(".catalog-filter-row") ||
+        document.querySelector(".catalog-toolbar");
+      anchor?.insertAdjacentElement("afterend", wrap);
+    }
 
     const input = wrap.querySelector("#catalog-quick-collect-toggle");
     input?.addEventListener("change", () => {
