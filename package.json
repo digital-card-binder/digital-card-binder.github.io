@@ -20,14 +20,16 @@
     "shell:check": "node scripts/sync-site-shell.mjs --check",
     "search-index:sync": "node scripts/build-pokemon-search-index.mjs",
     "search-index:check": "node scripts/build-pokemon-search-index.mjs --check",
-    "site:prepare": "npm run series-inventory:sync && npm run master-db-audit:sync && npm run search-index:sync && npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync",
-    "site:check": "npm run series-inventory:check && npm run master-db-audit:check && npm run search-index:check && npm run catalog-metrics:check && npm run shell:check && npm run versions:check",
+    "site:prepare": "npm run series-inventory:sync && npm run master-db-audit:sync && npm run downstream-sync:sync && npm run search-index:sync && npm run catalog-metrics:sync && npm run shell:sync && npm run versions:sync",
+    "site:check": "npm run series-inventory:check && npm run master-db-audit:check && npm run downstream-sync:check && npm run search-index:check && npm run catalog-metrics:check && npm run shell:check && npm run versions:check",
     "series-inventory:sync": "node scripts/audit-series-inventory.mjs",
     "series-inventory:check": "node scripts/audit-series-inventory.mjs --check",
     "catalog-metrics:sync": "node scripts/sync-catalog-metrics.mjs",
     "catalog-metrics:check": "node scripts/sync-catalog-metrics.mjs --check",
     "master-db-audit:sync": "node scripts/audit-master-card-db.mjs",
-    "master-db-audit:check": "node scripts/audit-master-card-db.mjs --check"
+    "master-db-audit:check": "node scripts/audit-master-card-db.mjs --check",
+    "downstream-sync:sync": "node scripts/audit-m6a-downstream-sync.mjs",
+    "downstream-sync:check": "node scripts/audit-m6a-downstream-sync.mjs --check"
   },
   "devDependencies": {
     "@firebase/eslint-plugin-security-rules": "0.0.2",
