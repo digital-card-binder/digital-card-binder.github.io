@@ -2752,3 +2752,64 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     height: 13px;
   }
 }
+
+
+/* Mobile compact home dex cards 2026-10-05 */
+@media (max-width: 690px) {
+  .home-feature-grid {
+    grid-auto-rows: 126px;
+    gap: 7px;
+  }
+
+  .home-feature-card,
+  .home-feature-card--wide {
+    border-radius: 11px;
+  }
+
+  .home-feature-collage {
+    inset: 6px 3px auto 24%;
+    height: 68px;
+  }
+
+  .home-feature-collage img {
+    right: 3px;
+    width: 45px;
+    height: 63px;
+  }
+
+  .home-feature-collage img:first-child {
+    top: 4px;
+    right: 35px;
+  }
+
+  .home-feature-collage--packs img {
+    width: 49px;
+  }
+
+  .home-feature-content,
+  .home-feature-card--wide .home-feature-content {
+    padding: 9px 9px;
+  }
+
+  .home-feature-content > strong,
+  .home-feature-card--wide .home-feature-content > strong {
+    font-size: 0.72rem;
+  }
+
+  .home-feature-content > em {
+    display: none;
+  }
+
+  .home-feature-meta {
+    margin-top: 3px;
+    font-size: 0.42rem;
+  }
+
+  .home-feature-card > b {
+    right: 6px;
+    bottom: 7px;
+    width: 21px;
+    height: 21px;
+    font-size: 0.55rem;
+  }
+}
