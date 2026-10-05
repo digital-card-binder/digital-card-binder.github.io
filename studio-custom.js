@@ -2604,7 +2604,7 @@
     }
 
     const rect = previewStage.getBoundingClientRect();
-    const edge = Math.min(54, Math.max(34, rect.width * 0.16));
+    const edge = Math.min(30, Math.max(24, rect.width * 0.08));
     const insideY = clientY >= rect.top - 8 && clientY <= rect.bottom + 8;
     if (insideY && clientX <= rect.left + edge && index > 0) {
       return { pageId: state.pages[index - 1].id, direction: "prev" };
@@ -2627,7 +2627,8 @@
     if (!target) return;
     if (target.direction === "prev") previewStage.classList.add("is-drag-page-prev");
     if (target.direction === "next") previewStage.classList.add("is-drag-page-next");
-    const chip = pageList?.querySelector(`[data-page-id="${CSS.escape(target.pageId)}"]`);
+    const chip = [...(pageList?.querySelectorAll(".studio-custom-page-chip") || [])]
+      .find((node) => node.dataset.pageId === target.pageId);
     chip?.classList.add("is-drag-page-target");
   }
 
@@ -2814,7 +2815,7 @@
           }
           clearPageHover();
           void movePlacementToPage(entry, target.pageId);
-        }, 520);
+        }, 650);
       };
 
       const move = (moveEvent) => {
