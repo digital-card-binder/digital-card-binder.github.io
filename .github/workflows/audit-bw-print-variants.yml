@@ -1,0 +1,97 @@
+name: Audit BW print variants
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/audit-series-print-variants.py
+      - scripts/build_bw_series_data.py
+      - scripts/build_legacy_series_data.py
+      - scripts/merge-series-print-variant-audit.mjs
+      - scripts/merge-series-print-variant-images.mjs
+      - .github/workflows/audit-bw-print-variants.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-bw-print-variants
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Audit Black & White print variants
+        run: |
+          python3 scripts/audit-series-print-variants.py \
+            --era BW \
+            --workers 6 \
+            --output data/audits/series-print-variant-audit-BW.json
+
+      - name: Validate BW audit coverage
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          audit = json.loads(
+              Path("data/audits/series-print-variant-audit-BW.json").read_text(encoding="utf-8")
+          )
+          summary = audit["summary"]
+          sets = audit["sets"]
+
+          if audit.get("era") != "BW":
+              raise SystemExit("BW audit era mismatch")
+          if len(sets) != 37 or summary.get("configuredSetCount") != 37:
+              raise SystemExit(f"BW set coverage mismatch: {len(sets)} / {summary.get('configuredSetCount')}")
+
+          missing = [group["code"] for group in sets if group.get("missingProducts")]
+          empty = [group["code"] for group in sets if not group.get("rawRecordCount")]
+          if missing:
+              raise SystemExit(f"Missing official BW products: {missing}")
+          if empty:
+              raise SystemExit(f"Empty official BW products: {empty}")
+
+          expected_total = sum(int(group.get("expectedSlotCount") or 0) for group in sets)
+          parsed_total = sum(int(group.get("parsedSlotCount") or 0) for group in sets)
+          print(
+              "BW audit validated · "
+              f"{summary['configuredSetCount']} sets · "
+              f"{parsed_total}/{expected_total} official canonical slots · "
+              f"{summary['variantSlotCount']} variant slots"
+          )
+          PY
+
+      - name: Merge compact variant metadata
+        run: node scripts/merge-series-print-variant-audit.mjs data/audits/series-print-variant-audit-BW.json
+
+      - name: Merge verified variant images
+        run: node scripts/merge-series-print-variant-images.mjs data/audits/series-print-variant-audit-BW.json
+
+      - name: Commit BW audit results
+        run: |
+          if [ -z "$(git status --porcelain -- data/audits/series-print-variant-audit-BW.json data/series-print-variants.json data/series-print-variant-images.json)" ]; then
+            echo "No BW audit changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/audits/series-print-variant-audit-BW.json \
+            data/series-print-variants.json \
+            data/series-print-variant-images.json
+          git commit -m "Add verified BW print variant data"
+          git pull --rebase origin main
+          git push
