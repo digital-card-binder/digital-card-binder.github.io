@@ -2188,3 +2188,24 @@ img {
   font-size: .72rem;
   text-align: center;
 }
+
+
+.binder-archive-add {
+  width: 100%;
+  min-height: 38px;
+  margin-top: 8px;
+  border: 1px solid rgba(42, 117, 187, 0.22);
+  border-radius: 10px;
+  background: rgba(42, 117, 187, 0.08);
+  color: var(--blue);
+  font-weight: 800;
+  cursor: pointer;
+}
+.binder-archive-add:hover {
+  background: rgba(42, 117, 187, 0.13);
+}
+@media (max-width: 690px) {
+  .binder-archive-add {
+    min-height: 44px;
+  }
+}
