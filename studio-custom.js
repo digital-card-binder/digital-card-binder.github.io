@@ -2003,18 +2003,29 @@
       state.images = [source];
 
       const count = cols * rows;
+      const scanCrops = Array.isArray(scanResult.slotCrops) &&
+        scanResult.slotCrops.length === count
+        ? scanResult.slotCrops
+        : null;
       state.slots = Array.from({ length: count }, (_, index) => {
         const col = index % cols;
         const row = Math.floor(index / cols);
+        const fallback = {
+          x: Number((col / cols).toFixed(6)),
+          y: Number((row / rows).toFixed(6)),
+          width: Number((1 / cols).toFixed(6)),
+          height: Number((1 / rows).toFixed(6)),
+        };
+        const crop = scanCrops?.[index] || fallback;
         return {
           index,
           type: "image",
           imageId: source.id,
           crop: {
-            x: Number((col / cols).toFixed(6)),
-            y: Number((row / rows).toFixed(6)),
-            width: Number((1 / cols).toFixed(6)),
-            height: Number((1 / rows).toFixed(6)),
+            x: Math.max(0, Math.min(1, Number(crop.x) || 0)),
+            y: Math.max(0, Math.min(1, Number(crop.y) || 0)),
+            width: Math.max(0.0001, Math.min(1, Number(crop.width) || fallback.width)),
+            height: Math.max(0.0001, Math.min(1, Number(crop.height) || fallback.height)),
           },
         };
       });
@@ -2033,9 +2044,11 @@
         : "";
       const sizeText =
         `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px${originalMb}`;
-      const scanText = "네 모서리·기울기·원근 보정 완료";
+      const scanText = scanResult.cropMode === "pocket-adaptive"
+        ? "원근 보정 + 포켓 여백·카드 크기 자동 정렬 완료"
+        : "원근 보정 + 카드 비율 자동 정렬 완료";
       updatePhotoImportUi(
-        `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 필요한 칸만 실제 카드로 교체하거나 그대로 저장할 수 있습니다.`,
+        `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 각 칸은 카드 비율로 맞춰져 있으며 필요한 칸만 실제 카드로 교체할 수 있습니다.`,
       );
     } catch (error) {
       console.error("바인더 사진 가져오기 실패", error);
