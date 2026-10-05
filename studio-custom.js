@@ -82,6 +82,13 @@
   const shareUrlInput = panel.querySelector("#studio-custom-share-url");
   const copyLinkButton = panel.querySelector("#studio-custom-copy-link");
   const printRoot = document.querySelector("#studio-print-root");
+  const quickSlotStatus = panel.querySelector("#studio-quick-slot-status");
+  const quickCardButton = panel.querySelector("#studio-quick-card");
+  const quickSlotPhotoInput = panel.querySelector("#studio-quick-slot-photo");
+  const quickEmptyButton = panel.querySelector("#studio-quick-empty");
+  const quickPageScanInput = panel.querySelector("#studio-quick-page-scan");
+  const quickVariantButton = panel.querySelector("#studio-quick-variant");
+  const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
 
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
@@ -671,6 +678,46 @@
       .sort((a, b) => a - b);
   }
 
+  function quickSelectedSlotIndex() {
+    const selected = selectedSlotIndexes();
+    if (selected.length === 1) return selected[0];
+    const placement = selectedPlacement();
+    return Number.isInteger(placement?.slotIndex) ? placement.slotIndex : -1;
+  }
+
+  function updateQuickEditorUi(message = "") {
+    const index = quickSelectedSlotIndex();
+    const slot = index >= 0 ? state.slots[index] : null;
+    const placement = selectedPlacement();
+    if (quickCardButton) quickCardButton.disabled = index < 0;
+    if (quickEmptyButton) quickEmptyButton.disabled = index < 0 || slot?.type === "empty";
+    if (quickVariantButton) quickVariantButton.disabled = !placement || !Number.isInteger(placement.slotIndex);
+    if (!quickSlotStatus) return;
+    if (message) {
+      quickSlotStatus.textContent = message;
+      return;
+    }
+    if (index < 0) {
+      quickSlotStatus.textContent = "바인더에서 원하는 칸을 눌러 선택하세요.";
+      return;
+    }
+    const typeLabel = slot?.type === "card" ? "카드" : slot?.type === "image" ? "사진" : "빈칸";
+    quickSlotStatus.textContent = `${index + 1}번 칸 선택 · ${typeLabel}`;
+  }
+
+  function selectQuickSlot(index) {
+    const count = selectedGrid().cols * selectedGrid().rows;
+    if (!Number.isInteger(index) || index < 0 || index >= count) return;
+    state.slotSelectMode = false;
+    state.selectedSlots = new Set([index]);
+    const slot = state.slots[index];
+    state.selectedId = slot?.type === "card" ? clean(slot.placementId) : "";
+    renderSlotLayer();
+    updateEditorUi();
+    updateQuickEditorUi();
+    if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
+  }
+
   function updateArtUi(message = "") {
     const selected = selectedSlotIndexes();
     const hasSelection = selected.length > 0;
@@ -804,15 +851,19 @@
         applyCropStyle(node, imageSourceById(slot.imageId), slot.crop);
       }
       node.addEventListener("click", (event) => {
-        if (!state.slotSelectMode) return;
         event.preventDefault();
         event.stopPropagation();
-        toggleSlotSelection(slot.index);
+        if (state.slotSelectMode) {
+          toggleSlotSelection(slot.index);
+          return;
+        }
+        selectQuickSlot(slot.index);
       });
       return node;
     });
     slotLayer.replaceChildren(...nodes);
     updateArtUi();
+    updateQuickEditorUi();
   }
 
   function renderPageControls() {
@@ -1357,6 +1408,131 @@
     };
   }
 
+  async function loadQuickSlotPhoto(file) {
+    if (!file) return;
+    const slotIndex = quickSelectedSlotIndex();
+    if (slotIndex < 0) {
+      window.alert("먼저 사진을 넣을 바인더 칸을 눌러 선택해 주세요.");
+      if (quickSlotPhotoInput) quickSlotPhotoInput.value = "";
+      return;
+    }
+    const allowed = new Set(["image/png", "image/jpeg", "image/webp"]);
+    if (!allowed.has(file.type)) {
+      window.alert("PNG, JPG, WEBP 이미지만 사용할 수 있습니다.");
+      if (quickSlotPhotoInput) quickSlotPhotoInput.value = "";
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      window.alert("사진은 최대 10MB까지 사용할 수 있습니다.");
+      if (quickSlotPhotoInput) quickSlotPhotoInput.value = "";
+      return;
+    }
+
+    let objectUrl = "";
+    try {
+      objectUrl = URL.createObjectURL(file);
+      const image = new Image();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error("사진을 읽지 못했습니다."));
+        image.src = objectUrl;
+      });
+      removeCardAtSlot(slotIndex);
+      const source = {
+        id: makeId("slotphoto"),
+        name: clean(file.name).slice(0, 180) || "slot-photo.webp",
+        type: clean(file.type) || "image/webp",
+        size: file.size,
+        width: image.naturalWidth,
+        height: image.naturalHeight,
+        chunkCount: 0,
+        chunkSet: "",
+        blob: file,
+        objectUrl,
+        dirty: true,
+      };
+      objectUrl = "";
+      state.images.push(source);
+      state.slots[slotIndex] = {
+        index: slotIndex,
+        type: "image",
+        imageId: source.id,
+        crop: { x: 0, y: 0, width: 1, height: 1 },
+      };
+      state.selectedId = "";
+      state.selectedSlots = new Set([slotIndex]);
+      state.slotSelectMode = false;
+      pruneUnusedImages();
+      renderSlotLayer();
+      renderPlacements();
+      captureCurrentPage();
+      updateSaveUi();
+      updateCustomPrintUi();
+      updateQuickEditorUi(`${slotIndex + 1}번 칸에 사진을 넣었습니다.`);
+    } catch (error) {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      window.alert(clean(error?.message) || "사진을 넣지 못했습니다.");
+    } finally {
+      if (quickSlotPhotoInput) quickSlotPhotoInput.value = "";
+    }
+  }
+
+  function clearQuickSlot() {
+    const slotIndex = quickSelectedSlotIndex();
+    if (slotIndex < 0) return;
+    removeCardAtSlot(slotIndex);
+    state.slots[slotIndex] = { index: slotIndex, type: "empty" };
+    state.selectedId = "";
+    state.selectedSlots = new Set([slotIndex]);
+    state.slotSelectMode = false;
+    pruneUnusedImages();
+    renderSlotLayer();
+    renderPlacements();
+    captureCurrentPage();
+    updateSaveUi();
+    updateCustomPrintUi();
+    updateQuickEditorUi(`${slotIndex + 1}번 칸을 비웠습니다.`);
+  }
+
+  function focusQuickCardSearch() {
+    const slotIndex = quickSelectedSlotIndex();
+    if (slotIndex < 0) {
+      window.alert("먼저 카드를 넣을 바인더 칸을 눌러 선택해 주세요.");
+      return;
+    }
+    searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    searchInput.focus({ preventScroll: true });
+    if (!state.catalogPromise && !state.catalog) {
+      void ensureCatalog().catch((error) => console.error(error));
+    }
+    updateQuickEditorUi(`${slotIndex + 1}번 칸에 넣을 카드를 검색하세요.`);
+  }
+
+  async function openQuickVariants() {
+    const placement = selectedPlacement();
+    if (!placement || !Number.isInteger(placement.slotIndex)) return;
+    selectQuickSlot(placement.slotIndex);
+    const query = [placement.card.setCode, placement.card.cardNumber].filter(Boolean).join(" ");
+    searchInput.value = query || placement.card.name || "";
+    searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    try {
+      await runSearch();
+      searchStatus.textContent = "같은 세트·번호의 다른 카드/버전 후보입니다. 원하는 이미지를 선택하면 현재 칸이 교체됩니다.";
+      searchInput.focus({ preventScroll: true });
+    } catch (error) {
+      console.error("카드 버전 찾기 실패", error);
+    }
+  }
+
+  function toggleQuickAdvanced() {
+    const open = panel.classList.toggle("is-advanced-open");
+    if (quickAdvancedButton) {
+      quickAdvancedButton.setAttribute("aria-expanded", open ? "true" : "false");
+      const label = quickAdvancedButton.querySelector("strong");
+      if (label) label.textContent = open ? "간단히 보기" : "고급 기능";
+    }
+  }
+
   function importedPhotoSource() {
     const imageSlots = state.slots.filter((slot) => slot.type === "image");
     if (!imageSlots.length) return null;
@@ -1586,6 +1762,7 @@
       updatePhotoImportUi(photoStatus?.textContent || "");
       if (photoCameraInput) photoCameraInput.value = "";
       if (photoAlbumInput) photoAlbumInput.value = "";
+      if (quickPageScanInput) quickPageScanInput.value = "";
     }
   }
 
@@ -2166,7 +2343,13 @@
     node.addEventListener("click", (event) => {
       event.stopPropagation();
       state.selectedId = entry.id;
+      if (Number.isInteger(entry.slotIndex)) {
+        state.selectedSlots = new Set([entry.slotIndex]);
+        state.slotSelectMode = false;
+        renderSlotLayer();
+      }
       updateEditorUi();
+      updateQuickEditorUi();
     });
 
     node.addEventListener("pointerdown", (event) => {
@@ -2174,7 +2357,13 @@
       event.preventDefault();
       event.stopPropagation();
       state.selectedId = entry.id;
+      if (Number.isInteger(entry.slotIndex)) {
+        state.selectedSlots = new Set([entry.slotIndex]);
+        state.slotSelectMode = false;
+        renderSlotLayer();
+      }
       updateEditorUi();
+      updateQuickEditorUi();
 
       const stageRect = previewStage.getBoundingClientRect();
       if (!stageRect.width || !stageRect.height) return;
@@ -3751,6 +3940,12 @@
 
   function resetEditor(clearUrl = true) {
     releasePageObjectUrls();
+    panel.classList.remove("is-advanced-open");
+    if (quickAdvancedButton) {
+      quickAdvancedButton.setAttribute("aria-expanded", "false");
+      const label = quickAdvancedButton.querySelector("strong");
+      if (label) label.textContent = "고급 기능";
+    }
     state.currentBinderId = "";
     state.currentCreatedAt = null;
     state.currentSchemaVersion = BINDER_SCHEMA_VERSION;
@@ -3885,6 +4080,12 @@
   photoCameraInput?.addEventListener("change", () => void importBinderPhoto(photoCameraInput.files?.[0]));
   photoAlbumInput?.addEventListener("change", () => void importBinderPhoto(photoAlbumInput.files?.[0]));
   photoRecognizeButton?.addEventListener("click", () => void recognizeImportedPhotoCards());
+  quickCardButton?.addEventListener("click", focusQuickCardSearch);
+  quickSlotPhotoInput?.addEventListener("change", () => void loadQuickSlotPhoto(quickSlotPhotoInput.files?.[0]));
+  quickEmptyButton?.addEventListener("click", clearQuickSlot);
+  quickPageScanInput?.addEventListener("change", () => void importBinderPhoto(quickPageScanInput.files?.[0]));
+  quickVariantButton?.addEventListener("click", () => void openQuickVariants());
+  quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
   artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
   slotSelectToggle?.addEventListener("click", () => {
     setSlotSelectMode(!state.slotSelectMode);
@@ -3926,8 +4127,13 @@
 
   previewStage.addEventListener("click", (event) => {
     if (event.target.closest(".studio-custom-card-placement")) return;
+    if (event.target.closest(".studio-custom-slot")) return;
     state.selectedId = "";
+    state.selectedSlots.clear();
+    state.slotSelectMode = false;
+    renderSlotLayer();
     updateEditorUi();
+    updateQuickEditorUi();
   });
 
   resetButton.addEventListener("click", () => resetEditor(true));
@@ -3959,6 +4165,7 @@
   customPrintButton.addEventListener("click", () => void startCustomPrint());
   updateArtUi();
   updatePhotoImportUi();
+  updateQuickEditorUi();
 
   window.addEventListener("resize", () => {
     state.placements.forEach(clampPlacement);
