@@ -3576,3 +3576,33 @@ body.collector-simple-dex .art-theme-card h3 {
     font-size: .66rem;
   }
 }
+
+
+body.collector-simple-dex .catalog-quick-collect--nested {
+  position: static;
+  z-index: auto;
+  margin: 8px 0 0;
+  border: 1px solid #e6eaee;
+  border-radius: 10px;
+  background: #fff;
+  padding: 9px 10px;
+  box-shadow: none;
+}
+
+body.collector-simple-dex .catalog-quick-collect--nested .catalog-quick-collect-copy span {
+  display: none;
+}
+
+body.collector-simple-dex .catalog-quick-collect--nested .catalog-quick-collect-copy strong {
+  font-size: .62rem;
+}
+
+@media (max-width: 690px) {
+  body.collector-simple-dex .catalog-quick-collect--nested {
+    position: static;
+    top: auto;
+    margin-top: 7px;
+    padding: 8px 9px;
+    box-shadow: none;
+  }
+}
