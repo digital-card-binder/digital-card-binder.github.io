@@ -503,6 +503,10 @@ async function initPeopleArchive() {
     renderGenerationSummary();
     bindPeopleEvents();
     renderPeople();
+
+    const requestedPerson = new URLSearchParams(window.location.search).get("person") || "";
+    const person = requestedPerson ? peopleById.get(requestedPerson) : null;
+    if (person) openPeopleDialog(person);
   } catch (error) {
     console.error("인물도감 초기화 실패", error);
     peopleElement("people-error").hidden = false;
