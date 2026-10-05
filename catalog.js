@@ -1176,6 +1176,7 @@ function refreshCounts() {
   }
   renderSeriesDashboard();
   updateSelected();
+  rememberCurrentCatalog();
 }
 
 async function saveSeriesCard() {
@@ -1591,6 +1592,44 @@ function setSeriesScope(nextScope) {
   return true;
 }
 
+function rememberCurrentCatalog() {
+  if (!selected) return;
+  const recentDex = window.DigitalCardBinder?.recentDex;
+  if (typeof recentDex?.remember !== "function") return;
+
+  const groupValue = selected.code || selected.name;
+  const total = selected.cards?.length || 0;
+  const owned = (selected.cards || []).filter((card) => card.owned).length;
+
+  if (mode === "series") {
+    const params = new URLSearchParams();
+    params.set("group", groupValue);
+    if (seriesBaseOnly) params.set("scope", "base");
+    recentDex.remember({
+      collectionId: "series",
+      title: "시리즈 도감",
+      detail: `${groupName(selected)} · ${selected.code || groupValue}`,
+      href: `./series.html?${params.toString()}`,
+      owned,
+      total,
+      unit: "장",
+    });
+    return;
+  }
+
+  if (mode === "pokemon") {
+    recentDex.remember({
+      collectionId: "pokemon",
+      title: "포켓몬 컬렉션",
+      detail: pokemonGroupLabel(selected),
+      href: `./pokemon-collections.html?group=${encodeURIComponent(groupValue)}`,
+      owned,
+      total,
+      unit: "장",
+    });
+  }
+}
+
 function loadGroup(value) {
   const fallback = selectableGroups()[0] || (mode === "series" ? null : groups[0]);
   selected =
@@ -1615,6 +1654,7 @@ function loadGroup(value) {
   renderSeriesDashboard();
   render();
   rememberMobileCatalogPreferences();
+  rememberCurrentCatalog();
 }
 
 async function fetchJson(url) {
@@ -1706,8 +1746,14 @@ async function init() {
     groups = await loadCatalogGroups();
     mobileCatalogPreferences = readMobileCatalogPreferences();
 
+    const requestedGroupValue =
+      new URLSearchParams(window.location.search).get("group") || "";
+    const requestedGroup = requestedGroupValue
+      ? groups.find((group) => (group.code || group.name) === requestedGroupValue)
+      : null;
+
     if (mode === "series") {
-      activeEra = "ALL";
+      activeEra = requestedGroup ? seriesEra(requestedGroup) : "ALL";
     }
     if (["all", "owned", "missing"].includes(mobileCatalogPreferences.status)) {
       status = mobileCatalogPreferences.status;
@@ -1745,12 +1791,17 @@ async function init() {
     const rememberedGroup = mode === "series"
       ? mobileCatalogPreferences.groupByEra?.[activeEra]
       : mobileCatalogPreferences.group;
+    const initialGroupValue =
+      requestedGroup &&
+      initialGroups.some((group) => group === requestedGroup)
+        ? requestedGroupValue
+        : rememberedGroup;
     if (
       initialGroups.some((group) =>
-        (group.code || group.name) === rememberedGroup,
+        (group.code || group.name) === initialGroupValue,
       )
     ) {
-      select.value = rememberedGroup;
+      select.value = initialGroupValue;
     }
     $("catalog-status")
       ?.querySelectorAll("button[data-status]")
