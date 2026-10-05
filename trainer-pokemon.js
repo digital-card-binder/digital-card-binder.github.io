@@ -409,7 +409,9 @@ async function init() {
       account.applyGroups(tpDataset.groups);
     }
     setSummary();
-    populateGroups();
+    const requestedGroup = new URLSearchParams(window.location.search).get("group") || "";
+    tpViewMode = "pokemon";
+    populateGroups(requestedGroup || TP_ALL_VALUE);
     controls();
     render();
   } catch (error) {
