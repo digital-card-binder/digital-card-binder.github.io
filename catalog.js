@@ -1403,6 +1403,12 @@ function openDialog(card) {
   updateDialog(card);
   fillSeriesEditor(card);
   ensureMobileCardSheetControls();
+  void window.DigitalCardBinder?.relatedDex?.render?.(dialog, card, {
+    currentCollectionId: mode,
+    currentGroupKey: selected?.code || selected?.name || "",
+    setCode: mode === "series" || mode === "ar" ? selected?.code || "" : "",
+    name: displayName(card),
+  });
 
   if (typeof dialog.showModal === "function") dialog.showModal();
   else dialog.setAttribute("open", "");
