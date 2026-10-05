@@ -67,3 +67,33 @@ test("search index remains one record per canonical series card", async () => {
   assert.match(searchBuilder, /\(group\?\.cards \|\| \[\]\)\.map\(\(card\) => compactCard\(card, group, metadata\)\)/);
   assert.doesNotMatch(searchBuilder, /printVariants/);
 });
+
+
+test("Diamond & Pearl official audit covers all 598 canonical cards", async () => {
+  const audit = JSON.parse(await read("data/audits/series-print-variant-audit-DP.json"));
+  const metadata = JSON.parse(await read("data/series-print-variants.json"));
+
+  assert.equal(audit.era, "DP");
+  assert.equal(audit.summary.configuredSetCount, 16);
+  assert.equal(audit.summary.resolvedProductCount, 16);
+  assert.equal(audit.summary.missingProductCount, 0);
+  assert.equal(audit.summary.rawRecordCount, 598);
+  assert.equal(audit.summary.parsedSlotCount, 598);
+  assert.equal(audit.summary.variantSlotCount, 0);
+  assert.deepEqual(audit.summary.variantCounts, {
+    holo: 0,
+    mirror: 0,
+    other: 0,
+  });
+
+  assert.equal(metadata.coverage.DP.configuredSetCount, 16);
+  assert.equal(metadata.coverage.DP.setCodes.length, 16);
+  assert.deepEqual(metadata.coverage.DP.partialSetCodes, []);
+  assert.equal(metadata.coverage.DP.variantSlotCount, 0);
+
+  for (const set of audit.sets) {
+    assert.equal(set.missingProducts.length, 0, set.code);
+    assert.equal(set.unresolvedRecordCount, 0, set.code);
+    assert.equal(set.parsedSlotCount, set.expectedSlotCount, set.code);
+  }
+});
