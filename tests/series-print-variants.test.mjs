@@ -142,3 +142,16 @@ test("Black & White official audit keeps shared products from becoming false var
     17,
   );
 });
+
+
+test("master DB audit reflects current BW variant coverage", async () => {
+  const master = JSON.parse(await read("data/master-card-db-audit.json"));
+  const bw = master.eras.BW.officialVariantAudit;
+
+  assert.equal(bw.status, "partial");
+  assert.equal(bw.verifiedSetCount, 17);
+  assert.equal(bw.pendingSetCount, 20);
+  assert.equal(bw.verifiedVariantSlotCount, 0);
+  assert.equal(bw.verifiedSetCodes.length, 17);
+  assert.equal(bw.pendingSetCodes.length, 20);
+});
