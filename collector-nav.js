@@ -13,11 +13,84 @@
   const CARD_SCANNER_JS_VERSION = "03f62e451e5f";
   const CARD_SCANNER_CSS_VERSION = "1f4470ec220e";
   const NAV_ACCORDION_STORAGE_KEY = "digitalCardBinderNavAccordionV1";
+  const RECENT_DEX_STORAGE_KEY = "digitalCardBinderRecentDexV1";
   const SITE_BUILD_CHECK_URL = "./site-version.json";
   const BUILD_CHECK_MIN_INTERVAL_MS = 15_000;
   const PUBLIC_PROJECTION_REPAIR_VERSION = "projection-50k-v1";
   const PUBLIC_PROJECTION_REPAIR_STORAGE_KEY = "digitalCardBinderPublicProjectionRepairV1";
   let lastBuildCheckAt = 0;
+
+  function recentDexPageHref() {
+    const page = window.location.pathname.split("/").pop() || "index.html";
+    if (!page || page === "index.html") return "";
+    const params = new URLSearchParams();
+    if (page === "series.html" && new URLSearchParams(window.location.search).get("scope") === "base") {
+      params.set("scope", "base");
+    }
+    const query = params.toString();
+    return `./${page}${query ? `?${query}` : ""}`;
+  }
+
+  function readRecentDex() {
+    try {
+      const raw = window.localStorage.getItem(RECENT_DEX_STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") return null;
+      if (!parsed.href || !parsed.title || !parsed.collectionId) return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  }
+
+  function rememberRecentDex(details = {}) {
+    if (window.CollectorPublicView?.requested) return null;
+
+    const collectionId =
+      String(details.collectionId || registry?.collectionIdForPage?.() || document.body?.dataset?.catalog || "").trim();
+    if (!collectionId) return null;
+
+    const meta = registry?.COLLECTIONS?.[collectionId] || {};
+    const title = String(details.title || meta.title || document.querySelector("h1")?.textContent || "도감").trim();
+    const detail = String(details.detail || "").trim();
+    const href = String(details.href || recentDexPageHref()).trim();
+    if (!title || !href || !href.startsWith("./")) return null;
+
+    const owned = Number(details.owned);
+    const total = Number(details.total);
+    const record = {
+      schemaVersion: 1,
+      collectionId,
+      title,
+      detail,
+      href,
+      unit: String(details.unit || meta.unit || "장").trim() || "장",
+      owned: Number.isFinite(owned) && owned >= 0 ? owned : null,
+      total: Number.isFinite(total) && total >= 0 ? total : null,
+      updatedAt: Date.now(),
+    };
+
+    try {
+      window.localStorage.setItem(RECENT_DEX_STORAGE_KEY, JSON.stringify(record));
+    } catch {
+      return null;
+    }
+    return record;
+  }
+
+  function rememberCurrentDexPage() {
+    const collectionId = String(registry?.collectionIdForPage?.() || document.body?.dataset?.catalog || "").trim();
+    if (!collectionId) return;
+    rememberRecentDex({ collectionId });
+  }
+
+  window.DigitalCardBinder = window.DigitalCardBinder || {};
+  window.DigitalCardBinder.recentDex = Object.freeze({
+    storageKey: RECENT_DEX_STORAGE_KEY,
+    read: readRecentDex,
+    remember: rememberRecentDex,
+  });
 
   async function refreshStaleShell({ force = false } = {}) {
     const now = Date.now();
@@ -725,6 +798,7 @@
   schedulePublicProjectionRepair();
   addCardLayoutToggle();
   addHeroActions();
+  rememberCurrentDexPage();
 
   const tradeEligiblePages = new Set([
     "national.html",
