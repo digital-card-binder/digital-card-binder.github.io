@@ -894,18 +894,24 @@ async function quickToggleCatalogCard(card, button) {
     alert("Google 로그인 후 빠른 수집 모드를 사용할 수 있습니다.");
     return;
   }
+  if (card.quickCollectSaving) return;
 
   const wasOwned = Boolean(card.owned);
-  await toggleCatalogCompletion(card, button);
+  card.quickCollectSaving = true;
+  try {
+    await toggleCatalogCompletion(card, button);
 
-  if (
-    !wasOwned &&
-    card.owned &&
-    mode === "series" &&
-    Array.isArray(card.verifiedPrintVariants) &&
-    card.verifiedPrintVariants.length
-  ) {
-    openQuickVariantPicker(card);
+    if (
+      !wasOwned &&
+      card.owned &&
+      mode === "series" &&
+      Array.isArray(card.verifiedPrintVariants) &&
+      card.verifiedPrintVariants.length
+    ) {
+      openQuickVariantPicker(card);
+    }
+  } finally {
+    card.quickCollectSaving = false;
   }
 }
 
