@@ -2163,3 +2163,28 @@ img {
   .ui-icon.ui-icon { border-color: ButtonText; color: ButtonText; }
   .ui-icon::before { forced-color-adjust: none; background: ButtonText; }
 }
+
+
+/* Binder bridge actions */
+.binder-bridge-actions {
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+}
+.binder-bridge-add {
+  width: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.binder-bridge-add .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+.binder-bridge-actions small {
+  color: var(--muted, #6d7882);
+  font-size: .72rem;
+  text-align: center;
+}
