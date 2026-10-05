@@ -2010,6 +2010,37 @@
       });
     }
 
+    const peoplePayload = await catalogService
+      .json("./data/people.json")
+      .catch(() => ({ people: [] }));
+    for (const person of peoplePayload?.people || []) {
+      for (const personCard of person.cards || []) {
+        const personFingerprint = cardFingerprint(
+          scannerSetCodeFromImage(
+            personCard.image ||
+              personCard.imageLarge ||
+              personCard.officialImageSource,
+          ),
+          personCard.number || personCard.cardNumber,
+        );
+        if (!personFingerprint || personFingerprint !== fingerprint) continue;
+        output.push({
+          id: "people:" + person.id,
+          collectionId: "people",
+          key: String(person.id),
+          title: registry.COLLECTIONS?.people?.title || "인물도감",
+          groupName:
+            clean(person.nameKo || person.nameEn || person.id) +
+            " · 이 카드를 대표카드로 등록",
+          mode: "people",
+          owned: false,
+          baselineOwned: false,
+          defaultSelected: false,
+        });
+        break;
+      }
+    }
+
     const pokemonName = clean(card.pokemonName || card.name);
     const pokemon = state.pokedex?.find((item) => item.nameKo === pokemonName);
     if (pokemon) {
@@ -2064,6 +2095,20 @@
         });
       });
     }
+
+    const currentCollection = currentScannerCollectionId();
+    output.sort((left, right) => {
+      const leftCurrent = left.collectionId === currentCollection ? 0 : 1;
+      const rightCurrent = right.collectionId === currentCollection ? 0 : 1;
+      if (leftCurrent !== rightCurrent) return leftCurrent - rightCurrent;
+      const leftOrder = MEMBERSHIP_ORDER.indexOf(left.collectionId);
+      const rightOrder = MEMBERSHIP_ORDER.indexOf(right.collectionId);
+      const orderDiff =
+        (leftOrder < 0 ? 99 : leftOrder) -
+        (rightOrder < 0 ? 99 : rightOrder);
+      if (orderDiff) return orderDiff;
+      return clean(left.groupName).localeCompare(clean(right.groupName), "ko");
+    });
 
     return output;
   }
