@@ -1,0 +1,66 @@
+name: Sync series artist metadata
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/artists.json'
+      - 'scripts/sync-series-artist-metadata.mjs'
+      - '.github/workflows/sync-series-artist-metadata.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-series-artist-metadata
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync verified artist metadata into series catalogs
+        run: node scripts/sync-series-artist-metadata.mjs
+
+      - name: Refresh series and master audits
+        run: |
+          node scripts/audit-series-inventory.mjs
+          node scripts/audit-master-card-db.mjs
+
+      - name: Verify affected contracts
+        run: |
+          node --test \
+            tests/master-card-db-audit.test.mjs \
+            tests/collector-registry.test.mjs \
+            tests/series-print-variants.test.mjs
+
+      - name: Commit synchronized metadata
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/series.json \
+            data/series-legacy.json \
+            data/audits/series-artist-metadata-sync.json \
+            data/series-inventory-audit.json \
+            data/master-card-db-audit.json
+          if git diff --cached --quiet; then
+            echo "No series artist metadata changes."
+            exit 0
+          fi
+          git commit -m "Sync verified artist metadata into series catalog"
+          git pull --rebase origin main
+          git push origin HEAD:main
