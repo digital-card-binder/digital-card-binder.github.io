@@ -44,6 +44,7 @@
   const artApplyButton = panel.querySelector("#studio-custom-art-apply");
   const slotClearButton = panel.querySelector("#studio-custom-slot-clear");
   const previewEmpty = panel.querySelector("#studio-custom-preview-empty");
+  const previewPanel = panel.querySelector(".studio-custom-preview-panel");
   const previewWrap = panel.querySelector("#studio-custom-preview-wrap");
   const previewStage = panel.querySelector("#studio-custom-preview-stage");
   const previewImage = panel.querySelector("#studio-custom-preview-image");
@@ -1839,6 +1840,7 @@
       window.alert("먼저 카드를 넣을 바인더 칸을 눌러 선택해 주세요.");
       return;
     }
+    panel.classList.add("is-search-open");
     searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
     searchInput.focus({ preventScroll: true });
     if (!state.catalogPromise && !state.catalog) {
@@ -2124,6 +2126,7 @@
 
   function toggleQuickAdvanced() {
     const open = panel.classList.toggle("is-advanced-open");
+    if (!open) panel.classList.remove("is-search-open");
     if (quickAdvancedButton) {
       quickAdvancedButton.setAttribute("aria-expanded", open ? "true" : "false");
       const label = quickAdvancedButton.querySelector("strong");
@@ -3228,7 +3231,17 @@
       window.alert("빈 슬롯이 없습니다. 교체할 슬롯 하나를 먼저 선택해 주세요.");
       return;
     }
-    replaceSlotWithCard(card, slotIndex);
+    const entry = replaceSlotWithCard(card, slotIndex);
+    if (!entry) return;
+    if (!panel.classList.contains("is-advanced-open")) {
+      panel.classList.remove("is-search-open");
+      if (window.matchMedia?.("(max-width: 690px)")?.matches && previewPanel) {
+        window.requestAnimationFrame(() => {
+          previewPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
+    updateQuickEditorUi(`${entry.card.name}을(를) ${slotIndex + 1}번 칸에 넣었습니다.`);
   }
 
   function rotateSelected(delta) {
@@ -4767,7 +4780,7 @@
 
   function resetEditor(clearUrl = true) {
     releasePageObjectUrls();
-    panel.classList.remove("is-advanced-open");
+    panel.classList.remove("is-advanced-open", "is-search-open");
     if (quickAdvancedButton) {
       quickAdvancedButton.setAttribute("aria-expanded", "false");
       const label = quickAdvancedButton.querySelector("strong");
