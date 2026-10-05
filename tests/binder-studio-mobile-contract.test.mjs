@@ -43,3 +43,44 @@ test("binder studio keeps the simplified version picker and cross-page drag cont
   assert.match(css, /\.studio-custom-page-chip\.is-drag-page-target/);
   assert.ok(Object.keys(variants.slots || {}).length >= 400);
 });
+
+
+test("mobile simple mode puts the binder itself before secondary controls", async () => {
+  const html = await read("studio.html");
+  const css = await read("studio.css");
+
+  assert.match(html, /class="studio-preview-panel studio-custom-preview-panel"/);
+  assert.match(
+    css,
+    /@media \(max-width: 690px\)[\s\S]*?studio-custom-workspace:not\(\.is-advanced-open\) \.studio-custom-preview-panel\s*\{[\s\S]*?order:\s*-1/,
+  );
+  assert.match(
+    css,
+    /studio-custom-workspace:not\(\.is-advanced-open\) \.studio-custom-library-panel\s*\{[\s\S]*?display:\s*none/,
+  );
+  assert.match(css, /칸을 눌러 편집 · 카드는 드래그해서 이동/);
+});
+
+test("simple card search stays hidden until the Card Search quick action is used", async () => {
+  const html = await read("studio.html");
+  const css = await read("studio.css");
+  const js = await read("studio-custom.js");
+
+  assert.match(html, /studio-control-card studio-custom-card-search-card/);
+  assert.match(
+    css,
+    /studio-custom-workspace:not\(\.is-advanced-open\):not\(\.is-search-open\) \.studio-custom-card-search-card/,
+  );
+  assert.match(js, /panel\.classList\.add\("is-search-open"\)/);
+  assert.match(js, /panel\.classList\.remove\("is-search-open"\)/);
+  assert.match(js, /previewPanel\.scrollIntoView\(\{ behavior: "smooth", block: "start" \}\)/);
+});
+
+test("mobile simple save card hides secondary account controls", async () => {
+  const css = await read("studio.css");
+
+  assert.match(css, /studio-custom-save-card #studio-custom-linked-dex/);
+  assert.match(css, /studio-custom-save-card #studio-custom-new-button/);
+  assert.match(css, /studio-custom-save-card #studio-custom-delete-button/);
+  assert.match(css, /studio-custom-save-card \.studio-custom-visibility-note/);
+});
