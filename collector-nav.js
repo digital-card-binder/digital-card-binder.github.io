@@ -23,12 +23,11 @@
   function recentDexPageHref() {
     const page = window.location.pathname.split("/").pop() || "index.html";
     if (!page || page === "index.html") return "";
-    const params = new URLSearchParams();
-    if (page === "series.html" && new URLSearchParams(window.location.search).get("scope") === "base") {
-      params.set("scope", "base");
-    }
-    const query = params.toString();
-    return `./${page}${query ? `?${query}` : ""}`;
+    const search = String(window.location?.search || "");
+    const baseScope =
+      page === "series.html" &&
+      /(?:^|[?&])scope=base(?:&|$)/.test(search);
+    return `./${page}${baseScope ? "?scope=base" : ""}`;
   }
 
   function readRecentDex() {
