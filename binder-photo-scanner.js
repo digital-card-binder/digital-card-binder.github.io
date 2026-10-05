@@ -793,8 +793,7 @@
           finish({
             canvas: corrected,
             mode: "perspective",
-            confidence,
-            grid,
+            confidence, grid,
             slotCrops,
             cropMode: latestLayout ? "pocket-adaptive" : "card-safe",
           });
