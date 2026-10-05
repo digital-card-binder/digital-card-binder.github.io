@@ -3708,3 +3708,74 @@ body[data-page="binder-studio"] {
     min-height: 46px;
   }
 }
+
+
+/* 2026-10-05 Binder Simple Mobile Pass */
+.studio-custom-workspace:not(.is-advanced-open):not(.is-search-open) .studio-custom-card-search-card {
+  display: none !important;
+}
+
+.studio-custom-workspace:not(.is-advanced-open) .studio-step-heading small {
+  display: none;
+}
+
+.studio-custom-workspace:not(.is-advanced-open) .studio-custom-preview-help::after {
+  content: "칸을 눌러 편집 · 카드는 드래그해서 이동";
+}
+
+@media (max-width: 690px) {
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-preview-panel {
+    order: -1;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-controls {
+    order: 1;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-library-panel {
+    display: none !important;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-preview-heading .studio-kicker {
+    display: none;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-preview-heading h2 {
+    font-size: .82rem;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-preview-wrap {
+    margin-top: 10px;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-quick-editor-copy strong {
+    display: none;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-quick-editor-copy span {
+    margin-top: 0;
+    font-size: .6rem;
+    font-weight: 700;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card #studio-custom-linked-dex,
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card #studio-custom-linked-dex-status,
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card .studio-custom-visibility-note,
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card #studio-custom-new-button,
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card #studio-custom-delete-button,
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card label:has(#studio-custom-linked-dex) {
+    display: none !important;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card {
+    padding: 11px 12px;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-save-card .studio-step-heading {
+    margin-bottom: 2px;
+  }
+
+  .studio-custom-workspace:not(.is-advanced-open) .studio-custom-card-search-card {
+    scroll-margin-top: 118px;
+  }
+}
