@@ -3436,6 +3436,43 @@ body[data-page="binder-studio"] {
     inset -22px 0 0 rgba(42, 126, 142, .16),
     0 10px 24px rgba(34, 47, 59, .08);
 }
+
+/* Cross-page direct drag: keep the card under the finger while pages change. */
+.studio-custom-card-placement.is-drag-source {
+  opacity: .18;
+}
+
+.studio-custom-drag-ghost {
+  position: fixed !important;
+  z-index: 2147483000 !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  touch-action: none !important;
+  opacity: .96 !important;
+  scale: 1.035;
+  filter: drop-shadow(0 10px 18px rgba(15, 27, 42, .30));
+}
+
+.studio-custom-preview-stage.is-card-drag-active .studio-custom-slot-layer {
+  z-index: 6;
+  pointer-events: none !important;
+}
+
+.studio-custom-preview-stage.is-card-drag-active .studio-custom-slot {
+  box-shadow: inset 0 0 0 1px rgba(55, 91, 116, .18);
+}
+
+.studio-custom-preview-stage.is-card-drag-active .studio-custom-slot.is-drag-slot-target {
+  box-shadow:
+    inset 0 0 0 3px #50cbd5,
+    inset 0 0 0 5px rgba(10, 55, 79, .42);
+}
+
+.studio-custom-preview-stage.is-card-drag-active .studio-custom-slot.is-drag-slot-swap {
+  box-shadow:
+    inset 0 0 0 3px #2f8290,
+    inset 0 0 0 6px rgba(47, 130, 144, .22);
+}
 @media (max-width: 690px) {
   .studio-variant-dialog {
     width: calc(100vw - 12px);
