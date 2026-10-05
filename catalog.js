@@ -73,7 +73,7 @@ let mobileCatalogPreferences = {};
 let seriesPrintVariantMetadata = { coverage: {}, slots: {} };
 let quickCollectMode = false;
 let quickVariantCard = null;
-const QUICK_COLLECT_STORAGE_KEY = `pokemonDexQuickCollectV1:${mode}`;
+const QUICK_COLLECT_STORAGE_KEY = "pokemonDexQuickCollectV1";
 
 const SERIES_PRINT_VARIANTS = Object.freeze([
   { id: "normal", label: "기본" },
