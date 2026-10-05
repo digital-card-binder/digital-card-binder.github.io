@@ -3465,3 +3465,73 @@ body[data-page="binder-studio"] {
     font-size: .52rem;
   }
 }
+
+
+/* 2026-10-05 Binder Mobile Usability Pass */
+.studio-custom-workspace:not(.is-advanced-open) .studio-custom-slot-layer {
+  pointer-events: auto;
+}
+
+.studio-custom-workspace:not(.is-advanced-open) .studio-custom-slot {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.studio-custom-card-placement,
+.studio-custom-page-toolbar button,
+.studio-custom-page-chip,
+.studio-quick-actions > button,
+.studio-quick-action,
+.studio-variant-option {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 690px) {
+  .studio-custom-page-toolbar {
+    grid-template-columns: 44px minmax(58px, auto) 44px minmax(104px, 1fr);
+    gap: 6px;
+  }
+
+  .studio-custom-page-toolbar button,
+  .studio-custom-page-chip {
+    min-height: 44px;
+  }
+
+  .studio-custom-page-chip {
+    flex-basis: 44px;
+    min-width: 44px;
+  }
+
+  .studio-custom-page-list {
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+
+  .studio-custom-page-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .studio-custom-page-chip {
+    scroll-snap-align: center;
+  }
+
+  .studio-custom-preview-wrap {
+    scroll-padding-inline: 10px;
+  }
+
+  .studio-variant-head #studio-variant-close {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .studio-variant-option {
+    min-height: 82px;
+  }
+
+  .studio-quick-actions > button,
+  .studio-quick-action {
+    min-height: 54px;
+  }
+}
