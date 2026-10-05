@@ -84,3 +84,20 @@ test("mobile simple save card hides secondary account controls", async () => {
   assert.match(css, /studio-custom-save-card #studio-custom-delete-button/);
   assert.match(css, /studio-custom-save-card \.studio-custom-visibility-note/);
 });
+
+
+test("quick slot photos are center-cropped to the physical card ratio", async () => {
+  const js = await read("studio-custom.js");
+
+  assert.match(js, /function centeredCardCrop\(width, height, targetAspect = CARD_WIDTH_MM \/ CARD_HEIGHT_MM\)/);
+  assert.match(js, /targetAspect \/ sourceAspect/);
+  assert.match(js, /sourceAspect \/ targetAspect/);
+  assert.match(
+    js,
+    /crop: centeredCardCrop\(image\.naturalWidth, image\.naturalHeight\)/,
+  );
+  assert.doesNotMatch(
+    js,
+    /loadQuickSlotPhoto[\s\S]*?crop: \{ x: 0, y: 0, width: 1, height: 1 \}/,
+  );
+});
