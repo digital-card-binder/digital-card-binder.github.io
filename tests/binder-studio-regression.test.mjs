@@ -37,7 +37,7 @@ test("Binder Studio keeps schema-v2 multi-page persistence and public binder ref
   assert.match(js, /async function saveCurrentBinder\(/);
   assert.match(js, /async function loadSavedBinder\(/);
   assert.match(js, /async function publishCurrentBinder\(/);
-  assert.match(js, /async function unpublishCurrentBinder\(/);
+  assert.match(js, /async function removePublicBinderProjection\(/);
 });
 
 test("Binder Studio keeps scan, slot editing, variant picking and dex bridge together", async () => {
