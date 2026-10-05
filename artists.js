@@ -45,7 +45,8 @@ function populateArtists(){
     option.textContent=`${artist.name} · ${artist.cards.length}장`;
     select.append(option);
   });
-  selectedArtist=artists[0];
+  const requestedArtist=new URLSearchParams(window.location.search).get("artist")||"";
+  selectedArtist=artists.find(artist=>artist.name===requestedArtist)||artists[0];
   select.value=selectedArtist.name;
   select.addEventListener("change",()=>{
     selectedArtist=dataset.artists.find(artist=>artist.name===select.value)??dataset.artists[0];
