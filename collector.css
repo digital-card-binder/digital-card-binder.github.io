@@ -3325,3 +3325,254 @@ body.collector-simple-dex .art-theme-sources {
     margin-top: 24px;
   }
 }
+
+
+/* Simple dex cards: image first, number + name only */
+body.collector-simple-dex .pokemon-card,
+body.collector-simple-dex .pack-card,
+body.collector-simple-dex .art-theme-card {
+  position: relative;
+}
+
+body.collector-simple-dex .pokemon-card-button,
+body.collector-simple-dex .fossil-card-button {
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+body.collector-simple-dex .pokemon-card-button:hover,
+body.collector-simple-dex .fossil-card-button:hover {
+  transform: none;
+  box-shadow: 0 7px 18px rgba(25, 32, 57, .08);
+}
+
+body.collector-simple-dex .pokemon-card .card-image-wrap {
+  aspect-ratio: 63 / 88;
+  padding: 5px;
+}
+
+body.collector-simple-dex .pokemon-card .missing-overlay {
+  display: none !important;
+}
+
+body.collector-simple-dex .pokemon-card .card-body {
+  min-height: 62px;
+  padding: 8px 9px 9px;
+}
+
+body.collector-simple-dex .pokemon-card.has-completion-action .card-body,
+body.collector-simple-dex.shared-readonly-view .pokemon-card.has-completion-action .card-body {
+  padding-bottom: 9px;
+}
+
+body.collector-simple-dex .pokemon-card .card-topline {
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+body.collector-simple-dex .pokemon-card .card-topline .status-badge,
+body.collector-simple-dex .pokemon-card .card-name-en,
+body.collector-simple-dex .pokemon-card .card-meta,
+body.collector-simple-dex .people-card-role,
+body.collector-simple-dex .people-card-status {
+  display: none !important;
+}
+
+body.collector-simple-dex .pokemon-card .number-badge {
+  max-width: 100%;
+  overflow: hidden;
+  color: #778295;
+  font-size: .55rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.collector-simple-dex .pokemon-card .card-name-ko {
+  margin-top: 5px;
+  font-size: .76rem;
+  line-height: 1.25;
+}
+
+body.collector-simple-dex .collection-complete-button,
+body.collector-simple-dex .fossil-complete-button,
+body.collector-simple-dex .art-theme-owned-button {
+  position: absolute;
+  z-index: 6;
+  top: 7px;
+  right: 7px;
+  bottom: auto;
+  left: auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  min-height: 34px;
+  margin: 0;
+  border: 1px solid rgba(23, 35, 63, .14);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .95);
+  color: #536078;
+  font-size: 0;
+  padding: 0;
+  box-shadow: 0 3px 10px rgba(23, 35, 63, .11);
+  backdrop-filter: blur(8px);
+}
+
+body.collector-simple-dex .collection-complete-button::before,
+body.collector-simple-dex .fossil-complete-button::before,
+body.collector-simple-dex .art-theme-owned-button::before {
+  content: "+";
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+body.collector-simple-dex .collection-complete-button.is-complete::before,
+body.collector-simple-dex .fossil-complete-button.is-complete::before,
+body.collector-simple-dex .art-theme-owned-button.is-owned::before {
+  content: "✓";
+  font-size: .92rem;
+}
+
+body.collector-simple-dex .collection-complete-button.is-complete,
+body.collector-simple-dex .fossil-complete-button.is-complete,
+body.collector-simple-dex .art-theme-owned-button.is-owned {
+  border-color: rgba(19, 121, 91, .24);
+  background: rgba(233, 248, 242, .96);
+  color: #13795b;
+}
+
+body.collector-simple-dex .collection-complete-button:disabled::before,
+body.collector-simple-dex .fossil-complete-button:disabled::before,
+body.collector-simple-dex .art-theme-owned-button:disabled::before {
+  content: "…";
+}
+
+body.collector-simple-dex .pack-card.has-completion-action .pack-card-body {
+  padding-bottom: 12px;
+}
+
+body.collector-simple-dex .pack-card-body {
+  padding: 9px 10px 11px;
+}
+
+body.collector-simple-dex .pack-card-top {
+  justify-content: flex-start;
+  margin-bottom: 4px;
+}
+
+body.collector-simple-dex .pack-status {
+  display: none !important;
+}
+
+body.collector-simple-dex .pack-code {
+  color: #778295;
+  font-size: .58rem;
+}
+
+body.collector-simple-dex .pack-name {
+  overflow: hidden;
+  font-size: .78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.collector-simple-dex .art-theme-card {
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+body.collector-simple-dex .art-theme-card-image::after {
+  display: none;
+}
+
+body.collector-simple-dex .art-theme-card-body {
+  gap: 4px;
+  padding: 8px 9px 9px;
+}
+
+body.collector-simple-dex .art-theme-card-badges {
+  justify-content: flex-start;
+}
+
+body.collector-simple-dex .art-theme-card-badges .is-rarity,
+body.collector-simple-dex .art-theme-card-meta,
+body.collector-simple-dex .art-theme-card-scene {
+  display: none !important;
+}
+
+body.collector-simple-dex .art-theme-card-badges span {
+  max-width: 100%;
+  background: transparent;
+  color: #778295;
+  font-size: .54rem;
+  padding: 0;
+}
+
+body.collector-simple-dex .art-theme-card h3 {
+  overflow: hidden;
+  font-size: .76rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 690px) {
+  body.collector-simple-dex .pokemon-card .card-image-wrap {
+    padding: 3px;
+  }
+
+  body.collector-simple-dex .pokemon-card .card-body {
+    min-height: 52px;
+    padding: 6px 7px 7px;
+  }
+
+  body.collector-simple-dex .pokemon-card.has-completion-action .card-body,
+  body.collector-simple-dex.shared-readonly-view .pokemon-card.has-completion-action .card-body {
+    padding-bottom: 7px;
+  }
+
+  body.collector-simple-dex .pokemon-card .number-badge {
+    font-size: .48rem;
+  }
+
+  body.collector-simple-dex .pokemon-card .card-name-ko {
+    margin-top: 4px;
+    font-size: .66rem;
+  }
+
+  body.collector-simple-dex .collection-complete-button,
+  body.collector-simple-dex .fossil-complete-button,
+  body.collector-simple-dex .art-theme-owned-button {
+    top: 5px;
+    right: 5px;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+  }
+
+  body.collector-simple-dex .pack-card-body {
+    padding: 7px 8px 8px;
+  }
+
+  body.collector-simple-dex .pack-code {
+    font-size: .5rem;
+  }
+
+  body.collector-simple-dex .pack-name {
+    font-size: .68rem;
+  }
+
+  body.collector-simple-dex .art-theme-card-body {
+    padding: 6px 7px 7px;
+  }
+
+  body.collector-simple-dex .art-theme-card-badges span {
+    font-size: .47rem;
+  }
+
+  body.collector-simple-dex .art-theme-card h3 {
+    font-size: .66rem;
+  }
+}
