@@ -232,7 +232,11 @@ test("dashboard and news page expose a quiet latest-news flow", async () => {
   assert.match(newsCss, /@media \(max-width: 690px\)/);
 
   assert.ok(newsData.items.length >= 10, "major update history should be populated");
-  assert.equal(newsData.items[0].id, "site-major-updates-20261003");
+  assert.equal(newsData.items[0].id, "theme-dex-expansion-20261005");
+  assert.ok(
+    newsData.items.some((item) => item.id === "site-major-updates-20261003"),
+    "the 03OCT major update entry should remain in history",
+  );
   assert.ok(newsData.items.every((item) => item.category === "업데이트" || item.category === "공지"));
   const serialized = JSON.stringify(newsData);
   assert.equal(serialized.includes("pokemon-dogam"), false);
