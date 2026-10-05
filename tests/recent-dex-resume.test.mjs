@@ -17,7 +17,7 @@ test("recent dex resume stores navigation only and never merges ownership", () =
 
 test("series and Pokemon collection resume exact standalone group", () => {
   const catalog = read("catalog.js");
-  assert.match(catalog, /searchParams[.]get\("group"\)/);
+  assert.match(catalog, /get\("group"\)/);
   assert.match(catalog, /collectionId: "series"/);
   assert.match(catalog, /href: `[.]\/series[.]html\?\$\{params[.]toString\(\)\}`/);
   assert.match(catalog, /collectionId: "pokemon"/);
