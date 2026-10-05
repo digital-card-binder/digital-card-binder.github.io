@@ -17,6 +17,21 @@
     "artist",
     "trainerPokemon",
     "fossil",
+    "world",
+    "artThemes",
+  ];
+  const MEMBERSHIP_ORDER = [
+    "series",
+    "ar",
+    "pokemon",
+    "artist",
+    "people",
+    "trainerPokemon",
+    "fossil",
+    "world",
+    "artThemes",
+    "national",
+    "custom",
   ];
 
   const state = {
@@ -77,6 +92,34 @@
     const set = normalizeSetCode(setCode);
     const parsed = parseCardNumber(cardNumber);
     return set && parsed.numerator ? set + "::" + parsed.numerator : "";
+  }
+
+  function scannerSetCodeFromImage(imageUrl) {
+    const value = clean(imageUrl).split(/[?#]/, 1)[0];
+    if (!value) return "";
+    const match = value.match(
+      /\/wmimages\/(?:SV|SM|S|MEGA|M|XY|BW|DP|ADV)\/([^/]+)\/([^/]+)$/i,
+    );
+    if (!match) return "";
+    const folder = clean(match[1]);
+    const filename = clean(match[2]);
+    const fileSet = filename.match(/^([^_]+)_\d+/i)?.[1] || "";
+    if (
+      fileSet &&
+      folder &&
+      fileSet.toLowerCase().startsWith(folder.toLowerCase())
+    ) {
+      return fileSet;
+    }
+    return folder || fileSet;
+  }
+
+  function currentScannerCollectionId() {
+    return clean(
+      registry?.collectionIdForPage?.() ||
+        document.body?.dataset?.catalog ||
+        "",
+    );
   }
 
   function decodeImage(value, imageBase) {
@@ -1833,12 +1876,35 @@
       return cardFingerprint(set, number);
     }
     if (collectionId === "artist") {
-      return cardFingerprint(card?.set, card?.cardNumber);
-    }
-    if (collectionId === "trainerPokemon" || collectionId === "fossil") {
       return cardFingerprint(
-        card?.set || group?.set || group?.code,
+        card?.set || scannerSetCodeFromImage(card?.image || card?.originalImage),
         card?.cardNumber || card?.code || card?.meta,
+      );
+    }
+    if (
+      collectionId === "trainerPokemon" ||
+      collectionId === "fossil" ||
+      collectionId === "artThemes"
+    ) {
+      return cardFingerprint(
+        card?.set ||
+          group?.set ||
+          group?.code ||
+          scannerSetCodeFromImage(card?.image || card?.originalImage),
+        card?.cardNumber || card?.code || card?.meta,
+      );
+    }
+    if (collectionId === "world") {
+      const source = card?.slot?.card || card;
+      return cardFingerprint(
+        source?.setCode ||
+          source?.set ||
+          scannerSetCodeFromImage(source?.image || card?.image),
+        source?.cardNumber ||
+          source?.number ||
+          source?.code ||
+          source?.meta ||
+          card?.code,
       );
     }
     return "";
@@ -1862,6 +1928,10 @@
       groups = (await catalogService.json("./data/trainer-pokemon.json"))?.groups || [];
     } else if (collectionId === "fossil") {
       groups = (await catalogService.json("./data/fossil.json"))?.groups || [];
+    } else if (collectionId === "world") {
+      groups = await catalogService.worldGroups();
+    } else if (collectionId === "artThemes") {
+      groups = (await catalogService.json("./data/art-themes.json"))?.groups || [];
     }
     state.membershipCatalogs.set(collectionId, groups);
     return groups;
@@ -1889,7 +1959,7 @@
         mode: "fixed",
         owned: false,
         baselineOwned: Boolean(card.baselineOwned),
-        defaultSelected: true,
+        defaultSelected: false,
       });
     } else {
       const groups = await groupsForCollection("series");
@@ -1906,7 +1976,7 @@
             mode: "fixed",
             owned: false,
             baselineOwned: Boolean(candidate.owned),
-            defaultSelected: true,
+            defaultSelected: false,
           });
         });
       });
