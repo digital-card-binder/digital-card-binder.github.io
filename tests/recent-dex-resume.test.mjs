@@ -32,13 +32,31 @@ test("theme resume preserves the selected independent theme", () => {
   assert.match(themes, /rememberCurrentTheme\(\)/);
 });
 
-test("home exposes one compact resume entry", () => {
+test("home exposes compact search scan and resume actions", () => {
   const html = read("index.html");
   const dashboard = read("dashboard.js");
   const css = read("home-preview.css");
-  assert.match(html, /id="home-resume-section"/);
-  assert.match(html, /id="home-resume-card"/);
+
+  assert.match(html, /class="home-primary-actions"/);
+  assert.match(html, /id="home-scan-action"/);
+  assert.match(html, /id="home-continue-action"/);
+  assert.doesNotMatch(html, /id="home-resume-section"/);
   assert.match(dashboard, /function renderRecentDex\(\)/);
   assert.match(dashboard, /recentDex[?][.]read[?][.]\(\)/);
-  assert.match(css, /[.]home-resume-card/);
+  assert.match(dashboard, /function initializeHomePrimaryActions\(\)/);
+  assert.match(dashboard, /#card-scan-fab/);
+  assert.match(css, /[.]home-primary-actions/);
+  assert.match(css, /[.]home-primary-action/);
+});
+
+test("mobile home prioritizes actions over decorative card fan", () => {
+  const css = read("home-preview.css");
+  assert.match(
+    css,
+    /@media \(max-width: 690px\)[\s\S]*?[.]home-card-fan\s*\{[\s\S]*?display:\s*none/,
+  );
+  assert.match(
+    css,
+    /@media \(max-width: 690px\)[\s\S]*?[.]home-primary-actions[\s\S]*?repeat\(3/,
+  );
 });
