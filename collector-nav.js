@@ -1459,7 +1459,7 @@
   }
 
   function addHeroActions() {
-    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "trades", "pokemon-search", "health", "operations", "news"].includes(document.body.dataset.page)) {
+    if (["collector-settings", "collector-directory", "collector-public", "custom-dex", "pokemon-search", "health", "operations", "news"].includes(document.body.dataset.page)) {
       return;
     }
     const heroContent = document.querySelector(".hero .hero-content");
