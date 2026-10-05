@@ -91,6 +91,7 @@
   function openDialog(card) {
     activeCard = card;
     const group = currentGroup();
+    const dialog = el("art-theme-dialog");
     el("art-theme-dialog-image").src = repairedImage(card.image);
     el("art-theme-dialog-image").alt = card.name || "카드 이미지";
     el("art-theme-dialog-number").textContent = card.cardNumber || card.code || "";
@@ -103,7 +104,14 @@
     el("art-theme-dialog-rarity").textContent = card.rarity || "—";
     el("art-theme-dialog-category").textContent = card.category || "—";
     el("art-theme-dialog-evidence").textContent = card.evidence || "—";
-    el("art-theme-dialog").showModal();
+    void window.DigitalCardBinder?.relatedDex?.render?.(dialog, card, {
+      currentCollectionId: "artThemes",
+      currentGroupKey: group?.code || "",
+      setCode: card.set || "",
+      cardNumber: card.cardNumber || card.code || "",
+      name: card.name,
+    });
+    dialog.showModal();
   }
 
   function renderCards() {
