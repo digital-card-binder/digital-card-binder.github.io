@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-05",
+  "set": {
+    "code": "M6a",
+    "name": "30th CELEBRATION",
+    "canonicalCardCount": 176
+  },
+  "results": {
+    "series": {
+      "status": "complete",
+      "cardCount": 176
+    },
+    "pokemonCollections": {
+      "status": "complete",
+      "cardSlots": 48,
+      "rule": "현재 67개 포켓몬 컬렉션 그룹과 M6a 카드명을 교차검증"
+    },
+    "ar": {
+      "status": "complete",
+      "cardSlots": 20,
+      "range": "104-123"
+    },
+    "artist": {
+      "status": "complete-within-approved-40-artists",
+      "cardSlots": 35,
+      "note": "승인된 40명 작가 도감 범위 기준. M6a 원본 illustrator 메타데이터가 추가되면 재검수한다."
+    },
+    "artThemes": {
+      "status": "complete-for-verified-evidence",
+      "cardSlots": 21,
+      "uniqueCards": 16,
+      "groups": {
+        "sleeping": 8,
+        "connected": 6,
+        "night": 3,
+        "season": 2,
+        "street": 2
+      }
+    },
+    "people": {
+      "status": "no-exhaustive-add-required",
+      "note": "인물도감은 인물당 대표 한국판 카드 1장을 쓰는 구조라 M6a 신규 카드 전체를 누적하지 않는다."
+    },
+    "trainerPokemon": {
+      "status": "reviewed-no-confirmed-addition",
+      "cardSlots": 0,
+      "note": "사람과 포켓몬이 함께 그려진 카드만 수록하는 기존 실물 이미지 판독 규칙을 유지한다."
+    },
+    "fossil": {
+      "status": "reviewed-no-membership",
+      "cardSlots": 0
+    },
+    "world": {
+      "status": "no-exhaustive-add-required",
+      "note": "월드탐험도감은 세트 전수 파생이 아닌 고정 장소·인물·포켓몬 슬롯 큐레이션이다."
+    }
+  },
+  "safeguards": [
+    "M6a 176장 기준 수가 바뀌면 감사가 실패한다.",
+    "포켓몬 컬렉션 M6a 48슬롯 중 하나라도 빠지거나 잘못 추가되면 감사가 실패한다.",
+    "AR 104-123 20장 범위가 달라지면 감사가 실패한다.",
+    "승인 작가 범위의 M6a 35장 또는 검증된 테마 21슬롯이 달라지면 재검수를 요구한다."
+  ]
+}
