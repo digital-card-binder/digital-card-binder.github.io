@@ -675,7 +675,17 @@
   function openCardDialog(slot) {
     state.activeItem = slot;
     populateCardDialog(slot);
-    el("world-card-dialog")?.showModal();
+    const dialog = el("world-card-dialog");
+    const item = resolvedSlot(slot);
+    void window.DigitalCardBinder?.relatedDex?.render?.(dialog, item, {
+      currentCollectionId: "world",
+      currentGroupKey: String(state.generation || ""),
+      setCode: item.setCode || inferSetCodeFromImage(item.image),
+      cardNumber: item.number || "",
+      image: item.image || "",
+      name: item.cardName || slot.title,
+    });
+    dialog?.showModal();
   }
 
   async function applyCardOverride() {
