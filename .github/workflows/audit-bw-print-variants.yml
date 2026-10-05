@@ -80,9 +80,12 @@ jobs:
       - name: Merge verified variant images
         run: node scripts/merge-series-print-variant-images.mjs data/audits/series-print-variant-audit-BW.json
 
+      - name: Sync master DB audit
+        run: node scripts/audit-master-card-db.mjs
+
       - name: Commit BW audit results
         run: |
-          if [ -z "$(git status --porcelain -- data/audits/series-print-variant-audit-BW.json data/series-print-variants.json data/series-print-variant-images.json)" ]; then
+          if [ -z "$(git status --porcelain -- data/audits/series-print-variant-audit-BW.json data/series-print-variants.json data/series-print-variant-images.json data/master-card-db-audit.json)" ]; then
             echo "No BW audit changes."
             exit 0
           fi
@@ -91,7 +94,8 @@ jobs:
           git add \
             data/audits/series-print-variant-audit-BW.json \
             data/series-print-variants.json \
-            data/series-print-variant-images.json
+            data/series-print-variant-images.json \
+            data/master-card-db-audit.json
           git commit -m "Add verified BW print variant data"
           git pull --rebase origin main
           git push
