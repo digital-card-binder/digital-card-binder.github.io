@@ -907,6 +907,13 @@
       button.addEventListener("click", () => void switchPage(page.id));
       return button;
     }));
+    const activeChip = [...pageList.querySelectorAll(".studio-custom-page-chip")]
+      .find((button) => button.dataset.pageId === state.currentPageId);
+    if (activeChip) {
+      window.requestAnimationFrame(() => {
+        activeChip.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      });
+    }
   }
 
   async function hydratePageBackground(page) {
