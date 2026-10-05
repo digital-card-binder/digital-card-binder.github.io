@@ -129,3 +129,118 @@
 .theme-card-symbol{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#17233f,#31436d);color:#fff;font-size:20px;font-weight:900;box-shadow:0 8px 18px rgba(23,35,63,.14)}
 .theme-card--art{background:linear-gradient(145deg,rgba(255,255,255,.99),rgba(246,244,255,.96))}
 .theme-card--art .theme-card-badge{background:rgba(123,95,214,.1);color:#654fb3}
+
+
+/* Mobile compact theme hub 2026-10-05 */
+@media (max-width: 620px) {
+  .theme-hero {
+    border-radius: 18px;
+    padding: 20px 18px;
+  }
+
+  .theme-hero .hero-content {
+    min-height: 0;
+  }
+
+  .theme-hero h1 {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.1;
+  }
+
+  .theme-hero .hero-description {
+    display: none;
+  }
+
+  .theme-grid-section {
+    margin-top: 16px;
+  }
+
+  .theme-grid-heading {
+    margin-bottom: 10px;
+  }
+
+  .theme-grid-heading h2 {
+    margin: 0;
+    font-size: 1.08rem;
+  }
+
+  .theme-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .theme-card {
+    display: flex;
+    min-width: 0;
+    min-height: 118px;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 11px;
+    box-shadow: 0 7px 18px rgba(26, 40, 73, 0.06);
+  }
+
+  .theme-card-top {
+    gap: 6px;
+  }
+
+  .theme-card-icon,
+  .theme-card-symbol {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 10px;
+    font-size: 15px;
+    box-shadow: none;
+  }
+
+  .theme-card-badge {
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    padding: 4px 6px;
+    font-size: 8px;
+    letter-spacing: 0.035em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .theme-card h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    min-height: 2.45em;
+    margin: 10px 0 0;
+    font-size: 0.82rem;
+    line-height: 1.22;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .theme-card p {
+    display: none;
+  }
+
+  .theme-card-footer {
+    margin-top: auto;
+    padding-top: 8px;
+    font-size: 0.52rem;
+  }
+
+  .theme-card-footer > span:first-child {
+    font-size: 0;
+  }
+
+  .theme-card-footer > span:first-child::after {
+    content: "열기";
+    font-size: 0.52rem;
+  }
+
+  .theme-card-arrow {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .theme-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
