@@ -1,125 +1,97 @@
-name: Audit series print variants
+name: Audit legacy series print variants
 
 on:
   push:
-    branches:
-      - feature/series-print-variant-audit-20260928
+    branches: [main]
     paths:
-      - scripts/audit-series-print-variants.py
-      - scripts/build_legacy_series_data.py
-      - .github/workflows/audit-series-print-variants.yml
+      - 'scripts/audit-series-print-variants.py'
+      - 'scripts/merge-series-print-variant-audit.mjs'
+      - 'scripts/audit-series-canonical-slots.mjs'
+      - 'scripts/audit-master-card-db.mjs'
+      - '.github/workflows/audit-series-print-variants.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: legacy-series-print-variant-audit
+  cancel-in-progress: true
+
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Audit Sword & Shield print variants
-        run: python3 scripts/audit-series-print-variants.py --era S --workers 4 --output series-print-variant-audit-s.json
-      - name: Audit Sun & Moon print variants
-        run: python3 scripts/audit-series-print-variants.py --era SM --workers 4 --output series-print-variant-audit-sm.json
-      - name: Build compact site metadata
-        run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
 
-          paths = [
-              Path("series-print-variant-audit-s.json"),
-              Path("series-print-variant-audit-sm.json"),
-          ]
-          coverage = {}
-          slots = {}
-
-          for path in paths:
-              audit = json.loads(path.read_text(encoding="utf-8"))
-              era = audit["era"]
-              set_codes = []
-              partial_set_codes = []
-              for group in audit["sets"]:
-                  if group["missingProducts"]:
-                      partial_set_codes.append(group["code"])
-                  else:
-                      set_codes.append(group["code"])
-                  group_key = group["code"].casefold()
-                  for slot in group["variantSlots"]:
-                      printed = str(slot["printedNumber"]).strip()
-                      if printed.isdigit():
-                          printed = str(int(printed))
-                      else:
-                          printed = printed.casefold()
-                      key = "::".join(
-                          [
-                              group_key,
-                              str(slot["actualSetCode"]).casefold(),
-                              printed,
-                          ]
-                      )
-                      extras = [
-                          value
-                          for value in slot["availablePrintVariants"]
-                          if value != "normal"
-                      ]
-                      if extras:
-                          slots[key] = extras
-
-              coverage[era] = {
-                  "setCodes": set_codes,
-                  "partialSetCodes": partial_set_codes,
-                  "configuredSetCount": audit["summary"]["configuredSetCount"],
-                  "resolvedProductCount": audit["summary"]["resolvedProductCount"],
-                  "missingProductCount": audit["summary"]["missingProductCount"],
-                  "variantSlotCount": audit["summary"]["variantSlotCount"],
-                  "variantCounts": audit["summary"]["variantCounts"],
-              }
-
-          payload = {
-              "schemaVersion": 1,
-              "source": "https://pokemoncard.co.kr/cards",
-              "policy": (
-                  "One canonical catalog card per slot. 'normal' is always the base "
-                  "choice; this file lists only additional print forms verified from "
-                  "Pokemon Korea official duplicate card-search images."
-              ),
-              "coverage": coverage,
-              "slots": dict(sorted(slots.items())),
-          }
-          target = Path("data/series-print-variants.json")
-          target.write_text(
-              json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8",
-          )
-          print(
-              f"Compact metadata: {len(slots)} variant slots / "
-              f"{', '.join(sorted(coverage))}"
-          )
-          PY
-      - name: Upload full audit evidence
-        uses: actions/upload-artifact@v4
+      - name: Restore Pokemon Korea audit cache
+        uses: actions/cache@v4
         with:
-          name: series-print-variant-audit-sm-s
-          path: |
-            series-print-variant-audit-s.json
-            series-print-variant-audit-sm.json
-          if-no-files-found: error
-      - name: Commit compact metadata to audit branch
+          path: tmp/legacy-series-cache
+          key: legacy-series-print-audit-v2-${{ runner.os }}
+          restore-keys: |
+            legacy-series-print-audit-v2-
+            legacy-series-print-audit-v1-
+
+      - name: Refresh canonical slot baseline
         run: |
-          if [ -z "$(git status --porcelain -- data/series-print-variants.json)" ]; then
-            echo "No compact metadata change."
-            exit 0
-          fi
+          node scripts/audit-series-inventory.mjs
+          node scripts/audit-series-canonical-slots.mjs
+
+      - name: Audit official print variants
+        run: |
+          mkdir -p data/audits
+          for era in ORIGIN ADV DP BW XY SM S; do
+            python3 scripts/audit-series-print-variants.py \
+              --era "$era" \
+              --workers 3 \
+              --output "data/audits/series-print-variant-audit-${era}.json"
+            node scripts/merge-series-print-variant-audit.mjs \
+              "data/audits/series-print-variant-audit-${era}.json"
+          done
+
+      - name: Refresh master DB audit
+        run: node scripts/audit-master-card-db.mjs
+
+      - name: Verify variant contracts
+        run: |
+          node --test \
+            tests/series-print-variants.test.mjs \
+            tests/master-card-db-audit.test.mjs \
+            tests/dp-series-dex.test.mjs \
+            tests/bw-series-dex.test.mjs \
+            tests/xy-series-dex.test.mjs
+
+      - name: Commit verified audit data
+        shell: bash
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/series-print-variants.json
-          git commit -m "Add verified series print variant metadata"
-          git push
+          git add \
+            data/audits/series-print-variant-audit-ORIGIN.json \
+            data/audits/series-print-variant-audit-ADV.json \
+            data/audits/series-print-variant-audit-DP.json \
+            data/audits/series-print-variant-audit-BW.json \
+            data/audits/series-print-variant-audit-XY.json \
+            data/audits/series-print-variant-audit-SM.json \
+            data/audits/series-print-variant-audit-S.json \
+            data/series-inventory-audit.json \
+            data/series-canonical-slot-audit.json \
+            data/series-print-variants.json \
+            data/master-card-db-audit.json
+          if git diff --cached --quiet; then
+            echo "No legacy print-variant audit changes."
+            exit 0
+          fi
+          git commit -m "Audit legacy Korean print variants"
+          git pull --rebase origin main
+          git push origin HEAD:main
