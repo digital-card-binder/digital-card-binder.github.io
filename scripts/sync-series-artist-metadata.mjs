@@ -31,7 +31,7 @@ function addIndex(map, key, value) {
 }
 
 function candidateSignature(item) {
-  return `${clean(item.artist)}|||\${clean(item.rarity)}`;
+  return `${clean(item.artist)}|||${clean(item.rarity)}`;
 }
 
 function uniqueCandidate(candidates) {
@@ -62,7 +62,7 @@ function buildArtistIndexes(payload) {
       };
       addIndex(byImage, item.image, item);
       if (item.set && item.number) {
-        addIndex(bySetNumber, `${item.set}::\${item.number}`, item);
+        addIndex(bySetNumber, `${item.set}::${item.number}`, item);
       }
     }
   }
@@ -116,7 +116,7 @@ function enrichGroups(groups, indexes, sourceFile) {
           card?.code || card?.number || card?.cardNumber,
         );
         if (setKey && number) {
-          candidates = indexes.bySetNumber.get(`${setKey}::\${number}`) || [];
+          candidates = indexes.bySetNumber.get(`${setKey}::${number}`) || [];
           if (candidates.length) summary.matchedBySetNumber += 1;
         }
       }
