@@ -380,6 +380,11 @@ async function initFossilDex() {
     setSummary();
     populateSetFilter();
     populateCategoryFilter();
+    const requestedSet = new URLSearchParams(window.location.search).get("set") || "";
+    if (requestedSet && fossilDataset.groups.some((group) => group.code === requestedSet)) {
+      selectedSet = requestedSet;
+      fossilEl("fossil-set-select").value = requestedSet;
+    }
     bindControls();
     render();
   } catch (error) {
