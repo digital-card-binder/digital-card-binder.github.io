@@ -145,6 +145,38 @@
   function formatNumber(value) {
     return new Intl.NumberFormat("ko-KR").format(Number(value) || 0);
   }
+  function renderRecentDex() {
+    const section = document.querySelector("#home-resume-section");
+    const card = document.querySelector("#home-resume-card");
+    if (!section || !card) return;
+
+    const recent = window.DigitalCardBinder?.recentDex?.read?.();
+    if (!recent) {
+      section.hidden = true;
+      return;
+    }
+
+    const title = document.querySelector("#home-resume-type");
+    const detail = document.querySelector("#home-resume-detail");
+    const progress = document.querySelector("#home-resume-progress");
+    const bar = document.querySelector("#home-resume-bar");
+    const owned = Number(recent.owned);
+    const total = Number(recent.total);
+    const hasProgress = Number.isFinite(owned) && Number.isFinite(total) && total > 0;
+    const rate = hasProgress ? Math.max(0, Math.min(100, (owned / total) * 100)) : 0;
+
+    card.href = recent.href;
+    if (title) title.textContent = recent.title || "최근 도감";
+    if (detail) detail.textContent = recent.detail || recent.title || "마지막으로 본 도감";
+    if (progress) {
+      progress.textContent = hasProgress
+        ? `${formatNumber(owned)} / ${formatNumber(total)}${recent.unit || "장"} · ${rate.toFixed(1)}%`
+        : "마지막으로 본 위치에서 이어서 보기";
+    }
+    if (bar) bar.style.width = `${rate}%`;
+    section.hidden = false;
+  }
+
 
   function escapeHtml(value) {
     return String(value || "")
@@ -979,6 +1011,7 @@
     createAuthUi();
     initializeThemeDisclosure();
     initializeMobileTabbar();
+    renderRecentDex();
 
     try {
       const [loadedCatalogs] = await Promise.all([
