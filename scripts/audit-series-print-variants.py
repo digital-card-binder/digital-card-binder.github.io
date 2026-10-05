@@ -184,6 +184,17 @@ def record_image_identity(
             number = clean(detail.get("number"))
             if number.isdigit():
                 return clean(group_code), str(int(number))
+
+            name = clean(detail.get("name"))
+            if not name:
+                for key in ("CardName", "card_name", "name", "title"):
+                    candidate = clean(record.get(key))
+                    if candidate:
+                        name = candidate
+                        break
+            energy_token = dp.ENERGY_TOKEN.get(name)
+            if energy_token:
+                return clean(group_code), energy_token
         except Exception:
             pass
     return None
