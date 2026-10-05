@@ -279,6 +279,12 @@ function openCardDialog(record) {
   elements.dialogNameKo.textContent = record.nameKo;
   elements.dialogNameEn.textContent = record.nameEn;
   elements.dialogGeneration.textContent = `${record.generation}세대`;
+  void window.DigitalCardBinder?.relatedDex?.render?.(elements.dialog, record, {
+    currentCollectionId: "national",
+    currentGroupKey: record.number,
+    image: record.imageUrl,
+    name: record.nameKo,
+  });
   elements.dialog.showModal();
 }
 
