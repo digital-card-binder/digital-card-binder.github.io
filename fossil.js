@@ -299,6 +299,16 @@ function openDialog(card) {
   activeCard = card;
   updateDialog(card);
   const dialog = fossilEl("fossil-dialog");
+  const sourceGroup = fossilDataset?.groups?.find((group) =>
+    (group.cards || []).includes(card),
+  );
+  void window.DigitalCardBinder?.relatedDex?.render?.(dialog, card, {
+    currentCollectionId: "fossil",
+    currentGroupKey: sourceGroup?.code || selectedSet,
+    setCode: card.set || "",
+    cardNumber: card.cardNumber || card.meta || "",
+    name: card.name,
+  });
   if (typeof dialog.showModal === "function") dialog.showModal();
   else dialog.setAttribute("open", "");
 }
