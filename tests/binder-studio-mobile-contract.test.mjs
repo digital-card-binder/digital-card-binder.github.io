@@ -29,7 +29,7 @@ test("mobile binder page controls remain finger-sized and keep the active page v
   assert.match(js, /activeChip\.scrollIntoView\(\{ block: "nearest", inline: "nearest", behavior: "smooth" \}\)/);
 });
 
-test("binder studio keeps the simplified version picker and cross-page drag contracts", async () => {
+test("binder studio keeps the simplified version picker and direct cross-page drag contracts", async () => {
   const html = await read("studio.html");
   const css = await read("studio.css");
   const js = await read("studio-custom.js");
@@ -38,9 +38,14 @@ test("binder studio keeps the simplified version picker and cross-page drag cont
   assert.match(html, /id="studio-variant-dialog"/);
   assert.match(js, /function openQuickVariants\(/);
   assert.match(js, /function pageDropTargetAtPoint\(/);
+  assert.match(js, /function slotIndexAtPoint\(/);
   assert.match(js, /function movePlacementToPage\(/);
-  assert.match(js, /}, 650\);/);
+  assert.match(js, /activePlacementDrag\.switchPage\(page\.id, "tap"\)/);
+  assert.match(js, /studio-custom-drag-ghost/);
+  assert.doesNotMatch(js, /}, 650\);/);
   assert.match(css, /\.studio-custom-page-chip\.is-drag-page-target/);
+  assert.match(css, /\.studio-custom-drag-ghost/);
+  assert.match(css, /\.studio-custom-slot\.is-drag-slot-target/);
   assert.ok(Object.keys(variants.slots || {}).length >= 400);
 });
 
