@@ -24,6 +24,15 @@
       meta: "#dialog-meta",
     },
     {
+      dialog: "#card-dialog",
+      image: "#dialog-image",
+      name: "#dialog-name-ko",
+      set: "#dialog-generation",
+      number: "#dialog-number",
+      meta: "#dialog-name-en",
+      label: "전국도감",
+    },
+    {
       dialog: "#pokemon-search-dialog",
       image: "#pokemon-search-dialog-image",
       name: "#pokemon-search-dialog-name",
@@ -163,9 +172,81 @@
     copy.append(actions);
   }
 
+  function peopleArchivePayload(cardItem) {
+    const image = cardItem.querySelector("img");
+    const name = clean(cardItem.querySelector("strong")?.textContent);
+    const meta = clean(cardItem.querySelector("small")?.textContent);
+    const parts = meta.split("·").map(clean).filter(Boolean);
+    const setText = parts[0] || "";
+    const numberText = parts[1] || "";
+    const imageValue = clean(image?.currentSrc || image?.getAttribute("src") || image?.src);
+    if (!name || !imageValue) return null;
+    return {
+      version: 1,
+      createdAt: Date.now(),
+      name,
+      image: imageValue,
+      setText,
+      numberText,
+      meta,
+      sourceLabel: "인물도감",
+      sourceUrl: window.location.href,
+    };
+  }
+
+  function installPeopleArchiveCards(root = document) {
+    root.querySelectorAll?.(".people-archive-card").forEach((cardItem) => {
+      if (cardItem.querySelector("[data-binder-archive-action]")) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "binder-archive-add";
+      button.dataset.binderArchiveAction = "true";
+      button.textContent = "바인더에 넣기";
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const payload = peopleArchivePayload(cardItem);
+        if (!payload) {
+          window.alert("이 카드 정보를 바인더로 전달하지 못했습니다.");
+          return;
+        }
+        sendToBinder(payload);
+      });
+      cardItem.append(button);
+    });
+  }
+
+  function observePeopleArchive() {
+    const host = document.querySelector("#people-dialog-card-list");
+    if (!host) return;
+    installPeopleArchiveCards(host);
+    const observer = new MutationObserver(() => installPeopleArchiveCards(host));
+    observer.observe(host, { childList: true, subtree: true });
+  }
+
   function installAll() {
     CONFIGS.forEach(install);
+    observePeopleArchive();
   }
+
+  window.DigitalCardBinderBridge = Object.freeze({
+    sendCard(payload) {
+      const normalized = {
+        version: 1,
+        createdAt: Date.now(),
+        name: clean(payload?.name),
+        image: clean(payload?.image),
+        setText: clean(payload?.setText),
+        numberText: clean(payload?.numberText),
+        meta: clean(payload?.meta),
+        sourceLabel: clean(payload?.sourceLabel) || "도감",
+        sourceUrl: clean(payload?.sourceUrl) || window.location.href,
+      };
+      if (!normalized.name || !normalized.image) return false;
+      sendToBinder(normalized);
+      return true;
+    },
+  });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", installAll, { once: true });
