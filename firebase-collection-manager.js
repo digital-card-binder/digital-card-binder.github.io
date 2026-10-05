@@ -20,7 +20,6 @@
   let sharedViewActive = false;
   let collectorPublicViewActive = false;
   let currentNumber = null;
-  let tradeMode = false;
   let snapshotStarted = false;
   let saveQueue = Promise.resolve();
   let pendingLocalSnapshot = "";
@@ -29,14 +28,6 @@
   const firebaseReady = new Promise((resolve) => {
     resolveReady = resolve;
   });
-
-  const tradeLabels = {
-    none: "없음",
-    duplicate: "중복 보유",
-    trade: "교환 가능",
-    sale: "판매 가능",
-    reserved: "예약 중",
-  };
 
   function isOwnerAccount(user) {
     return accountCore.isOwner(CONFIG, user);
@@ -127,13 +118,6 @@
 
   function normalizeOverride(value) {
     if (!value || typeof value !== "object" || Array.isArray(value)) return null;
-    const tradeStatus = Object.prototype.hasOwnProperty.call(
-      tradeLabels,
-      value.tradeStatus,
-    )
-      ? value.tradeStatus
-      : "none";
-
     return {
       owned: Boolean(value.owned),
       setCode: String(value.setCode || "").trim(),
@@ -141,7 +125,6 @@
       cardName: String(value.cardName || "").trim(),
       rarity: String(value.rarity || "").trim(),
       quantity: Math.max(0, Number(value.quantity) || 0),
-      tradeStatus,
       imageUrl: String(value.imageUrl || "").trim(),
       imageSource:
         value.imageSource === "auto" || value.imageSource === "manual"
@@ -186,7 +169,6 @@
       record.actualCardName = "";
       record.actualRarity = "";
       record.quantity = record.owned ? 1 : 0;
-      record.tradeStatus = "none";
       record.collectionNote = "";
 
       if (baseMode === "empty") {
@@ -203,7 +185,6 @@
       record.actualCardName = item.owned ? item.cardName : "";
       record.actualRarity = item.owned ? item.rarity : "";
       record.quantity = item.owned ? Math.max(1, item.quantity || 0) : 0;
-      record.tradeStatus = item.tradeStatus;
       record.collectionNote = item.note;
       if (item.owned && item.imageUrl) record.imageUrl = item.imageUrl;
     }
@@ -585,11 +566,6 @@
     wrap.className = "collection-manager-actions";
     wrap.append(
       makeButton("미보유 목록", "manager-button", showMissing),
-      makeButton(
-        "교환 가능",
-        "manager-button collector-private-control",
-        showTradeable,
-      ),
       makeButton("내 도감 백업", "manager-button account-only-control", exportData),
       makeButton("기존 기록 이전", "manager-button account-only-control", migrateLocalData),
     );
@@ -614,7 +590,7 @@
 
     if (collectorPublicViewActive) {
       notice.innerHTML =
-        "<strong>컬렉터 공개 도감 · 읽기 전용</strong><span>보유·미보유 상태만 표시하며 수량, 교환 상태와 개인 메모는 공개하지 않습니다.</span>";
+        "<strong>컬렉터 공개 도감 · 읽기 전용</strong><span>보유·미보유 상태만 표시하며 수량과 개인 메모는 공개하지 않습니다.</span>";
       return;
     }
 
@@ -846,10 +822,6 @@
       cardName: owned ? cardName : "",
       rarity: owned ? dialog.querySelector("#edit-rarity").value.trim() : "",
       quantity,
-      tradeStatus: owned
-        ? normalizeOverride(remoteOverrides[String(currentNumber)])?.tradeStatus ||
-          "none"
-        : "none",
       imageUrl,
       imageSource,
       note: dialog.querySelector("#edit-note").value.trim(),
@@ -929,29 +901,8 @@
   }
 
   function showMissing() {
-    tradeMode = false;
-    clearTradeFilter();
     document.querySelector('#status-filters button[data-status="missing"]')?.click();
     document.querySelector("#card-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function showTradeable() {
-    tradeMode = true;
-    document.querySelector('#status-filters button[data-status="all"]')?.click();
-    const loadMore = document.querySelector("#load-more");
-    let guard = 0;
-    while (loadMore && !loadMore.hidden && guard < 100) {
-      loadMore.click();
-      guard += 1;
-    }
-    applyCardEnhancements();
-    document.querySelector("#card-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function clearTradeFilter() {
-    document.querySelectorAll("#card-grid .collection-manager-hidden").forEach((card) => {
-      card.classList.remove("collection-manager-hidden");
-    });
   }
 
   function exportData() {
@@ -1056,7 +1007,6 @@
             cardName: "",
             rarity: "",
             quantity: 0,
-            tradeStatus: "none",
             imageUrl: "",
             imageSource: "",
             note: "",
@@ -1115,8 +1065,6 @@
   }
 
   function applyCardEnhancements() {
-    let tradeCount = 0;
-
     for (const card of document.querySelectorAll("#card-grid .pokemon-card")) {
       ensureNationalCompletionButton(card);
       const item = normalizeOverride(remoteOverrides[String(parseNumber(card))]);
@@ -1130,24 +1078,7 @@
         top?.append(badge);
       }
 
-      if (item && ["trade", "sale"].includes(item.tradeStatus)) {
-        tradeCount += 1;
-        const badge = document.createElement("span");
-        badge.className = "collection-mini-badge collection-mini-badge--trade";
-        badge.textContent = tradeLabels[item.tradeStatus];
-        top?.append(badge);
-      }
-
-      const tradeable = item && ["trade", "sale"].includes(item.tradeStatus);
-      card.classList.toggle("collection-manager-hidden", tradeMode && !tradeable);
       card.classList.toggle("has-collection-record", Boolean(item));
-    }
-
-    if (tradeMode) {
-      const result = document.querySelector("#result-count");
-      const label = document.querySelector("#active-filter-label");
-      if (result) result.textContent = String(tradeCount);
-      if (label) label.textContent = "· 내 교환·판매 가능";
     }
   }
 
@@ -1158,24 +1089,6 @@
         const number = parseNumber(cardButton);
         queueMicrotask(() => fillEditor(number));
       }
-
-      if (
-        event.target.closest(
-          "#status-filters, #generation-filters, #reset-filters, [data-reset]",
-        )
-      ) {
-        tradeMode = false;
-        clearTradeFilter();
-      }
-    });
-
-    document.querySelector("#search-input")?.addEventListener("input", () => {
-      tradeMode = false;
-      clearTradeFilter();
-    });
-    document.querySelector("#sort-select")?.addEventListener("change", () => {
-      tradeMode = false;
-      clearTradeFilter();
     });
 
     const grid = document.querySelector("#card-grid");
