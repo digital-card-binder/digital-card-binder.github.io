@@ -471,9 +471,26 @@ function selectSeriesGroup(group) {
   const select = $("catalog-select");
   if (select) select.value = value;
   loadGroup(value);
+
+  // The compact UI keeps .catalog-toolbar collapsed until "필터" is opened,
+  // so scrolling to it makes a set tap look like nothing happened.
+  // Move directly to the rendered card list instead.
   window.requestAnimationFrame(() => {
-    document.querySelector(".catalog-toolbar")?.scrollIntoView({
-      block: "start",
+    window.requestAnimationFrame(() => {
+      const target =
+        document.querySelector("#catalog-grid .pokemon-card") ||
+        document.querySelector("#catalog-grid") ||
+        document.querySelector(".results-bar");
+      if (!target) return;
+
+      const reducedMotion =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      target.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
     });
   });
 }
