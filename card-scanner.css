@@ -489,10 +489,60 @@
   color: #41649c;
 }
 
+.card-scan-membership.is-selected {
+  border-color: #8ebbc7;
+  background: #f3fafb;
+  box-shadow: inset 0 0 0 1px rgba(50, 132, 151, .08);
+}
+
+.card-scan-membership.is-current:not(.is-owned) {
+  border-color: #c8dce3;
+}
+
+.card-scan-membership.is-owned {
+  background: #fafcfb;
+}
+
+.card-scan-membership.is-owned input {
+  opacity: .45;
+}
+
+.card-scan-membership-title-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-scan-membership-title-row strong {
+  min-width: 0;
+}
+
+.card-scan-current-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #e9f4f7;
+  color: #22677a;
+  font-size: .49rem;
+  font-style: normal;
+  font-weight: 850;
+  padding: 3px 5px;
+  white-space: nowrap;
+}
+
+
 .card-scan-membership-actions {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   margin: 9px 0 0;
+}
+
+.card-scan-membership-actions > span {
+  color: #607184;
+  font-size: .6rem;
+  font-weight: 800;
 }
 
 .card-scan-membership-actions button {
@@ -570,6 +620,32 @@
   .card-scan-candidate img {
     width: 48px;
     height: 66px;
+  }
+
+  .card-scan-membership {
+    min-height: 54px;
+    gap: 8px;
+    padding: 9px 10px;
+  }
+
+  .card-scan-membership-state {
+    font-size: .5rem;
+    padding: 4px 6px;
+  }
+
+  .card-scan-current-badge {
+    font-size: .46rem;
+  }
+
+  .card-scan-save-row {
+    position: sticky;
+    bottom: calc(-14px + env(safe-area-inset-bottom));
+    z-index: 3;
+    margin: 12px -14px calc(-18px - env(safe-area-inset-bottom));
+    border-top: 1px solid #e6ebef;
+    background: rgba(255, 255, 255, .97);
+    padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+    backdrop-filter: blur(10px);
   }
 }
 
