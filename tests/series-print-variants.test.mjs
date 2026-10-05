@@ -97,3 +97,48 @@ test("Diamond & Pearl official audit covers all 598 canonical cards", async () =
     assert.equal(set.parsedSlotCount, set.expectedSlotCount, set.code);
   }
 });
+
+
+test("Black & White official audit keeps shared products from becoming false variants", async () => {
+  const audit = JSON.parse(await read("data/audits/series-print-variant-audit-BW.json"));
+  const metadata = JSON.parse(await read("data/series-print-variants.json"));
+
+  assert.equal(audit.era, "BW");
+  assert.equal(audit.summary.configuredSetCount, 37);
+  assert.equal(audit.summary.resolvedProductCount, 39);
+  assert.equal(audit.summary.missingProductCount, 0);
+  assert.equal(audit.summary.rawRecordCount, 1444);
+  assert.equal(audit.summary.parsedSlotCount, 1402);
+  assert.equal(audit.summary.variantSlotCount, 0);
+  assert.deepEqual(audit.summary.variantCounts, {
+    holo: 0,
+    mirror: 0,
+    other: 0,
+  });
+
+  assert.equal(metadata.coverage.BW.configuredSetCount, 37);
+  assert.equal(metadata.coverage.BW.setCodes.length, 17);
+  assert.equal(metadata.coverage.BW.partialSetCodes.length, 20);
+  assert.equal(metadata.coverage.BW.variantSlotCount, 0);
+
+  const bwCodes = new Set(audit.sets.map((set) => set.code.toLowerCase()));
+  const bwVariantKeys = Object.keys(metadata.slots).filter((key) =>
+    bwCodes.has(key.split("::", 1)[0]),
+  );
+  assert.deepEqual(bwVariantKeys, []);
+
+  for (const set of audit.sets) {
+    assert.equal(set.missingProducts.length, 0, set.code);
+    assert.equal(set.unresolvedRecordCount, 0, set.code);
+    assert.equal(set.unexpectedOfficialSlotCount, 0, set.code);
+  }
+
+  assert.equal(
+    audit.sets.find((set) => set.code === "MG-Bg")?.ignoredNoncanonicalRecordCount,
+    17,
+  );
+  assert.equal(
+    audit.sets.find((set) => set.code === "MG-Bm")?.ignoredNoncanonicalRecordCount,
+    17,
+  );
+});
