@@ -222,6 +222,13 @@ function openDialog(card) {
   tpActiveCard = card;
   updateDialog(card);
   const dialog = tp("tp-dialog");
+  void window.DigitalCardBinder?.relatedDex?.render?.(dialog, card, {
+    currentCollectionId: "trainerPokemon",
+    currentGroupKey: card._tpPokemonName || card.pokemonName || "",
+    setCode: card.set || "",
+    cardNumber: card.cardNumber || card.code || "",
+    name: card.name,
+  });
   if (typeof dialog.showModal === "function") dialog.showModal();
   else dialog.setAttribute("open", "");
 }
