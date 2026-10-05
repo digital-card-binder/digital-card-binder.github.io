@@ -2275,35 +2275,87 @@
     }
   }
 
+  function selectedMembershipInputs() {
+    return [
+      ...els.memberships.querySelectorAll(
+        'input[type="checkbox"][data-membership-id]:not(:disabled)',
+      ),
+    ];
+  }
+
+  function updateMembershipSelectionUi() {
+    if (!els.memberships) return;
+    const inputs = selectedMembershipInputs();
+    const selected = inputs.filter((input) => input.checked);
+
+    inputs.forEach((input) => {
+      input.closest(".card-scan-membership")?.classList.toggle(
+        "is-selected",
+        input.checked,
+      );
+    });
+
+    if (els.selectionCount) {
+      els.selectionCount.textContent = `${selected.length}개 선택`;
+    }
+    if (els.selectAll) {
+      const allSelected = Boolean(inputs.length) && selected.length === inputs.length;
+      els.selectAll.textContent = allSelected ? "선택 해제" : "전체 선택";
+      els.selectAll.disabled = state.busy || !inputs.length;
+    }
+    if (els.save) {
+      els.save.disabled = state.busy || selected.length === 0;
+      els.save.textContent = selected.length
+        ? `선택한 ${selected.length}곳에 기록`
+        : "도감을 선택해 주세요";
+    }
+  }
+
   function renderMemberships() {
     els.memberships.replaceChildren();
     els.membershipSection.hidden = false;
+    const currentCollection = currentScannerCollectionId();
 
     for (const membership of state.memberships) {
       const label = document.createElement("label");
+      const isCurrent = membership.collectionId === currentCollection;
       label.className = "card-scan-membership";
       label.classList.toggle("is-owned", membership.owned);
-      label.classList.toggle("is-representative", membership.mode === "representative");
+      label.classList.toggle("is-current", isCurrent);
+      label.classList.toggle(
+        "is-representative",
+        membership.mode === "representative" || membership.mode === "people",
+      );
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.dataset.membershipId = membership.id;
-      checkbox.checked = membership.owned || (!membership.owned && membership.defaultSelected);
+      checkbox.checked = false;
       checkbox.disabled = membership.owned;
+      checkbox.addEventListener("change", updateMembershipSelectionUi);
 
       const copy = document.createElement("span");
       copy.className = "card-scan-membership-copy";
+      const titleRow = document.createElement("span");
+      titleRow.className = "card-scan-membership-title-row";
       const title = document.createElement("strong");
       title.textContent = membership.title;
+      titleRow.append(title);
+      if (isCurrent) {
+        const currentBadge = document.createElement("em");
+        currentBadge.className = "card-scan-current-badge";
+        currentBadge.textContent = "현재 도감";
+        titleRow.append(currentBadge);
+      }
       const detail = document.createElement("small");
       detail.textContent = membership.groupName || "동일 카드";
-      copy.append(title, detail);
+      copy.append(titleRow, detail);
 
       const status = document.createElement("span");
       status.className = "card-scan-membership-state";
       status.textContent = membership.owned
         ? "이미 보유"
-        : membership.mode === "representative"
+        : membership.mode === "representative" || membership.mode === "people"
           ? "대표카드"
           : "미보유";
 
@@ -2311,13 +2363,16 @@
       els.memberships.append(label);
     }
 
-    els.save.disabled = !state.memberships.some((item) => !item.owned);
+    updateMembershipSelectionUi();
   }
 
   function selectAllMissing() {
-    els.memberships.querySelectorAll('input[type="checkbox"]:not(:disabled)').forEach((input) => {
-      input.checked = true;
+    const inputs = selectedMembershipInputs();
+    const shouldSelect = inputs.some((input) => !input.checked);
+    inputs.forEach((input) => {
+      input.checked = shouldSelect;
     });
+    updateMembershipSelectionUi();
   }
 
   async function ensureRootDocument(documentId) {
