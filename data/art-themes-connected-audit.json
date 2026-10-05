@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-04",
+  "updatedAt": "2026-10-05",
   "theme": "connected",
   "sources": [
     {
@@ -10,14 +10,19 @@
     {
       "name": "Bulbapedia Combined illustration (TCG)",
       "url": "https://bulbapedia.bulbagarden.net/wiki/Combined_illustration_(TCG)"
+    },
+    {
+      "name": "Elite Fourum · JP Special Art Pokémon Card Gallery (MEGA)",
+      "url": "https://www.elitefourum.com/t/jp-special-art-pokemon-card-gallery-mega/51463",
+      "note": "M6a 관동 전설의 새 3장·나옹 3종 연결 일러스트 교차검증"
     }
   ],
   "result": {
     "previousThemeCardCount": 20,
-    "addedKoreanCards": 45,
-    "addedGroups": 14,
-    "themeCardCount": 65,
-    "totalThemeDexCardCount": 234
+    "addedKoreanCards": 51,
+    "addedGroups": 16,
+    "themeCardCount": 71,
+    "totalThemeDexCardCount": 346
   },
   "policy": [
     "한국판 Master DB에 실제 존재하는 동일 일러스트 인쇄만 수록한다.",
@@ -155,10 +160,28 @@
         "SV7_038"
       ],
       "count": 9
+    },
+    {
+      "name": "M6a 관동 전설의 새 3장",
+      "cards": [
+        "M6A_105",
+        "M6A_107",
+        "M6A_108"
+      ],
+      "count": 3
+    },
+    {
+      "name": "M6a 나옹 3종 연결 장면",
+      "cards": [
+        "M6A_115",
+        "M6A_117",
+        "M6A_120"
+      ],
+      "count": 3
     }
   ],
   "finalReview": {
     "status": "complete",
-    "summary": "해외 연결·내러티브 일러스트 자료에서 한국판 동일 인쇄가 확인된 14개 그룹 45장을 추가해 연결 일러스트 테마를 65장으로 확장했다. AR/SAR뿐 아니라 일반 카드로 구성된 9장 풍경 2종도 포함했다."
+    "summary": "기존 14개 그룹 45장 보강에 더해 M6a의 관동 전설의 새 3장과 나옹 3종 연결 일러스트 6장을 추가했다. 연결 일러스트 테마는 71장이다."
   }
 }
