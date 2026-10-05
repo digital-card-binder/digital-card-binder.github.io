@@ -1568,7 +1568,6 @@
   rememberCurrentDexPage();
 
   const tradeEligiblePages = new Set([
-    "national.html",
     "artists.html",
     "series.html",
     "pokemon-collections.html",
