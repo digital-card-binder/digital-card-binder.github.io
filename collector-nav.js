@@ -1314,6 +1314,8 @@
     ar: ".catalog-summary",
     pokemon: ".catalog-summary",
     artist: ".artist-selection-summary",
+    trainerPokemon: ".tp-selection-summary",
+    fossil: ".fossil-selection-summary",
     artThemes: ".art-theme-selected-summary",
   });
 
