@@ -779,7 +779,12 @@
         const worldObserver = new MutationObserver(() => {
           applyWorldVisualStatus(currentStatus());
         });
-        worldObserver.observe(binder, { childList: true, subtree: true });
+        worldObserver.observe(binder, {
+          attributes: true,
+          attributeFilter: ["class"],
+          childList: true,
+          subtree: true,
+        });
       }
       applyWorldVisualStatus("all");
     }
