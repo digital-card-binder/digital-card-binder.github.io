@@ -2888,3 +2888,108 @@ body.collector-collection-page[data-collection-id="world"] #world-binder-content
     border-radius: 0 9px 9px 0;
   }
 }
+
+
+/* Card detail: navigation to other independent dexes */
+.related-dex-links {
+  display: grid;
+  gap: 9px;
+  margin-top: 18px;
+  border-top: 1px solid #e7ebef;
+  padding-top: 14px;
+}
+
+.related-dex-links[hidden] {
+  display: none !important;
+}
+
+.related-dex-heading {
+  display: grid;
+  gap: 2px;
+}
+
+.related-dex-heading strong {
+  color: #243b4a;
+  font-size: .76rem;
+  font-weight: 850;
+}
+
+.related-dex-heading small {
+  color: #7a8992;
+  font-size: .6rem;
+  line-height: 1.4;
+}
+
+.related-dex-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.related-dex-links.is-loading .related-dex-items {
+  color: #82919a;
+  font-size: .64rem;
+}
+
+.related-dex-link {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  border: 1px solid #dbe6ea;
+  border-radius: 999px;
+  background: #f7fbfc;
+  color: #22566a;
+  padding: 5px 9px;
+  font-size: .64rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.related-dex-link::after {
+  margin-left: 5px;
+  content: "›";
+  opacity: .65;
+}
+
+.related-dex-link:hover {
+  border-color: #a8ccd3;
+  background: #edf7f8;
+}
+
+@media (max-width: 690px) {
+  .related-dex-links {
+    gap: 7px;
+    margin-top: 12px;
+    padding-top: 11px;
+  }
+
+  .related-dex-heading strong {
+    font-size: .68rem;
+  }
+
+  .related-dex-heading small {
+    font-size: .54rem;
+  }
+
+  .related-dex-items {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 5px;
+    margin-right: -18px;
+    padding-right: 18px;
+    scrollbar-width: none;
+  }
+
+  .related-dex-items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .related-dex-link {
+    flex: 0 0 auto;
+    min-height: 29px;
+    padding: 5px 8px;
+    font-size: .58rem;
+    white-space: nowrap;
+  }
+}
