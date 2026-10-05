@@ -59,7 +59,7 @@ jobs:
             npm run shell:sync
             npm run versions:sync
 
-            if git diff --quiet; then
+            if [ -z "$(git status --porcelain --untracked-files=all -- data/card-related-dex-index.json data/pokemon-search-index.json core/catalog/catalog-service.js collector-nav.js custom-loader.js print.js pwa.js manifest.webmanifest site-version.json ./*.html)" ]; then
               echo "Catalog metrics and site versions already synchronized"
               exit 0
             fi
