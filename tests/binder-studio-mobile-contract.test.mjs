@@ -41,6 +41,7 @@ test("binder studio keeps the simplified version picker and direct cross-page dr
   assert.match(js, /function slotIndexAtPoint\(/);
   assert.match(js, /function movePlacementToPage\(/);
   assert.match(js, /activePlacementDrag\.switchPage\(page\.id, "tap"\)/);
+  assert.match(js, /switchPromise = task/);
   assert.match(js, /studio-custom-drag-ghost/);
   assert.doesNotMatch(js, /}, 650\);/);
   assert.match(css, /\.studio-custom-page-chip\.is-drag-page-target/);
