@@ -3322,29 +3322,35 @@
         originSlotIndex,
         entry: dragEntry,
         ghost,
-        async switchPage(pageId, trigger = "hover") {
-          if (finished || !pageId || pageId === state.currentPageId || state.switchingPage) return false;
-          const target = state.pages.find((page) => page.id === pageId);
-          if (!target) return false;
-          state.switchingPage = true;
-          renderPageControls();
-          try {
-            await applyPage(target);
-            previewStage.classList.add("is-card-drag-active");
-            updateQuickEditorUi(
-              trigger === "tap"
-                ? `${pageTitle(activePageIndex())}로 전환했습니다. 원하는 칸에 카드를 놓으세요.`
-                : `${pageTitle(activePageIndex())} · 원하는 칸에 놓으세요.`,
-            );
-            return true;
-          } catch (error) {
-            console.error("드래그 중 페이지 전환 실패", error);
-            return false;
-          } finally {
-            state.switchingPage = false;
-            clearDragPageHighlight();
-            renderPageControls();
+        switchPage(pageId, trigger = "hover") {
+          if (finished || !pageId || pageId === state.currentPageId || state.switchingPage) {
+            return Promise.resolve(false);
           }
+          const target = state.pages.find((page) => page.id === pageId);
+          if (!target) return Promise.resolve(false);
+          const task = (async () => {
+            state.switchingPage = true;
+            renderPageControls();
+            try {
+              await applyPage(target);
+              previewStage.classList.add("is-card-drag-active");
+              updateQuickEditorUi(
+                trigger === "tap"
+                  ? `${pageTitle(activePageIndex())}로 전환했습니다. 원하는 칸에 카드를 놓으세요.`
+                  : `${pageTitle(activePageIndex())} · 원하는 칸에 놓으세요.`,
+              );
+              return true;
+            } catch (error) {
+              console.error("드래그 중 페이지 전환 실패", error);
+              return false;
+            } finally {
+              state.switchingPage = false;
+              clearDragPageHighlight();
+              renderPageControls();
+            }
+          })();
+          switchPromise = task;
+          return task;
         },
       };
       activePlacementDrag = drag;
