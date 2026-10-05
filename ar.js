@@ -18,6 +18,8 @@ let query = "";
 let activeCard = null;
 let accountApplied = false;
 let quickCollectMode = false;
+let renderedCards = [];
+let mobileSheetGestureStart = null;
 const QUICK_COLLECT_STORAGE_KEY = "pokemonDexQuickCollectV1";
 
 const pct = (amount, total) =>
@@ -398,13 +400,131 @@ function updateDialog(card) {
   }
 }
 
+function isMobileCardSheet() {
+  return Boolean(window.matchMedia?.("(max-width: 690px)")?.matches);
+}
+
+function closeArDialog() {
+  const dialog = $("catalog-dialog");
+  if (!dialog) return;
+  if (typeof dialog.close === "function") dialog.close();
+  else dialog.removeAttribute("open");
+}
+
+function updateMobileCardSheetControls() {
+  const dialog = $("catalog-dialog");
+  if (!dialog || !activeCard) return;
+  const index = renderedCards.indexOf(activeCard);
+  const previous = dialog.querySelector("[data-sheet-prev]");
+  const next = dialog.querySelector("[data-sheet-next]");
+  const collect = dialog.querySelector("[data-sheet-collect]");
+
+  if (previous) previous.disabled = index <= 0;
+  if (next) next.disabled = index < 0 || index >= renderedCards.length - 1;
+  if (collect) {
+    const owned = Boolean(activeCard.owned);
+    collect.classList.toggle("is-owned", owned);
+    collect.textContent = owned ? "✓ 보유 중 · 미보유로 변경" : "보유로 표시";
+    collect.setAttribute("aria-pressed", String(owned));
+  }
+}
+
+function animateMobileSheetDirection(direction) {
+  const dialog = $("catalog-dialog");
+  if (!dialog || !isMobileCardSheet()) return;
+  const className = direction > 0
+    ? "is-sheet-swipe-left"
+    : "is-sheet-swipe-right";
+  dialog.classList.remove("is-sheet-swipe-left", "is-sheet-swipe-right");
+  void dialog.offsetWidth;
+  dialog.classList.add(className);
+  window.setTimeout(() => dialog.classList.remove(className), 220);
+}
+
+function openAdjacentCard(direction) {
+  if (!activeCard || !renderedCards.length) return;
+  const index = renderedCards.indexOf(activeCard);
+  const nextIndex = index + direction;
+  if (index < 0 || nextIndex < 0 || nextIndex >= renderedCards.length) return;
+
+  activeCard = renderedCards[nextIndex];
+  updateDialog(activeCard);
+  updateMobileCardSheetControls();
+  animateMobileSheetDirection(direction);
+}
+
+function ensureMobileCardSheetControls() {
+  const dialog = $("catalog-dialog");
+  const copy = dialog?.querySelector(".dialog-card-copy");
+  const imageWrap = dialog?.querySelector(".dialog-card-image");
+  if (!dialog || !copy || !imageWrap) return;
+
+  if (!dialog.querySelector(".mobile-card-sheet-nav")) {
+    const nav = document.createElement("div");
+    nav.className = "mobile-card-sheet-nav";
+    nav.innerHTML = `
+      <button type="button" data-sheet-prev aria-label="이전 카드">‹</button>
+      <button type="button" data-sheet-next aria-label="다음 카드">›</button>
+    `;
+    nav.querySelector("[data-sheet-prev]")
+      ?.addEventListener("click", () => openAdjacentCard(-1));
+    nav.querySelector("[data-sheet-next]")
+      ?.addEventListener("click", () => openAdjacentCard(1));
+    dialog.append(nav);
+  }
+
+  if (!dialog.querySelector(".mobile-card-sheet-actions")) {
+    const actions = document.createElement("div");
+    actions.className = "mobile-card-sheet-actions";
+    actions.innerHTML = `
+      <button type="button" class="is-primary" data-sheet-collect>보유로 표시</button>
+    `;
+    actions.querySelector("[data-sheet-collect]")?.addEventListener("click", async () => {
+      if (!activeCard) return;
+      const control = actions.querySelector("[data-sheet-collect]");
+      await toggleCard(activeCard, control);
+      updateMobileCardSheetControls();
+    });
+    copy.append(actions);
+  }
+
+  if (!imageWrap.dataset.mobileSheetGesture) {
+    imageWrap.dataset.mobileSheetGesture = "true";
+    imageWrap.addEventListener("touchstart", (event) => {
+      if (!isMobileCardSheet() || event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      mobileSheetGestureStart = { x: touch.clientX, y: touch.clientY };
+    }, { passive: true });
+    imageWrap.addEventListener("touchend", (event) => {
+      if (!mobileSheetGestureStart || !isMobileCardSheet()) return;
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+      const dx = touch.clientX - mobileSheetGestureStart.x;
+      const dy = touch.clientY - mobileSheetGestureStart.y;
+      mobileSheetGestureStart = null;
+
+      if (Math.abs(dx) >= 56 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+        openAdjacentCard(dx < 0 ? 1 : -1);
+        return;
+      }
+      if (dy >= 90 && Math.abs(dy) > Math.abs(dx) * 1.25) {
+        closeArDialog();
+      }
+    }, { passive: true });
+  }
+
+  updateMobileCardSheetControls();
+}
+
 function openDialog(card) {
   activeCard = card;
   updateDialog(card);
+  ensureMobileCardSheetControls();
   const dialog = $("catalog-dialog");
   if (!dialog) return;
   if (typeof dialog.showModal === "function") dialog.showModal();
   else dialog.setAttribute("open", "");
+  updateMobileCardSheetControls();
 }
 
 async function toggleCard(card, button) {
@@ -582,6 +702,7 @@ function render() {
     return matchesStatus && (!normalizedQuery || haystack.includes(normalizedQuery));
   });
 
+  renderedCards = shown;
   grid.replaceChildren(...shown.map(makeCard));
   setText("result-count", shown.length);
 
@@ -657,11 +778,9 @@ function bindUi() {
     render();
   });
 
-  $("dialog-close")?.addEventListener("click", () => {
-    const dialog = $("catalog-dialog");
-    if (!dialog) return;
-    if (typeof dialog.close === "function") dialog.close();
-    else dialog.removeAttribute("open");
+  $("dialog-close")?.addEventListener("click", closeArDialog);
+  $("catalog-dialog")?.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) closeArDialog();
   });
 
   $("dialog-toggle")?.addEventListener("click", () => {
