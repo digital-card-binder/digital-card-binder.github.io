@@ -2813,3 +2813,92 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     font-size: 0.55rem;
   }
 }
+
+
+/* Force compact primary collection cards on mobile 2026-10-05 */
+@media (max-width: 690px) {
+  body[data-page="dashboard"] #home-collection-section {
+    margin-top: 10px !important;
+    padding: 10px 8px !important;
+    border-radius: 14px !important;
+  }
+
+  body[data-page="dashboard"] #home-collection-section .dashboard-section-heading {
+    gap: 8px !important;
+    margin-bottom: 0 !important;
+  }
+
+  body[data-page="dashboard"] #home-collection-section .dashboard-section-heading h2 {
+    font-size: 0.84rem !important;
+  }
+
+  body[data-page="dashboard"] #home-collection-section .dashboard-section-heading p {
+    margin-top: 2px !important;
+    font-size: 0.48rem !important;
+    line-height: 1.3 !important;
+  }
+
+  body[data-page="dashboard"] #home-collection-section .dashboard-section-heading > a {
+    min-height: 28px !important;
+    font-size: 0.5rem !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-collection-card {
+    min-height: 88px !important;
+    height: 88px !important;
+    border-radius: 11px !important;
+    padding: 8px 9px !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-collection-card::before {
+    top: -36px !important;
+    right: -24px !important;
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-top {
+    position: absolute !important;
+    top: 6px !important;
+    right: 8px !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-rate {
+    font-size: 0.5rem !important;
+    line-height: 1 !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title {
+    margin-top: 0 !important;
+    padding-right: 32px !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title strong {
+    font-size: 0.65rem !important;
+    line-height: 1.15 !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count {
+    margin-top: 4px !important;
+    line-height: 1 !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count strong {
+    font-size: 0.76rem !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count span {
+    font-size: 0.43rem !important;
+  }
+
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-progress {
+    height: 3px !important;
+    margin-top: 5px !important;
+  }
+}
