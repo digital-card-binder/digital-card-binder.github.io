@@ -251,6 +251,54 @@
 
   // Look for repeated dark pocket gutters in page coordinates, rather than
   // guessing the number of pockets from a photograph's aspect ratio.
+  function fitAxisBounds(dividers, count) {
+    if (!Array.isArray(dividers) || dividers.length !== count - 1 || count < 3) {
+      return { start: 0, end: 1, confidence: 0 };
+    }
+    const points = dividers.map((item, index) => ({
+      k: index + 1,
+      p: Number(item?.position),
+    })).filter((item) => Number.isFinite(item.p));
+    if (points.length !== count - 1) return { start: 0, end: 1, confidence: 0 };
+
+    const meanK = points.reduce((sum, item) => sum + item.k, 0) / points.length;
+    const meanP = points.reduce((sum, item) => sum + item.p, 0) / points.length;
+    const denominator = points.reduce((sum, item) => sum + (item.k - meanK) ** 2, 0);
+    if (denominator <= 0) return { start: 0, end: 1, confidence: 0 };
+
+    const pitch = points.reduce(
+      (sum, item) => sum + (item.k - meanK) * (item.p - meanP),
+      0,
+    ) / denominator;
+    const start = meanP - pitch * meanK;
+    const end = start + pitch * count;
+    const expectedPitch = 1 / count;
+    const residual = points.reduce(
+      (sum, item) => sum + Math.abs(item.p - (start + pitch * item.k)),
+      0,
+    ) / points.length;
+
+    if (
+      !Number.isFinite(start) ||
+      !Number.isFinite(end) ||
+      pitch < expectedPitch * 0.68 ||
+      pitch > expectedPitch * 1.18 ||
+      residual > expectedPitch * 0.08 ||
+      start < -0.08 ||
+      start > 0.18 ||
+      end < 0.82 ||
+      end > 1.08
+    ) {
+      return { start: 0, end: 1, confidence: 0 };
+    }
+
+    return {
+      start: clamp(start, 0, 1),
+      end: clamp(end, 0, 1),
+      confidence: clamp(1 - residual / Math.max(0.001, expectedPitch * 0.08), 0, 1),
+    };
+  }
+
   function detectPocketGrid(image, corners) {
     if (!validCorners(corners, image.width, image.height)) return null;
     const source = analysisCanvas(image);
@@ -258,6 +306,7 @@
     if (!map) return null;
     const pixels = source.context.getImageData(0, 0, source.canvas.width, source.canvas.height).data;
     const samples = 240;
+
     function axisCount(vertical) {
       const profile = Array.from({ length: samples }, (_, i) => {
         const values = [];
@@ -270,45 +319,192 @@
           values.push(pixels[offset] * 0.299 + pixels[offset + 1] * 0.587 + pixels[offset + 2] * 0.114);
         }
         values.sort((a, b) => a - b);
-        return values[56]; // A gutter must be dark across most of the page.
+        return values[56];
       });
+
       function contrastAt(i) {
-        if (profile[i] > 175) return 0;
-        const neighbors = [-18, -14, -10, 10, 14, 18].map((d) => profile[i + d]).sort((a, b) => a - b);
+        if (i < 20 || i >= samples - 20 || profile[i] > 180) return 0;
+        const neighbors = [-18, -14, -10, 10, 14, 18]
+          .map((d) => profile[i + d])
+          .sort((a, b) => a - b);
         return Math.max(0, ((neighbors[2] + neighbors[3]) / 2 - profile[i]) / 255);
       }
-      const candidates = [2, 3, 4, 5].map((count) => {
-        const contrasts = [];
-        for (let k = 1; k < count; k++) {
-          let best = 0;
-          const from = Math.round((k / count - 0.045) * (samples - 1));
-          const to = Math.round((k / count + 0.045) * (samples - 1));
-          for (let i = from; i <= to; i++) {
-            best = Math.max(best, contrastAt(i));
+
+      function dividerNear(position, count) {
+        const searchRadius = Math.min(0.075, 0.22 / count);
+        const from = clamp(Math.round((position - searchRadius) * (samples - 1)), 20, samples - 21);
+        const to = clamp(Math.round((position + searchRadius) * (samples - 1)), 20, samples - 21);
+        let bestIndex = from;
+        let bestContrast = 0;
+        for (let i = from; i <= to; i += 1) {
+          const value = contrastAt(i);
+          if (value > bestContrast) {
+            bestContrast = value;
+            bestIndex = i;
           }
-          contrasts.push(best);
         }
+
+        const threshold = Math.max(0.035, bestContrast * 0.42);
+        const limit = Math.max(2, Math.round(samples / count * 0.08));
+        let left = bestIndex;
+        let right = bestIndex;
+        while (left > from && bestIndex - left < limit && contrastAt(left - 1) >= threshold) left -= 1;
+        while (right < to && right - bestIndex < limit && contrastAt(right + 1) >= threshold) right += 1;
+
+        return {
+          position: bestIndex / (samples - 1),
+          halfWidth: clamp((right - left + 1) / (samples - 1) / 2, 0.002, 0.025),
+          contrast: bestContrast,
+        };
+      }
+
+      const candidates = [2, 3, 4, 5].map((count) => {
+        const dividers = Array.from({ length: count - 1 }, (_, k) =>
+          dividerNear((k + 1) / count, count)
+        );
+        const contrasts = dividers.map((divider) => divider.contrast);
         const min = Math.min(...contrasts);
         const average = contrasts.reduce((sum, value) => sum + value, 0) / contrasts.length;
-        // A 4-pocket axis also has a center gutter. Don't call it 2 pockets
-        // when other strong gutters would be left unexplained.
+
         let unexplained = 0;
-        for (let i = 24; i < samples - 24; i++) {
+        for (let i = 24; i < samples - 24; i += 1) {
           const position = i / (samples - 1);
-          const nearDivider = Array.from({ length: count - 1 }, (_, k) => (k + 1) / count)
-            .some((divider) => Math.abs(position - divider) < 0.06);
+          const nearDivider = dividers.some(
+            (divider) => Math.abs(position - divider.position) < Math.min(0.07, 0.2 / count),
+          );
           if (!nearDivider) unexplained = Math.max(unexplained, contrastAt(i));
         }
-        return { count, min, average, score: min * 0.4 + average * 0.6 - unexplained * 0.3 };
+        return {
+          count,
+          min,
+          average,
+          dividers,
+          score: min * 0.4 + average * 0.6 - unexplained * 0.3,
+        };
       }).sort((a, b) => b.score - a.score);
+
       const [best, second] = candidates;
       const gap = best.score - second.score;
-      if (best.min < 0.09 || best.average < 0.18 || gap < 0.035) return null;
-      return { count: best.count, confidence: clamp(Math.min(best.average / 0.35, gap / 0.08), 0, 1) };
+      if (best.min < 0.085 || best.average < 0.17 || gap < 0.03) return null;
+      return {
+        count: best.count,
+        confidence: clamp(Math.min(best.average / 0.34, gap / 0.075), 0, 1),
+        dividers: best.dividers,
+        bounds: fitAxisBounds(best.dividers, best.count),
+      };
     }
-    const cols = axisCount(true), rows = axisCount(false);
+
+    const cols = axisCount(true);
+    const rows = axisCount(false);
     if (!cols || !rows) return null;
-    return { cols: cols.count, rows: rows.count, confidence: Math.min(cols.confidence, rows.confidence) };
+    return {
+      cols: cols.count,
+      rows: rows.count,
+      confidence: Math.min(cols.confidence, rows.confidence),
+      xDividers: cols.dividers,
+      yDividers: rows.dividers,
+      xBounds: cols.bounds,
+      yBounds: rows.bounds,
+    };
+  }
+
+  function refineCornersToPocket(corners, layout, width, height) {
+    if (!layout || !validCorners(corners, width, height)) return corners;
+    const x0 = Number(layout.xBounds?.start);
+    const x1 = Number(layout.xBounds?.end);
+    const y0 = Number(layout.yBounds?.start);
+    const y1 = Number(layout.yBounds?.end);
+    if (![x0, x1, y0, y1].every(Number.isFinite)) return corners;
+    const spanX = x1 - x0;
+    const spanY = y1 - y0;
+    if (spanX < 0.72 || spanY < 0.72 || spanX > 1 || spanY > 1) return corners;
+
+    const trim = x0 + (1 - x1) + y0 + (1 - y1);
+    const trustworthy = Number(layout.confidence) >= 0.5 &&
+      Number(layout.xBounds?.confidence) >= 0.42 &&
+      Number(layout.yBounds?.confidence) >= 0.42;
+    if (!trustworthy || trim < 0.025 || trim > 0.34) return corners;
+
+    const map = unitSquareToQuad(corners);
+    if (!map) return corners;
+    const refined = [
+      map(x0, y0),
+      map(x1, y0),
+      map(x1, y1),
+      map(x0, y1),
+    ];
+    return validCorners(refined, width, height) ? refined : corners;
+  }
+
+  function buildSlotCrops(grid, layout, canvasWidth, canvasHeight, cardAspect = 63 / 88) {
+    const cols = Math.max(1, Number(grid?.cols) || 3);
+    const rows = Math.max(1, Number(grid?.rows) || 4);
+    const safeLayout = layout && layout.cols === cols && layout.rows === rows ? layout : null;
+
+    function axisCells(count, dividers, defaultPadRatio = 0.012) {
+      const validDividers = Array.isArray(dividers) && dividers.length === count - 1
+        ? dividers
+        : Array.from({ length: count - 1 }, (_, index) => ({
+            position: (index + 1) / count,
+            halfWidth: 0,
+          }));
+
+      return Array.from({ length: count }, (_, index) => {
+        const nominalStart = index === 0 ? 0 : Number(validDividers[index - 1]?.position);
+        const nominalEnd = index === count - 1 ? 1 : Number(validDividers[index]?.position);
+        const leftGap = index === 0 ? 0 : Number(validDividers[index - 1]?.halfWidth) || 0;
+        const rightGap = index === count - 1 ? 0 : Number(validDividers[index]?.halfWidth) || 0;
+        const start = clamp(nominalStart + leftGap * 0.9, 0, 1);
+        const end = clamp(nominalEnd - rightGap * 0.9, 0, 1);
+        const span = Math.max(0.0001, end - start);
+        const pad = span * defaultPadRatio;
+        return {
+          start: clamp(start + pad, 0, 1),
+          end: clamp(end - pad, 0, 1),
+        };
+      });
+    }
+
+    const xCells = axisCells(cols, safeLayout?.xDividers);
+    const yCells = axisCells(rows, safeLayout?.yDividers);
+    const result = [];
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let col = 0; col < cols; col += 1) {
+        let x0 = xCells[col].start;
+        let x1 = xCells[col].end;
+        let y0 = yCells[row].start;
+        let y1 = yCells[row].end;
+
+        const pixelWidth = Math.max(1, (x1 - x0) * canvasWidth);
+        const pixelHeight = Math.max(1, (y1 - y0) * canvasHeight);
+        const currentAspect = pixelWidth / pixelHeight;
+
+        if (currentAspect > cardAspect) {
+          const targetWidth = (y1 - y0) * canvasHeight * cardAspect / canvasWidth;
+          const center = (x0 + x1) / 2;
+          x0 = center - targetWidth / 2;
+          x1 = center + targetWidth / 2;
+        } else if (currentAspect < cardAspect) {
+          const targetHeight = (x1 - x0) * canvasWidth / cardAspect / canvasHeight;
+          const center = (y0 + y1) / 2;
+          y0 = center - targetHeight / 2;
+          y1 = center + targetHeight / 2;
+        }
+
+        x0 = clamp(x0, 0, 1);
+        x1 = clamp(x1, 0, 1);
+        y0 = clamp(y0, 0, 1);
+        y1 = clamp(y1, 0, 1);
+        result.push({
+          x: Number(x0.toFixed(6)),
+          y: Number(y0.toFixed(6)),
+          width: Number(Math.max(0.0001, x1 - x0).toFixed(6)),
+          height: Number(Math.max(0.0001, y1 - y0).toFixed(6)),
+        });
+      }
+    }
+    return result;
   }
 
   // Browser decoders apply EXIF exactly once; drawing removes orientation metadata.
@@ -399,6 +595,7 @@
     const controls = [...dialog.querySelectorAll("button, input, select")];
     let points = originalCorners(image, 0.025), confidence = 0, busy = false, drag = null;
     let manualGrid = false;
+    let pocketLayout = null;
     gridSelect.value = `${options.cols || 3}x${options.rows || 4}`;
     function scanGrid() {
       const [cols, rows] = gridSelect.value.split("x").map(Number);
@@ -406,14 +603,24 @@
     }
     function checkGrid() {
       let detected = null;
+      try { detected = detectPocketGrid(image, points); } catch { /* Manual selection stays available. */ }
+
       if (!manualGrid) {
-        try { detected = detectPocketGrid(image, points); } catch { /* Manual selection stays available. */ }
         const value = detected && `${detected.cols}x${detected.rows}`;
-        if (value && [...gridSelect.options].some((option) => option.value === value)) gridSelect.value = value;
-        else detected = null;
+        if (value && [...gridSelect.options].some((option) => option.value === value)) {
+          gridSelect.value = value;
+        } else {
+          detected = null;
+        }
       }
+
       const { cols, rows } = scanGrid();
-      gridNote.textContent = `${detected ? "포켓 구분선으로 찾은 배열" : "사진 속 배열을 확인하세요"} · ${cols} × ${rows}, ${cols * rows}칸. 분할선이 실제 포켓 사이에 맞아야 합니다.`;
+      pocketLayout = detected?.cols === cols && detected?.rows === rows ? detected : null;
+      const cropText = pocketLayout?.confidence >= 0.4
+        ? "포켓 구분선과 카드 영역까지 자동으로 맞춥니다"
+        : "분할선이 실제 포켓 사이에 맞는지 확인하세요";
+      gridNote.textContent =
+        `${pocketLayout ? "포켓 구분선 자동 감지" : "사진 속 배열 확인"} · ${cols} × ${rows}, ${cols * rows}칸 · ${cropText}.`;
       drawPoints();
     }
     let resolveEdit;
@@ -462,18 +669,29 @@
     }
     async function detect() {
       setBusy(true);
-      status.textContent = "페이지의 네 모서리를 찾는 중입니다…";
+      status.textContent = "페이지와 카드 포켓 영역을 찾는 중입니다…";
       await new Promise((resolve) => setTimeout(resolve, 0));
       let detected = null;
       try { detected = detectPage(image); } catch { /* Safe initial corners below. */ }
       if (detected?.confidence >= 0.4 && validCorners(detected.corners, image.width, image.height)) {
         points = detected.corners;
         confidence = detected.confidence;
-        status.textContent = "페이지 외곽을 찾았습니다. 네 점을 확인하고 카드 포켓 영역에 맞춰 주세요.";
+        let initialLayout = null;
+        try { initialLayout = detectPocketGrid(image, points); } catch { /* Keep page corners. */ }
+        const refined = refineCornersToPocket(points, initialLayout, image.width, image.height);
+        const refinedEnough = refined.some((point, index) =>
+          Math.hypot(point.x - points[index].x, point.y - points[index].y) > 2
+        );
+        if (refinedEnough) {
+          points = refined;
+          status.textContent = "포켓 바깥 여백까지 자동 정리했습니다. 네 점과 분할선만 확인해 주세요.";
+        } else {
+          status.textContent = "페이지 영역을 찾았습니다. 네 점과 포켓 분할선만 확인해 주세요.";
+        }
       } else {
         points = originalCorners(image, 0.025);
         confidence = 0;
-        status.textContent = "페이지 경계가 불확실합니다. 네 점을 카드 포켓 영역의 모서리로 옮겨 주세요.";
+        status.textContent = "자동 감지가 불확실합니다. 네 점을 카드 포켓 영역의 바깥 모서리에 맞춰 주세요.";
       }
       checkGrid();
       setBusy(false);
@@ -501,6 +719,7 @@
         points[i] = { x: clamp(drag.point.x + (event.clientX - drag.x) * drag.scaleX, 0, image.width - 1),
           y: clamp(drag.point.y + (event.clientY - drag.y) * drag.scaleY, 0, image.height - 1) };
         confidence = 0;
+        pocketLayout = null;
         status.textContent = validCorners(points, image.width, image.height)
           ? "선 안쪽만 스캔됩니다. 확대해서 모서리를 더 정확하게 맞출 수 있습니다."
           : "모서리가 겹쳤습니다. 네 점을 페이지 외곽 순서에 맞춰 주세요.";
@@ -517,6 +736,7 @@
         points[i].x = clamp(points[i].x + dx * step, 0, image.width - 1);
         points[i].y = clamp(points[i].y + dy * step, 0, image.height - 1);
         confidence = 0;
+        pocketLayout = null;
         drawPoints();
       }, { signal });
     });
@@ -531,7 +751,8 @@
       if (action === "reset") {
         points = originalCorners(image);
         confidence = 0;
-        status.textContent = "사진 전체 영역으로 초기화했습니다. 네 점을 페이지 모서리에 맞춰 주세요.";
+        pocketLayout = null;
+        status.textContent = "사진 전체 영역으로 초기화했습니다. 네 점을 카드 포켓 영역에 맞춰 주세요.";
         checkGrid();
       }
       if (action === "rotate") {
@@ -546,6 +767,7 @@
         image.height = rotated.height;
         image.getContext("2d").drawImage(rotated, 0, 0);
         points = originalCorners(image, 0.025);
+        pocketLayout = null;
         zoom.value = "1";
         paint();
         await detect();
@@ -555,9 +777,27 @@
         status.textContent = "원근을 보정하고 슬롯을 준비하는 중입니다…";
         try {
           const grid = scanGrid();
+          const cardAspect = (options.cardWidth || 63) / (options.cardHeight || 88);
           const aspect = (grid.cols * (options.cardWidth || 63)) / (grid.rows * (options.cardHeight || 88));
           const corrected = await warpPerspective(image, points, aspect);
-          finish({ canvas: corrected, mode: "perspective", confidence, grid });
+          const latestLayout = pocketLayout?.cols === grid.cols && pocketLayout?.rows === grid.rows
+            ? pocketLayout
+            : null;
+          const slotCrops = buildSlotCrops(
+            grid,
+            latestLayout,
+            corrected.width,
+            corrected.height,
+            cardAspect,
+          );
+          finish({
+            canvas: corrected,
+            mode: "perspective",
+            confidence,
+            grid,
+            slotCrops,
+            cropMode: latestLayout ? "pocket-adaptive" : "card-safe",
+          });
         } catch (error) {
           status.textContent = error.message || "스캔하지 못했습니다. 모서리를 다시 확인해 주세요.";
           setBusy(false);
@@ -572,5 +812,16 @@
     return done;
   }
 
-  root.photoScanner = Object.freeze({ edit, decodePhoto, detectPage, detectPocketGrid, warpPerspective, validCorners, originalCorners, unitSquareToQuad });
+  root.photoScanner = Object.freeze({
+    edit,
+    decodePhoto,
+    detectPage,
+    detectPocketGrid,
+    warpPerspective,
+    validCorners,
+    originalCorners,
+    unitSquareToQuad,
+    refineCornersToPocket,
+    buildSlotCrops,
+  });
 })();
