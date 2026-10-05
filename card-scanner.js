@@ -2219,6 +2219,12 @@
         continue;
       }
 
+      if (membership.mode === "people") {
+        const data = await readDocument(meta.documentId).catch(() => ({}));
+        membership.owned = data?.peopleOwned?.[membership.key] === true;
+        continue;
+      }
+
       const value = await existingOverride(meta.documentId, membership.key).catch(() => null);
       if (value !== null) {
         membership.owned = overrideOwned(value);
@@ -2443,6 +2449,63 @@
     );
   }
 
+  async function writePeopleMembership(membership) {
+    const firebase = await ensureFirebase();
+    const user = await ensureSignedIn();
+    const meta = registry.COLLECTIONS?.people;
+    if (!meta?.documentId) throw new Error("인물도감 저장 위치를 확인할 수 없습니다.");
+    const ref = await ensureRootDocument(meta.documentId);
+    const source = await readDocument(meta.documentId).catch(() => ({}));
+    const previous =
+      source?.peopleOverrides &&
+      typeof source.peopleOverrides === "object" &&
+      !Array.isArray(source.peopleOverrides)
+        ? source.peopleOverrides[membership.key]
+        : null;
+    const previousObject =
+      previous && typeof previous === "object" && !Array.isArray(previous)
+        ? previous
+        : {};
+
+    const imageUrl =
+      state.selected.image ||
+      state.selected.originalImage ||
+      "";
+    const value = {
+      ...previousObject,
+      imageUrl,
+      cardUrl: clean(previousObject.cardUrl),
+      cardName:
+        state.selected.name ||
+        state.selected.pokemonName ||
+        state.selected.rawCode ||
+        "",
+      setName: state.selected.setTitle || state.selected.setCode || "",
+      cardNumber: state.selected.cardNumber || state.selected.rawCode || "",
+      updatedAt: new Date().toISOString(),
+      updatedBy: user.email || user.uid,
+    };
+
+    await firebase.firestoreModule.setDoc(
+      ref,
+      {
+        peopleOwned: { [membership.key]: true },
+        peopleOverrides: { [membership.key]: value },
+        updatedAt: firebase.firestoreModule.serverTimestamp(),
+      },
+      {
+        mergeFields: [
+          new firebase.firestoreModule.FieldPath("peopleOwned", membership.key),
+          new firebase.firestoreModule.FieldPath("peopleOverrides", membership.key),
+          "updatedAt",
+        ],
+      },
+    );
+
+    membership.owned = true;
+    state.documentCache.delete(meta.documentId);
+  }
+
   async function writeNationalRepresentative(membership) {
     const firebase = await ensureFirebase();
     const user = await ensureSignedIn();
@@ -2545,6 +2608,8 @@
       for (const membership of targets) {
         if (membership.mode === "representative") {
           await writeNationalRepresentative(membership);
+        } else if (membership.mode === "people") {
+          await writePeopleMembership(membership);
         } else if (membership.mode === "custom") {
           await writeCustomMembership(membership);
         } else {
