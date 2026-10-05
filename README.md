@@ -87,7 +87,7 @@ node scripts/build_people_data.mjs
 - 별도의 링크 공개·도감 링크 복사 UI는 제공하지 않음
 
 공개 화면은 `users/{uid}/collections/*` 원본을 직접 읽지 않습니다.
-이메일, Firebase UID, 메모, 수량, 교환 상태와 직접 등록한 프로모 정보가
+이메일, Firebase UID, 메모, 수량과 직접 등록한 프로모 정보가
 빠진 최소 projection만 `publicProfiles`에서 읽습니다.
 프로필 사진 업로드와 Firebase Storage는 사용하지 않습니다.
 
