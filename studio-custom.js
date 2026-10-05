@@ -2045,8 +2045,8 @@
       const sizeText =
         `${prepared.width.toLocaleString("ko-KR")} × ${prepared.height.toLocaleString("ko-KR")}px${originalMb}`;
       const scanText = scanResult.cropMode === "pocket-adaptive"
-        ? "원근 보정 + 포켓 여백·카드 크기 자동 정렬 완료"
-        : "원근 보정 + 카드 비율 자동 정렬 완료";
+        ? "네 모서리·기울기·원근 보정 완료 · 포켓 여백·카드 크기 자동 정렬 완료"
+        : "네 모서리·기울기·원근 보정 완료 · 카드 비율 자동 정렬 완료";
       updatePhotoImportUi(
         `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 각 칸은 카드 비율로 맞춰져 있으며 필요한 칸만 실제 카드로 교체할 수 있습니다.`,
       );
