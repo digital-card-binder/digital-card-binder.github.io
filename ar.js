@@ -446,6 +446,16 @@ async function toggleCard(card, button) {
   }
 }
 
+async function quickToggleCard(card, button) {
+  if (card.quickCollectSaving) return;
+  card.quickCollectSaving = true;
+  try {
+    await toggleCard(card, button);
+  } finally {
+    card.quickCollectSaving = false;
+  }
+}
+
 function makeCard(card) {
   const article = document.createElement("article");
   article.className = `pokemon-card ar-card catalog-card has-completion-action${
@@ -527,7 +537,7 @@ function makeCard(card) {
 
   button.addEventListener("click", () => {
     if (quickCollectMode) {
-      void toggleCard(card, complete);
+      void quickToggleCard(card, complete);
       return;
     }
     openDialog(card);
