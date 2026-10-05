@@ -981,12 +981,12 @@
             '<div id="card-scan-candidates" class="card-scan-candidates"></div>' +
           '</section>' +
           '<section id="card-scan-membership-section" class="card-scan-section" hidden>' +
-            '<div class="card-scan-section-head"><strong>등록할 도감</strong><span>도감별 보유상태는 서로 독립</span></div>' +
+            '<div class="card-scan-section-head"><strong>어느 도감에 기록할까요?</strong><span>선택한 도감만 변경</span></div>' +
             '<div id="card-scan-memberships" class="card-scan-memberships"></div>' +
-            '<div class="card-scan-membership-actions"><button id="card-scan-select-all" type="button">미보유 도감 전체 선택</button></div>' +
+            '<div class="card-scan-membership-actions"><span id="card-scan-selection-count">0개 선택</span><button id="card-scan-select-all" type="button">전체 선택</button></div>' +
             '<div class="card-scan-save-row">' +
               '<button id="card-scan-next" class="card-scan-next" type="button">다음 카드</button>' +
-              '<button id="card-scan-save" class="card-scan-save" type="button">선택한 도감에 등록</button>' +
+              '<button id="card-scan-save" class="card-scan-save" type="button" disabled>도감을 선택해 주세요</button>' +
             '</div>' +
             '<p class="card-scan-privacy">촬영 이미지는 현재 기기에서 시각 지문과 문자만 계산합니다. 사진 원본 자체는 도감에 업로드하지 않습니다.</p>' +
           '</section>' +
@@ -1021,6 +1021,7 @@
       candidates: dialog.querySelector("#card-scan-candidates"),
       membershipSection: dialog.querySelector("#card-scan-membership-section"),
       memberships: dialog.querySelector("#card-scan-memberships"),
+      selectionCount: dialog.querySelector("#card-scan-selection-count"),
       selectAll: dialog.querySelector("#card-scan-select-all"),
       save: dialog.querySelector("#card-scan-save"),
       next: dialog.querySelector("#card-scan-next"),
@@ -1213,11 +1214,16 @@
 
   function setBusy(busy) {
     state.busy = Boolean(busy);
-    [els.camera, els.file, els.manualSearch, els.save, els.next]
+    [els.camera, els.file, els.manualSearch, els.next, els.selectAll]
       .filter(Boolean)
       .forEach((button) => {
         button.disabled = state.busy;
       });
+    if (state.busy && els.save) {
+      els.save.disabled = true;
+    } else {
+      updateMembershipSelectionUi();
+    }
   }
 
   function loadExternalScript(src) {
