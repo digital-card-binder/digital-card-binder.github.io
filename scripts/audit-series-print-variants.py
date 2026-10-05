@@ -103,20 +103,47 @@ def group_products(
 ) -> list[dict[str, Any]]:
     era = era.upper()
     official_values = official_values or {}
-    if era == "DP":
-        # The DP catalog was already built from Pokemon Korea and stores the
-        # exact official GoodsName values in series-legacy.json. Reuse those
-        # pinned values so a transient block on the public /cards index cannot
-        # prevent a reproducible audit.
-        pinned_products: dict[str, list[str]] = {}
+    if era in {"DP", "BW"}:
+        # These Korean legacy catalogs were already built from Pokemon Korea
+        # and store the exact official GoodsName values in series-legacy.json.
+        # Reuse those pinned values so a transient block on the public /cards
+        # index cannot prevent a reproducible variant audit.
         legacy_path = ROOT / "data" / "series-legacy.json"
-        if legacy_path.exists():
-            existing = json.loads(legacy_path.read_text(encoding="utf-8"))
-            for group in existing:
-                code = clean(group.get("code")).casefold()
-                products = [clean(value) for value in group.get("sourceProducts", []) if clean(value)]
-                if code and products:
-                    pinned_products[code] = products
+        existing = (
+            json.loads(legacy_path.read_text(encoding="utf-8"))
+            if legacy_path.exists()
+            else []
+        )
+        pinned_groups = [
+            group
+            for group in existing
+            if clean(group.get("era")).upper() == era
+        ]
+        pinned_products = {
+            clean(group.get("code")).casefold(): [
+                clean(value)
+                for value in group.get("sourceProducts", [])
+                if clean(value)
+            ]
+            for group in pinned_groups
+        }
+
+        if era == "BW":
+            groups = []
+            for group in pinned_groups:
+                code = clean(group.get("code"))
+                products = pinned_products.get(code.casefold(), [])
+                if not code or not products:
+                    continue
+                groups.append(
+                    {
+                        "era": "BW",
+                        "code": code,
+                        "title": clean(group.get("displayName") or group.get("title")),
+                        "products": products,
+                    }
+                )
+            return groups
 
         groups = []
         for meta in dp.SETS:
@@ -168,6 +195,12 @@ def record_image_identity(
         return identity
 
     filename = image.split("?", 1)[0].rsplit("/", 1)[-1].rsplit(".", 1)[0]
+
+    if "/wmimages/BW/" in image.replace("\\", "/"):
+        number_matches = re.findall(r"(?:^|_)0*([0-9]{1,4})(?=_|$)", filename, re.I)
+        if number_matches:
+            return clean(group_code), str(int(number_matches[-1]))
+
     match = re.search(r"^([^_]+)_0*([0-9]{1,4})(?:_|$)", filename, re.I)
     if match:
         return match.group(1), str(int(match.group(2)))
@@ -177,6 +210,10 @@ def record_image_identity(
         promo = re.fullmatch(r"PR2010001(\d{3})", card_num)
         if promo:
             return "DPP", str(int(promo.group(1)))
+    if clean(group_code).upper() == "BWP":
+        promo = re.fullmatch(r"PR20\d{2}\d{3}(\d{3})", card_num)
+        if promo:
+            return "BWP", str(int(promo.group(1)))
 
     if card_num:
         try:
@@ -510,7 +547,7 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--era", choices=("DP", "S", "SM", "SV", "M"), default="S")
+    parser.add_argument("--era", choices=("DP", "BW", "S", "SM", "SV", "M"), default="S")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--output",
