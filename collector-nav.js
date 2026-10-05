@@ -594,6 +594,459 @@
     )?.forEach?.((summary) => summary.classList?.add?.("collector-selection-summary"));
   }
 
+  const RELATED_DEX_ORDER = Object.freeze([
+    "series",
+    "ar",
+    "pokemon",
+    "artist",
+    "people",
+    "trainerPokemon",
+    "fossil",
+    "world",
+    "artThemes",
+    "national",
+  ]);
+  let relatedDexIndexPromise = null;
+
+  function relatedClean(value) {
+    return String(value ?? "").trim();
+  }
+
+  function relatedNormalizedSet(value) {
+    return relatedClean(value)
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/[^a-z0-9+\-]/g, "");
+  }
+
+  function relatedCardNumerator(value) {
+    const text = relatedClean(value).replace(/\s+/g, "");
+    const slash =
+      text.match(/(?:^|[_:\-])0*(\d{1,4})\/\d{1,4}/i) ||
+      text.match(/^0*(\d{1,4})\/\d{1,4}/);
+    if (slash) return String(Number(slash[1]));
+    const separated = text.match(/(?:_|-)0*(\d{1,4})(?:\D|$)/i);
+    if (separated) return String(Number(separated[1]));
+    const leading = text.match(/^0*(\d{1,4})(?:\D|$)/);
+    return leading ? String(Number(leading[1])) : "";
+  }
+
+  function relatedSetFromMeta(value) {
+    const chunks = relatedClean(value)
+      .split("·")
+      .map((part) => part.trim())
+      .filter(Boolean);
+    if (chunks.length < 2) return "";
+    const candidate = chunks[chunks.length - 1];
+    return /[a-z]/i.test(candidate) && !/\s/.test(candidate)
+      ? candidate
+      : "";
+  }
+
+  function relatedSetFromImage(imageUrl) {
+    const value = relatedClean(imageUrl).split(/[?#]/, 1)[0];
+    if (!value) return "";
+    const pathMatch = value.match(
+      /\/wmimages\/(?:SV|SM|S|MEGA|M|XY|BW|DP|ADV)\/([^/]+)\/([^/]+)$/i,
+    );
+    if (!pathMatch) return "";
+    const folder = pathMatch[1] || "";
+    const filename = pathMatch[2] || "";
+    const fileMatch = filename.match(/^([^_]+)_\d+/i);
+    const fileSet = fileMatch?.[1] || "";
+    if (
+      fileSet &&
+      folder &&
+      fileSet.toLowerCase().startsWith(folder.toLowerCase())
+    ) {
+      return fileSet;
+    }
+    return folder || fileSet;
+  }
+
+  function looksLikeSetCode(value) {
+    const text = relatedClean(value);
+    if (!text || /\s/.test(text) || text.length > 18) return false;
+    if (/^BS20\d{5,}$/i.test(text)) return false;
+    return /[a-z]/i.test(text) && /\d|[-+]/.test(text);
+  }
+
+  function relatedCardReference(card = {}, context = {}) {
+    const image =
+      context.image ||
+      card.image ||
+      card.imageUrl ||
+      card.imageLarge ||
+      card.originalImage ||
+      card.actualImage ||
+      "";
+    const metaSet = relatedSetFromMeta(card.meta || card.code);
+    const directSetCandidates = [
+      context.setCode,
+      card.set,
+      metaSet,
+      card.setCode,
+      card.actualSetCode,
+    ];
+    let setCode = directSetCandidates.find(looksLikeSetCode) || "";
+    if (!setCode) setCode = relatedSetFromImage(image);
+
+    const cardNumber =
+      context.cardNumber ||
+      card.cardNumber ||
+      card.number ||
+      card.actualCardNumber ||
+      card.code ||
+      card.meta ||
+      image;
+
+    const normalizedSet = relatedNormalizedSet(setCode);
+    const normalizedNumber = relatedCardNumerator(cardNumber);
+    return {
+      setCode: relatedClean(setCode),
+      cardNumber: relatedClean(cardNumber),
+      fingerprint:
+        normalizedSet && normalizedNumber
+          ? `${normalizedSet}::${normalizedNumber}`
+          : "",
+      name: relatedClean(
+        context.name ||
+          card.name ||
+          card.pokemonName ||
+          card.cardName ||
+          card.nameKo,
+      ),
+      image,
+    };
+  }
+
+  function relatedHref(collectionId, groupKey) {
+    const value = relatedClean(groupKey);
+    switch (collectionId) {
+      case "series":
+        return `./series.html?group=${encodeURIComponent(value)}`;
+      case "ar":
+        return `./ar.html?group=${encodeURIComponent(value)}`;
+      case "pokemon":
+        return `./pokemon-collections.html?group=${encodeURIComponent(value)}`;
+      case "artist":
+        return `./artists.html?artist=${encodeURIComponent(value)}`;
+      case "people":
+        return `./people.html?person=${encodeURIComponent(value)}`;
+      case "trainerPokemon":
+        return `./trainer-pokemon.html?group=${encodeURIComponent(value)}`;
+      case "fossil":
+        return `./fossil.html?set=${encodeURIComponent(value)}`;
+      case "world":
+        return `./world.html?generation=${encodeURIComponent(value)}`;
+      case "artThemes":
+        return `./art-themes.html?theme=${encodeURIComponent(value)}`;
+      case "national":
+        return `./national.html?pokemon=${encodeURIComponent(value)}`;
+      default:
+        return registry?.COLLECTIONS?.[collectionId]?.href || "./";
+    }
+  }
+
+  function relatedLabel(collectionId, groupLabel) {
+    const title = registry?.COLLECTIONS?.[collectionId]?.title || "도감";
+    const detail = relatedClean(groupLabel);
+    return detail ? `${title} · ${detail}` : title;
+  }
+
+  function pushRelated(index, card, descriptor, context = {}) {
+    const reference = relatedCardReference(card, context);
+    if (!reference.fingerprint) return;
+    const entry = {
+      collectionId: descriptor.collectionId,
+      groupKey: relatedClean(descriptor.groupKey),
+      groupLabel: relatedClean(descriptor.groupLabel || descriptor.groupKey),
+    };
+    entry.href = relatedHref(entry.collectionId, entry.groupKey);
+    entry.label = relatedLabel(entry.collectionId, entry.groupLabel);
+    if (!index.has(reference.fingerprint)) index.set(reference.fingerprint, []);
+    const items = index.get(reference.fingerprint);
+    if (
+      !items.some(
+        (item) =>
+          item.collectionId === entry.collectionId &&
+          item.groupKey === entry.groupKey,
+      )
+    ) {
+      items.push(entry);
+    }
+  }
+
+  async function buildRelatedDexIndex() {
+    const catalog = window.DigitalCardBinder?.catalog;
+    if (!catalog) return new Map();
+
+    const safe = (promise, fallback) =>
+      Promise.resolve(promise).catch((error) => {
+        console.warn("관련 도감 연결 데이터를 불러오지 못했습니다.", error);
+        return fallback;
+      });
+
+    const [
+      pokemonGroups,
+      arGroups,
+      artistsPayload,
+      peoplePayload,
+      trainerPayload,
+      fossilPayload,
+      themesPayload,
+      worldGroups,
+      pokedexPayload,
+    ] = await Promise.all([
+      safe(catalog.pokemonCollections(), []),
+      safe(catalog.ar(), []),
+      safe(catalog.json("./data/artists.json"), { artists: [] }),
+      safe(catalog.json("./data/people.json"), { people: [] }),
+      safe(catalog.json("./data/trainer-pokemon.json"), { groups: [] }),
+      safe(catalog.json("./data/fossil.json"), { groups: [] }),
+      safe(catalog.json("./data/art-themes.json"), { groups: [] }),
+      safe(catalog.worldGroups(), []),
+      safe(catalog.json("./data/pokedex.json"), { records: [] }),
+    ]);
+
+    const index = new Map();
+
+    (pokemonGroups || []).forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        pushRelated(
+          index,
+          card,
+          {
+            collectionId: "pokemon",
+            groupKey: group.name,
+            groupLabel: group.name,
+          },
+          { setCode: relatedSetFromMeta(card.meta) },
+        );
+      });
+    });
+
+    (arGroups || []).forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "ar",
+          groupKey: group.code,
+          groupLabel: group.title || group.code,
+        }, { setCode: group.code });
+      });
+    });
+
+    (artistsPayload?.artists || []).forEach((artist) => {
+      (artist.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "artist",
+          groupKey: artist.name,
+          groupLabel: artist.name,
+        });
+      });
+    });
+
+    (peoplePayload?.people || []).forEach((person) => {
+      (person.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "people",
+          groupKey: person.id,
+          groupLabel: person.nameKo || person.nameEn || person.id,
+        });
+      });
+    });
+
+    (trainerPayload?.groups || []).forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "trainerPokemon",
+          groupKey: group.name,
+          groupLabel: group.name,
+        });
+      });
+    });
+
+    (fossilPayload?.groups || []).forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "fossil",
+          groupKey: group.code,
+          groupLabel: group.name || group.set || group.code,
+        });
+      });
+    });
+
+    (themesPayload?.groups || []).forEach((group) => {
+      (group.cards || []).forEach((card) => {
+        pushRelated(index, card, {
+          collectionId: "artThemes",
+          groupKey: group.code,
+          groupLabel: group.name,
+        });
+      });
+    });
+
+    (worldGroups || []).forEach((group) => {
+      const generation =
+        String(group.code || "").match(/generation-(\d+)/i)?.[1] || "";
+      (group.cards || []).forEach((card) => {
+        const source = card.slot?.card || card;
+        pushRelated(index, source, {
+          collectionId: "world",
+          groupKey: generation,
+          groupLabel: group.name,
+        }, {
+          image: source.image || card.image,
+        });
+      });
+    });
+
+    (pokedexPayload?.records || []).forEach((record) => {
+      pushRelated(index, record, {
+        collectionId: "national",
+        groupKey: record.number,
+        groupLabel: record.nameKo || record.nameEn || `#${record.number}`,
+      });
+    });
+
+    return index;
+  }
+
+  function getRelatedDexIndex() {
+    if (!relatedDexIndexPromise) {
+      relatedDexIndexPromise = buildRelatedDexIndex().catch((error) => {
+        relatedDexIndexPromise = null;
+        throw error;
+      });
+    }
+    return relatedDexIndexPromise;
+  }
+
+  function relatedCurrentGroup(context = {}) {
+    return relatedClean(
+      context.currentGroupKey ||
+        context.groupKey ||
+        context.group?.code ||
+        context.group?.name ||
+        context.group?.title,
+    );
+  }
+
+  function relatedSameDestination(item, context = {}) {
+    const currentCollectionId =
+      context.currentCollectionId ||
+      registry?.collectionIdForPage?.() ||
+      document.body?.dataset?.catalog ||
+      "";
+    if (item.collectionId !== currentCollectionId) return false;
+    const currentGroup = relatedCurrentGroup(context);
+    return currentGroup
+      ? relatedClean(item.groupKey).toLowerCase() === currentGroup.toLowerCase()
+      : true;
+  }
+
+  function relatedSort(left, right) {
+    const leftOrder = RELATED_DEX_ORDER.indexOf(left.collectionId);
+    const rightOrder = RELATED_DEX_ORDER.indexOf(right.collectionId);
+    if (leftOrder !== rightOrder) return leftOrder - rightOrder;
+    return left.label.localeCompare(right.label, "ko");
+  }
+
+  function relatedDexHost(dialog) {
+    if (!dialog) return null;
+    let host = dialog.querySelector(".related-dex-links");
+    if (host) return host;
+    const copy =
+      dialog.querySelector(".dialog-card-copy") ||
+      dialog.querySelector(".people-dialog-copy") ||
+      dialog.querySelector(".world-dialog-copy") ||
+      dialog;
+    host = document.createElement("section");
+    host.className = "related-dex-links";
+    host.hidden = true;
+    host.innerHTML = `
+      <div class="related-dex-heading">
+        <strong>이 카드가 있는 다른 도감</strong>
+        <small>보유 상태는 각 도감에서 독립적으로 관리됩니다.</small>
+      </div>
+      <div class="related-dex-items" aria-live="polite"></div>
+    `;
+    copy.append(host);
+    return host;
+  }
+
+  async function renderRelatedDexLinks(dialog, card, context = {}) {
+    const host = relatedDexHost(dialog);
+    if (!host) return;
+    const itemsHost = host.querySelector(".related-dex-items");
+    if (!itemsHost) return;
+
+    const reference = relatedCardReference(card, context);
+    if (!reference.fingerprint) {
+      host.hidden = true;
+      itemsHost.replaceChildren();
+      return;
+    }
+
+    const requestKey = `${reference.fingerprint}::${Date.now()}`;
+    host.dataset.requestKey = requestKey;
+    host.hidden = false;
+    host.classList.add("is-loading");
+    itemsHost.textContent = "관련 도감 확인 중…";
+
+    try {
+      const index = await getRelatedDexIndex();
+      if (host.dataset.requestKey !== requestKey) return;
+
+      const links = [...(index.get(reference.fingerprint) || [])];
+      if (reference.setCode) {
+        links.push({
+          collectionId: "series",
+          groupKey: reference.setCode,
+          groupLabel: reference.setCode,
+          href: relatedHref("series", reference.setCode),
+          label: relatedLabel("series", reference.setCode),
+        });
+      }
+
+      const unique = new Map();
+      links
+        .filter((item) => !relatedSameDestination(item, context))
+        .forEach((item) => {
+          unique.set(`${item.collectionId}::${item.groupKey}`, item);
+        });
+      const related = [...unique.values()].sort(relatedSort);
+
+      itemsHost.replaceChildren();
+      host.classList.remove("is-loading");
+      if (!related.length) {
+        host.hidden = true;
+        return;
+      }
+
+      related.forEach((item) => {
+        const link = document.createElement("a");
+        link.className = "related-dex-link";
+        link.href = item.href;
+        link.textContent = item.label;
+        link.setAttribute("aria-label", `${item.label}로 이동`);
+        itemsHost.append(link);
+      });
+      host.hidden = false;
+    } catch (error) {
+      console.warn("관련 도감 링크를 만들지 못했습니다.", error);
+      host.classList.remove("is-loading");
+      host.hidden = true;
+      itemsHost.replaceChildren();
+    }
+  }
+
+  window.DigitalCardBinder = window.DigitalCardBinder || {};
+  window.DigitalCardBinder.relatedDex = Object.freeze({
+    reference: relatedCardReference,
+    render: renderRelatedDexLinks,
+  });
+
   const UNIFIED_DEX_CONTROL_CONFIG = Object.freeze({
     national: {
       status: "#status-filters",
