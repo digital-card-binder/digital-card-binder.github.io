@@ -44,8 +44,8 @@
     "previousGroupCount": 6,
     "currentGroupCount": 12,
     "previousCardSlots": 273,
-    "addedCardSlots": 60,
-    "currentCardSlots": 333
+    "addedCardSlots": 73,
+    "currentCardSlots": 346
   },
   "addedThemes": [
     {
@@ -88,7 +88,7 @@
   "finalReview": {
     "status": "complete",
     "metricsVerified": true,
-    "totalCardSlots": 333,
+    "totalCardSlots": 346,
     "totalThemes": 12
   },
   "regularRarityExpansion": {
@@ -126,5 +126,33 @@
       ]
     },
     "rule": "신규 테마도 AR/SAR 중심으로 제한하지 않고 C/U/R 일반 레어도를 동등하게 조사·수록한다."
+  },
+  "m6aExpansion": {
+    "addedCardSlots": 13,
+    "policy": "같은 카드는 테마 적합 시 여러 테마에 중복 수록할 수 있다.",
+    "additions": {
+      "connected": [
+        "M6A_105",
+        "M6A_107",
+        "M6A_108",
+        "M6A_115",
+        "M6A_117",
+        "M6A_120"
+      ],
+      "night": [
+        "M6A_077",
+        "M6A_122",
+        "M6A_127"
+      ],
+      "season": [
+        "M6A_106",
+        "M6A_122"
+      ],
+      "street": [
+        "M6A_110",
+        "M6A_120"
+      ]
+    },
+    "note": "M6a 176장 확장 후 연결·밤·풍경·스트리트 테마를 재검수해 명확한 장면 근거가 있는 카드만 추가."
   }
 }
