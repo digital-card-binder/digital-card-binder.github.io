@@ -103,7 +103,7 @@ def group_products(
 ) -> list[dict[str, Any]]:
     era = era.upper()
     official_values = official_values or {}
-    if era in {"DP", "BW"}:
+    if era in {"ORIGIN", "ADV", "DP", "BW", "XY"}:
         # These Korean legacy catalogs were already built from Pokemon Korea
         # and store the exact official GoodsName values in series-legacy.json.
         # Reuse those pinned values so a transient block on the public /cards
@@ -172,6 +172,23 @@ def group_products(
                             len(products) > 1
                             or any(product_usage.get(product, 0) > 1 for product in products)
                         ),
+                    }
+                )
+            return groups
+
+        if era in {"ORIGIN", "ADV", "XY"}:
+            groups = []
+            for group in pinned_groups:
+                code = clean(group.get("code"))
+                products = pinned_products.get(code.casefold(), [])
+                if not code or not products:
+                    continue
+                groups.append(
+                    {
+                        "era": era,
+                        "code": code,
+                        "title": clean(group.get("displayName") or group.get("title")),
+                        "products": products,
                     }
                 )
             return groups
@@ -606,7 +623,7 @@ def build_audit(era: str, workers: int) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--era", choices=("DP", "BW", "S", "SM", "SV", "M"), default="S")
+    parser.add_argument("--era", choices=("ORIGIN", "ADV", "DP", "BW", "XY", "S", "SM", "SV", "M"), default="S")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument(
         "--output",
