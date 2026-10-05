@@ -157,3 +157,27 @@ test("reliable inferred pocket bounds can remove outer page margins", () => {
   assert.ok(refined[2].x < page[2].x);
   assert.ok(refined[2].y < page[2].y);
 });
+
+
+test("scanned card matcher samples small crop offsets without weakening confidence rules", () => {
+  const matcher = readFileSync(new URL("../card-visual-matcher.js", import.meta.url), "utf8");
+
+  assert.match(matcher, /function photoCropVariants\(/);
+  assert.match(matcher, /\[0\.018, -0\.018, 0\]/);
+  assert.match(matcher, /\[0\.018, 0\.018, 0\]/);
+  assert.match(matcher, /\[0\.018, 0, -0\.018\]/);
+  assert.match(matcher, /\[0\.018, 0, 0\.018\]/);
+  assert.match(matcher, /photoCropVariants\(crop\)\.map/);
+  assert.match(matcher, /top\.distance <= 7\.5 && gap >= 4\.25/);
+  assert.match(matcher, /top\.distance <= 9\.0 && gap >= 6\.0/);
+});
+
+test("successful page scan immediately performs conservative card recognition", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+
+  assert.match(studio, /let autoRecognizeAfterImport = false/);
+  assert.match(studio, /autoRecognizeAfterImport = true/);
+  assert.match(studio, /if \(autoRecognizeAfterImport\) \{\s*await recognizeImportedPhotoCards\(\)/);
+  assert.match(studio, /스캔 완료 · 카드 자동인식을 시작합니다/);
+  assert.match(studio, /애매한 칸은 사진 그대로 유지했습니다/);
+});
