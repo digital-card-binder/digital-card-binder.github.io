@@ -777,9 +777,48 @@
     }
   }
 
+  function decodeRelatedDexIndex(payload) {
+    const map = new Map();
+    const entries =
+      payload?.entries &&
+      typeof payload.entries === "object" &&
+      !Array.isArray(payload.entries)
+        ? payload.entries
+        : {};
+    Object.entries(entries).forEach(([fingerprint, rows]) => {
+      const items = (Array.isArray(rows) ? rows : [])
+        .map((row) => {
+          if (!Array.isArray(row) || row.length < 2) return null;
+          const collectionId = relatedClean(row[0]);
+          const groupKey = relatedClean(row[1]);
+          const groupLabel = relatedClean(row[2] || row[1]);
+          if (!collectionId || !groupKey) return null;
+          return {
+            collectionId,
+            groupKey,
+            groupLabel,
+            href: relatedHref(collectionId, groupKey),
+            label: relatedLabel(collectionId, groupLabel),
+          };
+        })
+        .filter(Boolean);
+      if (items.length) map.set(fingerprint, items);
+    });
+    return map;
+  }
+
   async function buildRelatedDexIndex() {
     const catalog = window.DigitalCardBinder?.catalog;
     if (!catalog) return new Map();
+
+    try {
+      const compactIndex = await catalog.json("./data/card-related-dex-index.json");
+      if (compactIndex?.schemaVersion === 1 && compactIndex?.entries) {
+        return decodeRelatedDexIndex(compactIndex);
+      }
+    } catch (error) {
+      console.warn("경량 관련 도감 인덱스를 불러오지 못해 원본 데이터로 복구합니다.", error);
+    }
 
     const safe = (promise, fallback) =>
       Promise.resolve(promise).catch((error) => {
