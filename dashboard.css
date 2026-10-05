@@ -1736,3 +1736,83 @@
     margin-top: 6px;
   }
 }
+
+
+/* Mobile compact primary collection cards 2026-10-05 */
+@media (max-width: 690px) {
+  #home-collection-section {
+    margin-top: 14px;
+    padding: 14px 10px;
+    border-radius: 16px;
+  }
+
+  #home-collection-section .dashboard-section-heading {
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  #home-collection-section .dashboard-section-heading h2 {
+    font-size: 0.92rem;
+  }
+
+  #home-collection-section .dashboard-section-heading p {
+    margin-top: 4px;
+    font-size: 0.53rem;
+  }
+
+  #dashboard-primary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  #dashboard-primary-grid .dashboard-collection-card {
+    min-height: 102px;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  #dashboard-primary-grid .dashboard-collection-card::before {
+    top: -40px;
+    right: -28px;
+    width: 86px;
+    height: 86px;
+  }
+
+  #dashboard-primary-grid .dashboard-card-top {
+    position: absolute;
+    top: 8px;
+    right: 9px;
+  }
+
+  #dashboard-primary-grid .dashboard-card-rate {
+    font-size: 0.56rem;
+  }
+
+  #dashboard-primary-grid .dashboard-card-title {
+    margin-top: 0;
+    padding-right: 30px;
+  }
+
+  #dashboard-primary-grid .dashboard-card-title strong {
+    font-size: 0.72rem;
+    line-height: 1.18;
+  }
+
+  #dashboard-primary-grid .dashboard-card-count {
+    margin-top: 6px;
+  }
+
+  #dashboard-primary-grid .dashboard-card-count strong {
+    font-size: 0.84rem;
+  }
+
+  #dashboard-primary-grid .dashboard-card-count span {
+    font-size: 0.48rem;
+  }
+
+  #dashboard-primary-grid .dashboard-card-progress {
+    height: 3px;
+    margin-top: 7px;
+  }
+}
