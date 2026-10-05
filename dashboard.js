@@ -148,26 +148,47 @@
   function renderRecentDex() {
     const section = document.querySelector("#home-resume-section");
     const card = document.querySelector("#home-resume-card");
-    if (!section || !card) return;
-
+    const continueAction = document.querySelector("#home-continue-action");
+    const continueDetail = document.querySelector("#home-continue-detail");
     const recent = window.DigitalCardBinder?.recentDex?.read?.();
+
     if (!recent) {
-      section.hidden = true;
+      if (section) section.hidden = true;
+      if (continueAction) {
+        continueAction.href = "#home-dex-section";
+        continueAction.classList.add("is-empty");
+      }
+      if (continueDetail) continueDetail.textContent = "도감을 선택하세요";
       return;
     }
+
+    const owned = Number(recent.owned);
+    const total = Number(recent.total);
+    const hasProgress = Number.isFinite(owned) && Number.isFinite(total) && total > 0;
+    const rate = hasProgress ? Math.max(0, Math.min(100, (owned / total) * 100)) : 0;
+    const recentTitle = recent.detail || recent.title || "최근 도감";
+
+    if (continueAction) {
+      continueAction.href = recent.href;
+      continueAction.classList.remove("is-empty");
+      continueAction.title = `${recent.title || "최근 도감"} · ${recentTitle}`;
+    }
+    if (continueDetail) {
+      continueDetail.textContent = hasProgress
+        ? `${recentTitle} · ${rate.toFixed(0)}%`
+        : recentTitle;
+    }
+
+    if (!section || !card) return;
 
     const title = document.querySelector("#home-resume-type");
     const detail = document.querySelector("#home-resume-detail");
     const progress = document.querySelector("#home-resume-progress");
     const bar = document.querySelector("#home-resume-bar");
-    const owned = Number(recent.owned);
-    const total = Number(recent.total);
-    const hasProgress = Number.isFinite(owned) && Number.isFinite(total) && total > 0;
-    const rate = hasProgress ? Math.max(0, Math.min(100, (owned / total) * 100)) : 0;
 
     card.href = recent.href;
     if (title) title.textContent = recent.title || "최근 도감";
-    if (detail) detail.textContent = recent.detail || recent.title || "마지막으로 본 도감";
+    if (detail) detail.textContent = recentTitle;
     if (progress) {
       progress.textContent = hasProgress
         ? `${formatNumber(owned)} / ${formatNumber(total)}${recent.unit || "장"} · ${rate.toFixed(1)}%`
@@ -175,6 +196,41 @@
     }
     if (bar) bar.style.width = `${rate}%`;
     section.hidden = false;
+  }
+
+  function initializeHomePrimaryActions() {
+    const scanButton = document.querySelector("#home-scan-action");
+    if (!scanButton || scanButton.dataset.ready === "true") return;
+    scanButton.dataset.ready = "true";
+
+    scanButton.addEventListener("click", () => {
+      const openScanner = () => {
+        const trigger = document.querySelector("#card-scan-fab");
+        if (!trigger) return false;
+        trigger.click();
+        return true;
+      };
+
+      if (openScanner()) return;
+
+      scanButton.disabled = true;
+      scanButton.classList.add("is-loading");
+      const startedAt = Date.now();
+      const timer = window.setInterval(() => {
+        if (openScanner()) {
+          window.clearInterval(timer);
+          scanButton.disabled = false;
+          scanButton.classList.remove("is-loading");
+          return;
+        }
+        if (Date.now() - startedAt > 2500) {
+          window.clearInterval(timer);
+          scanButton.disabled = false;
+          scanButton.classList.remove("is-loading");
+          window.location.href = "./pokemon-search.html";
+        }
+      }, 80);
+    });
   }
 
 
@@ -1011,6 +1067,7 @@
     createAuthUi();
     initializeThemeDisclosure();
     initializeMobileTabbar();
+    initializeHomePrimaryActions();
     renderRecentDex();
 
     try {
