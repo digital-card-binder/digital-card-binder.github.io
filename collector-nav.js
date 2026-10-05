@@ -1403,7 +1403,16 @@
       actions.append(filterButton);
     }
     actions.append(layoutOptions);
-    resultsBar.append(actions);
+    const simpleFilterSurface =
+      document.body?.classList?.contains?.("collector-simple-dex")
+        ? document.querySelector(".collector-quick-filter-surface")
+        : null;
+    if (simpleFilterSurface) {
+      actions.classList.add("collector-simple-view-actions");
+      simpleFilterSurface.append(actions);
+    } else {
+      resultsBar.append(actions);
+    }
 
     const restoreLayout = () => {
       const mode = activeCardLayoutMode();
