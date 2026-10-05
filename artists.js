@@ -99,6 +99,11 @@ function openDialog(card){
   const dialog=$("artist-dialog");
   activeArtistCard=card;
   updateDialog(card);
+  void window.DigitalCardBinder?.relatedDex?.render?.(dialog,card,{
+    currentCollectionId:"artist",
+    currentGroupKey:selectedArtist?.name||"",
+    name:card.name,
+  });
   if(typeof dialog.showModal==="function")dialog.showModal();
   else dialog.setAttribute("open","");
 }
