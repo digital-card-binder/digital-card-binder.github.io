@@ -17,6 +17,8 @@ let status = "all";
 let query = "";
 let activeCard = null;
 let accountApplied = false;
+let quickCollectMode = false;
+const QUICK_COLLECT_STORAGE_KEY = "pokemonDexQuickCollectV1";
 
 const pct = (amount, total) =>
   total ? Math.round((amount / total) * 1000) / 10 : 0;
@@ -233,6 +235,71 @@ function selectedOrderNote() {
   return "세트 카드번호 오름차순";
 }
 
+function readQuickCollectPreference() {
+  try {
+    return window.localStorage.getItem(QUICK_COLLECT_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeQuickCollectPreference(value) {
+  try {
+    window.localStorage.setItem(QUICK_COLLECT_STORAGE_KEY, value ? "1" : "0");
+  } catch {
+    // 저장소가 제한되어도 현재 화면에서는 빠른 수집을 사용할 수 있습니다.
+  }
+}
+
+function quickCollectCanEdit() {
+  return Boolean(window.PokemonDexPageAccount?.canEdit?.());
+}
+
+function renderQuickCollectControl() {
+  let wrap = document.querySelector("#catalog-quick-collect");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.id = "catalog-quick-collect";
+    wrap.className = "catalog-quick-collect";
+    wrap.innerHTML = `
+      <div class="catalog-quick-collect-copy">
+        <strong>빠른 수집</strong>
+        <span>카드를 한 번 눌러 보유 · 미보유를 바로 바꿉니다.</span>
+      </div>
+      <label class="catalog-quick-collect-switch">
+        <input id="catalog-quick-collect-toggle" type="checkbox" />
+        <span aria-hidden="true"></span>
+        <b>OFF</b>
+      </label>
+    `;
+    const anchor =
+      document.querySelector(".catalog-filter-row") ||
+      document.querySelector(".catalog-toolbar");
+    anchor?.insertAdjacentElement("afterend", wrap);
+
+    const input = wrap.querySelector("#catalog-quick-collect-toggle");
+    input?.addEventListener("change", () => {
+      const next = Boolean(input.checked);
+      if (next && !quickCollectCanEdit()) {
+        input.checked = false;
+        alert("Google 로그인 후 빠른 수집 모드를 사용할 수 있습니다.");
+        return;
+      }
+      quickCollectMode = next;
+      writeQuickCollectPreference(next);
+      document.body.classList.toggle("is-quick-collect", next);
+      renderQuickCollectControl();
+      render();
+    });
+  }
+
+  const input = wrap.querySelector("#catalog-quick-collect-toggle");
+  const label = wrap.querySelector(".catalog-quick-collect-switch b");
+  if (input) input.checked = quickCollectMode;
+  if (label) label.textContent = quickCollectMode ? "ON" : "OFF";
+  wrap.classList.toggle("is-active", quickCollectMode);
+}
+
 function badge(owned) {
   const element = document.createElement("span");
   element.className = `status-badge ${owned ? "is-owned" : "is-missing"}`;
@@ -388,7 +455,6 @@ function makeCard(card) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = "pokemon-card-button";
-  button.addEventListener("click", () => openDialog(card));
 
   const imageWrap = document.createElement("span");
   imageWrap.className = "card-image-wrap";
@@ -459,7 +525,27 @@ function makeCard(card) {
     void toggleCard(card, complete);
   });
 
-  article.append(button, complete);
+  button.addEventListener("click", () => {
+    if (quickCollectMode) {
+      void toggleCard(card, complete);
+      return;
+    }
+    openDialog(card);
+  });
+
+  const detail = document.createElement("button");
+  detail.type = "button";
+  detail.className = "catalog-card-detail-button";
+  detail.textContent = "•••";
+  detail.setAttribute("aria-label", `${card.name} 상세 보기`);
+  detail.title = "상세 보기";
+  detail.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openDialog(card);
+  });
+
+  article.append(button, complete, detail);
   return article;
 }
 
@@ -648,6 +734,11 @@ async function init() {
 
     // 4) 마지막에 기존 Firestore 보유상태를 덮어씌운다. 실패해도 목록 자체는 유지한다.
     await applyAccountState();
+
+    quickCollectMode = readQuickCollectPreference() && quickCollectCanEdit();
+    document.body.classList.toggle("is-quick-collect", quickCollectMode);
+    renderQuickCollectControl();
+    render();
   } catch (error) {
     showFatalError(error);
   }
