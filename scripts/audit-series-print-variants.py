@@ -129,18 +129,49 @@ def group_products(
         }
 
         if era == "BW":
+            product_usage: dict[str, int] = {}
+            for group in pinned_groups:
+                for product in pinned_products.get(clean(group.get("code")).casefold(), []):
+                    product_usage[product] = product_usage.get(product, 0) + 1
+
             groups = []
             for group in pinned_groups:
                 code = clean(group.get("code"))
                 products = pinned_products.get(code.casefold(), [])
                 if not code or not products:
                     continue
+
+                by_card_num: dict[str, tuple[str, str]] = {}
+                by_image_file: dict[str, tuple[str, str]] = {}
+                for card in group.get("cards", []):
+                    card_code = clean(card.get("code"))
+                    suffix = card_code.rsplit("_", 1)[-1]
+                    number_match = re.match(r"0*([0-9]{1,4})(?:/|$)", suffix)
+                    if not number_match:
+                        continue
+                    identity = (code, str(int(number_match.group(1))))
+
+                    source = clean(card.get("source"))
+                    source_match = re.search(r"/cards/detail/([^/?#]+)", source, re.I)
+                    if source_match:
+                        by_card_num[source_match.group(1)] = identity
+
+                    image_file = clean(card.get("image")).split("?", 1)[0].rsplit("/", 1)[-1]
+                    if image_file:
+                        by_image_file[image_file.casefold()] = identity
+
                 groups.append(
                     {
                         "era": "BW",
                         "code": code,
                         "title": clean(group.get("displayName") or group.get("title")),
                         "products": products,
+                        "_canonicalByCardNum": by_card_num,
+                        "_canonicalByImageFile": by_image_file,
+                        "_strictCanonicalMap": (
+                            len(products) > 1
+                            or any(product_usage.get(product, 0) > 1 for product in products)
+                        ),
                     }
                 )
             return groups
@@ -185,6 +216,27 @@ def group_products(
     return [groups[key] for key in order]
 
 
+def canonical_record_identity(
+    record: dict[str, str],
+    group: dict[str, Any],
+) -> tuple[str, str] | None:
+    card_num = clean(record.get("CardNum"))
+    by_card_num = group.get("_canonicalByCardNum") or {}
+    if card_num and card_num in by_card_num:
+        return tuple(by_card_num[card_num])
+
+    image_file = (
+        clean(record.get("feature_image"))
+        .split("?", 1)[0]
+        .rsplit("/", 1)[-1]
+        .casefold()
+    )
+    by_image_file = group.get("_canonicalByImageFile") or {}
+    if image_file and image_file in by_image_file:
+        return tuple(by_image_file[image_file])
+    return None
+
+
 def record_image_identity(
     record: dict[str, str],
     group_code: str,
@@ -196,7 +248,7 @@ def record_image_identity(
 
     filename = image.split("?", 1)[0].rsplit("/", 1)[-1].rsplit(".", 1)[0]
 
-    if "/wmimages/BW/" in image.replace("\\", "/"):
+    if "wmimages/BW/" in image.replace("\\", "/"):
         number_matches = re.findall(r"(?:^|_)0*([0-9]{1,4})(?=_|$)", filename, re.I)
         if number_matches:
             return clean(group_code), str(int(number_matches[-1]))
@@ -305,9 +357,15 @@ def audit_group(
 
     slots: dict[tuple[str, str], list[dict[str, str]]] = {}
     unresolved_records = 0
+    ignored_noncanonical_records = 0
     for record in all_records:
         image = clean(record.get("feature_image"))
-        identity = record_image_identity(record, group["code"])
+        identity = canonical_record_identity(record, group)
+        if not identity:
+            if clean(group.get("era")).upper() == "BW" and group.get("_strictCanonicalMap"):
+                ignored_noncanonical_records += 1
+                continue
+            identity = record_image_identity(record, group["code"])
         if not identity:
             unresolved_records += 1
             continue
@@ -459,6 +517,7 @@ def audit_group(
         "parsedSlotCount": len(slots),
         "duplicateSlotCount": duplicate_slot_count,
         "unresolvedRecordCount": unresolved_records,
+        "ignoredNoncanonicalRecordCount": ignored_noncanonical_records,
         "variantSlots": variant_slots,
     }
 
