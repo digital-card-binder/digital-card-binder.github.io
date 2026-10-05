@@ -89,6 +89,18 @@
   const quickPageScanInput = panel.querySelector("#studio-quick-page-scan");
   const quickVariantButton = panel.querySelector("#studio-quick-variant");
   const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
+  const quickSourceButton = panel.querySelector("#studio-quick-source");
+  const cardAddDialog = document.querySelector("#studio-card-add-dialog");
+  const cardAddCloseButton = document.querySelector("#studio-card-add-close");
+  const cardAddCancelButton = document.querySelector("#studio-card-add-cancel");
+  const cardAddConfirmButton = document.querySelector("#studio-card-add-confirm");
+  const cardAddImage = document.querySelector("#studio-card-add-image");
+  const cardAddName = document.querySelector("#studio-card-add-name");
+  const cardAddMeta = document.querySelector("#studio-card-add-meta");
+  const cardAddBinderSelect = document.querySelector("#studio-card-add-binder");
+  const cardAddPageSelect = document.querySelector("#studio-card-add-page");
+  const cardAddSlotSelect = document.querySelector("#studio-card-add-slot");
+  const cardAddStatus = document.querySelector("#studio-card-add-status");
   const variantDialog = document.querySelector("#studio-variant-dialog");
   const variantTitle = document.querySelector("#studio-variant-title");
   const variantMeta = document.querySelector("#studio-variant-meta");
@@ -112,6 +124,8 @@
   const A4_HEIGHT_MM = 297;
   const PREVIEW_PX_PER_MM = 1.5;
   const PUBLIC_PREVIEW_PX_PER_MM = 4;
+  const PENDING_CARD_STORAGE_KEY = "dcb:binder-add-card:v1";
+  const PENDING_CARD_MAX_AGE_MS = 2 * 60 * 60 * 1000;
 
   const state = {
     objectUrl: "",
@@ -159,6 +173,9 @@
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
+    savedBinders: [],
+    pendingCard: null,
+    pendingResolvedCard: null,
     variantData: null,
     variantDataPromise: null,
   };
@@ -709,6 +726,14 @@
           : "버전 고르기";
       }
     }
+    if (quickSourceButton) {
+      const sourceUrl = clean(placement?.card?.sourceUrl);
+      quickSourceButton.hidden = !sourceUrl;
+      quickSourceButton.disabled = !sourceUrl;
+      quickSourceButton.textContent = sourceUrl
+        ? `${clean(placement?.card?.sourceLabel) || "원본 도감"}에서 보기`
+        : "원본 도감에서 보기";
+    }
     if (!quickSlotStatus) return;
     if (message) {
       quickSlotStatus.textContent = message;
@@ -733,6 +758,296 @@
     updateEditorUi();
     updateQuickEditorUi();
     if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
+  }
+
+  function readPendingCardTransfer() {
+    let payload = null;
+    try {
+      payload = JSON.parse(window.sessionStorage.getItem(PENDING_CARD_STORAGE_KEY) || "null");
+    } catch {
+      payload = null;
+    }
+    if (!payload || typeof payload !== "object") return null;
+    const createdAt = Number(payload.createdAt) || 0;
+    if (createdAt && Date.now() - createdAt > PENDING_CARD_MAX_AGE_MS) {
+      window.sessionStorage.removeItem(PENDING_CARD_STORAGE_KEY);
+      return null;
+    }
+    const name = clean(payload.name);
+    const image = clean(payload.image);
+    if (!name || !image) return null;
+    return {
+      name,
+      image,
+      setText: clean(payload.setText),
+      numberText: clean(payload.numberText),
+      meta: clean(payload.meta),
+      sourceLabel: clean(payload.sourceLabel) || "도감",
+      sourceUrl: clean(payload.sourceUrl),
+    };
+  }
+
+  function clearPendingCardTransfer() {
+    try {
+      window.sessionStorage.removeItem(PENDING_CARD_STORAGE_KEY);
+    } catch {
+      // Session storage can be unavailable in strict privacy modes.
+    }
+    state.pendingCard = null;
+    state.pendingResolvedCard = null;
+  }
+
+  function normalizedImageIdentity(value) {
+    const raw = clean(value);
+    if (!raw) return "";
+    try {
+      const url = new URL(raw, window.location.href);
+      return decodeURIComponent(url.pathname).toLowerCase();
+    } catch {
+      return raw.split("?")[0].split("#")[0].toLowerCase();
+    }
+  }
+
+  function normalizedNumberIdentity(value) {
+    const raw = clean(value).toLowerCase().replace(/\s+/g, "");
+    const direct = raw.match(/0*(\d+)(?:\/\d+)?/);
+    return direct ? String(Number(direct[1])) : raw;
+  }
+
+  async function resolvePendingCardTransfer(payload) {
+    if (!payload) return null;
+    let match = null;
+    try {
+      const catalog = await ensureCatalog();
+      const imageKey = normalizedImageIdentity(payload.image);
+      if (imageKey) {
+        match = catalog.find((card) =>
+          normalizedImageIdentity(card.image) === imageKey ||
+          normalizedImageIdentity(card.normalImage) === imageKey
+        ) || null;
+      }
+
+      if (!match) {
+        const wantedName = normalize(payload.name);
+        const wantedNumber = normalizedNumberIdentity(payload.numberText || payload.meta);
+        const wantedSet = normalize(payload.setText);
+        const candidates = catalog.filter((card) => normalize(card.name) === wantedName);
+        match = candidates.find((card) => {
+          const cardNumberKey = normalizedNumberIdentity(card.cardNumber);
+          const setHaystack = normalize([card.setCode, card.setTitle].filter(Boolean).join(" "));
+          const numberOk = !wantedNumber || wantedNumber === cardNumberKey;
+          const setOk = !wantedSet || setHaystack.includes(wantedSet) || wantedSet.includes(normalize(card.setCode));
+          return numberOk && setOk;
+        }) || candidates.find((card) =>
+          !wantedNumber || normalizedNumberIdentity(card.cardNumber) === wantedNumber
+        ) || null;
+      }
+    } catch (error) {
+      console.warn("도감 카드 원본 확인 실패", error);
+    }
+
+    const resolved = match
+      ? { ...match }
+      : {
+          key: "",
+          customDexKey: "",
+          name: payload.name,
+          setCode: payload.setText,
+          setTitle: payload.setText,
+          cardNumber: payload.numberText || payload.meta,
+          rarity: "",
+          image: payload.image,
+          normalImage: payload.image,
+          printVariant: "normal",
+          variantImageFile: "",
+        };
+    resolved.sourceUrl = payload.sourceUrl;
+    resolved.sourceLabel = payload.sourceLabel;
+    return resolved;
+  }
+
+  function closeCardAddDialog({ discard = false } = {}) {
+    if (discard) clearPendingCardTransfer();
+    if (!cardAddDialog) return;
+    if (typeof cardAddDialog.close === "function" && cardAddDialog.open) cardAddDialog.close();
+    else cardAddDialog.removeAttribute("open");
+  }
+
+  function renderCardAddBinderOptions() {
+    if (!cardAddBinderSelect) return;
+    const previous = clean(cardAddBinderSelect.value);
+    cardAddBinderSelect.replaceChildren();
+
+    const createOption = document.createElement("option");
+    createOption.value = "__new__";
+    createOption.textContent = "새 바인더 만들기";
+    cardAddBinderSelect.append(createOption);
+
+    state.savedBinders.forEach((binder) => {
+      const option = document.createElement("option");
+      option.value = binder.id;
+      option.textContent = [
+        binder.title || "커스텀 바인더",
+        binder.pageCount ? `${binder.pageCount}페이지` : "",
+      ].filter(Boolean).join(" · ");
+      cardAddBinderSelect.append(option);
+    });
+
+    const preferred =
+      (state.currentBinderId && state.savedBinders.some((binder) => binder.id === state.currentBinderId)
+        ? state.currentBinderId
+        : "") ||
+      (previous && [...cardAddBinderSelect.options].some((option) => option.value === previous)
+        ? previous
+        : "") ||
+      state.savedBinders[0]?.id ||
+      "__new__";
+    cardAddBinderSelect.value = preferred;
+  }
+
+  function renderCardAddPageOptions() {
+    if (!cardAddPageSelect) return;
+    const previous = clean(cardAddPageSelect.value);
+    cardAddPageSelect.replaceChildren();
+    state.pages.forEach((page, index) => {
+      const option = document.createElement("option");
+      option.value = page.id;
+      option.textContent = page.title || pageTitle(index);
+      cardAddPageSelect.append(option);
+    });
+    cardAddPageSelect.value =
+      state.pages.some((page) => page.id === previous)
+        ? previous
+        : state.currentPageId || state.pages[0]?.id || "";
+  }
+
+  function renderCardAddSlotOptions() {
+    if (!cardAddSlotSelect) return;
+    cardAddSlotSelect.replaceChildren();
+    const page = activePage();
+    const slots = normalizeSlots(state.slots, selectedGrid().cols * selectedGrid().rows);
+    slots.forEach((slot, index) => {
+      const option = document.createElement("option");
+      option.value = String(index);
+      const placement = slot.type === "card"
+        ? state.placements.find((item) => item.id === slot.placementId)
+        : null;
+      const label = slot.type === "empty"
+        ? "빈칸"
+        : slot.type === "image"
+          ? "사진"
+          : placement?.card?.name || "카드";
+      option.textContent = `${index + 1}번 · ${label}`;
+      cardAddSlotSelect.append(option);
+    });
+    const firstEmpty = slots.findIndex((slot) => slot.type === "empty");
+    cardAddSlotSelect.value = String(firstEmpty >= 0 ? firstEmpty : 0);
+    if (cardAddStatus) {
+      cardAddStatus.textContent = page
+        ? `${page.title || pageTitle(activePageIndex())} · ${firstEmpty >= 0 ? "첫 빈칸을 선택했습니다." : "빈칸이 없어 기존 칸을 선택하면 교체됩니다."}`
+        : "";
+    }
+  }
+
+  async function selectCardAddBinder(value) {
+    const target = clean(value);
+    if (target === "__new__") {
+      if (state.currentBinderId) {
+        resetEditor(false);
+      }
+      if (!clean(titleInput.value)) titleInput.value = "새 바인더";
+      renderCardAddPageOptions();
+      renderCardAddSlotOptions();
+      return;
+    }
+    if (!target || target === state.currentBinderId) {
+      renderCardAddPageOptions();
+      renderCardAddSlotOptions();
+      return;
+    }
+    if (cardAddStatus) cardAddStatus.textContent = "바인더를 불러오는 중…";
+    await loadSavedBinder(target);
+    renderCardAddPageOptions();
+    renderCardAddSlotOptions();
+  }
+
+  async function openPendingCardDialog() {
+    if (!cardAddDialog) return;
+    const payload = readPendingCardTransfer();
+    if (!payload) return;
+    state.pendingCard = payload;
+    state.pendingResolvedCard = await resolvePendingCardTransfer(payload);
+    activateTab("custom", false);
+
+    if (cardAddImage) {
+      cardAddImage.src = state.pendingResolvedCard?.image || payload.image;
+      cardAddImage.alt = `${payload.name} 카드`;
+    }
+    if (cardAddName) cardAddName.textContent = payload.name;
+    if (cardAddMeta) {
+      cardAddMeta.textContent = [
+        payload.setText,
+        payload.numberText || payload.meta,
+        payload.sourceLabel,
+      ].filter(Boolean).join(" · ");
+    }
+
+    renderCardAddBinderOptions();
+    await selectCardAddBinder(cardAddBinderSelect?.value || "__new__");
+
+    if (typeof cardAddDialog.showModal === "function") {
+      if (!cardAddDialog.open) cardAddDialog.showModal();
+    } else {
+      cardAddDialog.setAttribute("open", "");
+    }
+  }
+
+  async function confirmPendingCardPlacement() {
+    if (!state.pendingResolvedCard || !cardAddSlotSelect || state.saving) return;
+    const pageId = clean(cardAddPageSelect?.value);
+    if (pageId && pageId !== state.currentPageId) {
+      await switchPage(pageId);
+    }
+    const slotIndex = Number(cardAddSlotSelect.value);
+    if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex >= state.slots.length) return;
+
+    const slot = state.slots[slotIndex];
+    if (slot?.type !== "empty") {
+      const ok = window.confirm(`${slotIndex + 1}번 칸의 기존 내용을 선택한 카드로 교체할까요?`);
+      if (!ok) return;
+    }
+
+    const entry = replaceSlotWithCard(state.pendingResolvedCard, slotIndex);
+    if (!entry) return;
+    state.selectedSlots = new Set([slotIndex]);
+    state.selectedId = entry.id;
+    renderSlotLayer();
+    renderPlacements();
+    updateEditorUi();
+    updateQuickEditorUi(`${entry.card.name}을(를) ${slotIndex + 1}번 칸에 넣었습니다.`);
+
+    if (!clean(titleInput.value)) {
+      titleInput.value = state.pendingCard?.sourceLabel
+        ? `${state.pendingCard.sourceLabel} 바인더`
+        : "새 바인더";
+    }
+
+    if (state.user && state.firebase) {
+      if (cardAddStatus) cardAddStatus.textContent = "바인더에 저장하는 중…";
+      await saveCurrentBinder();
+      if (cardAddStatus) cardAddStatus.textContent = "바인더에 추가하고 저장했습니다.";
+    } else {
+      updateSaveUi("카드는 넣었습니다. 로그인하면 이 바인더를 저장할 수 있습니다.");
+    }
+
+    clearPendingCardTransfer();
+    closeCardAddDialog();
+  }
+
+  function openSelectedCardSource() {
+    const url = clean(selectedPlacement()?.card?.sourceUrl);
+    if (!url) return;
+    window.open(url, "_blank", "noopener");
   }
 
   function updateArtUi(message = "") {
@@ -2087,6 +2402,8 @@
         printVariant: clean(card.printVariant) || "normal",
         variantImageFile: clean(card.variantImageFile),
         customDexKey: clean(card.customDexKey),
+        sourceUrl: clean(card.sourceUrl),
+        sourceLabel: clean(card.sourceLabel),
       },
       x: geometry.x,
       y: geometry.y,
@@ -2997,6 +3314,8 @@
         printVariant: clean(entry.card.printVariant) || "normal",
         variantImageFile: clean(entry.card.variantImageFile),
         customDexKey: clean(entry.card.customDexKey),
+        sourceUrl: clean(entry.card.sourceUrl),
+        sourceLabel: clean(entry.card.sourceLabel),
         x: Number(entry.x.toFixed(4)),
         y: Number(entry.y.toFixed(4)),
         width: Number(entry.width.toFixed(4)),
@@ -3879,6 +4198,7 @@
   async function refreshLibrary() {
     if (!library || !libraryEmpty) return;
     library.replaceChildren();
+    state.savedBinders = [];
     if (!state.user || !state.firebase) {
       state.savedWorkCount = 0;
       libraryEmpty.hidden = false;
@@ -3908,6 +4228,14 @@
         const data = documentSnapshot.data() || {};
         const isV2 = Number(data.schemaVersion) === BINDER_SCHEMA_VERSION;
         const grid = isV2 ? (data.summary?.firstGrid || {}) : (data.grid || {});
+        state.savedBinders.push({
+          id: documentSnapshot.id,
+          title: clean(data.title) || "커스텀 바인더",
+          pageCount: isV2 ? Number(data.summary?.pageCount) || 1 : 1,
+          cardCount: isV2
+            ? Number(data.summary?.cardCount) || 0
+            : Array.isArray(data.cards) ? data.cards.length : 0,
+        });
         const item = document.createElement("article");
         item.className = "studio-custom-library-item";
 
@@ -4047,6 +4375,8 @@
         printVariant: clean(entry?.printVariant) || "normal",
         variantImageFile: clean(entry?.variantImageFile),
         customDexKey: clean(entry?.customDexKey),
+        sourceUrl: clean(entry?.sourceUrl),
+        sourceLabel: clean(entry?.sourceLabel),
       },
       x: Number.isFinite(Number(entry?.x)) ? Number(entry.x) : 0,
       y: Number.isFinite(Number(entry?.y)) ? Number(entry.y) : 0,
@@ -4280,6 +4610,8 @@
           printVariant: clean(entry.card.printVariant) || "normal",
           variantImageFile: clean(entry.card.variantImageFile),
           customDexKey: clean(entry.card.customDexKey),
+          sourceUrl: clean(entry.card.sourceUrl),
+          sourceLabel: clean(entry.card.sourceLabel),
           x: Number(entry.x.toFixed(4)),
           y: Number(entry.y.toFixed(4)),
           width: Number(entry.width.toFixed(4)),
@@ -4495,7 +4827,8 @@
   async function initializePersistence() {
     if (!configured()) {
       updateSaveUi();
-      void refreshLibrary();
+      await refreshLibrary();
+      await openPendingCardDialog();
       return;
     }
 
@@ -4537,12 +4870,14 @@
           }
         }
       }
+      await openPendingCardDialog();
     } catch (error) {
       console.error("커스텀 바인더 저장 초기화 실패", error);
       state.firebase = null;
       state.user = null;
       updateSaveUi("저장 기능을 초기화하지 못했습니다.");
       await refreshLibrary();
+      await openPendingCardDialog();
     }
   }
 
@@ -4581,6 +4916,19 @@
   quickPageScanInput?.addEventListener("change", () => void importBinderPhoto(quickPageScanInput.files?.[0]));
   quickVariantButton?.addEventListener("click", () => void openQuickVariants());
   quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
+  quickSourceButton?.addEventListener("click", openSelectedCardSource);
+  cardAddCloseButton?.addEventListener("click", () => closeCardAddDialog({ discard: true }));
+  cardAddCancelButton?.addEventListener("click", () => closeCardAddDialog({ discard: true }));
+  cardAddBinderSelect?.addEventListener("change", () => void selectCardAddBinder(cardAddBinderSelect.value));
+  cardAddPageSelect?.addEventListener("change", async () => {
+    const pageId = clean(cardAddPageSelect.value);
+    if (pageId && pageId !== state.currentPageId) await switchPage(pageId);
+    renderCardAddSlotOptions();
+  });
+  cardAddConfirmButton?.addEventListener("click", () => void confirmPendingCardPlacement());
+  cardAddDialog?.addEventListener("click", (event) => {
+    if (event.target === cardAddDialog) closeCardAddDialog({ discard: true });
+  });
   variantCloseButton?.addEventListener("click", closeVariantDialog);
   variantDialog?.addEventListener("click", (event) => {
     if (event.target === variantDialog) closeVariantDialog();
