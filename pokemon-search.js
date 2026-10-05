@@ -1117,6 +1117,14 @@
     state.activeCard = item;
     updateDialog(item);
     const dialog = el("pokemon-search-dialog");
+    void window.DigitalCardBinder?.relatedDex?.render?.(dialog, item.card, {
+      currentCollectionId: "search",
+      currentGroupKey: "",
+      setCode: item.setCode || "",
+      cardNumber: item.card?.cardNumber || item.card?.code || item.card?.meta || "",
+      image: item.card?.image || item.card?.originalImage || "",
+      name: item.card?.name || item.card?.pokemonName || "",
+    });
     if (typeof dialog.showModal === "function") dialog.showModal();
     else dialog.setAttribute("open", "");
   }
