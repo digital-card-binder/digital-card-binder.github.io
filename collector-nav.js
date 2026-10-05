@@ -1282,12 +1282,7 @@
     }
 
     const syncFilterLayout = () => {
-      const mobile = Boolean(mobileCardLayoutMedia?.matches);
-      if (mobile) {
-        setFilterOpen(false);
-      } else {
-        setFilterOpen(true);
-      }
+      setFilterOpen(false);
     };
 
     syncQuickStatus();
@@ -1298,6 +1293,60 @@
     } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
       mobileCardLayoutMedia.addListener(syncFilterLayout);
     }
+  }
+
+  const SIMPLE_DEX_COLLECTIONS = new Set([
+    "national",
+    "series",
+    "ar",
+    "pack",
+    "pokemon",
+    "artist",
+    "people",
+    "trainerPokemon",
+    "fossil",
+    "world",
+    "artThemes",
+  ]);
+
+  const SIMPLE_DEX_SUMMARIES = Object.freeze({
+    series: ".catalog-summary",
+    ar: ".catalog-summary",
+    pokemon: ".catalog-summary",
+    artist: ".artist-selection-summary",
+    artThemes: ".art-theme-selected-summary",
+  });
+
+  function installSimpleDexLayout() {
+    const collectionId = registry?.collectionIdForPage?.() || "";
+    if (!SIMPLE_DEX_COLLECTIONS.has(collectionId)) return;
+
+    document.body?.classList?.add?.("collector-simple-dex");
+
+    const controls = document.querySelector(".collector-quick-controls");
+    const summarySelector = SIMPLE_DEX_SUMMARIES[collectionId];
+    const summary = summarySelector
+      ? document.querySelector(summarySelector)
+      : null;
+
+    if (summary && controls && summary.nextElementSibling !== controls) {
+      controls.insertAdjacentElement("beforebegin", summary);
+      summary.classList.add("collector-simple-summary");
+    }
+
+    const filterSurface = document.querySelector(
+      ".collector-quick-filter-surface",
+    );
+    const catalogActions = document.querySelector(
+      ".catalog-heading .catalog-actions",
+    );
+    if (filterSurface && catalogActions && !filterSurface.contains(catalogActions)) {
+      catalogActions.classList.add("collector-simple-secondary-actions");
+      filterSurface.append(catalogActions);
+    }
+
+    const heading = document.querySelector(".catalog-panel > .catalog-heading");
+    if (heading) heading.classList.add("collector-simple-catalog-heading");
   }
 
   function addCardLayoutToggle() {
@@ -1502,6 +1551,7 @@
   ensureProfileShortcutWithoutPanel();
   schedulePublicProjectionRepair();
   installUnifiedDexControls();
+  installSimpleDexLayout();
   addCardLayoutToggle();
   addHeroActions();
   rememberCurrentDexPage();
