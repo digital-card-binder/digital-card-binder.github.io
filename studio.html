@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="./assets/brand/apple-touch-icon.png" sizes="180x180" />
     <link rel="stylesheet" href="./styles.css?v=41006a39d41c" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./studio.css?v=5b1dd9f8ac57" />
+    <link rel="stylesheet" href="./studio.css?v=20261005-simplebinder" />
     <script src="./card-image-cdn.js?v=e31c346799ab" defer></script>
     <script src="./firebase-config.js?v=0844fbabed65" defer></script>
     <script src="./site-metrics.js?v=1a2c63965420" defer></script>
@@ -22,7 +22,7 @@
     <script src="./studio.js?v=3d9c96fb4d08" defer></script>
     <script src="./card-visual-matcher.js?v=c732c389efa3" defer></script>
     <script src="./binder-photo-scanner.js?v=fdece2138474" defer></script>
-    <script src="./studio-custom.js?v=51226a5a452d" defer></script>
+    <script src="./studio-custom.js?v=20261005-simplebinder" defer></script>
     <script src="./studio-help.js?v=cccd720fa329" defer></script>
   </head>
   <body data-page="binder-studio">
@@ -177,7 +177,7 @@
           <div>
             <span class="studio-kicker">CUSTOM BINDER</span>
             <h2 id="studio-custom-title">커스텀 바인더 만들기</h2>
-            <p>페이지를 추가하고 그리드를 고른 뒤 실제 카드와 이미지를 자유롭게 구성하세요.</p>
+            <p>칸을 누르고 카드나 사진을 넣어 실제 바인더처럼 바로 편집하세요.</p>
           </div>
           <button id="studio-custom-reset" class="studio-text-button" type="button">초기화</button>
         </div>
@@ -186,6 +186,27 @@
           <strong>페이지형 바인더 저장</strong>
           <span>각 페이지의 그리드·슬롯·카드 배치를 독립 저장합니다. 기존 도감 문서와 보유 상태에는 어떤 값도 기록하지 않습니다.</span>
         </div>
+
+        <section class="studio-quick-editor" aria-label="간편 바인더 편집">
+          <div class="studio-quick-editor-copy">
+            <strong>간편 편집</strong>
+            <span id="studio-quick-slot-status">바인더에서 원하는 칸을 눌러 선택하세요.</span>
+          </div>
+          <div class="studio-quick-actions">
+            <button id="studio-quick-card" type="button" disabled><span aria-hidden="true">▣</span><strong>카드 찾기</strong></button>
+            <label class="studio-quick-action" for="studio-quick-slot-photo">
+              <input id="studio-quick-slot-photo" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+              <span aria-hidden="true">＋</span><strong>사진 넣기</strong>
+            </label>
+            <button id="studio-quick-empty" type="button" disabled><span aria-hidden="true">□</span><strong>빈칸</strong></button>
+            <label class="studio-quick-action" for="studio-quick-page-scan">
+              <input id="studio-quick-page-scan" type="file" accept="image/*" hidden />
+              <span aria-hidden="true">⌗</span><strong>페이지 스캔</strong>
+            </label>
+            <button id="studio-quick-variant" type="button" disabled><span aria-hidden="true">⇄</span><strong>버전 고르기</strong></button>
+            <button id="studio-quick-advanced" type="button" aria-expanded="false"><span aria-hidden="true">•••</span><strong>고급 기능</strong></button>
+          </div>
+        </section>
 
         <div class="studio-layout studio-custom-layout">
           <div class="studio-controls">
@@ -225,7 +246,7 @@
               </div>
             </section>
 
-            <section class="studio-control-card studio-photo-import-card">
+            <section class="studio-control-card studio-photo-import-card studio-advanced-card">
               <div class="studio-photo-import-heading">
                 <div>
                   <span class="studio-photo-import-badge">스캔형 가져오기</span>
@@ -256,7 +277,7 @@
               <p class="studio-photo-import-tip"><strong>촬영 팁</strong> 약간 비스듬해도 괜찮습니다. 네 모서리가 모두 보이고 페이지가 화면 대부분을 차지하게 찍으면 자동 보정이 가장 정확합니다.</p>
             </section>
 
-            <section class="studio-control-card">
+            <section class="studio-control-card studio-advanced-card">
               <div class="studio-step-heading">
                 <span>3</span>
                 <div><strong>배경 일러스트 <span class="studio-step-badge is-optional">선택</span></strong><small>원하면 페이지 전체에 배경 이미지를 넣을 수 있습니다.</small></div><button class="studio-help-button" type="button" data-studio-help="3" aria-label="배경 일러스트 도움말">?</button>
@@ -269,7 +290,7 @@
               </label>
             </section>
 
-            <section class="studio-control-card studio-custom-art-card">
+            <section class="studio-control-card studio-custom-art-card studio-advanced-card">
               <div class="studio-step-heading">
                 <span>4</span>
                 <div><strong>확장 이미지 배치 <span class="studio-step-badge is-optional">선택</span></strong><small>원할 때만 확장 이미지를 여러 슬롯에 나눠 넣습니다.</small></div><button class="studio-help-button" type="button" data-studio-help="4" aria-label="확장 이미지 배치 도움말">?</button>
@@ -305,7 +326,7 @@
               <div id="studio-custom-card-results" class="studio-custom-card-results" hidden></div>
             </section>
 
-            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools" hidden>
+            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools studio-advanced-card" hidden>
               <div class="studio-step-heading">
                 <span>6</span>
                 <div><strong>선택 카드 편집 <span class="studio-step-badge is-optional">선택</span></strong><small id="studio-custom-selected-name">필요한 카드만 위치·순서·회전을 조정하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="6" aria-label="선택 카드 편집 도움말">?</button>
@@ -319,7 +340,7 @@
               </div>
             </section>
 
-            <section class="studio-control-card">
+            <section class="studio-control-card studio-advanced-card">
               <div class="studio-custom-summary">
                 <span><small>선택 그리드</small><strong id="studio-custom-grid-label">3 × 4</strong></span>
                 <span><small>카드 슬롯</small><strong id="studio-custom-slot-label">12칸</strong></span>
@@ -354,7 +375,7 @@
               <p class="studio-custom-visibility-note">공개 여부는 <a href="./collector-settings.html#binder-settings">프로필 설정</a>에서 바인더별로 관리합니다.</p>
             </section>
 
-            <section class="studio-control-card studio-custom-print-card">
+            <section class="studio-control-card studio-custom-print-card studio-advanced-card">
               <div class="studio-step-heading">
                 <span>8</span>
                 <div><strong>전체 바인더 출력 <span class="studio-step-badge is-optional">선택</span></strong><small>필요할 때만 PDF 또는 실제 크기로 출력합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="8" aria-label="전체 바인더 출력 도움말">?</button>
