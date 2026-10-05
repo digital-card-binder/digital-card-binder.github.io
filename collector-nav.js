@@ -1567,18 +1567,4 @@
   addHeroActions();
   rememberCurrentDexPage();
 
-  const tradeEligiblePages = new Set([
-    "artists.html",
-    "series.html",
-    "pokemon-collections.html",
-    "ar.html",
-    "custom.html",
-  ]);
-  const currentPage = window.location.pathname.split("/").pop() || "index.html";
-  if (tradeEligiblePages.has(currentPage)) {
-    const script = document.createElement("script");
-    script.src = `./trade-offer.js?v=${SITE_BUILD_VERSION}`;
-    script.defer = true;
-    document.head?.append(script);
-  }
 })();
