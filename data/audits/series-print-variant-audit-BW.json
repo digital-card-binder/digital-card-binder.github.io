@@ -15,13 +15,13 @@
     "resolvedProductCount": 39,
     "missingProductCount": 0,
     "rawRecordCount": 1444,
-    "parsedSlotCount": 1404,
-    "duplicateSlotCount": 36,
-    "variantSlotCount": 36,
+    "parsedSlotCount": 1402,
+    "duplicateSlotCount": 0,
+    "variantSlotCount": 0,
     "variantCounts": {
       "holo": 0,
       "mirror": 0,
-      "other": 36
+      "other": 0
     }
   },
   "sets": [
@@ -51,6 +51,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -79,6 +80,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -93,95 +95,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 16,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "14"
-        },
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "16"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "energy-darkness",
-          "officialRecords": [
-            {
-              "product": "BW 「볼트로스 덱」",
-              "cardNum": "ST2012004016",
-              "cardType": "3",
-              "imageFile": "bw_bd_en_08.jpg",
-              "raw": {
-                "CardNum": "ST2012004016",
-                "feature_image": "wmimages/BW/BD/bw_bd_en_08.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 악 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "energy-fighting",
-          "officialRecords": [
-            {
-              "product": "BW 「볼트로스 덱」",
-              "cardNum": "ST2012004015",
-              "cardType": "3",
-              "imageFile": "bw_bd_en_06.jpg",
-              "raw": {
-                "CardNum": "ST2012004015",
-                "feature_image": "wmimages/BW/BD/bw_bd_en_06.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 격투 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bd",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「볼트로스 덱」",
-              "cardNum": "ST2012004014",
-              "cardType": "3",
-              "imageFile": "bw_bd_en_04.jpg",
-              "raw": {
-                "CardNum": "ST2012004014",
-                "feature_image": "wmimages/BW/BD/bw_bd_en_04.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 16,
       "parsedSlotCount": 16,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -196,95 +119,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 16,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "td",
-          "printedNumber": "14"
-        },
-        {
-          "actualSetCode": "td",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "td",
-          "printedNumber": "16"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "td",
-          "printedNumber": "energy-fire",
-          "officialRecords": [
-            {
-              "product": "BW 「토네로스 덱」",
-              "cardNum": "ST2012003014",
-              "cardType": "3",
-              "imageFile": "bw_td_en_02.jpg",
-              "raw": {
-                "CardNum": "ST2012003014",
-                "feature_image": "wmimages/BW/TD/bw_td_en_02.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "td",
-          "printedNumber": "energy-metal",
-          "officialRecords": [
-            {
-              "product": "BW 「토네로스 덱」",
-              "cardNum": "ST2012003016",
-              "cardType": "3",
-              "imageFile": "bw_td_en_09.jpg",
-              "raw": {
-                "CardNum": "ST2012003016",
-                "feature_image": "wmimages/BW/TD/bw_td_en_09.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 강철 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "td",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「토네로스 덱」",
-              "cardNum": "ST2012003015",
-              "cardType": "3",
-              "imageFile": "bw_td_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2012003015",
-                "feature_image": "wmimages/BW/TD/bw_td_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 16,
       "parsedSlotCount": 16,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -303,12 +147,8 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 40,
-      "missingExpectedSlotCount": 6,
+      "missingExpectedSlotCount": 2,
       "missingExpectedSlots": [
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "35"
-        },
         {
           "actualSetCode": "fs",
           "printedNumber": "36"
@@ -316,250 +156,17 @@
         {
           "actualSetCode": "fs",
           "printedNumber": "37"
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "38"
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "39"
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "40"
         }
       ],
-      "unexpectedOfficialSlotCount": 4,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "energy-fighting",
-          "officialRecords": [
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "EN2011001006",
-              "cardType": "3",
-              "imageFile": "bw1_fs_g_en_6.jpg",
-              "raw": {
-                "CardNum": "EN2011001006",
-                "feature_image": "wmimages/BW/FS/bw1_fs_g_en_6.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 격투 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "energy-grass",
-          "officialRecords": [
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "EN2011001001",
-              "cardType": "3",
-              "imageFile": "bw1_fs_g_en_1.jpg",
-              "raw": {
-                "CardNum": "EN2011001001",
-                "feature_image": "wmimages/BW/FS/bw1_fs_g_en_1.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「퍼스트 세트 - 불꽃의 진화」",
-              "cardNum": "EN2011001004",
-              "cardType": "3",
-              "imageFile": "bw1_fs_f_en_4.jpg",
-              "raw": {
-                "CardNum": "EN2011001004",
-                "feature_image": "wmimages/BW/FS/bw1_fs_f_en_4.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "fs",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "BW 「퍼스트 세트 - 물의 진화」",
-              "cardNum": "EN2011001005",
-              "cardType": "3",
-              "imageFile": "bw1_fs_w_en_5.jpg",
-              "raw": {
-                "CardNum": "EN2011001005",
-                "feature_image": "wmimages/BW/FS/bw1_fs_w_en_5.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 46,
       "parsedSlotCount": 38,
-      "duplicateSlotCount": 4,
+      "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
-      "variantSlots": [
-        {
-          "groupCode": "FS",
-          "actualSetCode": "FS",
-          "printedNumber": "28",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 3,
-          "evidence": [
-            {
-              "product": "BW 「퍼스트 세트 - 물의 진화」",
-              "cardNum": "ST2011003028",
-              "cardType": "2",
-              "imageFile": "bw1_fs_w_028.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 불꽃의 진화」",
-              "cardNum": "ST2011002028",
-              "cardType": "2",
-              "imageFile": "bw1_fs_f_028.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "ST2011001028",
-              "cardType": "2",
-              "imageFile": "bw1_fs_g_028.jpg",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "FS",
-          "actualSetCode": "FS",
-          "printedNumber": "29",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 3,
-          "evidence": [
-            {
-              "product": "BW 「퍼스트 세트 - 물의 진화」",
-              "cardNum": "ST2011003029",
-              "cardType": "2",
-              "imageFile": "bw1_fs_w_029.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 불꽃의 진화」",
-              "cardNum": "ST2011002029",
-              "cardType": "2",
-              "imageFile": "bw1_fs_f_029.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "ST2011001029",
-              "cardType": "2",
-              "imageFile": "bw1_fs_g_029.jpg",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "FS",
-          "actualSetCode": "FS",
-          "printedNumber": "33",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 3,
-          "evidence": [
-            {
-              "product": "BW 「퍼스트 세트 - 물의 진화」",
-              "cardNum": "ST2011003033",
-              "cardType": "2",
-              "imageFile": "bw1_fs_w_033.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 불꽃의 진화」",
-              "cardNum": "ST2011002033",
-              "cardType": "2",
-              "imageFile": "bw1_fs_f_033.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "ST2011001033",
-              "cardType": "2",
-              "imageFile": "bw1_fs_g_033.jpg",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "FS",
-          "actualSetCode": "FS",
-          "printedNumber": "34",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 3,
-          "evidence": [
-            {
-              "product": "BW 「퍼스트 세트 - 물의 진화」",
-              "cardNum": "ST2011003034",
-              "cardType": "2",
-              "imageFile": "bw1_fs_w_034.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 불꽃의 진화」",
-              "cardNum": "ST2011002034",
-              "cardType": "2",
-              "imageFile": "bw1_fs_f_034.jpg",
-              "classification": "normal"
-            },
-            {
-              "product": "BW 「퍼스트 세트 - 풀의 진화」",
-              "cardNum": "ST2011001034",
-              "cardType": "2",
-              "imageFile": "bw1_fs_g_034.jpg",
-              "classification": "normal"
-            }
-          ]
-        }
-      ]
+      "ignoredNoncanonicalRecordCount": 8,
+      "variantSlots": []
     },
     {
       "era": "BW",
@@ -587,6 +194,7 @@
       "parsedSlotCount": 71,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -601,95 +209,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 24,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "22"
-        },
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "23"
-        },
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "24"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "energy-fire",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 체인지덱 비크티니 덱」",
-              "cardNum": "ST2011007022",
-              "cardType": "3",
-              "imageFile": "bw_victini_en_02.jpg",
-              "raw": {
-                "CardNum": "ST2011007022",
-                "feature_image": "wmimages/BW/BGR/bw_victini_en_02.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 체인지덱 비크티니 덱」",
-              "cardNum": "ST2011007023",
-              "cardType": "3",
-              "imageFile": "bw_victini_en_04.jpg",
-              "raw": {
-                "CardNum": "ST2011007023",
-                "feature_image": "wmimages/BW/BGR/bw_victini_en_04.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "btv",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 체인지덱 비크티니 덱」",
-              "cardNum": "ST2011007024",
-              "cardType": "3",
-              "imageFile": "bw_victini_en_05.jpg",
-              "raw": {
-                "CardNum": "ST2011007024",
-                "feature_image": "wmimages/BW/BGR/bw_victini_en_05.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 24,
       "parsedSlotCount": 24,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -704,69 +233,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 16,
-      "missingExpectedSlotCount": 2,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgc",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "bgc",
-          "printedNumber": "16"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgc",
-          "printedNumber": "energy-darkness",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 코바르온 덱」",
-              "cardNum": "ST2011006015",
-              "cardType": "3",
-              "imageFile": "bw1_cobalon_en_07.jpg",
-              "raw": {
-                "CardNum": "ST2011006015",
-                "feature_image": "wmimages/BW/BG_cobalon/bw1_cobalon_en_07.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 악 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgc",
-          "printedNumber": "energy-metal",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 코바르온 덱」",
-              "cardNum": "ST2011006016",
-              "cardType": "3",
-              "imageFile": "bw1_cobalon_en_08.jpg",
-              "raw": {
-                "CardNum": "ST2011006016",
-                "feature_image": "wmimages/BW/BG_cobalon/bw1_cobalon_en_08.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 강철 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 16,
       "parsedSlotCount": 16,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -781,485 +257,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 18,
-      "missingExpectedSlotCount": 18,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "1"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "10"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "11"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "12"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "13"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "14"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "17"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "18"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "2"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "3"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "4"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "5"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "6"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "7"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "8"
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "9"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 18,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "energy-darkness",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004018",
-              "cardType": "3",
-              "imageFile": "pss_en_08.jpg",
-              "raw": {
-                "CardNum": "ST2013004018",
-                "feature_image": "wmimages/BW/PSS/pss_en_08.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 악 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pbg",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004017",
-              "cardType": "3",
-              "imageFile": "pss_en_05.jpg",
-              "raw": {
-                "CardNum": "ST2013004017",
-                "feature_image": "wmimages/BW/PSS/pss_en_05.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "1",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004001",
-              "cardType": "1",
-              "imageFile": "pss_001.jpg",
-              "raw": {
-                "CardNum": "ST2013004001",
-                "feature_image": "wmimages/BW/PSS/pss_001.jpg?w=400"
-              },
-              "detail": {
-                "name": "깜까미플라스마단",
-                "number": "001",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "10",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004010",
-              "cardType": "2",
-              "imageFile": "pss_010.jpg",
-              "raw": {
-                "CardNum": "ST2013004010",
-                "feature_image": "wmimages/BW/PSS/pss_010.jpg?w=400"
-              },
-              "detail": {
-                "name": "아크로마머신플라스마단",
-                "number": "010",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "11",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004011",
-              "cardType": "2",
-              "imageFile": "pss_011.jpg",
-              "raw": {
-                "CardNum": "ST2013004011",
-                "feature_image": "wmimages/BW/PSS/pss_011.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마단 배지플라스마단",
-                "number": "011",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "12",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004012",
-              "cardType": "2",
-              "imageFile": "pss_012.jpg",
-              "raw": {
-                "CardNum": "ST2013004012",
-                "feature_image": "wmimages/BW/PSS/pss_012.jpg?w=400"
-              },
-              "detail": {
-                "name": "게치스플라스마단",
-                "number": "012",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "13",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004013",
-              "cardType": "2",
-              "imageFile": "pss_013.jpg",
-              "raw": {
-                "CardNum": "ST2013004013",
-                "feature_image": "wmimages/BW/PSS/pss_013.jpg?w=400"
-              },
-              "detail": {
-                "name": "아크로마플라스마단",
-                "number": "013",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "14",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004014",
-              "cardType": "2",
-              "imageFile": "pss_014.jpg",
-              "raw": {
-                "CardNum": "ST2013004014",
-                "feature_image": "wmimages/BW/PSS/pss_014.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마단의 조무래기플라스마단",
-                "number": "014",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "15",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004015",
-              "cardType": "2",
-              "imageFile": "pss_015.jpg",
-              "raw": {
-                "CardNum": "ST2013004015",
-                "feature_image": "wmimages/BW/PSS/pss_015.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마 프리깃플라스마단",
-                "number": "015",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "16",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004016",
-              "cardType": "3",
-              "imageFile": "pss_016.jpg",
-              "raw": {
-                "CardNum": "ST2013004016",
-                "feature_image": "wmimages/BW/PSS/pss_016.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마 에너지플라스마단",
-                "number": "016",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "2",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004002",
-              "cardType": "1",
-              "imageFile": "pss_002.jpg",
-              "raw": {
-                "CardNum": "ST2013004002",
-                "feature_image": "wmimages/BW/PSS/pss_002.jpg?w=400"
-              },
-              "detail": {
-                "name": "기라티나플라스마단",
-                "number": "002",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "3",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004003",
-              "cardType": "1",
-              "imageFile": "pss_003.jpg",
-              "raw": {
-                "CardNum": "ST2013004003",
-                "feature_image": "wmimages/BW/PSS/pss_003.jpg?w=400"
-              },
-              "detail": {
-                "name": "데스마스",
-                "number": "003",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "4",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004004",
-              "cardType": "1",
-              "imageFile": "pss_004.jpg",
-              "raw": {
-                "CardNum": "ST2013004004",
-                "feature_image": "wmimages/BW/PSS/pss_004.jpg?w=400"
-              },
-              "detail": {
-                "name": "데스니칸플라스마단",
-                "number": "004",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "5",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004005",
-              "cardType": "1",
-              "imageFile": "pss_005.jpg",
-              "raw": {
-                "CardNum": "ST2013004005",
-                "feature_image": "wmimages/BW/PSS/pss_005.jpg?w=400"
-              },
-              "detail": {
-                "name": "다크라이플라스마단",
-                "number": "005",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "6",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004006",
-              "cardType": "1",
-              "imageFile": "pss_006.jpg",
-              "raw": {
-                "CardNum": "ST2013004006",
-                "feature_image": "wmimages/BW/PSS/pss_006.jpg?w=400"
-              },
-              "detail": {
-                "name": "자망칼",
-                "number": "006",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "7",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004007",
-              "cardType": "1",
-              "imageFile": "pss_007.jpg",
-              "raw": {
-                "CardNum": "ST2013004007",
-                "feature_image": "wmimages/BW/PSS/pss_007.jpg?w=400"
-              },
-              "detail": {
-                "name": "절각참플라스마단",
-                "number": "007",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "8",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004008",
-              "cardType": "1",
-              "imageFile": "pss_008.jpg",
-              "raw": {
-                "CardNum": "ST2013004008",
-                "feature_image": "wmimages/BW/PSS/pss_008.jpg?w=400"
-              },
-              "detail": {
-                "name": "모노두",
-                "number": "008",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pss",
-          "printedNumber": "9",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 덱」",
-              "cardNum": "ST2013004009",
-              "cardType": "2",
-              "imageFile": "pss_009.jpg",
-              "raw": {
-                "CardNum": "ST2013004009",
-                "feature_image": "wmimages/BW/PSS/pss_009.jpg?w=400"
-              },
-              "detail": {
-                "name": "독최면광선플라스마단",
-                "number": "009",
-                "denominator": "016",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 18,
       "parsedSlotCount": 18,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1274,95 +281,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 17,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "17"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "energy-fighting",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 테라키온 덱」",
-              "cardNum": "ST2011005017",
-              "cardType": "3",
-              "imageFile": "bw1_terrakion_en_06.jpg",
-              "raw": {
-                "CardNum": "ST2011005017",
-                "feature_image": "wmimages/BW/BG_terrakion/bw1_terrakion_en_06.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 격투 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 테라키온 덱」",
-              "cardNum": "ST2011005015",
-              "cardType": "3",
-              "imageFile": "bw1_terrakion_en_04.jpg",
-              "raw": {
-                "CardNum": "ST2011005015",
-                "feature_image": "wmimages/BW/BG_terrakion/bw1_terrakion_en_04.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgt",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 테라키온 덱」",
-              "cardNum": "ST2011005016",
-              "cardType": "3",
-              "imageFile": "bw1_terrakion_en_05.jpg",
-              "raw": {
-                "CardNum": "ST2011005016",
-                "feature_image": "wmimages/BW/BG_terrakion/bw1_terrakion_en_05.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 17,
       "parsedSlotCount": 17,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1377,95 +305,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 17,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "17"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "energy-fire",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 비리디온 덱」",
-              "cardNum": "ST2011004016",
-              "cardType": "3",
-              "imageFile": "bw1_virizion_en_02.jpg",
-              "raw": {
-                "CardNum": "ST2011004016",
-                "feature_image": "wmimages/BW/BG_virizion/bw1_virizion_en_02.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "energy-grass",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 비리디온 덱」",
-              "cardNum": "ST2011004015",
-              "cardType": "3",
-              "imageFile": "bw1_virizion_en_01.jpg",
-              "raw": {
-                "CardNum": "ST2011004015",
-                "feature_image": "wmimages/BW/BG_virizion/bw1_virizion_en_01.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgv",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화덱 - 비리디온 덱」",
-              "cardNum": "ST2011004017",
-              "cardType": "3",
-              "imageFile": "bw1_virizion_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2011004017",
-                "feature_image": "wmimages/BW/BG_virizion/bw1_virizion_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 17,
       "parsedSlotCount": 17,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1484,11 +333,11 @@
       "missingExpectedSlots": [
         {
           "actualSetCode": "bw3-bh",
-          "printedNumber": "56"
+          "printedNumber": "14"
         },
         {
           "actualSetCode": "bw3-bh",
-          "printedNumber": "57"
+          "printedNumber": "56"
         }
       ],
       "unexpectedOfficialSlotCount": 0,
@@ -1498,6 +347,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1530,6 +380,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1566,6 +417,7 @@
       "parsedSlotCount": 73,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1580,69 +432,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 20,
-      "missingExpectedSlotCount": 2,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bkr",
-          "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "bkr",
-          "printedNumber": "20"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bkr",
-          "printedNumber": "energy-fire",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 레시라무 EX」",
-              "cardNum": "ST2012001019",
-              "cardType": "3",
-              "imageFile": "bw_bgr_en_02.jpg",
-              "raw": {
-                "CardNum": "ST2012001019",
-                "feature_image": "wmimages/BW/BGR/bw_bgr_en_02.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bkr",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 레시라무 EX」",
-              "cardNum": "ST2012001020",
-              "cardType": "3",
-              "imageFile": "bw_bgr_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2012001020",
-                "feature_image": "wmimages/BW/BGR/bw_bgr_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 20,
       "parsedSlotCount": 20,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1657,69 +456,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 20,
-      "missingExpectedSlotCount": 2,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgz",
-          "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "bgz",
-          "printedNumber": "20"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgz",
-          "printedNumber": "energy-grass",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 제크로무 EX」",
-              "cardNum": "ST2012002019",
-              "cardType": "3",
-              "imageFile": "bw_bgz_en_01.jpg",
-              "raw": {
-                "CardNum": "ST2012002019",
-                "feature_image": "wmimages/BW/BGZ/bw_bgz_en_01.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgz",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 제크로무 EX」",
-              "cardNum": "ST2012002020",
-              "cardType": "3",
-              "imageFile": "bw_bgz_en_04.jpg",
-              "raw": {
-                "CardNum": "ST2012002020",
-                "feature_image": "wmimages/BW/BGZ/bw_bgz_en_04.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 20,
       "parsedSlotCount": 20,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1743,6 +489,7 @@
       "parsedSlotCount": 20,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1775,6 +522,7 @@
       "parsedSlotCount": 53,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1807,6 +555,7 @@
       "parsedSlotCount": 53,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1843,6 +592,7 @@
       "parsedSlotCount": 15,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1879,6 +629,7 @@
       "parsedSlotCount": 15,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1911,6 +662,7 @@
       "parsedSlotCount": 63,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1943,6 +695,7 @@
       "parsedSlotCount": 63,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -1957,95 +710,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 18,
-      "missingExpectedSlotCount": 3,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "17"
-        },
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "18"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 3,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "energy-darkness",
-          "officialRecords": [
-            {
-              "product": "BW 「케르디오 덱」",
-              "cardNum": "ST2012007017",
-              "cardType": "3",
-              "imageFile": "kd_en_08.jpg",
-              "raw": {
-                "CardNum": "ST2012007017",
-                "feature_image": "wmimages/BW/KD/kd_en_08.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 악 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "energy-metal",
-          "officialRecords": [
-            {
-              "product": "BW 「케르디오 덱」",
-              "cardNum": "ST2012007018",
-              "cardType": "3",
-              "imageFile": "kd_en_09.jpg",
-              "raw": {
-                "CardNum": "ST2012007018",
-                "feature_image": "wmimages/BW/KD/kd_en_09.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 강철 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "kd",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「케르디오 덱」",
-              "cardNum": "ST2012007016",
-              "cardType": "3",
-              "imageFile": "kd_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2012007016",
-                "feature_image": "wmimages/BW/KD/kd_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 18,
       "parsedSlotCount": 18,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2082,6 +756,7 @@
       "parsedSlotCount": 76,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2096,511 +771,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 19,
-      "missingExpectedSlotCount": 19,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "1"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "10"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "11"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "12"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "13"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "14"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "17"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "18"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "2"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "3"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "4"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "5"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "6"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "7"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "8"
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "9"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 19,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "1",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001001",
-              "cardType": "1",
-              "imageFile": "PD_001.jpg",
-              "raw": {
-                "CardNum": "ST2013001001",
-                "feature_image": "wmimages/BW/PD/PD_001.jpg?w=400"
-              },
-              "detail": {
-                "name": "주뱃",
-                "number": "001",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "10",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001010",
-              "cardType": "1",
-              "imageFile": "PD_010.jpg",
-              "raw": {
-                "CardNum": "ST2013001010",
-                "feature_image": "wmimages/BW/PD/PD_010.jpg?w=400"
-              },
-              "detail": {
-                "name": "보르쥐",
-                "number": "010",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "11",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001011",
-              "cardType": "1",
-              "imageFile": "PD_011.jpg",
-              "raw": {
-                "CardNum": "ST2013001011",
-                "feature_image": "wmimages/BW/PD/PD_011.jpg?w=400"
-              },
-              "detail": {
-                "name": "보르그플라스마단",
-                "number": "011",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "12",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001012",
-              "cardType": "2",
-              "imageFile": "PD_012.jpg",
-              "raw": {
-                "CardNum": "ST2013001012",
-                "feature_image": "wmimages/BW/PD/PD_012.jpg?w=400"
-              },
-              "detail": {
-                "name": "독최면광선플라스마단",
-                "number": "012",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "13",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001013",
-              "cardType": "2",
-              "imageFile": "PD_013.jpg",
-              "raw": {
-                "CardNum": "ST2013001013",
-                "feature_image": "wmimages/BW/PD/PD_013.jpg?w=400"
-              },
-              "detail": {
-                "name": "아크로마머신플라스마단",
-                "number": "013",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "14",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001014",
-              "cardType": "2",
-              "imageFile": "PD_014.jpg",
-              "raw": {
-                "CardNum": "ST2013001014",
-                "feature_image": "wmimages/BW/PD/PD_014.jpg?w=400"
-              },
-              "detail": {
-                "name": "아크로마플라스마단",
-                "number": "014",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "15",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001015",
-              "cardType": "2",
-              "imageFile": "PD_015.jpg",
-              "raw": {
-                "CardNum": "ST2013001015",
-                "feature_image": "wmimages/BW/PD/PD_015.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마단의 조무래기플라스마단",
-                "number": "015",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "16",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001016",
-              "cardType": "2",
-              "imageFile": "PD_016.jpg",
-              "raw": {
-                "CardNum": "ST2013001016",
-                "feature_image": "wmimages/BW/PD/PD_016.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마 프리깃플라스마단",
-                "number": "016",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "17",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001017",
-              "cardType": "3",
-              "imageFile": "PD_017.jpg",
-              "raw": {
-                "CardNum": "ST2013001017",
-                "feature_image": "wmimages/BW/PD/PD_017.jpg?w=400"
-              },
-              "detail": {
-                "name": "플라스마 에너지플라스마단",
-                "number": "017",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "2",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001002",
-              "cardType": "1",
-              "imageFile": "PD_002.jpg",
-              "raw": {
-                "CardNum": "ST2013001002",
-                "feature_image": "wmimages/BW/PD/PD_002.jpg?w=400"
-              },
-              "detail": {
-                "name": "또가스",
-                "number": "002",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "3",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001003",
-              "cardType": "1",
-              "imageFile": "PD_003.jpg",
-              "raw": {
-                "CardNum": "ST2013001003",
-                "feature_image": "wmimages/BW/PD/PD_003.jpg?w=400"
-              },
-              "detail": {
-                "name": "깨봉이",
-                "number": "003",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "4",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001004",
-              "cardType": "1",
-              "imageFile": "PD_004.jpg",
-              "raw": {
-                "CardNum": "ST2013001004",
-                "feature_image": "wmimages/BW/PD/PD_004.jpg?w=400"
-              },
-              "detail": {
-                "name": "더스트나플라스마단",
-                "number": "004",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "5",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001005",
-              "cardType": "1",
-              "imageFile": "PD_005.jpg",
-              "raw": {
-                "CardNum": "ST2013001005",
-                "feature_image": "wmimages/BW/PD/PD_005.jpg?w=400"
-              },
-              "detail": {
-                "name": "리그레",
-                "number": "005",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "6",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001006",
-              "cardType": "1",
-              "imageFile": "PD_006.jpg",
-              "raw": {
-                "CardNum": "ST2013001006",
-                "feature_image": "wmimages/BW/PD/PD_006.jpg?w=400"
-              },
-              "detail": {
-                "name": "기어르",
-                "number": "006",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "7",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001007",
-              "cardType": "1",
-              "imageFile": "PD_007.jpg",
-              "raw": {
-                "CardNum": "ST2013001007",
-                "feature_image": "wmimages/BW/PD/PD_007.jpg?w=400"
-              },
-              "detail": {
-                "name": "기기어르",
-                "number": "007",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "8",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001008",
-              "cardType": "1",
-              "imageFile": "PD_008.jpg",
-              "raw": {
-                "CardNum": "ST2013001008",
-                "feature_image": "wmimages/BW/PD/PD_008.jpg?w=400"
-              },
-              "detail": {
-                "name": "기기기어르플라스마단",
-                "number": "008",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "pd",
-          "printedNumber": "9",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001009",
-              "cardType": "1",
-              "imageFile": "PD_009.jpg",
-              "raw": {
-                "CardNum": "ST2013001009",
-                "feature_image": "wmimages/BW/PD/PD_009.jpg?w=400"
-              },
-              "detail": {
-                "name": "아이앤트플라스마단",
-                "number": "009",
-                "denominator": "017",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "energy-metal",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001019",
-              "cardType": "3",
-              "imageFile": "PD_en_09.jpg",
-              "raw": {
-                "CardNum": "ST2013001019",
-                "feature_image": "wmimages/BW/PD/PD_en_09.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 강철 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "ppd",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "BW 「플라스마단 파워 덱」",
-              "cardNum": "ST2013001018",
-              "cardType": "3",
-              "imageFile": "PD_en_08.jpg",
-              "raw": {
-                "CardNum": "ST2013001018",
-                "feature_image": "wmimages/BW/PD/PD_en_08.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 19,
       "parsedSlotCount": 19,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2615,69 +795,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 20,
-      "missingExpectedSlotCount": 2,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgb",
-          "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "bgb",
-          "printedNumber": "20"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgb",
-          "printedNumber": "energy-lightning",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 블랙큐레무 EX」",
-              "cardNum": "ST2013002020",
-              "cardType": "3",
-              "imageFile": "bgb_en_04.jpg",
-              "raw": {
-                "CardNum": "ST2013002020",
-                "feature_image": "wmimages/BW/BGB/bgb_en_04.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 번개 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgb",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 블랙큐레무 EX」",
-              "cardNum": "ST2013002019",
-              "cardType": "3",
-              "imageFile": "bgb_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2013002019",
-                "feature_image": "wmimages/BW/BGB/bgb_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 20,
       "parsedSlotCount": 20,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2692,69 +819,16 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 20,
-      "missingExpectedSlotCount": 2,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "bgw",
-          "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "bgw",
-          "printedNumber": "20"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "bgw",
-          "printedNumber": "energy-fire",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 화이트큐레무 EX」",
-              "cardNum": "ST2013003019",
-              "cardType": "3",
-              "imageFile": "bgw_en_02.jpg",
-              "raw": {
-                "CardNum": "ST2013003019",
-                "feature_image": "wmimages/BW/BGW/bgw_en_02.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 불꽃 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "bgw",
-          "printedNumber": "energy-water",
-          "officialRecords": [
-            {
-              "product": "BW 「배틀 강화 60장 덱 - 화이트큐레무 EX」",
-              "cardNum": "ST2013003020",
-              "cardType": "3",
-              "imageFile": "bgw_en_03.jpg",
-              "raw": {
-                "CardNum": "ST2013003020",
-                "feature_image": "wmimages/BW/BGW/bgw_en_03.jpg?w=400"
-              },
-              "detail": {
-                "name": "기본 물 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 20,
       "parsedSlotCount": 20,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2791,6 +865,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2827,6 +902,7 @@
       "parsedSlotCount": 55,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2850,6 +926,7 @@
       "parsedSlotCount": 25,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2890,6 +967,7 @@
       "parsedSlotCount": 82,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -2904,489 +982,21 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 19,
-      "missingExpectedSlotCount": 19,
+      "missingExpectedSlotCount": 1,
       "missingExpectedSlots": [
         {
           "actualSetCode": "k+k",
-          "printedNumber": "1"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "10"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "11"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "12"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "13"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "14"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "15"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "16"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "17"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "18"
-        },
-        {
-          "actualSetCode": "k+k",
           "printedNumber": "19"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "2"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "3"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "4"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "5"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "6"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "7"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "8"
-        },
-        {
-          "actualSetCode": "k+k",
-          "printedNumber": "9"
         }
       ],
-      "unexpectedOfficialSlotCount": 18,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "1",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005001",
-              "cardType": "1",
-              "imageFile": "g+k_001.jpg",
-              "raw": {
-                "CardNum": "ST2013005001",
-                "feature_image": "wmimages/BW/G+K/g+k_001.jpg?w=400"
-              },
-              "detail": {
-                "name": "꼬부기",
-                "number": "001",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "10",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005010",
-              "cardType": "2",
-              "imageFile": "g+k_010.jpg",
-              "raw": {
-                "CardNum": "ST2013005010",
-                "feature_image": "wmimages/BW/G+K/g+k_010.jpg?w=400"
-              },
-              "detail": {
-                "name": "이상한사탕",
-                "number": "010",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "11",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005011",
-              "cardType": "2",
-              "imageFile": "g+k_011.jpg",
-              "raw": {
-                "CardNum": "ST2013005011",
-                "feature_image": "wmimages/BW/G+K/g+k_011.jpg?w=400"
-              },
-              "detail": {
-                "name": "포켓몬 교체",
-                "number": "011",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "12",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005012",
-              "cardType": "2",
-              "imageFile": "g+k_012.jpg",
-              "raw": {
-                "CardNum": "ST2013005012",
-                "feature_image": "wmimages/BW/G+K/g+k_012.jpg?w=400"
-              },
-              "detail": {
-                "name": "포켓몬 캐처",
-                "number": "012",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "13",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005009",
-              "cardType": "2",
-              "imageFile": "g+k_013.jpg",
-              "raw": {
-                "CardNum": "ST2013005009",
-                "feature_image": "wmimages/BW/G+K/g+k_013.jpg?w=400"
-              },
-              "detail": {
-                "name": "하이퍼볼",
-                "number": "009",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "14",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005014",
-              "cardType": "2",
-              "imageFile": "g+k_014.jpg",
-              "raw": {
-                "CardNum": "ST2013005014",
-                "feature_image": "wmimages/BW/G+K/g+k_014.jpg?w=400"
-              },
-              "detail": {
-                "name": "주박사",
-                "number": "014",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "15",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005015",
-              "cardType": "2",
-              "imageFile": "g+k_015.jpg",
-              "raw": {
-                "CardNum": "ST2013005015",
-                "feature_image": "wmimages/BW/G+K/g+k_015.jpg?w=400"
-              },
-              "detail": {
-                "name": "체렌",
-                "number": "015",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "16",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005016",
-              "cardType": "2",
-              "imageFile": "g+k_016.jpg",
-              "raw": {
-                "CardNum": "ST2013005016",
-                "feature_image": "wmimages/BW/G+K/g+k_016.jpg?w=400"
-              },
-              "detail": {
-                "name": "풍란",
-                "number": "016",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "17",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005017",
-              "cardType": "2",
-              "imageFile": "g+k_017.jpg",
-              "raw": {
-                "CardNum": "ST2013005017",
-                "feature_image": "wmimages/BW/G+K/g+k_017.jpg?w=400"
-              },
-              "detail": {
-                "name": "마스터볼",
-                "number": "017",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "18",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005018",
-              "cardType": "3",
-              "imageFile": "g+k_018.jpg",
-              "raw": {
-                "CardNum": "ST2013005018",
-                "feature_image": "wmimages/BW/G+K/g+k_018.jpg?w=400"
-              },
-              "detail": {
-                "name": "더블 무색 에너지",
-                "number": "018",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "2",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005002",
-              "cardType": "1",
-              "imageFile": "g+k_002.jpg",
-              "raw": {
-                "CardNum": "ST2013005002",
-                "feature_image": "wmimages/BW/G+K/g+k_002.jpg?w=400"
-              },
-              "detail": {
-                "name": "어니부기",
-                "number": "002",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "3",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005003",
-              "cardType": "1",
-              "imageFile": "g+k_003.jpg",
-              "raw": {
-                "CardNum": "ST2013005003",
-                "feature_image": "wmimages/BW/G+K/g+k_003.jpg?w=400"
-              },
-              "detail": {
-                "name": "거북왕",
-                "number": "003",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "4",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005004",
-              "cardType": "1",
-              "imageFile": "g+k_004.jpg",
-              "raw": {
-                "CardNum": "ST2013005004",
-                "feature_image": "wmimages/BW/G+K/g+k_004.jpg?w=400"
-              },
-              "detail": {
-                "name": "스이쿤",
-                "number": "004",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "5",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005005",
-              "cardType": "1",
-              "imageFile": "g+k_005.jpg",
-              "raw": {
-                "CardNum": "ST2013005005",
-                "feature_image": "wmimages/BW/G+K/g+k_005.jpg?w=400"
-              },
-              "detail": {
-                "name": "꼬지보리",
-                "number": "005",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "6",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005006",
-              "cardType": "1",
-              "imageFile": "g+k_006.jpg",
-              "raw": {
-                "CardNum": "ST2013005006",
-                "feature_image": "wmimages/BW/G+K/g+k_006.jpg?w=400"
-              },
-              "detail": {
-                "name": "큐레무EX",
-                "number": "006",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "7",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005007",
-              "cardType": "1",
-              "imageFile": "g+k_007.jpg",
-              "raw": {
-                "CardNum": "ST2013005007",
-                "feature_image": "wmimages/BW/G+K/g+k_007.jpg?w=400"
-              },
-              "detail": {
-                "name": "캥카",
-                "number": "007",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "8",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005013",
-              "cardType": "2",
-              "imageFile": "g+k_008.jpg",
-              "raw": {
-                "CardNum": "ST2013005013",
-                "feature_image": "wmimages/BW/G+K/g+k_008.jpg?w=400"
-              },
-              "detail": {
-                "name": "랜덤 리시버",
-                "number": "013",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "g+k",
-          "printedNumber": "9",
-          "officialRecords": [
-            {
-              "product": "BW 최강 폭류 60장 덱 「거북왕 + 큐레무 EX」",
-              "cardNum": "ST2013005008",
-              "cardType": "2",
-              "imageFile": "g+k_009.jpg",
-              "raw": {
-                "CardNum": "ST2013005008",
-                "feature_image": "wmimages/BW/G+K/g+k_009.jpg?w=400"
-              },
-              "detail": {
-                "name": "에너지 회수",
-                "number": "008",
-                "denominator": "018",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 18,
       "parsedSlotCount": 18,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -3401,483 +1011,17 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 17,
-      "missingExpectedSlotCount": 1,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "mg-bg",
-          "printedNumber": "17"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "mg-bg",
-          "printedNumber": "energy-grass",
-          "officialRecords": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006034",
-              "cardType": "3",
-              "imageFile": "MG_G_017.png",
-              "raw": {
-                "CardNum": "ST2013006034",
-                "feature_image": "wmimages/BW/MG/MG_G_017.png?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "mg-bg",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006017",
-              "cardType": "3",
-              "imageFile": "MG_M_017.png",
-              "raw": {
-                "CardNum": "ST2013006017",
-                "feature_image": "wmimages/BW/MG/MG_M_017.png?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 34,
-      "parsedSlotCount": 18,
-      "duplicateSlotCount": 16,
+      "parsedSlotCount": 17,
+      "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
-      "variantSlots": [
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "1",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006018",
-              "cardType": "1",
-              "imageFile": "MG_G_001.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006001",
-              "cardType": "1",
-              "imageFile": "MG_M_001.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "10",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006027",
-              "cardType": "2",
-              "imageFile": "MG_G_010.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006010",
-              "cardType": "2",
-              "imageFile": "MG_M_010.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "11",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006028",
-              "cardType": "2",
-              "imageFile": "MG_G_011.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006011",
-              "cardType": "2",
-              "imageFile": "MG_M_011.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "12",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006029",
-              "cardType": "2",
-              "imageFile": "MG_G_012.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006012",
-              "cardType": "2",
-              "imageFile": "MG_M_012.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "13",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006030",
-              "cardType": "2",
-              "imageFile": "MG_G_013.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006013",
-              "cardType": "2",
-              "imageFile": "MG_M_013.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "14",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006031",
-              "cardType": "2",
-              "imageFile": "MG_G_014.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006014",
-              "cardType": "2",
-              "imageFile": "MG_M_014.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "15",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006032",
-              "cardType": "2",
-              "imageFile": "MG_G_015.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006015",
-              "cardType": "2",
-              "imageFile": "MG_M_015.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "16",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006033",
-              "cardType": "3",
-              "imageFile": "MG_G_016.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006016",
-              "cardType": "3",
-              "imageFile": "MG_M_016.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "2",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006019",
-              "cardType": "1",
-              "imageFile": "MG_G_002.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006002",
-              "cardType": "1",
-              "imageFile": "MG_M_002.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "3",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006020",
-              "cardType": "1",
-              "imageFile": "MG_G_003.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006003",
-              "cardType": "1",
-              "imageFile": "MG_M_003.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "4",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006021",
-              "cardType": "1",
-              "imageFile": "MG_G_004.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006004",
-              "cardType": "1",
-              "imageFile": "MG_M_004.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "5",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006022",
-              "cardType": "1",
-              "imageFile": "MG_G_005.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006005",
-              "cardType": "1",
-              "imageFile": "MG_M_005.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "6",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006023",
-              "cardType": "1",
-              "imageFile": "MG_G_006.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006006",
-              "cardType": "1",
-              "imageFile": "MG_M_006.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "7",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006024",
-              "cardType": "1",
-              "imageFile": "MG_G_007.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006007",
-              "cardType": "1",
-              "imageFile": "MG_M_007.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "8",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006025",
-              "cardType": "1",
-              "imageFile": "MG_G_008.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006008",
-              "cardType": "1",
-              "imageFile": "MG_M_008.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bg",
-          "actualSetCode": "MG-Bg",
-          "printedNumber": "9",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006026",
-              "cardType": "2",
-              "imageFile": "MG_G_009.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006009",
-              "cardType": "2",
-              "imageFile": "MG_M_009.png",
-              "classification": "normal"
-            }
-          ]
-        }
-      ]
+      "ignoredNoncanonicalRecordCount": 17,
+      "variantSlots": []
     },
     {
       "era": "BW",
@@ -3891,483 +1035,17 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 17,
-      "missingExpectedSlotCount": 1,
-      "missingExpectedSlots": [
-        {
-          "actualSetCode": "mg-bm",
-          "printedNumber": "17"
-        }
-      ],
-      "unexpectedOfficialSlotCount": 2,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "mg-bm",
-          "printedNumber": "energy-grass",
-          "officialRecords": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006034",
-              "cardType": "3",
-              "imageFile": "MG_G_017.png",
-              "raw": {
-                "CardNum": "ST2013006034",
-                "feature_image": "wmimages/BW/MG/MG_G_017.png?w=400"
-              },
-              "detail": {
-                "name": "기본 풀 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "mg-bm",
-          "printedNumber": "energy-psychic",
-          "officialRecords": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006017",
-              "cardType": "3",
-              "imageFile": "MG_M_017.png",
-              "raw": {
-                "CardNum": "ST2013006017",
-                "feature_image": "wmimages/BW/MG/MG_M_017.png?w=400"
-              },
-              "detail": {
-                "name": "기본 초 에너지",
-                "number": "",
-                "denominator": "",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "missingExpectedSlotCount": 0,
+      "missingExpectedSlots": [],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 34,
-      "parsedSlotCount": 18,
-      "duplicateSlotCount": 16,
+      "parsedSlotCount": 17,
+      "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
-      "variantSlots": [
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "1",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006018",
-              "cardType": "1",
-              "imageFile": "MG_G_001.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006001",
-              "cardType": "1",
-              "imageFile": "MG_M_001.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "10",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006027",
-              "cardType": "2",
-              "imageFile": "MG_G_010.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006010",
-              "cardType": "2",
-              "imageFile": "MG_M_010.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "11",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006028",
-              "cardType": "2",
-              "imageFile": "MG_G_011.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006011",
-              "cardType": "2",
-              "imageFile": "MG_M_011.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "12",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006029",
-              "cardType": "2",
-              "imageFile": "MG_G_012.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006012",
-              "cardType": "2",
-              "imageFile": "MG_M_012.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "13",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006030",
-              "cardType": "2",
-              "imageFile": "MG_G_013.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006013",
-              "cardType": "2",
-              "imageFile": "MG_M_013.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "14",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006031",
-              "cardType": "2",
-              "imageFile": "MG_G_014.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006014",
-              "cardType": "2",
-              "imageFile": "MG_M_014.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "15",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006032",
-              "cardType": "2",
-              "imageFile": "MG_G_015.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006015",
-              "cardType": "2",
-              "imageFile": "MG_M_015.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "16",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006033",
-              "cardType": "3",
-              "imageFile": "MG_G_016.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006016",
-              "cardType": "3",
-              "imageFile": "MG_M_016.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "2",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006019",
-              "cardType": "1",
-              "imageFile": "MG_G_002.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006002",
-              "cardType": "1",
-              "imageFile": "MG_M_002.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "3",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006020",
-              "cardType": "1",
-              "imageFile": "MG_G_003.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006003",
-              "cardType": "1",
-              "imageFile": "MG_M_003.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "4",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006021",
-              "cardType": "1",
-              "imageFile": "MG_G_004.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006004",
-              "cardType": "1",
-              "imageFile": "MG_M_004.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "5",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006022",
-              "cardType": "1",
-              "imageFile": "MG_G_005.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006005",
-              "cardType": "1",
-              "imageFile": "MG_M_005.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "6",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006023",
-              "cardType": "1",
-              "imageFile": "MG_G_006.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006006",
-              "cardType": "1",
-              "imageFile": "MG_M_006.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "7",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006024",
-              "cardType": "1",
-              "imageFile": "MG_G_007.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006007",
-              "cardType": "1",
-              "imageFile": "MG_M_007.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "8",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006025",
-              "cardType": "1",
-              "imageFile": "MG_G_008.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006008",
-              "cardType": "1",
-              "imageFile": "MG_M_008.png",
-              "classification": "normal"
-            }
-          ]
-        },
-        {
-          "groupCode": "MG-Bm",
-          "actualSetCode": "MG-Bm",
-          "printedNumber": "9",
-          "availablePrintVariants": [
-            "normal",
-            "other"
-          ],
-          "distinctImageCount": 2,
-          "evidence": [
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006026",
-              "cardType": "2",
-              "imageFile": "MG_G_009.png",
-              "classification": "normal"
-            },
-            {
-              "product": "포켓몬 카드 게임 BW 「30장 덱 대전 set 뮤츠VS게노세크트」",
-              "cardNum": "ST2013006009",
-              "cardType": "2",
-              "imageFile": "MG_M_009.png",
-              "classification": "normal"
-            }
-          ]
-        }
-      ]
+      "ignoredNoncanonicalRecordCount": 17,
+      "variantSlots": []
     },
     {
       "era": "BW",
@@ -4385,11 +1063,11 @@
       "missingExpectedSlots": [
         {
           "actualSetCode": "ebb",
-          "printedNumber": "94"
+          "printedNumber": "20"
         },
         {
           "actualSetCode": "ebb",
-          "printedNumber": "95"
+          "printedNumber": "43"
         }
       ],
       "unexpectedOfficialSlotCount": 0,
@@ -4399,6 +1077,7 @@
       "parsedSlotCount": 93,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     },
     {
@@ -4413,7 +1092,7 @@
       ],
       "discoveryCandidateCount": 0,
       "expectedSlotCount": 72,
-      "missingExpectedSlotCount": 39,
+      "missingExpectedSlotCount": 33,
       "missingExpectedSlots": [
         {
           "actualSetCode": "bwp",
@@ -4457,31 +1136,15 @@
         },
         {
           "actualSetCode": "bwp",
-          "printedNumber": "44"
+          "printedNumber": "41"
         },
         {
           "actualSetCode": "bwp",
-          "printedNumber": "45"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "46"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "47"
+          "printedNumber": "42"
         },
         {
           "actualSetCode": "bwp",
           "printedNumber": "48"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "49"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "50"
         },
         {
           "actualSetCode": "bwp",
@@ -4506,14 +1169,6 @@
         {
           "actualSetCode": "bwp",
           "printedNumber": "56"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "57"
-        },
-        {
-          "actualSetCode": "bwp",
-          "printedNumber": "58"
         },
         {
           "actualSetCode": "bwp",
@@ -4572,146 +1227,14 @@
           "printedNumber": "72"
         }
       ],
-      "unexpectedOfficialSlotCount": 6,
-      "unexpectedOfficialSlots": [
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "44",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2012004044",
-              "cardType": "1",
-              "imageFile": "promo_044.jpg",
-              "raw": {
-                "CardNum": "PR2012004044",
-                "feature_image": "wmimages/BW/PROMO/promo_044.jpg?w=400"
-              },
-              "detail": {
-                "name": "비리디온",
-                "number": "044",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "45",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2012005045",
-              "cardType": "1",
-              "imageFile": "promo_045.jpg",
-              "raw": {
-                "CardNum": "PR2012005045",
-                "feature_image": "wmimages/BW/PROMO/promo_045.jpg?w=400"
-              },
-              "detail": {
-                "name": "테라키온",
-                "number": "045",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "46",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2012006046",
-              "cardType": "1",
-              "imageFile": "promo_046.jpg",
-              "raw": {
-                "CardNum": "PR2012006046",
-                "feature_image": "wmimages/BW/PROMO/promo_046.jpg?w=400"
-              },
-              "detail": {
-                "name": "코바르온",
-                "number": "046",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "47",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2012007047",
-              "cardType": "1",
-              "imageFile": "promo_047.jpg",
-              "raw": {
-                "CardNum": "PR2012007047",
-                "feature_image": "wmimages/BW/PROMO/promo_047.jpg?w=400"
-              },
-              "detail": {
-                "name": "큐레무",
-                "number": "047",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "49",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2013001049",
-              "cardType": "1",
-              "imageFile": "promo_049.jpg",
-              "raw": {
-                "CardNum": "PR2013001049",
-                "feature_image": "wmimages/BW/PROMO/promo_049.jpg?w=400"
-              },
-              "detail": {
-                "name": "피카츄",
-                "number": "049",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        },
-        {
-          "actualSetCode": "promo",
-          "printedNumber": "50",
-          "officialRecords": [
-            {
-              "product": "BW 프로모 카드",
-              "cardNum": "PR2013002050",
-              "cardType": "1",
-              "imageFile": "promo_050.jpg",
-              "raw": {
-                "CardNum": "PR2013002050",
-                "feature_image": "wmimages/BW/PROMO/promo_050.jpg?w=400"
-              },
-              "detail": {
-                "name": "메로엣타",
-                "number": "050",
-                "denominator": "BW",
-                "rarity": ""
-              }
-            }
-          ]
-        }
-      ],
+      "unexpectedOfficialSlotCount": 0,
+      "unexpectedOfficialSlots": [],
       "missingProducts": [],
       "rawRecordCount": 39,
       "parsedSlotCount": 39,
       "duplicateSlotCount": 0,
       "unresolvedRecordCount": 0,
+      "ignoredNoncanonicalRecordCount": 0,
       "variantSlots": []
     }
   ]
