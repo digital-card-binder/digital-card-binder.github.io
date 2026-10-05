@@ -1793,7 +1793,9 @@ async function init() {
       : mobileCatalogPreferences.group;
     const initialGroupValue =
       requestedGroup &&
-      initialGroups.some((group) => group === requestedGroup)
+      initialGroups.some((group) =>
+        (group.code || group.name) === requestedGroupValue,
+      )
         ? requestedGroupValue
         : rememberedGroup;
     if (
