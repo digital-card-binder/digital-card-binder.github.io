@@ -303,7 +303,6 @@
   function arrangeCollectorNavigation() {
     const nav = document.querySelector(".collection-nav");
     if (!nav) return;
-    nav.querySelector('[href*="trades.html"]')?.remove();
     normalizeNavigationState(nav);
     buildNavigationAccordion(nav);
   }
