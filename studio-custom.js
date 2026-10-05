@@ -1952,8 +1952,10 @@
   async function importBinderPhoto(file) {
     if (!file || state.photoImporting || state.photoRecognizing || state.saving || state.publishing) return;
     let { cols, rows } = selectedGrid();
+    let autoRecognizeAfterImport = false;
     state.photoImporting = true;
     updatePhotoImportUi("사진을 열고 있습니다…");
+    updateQuickEditorUi("페이지 스캔을 준비하고 있습니다…");
     try {
       if (!root.photoScanner?.edit) throw new Error("스캔 기능을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.");
       const scanResult = await root.photoScanner.edit(file, {
@@ -2050,6 +2052,8 @@
       updatePhotoImportUi(
         `${scanText} · ${cols} × ${rows} · ${count}칸 · ${sizeText}. 각 칸은 카드 비율로 맞춰져 있으며 필요한 칸만 실제 카드로 교체할 수 있습니다.`,
       );
+      autoRecognizeAfterImport = true;
+      updateQuickEditorUi("스캔 완료 · 카드 자동인식을 시작합니다…");
     } catch (error) {
       console.error("바인더 사진 가져오기 실패", error);
       updatePhotoImportUi(clean(error?.message) || "사진을 가져오지 못했습니다. 다른 사진으로 다시 시도해 주세요.");
@@ -2059,6 +2063,9 @@
       if (photoCameraInput) photoCameraInput.value = "";
       if (photoAlbumInput) photoAlbumInput.value = "";
       if (quickPageScanInput) quickPageScanInput.value = "";
+    }
+    if (autoRecognizeAfterImport) {
+      await recognizeImportedPhotoCards();
     }
   }
 
@@ -2193,6 +2200,7 @@
     state.photoRecognizing = true;
     clearPhotoRecognitionResults();
     updatePhotoImportUi("우리 도감과 비교할 카드 목록을 준비하는 중입니다…");
+    updateQuickEditorUi("스캔한 칸의 카드를 자동으로 확인하고 있습니다…");
 
     try {
       await ensureCatalog();
@@ -2247,11 +2255,17 @@
           ? `${summary}. 아래 후보에서 맞는 카드만 선택하세요.`
           : `${summary}. 확실한 카드만 자동으로 교체했습니다.`,
       );
+      updateQuickEditorUi(
+        review.size
+          ? `${summary} · 애매한 칸은 사진 그대로 유지했습니다.`
+          : `${summary} · 확실한 카드만 반영했습니다.`,
+      );
     } catch (error) {
       console.error("바인더 사진 카드 자동인식 실패", error);
-      updatePhotoImportUi(
-        clean(error?.message) || "카드 자동인식에 실패했습니다. 사진 상태로 그대로 저장할 수 있습니다.",
-      );
+      const message =
+        clean(error?.message) || "카드 자동인식에 실패했습니다. 사진 상태로 그대로 저장할 수 있습니다.";
+      updatePhotoImportUi(message);
+      updateQuickEditorUi(`스캔은 완료되었습니다 · ${message}`);
     } finally {
       state.photoRecognizing = false;
       updatePhotoImportUi(photoStatus?.textContent || "");
