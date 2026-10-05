@@ -74,3 +74,27 @@ test("selected group summaries stay immediately above quick status controls", ()
   }
   assert.match(nav, /controls[.]insertAdjacentElement\("beforebegin", summary\)/);
 });
+
+
+test("simple dex cards keep only image number and name in the default grid", () => {
+  const css = read("collector.css");
+
+  assert.match(css, /Simple dex cards: image first, number \+ name only/);
+  assert.match(css, /body[.]collector-simple-dex [.]pokemon-card [.]missing-overlay \{\s*display: none !important/);
+  assert.match(css, /body[.]collector-simple-dex [.]pokemon-card [.]card-name-en,[\s\S]*?[.]card-meta/);
+  assert.match(css, /body[.]collector-simple-dex [.]pokemon-card [.]card-name-ko/);
+  assert.match(css, /body[.]collector-simple-dex [.]collection-complete-button::before/);
+  assert.match(css, /body[.]collector-simple-dex [.]collection-complete-button[.]is-complete::before/);
+  assert.match(css, /content: "\+"/);
+  assert.match(css, /content: "✓"/);
+});
+
+test("pack and theme cards follow the same low-chrome ownership treatment", () => {
+  const css = read("collector.css");
+
+  assert.match(css, /body[.]collector-simple-dex [.]pack-status \{\s*display: none !important/);
+  assert.match(css, /body[.]collector-simple-dex [.]art-theme-card-badges [.]is-rarity/);
+  assert.match(css, /body[.]collector-simple-dex [.]art-theme-card-meta/);
+  assert.match(css, /body[.]collector-simple-dex [.]art-theme-card-scene/);
+  assert.match(css, /body[.]collector-simple-dex [.]art-theme-owned-button::before/);
+});
