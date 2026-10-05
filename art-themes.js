@@ -157,10 +157,28 @@
     });
   }
 
+  function rememberCurrentTheme() {
+    const group = currentGroup();
+    const recentDex = window.DigitalCardBinder?.recentDex;
+    if (!group || typeof recentDex?.remember !== "function") return;
+    const cards = group.cards || [];
+    const owned = cards.filter((card) => card.owned).length;
+    recentDex.remember({
+      collectionId: "artThemes",
+      title: "테마 도감",
+      detail: group.name || "테마",
+      href: `./art-themes.html?theme=${encodeURIComponent(group.code || "")}`,
+      owned,
+      total: cards.length,
+      unit: "장",
+    });
+  }
+
   function render() {
     renderSummary();
     renderStatusFilters();
     renderCards();
+    rememberCurrentTheme();
   }
 
   async function initialize() {
