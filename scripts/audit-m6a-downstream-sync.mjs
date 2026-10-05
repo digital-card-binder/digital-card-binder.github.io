@@ -19,6 +19,8 @@ const [
   people,
   trainerPokemon,
   fossil,
+  packsSource,
+  packAsset,
 ] = await Promise.all([
   readJson("data/series.json"),
   readJson("data/pokemon-collections.json"),
@@ -30,6 +32,8 @@ const [
   readJson("data/people.json"),
   readJson("data/trainer-pokemon.json"),
   readJson("data/fossil.json"),
+  readFile(new URL("packs.js", ROOT), "utf8"),
+  readFile(new URL("assets/packs/m6a.webp", ROOT)),
 ]);
 
 const clean = (value) => String(value ?? "").trim();
@@ -40,6 +44,12 @@ const cardNumber = (card) => clean(card?.meta).split(" · ", 1)[0];
 const m6a = list(series).find((group) => lower(group?.code) === "m6a");
 assert.ok(m6a, "M6a series group is missing");
 assert.equal(m6a.cards?.length, 176, "M6a canonical series must contain 176 cards");
+assert.match(
+  packsSource,
+  /\["M","30th CELEBRATION","m6a",[01]\]/,
+  "M6a pack-dex entry is missing",
+);
+assert.ok(packAsset.length > 0, "M6a pack image asset is missing");
 
 const pokemonGroups = [...list(pokemonBase), ...list(pokemonExtra)];
 const pokemonActual = [];
@@ -159,6 +169,11 @@ const audit = {
       status: "complete",
       cardCount: m6a.cards.length,
     },
+    pack: {
+      status: "complete",
+      packEntry: true,
+      packAsset: "assets/packs/m6a.webp",
+    },
     pokemonCollections: {
       status: "complete",
       cardSlots: pokemonActual.length,
@@ -205,6 +220,7 @@ const audit = {
   },
   safeguards: [
     "M6a 176장 기준 수가 바뀌면 감사가 실패한다.",
+    "팩 도감의 M6a 항목 또는 낱팩 이미지가 빠지면 감사가 실패한다.",
     "포켓몬 컬렉션 M6a 48슬롯 중 하나라도 빠지거나 잘못 추가되면 감사가 실패한다.",
     "AR 104-123 20장 범위가 달라지면 감사가 실패한다.",
     "승인 작가 범위의 M6a 35장 또는 검증된 테마 21슬롯이 달라지면 재검수를 요구한다.",
