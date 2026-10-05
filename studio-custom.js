@@ -89,6 +89,12 @@
   const quickPageScanInput = panel.querySelector("#studio-quick-page-scan");
   const quickVariantButton = panel.querySelector("#studio-quick-variant");
   const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
+  const variantDialog = document.querySelector("#studio-variant-dialog");
+  const variantTitle = document.querySelector("#studio-variant-title");
+  const variantMeta = document.querySelector("#studio-variant-meta");
+  const variantOptions = document.querySelector("#studio-variant-options");
+  const variantNote = document.querySelector("#studio-variant-note");
+  const variantCloseButton = document.querySelector("#studio-variant-close");
 
   const SDK_VERSION = "12.16.0";
   const CONFIG = window.POKEMON_DEX_FIREBASE || {};
@@ -153,6 +159,8 @@
     saving: false,
     switchingPage: false,
     savedWorkCount: 0,
+    variantData: null,
+    variantDataPromise: null,
   };
 
   function clean(value) {
@@ -691,7 +699,16 @@
     const placement = selectedPlacement();
     if (quickCardButton) quickCardButton.disabled = index < 0;
     if (quickEmptyButton) quickEmptyButton.disabled = index < 0 || slot?.type === "empty";
-    if (quickVariantButton) quickVariantButton.disabled = !placement || !Number.isInteger(placement.slotIndex);
+    if (quickVariantButton) {
+      quickVariantButton.disabled = !placement || !Number.isInteger(placement.slotIndex);
+      const label = quickVariantButton.querySelector("strong");
+      if (label) {
+        const current = clean(placement?.card?.printVariant) || "normal";
+        label.textContent = placement && current !== "normal"
+          ? `버전 · ${variantLabel(current)}`
+          : "버전 고르기";
+      }
+    }
     if (!quickSlotStatus) return;
     if (message) {
       quickSlotStatus.textContent = message;
@@ -1508,19 +1525,270 @@
     updateQuickEditorUi(`${slotIndex + 1}번 칸에 넣을 카드를 검색하세요.`);
   }
 
+  function variantLabel(type) {
+    const labels = {
+      normal: "일반",
+      mirror: "미러",
+      holo: "홀로",
+      other: "기타",
+    };
+    return labels[clean(type).toLowerCase()] || "기타";
+  }
+
+  function normalizeVariantNumber(value, setCode = "") {
+    let raw = clean(value).toLowerCase().replace(/\s+/g, "");
+    const group = clean(setCode).toLowerCase().replace(/\s+/g, "");
+    if (raw.includes("::")) raw = raw.split("::").at(-1) || raw;
+    for (const prefix of [`${group}_`, `${group}-`]) {
+      if (group && raw.startsWith(prefix)) {
+        raw = raw.slice(prefix.length);
+        break;
+      }
+    }
+    const direct = raw.match(/^0*(\d+)(?:\/\d+)?$/);
+    if (direct) return String(Number(direct[1]));
+    const tail = raw.match(/(?:^|[_-])0*(\d+)(?:\/\d+)?$/);
+    if (tail) return String(Number(tail[1]));
+    return raw;
+  }
+
+  function variantIdentity(card) {
+    const customParts = clean(card?.customDexKey).split("::").filter(Boolean);
+    const setCode = clean(card?.setCode || customParts[0]).toLowerCase();
+    const source = customParts[1] || card?.cardNumber || card?.key || "";
+    return {
+      setCode,
+      printedNumber: normalizeVariantNumber(source, setCode),
+    };
+  }
+
+  async function ensureVariantData() {
+    if (state.variantData) return state.variantData;
+    if (state.variantDataPromise) return state.variantDataPromise;
+    state.variantDataPromise = (async () => {
+      if (!catalogService?.json) throw new Error("카드 버전 데이터를 불러올 수 없습니다.");
+      const [catalog, imageMap] = await Promise.all([
+        catalogService.json("./data/series-print-variants.json"),
+        catalogService.json("./data/series-print-variant-images.json").catch(() => ({ slots: {} })),
+      ]);
+      const index = new Map();
+      Object.entries(catalog?.slots || {}).forEach(([key, types]) => {
+        const parts = String(key).split("::");
+        const group = clean(parts[0]).toLowerCase();
+        const number = normalizeVariantNumber(parts.at(-1), group);
+        if (!group || !number) return;
+        index.set(`${group}::${number}`, Array.isArray(types) ? types.map(clean).filter(Boolean) : []);
+      });
+      const imageIndex = new Map(
+        Object.entries(imageMap?.slots || {}).map(([key, value]) => [clean(key).toLowerCase(), value || {}]),
+      );
+      state.variantData = { index, imageIndex };
+      return state.variantData;
+    })().catch((error) => {
+      state.variantDataPromise = null;
+      throw error;
+    });
+    return state.variantDataPromise;
+  }
+
+  function siblingImageUrl(base, fileName) {
+    const source = clean(base);
+    const file = clean(fileName);
+    if (!source || !file) return "";
+    try {
+      return new URL(file, new URL(source, window.location.href)).href;
+    } catch {
+      const slash = source.lastIndexOf("/");
+      return slash >= 0 ? `${source.slice(0, slash + 1)}${file}` : file;
+    }
+  }
+
+  function inferredMirrorUrls(base) {
+    const source = clean(base);
+    if (!source) return [];
+    try {
+      const url = new URL(source, window.location.href);
+      const file = url.pathname.split("/").pop() || "";
+      const dot = file.lastIndexOf(".");
+      if (dot <= 0) return [];
+      const stem = file.slice(0, dot);
+      const ext = file.slice(dot);
+      const dir = url.pathname.slice(0, url.pathname.length - file.length);
+      return [`${stem}_m${ext}`, `${stem}m${ext}`].map((name) => {
+        const next = new URL(url.href);
+        next.pathname = `${dir}${name}`;
+        return next.href;
+      });
+    } catch {
+      return [];
+    }
+  }
+
+  function variantChoicesForCard(card, variantData) {
+    const identity = variantIdentity(card);
+    const key = `${identity.setCode}::${identity.printedNumber}`;
+    const types = variantData.index.get(key) || [];
+    const evidence = variantData.imageIndex.get(key) || {};
+    const baseImage = clean(card?.normalImage || card?.image);
+    const choices = [{
+      id: "normal",
+      type: "normal",
+      label: "일반",
+      imageCandidates: baseImage ? [baseImage] : [],
+      imageFile: "",
+      metadataOnly: false,
+    }];
+
+    types.forEach((type) => {
+      const normalizedType = clean(type).toLowerCase();
+      const files = Array.isArray(evidence?.variants?.[normalizedType])
+        ? evidence.variants[normalizedType].map(clean).filter(Boolean)
+        : [];
+      let candidates = files.map((file) => siblingImageUrl(baseImage, file)).filter(Boolean);
+      if (!candidates.length && normalizedType === "mirror") {
+        candidates = inferredMirrorUrls(baseImage);
+      }
+      if (files.length > 1) {
+        files.forEach((file, index) => {
+          choices.push({
+            id: `${normalizedType}:${file}`,
+            type: normalizedType,
+            label: `${variantLabel(normalizedType)} ${index + 1}`,
+            imageCandidates: [siblingImageUrl(baseImage, file)].filter(Boolean),
+            imageFile: file,
+            metadataOnly: false,
+          });
+        });
+      } else {
+        choices.push({
+          id: normalizedType,
+          type: normalizedType,
+          label: variantLabel(normalizedType),
+          imageCandidates: candidates.length ? candidates : (baseImage ? [baseImage] : []),
+          imageFile: files[0] || "",
+          metadataOnly: !candidates.length,
+        });
+      }
+    });
+
+    return { identity, choices };
+  }
+
+  function closeVariantDialog() {
+    if (!variantDialog) return;
+    if (typeof variantDialog.close === "function" && variantDialog.open) variantDialog.close();
+    else variantDialog.removeAttribute("open");
+  }
+
+  function applyVariantChoice(entry, choice, resolvedImage = "") {
+    if (!entry || !choice) return;
+    const baseImage = clean(entry.card.normalImage || entry.card.image);
+    entry.card.normalImage = baseImage;
+    entry.card.printVariant = choice.type || "normal";
+    entry.card.variantImageFile = clean(choice.imageFile);
+    entry.card.image = choice.type === "normal"
+      ? baseImage
+      : clean(resolvedImage || choice.imageCandidates?.[0]) || baseImage;
+    renderPlacements();
+    captureCurrentPage();
+    updateQuickEditorUi(
+      `${entry.card.name} · ${variantLabel(entry.card.printVariant)} 버전으로 변경했습니다.`,
+    );
+    closeVariantDialog();
+  }
+
+  function renderVariantChoices(entry, payload) {
+    if (!variantOptions || !variantNote) return;
+    const currentType = clean(entry.card.printVariant) || "normal";
+    const currentFile = clean(entry.card.variantImageFile);
+    const nodes = payload.choices.map((choice) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "studio-variant-option";
+      const selected = choice.type === currentType &&
+        (!currentFile || !choice.imageFile || currentFile === choice.imageFile);
+      button.classList.toggle("is-selected", selected);
+
+      const image = document.createElement("img");
+      image.alt = "";
+      image.loading = "eager";
+      let candidateIndex = 0;
+      const candidates = [...new Set(choice.imageCandidates || [])];
+      const setCandidate = () => {
+        if (!candidates[candidateIndex]) return;
+        image.src = candidates[candidateIndex];
+      };
+      image.addEventListener("error", () => {
+        candidateIndex += 1;
+        if (candidateIndex < candidates.length) {
+          setCandidate();
+          return;
+        }
+        const fallback = clean(entry.card.normalImage || entry.card.image);
+        if (fallback && image.src !== fallback) image.src = fallback;
+        button.classList.add("is-preview-fallback");
+      });
+      if (candidates.length) setCandidate();
+
+      const copy = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = choice.label;
+      const detail = document.createElement("small");
+      detail.textContent = choice.type === "normal"
+        ? "기본 카드"
+        : choice.metadataOnly
+          ? "공식 버전 확인 · 이미지 미확인"
+          : "공식 확인 인쇄본";
+      copy.append(name, detail);
+      if (selected) {
+        const current = document.createElement("em");
+        current.textContent = "현재";
+        copy.append(current);
+      }
+      button.append(image, copy);
+      button.addEventListener("click", () => {
+        applyVariantChoice(entry, choice, image.currentSrc || image.src);
+      });
+      return button;
+    });
+    variantOptions.replaceChildren(...nodes);
+    variantNote.textContent = payload.choices.length > 1
+      ? "일반 카드는 기본 슬롯으로 유지하고, 확인된 미러·기타 인쇄본만 같은 카드의 버전으로 바꿉니다."
+      : "이 카드에는 현재 공식 확인된 추가 인쇄 버전이 없습니다.";
+  }
+
   async function openQuickVariants() {
     const placement = selectedPlacement();
-    if (!placement || !Number.isInteger(placement.slotIndex)) return;
+    if (!placement || !Number.isInteger(placement.slotIndex) || !variantDialog) return;
     selectQuickSlot(placement.slotIndex);
-    const query = [placement.card.setCode, placement.card.cardNumber].filter(Boolean).join(" ");
-    searchInput.value = query || placement.card.name || "";
-    searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (variantTitle) variantTitle.textContent = "모을 버전 고르기";
+    if (variantMeta) {
+      variantMeta.textContent = [placement.card.name, placement.card.setCode, placement.card.cardNumber]
+        .filter(Boolean)
+        .join(" · ");
+    }
+    if (variantOptions) {
+      const loading = document.createElement("p");
+      loading.className = "studio-variant-loading";
+      loading.textContent = "확인된 카드 버전을 불러오는 중…";
+      variantOptions.replaceChildren(loading);
+    }
+    if (typeof variantDialog.showModal === "function") {
+      if (!variantDialog.open) variantDialog.showModal();
+    } else {
+      variantDialog.setAttribute("open", "");
+    }
     try {
-      await runSearch();
-      searchStatus.textContent = "같은 세트·번호의 다른 카드/버전 후보입니다. 원하는 이미지를 선택하면 현재 칸이 교체됩니다.";
-      searchInput.focus({ preventScroll: true });
+      const data = await ensureVariantData();
+      renderVariantChoices(placement, variantChoicesForCard(placement.card, data));
     } catch (error) {
-      console.error("카드 버전 찾기 실패", error);
+      console.error("카드 버전 데이터 불러오기 실패", error);
+      if (variantOptions) {
+        const message = document.createElement("p");
+        message.className = "studio-variant-loading";
+        message.textContent = "카드 버전 정보를 불러오지 못했습니다.";
+        variantOptions.replaceChildren(message);
+      }
     }
   }
 
@@ -1780,6 +2048,9 @@
         cardNumber: card.cardNumber,
         rarity: card.rarity,
         image: card.image,
+        normalImage: clean(card.normalImage || card.image),
+        printVariant: clean(card.printVariant) || "normal",
+        variantImageFile: clean(card.variantImageFile),
         customDexKey: clean(card.customDexKey),
       },
       x: geometry.x,
@@ -2114,6 +2385,9 @@
             cardNumber: number,
             rarity,
             image,
+            normalImage: image,
+            printVariant: "normal",
+            variantImageFile: "",
             search: normalize([
               name,
               card.pokemonName,
@@ -2308,6 +2582,126 @@
     captureCurrentPage();
   }
 
+  function firstEmptySlotOnPage(page) {
+    const cols = Math.max(1, Number(page?.grid?.cols) || 3);
+    const rows = Math.max(1, Number(page?.grid?.rows) || 4);
+    page.slots = normalizeSlots(page?.slots, cols * rows);
+    return page.slots.findIndex((slot) => slot.type === "empty");
+  }
+
+  function pageDropTargetAtPoint(clientX, clientY) {
+    const index = activePageIndex();
+    const element = document.elementFromPoint(clientX, clientY);
+    const chip = element?.closest?.(".studio-custom-page-chip");
+    if (chip?.dataset.pageId && chip.dataset.pageId !== state.currentPageId) {
+      return { pageId: chip.dataset.pageId, direction: "chip" };
+    }
+    if (element?.closest?.("#studio-custom-page-prev") && index > 0) {
+      return { pageId: state.pages[index - 1].id, direction: "prev" };
+    }
+    if (element?.closest?.("#studio-custom-page-next") && index < state.pages.length - 1) {
+      return { pageId: state.pages[index + 1].id, direction: "next" };
+    }
+
+    const rect = previewStage.getBoundingClientRect();
+    const edge = Math.min(54, Math.max(34, rect.width * 0.16));
+    const insideY = clientY >= rect.top - 8 && clientY <= rect.bottom + 8;
+    if (insideY && clientX <= rect.left + edge && index > 0) {
+      return { pageId: state.pages[index - 1].id, direction: "prev" };
+    }
+    if (insideY && clientX >= rect.right - edge && index < state.pages.length - 1) {
+      return { pageId: state.pages[index + 1].id, direction: "next" };
+    }
+    return null;
+  }
+
+  function clearDragPageHighlight() {
+    previewStage.classList.remove("is-drag-page-prev", "is-drag-page-next");
+    pageList?.querySelectorAll(".is-drag-page-target").forEach((node) =>
+      node.classList.remove("is-drag-page-target")
+    );
+  }
+
+  function showDragPageHighlight(target) {
+    clearDragPageHighlight();
+    if (!target) return;
+    if (target.direction === "prev") previewStage.classList.add("is-drag-page-prev");
+    if (target.direction === "next") previewStage.classList.add("is-drag-page-next");
+    const chip = pageList?.querySelector(`[data-page-id="${CSS.escape(target.pageId)}"]`);
+    chip?.classList.add("is-drag-page-target");
+  }
+
+  async function movePlacementToPage(entry, targetPageId) {
+    if (!entry || !targetPageId || targetPageId === state.currentPageId || state.switchingPage) return false;
+    const target = state.pages.find((page) => page.id === targetPageId);
+    if (!target) return false;
+    const targetIndex = firstEmptySlotOnPage(target);
+    if (targetIndex < 0) {
+      updateQuickEditorUi(`${pageTitle(state.pages.indexOf(target))}에 빈칸이 없습니다.`);
+      return false;
+    }
+
+    const source = captureCurrentPage();
+    if (!source) return false;
+    const originIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
+    source.placements = (source.placements || []).filter((item) => item.id !== entry.id);
+    if (
+      Number.isInteger(originIndex) &&
+      source.slots?.[originIndex]?.type === "card" &&
+      source.slots[originIndex]?.placementId === entry.id
+    ) {
+      source.slots[originIndex] = { index: originIndex, type: "empty" };
+    }
+
+    const cols = Math.max(1, Number(target.grid?.cols) || 3);
+    const rows = Math.max(1, Number(target.grid?.rows) || 4);
+    const col = targetIndex % cols;
+    const row = Math.floor(targetIndex / cols);
+    const movedEntry = clonePlacement(entry);
+    movedEntry.slotIndex = targetIndex;
+    movedEntry.x = col * (100 / cols);
+    movedEntry.y = row * (100 / rows);
+    movedEntry.width = 100 / cols;
+    movedEntry.rotation = 0;
+    movedEntry.z = Math.max(
+      Number(target.nextZ) || 1,
+      Math.max(0, ...(target.placements || []).map((item) => Number(item.z) || 0)) + 1,
+    );
+    target.placements = (target.placements || []).filter((item) => item.id !== movedEntry.id);
+    target.placements.push(movedEntry);
+    target.slots[targetIndex] = {
+      index: targetIndex,
+      type: "card",
+      placementId: movedEntry.id,
+      sourceKey: clean(movedEntry.card?.key),
+    };
+    target.nextZ = movedEntry.z + 1;
+
+    state.switchingPage = true;
+    renderPageControls();
+    try {
+      await applyPage(target);
+      state.selectedId = movedEntry.id;
+      state.selectedSlots = new Set([targetIndex]);
+      state.slotSelectMode = false;
+      renderSlotLayer();
+      renderPlacements();
+      captureCurrentPage();
+      updateQuickEditorUi(
+        `${pageTitle(activePageIndex())} · ${targetIndex + 1}번 칸으로 옮겼습니다.`,
+      );
+      return true;
+    } catch (error) {
+      console.error("카드 페이지 이동 실패", error);
+      updateQuickEditorUi("다른 페이지로 카드를 옮기지 못했습니다.");
+      return false;
+    } finally {
+      state.switchingPage = false;
+      clearDragPageHighlight();
+      renderPageControls();
+    }
+  }
+
   function placementNode(entry) {
     const node = document.createElement("div");
     node.className = "studio-custom-card-placement";
@@ -2373,8 +2767,55 @@
       const startY = entry.y;
       const originSlotIndex = Number.isInteger(entry.slotIndex) ? entry.slotIndex : null;
       let moved = false;
+      let transferred = false;
+      let hoverTimer = 0;
+      let hoverTargetId = "";
       node.setPointerCapture?.(event.pointerId);
       node.classList.add("is-dragging");
+
+      const clearPageHover = () => {
+        window.clearTimeout(hoverTimer);
+        hoverTimer = 0;
+        hoverTargetId = "";
+        clearDragPageHighlight();
+      };
+
+      const detach = () => {
+        node.removeEventListener("pointermove", move);
+        node.removeEventListener("pointerup", finish);
+        node.removeEventListener("pointercancel", finish);
+      };
+
+      const schedulePageMove = (moveEvent) => {
+        const target = pageDropTargetAtPoint(moveEvent.clientX, moveEvent.clientY);
+        if (!target) {
+          clearPageHover();
+          return;
+        }
+        if (target.pageId === hoverTargetId) return;
+        clearPageHover();
+        hoverTargetId = target.pageId;
+        showDragPageHighlight(target);
+        const page = state.pages.find((item) => item.id === target.pageId);
+        const pageIndex = state.pages.findIndex((item) => item.id === target.pageId);
+        updateQuickEditorUi(`${pageTitle(pageIndex)}에 잠시 두면 카드가 이동합니다.`);
+        if (!page || firstEmptySlotOnPage(page) < 0) {
+          updateQuickEditorUi(`${pageTitle(pageIndex)}에 빈칸이 없습니다.`);
+          return;
+        }
+        hoverTimer = window.setTimeout(() => {
+          transferred = true;
+          detach();
+          node.classList.remove("is-dragging");
+          try {
+            node.releasePointerCapture?.(event.pointerId);
+          } catch {
+            // Pointer capture may already be released on some mobile browsers.
+          }
+          clearPageHover();
+          void movePlacementToPage(entry, target.pageId);
+        }, 520);
+      };
 
       const move = (moveEvent) => {
         const dxPx = moveEvent.clientX - startClientX;
@@ -2387,18 +2828,20 @@
         clampPlacement(entry);
         node.style.left = `${entry.x}%`;
         node.style.top = `${entry.y}%`;
+        if (moved && state.pages.length > 1) schedulePageMove(moveEvent);
       };
 
       const finish = () => {
+        clearPageHover();
         node.classList.remove("is-dragging");
-        node.removeEventListener("pointermove", move);
-        node.removeEventListener("pointerup", finish);
-        node.removeEventListener("pointercancel", finish);
+        detach();
+        if (transferred) return;
         if (moved && Number.isInteger(originSlotIndex)) {
           movePlacementToSlot(entry, slotIndexFromPlacement(entry), originSlotIndex);
         } else {
           captureCurrentPage();
         }
+        updateQuickEditorUi();
       };
 
       node.addEventListener("pointermove", move);
@@ -2507,6 +2950,9 @@
         cardNumber: entry.card.cardNumber,
         rarity: entry.card.rarity,
         imageUrl: entry.card.image,
+        normalImageUrl: clean(entry.card.normalImage || entry.card.image),
+        printVariant: clean(entry.card.printVariant) || "normal",
+        variantImageFile: clean(entry.card.variantImageFile),
         customDexKey: clean(entry.card.customDexKey),
         x: Number(entry.x.toFixed(4)),
         y: Number(entry.y.toFixed(4)),
@@ -3554,6 +4000,9 @@
         cardNumber: clean(entry?.cardNumber),
         rarity: clean(entry?.rarity),
         image: clean(entry?.imageUrl),
+        normalImage: clean(entry?.normalImageUrl || entry?.imageUrl),
+        printVariant: clean(entry?.printVariant) || "normal",
+        variantImageFile: clean(entry?.variantImageFile),
         customDexKey: clean(entry?.customDexKey),
       },
       x: Number.isFinite(Number(entry?.x)) ? Number(entry.x) : 0,
@@ -3784,6 +4233,9 @@
           cardNumber: entry.card.cardNumber,
           rarity: entry.card.rarity,
           imageUrl: entry.card.image,
+          normalImageUrl: clean(entry.card.normalImage || entry.card.image),
+          printVariant: clean(entry.card.printVariant) || "normal",
+          variantImageFile: clean(entry.card.variantImageFile),
           customDexKey: clean(entry.card.customDexKey),
           x: Number(entry.x.toFixed(4)),
           y: Number(entry.y.toFixed(4)),
@@ -4086,6 +4538,10 @@
   quickPageScanInput?.addEventListener("change", () => void importBinderPhoto(quickPageScanInput.files?.[0]));
   quickVariantButton?.addEventListener("click", () => void openQuickVariants());
   quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
+  variantCloseButton?.addEventListener("click", closeVariantDialog);
+  variantDialog?.addEventListener("click", (event) => {
+    if (event.target === variantDialog) closeVariantDialog();
+  });
   artFileInput?.addEventListener("change", () => void loadArtFile(artFileInput.files?.[0]));
   slotSelectToggle?.addEventListener("click", () => {
     setSlotSelectMode(!state.slotSelectMode);
