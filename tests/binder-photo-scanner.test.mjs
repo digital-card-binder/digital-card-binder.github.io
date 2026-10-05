@@ -105,3 +105,55 @@ test("degenerate scan rejects instead of silently importing a centered crop", as
   await assert.rejects(api.warpPerspective(canvas(100, 100), [trapezoid[0], trapezoid[2], trapezoid[1], trapezoid[3]], 1));
   assert.equal(api.scan, undefined);
 });
+
+
+test("adaptive slot crops keep every imported cell at card aspect", () => {
+  for (const [cols, rows] of [[3, 3], [3, 4], [4, 4]]) {
+    const aspect = cols * 63 / (rows * 88);
+    const height = 1200;
+    const width = Math.round(height * aspect);
+    const crops = api.buildSlotCrops({ cols, rows }, null, width, height, 63 / 88);
+    assert.equal(crops.length, cols * rows);
+    for (const crop of crops) {
+      assert.ok(crop.x >= 0 && crop.y >= 0);
+      assert.ok(crop.x + crop.width <= 1.000001);
+      assert.ok(crop.y + crop.height <= 1.000001);
+      const cropAspect = crop.width * width / (crop.height * height);
+      assert.ok(Math.abs(cropAspect - 63 / 88) < 0.004);
+    }
+  }
+});
+
+test("detected pocket gutters expose divider geometry for crop alignment", () => {
+  const cols = 3, rows = 4, size = 480;
+  const data = new Uint8ClampedArray(size * size * 4);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const inGutter = (position, count) => Array.from({ length: count - 1 }, (_, i) => (i + 1) * (size - 1) / count)
+      .some((divider) => Math.abs(position - divider) < 6);
+    const value = inGutter(x, cols) || inGutter(y, rows) ? 25 : 215;
+    data.set([value, value, value, 255], (y * size + x) * 4);
+  }
+  const image = canvas(size, size, data);
+  const detected = api.detectPocketGrid(image, api.originalCorners(image));
+  assert.ok(detected);
+  assert.equal(detected.xDividers.length, cols - 1);
+  assert.equal(detected.yDividers.length, rows - 1);
+  assert.ok(detected.xDividers.every((item) => item.halfWidth > 0));
+  assert.ok(detected.yDividers.every((item) => item.halfWidth > 0));
+});
+
+test("reliable inferred pocket bounds can remove outer page margins", () => {
+  const page = [{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }, { x: 0, y: 100 }];
+  const layout = {
+    cols: 3,
+    rows: 4,
+    confidence: 0.9,
+    xBounds: { start: 0.08, end: 0.94, confidence: 0.9 },
+    yBounds: { start: 0.06, end: 0.95, confidence: 0.9 },
+  };
+  const refined = api.refineCornersToPocket(page, layout, 101, 101);
+  assert.ok(refined[0].x > page[0].x);
+  assert.ok(refined[0].y > page[0].y);
+  assert.ok(refined[2].x < page[2].x);
+  assert.ok(refined[2].y < page[2].y);
+});
