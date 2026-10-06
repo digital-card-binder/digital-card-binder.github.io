@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-06",
+  "set": {
+    "code": "M6a",
+    "name": "30th CELEBRATION",
+    "canonicalCardCount": 176
+  },
+  "strictPolicy": {
+    "themes": [
+      "sleeping",
+      "connected",
+      "evolution",
+      "night",
+      "season",
+      "color",
+      "sunset",
+      "reflections",
+      "food",
+      "street",
+      "work",
+      "cameo"
+    ],
+    "rarityScope": "all",
+    "completionRule": "176개 canonical card slot 전체를 12개 테마 기준으로 판독하기 전에는 complete로 처리하지 않는다."
+  },
+  "status": "in-progress",
+  "currentVerifiedThemeSlots": {
+    "sleeping": 8,
+    "connected": 6,
+    "night": 3,
+    "season": 2,
+    "street": 2,
+    "cameo": 4
+  },
+  "newlyAdded": [
+    {
+      "code": "M6A_106",
+      "name": "라프라스",
+      "theme": "cameo",
+      "reason": "영문 30th Celebration #131 동일 일러스트에 고라파덕 등 카메오 확인"
+    },
+    {
+      "code": "M6A_126",
+      "name": "피카츄 ex",
+      "theme": "cameo",
+      "reason": "영문 #149 동일 일러스트에 23종 숨은 포켓몬 확인"
+    },
+    {
+      "code": "M6A_127",
+      "name": "피카츄 ex",
+      "theme": "cameo",
+      "reason": "영문 #150 동일 일러스트에 25종 숨은 포켓몬 확인"
+    },
+    {
+      "code": "M6A_133",
+      "name": "보만다 ex",
+      "theme": "cameo",
+      "reason": "영문 #156 동일 일러스트에 아차모 등 카메오 확인"
+    }
+  ],
+  "evidence": [
+    {
+      "source": "PokéCameos",
+      "url": "https://www.pokecameos.com/card/pikachu-ex-712953",
+      "use": "Pikachu ex English #149 cameo list"
+    },
+    {
+      "source": "PokéCameos",
+      "url": "https://www.pokecameos.com/card/pikachu-ex-712954",
+      "use": "Pikachu ex English #150 cameo list"
+    },
+    {
+      "source": "PokéCameos",
+      "url": "https://www.pokecameos.com/pokemon/psyduck",
+      "use": "Lapras English #131 cameo evidence"
+    },
+    {
+      "source": "PokéCameos",
+      "url": "https://www.pokecameos.com/pokemon/torchic",
+      "use": "Salamence ex English #156 cameo evidence"
+    },
+    {
+      "source": "Samurai Sword Tokyo",
+      "url": "https://samuraiswordtokyo.com/ko/blogs/news/lapras-ar-106-japanese-vs-english-131-30th-celebration",
+      "use": "M6a 106/103 ↔ English 131/128 artwork mapping"
+    },
+    {
+      "source": "Samurai Sword Tokyo",
+      "url": "https://samuraiswordtokyo.com/blogs/news/salamence-ex-sar-133-japanese-vs-english-156-30th-celebration",
+      "use": "M6a 133/103 ↔ English 156/128 artwork mapping"
+    },
+    {
+      "source": "Samurai Sword Tokyo",
+      "url": "https://www.samuraiswordtokyo.com/blogs/news/pikachu-ex-sar-day-night-30th-celebration-card-guide",
+      "use": "M6a 126/127 ↔ English 149/150 artwork mapping"
+    }
+  ],
+  "remainingRule": "카메오 4장 추가는 확정 보강일 뿐 M6a 전수검수 완료를 뜻하지 않는다. 나머지 카드도 12개 테마 모두 확인한다."
+}
