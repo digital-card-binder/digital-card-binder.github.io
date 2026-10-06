@@ -219,6 +219,8 @@ test("reviewed SV5M names agree between search and series without rewriting sour
   const page = read("catalog.js");
   ctx.mode = "series";
   ctx.SERIES_PRINT_VARIANTS_URL = "data/series-print-variants.json";
+  ctx.SERIES_LEGACY_PACK_IMAGE_MANIFEST_URL = "assets/packs/legacy/manifest.json";
+  ctx.applySeriesLegacyPackManifest = () => {};
   ctx.fetchJson = async (path) => JSON.parse(read(path));
   vm.runInContext(page.slice(page.indexOf("const SERIES_PRINT_VARIANTS ="), page.indexOf("function applySeriesImageOverrides(")), ctx);
   vm.runInContext(page.slice(page.indexOf("async function loadCatalogGroups()"), page.indexOf("async function init()")), ctx);
