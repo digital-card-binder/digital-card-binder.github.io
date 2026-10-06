@@ -332,7 +332,7 @@
           ></div>
         </section>
 
-        <details id="dashboard-theme-section" class="dashboard-theme-section">
+        <details id="dashboard-theme-section" class="dashboard-theme-section" open>
           <summary class="dashboard-theme-summary">
             <span>
               <strong>테마 도감</strong>
@@ -346,12 +346,23 @@
           <div class="dashboard-theme-hub-link">
             <a href="./theme.html">전체 보기 →</a>
           </div>
+          <div class="dashboard-theme-feature-label">
+            <strong>대표 테마</strong>
+            <span>자주 찾는 6개 도감</span>
+          </div>
           <div
             id="dashboard-theme-grid"
             class="dashboard-collection-grid dashboard-collection-grid--theme"
             aria-live="polite"
             aria-busy="true"
           ></div>
+          <div class="dashboard-theme-overview">
+            <div class="dashboard-theme-overview-heading">
+              <strong>전체 테마 한눈보기</strong>
+              <span id="dashboard-theme-overview-count">18개</span>
+            </div>
+            <nav id="dashboard-theme-chips" class="dashboard-theme-chips" aria-label="전체 테마 바로가기"></nav>
+          </div>
         </details>
 
         <section class="dashboard-utility-panel" aria-label="도움말 및 앱">
