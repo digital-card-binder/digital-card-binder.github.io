@@ -918,6 +918,71 @@ function pokemonGroupLabel(group) {
     : name;
 }
 
+function syncPokemonChooserNavigation() {
+  if (mode !== "pokemon") return;
+  const prev = $("pokemon-prev");
+  const next = $("pokemon-next");
+  const select = $("catalog-select");
+  if (!prev || !next || !select) return;
+
+  const visibleGroups = selectableGroups();
+  const value = selected?.code || selected?.name || select.value;
+  const index = visibleGroups.findIndex(
+    (group) => (group.code || group.name) === value,
+  );
+  const current = index >= 0 ? index : 0;
+  const count = visibleGroups.length;
+
+  prev.disabled = count < 2;
+  next.disabled = count < 2;
+
+  if (!count) {
+    prev.title = "이전 포켓몬";
+    next.title = "다음 포켓몬";
+    return;
+  }
+
+  const prevGroup = visibleGroups[(current - 1 + count) % count];
+  const nextGroup = visibleGroups[(current + 1) % count];
+  prev.title = `이전 · ${pokemonGroupLabel(prevGroup)}`;
+  next.title = `다음 · ${pokemonGroupLabel(nextGroup)}`;
+  prev.setAttribute("aria-label", prev.title);
+  next.setAttribute("aria-label", next.title);
+}
+
+function updatePokemonCollectionUrl(value) {
+  if (mode !== "pokemon" || !value || typeof window.history?.replaceState !== "function") return;
+  const url = new URL(window.location.href);
+  url.searchParams.set("group", value);
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
+function choosePokemonGroup(value) {
+  if (mode !== "pokemon") {
+    loadGroup(value);
+    return;
+  }
+  const select = $("catalog-select");
+  if (select) select.value = value;
+  loadGroup(value);
+  updatePokemonCollectionUrl(value);
+}
+
+function stepPokemonGroup(offset) {
+  if (mode !== "pokemon") return;
+  const visibleGroups = selectableGroups();
+  if (!visibleGroups.length) return;
+
+  const currentValue = selected?.code || selected?.name || $("catalog-select")?.value;
+  const index = visibleGroups.findIndex(
+    (group) => (group.code || group.name) === currentValue,
+  );
+  const current = index >= 0 ? index : 0;
+  const nextIndex = (current + offset + visibleGroups.length) % visibleGroups.length;
+  const group = visibleGroups[nextIndex];
+  choosePokemonGroup(group.code || group.name);
+}
+
 function readQuickCollectPreference() {
   try {
     return window.localStorage.getItem(QUICK_COLLECT_STORAGE_KEY) === "1";
@@ -1863,6 +1928,12 @@ function loadGroup(value) {
           (left, right) => seriesCardNumber(left) - seriesCardNumber(right),
         )
       : selected.cards;
+  if (mode === "pokemon") {
+    const select = $("catalog-select");
+    const value = selected.code || selected.name;
+    if (select && value) select.value = value;
+    syncPokemonChooserNavigation();
+  }
   updateSelected();
   renderSeriesDashboard();
   render();
@@ -2028,7 +2099,12 @@ async function init() {
         button.classList.toggle("is-active", button.dataset.status === status);
       });
 
-    select.onchange = () => loadGroup(select.value);
+    select.onchange = () =>
+      mode === "pokemon"
+        ? choosePokemonGroup(select.value)
+        : loadGroup(select.value);
+    $("pokemon-prev")?.addEventListener("click", () => stepPokemonGroup(-1));
+    $("pokemon-next")?.addEventListener("click", () => stepPokemonGroup(1));
     $("catalog-era")?.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-era]");
       if (button) selectEra(button.dataset.era);
