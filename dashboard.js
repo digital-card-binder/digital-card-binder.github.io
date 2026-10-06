@@ -99,6 +99,26 @@
   );
   const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
   const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
+  const THEME_OVERVIEW_LINKS = Object.freeze([
+    { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection" },
+    { title: "작가 도감", href: "./artists.html", kind: "collection" },
+    { title: "인물 도감", href: "./people.html", kind: "collection" },
+    { title: "트레이너 × 포켓몬", href: "./trainer-pokemon.html", kind: "collection" },
+    { title: "화석 도감", href: "./fossil.html", kind: "collection" },
+    { title: "월드탐험도감", href: "./world.html", kind: "collection" },
+    { title: "잠자는 포켓몬", href: "./art-themes.html?theme=sleeping", kind: "art" },
+    { title: "연결 일러스트", href: "./art-themes.html?theme=connected", kind: "art" },
+    { title: "진화 스토리", href: "./art-themes.html?theme=evolution", kind: "art" },
+    { title: "밤 · 달빛", href: "./art-themes.html?theme=night", kind: "art" },
+    { title: "계절 · 풍경", href: "./art-themes.html?theme=season", kind: "art" },
+    { title: "컬러 도감", href: "./art-themes.html?theme=color", kind: "art" },
+    { title: "노을 · 골든아워", href: "./art-themes.html?theme=sunset", kind: "art" },
+    { title: "반사 · 거울", href: "./art-themes.html?theme=reflections", kind: "art" },
+    { title: "음식 · 먹는 포켓몬", href: "./art-themes.html?theme=food", kind: "art" },
+    { title: "도시 · 스트리트", href: "./art-themes.html?theme=street", kind: "art" },
+    { title: "일하는 포켓몬", href: "./art-themes.html?theme=work", kind: "art" },
+    { title: "카메오 · 숨은 포켓몬", href: "./art-themes.html?theme=cameo", kind: "art" },
+  ]);
   const elements = {
     headerChip: document.querySelector(".header-chip"),
     activeCollections: document.querySelector("#dashboard-active-collections"),
@@ -108,6 +128,8 @@
     primaryGrid: document.querySelector("#dashboard-primary-grid"),
     themeGrid: document.querySelector("#dashboard-theme-grid"),
     themeCount: document.querySelector("#dashboard-theme-count"),
+    themeChips: document.querySelector("#dashboard-theme-chips"),
+    themeOverviewCount: document.querySelector("#dashboard-theme-overview-count"),
     error: document.querySelector("#dashboard-error"),
   };
 
@@ -856,6 +878,27 @@
     return link;
   }
 
+  function renderThemeOverview() {
+    const fragment = document.createDocumentFragment();
+
+    for (const item of THEME_OVERVIEW_LINKS) {
+      const link = document.createElement("a");
+      link.className = "dashboard-theme-chip";
+      link.dataset.themeKind = item.kind;
+      link.href = item.href;
+      link.innerHTML = `<span>${escapeHtml(item.title)}</span><b aria-hidden="true">›</b>`;
+      fragment.append(link);
+    }
+
+    elements.themeChips?.replaceChildren(fragment);
+    if (elements.themeOverviewCount) {
+      elements.themeOverviewCount.textContent = `${THEME_OVERVIEW_LINKS.length}개`;
+    }
+    if (elements.themeCount) {
+      elements.themeCount.textContent = formatNumber(THEME_OVERVIEW_LINKS.length);
+    }
+  }
+
   function renderCollections(metrics) {
     const primaryFragment = document.createDocumentFragment();
     const themeFragment = document.createDocumentFragment();
@@ -885,7 +928,7 @@
     elements.themeGrid?.replaceChildren(themeFragment);
     elements.primaryGrid?.setAttribute("aria-busy", "false");
     elements.themeGrid?.setAttribute("aria-busy", "false");
-    if (elements.themeCount) elements.themeCount.textContent = formatNumber(themeCount);
+    renderThemeOverview();
   }
 
   function updateCollectorShortcut() {
