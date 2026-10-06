@@ -3338,3 +3338,145 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     height: 22px;
   }
 }
+
+
+/* Mobile home menu density pass 2026-10-06 */
+@media (max-width: 690px) {
+  .home-primary-actions {
+    gap: 5px;
+  }
+
+  .home-primary-action {
+    min-height: 64px;
+    gap: 4px;
+    border-radius: 10px;
+    padding: 6px 4px;
+  }
+
+  .home-primary-action-icon.ui-icon,
+  .home-primary-action-camera {
+    --ui-icon-size: 27px;
+    width: 27px;
+    height: 27px;
+    border-radius: 8px;
+  }
+
+  .home-primary-action strong {
+    font-size: .54rem;
+  }
+
+  .home-primary-action small {
+    font-size: .41rem;
+  }
+
+  .home-hero-panels {
+    margin-top: 7px;
+  }
+
+  .home-collection-snapshot {
+    min-height: 48px;
+    padding: 7px 8px;
+  }
+
+  .home-panel-icon {
+    width: 31px;
+    height: 32px;
+  }
+
+  .home-panel-icon img {
+    width: 23px;
+    height: 23px;
+  }
+
+  .home-browse {
+    margin-top: 15px;
+  }
+
+  .home-feature-grid {
+    grid-auto-rows: 112px;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .home-feature-card,
+  .home-feature-card--wide {
+    border-radius: 10px;
+  }
+
+  .home-feature-collage {
+    inset: 5px 2px auto 23%;
+    height: 60px;
+  }
+
+  .home-feature-collage img {
+    right: 2px;
+    width: 40px;
+    height: 56px;
+  }
+
+  .home-feature-collage img:first-child {
+    top: 3px;
+    right: 31px;
+  }
+
+  .home-feature-collage--packs img {
+    width: 44px;
+  }
+
+  .home-feature-content,
+  .home-feature-card--wide .home-feature-content {
+    padding: 8px;
+  }
+
+  .home-feature-content > strong,
+  .home-feature-card--wide .home-feature-content > strong {
+    font-size: .66rem;
+  }
+
+  .home-feature-meta {
+    margin-top: 2px;
+    font-size: .39rem;
+  }
+
+  .home-feature-card > b {
+    right: 5px;
+    bottom: 6px;
+    width: 19px;
+    height: 19px;
+    font-size: .5rem;
+  }
+
+  .home-feature-scene--binder {
+    padding: 6px 6px 0 31%;
+  }
+
+  .home-feature-scene--studio {
+    padding: 6px 4px 0 29%;
+  }
+
+  .home-community-banner {
+    min-height: 56px;
+    gap: 9px;
+    margin-top: 7px;
+    border-radius: 10px;
+    padding: 8px 9px;
+  }
+
+  .home-community-icon.ui-icon {
+    --ui-icon-size: 34px;
+  }
+
+  .home-community-copy strong {
+    font-size: .67rem;
+  }
+
+  .home-community-copy small {
+    font-size: .46rem;
+  }
+
+  .home-community-banner > b {
+    width: 23px;
+    height: 23px;
+    font-size: .56rem;
+  }
+}
