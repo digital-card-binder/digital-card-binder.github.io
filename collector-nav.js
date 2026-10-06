@@ -1317,6 +1317,11 @@
     fossil: ".fossil-selection-summary",
     artThemes: ".art-theme-selected-summary",
   });
+  const STICKY_SELECTOR_COLLECTIONS = new Set([
+    "artist",
+    "pokemon",
+    "trainerPokemon",
+  ]);
 
   function installSimpleDexLayout() {
     const collectionId = registry?.collectionIdForPage?.() || "";
@@ -1333,6 +1338,19 @@
     if (summary && controls && summary.nextElementSibling !== controls) {
       controls.insertAdjacentElement("beforebegin", summary);
       summary.classList.add("collector-simple-summary");
+    }
+
+    if (
+      summary &&
+      controls &&
+      STICKY_SELECTOR_COLLECTIONS.has(collectionId) &&
+      !document.querySelector(".collector-sticky-selector-stack")
+    ) {
+      const stickyStack = document.createElement("div");
+      stickyStack.className = "collector-sticky-selector-stack";
+      stickyStack.setAttribute("data-sticky-selector", collectionId);
+      summary.insertAdjacentElement("beforebegin", stickyStack);
+      stickyStack.append(summary, controls);
     }
 
     const filterSurface = document.querySelector(
