@@ -667,12 +667,28 @@ function renderSeriesDashboard() {
     heading.className = "series-dashboard-card-heading";
 
     const titleWrap = document.createElement("span");
+    titleWrap.className = "series-era-title-wrap";
+
+    const meta = document.createElement("span");
+    meta.className = "series-era-meta";
+
     const code = document.createElement("span");
     code.className = "series-dashboard-code";
     code.textContent = era;
+    meta.append(code);
+
+    if (era === SERIES_ERA_ORDER[0]) {
+      const newest = document.createElement("span");
+      newest.className = "series-era-latest-badge";
+      newest.textContent = "최신 시리즈";
+      meta.append(newest);
+      button.classList.add("is-latest-era");
+    }
+
     const title = document.createElement("strong");
+    title.className = "series-era-wordmark";
     title.textContent = SERIES_ERA_LABELS[era];
-    titleWrap.append(code, title);
+    titleWrap.append(meta, title);
 
     const arrow = document.createElement("span");
     arrow.className = "series-dashboard-arrow";
