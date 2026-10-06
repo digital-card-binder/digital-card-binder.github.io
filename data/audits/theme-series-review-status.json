@@ -610,8 +610,8 @@
     "m6": {
       "status": "partial",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2에서 m6 001-020 canonical card slot을 12개 테마 기준으로 순차 전수검수했다. 001-010 완료분은 재조사하지 않았고, 011-020은 카드 일러스트를 판독한 뒤 기존 테마 DB와 역대조하여 누락 슬롯만 반영했다.",
-      "reviewedCardCount": 20,
+      "note": "Task 2에서 m6 001-060을 순차 전수검수했다. 021-060은 자체 호스팅 modern 이미지 아카이브를 contact sheet로 복원해 12개 테마 기준으로 판독하고 기존 테마 DB와 역대조하여 누락 슬롯만 반영했다.",
+      "reviewedCardCount": 60,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -628,9 +628,10 @@
       ],
       "reviewedRanges": [
         "001-010",
-        "011-020"
+        "011-020",
+        "021-060"
       ],
-      "newlyAddedThemeSlotCount": 24,
+      "newlyAddedThemeSlotCount": 65,
       "newlyAddedCards": [
         "M6_001",
         "M6_002",
@@ -651,11 +652,48 @@
         "M6_018",
         "M6_019",
         "M6_020",
-        "M6_015"
+        "M6_015",
+        "M6_029",
+        "M6_045",
+        "M6_025",
+        "M6_027",
+        "M6_028",
+        "M6_032",
+        "M6_034",
+        "M6_035",
+        "M6_036",
+        "M6_037",
+        "M6_038",
+        "M6_039",
+        "M6_040",
+        "M6_041",
+        "M6_042",
+        "M6_043",
+        "M6_044",
+        "M6_047",
+        "M6_049",
+        "M6_050",
+        "M6_051",
+        "M6_052",
+        "M6_054",
+        "M6_055",
+        "M6_056",
+        "M6_059",
+        "M6_060",
+        "M6_021",
+        "M6_024",
+        "M6_026",
+        "M6_031",
+        "M6_033",
+        "M6_046",
+        "M6_048",
+        "M6_057",
+        "M6_058",
+        "M6_053"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m6 021/076"
+      "nextStart": "m6 061/076"
     }
   },
   "queue": {
@@ -678,10 +716,10 @@
     "currentSet": "m6",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m6 011-020 안전 구간 완료. 001-020 누적 체크포인트 저장. 다음 시작은 021.",
+    "note": "Task 2 m6 021-060 안전 구간 완료. 자체 호스팅 이미지 기준 판독·반영·중복검사 완료.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m6 001-020",
-    "nextStart": "m6 021/076"
+    "lastSafeCheckpoint": "m6 001-060",
+    "nextStart": "m6 061/076"
   }
 }
