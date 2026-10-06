@@ -608,10 +608,10 @@
       ]
     },
     "m6": {
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2에서 m6 001-060을 순차 전수검수했다. 021-060은 자체 호스팅 modern 이미지 아카이브를 contact sheet로 복원해 12개 테마 기준으로 판독하고 기존 테마 DB와 역대조하여 누락 슬롯만 반영했다.",
-      "reviewedCardCount": 60,
+      "note": "Task 2의 m6 스톰에메랄다 113개 canonical card slot 전체를 자체 호스팅 modern 이미지 아카이브 기준으로 12개 테마 전수검수 완료. 001-060 완료분은 유지하고 061-113 누락 슬롯만 추가했으며 전체 중복 검사를 통과했다.",
+      "reviewedCardCount": 113,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -629,9 +629,10 @@
       "reviewedRanges": [
         "001-010",
         "011-020",
-        "021-060"
+        "021-060",
+        "061-113"
       ],
-      "newlyAddedThemeSlotCount": 65,
+      "newlyAddedThemeSlotCount": 124,
       "newlyAddedCards": [
         "M6_001",
         "M6_002",
@@ -689,11 +690,60 @@
         "M6_048",
         "M6_057",
         "M6_058",
-        "M6_053"
+        "M6_053",
+        "M6_061",
+        "M6_068",
+        "M6_071",
+        "M6_072",
+        "M6_073",
+        "M6_074",
+        "M6_075",
+        "M6_076",
+        "M6_077",
+        "M6_079",
+        "M6_080",
+        "M6_082",
+        "M6_083",
+        "M6_084",
+        "M6_085",
+        "M6_086",
+        "M6_087",
+        "M6_088",
+        "M6_101",
+        "M6_103",
+        "M6_108",
+        "M6_109",
+        "M6_111",
+        "M6_062",
+        "M6_065",
+        "M6_078",
+        "M6_081",
+        "M6_089",
+        "M6_090",
+        "M6_091",
+        "M6_092",
+        "M6_093",
+        "M6_094",
+        "M6_095",
+        "M6_096",
+        "M6_097",
+        "M6_098",
+        "M6_099",
+        "M6_100",
+        "M6_104",
+        "M6_105",
+        "M6_106",
+        "M6_107",
+        "M6_110",
+        "M6_113",
+        "M6_063",
+        "M6_069",
+        "M6_102",
+        "M6_112"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m6 061/076"
+      "nextStart": "m5 001/081"
     }
   },
   "queue": {
@@ -713,13 +763,13 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "m6",
+    "currentSet": "m5",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m6 021-060 안전 구간 완료. 자체 호스팅 이미지 기준 판독·반영·중복검사 완료.",
+    "note": "Task 2 m6 전체 113장 × 12테마 검수 완료. 다음 세트 m5 001부터 시작.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m6 001-060",
-    "nextStart": "m6 061/076"
+    "lastSafeCheckpoint": "m6 COMPLETE (001-113)",
+    "nextStart": "m5 001/081"
   }
 }
