@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 542,
-    "uniqueThemeCards": 440,
-    "strictCompleteSetCount": 1,
+    "themeCardSlots": 601,
+    "uniqueThemeCards": 489,
+    "strictCompleteSetCount": 2,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 272,
+    "baselineRemainingSetCount": 271,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -118,37 +118,40 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 93,
+      "cardSlots": 116,
       "setCount": 7,
       "rarities": [
         "AR",
         "C",
         "R",
         "SAR",
+        "SR",
         "U"
       ]
     },
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 77,
+      "cardSlots": 106,
       "setCount": 9,
       "rarities": [
         "AR",
         "C",
         "FUR",
+        "MUR",
         "R",
         "RGB",
         "RR",
         "SAR",
+        "SR",
         "U"
       ]
     },
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 17,
-      "setCount": 10,
+      "cardSlots": 19,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
@@ -171,8 +174,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 14,
-      "setCount": 10,
+      "cardSlots": 15,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
@@ -196,12 +199,13 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 30,
+      "cardSlots": 34,
       "setCount": 10,
       "rarities": [
         "AR",
         "C",
         "SAR",
+        "SR",
         "U"
       ]
     },
@@ -224,9 +228,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 1,
-      "remainingSetCount": 13,
-      "currentThemeSlots": 226
+      "completeSetCount": 2,
+      "remainingSetCount": 12,
+      "currentThemeSlots": 285
     },
     {
       "era": "SV",
@@ -328,13 +332,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m6",
-      "name": "스톰에메랄다",
-      "cardCount": 113,
-      "status": "partial"
     },
     {
       "era": "M",
@@ -502,6 +499,13 @@
       "code": "SVHK",
       "name": "스타터 덱&강화 세트 「고대의 코라이돈 ex」",
       "cardCount": 61,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVI",
+      "name": "배틀 아카데미",
+      "cardCount": 74,
       "status": "pending"
     }
   ],
@@ -1833,15 +1837,17 @@
       "cardCount": 113,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-06",
       "themeHits": {
         "sleeping": 1,
         "night": 1,
-        "season": 43,
-        "color": 13,
+        "season": 66,
+        "color": 42,
+        "sunset": 2,
         "reflections": 1,
-        "street": 3,
+        "food": 1,
+        "street": 7,
         "cameo": 3
       }
     },
