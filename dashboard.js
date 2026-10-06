@@ -100,24 +100,24 @@
   const PRIMARY_CATEGORIES = new Set(["national", "series", "ar", "pack"]);
   const THEME_CATEGORIES = new Set(["pokemon", "artist", "people", "trainerPokemon", "fossil", "world"]);
   const THEME_OVERVIEW_LINKS = Object.freeze([
-    { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection" },
-    { title: "작가 도감", href: "./artists.html", kind: "collection" },
-    { title: "인물 도감", href: "./people.html", kind: "collection" },
-    { title: "트레이너 × 포켓몬", href: "./trainer-pokemon.html", kind: "collection" },
-    { title: "화석 도감", href: "./fossil.html", kind: "collection" },
-    { title: "월드탐험도감", href: "./world.html", kind: "collection" },
-    { title: "잠자는 포켓몬", href: "./art-themes.html?theme=sleeping", kind: "art" },
-    { title: "연결 일러스트", href: "./art-themes.html?theme=connected", kind: "art" },
-    { title: "진화 스토리", href: "./art-themes.html?theme=evolution", kind: "art" },
-    { title: "밤 · 달빛", href: "./art-themes.html?theme=night", kind: "art" },
-    { title: "계절 · 풍경", href: "./art-themes.html?theme=season", kind: "art" },
-    { title: "컬러 도감", href: "./art-themes.html?theme=color", kind: "art" },
-    { title: "노을 · 골든아워", href: "./art-themes.html?theme=sunset", kind: "art" },
-    { title: "반사 · 거울", href: "./art-themes.html?theme=reflections", kind: "art" },
-    { title: "음식 · 먹는 포켓몬", href: "./art-themes.html?theme=food", kind: "art" },
-    { title: "도시 · 스트리트", href: "./art-themes.html?theme=street", kind: "art" },
-    { title: "일하는 포켓몬", href: "./art-themes.html?theme=work", kind: "art" },
-    { title: "카메오 · 숨은 포켓몬", href: "./art-themes.html?theme=cameo", kind: "art" },
+    { title: "포켓몬 컬렉션", href: "./pokemon-collections.html", kind: "collection", category: "pokemon" },
+    { title: "작가 도감", href: "./artists.html", kind: "collection", category: "artist" },
+    { title: "인물 도감", href: "./people.html", kind: "collection", category: "people" },
+    { title: "트레이너 × 포켓몬", href: "./trainer-pokemon.html", kind: "collection", category: "trainerPokemon" },
+    { title: "화석 도감", href: "./fossil.html", kind: "collection", category: "fossil" },
+    { title: "월드탐험도감", href: "./world.html", kind: "collection", category: "world" },
+    { title: "잠자는 포켓몬", href: "./art-themes.html?theme=sleeping", kind: "art", theme: "sleeping" },
+    { title: "연결 일러스트", href: "./art-themes.html?theme=connected", kind: "art", theme: "connected" },
+    { title: "진화 스토리", href: "./art-themes.html?theme=evolution", kind: "art", theme: "evolution" },
+    { title: "밤 · 달빛", href: "./art-themes.html?theme=night", kind: "art", theme: "night" },
+    { title: "계절 · 풍경", href: "./art-themes.html?theme=season", kind: "art", theme: "season" },
+    { title: "컬러 도감", href: "./art-themes.html?theme=color", kind: "art", theme: "color" },
+    { title: "노을 · 골든아워", href: "./art-themes.html?theme=sunset", kind: "art", theme: "sunset" },
+    { title: "반사 · 거울", href: "./art-themes.html?theme=reflections", kind: "art", theme: "reflections" },
+    { title: "음식 · 먹는 포켓몬", href: "./art-themes.html?theme=food", kind: "art", theme: "food" },
+    { title: "도시 · 스트리트", href: "./art-themes.html?theme=street", kind: "art", theme: "street" },
+    { title: "일하는 포켓몬", href: "./art-themes.html?theme=work", kind: "art", theme: "work" },
+    { title: "카메오 · 숨은 포켓몬", href: "./art-themes.html?theme=cameo", kind: "art", theme: "cameo" },
   ]);
   const elements = {
     headerChip: document.querySelector(".header-chip"),
@@ -756,7 +756,7 @@
       (category) => collectionSettings[category]?.dashboardVisible !== false,
     );
 
-    for (const category of visibleCategories) {
+    for (const category of CATEGORY_ORDER) {
       applyOwnership(category);
       const catalog = catalogs[category];
       const owned = catalog.items.filter((item) => item.owned).length;
@@ -777,6 +777,7 @@
         const groupOwned = groupItems.filter((item) => item.owned).length;
         const groupTotal = groupItems.length;
         return {
+          key: group.key,
           category,
           href: catalog.href,
           name: group.name,
@@ -795,9 +796,11 @@
         rate: percentage(owned, total),
         groups,
       };
-      overallOwned += owned;
-      overallTotal += total;
-      allGroups.push(...groups);
+      if (visibleCategories.includes(category)) {
+        overallOwned += owned;
+        overallTotal += total;
+        allGroups.push(...groups);
+      }
     }
 
     return {
@@ -878,19 +881,46 @@
     return link;
   }
 
-  function renderThemeOverview() {
+  function renderThemeOverview(metrics) {
     const fragment = document.createDocumentFragment();
+    const artGroups = new Map(
+      (metrics.categories.artThemes?.groups || []).map((group) => [group.key, group]),
+    );
 
     for (const item of THEME_OVERVIEW_LINKS) {
-      const link = document.createElement("a");
-      link.className = "dashboard-theme-chip";
-      link.dataset.themeKind = item.kind;
-      link.href = item.href;
-      link.innerHTML = `<span>${escapeHtml(item.title)}</span><b aria-hidden="true">›</b>`;
-      fragment.append(link);
+      let metric;
+      if (item.kind === "collection") {
+        const source = metrics.categories[item.category];
+        if (!source) continue;
+        metric = {
+          ...source,
+          key: item.category,
+          title: item.title,
+          href: item.href,
+        };
+      } else {
+        const source = artGroups.get(item.theme);
+        if (!source) continue;
+        metric = {
+          key: `art-${item.theme}`,
+          title: item.title,
+          href: item.href,
+          unit: "장",
+          owned: source.owned,
+          total: source.total,
+          missing: source.missing,
+          rate: source.rate,
+        };
+      }
+
+      const card = createCollectionCard(metric);
+      card.classList.add("dashboard-theme-card");
+      card.dataset.themeKind = item.kind;
+      if (item.theme) card.dataset.theme = item.theme;
+      fragment.append(card);
     }
 
-    elements.themeChips?.replaceChildren(fragment);
+    elements.themeGrid?.replaceChildren(fragment);
     if (elements.themeOverviewCount) {
       elements.themeOverviewCount.textContent = `${THEME_OVERVIEW_LINKS.length}개`;
     }
@@ -901,7 +931,6 @@
 
   function renderCollections(metrics) {
     const primaryFragment = document.createDocumentFragment();
-    const themeFragment = document.createDocumentFragment();
     let primaryCount = 0;
 
     for (const category of metrics.visibleCategories) {
@@ -909,8 +938,6 @@
       if (PRIMARY_CATEGORIES.has(category)) {
         primaryFragment.append(createCollectionCard(metric));
         primaryCount += 1;
-      } else if (THEME_CATEGORIES.has(category)) {
-        themeFragment.append(createCollectionCard(metric));
       }
     }
 
@@ -923,10 +950,9 @@
     }
 
     elements.primaryGrid?.replaceChildren(primaryFragment);
-    elements.themeGrid?.replaceChildren(themeFragment);
     elements.primaryGrid?.setAttribute("aria-busy", "false");
     elements.themeGrid?.setAttribute("aria-busy", "false");
-    renderThemeOverview();
+    renderThemeOverview(metrics);
   }
 
   function updateCollectorShortcut() {
