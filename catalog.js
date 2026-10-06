@@ -8,6 +8,8 @@ const SERIES_DATA_URL = "./data/series.json";
 const LEGACY_SERIES_DATA_URL = "./data/series-legacy.json";
 const SERIES_PRINT_VARIANTS_URL = "./data/series-print-variants.json";
 const SERIES_IMAGE_OVERRIDES_URL = "./data/series-image-overrides.json";
+const SERIES_LEGACY_PACK_IMAGE_MANIFEST_URL = "./assets/packs/legacy/manifest.json";
+const SERIES_PACK_SPRITE_URL = "./assets/packs/pack-sprite.webp";
 const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
@@ -24,16 +26,24 @@ const SERIES_ERA_LABELS = Object.freeze({
   SV: "스칼렛&바이올렛",
   M: "MEGA",
 });
-const SERIES_ERA_LOGOS = Object.freeze({
-  M: "./assets/series/logos/mega.svg",
-  SV: "./assets/series/logos/sv.svg",
-  S: "./assets/series/logos/s.svg",
-  SM: "./assets/series/logos/sm.svg",
-  XY: "./assets/series/logos/xy.svg",
-  BW: "./assets/series/logos/bw.svg",
-  DP: "./assets/series/logos/dp.svg",
-  ADV: "./assets/series/logos/adv.svg",
-  ORIGIN: "./assets/series/logos/origin.svg",
+const SERIES_PACK_SPRITE_COLUMNS = 10;
+const SERIES_PACK_SPRITE_ROWS = 7;
+const SERIES_PACK_SPRITE_CODES = Object.freeze([
+  "s1W", "s1H", "s1a", "s2", "s2a", "s3", "s3a", "s4", "s4a",
+  "s5I", "s5R", "s5a", "s6H", "s6K", "s6a", "s7D", "s7R", "s8",
+  "s8a", "s8b", "s9", "s9a", "s10P", "s10D", "s10a", "s10b",
+  "s11", "s11a", "s12", "s12a",
+  "sv1S", "sv1V", "sv1a", "sv2D", "sv2P", "sv2a", "sv3", "sv3a",
+  "sv4K", "sv4M", "sv4a", "sv5K", "sv5M", "sv5a", "sv6", "sv6a",
+  "sv7", "sv7a", "sv8", "sv8a", "sv9", "sv9a", "sv10", "sv11B", "sv11W",
+  "m1S", "m1L", "m2", "m2a", "m3", "m4", "m5",
+]);
+const SERIES_PACK_SPRITE_INDEX = new Map(
+  SERIES_PACK_SPRITE_CODES.map((code, index) => [code.toLowerCase(), index]),
+);
+const SERIES_INDIVIDUAL_PACK_IMAGES = Object.freeze({
+  m6: "./assets/packs/m6.webp",
+  m6a: "./assets/packs/m6a.webp",
 });
 
 const SERIES_NAMES = Object.freeze({
@@ -82,6 +92,7 @@ let activeCard = null;
 let activeEra = mode === "series" ? "ALL" : "SM";
 let mobileCatalogPreferences = {};
 let seriesPrintVariantMetadata = { coverage: {}, slots: {} };
+let seriesLegacyPackImages = new Map();
 let quickCollectMode = false;
 let quickVariantCard = null;
 let renderedCards = [];
@@ -302,6 +313,91 @@ function seriesEra(group) {
   if (code.startsWith("m")) return "M";
   if (code.startsWith("s")) return "S";
   return "";
+}
+
+function applySeriesLegacyPackManifest(payload) {
+  const images = payload?.images && typeof payload.images === "object"
+    ? payload.images
+    : {};
+  const next = new Map();
+
+  for (const [code, path] of Object.entries(images)) {
+    const key = String(code || "").trim().toLowerCase();
+    const value = String(path || "").trim();
+    if (
+      /^[a-z0-9+_-]+$/i.test(key) &&
+      /^\.\/assets\/packs\/legacy\/[a-z0-9+_.-]+\.webp$/i.test(value)
+    ) {
+      next.set(key, value);
+    }
+  }
+
+  seriesLegacyPackImages = next;
+}
+
+function seriesPackVisual(group) {
+  const code = String(group?.code || "").trim().toLowerCase();
+  if (!code) return null;
+
+  const individual = SERIES_INDIVIDUAL_PACK_IMAGES[code];
+  if (individual) {
+    return { type: "image", src: individual };
+  }
+
+  const spriteIndex = SERIES_PACK_SPRITE_INDEX.get(code);
+  if (Number.isInteger(spriteIndex)) {
+    const col = spriteIndex % SERIES_PACK_SPRITE_COLUMNS;
+    const row = Math.floor(spriteIndex / SERIES_PACK_SPRITE_COLUMNS);
+    return {
+      type: "sprite",
+      src: SERIES_PACK_SPRITE_URL,
+      x: SERIES_PACK_SPRITE_COLUMNS === 1
+        ? 0
+        : (col / (SERIES_PACK_SPRITE_COLUMNS - 1)) * 100,
+      y: SERIES_PACK_SPRITE_ROWS === 1
+        ? 0
+        : (row / (SERIES_PACK_SPRITE_ROWS - 1)) * 100,
+    };
+  }
+
+  const legacy = seriesLegacyPackImages.get(code);
+  if (legacy) {
+    return { type: "image", src: legacy };
+  }
+
+  return null;
+}
+
+function applySeriesPackVisual(target, group) {
+  const visual = seriesPackVisual(group);
+  if (!target || !visual) return false;
+
+  target.classList.add("is-pack-art");
+  target.title = `${groupName(group)} · 팩 이미지`;
+
+  if (visual.type === "image") {
+    const image = document.createElement("img");
+    image.src = visual.src;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    target.append(image);
+    return true;
+  }
+
+  target.classList.add("is-sprite-pack-art");
+  target.style.backgroundImage = `url("${visual.src}")`;
+  target.style.backgroundSize =
+    `${SERIES_PACK_SPRITE_COLUMNS * 100}% ${SERIES_PACK_SPRITE_ROWS * 100}%`;
+  target.style.backgroundPosition = `${visual.x}% ${visual.y}%`;
+  target.style.backgroundRepeat = "no-repeat";
+  return true;
+}
+
+function seriesEraVisualGroups(era, limit = 2) {
+  return seriesGroupsForEra(era)
+    .filter((group) => Boolean(seriesPackVisual(group)))
+    .slice(0, limit);
 }
 
 function seriesReleaseTimestamp(group) {
@@ -570,33 +666,35 @@ function renderSeriesDashboard() {
 
       const thumbnail = document.createElement("span");
       thumbnail.className = "series-set-thumbnail";
-      const representativeCard = seriesRepresentativeCard(group);
-      const thumbnailUrl = representativeCard
-        ? imageFor(representativeCard)
-        : seriesGroupThumbnail(group);
-      if (thumbnailUrl) {
-        const image = document.createElement("img");
-        image.src = thumbnailUrl;
-        image.alt = "";
-        image.loading = "lazy";
-        image.decoding = "async";
-        if (representativeCard) {
-          const representativeName =
-            representativeCard.name ||
-            representativeCard.pokemonName ||
-            representativeCard.code ||
-            "";
-          const representativeRarity = String(
-            representativeCard.rarity || "",
-          ).trim();
-          thumbnail.title = representativeRarity
-            ? `대표 카드 · ${representativeName} · ${representativeRarity}`
-            : `대표 카드 · ${representativeName}`;
+      if (!applySeriesPackVisual(thumbnail, group)) {
+        const representativeCard = seriesRepresentativeCard(group);
+        const thumbnailUrl = representativeCard
+          ? imageFor(representativeCard)
+          : seriesGroupThumbnail(group);
+        if (thumbnailUrl) {
+          const image = document.createElement("img");
+          image.src = thumbnailUrl;
+          image.alt = "";
+          image.loading = "lazy";
+          image.decoding = "async";
+          if (representativeCard) {
+            const representativeName =
+              representativeCard.name ||
+              representativeCard.pokemonName ||
+              representativeCard.code ||
+              "";
+            const representativeRarity = String(
+              representativeCard.rarity || "",
+            ).trim();
+            thumbnail.title = representativeRarity
+              ? `대표 카드 · ${representativeName} · ${representativeRarity}`
+              : `대표 카드 · ${representativeName}`;
+          }
+          thumbnail.append(image);
+        } else {
+          thumbnail.classList.add("is-empty");
+          thumbnail.textContent = String(group.code || "SET").slice(0, 4);
         }
-        thumbnail.append(image);
-      } else {
-        thumbnail.classList.add("is-empty");
-        thumbnail.textContent = String(group.code || "SET").slice(0, 4);
       }
 
       const titleWrap = document.createElement("span");
@@ -696,28 +794,26 @@ function renderSeriesDashboard() {
       button.classList.add("is-latest-era");
     }
 
-    const logo = document.createElement("img");
-    logo.className = "series-era-logo";
-    logo.src = SERIES_ERA_LOGOS[era];
-    logo.alt = SERIES_ERA_LABELS[era];
-    logo.loading = "lazy";
-    logo.decoding = "async";
-
     const title = document.createElement("strong");
-    title.className = "series-era-wordmark series-era-wordmark-fallback";
+    title.className = "series-era-name";
     title.textContent = SERIES_ERA_LABELS[era];
+    titleWrap.append(meta, title);
 
-    logo.addEventListener("error", () => {
-      logo.hidden = true;
-      title.classList.remove("series-era-wordmark-fallback");
-    });
-
-    titleWrap.append(meta, logo, title);
+    const visual = document.createElement("span");
+    visual.className = "series-era-visual";
+    for (const visualGroup of seriesEraVisualGroups(era)) {
+      const pack = document.createElement("span");
+      pack.className = "series-era-pack-visual";
+      if (applySeriesPackVisual(pack, visualGroup)) {
+        visual.append(pack);
+      }
+    }
+    if (!visual.childElementCount) visual.hidden = true;
 
     const arrow = document.createElement("span");
     arrow.className = "series-dashboard-arrow";
     arrow.textContent = "›";
-    heading.append(titleWrap, arrow);
+    heading.append(titleWrap, visual, arrow);
 
     const metrics = document.createElement("span");
     metrics.className = "series-dashboard-metrics";
@@ -1797,14 +1893,16 @@ function mergeSeriesGroups(baseGroups, supplementGroups) {
 async function loadCatalogGroups() {
   if (mode === "series") {
     if (window.DigitalCardBinder?.catalog?.series) {
-      const [seriesGroups, variantMetadata] = await Promise.all([
+      const [seriesGroups, variantMetadata, legacyPackManifest] = await Promise.all([
         window.DigitalCardBinder.catalog.series(),
         fetchJson(SERIES_PRINT_VARIANTS_URL).catch(() => ({ coverage: {}, slots: {} })),
+        fetchJson(SERIES_LEGACY_PACK_IMAGE_MANIFEST_URL).catch(() => ({ images: {} })),
       ]);
       seriesPrintVariantMetadata = variantMetadata;
+      applySeriesLegacyPackManifest(legacyPackManifest);
       return applySeriesPrintVariantMetadata(seriesGroups, variantMetadata);
     }
-    const [baseGroups, legacyGroups, variantMetadata, imageOverrides] = await Promise.all([
+    const [baseGroups, legacyGroups, variantMetadata, imageOverrides, legacyPackManifest] = await Promise.all([
       fetchJson(SERIES_DATA_URL),
       fetchJson(LEGACY_SERIES_DATA_URL).catch(() => []),
       fetchJson(SERIES_PRINT_VARIANTS_URL).catch(() => ({
@@ -1812,8 +1910,10 @@ async function loadCatalogGroups() {
         slots: {},
       })),
       fetchJson(SERIES_IMAGE_OVERRIDES_URL).catch(() => ({ sets: {} })),
+      fetchJson(SERIES_LEGACY_PACK_IMAGE_MANIFEST_URL).catch(() => ({ images: {} })),
     ]);
     seriesPrintVariantMetadata = variantMetadata;
+    applySeriesLegacyPackManifest(legacyPackManifest);
     const mergedGroups = applySeriesImageOverrides(
       mergeSeriesGroups(baseGroups, legacyGroups),
       imageOverrides,
