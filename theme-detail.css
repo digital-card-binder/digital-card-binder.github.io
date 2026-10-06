@@ -1,0 +1,181 @@
+/* Shared visual shell for the six structured theme collections.
+ * Keeps each collection's own controls/data model while making the experience
+ * read as one family with the scene-based theme dex. */
+body.theme-detail-page {
+  --theme-detail-line: #e2e6ed;
+  --theme-detail-soft: #f6f8fb;
+  --theme-detail-ink: #17233f;
+  --theme-detail-muted: #6d778d;
+}
+
+body.theme-detail-page .hero {
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(145deg,#102a4b,#173d68);
+  box-shadow: 0 14px 34px rgba(16,42,75,.12);
+}
+
+body.theme-detail-page .hero h1 {
+  letter-spacing: -.035em;
+}
+
+body.theme-detail-page .hero-description {
+  max-width: 760px;
+  color: rgba(255,255,255,.78);
+}
+
+body.theme-detail-page .catalog-panel,
+body.theme-detail-page .world-generation-panel,
+body.theme-detail-page .world-binder-panel {
+  border-color: var(--theme-detail-line);
+  background: #fff;
+  box-shadow: 0 9px 24px rgba(23,35,63,.045);
+}
+
+body.theme-detail-page .catalog-heading h2,
+body.theme-detail-page .world-section-head h2,
+body.theme-detail-page .world-story-header h2 {
+  color: var(--theme-detail-ink);
+  letter-spacing: -.03em;
+}
+
+body.theme-detail-page .pokemon-selection-summary,
+body.theme-detail-page .artist-selection-summary,
+body.theme-detail-page .tp-selection-summary,
+body.theme-detail-page .fossil-selection-summary,
+body.theme-detail-page .people-generation-overview {
+  border: 1px solid var(--theme-detail-line);
+  border-radius: 16px;
+  background: linear-gradient(145deg,#fff,#f7f8fc);
+  box-shadow: none;
+}
+
+body.theme-detail-page .segmented-control,
+body.theme-detail-page .fossil-status-filters {
+  border-color: var(--theme-detail-line);
+  background: #fff;
+}
+
+body.theme-detail-page .segmented-control button,
+body.theme-detail-page .fossil-status-filters button {
+  border-radius: 9px;
+}
+
+body.theme-detail-page .segmented-control button.is-active,
+body.theme-detail-page .fossil-status-filters button.is-active {
+  background: #075872;
+  color: #fff;
+}
+
+body.theme-detail-page .search-field input,
+body.theme-detail-page .fossil-search-field input,
+body.theme-detail-page .fossil-select-field select,
+body.theme-detail-page select {
+  border-color: #dfe4ec;
+}
+
+body.theme-detail-page .pokemon-card {
+  border-color: #e0e4ec;
+  border-radius: 16px;
+  box-shadow: 0 7px 18px rgba(23,35,63,.05);
+}
+
+body.theme-detail-page .pokemon-card.is-missing .card-image {
+  opacity: .58;
+  filter: grayscale(1) contrast(.92);
+}
+
+body.theme-detail-page .dialog-card-image.is-missing img,
+body.theme-detail-page .people-dialog-visual.is-missing img {
+  filter: grayscale(1) opacity(.65);
+}
+
+body.theme-detail-page .collector-guide-panel {
+  border-color: var(--theme-detail-line);
+  border-radius: 16px;
+  background: #fff;
+}
+
+/* Simple/mobile mode: keep the same compact controls but give the six
+ * structured themes the same bordered summary language as art-themes. */
+body.theme-detail-page.collector-simple-dex .collector-simple-summary {
+  min-height: 44px;
+  margin: 0 0 7px;
+  border: 1px solid var(--theme-detail-line);
+  border-radius: 12px;
+  background: linear-gradient(145deg,#fff,#f7f8fc);
+  padding: 8px 10px;
+}
+
+body.theme-detail-page.collector-simple-dex .collector-primary-selector {
+  border-color: var(--theme-detail-line);
+  background: #fff;
+}
+
+body.theme-detail-page.collector-simple-dex .collector-quick-controls {
+  border-color: var(--theme-detail-line);
+  background: rgba(255,255,255,.97);
+}
+
+body.theme-detail-page.collector-simple-dex .collector-quick-filter-surface {
+  border: 1px solid #e7eaf0 !important;
+  background: #f8fafc !important;
+}
+
+body.theme-detail-page[data-page="world-exploration"] .world-generation-panel,
+body.theme-detail-page[data-page="world-exploration"] .world-binder-panel {
+  border-radius: 18px;
+}
+
+@media (max-width: 690px) {
+  body.theme-detail-page.collector-simple-dex .hero {
+    min-height: 78px;
+    gap: 8px;
+    border-radius: 15px;
+    padding: 11px 12px;
+  }
+
+  body.theme-detail-page.collector-simple-dex .hero-content {
+    min-width: 0;
+  }
+
+  body.theme-detail-page.collector-simple-dex .hero h1 {
+    font-size: 1rem;
+  }
+
+  body.theme-detail-page.collector-simple-dex .hero-description {
+    display: -webkit-box !important;
+    overflow: hidden;
+    max-width: 42ch;
+    margin: 5px 0 0;
+    color: rgba(255,255,255,.72);
+    font-size: .54rem;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  body.theme-detail-page.collector-simple-dex .catalog-panel {
+    border: 1px solid var(--theme-detail-line);
+    border-radius: 13px;
+    padding: 8px;
+  }
+
+  body.theme-detail-page.collector-simple-dex .collector-simple-summary {
+    min-height: 40px;
+    border-radius: 10px;
+    padding: 7px 8px;
+  }
+
+  body.theme-detail-page .pokemon-card {
+    border-radius: 13px;
+  }
+
+  body.theme-detail-page .collector-guide-panel {
+    border-radius: 13px;
+  }
+
+  body.theme-detail-page[data-page="world-exploration"] .world-generation-panel,
+  body.theme-detail-page[data-page="world-exploration"] .world-binder-panel {
+    border-radius: 14px;
+  }
+}
