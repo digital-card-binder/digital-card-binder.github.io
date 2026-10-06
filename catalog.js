@@ -12,7 +12,7 @@ const POKEMON_DATA_URL = "./data/pokemon-collections.json";
 const POKEMON_SEQUENCE_DATA_URL = "./data/pokemon-collections-21-40.json";
 const POKEDEX_DATA_URL = "./data/pokedex.json";
 
-const SERIES_ERA_ORDER = Object.freeze(["ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"]);
+const SERIES_ERA_ORDER = Object.freeze(["M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"]);
 const SERIES_ERA_LABELS = Object.freeze({
   ORIGIN: "오리지널",
   ADV: "ADV",
@@ -293,9 +293,37 @@ function seriesEra(group) {
   return "";
 }
 
+function seriesReleaseTimestamp(group) {
+  const raw =
+    group?.releaseDate ||
+    group?.releasedAt ||
+    group?.release_date ||
+    group?.date ||
+    "";
+  const timestamp = Date.parse(String(raw));
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function seriesGroupsForEra(era) {
+  return groups
+    .map((group, sourceIndex) => ({ group, sourceIndex }))
+    .filter(({ group }) => seriesEra(group) === era)
+    .sort((left, right) => {
+      const leftDate = seriesReleaseTimestamp(left.group);
+      const rightDate = seriesReleaseTimestamp(right.group);
+      if (leftDate || rightDate) {
+        if (leftDate !== rightDate) return rightDate - leftDate;
+      }
+      // Generated catalog data is chronological; newest entries are appended.
+      // Preserve that contract as the fallback when release dates are absent.
+      return right.sourceIndex - left.sourceIndex;
+    })
+    .map(({ group }) => group);
+}
+
 function selectableGroups() {
   return mode === "series"
-    ? groups.filter((group) => seriesEra(group) === activeEra)
+    ? seriesGroupsForEra(activeEra)
     : groups;
 }
 
@@ -503,9 +531,9 @@ function renderSeriesDashboard() {
   const fragment = document.createDocumentFragment();
 
   if (activeEra !== "ALL") {
-    const eraGroups = groups.filter((group) => seriesEra(group) === activeEra);
+    const eraGroups = seriesGroupsForEra(activeEra);
 
-    for (const group of eraGroups) {
+    for (const [groupIndex, group] of eraGroups.entries()) {
       const total = Number(group.total || group.cards?.length || 0);
       const owned = Number(group.owned || 0);
       const missing = Math.max(0, total - owned);
@@ -518,7 +546,9 @@ function renderSeriesDashboard() {
       button.type = "button";
       button.className = "series-dashboard-card series-set-dashboard-card";
       button.dataset.group = value;
+      button.dataset.era = activeEra;
       button.classList.toggle("is-active", isActive);
+      button.classList.toggle("is-latest", groupIndex === 0);
       button.setAttribute(
         "aria-label",
         `${groupName(group)} ${owned}/${total}장, 수집률 ${rate}% 카드 목록 보기`,
@@ -559,12 +589,27 @@ function renderSeriesDashboard() {
       }
 
       const titleWrap = document.createElement("span");
+      titleWrap.className = "series-set-title-wrap";
+
+      const meta = document.createElement("span");
+      meta.className = "series-set-meta";
+
       const code = document.createElement("span");
       code.className = "series-dashboard-code";
       code.textContent = group.code || activeEra;
+      meta.append(code);
+
+      if (groupIndex === 0) {
+        const newest = document.createElement("span");
+        newest.className = "series-set-latest-badge";
+        newest.textContent = "최신";
+        meta.append(newest);
+      }
+
       const title = document.createElement("strong");
+      title.className = "series-set-wordmark";
       title.textContent = groupName(group);
-      titleWrap.append(code, title);
+      titleWrap.append(meta, title);
 
       const arrow = document.createElement("span");
       arrow.className = "series-dashboard-arrow";
@@ -706,7 +751,7 @@ function selectEra(era) {
     return;
   }
 
-  const visibleGroups = groups.filter((group) => seriesEra(group) === era);
+  const visibleGroups = seriesGroupsForEra(era);
   const select = $("catalog-select");
   const currentValue = selected?.code || selected?.name;
   populateCatalogSelect();
