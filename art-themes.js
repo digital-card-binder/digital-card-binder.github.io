@@ -2,6 +2,20 @@
 
 (function () {
   const DATA_URL = "./data/art-themes.json?v=20261005-regular-rarity";
+  const THEME_DESCRIPTIONS = Object.freeze({
+    sleeping: "잠들거나 느긋하게 쉬는 포켓몬이 등장하는 카드를 모은 테마 도감입니다.",
+    connected: "여러 장을 나란히 놓았을 때 하나의 풍경이나 이야기가 이어지는 카드를 모았습니다.",
+    evolution: "진화 전후의 모습이 성장과 시간의 흐름으로 이어지는 카드를 모았습니다.",
+    night: "달, 별, 야경처럼 밤의 분위기가 돋보이는 카드를 모은 테마 도감입니다.",
+    season: "꽃, 바다, 설원, 비와 숲 등 계절과 자연 풍경이 돋보이는 카드를 모았습니다.",
+    color: "색감이 돋보이는 카드들을 모은 테마 도감입니다. 카드마다 다른 색과 분위기를 감상해보세요.",
+    sunset: "노을과 골든아워의 따뜻한 빛이 인상적인 카드들을 모았습니다.",
+    reflections: "물, 유리, 거울 등에 포켓몬이나 풍경이 비치는 카드를 모았습니다.",
+    food: "음식과 간식, 식사 장면이 중심이 되는 포켓몬 카드를 모았습니다.",
+    work: "포켓몬이 일하거나 사람의 생활을 돕는 장면의 카드를 모았습니다.",
+    street: "거리, 골목, 상점과 빌딩 등 도시 일상이 담긴 카드를 모았습니다.",
+    cameo: "주인공 외 다른 포켓몬이 배경이나 구석에 숨어 등장하는 카드를 모았습니다.",
+  });
   const el = (id) => document.getElementById(id);
   const account = () => window.PokemonDexPageAccount;
   let dataset = null;
@@ -42,7 +56,7 @@
     el("art-theme-selected-total").textContent = selectedCards.length;
     el("art-theme-selected-rate").textContent = `${selectedRate}%`;
     el("art-theme-selected-name").textContent = group?.name || "—";
-    el("art-theme-selected-description").textContent = group?.description || "";
+    el("art-theme-selected-description").textContent = THEME_DESCRIPTIONS[group?.code] || group?.description || "";
     el("art-theme-selected-icon").textContent = group?.icon || "✦";
     el("art-theme-selected-badge").textContent = group?.badge || "THEME";
     el("art-theme-catalog-title").textContent = `${group?.name || "테마"} · ${selectedCards.length}장`;
@@ -94,6 +108,7 @@
     const dialog = el("art-theme-dialog");
     el("art-theme-dialog-image").src = repairedImage(card.image);
     el("art-theme-dialog-image").alt = card.name || "카드 이미지";
+    el("art-theme-dialog-image").classList.toggle("is-missing", !card.owned);
     el("art-theme-dialog-number").textContent = card.cardNumber || card.code || "";
     el("art-theme-dialog-status").textContent = card.owned ? "보유" : "미보유";
     el("art-theme-dialog-status").classList.toggle("is-owned", Boolean(card.owned));
@@ -126,6 +141,8 @@
     cards.forEach((card) => {
       const article = document.createElement("article");
       article.className = "art-theme-card";
+      article.classList.toggle("is-owned", Boolean(card.owned));
+      article.classList.toggle("is-missing", !card.owned);
       const image = repairedImage(card.image);
       article.innerHTML = `
         <div class="art-theme-card-image"><img src="${image}" alt="" loading="lazy" decoding="async" /></div>
