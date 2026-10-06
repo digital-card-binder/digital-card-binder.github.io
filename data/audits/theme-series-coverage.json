@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 501,
-    "uniqueThemeCards": 403,
+    "themeCardSlots": 542,
+    "uniqueThemeCards": 440,
     "strictCompleteSetCount": 1,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 272,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 135,
-      "setCount": 66,
+      "cardSlots": 136,
+      "setCount": 67,
       "rarities": [
         "AR",
         "C",
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 31,
-      "setCount": 7,
+      "cardSlots": 32,
+      "setCount": 8,
       "rarities": [
         "AR",
         "C",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 67,
+      "cardSlots": 93,
       "setCount": 7,
       "rarities": [
         "AR",
@@ -131,12 +131,13 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 68,
+      "cardSlots": 77,
       "setCount": 9,
       "rarities": [
         "AR",
         "C",
         "FUR",
+        "R",
         "RGB",
         "RR",
         "SAR",
@@ -195,7 +196,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 28,
+      "cardSlots": 30,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -207,11 +208,12 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 13,
+      "cardSlots": 15,
       "setCount": 8,
       "rarities": [
         "AR",
         "C",
+        "R",
         "SAR",
         "U"
       ]
@@ -224,7 +226,7 @@
       "cardCount": 2133,
       "completeSetCount": 1,
       "remainingSetCount": 13,
-      "currentThemeSlots": 185
+      "currentThemeSlots": 226
     },
     {
       "era": "SV",
@@ -1834,11 +1836,13 @@
       "status": "partial",
       "reviewedAt": "2026-10-06",
       "themeHits": {
-        "season": 17,
-        "color": 4,
+        "sleeping": 1,
+        "night": 1,
+        "season": 43,
+        "color": 13,
         "reflections": 1,
-        "street": 1,
-        "cameo": 1
+        "street": 3,
+        "cameo": 3
       }
     },
     {
