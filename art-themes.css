@@ -5,7 +5,7 @@
 .art-theme-selected-summary>div{display:flex;align-items:center;gap:14px;min-width:0}
 .art-theme-selected-icon{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border-radius:15px;background:#17233f;color:#fff;font-size:22px}
 .art-theme-selected-summary strong{font-size:1.05rem}
-.art-theme-selected-summary p{max-width:780px;margin:4px 0 0;color:#6d778d;font-size:.7rem;line-height:1.55}
+.art-theme-selected-summary p{display:block;max-width:780px;margin:4px 0 0;color:#6d778d;font-size:.72rem;line-height:1.5}
 .art-theme-selected-badge{flex:0 0 auto;border-radius:999px;background:#eee9ff;color:#654fb3;font-size:.58rem;font-weight:900;letter-spacing:.08em;padding:7px 10px}
 .art-theme-filter-panel{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:12px;align-items:end;margin:14px 0}
 .art-theme-search-field{display:grid;gap:6px}
@@ -20,7 +20,9 @@
 .art-theme-card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .art-theme-card{position:relative;overflow:hidden;border:1px solid #e0e4ec;border-radius:18px;background:#fff;box-shadow:0 8px 20px rgba(23,35,63,.06)}
 .art-theme-card-image{position:relative;aspect-ratio:63/88;background:#eef1f5}
-.art-theme-card-image img{display:block;width:100%;height:100%;object-fit:contain}
+.art-theme-card-image img{display:block;width:100%;height:100%;object-fit:contain;transition:filter .2s ease,opacity .2s ease}
+.art-theme-card.is-missing .art-theme-card-image img{filter:grayscale(1) contrast(.92);opacity:.62}
+.art-theme-card.is-owned .art-theme-card-image img{filter:none;opacity:1}
 .art-theme-card-image::after{content:"";position:absolute;inset:auto 0 0;height:28%;background:linear-gradient(transparent,rgba(17,25,46,.08));pointer-events:none}
 .art-theme-card-body{display:grid;gap:6px;padding:11px 11px 58px}
 .art-theme-card-badges{display:flex;align-items:center;justify-content:space-between;gap:6px}
@@ -47,6 +49,7 @@
 .art-theme-dialog .dialog-close{position:absolute;z-index:4;top:12px;right:12px}
 .art-theme-dialog-image{display:grid;place-items:center;background:#f1f3f7;padding:24px}
 .art-theme-dialog-image img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:10px}
+#art-theme-dialog-image.is-missing{filter:grayscale(1) opacity(.65)}
 .art-theme-dialog-copy{padding:34px 28px 28px}
 .art-theme-dialog-copy h2{margin:12px 0 4px}
 .art-theme-dialog-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-top:20px}
