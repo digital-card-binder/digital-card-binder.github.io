@@ -131,16 +131,20 @@
     const original = originalSources.get(image);
     if (!original || fallbackAttempts.has(image)) return false;
     fallbackAttempts.add(image);
+
+    // Never fall back to the third-party source at runtime.
+    // If our self-hosted archive misses an image, keep all traffic on our site.
     if (sourceDescriptor?.set) {
-      sourceDescriptor.set.call(image, original);
+      sourceDescriptor.set.call(image, FALLBACK_IMAGE);
     } else {
-      nativeSetAttribute.call(image, "src", original);
+      nativeSetAttribute.call(image, "src", FALLBACK_IMAGE);
     }
+    originalSources.delete(image);
     return true;
   }
 
   window.DigitalCardBinderImageCdn = Object.freeze({
-    version: "2026-10-01.1",
+    version: "2026-10-06.1",
     repairSource,
     enabled,
     resolve,
