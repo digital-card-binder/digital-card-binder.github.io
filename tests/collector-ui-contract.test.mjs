@@ -561,7 +561,7 @@ test("fossil and world pages use their own registry collection identities", asyn
   const world = await source("world.html");
   const worldClient = await source("world.js");
 
-  assert.match(fossil, /<body data-catalog="fossil">/);
+  assert.match(fossil, /<body[^>]*data-catalog="fossil"[^>]*>/);
   assert.match(world, /data-catalog="world"/);
   for (const html of [fossil, world]) {
     assert.match(html, /collector-public-view[.]js[?]v=[0-9a-f]{12}/);
