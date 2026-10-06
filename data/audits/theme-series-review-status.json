@@ -889,10 +889,10 @@
       "nextStart": "m4 001"
     },
     "m4": {
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2 m4 001-060 canonical card slot을 자체 호스팅 modern 이미지 기준으로 12개 테마 전수검수. 기존 M4_052 sleeping 항목은 중복 추가하지 않고 유지.",
-      "reviewedCardCount": 60,
+      "note": "Task 2 m4 전체 120 canonical card slot을 자체 호스팅 modern 이미지 기준으로 12개 테마 전수검수 완료. 기존 M4_052 sleeping 항목을 유지하고 누락 슬롯만 반영.",
+      "reviewedCardCount": 120,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -908,9 +908,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "001-060"
+        "001-060",
+        "061-120"
       ],
-      "newlyAddedThemeSlotCount": 85,
+      "newlyAddedThemeSlotCount": 174,
       "newlyAddedCards": [
         "M4_001",
         "M4_004",
@@ -971,11 +972,67 @@
         "M4_049",
         "M4_054",
         "M4_055",
-        "M4_058"
+        "M4_058",
+        "M4_061",
+        "M4_065",
+        "M4_066",
+        "M4_084",
+        "M4_093",
+        "M4_067",
+        "M4_069",
+        "M4_070",
+        "M4_088",
+        "M4_094",
+        "M4_086",
+        "M4_087",
+        "M4_112",
+        "M4_114",
+        "M4_116",
+        "M4_089",
+        "M4_090",
+        "M4_118",
+        "M4_062",
+        "M4_063",
+        "M4_071",
+        "M4_079",
+        "M4_080",
+        "M4_081",
+        "M4_082",
+        "M4_083",
+        "M4_085",
+        "M4_091",
+        "M4_092",
+        "M4_095",
+        "M4_096",
+        "M4_097",
+        "M4_098",
+        "M4_099",
+        "M4_100",
+        "M4_101",
+        "M4_102",
+        "M4_103",
+        "M4_104",
+        "M4_105",
+        "M4_106",
+        "M4_107",
+        "M4_110",
+        "M4_113",
+        "M4_115",
+        "M4_117",
+        "M4_119",
+        "M4_120",
+        "M4_064",
+        "M4_068",
+        "M4_075",
+        "M4_076",
+        "M4_077",
+        "M4_078",
+        "M4_109",
+        "M4_111"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m4 061/083"
+      "nextStart": "m3 001"
     }
   },
   "queue": {
@@ -995,13 +1052,13 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "m4",
+    "currentSet": "m3",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m4 001-060 안전 구간 완료.",
+    "note": "Task 2 m4 120장 × 12테마 전수검수 COMPLETE. 다음 m3 001.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m4 001-060",
-    "nextStart": "m4 061/083"
+    "lastSafeCheckpoint": "m4 COMPLETE (001-120)",
+    "nextStart": "m3 001"
   }
 }
