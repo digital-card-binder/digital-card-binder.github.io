@@ -903,7 +903,6 @@
     const primaryFragment = document.createDocumentFragment();
     const themeFragment = document.createDocumentFragment();
     let primaryCount = 0;
-    let themeCount = 0;
 
     for (const category of metrics.visibleCategories) {
       const metric = metrics.categories[category];
@@ -912,7 +911,6 @@
         primaryCount += 1;
       } else if (THEME_CATEGORIES.has(category)) {
         themeFragment.append(createCollectionCard(metric));
-        themeCount += 1;
       }
     }
 
