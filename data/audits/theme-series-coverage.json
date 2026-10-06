@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 951,
-    "uniqueThemeCards": 716,
+    "themeCardSlots": 999,
+    "uniqueThemeCards": 756,
     "strictCompleteSetCount": 4,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 269,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 75,
-      "setCount": 10,
+      "cardSlots": 78,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 222,
-      "setCount": 9,
+      "cardSlots": 244,
+      "setCount": 10,
       "rarities": [
         "AR",
         "C",
@@ -132,8 +132,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 229,
-      "setCount": 11,
+      "cardSlots": 240,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -150,8 +150,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 24,
-      "setCount": 13,
+      "cardSlots": 27,
+      "setCount": 14,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 14,
-      "setCount": 10,
+      "cardSlots": 15,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 92,
-      "setCount": 12,
+      "cardSlots": 100,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -230,7 +230,7 @@
       "cardCount": 2133,
       "completeSetCount": 4,
       "remainingSetCount": 10,
-      "currentThemeSlots": 635
+      "currentThemeSlots": 683
     },
     {
       "era": "SV",
@@ -338,7 +338,7 @@
       "code": "m3",
       "name": "니힐제로",
       "cardCount": 117,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "M",
@@ -1800,10 +1800,16 @@
       "cardCount": 117,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-07",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "night": 3,
+        "season": 22,
+        "color": 11,
+        "sunset": 3,
+        "reflections": 1,
+        "street": 8
       }
     },
     {
