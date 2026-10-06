@@ -458,14 +458,16 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
   ]) {
     assert.match(page, new RegExp(`data-era="${era}"[^>]*>[\\s\\S]*?${label}`));
   }
-  const eraIndices = ["ALL", "SM", "S", "SV", "M"].map((era) => page.indexOf(`data-era="${era}"`));
+  const eraIndices = ["ALL", "M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"]
+    .map((era) => page.indexOf(`data-era="${era}"`));
   assert.ok(eraIndices.every((index, position) => position === 0 || eraIndices[position - 1] < index));
   assert.match(page, /class="is-active"[^>]*data-era="ALL"[^>]*aria-selected="true"/);
   assert.match(client, /let activeEra = mode === "series" \? "ALL" : "SM";/);
   assert.match(page, /id="series-dashboard"/);
   assert.match(client, /function renderSeriesDashboard\(\)/);
   assert.match(client, /function seriesEra\(group\)/);
-  assert.match(client, /groups[.]filter\(\(group\) => seriesEra\(group\) === activeEra\)/);
+  assert.match(client, /function seriesGroupsForEra\(era\)/);
+  assert.match(client, /seriesGroupsForEra\(activeEra\)/);
   assert.match(client, /group[.]displayName/);
   assert.match(css, /[.]catalog-era-tabs\{/);
   assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
@@ -474,7 +476,7 @@ test("series catalog filters sets by Korean card era without hiding MEGA", async
 });
 
 test("series navigation summary uses the generated set and card totals", async () => {
-  for (const file of [...sitePages, "trades.html"]) {
+  for (const file of sitePages) {
     const html = await source(file);
     if (!html.includes('href="./series.html"')) continue;
     assert.match(
@@ -1326,20 +1328,22 @@ test("stage 5 mobile precision preserves touch targets and narrow-screen grids",
   assert.match(homeCss, /[.]home-studio-canvas/);
 });
 
-test("series era filters use representative cards without changing filter keys", async () => {
+test("series era filters use self-hosted identity logos without changing filter keys", async () => {
   const page = await source("series.html");
   const css = await source("series-era-thumbnails.css");
-  const eraKeys = ["ALL", "ORIGIN", "ADV", "DP", "BW", "XY", "SM", "S", "SV", "M"];
+  const eraKeys = ["ALL", "M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"];
 
   assert.match(page, /series-era-thumbnails[.]css[?]v=[0-9a-f]{12}/);
-  assert.equal([...page.matchAll(/class="era-card-thumb"/g)].length, eraKeys.length);
+  assert.equal([...page.matchAll(/class="era-card-thumb era-logo-thumb"/g)].length, eraKeys.length);
   for (const era of eraKeys) {
     assert.match(page, new RegExp(`data-era="${era}"`));
   }
-  assert.match(page, /data-card-tier="SAR"/);
-  assert.match(page, /data-card-tier="MUR"/);
-  assert.match(css, /[.]era-card-thumb img/);
-  assert.match(css, /aspect-ratio: 5 \/ 7/);
+  for (const asset of ["mega", "sv", "s", "sm", "xy", "bw", "dp", "adv", "origin"]) {
+    assert.match(page, new RegExp(`[.]\/assets\/series\/logos\/${asset}[.]svg`));
+  }
+  assert.doesNotMatch(page, /cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr/);
+  assert.match(css, /[.]era-logo-thumb/);
+  assert.match(css, /aspect-ratio: auto/);
   assert.match(css, /object-fit: contain/);
 });
 
