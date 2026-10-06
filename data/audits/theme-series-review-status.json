@@ -605,5 +605,13 @@
       "ORIGIN"
     ],
     "rule": "최신 세대부터 세트 단위로 전수검수하고 complete 처리한다."
+  },
+  "execution": {
+    "startedAt": "2026-10-06",
+    "currentEra": "M",
+    "currentSet": "M6a",
+    "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
+    "status": "in-progress",
+    "note": "기존 M6a 테마 반영은 verified-evidence partial로 유지하며 strict exhaustive review로 다시 검수한다."
   }
 }
