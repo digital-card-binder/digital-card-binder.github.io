@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 723,
-    "uniqueThemeCards": 564,
-    "strictCompleteSetCount": 2,
+    "themeCardSlots": 777,
+    "uniqueThemeCards": 601,
+    "strictCompleteSetCount": 3,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 271,
+    "baselineRemainingSetCount": 270,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 52,
+      "cardSlots": 56,
       "setCount": 9,
       "rarities": [
         "AR",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 159,
+      "cardSlots": 169,
       "setCount": 8,
       "rarities": [
         "AR",
@@ -132,7 +132,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 129,
+      "cardSlots": 161,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -150,7 +150,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 21,
+      "cardSlots": 22,
       "setCount": 12,
       "rarities": [
         "AR",
@@ -199,7 +199,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 54,
+      "cardSlots": 61,
       "setCount": 11,
       "rarities": [
         "AR",
@@ -228,9 +228,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 2,
-      "remainingSetCount": 12,
-      "currentThemeSlots": 407
+      "completeSetCount": 3,
+      "remainingSetCount": 11,
+      "currentThemeSlots": 461
     },
     {
       "era": "SV",
@@ -332,13 +332,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m5",
-      "name": "어비스아이",
-      "cardCount": 118,
-      "status": "partial"
     },
     {
       "era": "M",
@@ -506,6 +499,13 @@
       "code": "SVI",
       "name": "배틀 아카데미",
       "cardCount": 74,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVJL",
+      "name": "배틀 마스터 덱 「테라스탈 리자몽 ex」",
+      "cardCount": 22,
       "status": "pending"
     }
   ],
@@ -1826,18 +1826,18 @@
       "cardCount": 118,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-06",
       "themeHits": {
         "sleeping": 1,
         "connected": 6,
         "evolution": 6,
-        "night": 20,
-        "season": 43,
-        "color": 23,
-        "sunset": 2,
+        "night": 24,
+        "season": 53,
+        "color": 55,
+        "sunset": 3,
         "work": 1,
-        "street": 20
+        "street": 27
       }
     },
     {
