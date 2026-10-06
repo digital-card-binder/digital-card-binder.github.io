@@ -132,13 +132,105 @@ function appendAllOption(select) {
   select.append(option);
 }
 
+function chooserEntries() {
+  if (tpViewMode === "pokemon") {
+    return [...tpDataset.groups]
+      .sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999))
+      .map((group) => ({
+        value: group.name,
+        label: `#${String(group.nationalDexNo).padStart(3, "0")} ${group.name}`,
+      }));
+  }
+  return trainerOptions().map(([name]) => ({ value: name, label: name }));
+}
+
+function syncChooserButtons() {
+  const prev = tp("tp-prev");
+  const next = tp("tp-next");
+  if (!prev || !next || !tpDataset) return;
+
+  const entries = chooserEntries();
+  const count = entries.length;
+  const selectedValue =
+    tpSelected === TP_ALL_VALUE
+      ? TP_ALL_VALUE
+      : tpViewMode === "pokemon"
+        ? tpSelected?.name
+        : tpSelected;
+  const index = entries.findIndex((entry) => entry.value === selectedValue);
+  const current = index >= 0 ? index : -1;
+
+  prev.disabled = count < 1;
+  next.disabled = count < 1;
+  const prevEntry = entries[(current - 1 + count) % count] || entries.at(-1);
+  const nextEntry = entries[(current + 1 + count) % count] || entries[0];
+  const noun = tpViewMode === "pokemon" ? "포켓몬" : "트레이너";
+
+  prev.title = prevEntry ? `이전 · ${prevEntry.label}` : `이전 ${noun}`;
+  next.title = nextEntry ? `다음 · ${nextEntry.label}` : `다음 ${noun}`;
+  prev.setAttribute("aria-label", prev.title);
+  next.setAttribute("aria-label", next.title);
+}
+
+function updateSelectionUrl() {
+  if (typeof window.history?.replaceState !== "function") return;
+  const url = new URL(window.location.href);
+  url.searchParams.set("mode", tpViewMode);
+  const value =
+    tpSelected === TP_ALL_VALUE
+      ? ""
+      : tpViewMode === "pokemon"
+        ? tpSelected?.name || ""
+        : tpSelected || "";
+  if (value) url.searchParams.set("group", value);
+  else url.searchParams.delete("group");
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
+function chooseSelection(value, { updateUrl = true } = {}) {
+  if (value === TP_ALL_VALUE) {
+    tpSelected = TP_ALL_VALUE;
+  } else if (tpViewMode === "pokemon") {
+    tpSelected = tpDataset.groups.find((group) => group.name === value) || TP_ALL_VALUE;
+  } else {
+    tpSelected = trainerOptions().some(([name]) => name === value) ? value : TP_ALL_VALUE;
+  }
+  const select = tp("tp-group-select");
+  if (select) {
+    select.value =
+      tpSelected === TP_ALL_VALUE
+        ? TP_ALL_VALUE
+        : tpViewMode === "pokemon"
+          ? tpSelected.name
+          : tpSelected;
+  }
+  if (updateUrl) updateSelectionUrl();
+  syncChooserButtons();
+  render();
+}
+
+function stepSelection(offset) {
+  const entries = chooserEntries();
+  if (!entries.length) return;
+
+  const value =
+    tpSelected === TP_ALL_VALUE
+      ? ""
+      : tpViewMode === "pokemon"
+        ? tpSelected?.name || ""
+        : tpSelected || "";
+  const index = entries.findIndex((entry) => entry.value === value);
+  const current = index >= 0 ? index : offset > 0 ? -1 : 0;
+  const nextIndex = (current + offset + entries.length) % entries.length;
+  chooseSelection(entries[nextIndex].value);
+}
+
 function populateGroups(preferredValue = TP_ALL_VALUE) {
   const select = tp("tp-group-select");
   select.replaceChildren();
   appendAllOption(select);
   if (tpViewMode === "pokemon") {
-    tp("tp-filter-label").textContent = "포켓몬";
-    tp("tp-selection-label").textContent = "선택 범위";
+    tp("tp-selection-label").textContent = "포켓몬 선택";
     const groups = [...tpDataset.groups].sort((a, b) => Number(a.nationalDexNo || 9999) - Number(b.nationalDexNo || 9999));
     groups.forEach((group) => {
       const option = document.createElement("option");
@@ -152,8 +244,7 @@ function populateGroups(preferredValue = TP_ALL_VALUE) {
       : groups.find((group) => group.name === selectedName) || TP_ALL_VALUE;
     select.value = tpSelected === TP_ALL_VALUE ? TP_ALL_VALUE : tpSelected.name;
   } else {
-    tp("tp-filter-label").textContent = "트레이너";
-    tp("tp-selection-label").textContent = "선택 범위";
+    tp("tp-selection-label").textContent = "트레이너 선택";
     const trainers = trainerOptions();
     trainers.forEach(([name, count]) => {
       const option = document.createElement("option");
@@ -164,6 +255,7 @@ function populateGroups(preferredValue = TP_ALL_VALUE) {
     tpSelected = trainers.some(([name]) => name === preferredValue) ? preferredValue : TP_ALL_VALUE;
     select.value = tpSelected;
   }
+  syncChooserButtons();
 }
 
 function selectedCards() {
@@ -371,14 +463,14 @@ function controls() {
     tpViewMode = button.dataset.mode;
     event.currentTarget.querySelectorAll("button").forEach((item) => item.classList.toggle("is-active", item === button));
     populateGroups();
+    updateSelectionUrl();
     render();
   });
   tp("tp-group-select").addEventListener("change", (event) => {
-    if (event.target.value === TP_ALL_VALUE) tpSelected = TP_ALL_VALUE;
-    else if (tpViewMode === "pokemon") tpSelected = tpDataset.groups.find((group) => group.name === event.target.value) || TP_ALL_VALUE;
-    else tpSelected = event.target.value;
-    render();
+    chooseSelection(event.target.value);
   });
+  tp("tp-prev")?.addEventListener("click", () => stepSelection(-1));
+  tp("tp-next")?.addEventListener("click", () => stepSelection(1));
   tp("tp-status-filters").addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button) return;
@@ -409,8 +501,13 @@ async function init() {
       account.applyGroups(tpDataset.groups);
     }
     setSummary();
-    const requestedGroup = new URLSearchParams(window.location.search).get("group") || "";
-    tpViewMode = "pokemon";
+    const params = new URLSearchParams(window.location.search);
+    const requestedGroup = params.get("group") || "";
+    const requestedMode = params.get("mode") || "";
+    tpViewMode = requestedMode === "trainer" ? "trainer" : "pokemon";
+    tp("tp-view-mode")
+      ?.querySelectorAll("button[data-mode]")
+      .forEach((button) => button.classList.toggle("is-active", button.dataset.mode === tpViewMode));
     populateGroups(requestedGroup || TP_ALL_VALUE);
     controls();
     render();
