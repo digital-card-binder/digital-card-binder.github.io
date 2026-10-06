@@ -1952,3 +1952,32 @@
     margin-top: 7px;
   }
 }
+
+
+/* Unified 18-card theme dashboard */
+.dashboard-collection-grid--theme-all{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  margin-top:8px;
+}
+.dashboard-theme-card{
+  min-height:132px;
+}
+.dashboard-theme-card[data-category="fossil"]{--collection-accent:#9b7653}
+.dashboard-theme-card[data-category="world"]{--collection-accent:#4c8d7d}
+.dashboard-theme-card[data-theme-kind="art"]{--collection-accent:#7b5fd6}
+.dashboard-theme-card[data-theme-kind="art"]::before{
+  background:color-mix(in srgb,#7b5fd6 11%,transparent);
+}
+@media(max-width:920px){
+  .dashboard-collection-grid--theme-all{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:690px){
+  .dashboard-collection-grid--theme-all{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;
+    margin-top:5px;
+  }
+  .dashboard-theme-card{
+    min-height:84px;
+  }
+}
