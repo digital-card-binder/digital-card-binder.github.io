@@ -1092,7 +1092,7 @@
     },
     series: {
       status: "#catalog-status",
-      surfaces: [".catalog-era-filter", ".catalog-toolbar", ".catalog-filter-row"],
+      surfaces: [".catalog-toolbar", ".catalog-filter-row"],
     },
     ar: {
       status: "#catalog-status",
@@ -1317,6 +1317,9 @@
     fossil: ".fossil-selection-summary",
     artThemes: ".art-theme-selected-summary",
   });
+  const SIMPLE_DEX_PRIMARY_SELECTORS = Object.freeze({
+    ar: ".catalog-toolbar .catalog-select",
+  });
   const STICKY_SELECTOR_COLLECTIONS = new Set([
     "artist",
     "pokemon",
@@ -1338,6 +1341,22 @@
     if (summary && controls && summary.nextElementSibling !== controls) {
       controls.insertAdjacentElement("beforebegin", summary);
       summary.classList.add("collector-simple-summary");
+    }
+
+    const primarySelectorQuery = SIMPLE_DEX_PRIMARY_SELECTORS[collectionId];
+    const primarySelector = primarySelectorQuery
+      ? document.querySelector(primarySelectorQuery)
+      : null;
+    if (
+      primarySelector &&
+      summary &&
+      !primarySelector.closest(".collector-primary-selector")
+    ) {
+      const primaryWrap = document.createElement("div");
+      primaryWrap.className = "collector-primary-selector";
+      primaryWrap.setAttribute("data-primary-selector", collectionId);
+      summary.insertAdjacentElement("beforebegin", primaryWrap);
+      primaryWrap.append(primarySelector);
     }
 
     if (
