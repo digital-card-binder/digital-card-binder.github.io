@@ -24,6 +24,17 @@ const SERIES_ERA_LABELS = Object.freeze({
   SV: "스칼렛&바이올렛",
   M: "MEGA",
 });
+const SERIES_ERA_LOGOS = Object.freeze({
+  M: "./assets/series/logos/mega.svg",
+  SV: "./assets/series/logos/sv.svg",
+  S: "./assets/series/logos/s.svg",
+  SM: "./assets/series/logos/sm.svg",
+  XY: "./assets/series/logos/xy.svg",
+  BW: "./assets/series/logos/bw.svg",
+  DP: "./assets/series/logos/dp.svg",
+  ADV: "./assets/series/logos/adv.svg",
+  ORIGIN: "./assets/series/logos/origin.svg",
+});
 
 const SERIES_NAMES = Object.freeze({
   sv1S: "스칼렛 ex",
@@ -685,10 +696,23 @@ function renderSeriesDashboard() {
       button.classList.add("is-latest-era");
     }
 
+    const logo = document.createElement("img");
+    logo.className = "series-era-logo";
+    logo.src = SERIES_ERA_LOGOS[era];
+    logo.alt = SERIES_ERA_LABELS[era];
+    logo.loading = "lazy";
+    logo.decoding = "async";
+
     const title = document.createElement("strong");
-    title.className = "series-era-wordmark";
+    title.className = "series-era-wordmark series-era-wordmark-fallback";
     title.textContent = SERIES_ERA_LABELS[era];
-    titleWrap.append(meta, title);
+
+    logo.addEventListener("error", () => {
+      logo.hidden = true;
+      title.classList.remove("series-era-wordmark-fallback");
+    });
+
+    titleWrap.append(meta, logo, title);
 
     const arrow = document.createElement("span");
     arrow.className = "series-dashboard-arrow";
