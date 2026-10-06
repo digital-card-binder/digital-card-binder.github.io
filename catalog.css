@@ -76,6 +76,31 @@ body:not(.series-dashboard-mode) .catalog-toolbar{margin-top:0}
 }
 
 
+/* Series identity treatment: collector-oriented, logo-inspired without copying any one app UI */
+.series-set-title-wrap{display:grid;min-width:0;gap:5px}
+.series-set-meta{display:flex;align-items:center;gap:6px;min-width:0}
+.series-set-latest-badge{display:inline-flex;align-items:center;justify-content:center;min-width:31px;height:18px;border-radius:999px;background:#e9f7f5;color:#0e796f;font-size:.5rem;font-weight:900;letter-spacing:-.02em;padding:0 7px}
+.series-set-wordmark{display:block;max-width:100%;overflow:hidden;font-family:"Arial Black","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;font-size:.88rem;font-weight:950;letter-spacing:-.055em;line-height:1.16;text-overflow:ellipsis;white-space:nowrap}
+.series-set-dashboard-card.is-latest{border-color:rgba(29,143,142,.34);box-shadow:0 8px 22px rgba(23,35,63,.07)}
+.series-set-dashboard-card.is-latest:hover{border-color:rgba(29,143,142,.58)}
+.series-set-dashboard-card[data-era="M"] .series-set-wordmark{background:linear-gradient(100deg,#087f86,#6657c8);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="SV"] .series-set-wordmark{background:linear-gradient(100deg,#bf3e56,#6d4eb2);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="S"] .series-set-wordmark{background:linear-gradient(100deg,#1878a5,#344a8f);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="SM"] .series-set-wordmark{background:linear-gradient(100deg,#c76f1c,#7c4c9c);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="XY"] .series-set-wordmark{background:linear-gradient(100deg,#3870a7,#87549b);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="BW"] .series-set-wordmark{color:#303746}
+.series-set-dashboard-card[data-era="DP"] .series-set-wordmark{background:linear-gradient(100deg,#385274,#727f95);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="ADV"] .series-set-wordmark{background:linear-gradient(100deg,#a84d35,#ca7c2b);color:transparent;-webkit-background-clip:text;background-clip:text}
+.series-set-dashboard-card[data-era="ORIGIN"] .series-set-wordmark{color:#7c3440}
+
+@media(max-width:690px){
+  .series-set-title-wrap{gap:3px}
+  .series-set-meta{gap:4px}
+  .series-set-latest-badge{min-width:27px;height:16px;font-size:.46rem;padding:0 5px}
+  .series-set-wordmark{font-size:.72rem;letter-spacing:-.05em}
+}
+
+
 /* Quick collection mode */
 .catalog-quick-collect{
   display:flex;
