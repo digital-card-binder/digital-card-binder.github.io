@@ -61,3 +61,35 @@ body[data-catalog="series"] .catalog-era-tabs button.is-active .era-card-thumb {
     transform: none !important;
   }
 }
+
+/* Self-hosted series logo thumbnails */
+body[data-catalog="series"] .era-card-thumb.era-logo-thumb {
+  width: 76px;
+  height: 34px;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+body[data-catalog="series"] .catalog-era-tabs button:nth-child(even) .era-card-thumb.era-logo-thumb {
+  transform: none;
+}
+body[data-catalog="series"] .era-card-thumb.era-logo-thumb img {
+  object-fit: contain;
+}
+body[data-catalog="series"] .catalog-era-tabs button.is-active .era-card-thumb.era-logo-thumb {
+  border: 0;
+  box-shadow: none;
+  filter: brightness(0) invert(1);
+}
+@media (max-width: 690px) {
+  body[data-catalog="series"] .catalog-era-tabs button {
+    grid-template-columns: minmax(0, 1fr) 62px;
+  }
+  body[data-catalog="series"] .era-card-thumb.era-logo-thumb {
+    width: 62px;
+    height: 30px;
+  }
+}
