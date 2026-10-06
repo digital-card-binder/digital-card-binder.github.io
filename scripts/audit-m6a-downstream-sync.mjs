@@ -178,7 +178,7 @@ const fossilM6a = list(fossil, "groups")
 
 const audit = {
   schemaVersion: 1,
-  updatedAt: "2026-10-05",
+  updatedAt: "2026-10-06",
   set: {
     code: "M6a",
     name: "30th CELEBRATION",
