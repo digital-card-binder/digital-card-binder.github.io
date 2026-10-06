@@ -606,6 +606,45 @@
         "work",
         "cameo"
       ]
+    },
+    "m6": {
+      "status": "partial",
+      "reviewedAt": "2026-10-06",
+      "note": "Task 2의 첫 안전 구간으로 m6 001-010 canonical card slot을 실제 카드 일러스트 기준 12개 테마 전수검수했다. 기존 테마 DB와 역대조 후 누락 슬롯만 추가했으며 이 구간은 조사·반영·중복검사까지 완료했다.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "001-010"
+      ],
+      "newlyAddedThemeSlotCount": 13,
+      "newlyAddedCards": [
+        "M6_001",
+        "M6_002",
+        "M6_003",
+        "M6_005",
+        "M6_006",
+        "M6_007",
+        "M6_008",
+        "M6_010",
+        "M6_009",
+        "M6_004"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "nextStart": "m6 011/076"
     }
   },
   "queue": {
@@ -625,9 +664,13 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "M6a",
+    "currentSet": "m6",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
-    "status": "stage-1-complete",
-    "note": "1단계 M6a strict exhaustive review 완료. 다음 세트/단계는 시작하지 않는다."
+    "status": "stage-2-in-progress",
+    "note": "Task 2 m6 001-010 안전 구간 완료. 011부터 이어서 검수한다.",
+    "currentTask": 2,
+    "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
+    "lastSafeCheckpoint": "m6 001-010",
+    "nextStart": "m6 011/076"
   }
 }

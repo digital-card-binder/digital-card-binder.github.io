@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 477,
-    "uniqueThemeCards": 383,
+    "themeCardSlots": 490,
+    "uniqueThemeCards": 393,
     "strictCompleteSetCount": 1,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 272,
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 50,
-      "setCount": 6,
+      "cardSlots": 58,
+      "setCount": 7,
       "rarities": [
         "AR",
         "C",
@@ -130,8 +130,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 64,
-      "setCount": 8,
+      "cardSlots": 67,
+      "setCount": 9,
       "rarities": [
         "AR",
         "C",
@@ -157,8 +157,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 13,
-      "setCount": 9,
+      "cardSlots": 14,
+      "setCount": 10,
       "rarities": [
         "AR",
         "C",
@@ -194,8 +194,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 27,
-      "setCount": 9,
+      "cardSlots": 28,
+      "setCount": 10,
       "rarities": [
         "AR",
         "C",
@@ -223,7 +223,7 @@
       "cardCount": 2133,
       "completeSetCount": 1,
       "remainingSetCount": 13,
-      "currentThemeSlots": 161
+      "currentThemeSlots": 174
     },
     {
       "era": "SV",
@@ -331,7 +331,7 @@
       "code": "m6",
       "name": "스톰에메랄다",
       "cardCount": 113,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "M",
@@ -1830,9 +1830,14 @@
       "cardCount": 113,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-06",
+      "themeHits": {
+        "season": 8,
+        "color": 3,
+        "reflections": 1,
+        "street": 1
+      }
     },
     {
       "era": "S",
