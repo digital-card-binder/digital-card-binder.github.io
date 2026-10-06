@@ -15,7 +15,7 @@
     <link rel="manifest" href="./manifest.webmanifest?v=a54b174a6bc6" />
     <link rel="stylesheet" href="./styles.css?v=6407d789f54f" />
     <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9" />
-    <link rel="stylesheet" href="./dashboard.css?v=4974b05f2adf" />
+    <link rel="stylesheet" href="./dashboard.css?v=theme-unified-20261006" />
     <link rel="stylesheet" href="./collector.css?v=ec5c03e67bd9" />
     <link rel="stylesheet" href="./news.css?v=4d1c8eac9aba" />
     <link rel="stylesheet" href="./pwa.css?v=a88f945c52db" />
@@ -346,23 +346,13 @@
           <div class="dashboard-theme-hub-link">
             <a href="./theme.html">전체 보기 →</a>
           </div>
-          <div class="dashboard-theme-feature-label">
-            <strong>대표 테마</strong>
-            <span>핵심 컬렉션</span>
-          </div>
           <div
             id="dashboard-theme-grid"
-            class="dashboard-collection-grid dashboard-collection-grid--theme"
+            class="dashboard-collection-grid dashboard-collection-grid--theme dashboard-collection-grid--theme-all"
+            aria-label="전체 테마 도감"
             aria-live="polite"
             aria-busy="true"
           ></div>
-          <div class="dashboard-theme-overview">
-            <div class="dashboard-theme-overview-heading">
-              <strong>전체 테마 한눈보기</strong>
-              <span id="dashboard-theme-overview-count">18개</span>
-            </div>
-            <nav id="dashboard-theme-chips" class="dashboard-theme-chips" aria-label="전체 테마 바로가기"></nav>
-          </div>
         </details>
 
         <section class="dashboard-utility-panel" aria-label="도움말 및 앱">
