@@ -1328,23 +1328,26 @@ test("stage 5 mobile precision preserves touch targets and narrow-screen grids",
   assert.match(homeCss, /[.]home-studio-canvas/);
 });
 
-test("series era filters use self-hosted identity logos without changing filter keys", async () => {
+test("series browsing uses self-hosted pack art without fake era logos", async () => {
   const page = await source("series.html");
-  const css = await source("series-era-thumbnails.css");
+  const client = await source("catalog.js");
+  const css = await source("catalog.css");
   const eraKeys = ["ALL", "M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"];
 
-  assert.match(page, /series-era-thumbnails[.]css[?]v=[0-9a-f]{12}/);
-  assert.equal([...page.matchAll(/class="era-card-thumb era-logo-thumb"/g)].length, eraKeys.length);
+  assert.doesNotMatch(page, /series-era-thumbnails[.]css/);
+  assert.doesNotMatch(page, /assets\/series\/logos\//);
+  assert.equal([...page.matchAll(/data-era="/g)].length, eraKeys.length);
   for (const era of eraKeys) {
     assert.match(page, new RegExp(`data-era="${era}"`));
   }
-  for (const asset of ["mega", "sv", "s", "sm", "xy", "bw", "dp", "adv", "origin"]) {
-    assert.match(page, new RegExp(`[.]\/assets\/series\/logos\/${asset}[.]svg`));
-  }
-  assert.doesNotMatch(page, /cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr/);
-  assert.match(css, /[.]era-logo-thumb/);
-  assert.match(css, /aspect-ratio: auto/);
-  assert.match(css, /object-fit: contain/);
+  assert.match(client, /SERIES_PACK_SPRITE_URL = "[.]\/assets\/packs\/pack-sprite[.]webp"/);
+  assert.match(client, /SERIES_LEGACY_PACK_IMAGE_MANIFEST_URL = "[.]\/assets\/packs\/legacy\/manifest[.]json"/);
+  assert.match(client, /m6: "[.]\/assets\/packs\/m6[.]webp"/);
+  assert.match(client, /m6a: "[.]\/assets\/packs\/m6a[.]webp"/);
+  assert.match(client, /function applySeriesPackVisual\(target, group\)/);
+  assert.match(client, /function seriesEraVisualGroups\(era, limit = 2\)/);
+  assert.match(css, /[.]series-era-pack-visual/);
+  assert.match(css, /[.]series-set-thumbnail[.]is-pack-art/);
 });
 
 test("current dashboard is the only production shell and carries the latest nav", async () => {
