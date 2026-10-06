@@ -1037,8 +1037,8 @@
     "m3": {
       "status": "partial",
       "reviewedAt": "2026-10-07",
-      "note": "Task 2 m3 니힐제로 001-040 실제 card.code 번호 범위를 자체 호스팅 modern 이미지 contact sheet 기준으로 12개 테마 전수검수. 기존 M3 sleeping 항목은 재조사하지 않고 누락 슬롯만 반영.",
-      "reviewedCardCount": 40,
+      "note": "Task 2 m3 니힐제로 001-080 actual card.code 번호를 자체 호스팅 modern 이미지 기준으로 순차 전수검수. 041-080은 기존 001-040 결과와 기존 sleeping 항목을 유지하고 누락 슬롯만 추가.",
+      "reviewedCardCount": 80,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -1054,9 +1054,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "001-040"
+        "001-040",
+        "041-080"
       ],
-      "newlyAddedThemeSlotCount": 48,
+      "newlyAddedThemeSlotCount": 90,
       "newlyAddedCards": [
         "M3_010",
         "M3_029",
@@ -1097,11 +1098,48 @@
         "M3_027",
         "M3_030",
         "M3_035",
-        "M3_037"
+        "M3_037",
+        "M3_062",
+        "M3_047",
+        "M3_049",
+        "M3_043",
+        "M3_044",
+        "M3_051",
+        "M3_053",
+        "M3_055",
+        "M3_056",
+        "M3_057",
+        "M3_059",
+        "M3_060",
+        "M3_064",
+        "M3_075",
+        "M3_041",
+        "M3_058",
+        "M3_063",
+        "M3_065",
+        "M3_066",
+        "M3_073",
+        "M3_074",
+        "M3_076",
+        "M3_077",
+        "M3_042",
+        "M3_045",
+        "M3_046",
+        "M3_048",
+        "M3_050",
+        "M3_052",
+        "M3_054",
+        "M3_061",
+        "M3_067",
+        "M3_068",
+        "M3_072",
+        "M3_078",
+        "M3_079",
+        "M3_080"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m3 041/080"
+      "nextStart": "m3 081/080"
     }
   },
   "queue": {
@@ -1124,10 +1162,10 @@
     "currentSet": "m3",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m3 001-040 안전 구간 완료. actual card.code 번호 기준 매핑.",
+    "note": "Task 2 m3 041-080 안전 구간 완료. actual card.code 번호 기준 매핑.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m3 001-040",
-    "nextStart": "m3 041/080"
+    "lastSafeCheckpoint": "m3 001-080",
+    "nextStart": "m3 081/080"
   }
 }
