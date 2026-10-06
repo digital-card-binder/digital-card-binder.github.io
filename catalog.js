@@ -341,7 +341,7 @@ function seriesPackVisual(group) {
 
   const individual = SERIES_INDIVIDUAL_PACK_IMAGES[code];
   if (individual) {
-    return { type: "image", src: individual };
+    return { type: "image", source: "individual", src: individual };
   }
 
   const spriteIndex = SERIES_PACK_SPRITE_INDEX.get(code);
@@ -350,6 +350,7 @@ function seriesPackVisual(group) {
     const row = Math.floor(spriteIndex / SERIES_PACK_SPRITE_COLUMNS);
     return {
       type: "sprite",
+      source: "sprite",
       src: SERIES_PACK_SPRITE_URL,
       x: SERIES_PACK_SPRITE_COLUMNS === 1
         ? 0
@@ -362,7 +363,7 @@ function seriesPackVisual(group) {
 
   const legacy = seriesLegacyPackImages.get(code);
   if (legacy) {
-    return { type: "image", src: legacy };
+    return { type: "image", source: "legacy", src: legacy };
   }
 
   return null;
@@ -373,6 +374,8 @@ function applySeriesPackVisual(target, group) {
   if (!target || !visual) return false;
 
   target.classList.add("is-pack-art");
+  if (visual.source) target.classList.add(`is-${visual.source}-pack-art`);
+  target.setAttribute("aria-hidden", "true");
   target.title = `${groupName(group)} · 팩 이미지`;
 
   if (visual.type === "image") {
@@ -789,7 +792,7 @@ function renderSeriesDashboard() {
     if (era === SERIES_ERA_ORDER[0]) {
       const newest = document.createElement("span");
       newest.className = "series-era-latest-badge";
-      newest.textContent = "최신 시리즈";
+      newest.textContent = "최신";
       meta.append(newest);
       button.classList.add("is-latest-era");
     }
