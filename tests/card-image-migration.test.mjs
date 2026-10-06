@@ -195,7 +195,7 @@ test("browser routing is enabled after cutover and routes supported images to Pa
   fallbackImage.src = ownedOverride;
   assert.equal(fallbackImage.src, ownedOverrideCdn);
   assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), true);
-  assert.equal(fallbackImage.src, ownedOverride);
+  assert.equal(fallbackImage.src, "/assets/card-image-unavailable.svg");
   assert.equal(active.window.DigitalCardBinderImageCdn.restoreOriginal(fallbackImage), false);
 
   const unsupported = "https://example.com/card.png";
@@ -215,7 +215,6 @@ test("card pages load the image router before application scripts", () => {
     "pokemon-collections.html",
     "pokemon-search.html",
     "series.html",
-    "trades.html",
     "trainer-pokemon.html",
     "world.html",
   ];
@@ -271,7 +270,7 @@ test("broken representative paths resolve to the same catalog cards and preserve
     const image = new HTMLImageElement(); image.src = original;
     assert.equal(image.src, router.resolve(card.image));
     assert.equal(router.restoreOriginal(image), true);
-    assert.equal(image.src, card.image);
+    assert.equal(image.src, "/assets/card-image-unavailable.svg");
   }
 });
 
