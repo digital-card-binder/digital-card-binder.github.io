@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 379,
-    "uniqueThemeCards": 306,
+    "themeCardSlots": 433,
+    "uniqueThemeCards": 353,
     "strictCompleteSetCount": 0,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 273,
@@ -66,7 +66,7 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 133,
+      "cardSlots": 135,
       "setCount": 66,
       "rarities": [
         "AR",
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 24,
+      "cardSlots": 29,
       "setCount": 7,
       "rarities": [
         "AR",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 18,
+      "cardSlots": 43,
       "setCount": 6,
       "rarities": [
         "AR",
@@ -129,11 +129,12 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 22,
+      "cardSlots": 36,
       "setCount": 8,
       "rarities": [
         "AR",
         "C",
+        "RR",
         "SAR",
         "U"
       ]
@@ -141,7 +142,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 15,
+      "cardSlots": 17,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -153,8 +154,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 12,
-      "setCount": 8,
+      "cardSlots": 13,
+      "setCount": 9,
       "rarities": [
         "AR",
         "C",
@@ -165,7 +166,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 12,
+      "cardSlots": 14,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -190,7 +191,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 22,
+      "cardSlots": 25,
       "setCount": 9,
       "rarities": [
         "AR",
@@ -219,7 +220,7 @@
       "cardCount": 2133,
       "completeSetCount": 0,
       "remainingSetCount": 14,
-      "currentThemeSlots": 63
+      "currentThemeSlots": 117
     },
     {
       "era": "SV",
@@ -1851,14 +1852,15 @@
       "status": "partial",
       "reviewedAt": "2026-10-05",
       "themeHits": {
-        "sleeping": 9,
+        "sleeping": 11,
         "connected": 6,
-        "night": 8,
-        "season": 5,
-        "color": 6,
-        "sunset": 3,
-        "food": 2,
-        "street": 10,
+        "night": 13,
+        "season": 30,
+        "color": 20,
+        "sunset": 5,
+        "reflections": 1,
+        "food": 4,
+        "street": 13,
         "cameo": 5
       }
     },
