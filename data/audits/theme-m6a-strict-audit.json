@@ -24,14 +24,20 @@
     "rarityScope": "all",
     "completionRule": "176개 canonical card slot 전체를 12개 테마 기준으로 판독하기 전에는 complete로 처리하지 않는다."
   },
-  "status": "in-progress",
+  "status": "complete",
   "currentVerifiedThemeSlots": {
-    "sleeping": 8,
-    "connected": 6,
-    "night": 3,
-    "season": 2,
-    "street": 2,
-    "cameo": 4
+    "sleeping": 11,
+    "connected": 10,
+    "evolution": 0,
+    "night": 15,
+    "season": 37,
+    "color": 48,
+    "sunset": 5,
+    "reflections": 1,
+    "food": 4,
+    "street": 15,
+    "work": 0,
+    "cameo": 6
   },
   "newlyAdded": [
     {
@@ -96,5 +102,228 @@
       "use": "M6a 126/127 ↔ English 149/150 artwork mapping"
     }
   ],
-  "remainingRule": "카메오 4장 추가는 확정 보강일 뿐 M6a 전수검수 완료를 뜻하지 않는다. 나머지 카드도 12개 테마 모두 확인한다."
+  "remainingRule": "M6a 176개 canonical card slot 전체를 12개 테마 기준으로 판독 완료했으며, 이후 M6a 카드 구성 또는 테마 수록이 변경되면 strict 재검수한다.",
+  "reviewedCardCount": 176,
+  "reviewedThemes": [
+    "sleeping",
+    "connected",
+    "evolution",
+    "night",
+    "season",
+    "color",
+    "sunset",
+    "reflections",
+    "food",
+    "street",
+    "work",
+    "cameo"
+  ],
+  "verifiedPartitions": [
+    {
+      "range": "001-103",
+      "scope": "main set / modern illustration",
+      "commit": "f92aab9fc34be00b1a344194c98dda073fe38b0b"
+    },
+    {
+      "range": "104-135",
+      "scope": "AR / SAR / FUR",
+      "commit": "62819db071a58c927e4612595989b6e51a751ef4"
+    },
+    {
+      "range": "136-165",
+      "scope": "classic reprint",
+      "commit": "c242289db6837884d95f862e275144b933cef379"
+    },
+    {
+      "range": "R/G/B + 169-176",
+      "scope": "RGB / energy",
+      "commit": "58729508547e93ae66055e3a652862398cb1f057"
+    }
+  ],
+  "verifiedThemeCards": {
+    "sleeping": [
+      "M6A_001",
+      "M6A_106",
+      "M6A_092",
+      "M6A_120",
+      "M6A_021",
+      "M6A_037",
+      "M6A_095",
+      "M6A_077",
+      "M6A_129",
+      "M6A_029",
+      "M6A_033"
+    ],
+    "connected": [
+      "M6A_105",
+      "M6A_107",
+      "M6A_108",
+      "M6A_115",
+      "M6A_117",
+      "M6A_120",
+      "M6A_126",
+      "M6A_127",
+      "M6A_151",
+      "M6A_152"
+    ],
+    "evolution": [],
+    "night": [
+      "M6A_127",
+      "M6A_122",
+      "M6A_077",
+      "M6A_070",
+      "M6A_071",
+      "M6A_115",
+      "M6A_116",
+      "M6A_131",
+      "M6A_004",
+      "M6A_039",
+      "M6A_062",
+      "M6A_066",
+      "M6A_090",
+      "M6A_151",
+      "M6A_152"
+    ],
+    "season": [
+      "M6A_106",
+      "M6A_122",
+      "M6A_003",
+      "M6A_074",
+      "M6A_099",
+      "M6A_001",
+      "M6A_002",
+      "M6A_004",
+      "M6A_011",
+      "M6A_012",
+      "M6A_013",
+      "M6A_016",
+      "M6A_017",
+      "M6A_019",
+      "M6A_027",
+      "M6A_029",
+      "M6A_033",
+      "M6A_035",
+      "M6A_037",
+      "M6A_040",
+      "M6A_041",
+      "M6A_044",
+      "M6A_052",
+      "M6A_056",
+      "M6A_073",
+      "M6A_091",
+      "M6A_093",
+      "M6A_094",
+      "M6A_095",
+      "M6A_096",
+      "M6A_104",
+      "M6A_114",
+      "M6A_121",
+      "M6A_129",
+      "M6A_130",
+      "M6A_143",
+      "M6A_165"
+    ],
+    "color": [
+      "M6A_005",
+      "M6A_109",
+      "M6A_112",
+      "M6A_123",
+      "M6A_125",
+      "M6A_132",
+      "M6A_007",
+      "M6A_023",
+      "M6A_024",
+      "M6A_034",
+      "M6A_047",
+      "M6A_048",
+      "M6A_054",
+      "M6A_055",
+      "M6A_059",
+      "M6A_060",
+      "M6A_063",
+      "M6A_079",
+      "M6A_081",
+      "M6A_087",
+      "M6A_111",
+      "M6A_114",
+      "M6A_118",
+      "M6A_126",
+      "M6A_127",
+      "M6A_128",
+      "M6A_129",
+      "M6A_130",
+      "M6A_131",
+      "M6A_134",
+      "M6A_135",
+      "M6A_141",
+      "M6A_144",
+      "M6A_156",
+      "M6A_160",
+      "M6A_162",
+      "M6A_163",
+      "M6A_R",
+      "M6A_G",
+      "M6A_B",
+      "M6A_169",
+      "M6A_170",
+      "M6A_171",
+      "M6A_172",
+      "M6A_173",
+      "M6A_174",
+      "M6A_175",
+      "M6A_176"
+    ],
+    "sunset": [
+      "M6A_089",
+      "M6A_117",
+      "M6A_119",
+      "M6A_008",
+      "M6A_068"
+    ],
+    "reflections": [
+      "M6A_022"
+    ],
+    "food": [
+      "M6A_075",
+      "M6A_110",
+      "M6A_042",
+      "M6A_044"
+    ],
+    "street": [
+      "M6A_110",
+      "M6A_120",
+      "M6A_075",
+      "M6A_109",
+      "M6A_115",
+      "M6A_116",
+      "M6A_117",
+      "M6A_119",
+      "M6A_124",
+      "M6A_133",
+      "M6A_025",
+      "M6A_078",
+      "M6A_100",
+      "M6A_111",
+      "M6A_131"
+    ],
+    "work": [],
+    "cameo": [
+      "M6A_106",
+      "M6A_126",
+      "M6A_127",
+      "M6A_133",
+      "M6A_124",
+      "M6A_104"
+    ]
+  },
+  "finalValidation": {
+    "themeSlots": 152,
+    "uniqueThemeCards": 113,
+    "duplicateWithinThemeCount": 0,
+    "unknownCardCodeCount": 0,
+    "zeroHitThemes": [
+      "evolution",
+      "work"
+    ]
+  }
 }
