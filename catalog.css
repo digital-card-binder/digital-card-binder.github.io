@@ -81,6 +81,8 @@ body:not(.series-dashboard-mode) .catalog-toolbar{margin-top:0}
 .series-era-meta{display:flex;align-items:center;gap:7px;min-width:0}
 .series-era-latest-badge{display:inline-flex;align-items:center;justify-content:center;min-height:19px;border-radius:999px;background:#e9f7f5;color:#0e796f;font-size:.5rem;font-weight:900;letter-spacing:-.02em;padding:2px 7px}
 .series-era-wordmark{display:block;max-width:100%;overflow:hidden;font-family:"Arial Black","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;font-size:1.08rem!important;font-weight:950!important;letter-spacing:-.065em;line-height:1.08;text-overflow:ellipsis;white-space:nowrap}
+.series-era-logo{display:block;width:min(210px,82%);height:46px;object-fit:contain;object-position:left center}
+.series-era-wordmark-fallback{display:none}
 .series-era-dashboard-card.is-latest-era{border-color:rgba(29,143,142,.34);box-shadow:0 8px 22px rgba(23,35,63,.07)}
 .series-era-dashboard-card[data-era="M"] .series-era-wordmark{background:linear-gradient(100deg,#087f86 0%,#2f87b7 42%,#6657c8 100%);color:transparent;-webkit-background-clip:text;background-clip:text}
 .series-era-dashboard-card[data-era="SV"] .series-era-wordmark{background:linear-gradient(100deg,#c23f5d 0%,#8e4fb5 52%,#4f5bb2 100%);color:transparent;-webkit-background-clip:text;background-clip:text}
@@ -97,6 +99,7 @@ body:not(.series-dashboard-mode) .catalog-toolbar{margin-top:0}
   .series-era-meta{gap:5px}
   .series-era-latest-badge{min-height:17px;font-size:.46rem;padding:1px 6px}
   .series-era-wordmark{font-size:.88rem!important;letter-spacing:-.055em}
+  .series-era-logo{width:min(150px,88%);height:36px}
 }
 
 /* Series identity treatment: collector-oriented, logo-inspired without copying any one app UI */
