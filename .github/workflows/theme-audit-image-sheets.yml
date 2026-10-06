@@ -1,0 +1,107 @@
+name: Theme audit image sheets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/theme-audit-image-sheets.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  sheets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore self-hosted modern card image archive
+        uses: actions/cache/restore@v4
+        with:
+          path: tmp/card-images/build/modern
+          key: theme-audit-modern-readonly-${{ github.run_id }}
+          restore-keys: |
+            card-images-v2-${{ runner.os }}-modern-
+            card-images-v1-${{ runner.os }}-modern-
+
+      - name: Install Pillow
+        run: python -m pip install --quiet "Pillow==12.3.0"
+
+      - name: Build M6-M3 contact sheets from restored archive only
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+          import json, math
+
+          root = Path("tmp/card-images/build/modern/data/wmimages/MEGA")
+          out = Path("tmp/theme-audit-sheets")
+          out.mkdir(parents=True, exist_ok=True)
+
+          ranges = {
+              "M6": (21, 113),
+              "M5": (1, 118),
+              "M4": (1, 120),
+              "M3": (1, 117),
+          }
+
+          series = json.loads(Path("data/series.json").read_text(encoding="utf-8"))
+          groups = {str(g.get("code","")).lower(): g for g in series}
+          meta = []
+
+          font = ImageFont.load_default()
+          cell_w, cell_h = 260, 390
+          cols, per_sheet = 5, 20
+
+          for set_code, (start, end) in ranges.items():
+              folder = root / set_code
+              if not folder.exists():
+                  raise SystemExit(f"missing restored archive folder: {folder}")
+              group = groups[set_code.lower()]
+              cards = {int(c["order"]): c for c in group["cards"]}
+              missing = []
+              for n in range(start, end + 1):
+                  p = folder / f"{set_code}_{n:03d}.webp"
+                  if not p.exists():
+                      missing.append(str(p))
+              if missing:
+                  raise SystemExit("missing cached audit images:\n" + "\n".join(missing[:30]))
+
+              for chunk_start in range(start, end + 1, per_sheet):
+                  nums = list(range(chunk_start, min(end, chunk_start + per_sheet - 1) + 1))
+                  rows = math.ceil(len(nums) / cols)
+                  sheet = Image.new("RGB", (cols * cell_w, rows * cell_h), "white")
+                  draw = ImageDraw.Draw(sheet)
+                  for i, n in enumerate(nums):
+                      card = cards[n]
+                      p = folder / f"{set_code}_{n:03d}.webp"
+                      with Image.open(p) as im:
+                          im = im.convert("RGB")
+                          im.thumbnail((240, 335), Image.Resampling.LANCZOS)
+                          x = (i % cols) * cell_w + (cell_w - im.width)//2
+                          y = (i // cols) * cell_h + 6
+                          sheet.paste(im, (x, y))
+                      label = f"{set_code} {n:03d}  {card.get('rarity','')}\n{card.get('name','')}"
+                      draw.multiline_text(((i%cols)*cell_w+8, (i//cols)*cell_h+345), label, fill="black", font=font, spacing=2)
+                      meta.append({
+                          "set": set_code.lower(),
+                          "order": n,
+                          "code": card.get("code"),
+                          "name": card.get("name"),
+                          "rarity": card.get("rarity"),
+                          "imageFile": str(p.relative_to(Path("tmp/card-images/build/modern"))),
+                      })
+                  sheet.save(out / f"{set_code}_{nums[0]:03d}-{nums[-1]:03d}.jpg", quality=92)
+
+          (out / "metadata.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+          print(f"created {len(list(out.glob('*.jpg')))} sheets for {len(meta)} cards")
+          PY
+
+      - name: Upload theme audit sheets
+        uses: actions/upload-artifact@v4
+        with:
+          name: theme-audit-m6-m3-${{ github.run_id }}
+          path: tmp/theme-audit-sheets
+          retention-days: 3
