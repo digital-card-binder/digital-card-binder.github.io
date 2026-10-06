@@ -748,8 +748,8 @@
     "m5": {
       "status": "partial",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2 m5 001-040 canonical card slot을 자체 호스팅 modern 이미지 아카이브 기준으로 12개 테마 전수검수 완료. 판정은 실제 이미지 번호 기준이며, M5의 order/카드번호 정렬 차이를 확인해 모든 반영 메타데이터를 실제 m5_XXX/081 카드번호 기준으로 교정했다.",
-      "reviewedCardCount": 40,
+      "note": "Task 2 m5 001-080을 자체 호스팅 이미지 기준으로 12개 테마 전수검수. 실제 card.code 번호를 기준으로 매핑하고 기존 테마 DB와 역대조하여 누락 슬롯만 반영.",
+      "reviewedCardCount": 80,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -765,9 +765,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "001-040"
+        "001-040",
+        "041-080"
       ],
-      "newlyAddedThemeSlotCount": 67,
+      "newlyAddedThemeSlotCount": 122,
       "newlyAddedCards": [
         "M5_001",
         "M5_002",
@@ -808,11 +809,46 @@
         "M5_028",
         "M5_031",
         "M5_034",
-        "M5_035"
+        "M5_035",
+        "M5_042",
+        "M5_044",
+        "M5_045",
+        "M5_048",
+        "M5_049",
+        "M5_050",
+        "M5_052",
+        "M5_057",
+        "M5_059",
+        "M5_060",
+        "M5_062",
+        "M5_064",
+        "M5_065",
+        "M5_066",
+        "M5_067",
+        "M5_068",
+        "M5_069",
+        "M5_075",
+        "M5_079",
+        "M5_043",
+        "M5_046",
+        "M5_053",
+        "M5_063",
+        "M5_080",
+        "M5_047",
+        "M5_051",
+        "M5_054",
+        "M5_055",
+        "M5_056",
+        "M5_061",
+        "M5_073",
+        "M5_074",
+        "M5_076",
+        "M5_077",
+        "M5_078"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m5 041/081"
+      "nextStart": "m5 081/081"
     }
   },
   "queue": {
@@ -835,10 +871,10 @@
     "currentSet": "m5",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "M5는 order와 printed card number가 일부 다르므로 이후 판독/반영은 반드시 card.code의 실제 번호 기준으로 처리.",
+    "note": "Task 2 m5 041-080 안전 구간 완료. 실제 card.code 기준 매핑 검증.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m5 001-040 (card-number metadata corrected)",
-    "nextStart": "m5 041/081"
+    "lastSafeCheckpoint": "m5 001-080",
+    "nextStart": "m5 081/081"
   }
 }
