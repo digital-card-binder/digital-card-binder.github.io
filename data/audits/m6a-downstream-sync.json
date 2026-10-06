@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-05",
+  "updatedAt": "2026-10-06",
   "set": {
     "code": "M6a",
     "name": "30th CELEBRATION",
@@ -32,15 +32,22 @@
       "note": "승인된 40명 작가 도감 범위 기준. M6a 원본 illustrator 메타데이터가 추가되면 재검수한다."
     },
     "artThemes": {
-      "status": "complete-for-verified-evidence",
-      "cardSlots": 21,
-      "uniqueCards": 16,
+      "status": "complete-strict-exhaustive-review",
+      "cardSlots": 152,
+      "uniqueCards": 113,
       "groups": {
-        "sleeping": 8,
-        "connected": 6,
-        "night": 3,
-        "season": 2,
-        "street": 2
+        "sleeping": 11,
+        "connected": 10,
+        "evolution": 0,
+        "night": 15,
+        "season": 37,
+        "color": 48,
+        "sunset": 5,
+        "reflections": 1,
+        "food": 4,
+        "street": 15,
+        "work": 0,
+        "cameo": 6
       }
     },
     "people": {
@@ -66,6 +73,6 @@
     "팩 도감의 M6a 항목 또는 낱팩 이미지가 빠지면 감사가 실패한다.",
     "포켓몬 컬렉션 M6a 48슬롯 중 하나라도 빠지거나 잘못 추가되면 감사가 실패한다.",
     "AR 104-123 20장 범위가 달라지면 감사가 실패한다.",
-    "승인 작가 범위의 M6a 35장 또는 검증된 테마 21슬롯이 달라지면 재검수를 요구한다."
+    "승인 작가 범위의 M6a 35장 또는 strict 장부의 테마 카드/슬롯 구성이 달라지면 재검수를 요구한다."
   ]
 }

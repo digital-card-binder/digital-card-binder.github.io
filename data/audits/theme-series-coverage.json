@@ -38,9 +38,9 @@
     "themeCount": 12,
     "themeCardSlots": 477,
     "uniqueThemeCards": 383,
-    "strictCompleteSetCount": 0,
+    "strictCompleteSetCount": 1,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 273,
+    "baselineRemainingSetCount": 272,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -221,8 +221,8 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 0,
-      "remainingSetCount": 14,
+      "completeSetCount": 1,
+      "remainingSetCount": 13,
       "currentThemeSlots": 161
     },
     {
@@ -325,13 +325,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "M6a",
-      "name": "30th CELEBRATION",
-      "cardCount": 176,
-      "status": "partial"
     },
     {
       "era": "M",
@@ -498,6 +491,13 @@
       "era": "SV",
       "code": "SVHM",
       "name": "스타터 덱&강화 세트 「미래의 미라이돈 ex」",
+      "cardCount": 61,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVHK",
+      "name": "스타터 덱&강화 세트 「고대의 코라이돈 ex」",
       "cardCount": 61,
       "status": "pending"
     }
@@ -1852,8 +1852,8 @@
       "cardCount": 176,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "partial",
-      "reviewedAt": "2026-10-05",
+      "status": "complete",
+      "reviewedAt": "2026-10-06",
       "themeHits": {
         "sleeping": 11,
         "connected": 10,

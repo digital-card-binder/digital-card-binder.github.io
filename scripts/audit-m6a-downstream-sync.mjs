@@ -16,6 +16,7 @@ const [
   arSupplement,
   artists,
   themes,
+  strictThemeAudit,
   people,
   trainerPokemon,
   fossil,
@@ -29,6 +30,7 @@ const [
   readJson("data/ar-supplement.json"),
   readJson("data/artists.json"),
   readJson("data/art-themes.json"),
+  readJson("data/audits/theme-m6a-strict-audit.json"),
   readJson("data/people.json"),
   readJson("data/trainer-pokemon.json"),
   readJson("data/fossil.json"),
@@ -109,27 +111,21 @@ assert.equal(
   "M6a artist-dex coverage changed; verify illustrator metadata and approved artist scope",
 );
 
-const requiredThemeCards = {
-  sleeping: ["M6A_001", "M6A_021", "M6A_037", "M6A_077", "M6A_092", "M6A_095", "M6A_106", "M6A_120"],
-  connected: ["M6A_105", "M6A_107", "M6A_108", "M6A_115", "M6A_117", "M6A_120"],
-  night: ["M6A_077", "M6A_122", "M6A_127"],
-  season: ["M6A_106", "M6A_122"],
-  street: ["M6A_110", "M6A_120"],
-};
+const strictThemes = Array.isArray(strictThemeAudit?.reviewedThemes)
+  ? strictThemeAudit.reviewedThemes.map(clean)
+  : [];
+assert.equal(strictThemeAudit?.status, "complete", "M6a strict theme audit must be complete");
+assert.equal(Number(strictThemeAudit?.reviewedCardCount), 176, "M6a strict audit must cover all 176 cards");
+assert.equal(Number(strictThemeAudit?.set?.canonicalCardCount), 176, "M6a strict audit canonical count drifted");
+assert.deepEqual(
+  [...strictThemes].sort(),
+  [...(strictThemeAudit?.strictPolicy?.themes || []).map(clean)].sort(),
+  "M6a strict audit reviewedThemes must cover all configured themes",
+);
+
+const expectedThemeCards = strictThemeAudit?.verifiedThemeCards || {};
 const themeGroups = list(themes, "groups");
 const themeM6aSlots = [];
-for (const [themeCode, required] of Object.entries(requiredThemeCards)) {
-  const group = themeGroups.find((item) => clean(item.code) === themeCode);
-  assert.ok(group, `theme group missing: ${themeCode}`);
-  const codes = new Set(
-    (group.cards || [])
-      .filter((card) => lower(card.set) === "m6a")
-      .map((card) => clean(card.code).toUpperCase()),
-  );
-  for (const code of required) {
-    assert.ok(codes.has(code), `M6a theme membership missing: ${themeCode} / ${code}`);
-  }
-}
 for (const group of themeGroups) {
   for (const card of group.cards || []) {
     if (lower(card.set) !== "m6a") continue;
@@ -139,7 +135,31 @@ for (const group of themeGroups) {
 themeM6aSlots.sort((a, b) =>
   a.theme.localeCompare(b.theme) || a.code.localeCompare(b.code)
 );
-assert.equal(themeM6aSlots.length, 21, "M6a theme-dex slot count changed; refresh audit evidence");
+
+for (const themeCode of strictThemes) {
+  const expected = [...(expectedThemeCards[themeCode] || [])]
+    .map((code) => clean(code).toUpperCase())
+    .sort();
+  const actual = themeM6aSlots
+    .filter((entry) => entry.theme === themeCode)
+    .map((entry) => entry.code)
+    .sort();
+  assert.deepEqual(
+    actual,
+    expected,
+    `M6a strict theme membership drifted: ${themeCode}`,
+  );
+}
+
+const expectedThemeSlotCount = strictThemes.reduce(
+  (sum, themeCode) => sum + (expectedThemeCards[themeCode] || []).length,
+  0,
+);
+assert.equal(
+  themeM6aSlots.length,
+  expectedThemeSlotCount,
+  "M6a theme-dex slot count drifted from strict audit ledger",
+);
 
 const uniqueThemeCards = new Set(themeM6aSlots.map((entry) => entry.code));
 
@@ -158,7 +178,7 @@ const fossilM6a = list(fossil, "groups")
 
 const audit = {
   schemaVersion: 1,
-  updatedAt: "2026-10-05",
+  updatedAt: "2026-10-06",
   set: {
     code: "M6a",
     name: "30th CELEBRATION",
@@ -190,11 +210,11 @@ const audit = {
       note: "승인된 40명 작가 도감 범위 기준. M6a 원본 illustrator 메타데이터가 추가되면 재검수한다.",
     },
     artThemes: {
-      status: "complete-for-verified-evidence",
+      status: "complete-strict-exhaustive-review",
       cardSlots: themeM6aSlots.length,
       uniqueCards: uniqueThemeCards.size,
       groups: Object.fromEntries(
-        Object.keys(requiredThemeCards).map((code) => [
+        strictThemes.map((code) => [
           code,
           themeM6aSlots.filter((entry) => entry.theme === code).length,
         ]),
@@ -223,7 +243,7 @@ const audit = {
     "팩 도감의 M6a 항목 또는 낱팩 이미지가 빠지면 감사가 실패한다.",
     "포켓몬 컬렉션 M6a 48슬롯 중 하나라도 빠지거나 잘못 추가되면 감사가 실패한다.",
     "AR 104-123 20장 범위가 달라지면 감사가 실패한다.",
-    "승인 작가 범위의 M6a 35장 또는 검증된 테마 21슬롯이 달라지면 재검수를 요구한다.",
+    "승인 작가 범위의 M6a 35장 또는 strict 장부의 테마 카드/슬롯 구성이 달라지면 재검수를 요구한다.",
   ],
 };
 
