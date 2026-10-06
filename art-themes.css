@@ -6,6 +6,7 @@
 .art-theme-selected-icon{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border-radius:15px;background:#17233f;color:#fff;font-size:22px}
 .art-theme-selected-summary strong{font-size:1.05rem}
 .art-theme-selected-summary p{display:block;max-width:780px;margin:4px 0 0;color:#6d778d;font-size:.72rem;line-height:1.5}
+body.collector-simple-dex .art-theme-selected-summary p{display:-webkit-box!important;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;color:#6d778d;font-size:.68rem;line-height:1.45}
 .art-theme-selected-badge{flex:0 0 auto;border-radius:999px;background:#eee9ff;color:#654fb3;font-size:.58rem;font-weight:900;letter-spacing:.08em;padding:7px 10px}
 .art-theme-filter-panel{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:12px;align-items:end;margin:14px 0}
 .art-theme-search-field{display:grid;gap:6px}
