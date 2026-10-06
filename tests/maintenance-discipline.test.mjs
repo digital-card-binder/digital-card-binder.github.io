@@ -45,17 +45,14 @@ test("PWA service-worker registration has a single owner", () => {
   assert.deepEqual(owners, ["pwa.js"]);
 });
 
-test("dynamic trade helper follows centralized build versioning", () => {
+test("retired trade helpers stay out of production versioning", () => {
   const nav = read("collector-nav.js");
   const sync = read("scripts/sync-site-versions.mjs");
   const manifest = JSON.parse(read("site-version.json"));
 
-  assert.match(nav, /trade-offer[.]js[?]v=[$][{]SITE_BUILD_VERSION[}]/);
-  assert.doesNotMatch(nav, /20260821-4/);
-  assert.match(sync, /EXTRA_ASSETS[\s\S]*trade-offer[.]js/);
-  assert.doesNotMatch(sync, /collection-history[.]js/);
-  assert.ok(sync.includes("for (const asset of EXTRA_ASSETS) assets.add(asset);"));
-  assert.equal(manifest.assets["trade-offer.js"], gitBlobVersion(read("trade-offer.js")));
+  assert.doesNotMatch(nav, /trade-offer[.]js/);
+  assert.doesNotMatch(sync, /trade-offer[.]js/);
+  assert.equal(manifest.assets["trade-offer.js"], undefined);
   assert.equal(manifest.assets["collection-history.js"], undefined);
   assert.doesNotMatch(nav, /collection-history[.]js/);
 });
