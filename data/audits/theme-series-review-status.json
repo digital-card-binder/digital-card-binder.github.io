@@ -610,8 +610,8 @@
     "m6": {
       "status": "partial",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2의 첫 안전 구간으로 m6 001-010 canonical card slot을 실제 카드 일러스트 기준 12개 테마 전수검수했다. 기존 테마 DB와 역대조 후 누락 슬롯만 추가했으며 이 구간은 조사·반영·중복검사까지 완료했다.",
-      "reviewedCardCount": 10,
+      "note": "Task 2에서 m6 001-020 canonical card slot을 12개 테마 기준으로 순차 전수검수했다. 001-010 완료분은 재조사하지 않았고, 011-020은 카드 일러스트를 판독한 뒤 기존 테마 DB와 역대조하여 누락 슬롯만 반영했다.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -627,9 +627,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "001-010"
+        "001-010",
+        "011-020"
       ],
-      "newlyAddedThemeSlotCount": 13,
+      "newlyAddedThemeSlotCount": 24,
       "newlyAddedCards": [
         "M6_001",
         "M6_002",
@@ -640,11 +641,21 @@
         "M6_008",
         "M6_010",
         "M6_009",
-        "M6_004"
+        "M6_004",
+        "M6_011",
+        "M6_012",
+        "M6_013",
+        "M6_014",
+        "M6_016",
+        "M6_017",
+        "M6_018",
+        "M6_019",
+        "M6_020",
+        "M6_015"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
-      "nextStart": "m6 011/076"
+      "nextStart": "m6 021/076"
     }
   },
   "queue": {
@@ -667,10 +678,10 @@
     "currentSet": "m6",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m6 001-010 안전 구간 완료. 011부터 이어서 검수한다.",
+    "note": "Task 2 m6 011-020 안전 구간 완료. 001-020 누적 체크포인트 저장. 다음 시작은 021.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m6 001-010",
-    "nextStart": "m6 011/076"
+    "lastSafeCheckpoint": "m6 001-020",
+    "nextStart": "m6 021/076"
   }
 }
