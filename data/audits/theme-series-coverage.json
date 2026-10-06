@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 777,
-    "uniqueThemeCards": 601,
+    "themeCardSlots": 862,
+    "uniqueThemeCards": 660,
     "strictCompleteSetCount": 3,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 270,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 56,
-      "setCount": 9,
+      "cardSlots": 65,
+      "setCount": 10,
       "rarities": [
         "AR",
         "C",
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 169,
-      "setCount": 8,
+      "cardSlots": 204,
+      "setCount": 9,
       "rarities": [
         "AR",
         "C",
@@ -132,8 +132,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 161,
-      "setCount": 10,
+      "cardSlots": 188,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 61,
-      "setCount": 11,
+      "cardSlots": 75,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -230,7 +230,7 @@
       "cardCount": 2133,
       "completeSetCount": 3,
       "remainingSetCount": 11,
-      "currentThemeSlots": 461
+      "currentThemeSlots": 546
     },
     {
       "era": "SV",
@@ -338,7 +338,7 @@
       "code": "m4",
       "name": "닌자스피너",
       "cardCount": 120,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "M",
@@ -1813,10 +1813,14 @@
       "cardCount": 120,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-06",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 9,
+        "season": 35,
+        "color": 27,
+        "street": 14
       }
     },
     {
