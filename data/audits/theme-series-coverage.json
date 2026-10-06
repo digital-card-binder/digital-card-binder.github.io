@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 862,
-    "uniqueThemeCards": 660,
-    "strictCompleteSetCount": 3,
+    "themeCardSlots": 951,
+    "uniqueThemeCards": 716,
+    "strictCompleteSetCount": 4,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 270,
+    "baselineRemainingSetCount": 269,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 65,
+      "cardSlots": 75,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 204,
+      "cardSlots": 222,
       "setCount": 9,
       "rarities": [
         "AR",
@@ -132,7 +132,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 188,
+      "cardSlots": 229,
       "setCount": 11,
       "rarities": [
         "AR",
@@ -150,8 +150,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 22,
-      "setCount": 12,
+      "cardSlots": 24,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -174,8 +174,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 15,
-      "setCount": 11,
+      "cardSlots": 16,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -199,7 +199,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 75,
+      "cardSlots": 92,
       "setCount": 12,
       "rarities": [
         "AR",
@@ -228,9 +228,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 3,
-      "remainingSetCount": 11,
-      "currentThemeSlots": 546
+      "completeSetCount": 4,
+      "remainingSetCount": 10,
+      "currentThemeSlots": 635
     },
     {
       "era": "SV",
@@ -332,13 +332,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m4",
-      "name": "닌자스피너",
-      "cardCount": 120,
-      "status": "partial"
     },
     {
       "era": "M",
@@ -506,6 +499,13 @@
       "code": "SVJL",
       "name": "배틀 마스터 덱 「테라스탈 리자몽 ex」",
       "cardCount": 22,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVJP",
+      "name": "배틀 마스터 덱 「파오젠 ex」",
+      "cardCount": 20,
       "status": "pending"
     }
   ],
@@ -1813,14 +1813,16 @@
       "cardCount": 120,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-06",
       "themeHits": {
         "sleeping": 1,
-        "night": 9,
-        "season": 35,
-        "color": 27,
-        "street": 14
+        "night": 19,
+        "season": 53,
+        "color": 68,
+        "sunset": 2,
+        "food": 1,
+        "street": 31
       }
     },
     {
