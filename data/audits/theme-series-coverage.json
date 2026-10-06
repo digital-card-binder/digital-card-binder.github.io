@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1041,
-    "uniqueThemeCards": 793,
-    "strictCompleteSetCount": 4,
+    "themeCardSlots": 1093,
+    "uniqueThemeCards": 827,
+    "strictCompleteSetCount": 5,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 269,
+    "baselineRemainingSetCount": 268,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 80,
+      "cardSlots": 81,
       "setCount": 11,
       "rarities": [
         "AR",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 255,
+      "cardSlots": 262,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -132,7 +132,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 255,
+      "cardSlots": 286,
       "setCount": 12,
       "rarities": [
         "AR",
@@ -150,7 +150,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 28,
+      "cardSlots": 29,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -174,8 +174,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 16,
-      "setCount": 12,
+      "cardSlots": 17,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -199,7 +199,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 112,
+      "cardSlots": 122,
       "setCount": 13,
       "rarities": [
         "AR",
@@ -212,8 +212,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 15,
-      "setCount": 8,
+      "cardSlots": 16,
+      "setCount": 9,
       "rarities": [
         "AR",
         "C",
@@ -228,9 +228,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 4,
-      "remainingSetCount": 10,
-      "currentThemeSlots": 725
+      "completeSetCount": 5,
+      "remainingSetCount": 9,
+      "currentThemeSlots": 777
     },
     {
       "era": "SV",
@@ -332,13 +332,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m3",
-      "name": "니힐제로",
-      "cardCount": 117,
-      "status": "partial"
     },
     {
       "era": "M",
@@ -506,6 +499,13 @@
       "code": "SVJP",
       "name": "배틀 마스터 덱 「파오젠 ex」",
       "cardCount": 20,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVK",
+      "name": "배틀 강화 BOX 「스텔라미라클」",
+      "cardCount": 52,
       "status": "pending"
     }
   ],
@@ -1800,16 +1800,18 @@
       "cardCount": 117,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "partial",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 3,
-        "night": 5,
-        "season": 33,
-        "color": 26,
-        "sunset": 4,
+        "night": 6,
+        "season": 40,
+        "color": 57,
+        "sunset": 5,
         "reflections": 1,
-        "street": 20
+        "food": 1,
+        "street": 30,
+        "cameo": 1
       }
     },
     {
