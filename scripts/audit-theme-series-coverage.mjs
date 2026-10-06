@@ -35,8 +35,8 @@ function inferEra(group) {
   if (/^(bw|ebb|sc|dc|bd|td|fs|btv|bg|pbg|bkr|gbr|szd|kd|ppd|mg-|k\+k)/.test(code)) return "BW";
   if (/^(xy|cp|20th|ubd|rbd|x30|y30|fxy)/.test(code)) return "XY";
   if (/^(sm|smp)/.test(code)) return "SM";
-  if (code === "sd" || /^s\d/.test(code) || /^s[-a-z]/.test(code)) return "S";
   if (code.startsWith("sv") || /^cl[flk]$/.test(code)) return "SV";
+  if (code === "sd" || /^s\d/.test(code) || /^s[-a-z]/.test(code)) return "S";
   if (code.startsWith("m")) return "M";
   return "UNKNOWN";
 }
