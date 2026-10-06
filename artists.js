@@ -5,6 +5,7 @@ const $=id=>document.getElementById(id);
 
 let dataset=null;
 let selectedArtist=null;
+let artistOrder=[];
 let statusFilter="all";
 let searchQuery="";
 let sortMode="order";
@@ -36,22 +37,67 @@ const compareArtistNames=(a,b)=>{
     ||left.localeCompare(right,"en",{sensitivity:"variant",numeric:true});
 };
 
+function syncArtistStepButtons(){
+  const prev=$("artist-prev");
+  const next=$("artist-next");
+  if(!prev||!next||!artistOrder.length||!selectedArtist)return;
+
+  const index=artistOrder.findIndex(artist=>artist.name===selectedArtist.name);
+  const prevArtist=artistOrder[(index-1+artistOrder.length)%artistOrder.length];
+  const nextArtist=artistOrder[(index+1)%artistOrder.length];
+
+  prev.disabled=artistOrder.length<2;
+  next.disabled=artistOrder.length<2;
+  prev.title=prevArtist?`이전 · ${prevArtist.name}`:"이전 작가";
+  next.title=nextArtist?`다음 · ${nextArtist.name}`:"다음 작가";
+  prev.setAttribute("aria-label",prev.title);
+  next.setAttribute("aria-label",next.title);
+}
+
+function updateArtistUrl(){
+  if(!selectedArtist||typeof window.history?.replaceState!=="function")return;
+  const url=new URL(window.location.href);
+  url.searchParams.set("artist",selectedArtist.name);
+  window.history.replaceState(null,"",`${url.pathname}${url.search}${url.hash}`);
+}
+
+function chooseArtist(artist,{updateUrl=true}={}){
+  if(!artist)return;
+  selectedArtist=artist;
+  const select=$("artist-select");
+  if(select)select.value=artist.name;
+  if(updateUrl)updateArtistUrl();
+  syncArtistStepButtons();
+  render();
+}
+
+function stepArtist(offset){
+  if(!artistOrder.length||!selectedArtist)return;
+  const index=artistOrder.findIndex(artist=>artist.name===selectedArtist.name);
+  const current=index>=0?index:0;
+  const nextIndex=(current+offset+artistOrder.length)%artistOrder.length;
+  chooseArtist(artistOrder[nextIndex]);
+}
+
 function populateArtists(){
   const select=$("artist-select");
-  const artists=[...dataset.artists].sort(compareArtistNames);
-  artists.forEach(artist=>{
+  artistOrder=[...dataset.artists].sort(compareArtistNames);
+  artistOrder.forEach(artist=>{
     const option=document.createElement("option");
     option.value=artist.name;
     option.textContent=`${artist.name} · ${artist.cards.length}장`;
     select.append(option);
   });
   const requestedArtist=new URLSearchParams(window.location.search).get("artist")||"";
-  selectedArtist=artists.find(artist=>artist.name===requestedArtist)||artists[0];
+  selectedArtist=artistOrder.find(artist=>artist.name===requestedArtist)||artistOrder[0];
   select.value=selectedArtist.name;
+  syncArtistStepButtons();
+
   select.addEventListener("change",()=>{
-    selectedArtist=dataset.artists.find(artist=>artist.name===select.value)??dataset.artists[0];
-    render();
+    chooseArtist(artistOrder.find(artist=>artist.name===select.value)||artistOrder[0]);
   });
+  $("artist-prev")?.addEventListener("click",()=>stepArtist(-1));
+  $("artist-next")?.addEventListener("click",()=>stepArtist(1));
 }
 
 function cardMatches(card){
