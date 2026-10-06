@@ -20,7 +20,7 @@ const DYNAMIC_MODULES = {
   "custom-loader.js": { marker: "DYNAMIC_ASSET_VERSIONS", assets: ["custom-public.js", "custom-granular-sharing.js", "custom.js", "custom-mobile-actions.js", "custom-sync.js"] },
   "print.js": { marker: "PRINT_ASSET_VERSIONS", assets: ["packs-promo-helper.js"] },
 };
-const EXTRA_ASSETS = Object.freeze(["trade-offer.js", ...Object.values(DYNAMIC_MODULES).flatMap((item) => item.assets)]);
+const EXTRA_ASSETS = Object.freeze([...Object.values(DYNAMIC_MODULES).flatMap((item) => item.assets)]);
 
 function hashText(text) {
   return createHash("sha256").update(text.replace(/\r\n/g, "\n"), "utf8").digest("hex").slice(0, 12);
