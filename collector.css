@@ -3143,6 +3143,14 @@ body.collector-simple-dex .collector-primary-selector .catalog-select select {
   font-size: .72rem;
 }
 
+body.collector-simple-dex[data-catalog="ar"] .catalog-toolbar {
+  grid-template-columns: 1fr;
+}
+
+body.collector-simple-dex[data-catalog="ar"] .catalog-toolbar .search-field {
+  width: 100%;
+}
+
 body.collector-simple-dex .collector-quick-controls {
   position: sticky;
   top: 76px;
