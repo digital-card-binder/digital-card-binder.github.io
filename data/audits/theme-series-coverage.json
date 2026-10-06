@@ -1,0 +1,3741 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-06",
+  "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
+  "policy": {
+    "masterSource": "data/series.json + data/series-legacy.json",
+    "koreanPrintsOnly": true,
+    "rarityScope": "all",
+    "themes": [
+      "sleeping",
+      "connected",
+      "evolution",
+      "night",
+      "season",
+      "color",
+      "sunset",
+      "reflections",
+      "food",
+      "street",
+      "work",
+      "cameo"
+    ],
+    "completeDefinition": "해당 한국판 세트의 모든 canonical card slot을 12개 테마 기준으로 확인하고, 해당 카드는 레어도와 무관하게 art-themes.json에 반영한 상태",
+    "multiThemeRule": "한 카드는 테마 적합 시 여러 독립 테마 도감에 동시에 수록할 수 있다.",
+    "japaneseReference": "일본판은 구조·일러스트 대조 참고용이며 한국판 존재 근거를 대신하지 않는다.",
+    "futureSetGate": "baseline 이후 추가된 신규 세트는 theme review가 complete가 아니면 CI 검증을 통과하지 못한다.",
+    "changedSetGate": "baseline 세트라도 canonical card slot 수가 기준보다 변하면 해당 세트를 다시 12개 테마 전수검수해 complete 처리하기 전까지 CI를 막는다."
+  },
+  "sourceFiles": [
+    "data/series.json",
+    "data/series-legacy.json",
+    "data/art-themes.json",
+    "data/audits/theme-series-review-status.json"
+  ],
+  "summary": {
+    "masterSetCount": 273,
+    "masterCardCount": 20243,
+    "themeCount": 12,
+    "themeCardSlots": 346,
+    "uniqueThemeCards": 286,
+    "strictCompleteSetCount": 0,
+    "baselineSetCount": 273,
+    "baselineRemainingSetCount": 273,
+    "incrementalSetCount": 0,
+    "incrementalIncompleteSetCount": 0,
+    "changedBaselineSetCount": 0,
+    "changedBaselineIncompleteSetCount": 0,
+    "unknownThemeSetReferenceCount": 0
+  },
+  "auditState": {
+    "status": "in-progress",
+    "completeDefinition": "세트 내 모든 canonical card slot을 12개 테마 기준으로 검수하고 reviewedCardCount와 reviewedThemes가 현재 마스터 DB와 일치해야 complete.",
+    "currentPriority": "M → SV → S → SM → XY → BW → DP → ADV → ORIGIN"
+  },
+  "incrementalGate": {
+    "status": "pass",
+    "rule": "2026-10-06 baseline 이후 신규 세트 또는 기존 세트 카드 수 변경은 해당 세트의 12테마 전수검수 complete 전까지 CI를 차단한다.",
+    "incrementalIncompleteSetCodes": [],
+    "changedBaselineIncompleteSetCodes": [],
+    "removedBaselineSetCodes": [],
+    "missingRequiredThemes": [],
+    "unexpectedThemes": [],
+    "unknownThemeSetReferenceCount": 0
+  },
+  "themes": [
+    {
+      "code": "sleeping",
+      "name": "잠자는 포켓몬",
+      "cardSlots": 132,
+      "setCount": 66,
+      "rarities": [
+        "AR",
+        "C",
+        "CHR",
+        "PROMO",
+        "R",
+        "SAR",
+        "SR",
+        "U"
+      ]
+    },
+    {
+      "code": "connected",
+      "name": "연결 일러스트",
+      "cardSlots": 71,
+      "setCount": 19,
+      "rarities": [
+        "AR",
+        "C",
+        "SAR",
+        "V"
+      ]
+    },
+    {
+      "code": "evolution",
+      "name": "진화 스토리",
+      "cardSlots": 31,
+      "setCount": 8,
+      "rarities": [
+        "AR",
+        "SAR"
+      ]
+    },
+    {
+      "code": "night",
+      "name": "밤 · 달빛",
+      "cardSlots": 19,
+      "setCount": 7,
+      "rarities": [
+        "AR",
+        "C",
+        "HR",
+        "R",
+        "SAR",
+        "U"
+      ]
+    },
+    {
+      "code": "season",
+      "name": "계절 · 풍경",
+      "cardSlots": 15,
+      "setCount": 6,
+      "rarities": [
+        "AR",
+        "C",
+        "R"
+      ]
+    },
+    {
+      "code": "color",
+      "name": "컬러 도감",
+      "cardSlots": 16,
+      "setCount": 7,
+      "rarities": [
+        "AR",
+        "C",
+        "U"
+      ]
+    },
+    {
+      "code": "sunset",
+      "name": "노을 · 골든아워",
+      "cardSlots": 12,
+      "setCount": 9,
+      "rarities": [
+        "AR",
+        "C",
+        "SAR",
+        "U"
+      ]
+    },
+    {
+      "code": "reflections",
+      "name": "반사 · 거울",
+      "cardSlots": 12,
+      "setCount": 8,
+      "rarities": [
+        "AR",
+        "C",
+        "SAR",
+        "U"
+      ]
+    },
+    {
+      "code": "food",
+      "name": "음식 · 먹는 포켓몬",
+      "cardSlots": 10,
+      "setCount": 9,
+      "rarities": [
+        "AR",
+        "C",
+        "SAR",
+        "SR",
+        "U"
+      ]
+    },
+    {
+      "code": "work",
+      "name": "일하는 포켓몬",
+      "cardSlots": 8,
+      "setCount": 3,
+      "rarities": [
+        "AR",
+        "C",
+        "R",
+        "U"
+      ]
+    },
+    {
+      "code": "street",
+      "name": "도시 · 스트리트",
+      "cardSlots": 14,
+      "setCount": 9,
+      "rarities": [
+        "AR",
+        "C",
+        "SAR",
+        "U"
+      ]
+    },
+    {
+      "code": "cameo",
+      "name": "카메오 · 숨은 포켓몬",
+      "cardSlots": 6,
+      "setCount": 6,
+      "rarities": [
+        "AR",
+        "C",
+        "U"
+      ]
+    }
+  ],
+  "eras": [
+    {
+      "era": "M",
+      "setCount": 14,
+      "cardCount": 2133,
+      "completeSetCount": 0,
+      "remainingSetCount": 14,
+      "currentThemeSlots": 30
+    },
+    {
+      "era": "SV",
+      "setCount": 28,
+      "cardCount": 1408,
+      "completeSetCount": 0,
+      "remainingSetCount": 28,
+      "currentThemeSlots": 5
+    },
+    {
+      "era": "S",
+      "setCount": 86,
+      "cardCount": 8141,
+      "completeSetCount": 0,
+      "remainingSetCount": 86,
+      "currentThemeSlots": 275
+    },
+    {
+      "era": "SM",
+      "setCount": 49,
+      "cardCount": 3950,
+      "completeSetCount": 0,
+      "remainingSetCount": 49,
+      "currentThemeSlots": 23
+    },
+    {
+      "era": "XY",
+      "setCount": 37,
+      "cardCount": 2313,
+      "completeSetCount": 0,
+      "remainingSetCount": 37,
+      "currentThemeSlots": 8
+    },
+    {
+      "era": "BW",
+      "setCount": 37,
+      "cardCount": 1477,
+      "completeSetCount": 0,
+      "remainingSetCount": 37,
+      "currentThemeSlots": 4
+    },
+    {
+      "era": "DP",
+      "setCount": 16,
+      "cardCount": 598,
+      "completeSetCount": 0,
+      "remainingSetCount": 16,
+      "currentThemeSlots": 1
+    },
+    {
+      "era": "ADV",
+      "setCount": 5,
+      "cardCount": 121,
+      "completeSetCount": 0,
+      "remainingSetCount": 5,
+      "currentThemeSlots": 0
+    },
+    {
+      "era": "ORIGIN",
+      "setCount": 1,
+      "cardCount": 102,
+      "completeSetCount": 0,
+      "remainingSetCount": 1,
+      "currentThemeSlots": 0
+    }
+  ],
+  "nextQueue": [
+    {
+      "era": "M",
+      "code": "M-P",
+      "name": "메가 진화 프로모",
+      "cardCount": 68,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "MA",
+      "name": "MEGA 프리미엄 트레이너 박스",
+      "cardCount": 51,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "MBG",
+      "name": "스타터 세트 MEGA 「메가팬텀 ex」",
+      "cardCount": 23,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "MBD",
+      "name": "스타터 세트 MEGA 「메가디안시 ex」",
+      "cardCount": 23,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "MC",
+      "name": "스타트 덱 100 배틀컬렉션",
+      "cardCount": 774,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "M6a",
+      "name": "30th CELEBRATION",
+      "cardCount": 176,
+      "status": "partial"
+    },
+    {
+      "era": "M",
+      "code": "m6",
+      "name": "스톰에메랄다",
+      "cardCount": 113,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m5",
+      "name": "어비스아이",
+      "cardCount": 118,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m4",
+      "name": "닌자스피너",
+      "cardCount": 120,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m3",
+      "name": "니힐제로",
+      "cardCount": 117,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m2a",
+      "name": "MEGA 드림 ex",
+      "cardCount": 250,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m2",
+      "name": "인페르노X",
+      "cardCount": 116,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m1L",
+      "name": "메가브레이브",
+      "cardCount": 92,
+      "status": "pending"
+    },
+    {
+      "era": "M",
+      "code": "m1S",
+      "name": "메가심포니아",
+      "cardCount": 92,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "CLL",
+      "name": "포켓몬 카드 게임 클래식 (리자몽)",
+      "cardCount": 34,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "CLK",
+      "name": "포켓몬 카드 게임 클래식 (거북왕)",
+      "cardCount": 34,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "CLF",
+      "name": "포켓몬 카드 게임 클래식 (이상해꽃)",
+      "cardCount": 34,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SV-P",
+      "name": "스칼렛&바이올렛 프로모 카드",
+      "cardCount": 248,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVAM",
+      "name": "스타터 세트 ex 「나오하&루카리오 ex」",
+      "cardCount": 25,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVAW",
+      "name": "스타터 세트 ex 「꾸왁스&따라큐 ex」",
+      "cardCount": 25,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVAL",
+      "name": "스타터 세트 ex 「뜨아거&전룡 ex」",
+      "cardCount": 23,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVB",
+      "name": "프리미엄 트레이너 박스 ex",
+      "cardCount": 36,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVC",
+      "name": "스타터 세트 ex 피카츄 스페셜 세트",
+      "cardCount": 22,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVP1",
+      "name": "ex 스페셜 세트",
+      "cardCount": 7,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVD",
+      "name": "ex 스타트 덱",
+      "cardCount": 147,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVF",
+      "name": "배틀 강화 BOX 「흑염의 지배자」",
+      "cardCount": 46,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVEL",
+      "name": "스타터 세트 테라스탈 「라우드본 ex」",
+      "cardCount": 21,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVEM",
+      "name": "스타터 세트 테라스탈 「뮤츠 ex」",
+      "cardCount": 21,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVG",
+      "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
+      "cardCount": 55,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVHM",
+      "name": "스타터 덱&강화 세트 「미래의 미라이돈 ex」",
+      "cardCount": 61,
+      "status": "pending"
+    }
+  ],
+  "sets": [
+    {
+      "era": "S",
+      "code": "s1W",
+      "name": "소드",
+      "cardCount": 75,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s1H",
+      "name": "실드",
+      "cardCount": 75,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s1a",
+      "name": "VMAX라이징",
+      "cardCount": 86,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s2",
+      "name": "반역크래시",
+      "cardCount": 115,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s2a",
+      "name": "폭염워커",
+      "cardCount": 86,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "season": 1,
+        "sunset": 1,
+        "street": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s3",
+      "name": "무한존",
+      "cardCount": 119,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "reflections": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s3a",
+      "name": "전설의 고동",
+      "cardCount": 94,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s4",
+      "name": "앙천의 볼트태클",
+      "cardCount": 121,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "food": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s4a",
+      "name": "샤이니스타 V",
+      "cardCount": 330,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s5I",
+      "name": "일격마스터",
+      "cardCount": 91,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "food": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s5R",
+      "name": "연격마스터",
+      "cardCount": 91,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "season": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s5a",
+      "name": "쌍벽의 파이터",
+      "cardCount": 96,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "season": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s6H",
+      "name": "백은의 랜스",
+      "cardCount": 95,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s6K",
+      "name": "칠흑의 가이스트",
+      "cardCount": 95,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s6a",
+      "name": "이브이 히어로즈",
+      "cardCount": 101,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "night": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s7D",
+      "name": "마천퍼펙트",
+      "cardCount": 90,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s7R",
+      "name": "창공스트림",
+      "cardCount": 90,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s8",
+      "name": "퓨전아츠",
+      "cardCount": 129,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s8a",
+      "name": "25th ANNIVERSARY COLLECTION",
+      "cardCount": 38,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "connected": 6
+      }
+    },
+    {
+      "era": "S",
+      "code": "s8b",
+      "name": "VMAX 클라이맥스",
+      "cardCount": 293,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3
+      }
+    },
+    {
+      "era": "S",
+      "code": "s9",
+      "name": "스타버스",
+      "cardCount": 127,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s9a",
+      "name": "배틀리전",
+      "cardCount": 93,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s10P",
+      "name": "스페이스 저글러",
+      "cardCount": 88,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10D",
+      "name": "타임게이저",
+      "cardCount": 88,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10a",
+      "name": "다크판타스마",
+      "cardCount": 99,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "s10b",
+      "name": "Pokémon GO",
+      "cardCount": 109,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3,
+        "night": 1,
+        "food": 1,
+        "street": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s11",
+      "name": "로스트어비스",
+      "cardCount": 127,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "s11a",
+      "name": "백열의 아르카나",
+      "cardCount": 94,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "s12",
+      "name": "패러다임트리거",
+      "cardCount": 125,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "s12a",
+      "name": "VSTAR 유니버스",
+      "cardCount": 262,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 7,
+        "connected": 13,
+        "night": 4,
+        "season": 9,
+        "color": 9,
+        "reflections": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm1S",
+      "name": "썬 컬렉션",
+      "cardCount": 73,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm1M",
+      "name": "문 컬렉션",
+      "cardCount": 73,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm1+",
+      "name": "썬&문",
+      "cardCount": 77,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm60A",
+      "name": "전력 배틀 스타터 세트 「루가루암 GX」",
+      "cardCount": 27,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm2K",
+      "name": "알로라의 햇빛",
+      "cardCount": 62,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm2L",
+      "name": "알로라의 달빛",
+      "cardCount": 62,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm2+",
+      "name": "새로운 시련",
+      "cardCount": 75,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm3H",
+      "name": "어둠을 밝힌 무지개",
+      "cardCount": 64,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm3N",
+      "name": "빛을 삼킨 어둠",
+      "cardCount": 64,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm3+",
+      "name": "빛나는 전설",
+      "cardCount": 91,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm4S",
+      "name": "각성의 용사",
+      "cardCount": 62,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm4A",
+      "name": "초차원의 침략자",
+      "cardCount": 62,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm4+",
+      "name": "GX 배틀부스트",
+      "cardCount": 125,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm5S",
+      "name": "울트라썬",
+      "cardCount": 78,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm5M",
+      "name": "울트라문",
+      "cardCount": 78,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm5+",
+      "name": "울트라포스",
+      "cardCount": 72,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm6",
+      "name": "금단의 빛",
+      "cardCount": 110,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm6a",
+      "name": "드래곤스톰",
+      "cardCount": 75,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm6b",
+      "name": "챔피언로드",
+      "cardCount": 86,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm7",
+      "name": "창공의 카리스마",
+      "cardCount": 112,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm7a",
+      "name": "플라스마 스파크",
+      "cardCount": 73,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm7b",
+      "name": "페어리라이즈",
+      "cardCount": 63,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm8",
+      "name": "버스트임팩트",
+      "cardCount": 111,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm8a",
+      "name": "다크오더",
+      "cardCount": 65,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "reflections": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm8b",
+      "name": "GX 울트라샤이니",
+      "cardCount": 250,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm9",
+      "name": "태그볼트",
+      "cardCount": 118,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm9a",
+      "name": "나이트유니슨",
+      "cardCount": 70,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm9b",
+      "name": "풀메탈월",
+      "cardCount": 69,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm10",
+      "name": "더블블레이즈",
+      "cardCount": 116,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm10a",
+      "name": "GG엔드",
+      "cardCount": 69,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm10b",
+      "name": "스카이레전드",
+      "cardCount": 69,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "smp2",
+      "name": "영화 스페셜 팩 「명탐정 피카츄」",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm11",
+      "name": "미라클트윈",
+      "cardCount": 115,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm11a",
+      "name": "리믹스바우트",
+      "cardCount": 80,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm11b",
+      "name": "드림리그",
+      "cardCount": 75,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm12",
+      "name": "얼터제네시스",
+      "cardCount": 117,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "cameo": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "sm12a",
+      "name": "TAG TEAM GX 태그올스타즈",
+      "cardCount": 235,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sunset": 1,
+        "street": 1
+      }
+    },
+    {
+      "era": "SM",
+      "code": "SMP",
+      "name": "썬&문 프로모 카드",
+      "cardCount": 249,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm30A",
+      "name": "썬&문 랜덤30장덱",
+      "cardCount": 89,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "sm60B",
+      "name": "전격 스타터 세트 「라이코 GX」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "sv1S",
+      "name": "스칼렛 ex",
+      "cardCount": 108,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2,
+        "connected": 3,
+        "evolution": 3,
+        "color": 1,
+        "food": 1,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv1V",
+      "name": "바이올렛 ex",
+      "cardCount": 108,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 4,
+        "connected": 3,
+        "evolution": 2,
+        "sunset": 1,
+        "food": 1,
+        "street": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv1a",
+      "name": "트리플렛비트",
+      "cardCount": 103,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3,
+        "connected": 7,
+        "evolution": 6,
+        "sunset": 1,
+        "reflections": 3,
+        "food": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv2D",
+      "name": "클레이버스트",
+      "cardCount": 99,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3,
+        "connected": 1,
+        "sunset": 3,
+        "food": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv2P",
+      "name": "스노해저드",
+      "cardCount": 99,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv2a",
+      "name": "포켓몬카드 151",
+      "cardCount": 210,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 4,
+        "evolution": 9,
+        "night": 7,
+        "color": 1,
+        "sunset": 1,
+        "reflections": 2,
+        "street": 3,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv3",
+      "name": "흑염의 지배자",
+      "cardCount": 141,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3,
+        "connected": 2,
+        "night": 1,
+        "reflections": 2,
+        "food": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv3a",
+      "name": "레이징서프",
+      "cardCount": 92,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2,
+        "connected": 5,
+        "evolution": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv4K",
+      "name": "고대의 포효",
+      "cardCount": 95,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "connected": 3,
+        "evolution": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv4M",
+      "name": "미래의 일섬",
+      "cardCount": 95,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "connected": 1,
+        "color": 1,
+        "sunset": 1,
+        "work": 1,
+        "street": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv4a",
+      "name": "샤이니트레져 ex",
+      "cardCount": 360,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "connected": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv5K",
+      "name": "와일드포스",
+      "cardCount": 100,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "connected": 5,
+        "evolution": 4,
+        "color": 1,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv5M",
+      "name": "사이버저지",
+      "cardCount": 100,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 3,
+        "work": 3
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv5a",
+      "name": "크림슨헤이즈",
+      "cardCount": 96,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1,
+        "connected": 3
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv6",
+      "name": "변환의 가면",
+      "cardCount": 133,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "connected": 1,
+        "season": 1,
+        "color": 1,
+        "reflections": 1,
+        "work": 4,
+        "cameo": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv6a",
+      "name": "나이트 원더러",
+      "cardCount": 94,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2,
+        "connected": 4,
+        "evolution": 3,
+        "night": 2,
+        "color": 2,
+        "reflections": 1,
+        "street": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv7",
+      "name": "스텔라미라클",
+      "cardCount": 135,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "connected": 1,
+        "food": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv7a",
+      "name": "낙원드래고나",
+      "cardCount": 94,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "connected": 4,
+        "sunset": 2,
+        "street": 2
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv8",
+      "name": "초전브레이커",
+      "cardCount": 138,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 4,
+        "connected": 2,
+        "sunset": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv8a",
+      "name": "테라스탈 페스타 ex",
+      "cardCount": 237,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "sv9",
+      "name": "sv9 도감",
+      "cardCount": 132,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 5
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv9a",
+      "name": "sv9a 도감",
+      "cardCount": 92,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv10",
+      "name": "sv10 도감",
+      "cardCount": 132,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv11B",
+      "name": "sv11B 도감",
+      "cardCount": 174,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 5
+      }
+    },
+    {
+      "era": "S",
+      "code": "sv11W",
+      "name": "sv11W 도감",
+      "cardCount": 174,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 4
+      }
+    },
+    {
+      "era": "M",
+      "code": "m1S",
+      "name": "메가심포니아",
+      "cardCount": 92,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "m1L",
+      "name": "메가브레이브",
+      "cardCount": 92,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "m2",
+      "name": "인페르노X",
+      "cardCount": 116,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "m2a",
+      "name": "MEGA 드림 ex",
+      "cardCount": 250,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "m3",
+      "name": "니힐제로",
+      "cardCount": 117,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "m4",
+      "name": "닌자스피너",
+      "cardCount": 120,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "M",
+      "code": "m5",
+      "name": "어비스아이",
+      "cardCount": 118,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "m6",
+      "name": "스톰에메랄다",
+      "cardCount": 113,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "sD",
+      "name": "sD 도감",
+      "cardCount": 31,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "M6a",
+      "name": "30th CELEBRATION",
+      "cardCount": 176,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "partial",
+      "reviewedAt": "2026-10-05",
+      "themeHits": {
+        "sleeping": 8,
+        "connected": 6,
+        "night": 3,
+        "season": 2,
+        "street": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "MC",
+      "name": "스타트 덱 100 배틀컬렉션",
+      "cardCount": 774,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "M",
+      "code": "MBD",
+      "name": "스타터 세트 MEGA 「메가디안시 ex」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "MBG",
+      "name": "스타터 세트 MEGA 「메가팬텀 ex」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "MA",
+      "name": "MEGA 프리미엄 트레이너 박스",
+      "cardCount": 51,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "M",
+      "code": "M-P",
+      "name": "메가 진화 프로모",
+      "cardCount": 68,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVOM",
+      "name": "스타터 세트 ex 「마리의 모르페코&오롱털 ex」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVOD",
+      "name": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVN",
+      "name": "배틀 강화 BOX 「배틀파트너즈」",
+      "cardCount": 53,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVM",
+      "name": "스타트 덱 Generations 스페셜 배틀 세트",
+      "cardCount": 183,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SV",
+      "code": "SVP2",
+      "name": "ex 스페셜 세트 ver.2",
+      "cardCount": 12,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVLS",
+      "name": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVLN",
+      "name": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVK",
+      "name": "배틀 강화 BOX 「스텔라미라클」",
+      "cardCount": 52,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVJP",
+      "name": "배틀 마스터 덱 「파오젠 ex」",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVJL",
+      "name": "배틀 마스터 덱 「테라스탈 리자몽 ex」",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVI",
+      "name": "배틀 아카데미",
+      "cardCount": 74,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVHK",
+      "name": "스타터 덱&강화 세트 「고대의 코라이돈 ex」",
+      "cardCount": 61,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVHM",
+      "name": "스타터 덱&강화 세트 「미래의 미라이돈 ex」",
+      "cardCount": 61,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVG",
+      "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
+      "cardCount": 55,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SV",
+      "code": "SVEM",
+      "name": "스타터 세트 테라스탈 「뮤츠 ex」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVEL",
+      "name": "스타터 세트 테라스탈 「라우드본 ex」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVF",
+      "name": "배틀 강화 BOX 「흑염의 지배자」",
+      "cardCount": 46,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVD",
+      "name": "ex 스타트 덱",
+      "cardCount": 147,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "SV",
+      "code": "SVP1",
+      "name": "ex 스페셜 세트",
+      "cardCount": 7,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVC",
+      "name": "스타터 세트 ex 피카츄 스페셜 세트",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVB",
+      "name": "프리미엄 트레이너 박스 ex",
+      "cardCount": 36,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVAL",
+      "name": "스타터 세트 ex 「뜨아거&전룡 ex」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVAW",
+      "name": "스타터 세트 ex 「꾸왁스&따라큐 ex」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SVAM",
+      "name": "스타터 세트 ex 「나오하&루카리오 ex」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "SV-P",
+      "name": "스칼렛&바이올렛 프로모 카드",
+      "cardCount": 248,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "SV",
+      "code": "CLF",
+      "name": "포켓몬 카드 게임 클래식 (이상해꽃)",
+      "cardCount": 34,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "CLK",
+      "name": "포켓몬 카드 게임 클래식 (거북왕)",
+      "cardCount": 34,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SV",
+      "code": "CLL",
+      "name": "포켓몬 카드 게임 클래식 (리자몽)",
+      "cardCount": 34,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SO",
+      "name": "스페셜 덱 세트 「리자몽 VSTAR VS 레쿠쟈 VMAX」",
+      "cardCount": 34,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SP6",
+      "name": "VSTAR 스페셜 세트",
+      "cardCount": 6,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SPD",
+      "name": "VSTAR&VMAX 하이클래스 덱 「테오키스」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SPZ",
+      "name": "VSTAR&VMAX 하이클래스 덱 「제라오라」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SLD",
+      "name": "스타터 세트 VSTAR 「다크라이」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SLL",
+      "name": "스타터 세트 VSTAR 「루카리오」",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SI",
+      "name": "스타트 덱 100",
+      "cardCount": 430,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "SN",
+      "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
+      "cardCount": 26,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "S8a-G",
+      "name": "「25th ANNIVERSARY GOLDEN BOX」",
+      "cardCount": 16,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SJ",
+      "name": "스페셜 덱 세트 「자시안·자마젠타 VS 무한다이노」",
+      "cardCount": 32,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "S8a-P",
+      "name": "프로모 카드 팩 25th ANNIVERSARY edition",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SP5",
+      "name": "스페셜 카드 세트 「뮤츠 V-UNION」 「개굴닌자 V-UNION」 「자시안 V-UNION」",
+      "cardCount": 13,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SH",
+      "name": "패밀리 포켓몬 카드 게임",
+      "cardCount": 59,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "S",
+      "code": "SP4",
+      "name": "VMAX 스페셜 세트 「이브이 히어로즈」",
+      "cardCount": 8,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SGG",
+      "name": "하이클래스 덱 「팬텀 VMAX」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SGI",
+      "name": "하이클래스 덱 「인텔리레온 VMAX」",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SP3",
+      "name": "「백은의 랜스&칠흑의 가이스트」 BOX",
+      "cardCount": 6,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SEK",
+      "name": "스타터 세트 VMAX 「거북왕」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SEF",
+      "name": "스타터 세트 VMAX 「이상해꽃」",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SP2",
+      "name": "VMAX 스페셜 세트",
+      "cardCount": 8,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SCR",
+      "name": "스타터 세트 VMAX 「리자몽」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SCD",
+      "name": "스타터 세트 VMAX 「오롱털」",
+      "cardCount": 21,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SP1",
+      "name": "자시안+자마젠타 BOX",
+      "cardCount": 8,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SB",
+      "name": "프리미엄 트레이너 박스 「소드&실드」",
+      "cardCount": 33,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SA-F",
+      "name": "스타터 세트 V 「격투」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SA-R",
+      "name": "스타터 세트 V 「불꽃」",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SA-G",
+      "name": "스타터 세트 V 「풀」",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SA-L",
+      "name": "스타터 세트 V 「번개」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "SA-W",
+      "name": "스타터 세트 V 「물」",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "S",
+      "code": "S-P",
+      "name": "소드&실드 프로모 카드",
+      "cardCount": 204,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMM",
+      "name": "스타터 세트 TAG TEAM GX",
+      "cardCount": 33,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SML",
+      "name": "패밀리 포켓몬 카드 게임",
+      "cardCount": 57,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMN",
+      "name": "파워업덱 BOX 「TAG TEAM GX」",
+      "cardCount": 44,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMK",
+      "name": "스타터 세트 롱스톤 GX·아쿠스타 GX",
+      "cardCount": 32,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMI",
+      "name": "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」",
+      "cardCount": 41,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SME",
+      "name": "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMD",
+      "name": "대전 세트 「지우 VS 로켓단」",
+      "cardCount": 30,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMC",
+      "name": "개조 스타터 세트 「카푸브루루 GX」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "SM",
+      "code": "SMA",
+      "name": "스타터세트 3종",
+      "cardCount": 60,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ORIGIN",
+      "code": "BASE",
+      "name": "Base Set",
+      "cardCount": 102,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1",
+      "name": "제1탄 확장팩",
+      "cardCount": 63,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-K",
+      "name": "구성완료스타터 나무지기덱",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-A",
+      "name": "구성완료스타터 아차모덱",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ADV",
+      "code": "ADV1-M",
+      "name": "구성완료스타터 물짱이덱",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "ADV",
+      "code": "ADVP",
+      "name": "ADV 프로모 카드",
+      "cardCount": 1,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS1",
+      "name": "모험의 시작",
+      "cardCount": 60,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS2",
+      "name": "불꽃 튀는 대결",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS3",
+      "name": "시공의 격돌",
+      "cardCount": 60,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS4",
+      "name": "또 다른 세계",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS5",
+      "name": "7개의 신비",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS6",
+      "name": "암흑의 초승달",
+      "cardCount": 60,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS7",
+      "name": "보이지 않는 힘",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS8",
+      "name": "화려한 전설",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS9",
+      "name": "호수의 기적",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "BS10",
+      "name": "고대의 수호자",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "CSD",
+      "name": "크레세리아 덱",
+      "cardCount": 14,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "DGD",
+      "name": "디아루가 덱",
+      "cardCount": 15,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "DRD",
+      "name": "다크라이 덱",
+      "cardCount": 13,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "PKD",
+      "name": "펄기아 덱",
+      "cardCount": 15,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "DP",
+      "code": "ST1",
+      "name": "DP 랜덤 구축덱",
+      "cardCount": 59,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "DP",
+      "code": "DPP",
+      "name": "DP 프로모 카드",
+      "cardCount": 22,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bb",
+      "name": "블랙 컬렉션",
+      "cardCount": 56,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW1-Bw",
+      "name": "화이트 컬렉션",
+      "cardCount": 56,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BD",
+      "name": "볼트로스 덱",
+      "cardCount": 16,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "TD",
+      "name": "토네로스 덱",
+      "cardCount": 16,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "FS",
+      "name": "BW 퍼스트 세트",
+      "cardCount": 40,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW2",
+      "name": "레드 컬렉션",
+      "cardCount": 72,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BTV",
+      "name": "배틀 체인지덱 비크티니 덱",
+      "cardCount": 24,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGc",
+      "name": "배틀 강화덱 - 코바르온 덱",
+      "cardCount": 16,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "PBG",
+      "name": "플라스마단 스페셜 세트",
+      "cardCount": 18,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGt",
+      "name": "배틀 강화덱 - 테라키온 덱",
+      "cardCount": 17,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGv",
+      "name": "배틀 강화덱 - 비리디온 덱",
+      "cardCount": 17,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bh",
+      "name": "헤일 블리자드",
+      "cardCount": 57,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW3-Bp",
+      "name": "사이코 드라이브",
+      "cardCount": 57,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW4",
+      "name": "다크러시",
+      "cardCount": 76,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BKR",
+      "name": "배틀 강화 60장 덱 - 레시라무 EX",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGZ",
+      "name": "배틀 강화 60장 덱 - 제크로무 EX",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "DC",
+      "name": "드래곤 컬렉션",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brn",
+      "name": "드래곤 블레이드",
+      "cardCount": 55,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW5-Brz",
+      "name": "드래곤 블라스트",
+      "cardCount": 55,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "GBR",
+      "name": "한카리아스 덱",
+      "cardCount": 18,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "SZD",
+      "name": "삼삼드래 덱",
+      "cardCount": 18,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bc",
+      "name": "콜드플레어",
+      "cardCount": 65,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW6-Bf",
+      "name": "프리즈볼트",
+      "cardCount": 65,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "KD",
+      "name": "트레이너 세트 「케르디오」",
+      "cardCount": 18,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW7",
+      "name": "플라스마게일",
+      "cardCount": 79,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "PPD",
+      "name": "플라스마단 파워 덱",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGB",
+      "name": "배틀 강화 60장 덱 - 블랙큐레무 EX",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BGW",
+      "name": "배틀 강화 60장 덱 - 화이트큐레무 EX",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brf",
+      "name": "스파이럴포스",
+      "cardCount": 58,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "BW8-Brn",
+      "name": "볼트너클",
+      "cardCount": 58,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "SC",
+      "name": "샤이니 컬렉션",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BW9",
+      "name": "메갈로캐논",
+      "cardCount": 86,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "K+K",
+      "name": "최강 폭류 덱 「거북왕 + 큐레무 EX」",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bg",
+      "name": "30장 덱 대전 게노세크트",
+      "cardCount": 17,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "MG-Bm",
+      "name": "30장 덱 대전 뮤츠",
+      "cardCount": 17,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "BW",
+      "code": "EBB",
+      "name": "EX 배틀 부스트",
+      "cardCount": 95,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "BW",
+      "code": "BWP",
+      "name": "BW 프로모 카드",
+      "cardCount": 72,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY",
+      "name": "THE BEST OF XY",
+      "cardCount": 188,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP6",
+      "name": "확장팩 BASE PACK 20th Anniversary",
+      "cardCount": 113,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP5",
+      "name": "환상 전설 드림 컬렉션",
+      "cardCount": 38,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Br",
+      "name": "냉혹한 반역자",
+      "cardCount": 59,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY11-Bb",
+      "name": "타오르는 투사",
+      "cardCount": 59,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP4",
+      "name": "프리미엄 챔피언팩",
+      "cardCount": 140,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY10",
+      "name": "초능력의 제왕",
+      "cardCount": 88,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYH",
+      "name": "메가 배틀 덱 「M다부니 EX」",
+      "cardCount": 27,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XYG",
+      "name": "퍼펙트 배틀 덱 「지가르데 EX」",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP3",
+      "name": "포켓심쿵 컬렉션",
+      "cardCount": 32,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "XY",
+      "code": "20th",
+      "name": "트레이너 세트 20th Anniversary",
+      "cardCount": 71,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY9",
+      "name": "천공의 분노",
+      "cardCount": 89,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYF",
+      "name": "콤보 덱 「골덕 BREAK +펄기아 EX」",
+      "cardCount": 17,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Bb",
+      "name": "푸른 충격",
+      "cardCount": 65,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "XY",
+      "code": "UBD",
+      "name": "덱 「음번 BREAK」",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "RBD",
+      "name": "덱 「라이츄 BREAK」",
+      "cardCount": 19,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY8-Br",
+      "name": "붉은 섬광",
+      "cardCount": 65,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYE",
+      "name": "대전 세트 「염무왕 EX vs 토게키스 EX」",
+      "cardCount": 26,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP2",
+      "name": "레전드 컬렉션",
+      "cardCount": 27,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY7",
+      "name": "밴디트링",
+      "cardCount": 97,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 1
+      }
+    },
+    {
+      "era": "XY",
+      "code": "XY6",
+      "name": "에메랄드 브레이크",
+      "cardCount": 91,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYD",
+      "name": "메가 배틀 덱 「M레쿠쟈 EX」",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "CP1",
+      "name": "마그마단vs아쿠아단 더블크라이시스",
+      "cardCount": 34,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bg",
+      "name": "가이아 볼케이노",
+      "cardCount": 80,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY5-Bt",
+      "name": "타이달스톰",
+      "cardCount": 80,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYC",
+      "name": "레전드 배틀 덱 「제르네아스 EX+이벨타르 EX」",
+      "cardCount": 25,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYB",
+      "name": "하이퍼 메탈 체인 덱 「디아루가 EX+킬가르도 EX」",
+      "cardCount": 20,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY4",
+      "name": "팬텀게이트",
+      "cardCount": 97,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY3",
+      "name": "라이징피스트",
+      "cardCount": 105,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYA",
+      "name": "메가 배틀 덱 「M리자몽 EX」",
+      "cardCount": 23,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY2",
+      "name": "와일드 블레이즈",
+      "cardCount": 90,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "X30",
+      "name": "제르네아스 덱",
+      "cardCount": 15,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "Y30",
+      "name": "이벨타르 덱",
+      "cardCount": 15,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY1-Bx",
+      "name": "X컬렉션",
+      "cardCount": 63,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XY1-By",
+      "name": "Y컬렉션",
+      "cardCount": 63,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "FXY",
+      "name": "XY 퍼스트 세트",
+      "cardCount": 42,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {}
+    },
+    {
+      "era": "XY",
+      "code": "XYP",
+      "name": "XY 프로모",
+      "cardCount": 191,
+      "origin": "baseline",
+      "changedSinceBaseline": false,
+      "status": "pending",
+      "reviewedAt": "",
+      "themeHits": {
+        "sleeping": 2
+      }
+    }
+  ],
+  "unknownThemeSetRefs": []
+}
