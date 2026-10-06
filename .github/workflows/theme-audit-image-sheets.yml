@@ -60,7 +60,7 @@ jobs:
               if not folder.exists():
                   raise SystemExit(f"missing restored archive folder: {folder}")
               group = groups[set_code.lower()]
-              cards = {int(c["order"]): c for c in group["cards"]}
+              cards = {int(str(c["code"]).split("_",1)[1].split("/",1)[0]): c for c in group["cards"]}
               missing = []
               for n in range(start, end + 1):
                   p = folder / f"{set_code}_{n:03d}.webp"

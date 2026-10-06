@@ -748,7 +748,7 @@
     "m5": {
       "status": "partial",
       "reviewedAt": "2026-10-06",
-      "note": "Task 2 m5 001-040 canonical card slot을 자체 호스팅 modern 이미지 아카이브 기준으로 12개 테마 전수검수하고 기존 테마 DB와 역대조하여 누락 슬롯만 반영.",
+      "note": "Task 2 m5 001-040 canonical card slot을 자체 호스팅 modern 이미지 아카이브 기준으로 12개 테마 전수검수 완료. 판정은 실제 이미지 번호 기준이며, M5의 order/카드번호 정렬 차이를 확인해 모든 반영 메타데이터를 실제 m5_XXX/081 카드번호 기준으로 교정했다.",
       "reviewedCardCount": 40,
       "reviewedThemes": [
         "sleeping",
@@ -835,10 +835,10 @@
     "currentSet": "m5",
     "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
     "status": "stage-2-in-progress",
-    "note": "Task 2 m5 001-040 안전 구간 완료. 다음 시작 041.",
+    "note": "M5는 order와 printed card number가 일부 다르므로 이후 판독/반영은 반드시 card.code의 실제 번호 기준으로 처리.",
     "currentTask": 2,
     "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "m5 001-040",
+    "lastSafeCheckpoint": "m5 001-040 (card-number metadata corrected)",
     "nextStart": "m5 041/081"
   }
 }
