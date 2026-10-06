@@ -158,12 +158,14 @@ function syncChooserButtons() {
         ? tpSelected?.name
         : tpSelected;
   const index = entries.findIndex((entry) => entry.value === selectedValue);
-  const current = index >= 0 ? index : -1;
-
   prev.disabled = count < 1;
   next.disabled = count < 1;
-  const prevEntry = entries[(current - 1 + count) % count] || entries.at(-1);
-  const nextEntry = entries[(current + 1 + count) % count] || entries[0];
+  const prevEntry = index >= 0
+    ? entries[(index - 1 + count) % count]
+    : entries[count - 1];
+  const nextEntry = index >= 0
+    ? entries[(index + 1) % count]
+    : entries[0];
   const noun = tpViewMode === "pokemon" ? "포켓몬" : "트레이너";
 
   prev.title = prevEntry ? `이전 · ${prevEntry.label}` : `이전 ${noun}`;
