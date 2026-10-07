@@ -38,9 +38,9 @@
     "themeCount": 12,
     "themeCardSlots": 3594,
     "uniqueThemeCards": 2146,
-    "strictCompleteSetCount": 9,
+    "strictCompleteSetCount": 10,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 264,
+    "baselineRemainingSetCount": 263,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -234,8 +234,8 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 9,
-      "remainingSetCount": 5,
+      "completeSetCount": 10,
+      "remainingSetCount": 4,
       "currentThemeSlots": 3277
     },
     {
@@ -331,13 +331,6 @@
       "name": "스타터 세트 MEGA 「메가디안시 ex」",
       "cardCount": 23,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "MC",
-      "name": "스타트 덱 100 배틀컬렉션",
-      "cardCount": 774,
-      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -512,6 +505,13 @@
       "code": "SVM",
       "name": "스타트 덱 Generations 스페셜 배틀 세트",
       "cardCount": 183,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVN",
+      "name": "배틀 강화 BOX 「배틀파트너즈」",
+      "cardCount": 53,
       "status": "pending"
     }
   ],
@@ -1962,7 +1962,7 @@
       "cardCount": 774,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
       "themeHits": {
         "sleeping": 10,
