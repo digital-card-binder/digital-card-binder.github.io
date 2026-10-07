@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3626,
-    "uniqueThemeCards": 2166,
-    "strictCompleteSetCount": 10,
+    "themeCardSlots": 3632,
+    "uniqueThemeCards": 2169,
+    "strictCompleteSetCount": 11,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 263,
+    "baselineRemainingSetCount": 262,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 158,
+      "cardSlots": 159,
       "setCount": 17,
       "rarities": [
         "AR",
@@ -119,7 +119,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 971,
+      "cardSlots": 973,
       "setCount": 16,
       "rarities": [
         "AR",
@@ -135,7 +135,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1630,
+      "cardSlots": 1633,
       "setCount": 18,
       "rarities": [
         "AR",
@@ -234,9 +234,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 10,
-      "remainingSetCount": 4,
-      "currentThemeSlots": 3309
+      "completeSetCount": 11,
+      "remainingSetCount": 3,
+      "currentThemeSlots": 3315
     },
     {
       "era": "SV",
@@ -324,13 +324,6 @@
       "name": "스타터 세트 MEGA 「메가팬텀 ex」",
       "cardCount": 23,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "MBD",
-      "name": "스타터 세트 MEGA 「메가디안시 ex」",
-      "cardCount": 23,
-      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -512,6 +505,13 @@
       "code": "SVN",
       "name": "배틀 강화 BOX 「배틀파트너즈」",
       "cardCount": 53,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVOD",
+      "name": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」",
+      "cardCount": 21,
       "status": "pending"
     }
   ],
@@ -1986,12 +1986,12 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
       "themeHits": {
-        "night": 2,
-        "season": 6,
-        "color": 20,
+        "night": 3,
+        "season": 8,
+        "color": 23,
         "food": 4
       }
     },
