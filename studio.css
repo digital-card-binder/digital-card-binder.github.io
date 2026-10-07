@@ -3269,6 +3269,7 @@ body[data-page="binder-studio"] {
 .studio-quick-actions>button>span,.studio-quick-action>span{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#eef3f6;color:#2f596e;font-size:.78rem;font-weight:850}
 .studio-quick-actions>button strong,.studio-quick-action strong{overflow:hidden;max-width:100%;color:inherit;font-size:.56rem;white-space:nowrap;text-overflow:ellipsis}
 .studio-quick-actions>button:disabled{opacity:.38;cursor:default}
+.studio-quick-actions>button.is-active{border-color:#55afbe;background:#eaf9fb;color:#165a6d;box-shadow:inset 0 0 0 1px rgba(85,175,190,.14)}
 .studio-quick-actions>button:not(:disabled):hover,.studio-quick-action:hover{border-color:#bfcfd9;background:#f3f7f9}
 .studio-custom-workspace:not(.is-advanced-open) .studio-advanced-card,.studio-custom-workspace:not(.is-advanced-open) .studio-custom-safe-note,.studio-custom-workspace:not(.is-advanced-open) .studio-custom-page-actions{display:none!important}
 .studio-custom-workspace:not(.is-advanced-open) .studio-step-heading>span,.studio-custom-workspace:not(.is-advanced-open) .studio-step-badge,.studio-custom-workspace:not(.is-advanced-open) .studio-help-button{display:none}
@@ -3284,7 +3285,7 @@ body[data-page="binder-studio"] {
 @media(max-width:690px){
 .studio-quick-editor{position:sticky;top:8px;z-index:18;gap:9px;margin-bottom:12px;padding:10px;border-radius:13px;box-shadow:0 8px 24px rgba(31,45,58,.10)}
 .studio-quick-editor-copy{display:block}.studio-quick-editor-copy strong{display:block;font-size:.78rem}.studio-quick-editor-copy span{display:block;margin-top:2px;font-size:.58rem;text-align:left}
-.studio-quick-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.studio-quick-actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .studio-quick-actions>button,.studio-quick-action{min-height:50px;border-radius:9px;padding:6px 4px}
 .studio-quick-actions>button>span,.studio-quick-action>span{width:22px;height:22px;border-radius:7px;font-size:.68rem}
 .studio-quick-actions>button strong,.studio-quick-action strong{font-size:.52rem}
@@ -3783,6 +3784,14 @@ body[data-page="binder-studio"] {
 
   .studio-custom-workspace:not(.is-advanced-open) .studio-custom-preview-wrap {
     margin-top: 10px;
+  }
+
+  .studio-custom-preview-wrap {
+    overflow-x: hidden;
+  }
+
+  .studio-custom-preview-stage {
+    margin-inline: auto;
   }
 
   .studio-custom-workspace:not(.is-advanced-open) .studio-quick-editor-copy strong {
