@@ -7180,9 +7180,190 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 081-090",
+          "cardNumbers": [
+            "081",
+            "082",
+            "083",
+            "090",
+            "091",
+            "092",
+            "084",
+            "085",
+            "086",
+            "093"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2_081",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_082",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_083",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_090",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [
+                "sleeping"
+              ],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_091",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street",
+                "work"
+              ],
+              "themesAdded": [
+                "color",
+                "street",
+                "work"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_092",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_084",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_085",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_086",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_093",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2 081/080 (canonical order 081)"
+      "nextStart": "m2 094/080 (canonical order 091)"
     }
   },
   "queue": {
@@ -7205,11 +7386,11 @@
     "currentSet": "m2",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2 canonical order 001-080 완료; 다음은 m2 081/080 (canonical order 081).",
+    "note": "Task 3 진행 중. m2 canonical order 001-090 완료; 다음은 m2 094/080 (canonical order 091).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-080 COMPLETE",
-    "nextStart": "m2 081/080 (canonical order 081)",
+    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-090 COMPLETE",
+    "nextStart": "m2 094/080 (canonical order 091)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
