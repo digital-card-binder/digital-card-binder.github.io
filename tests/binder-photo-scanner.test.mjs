@@ -202,3 +202,23 @@ test("scanned slot backgrounds stay as underlays when cards move over them", () 
   assert.match(studio, /targetUnderlay/);
   assert.match(studio, /slot\.type === "card" \? clean\(slot\.underlayImageId\) : ""/);
 });
+
+
+test("custom binder can move background tiles independently of cards", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../studio.html", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../studio.css", import.meta.url), "utf8");
+
+  assert.match(html, /id="studio-background-move-toggle"/);
+  assert.match(html, /배경 조각 이동 시작/);
+  assert.match(studio, /backgroundTileMoveMode: false/);
+  assert.match(studio, /function slotWithImageUnderlay\(/);
+  assert.match(studio, /function moveBackgroundTile\(/);
+  assert.match(studio, /function startBackgroundTileDrag\(/);
+  assert.match(studio, /state\.slots\[originIndex\] = slotWithImageUnderlay/);
+  assert.match(studio, /state\.slots\[targetIndex\] = slotWithImageUnderlay/);
+  assert.match(studio, /카드는 움직이지 않습니다/);
+  assert.match(css, /\.studio-custom-preview-stage\.is-background-move \.studio-custom-slot-layer/);
+  assert.match(css, /\.studio-custom-preview-stage\.is-background-move \.studio-custom-card-placement/);
+  assert.match(css, /\.studio-background-drag-ghost/);
+});
