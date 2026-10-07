@@ -154,7 +154,7 @@ public class BinderApplication extends Application implements Application.Activi
                         "message",
                         "새 버전이 준비되었습니다. 최신 버전으로 업데이트해 주세요.").trim();
                 String apkUrl = payload.optString("apkUrl", "").trim();
-                if (apkUrl.isEmpty()) return;
+                if (apkUrl.isEmpty() || !remoteFileAvailable(apkUrl)) return;
 
                 mainHandler.post(() -> showUpdateDialog(
                         activity,
@@ -180,6 +180,25 @@ public class BinderApplication extends Application implements Application.Activi
         } catch (PackageManager.NameNotFoundException ignored) {
             // 버전을 확인할 수 없으면 잘못된 업데이트 안내를 표시하지 않는다.
             return Long.MAX_VALUE;
+        }
+    }
+
+    private boolean remoteFileAvailable(String url) {
+        HttpURLConnection connection = null;
+        try {
+            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            connection.setUseCaches(false);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("Range", "bytes=0-0");
+            int status = connection.getResponseCode();
+            return status >= 200 && status < 300;
+        } catch (Throwable ignored) {
+            return false;
+        } finally {
+            if (connection != null) connection.disconnect();
         }
     }
 
