@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-180을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
-      "reviewedCardCount": 180,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-190을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
+      "reviewedCardCount": 190,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11349,9 +11349,10 @@
         "canonical-order 141-150",
         "canonical-order 151-160",
         "canonical-order 161-170",
-        "canonical-order 171-180"
+        "canonical-order 171-180",
+        "canonical-order 181-190"
       ],
-      "newlyAddedThemeSlotCount": 338,
+      "newlyAddedThemeSlotCount": 358,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -11532,7 +11533,17 @@
         "MC_177",
         "MC_178",
         "MC_179",
-        "MC_180"
+        "MC_180",
+        "MC_181",
+        "MC_182",
+        "MC_183",
+        "MC_184",
+        "MC_185",
+        "MC_186",
+        "MC_187",
+        "MC_188",
+        "MC_189",
+        "MC_190"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -14588,9 +14599,181 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 181-190",
+          "cardNumbers": [
+            "181",
+            "182",
+            "183",
+            "184",
+            "185",
+            "186",
+            "187",
+            "188",
+            "189",
+            "190"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_181",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_182",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_183",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_184",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_185",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_186",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_187",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_188",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_189",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_190",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 181/742 (canonical order 181)"
+      "nextStart": "MC 191/742 (canonical order 191)"
     }
   },
   "queue": {
@@ -14613,11 +14796,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-180 완료; 다음은 MC 181/742 (canonical order 181).",
+    "note": "Task 4 진행 중. MC canonical order 001-190 완료; 다음은 MC 191/742 (canonical order 191).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 171-180 COMPLETE",
-    "nextStart": "MC 181/742 (canonical order 181)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 181-190 COMPLETE",
+    "nextStart": "MC 191/742 (canonical order 191)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
