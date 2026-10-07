@@ -7361,9 +7361,173 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 091-100",
+          "cardNumbers": [
+            "094",
+            "095",
+            "087",
+            "088",
+            "089",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2_094",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_095",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_087",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_088",
+              "checked": true,
+              "themesMatched": [
+                "evolution",
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "evolution",
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_089",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_096",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_097",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_098",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_099",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_100",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2 094/080 (canonical order 091)"
+      "nextStart": "m2 101/080 (canonical order 101)"
     }
   },
   "queue": {
@@ -7386,11 +7550,11 @@
     "currentSet": "m2",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2 canonical order 001-090 완료; 다음은 m2 094/080 (canonical order 091).",
+    "note": "Task 3 진행 중. m2 canonical order 001-100 완료; 다음은 m2 101/080 (canonical order 101).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-090 COMPLETE",
-    "nextStart": "m2 094/080 (canonical order 091)",
+    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-100 COMPLETE",
+    "nextStart": "m2 101/080 (canonical order 101)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
