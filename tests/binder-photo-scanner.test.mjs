@@ -222,3 +222,21 @@ test("custom binder can move background tiles independently of cards", () => {
   assert.match(css, /\.studio-custom-preview-stage\.is-background-move \.studio-custom-card-placement/);
   assert.match(css, /\.studio-background-drag-ghost/);
 });
+
+
+test("mobile 4x4 preview fits and background move is available from quick editor", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../studio.html", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../studio.css", import.meta.url), "utf8");
+
+  assert.match(html, /id="studio-quick-background"/);
+  assert.match(html, /<strong>배경 이동<\/strong>/);
+  assert.match(studio, /const quickBackgroundButton = panel\.querySelector\("#studio-quick-background"\)/);
+  assert.match(studio, /quickBackgroundButton\?\.addEventListener\("click"/);
+  assert.match(studio, /window\.matchMedia\("\(max-width: 690px\)"\)\.matches/);
+  assert.match(studio, /availableWidth \/ logicalWidth/);
+  assert.match(studio, /applyStageGeometry\(\);\s*state\.placements\.forEach\(clampPlacement\)/);
+  assert.match(css, /@media\(max-width:690px\)[\s\S]*?\.studio-quick-actions\{grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.studio-custom-preview-wrap \{\s*overflow-x: hidden;/);
+  assert.match(css, /\.studio-custom-preview-stage\.is-background-move \.studio-custom-card-layer \{\s*z-index: 3;/);
+});
