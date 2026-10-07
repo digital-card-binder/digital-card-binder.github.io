@@ -1190,8 +1190,8 @@
     "m2a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m2a canonical order 001-220을 12개 테마 기준 전수판독 완료.",
-      "reviewedCardCount": 220,
+      "note": "Task 3 m2a canonical order 001-230을 12개 테마 기준 전수판독 완료.",
+      "reviewedCardCount": 230,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -1228,9 +1228,10 @@
         "canonical-order 181-190",
         "canonical-order 191-200",
         "canonical-order 201-210",
-        "canonical-order 211-220"
+        "canonical-order 211-220",
+        "canonical-order 221-230"
       ],
-      "newlyAddedThemeSlotCount": 413,
+      "newlyAddedThemeSlotCount": 424,
       "newlyAddedCards": [
         "M2a_001",
         "M2a_002",
@@ -1451,7 +1452,17 @@
         "M2a_220",
         "M2a_221",
         "M2a_213",
-        "M2a_214"
+        "M2a_214",
+        "M2a_215",
+        "M2a_222",
+        "M2a_223",
+        "M2a_224",
+        "M2a_225",
+        "M2a_226",
+        "M2a_227",
+        "M2a_234",
+        "M2a_235",
+        "M2a_236"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -5202,9 +5213,163 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 221-230",
+          "cardNumbers": [
+            "215",
+            "222",
+            "223",
+            "224",
+            "225",
+            "226",
+            "227",
+            "234",
+            "235",
+            "236"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2a_215",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_222",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_223",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_224",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_225",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_226",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_227",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_234",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_235",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_236",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2a 215/193 (canonical order 221)"
+      "nextStart": "m2a 228/193 (canonical order 231)"
     }
   },
   "queue": {
@@ -5227,11 +5392,11 @@
     "currentSet": "m2a",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2a canonical order 001-220 완료; 다음은 m2a 215/193 (canonical order 221).",
+    "note": "Task 3 진행 중. m2a canonical order 001-230 완료; 다음은 m2a 228/193 (canonical order 231).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-220 COMPLETE",
-    "nextStart": "m2a 215/193 (canonical order 221)",
+    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-230 COMPLETE",
+    "nextStart": "m2a 228/193 (canonical order 231)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
