@@ -1186,6 +1186,205 @@
       ],
       "heldCards": [],
       "nextStart": "task 3"
+    },
+    "m2a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-07",
+      "note": "Task 3 m2a MEGA 드림 ex의 첫 Atomic Batch 001-010을 한국 공식 카드 이미지 기준으로 12개 테마 전수판독하고, 기존 테마 DB 역대조 후 누락 슬롯만 반영.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "001-010"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "M2a_001",
+        "M2a_002",
+        "M2a_003",
+        "M2a_004",
+        "M2a_005",
+        "M2a_006",
+        "M2a_007",
+        "M2a_008",
+        "M2a_009",
+        "M2a_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "001-010",
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2a_001",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_002",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_003",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_004",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_005",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_006",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_007",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_008",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_009",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_010",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
+        }
+      ],
+      "nextStart": "m2a 011/193"
     }
   },
   "queue": {
@@ -1205,13 +1404,15 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "m3",
-    "method": "세트의 모든 canonical card slot을 12개 테마 기준으로 확인한 뒤 complete 처리",
-    "status": "stage-2-complete",
-    "note": "Task 2 COMPLETE. m6 113장, m5 118장, m4 120장, m3 117장 × 12테마 전수검수 및 누락 반영 완료.",
-    "currentTask": 2,
-    "currentTaskScope": "m6 / m5 / m4 / m3 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 2 COMPLETE (m6, m5, m4, m3)",
-    "nextStart": "task 3"
+    "currentSet": "m2a",
+    "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
+    "status": "stage-3-in-progress",
+    "note": "Task 3 진행 중. m2a 001-010 완료; 다음은 m2a 011부터.",
+    "currentTask": 3,
+    "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
+    "lastSafeCheckpoint": "TASK 3 m2a 001-010 COMPLETE",
+    "nextStart": "m2a 011/193",
+    "currentStage": 3,
+    "totalStages": 36
   }
 }
