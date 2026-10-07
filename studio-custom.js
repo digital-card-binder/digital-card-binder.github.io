@@ -461,22 +461,60 @@
     }));
   }
 
+  function normalizeCrop(value) {
+    const crop = value || {};
+    return {
+      x: Math.max(0, Math.min(1, Number(crop.x) || 0)),
+      y: Math.max(0, Math.min(1, Number(crop.y) || 0)),
+      width: Math.max(0.0001, Math.min(1, Number(crop.width) || 1)),
+      height: Math.max(0.0001, Math.min(1, Number(crop.height) || 1)),
+    };
+  }
+
   function normalizeSlot(value, index) {
     const type = ["card", "image"].includes(value?.type) ? value.type : "empty";
     const slot = { index, type };
     if (type === "card") {
       slot.placementId = clean(value?.placementId);
       slot.sourceKey = clean(value?.sourceKey);
+      const underlayImageId = clean(value?.underlayImageId);
+      if (underlayImageId) {
+        slot.underlayImageId = underlayImageId;
+        slot.underlayCrop = normalizeCrop(value?.underlayCrop);
+      }
     }
     if (type === "image") {
       slot.imageId = clean(value?.imageId);
-      const crop = value?.crop || {};
-      slot.crop = {
-        x: Math.max(0, Math.min(1, Number(crop.x) || 0)),
-        y: Math.max(0, Math.min(1, Number(crop.y) || 0)),
-        width: Math.max(0.0001, Math.min(1, Number(crop.width) || 1)),
-        height: Math.max(0.0001, Math.min(1, Number(crop.height) || 1)),
+      slot.crop = normalizeCrop(value?.crop);
+    }
+    return slot;
+  }
+
+  function imageUnderlaySlot(value, index) {
+    const slot = normalizeSlot(value, index);
+    if (slot.type === "image" && slot.imageId) return slot;
+    if (slot.type === "card" && slot.underlayImageId) {
+      return {
+        index,
+        type: "image",
+        imageId: slot.underlayImageId,
+        crop: normalizeCrop(slot.underlayCrop),
       };
+    }
+    return { index, type: "empty" };
+  }
+
+  function cardSlotWithUnderlay(index, entry, underlay) {
+    const slot = {
+      index,
+      type: "card",
+      placementId: entry.id,
+      sourceKey: clean(entry.card?.key),
+    };
+    const base = imageUnderlaySlot(underlay, index);
+    if (base.type === "image" && base.imageId) {
+      slot.underlayImageId = base.imageId;
+      slot.underlayCrop = normalizeCrop(base.crop);
     }
     return slot;
   }
@@ -605,20 +643,18 @@
     const { cols, rows } = selectedGrid();
     const count = cols * rows;
     const next = normalizeSlots(state.slots, count).map((slot) =>
-      slot.type === "card" ? { index: slot.index, type: "empty" } : slot
+      imageUnderlaySlot(slot, slot.index)
     );
+    const occupied = new Set();
     state.placements.forEach((entry) => {
       if (!Number.isInteger(entry.slotIndex) || entry.slotIndex < 0 || entry.slotIndex >= count) return;
-      if (next[entry.slotIndex]?.type !== "empty") {
+      if (occupied.has(entry.slotIndex)) {
         entry.slotIndex = null;
         return;
       }
-      next[entry.slotIndex] = {
-        index: entry.slotIndex,
-        type: "card",
-        placementId: entry.id,
-        sourceKey: clean(entry.card?.key),
-      };
+      const underlay = next[entry.slotIndex];
+      next[entry.slotIndex] = cardSlotWithUnderlay(entry.slotIndex, entry, underlay);
+      occupied.add(entry.slotIndex);
     });
     state.slots = next;
   }
@@ -1128,8 +1164,10 @@
   function pruneUnusedImages() {
     const used = new Set(
       state.slots
-        .filter((slot) => slot.type === "image")
-        .map((slot) => clean(slot.imageId))
+        .flatMap((slot) => [
+          slot.type === "image" ? clean(slot.imageId) : "",
+          slot.type === "card" ? clean(slot.underlayImageId) : "",
+        ])
         .filter(Boolean),
     );
     const keep = [];
@@ -1185,6 +1223,8 @@
       node.setAttribute("aria-label", `${slot.index + 1}번 슬롯 · ${slot.type}`);
       if (slot.type === "image") {
         applyCropStyle(node, imageSourceById(slot.imageId), slot.crop);
+      } else if (slot.type === "card" && slot.underlayImageId) {
+        applyCropStyle(node, imageSourceById(slot.underlayImageId), slot.underlayCrop);
       }
       node.addEventListener("click", (event) => {
         event.preventDefault();
@@ -2535,6 +2575,7 @@
 
   function replaceSlotWithCard(card, slotIndex, { render = true, select = true } = {}) {
     if (!card || slotIndex < 0 || slotIndex >= state.slots.length) return null;
+    const underlay = imageUnderlaySlot(state.slots[slotIndex], slotIndex);
     removeCardAtSlot(slotIndex);
     const geometry = slotGeometry(slotIndex);
     const entry = {
@@ -2562,12 +2603,7 @@
       slotIndex,
     };
     state.placements.push(entry);
-    state.slots[slotIndex] = {
-      index: slotIndex,
-      type: "card",
-      placementId: entry.id,
-      sourceKey: clean(card.key),
-    };
+    state.slots[slotIndex] = cardSlotWithUnderlay(slotIndex, entry, underlay);
     if (select) state.selectedId = entry.id;
     if (render) {
       state.selectedSlots.clear();
@@ -3081,10 +3117,7 @@
       }
     }
 
-    if (target?.type === "image") {
-      state.slots[targetIndex] = { index: targetIndex, type: "empty" };
-    }
-
+    // Keep scanned/custom image cells as an underlay when a card is placed on top.
     snapEntryToSlot(entry, targetIndex);
     syncSlotsFromPlacements();
     pruneUnusedImages();
@@ -3226,7 +3259,11 @@
       return false;
     }
 
+    const sourceUnderlay = resolvedOrigin >= 0
+      ? imageUnderlaySlot(source.slots[resolvedOrigin], resolvedOrigin)
+      : null;
     const targetSlot = target.slots[resolvedTarget];
+    const targetUnderlay = imageUnderlaySlot(targetSlot, resolvedTarget);
     const displaced = targetSlot?.type === "card" && targetSlot.placementId !== entry.id
       ? target.placements.find((item) => item.id === targetSlot.placementId) || null
       : null;
@@ -3253,7 +3290,7 @@
         source.slots[resolvedOrigin]?.type === "card" &&
         source.slots[resolvedOrigin]?.placementId === entry.id
       ) {
-        source.slots[resolvedOrigin] = { index: resolvedOrigin, type: "empty" };
+        source.slots[resolvedOrigin] = sourceUnderlay || { index: resolvedOrigin, type: "empty" };
       }
 
       if (displaced) {
@@ -3265,17 +3302,12 @@
           Math.max(0, ...(source.placements || []).map((item) => Number(item.z) || 0)) + 1,
         );
         source.placements.push(swapped);
-        source.slots[resolvedOrigin] = {
-          index: resolvedOrigin,
-          type: "card",
-          placementId: swapped.id,
-          sourceKey: clean(swapped.card?.key),
-        };
+        source.slots[resolvedOrigin] = cardSlotWithUnderlay(
+          resolvedOrigin,
+          swapped,
+          sourceUnderlay,
+        );
         source.nextZ = swapped.z + 1;
-      }
-
-      if (targetSlot?.type === "image") {
-        target.slots[resolvedTarget] = { index: resolvedTarget, type: "empty" };
       }
 
       const movedEntry = clonePlacement(entry);
@@ -3286,12 +3318,11 @@
       );
       target.placements = (target.placements || []).filter((item) => item.id !== movedEntry.id);
       target.placements.push(movedEntry);
-      target.slots[resolvedTarget] = {
-        index: resolvedTarget,
-        type: "card",
-        placementId: movedEntry.id,
-        sourceKey: clean(movedEntry.card?.key),
-      };
+      target.slots[resolvedTarget] = cardSlotWithUnderlay(
+        resolvedTarget,
+        movedEntry,
+        targetUnderlay,
+      );
       target.nextZ = movedEntry.z + 1;
 
       state.switchingPage = true;
@@ -4886,8 +4917,10 @@
       for (const page of state.pages) {
         const usedImageIds = new Set(
           (page.slots || [])
-            .filter((slot) => slot?.type === "image")
-            .map((slot) => clean(slot.imageId))
+            .flatMap((slot) => [
+              slot?.type === "image" ? clean(slot.imageId) : "",
+              slot?.type === "card" ? clean(slot.underlayImageId) : "",
+            ])
             .filter(Boolean),
         );
         page.images = (page.images || []).filter((image) => {
