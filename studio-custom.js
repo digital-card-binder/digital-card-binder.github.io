@@ -86,8 +86,10 @@
   const quickSlotStatus = panel.querySelector("#studio-quick-slot-status");
   const quickCardButton = panel.querySelector("#studio-quick-card");
   const quickSlotPhotoInput = panel.querySelector("#studio-quick-slot-photo");
+  const quickSlotPhotoAction = quickSlotPhotoInput?.closest(".studio-quick-action");
   const quickEmptyButton = panel.querySelector("#studio-quick-empty");
   const quickPageScanInput = panel.querySelector("#studio-quick-page-scan");
+  const quickPageScanAction = quickPageScanInput?.closest(".studio-quick-action");
   const quickVariantButton = panel.querySelector("#studio-quick-variant");
   const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
   const quickSourceButton = panel.querySelector("#studio-quick-source");
@@ -1790,6 +1792,104 @@
     return { x: 0, y: 0, width: 1, height: 1 };
   }
 
+  let quickMediaSourceDialog = null;
+
+  function ensureQuickMediaSourceDialog() {
+    if (quickMediaSourceDialog?.isConnected) return quickMediaSourceDialog;
+
+    const dialog = document.createElement("dialog");
+    dialog.className = "studio-card-add-dialog";
+    dialog.setAttribute("aria-labelledby", "studio-quick-media-title");
+    dialog.innerHTML = `
+      <div class="studio-card-add-sheet">
+        <div class="studio-card-add-head">
+          <div>
+            <span class="studio-kicker">PHOTO SOURCE</span>
+            <h2 id="studio-quick-media-title">사진 가져오기</h2>
+            <p data-quick-media-description>카메라로 바로 촬영하거나 앨범에서 사진을 선택하세요.</p>
+          </div>
+        </div>
+        <div class="studio-card-add-actions">
+          <button type="button" data-quick-media-source="album">앨범에서 선택</button>
+          <button class="primary-button" type="button" data-quick-media-source="camera">카메라 촬영</button>
+        </div>
+      </div>
+    `;
+
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      dialog.close();
+    });
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+        return;
+      }
+      const source = event.target.closest("[data-quick-media-source]")?.dataset.quickMediaSource;
+      if (!source) return;
+
+      const mode = dialog.dataset.quickMediaMode;
+      let input = null;
+      if (mode === "page") {
+        input = source === "camera" ? photoCameraInput : quickPageScanInput;
+      } else if (mode === "slot") {
+        input = quickSlotPhotoInput;
+        if (input) {
+          if (source === "camera") {
+            input.accept = "image/*";
+            input.setAttribute("capture", "environment");
+          } else {
+            input.accept = "image/png,image/jpeg,image/webp";
+            input.removeAttribute("capture");
+          }
+        }
+      }
+
+      if (!input) {
+        dialog.close();
+        window.alert("사진 입력 기능을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.");
+        return;
+      }
+
+      dialog.close();
+      input.value = "";
+      input.click();
+    });
+
+    document.body.append(dialog);
+    quickMediaSourceDialog = dialog;
+    return dialog;
+  }
+
+  function openQuickMediaSourceDialog(mode) {
+    if (mode === "slot" && quickSelectedSlotIndex() < 0) {
+      window.alert("먼저 사진을 넣을 바인더 칸을 눌러 선택해 주세요.");
+      return;
+    }
+
+    const dialog = ensureQuickMediaSourceDialog();
+    dialog.dataset.quickMediaMode = mode;
+    const title = dialog.querySelector("#studio-quick-media-title");
+    const description = dialog.querySelector("[data-quick-media-description]");
+    if (mode === "page") {
+      if (title) title.textContent = "페이지 스캔";
+      if (description) {
+        description.textContent = "바인더 페이지를 카메라로 촬영하거나 앨범에서 선택하세요. 촬영 후 네 모서리와 원근을 자동 보정합니다.";
+      }
+    } else {
+      if (title) title.textContent = "사진 넣기";
+      if (description) {
+        description.textContent = "선택한 칸에 넣을 사진을 카메라로 촬영하거나 앨범에서 선택하세요.";
+      }
+    }
+
+    if (typeof dialog.showModal === "function") {
+      if (!dialog.open) dialog.showModal();
+    } else {
+      dialog.setAttribute("open", "");
+    }
+  }
+
   async function loadQuickSlotPhoto(file) {
     if (!file) return;
     const slotIndex = quickSelectedSlotIndex();
@@ -1855,7 +1955,11 @@
       if (objectUrl) URL.revokeObjectURL(objectUrl);
       window.alert(clean(error?.message) || "사진을 넣지 못했습니다.");
     } finally {
-      if (quickSlotPhotoInput) quickSlotPhotoInput.value = "";
+      if (quickSlotPhotoInput) {
+        quickSlotPhotoInput.value = "";
+        quickSlotPhotoInput.accept = "image/png,image/jpeg,image/webp";
+        quickSlotPhotoInput.removeAttribute("capture");
+      }
     }
   }
 
@@ -5185,8 +5289,18 @@
   photoAlbumInput?.addEventListener("change", () => void importBinderPhoto(photoAlbumInput.files?.[0]));
   photoRecognizeButton?.addEventListener("click", () => void recognizeImportedPhotoCards());
   quickCardButton?.addEventListener("click", focusQuickCardSearch);
+  quickSlotPhotoAction?.addEventListener("click", (event) => {
+    if (event.target === quickSlotPhotoInput) return;
+    event.preventDefault();
+    openQuickMediaSourceDialog("slot");
+  });
   quickSlotPhotoInput?.addEventListener("change", () => void loadQuickSlotPhoto(quickSlotPhotoInput.files?.[0]));
   quickEmptyButton?.addEventListener("click", clearQuickSlot);
+  quickPageScanAction?.addEventListener("click", (event) => {
+    if (event.target === quickPageScanInput) return;
+    event.preventDefault();
+    openQuickMediaSourceDialog("page");
+  });
   quickPageScanInput?.addEventListener("change", () => void importBinderPhoto(quickPageScanInput.files?.[0]));
   quickVariantButton?.addEventListener("click", () => void openQuickVariants());
   quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
