@@ -25358,10 +25358,10 @@
       "nextStart": "TASK 5 MBD 001/023 (canonical order 001)"
     },
     "MBD": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
-      "note": "Task 5 MBD canonical order 001-020을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료.",
-      "reviewedCardCount": 20,
+      "note": "Task 5 MBD canonical order 001-023을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. MBD 23장 image reference를 self-hosted Cloudflare archive 경로로 전환하고 원본 sourceImage를 보존해 archive manifest/deploy가 계속 추적하도록 정리.",
+      "reviewedCardCount": 23,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -25378,9 +25378,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010",
-        "canonical-order 011-020"
+        "canonical-order 011-020",
+        "canonical-order 021-023"
       ],
-      "newlyAddedThemeSlotCount": 32,
+      "newlyAddedThemeSlotCount": 38,
       "newlyAddedCards": [
         "MBD_001",
         "MBD_002",
@@ -25401,7 +25402,10 @@
         "MBD_017",
         "MBD_018",
         "MBD_019",
-        "MBD_020"
+        "MBD_020",
+        "MBD_021",
+        "MBD_022",
+        "MBD_023"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -25733,9 +25737,92 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-023",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023"
+          ],
+          "status": "complete",
+          "checkedCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 3,
+            "externalImageReferenceCountAfter": 0,
+            "sourceImageProvenanceCount": 3,
+            "newlyInternalizedReferenceCount": 3,
+            "archiveProject": "legacy",
+            "archiveBase": "dcb-card-images-legacy-2026.pages.dev",
+            "brokenReferenceCount": 0,
+            "note": "series.json image는 self-hosted archive URL로 전환하고 sourceImage에 원본 출처를 보존. push 후 deploy-card-images workflow가 sourceImage manifest를 기준으로 archive 존재·디코딩을 검증/보완한다."
+          },
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MBD_021",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_022",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_023",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MBD 021/023 (canonical order 021)"
+      "nextStart": "TASK 5 MBG 001/023 (canonical order 001)",
+      "imageSelfHosting": {
+        "status": "references_internalized",
+        "canonicalCardCount": 23,
+        "externalImageReferenceCountBefore": 23,
+        "selfHostedImageReferenceCountAfter": 23,
+        "sourceImageProvenanceCount": 23,
+        "newlyInternalizedReferenceCount": 23,
+        "brokenReferenceCount": 0,
+        "archiveProject": "legacy",
+        "archiveBase": "dcb-card-images-legacy-2026.pages.dev",
+        "verification": "deploy-card-images workflow validates complete archive after push"
+      }
     }
   },
   "queue": {
@@ -25755,14 +25842,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "MBD",
+    "currentSet": "MBG",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 진행 중. MBD canonical order 001-020 완료; 다음은 MBD 021/023 (canonical order 021).",
+    "note": "Task 5 진행 중. MBD canonical order 001-023 COMPLETE; 다음은 MBG 001/023 (canonical order 001). MBD image references self-hosted archive 경로로 전환.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MBD canonical order 011-020 COMPLETE",
-    "nextStart": "MBD 021/023 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 5 MBD canonical order 021-023 COMPLETE",
+    "nextStart": "MBG 001/023 (canonical order 001)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {

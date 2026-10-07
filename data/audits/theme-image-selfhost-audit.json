@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-08",
+  "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
+  "batches": [
+    {
+      "task": 5,
+      "set": "MBD",
+      "range": "canonical-order 001-023",
+      "canonicalCardCount": 23,
+      "externalImageReferenceCountBefore": 23,
+      "newlyInternalizedReferenceCount": 23,
+      "selfHostedReferenceCountAfter": 23,
+      "sourceImageProvenanceCount": 23,
+      "brokenReferenceCount": 0,
+      "archiveProject": "legacy",
+      "archiveBase": "https://dcb-card-images-legacy-2026.pages.dev",
+      "pathPattern": "external/static.tcgexchange.kr/<fnv1a64(canonical-source-url)>.webp",
+      "themeAdditions": {
+        "night": 1,
+        "season": 2,
+        "color": 3
+      },
+      "duplicateCount": 0,
+      "invalidCardKeyCount": 0,
+      "nextStart": "MBG canonical order 001"
+    }
+  ]
+}
