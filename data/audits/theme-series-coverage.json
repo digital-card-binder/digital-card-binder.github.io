@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1766,
-    "uniqueThemeCards": 1193,
+    "themeCardSlots": 1786,
+    "uniqueThemeCards": 1202,
     "strictCompleteSetCount": 7,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 266,
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 426,
-      "setCount": 12,
+      "cardSlots": 434,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -133,8 +133,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 652,
-      "setCount": 14,
+      "cardSlots": 662,
+      "setCount": 15,
       "rarities": [
         "AR",
         "C",
@@ -152,8 +152,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 41,
-      "setCount": 16,
+      "cardSlots": 42,
+      "setCount": 17,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 192,
-      "setCount": 15,
+      "cardSlots": 193,
+      "setCount": 16,
       "rarities": [
         "AR",
         "C",
@@ -233,7 +233,7 @@
       "cardCount": 2133,
       "completeSetCount": 7,
       "remainingSetCount": 7,
-      "currentThemeSlots": 1449
+      "currentThemeSlots": 1469
     },
     {
       "era": "SV",
@@ -341,7 +341,7 @@
       "code": "m1L",
       "name": "메가브레이브",
       "cardCount": 92,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "M",
@@ -1768,10 +1768,14 @@
       "cardCount": 92,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-07",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "season": 8,
+        "color": 10,
+        "sunset": 1,
+        "street": 1
       }
     },
     {
