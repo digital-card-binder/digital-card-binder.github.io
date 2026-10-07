@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-630을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
-      "reviewedCardCount": 630,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-640을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
+      "reviewedCardCount": 640,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11394,9 +11394,10 @@
         "591-600",
         "601-610",
         "611-620",
-        "621-630"
+        "621-630",
+        "631-640"
       ],
-      "newlyAddedThemeSlotCount": 1236,
+      "newlyAddedThemeSlotCount": 1246,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -12027,7 +12028,17 @@
         "MC_627",
         "MC_628",
         "MC_629",
-        "MC_630"
+        "MC_630",
+        "MC_631",
+        "MC_632",
+        "MC_633",
+        "MC_634",
+        "MC_635",
+        "MC_636",
+        "MC_637",
+        "MC_638",
+        "MC_639",
+        "MC_640"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -22825,9 +22836,161 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 631-640",
+          "cardNumbers": [
+            "631",
+            "632",
+            "633",
+            "634",
+            "635",
+            "636",
+            "637",
+            "638",
+            "639",
+            "640"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_631",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_632",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_633",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_634",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_635",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_636",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_637",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_638",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_639",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_640",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 631/742 (canonical order 631)"
+      "nextStart": "MC 641/742 (canonical order 641)"
     }
   },
   "queue": {
@@ -22850,11 +23013,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-630 완료; 다음은 MC 631/742 (canonical order 631).",
+    "note": "Task 4 진행 중. MC canonical order 001-640 완료; 다음은 MC 641/742 (canonical order 641).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 621-630 COMPLETE",
-    "nextStart": "MC 631/742 (canonical order 631)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 631-640 COMPLETE",
+    "nextStart": "MC 641/742 (canonical order 641)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
