@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-260을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
-      "reviewedCardCount": 260,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-270을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
+      "reviewedCardCount": 270,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11357,9 +11357,10 @@
         "canonical-order 221-230",
         "canonical-order 231-240",
         "canonical-order 241-250",
-        "canonical-order 251-260"
+        "canonical-order 251-260",
+        "canonical-order 261-270"
       ],
-      "newlyAddedThemeSlotCount": 478,
+      "newlyAddedThemeSlotCount": 500,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -11620,7 +11621,17 @@
         "MC_257",
         "MC_258",
         "MC_259",
-        "MC_260"
+        "MC_260",
+        "MC_261",
+        "MC_262",
+        "MC_263",
+        "MC_264",
+        "MC_265",
+        "MC_266",
+        "MC_267",
+        "MC_268",
+        "MC_269",
+        "MC_270"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -16012,9 +16023,185 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 261-270",
+          "cardNumbers": [
+            "261",
+            "262",
+            "263",
+            "264",
+            "265",
+            "266",
+            "267",
+            "268",
+            "269",
+            "270"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_261",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_262",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_263",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_264",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_265",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_266",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_267",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_268",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_269",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_270",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 261/742 (canonical order 261)"
+      "nextStart": "MC 271/742 (canonical order 271)"
     }
   },
   "queue": {
@@ -16037,11 +16224,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-260 완료; 다음은 MC 261/742 (canonical order 261).",
+    "note": "Task 4 진행 중. MC canonical order 001-270 완료; 다음은 MC 271/742 (canonical order 271).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 251-260 COMPLETE",
-    "nextStart": "MC 261/742 (canonical order 261)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 261-270 COMPLETE",
+    "nextStart": "MC 271/742 (canonical order 271)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
