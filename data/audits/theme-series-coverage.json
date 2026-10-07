@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1941,
-    "uniqueThemeCards": 1281,
-    "strictCompleteSetCount": 7,
+    "themeCardSlots": 1948,
+    "uniqueThemeCards": 1283,
+    "strictCompleteSetCount": 8,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 266,
+    "baselineRemainingSetCount": 265,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 119,
+      "cardSlots": 120,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -133,7 +133,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 742,
+      "cardSlots": 744,
       "setCount": 15,
       "rarities": [
         "AR",
@@ -152,7 +152,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 44,
+      "cardSlots": 45,
       "setCount": 17,
       "rarities": [
         "AR",
@@ -201,7 +201,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 211,
+      "cardSlots": 213,
       "setCount": 16,
       "rarities": [
         "AR",
@@ -214,7 +214,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 24,
+      "cardSlots": 25,
       "setCount": 12,
       "rarities": [
         "AR",
@@ -231,9 +231,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 7,
-      "remainingSetCount": 7,
-      "currentThemeSlots": 1624
+      "completeSetCount": 8,
+      "remainingSetCount": 6,
+      "currentThemeSlots": 1631
     },
     {
       "era": "SV",
@@ -335,13 +335,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m1L",
-      "name": "메가브레이브",
-      "cardCount": 92,
-      "status": "in_progress"
     },
     {
       "era": "M",
@@ -509,6 +502,13 @@
       "code": "SVLS",
       "name": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」",
       "cardCount": 25,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVP2",
+      "name": "ex 스페셜 세트 ver.2",
+      "cardCount": 12,
       "status": "pending"
     }
   ],
@@ -1768,19 +1768,19 @@
       "cardCount": 92,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 2,
         "connected": 3,
         "evolution": 3,
-        "night": 6,
+        "night": 7,
         "season": 49,
-        "color": 90,
-        "sunset": 3,
+        "color": 92,
+        "sunset": 4,
         "work": 1,
-        "street": 19,
-        "cameo": 1
+        "street": 21,
+        "cameo": 2
       }
     },
     {
