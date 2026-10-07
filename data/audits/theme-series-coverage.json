@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1544,
-    "uniqueThemeCards": 1078,
+    "themeCardSlots": 1564,
+    "uniqueThemeCards": 1088,
     "strictCompleteSetCount": 6,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 267,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 100,
-      "setCount": 12,
+      "cardSlots": 101,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 367,
-      "setCount": 11,
+      "cardSlots": 375,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -133,8 +133,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 536,
-      "setCount": 13,
+      "cardSlots": 546,
+      "setCount": 14,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 172,
-      "setCount": 14,
+      "cardSlots": 173,
+      "setCount": 15,
       "rarities": [
         "AR",
         "C",
@@ -233,7 +233,7 @@
       "cardCount": 2133,
       "completeSetCount": 6,
       "remainingSetCount": 8,
-      "currentThemeSlots": 1227
+      "currentThemeSlots": 1247
     },
     {
       "era": "SV",
@@ -341,7 +341,7 @@
       "code": "m2",
       "name": "인페르노X",
       "cardCount": 116,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "M",
@@ -1781,10 +1781,14 @@
       "cardCount": 116,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-07",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 1,
+        "season": 8,
+        "color": 10,
+        "street": 1
       }
     },
     {
