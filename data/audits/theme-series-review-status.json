@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-350을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
-      "reviewedCardCount": 350,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-360을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 기존 완료분은 유지하고 누락 슬롯만 반영했다.",
+      "reviewedCardCount": 360,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11366,9 +11366,10 @@
         "canonical-order 311-320",
         "canonical-order 321-330",
         "canonical-order 331-340",
-        "canonical-order 341-350"
+        "canonical-order 341-350",
+        "canonical-order 351-360"
       ],
-      "newlyAddedThemeSlotCount": 682,
+      "newlyAddedThemeSlotCount": 699,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -11719,7 +11720,17 @@
         "MC_347",
         "MC_348",
         "MC_349",
-        "MC_350"
+        "MC_350",
+        "MC_351",
+        "MC_352",
+        "MC_353",
+        "MC_354",
+        "MC_355",
+        "MC_356",
+        "MC_357",
+        "MC_358",
+        "MC_359",
+        "MC_360"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -17707,9 +17718,175 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 351-360",
+          "cardNumbers": [
+            "351",
+            "352",
+            "353",
+            "354",
+            "355",
+            "356",
+            "357",
+            "358",
+            "359",
+            "360"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_351",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_352",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_353",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_354",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_355",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_356",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_357",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_358",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_359",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_360",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 351/742 (canonical order 351)"
+      "nextStart": "MC 361/742 (canonical order 361)"
     }
   },
   "queue": {
@@ -17732,11 +17909,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-350 완료; 다음은 MC 351/742 (canonical order 351).",
+    "note": "Task 4 진행 중. MC canonical order 001-360 완료; 다음은 MC 361/742 (canonical order 361).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 341-350 COMPLETE",
-    "nextStart": "MC 351/742 (canonical order 351)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 351-360 COMPLETE",
+    "nextStart": "MC 361/742 (canonical order 361)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
