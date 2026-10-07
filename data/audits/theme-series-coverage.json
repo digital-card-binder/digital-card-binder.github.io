@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1488,
-    "uniqueThemeCards": 1037,
+    "themeCardSlots": 1506,
+    "uniqueThemeCards": 1048,
     "strictCompleteSetCount": 5,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 268,
@@ -94,8 +94,8 @@
     {
       "code": "evolution",
       "name": "진화 스토리",
-      "cardSlots": 44,
-      "setCount": 10,
+      "cardSlots": 47,
+      "setCount": 11,
       "rarities": [
         "AR",
         "SAR"
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 362,
+      "cardSlots": 364,
       "setCount": 11,
       "rarities": [
         "AR",
@@ -133,7 +133,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 496,
+      "cardSlots": 506,
       "setCount": 13,
       "rarities": [
         "AR",
@@ -200,7 +200,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 167,
+      "cardSlots": 169,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -213,7 +213,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 18,
+      "cardSlots": 19,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -232,7 +232,7 @@
       "cardCount": 2133,
       "completeSetCount": 5,
       "remainingSetCount": 9,
-      "currentThemeSlots": 1172
+      "currentThemeSlots": 1189
     },
     {
       "era": "SV",
@@ -240,7 +240,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 197
+      "currentThemeSlots": 198
     },
     {
       "era": "S",
@@ -1678,7 +1678,9 @@
       "changedSinceBaseline": false,
       "status": "pending",
       "reviewedAt": "",
-      "themeHits": {}
+      "themeHits": {
+        "evolution": 1
+      }
     },
     {
       "era": "SV",
@@ -1795,16 +1797,16 @@
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 1,
-        "evolution": 7,
+        "evolution": 9,
         "night": 19,
-        "season": 100,
-        "color": 210,
+        "season": 102,
+        "color": 220,
         "sunset": 8,
         "reflections": 1,
         "food": 1,
         "work": 1,
-        "street": 45,
-        "cameo": 2
+        "street": 47,
+        "cameo": 3
       }
     },
     {
