@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1529,
-    "uniqueThemeCards": 1068,
-    "strictCompleteSetCount": 5,
+    "themeCardSlots": 1544,
+    "uniqueThemeCards": 1078,
+    "strictCompleteSetCount": 6,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 268,
+    "baselineRemainingSetCount": 267,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 365,
+      "cardSlots": 367,
       "setCount": 11,
       "rarities": [
         "AR",
@@ -133,7 +133,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 526,
+      "cardSlots": 536,
       "setCount": 13,
       "rarities": [
         "AR",
@@ -201,7 +201,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 171,
+      "cardSlots": 172,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -214,7 +214,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 19,
+      "cardSlots": 21,
       "setCount": 10,
       "rarities": [
         "AR",
@@ -231,9 +231,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 5,
-      "remainingSetCount": 9,
-      "currentThemeSlots": 1212
+      "completeSetCount": 6,
+      "remainingSetCount": 8,
+      "currentThemeSlots": 1227
     },
     {
       "era": "SV",
@@ -335,13 +335,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m2a",
-      "name": "MEGA 드림 ex",
-      "cardCount": 250,
-      "status": "in_progress"
     },
     {
       "era": "M",
@@ -509,6 +502,13 @@
       "code": "SVK",
       "name": "배틀 강화 BOX 「스텔라미라클」",
       "cardCount": 52,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVLN",
+      "name": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
+      "cardCount": 25,
       "status": "pending"
     }
   ],
@@ -1794,20 +1794,20 @@
       "cardCount": 250,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 1,
         "evolution": 9,
         "night": 19,
-        "season": 103,
-        "color": 240,
+        "season": 105,
+        "color": 250,
         "sunset": 8,
         "reflections": 1,
         "food": 1,
         "work": 1,
-        "street": 49,
-        "cameo": 3
+        "street": 50,
+        "cameo": 5
       }
     },
     {
