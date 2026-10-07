@@ -1190,8 +1190,8 @@
     "m2a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m2a canonical order 001-180을 12개 테마 기준 전수판독 완료.",
-      "reviewedCardCount": 180,
+      "note": "Task 3 m2a canonical order 001-190을 12개 테마 기준 전수판독 완료.",
+      "reviewedCardCount": 190,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -1224,9 +1224,10 @@
         "canonical-order 141-150",
         "canonical-order 151-160",
         "canonical-order 161-170",
-        "canonical-order 171-180"
+        "canonical-order 171-180",
+        "canonical-order 181-190"
       ],
-      "newlyAddedThemeSlotCount": 335,
+      "newlyAddedThemeSlotCount": 360,
       "newlyAddedCards": [
         "M2a_001",
         "M2a_002",
@@ -1407,7 +1408,17 @@
         "M2a_174",
         "M2a_175",
         "M2a_176",
-        "M2a_183"
+        "M2a_183",
+        "M2a_184",
+        "M2a_185",
+        "M2a_177",
+        "M2a_178",
+        "M2a_179",
+        "M2a_186",
+        "M2a_187",
+        "M2a_188",
+        "M2a_189",
+        "M2a_190"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -4469,9 +4480,191 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 181-190",
+          "cardNumbers": [
+            "184",
+            "185",
+            "177",
+            "178",
+            "179",
+            "186",
+            "187",
+            "188",
+            "189",
+            "190"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2a_184",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_185",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_177",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_178",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_179",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_186",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_187",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_188",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_189",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_190",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2a 184/193 (canonical order 181)"
+      "nextStart": "m2a 191/193 (canonical order 191)"
     }
   },
   "queue": {
@@ -4494,11 +4687,11 @@
     "currentSet": "m2a",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2a canonical order 001-180 완료; 다음은 m2a 184/193 (canonical order 181).",
+    "note": "Task 3 진행 중. m2a canonical order 001-190 완료; 다음은 m2a 191/193 (canonical order 191).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-180 COMPLETE",
-    "nextStart": "m2a 184/193 (canonical order 181)",
+    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-190 COMPLETE",
+    "nextStart": "m2a 191/193 (canonical order 191)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
