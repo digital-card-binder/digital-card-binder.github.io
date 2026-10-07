@@ -170,6 +170,11 @@ test("scanned card matcher samples small crop offsets without weakening confiden
   assert.match(matcher, /photoCropVariants\(crop\)\.map/);
   assert.match(matcher, /top\.distance <= 7\.5 && gap >= 4\.25/);
   assert.match(matcher, /top\.distance <= 9\.0 && gap >= 6\.0/);
+  assert.match(matcher, /function confidentScan\(/);
+  assert.match(matcher, /top\.distance <= 10\.75 && gap >= 3\.25 && fullDistance <= 20/);
+  assert.match(matcher, /top\.distance <= 12\.75 && gap >= 5\.0 && fullDistance <= 18/);
+  assert.match(matcher, /function reviewableScan\(/);
+  assert.match(matcher, /top\.distance <= 22/);
 });
 
 test("successful page scan immediately performs conservative card recognition", () => {
@@ -178,6 +183,8 @@ test("successful page scan immediately performs conservative card recognition", 
   assert.match(studio, /let autoRecognizeAfterImport = false/);
   assert.match(studio, /autoRecognizeAfterImport = true/);
   assert.match(studio, /if \(autoRecognizeAfterImport\) \{\s*await recognizeImportedPhotoCards\(\)/);
+  assert.match(studio, /matcher\.confidentScan\?\.\(matches\) \|\| matcher\.confident\(matches\)/);
+  assert.match(studio, /matcher\.reviewableScan\?\.\(matches\)/);
   assert.match(studio, /스캔 완료 · 카드 자동인식을 시작합니다/);
   assert.match(studio, /애매한 칸은 사진 그대로 유지했습니다/);
 });
