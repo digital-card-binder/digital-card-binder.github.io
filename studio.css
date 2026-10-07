@@ -72,11 +72,8 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
 }
 
 .studio-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr);
-  align-items: center;
-  gap: 28px;
-  min-height: 250px;
+  display: block;
+  min-height: 0;
   overflow: hidden;
   border-radius: 26px;
   background:
@@ -84,7 +81,7 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
     radial-gradient(circle at 18% 90%, rgba(143, 108, 255, 0.20), transparent 22rem),
     linear-gradient(135deg, #061b2e, #0a2e4c 60%, #142f57);
   color: #fff;
-  padding: 42px 46px;
+  padding: 28px 32px;
   box-shadow: 0 20px 55px rgba(7, 31, 53, 0.17);
 }
 
@@ -650,8 +647,7 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
   }
 
   .studio-hero {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    display: block;
   }
 
   .studio-layout {
@@ -674,24 +670,25 @@ body[data-page="binder-studio"] .site-header .brand-copy strong {
   }
 
   .studio-hero {
-    gap: 13px;
     min-height: 0;
-    border-radius: 20px;
-    padding: 24px 18px;
+    border-radius: 17px;
+    padding: 15px 15px 16px;
+  }
+
+  .studio-hero .studio-kicker {
+    font-size: .52rem;
   }
 
   .studio-hero h1 {
-    font-size: 1.85rem;
+    margin-top: 5px;
+    font-size: 1.55rem;
+    line-height: 1.08;
   }
 
   .studio-hero p {
-    margin-top: 10px;
-    font-size: 0.72rem;
-  }
-
-  .studio-hero-badge {
-    border-radius: 14px;
-    padding: 13px 14px;
+    margin-top: 7px;
+    font-size: 0.64rem;
+    line-height: 1.5;
   }
 
   .studio-tabs {
