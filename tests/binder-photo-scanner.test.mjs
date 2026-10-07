@@ -188,3 +188,17 @@ test("successful page scan immediately performs conservative card recognition", 
   assert.match(studio, /스캔 완료 · 카드 자동인식을 시작합니다/);
   assert.match(studio, /애매한 칸은 사진 그대로 유지했습니다/);
 });
+
+test("scanned slot backgrounds stay as underlays when cards move over them", () => {
+  const studio = readFileSync(new URL("../studio-custom.js", import.meta.url), "utf8");
+
+  assert.match(studio, /underlayImageId/);
+  assert.match(studio, /function imageUnderlaySlot\(/);
+  assert.match(studio, /function cardSlotWithUnderlay\(/);
+  assert.match(studio, /const underlay = imageUnderlaySlot\(state\.slots\[slotIndex\], slotIndex\)/);
+  assert.match(studio, /const underlay = next\[entry\.slotIndex\]/);
+  assert.doesNotMatch(studio, /if \(target\?\.type === "image"\) \{\s*state\.slots\[targetIndex\] = \{ index: targetIndex, type: "empty" \}/);
+  assert.match(studio, /source\.slots\[resolvedOrigin\] = sourceUnderlay \|\| \{ index: resolvedOrigin, type: "empty" \}/);
+  assert.match(studio, /targetUnderlay/);
+  assert.match(studio, /slot\.type === "card" \? clean\(slot\.underlayImageId\) : ""/);
+});
