@@ -25356,6 +25356,217 @@
         }
       ],
       "nextStart": "TASK 5 MBD 001/023 (canonical order 001)"
+    },
+    "MBD": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "note": "Task 5 MBD 스타터 세트 MEGA 「메가디안시 ex」 canonical order 001-010을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "MBD_001",
+        "MBD_002",
+        "MBD_003",
+        "MBD_004",
+        "MBD_005",
+        "MBD_006",
+        "MBD_007",
+        "MBD_008",
+        "MBD_009",
+        "MBD_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MBD_001",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_002",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_003",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_004",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_005",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_006",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_007",
+              "checked": true,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_008",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_009",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBD_010",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
+        }
+      ],
+      "nextStart": "MBD 011/023 (canonical order 011)"
     }
   },
   "queue": {
@@ -25378,11 +25589,11 @@
     "currentSet": "MBD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 4 COMPLETE: MC canonical order 001-774 전수검수 완료. Task 5 시작: 남은 M세대 보조 세트 MBD → MBG → MA → M-P 순으로 진행; 다음은 MBD 001/023.",
+    "note": "Task 5 진행 중. MBD canonical order 001-010 완료; 다음은 MBD 011/023 (canonical order 011).",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 COMPLETE — MC canonical order 773-774 COMPLETE",
-    "nextStart": "MBD 001/023 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 5 MBD canonical order 001-010 COMPLETE",
+    "nextStart": "MBD 011/023 (canonical order 011)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
