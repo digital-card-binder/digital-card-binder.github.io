@@ -5712,10 +5712,10 @@
       "nextStart": "m2 001/080 (canonical order 001)"
     },
     "m2": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m2 canonical order 001-070을 12개 테마 기준 실제 일러스트로 전수판독 완료.",
-      "reviewedCardCount": 70,
+      "note": "Task 3 m2 인페르노X 116개 canonical card slot 전체를 12개 테마 기준 실제 일러스트로 전수판독 완료. canonical order 001-116 전 범위를 Atomic Batch로 검증·checkpoint 처리했으며 기존 완료분은 재조사하지 않음.",
+      "reviewedCardCount": 116,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -5737,9 +5737,14 @@
         "canonical-order 031-040",
         "canonical-order 041-050",
         "canonical-order 051-060",
-        "canonical-order 061-070"
+        "canonical-order 061-070",
+        "canonical-order 071-080",
+        "canonical-order 081-090",
+        "canonical-order 091-100",
+        "canonical-order 101-110",
+        "canonical-order 111-116"
       ],
-      "newlyAddedThemeSlotCount": 137,
+      "newlyAddedThemeSlotCount": 222,
       "newlyAddedCards": [
         "M2_001",
         "M2_002",
@@ -5810,9 +5815,57 @@
         "M2_073",
         "M2_074",
         "M2_066",
-        "M2_067"
+        "M2_067",
+        "M2_068",
+        "M2_075",
+        "M2_076",
+        "M2_077",
+        "M2_069",
+        "M2_070",
+        "M2_071",
+        "M2_078",
+        "M2_079",
+        "M2_080",
+        "M2_081",
+        "M2_082",
+        "M2_083",
+        "M2_090",
+        "M2_091",
+        "M2_092",
+        "M2_084",
+        "M2_085",
+        "M2_086",
+        "M2_093",
+        "M2_094",
+        "M2_095",
+        "M2_087",
+        "M2_088",
+        "M2_089",
+        "M2_096",
+        "M2_097",
+        "M2_098",
+        "M2_099",
+        "M2_100",
+        "M2_101",
+        "M2_108",
+        "M2_109",
+        "M2_110",
+        "M2_102",
+        "M2_103",
+        "M2_104",
+        "M2_111",
+        "M2_112",
+        "M2_113",
+        "M2_105",
+        "M2_106",
+        "M2_107",
+        "M2_114",
+        "M2_115",
+        "M2_116"
       ],
-      "existingSkippedCards": [],
+      "existingSkippedCards": [
+        "M2_090"
+      ],
       "heldCards": [],
       "batches": [
         {
@@ -7687,9 +7740,119 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 111-116",
+          "cardNumbers": [
+            "105",
+            "106",
+            "107",
+            "114",
+            "115",
+            "116"
+          ],
+          "status": "complete",
+          "checkedCardCount": 6,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2_105",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street",
+                "work"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street",
+                "work"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_106",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_107",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_114",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_115",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2_116",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2 105/080 (canonical order 111)"
+      "nextStart": "m1L 001/063 (canonical order 001)"
     }
   },
   "queue": {
@@ -7709,14 +7872,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "m2",
+    "currentSet": "m1L",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2 canonical order 001-110 완료; 다음은 m2 105/080 (canonical order 111).",
+    "note": "Task 3 진행 중. m2 canonical order 001-116 COMPLETE; 다음은 m1L 001/063 (canonical order 001).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-110 COMPLETE",
-    "nextStart": "m2 105/080 (canonical order 111)",
+    "lastSafeCheckpoint": "TASK 3 m2 canonical order 001-116 COMPLETE",
+    "nextStart": "m1L 001/063 (canonical order 001)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
