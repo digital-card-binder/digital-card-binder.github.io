@@ -4,10 +4,11 @@ import fs from "node:fs";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 
-test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () => {
+test("Android v1.0.1 keeps version, FCM, camera, and update-check contracts aligned", () => {
   const appGradle = read("android-app/app/build.gradle");
   const rootGradle = read("android-app/build.gradle");
   const manifest = read("android-app/app/src/main/AndroidManifest.xml");
+  const filePaths = read("android-app/app/src/main/res/xml/file_paths.xml");
   const application = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/BinderApplication.java");
   const activity = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/MainActivity.java");
   const messaging = read("android-app/app/src/main/java/io/github/digitalcardbinder/app/DigitalCardBinderMessagingService.java");
@@ -15,8 +16,8 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   const buildWorkflow = read(".github/workflows/build-android-apk.yml");
   const pushWorkflow = read(".github/workflows/send-android-news-notification.yml");
 
-  assert.match(appGradle, /versionCode\s+15/);
-  assert.match(appGradle, /versionName\s+'1\.0'/);
+  assert.match(appGradle, /versionCode\s+16/);
+  assert.match(appGradle, /versionName\s+'1\.0\.1'/);
   assert.match(rootGradle, /com\.google\.gms\.google-services/);
   assert.match(appGradle, /firebase-bom:34\.18\.0/);
   assert.match(appGradle, /firebase-messaging/);
@@ -40,12 +41,18 @@ test("Android v1.0 keeps version, FCM, and update-check contracts aligned", () =
   assert.match(activity, /onShowFileChooser/);
   assert.match(activity, /FILE_CHOOSER_REQUEST_CODE/);
   assert.match(activity, /FileChooserParams[.]parseResult/);
+  assert.match(activity, /MediaStore[.]ACTION_IMAGE_CAPTURE/);
+  assert.match(activity, /fileChooserParams[.]isCaptureEnabled[(][)]/);
+  assert.match(activity, /Intent[.]EXTRA_INITIAL_INTENTS/);
+  assert.match(activity, /FileProvider[.]getUriForFile/);
+  assert.match(manifest, /androidx[.]core[.]content[.]FileProvider/);
+  assert.match(filePaths, /external-cache-path/);
 
-  assert.equal(version.versionCode, 15);
-  assert.equal(version.versionName, "1.0");
-  assert.match(version.apkUrl, /DigitalCardBinder_v1\.0\.apk$/);
+  assert.equal(version.versionCode, 16);
+  assert.equal(version.versionName, "1.0.1");
+  assert.match(version.apkUrl, /DigitalCardBinder_v1\.0\.1\.apk$/);
 
-  assert.match(buildWorkflow, /Build Android APK v1\.0/);
+  assert.match(buildWorkflow, /Build Android APK v1\.0\.1/);
   assert.match(buildWorkflow, /google-services\.json/);
   assert.match(pushWorkflow, /news\.json/);
   assert.match(pushWorkflow, /send-android-news-notification\.mjs/);
