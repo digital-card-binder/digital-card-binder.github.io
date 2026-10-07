@@ -2690,11 +2690,14 @@
           state.catalog,
           3,
         );
-        const accepted = matcher.confident(matches);
+        const accepted = matcher.confidentScan?.(matches) || matcher.confident(matches);
         if (accepted) {
           replacements.push({ card: accepted.card, index: target.index });
           automatic += 1;
-        } else if (matches.length && matches[0].distance <= 19) {
+        } else if (
+          matches.length &&
+          (matcher.reviewableScan?.(matches) ?? matches[0].distance <= 19)
+        ) {
           review.set(target.index, matches);
         } else {
           noMatch += 1;
