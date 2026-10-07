@@ -25823,6 +25823,227 @@
         "archiveBase": "dcb-card-images-legacy-2026.pages.dev",
         "verification": "deploy-card-images workflow validates complete archive after push"
       }
+    },
+    "MBG": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "note": "Task 5 MBG canonical order 001-010을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 해당 10장 image reference를 self-hosted Cloudflare archive 경로로 전환.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "MBG_001",
+        "MBG_002",
+        "MBG_003",
+        "MBG_004",
+        "MBG_005",
+        "MBG_006",
+        "MBG_007",
+        "MBG_008",
+        "MBG_009",
+        "MBG_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 10,
+            "externalImageReferenceCountAfter": 0,
+            "sourceImageProvenanceCount": 10,
+            "newlyInternalizedReferenceCount": 10,
+            "archiveProject": "legacy",
+            "archiveBase": "dcb-card-images-legacy-2026.pages.dev",
+            "brokenReferenceCount": 0
+          },
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MBG_001",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_002",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_003",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_004",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_005",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color",
+                "street",
+                "cameo"
+              ],
+              "themesAdded": [
+                "night",
+                "color",
+                "street",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_006",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_007",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_008",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_009",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MBG_010",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
+        }
+      ],
+      "nextStart": "MBG 011/023 (canonical order 011)"
     }
   },
   "queue": {
@@ -25845,11 +26066,11 @@
     "currentSet": "MBG",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 진행 중. MBD canonical order 001-023 COMPLETE; 다음은 MBG 001/023 (canonical order 001). MBD image references self-hosted archive 경로로 전환.",
+    "note": "Task 5 진행 중. MBD 23/23 COMPLETE; MBG canonical order 001-010 COMPLETE. 다음은 MBG 011/023.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MBD canonical order 021-023 COMPLETE",
-    "nextStart": "MBG 001/023 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 5 MBG canonical order 001-010 COMPLETE",
+    "nextStart": "MBG 011/023 (canonical order 011)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {

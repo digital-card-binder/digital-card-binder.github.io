@@ -24,6 +24,31 @@
       "duplicateCount": 0,
       "invalidCardKeyCount": 0,
       "nextStart": "MBG canonical order 001"
+    },
+    {
+      "task": 5,
+      "set": "MBG",
+      "range": "canonical-order 001-010",
+      "canonicalCardCount": 10,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 10,
+      "selfHostedReferenceCountAfter": 10,
+      "sourceImageProvenanceCount": 10,
+      "brokenReferenceCount": 0,
+      "archiveProject": "legacy",
+      "archiveBase": "https://dcb-card-images-legacy-2026.pages.dev",
+      "pathPattern": "external/static.tcgexchange.kr/<fnv1a64(canonical-source-url)>.webp",
+      "themeAdditions": {
+        "night": 2,
+        "season": 2,
+        "color": 10,
+        "food": 1,
+        "street": 3,
+        "cameo": 1
+      },
+      "duplicateCount": 0,
+      "invalidCardKeyCount": 0,
+      "nextStart": "MBG canonical order 011"
     }
   ]
 }
