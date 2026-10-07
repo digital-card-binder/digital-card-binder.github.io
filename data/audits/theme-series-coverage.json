@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 2105,
-    "uniqueThemeCards": 1362,
-    "strictCompleteSetCount": 8,
+    "themeCardSlots": 2134,
+    "uniqueThemeCards": 1374,
+    "strictCompleteSetCount": 9,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 265,
+    "baselineRemainingSetCount": 264,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 124,
+      "cardSlots": 127,
       "setCount": 15,
       "rarities": [
         "AR",
@@ -112,13 +112,14 @@
         "HR",
         "R",
         "SAR",
+        "SR",
         "U"
       ]
     },
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 524,
+      "cardSlots": 530,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -133,7 +134,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 824,
+      "cardSlots": 836,
       "setCount": 16,
       "rarities": [
         "AR",
@@ -176,7 +177,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 21,
+      "cardSlots": 23,
       "setCount": 16,
       "rarities": [
         "AR",
@@ -201,7 +202,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 230,
+      "cardSlots": 233,
       "setCount": 17,
       "rarities": [
         "AR",
@@ -214,7 +215,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 26,
+      "cardSlots": 29,
       "setCount": 13,
       "rarities": [
         "AR",
@@ -222,6 +223,7 @@
         "R",
         "RR",
         "SAR",
+        "SR",
         "U"
       ]
     }
@@ -231,9 +233,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 8,
-      "remainingSetCount": 6,
-      "currentThemeSlots": 1788
+      "completeSetCount": 9,
+      "remainingSetCount": 5,
+      "currentThemeSlots": 1817
     },
     {
       "era": "SV",
@@ -335,13 +337,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m1S",
-      "name": "메가심포니아",
-      "cardCount": 92,
-      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -509,6 +504,13 @@
       "code": "SVP2",
       "name": "ex 스페셜 세트 ver.2",
       "cardCount": 12,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVM",
+      "name": "스타트 덱 Generations 스페셜 배틀 세트",
+      "cardCount": 183,
       "status": "pending"
     }
   ],
@@ -1755,18 +1757,18 @@
       "cardCount": 92,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 3,
         "connected": 2,
-        "night": 4,
-        "season": 49,
-        "color": 80,
-        "food": 1,
+        "night": 7,
+        "season": 55,
+        "color": 92,
+        "food": 3,
         "work": 1,
-        "street": 17,
-        "cameo": 1
+        "street": 20,
+        "cameo": 4
       }
     },
     {
