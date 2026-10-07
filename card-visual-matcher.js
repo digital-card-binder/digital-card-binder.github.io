@@ -131,13 +131,26 @@
     return total / (left.length * 15);
   }
 
+  function distanceBreakdown(query, reference) {
+    const fullDistance = hammingDistance(query.fullD, reference.fullD);
+    const artDistance = hammingDistance(query.artD, reference.artD);
+    const averageDistance = hammingDistance(query.artA, reference.artA);
+    const normalizedColorDistance = colorDistance(query.colors, reference.colors);
+    return {
+      fullDistance,
+      artDistance,
+      averageDistance,
+      colorDistance: normalizedColorDistance,
+      total:
+        fullDistance * 0.22 +
+        artDistance * 0.36 +
+        averageDistance * 0.27 +
+        normalizedColorDistance * 64 * 0.15,
+    };
+  }
+
   function distance(query, reference) {
-    return (
-      hammingDistance(query.fullD, reference.fullD) * 0.22 +
-      hammingDistance(query.artD, reference.artD) * 0.36 +
-      hammingDistance(query.artA, reference.artA) * 0.27 +
-      colorDistance(query.colors, reference.colors) * 64 * 0.15
-    );
+    return distanceBreakdown(query, reference).total;
   }
 
   async function rawIndex() {
@@ -234,10 +247,22 @@
     for (let position = 0; position < index.length; position += 1) {
       const reference = index[position];
       let best = Number.POSITIVE_INFINITY;
+      let bestDetails = null;
       for (const query of signatures) {
-        best = Math.min(best, distance(query, reference));
+        const details = distanceBreakdown(query, reference);
+        if (details.total < best) {
+          best = details.total;
+          bestDetails = details;
+        }
       }
-      ranked.push({ card: reference.card, distance: best });
+      ranked.push({
+        card: reference.card,
+        distance: best,
+        fullDistance: bestDetails?.fullDistance ?? 64,
+        artDistance: bestDetails?.artDistance ?? 64,
+        averageDistance: bestDetails?.averageDistance ?? 64,
+        colorDistance: bestDetails?.colorDistance ?? 1,
+      });
       if (position && position % 4000 === 0) {
         await new Promise((resolve) => requestAnimationFrame(resolve));
       }
@@ -260,9 +285,42 @@
     return null;
   }
 
+  // Binder-page photos contain glare, sleeve texture and mild crop error that
+  // clean catalog images do not. Keep the normal scanner strict, but allow a
+  // slightly wider page-scan window only when the whole-card structure is also
+  // close. Expanded-art background cells can resemble a card's illustration,
+  // so fullDistance is required before automatic replacement.
+  function confidentScan(matches) {
+    if (!matches?.length) return null;
+    const top = matches[0];
+    const second = matches[1];
+    const gap = second ? second.distance - top.distance : Number.POSITIVE_INFINITY;
+    const fullDistance = Number(top.fullDistance);
+    if (!Number.isFinite(fullDistance)) return confident(matches);
+    if (
+      (top.distance <= 10.75 && gap >= 3.25 && fullDistance <= 20) ||
+      (top.distance <= 12.75 && gap >= 5.0 && fullDistance <= 18)
+    ) {
+      return { card: top.card, distance: top.distance, gap, fullDistance };
+    }
+    return null;
+  }
+
+  function reviewableScan(matches) {
+    if (!matches?.length) return false;
+    const top = matches[0];
+    const fullDistance = Number(top.fullDistance);
+    return (
+      top.distance <= 22 &&
+      (!Number.isFinite(fullDistance) || fullDistance <= 28)
+    );
+  }
+
   root.visualMatcher = Object.freeze({
     rankImageCrop,
     confident,
+    confidentScan,
+    reviewableScan,
     photoCropVariants,
   });
 })();
