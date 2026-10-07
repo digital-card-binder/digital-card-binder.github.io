@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3594,
-    "uniqueThemeCards": 2146,
+    "themeCardSlots": 3613,
+    "uniqueThemeCards": 2156,
     "strictCompleteSetCount": 10,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 263,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 156,
-      "setCount": 16,
+      "cardSlots": 157,
+      "setCount": 17,
       "rarities": [
         "AR",
         "C",
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 965,
-      "setCount": 15,
+      "cardSlots": 970,
+      "setCount": 16,
       "rarities": [
         "AR",
         "C",
@@ -135,8 +135,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1610,
-      "setCount": 17,
+      "cardSlots": 1620,
+      "setCount": 18,
       "rarities": [
         "AR",
         "C",
@@ -178,8 +178,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 49,
-      "setCount": 17,
+      "cardSlots": 52,
+      "setCount": 18,
       "rarities": [
         "AR",
         "C",
@@ -236,7 +236,7 @@
       "cardCount": 2133,
       "completeSetCount": 10,
       "remainingSetCount": 4,
-      "currentThemeSlots": 3277
+      "currentThemeSlots": 3296
     },
     {
       "era": "SV",
@@ -330,7 +330,7 @@
       "code": "MBD",
       "name": "스타터 세트 MEGA 「메가디안시 ex」",
       "cardCount": 23,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -1986,9 +1986,14 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "night": 1,
+        "season": 5,
+        "color": 10,
+        "food": 3
+      }
     },
     {
       "era": "M",
