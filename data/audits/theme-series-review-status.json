@@ -7857,8 +7857,8 @@
     "m1L": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m1L 메가브레이브 canonical order 001-060을 12개 테마 기준 실제 일러스트로 전수판독 완료.",
-      "reviewedCardCount": 60,
+      "note": "Task 3 m1L 메가브레이브 canonical order 001-070을 12개 테마 기준 실제 일러스트로 전수판독 완료.",
+      "reviewedCardCount": 70,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -7879,9 +7879,10 @@
         "canonical-order 021-030",
         "canonical-order 031-040",
         "canonical-order 041-050",
-        "canonical-order 051-060"
+        "canonical-order 051-060",
+        "canonical-order 061-070"
       ],
-      "newlyAddedThemeSlotCount": 114,
+      "newlyAddedThemeSlotCount": 138,
       "newlyAddedCards": [
         "M1L_001",
         "M1L_002",
@@ -7942,7 +7943,17 @@
         "M1L_051",
         "M1L_052",
         "M1L_053",
-        "M1L_060"
+        "M1L_060",
+        "M1L_061",
+        "M1L_062",
+        "M1L_063",
+        "M1L_064",
+        "M1L_065",
+        "M1L_072",
+        "M1L_073",
+        "M1L_074",
+        "M1L_066",
+        "M1L_067"
       ],
       "existingSkippedCards": [
         "M1L_004"
@@ -8971,9 +8982,189 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 061-070",
+          "cardNumbers": [
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "072",
+            "073",
+            "074",
+            "066",
+            "067"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M1L_061",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_062",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_063",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_064",
+              "checked": true,
+              "themesMatched": [
+                "connected",
+                "evolution",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "connected",
+                "evolution",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_065",
+              "checked": true,
+              "themesMatched": [
+                "connected",
+                "evolution",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "connected",
+                "evolution",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_072",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_073",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_074",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_066",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M1L_067",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m1L 061/063 (canonical order 061)"
+      "nextStart": "m1L 068/063 (canonical order 071)"
     }
   },
   "queue": {
@@ -8996,11 +9187,11 @@
     "currentSet": "m1L",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m1L canonical order 001-060 완료; 다음은 m1L 061/063 (canonical order 061).",
+    "note": "Task 3 진행 중. m1L canonical order 001-070 완료; 다음은 m1L 068/063 (canonical order 071).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m1L canonical order 001-060 COMPLETE",
-    "nextStart": "m1L 061/063 (canonical order 061)",
+    "lastSafeCheckpoint": "TASK 3 m1L canonical order 001-070 COMPLETE",
+    "nextStart": "m1L 068/063 (canonical order 071)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
