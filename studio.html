@@ -327,9 +327,18 @@
               <div id="studio-custom-card-results" class="studio-custom-card-results" hidden></div>
             </section>
 
-            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools studio-advanced-card" hidden>
+            <section class="studio-control-card studio-background-move-card studio-advanced-card">
               <div class="studio-step-heading">
                 <span>6</span>
+                <div><strong>배경 조각 이동 <span class="studio-step-badge is-optional">선택</span></strong><small>카드는 그대로 두고 스캔·확장 이미지 조각만 퍼즐처럼 옮기거나 서로 바꿉니다.</small></div>
+              </div>
+              <button id="studio-background-move-toggle" class="studio-background-move-toggle" type="button" aria-pressed="false">배경 조각 이동 시작</button>
+              <p id="studio-background-move-status" class="studio-background-move-status">모드를 켜면 배경이 있는 칸을 드래그해서 다른 칸으로 옮길 수 있습니다.</p>
+            </section>
+
+            <section id="studio-custom-editor-tools" class="studio-control-card studio-custom-editor-tools studio-advanced-card" hidden>
+              <div class="studio-step-heading">
+                <span>7</span>
                 <div><strong>선택 카드 편집 <span class="studio-step-badge is-optional">선택</span></strong><small id="studio-custom-selected-name">필요한 카드만 위치·순서·회전을 조정하세요.</small></div><button class="studio-help-button" type="button" data-studio-help="6" aria-label="선택 카드 편집 도움말">?</button>
               </div>
               <div class="studio-custom-tool-grid">
@@ -353,7 +362,7 @@
 
             <section class="studio-control-card studio-custom-save-card">
               <div class="studio-step-heading">
-                <span>7</span>
+                <span>8</span>
                 <div><strong>나만의도감에 저장 <span class="studio-step-badge is-required">필수</span></strong><small>완성한 바인더를 내 계정에 저장합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="7" aria-label="나만의도감 저장 도움말">?</button>
               </div>
               <label class="studio-field">
@@ -378,7 +387,7 @@
 
             <section class="studio-control-card studio-custom-print-card studio-advanced-card">
               <div class="studio-step-heading">
-                <span>8</span>
+                <span>9</span>
                 <div><strong>전체 바인더 출력 <span class="studio-step-badge is-optional">선택</span></strong><small>필요할 때만 PDF 또는 실제 크기로 출력합니다.</small></div><button class="studio-help-button" type="button" data-studio-help="8" aria-label="전체 바인더 출력 도움말">?</button>
               </div>
               <div class="studio-size-options studio-custom-print-size-options" aria-label="커스텀 바인더 출력 크기">
@@ -428,7 +437,7 @@
                 <div id="studio-custom-slot-layer" class="studio-custom-slot-layer" aria-label="바인더 슬롯"></div>
                 <div id="studio-custom-card-layer" class="studio-custom-card-layer" aria-label="배치한 카드"></div>
               </div>
-              <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 이미지 작업 때는 슬롯 선택 모드로 원하는 칸만 골라 자동분할할 수 있습니다.</p>
+              <p class="studio-custom-preview-help">카드는 슬롯 사이로 드래그해 이동할 수 있습니다. 고급 기능의 배경 조각 이동을 켜면 카드와 별개로 배경만 퍼즐처럼 재배치할 수 있습니다.</p>
             </div>
 
             <section class="studio-custom-library-panel" aria-labelledby="studio-custom-library-title">
