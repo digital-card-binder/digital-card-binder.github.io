@@ -1190,8 +1190,8 @@
     "m2a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m2a MEGA 드림 ex canonical order 001-030을 10장 Atomic Batch 세 개로 한국 공식 카드 이미지 기준 12개 테마 전수판독 완료. 번호 결번/재정렬은 canonical order 기준으로 추적.",
-      "reviewedCardCount": 30,
+      "note": "Task 3 m2a canonical order 001-040 전수판독 완료. canonical 031-040 배치에서 동일 작가·연속 장면으로 확인된 뚜꾸리→차오꿀→염무왕의 진화 스토리 누락 3건도 명백한 보정으로 추가.",
+      "reviewedCardCount": 40,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -1209,9 +1209,10 @@
       "reviewedRanges": [
         "canonical-order 001-010",
         "canonical-order 011-020",
-        "canonical-order 021-030"
+        "canonical-order 021-030",
+        "canonical-order 031-040"
       ],
-      "newlyAddedThemeSlotCount": 54,
+      "newlyAddedThemeSlotCount": 79,
       "newlyAddedCards": [
         "M2a_001",
         "M2a_002",
@@ -1242,7 +1243,17 @@
         "M2a_027",
         "M2a_028",
         "M2a_029",
-        "M2a_036"
+        "M2a_036",
+        "M2a_037",
+        "M2a_038",
+        "M2a_030",
+        "M2a_031",
+        "M2a_032",
+        "M2a_039",
+        "M2a_040",
+        "M2a_041",
+        "M2a_033",
+        "M2a_034"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -1640,10 +1651,12 @@
               "code": "M2a_024",
               "checked": true,
               "themesMatched": [
+                "evolution",
                 "season",
                 "color"
               ],
               "themesAdded": [
+                "evolution",
                 "season",
                 "color"
               ],
@@ -1655,10 +1668,12 @@
               "code": "M2a_025",
               "checked": true,
               "themesMatched": [
+                "evolution",
                 "season",
                 "color"
               ],
               "themesAdded": [
+                "evolution",
                 "season",
                 "color"
               ],
@@ -1670,10 +1685,12 @@
               "code": "M2a_026",
               "checked": true,
               "themesMatched": [
+                "evolution",
                 "season",
                 "color"
               ],
               "themesAdded": [
+                "evolution",
                 "season",
                 "color"
               ],
@@ -1738,9 +1755,202 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-040",
+          "cardNumbers": [
+            "037",
+            "038",
+            "030",
+            "031",
+            "032",
+            "039",
+            "040",
+            "041",
+            "033",
+            "034"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "retroactiveCorrections": [
+            {
+              "code": "M2a_024",
+              "theme": "evolution",
+              "reason": "동일 작가 Teziro의 024-026 연속 진화 장면을 현재 배치의 진화 스토리 판정 중 확인."
+            },
+            {
+              "code": "M2a_025",
+              "theme": "evolution",
+              "reason": "동일 작가 Teziro의 024-026 연속 진화 장면을 현재 배치의 진화 스토리 판정 중 확인."
+            },
+            {
+              "code": "M2a_026",
+              "theme": "evolution",
+              "reason": "동일 작가 Teziro의 024-026 연속 진화 장면을 현재 배치의 진화 스토리 판정 중 확인."
+            }
+          ],
+          "cards": [
+            {
+              "code": "M2a_037",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_038",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_030",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "sunset",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "sunset",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_031",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_032",
+              "checked": true,
+              "themesMatched": [
+                "evolution",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "evolution",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_039",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_040",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_041",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_033",
+              "checked": true,
+              "themesMatched": [
+                "evolution",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "evolution",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_034",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2a 037/193 (canonical order 031)"
+      "nextStart": "m2a 035/193 (canonical order 041)"
     }
   },
   "queue": {
@@ -1763,18 +1973,18 @@
     "currentSet": "m2a",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2a canonical order 001-030 완료; 다음은 m2a 037/193 (canonical order 031).",
+    "note": "Task 3 진행 중. m2a canonical order 001-040 완료; 다음은 m2a 035/193 (canonical order 041).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-030 COMPLETE",
-    "nextStart": "m2a 037/193 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-040 COMPLETE",
+    "nextStart": "m2a 035/193 (canonical order 041)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
-      "commit": "dca8de21bf36ae9fccae24c85d53c91d2a6ef1bd",
+      "commit": "5f143e10e308e6ab4b8f55316ad4636986fa960b",
       "status": "in_progress/pending",
       "checkedAt": "2026-10-07",
-      "note": "Verify, catalog sync, Pages가 in_progress이고 image deploy가 pending이어서 대기하지 않고 다음 배치를 진행."
+      "note": "Verify/catalog sync/Pages in_progress, image deploy pending; 기다리지 않고 다음 배치 진행."
     }
   }
 }
