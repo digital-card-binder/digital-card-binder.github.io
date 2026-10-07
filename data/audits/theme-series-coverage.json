@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1948,
-    "uniqueThemeCards": 1283,
+    "themeCardSlots": 1969,
+    "uniqueThemeCards": 1293,
     "strictCompleteSetCount": 8,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 265,
@@ -118,8 +118,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 475,
-      "setCount": 13,
+      "cardSlots": 484,
+      "setCount": 14,
       "rarities": [
         "AR",
         "C",
@@ -133,8 +133,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 744,
-      "setCount": 15,
+      "cardSlots": 754,
+      "setCount": 16,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 213,
-      "setCount": 16,
+      "cardSlots": 215,
+      "setCount": 17,
       "rarities": [
         "AR",
         "C",
@@ -233,7 +233,7 @@
       "cardCount": 2133,
       "completeSetCount": 8,
       "remainingSetCount": 6,
-      "currentThemeSlots": 1631
+      "currentThemeSlots": 1652
     },
     {
       "era": "SV",
@@ -341,7 +341,7 @@
       "code": "m1S",
       "name": "메가심포니아",
       "cardCount": 92,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -1755,10 +1755,13 @@
       "cardCount": 92,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-07",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "season": 9,
+        "color": 10,
+        "street": 2
       }
     },
     {
