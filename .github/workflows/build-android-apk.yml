@@ -1,4 +1,4 @@
-name: Build Android APK v1.0
+name: Build Android APK v1.0.1
 
 on:
   push:
@@ -123,32 +123,32 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
-      - name: Build v1.0 debug APK
+      - name: Build v1.0.1 debug APK
         run: gradle --project-dir android-app :app:assembleDebug --no-daemon
 
       - name: Prepare website APK
         run: |
           set -euo pipefail
-          cp android-app/app/build/outputs/apk/debug/app-debug.apk DigitalCardBinder_v1.0.apk
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk DigitalCardBinder_v1.0.1.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: DigitalCardBinder-v1.0-apk
-          path: DigitalCardBinder_v1.0.apk
+          name: DigitalCardBinder-v1.0.1-apk
+          path: DigitalCardBinder_v1.0.1.apk
           if-no-files-found: error
 
-      - name: Publish v1.0 APK to main
+      - name: Publish v1.0.1 APK to main
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -f --ignore-unmatch DigitalCardBinder_v0.9.apk
-          git add -- DigitalCardBinder_v1.0.apk
+          git rm -f --ignore-unmatch DigitalCardBinder_v0.9.apk DigitalCardBinder_v1.0.apk
+          git add -- DigitalCardBinder_v1.0.1.apk
           if git diff --cached --quiet; then
             echo "APK and download links unchanged"
           else
-            git commit -m "Build DigitalCardBinder v1.0 APK"
+            git commit -m "Build DigitalCardBinder v1.0.1 APK"
             git pull --rebase origin main
             git push
           fi
