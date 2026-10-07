@@ -240,3 +240,18 @@ test("mobile 4x4 preview fits and background move is available from quick editor
   assert.match(css, /\.studio-custom-preview-wrap \{\s*overflow-x: hidden;/);
   assert.match(css, /\.studio-custom-preview-stage\.is-background-move \.studio-custom-card-layer \{\s*z-index: 3;/);
 });
+
+
+test("custom binder exposes a compact collapsible usage guide", () => {
+  const html = readFileSync(new URL("../studio.html", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../studio.css", import.meta.url), "utf8");
+
+  assert.match(html, /<details class="studio-binder-guide">/);
+  assert.match(html, /<strong>바인더 사용법<\/strong>/);
+  assert.match(html, /페이지 스캔/);
+  assert.match(html, /카드 찾기/);
+  assert.match(html, /배경 이동/);
+  assert.match(html, /나만의도감에 저장/);
+  assert.match(css, /\.studio-binder-guide > summary/);
+  assert.match(css, /\.studio-binder-guide\[open\] \.studio-binder-guide-chevron/);
+});
