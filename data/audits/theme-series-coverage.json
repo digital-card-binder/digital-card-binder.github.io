@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1093,
-    "uniqueThemeCards": 827,
+    "themeCardSlots": 1112,
+    "uniqueThemeCards": 837,
     "strictCompleteSetCount": 5,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 268,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 81,
-      "setCount": 11,
+      "cardSlots": 82,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -118,12 +118,13 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 262,
-      "setCount": 10,
+      "cardSlots": 270,
+      "setCount": 11,
       "rarities": [
         "AR",
         "C",
         "R",
+        "RR",
         "SAR",
         "SR",
         "U"
@@ -132,8 +133,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 286,
-      "setCount": 12,
+      "cardSlots": 296,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -230,7 +231,7 @@
       "cardCount": 2133,
       "completeSetCount": 5,
       "remainingSetCount": 9,
-      "currentThemeSlots": 777
+      "currentThemeSlots": 796
     },
     {
       "era": "SV",
@@ -338,7 +339,7 @@
       "code": "m2a",
       "name": "MEGA 드림 ex",
       "cardCount": 250,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "M",
@@ -1789,9 +1790,13 @@
       "cardCount": 250,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-07",
+      "themeHits": {
+        "night": 1,
+        "season": 8,
+        "color": 10
+      }
     },
     {
       "era": "M",
