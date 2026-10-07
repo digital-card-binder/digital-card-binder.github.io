@@ -93,6 +93,8 @@
   const quickVariantButton = panel.querySelector("#studio-quick-variant");
   const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
   const quickSourceButton = panel.querySelector("#studio-quick-source");
+  const backgroundMoveToggle = panel.querySelector("#studio-background-move-toggle");
+  const backgroundMoveStatus = panel.querySelector("#studio-background-move-status");
   const cardAddDialog = document.querySelector("#studio-card-add-dialog");
   const cardAddCloseButton = document.querySelector("#studio-card-add-close");
   const cardAddCancelButton = document.querySelector("#studio-card-add-cancel");
@@ -156,6 +158,7 @@
     images: [],
     selectedSlots: new Set(),
     slotSelectMode: false,
+    backgroundTileMoveMode: false,
     artFile: null,
     artBlob: null,
     artObjectUrl: "",
@@ -183,6 +186,7 @@
     variantDataPromise: null,
   };
   let activePlacementDrag = null;
+  let activeBackgroundDrag = null;
 
   function clean(value) {
     return String(value ?? "").trim();
@@ -517,6 +521,25 @@
       slot.underlayCrop = normalizeCrop(base.crop);
     }
     return slot;
+  }
+
+  function slotWithImageUnderlay(value, index, underlay) {
+    const slot = normalizeSlot(value, index);
+    const base = imageUnderlaySlot(underlay, index);
+    if (slot.type === "card") {
+      const next = {
+        index,
+        type: "card",
+        placementId: clean(slot.placementId),
+        sourceKey: clean(slot.sourceKey),
+      };
+      if (base.type === "image" && base.imageId) {
+        next.underlayImageId = base.imageId;
+        next.underlayCrop = normalizeCrop(base.crop);
+      }
+      return next;
+    }
+    return base.type === "image" ? base : { index, type: "empty" };
   }
 
   function normalizeSlots(values, count) {
@@ -1116,6 +1139,9 @@
 
   function setSlotSelectMode(enabled) {
     state.slotSelectMode = Boolean(enabled);
+    if (state.slotSelectMode && state.backgroundTileMoveMode) {
+      state.backgroundTileMoveMode = false;
+    }
     if (!state.slotSelectMode) state.selectedSlots = new Set(selectedSlotIndexes());
     updateArtUi();
     renderSlotLayer();
@@ -1134,6 +1160,7 @@
     const count = selectedGrid().cols * selectedGrid().rows;
     state.selectedSlots = new Set(Array.from({ length: count }, (_, index) => index));
     state.slotSelectMode = true;
+    state.backgroundTileMoveMode = false;
     renderSlotLayer();
     updateArtUi();
     if (normalize(searchInput.value) && state.catalog) renderSearchResults(searchInput.value);
@@ -1206,6 +1233,179 @@
     updateArtUi("선택한 슬롯을 비웠습니다.");
   }
 
+  function backgroundTileCount() {
+    return state.slots.reduce(
+      (count, slot, index) => count + (imageUnderlaySlot(slot, index).type === "image" ? 1 : 0),
+      0,
+    );
+  }
+
+  function updateBackgroundMoveUi(message = "") {
+    const count = backgroundTileCount();
+    if (!count && state.backgroundTileMoveMode) state.backgroundTileMoveMode = false;
+    previewStage.classList.toggle("is-background-move", state.backgroundTileMoveMode);
+    if (backgroundMoveToggle) {
+      backgroundMoveToggle.disabled = count === 0;
+      backgroundMoveToggle.setAttribute("aria-pressed", state.backgroundTileMoveMode ? "true" : "false");
+      backgroundMoveToggle.textContent = state.backgroundTileMoveMode
+        ? "배경 조각 이동 끝내기"
+        : "배경 조각 이동 시작";
+      backgroundMoveToggle.classList.toggle("is-active", state.backgroundTileMoveMode);
+    }
+    if (!backgroundMoveStatus) return;
+    backgroundMoveStatus.textContent = message || (
+      count
+        ? state.backgroundTileMoveMode
+          ? `배경 조각 ${count}개 · 조각을 드래그하면 빈칸으로 이동하고, 다른 배경에 놓으면 서로 교환합니다. 카드는 움직이지 않습니다.`
+          : `현재 페이지에 움직일 수 있는 배경 조각이 ${count}개 있습니다.`
+        : "스캔 또는 확장 이미지를 넣으면 배경 조각 이동을 사용할 수 있습니다."
+    );
+  }
+
+  function setBackgroundTileMoveMode(enabled) {
+    state.backgroundTileMoveMode = Boolean(enabled) && backgroundTileCount() > 0;
+    if (state.backgroundTileMoveMode) {
+      state.slotSelectMode = false;
+      state.selectedSlots.clear();
+      state.selectedId = "";
+    }
+    renderSlotLayer();
+    renderPlacements();
+    updateEditorUi();
+    updateQuickEditorUi(
+      state.backgroundTileMoveMode
+        ? "배경 조각 이동 모드 · 배경을 드래그해 재배치하세요."
+        : "배경 조각 이동 모드를 종료했습니다.",
+    );
+  }
+
+  function moveBackgroundTile(originIndex, targetIndex) {
+    const count = selectedGrid().cols * selectedGrid().rows;
+    if (
+      originIndex < 0 || targetIndex < 0 ||
+      originIndex >= count || targetIndex >= count ||
+      originIndex === targetIndex
+    ) return false;
+
+    const originUnderlay = imageUnderlaySlot(state.slots[originIndex], originIndex);
+    if (originUnderlay.type !== "image") return false;
+    const targetUnderlay = imageUnderlaySlot(state.slots[targetIndex], targetIndex);
+
+    const originSlot = normalizeSlot(state.slots[originIndex], originIndex);
+    const targetSlot = normalizeSlot(state.slots[targetIndex], targetIndex);
+    state.slots[originIndex] = slotWithImageUnderlay(originSlot, originIndex, targetUnderlay);
+    state.slots[targetIndex] = slotWithImageUnderlay(targetSlot, targetIndex, originUnderlay);
+
+    pruneUnusedImages();
+    renderSlotLayer();
+    renderPlacements();
+    captureCurrentPage();
+    updateSaveUi();
+    updateCustomPrintUi();
+    updateBackgroundMoveUi(
+      targetUnderlay.type === "image"
+        ? `${originIndex + 1}번과 ${targetIndex + 1}번 배경 조각을 서로 바꿨습니다.`
+        : `${originIndex + 1}번 배경 조각을 ${targetIndex + 1}번 칸으로 옮겼습니다.`,
+    );
+    return true;
+  }
+
+  function startBackgroundTileDrag(node, originIndex, event) {
+    if (
+      !state.backgroundTileMoveMode ||
+      state.slotSelectMode ||
+      activePlacementDrag ||
+      activeBackgroundDrag
+    ) return;
+    const underlay = imageUnderlaySlot(state.slots[originIndex], originIndex);
+    if (underlay.type !== "image") return;
+    if (event.button !== undefined && event.button !== 0) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const rect = node.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const ghost = node.cloneNode(true);
+    ghost.classList.add("studio-background-drag-ghost");
+    ghost.classList.remove("is-selected", "is-background-drag-target");
+    ghost.style.width = `${rect.width}px`;
+    ghost.style.height = `${rect.height}px`;
+    ghost.style.left = `${rect.left}px`;
+    ghost.style.top = `${rect.top}px`;
+    document.body.append(ghost);
+
+    const pointerId = event.pointerId;
+    const startX = event.clientX;
+    const startY = event.clientY;
+    const offsetX = event.clientX - rect.left;
+    const offsetY = event.clientY - rect.top;
+    let lastX = event.clientX;
+    let lastY = event.clientY;
+    let moved = false;
+
+    node.classList.add("is-background-drag-source");
+    previewStage.classList.add("is-background-dragging");
+
+    const clearTarget = () => {
+      slotLayer.querySelectorAll(".is-background-drag-target").forEach((item) =>
+        item.classList.remove("is-background-drag-target")
+      );
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("pointermove", move, true);
+      window.removeEventListener("pointerup", finish, true);
+      window.removeEventListener("pointercancel", cancel, true);
+      clearTarget();
+      node.classList.remove("is-background-drag-source");
+      previewStage.classList.remove("is-background-dragging");
+      ghost.remove();
+      activeBackgroundDrag = null;
+    };
+
+    const move = (moveEvent) => {
+      if (moveEvent.pointerId !== pointerId) return;
+      moveEvent.preventDefault();
+      lastX = moveEvent.clientX;
+      lastY = moveEvent.clientY;
+      if (Math.hypot(lastX - startX, lastY - startY) > 4) moved = true;
+      ghost.style.left = `${lastX - offsetX}px`;
+      ghost.style.top = `${lastY - offsetY}px`;
+      clearTarget();
+      const targetIndex = slotIndexAtPoint(lastX, lastY);
+      if (targetIndex >= 0 && targetIndex !== originIndex) {
+        slotLayer.querySelector(`[data-slot-index="${targetIndex}"]`)?.classList.add("is-background-drag-target");
+      }
+    };
+
+    const finish = (upEvent) => {
+      if (upEvent.pointerId !== pointerId) return;
+      upEvent.preventDefault();
+      lastX = upEvent.clientX;
+      lastY = upEvent.clientY;
+      const targetIndex = slotIndexAtPoint(lastX, lastY);
+      if (moved && targetIndex >= 0 && targetIndex !== originIndex) {
+        moveBackgroundTile(originIndex, targetIndex);
+      } else {
+        updateBackgroundMoveUi("배경 조각을 다른 칸 위에 놓으면 이동하거나 서로 바뀝니다.");
+      }
+      cleanup();
+    };
+
+    const cancel = (cancelEvent) => {
+      if (cancelEvent.pointerId !== pointerId) return;
+      cancelEvent.preventDefault();
+      updateBackgroundMoveUi("배경 조각 이동을 취소했습니다.");
+      cleanup();
+    };
+
+    activeBackgroundDrag = { originIndex, ghost };
+    window.addEventListener("pointermove", move, true);
+    window.addEventListener("pointerup", finish, true);
+    window.addEventListener("pointercancel", cancel, true);
+  }
+
   function renderSlotLayer() {
     if (!slotLayer) return;
     const { cols, rows } = selectedGrid();
@@ -1221,14 +1421,19 @@
       node.dataset.slotIndex = String(slot.index);
       node.dataset.slotType = slot.type;
       node.setAttribute("aria-label", `${slot.index + 1}번 슬롯 · ${slot.type}`);
-      if (slot.type === "image") {
-        applyCropStyle(node, imageSourceById(slot.imageId), slot.crop);
-      } else if (slot.type === "card" && slot.underlayImageId) {
-        applyCropStyle(node, imageSourceById(slot.underlayImageId), slot.underlayCrop);
+      const underlay = imageUnderlaySlot(slot, slot.index);
+      const hasBackgroundUnderlay = underlay.type === "image";
+      node.classList.toggle("has-background-underlay", hasBackgroundUnderlay);
+      if (hasBackgroundUnderlay) {
+        applyCropStyle(node, imageSourceById(underlay.imageId), underlay.crop);
+        node.addEventListener("pointerdown", (event) =>
+          startBackgroundTileDrag(node, slot.index, event)
+        );
       }
       node.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (state.backgroundTileMoveMode) return;
         if (state.slotSelectMode) {
           toggleSlotSelection(slot.index);
           return;
@@ -1240,6 +1445,7 @@
     slotLayer.replaceChildren(...nodes);
     updateArtUi();
     updateQuickEditorUi();
+    updateBackgroundMoveUi();
   }
 
   function renderPageControls() {
@@ -2312,7 +2518,10 @@
 
   function toggleQuickAdvanced() {
     const open = panel.classList.toggle("is-advanced-open");
-    if (!open) panel.classList.remove("is-search-open");
+    if (!open) {
+      panel.classList.remove("is-search-open");
+      if (state.backgroundTileMoveMode) setBackgroundTileMoveMode(false);
+    }
     if (quickAdvancedButton) {
       quickAdvancedButton.setAttribute("aria-expanded", open ? "true" : "false");
       const label = quickAdvancedButton.querySelector("strong");
@@ -5199,6 +5408,8 @@
     state.images = [];
     state.selectedSlots = new Set();
     state.slotSelectMode = false;
+    state.backgroundTileMoveMode = false;
+    activeBackgroundDrag = null;
     state.artFile = null;
     state.artBlob = null;
     if (state.artObjectUrl) URL.revokeObjectURL(state.artObjectUrl);
@@ -5341,6 +5552,9 @@
   quickVariantButton?.addEventListener("click", () => void openQuickVariants());
   quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
   quickSourceButton?.addEventListener("click", openSelectedCardSource);
+  backgroundMoveToggle?.addEventListener("click", () =>
+    setBackgroundTileMoveMode(!state.backgroundTileMoveMode)
+  );
   cardAddCloseButton?.addEventListener("click", () => closeCardAddDialog({ discard: true }));
   cardAddCancelButton?.addEventListener("click", () => closeCardAddDialog({ discard: true }));
   cardAddBinderSelect?.addEventListener("change", () => void selectCardAddBinder(cardAddBinderSelect.value));
