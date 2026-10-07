@@ -1,6 +1,7 @@
 package io.github.digitalcardbinder.app;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Insets;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
@@ -34,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.credentials.Credential;
 import androidx.credentials.CredentialManager;
 import androidx.credentials.CredentialManagerCallback;
@@ -54,6 +57,8 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,6 +77,8 @@ public class MainActivity extends Activity {
     private WebView webView;
     private CredentialManager credentialManager;
     private ValueCallback<Uri[]> fileChooserCallback;
+    private Uri cameraCaptureUri;
+    private File cameraCaptureFile;
     private boolean signInInProgress = false;
     private boolean sheetsAuthorizationInProgress = false;
 
@@ -148,15 +155,36 @@ public class MainActivity extends Activity {
                 fileChooserCallback = filePathCallback;
 
                 try {
-                    Intent chooserIntent = fileChooserParams.createIntent();
-                    chooserIntent.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(chooserIntent, FILE_CHOOSER_REQUEST_CODE);
+                    clearPendingCameraCapture(true);
+                    Intent pickerIntent = fileChooserParams.createIntent();
+                    pickerIntent.addCategory(Intent.CATEGORY_OPENABLE);
+
+                    if (fileChooserAcceptsImage(fileChooserParams)) {
+                        Intent cameraIntent = createCameraCaptureIntent();
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            if (fileChooserParams.isCaptureEnabled()) {
+                                startActivityForResult(cameraIntent, FILE_CHOOSER_REQUEST_CODE);
+                                return true;
+                            }
+
+                            Intent chooserIntent = Intent.createChooser(pickerIntent, "사진 선택");
+                            chooserIntent.putExtra(
+                                    Intent.EXTRA_INITIAL_INTENTS,
+                                    new Intent[] { cameraIntent });
+                            startActivityForResult(chooserIntent, FILE_CHOOSER_REQUEST_CODE);
+                            return true;
+                        }
+                        clearPendingCameraCapture(true);
+                    }
+
+                    startActivityForResult(pickerIntent, FILE_CHOOSER_REQUEST_CODE);
                     return true;
                 } catch (Throwable error) {
+                    clearPendingCameraCapture(true);
                     fileChooserCallback = null;
                     Toast.makeText(
                             MainActivity.this,
-                            "이미지 선택 화면을 열지 못했습니다.",
+                            "카메라 또는 이미지 선택 화면을 열지 못했습니다.",
                             Toast.LENGTH_LONG)
                             .show();
                     return false;
@@ -200,6 +228,47 @@ public class MainActivity extends Activity {
             return;
         }
         webView.loadUrl(freshHomeUrl());
+    }
+
+    private boolean fileChooserAcceptsImage(WebChromeClient.FileChooserParams params) {
+        String[] acceptTypes = params == null ? null : params.getAcceptTypes();
+        if (acceptTypes == null || acceptTypes.length == 0) return false;
+        for (String acceptType : acceptTypes) {
+            if (acceptType == null) continue;
+            String normalized = acceptType.trim().toLowerCase();
+            if (normalized.contains("image/") || "*/*".equals(normalized)) return true;
+        }
+        return false;
+    }
+
+    private Intent createCameraCaptureIntent() throws IOException {
+        File directory = getExternalCacheDir();
+        if (directory == null) directory = getCacheDir();
+        File output = File.createTempFile("binder-camera-", ".jpg", directory);
+        Uri outputUri = FileProvider.getUriForFile(
+                this,
+                getPackageName() + ".fileprovider",
+                output);
+
+        cameraCaptureFile = output;
+        cameraCaptureUri = outputUri;
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+        cameraIntent.setClipData(ClipData.newRawUri("binder-camera-output", outputUri));
+        cameraIntent.addFlags(
+                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        return cameraIntent;
+    }
+
+    private void clearPendingCameraCapture(boolean deleteFile) {
+        cameraCaptureUri = null;
+        if (deleteFile && cameraCaptureFile != null && cameraCaptureFile.exists()) {
+            // Cache cleanup is best-effort. A failed delete is harmless.
+            //noinspection ResultOfMethodCallIgnored
+            cameraCaptureFile.delete();
+        }
+        cameraCaptureFile = null;
     }
 
     private String freshHomeUrl() {
@@ -465,10 +534,28 @@ public class MainActivity extends Activity {
         if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
             ValueCallback<Uri[]> callback = fileChooserCallback;
             fileChooserCallback = null;
-            if (callback != null) {
-                Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
-                callback.onReceiveValue(result);
+            Uri[] result = null;
+            boolean usedCamera = false;
+
+            if (resultCode == RESULT_OK) {
+                boolean pickerReturnedUri = data != null
+                        && (data.getData() != null || data.getClipData() != null);
+                if (!pickerReturnedUri && cameraCaptureUri != null) {
+                    result = new Uri[] { cameraCaptureUri };
+                    usedCamera = true;
+                } else {
+                    result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
+                }
             }
+
+            if (usedCamera) {
+                cameraCaptureUri = null;
+                cameraCaptureFile = null;
+            } else {
+                clearPendingCameraCapture(true);
+            }
+
+            if (callback != null) callback.onReceiveValue(result);
             return;
         }
 
@@ -664,6 +751,7 @@ public class MainActivity extends Activity {
             fileChooserCallback.onReceiveValue(null);
             fileChooserCallback = null;
         }
+        clearPendingCameraCapture(true);
         if (webView != null) {
             webView.removeJavascriptInterface("DigitalCardBinderApp");
             webView.stopLoading();
