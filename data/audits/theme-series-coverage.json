@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3632,
-    "uniqueThemeCards": 2169,
+    "themeCardSlots": 3651,
+    "uniqueThemeCards": 2179,
     "strictCompleteSetCount": 11,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 262,
@@ -104,8 +104,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 159,
-      "setCount": 17,
+      "cardSlots": 161,
+      "setCount": 18,
       "rarities": [
         "AR",
         "C",
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 973,
-      "setCount": 16,
+      "cardSlots": 975,
+      "setCount": 17,
       "rarities": [
         "AR",
         "C",
@@ -135,8 +135,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1633,
-      "setCount": 18,
+      "cardSlots": 1643,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -178,8 +178,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 53,
-      "setCount": 18,
+      "cardSlots": 54,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -203,8 +203,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 355,
-      "setCount": 18,
+      "cardSlots": 358,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -216,8 +216,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 36,
-      "setCount": 14,
+      "cardSlots": 37,
+      "setCount": 15,
       "rarities": [
         "AR",
         "C",
@@ -236,7 +236,7 @@
       "cardCount": 2133,
       "completeSetCount": 11,
       "remainingSetCount": 3,
-      "currentThemeSlots": 3315
+      "currentThemeSlots": 3334
     },
     {
       "era": "SV",
@@ -323,7 +323,7 @@
       "code": "MBG",
       "name": "스타터 세트 MEGA 「메가팬텀 ex」",
       "cardCount": 23,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2002,9 +2002,16 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "night": 2,
+        "season": 2,
+        "color": 10,
+        "food": 1,
+        "street": 3,
+        "cameo": 1
+      }
     },
     {
       "era": "M",
