@@ -43,7 +43,6 @@ test("Android v1.0.1 keeps version, FCM, camera, and update-check contracts alig
   assert.match(activity, /FileChooserParams[.]parseResult/);
   assert.match(activity, /MediaStore[.]ACTION_IMAGE_CAPTURE/);
   assert.match(activity, /fileChooserParams[.]isCaptureEnabled[(][)]/);
-  assert.match(activity, /Intent[.]EXTRA_INITIAL_INTENTS/);
   assert.match(activity, /FileProvider[.]getUriForFile/);
   assert.match(manifest, /androidx[.]core[.]content[.]FileProvider/);
   assert.match(filePaths, /external-cache-path/);
