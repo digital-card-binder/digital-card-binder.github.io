@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-580을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
-      "reviewedCardCount": 580,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-590을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
+      "reviewedCardCount": 590,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11389,9 +11389,10 @@
         "541-550",
         "551-560",
         "561-570",
-        "571-580"
+        "571-580",
+        "581-590"
       ],
-      "newlyAddedThemeSlotCount": 1133,
+      "newlyAddedThemeSlotCount": 1154,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -11972,7 +11973,17 @@
         "MC_577",
         "MC_578",
         "MC_579",
-        "MC_580"
+        "MC_580",
+        "MC_581",
+        "MC_582",
+        "MC_583",
+        "MC_584",
+        "MC_585",
+        "MC_586",
+        "MC_587",
+        "MC_588",
+        "MC_589",
+        "MC_590"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -21898,9 +21909,186 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 581-590",
+          "cardNumbers": [
+            "581",
+            "582",
+            "583",
+            "584",
+            "585",
+            "586",
+            "587",
+            "588",
+            "589",
+            "590"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_581",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_582",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_583",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_584",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_585",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [
+                "sleeping"
+              ],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_586",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "sunset",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "sunset",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_587",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_588",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_589",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_590",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 581/742 (canonical order 581)"
+      "nextStart": "MC 591/742 (canonical order 591)"
     }
   },
   "queue": {
