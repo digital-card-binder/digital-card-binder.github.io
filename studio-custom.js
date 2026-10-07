@@ -91,6 +91,7 @@
   const quickPageScanInput = panel.querySelector("#studio-quick-page-scan");
   const quickPageScanAction = quickPageScanInput?.closest(".studio-quick-action");
   const quickVariantButton = panel.querySelector("#studio-quick-variant");
+  const quickBackgroundButton = panel.querySelector("#studio-quick-background");
   const quickAdvancedButton = panel.querySelector("#studio-quick-advanced");
   const quickSourceButton = panel.querySelector("#studio-quick-source");
   const backgroundMoveToggle = panel.querySelector("#studio-background-move-toggle");
@@ -1252,6 +1253,13 @@
         : "배경 조각 이동 시작";
       backgroundMoveToggle.classList.toggle("is-active", state.backgroundTileMoveMode);
     }
+    if (quickBackgroundButton) {
+      quickBackgroundButton.disabled = count === 0;
+      quickBackgroundButton.setAttribute("aria-pressed", state.backgroundTileMoveMode ? "true" : "false");
+      quickBackgroundButton.classList.toggle("is-active", state.backgroundTileMoveMode);
+      const label = quickBackgroundButton.querySelector("strong");
+      if (label) label.textContent = state.backgroundTileMoveMode ? "배경 이동 끝" : "배경 이동";
+    }
     if (!backgroundMoveStatus) return;
     backgroundMoveStatus.textContent = message || (
       count
@@ -1832,8 +1840,21 @@
 
   function applyStageGeometry() {
     const { cols, rows } = selectedGrid();
-    previewStage.style.width = `${cols * CARD_WIDTH_MM * PREVIEW_PX_PER_MM}px`;
-    previewStage.style.height = `${rows * CARD_HEIGHT_MM * PREVIEW_PX_PER_MM}px`;
+    const logicalWidth = cols * CARD_WIDTH_MM;
+    const logicalHeight = rows * CARD_HEIGHT_MM;
+    let scale = PREVIEW_PX_PER_MM;
+
+    if (window.matchMedia("(max-width: 690px)").matches) {
+      const containerWidth =
+        Number(previewWrap?.clientWidth) ||
+        Number(previewPanel?.clientWidth) ||
+        logicalWidth * scale;
+      const availableWidth = Math.max(220, containerWidth - 4);
+      scale = Math.min(scale, availableWidth / logicalWidth);
+    }
+
+    previewStage.style.width = `${Math.round(logicalWidth * scale * 100) / 100}px`;
+    previewStage.style.height = `${Math.round(logicalHeight * scale * 100) / 100}px`;
   }
 
   function renderGrid() {
@@ -5550,6 +5571,9 @@
   });
   quickPageScanInput?.addEventListener("change", () => void importBinderPhoto(quickPageScanInput.files?.[0]));
   quickVariantButton?.addEventListener("click", () => void openQuickVariants());
+  quickBackgroundButton?.addEventListener("click", () =>
+    setBackgroundTileMoveMode(!state.backgroundTileMoveMode)
+  );
   quickAdvancedButton?.addEventListener("click", toggleQuickAdvanced);
   quickSourceButton?.addEventListener("click", openSelectedCardSource);
   backgroundMoveToggle?.addEventListener("click", () =>
@@ -5653,6 +5677,7 @@
   updateQuickEditorUi();
 
   window.addEventListener("resize", () => {
+    applyStageGeometry();
     state.placements.forEach(clampPlacement);
     renderPlacements();
   });
