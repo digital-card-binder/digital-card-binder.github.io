@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 1753,
-    "uniqueThemeCards": 1187,
-    "strictCompleteSetCount": 6,
+    "themeCardSlots": 1766,
+    "uniqueThemeCards": 1193,
+    "strictCompleteSetCount": 7,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 267,
+    "baselineRemainingSetCount": 266,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 111,
+      "cardSlots": 113,
       "setCount": 13,
       "rarities": [
         "AR",
@@ -118,7 +118,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 423,
+      "cardSlots": 426,
       "setCount": 12,
       "rarities": [
         "AR",
@@ -133,7 +133,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 646,
+      "cardSlots": 652,
       "setCount": 14,
       "rarities": [
         "AR",
@@ -189,7 +189,7 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 12,
+      "cardSlots": 13,
       "setCount": 6,
       "rarities": [
         "AR",
@@ -201,7 +201,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 191,
+      "cardSlots": 192,
       "setCount": 15,
       "rarities": [
         "AR",
@@ -231,9 +231,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 6,
-      "remainingSetCount": 8,
-      "currentThemeSlots": 1436
+      "completeSetCount": 7,
+      "remainingSetCount": 7,
+      "currentThemeSlots": 1449
     },
     {
       "era": "SV",
@@ -335,13 +335,6 @@
       "name": "스타트 덱 100 배틀컬렉션",
       "cardCount": 774,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "m2",
-      "name": "인페르노X",
-      "cardCount": 116,
-      "status": "in_progress"
     },
     {
       "era": "M",
@@ -508,6 +501,13 @@
       "era": "SV",
       "code": "SVLN",
       "name": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
+      "cardCount": 25,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVLS",
+      "name": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」",
       "cardCount": 25,
       "status": "pending"
     }
@@ -1781,19 +1781,19 @@
       "cardCount": 116,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-07",
       "themeHits": {
         "sleeping": 1,
         "evolution": 2,
-        "night": 11,
-        "season": 56,
-        "color": 110,
+        "night": 13,
+        "season": 59,
+        "color": 116,
         "sunset": 4,
         "reflections": 1,
         "food": 2,
-        "work": 2,
-        "street": 19,
+        "work": 3,
+        "street": 20,
         "cameo": 2
       }
     },
