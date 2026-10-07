@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-080을 12개 테마 기준 실제 일러스트로 전수판독 완료.",
-      "reviewedCardCount": 80,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-090을 12개 테마 기준 실제 일러스트로 전수판독 완료.",
+      "reviewedCardCount": 90,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11339,9 +11339,10 @@
         "canonical-order 041-050",
         "canonical-order 051-060",
         "canonical-order 061-070",
-        "canonical-order 071-080"
+        "canonical-order 071-080",
+        "canonical-order 081-090"
       ],
-      "newlyAddedThemeSlotCount": 164,
+      "newlyAddedThemeSlotCount": 183,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -11422,7 +11423,17 @@
         "MC_077",
         "MC_078",
         "MC_079",
-        "MC_080"
+        "MC_080",
+        "MC_081",
+        "MC_082",
+        "MC_083",
+        "MC_084",
+        "MC_085",
+        "MC_086",
+        "MC_087",
+        "MC_088",
+        "MC_089",
+        "MC_090"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -12810,9 +12821,179 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 081-090",
+          "cardNumbers": [
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_081",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_082",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_083",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_084",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_085",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_086",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_087",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_088",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_089",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_090",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 081/742 (canonical order 081)"
+      "nextStart": "MC 091/742 (canonical order 091)"
     }
   },
   "queue": {
@@ -12835,11 +13016,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-080 완료; 다음은 MC 081/742 (canonical order 081).",
+    "note": "Task 4 진행 중. MC canonical order 001-090 완료; 다음은 MC 091/742 (canonical order 091).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 071-080 COMPLETE",
-    "nextStart": "MC 081/742 (canonical order 081)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 081-090 COMPLETE",
+    "nextStart": "MC 091/742 (canonical order 091)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
