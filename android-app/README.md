@@ -2,6 +2,12 @@
 
 This Android WebView shell opens the live Digital Card Binder site so site updates are reflected without rebuilding the APK. Native bridges handle Google sign-in and owner-only Google Sheets authorization without loading Google OAuth inside the embedded WebView.
 
+## v1.0.1
+
+- Binder Studio image inputs can open the device camera as well as the gallery.
+- Capture-enabled inputs such as quick slot photo and page scan open the rear camera directly.
+- Camera output is shared through an app-private FileProvider cache URI; no storage permission is required.
+
 ## v1.0
 
 - Firebase Cloud Messaging topic subscription for site news notifications.
