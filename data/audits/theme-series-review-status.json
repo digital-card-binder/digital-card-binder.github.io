@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-700을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
-      "reviewedCardCount": 700,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-710을 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 완료 checkpoint는 재검사하지 않고 10장 Atomic Batch 단위로 누락 테마만 반영.",
+      "reviewedCardCount": 710,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11401,9 +11401,10 @@
         "661-670",
         "671-680",
         "681-690",
-        "691-700"
+        "691-700",
+        "701-710"
       ],
-      "newlyAddedThemeSlotCount": 1321,
+      "newlyAddedThemeSlotCount": 1340,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -12104,7 +12105,17 @@
         "MC_697",
         "MC_698",
         "MC_699",
-        "MC_700"
+        "MC_700",
+        "MC_701",
+        "MC_702",
+        "MC_703",
+        "MC_704",
+        "MC_705",
+        "MC_706",
+        "MC_707",
+        "MC_708",
+        "MC_709",
+        "MC_710"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -23996,9 +24007,179 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 701-710",
+          "cardNumbers": [
+            "701",
+            "702",
+            "703",
+            "704",
+            "705",
+            "706",
+            "707",
+            "708",
+            "709",
+            "710"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_701",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_702",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_703",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_704",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_705",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_706",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_707",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_708",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_709",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_710",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 701/742 (canonical order 701)"
+      "nextStart": "MC 711/742 (canonical order 711)"
     }
   },
   "queue": {
@@ -24021,11 +24202,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-700 완료; 다음은 MC 701/742 (canonical order 701).",
+    "note": "Task 4 진행 중. MC canonical order 001-710 완료; 다음은 MC 711/742 (canonical order 711).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 691-700 COMPLETE",
-    "nextStart": "MC 701/742 (canonical order 701)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 701-710 COMPLETE",
+    "nextStart": "MC 711/742 (canonical order 711)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
