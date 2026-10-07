@@ -3923,3 +3923,184 @@ body[data-page="binder-studio"] {
     min-height: 46px;
   }
 }
+
+
+/* Custom Binder compact usage guide */
+.studio-binder-guide {
+  margin: 0 0 14px;
+  border: 1px solid #d7e4e9;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ffffff, #f5fafb);
+  box-shadow: 0 4px 14px rgba(24, 53, 70, .045);
+  overflow: hidden;
+}
+
+.studio-binder-guide > summary {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px 13px;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.studio-binder-guide > summary::-webkit-details-marker {
+  display: none;
+}
+
+.studio-binder-guide-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 10px;
+  background: #e9f8fa;
+  color: #176377;
+  font-size: .72rem;
+  font-weight: 950;
+}
+
+.studio-binder-guide > summary > span:nth-child(2) {
+  min-width: 0;
+}
+
+.studio-binder-guide > summary strong {
+  display: block;
+  color: #263d4d;
+  font-size: .72rem;
+}
+
+.studio-binder-guide > summary small {
+  display: block;
+  margin-top: 2px;
+  color: #748491;
+  font-size: .55rem;
+  line-height: 1.4;
+}
+
+.studio-binder-guide-chevron {
+  color: #628091;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  transition: transform .18s ease;
+}
+
+.studio-binder-guide[open] .studio-binder-guide-chevron {
+  transform: rotate(180deg);
+}
+
+.studio-binder-guide-body {
+  border-top: 1px solid #e3ebef;
+  padding: 12px 13px 13px;
+}
+
+.studio-binder-guide-start {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 10px;
+  border-radius: 11px;
+  background: #edf9fa;
+  padding: 9px 10px;
+}
+
+.studio-binder-guide-start strong {
+  color: #205e70;
+  font-size: .61rem;
+}
+
+.studio-binder-guide-start span {
+  color: #587080;
+  font-size: .57rem;
+  line-height: 1.5;
+}
+
+.studio-binder-guide-steps {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.studio-binder-guide-steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+}
+
+.studio-binder-guide-steps li > span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid #d7e5ea;
+  border-radius: 9px;
+  background: #f7fafb;
+  color: #3d6779;
+  font-size: .57rem;
+  font-weight: 900;
+}
+
+.studio-binder-guide-steps strong,
+.studio-binder-guide-steps small {
+  display: block;
+}
+
+.studio-binder-guide-steps strong {
+  color: #344d5f;
+  font-size: .61rem;
+}
+
+.studio-binder-guide-steps small {
+  margin-top: 2px;
+  color: #6f7f8c;
+  font-size: .55rem;
+  line-height: 1.48;
+  word-break: keep-all;
+}
+
+.studio-binder-guide-tip {
+  margin: 10px 0 0;
+  border-top: 1px dashed #d9e3e8;
+  color: #71808c;
+  font-size: .54rem;
+  line-height: 1.5;
+  padding-top: 9px;
+}
+
+.studio-binder-guide-tip strong {
+  color: #32758a;
+}
+
+@media (max-width: 690px) {
+  .studio-binder-guide {
+    margin-bottom: 10px;
+    border-radius: 13px;
+  }
+
+  .studio-binder-guide > summary {
+    min-height: 54px;
+    grid-template-columns: 30px minmax(0, 1fr) 22px;
+    gap: 8px;
+    padding: 9px 10px;
+  }
+
+  .studio-binder-guide-icon {
+    width: 29px;
+    height: 29px;
+    border-radius: 9px;
+  }
+
+  .studio-binder-guide-body {
+    padding: 10px;
+  }
+
+  .studio-binder-guide-steps {
+    gap: 8px;
+  }
+}
