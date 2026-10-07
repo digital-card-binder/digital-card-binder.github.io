@@ -159,19 +159,11 @@ public class MainActivity extends Activity {
                     Intent pickerIntent = fileChooserParams.createIntent();
                     pickerIntent.addCategory(Intent.CATEGORY_OPENABLE);
 
-                    if (fileChooserAcceptsImage(fileChooserParams)) {
+                    if (fileChooserAcceptsImage(fileChooserParams)
+                            && fileChooserParams.isCaptureEnabled()) {
                         Intent cameraIntent = createCameraCaptureIntent();
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                            if (fileChooserParams.isCaptureEnabled()) {
-                                startActivityForResult(cameraIntent, FILE_CHOOSER_REQUEST_CODE);
-                                return true;
-                            }
-
-                            Intent chooserIntent = Intent.createChooser(pickerIntent, "사진 선택");
-                            chooserIntent.putExtra(
-                                    Intent.EXTRA_INITIAL_INTENTS,
-                                    new Intent[] { cameraIntent });
-                            startActivityForResult(chooserIntent, FILE_CHOOSER_REQUEST_CODE);
+                            startActivityForResult(cameraIntent, FILE_CHOOSER_REQUEST_CODE);
                             return true;
                         }
                         clearPendingCameraCapture(true);
