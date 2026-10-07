@@ -11315,8 +11315,8 @@
     "MC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-752를 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 774개 canonical slot 전체 완료까지 Atomic Batch 계속 진행.",
-      "reviewedCardCount": 752,
+      "note": "Task 4 MC 스타트 덱 100 배틀컬렉션 canonical order 001-762를 실제 카드 일러스트 기준으로 12개 테마 전수검수 완료. 774개 canonical slot 전체 완료까지 Atomic Batch 계속 진행.",
+      "reviewedCardCount": 762,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -11407,9 +11407,10 @@
         "721-730",
         "731-740",
         "741-742",
-        "743-752"
+        "743-752",
+        "753-762"
       ],
-      "newlyAddedThemeSlotCount": 1428,
+      "newlyAddedThemeSlotCount": 1446,
       "newlyAddedCards": [
         "MC_001",
         "MC_002",
@@ -12162,7 +12163,17 @@
         "MC_749",
         "MC_750",
         "MC_751",
-        "MC_752"
+        "MC_752",
+        "MC_753",
+        "MC_754",
+        "MC_755",
+        "MC_756",
+        "MC_757",
+        "MC_758",
+        "MC_759",
+        "MC_760",
+        "MC_761",
+        "MC_762"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -24964,9 +24975,177 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 753-762",
+          "cardNumbers": [
+            "753",
+            "754",
+            "755",
+            "756",
+            "757",
+            "758",
+            "759",
+            "760",
+            "761",
+            "762"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "MC_753",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_754",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_755",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "sleeping",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_756",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_757",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_758",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_759",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_760",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_761",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MC_762",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MC 753/742 (canonical order 753)"
+      "nextStart": "MC 763/742 (canonical order 763)"
     }
   },
   "queue": {
@@ -24989,11 +25168,11 @@
     "currentSet": "MC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-4-in-progress",
-    "note": "Task 4 진행 중. MC canonical order 001-752 완료; 다음은 MC 753/742 (canonical order 753).",
+    "note": "Task 4 진행 중. MC canonical order 001-762 완료; 다음은 MC 763/742 (canonical order 763).",
     "currentTask": 4,
     "currentTaskScope": "MC 스타트 덱 100 배틀컬렉션 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 4 MC canonical order 743-752 COMPLETE",
-    "nextStart": "MC 753/742 (canonical order 753)",
+    "lastSafeCheckpoint": "TASK 4 MC canonical order 753-762 COMPLETE",
+    "nextStart": "MC 763/742 (canonical order 763)",
     "currentStage": 4,
     "totalStages": 36,
     "lastWorkflowCheck": {
