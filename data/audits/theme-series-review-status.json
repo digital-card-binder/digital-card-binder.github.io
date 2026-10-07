@@ -1190,8 +1190,8 @@
     "m2a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-07",
-      "note": "Task 3 m2a canonical order 001-040 전수판독 완료. canonical 031-040 배치에서 동일 작가·연속 장면으로 확인된 뚜꾸리→차오꿀→염무왕의 진화 스토리 누락 3건도 명백한 보정으로 추가.",
-      "reviewedCardCount": 40,
+      "note": "Task 3 m2a canonical order 001-050을 한국 공식 이미지 기준 12개 테마 전수판독 완료.",
+      "reviewedCardCount": 50,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -1210,9 +1210,10 @@
         "canonical-order 001-010",
         "canonical-order 011-020",
         "canonical-order 021-030",
-        "canonical-order 031-040"
+        "canonical-order 031-040",
+        "canonical-order 041-050"
       ],
-      "newlyAddedThemeSlotCount": 79,
+      "newlyAddedThemeSlotCount": 99,
       "newlyAddedCards": [
         "M2a_001",
         "M2a_002",
@@ -1253,7 +1254,17 @@
         "M2a_040",
         "M2a_041",
         "M2a_033",
-        "M2a_034"
+        "M2a_034",
+        "M2a_035",
+        "M2a_042",
+        "M2a_043",
+        "M2a_044",
+        "M2a_045",
+        "M2a_046",
+        "M2a_047",
+        "M2a_054",
+        "M2a_055",
+        "M2a_056"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -1948,9 +1959,181 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 041-050",
+          "cardNumbers": [
+            "035",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "054",
+            "055",
+            "056"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": 0,
+          "cards": [
+            {
+              "code": "M2a_035",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_042",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_043",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_044",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_045",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_046",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_047",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_054",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_055",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "M2a_056",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "m2a 035/193 (canonical order 041)"
+      "nextStart": "m2a 048/193 (canonical order 051)"
     }
   },
   "queue": {
@@ -1973,18 +2156,18 @@
     "currentSet": "m2a",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-3-in-progress",
-    "note": "Task 3 진행 중. m2a canonical order 001-040 완료; 다음은 m2a 035/193 (canonical order 041).",
+    "note": "Task 3 진행 중. m2a canonical order 001-050 완료; 다음은 m2a 048/193 (canonical order 051).",
     "currentTask": 3,
     "currentTaskScope": "m2a / m2 / m1L / m1S 전체 카드 × 12개 테마",
-    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-040 COMPLETE",
-    "nextStart": "m2a 035/193 (canonical order 041)",
+    "lastSafeCheckpoint": "TASK 3 m2a canonical order 001-050 COMPLETE",
+    "nextStart": "m2a 048/193 (canonical order 051)",
     "currentStage": 3,
     "totalStages": 36,
     "lastWorkflowCheck": {
-      "commit": "5f143e10e308e6ab4b8f55316ad4636986fa960b",
-      "status": "in_progress/pending",
+      "commit": "ddbb24e8ace5392845fe197effd6ae9908cd170e",
+      "status": "queued/in_progress",
       "checkedAt": "2026-10-07",
-      "note": "Verify/catalog sync/Pages in_progress, image deploy pending; 기다리지 않고 다음 배치 진행."
+      "note": "Verify/image deploy in_progress, catalog sync/Pages queued. 대기 없이 다음 배치 진행."
     }
   }
 }
