@@ -27260,7 +27260,7 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P 001-050 한국판 카드 × 12테마 그림 검수. 050 공식 아트에서 컬러 1장 추가. 051-056 이미지 확인 전까지 추측으로 분류하지 않는다. 이미지 바이너리 자체 저장·Cloudflare 배포는 검증 대기.",
+      "note": "M-P 001-050 artwork verified. 051-068 evidence review attempted but not artwork-verified; 18 pending_evidence entries documented in theme-mp-051-068-evidence-pending.json. M-P remains in_progress and must not be treated complete.",
       "reviewedCardCount": 50,
       "reviewedThemes": [
         "sleeping",
@@ -27339,7 +27339,26 @@
         "M-P_050"
       ],
       "existingSkippedCards": [],
-      "heldCards": [],
+      "heldCards": [
+        "M-P_051",
+        "M-P_052",
+        "M-P_053",
+        "M-P_054",
+        "M-P_055",
+        "M-P_056",
+        "M-P_057",
+        "M-P_058",
+        "M-P_059",
+        "M-P_060",
+        "M-P_061",
+        "M-P_062",
+        "M-P_063",
+        "M-P_064",
+        "M-P_065",
+        "M-P_066",
+        "M-P_067",
+        "M-P_068"
+      ],
       "batches": [
         {
           "range": "canonical-order 001-010",
@@ -28341,22 +28360,32 @@
   },
   "execution": {
     "startedAt": "2026-10-06",
-    "currentEra": "M",
-    "currentSet": "M-P",
+    "currentEra": "SV",
+    "currentSet": "CLL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
-    "status": "stage-5-in-progress",
-    "note": "M-P 001-050/68 inspected. 051-056 official artwork unavailable. M-P image selfhost repair workflow requested separately; verification pending.",
-    "currentTask": 5,
-    "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
+    "status": "stage-6-in-progress",
+    "note": "M-P 001-050 artwork-verified; M-P 051-068 pending_evidence, no classification or image deployment asserted. M-P stays incomplete. Advance queue to CLL rather than blocking on missing images.",
+    "currentTask": 6,
+    "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
     "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-050 artwork review COMPLETE (archive pending)",
-    "nextStart": "M-P 051 (canonical order 051)",
-    "currentStage": 5,
+    "nextStart": "CLL 001 (canonical order 001)",
+    "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
       "commit": "85b234d9bf740e95d7bf3a6010bcc31afb240edd",
       "status": "in_progress/pending",
       "checkedAt": "2026-10-07",
       "note": "Verify/catalog sync/Pages in_progress, image deploy pending; 기다리지 않고 121-130 배치 진행."
-    }
+    },
+    "deferredEvidence": [
+      {
+        "set": "M-P",
+        "range": "canonical-order 051-068",
+        "pendingCount": 18,
+        "audit": "data/audits/theme-mp-051-068-evidence-pending.json",
+        "lastArtSafeCheckpoint": "M-P canonical order 050"
+      }
+    ],
+    "lastEvidenceAuditCheckpoint": "M-P 051-068 reviewed for evidence availability (0 artwork verified), next CLL 001"
   }
 }
