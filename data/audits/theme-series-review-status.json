@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-080: 한국판 그림 검수 67장, 증거 보류 13장. 071-080에서 공식 이미지 8장 확인, 075-076 네모 카드 보류; 테마 신규 10건. 이미지 바이너리 배포 별도 보류.",
-      "reviewedCardCount": 67,
+      "note": "SV-P 001-090: 실제 한국판 그림 77장 검수, 기존 근거 보류 13장. 081-090 공식 카드 10장 판독, 테마 16건 신규 반영. 이미지 파일 자체호스팅 별도 보류.",
+      "reviewedCardCount": 77,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30482,9 +30482,10 @@
         "canonical-order 041-050 (049 evidence held)",
         "canonical-order 051-060 (054-055 evidence held)",
         "canonical-order 061-070",
-        "canonical-order 071-080 (075-076 artwork evidence held)"
+        "canonical-order 071-080 (075-076 artwork evidence held)",
+        "canonical-order 081-090"
       ],
-      "newlyAddedThemeSlotCount": 119,
+      "newlyAddedThemeSlotCount": 135,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30552,7 +30553,17 @@
         "SV-P_077",
         "SV-P_078",
         "SV-P_079",
-        "SV-P_080"
+        "SV-P_080",
+        "SV-P_081",
+        "SV-P_082",
+        "SV-P_083",
+        "SV-P_084",
+        "SV-P_085",
+        "SV-P_086",
+        "SV-P_087",
+        "SV-P_088",
+        "SV-P_089",
+        "SV-P_090"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -32273,6 +32284,221 @@
               "koreanNumber": "080/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 081-090",
+          "cardNumbers": [
+            "081",
+            "082",
+            "083",
+            "084",
+            "085",
+            "086",
+            "087",
+            "088",
+            "089",
+            "090"
+          ],
+          "status": "artwork_complete_image_archival_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean 081-090 card images; 085 and 088 golden-hour artwork",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_081",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000081",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_081.png?w=512",
+              "illustrationSourceNote": "곤율거니 2마리가 도시의 붉은 포장 바닥과 층이 나뉜 벽돌색 구조물을 배경으로 앉아 있다. 080의 곤율랭 카드와 연속 장면이라고 증명되지 않는다.",
+              "koreanNumber": "081/SV-P"
+            },
+            {
+              "code": "SV-P_082",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000082",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_082.png?w=512",
+              "illustrationSourceNote": "로토무셀카봉 도구가 밝은 연두 노랑 광선 속에서 회전하는 그래픽.",
+              "koreanNumber": "082/SV-P"
+            },
+            {
+              "code": "SV-P_083",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000083",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_083.png?w=512",
+              "illustrationSourceNote": "파란색 포장 사탕이 주황 분홍 발광 소용돌이 앞에 떠 있는 아이템.",
+              "koreanNumber": "083/SV-P"
+            },
+            {
+              "code": "SV-P_084",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000084",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_084.png?w=512",
+              "illustrationSourceNote": "모야모가 높은 건물들이 둘러싼 도시의 도로·구조물 앞에서 노란색 옷을 입고 포즈를 취한다.",
+              "koreanNumber": "084/SV-P"
+            },
+            {
+              "code": "SV-P_085",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000085",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_085.png?w=512",
+              "illustrationSourceNote": "오거폰이 분홍 보라 하늘과 금빛 석양, 들판과 나무 사이를 뛰어간다.",
+              "koreanNumber": "085/SV-P"
+            },
+            {
+              "code": "SV-P_086",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000086",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_086.png?w=512",
+              "illustrationSourceNote": "여러 색상의 오거폰 가면들이 회색 붉은색 초록 파랑의 그래픽으로 함께 그려졌다. 다른 종 카메오는 없음.",
+              "koreanNumber": "086/SV-P"
+            },
+            {
+              "code": "SV-P_087",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000087",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_087.png?w=512",
+              "illustrationSourceNote": "고릴타가 진동하는 드럼스틱을 휘두르는 흙빛 배경의 액션 일러스트.",
+              "koreanNumber": "087/SV-P"
+            },
+            {
+              "code": "SV-P_088",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000088",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_088.png?w=512",
+              "illustrationSourceNote": "그우린차가 대나무 숲의 황금빛 역광 안에서 차를 쏟으며 움직이는 장면.",
+              "koreanNumber": "088/SV-P"
+            },
+            {
+              "code": "SV-P_089",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000089",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_089.png?w=512",
+              "illustrationSourceNote": "오거폰이 잎사귀와 청록빛 바람 소용돌이 속에서 공격하는 추상적으로 강조된 전투 장면.",
+              "koreanNumber": "089/SV-P"
+            },
+            {
+              "code": "SV-P_090",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000090",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_090.png?w=512",
+              "illustrationSourceNote": "테라스탈 오거폰 ex가 날카로운 수정광과 형광 노랑·초록·파란빛 사이에 서 있다.",
+              "koreanNumber": "090/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -32297,11 +32523,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 67/248 artwork checked, 13 holds through 080, image archive pending.",
+    "note": "SV-P 77/248 artwork checked, 13 earlier evidence holds through 090, image binaries archive pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 071-080: 8 artwork verified, 2 held; +10 theme memberships",
-    "nextStart": "SV-P 081 (canonical order 081)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 081-090: 10 artwork verified, +16 theme memberships",
+    "nextStart": "SV-P 091 (canonical order 091)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -32382,6 +32608,6 @@
         "lastArtSafeCheckpoint": "SV-P 071-074 & 077-080 artwork verified"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 071-080: 8 checked, 075-076 deferred."
+    "lastEvidenceAuditCheckpoint": "SV-P 081-090: 10 Korean artworks verified; next 091."
   }
 }
