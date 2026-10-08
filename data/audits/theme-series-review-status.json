@@ -27260,8 +27260,8 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P canonical 001-030 한국판 카드 실제 일러스트를 12개 테마로 전수 대조, 021-030 포켓몬코리아 이미지로 시각 검증. 아카이브 이미지 자체저장은 수행 전.",
-      "reviewedCardCount": 30,
+      "note": "M-P 001-040/068 한국판 카드 실물 그림 기준 12개 독립 테마 검수 완료. 031-040은 공식 이미지, 동일 도안(032/037) 및 한국 프로모 실물(040)을 대조. 외부 원본 이미지 자체 호스팅/Cloudflare 배포는 아직 검증 대기.",
+      "reviewedCardCount": 40,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27279,9 +27279,10 @@
       "reviewedRanges": [
         "canonical-order 001-010",
         "canonical-order 011-020",
-        "canonical-order 021-030"
+        "canonical-order 021-030",
+        "canonical-order 031-040"
       ],
-      "newlyAddedThemeSlotCount": 50,
+      "newlyAddedThemeSlotCount": 65,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27312,7 +27313,17 @@
         "M-P_027",
         "M-P_028",
         "M-P_029",
-        "M-P_030"
+        "M-P_030",
+        "M-P_031",
+        "M-P_032",
+        "M-P_033",
+        "M-P_034",
+        "M-P_035",
+        "M-P_036",
+        "M-P_037",
+        "M-P_038",
+        "M-P_039",
+        "M-P_040"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -27872,9 +27883,201 @@
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000030"
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-040",
+          "cardNumbers": [
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea official 031,033-036,038-039; Korean catalog 032 and same-art Japan image reference; Korean SV11W art 037; Korean event promo 040 photo",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_031",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000031",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_032",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KWDNS7QZY014XYNH2QT8JV3M",
+              "illustrationSourceNote": "Korean master card metadata; same-illustration reference image from Japanese printing"
+            },
+            {
+              "code": "M-P_033",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000033",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_034",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000034",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_035",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000035",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_036",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000036",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_037",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025008082",
+              "illustrationSourceNote": "Korean SV11W 082 identical artwork"
+            },
+            {
+              "code": "M-P_038",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000038",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_039",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000039",
+              "illustrationSourceNote": "Pokémon Korea official card illustration"
+            },
+            {
+              "code": "M-P_040",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://uturitrading.com/en/products/magicarpe-promo-mega-festa-2026-040-m-p",
+              "illustrationSourceNote": "Korean promotional card 040/M-P retailer image"
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 031 (canonical order 031)"
+      "nextStart": "M-P 041 (canonical order 041)"
     }
   },
   "queue": {
@@ -27897,11 +28100,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 MBD/MBG/MA completed. M-P 001-030/68 visually reviewed across 12 themes; next 031.",
+    "note": "Task 5 MBD, MBG, MA complete. M-P 001-040/68 artwork reviewed across 12 themes; next 041. All M-P original image binary self-hosting is still pending.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-030 artwork review COMPLETE (external image archive pending)",
-    "nextStart": "M-P 031 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-040 artwork review COMPLETE (external image archive pending)",
+    "nextStart": "M-P 041 (canonical order 041)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
