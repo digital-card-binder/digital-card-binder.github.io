@@ -166,6 +166,9 @@ let packBaseMode = "empty";
 let packSharedViewActive = false;
 let packCollectorPublicViewActive = false;
 let packSaveQueue = Promise.resolve();
+let packDocumentReady = false;
+let packDocumentUnsubscribe = null;
+let packAuthRequest = 0;
 let activePack = null;
 let legacyPackImages = new Map();
 
@@ -390,6 +393,11 @@ function updatePackAuthControls(user, message = "") {
 }
 
 async function applyPackUserState(user) {
+  const requestId = ++packAuthRequest;
+  packDocumentUnsubscribe?.();
+  packDocumentUnsubscribe = null;
+  packDocumentReady = false;
+  packCollectorPublicViewActive = false;
   packUser = user;
   packUserDocumentRef = null;
   packBaseMode = "empty";
@@ -404,11 +412,13 @@ async function applyPackUserState(user) {
         packFirebase.firestoreModule,
         "pack",
       );
+      if (requestId !== packAuthRequest) return;
       applyPackDocument(
         window.CollectorPublicView.projectionPackDocument(context.projection),
         [],
       );
     } catch (error) {
+      if (requestId !== packAuthRequest) return;
       applyPackDocument({}, []);
       window.CollectorPublicView.showAccessError(error);
       console.warn("공개 팩도감을 불러오지 못했습니다.", error);
@@ -429,20 +439,26 @@ async function applyPackUserState(user) {
   const defaultOwnedCodes = baseMode === "legacy" ? getLegacyOwnedCodes() : [];
   packBaseMode = baseMode;
 
+  // Display a loading state, rather than an editable, empty collection.
+  applyPackDocument({}, []);
+  updatePackAuthControls(user, "보유 기록 불러오는 중");
   const { db, firestoreModule } = packFirebase;
   const shared = window.PokemonDexSharedReadonly;
   await shared?.ensureOwnerShare?.(db, firestoreModule, user);
+  if (requestId !== packAuthRequest) return;
   packSharedViewActive = Boolean(shared?.isActive?.(user));
 
   if (packSharedViewActive) {
     packBaseMode = "legacy";
     try {
       const ownerDocument = await shared.loadOwnerDocument(db, firestoreModule, "packDex");
+      if (requestId !== packAuthRequest) return;
       if (!ownerDocument) throw new Error("packDex 공유 문서를 찾지 못했습니다.");
       applyPackDocument(ownerDocument.data || {}, getLegacyOwnedCodes());
     } catch (error) {
+      if (requestId !== packAuthRequest) return;
       console.warn("팩도감 읽기 전용 공유 데이터를 불러오지 못했습니다.", error);
-      applyPackDocument({}, getLegacyOwnedCodes());
+      applyPackDocument({}, []);
     }
     updatePackAuthControls(user);
     return;
@@ -458,6 +474,7 @@ async function applyPackUserState(user) {
 
   try {
     const snapshot = await firestoreModule.getDoc(packUserDocumentRef);
+    if (requestId !== packAuthRequest) return;
     if (!snapshot.exists()) {
       const initialData = {
         baseMode,
@@ -469,15 +486,34 @@ async function applyPackUserState(user) {
         updatedAt: firestoreModule.serverTimestamp()
       };
       await firestoreModule.setDoc(packUserDocumentRef, initialData);
+      if (requestId !== packAuthRequest) return;
+      packDocumentReady = true;
       applyPackDocument(initialData, defaultOwnedCodes);
     } else {
+      packDocumentReady = true;
       applyPackDocument(snapshot.data() || {}, defaultOwnedCodes);
     }
     updatePackAuthControls(user);
+    // Refresh ownership when it changes on another device or in Sheets.
+    packDocumentUnsubscribe = firestoreModule.onSnapshot(packUserDocumentRef, (next) => {
+      if (requestId !== packAuthRequest || !next.exists()) return;
+      applyPackDocument(next.data() || {}, defaultOwnedCodes);
+    }, (error) => {
+      if (requestId !== packAuthRequest) return;
+      console.warn("팩도감 실시간 동기화 실패", error);
+      packDocumentReady = false;
+      updatePackAuthControls(user, "보유 기록 동기화 실패 · 새로고침 필요");
+      render();
+      renderPromo();
+    });
   } catch (error) {
+    if (requestId !== packAuthRequest) return;
     console.warn("팩도감 정보를 불러오지 못했습니다.", error);
-    applyPackDocument({}, defaultOwnedCodes);
-    updatePackAuthControls(user, "저장 데이터 불러오기 실패");
+    // Never replace saved codes with the fallback after a read error.
+    packDocumentReady = false;
+    updatePackAuthControls(user, "보유 기록 불러오기 실패 · 새로고침 필요");
+    render();
+    renderPromo();
   }
 }
 
@@ -570,7 +606,7 @@ async function signOutPackUser() {
 
 function canEditPackCollection() {
   return Boolean(
-    packUser && packFirebase && packUserDocumentRef && !packSharedViewActive
+    packUser && packFirebase && packUserDocumentRef && packDocumentReady && !packSharedViewActive
   );
 }
 
@@ -631,7 +667,7 @@ function updatePackCompletionButton(button, pack) {
   const owned = Boolean(pack.owned);
   button.classList.toggle("is-complete", owned);
   button.classList.remove("is-saving");
-  button.disabled = false;
+  button.disabled = Boolean(packUser && !packSharedViewActive && !packDocumentReady);
   button.setAttribute("aria-pressed", String(owned));
   button.setAttribute(
     "aria-label",
@@ -923,7 +959,7 @@ function updatePromoAction(button, pack) {
   const owned = ownedPromoPackIds.has(pack.id);
   button.classList.toggle("is-owned", owned);
   button.classList.remove("is-saving");
-  button.disabled = false;
+  button.disabled = Boolean(packUser && !packSharedViewActive && !packDocumentReady);
   button.setAttribute("aria-pressed", String(owned));
   button.textContent = owned ? "컬렉션에서 제거" : "내 컬렉션에 등록";
   button.setAttribute(
