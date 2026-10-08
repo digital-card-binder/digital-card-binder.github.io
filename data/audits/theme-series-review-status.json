@@ -27260,8 +27260,8 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P canonical 001-049 일러스트 기반 12테마 검수. 047-049 한국판 실물 인쇄 사진에서 자연 풍경·색감 검증. 한국판 047=리아코 / 일본판 047=일레즌 번호 충돌 제거. 원본 이미지 바이너리 CDN 자체저장 확인은 별도 pending.",
-      "reviewedCardCount": 49,
+      "note": "M-P 001-050 한국판 카드 × 12테마 그림 검수. 050 공식 아트에서 컬러 1장 추가. 051-056 이미지 확인 전까지 추측으로 분류하지 않는다. 이미지 바이너리 자체 저장·Cloudflare 배포는 검증 대기.",
+      "reviewedCardCount": 50,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27282,9 +27282,10 @@
         "canonical-order 021-030",
         "canonical-order 031-040",
         "canonical-order 041-046",
-        "canonical-order 047-049"
+        "canonical-order 047-049",
+        "canonical-order 050"
       ],
-      "newlyAddedThemeSlotCount": 80,
+      "newlyAddedThemeSlotCount": 81,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27334,7 +27335,8 @@
         "M-P_046",
         "M-P_047",
         "M-P_048",
-        "M-P_049"
+        "M-P_049",
+        "M-P_050"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -28280,9 +28282,47 @@
               "illustrationSourceNote": "한국판 실물 인쇄 사진의 해당 카드 이름·그림 확인; 공식 CDN 바이너리/배포는 미확인."
             }
           ]
+        },
+        {
+          "range": "canonical-order 050",
+          "cardNumbers": [
+            "050"
+          ],
+          "status": "complete",
+          "checkedCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 1,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 1,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 1,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "포켓몬코리아 050/M-P 공식 상세 https://pokemoncard.co.kr/cards/detail/MP000000050",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_050",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000050",
+              "illustrationSourceNote": "공식 카드 그림 판독. 비주기 트레이너 R 초상 배지는 별도 포켓몬 카메오에 포함하지 않는다."
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 050 (canonical order 050)"
+      "nextStart": "M-P 051 (canonical order 051)"
     }
   },
   "queue": {
@@ -28305,11 +28345,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "M-P 001-049/68 picture-based review complete; next M-P 050; 047 Korean/Japanese promo code collision audit corrected. External image archive not binary verified.",
+    "note": "M-P 001-050/68 inspected. 051-056 official artwork unavailable. M-P image selfhost repair workflow requested separately; verification pending.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-049 artwork review COMPLETE (image archive verification pending)",
-    "nextStart": "M-P 050 (canonical order 050)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-050 artwork review COMPLETE (archive pending)",
+    "nextStart": "M-P 051 (canonical order 051)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {

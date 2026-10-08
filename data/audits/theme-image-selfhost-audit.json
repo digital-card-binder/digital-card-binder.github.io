@@ -253,6 +253,22 @@
       "brokenReferenceCount": null,
       "nextStart": "M-P canonical order 050",
       "note": "한국어 실물 카드 사진으로 047-049 아트 검수 완료. 기존 series.json 외부 이미지 원본은 출처 메타데이터로 재사용; 브라우저 이미지 로더가 자체 Cloudflare CDN으로 매핑하도록 유지. 실제 .webp 바이너리 존재·디코딩 및 배포 미검증."
+    },
+    {
+      "task": 5,
+      "set": "M-P",
+      "range": "canonical-order 050",
+      "canonicalCardCount": 1,
+      "externalImageReferenceCountBefore": 1,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 1,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 1,
+      "brokenReferenceCount": null,
+      "nextStart": "M-P canonical order 051",
+      "note": "한국 포켓몬코리아 050/M-P 공식 이미지를 확인하여 12테마 검수 완료. image archive Cloudflare repair_only 작업을 별도 GitHub Actions로 요청; 이미지 파일 정상 디코딩/배포 여부는 별도 확인 필요."
     }
   ]
 }

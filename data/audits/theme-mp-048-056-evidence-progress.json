@@ -4,7 +4,7 @@
   "task": 5,
   "set": "M-P",
   "range": "048-056",
-  "status": "048-049_theme_artwork_completed_050-056_pending",
+  "status": "048-050_theme_artwork_completed_051-056_pending",
   "checkpointUnchanged": "",
   "blockedCard": "",
   "cards": [
@@ -46,8 +46,13 @@
       "koreanOfficialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_050.png?w=512",
       "artworkVisuallyInspected": true,
       "observation": "로켓단의 뮤츠 ex 및 우측 인물 초상 배지 포함 한국판 이미지 확인",
-      "themesReviewed": false,
-      "imageBinarySelfHosted": false
+      "themesReviewed": true,
+      "imageBinarySelfHosted": false,
+      "themesAdded": [
+        "color"
+      ],
+      "reviewEvidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000050",
+      "status": "theme_artwork_complete_image_archive_pending"
     },
     {
       "cardKey": "M-P_051",
@@ -101,9 +106,10 @@
   "themeAdditions": [
     "M-P_048:season",
     "M-P_048:color",
-    "M-P_049:color"
+    "M-P_049:color",
+    "M-P_050:color"
   ],
   "selfHostedImagesAdded": 0,
-  "notes": "048-049 한국판 인쇄 카드 사진 + 공식 페이지 근거로 12개 테마 검수 완료. 050-056 pending. 이미지 자체저장·배포 검증 없음. 047은 별도 로그에서 완료 처리.",
-  "lastSafeCheckpoint": "M-P canonical 049"
+  "notes": "M-P 050 포켓몬코리아 공식 그림 검수 완료, 컬러 테마 확정. 051-056 공식 이미지 확인 실패로 보류. 이미지 자체 호스팅 복구 GitHub Actions 요청만 진행, 배포 성공은 확인하지 못함.",
+  "lastSafeCheckpoint": "M-P canonical 050"
 }
