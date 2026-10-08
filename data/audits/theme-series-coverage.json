@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3723,
-    "uniqueThemeCards": 2232,
-    "strictCompleteSetCount": 12,
+    "themeCardSlots": 3735,
+    "uniqueThemeCards": 2243,
+    "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 261,
+    "baselineRemainingSetCount": 260,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -135,7 +135,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1696,
+      "cardSlots": 1707,
       "setCount": 20,
       "rarities": [
         "AR",
@@ -203,7 +203,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 361,
+      "cardSlots": 362,
       "setCount": 20,
       "rarities": [
         "AR",
@@ -234,9 +234,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 12,
-      "remainingSetCount": 2,
-      "currentThemeSlots": 3406
+      "completeSetCount": 13,
+      "remainingSetCount": 1,
+      "currentThemeSlots": 3418
     },
     {
       "era": "SV",
@@ -310,13 +310,6 @@
       "name": "메가 진화 프로모",
       "cardCount": 68,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "MA",
-      "name": "MEGA 프리미엄 트레이너 박스",
-      "cardCount": 51,
-      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2020,15 +2013,15 @@
       "cardCount": 51,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
       "themeHits": {
         "night": 1,
         "season": 8,
-        "color": 40,
+        "color": 51,
         "sunset": 1,
         "food": 2,
-        "street": 3
+        "street": 4
       }
     },
     {

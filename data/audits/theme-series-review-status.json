@@ -26274,10 +26274,10 @@
       "nextStart": "TASK 5 MA 001/043 (canonical order 001)"
     },
     "MA": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
-      "note": "Task 5 MA canonical order 001-040 artwork review 완료. 한국판 MA 031-040 카드 전부 일러스트 확인. 12개 독립 테마 기준으로 색감·숲·야경·거리 장면 분류. 이미지 자가 저장 및 Cloudflare 실배포 확인 별도 대기.",
-      "reviewedCardCount": 40,
+      "note": "Task 5 한국판 MA 51개 canonical card slot을 12개 독립 테마 기준으로 모두 분류 완료. 마지막 041-043 일러스트 및 044-051 기본 에너지 속성·색상 대조. 기본 에너지/외부 카드 이미지의 원본 바이너리 직접 판독 및 자체저장/Cloudflare 배포 상태는 별도 미검증.",
+      "reviewedCardCount": 51,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -26296,9 +26296,10 @@
         "canonical-order 001-010",
         "canonical-order 011-020",
         "canonical-order 021-030",
-        "canonical-order 031-040"
+        "canonical-order 031-040",
+        "canonical-order 041-051"
       ],
-      "newlyAddedThemeSlotCount": 55,
+      "newlyAddedThemeSlotCount": 67,
       "newlyAddedCards": [
         "MA_001",
         "MA_002",
@@ -26339,7 +26340,18 @@
         "MA_037",
         "MA_038",
         "MA_039",
-        "MA_040"
+        "MA_040",
+        "MA_041",
+        "MA_042",
+        "MA_043",
+        "MA_044",
+        "MA_045",
+        "MA_046",
+        "MA_047",
+        "MA_048",
+        "MA_049",
+        "MA_050",
+        "MA_051"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -27041,9 +27053,209 @@
               "evidenceUrl": "https://collectory.cc/cards/575d5740-94b9-4f8e-8afe-8051d71ff8a4"
             }
           ]
+        },
+        {
+          "range": "canonical-order 041-051",
+          "cardNumbers": [
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050",
+            "051"
+          ],
+          "status": "complete",
+          "checkedCardCount": 11,
+          "imageAudit": {
+            "catalogImageReferenceCount": 11,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 11,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 11,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "MA 041-043 Korean edition image and set data, 044-051 eight Korean basic Energy canonical card identities, energy-type symbols and associated palette; external image binary/archive verification pending",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "MA_041",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KW1C68HH1DKWRWAFN391VD8J",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_042",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KW1C68HHNE9B4M6ZK8AWX6SD",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_043",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KW1C68HH1F95JWP4JEDQK8RF",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_044",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJDGGQ60ZA2F0NJ8YG7BA",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_045",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJDXFKEG8087CYGQ0KFXB",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_046",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJEA7SY7PYYTVGCE3KE59",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_047",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJERTZ3PXNENAC7D8GCRR",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_048",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJF5RZV5PQN7S4QAWKYZW",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_049",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJFJE6X7FJNZQ7PYJGVDS",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_050",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJFZ4M6KDTJFNJR2XM64Q",
+              "imageBinaryVerification": "pending"
+            },
+            {
+              "code": "MA_051",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2KE2AXGPYTR873AD69EY/cards/01KY1EJGBV8DJ5AGXSZG4VTQT6",
+              "imageBinaryVerification": "pending"
+            }
+          ]
         }
       ],
-      "nextStart": "MA 041/043 (canonical order 041)"
+      "nextStart": "M-P 001 (canonical order 001)"
     }
   },
   "queue": {
@@ -27063,14 +27275,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "M",
-    "currentSet": "MA",
+    "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "MBD and MBG complete; MA 001-040/051 artwork review checked for 12 themes. MA images still externally referenced; next MA 041.",
+    "note": "Task 5 MBD, MBG, MA completed; next M-P 001/68. MA basic energies classified by canonical attributes; external image binaries/selfhosting unverified.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-040 artwork review COMPLETE (image archive pending)",
-    "nextStart": "MA 041/043 (canonical order 041)",
+    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-051 12-theme classification COMPLETE (image binary/self-host verification pending)",
+    "nextStart": "M-P 001 (canonical order 001)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
