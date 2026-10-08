@@ -76,6 +76,23 @@
       "unverifiedImageCount": 13,
       "nextStart": "MA canonical order 001",
       "note": "GitHub 연결로 소스 URL/자가호스팅 경로 대응 관계 검증. 13개 CDN 이미지 파일의 실제 존재·정상 디코딩/배포 상태는 이 실행에서 확인되지 않아 별도 검증 대기."
+    },
+    {
+      "task": 5,
+      "set": "MA",
+      "range": "canonical-order 001-010",
+      "canonicalCardCount": 10,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "sourceImageProvenanceCount": 0,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "nextStart": "MA canonical order 011",
+      "note": "테마 카드 10장 그림 검수 완료. 이 배치의 이미지 바이너리 자체 저장 및 Cloudflare 배포는 수행하지 않아, 원본 external image를 그대로 유지하고 archive 검증은 별도 보류."
     }
   ]
 }

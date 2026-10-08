@@ -26272,6 +26272,225 @@
         }
       ],
       "nextStart": "TASK 5 MA 001/043 (canonical order 001)"
+    },
+    "MA": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "note": "Task 5 MA canonical order 001-010 실제 카드 그림을 12개 독립 테마 기준으로 점검. 한국판 번호 확인; 004는 동일 도안의 일본판 이미지를 보조로 사용. 카드 이미지 아카이브 자가저장/배포 검증은 아직 수행되지 않았으므로 외부 원본 링크를 유지.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010"
+      ],
+      "newlyAddedThemeSlotCount": 18,
+      "newlyAddedCards": [
+        "MA_001",
+        "MA_002",
+        "MA_003",
+        "MA_004",
+        "MA_005",
+        "MA_006",
+        "MA_007",
+        "MA_008",
+        "MA_009",
+        "MA_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea card listings and images for 001-003,005-010; Japanese MA 004 illustration only as cross-reference",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "MA_001",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_002",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_003",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_004",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_005",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_006",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_007",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_008",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "sunset",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "sunset",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_009",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_010",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
+        }
+      ],
+      "nextStart": "MA 011/043 (canonical order 011)"
     }
   },
   "queue": {
@@ -26294,11 +26513,11 @@
     "currentSet": "MA",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5: MBD와 MBG 검수 완료. MBG 011-023의 13개 이미지 경로 전환, 실제 Cloudflare 아카이브 검증은 pending. 다음은 MA 001/043.",
+    "note": "Task 5: MBG 23/23 COMPLETE (13 archive images pending verification); MA 001-010/051 thematic artwork review COMPLETE. MA images self-hosting and deploy unverified; next MA 011/043.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MBG canonical order 001-023 artwork review COMPLETE (image archive verification pending)",
-    "nextStart": "MA 001/043 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-010 artwork review COMPLETE (self-host archive pending)",
+    "nextStart": "MA 011/043 (canonical order 011)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {

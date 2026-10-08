@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3668,
-    "uniqueThemeCards": 2192,
+    "themeCardSlots": 3686,
+    "uniqueThemeCards": 2202,
     "strictCompleteSetCount": 12,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 261,
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 977,
-      "setCount": 17,
+      "cardSlots": 983,
+      "setCount": 18,
       "rarities": [
         "AR",
         "C",
@@ -135,8 +135,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1656,
-      "setCount": 19,
+      "cardSlots": 1666,
+      "setCount": 20,
       "rarities": [
         "AR",
         "C",
@@ -154,8 +154,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 76,
-      "setCount": 18,
+      "cardSlots": 77,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -178,8 +178,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 55,
-      "setCount": 19,
+      "cardSlots": 56,
+      "setCount": 20,
       "rarities": [
         "AR",
         "C",
@@ -236,7 +236,7 @@
       "cardCount": 2133,
       "completeSetCount": 12,
       "remainingSetCount": 2,
-      "currentThemeSlots": 3351
+      "currentThemeSlots": 3369
     },
     {
       "era": "SV",
@@ -316,7 +316,7 @@
       "code": "MA",
       "name": "MEGA 프리미엄 트레이너 박스",
       "cardCount": 51,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2020,9 +2020,14 @@
       "cardCount": 51,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "season": 6,
+        "color": 10,
+        "food": 1,
+        "sunset": 1
+      }
     },
     {
       "era": "M",
