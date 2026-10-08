@@ -73,10 +73,19 @@
     {
       "cardKey": "M-P_053",
       "koreanOfficialPage": "https://pokemoncard.co.kr/cards/detail/MP000000053",
-      "artworkVisuallyInspected": false,
+      "artworkVisuallyInspected": true,
       "themesReviewed": false,
       "imageBinarySelfHosted": false,
-      "status": "pending_official_image_unavailable"
+      "status": "partial_photo_evidence_only_official_korean_artwork_pending",
+      "koreanCardName": "쥬쥬",
+      "koreanPhotoListing": "https://m.bunjang.co.kr/products/431106981",
+      "koreanPhotoImage": "https://media.bunjang.co.kr/product/431106981_1_1789207061_w360.jpg",
+      "artworkObservation": "한국어 카드 사진에서 쥬쥬가 얼음/눈과 옅은 푸른색 배경 앞에 등장하는 장면 관찰. 판매자 표기의 053/M-P는 공식 카드 데이터와 재대조 필요.",
+      "candidateThemes": [
+        "season",
+        "color"
+      ],
+      "note": "실물 판매 사진의 카드 이름 및 배경을 확인했으나 포켓몬코리아 공식 053/M-P 상세 페이지가 빈 결과여서 동일 카드 및 12개 테마 완결성을 확정하지 않는다."
     },
     {
       "cardKey": "M-P_054",
@@ -110,6 +119,11 @@
     "M-P_050:color"
   ],
   "selfHostedImagesAdded": 0,
-  "notes": "M-P 050 포켓몬코리아 공식 그림 검수 완료, 컬러 테마 확정. 051-056 공식 이미지 확인 실패로 보류. 이미지 자체 호스팅 복구 GitHub Actions 요청만 진행, 배포 성공은 확인하지 못함.",
-  "lastSafeCheckpoint": "M-P canonical 050"
+  "notes": "M-P 050 공식 이미지 12테마 검수 및 checkpoint 완료. 051,052,054-056 공식 한국판 이미지 미확인. 053은 한국판 실물 판매사진(번개장터)만 확보, 겨울 풍경/파스텔 컬러 후보이며 theme DB에는 미반영. 한국판 카드 목록 외부 참고가 050까지만 올라와 있어 불확실한 번호는 별도 보류.",
+  "lastSafeCheckpoint": "M-P canonical 050",
+  "officialKoreanCardListCrosscheck": {
+    "url": "https://bulbapedia.bulbagarden.net/wiki/M-P_Promotional_cards_(KTCG)",
+    "observedLastNumber": 50,
+    "note": "2026-10-08 조회 시 이 외부 리스트는 050/M-P까지만 기재되어 있으므로 051 이상을 등재하지 않았다는 것이 실제 한국판 미발행 증거는 아님."
+  }
 }
