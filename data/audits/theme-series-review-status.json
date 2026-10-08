@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-090: 실제 한국판 그림 77장 검수, 기존 근거 보류 13장. 081-090 공식 카드 10장 판독, 테마 16건 신규 반영. 이미지 파일 자체호스팅 별도 보류.",
-      "reviewedCardCount": 77,
+      "note": "SV-P 001-100: 한국판 공식 일러스트 87장 검수 완료, 증거 보류 13장. 이번 091-100 10장 시각 검수, 테마 신규 20건, 094-095 왕자리 진화 연속 그림 및 099-100 박사 연구실 연결. 이미지 바이너리 별도 미완료.",
+      "reviewedCardCount": 87,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30483,9 +30483,10 @@
         "canonical-order 051-060 (054-055 evidence held)",
         "canonical-order 061-070",
         "canonical-order 071-080 (075-076 artwork evidence held)",
-        "canonical-order 081-090"
+        "canonical-order 081-090",
+        "canonical-order 091-100"
       ],
-      "newlyAddedThemeSlotCount": 135,
+      "newlyAddedThemeSlotCount": 155,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30563,7 +30564,17 @@
         "SV-P_087",
         "SV-P_088",
         "SV-P_089",
-        "SV-P_090"
+        "SV-P_090",
+        "SV-P_091",
+        "SV-P_092",
+        "SV-P_093",
+        "SV-P_094",
+        "SV-P_095",
+        "SV-P_096",
+        "SV-P_097",
+        "SV-P_098",
+        "SV-P_099",
+        "SV-P_100"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -32499,6 +32510,229 @@
               "koreanNumber": "090/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 091-100",
+          "cardNumbers": [
+            "091",
+            "092",
+            "093",
+            "094",
+            "095",
+            "096",
+            "097",
+            "098",
+            "099",
+            "100"
+          ],
+          "status": "artwork_complete_image_archival_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Exact Korean official 091-100 visual images, including 094-095 scene and 099-100 lab matched illustration sets",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_091",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000091",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_091.png?w=512",
+              "illustrationSourceNote": "진홍색 벌레 수집 가방과 파랑 잠자리채가 형광 초록·노랑 배경에 떠 있는 아이템 일러스트.",
+              "koreanNumber": "091/SV-P"
+            },
+            {
+              "code": "SV-P_092",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000092",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_092.png?w=512",
+              "illustrationSourceNote": "나오하와 리코가 햇살 비치는 야외의 푸른 나무와 꽃잎 사이를 달린다. 등장하는 인간은 별도 포켓몬 카메오가 아니다.",
+              "koreanNumber": "092/SV-P"
+            },
+            {
+              "code": "SV-P_093",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000093",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_093.png?w=512",
+              "illustrationSourceNote": "뜨아거와 로드가 파란 하늘·흰 구름·나무와 꽃잎 사이를 달리는 야외 장면.",
+              "koreanNumber": "093/SV-P"
+            },
+            {
+              "code": "SV-P_094",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000094",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_094.png?w=512",
+              "illustrationSourceNote": "왕자리가 수초와 나무 다리가 놓인 하천의 돌과 물가 위를 난다. 095 메가자리와 같은 Dsuke 작가, 동일한 하천·나무 울타리 지형이 이어지는 진화 전후 장면.",
+              "koreanNumber": "094/SV-P"
+            },
+            {
+              "code": "SV-P_095",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000095",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_095.png?w=512",
+              "illustrationSourceNote": "메가자리가 하천의 나무 울타리·돌다리를 따라 날고 있다. 094 왕자리와 같은 Dsuke 작가, 같은 냇가·다리 및 풀숲 풍경이 맞물리는 연속 일러스트.",
+              "koreanNumber": "095/SV-P"
+            },
+            {
+              "code": "SV-P_096",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000096",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_096.png?w=512",
+              "illustrationSourceNote": "가비루사 ex가 연한 파랑 물거품과 분홍빛 결정, 은색 금속빛 속에 돌진하는 전투 이미지.",
+              "koreanNumber": "096/SV-P"
+            },
+            {
+              "code": "SV-P_097",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000097",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_097.png?w=512",
+              "illustrationSourceNote": "분홍 메타몽이 청록·연두·남색 등 여러 색의 둥근 메타몽들 사이에 숨어 있는 장면. 다른 종류 포켓몬의 카메오는 없음.",
+              "koreanNumber": "097/SV-P"
+            },
+            {
+              "code": "SV-P_098",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000098",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_098.png?w=512",
+              "illustrationSourceNote": "금색 낚싯대가 푸른 소용돌이와 물방울, 빨강·흰 몬스터볼 앞에 떠 있는 아이템 그래픽.",
+              "koreanNumber": "098/SV-P"
+            },
+            {
+              "code": "SV-P_099",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "connected"
+              ],
+              "themesAdded": [
+                "color",
+                "connected"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000099",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_099.png?w=512",
+              "illustrationSourceNote": "올림박사가 파란색 프레임에 초록·흰 종이가 붙은 연구실 보드 앞에 서 있다. 100 투로박사와 같은 kirisAki 작가, 동일한 연구실 배경과 보드가 이어진 짝 그림.",
+              "koreanNumber": "099/SV-P"
+            },
+            {
+              "code": "SV-P_100",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "connected"
+              ],
+              "themesAdded": [
+                "color",
+                "connected"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000100",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_100.png?w=512",
+              "illustrationSourceNote": "투로박사가 초록·흰 자료가 붙은 파란색 연구실 패널 앞에서 종이를 들고 있다. 099 올림박사와 같은 kirisAki 작가, 같은 연구실 구조와 판넬 배경을 공유.",
+              "koreanNumber": "100/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -32523,11 +32757,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 77/248 artwork checked, 13 earlier evidence holds through 090, image binaries archive pending.",
+    "note": "SV-P 87/248 Korean art checked, 13 earlier evidence holds through 100; external image binaries still require separate archival.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 081-090: 10 artwork verified, +16 theme memberships",
-    "nextStart": "SV-P 091 (canonical order 091)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 091-100 ART AUDIT: 10 verified, 20 new theme memberships",
+    "nextStart": "SV-P 101 (canonical order 101)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -32608,6 +32842,6 @@
         "lastArtSafeCheckpoint": "SV-P 071-074 & 077-080 artwork verified"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 081-090: 10 Korean artworks verified; next 091."
+    "lastEvidenceAuditCheckpoint": "SV-P 091-100: all 10 Korean artworks verified; next 101."
   }
 }
