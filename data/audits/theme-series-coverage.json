@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3941,
-    "uniqueThemeCards": 2389,
+    "themeCardSlots": 3954,
+    "uniqueThemeCards": 2397,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1029,
-      "setCount": 22,
+      "cardSlots": 1034,
+      "setCount": 23,
       "rarities": [
         "AR",
         "C",
@@ -136,8 +136,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1853,
-      "setCount": 24,
+      "cardSlots": 1861,
+      "setCount": 25,
       "rarities": [
         "AR",
         "C",
@@ -248,7 +248,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 323
+      "currentThemeSlots": 336
     },
     {
       "era": "S",
@@ -341,7 +341,7 @@
       "code": "SV-P",
       "name": "스칼렛&바이올렛 프로모 카드",
       "cardCount": 248,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2328,10 +2328,12 @@
       "cardCount": 248,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "season": 5,
+        "color": 8
       }
     },
     {
