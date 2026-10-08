@@ -49,6 +49,33 @@
       "duplicateCount": 0,
       "invalidCardKeyCount": 0,
       "nextStart": "MBG canonical order 011"
+    },
+    {
+      "task": 5,
+      "set": "MBG",
+      "range": "canonical-order 011-023",
+      "canonicalCardCount": 13,
+      "externalImageReferenceCountBefore": 13,
+      "newlyInternalizedReferenceCount": 13,
+      "selfHostedReferenceCountAfter": 13,
+      "sourceImageProvenanceCount": 13,
+      "archiveProject": "legacy",
+      "archiveBase": "https://dcb-card-images-legacy-2026.pages.dev",
+      "pathPattern": "external/static.tcgexchange.kr/<fnv1a64(canonical-source-url)>.webp",
+      "themeAdditions": {
+        "color": 13,
+        "food": 1,
+        "season": 2,
+        "night": 1
+      },
+      "duplicateCount": 0,
+      "invalidCardKeyCount": 0,
+      "brokenReferenceCount": null,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 13,
+      "nextStart": "MA canonical order 001",
+      "note": "GitHub 연결로 소스 URL/자가호스팅 경로 대응 관계 검증. 13개 CDN 이미지 파일의 실제 존재·정상 디코딩/배포 상태는 이 실행에서 확인되지 않아 별도 검증 대기."
     }
   ]
 }

@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3651,
-    "uniqueThemeCards": 2179,
-    "strictCompleteSetCount": 11,
+    "themeCardSlots": 3668,
+    "uniqueThemeCards": 2192,
+    "strictCompleteSetCount": 12,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 262,
+    "baselineRemainingSetCount": 261,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -104,7 +104,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 161,
+      "cardSlots": 162,
       "setCount": 18,
       "rarities": [
         "AR",
@@ -119,7 +119,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 975,
+      "cardSlots": 977,
       "setCount": 17,
       "rarities": [
         "AR",
@@ -135,7 +135,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1643,
+      "cardSlots": 1656,
       "setCount": 19,
       "rarities": [
         "AR",
@@ -178,7 +178,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 54,
+      "cardSlots": 55,
       "setCount": 19,
       "rarities": [
         "AR",
@@ -234,9 +234,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 11,
-      "remainingSetCount": 3,
-      "currentThemeSlots": 3334
+      "completeSetCount": 12,
+      "remainingSetCount": 2,
+      "currentThemeSlots": 3351
     },
     {
       "era": "SV",
@@ -317,13 +317,6 @@
       "name": "MEGA 프리미엄 트레이너 박스",
       "cardCount": 51,
       "status": "pending"
-    },
-    {
-      "era": "M",
-      "code": "MBG",
-      "name": "스타터 세트 MEGA 「메가팬텀 ex」",
-      "cardCount": 23,
-      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -511,6 +504,13 @@
       "era": "SV",
       "code": "SVOD",
       "name": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」",
+      "cardCount": 21,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "SVOM",
+      "name": "스타터 세트 ex 「마리의 모르페코&오롱털 ex」",
       "cardCount": 21,
       "status": "pending"
     }
@@ -2002,13 +2002,13 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-08",
       "themeHits": {
-        "night": 2,
-        "season": 2,
-        "color": 10,
-        "food": 1,
+        "night": 3,
+        "season": 4,
+        "color": 23,
+        "food": 2,
         "street": 3,
         "cameo": 1
       }
