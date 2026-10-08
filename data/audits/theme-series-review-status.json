@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "SV-P 한국판 001-040 중 실제 아트 32장 12테마 검수 완료. 기존 8장(009-010,016-018,021,026,028) 이미지 근거 보류 유지. 031-040 10장은 한국판 공식 정보와 동일 그림 JP/EN 인쇄본 작가·기술 대조. 이미지 바이너리 자체호스팅 검증 별도 대기.",
-      "reviewedCardCount": 32,
+      "note": "SV-P 001-050 한국판 카드의 41개 일러스트를 12테마 검수, 9개 인쇄 그림 미확인 보류(009-010,016-018,021,026,028,049). 041-050의 9장 추가 판독 및 테마 슬롯 19건 수록; 이미지 실제 바이너리 자가호스팅 별도 미완료.",
+      "reviewedCardCount": 41,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30478,9 +30478,10 @@
         "canonical-order 001-008; 009-010 evidence held",
         "canonical-order 011-020 (016-018 image evidence deferred)",
         "canonical-order 021-030 (021,026,028 evidence held)",
-        "canonical-order 031-040"
+        "canonical-order 031-040",
+        "canonical-order 041-050 (049 evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 56,
+      "newlyAddedThemeSlotCount": 75,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30513,7 +30514,16 @@
         "SV-P_037",
         "SV-P_038",
         "SV-P_039",
-        "SV-P_040"
+        "SV-P_040",
+        "SV-P_041",
+        "SV-P_042",
+        "SV-P_043",
+        "SV-P_044",
+        "SV-P_045",
+        "SV-P_046",
+        "SV-P_047",
+        "SV-P_048",
+        "SV-P_050"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30524,7 +30534,8 @@
         "SV-P_018",
         "SV-P_021",
         "SV-P_026",
-        "SV-P_028"
+        "SV-P_028",
+        "SV-P_049"
       ],
       "batches": [
         {
@@ -31371,6 +31382,235 @@
               "artReferencePrint": "Japanese 060/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 041-050 (049 artwork held)",
+          "cardNumbers": [
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046",
+            "047",
+            "048",
+            "049",
+            "050"
+          ],
+          "status": "partially_complete_with_evidence_hold",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean numbered details, same-art Japanese reference and Korean event card art; 049 unverified",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_041",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000041",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918276",
+              "illustrationSourceNote": "꼬부기가 햇빛이 비치는 연못의 수련과 연잎 사이에 앉아 있는 그림. 동일 일러스트의 일본 061/SV-P 그림과 한국 공식 041/SV-P 정보(Gemi, HP70, 거품)를 대응.",
+              "koreanNumber": "041/SV-P",
+              "referencePrint": "Japanese 061/SV-P"
+            },
+            {
+              "code": "SV-P_042",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000042",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918264",
+              "illustrationSourceNote": "스코빌런 ex의 초록·붉은 두 고추 머리가 날아오는 고추 열매와 빛 속에 묘사됨. 한국 공식 042/SV-P 및 일본 동일 그림 089/SV-P(PLANETA Mochizuki) 대조.",
+              "koreanNumber": "042/SV-P",
+              "referencePrint": "Japanese 089/SV-P"
+            },
+            {
+              "code": "SV-P_043",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000043",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918282",
+              "illustrationSourceNote": "샤프니아가 기포·빛·수초가 어우러진 푸른 바닷속에 헤엄치는 그림. 한국 공식 043/SV-P 및 일본 동일 그림 090/SV-P(Tonji Matsuno) 대조.",
+              "koreanNumber": "043/SV-P",
+              "referencePrint": "Japanese 090/SV-P"
+            },
+            {
+              "code": "SV-P_044",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000044",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918278",
+              "illustrationSourceNote": "달빛과 별이 비치는 푸른 숲의 야생화 사이에서 쉬는 일레즌 그림. 한국 공식 044/SV-P 및 일본 동일 그림 091/SV-P(Natsumi Yoshida) 대조. 실제 수면 장면은 아니므로 sleeping 제외.",
+              "koreanNumber": "044/SV-P",
+              "referencePrint": "Japanese 091/SV-P"
+            },
+            {
+              "code": "SV-P_045",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000045",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/134694695579",
+              "illustrationSourceNote": "맑은 하늘과 꽃잎을 배경으로 도시 담장 위에 앉은 삐. 한국 공식 045/SV-P 및 일본 동일 그림 092/SV-P(Tika Matsuno) 대조.",
+              "koreanNumber": "045/SV-P",
+              "referencePrint": "Japanese 092/SV-P"
+            },
+            {
+              "code": "SV-P_046",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000046",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918281",
+              "illustrationSourceNote": "데기라스가 흙먼지와 돌파편을 뿜는 갈색·황토색의 바위 전투 장면. 한국 공식 046/SV-P 및 일본 동일 그림 093/SV-P(Shiburingaru) 대조.",
+              "koreanNumber": "046/SV-P",
+              "referencePrint": "Japanese 093/SV-P"
+            },
+            {
+              "code": "SV-P_047",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000047",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918270",
+              "illustrationSourceNote": "부르르룸의 금속빛 차체와 보라·노란 효과선이 강조된 전투 장면. 한국 공식 047/SV-P 및 일본 동일 그림 094/SV-P(Nisota Niso) 대조. 실제 작업 장면은 아님.",
+              "koreanNumber": "047/SV-P",
+              "referencePrint": "Japanese 094/SV-P"
+            },
+            {
+              "code": "SV-P_048",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000048",
+              "illustrationReferenceUrl": "https://okini.land/en/55300-pokemon-tcg-promo-095-sv-p-p-moonlight-hill-the-pokemon-company.html",
+              "illustrationSourceNote": "달이 빛나는 언덕의 커다란 보름달이 별이 총총한 남색 밤하늘과 초록빛 언덕·나무를 비추는 장면. 한국 공식 048/SV-P 및 일본 동일 그림 095/SV-P(AYUMI ODASHIMA) 대조.",
+              "koreanNumber": "048/SV-P",
+              "referencePrint": "Japanese 095/SV-P"
+            },
+            {
+              "code": "SV-P_049",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "마나피 049/SV-P 한국판 카드명, 번호, 일러스트 작가(NC Empire)는 제3자 한국판 체크리스트에 확인되지만 일러스트 자체의 판독 가능한 한국판 실물 이미지 또는 일치하는 동일 그림 근거를 충분히 확인하지 못함. 색·테마 판정 보류.",
+              "koreanNumber": "049/SV-P",
+              "referencePrint": null
+            },
+            {
+              "code": "SV-P_050",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000050",
+              "illustrationReferenceUrl": "https://pokumon.com/card/pikachu-050-sv-p-korean-promo/",
+              "illustrationSourceNote": "한국판 포켓몬 카드 게임 Let's Play 2023 이벤트 피카츄(Jiro Sasumo). 피카츄와 배경의 리자몽이 대치하는 행사장 일러스트를 한국판 이미지로 직접 식별.",
+              "koreanNumber": "050/SV-P",
+              "referencePrint": "Korean 050/SV-P original printed illustration"
+            }
+          ]
         }
       ]
     }
@@ -31395,11 +31635,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 32/248 art reviewed; previous 8 SV-P evidence holds retained; latest 031-040 10 cards matched by Korean official metadata + same-art foreign print; image binary archiving pending.",
+    "note": "SV-P 41/248 illustrations reviewed, 9 art evidence holds including 049. Art classifications through 050 except held, image binary hosting pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 031-040 ART REVIEW COMPLETE (10 checked, 17 theme slots); previous 8 SV-P art holds unchanged",
-    "nextStart": "SV-P 041 (canonical order 041)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 041-050 ART AUDIT: 9 verified, 049 held; new 19 theme memberships",
+    "nextStart": "SV-P 051 (canonical order 051)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -31457,8 +31697,15 @@
         "pendingCount": 3,
         "audit": "data/audits/theme-svp-021-030-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 020"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 049",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svp-041-050-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 048"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 031-040: ten matching artworks reviewed; next SV-P 041."
+    "lastEvidenceAuditCheckpoint": "SV-P 041-050: nine artworks checked, 049 art held, next 051."
   }
 }
