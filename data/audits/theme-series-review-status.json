@@ -28346,8 +28346,8 @@
     "CLL": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "CLL 001-020 artworks scanned under all 12 themes; Japanese same-number Classic art images referenced and Korean card/number verified separately. 011-020 adds 10 color registrations; holographic abstract glitter not classified as actual landscape/night. 021-034 pending; image hosting independent.",
-      "reviewedCardCount": 20,
+      "note": "CLL 001-032 canonical cards artwork checked against all 12 themes with Korean catalog identity and Japanese art refs; 033-034 basic energies are pending actual Korean print identifier, therefore CLL remains in_progress. See theme-cll-033-034-evidence-pending.json. Selfhost not verified.",
+      "reviewedCardCount": 32,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -28364,9 +28364,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010",
-        "canonical-order 011-020"
+        "canonical-order 011-020",
+        "canonical-order 021-032"
       ],
-      "newlyAddedThemeSlotCount": 26,
+      "newlyAddedThemeSlotCount": 40,
       "newlyAddedCards": [
         "CLL_001",
         "CLL_002",
@@ -28387,10 +28388,25 @@
         "CLL_017",
         "CLL_018",
         "CLL_019",
-        "CLL_020"
+        "CLL_020",
+        "CLL_021",
+        "CLL_022",
+        "CLL_023",
+        "CLL_024",
+        "CLL_025",
+        "CLL_026",
+        "CLL_027",
+        "CLL_028",
+        "CLL_029",
+        "CLL_030",
+        "CLL_031",
+        "CLL_032"
       ],
       "existingSkippedCards": [],
-      "heldCards": [],
+      "heldCards": [
+        "CLL_033",
+        "CLL_034"
+      ],
       "batches": [
         {
           "range": "canonical-order 001-010",
@@ -28787,6 +28803,236 @@
               "illustrationSourceNote": "하이퍼볼의 검정·노랑 외형, 은빛과 자주색 회오리형 홀로그램 대비."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-032",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030",
+            "031",
+            "032"
+          ],
+          "status": "complete",
+          "checkedCardCount": 12,
+          "imageAudit": {
+            "catalogImageReferenceCount": 12,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 12,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 12,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "CLL Korean series catalog and actual same-number Japanese classic card art; Japanese is artwork reference only.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLL_021",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJWG3KTW31ST8G6BZCY6H",
+              "illustrationReferenceUrl": "https://okini.land/en/58084-pokemon-tcg-cll-021-032-computer-search-the-pokemon-company.html",
+              "illustrationSourceNote": "레트로 컴퓨터의 청록색과 황금 별 홀로그램. 거리 풍경이나 근로 포켓몬 없음."
+            },
+            {
+              "code": "CLL_022",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJWX9BSEQC0YKV86BNNJX",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-cll-022-032",
+              "illustrationSourceNote": "푸른 탐지기 및 녹색 전자 그리드. 홀로 추상 패턴."
+            },
+            {
+              "code": "CLL_023",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJXADHKHS2GVGS2FK7JV2",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-cll-023-032",
+              "illustrationSourceNote": "푸른색 포장 사탕과 금빛·자주색 홀로 배경. 명확한 간식 대상."
+            },
+            {
+              "code": "CLL_024",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJXQHT51V37JA83XJ3QSY",
+              "illustrationReferenceUrl": "https://www.cardrush-pokemon.jp/product/49036",
+              "illustrationSourceNote": "두 몬스터볼과 교환 장치, 붉은 볼과 푸른 네트워크형 배경."
+            },
+            {
+              "code": "CLL_025",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJY4HBCVYVK7RY9PAA65F",
+              "illustrationReferenceUrl": "https://www.pristineauction.com/a9931059-Poke-Ball-2023-Pokemon-Japanese-TCG-Classic-Collection-Holo-25-CGC-10",
+              "illustrationSourceNote": "전면의 빨강·은백 몬스터볼과 짙은 남청 배경."
+            },
+            {
+              "code": "CLL_026",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJYHKV4H719GV98HAVVN6",
+              "illustrationReferenceUrl": "https://okini.land/en/58089-pokemon-tcg-cll-026-032-scorching-charcoal-the-pok%C3%A9mon-company.html",
+              "illustrationSourceNote": "목탄이 주황 불꽃으로 타오르는 강한 난색 대비. 야경이나 실제 음식 장면 아님."
+            },
+            {
+              "code": "CLL_027",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJYYNJP942QQYH5NVEK4G",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-cll-027-032",
+              "illustrationSourceNote": "흰 실험복의 오박사와 연보라 옷, 은빛·민트 홀로 배경."
+            },
+            {
+              "code": "CLL_028",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJZBP8QBJREPRX74TNA6M",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-cll-028-032",
+              "illustrationSourceNote": "실내 소파에 앉은 가족, 피카츄 코스튬과 인형; 인형은 실제 포켓몬 카메오가 아님."
+            },
+            {
+              "code": "CLL_029",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJZRSRZYZTVCA6Y3Z9A7A",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-cll-029-032",
+              "illustrationSourceNote": "비주기의 검정 로켓단 복장과 배경 금빛 홀로; 인물 카드로 포켓몬 카메오 추정 금지."
+            },
+            {
+              "code": "CLL_030",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RK05X6R1RBM6QF3KKJC0E",
+              "illustrationReferenceUrl": "https://shopee.com.my/-Pokemon-Cards-Bill-%28CLL%29-030-032-Holo-%28JPN-Classic-Collection%29-i.1273176413.29723954414",
+              "illustrationSourceNote": "이수재의 연보라 상의와 머리의 갈색, 배경 금빛 홀로."
+            },
+            {
+              "code": "CLL_031",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RK0JZHN3VS90N6YFTFTH6",
+              "illustrationReferenceUrl": "https://www.pokemon-card.com/ex/classic/index.html",
+              "illustrationSourceNote": "로켓단 간부와 옆의 페르시온이 함께 등장하는 공식 일본판 그림. 카메오 대상은 페르시온이며 초상/배지와 구분."
+            },
+            {
+              "code": "CLL_032",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RK101CVT9G3T0PCGMM3T2",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-cll-032-032",
+              "illustrationSourceNote": "더블 무색 에너지 실버·검정 스타 표지와 무지갯빛 홀로 배경."
+            }
+          ]
         }
       ]
     }
@@ -28808,14 +29054,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "CLL",
+    "currentSet": "CLK",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 051-068 deferred (18 exact canonical slots); CLL 001-020 illustration reviewed, 021 onward next. No new images selfhosted.",
+    "note": "M-P 18 pending; CLL 32/34 art-reviewed, 2 energy card print-number evidence pending; moved to CLK. No new images archived.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 CLL canonical order 001-020 artwork review COMPLETE (archive pending)",
-    "nextStart": "CLL 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 CLL canonical order 001-032 ART REVIEW DONE; 033-034 evidence pending, continue CLK",
+    "nextStart": "CLK 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -28831,6 +29077,13 @@
         "pendingCount": 18,
         "audit": "data/audits/theme-mp-051-068-evidence-pending.json",
         "lastArtSafeCheckpoint": "M-P canonical 050"
+      },
+      {
+        "set": "CLL",
+        "range": "canonical-order 033-034",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-cll-033-034-evidence-pending.json",
+        "lastArtSafeCheckpoint": "CLL canonical 032"
       }
     ],
     "lastEvidenceAuditCheckpoint": "M-P 051-068 reviewed for evidence availability (0 artwork verified), next CLL 001"
