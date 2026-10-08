@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "SV-P Korean promo identity confirmed by Pokemon Korea; 001-008 artwork crosschecked with DIFFERENT numbered Japanese same-art prints using illustrator and moves; Korean 009-010 images unresolved pending. No Korean binaries rehosted.",
-      "reviewedCardCount": 8,
+      "note": "SV-P 001-008 기존 완료 유지. 011-015, 019-020 한국판 포켓몬코리아 공식 실물 일러스트 7장 12테마 검수/12개 테마 슬롯 추가. 009-010, 016-018 이미지는 확인 안 되어 보류. 전체 한국판 이미지 파일 자체 호스팅/배포 확인은 미완료.",
+      "reviewedCardCount": 15,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30475,9 +30475,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-008; 009-010 evidence held"
+        "canonical-order 001-008; 009-010 evidence held",
+        "canonical-order 011-020 (016-018 image evidence deferred)"
       ],
-      "newlyAddedThemeSlotCount": 13,
+      "newlyAddedThemeSlotCount": 25,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30486,12 +30487,22 @@
         "SV-P_005",
         "SV-P_006",
         "SV-P_007",
-        "SV-P_008"
+        "SV-P_008",
+        "SV-P_011",
+        "SV-P_012",
+        "SV-P_013",
+        "SV-P_014",
+        "SV-P_015",
+        "SV-P_019",
+        "SV-P_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [
         "SV-P_009",
-        "SV-P_010"
+        "SV-P_010",
+        "SV-P_016",
+        "SV-P_017",
+        "SV-P_018"
       ],
       "batches": [
         {
@@ -30702,6 +30713,207 @@
               "illustrationSourceNote": "Korean-only promo image cannot be fully inspected; art theme decision deferred"
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020 (016-018 deferred)",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "partially_complete_with_evidence_hold",
+          "checkedCardCount": 7,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean SV-P 011-015, 019-020 numbered card image direct visual inspection; 016-018 source/art unverified.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_011",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_011.png?w=512",
+              "illustrationSourceNote": "푸른 하늘, 구름과 목장 울타리·초원을 배경으로 앉아 있는 보송송.",
+              "koreanNumber": "011/SV-P"
+            },
+            {
+              "code": "SV-P_012",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_012.png?w=512",
+              "illustrationSourceNote": "나뭇가지가 드리운 묘지와 별이 가득한 짙은 밤하늘 앞의 묘두기. 카드 텍스트의 수면 설명만으로 잠자는 테마는 판정하지 않음.",
+              "koreanNumber": "012/SV-P"
+            },
+            {
+              "code": "SV-P_013",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_013.png?w=512",
+              "illustrationSourceNote": "밝은 청록 하늘과 거대한 주황·금빛 집게, 금빛 반짝임이 주조인 절벼게 ex 전투 일러스트.",
+              "koreanNumber": "013/SV-P"
+            },
+            {
+              "code": "SV-P_014",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_014.png?w=512",
+              "illustrationSourceNote": "맑은 파란 하늘 아래 버려진 금속·콘크리트 잔해 더미를 떠다니는 부르롱. 실제 작업을 수행하는 장면은 아니므로 일하는 포켓몬 제외.",
+              "koreanNumber": "014/SV-P"
+            },
+            {
+              "code": "SV-P_015",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_015.png?w=512",
+              "illustrationSourceNote": "운동 코트와 건물, 야외 시가지 시설을 배경으로 서 있는 콜사.",
+              "koreanNumber": "015/SV-P"
+            },
+            {
+              "code": "SV-P_016",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "koreanNumber": "016/SV-P"
+            },
+            {
+              "code": "SV-P_017",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "koreanNumber": "017/SV-P"
+            },
+            {
+              "code": "SV-P_018",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "koreanNumber": "018/SV-P"
+            },
+            {
+              "code": "SV-P_019",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_019.png?w=512",
+              "illustrationSourceNote": "분홍 꽃과 초록 잔디, 나무, 파란 하늘로 가득한 봄철 풍경 속의 나오하.",
+              "koreanNumber": "019/SV-P"
+            },
+            {
+              "code": "SV-P_020",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_020.png?w=512",
+              "illustrationSourceNote": "청록색 바다, 해안 절벽과 선박 위를 전기와 함께 날아다니는 로토무.",
+              "koreanNumber": "020/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -30726,11 +30938,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "Previously held 24 canonical slots (M-P18 CLL2 CLK2 CLF2); new SV-P009-010 2 held =26. 001-008 artwork reviewed; image files remain external.",
+    "note": "SV-P artwork verified 15/248; pending Korean artwork 009-010,016-018 plus previously held M-P18/CLL2/CLK2/CLF2 = 29 held canonical slots. Image binaries not fetched/deployed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 001-008 ART REVIEW COMPLETE; 009-010 image evidence pending",
-    "nextStart": "SV-P 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 001-008 + 011-015 + 019-020 ART REVIEW COMPLETE; 009-010,016-018 EVIDENCE HELD",
+    "nextStart": "SV-P 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -30774,8 +30986,15 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-svp-009-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 008"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 016-018",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svp-016-018-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 015"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "M-P 051-068 reviewed for evidence availability (0 artwork verified), next CLL 001"
+    "lastEvidenceAuditCheckpoint": "SV-P 011-020 official Korean image reviewed 7, 016-018 held; next SV-P 021."
   }
 }

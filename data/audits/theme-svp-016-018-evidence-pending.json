@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-08",
+  "task": 6,
+  "set": "SV-P",
+  "canonicalOrders": [
+    16,
+    17,
+    18
+  ],
+  "reviewStatus": "korean_index_confirmed_artwork_image_pending",
+  "nextStart": "SV-P canonical order 021",
+  "policy": "Do not mark theme artwork review complete until a Korean physical/card illustration is directly verified. Never infer same artwork solely from corresponding Japanese SV-P card number.",
+  "items": [
+    {
+      "canonicalOrder": 16,
+      "cardKey": "SV-P_016",
+      "koreanCardName": "몬스터볼",
+      "koreanPrintNumber": "016/SV-P",
+      "masterImage": "https://static.tcgexchange.kr/9a0d0b6f44ffd8167dbe8a267557427e.png",
+      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YWNKH4FDT9R9VSKP5F",
+      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000016",
+      "verification": "master_record_exists_official_detail_or_image_unavailable",
+      "illustrationReviewed": false,
+      "themesReviewed": false,
+      "imageBinarySelfHosted": false,
+      "cloudflareDeploymentVerified": false
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "SV-P_017",
+      "koreanCardName": "포켓몬 교체",
+      "koreanPrintNumber": "017/SV-P",
+      "masterImage": "https://static.tcgexchange.kr/3c5cc3e832b38c488c0eb096485afeaf.png",
+      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YWR6E3A0A0FRNV2VFF",
+      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000017",
+      "verification": "master_record_exists_official_detail_or_image_unavailable",
+      "illustrationReviewed": false,
+      "themesReviewed": false,
+      "imageBinarySelfHosted": false,
+      "cloudflareDeploymentVerified": false
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "SV-P_018",
+      "koreanCardName": "네모",
+      "koreanPrintNumber": "018/SV-P",
+      "masterImage": "https://static.tcgexchange.kr/f0234e82a7a57bbe864f1168f2ae5c80.png",
+      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY196S8AZPE4TD6A7GW8C2RE",
+      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000018",
+      "verification": "master_record_exists_official_detail_or_image_unavailable",
+      "illustrationReviewed": false,
+      "themesReviewed": false,
+      "imageBinarySelfHosted": false,
+      "cloudflareDeploymentVerified": false
+    }
+  ],
+  "note": "시리즈 마스터와 한국판 프로모 목록 상 번호·명칭을 확인했으나 공식 상세/원본 이미지가 도구에서 열리지 않아 테마 분류와 아카이브 완료로 보고하지 않는다."
+}
