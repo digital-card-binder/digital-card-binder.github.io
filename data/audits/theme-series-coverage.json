@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3897,
-    "uniqueThemeCards": 2357,
+    "themeCardSlots": 3912,
+    "uniqueThemeCards": 2367,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1022,
-      "setCount": 21,
+      "cardSlots": 1027,
+      "setCount": 22,
       "rarities": [
         "AR",
         "C",
@@ -136,8 +136,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1821,
-      "setCount": 23,
+      "cardSlots": 1831,
+      "setCount": 24,
       "rarities": [
         "AR",
         "C",
@@ -248,7 +248,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 279
+      "currentThemeSlots": 294
     },
     {
       "era": "S",
@@ -334,7 +334,12 @@
       "code": "CLF",
       "name": "포켓몬 카드 게임 클래식 (이상해꽃)",
       "cardCount": 34,
-      "status": "pending"
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "color": 10,
+        "season": 5
+      }
     },
     {
       "era": "SV",
@@ -2341,9 +2346,12 @@
       "cardCount": 34,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "color": 10,
+        "season": 5
+      }
     },
     {
       "era": "SV",
