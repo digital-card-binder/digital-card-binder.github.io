@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "SV-P 한국판 001-008, 011-015, 019-020 및 022-025, 027, 029-030 실제 아트 22장 검수. 이미지 근거 보류 009-010,016-018,021,026,028. Image binaries not self-host verified.",
-      "reviewedCardCount": 22,
+      "note": "SV-P 한국판 001-040 중 실제 아트 32장 12테마 검수 완료. 기존 8장(009-010,016-018,021,026,028) 이미지 근거 보류 유지. 031-040 10장은 한국판 공식 정보와 동일 그림 JP/EN 인쇄본 작가·기술 대조. 이미지 바이너리 자체호스팅 검증 별도 대기.",
+      "reviewedCardCount": 32,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30477,9 +30477,10 @@
       "reviewedRanges": [
         "canonical-order 001-008; 009-010 evidence held",
         "canonical-order 011-020 (016-018 image evidence deferred)",
-        "canonical-order 021-030 (021,026,028 evidence held)"
+        "canonical-order 021-030 (021,026,028 evidence held)",
+        "canonical-order 031-040"
       ],
-      "newlyAddedThemeSlotCount": 39,
+      "newlyAddedThemeSlotCount": 56,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30502,7 +30503,17 @@
         "SV-P_025",
         "SV-P_027",
         "SV-P_029",
-        "SV-P_030"
+        "SV-P_030",
+        "SV-P_031",
+        "SV-P_032",
+        "SV-P_033",
+        "SV-P_034",
+        "SV-P_035",
+        "SV-P_036",
+        "SV-P_037",
+        "SV-P_038",
+        "SV-P_039",
+        "SV-P_040"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -31133,6 +31144,233 @@
               "koreanNumber": "030/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-040",
+          "cardNumbers": [
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040"
+          ],
+          "status": "artwork_complete_image_archival_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea numbered card metadata and same-art JP/EN illustrated print cross-check (not Japanese number substitution)",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_031",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000031",
+              "illustrationReferenceUrl": "https://amazingtoys.ch/Arctibax-SVP064-EN",
+              "illustrationSourceNote": "눈 덮인 산맥과 침엽수림 사이에서 몸을 일으키는 드니꽁. 영문판 SVP 064는 같은 Teeziro 그림·HP90·두 기술을 사용.",
+              "koreanNumber": "031/SV-P",
+              "artReferencePrint": "English SVP 064"
+            },
+            {
+              "code": "SV-P_032",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000032",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314837918248",
+              "illustrationSourceNote": "노랑 번개가 푸른색 공간을 가로지르는 전격 배경 속 찌리배리. 일본 052/SV-P와 Mizue·HP130·두 기술 일치.",
+              "koreanNumber": "032/SV-P",
+              "artReferencePrint": "Japanese 052/SV-P"
+            },
+            {
+              "code": "SV-P_033",
+              "checked": true,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000033",
+              "illustrationReferenceUrl": "https://kream.co.kr/products/652130",
+              "illustrationSourceNote": "홍차 잔과 여러 찻잔·다과류가 크게 보이는 카페형 장면. 일본 053/SV-P와 kurumitsu·HP30·식은차 기술 일치.",
+              "koreanNumber": "033/SV-P",
+              "artReferencePrint": "Japanese 053/SV-P"
+            },
+            {
+              "code": "SV-P_034",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000034",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/134715509877",
+              "illustrationSourceNote": "초록색 수초와 자갈, 햇빛이 비치는 연못 물속 미꾸리. 일본 054/SV-P와 ryoma uratsuka·HP70·기술 일치.",
+              "koreanNumber": "034/SV-P",
+              "artReferencePrint": "Japanese 054/SV-P"
+            },
+            {
+              "code": "SV-P_035",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000035",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/134715509878",
+              "illustrationSourceNote": "마피티프 ex가 전방으로 달려드는 역동적 전투 장면, 청록과 검정 및 주황빛 속도선. 일본 055/SV-P와 PLANETA Mochizuki·HP260·기술 일치.",
+              "koreanNumber": "035/SV-P",
+              "artReferencePrint": "Japanese 055/SV-P"
+            },
+            {
+              "code": "SV-P_036",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000036",
+              "illustrationReferenceUrl": "https://pokevault.com/pokemon-atticus-gym-promo-card-056-sv-p",
+              "illustrationSourceNote": "추명이 초록 잔디와 나무, 거리의 다채로운 시설 및 길가를 배경으로 서 있는 장면. 일본 056/SV-P와 kantaro·지원 효과 일치.",
+              "koreanNumber": "036/SV-P",
+              "artReferencePrint": "Japanese 056/SV-P"
+            },
+            {
+              "code": "SV-P_037",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000037",
+              "illustrationReferenceUrl": "https://www.artofpkm.com/pokemon/935",
+              "illustrationSourceNote": "검고 붉은 카르본과 주황 불꽃의 역동적인 전투 그림. 일본 036/SV-P와 nagimiso·HP70·히트블라스트 기술 일치.",
+              "koreanNumber": "037/SV-P",
+              "artReferencePrint": "Japanese 036/SV-P"
+            },
+            {
+              "code": "SV-P_038",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000038",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314458173430",
+              "illustrationSourceNote": "나무와 푸른 잎 사이, 밝은 전기 효과 속 빠모가 뛰어드는 장면. 일본 035/SV-P와 Ryuta Fuse·HP50·찌릿뺨치기 기술 일치.",
+              "koreanNumber": "038/SV-P",
+              "artReferencePrint": "Japanese 035/SV-P"
+            },
+            {
+              "code": "SV-P_039",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000039",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/134715509869",
+              "illustrationSourceNote": "화창한 햇빛이 드는 울창한 초록 숲과 잎, 꽃 사이의 이상해씨. 일본 059/SV-P와 OKACHEKE·HP70·덩굴채찍 기술 일치.",
+              "koreanNumber": "039/SV-P",
+              "artReferencePrint": "Japanese 059/SV-P"
+            },
+            {
+              "code": "SV-P_040",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000040",
+              "illustrationReferenceUrl": "https://item.rakuten.co.jp/iimoreuse/19203/",
+              "illustrationSourceNote": "어두운 바위 동굴과 불꽃빛 속에 서 있는 파이리. 일본 060/SV-P와 NC Empire·HP70·불꽃세례 기술 일치.",
+              "koreanNumber": "040/SV-P",
+              "artReferencePrint": "Japanese 060/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -31157,11 +31395,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P Korean visual review 22/248; held 009-010,016-018,021,026,028 (8). Prior M-P18/CLL2/CLK2/CLF2 holds retained; image binary archival unresolved.",
+    "note": "SV-P 32/248 art reviewed; previous 8 SV-P evidence holds retained; latest 031-040 10 cards matched by Korean official metadata + same-art foreign print; image binary archiving pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 001-008,011-015,019-020,022-025,027,029-030 ART REVIEW COMPLETE; 8 SV-P ART HOLDS",
-    "nextStart": "SV-P 031 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 031-040 ART REVIEW COMPLETE (10 checked, 17 theme slots); previous 8 SV-P art holds unchanged",
+    "nextStart": "SV-P 041 (canonical order 041)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -31221,6 +31459,6 @@
         "lastArtSafeCheckpoint": "SV-P canonical 020"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 021-030 seven images reviewed; 021/026/028 held; next SV-P 031."
+    "lastEvidenceAuditCheckpoint": "SV-P 031-040: ten matching artworks reviewed; next SV-P 041."
   }
 }
