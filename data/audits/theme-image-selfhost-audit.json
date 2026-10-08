@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08",
+  "updatedAt": "2026-10-09",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -576,6 +576,24 @@
       "brokenReferenceCount": null,
       "nextStart": "SV-P 051",
       "note": "Image references are external. No actual binary fetched/hosted. 049 art unresolved, classification deferred."
+    },
+    {
+      "task": 6,
+      "set": "SV-P",
+      "range": "canonical-order 051-060 (054-055 art held)",
+      "canonicalCardCount": 10,
+      "artworkReviewedCardCount": 8,
+      "artworkPendingCardCount": 2,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "nextStart": "SV-P 061",
+      "note": "8 Korean physical artworks visually reviewed via official printed-card images; 054-055 illustration evidence held. Catalog retains 10 existing external URLs; no binary fetched, decoded, uploaded or deployed."
     }
   ]
 }

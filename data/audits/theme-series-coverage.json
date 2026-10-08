@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-09",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4016,
-    "uniqueThemeCards": 2429,
+    "themeCardSlots": 4031,
+    "uniqueThemeCards": 2437,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -120,7 +120,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1052,
+      "cardSlots": 1055,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -137,7 +137,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1894,
+      "cardSlots": 1902,
       "setCount": 25,
       "rarities": [
         "AR",
@@ -157,13 +157,14 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 77,
-      "setCount": 19,
+      "cardSlots": 78,
+      "setCount": 20,
       "rarities": [
         "AR",
         "C",
         "SAR",
-        "U"
+        "U",
+        "PROMO"
       ]
     },
     {
@@ -207,7 +208,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 372,
+      "cardSlots": 373,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -221,7 +222,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 45,
+      "cardSlots": 47,
       "setCount": 20,
       "rarities": [
         "AR",
@@ -250,7 +251,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 398
+      "currentThemeSlots": 413
     },
     {
       "era": "S",
@@ -2335,11 +2336,12 @@
       "themeHits": {
         "sleeping": 2,
         "night": 3,
-        "season": 23,
-        "color": 41,
+        "season": 26,
+        "color": 49,
         "food": 2,
-        "street": 4,
-        "cameo": 2
+        "street": 5,
+        "cameo": 4,
+        "sunset": 1
       }
     },
     {

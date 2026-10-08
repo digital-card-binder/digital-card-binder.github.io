@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08",
+  "updatedAt": "2026-10-09",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -30457,9 +30457,9 @@
     },
     "SV-P": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-08",
-      "note": "SV-P 001-050 한국판 카드의 41개 일러스트를 12테마 검수, 9개 인쇄 그림 미확인 보류(009-010,016-018,021,026,028,049). 041-050의 9장 추가 판독 및 테마 슬롯 19건 수록; 이미지 실제 바이너리 자가호스팅 별도 미완료.",
-      "reviewedCardCount": 41,
+      "reviewedAt": "2026-10-09",
+      "note": "SV-P 001-060: 49장 한국판 실제 일러스트 12테마 검수 완료, 총 11장 미판독 보류(기존 9장 + 054-055). 051-060 추가 8장 판독·테마 슬롯 15건 반영, 이미지 바이너리 자가호스팅 별도 보류.",
+      "reviewedCardCount": 49,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30479,9 +30479,10 @@
         "canonical-order 011-020 (016-018 image evidence deferred)",
         "canonical-order 021-030 (021,026,028 evidence held)",
         "canonical-order 031-040",
-        "canonical-order 041-050 (049 evidence held)"
+        "canonical-order 041-050 (049 evidence held)",
+        "canonical-order 051-060 (054-055 evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 75,
+      "newlyAddedThemeSlotCount": 90,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30523,7 +30524,15 @@
         "SV-P_046",
         "SV-P_047",
         "SV-P_048",
-        "SV-P_050"
+        "SV-P_050",
+        "SV-P_051",
+        "SV-P_052",
+        "SV-P_053",
+        "SV-P_056",
+        "SV-P_057",
+        "SV-P_058",
+        "SV-P_059",
+        "SV-P_060"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30535,7 +30544,9 @@
         "SV-P_021",
         "SV-P_026",
         "SV-P_028",
-        "SV-P_049"
+        "SV-P_049",
+        "SV-P_054",
+        "SV-P_055"
       ],
       "batches": [
         {
@@ -31611,6 +31622,215 @@
               "referencePrint": "Korean 050/SV-P original printed illustration"
             }
           ]
+        },
+        {
+          "range": "canonical-order 051-060 (054-055 illustration evidence held)",
+          "cardNumbers": [
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057",
+            "058",
+            "059",
+            "060"
+          ],
+          "status": "partially_complete_with_evidence_hold",
+          "checkedCardCount": 8,
+          "heldCardCount": 2,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean Pokemon Korea illustrated card originals 051-053 and 056-060; 054-055 art cannot be safely identified",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_051",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "street",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000051",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_051.png?w=512",
+              "illustrationSourceNote": "붉은 벽돌길, 건물과 화분이 있는 거리에서 명탐정 피카츄가 가디의 등에 타고 이동하는 모습. 공식 한국판 실물 그림 확인.",
+              "koreanNumber": "051/SV-P"
+            },
+            {
+              "code": "SV-P_052",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000052",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_052.png?w=512",
+              "illustrationSourceNote": "비크티니 ex 단독 전신과 주황색 V형 귀, 분홍·남색 빛줄기 및 반짝임이 강조된 대전 일러스트. 배경 인물·다른 포켓몬 없음.",
+              "koreanNumber": "052/SV-P"
+            },
+            {
+              "code": "SV-P_053",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000053",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_053.png?w=512",
+              "illustrationSourceNote": "비크티니 ex 뒤편에 물 테라스탈 한카리아스와 여러 다른 포켓몬이 화려한 주황·파랑 화면에 함께 등장. 공식 한국판 053/SV-P 카드 그림 판독.",
+              "koreanNumber": "053/SV-P"
+            },
+            {
+              "code": "SV-P_054",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://collectory.cc/cards/fff58cae-23be-4fae-846c-be9e85e913f6",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 네모 054/SV-P의 카드 식별은 가능하나 포켓몬코리아 공식 카드 상세/실물 아트의 판독 가능한 원본 이미지를 확인하지 못함. 검색 이미지에는 번호가 다른 SV4a 143/190 네모가 혼재하며 대체 불가.",
+              "koreanNumber": "054/SV-P"
+            },
+            {
+              "code": "SV-P_055",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 네모 055/SV-P의 마스터 메타데이터는 있으나 공식 공개 카드 원본 및 동일 아트 한국판 실물 이미지와 인쇄번호 교차확인이 어려움. 054와 동일 그림인지도 확인되지 않아 보류.",
+              "koreanNumber": "055/SV-P"
+            },
+            {
+              "code": "SV-P_056",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000056",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_056.png?w=512",
+              "illustrationSourceNote": "초록 잎과 덩굴이 가득한 숲속 나무 그루터기에 앉은 바오프. 한국 공식 카드 이미지 직접 확인.",
+              "koreanNumber": "056/SV-P"
+            },
+            {
+              "code": "SV-P_057",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000057",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_057.png?w=512",
+              "illustrationSourceNote": "큰 태양이 수면 가까이에 보이고, 연분홍·연노랑빛 하늘 아래 바다 물결에서 쏘드라가 뛰어오르는 풍경. 노을·골든아워 장면으로 분류하되 정확한 시각은 확정하지 않음.",
+              "koreanNumber": "057/SV-P"
+            },
+            {
+              "code": "SV-P_058",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000058",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_058.png?w=512",
+              "illustrationSourceNote": "돌기둥과 고대 석조 유적 너머로 녹색 산과 햇빛이 보이는 야외 풍경에서 떠오르는 데스마스. 도시·스트리트가 아니라 자연 경관에 분류.",
+              "koreanNumber": "058/SV-P"
+            },
+            {
+              "code": "SV-P_059",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000059",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_059.png?w=512",
+              "illustrationSourceNote": "두드리짱이 거대한 망치를 휘두르며 바위 파편을 날리는 전투 그림. 망치 사용은 직업상 노동 장면이 아니므로 일하는 포켓몬에는 미수록.",
+              "koreanNumber": "059/SV-P"
+            },
+            {
+              "code": "SV-P_060",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000060",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_060.png?w=512",
+              "illustrationSourceNote": "콜로솔트 ex의 육중한 몸체에서 금빛 광선과 암석 파편이 튀는 추상적 전투 그림. 자연 풍경이나 노동 행위는 시각적 근거가 없어 미분류.",
+              "koreanNumber": "060/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -31635,11 +31855,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 41/248 illustrations reviewed, 9 art evidence holds including 049. Art classifications through 050 except held, image binary hosting pending.",
+    "note": "SV-P 49/248 illustrations reviewed; 11 artwork holds including 054-055. Art classifications through canonical 060 except holds. Image binary hosting still pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 041-050 ART AUDIT: 9 verified, 049 held; new 19 theme memberships",
-    "nextStart": "SV-P 051 (canonical order 051)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 051-060 ART AUDIT: 8 verified, 054-055 held; new 15 theme memberships",
+    "nextStart": "SV-P 061 (canonical order 061)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -31704,8 +31924,15 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svp-041-050-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 048"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 054-055",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-svp-051-060-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 053"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 041-050: nine artworks checked, 049 art held, next 051."
+    "lastEvidenceAuditCheckpoint": "SV-P 051-060: eight Korean artworks checked, 054-055 evidence held, next 061."
   }
 }
