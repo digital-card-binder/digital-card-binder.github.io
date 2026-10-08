@@ -29039,8 +29039,8 @@
     "CLK": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "CLK 001-010 Korean canonical cards were screened under all 12 themes with same-number Japanese artworks as illustration reference. 011-034 not reviewed; self-hosted images not decoded or deployed.",
-      "reviewedCardCount": 10,
+      "note": "CLK 001-020 art reviewed against all 12 themes. 021 onward not reviewed. No binary selfhost.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -29056,9 +29056,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010"
+        "canonical-order 001-010",
+        "canonical-order 011-020"
       ],
-      "newlyAddedThemeSlotCount": 13,
+      "newlyAddedThemeSlotCount": 26,
       "newlyAddedCards": [
         "CLK_001",
         "CLK_002",
@@ -29069,7 +29070,17 @@
         "CLK_007",
         "CLK_008",
         "CLK_009",
-        "CLK_010"
+        "CLK_010",
+        "CLK_011",
+        "CLK_012",
+        "CLK_013",
+        "CLK_014",
+        "CLK_015",
+        "CLK_016",
+        "CLK_017",
+        "CLK_018",
+        "CLK_019",
+        "CLK_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -29271,6 +29282,204 @@
               "illustrationSourceNote": "스이쿤 ex의 푸른 몸체 주변에 은백 물방울·물빛 에너지 소용돌이."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "CLK KR master references, matching Japanese Classic print photos; themes based on illustration, all 12 categories screened.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLK_011",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ7SMHQ6C8V62Y26F7AHK",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-clk-011-032",
+              "illustrationSourceNote": "슬리프가 물가와 수목 앞에 서 있는 실제 야외 풍경. 눈을 감고 누운 수면 장면 아님."
+            },
+            {
+              "code": "CLK_012",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ86P24RXPQ3DDE5FGTJZ",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-clk-012-032",
+              "illustrationSourceNote": "슬리퍼가 야자수와 모래사장, 바다 앞에서 추를 흔드는 밝은 주간 해변 장면."
+            },
+            {
+              "code": "CLK_013",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ8KN9XEVH38XKKEPKVQD",
+              "illustrationReferenceUrl": "https://cardotaku.com/fr/products/pokemon-card-game-clk-013-032",
+              "illustrationSourceNote": "마임맨 주위 다색 원형 기호/추상적인 무늬. 실제 음식이나 거리 장면 불명."
+            },
+            {
+              "code": "CLK_014",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ90TPGRNFKCS1W726FMH",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314934420925",
+              "illustrationSourceNote": "뮤츠의 흰 몸체와 자주색 포인트, 어두운 남청 홀로 배경."
+            },
+            {
+              "code": "CLK_015",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ9DVFM32D7RJFS49G6ZA",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/325855840567",
+              "illustrationSourceNote": "마티스의 꼬렛 연보라 몸체와 회금빛 추상 홀로 배경."
+            },
+            {
+              "code": "CLK_016",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJ9TXPQZWWK5JMKH5XDEJ",
+              "illustrationReferenceUrl": "https://www.japan2uk.com/collections/pokemon-japanese-cards/products/pokemon-lt-surge_s-raticate-holo-classic-collection-clk-016-032-japanese-single-card",
+              "illustrationSourceNote": "마티스의 레트라 적갈색 털과 짙은 초록/황금 홀로 배경. 실제 계절 풍경 확인 어려움."
+            },
+            {
+              "code": "CLK_017",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJA83Q854S7S6AAWDW4XZ",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-clk-017-032",
+              "illustrationSourceNote": "캥카가 꽃피는 풀밭에 새끼와 함께 있는 명백한 야외 수풀 풍경."
+            },
+            {
+              "code": "CLK_018",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJAN3YSRVRW3N96W080CB",
+              "illustrationReferenceUrl": "https://www.magicardshop.jp/product/5807",
+              "illustrationSourceNote": "대단한낚싯대 금색 낚싯대와 청록 홀로 배경. 실제 낚시 장면은 아니므로 일하는 포켓몬 미해당."
+            },
+            {
+              "code": "CLK_019",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJB2DTYX4YNXBMYVC861W",
+              "illustrationReferenceUrl": "https://cardotaku.com/de/products/pokemon-card-game-clk-019-032",
+              "illustrationSourceNote": "하이퍼볼 검정/황금/빨강에 은백 홀로 광채."
+            },
+            {
+              "code": "CLK_020",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJBJ1R60HXDNDXYA7R6Z0",
+              "illustrationReferenceUrl": "https://okini.land/en/58117-pokemon-tcg-clk-020-032-computer-search-the-pokemon-company.html",
+              "illustrationSourceNote": "청록 컴퓨터 장치와 녹색 전자 회로 홀로그램."
+            }
+          ]
         }
       ]
     }
@@ -29295,11 +29504,11 @@
     "currentSet": "CLK",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 18 pending; CLL 033-034 pending; CLK 001-010 art screened, 011 next. Image selfhost not performed.",
+    "note": "CLK canonical 001-020 verified for themes by Korean card index plus matching Japanese illustrations, 021 starts next; M-P 18 and CLL 2 pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 CLK canonical order 001-010 artwork review COMPLETE (archive pending)",
-    "nextStart": "CLK 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 CLK canonical order 001-020 artwork review COMPLETE (archive pending)",
+    "nextStart": "CLK 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
