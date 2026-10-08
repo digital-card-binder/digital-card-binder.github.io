@@ -29734,8 +29734,8 @@
     "CLF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "CLF canonical 001-010 Korean set identities established in existing catalog, same-number Japanese Classic artwork consulted. All 12 theme categories checked; no KR image binary archived/verified.",
-      "reviewedCardCount": 10,
+      "note": "CLF 001-020 canonical art checked across 12 themes using Korean catalog identity and JP matching card illustrations. Image binaries still pending.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -29751,9 +29751,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010"
+        "canonical-order 001-010",
+        "canonical-order 011-020"
       ],
-      "newlyAddedThemeSlotCount": 15,
+      "newlyAddedThemeSlotCount": 29,
       "newlyAddedCards": [
         "CLF_001",
         "CLF_002",
@@ -29764,7 +29765,17 @@
         "CLF_007",
         "CLF_008",
         "CLF_009",
-        "CLF_010"
+        "CLF_010",
+        "CLF_011",
+        "CLF_012",
+        "CLF_013",
+        "CLF_014",
+        "CLF_015",
+        "CLF_016",
+        "CLF_017",
+        "CLF_018",
+        "CLF_019",
+        "CLF_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -29970,6 +29981,206 @@
               "illustrationSourceNote": "그림에서 특정 거리·음식·야경·연결 장면 등 다른 테마의 확정 근거는 찾지 못함."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean series CLF card codes and numbered JP same-art illustration sources per card",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLF_011",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHR4VB51EEY6JTAR4ZM7H",
+              "illustrationReferenceUrl": "https://omotenashitcg.com/products/hitmonlee-011-032",
+              "illustrationSourceNote": "시라소몬의 황토빛 지면, 특정 풍경/밤 등의 확정 근거 없음."
+            },
+            {
+              "code": "CLF_012",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHRHZRYDMSX3M148Z5AWK",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-clf-012-032",
+              "illustrationSourceNote": "홍수몬의 권투 동작과 황토빛 바위/지면."
+            },
+            {
+              "code": "CLF_013",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHRZ5AS8FT3FVKTJ9XB56",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-clf-013-032",
+              "illustrationSourceNote": "두두 뒤의 건물과 빨간 버스/차량 등 도시 풍경."
+            },
+            {
+              "code": "CLF_014",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHST761M8NMZWA98SVDRD",
+              "illustrationReferenceUrl": "https://www.justencased.au/products/dodrio-014-032-clf-classic-collection-japanese-pokemon-nm",
+              "illustrationSourceNote": "두트리오 뒤의 대나무와 숲 수풀."
+            },
+            {
+              "code": "CLF_015",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHT7AS0DYZA2XCE68MW5R",
+              "illustrationReferenceUrl": "https://www.card-corner.de/Classic-Collection-Japanisch-Einzelkarten-Chansey",
+              "illustrationSourceNote": "분홍 럭키와 홀로 별 배경; 알은 음식/식사 장면 아님."
+            },
+            {
+              "code": "CLF_016",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "sleeping"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sleeping"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHTMB7MVF3DWAPZ13A66Q",
+              "illustrationReferenceUrl": "https://snkrdunk.com/apparels/147507",
+              "illustrationSourceNote": "잠만보가 숲속 나무 앞에서 눈을 감고 잠듦."
+            },
+            {
+              "code": "CLF_017",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHV1DZQ8T2S2S0Y0WEHJZ",
+              "illustrationReferenceUrl": "https://cs-collect.com/products/clf017032",
+              "illustrationSourceNote": "루기아 ex 청백 소용돌이 및 광선 효과."
+            },
+            {
+              "code": "CLF_018",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHVEDFKJZ4DA033GH3GGK",
+              "illustrationReferenceUrl": "https://okini.land/fr/58047-pokemon-tcg-clf-018-032-super-rod-the-pokemon-company.html",
+              "illustrationSourceNote": "노란 낚싯대 단독 도구. 낚시하는 포켓몬 없음."
+            },
+            {
+              "code": "CLF_019",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHVVGG5SC8E8VBGSWWRT7",
+              "illustrationReferenceUrl": "https://okini.land/en/58048-pokemon-tcg-clf-019-032-ultra-ball-the-pokemon-company.html",
+              "illustrationSourceNote": "하이퍼볼과 무지개 소용돌이 단독 도구 그림."
+            },
+            {
+              "code": "CLF_020",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHW8JQBWK7YYCQ1HN64Q0",
+              "illustrationReferenceUrl": "https://okini.land/en/58049-pokemon-tcg-clf-020-032-computer-search-the-pokemon-company.html",
+              "illustrationSourceNote": "녹색 바탕 컴퓨터 및 몬스터볼 모양 마우스 정물; 일하는 포켓몬 없음."
+            }
+          ]
         }
       ]
     }
@@ -29994,11 +30205,11 @@
     "currentSet": "CLF",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 18, CLL 2, CLK 2 = 22 held canonical slots; CLF 001-010 art reviewed; no image binary deployed.",
+    "note": "M-P 18, CLL 2, CLK 2 = 22 held; CLF 001-020 artwork reviewed; image selfhosting pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-010 ART REVIEW COMPLETE; image binaries pending",
-    "nextStart": "CLF 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-020 ART REVIEW COMPLETE; image binaries pending",
+    "nextStart": "CLF 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

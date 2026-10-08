@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3912,
-    "uniqueThemeCards": 2367,
+    "themeCardSlots": 3926,
+    "uniqueThemeCards": 2377,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 149,
-      "setCount": 69,
+      "cardSlots": 150,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -119,7 +119,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1027,
+      "cardSlots": 1029,
       "setCount": 22,
       "rarities": [
         "AR",
@@ -136,7 +136,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1831,
+      "cardSlots": 1841,
       "setCount": 24,
       "rarities": [
         "AR",
@@ -205,8 +205,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 367,
-      "setCount": 21,
+      "cardSlots": 368,
+      "setCount": 22,
       "rarities": [
         "AR",
         "C",
@@ -248,7 +248,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 294
+      "currentThemeSlots": 308
     },
     {
       "era": "S",
@@ -2344,8 +2344,10 @@
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
       "themeHits": {
-        "season": 5,
-        "color": 10
+        "season": 7,
+        "color": 20,
+        "sleeping": 1,
+        "street": 1
       }
     },
     {
