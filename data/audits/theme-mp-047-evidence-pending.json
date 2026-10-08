@@ -8,20 +8,30 @@
   "reviewStatus": "pending",
   "nextStart": "M-P 047 (canonical order 047)",
   "verified": {
-    "koreanCardName": "일레즌",
+    "koreanCardName": "리아코",
     "koreanPrintIdentifier": "047/M-P",
-    "koreanListing": "https://m.bunjang.co.kr/products/434448182",
-    "japaneseSameNumberReference": "https://www.ebay.com/itm/326846980874"
+    "githubCanonicalRecord": "data/series.json | set M-P | card order 47 | name 리아코",
+    "koreanNumberCrosscheck": [
+      "https://bulbapedia.bulbagarden.net/wiki/M-P_Promotional_cards_(KTCG)",
+      "https://www.namu.moe/w/포켓몬%20카드%20게임/한국%20프로모%20카드%20일람"
+    ],
+    "koreanToxelCorrectPrint": "020/M-P",
+    "koreanToxelOfficialDetail": "https://pokemoncard.co.kr/cards/detail/MP000000020"
   },
   "unverified": {
-    "koreanJapaneseArtworkIdentity": true,
     "officialKoreanArtwork": true,
     "all12ThemesArtReview": true,
     "imageBinarySelfHost": true,
     "cloudflareDeployment": true
   },
-  "illustrationReferenceObservation": "Japanese 047/M-P reference photo appears to show two Toxel outdoors with sand toys and building/trees; do not assume Korean print uses identical art without direct comparison.",
+  "illustrationReferenceObservation": "일본 047/M-P 일레즌 이미지(마당에서 노는 두 마리)는 한국판 047/M-P 리아코에 사용 불가. 한국판 리아코 실제 이미지를 확인하기 전에는 12개 테마를 분류하지 않는다.",
   "themeAdditions": [],
   "selfHostedImagesAdded": 0,
-  "note": "Evidence-only pending log, not a completed review. Do not advance original theme-series-review-status checkpoint past 046; no existing themes or card records changed."
+  "note": "한국판과 일본판 프로모 번호 충돌을 GitHub canonical M-P 047=리아코 및 한국 프로모 카드 목록, 포켓몬코리아 공식 M-P 020=일레즌 교차대조로 정정했다. 카드 원본/도감 테마 데이터는 변경하지 않았다. 이미지 아트 직접 판독을 하지 못하여 047은 pending, checkpoint 046을 유지한다.",
+  "conflictingSources": {
+    "incorrectPriorClaim": "047/M-P is Korean 일레즌",
+    "priorKoreanListing": "https://m.bunjang.co.kr/products/434448182",
+    "japanese047": "https://www.ebay.com/itm/326846980874",
+    "resolution": "047/M-P 일본 프로모는 일레즌(Toxel)이지만 한국 M-P 047은 리아코(Totodile). 서로 다른 지역 카드 번호를 혼용한 이전 evidence를 정정했다. 번개장터 제목은 한국판 공식 번호 증명이 아니다."
+  }
 }
