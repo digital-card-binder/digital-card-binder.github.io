@@ -26276,8 +26276,8 @@
     "MA": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 5 MA canonical order 001-010 실제 카드 그림을 12개 독립 테마 기준으로 점검. 한국판 번호 확인; 004는 동일 도안의 일본판 이미지를 보조로 사용. 카드 이미지 아카이브 자가저장/배포 검증은 아직 수행되지 않았으므로 외부 원본 링크를 유지.",
-      "reviewedCardCount": 10,
+      "note": "Task 5 MA canonical order 001-020의 카드 그림을 한국판 기준 12테마 검수. 011-020은 시각적 색감에만 해당. 이미지 아카이브 자체저장·배포 미완료.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -26293,9 +26293,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010"
+        "canonical-order 001-010",
+        "canonical-order 011-020"
       ],
-      "newlyAddedThemeSlotCount": 18,
+      "newlyAddedThemeSlotCount": 28,
       "newlyAddedCards": [
         "MA_001",
         "MA_002",
@@ -26306,7 +26307,17 @@
         "MA_007",
         "MA_008",
         "MA_009",
-        "MA_010"
+        "MA_010",
+        "MA_011",
+        "MA_012",
+        "MA_013",
+        "MA_014",
+        "MA_015",
+        "MA_016",
+        "MA_017",
+        "MA_018",
+        "MA_019",
+        "MA_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -26488,9 +26499,171 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea official MA 011-020 card images",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "MA_011",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_012",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_013",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_014",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_015",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_016",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_017",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_018",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_019",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            },
+            {
+              "code": "MA_020",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false
+            }
+          ]
         }
       ],
-      "nextStart": "MA 011/043 (canonical order 011)"
+      "nextStart": "MA 021/043 (canonical order 021)"
     }
   },
   "queue": {
@@ -26513,11 +26686,11 @@
     "currentSet": "MA",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5: MBG 23/23 COMPLETE (13 archive images pending verification); MA 001-010/051 thematic artwork review COMPLETE. MA images self-hosting and deploy unverified; next MA 011/043.",
+    "note": "Task 5: MBD/MBG COMPLETE; MA canonical 001-020/051 verified for 12 themes. MA image archive pending. Next MA 021.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-010 artwork review COMPLETE (self-host archive pending)",
-    "nextStart": "MA 011/043 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-020 artwork review COMPLETE (self-host archive pending)",
+    "nextStart": "MA 021/043 (canonical order 021)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
