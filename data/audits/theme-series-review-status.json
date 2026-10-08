@@ -27260,8 +27260,8 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P 001-040/068 한국판 카드 실물 그림 기준 12개 독립 테마 검수 완료. 031-040은 공식 이미지, 동일 도안(032/037) 및 한국 프로모 실물(040)을 대조. 외부 원본 이미지 자체 호스팅/Cloudflare 배포는 아직 검증 대기.",
-      "reviewedCardCount": 40,
+      "note": "M-P canonical 001-046까지 카드 일러스트 12개 독립 테마 검수. 041-046 포켓몬코리아 공식 워터마크 카드 이미지를 대조. 047 공식 이미지 로드 실패로 아직 미검수. 외부 이미지 자체 호스팅 미완료.",
+      "reviewedCardCount": 46,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27280,9 +27280,10 @@
         "canonical-order 001-010",
         "canonical-order 011-020",
         "canonical-order 021-030",
-        "canonical-order 031-040"
+        "canonical-order 031-040",
+        "canonical-order 041-046"
       ],
-      "newlyAddedThemeSlotCount": 65,
+      "newlyAddedThemeSlotCount": 75,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27323,7 +27324,13 @@
         "M-P_037",
         "M-P_038",
         "M-P_039",
-        "M-P_040"
+        "M-P_040",
+        "M-P_041",
+        "M-P_042",
+        "M-P_043",
+        "M-P_044",
+        "M-P_045",
+        "M-P_046"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -28075,9 +28082,129 @@
               "illustrationSourceNote": "Korean promotional card 040/M-P retailer image"
             }
           ]
+        },
+        {
+          "range": "canonical-order 041-046",
+          "cardNumbers": [
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046"
+          ],
+          "status": "complete",
+          "checkedCardCount": 6,
+          "imageAudit": {
+            "catalogImageReferenceCount": 6,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 6,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 6,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea official M-P 041-046 card images (verified illustrations); 047 excluded because artwork not confirmed",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_041",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000041"
+            },
+            {
+              "code": "M-P_042",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000042"
+            },
+            {
+              "code": "M-P_043",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000043"
+            },
+            {
+              "code": "M-P_044",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000044"
+            },
+            {
+              "code": "M-P_045",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000045"
+            },
+            {
+              "code": "M-P_046",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000046"
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 041 (canonical order 041)"
+      "nextStart": "M-P 047 (canonical order 047)"
     }
   },
   "queue": {
@@ -28100,11 +28227,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 MBD, MBG, MA complete. M-P 001-040/68 artwork reviewed across 12 themes; next 041. All M-P original image binary self-hosting is still pending.",
+    "note": "Task 5: MBD/MBG/MA complete. M-P 001-046/68 verified by artwork. 047 image review unresolved; do not skip to 048. External image archive pending.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-040 artwork review COMPLETE (external image archive pending)",
-    "nextStart": "M-P 041 (canonical order 041)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-046 artwork review COMPLETE (047 unresolved; external image archive pending)",
+    "nextStart": "M-P 047 (canonical order 047)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
