@@ -46,6 +46,9 @@ vm.runInContext(identitySource, context);
 vm.runInContext(source, context);
 const registry = context.window.CollectorCollectionRegistry;
 
+const themeData = JSON.parse(await readFile(new URL("../data/art-themes.json", import.meta.url), "utf8"));
+const themeSlotCount = themeData.groups.reduce((total, group) => total + group.cards.length, 0);
+
 test("generated catalog metrics cover every core and extended dex", () => {
   const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
   const expected = {
@@ -59,7 +62,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     trainerPokemon: [245, 172],
     fossil: [122, 26],
     world: [198, 9],
-    artThemes: [1681, 12],
+    artThemes: [themeSlotCount, 12],
   };
 
   for (const [collectionId, [itemCount, groupCount]] of Object.entries(expected)) {
@@ -83,7 +86,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     trainerPokemon: 245,
     fossil: 122,
     world: 198,
-    artThemes: 1681,
+    artThemes: themeSlotCount,
   };
   for (const [collectionId, count] of Object.entries(expected)) {
     const catalog = await registry.loadCatalog(collectionId);
