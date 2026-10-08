@@ -26276,8 +26276,8 @@
     "MA": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "MA canonical 001-030의 30개 카드 슬롯 12개 테마 대조; 021-030은 포켓몬코리아 한국판 실물 일러스트 직접 판독. 021 포핀은 food/color, 022-030은 color. 외부 이미지 자가저장·배포는 검증 전.",
-      "reviewedCardCount": 30,
+      "note": "Task 5 MA canonical order 001-040 artwork review 완료. 한국판 MA 031-040 카드 전부 일러스트 확인. 12개 독립 테마 기준으로 색감·숲·야경·거리 장면 분류. 이미지 자가 저장 및 Cloudflare 실배포 확인 별도 대기.",
+      "reviewedCardCount": 40,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -26295,9 +26295,10 @@
       "reviewedRanges": [
         "canonical-order 001-010",
         "canonical-order 011-020",
-        "canonical-order 021-030"
+        "canonical-order 021-030",
+        "canonical-order 031-040"
       ],
-      "newlyAddedThemeSlotCount": 39,
+      "newlyAddedThemeSlotCount": 55,
       "newlyAddedCards": [
         "MA_001",
         "MA_002",
@@ -26328,7 +26329,17 @@
         "MA_027",
         "MA_028",
         "MA_029",
-        "MA_030"
+        "MA_030",
+        "MA_031",
+        "MA_032",
+        "MA_033",
+        "MA_034",
+        "MA_035",
+        "MA_036",
+        "MA_037",
+        "MA_038",
+        "MA_039",
+        "MA_040"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -26846,9 +26857,193 @@
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013030"
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-040",
+          "cardNumbers": [
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean print screenshots from pokemoncard.co.kr (034,035,037,039), daldagury.com (031,032,033,038), collectory.cc (036,040) by canonical MA slot; title and source confirmed; actual image archive pending",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "MA_031",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://daldagury.com/tcg/pokemon/card/7864"
+            },
+            {
+              "code": "MA_032",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://daldagury.com/tcg/pokemon/card/7865"
+            },
+            {
+              "code": "MA_033",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://daldagury.com/tcg/pokemon/card/7866"
+            },
+            {
+              "code": "MA_034",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013034"
+            },
+            {
+              "code": "MA_035",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013035"
+            },
+            {
+              "code": "MA_036",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://collectory.cc/cards/3420a2f4-cf42-454a-a0f1-935f551f0a74"
+            },
+            {
+              "code": "MA_037",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013037"
+            },
+            {
+              "code": "MA_038",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://daldagury.com/tcg/pokemon/card/7871"
+            },
+            {
+              "code": "MA_039",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013039"
+            },
+            {
+              "code": "MA_040",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://collectory.cc/cards/575d5740-94b9-4f8e-8afe-8051d71ff8a4"
+            }
+          ]
         }
       ],
-      "nextStart": "MA 031/043 (canonical order 031)"
+      "nextStart": "MA 041/043 (canonical order 041)"
     }
   },
   "queue": {
@@ -26871,11 +27066,11 @@
     "currentSet": "MA",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 MA canonical 001-030/051 artwork review checkpoint complete; next MA 031-040. Self-hosted images pending.",
+    "note": "MBD and MBG complete; MA 001-040/051 artwork review checked for 12 themes. MA images still externally referenced; next MA 041.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-030 artwork review COMPLETE (image self-host pending)",
-    "nextStart": "MA 031/043 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-040 artwork review COMPLETE (image archive pending)",
+    "nextStart": "MA 041/043 (canonical order 041)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
