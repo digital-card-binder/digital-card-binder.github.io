@@ -26276,8 +26276,8 @@
     "MA": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 5 MA canonical order 001-020의 카드 그림을 한국판 기준 12테마 검수. 011-020은 시각적 색감에만 해당. 이미지 아카이브 자체저장·배포 미완료.",
-      "reviewedCardCount": 20,
+      "note": "MA canonical 001-030의 30개 카드 슬롯 12개 테마 대조; 021-030은 포켓몬코리아 한국판 실물 일러스트 직접 판독. 021 포핀은 food/color, 022-030은 color. 외부 이미지 자가저장·배포는 검증 전.",
+      "reviewedCardCount": 30,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -26294,9 +26294,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010",
-        "canonical-order 011-020"
+        "canonical-order 011-020",
+        "canonical-order 021-030"
       ],
-      "newlyAddedThemeSlotCount": 28,
+      "newlyAddedThemeSlotCount": 39,
       "newlyAddedCards": [
         "MA_001",
         "MA_002",
@@ -26317,7 +26318,17 @@
         "MA_017",
         "MA_018",
         "MA_019",
-        "MA_020"
+        "MA_020",
+        "MA_021",
+        "MA_022",
+        "MA_023",
+        "MA_024",
+        "MA_025",
+        "MA_026",
+        "MA_027",
+        "MA_028",
+        "MA_029",
+        "MA_030"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -26661,9 +26672,183 @@
               "needsReview": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea official MEGA Premium Trainer Box MA individual cards BS2025013021 through BS2025013030; Korean printed illustrations visually inspected",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "MA_021",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013021"
+            },
+            {
+              "code": "MA_022",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013022"
+            },
+            {
+              "code": "MA_023",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013023"
+            },
+            {
+              "code": "MA_024",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013024"
+            },
+            {
+              "code": "MA_025",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013025"
+            },
+            {
+              "code": "MA_026",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013026"
+            },
+            {
+              "code": "MA_027",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013027"
+            },
+            {
+              "code": "MA_028",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013028"
+            },
+            {
+              "code": "MA_029",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013029"
+            },
+            {
+              "code": "MA_030",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2025013030"
+            }
+          ]
         }
       ],
-      "nextStart": "MA 021/043 (canonical order 021)"
+      "nextStart": "MA 031/043 (canonical order 031)"
     }
   },
   "queue": {
@@ -26686,11 +26871,11 @@
     "currentSet": "MA",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5: MBD/MBG COMPLETE; MA canonical 001-020/051 verified for 12 themes. MA image archive pending. Next MA 021.",
+    "note": "Task 5 MA canonical 001-030/051 artwork review checkpoint complete; next MA 031-040. Self-hosted images pending.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-020 artwork review COMPLETE (self-host archive pending)",
-    "nextStart": "MA 021/043 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-030 artwork review COMPLETE (image self-host pending)",
+    "nextStart": "MA 031/043 (canonical order 031)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
