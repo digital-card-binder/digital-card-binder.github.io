@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3926,
-    "uniqueThemeCards": 2377,
+    "themeCardSlots": 3938,
+    "uniqueThemeCards": 2387,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -136,7 +136,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1841,
+      "cardSlots": 1851,
       "setCount": 24,
       "rarities": [
         "AR",
@@ -180,8 +180,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 59,
-      "setCount": 22,
+      "cardSlots": 60,
+      "setCount": 23,
       "rarities": [
         "AR",
         "C",
@@ -219,8 +219,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 41,
-      "setCount": 18,
+      "cardSlots": 42,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -248,7 +248,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 308
+      "currentThemeSlots": 320
     },
     {
       "era": "S",
@@ -2346,8 +2346,10 @@
       "themeHits": {
         "sleeping": 1,
         "season": 7,
-        "color": 20,
-        "street": 1
+        "color": 30,
+        "street": 1,
+        "food": 1,
+        "cameo": 1
       }
     },
     {

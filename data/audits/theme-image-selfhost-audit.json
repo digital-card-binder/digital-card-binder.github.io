@@ -442,6 +442,22 @@
       "brokenReferenceCount": null,
       "nextStart": "CLF canonical 021",
       "note": "10 KR catalog image URLs remain external. No binary actually self-hosted, decoded, or deployed."
+    },
+    {
+      "task": 6,
+      "set": "CLF",
+      "range": "canonical-order 021-030",
+      "canonicalCardCount": 10,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "nextStart": "CLF canonical 031",
+      "note": "No actual image download/selfhosting/Cloudflare deploy. Korean catalog image references remain external."
     }
   ]
 }

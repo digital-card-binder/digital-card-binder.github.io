@@ -29734,8 +29734,8 @@
     "CLF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "CLF 001-020 canonical art checked across 12 themes using Korean catalog identity and JP matching card illustrations. Image binaries still pending.",
-      "reviewedCardCount": 20,
+      "note": "CLF 001-030 art classified for 12 themes, KR catalog card identities and JP numbered illustration refs. KR image binary selfhost pending.",
+      "reviewedCardCount": 30,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -29752,9 +29752,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010",
-        "canonical-order 011-020"
+        "canonical-order 011-020",
+        "canonical-order 021-030"
       ],
-      "newlyAddedThemeSlotCount": 29,
+      "newlyAddedThemeSlotCount": 41,
       "newlyAddedCards": [
         "CLF_001",
         "CLF_002",
@@ -29775,7 +29776,17 @@
         "CLF_017",
         "CLF_018",
         "CLF_019",
-        "CLF_020"
+        "CLF_020",
+        "CLF_021",
+        "CLF_022",
+        "CLF_023",
+        "CLF_024",
+        "CLF_025",
+        "CLF_026",
+        "CLF_027",
+        "CLF_028",
+        "CLF_029",
+        "CLF_030"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -30181,6 +30192,202 @@
               "illustrationSourceNote": "녹색 바탕 컴퓨터 및 몬스터볼 모양 마우스 정물; 일하는 포켓몬 없음."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "KR catalog 021-030 identity, same-number classic JP artwork sources individually recorded.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLF_021",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHWPHWF1JBZ8BD30TB85P",
+              "illustrationReferenceUrl": "https://okini.land/en/58050-pokemon-tcg-clf-021-032-vs-seeker-the-pokemon-company.html",
+              "illustrationSourceNote": "배틀서처의 청색·백색 전자장치와 녹색 격자 배경."
+            },
+            {
+              "code": "CLF_022",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHX3T4D4JFT14T8G0G7BN",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-clf-022-032",
+              "illustrationSourceNote": "이상한 사탕의 분명한 사탕 형태와 파랑·노랑 빛. 이전 CLK 022와 같은 일러스트 대조."
+            },
+            {
+              "code": "CLF_023",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHXHB6AATR74CPFJET6F9",
+              "illustrationReferenceUrl": "https://japantradingcardstore.com/products/switch-023-032-clk-pokemon-card-game-classic-japanese-holo-1",
+              "illustrationSourceNote": "포켓몬 교체 장치 두 개와 청보라 회로형 배경."
+            },
+            {
+              "code": "CLF_024",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHXYPGT7S9ZFE7ZNBXYZD",
+              "illustrationReferenceUrl": "https://www.pristineauction.com/a9931059-Poke-Ball-2023-Pokemon-Japanese-TCG-Classic-Collection-Holo-25-CGC-10",
+              "illustrationSourceNote": "몬스터볼 단독 소품과 어두운 배경."
+            },
+            {
+              "code": "CLF_025",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHYBV2PQ54YM8SPGTGYWV",
+              "illustrationReferenceUrl": "https://okini.land/en/58054-pokemon-tcg-clf-025-032-sun-seed-the-pokemon-company.html",
+              "illustrationSourceNote": "빛나는 초록색 씨앗 단독 소품, 실재 풍경/식사 아님."
+            },
+            {
+              "code": "CLF_026",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHYRXVE84HFWZGN7WXNCX",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-cll-027-032",
+              "illustrationSourceNote": "오박사의 실험복과 단독 인물 초상."
+            },
+            {
+              "code": "CLF_027",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHZ5XCNE1MD8NGVS14Y8G",
+              "illustrationReferenceUrl": "https://cardotaku.com/en-us/products/pokemon-card-game-clf-027-032",
+              "illustrationSourceNote": "포켓몬애호가클럽의 두 사람과 포켓몬 그림이 있는 티셔츠/장난감. 장난감을 살아있는 카메오로 판정하지 않음."
+            },
+            {
+              "code": "CLF_028",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RHZJZAXNH1GD0SPMBTFC2",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314934420829",
+              "illustrationSourceNote": "포켓몬 간호사가 병원 침대의 살아있는 우파를 돌보는 장면. 우파 카메오 확인."
+            },
+            {
+              "code": "CLF_029",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RJ00171SJJN3A33V3ST8X",
+              "illustrationReferenceUrl": "https://www.ebay.co.uk/itm/314934420832",
+              "illustrationSourceNote": "비주기와 로켓단 사람들의 실내 암색 장면. 밤 장면으로는 판단하지 않음."
+            },
+            {
+              "code": "CLF_030",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RJ0DZF8H8GDXTFW89QMSN",
+              "illustrationReferenceUrl": "https://kream.co.kr/products/695827",
+              "illustrationSourceNote": "이수재의 인물 단독 초상과 갈색·연보라 배경."
+            }
+          ]
         }
       ]
     }
@@ -30205,11 +30412,11 @@
     "currentSet": "CLF",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 18, CLL 2, CLK 2 = 22 held; CLF 001-020 artwork reviewed; image selfhosting pending.",
+    "note": "M-P 18, CLL 2, CLK 2 pending; CLF 001-030 art reviewed and its image binaries unverified.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-020 ART REVIEW COMPLETE; image binaries pending",
-    "nextStart": "CLF 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-030 ART REVIEW COMPLETE; image binaries pending",
+    "nextStart": "CLF 031 (canonical order 031)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
