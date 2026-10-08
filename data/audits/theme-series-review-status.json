@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-100: 한국판 공식 일러스트 87장 검수 완료, 증거 보류 13장. 이번 091-100 10장 시각 검수, 테마 신규 20건, 094-095 왕자리 진화 연속 그림 및 099-100 박사 연구실 연결. 이미지 바이너리 별도 미완료.",
-      "reviewedCardCount": 87,
+      "note": "SV-P 001-110: 한국판 그림 검수 93장, 이미지 근거 보류 17장. 101-110에서 6장 검수, 4장 보류, 신규 테마 수록 12건. 원본 이미지 바이너리 자체호스팅 별도 미완료.",
+      "reviewedCardCount": 93,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30484,9 +30484,10 @@
         "canonical-order 061-070",
         "canonical-order 071-080 (075-076 artwork evidence held)",
         "canonical-order 081-090",
-        "canonical-order 091-100"
+        "canonical-order 091-100",
+        "canonical-order 101-110 (106-107,109-110 artwork evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 155,
+      "newlyAddedThemeSlotCount": 167,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30574,7 +30575,13 @@
         "SV-P_097",
         "SV-P_098",
         "SV-P_099",
-        "SV-P_100"
+        "SV-P_100",
+        "SV-P_101",
+        "SV-P_102",
+        "SV-P_103",
+        "SV-P_104",
+        "SV-P_105",
+        "SV-P_108"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30590,7 +30597,11 @@
         "SV-P_054",
         "SV-P_055",
         "SV-P_075",
-        "SV-P_076"
+        "SV-P_076",
+        "SV-P_106",
+        "SV-P_107",
+        "SV-P_109",
+        "SV-P_110"
       ],
       "batches": [
         {
@@ -32733,6 +32744,205 @@
               "koreanNumber": "100/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 101-110 (106-107,109-110 artwork held)",
+          "cardNumbers": [
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "110"
+          ],
+          "status": "6_artwork_verified_4_held_image_archival_pending",
+          "checkedCardCount": 6,
+          "heldCardCount": 4,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea exact-numbered 101-105,108 visual images; 106-107 Nemona and 109-110 basic energy pending",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_101",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000101",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_101.png?w=512",
+              "illustrationSourceNote": "빌리오와 나리아가 금빛 옷을 입고 초록 언덕·가로수·파란 하늘이 있는 야외를 배경으로 함께 포즈를 취한다.",
+              "koreanNumber": "101/SV-P"
+            },
+            {
+              "code": "SV-P_102",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000102",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_102.png?w=512",
+              "illustrationSourceNote": "피카츄가 해안가의 야외 스포츠 경기장에서 뛰어다니며 왼쪽에 주인공이 아닌 분홍색 뮤가 뚜렷하게 등장한다.",
+              "koreanNumber": "102/SV-P"
+            },
+            {
+              "code": "SV-P_103",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000103",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_103.png?w=512",
+              "illustrationSourceNote": "라티아스가 바다·하늘을 가로질러 비행한다. 연한 하늘색과 에메랄드빛 수면이 긴 배경을 형성한다.",
+              "koreanNumber": "103/SV-P"
+            },
+            {
+              "code": "SV-P_104",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000104",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_104.png?w=512",
+              "illustrationSourceNote": "축하 팡파레 2025 코리안 리그 판촉 일러스트. 피카츄 주변에 오거폰·파이어로처럼 보이는 조류 포켓몬·쥐 포켓몬과 다른 여러 종이 함께 나오며 배경에 불꽃놀이가 보인다.",
+              "koreanNumber": "104/SV-P"
+            },
+            {
+              "code": "SV-P_105",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000105",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_105.png?w=512",
+              "illustrationSourceNote": "싸리용이 스시 밥 위에 얹혀 있고, 뒤에는 강물·초록 초원과 야생화가 이어지는 풍경이다.",
+              "koreanNumber": "105/SV-P"
+            },
+            {
+              "code": "SV-P_106",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000106",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_106.png?w=512",
+              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "koreanNumber": "106/SV-P"
+            },
+            {
+              "code": "SV-P_107",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000107",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_107.png?w=512",
+              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "koreanNumber": "107/SV-P"
+            },
+            {
+              "code": "SV-P_108",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000108",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_108.png?w=512",
+              "illustrationSourceNote": "알로라 나시 ex가 노랑빛 테라스탈 결정, 형광빛 청록·분홍·초록 충돌광 안에서 공격하는 전투 장면.",
+              "koreanNumber": "108/SV-P"
+            },
+            {
+              "code": "SV-P_109",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000109",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_109.png?w=512",
+              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "koreanNumber": "109/SV-P"
+            },
+            {
+              "code": "SV-P_110",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000110",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_110.png?w=512",
+              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "koreanNumber": "110/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -32757,11 +32967,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 87/248 Korean art checked, 13 earlier evidence holds through 100; external image binaries still require separate archival.",
+    "note": "SV-P 93/248 artworks reviewed, 17 evidence holds through 110; binary archives pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 091-100 ART AUDIT: 10 verified, 20 new theme memberships",
-    "nextStart": "SV-P 101 (canonical order 101)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 101-110 artwork audit: 6 verified, 4 deferred, 12 theme memberships",
+    "nextStart": "SV-P 111 (canonical order 111)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -32840,8 +33050,15 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-svp-075-076-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P 071-074 & 077-080 artwork verified"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 106-107,109-110",
+        "pendingCount": 4,
+        "audit": "data/audits/theme-svp-101-110-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P 101-105 and 108 verified, 106-107 and 109-110 pending"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 091-100: all 10 Korean artworks verified; next 101."
+    "lastEvidenceAuditCheckpoint": "SV-P 101-110: six checked, 106-107 and 109-110 deferred."
   }
 }
