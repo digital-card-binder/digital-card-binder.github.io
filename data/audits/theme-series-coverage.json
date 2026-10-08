@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3882,
-    "uniqueThemeCards": 2345,
+    "themeCardSlots": 3897,
+    "uniqueThemeCards": 2357,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -119,7 +119,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1021,
+      "cardSlots": 1022,
       "setCount": 21,
       "rarities": [
         "AR",
@@ -136,7 +136,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1809,
+      "cardSlots": 1821,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -180,8 +180,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 58,
-      "setCount": 21,
+      "cardSlots": 59,
+      "setCount": 22,
       "rarities": [
         "AR",
         "C",
@@ -219,8 +219,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 40,
-      "setCount": 17,
+      "cardSlots": 41,
+      "setCount": 18,
       "rarities": [
         "AR",
         "C",
@@ -2355,8 +2355,10 @@
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
       "themeHits": {
-        "season": 6,
-        "color": 20
+        "season": 7,
+        "color": 32,
+        "food": 1,
+        "cameo": 1
       }
     },
     {

@@ -378,6 +378,38 @@
       "brokenReferenceCount": null,
       "nextStart": "CLK canonical order 021",
       "note": "No image binary fetched or CDN uploaded; Korean catalog URL retained."
+    },
+    {
+      "task": 6,
+      "set": "CLK",
+      "range": "canonical-order 021-032",
+      "canonicalCardCount": 12,
+      "externalImageReferenceCountBefore": 12,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 12,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 12,
+      "brokenReferenceCount": null,
+      "nextStart": "CLK canonical 033-034 held; CLF canonical 001 active",
+      "note": "KR image catalog URLs not changed or binary-verified."
+    },
+    {
+      "task": 6,
+      "set": "CLK",
+      "range": "canonical-order 033-034 deferred",
+      "canonicalCardCount": 2,
+      "externalImageReferenceCountBefore": 2,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 2,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 2,
+      "brokenReferenceCount": null,
+      "nextStart": "CLF canonical 001",
+      "note": "Print numbering and corresponding KR physical energy evidence pending; no binary archived."
     }
   ]
 }

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-08",
+  "task": 6,
+  "set": "CLK",
+  "range": "canonical-order 033-034",
+  "status": "pending_korean_energy_print_confirmation",
+  "lastSafeArtworkCheckpoint": "CLK canonical 032",
+  "pendingCount": 2,
+  "cards": [
+    {
+      "cardKey": "CLK_033",
+      "canonicalOrder": 33,
+      "canonicalMasterKey": "clk_033/032",
+      "catalogName": "기본 물 에너지",
+      "catalogImage": "https://static.tcgexchange.kr/cc4fc0fc7d6ba885eaeffc87634a783f.jpg",
+      "catalogPage": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJGW3KV6AS8PWYAG7JHSM",
+      "status": "pending_korean_printed_identifier",
+      "themesReviewed": false,
+      "reason": "Master's 033/032, 034/032 are canonical catalog positions; Japanese physical water/psychic basic energy cards have unnumbered WAT/PSY identifier. Korean printed version and card-image matching are not proven.",
+      "needed": "Korean front/back physical print or official numbered source and pixel-verified image."
+    },
+    {
+      "cardKey": "CLK_034",
+      "canonicalOrder": 34,
+      "canonicalMasterKey": "clk_034/032",
+      "catalogName": "기본 초 에너지",
+      "catalogImage": "https://static.tcgexchange.kr/8ceb66e75f39de37e080b68f07a8c7e5.jpg",
+      "catalogPage": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0/cards/01KY1RJH95JNQ1PG30PAY72QFH",
+      "status": "pending_korean_printed_identifier",
+      "themesReviewed": false,
+      "reason": "Master's 033/032, 034/032 are canonical catalog positions; Japanese physical water/psychic basic energy cards have unnumbered WAT/PSY identifier. Korean printed version and card-image matching are not proven.",
+      "needed": "Korean front/back physical print or official numbered source and pixel-verified image."
+    }
+  ],
+  "nextStart": "CLF 001",
+  "sources": [
+    "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_TCG_Classic",
+    "https://www.pokepolio.com/en/sets/50354eac-b713-47ff-994a-7d578fcecc05"
+  ],
+  "rehostedImages": 0
+}
