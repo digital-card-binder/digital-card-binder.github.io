@@ -4,9 +4,9 @@
   "task": 5,
   "set": "M-P",
   "range": "048-056",
-  "status": "partial_evidence_only",
-  "checkpointUnchanged": "M-P canonical 046",
-  "blockedCard": "M-P_047",
+  "status": "048-049_theme_artwork_completed_050-056_pending",
+  "checkpointUnchanged": "",
+  "blockedCard": "",
   "cards": [
     {
       "cardKey": "M-P_048",
@@ -15,8 +15,14 @@
       "koreanOfficialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_048.png?w=512",
       "artworkVisuallyInspected": true,
       "observation": "엘리게이가 야외 물가에서 물보라를 일으키는 한국판 카드 이미지 확인",
-      "themesReviewed": false,
-      "imageBinarySelfHosted": false
+      "themesReviewed": true,
+      "imageBinarySelfHosted": false,
+      "themesAdded": [
+        "season",
+        "color"
+      ],
+      "reviewEvidenceUrl": "https://brixo.tistory.com/m/5",
+      "status": "theme_artwork_complete_image_archive_pending"
     },
     {
       "cardKey": "M-P_049",
@@ -25,8 +31,13 @@
       "koreanOfficialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_049.png?w=512",
       "artworkVisuallyInspected": true,
       "observation": "메가장크로다일 ex 단독 액션 일러스트 및 한국판 번호 확인",
-      "themesReviewed": false,
-      "imageBinarySelfHosted": false
+      "themesReviewed": true,
+      "imageBinarySelfHosted": false,
+      "themesAdded": [
+        "color"
+      ],
+      "reviewEvidenceUrl": "https://brixo.tistory.com/m/5",
+      "status": "theme_artwork_complete_image_archive_pending"
     },
     {
       "cardKey": "M-P_050",
@@ -87,7 +98,12 @@
       "status": "pending_official_image_unavailable"
     }
   ],
-  "themeAdditions": [],
+  "themeAdditions": [
+    "M-P_048:season",
+    "M-P_048:color",
+    "M-P_049:color"
+  ],
   "selfHostedImagesAdded": 0,
-  "notes": "비연속 카드 근거만 기록. 047 pending을 유지하며 048-050 공식 이미지를 확인했으나 12개 테마 확정/이미지 아카이브 실제 바이너리 업로드 전에는 본 검수 장부 및 도감에는 반영하지 않는다. 051-056 공식 상세 및 이미지 접근 불가. 완료 수/체크포인트를 증가시키지 않는다."
+  "notes": "048-049 한국판 인쇄 카드 사진 + 공식 페이지 근거로 12개 테마 검수 완료. 050-056 pending. 이미지 자체저장·배포 검증 없음. 047은 별도 로그에서 완료 처리.",
+  "lastSafeCheckpoint": "M-P canonical 049"
 }

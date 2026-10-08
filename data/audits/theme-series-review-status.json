@@ -27260,8 +27260,8 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P canonical 001-046까지 카드 일러스트 12개 독립 테마 검수. 041-046 포켓몬코리아 공식 워터마크 카드 이미지를 대조. 047 공식 이미지 로드 실패로 아직 미검수. 외부 이미지 자체 호스팅 미완료.",
-      "reviewedCardCount": 46,
+      "note": "M-P canonical 001-049 일러스트 기반 12테마 검수. 047-049 한국판 실물 인쇄 사진에서 자연 풍경·색감 검증. 한국판 047=리아코 / 일본판 047=일레즌 번호 충돌 제거. 원본 이미지 바이너리 CDN 자체저장 확인은 별도 pending.",
+      "reviewedCardCount": 49,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27281,9 +27281,10 @@
         "canonical-order 011-020",
         "canonical-order 021-030",
         "canonical-order 031-040",
-        "canonical-order 041-046"
+        "canonical-order 041-046",
+        "canonical-order 047-049"
       ],
-      "newlyAddedThemeSlotCount": 75,
+      "newlyAddedThemeSlotCount": 80,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27330,7 +27331,10 @@
         "M-P_043",
         "M-P_044",
         "M-P_045",
-        "M-P_046"
+        "M-P_046",
+        "M-P_047",
+        "M-P_048",
+        "M-P_049"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -28202,9 +28206,83 @@
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000046"
             }
           ]
+        },
+        {
+          "range": "canonical-order 047-049",
+          "cardNumbers": [
+            "047",
+            "048",
+            "049"
+          ],
+          "status": "complete",
+          "checkedCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 3,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 3,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "한국판 실물 인쇄 카드 047-049 동시 촬영 사진 (https://brixo.tistory.com/m/5), GitHub main canonical 카드 번호 대조; 049 포켓몬코리아 공식 상세 확인. 온라인 공식 이미지 파일 바이너리 직접 검증 별도 대기.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_047",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://brixo.tistory.com/m/5",
+              "illustrationSourceNote": "한국판 실물 인쇄 사진의 해당 카드 이름·그림 확인; 공식 CDN 바이너리/배포는 미확인."
+            },
+            {
+              "code": "M-P_048",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://brixo.tistory.com/m/5",
+              "illustrationSourceNote": "한국판 실물 인쇄 사진의 해당 카드 이름·그림 확인; 공식 CDN 바이너리/배포는 미확인."
+            },
+            {
+              "code": "M-P_049",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://brixo.tistory.com/m/5",
+              "illustrationSourceNote": "한국판 실물 인쇄 사진의 해당 카드 이름·그림 확인; 공식 CDN 바이너리/배포는 미확인."
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 047 (canonical order 047)"
+      "nextStart": "M-P 050 (canonical order 050)"
     }
   },
   "queue": {
@@ -28227,11 +28305,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5: MBD/MBG/MA complete. M-P 001-046/68 verified by artwork. 047 image review unresolved; do not skip to 048. External image archive pending.",
+    "note": "M-P 001-049/68 picture-based review complete; next M-P 050; 047 Korean/Japanese promo code collision audit corrected. External image archive not binary verified.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-046 artwork review COMPLETE (047 unresolved; external image archive pending)",
-    "nextStart": "M-P 047 (canonical order 047)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-049 artwork review COMPLETE (image archive verification pending)",
+    "nextStart": "M-P 050 (canonical order 050)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {

@@ -5,8 +5,8 @@
   "set": "M-P",
   "canonicalOrder": 47,
   "cardKey": "M-P_047",
-  "reviewStatus": "pending",
-  "nextStart": "M-P 047 (canonical order 047)",
+  "reviewStatus": "artwork_reviewed_image_archive_pending",
+  "nextStart": "M-P 050 (canonical order 050)",
   "verified": {
     "koreanCardName": "리아코",
     "koreanPrintIdentifier": "047/M-P",
@@ -19,19 +19,31 @@
     "koreanToxelOfficialDetail": "https://pokemoncard.co.kr/cards/detail/MP000000020"
   },
   "unverified": {
-    "officialKoreanArtwork": true,
-    "all12ThemesArtReview": true,
+    "officialKoreanImageBinary": true,
     "imageBinarySelfHost": true,
     "cloudflareDeployment": true
   },
-  "illustrationReferenceObservation": "일본 047/M-P 일레즌 이미지(마당에서 노는 두 마리)는 한국판 047/M-P 리아코에 사용 불가. 한국판 리아코 실제 이미지를 확인하기 전에는 12개 테마를 분류하지 않는다.",
-  "themeAdditions": [],
+  "illustrationReferenceObservation": "한국판 MEGA ex 스페셜 세트 047/M-P 리아코 실물 카드 사진을 048 엘리게이·049 메가장크로다일 ex와 함께 육안 대조하여 숲·바위와 청록색 주조 확인. 일본 047/M-P 일레즌 사진은 이 카드와 무관.",
+  "themeAdditions": [
+    "season",
+    "color"
+  ],
   "selfHostedImagesAdded": 0,
-  "note": "한국판과 일본판 프로모 번호 충돌을 GitHub canonical M-P 047=리아코 및 한국 프로모 카드 목록, 포켓몬코리아 공식 M-P 020=일레즌 교차대조로 정정했다. 카드 원본/도감 테마 데이터는 변경하지 않았다. 이미지 아트 직접 판독을 하지 못하여 047은 pending, checkpoint 046을 유지한다.",
+  "note": "M-P 047 한국판 실물 카드 12테마 그림 검수 완료 및 art-themes에 2테마 반영. 공식 이미지 바이너리 자체 호스팅 및 CDN 실제 존재 확인은 보류. 이전 일본 047 일레즌 교차오인 정정은 유지.",
   "conflictingSources": {
     "incorrectPriorClaim": "047/M-P is Korean 일레즌",
     "priorKoreanListing": "https://m.bunjang.co.kr/products/434448182",
     "japanese047": "https://www.ebay.com/itm/326846980874",
     "resolution": "047/M-P 일본 프로모는 일레즌(Toxel)이지만 한국 M-P 047은 리아코(Totodile). 서로 다른 지역 카드 번호를 혼용한 이전 evidence를 정정했다. 번개장터 제목은 한국판 공식 번호 증명이 아니다."
+  },
+  "photographicEvidence": {
+    "url": "https://brixo.tistory.com/m/5",
+    "region": "한국어판 MEGA ex 스페셜 세트 047/048/049 3종이 나란히 보이는 사진",
+    "observedNames": [
+      "리아코",
+      "엘리게이",
+      "메가장크로다일 ex"
+    ],
+    "sourceType": "korean_print_photo_not_official_binary"
   }
 }
