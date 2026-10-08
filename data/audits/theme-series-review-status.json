@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "SV-P 001-008 기존 완료 유지. 011-015, 019-020 한국판 포켓몬코리아 공식 실물 일러스트 7장 12테마 검수/12개 테마 슬롯 추가. 009-010, 016-018 이미지는 확인 안 되어 보류. 전체 한국판 이미지 파일 자체 호스팅/배포 확인은 미완료.",
-      "reviewedCardCount": 15,
+      "note": "SV-P 한국판 001-008, 011-015, 019-020 및 022-025, 027, 029-030 실제 아트 22장 검수. 이미지 근거 보류 009-010,016-018,021,026,028. Image binaries not self-host verified.",
+      "reviewedCardCount": 22,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30476,9 +30476,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-008; 009-010 evidence held",
-        "canonical-order 011-020 (016-018 image evidence deferred)"
+        "canonical-order 011-020 (016-018 image evidence deferred)",
+        "canonical-order 021-030 (021,026,028 evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 25,
+      "newlyAddedThemeSlotCount": 39,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30494,7 +30495,14 @@
         "SV-P_014",
         "SV-P_015",
         "SV-P_019",
-        "SV-P_020"
+        "SV-P_020",
+        "SV-P_022",
+        "SV-P_023",
+        "SV-P_024",
+        "SV-P_025",
+        "SV-P_027",
+        "SV-P_029",
+        "SV-P_030"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30502,7 +30510,10 @@
         "SV-P_010",
         "SV-P_016",
         "SV-P_017",
-        "SV-P_018"
+        "SV-P_018",
+        "SV-P_021",
+        "SV-P_026",
+        "SV-P_028"
       ],
       "batches": [
         {
@@ -30914,6 +30925,214 @@
               "koreanNumber": "020/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030 (021,026,028 deferred)",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030"
+          ],
+          "status": "partially_complete_with_evidence_hold",
+          "checkedCardCount": 7,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official printed images 022-025, 027, 029-030; 021,026,028 official detail paths unavailable.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_021",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "koreanNumber": "021/SV-P"
+            },
+            {
+              "code": "SV-P_022",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000022",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_022.png?w=512",
+              "illustrationSourceNote": "풀꽃과 잎들이 가득한 푸른 자연 풍경 속에 서 있는 이브이. 공식 한국판 022/SV-P 실물 아트.",
+              "koreanNumber": "022/SV-P"
+            },
+            {
+              "code": "SV-P_023",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_023.png?w=512",
+              "illustrationSourceNote": "핑크·코럴 배경 한가운데 파란색 이상한사탕이 강조된 아이템 그래픽.",
+              "koreanNumber": "023/SV-P"
+            },
+            {
+              "code": "SV-P_024",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_024.png?w=512",
+              "illustrationSourceNote": "꽃이 빽빽한 정원길 옆 계단에서 걸어오는 네모.",
+              "koreanNumber": "024/SV-P"
+            },
+            {
+              "code": "SV-P_025",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000025",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_025.png?w=512",
+              "illustrationSourceNote": "파란 지붕의 도심 건물과 검은 철문 사이에 서 있는 네모.",
+              "koreanNumber": "025/SV-P"
+            },
+            {
+              "code": "SV-P_026",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "koreanNumber": "026/SV-P"
+            },
+            {
+              "code": "SV-P_027",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "sleeping"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [
+                "sleeping"
+              ],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000027",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_027.png?w=512",
+              "illustrationSourceNote": "작은 폭포와 숲, 산기슭이 보이는 바위 위에서 쉬고 있는 코라이돈.",
+              "koreanNumber": "027/SV-P"
+            },
+            {
+              "code": "SV-P_028",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "koreanNumber": "028/SV-P"
+            },
+            {
+              "code": "SV-P_029",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000029",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_029.png?w=512",
+              "illustrationSourceNote": "황금빛 하늘 아래 드넓은 산악 초원을 비추는 햇살, 아르세우스 외 여러 포켓몬이 배경과 앞쪽에 함께 묘사됨.",
+              "koreanNumber": "029/SV-P"
+            },
+            {
+              "code": "SV-P_030",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000030",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_030.png?w=512",
+              "illustrationSourceNote": "울긋불긋한 단풍과 버섯·낙엽이 흩어진 숲속 피콘.",
+              "koreanNumber": "030/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -30938,11 +31157,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P artwork verified 15/248; pending Korean artwork 009-010,016-018 plus previously held M-P18/CLL2/CLK2/CLF2 = 29 held canonical slots. Image binaries not fetched/deployed.",
+    "note": "SV-P Korean visual review 22/248; held 009-010,016-018,021,026,028 (8). Prior M-P18/CLL2/CLK2/CLF2 holds retained; image binary archival unresolved.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 001-008 + 011-015 + 019-020 ART REVIEW COMPLETE; 009-010,016-018 EVIDENCE HELD",
-    "nextStart": "SV-P 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 001-008,011-015,019-020,022-025,027,029-030 ART REVIEW COMPLETE; 8 SV-P ART HOLDS",
+    "nextStart": "SV-P 031 (canonical order 031)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -30993,8 +31212,15 @@
         "pendingCount": 3,
         "audit": "data/audits/theme-svp-016-018-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 015"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 021,026,028",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svp-021-030-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 020"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 011-020 official Korean image reviewed 7, 016-018 held; next SV-P 021."
+    "lastEvidenceAuditCheckpoint": "SV-P 021-030 seven images reviewed; 021/026/028 held; next SV-P 031."
   }
 }
