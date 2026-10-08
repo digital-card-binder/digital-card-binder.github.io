@@ -27260,8 +27260,8 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "Task 5 M-P 메가 진화 프로모 001-010 한국판 공식 개별 카드 이미지 대조, 12개 독립 테마 기준 판독. 009 M-P 이미지 조회 실패로 동일 일러스트 메가시그널의 다른 한국판 인쇄 이미지 대조. 이미지 자체저장·CDN 배포는 아직 미검증.",
-      "reviewedCardCount": 10,
+      "note": "M-P 001-020 한국판 프로모 실물 일러스트 기준 12개 테마 검수. 016 축하 팡파레 한국판 이미지는 KREAM 교차검증, 일러스트 속 다수 포켓몬을 cameo 포함. 자체 이미지 저장/배포 검증은 pending.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27277,9 +27277,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010"
+        "canonical-order 001-010",
+        "canonical-order 011-020"
       ],
-      "newlyAddedThemeSlotCount": 15,
+      "newlyAddedThemeSlotCount": 33,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27290,7 +27291,17 @@
         "M-P_007",
         "M-P_008",
         "M-P_009",
-        "M-P_010"
+        "M-P_010",
+        "M-P_011",
+        "M-P_012",
+        "M-P_013",
+        "M-P_014",
+        "M-P_015",
+        "M-P_016",
+        "M-P_017",
+        "M-P_018",
+        "M-P_019",
+        "M-P_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -27476,9 +27487,197 @@
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000010"
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea Korean M-P 011-015,017-020 card scans plus Korean physical card KREAM M-P 016/2026 Korean League",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_011",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000011"
+            },
+            {
+              "code": "M-P_012",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000012"
+            },
+            {
+              "code": "M-P_013",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000013"
+            },
+            {
+              "code": "M-P_014",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000014"
+            },
+            {
+              "code": "M-P_015",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000015"
+            },
+            {
+              "code": "M-P_016",
+              "checked": true,
+              "themesMatched": [
+                "cameo",
+                "color"
+              ],
+              "themesAdded": [
+                "cameo",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://kream.co.kr/products/940634"
+            },
+            {
+              "code": "M-P_017",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000017"
+            },
+            {
+              "code": "M-P_018",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000018"
+            },
+            {
+              "code": "M-P_019",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000019"
+            },
+            {
+              "code": "M-P_020",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000020"
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 011 (canonical order 011)"
+      "nextStart": "M-P 021 (canonical order 021)"
     }
   },
   "queue": {
@@ -27501,11 +27700,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 MBD/MBG/MA complete; M-P 001-010/68 inspected across 12 themes; next M-P 011. External images unchanged and binary selfhosting pending.",
+    "note": "MBD/MBG/MA complete; M-P 001-020/68 12-theme artwork reviewed. Next M-P 021.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-010 artwork review COMPLETE (image archive pending)",
-    "nextStart": "M-P 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-020 artwork review COMPLETE (self-host images pending)",
+    "nextStart": "M-P 021 (canonical order 021)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
