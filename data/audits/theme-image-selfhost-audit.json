@@ -458,6 +458,38 @@
       "brokenReferenceCount": null,
       "nextStart": "CLF canonical 031",
       "note": "No actual image download/selfhosting/Cloudflare deploy. Korean catalog image references remain external."
+    },
+    {
+      "task": 6,
+      "set": "CLF",
+      "range": "canonical-order 031-032",
+      "canonicalCardCount": 2,
+      "externalImageReferenceCountBefore": 2,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 2,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 2,
+      "brokenReferenceCount": null,
+      "nextStart": "CLF canonical 033-034 held; SV-P canonical 001 active",
+      "note": "2 card illustration references classified but KR binary not hosted or checked."
+    },
+    {
+      "task": 6,
+      "set": "CLF",
+      "range": "canonical-order 033-034 deferred",
+      "canonicalCardCount": 2,
+      "externalImageReferenceCountBefore": 2,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 2,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 2,
+      "brokenReferenceCount": null,
+      "nextStart": "SV-P canonical 001",
+      "note": "KR physical identifiers for unnumbered basic energies not proven. No artwork/theme classification or binary deployment."
     }
   ]
 }

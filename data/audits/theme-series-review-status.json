@@ -29734,8 +29734,8 @@
     "CLF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "CLF 001-030 art classified for 12 themes, KR catalog card identities and JP numbered illustration refs. KR image binary selfhost pending.",
-      "reviewedCardCount": 30,
+      "note": "CLF 001-032 artwork reviewed across 12 themes; 033-034 basic energy print identifiers and KR image mapping unverified. CLF stays in_progress until resolved.",
+      "reviewedCardCount": 32,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -29753,9 +29753,10 @@
       "reviewedRanges": [
         "canonical-order 001-010",
         "canonical-order 011-020",
-        "canonical-order 021-030"
+        "canonical-order 021-030",
+        "canonical-order 031-032"
       ],
-      "newlyAddedThemeSlotCount": 41,
+      "newlyAddedThemeSlotCount": 44,
       "newlyAddedCards": [
         "CLF_001",
         "CLF_002",
@@ -29786,10 +29787,15 @@
         "CLF_027",
         "CLF_028",
         "CLF_029",
-        "CLF_030"
+        "CLF_030",
+        "CLF_031",
+        "CLF_032"
       ],
       "existingSkippedCards": [],
-      "heldCards": [],
+      "heldCards": [
+        "CLF_033",
+        "CLF_034"
+      ],
       "batches": [
         {
           "range": "canonical-order 001-010",
@@ -30388,6 +30394,64 @@
               "illustrationSourceNote": "이수재의 인물 단독 초상과 갈색·연보라 배경."
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-032",
+          "cardNumbers": [
+            "031",
+            "032"
+          ],
+          "status": "complete",
+          "checkedCardCount": 2,
+          "imageAudit": {
+            "catalogImageReferenceCount": 2,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 2,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 2,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean catalog identity; Japanese artwork references for classic same number",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLF_031",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RJ0V14KCHFNWRARMCZ441",
+              "illustrationReferenceUrl": "https://cardotaku.com/products/pokemon-card-game-clf-031-032",
+              "illustrationSourceNote": "로켓단 간부 옆에 별도의 살아있는 포켓몬이 등장, 카메오로 분류."
+            },
+            {
+              "code": "CLF_032",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2/cards/01KY1RJ188CYTE8VG8YGBFSWFF",
+              "illustrationReferenceUrl": "https://www.cardrush-pokemon.jp/product/49010",
+              "illustrationSourceNote": "무색 에너지 상징 검은 별과 오색 홀로 무늬; 실제 주변 풍경/인물 없음."
+            }
+          ]
         }
       ]
     }
@@ -30409,14 +30473,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "CLF",
+    "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 18, CLL 2, CLK 2 pending; CLF 001-030 art reviewed and its image binaries unverified.",
+    "note": "M-P 18 + CLL 2 + CLK 2 + CLF 2 = 24 held canonical slots; CLF artwork 001-032 reviewed, binaries not deployed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-030 ART REVIEW COMPLETE; image binaries pending",
-    "nextStart": "CLF 031 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 6 CLF canonical order 001-032 ART REVIEW COMPLETE; 033-034 held for KR energy evidence",
+    "nextStart": "SV-P 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -30446,6 +30510,13 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-clk-033-034-evidence-pending.json",
         "lastArtSafeCheckpoint": "CLK canonical 032"
+      },
+      {
+        "set": "CLF",
+        "range": "canonical-order 033-034",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-clf-033-034-evidence-pending.json",
+        "lastArtSafeCheckpoint": "CLF canonical 032"
       }
     ],
     "lastEvidenceAuditCheckpoint": "M-P 051-068 reviewed for evidence availability (0 artwork verified), next CLL 001"
