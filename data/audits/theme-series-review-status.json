@@ -27260,7 +27260,7 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-08",
-      "note": "M-P 001-050 artwork verified. 051-068 evidence review attempted but not artwork-verified; 18 pending_evidence entries documented in theme-mp-051-068-evidence-pending.json. M-P remains in_progress and must not be treated complete.",
+      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete.",
       "reviewedCardCount": 50,
       "reviewedThemes": [
         "sleeping",
@@ -27350,14 +27350,14 @@
         "M-P_058",
         "M-P_059",
         "M-P_060",
-        "M-P_061",
-        "M-P_062",
-        "M-P_063",
-        "M-P_064",
-        "M-P_065",
-        "M-P_066",
-        "M-P_067",
-        "M-P_068"
+        "M-P_085",
+        "M-P_086",
+        "M-P_500",
+        "M-P_501",
+        "M-P_502",
+        "M-P_GRA",
+        "M-P_FIR",
+        "M-P_WAT"
       ],
       "batches": [
         {
@@ -28342,6 +28342,250 @@
         }
       ],
       "nextStart": "M-P 051 (canonical order 051)"
+    },
+    "CLL": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "note": "CLL canonical 001-010 checked for all 12 themes using same-number JP Classic art as illustration reference; KR catalog confirms printed identity/number. Image selfhosting not performed. 011-034 remain.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010"
+      ],
+      "newlyAddedThemeSlotCount": 16,
+      "newlyAddedCards": [
+        "CLL_001",
+        "CLL_002",
+        "CLL_003",
+        "CLL_004",
+        "CLL_005",
+        "CLL_006",
+        "CLL_007",
+        "CLL_008",
+        "CLL_009",
+        "CLL_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "KR CLL printed identity in existing KR catalog; same number Japanese Classic card artwork source URLs in cards list.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "CLL_001",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJM8HSVJ9T0655RQCWQ9B",
+              "illustrationReferenceUrl": "https://rosetreca.com/en-en/products/rc_itqnxn0jqr80_ihfo",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_002",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJMNM3WKTKRDYRK2S0X5T",
+              "illustrationReferenceUrl": "https://www.ebay.co.uk/itm/314936269274",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_003",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJN2YZMTBC9TT0RCF0TY2",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/314934420840",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_004",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJNG9KQ81QBEHPFAWXCWP",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/134831611343",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_005",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJNXAKK1P50VHD7CG63JH",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/235276350634",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_006",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJPASQDT5HEA2Z5TBD70V",
+              "illustrationReferenceUrl": "https://www.ebay.co.uk/itm/314934420856",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_007",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJPR0FVNXJG20PG7DFRDQ",
+              "illustrationReferenceUrl": "https://okini.land/en/58070-pokemon-tcg-cll-007-032-ho-oh-ex-the-pokemon-company.html",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_008",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJQ54MC617H60038X94P0",
+              "illustrationReferenceUrl": "https://cs-collect.com/products/cll008032",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_009",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJQJ536JM7YKT4S38T2BY",
+              "illustrationReferenceUrl": "https://www.ebay.co.uk/itm/314935577751",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            },
+            {
+              "code": "CLL_010",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK/cards/01KY1RJQZ9XHW7Y02M7ZSEMJZG",
+              "illustrationReferenceUrl": "https://okini.land/en/58073-pokemon-tcg-cll-010-032-voltorb-the-pokemon-company.html",
+              "illustrationSourceNote": "Korean print/number from KR series catalog; JP same-number Classic artwork visually inspected. No Korean image binary validated."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -28364,11 +28608,11 @@
     "currentSet": "CLL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "M-P 001-050 artwork-verified; M-P 051-068 pending_evidence, no classification or image deployment asserted. M-P stays incomplete. Advance queue to CLL rather than blocking on missing images.",
+    "note": "M-P 18 slots deferred; CLL 001-010 art inspected using Japanese illustration refs and independently matched Korean set/card numbers. Korean card images not selfhosted or decoded.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-050 artwork review COMPLETE (archive pending)",
-    "nextStart": "CLL 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 6 CLL canonical order 001-010 artwork review COMPLETE (archive pending)",
+    "nextStart": "CLL 011 (canonical order 011)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -28380,10 +28624,10 @@
     "deferredEvidence": [
       {
         "set": "M-P",
-        "range": "canonical-order 051-068",
+        "range": "canonical 051-068 with non-contiguous printed numbers",
         "pendingCount": 18,
         "audit": "data/audits/theme-mp-051-068-evidence-pending.json",
-        "lastArtSafeCheckpoint": "M-P canonical order 050"
+        "lastArtSafeCheckpoint": "M-P canonical 050"
       }
     ],
     "lastEvidenceAuditCheckpoint": "M-P 051-068 reviewed for evidence availability (0 artwork verified), next CLL 001"

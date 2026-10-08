@@ -273,7 +273,7 @@
     {
       "task": 5,
       "set": "M-P",
-      "range": "canonical-order 051-068 evidence-only",
+      "range": "canonical-order 051-068 (printed 051-060,085-086,500-502,GRA,FIR,WAT) evidence-only",
       "canonicalCardCount": 18,
       "newlyInternalizedReferenceCount": 0,
       "archiveVerificationStatus": "pending",
@@ -281,7 +281,23 @@
       "unverifiedImageCount": 18,
       "brokenReferenceCount": null,
       "nextStart": "CLL canonical order 001",
-      "note": "Korean card scans and image bytes not acquired for 051-068; no selfhost or deployment success claimed. 053 resale photo link is evidence candidate, not image archive."
+      "note": "No image fetched/deployed; canonical 61-68 differ from printed IDs."
+    },
+    {
+      "task": 6,
+      "set": "CLL",
+      "range": "canonical-order 001-010",
+      "canonicalCardCount": 10,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "nextStart": "CLL canonical order 011",
+      "note": "Existing linked images unchanged; no binary fetched or Cloudflare deployed."
     }
   ]
 }
