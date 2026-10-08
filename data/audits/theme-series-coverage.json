@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-08",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 3735,
-    "uniqueThemeCards": 2243,
+    "themeCardSlots": 3750,
+    "uniqueThemeCards": 2253,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -119,8 +119,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 985,
-      "setCount": 18,
+      "cardSlots": 989,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -135,8 +135,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1707,
-      "setCount": 20,
+      "cardSlots": 1717,
+      "setCount": 21,
       "rarities": [
         "AR",
         "C",
@@ -203,8 +203,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 362,
-      "setCount": 20,
+      "cardSlots": 363,
+      "setCount": 21,
       "rarities": [
         "AR",
         "C",
@@ -236,7 +236,7 @@
       "cardCount": 2133,
       "completeSetCount": 13,
       "remainingSetCount": 1,
-      "currentThemeSlots": 3418
+      "currentThemeSlots": 3433
     },
     {
       "era": "SV",
@@ -309,7 +309,7 @@
       "code": "M-P",
       "name": "메가 진화 프로모",
       "cardCount": 68,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2038,9 +2038,13 @@
       "cardCount": 68,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "themeHits": {
+        "season": 4,
+        "street": 1,
+        "color": 10
+      }
     },
     {
       "era": "SV",

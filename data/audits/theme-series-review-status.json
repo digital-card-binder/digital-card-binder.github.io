@@ -27256,6 +27256,229 @@
         }
       ],
       "nextStart": "M-P 001 (canonical order 001)"
+    },
+    "M-P": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-08",
+      "note": "Task 5 M-P 메가 진화 프로모 001-010 한국판 공식 개별 카드 이미지 대조, 12개 독립 테마 기준 판독. 009 M-P 이미지 조회 실패로 동일 일러스트 메가시그널의 다른 한국판 인쇄 이미지 대조. 이미지 자체저장·CDN 배포는 아직 미검증.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010"
+      ],
+      "newlyAddedThemeSlotCount": 15,
+      "newlyAddedCards": [
+        "M-P_001",
+        "M-P_002",
+        "M-P_003",
+        "M-P_004",
+        "M-P_005",
+        "M-P_006",
+        "M-P_007",
+        "M-P_008",
+        "M-P_009",
+        "M-P_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "complete",
+          "checkedCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea card scans of M-P 001-008/010; M-P 009 illustration crosschecked with official MBD 010 same card art",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_001",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000001"
+            },
+            {
+              "code": "M-P_002",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000002"
+            },
+            {
+              "code": "M-P_003",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000003"
+            },
+            {
+              "code": "M-P_004",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000004"
+            },
+            {
+              "code": "M-P_005",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000005"
+            },
+            {
+              "code": "M-P_006",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000006"
+            },
+            {
+              "code": "M-P_007",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000007"
+            },
+            {
+              "code": "M-P_008",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000008"
+            },
+            {
+              "code": "M-P_009",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000009"
+            },
+            {
+              "code": "M-P_010",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000010"
+            }
+          ]
+        }
+      ],
+      "nextStart": "M-P 011 (canonical order 011)"
     }
   },
   "queue": {
@@ -27278,11 +27501,11 @@
     "currentSet": "M-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-5-in-progress",
-    "note": "Task 5 MBD, MBG, MA completed; next M-P 001/68. MA basic energies classified by canonical attributes; external image binaries/selfhosting unverified.",
+    "note": "Task 5 MBD/MBG/MA complete; M-P 001-010/68 inspected across 12 themes; next M-P 011. External images unchanged and binary selfhosting pending.",
     "currentTask": 5,
     "currentTaskScope": "MBD / MBG / MA / M-P 전체 canonical card slot × 12개 테마",
-    "lastSafeCheckpoint": "TASK 5 MA canonical order 001-051 12-theme classification COMPLETE (image binary/self-host verification pending)",
-    "nextStart": "M-P 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 5 M-P canonical order 001-010 artwork review COMPLETE (image archive pending)",
+    "nextStart": "M-P 011 (canonical order 011)",
     "currentStage": 5,
     "totalStages": 36,
     "lastWorkflowCheck": {
