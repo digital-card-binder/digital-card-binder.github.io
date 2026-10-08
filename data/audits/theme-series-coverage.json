@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-09",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4031,
-    "uniqueThemeCards": 2437,
+    "themeCardSlots": 4050,
+    "uniqueThemeCards": 2447,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -82,23 +82,25 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 89,
-      "setCount": 23,
+      "cardSlots": 91,
+      "setCount": 24,
       "rarities": [
         "AR",
         "C",
         "SAR",
-        "V"
+        "V",
+        "PROMO"
       ]
     },
     {
       "code": "evolution",
       "name": "진화 스토리",
-      "cardSlots": 67,
-      "setCount": 14,
+      "cardSlots": 69,
+      "setCount": 15,
       "rarities": [
         "AR",
-        "SAR"
+        "SAR",
+        "PROMO"
       ]
     },
     {
@@ -120,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1055,
+      "cardSlots": 1056,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -137,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 1902,
+      "cardSlots": 1912,
       "setCount": 25,
       "rarities": [
         "AR",
@@ -182,7 +184,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 62,
+      "cardSlots": 63,
       "setCount": 24,
       "rarities": [
         "AR",
@@ -208,7 +210,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 373,
+      "cardSlots": 375,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -222,7 +224,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 47,
+      "cardSlots": 48,
       "setCount": 20,
       "rarities": [
         "AR",
@@ -251,7 +253,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 413
+      "currentThemeSlots": 432
     },
     {
       "era": "S",
@@ -2336,12 +2338,14 @@
       "themeHits": {
         "sleeping": 2,
         "night": 3,
-        "season": 26,
-        "color": 49,
+        "season": 27,
+        "color": 59,
         "sunset": 1,
-        "food": 2,
-        "street": 5,
-        "cameo": 4
+        "food": 3,
+        "street": 7,
+        "cameo": 5,
+        "connected": 2,
+        "evolution": 2
       }
     },
     {
