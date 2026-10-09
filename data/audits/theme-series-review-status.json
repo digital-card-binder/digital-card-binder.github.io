@@ -38074,7 +38074,7 @@
     "SVC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVC 001-010 artwork review: 9 exact KR illustrations checked (005 held). SVC 011-020: 10 Korean names/identifiers crosschecked, illustrations not available, all theme verdicts held; no binary saved.",
+      "note": "SVC 001-022 metadata audit: nine exact Korean artworks verified among 001-010; 005 and 011-022 (13) artwork holds. SVC 022 Lightning Energy canonical code is synthetic: actual Korean print number is unnumbered.",
       "reviewedCardCount": 9,
       "reviewedThemes": [
         "sleeping",
@@ -38092,7 +38092,8 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: official exact art for 001-004,006-010; 005 held",
-        "canonical-order 011-020: KR name/print IDs crosschecked only; 10 illustration holds; zero artwork reviews"
+        "canonical-order 011-020: KR name/print IDs crosschecked only; 10 illustration holds; zero artwork reviews",
+        "canonical-order 021-022: 021 Korean official metadata validated, 022 energy is unnumbered, 2 illustration holds"
       ],
       "newlyAddedThemeSlotCount": 16,
       "newlyAddedCards": [
@@ -38118,7 +38119,9 @@
         "SVC_017",
         "SVC_018",
         "SVC_019",
-        "SVC_020"
+        "SVC_020",
+        "SVC_021",
+        "SVC_022"
       ],
       "batches": [
         {
@@ -38507,6 +38510,61 @@
               "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-022",
+          "cardNumbers": [
+            "021",
+            "unnumbered canonical 022"
+          ],
+          "status": "0_artworks_reviewed_2_illustrations_held",
+          "checkedCardCount": 0,
+          "heldCardCount": 2,
+          "verifiedKoreanPrintMetadataCount": 1,
+          "unnumberedKoreanPrintMetadataCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 2,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 2,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 2,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "pokemoncard.co.kr Korean SVC 021/021 official page plus Korean set list for unnumbered energy",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVC_021",
+              "checked": false,
+              "koreanNumber": "021/021",
+              "koreanName": "저지맨",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008021",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Korean official page validates named card and 021/021 number, but exact printed artwork visual inspection unavailable."
+            },
+            {
+              "code": "SVC_022",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanName": "기본 번개 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://namu.moe/w/%EC%8A%A4%EC%B9%BC%EB%A0%9B%26%EB%B0%94%EC%9D%B4%EC%98%AC%EB%A0%9B%20%EC%8A%A4%ED%83%80%ED%84%B0%20%EC%84%B8%ED%8A%B8%20ex%20%ED%94%BC%EC%B9%B4%EC%B8%84%20%EC%8A%A4%ED%8E%98%EC%85%9C%20%EC%84%B8%ED%8A%B8",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Korean deck list shows basic Lightning Energy as unnumbered. The catalog's svc_022/021 is a synthetic canonical order, NOT a verified 022/021 printed number. Exact energy illustration/binary not reviewed."
+            }
+          ]
         }
       ]
     }
@@ -38531,11 +38589,11 @@
     "currentSet": "SVC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "No illustration classification for SVC 011-020; 10 exact KR names/printed numbers crosschecked, all artwork/evidence held. Next advance to SVC 021 only while pending items remain open.",
+    "note": "All SVC canonical metadata slots reviewed for Korean identifiers, but the set is NOT theme-complete: 13 artwork holds. Next SVP1 001.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVC 011-020 metadata-only audit: 10 KR print IDs crosschecked, 0 artwork checked, 10 art holds; preceding SVC 005 remains held",
-    "nextStart": "SVC 021 (canonical order 021), with 005 and 011-020 artwork evidence pending",
+    "lastSafeCheckpoint": "TASK 6 SVC 021-022 metadata-only; 0 newly checked illustrations; 13 SVC holds (005 and 011-022)",
+    "nextStart": "SVP1 001 (canonical order 001); return to held SVC illustrations when exact Korean artwork available",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -38810,6 +38868,13 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svc-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVC canonical 010 except held 005"
+      },
+      {
+        "set": "SVC",
+        "range": "canonical-order 021-022",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-svc-021-022-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVC 001-010 except 005"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"

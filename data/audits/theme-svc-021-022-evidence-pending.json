@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-09",
+  "task": 6,
+  "set": "SVC",
+  "range": "canonical-order 021-022",
+  "reviewStatus": "one_official_Korean_print_number_verified_one_unnumbered_energy_crosschecked_both_illustrations_pending",
+  "canonicalCardCount": 2,
+  "officialKoreanNumberVerifiedCount": 1,
+  "unnumberedKoreanEnergySlotCount": 1,
+  "artworkReviewedCardCount": 0,
+  "artworkPendingCardCount": 2,
+  "themeAdditions": {},
+  "imageBinarySelfHostedCount": 0,
+  "archiveVerificationStatus": "pending",
+  "cards": [
+    {
+      "canonicalOrder": 21,
+      "cardKey": "SVC_021",
+      "koreanCardName": "저지맨",
+      "koreanPrintIdentifier": "021/021",
+      "koreanNumberSource": "https://pokemoncard.co.kr/cards/detail/BS2023008021",
+      "officialKoreanCardPageConfirmed": true,
+      "artworkReviewed": false,
+      "all12ThemesDeferred": true,
+      "reason": "Korean official page validates named card and 021/021 number, but exact printed artwork visual inspection unavailable.",
+      "catalogImageReferenceUrl": "https://static.tcgexchange.kr/92e787d206f5f8956d19059966b8497f.png",
+      "imageSelfHosted": false
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "SVC_022",
+      "koreanCardName": "기본 번개 에너지",
+      "koreanPrintIdentifier": null,
+      "canonicalCode": "svc_022/021",
+      "canonicalNumberIsSynthetic": true,
+      "koreanNumberSource": "https://namu.moe/w/%EC%8A%A4%EC%B9%BC%EB%A0%9B%26%EB%B0%94%EC%9D%B4%EC%98%AC%EB%A0%9B%20%EC%8A%A4%ED%83%80%ED%84%B0%20%EC%84%B8%ED%8A%B8%20ex%20%ED%94%BC%EC%B9%B4%EC%B8%84%20%EC%8A%A4%ED%8E%98%EC%85%9C%20%EC%84%B8%ED%8A%B8",
+      "officialKoreanCardPageConfirmed": false,
+      "artworkReviewed": false,
+      "all12ThemesDeferred": true,
+      "reason": "Korean deck list shows basic Lightning Energy as unnumbered. The catalog's svc_022/021 is a synthetic canonical order, NOT a verified 022/021 printed number. Exact energy illustration/binary not reviewed.",
+      "catalogImageReferenceUrl": "https://static.tcgexchange.kr/d0bef240e96cd46d5d01f7225a0afdf5.png",
+      "imageSelfHosted": false
+    }
+  ],
+  "importantNumberingNote": "Do not treat synthetic canonical SVC_022 / svc_022/021 as an actual printed 022/021. Basic Lightning Energy is not part of 001/021 through 021/021 collection numbering.",
+  "nextStart": "SVP1 canonical-order 001; outstanding SVC illustration holds at 005 and 011-022."
+}
