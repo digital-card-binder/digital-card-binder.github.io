@@ -36804,8 +36804,8 @@
     "SVAL": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAL 001-020 catalogued, 7 exact Korean artworks reviewed (002,003,011,012,018-020), 13 artwork holds, no selfhost image binaries verified.",
-      "reviewedCardCount": 7,
+      "note": "SVAL canonical 001-023 catalogued; eight Korean artworks directly inspected, 15 artworks remain pending. No selfhost binaries confirmed.",
+      "reviewedCardCount": 8,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -36822,9 +36822,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: 002 and 003 confirmed Korean printed art; 001,004-010 art held",
-        "canonical-order 011-020: 011,012,018-020 official Korean art reviewed; 013-017 held"
+        "canonical-order 011-020: 011,012,018-020 official Korean art reviewed; 013-017 held",
+        "canonical-order 021-023: 021 Korean official artwork confirmed; 022-023 basic energy physical print numbers and exact art held"
       ],
-      "newlyAddedThemeSlotCount": 10,
+      "newlyAddedThemeSlotCount": 11,
       "newlyAddedCards": [
         "SVAL_002",
         "SVAL_003",
@@ -36832,7 +36833,8 @@
         "SVAL_012",
         "SVAL_018",
         "SVAL_019",
-        "SVAL_020"
+        "SVAL_020",
+        "SVAL_021"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -36848,7 +36850,9 @@
         "SVAL_014",
         "SVAL_015",
         "SVAL_016",
-        "SVAL_017"
+        "SVAL_017",
+        "SVAL_022",
+        "SVAL_023"
       ],
       "batches": [
         {
@@ -37210,6 +37214,78 @@
               "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 저지맨이 녹색·검정색 심판복을 입고 주황색 무대 조명과 푸른 전광판이 보이는 경기장에 서 있음. 12개 테마 개별 비교 후 color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-023",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023"
+          ],
+          "status": "1_official_korean_art_verified_2_energy_art_and_number_holds",
+          "checkedCardCount": 1,
+          "heldCardCount": 2,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 3,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 3,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea Korean 021/021 official watermark art; energy slots 022-023 unverified Korean print numbering or image",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAL_021",
+              "checked": true,
+              "koreanNumber": "021/021",
+              "koreanNumberVerification": "Korean official 021/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003021",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_021.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 021/021 실물 워터마크 일러스트 직접 판독: 청록색 도트·격자 배경과 보라색 머리·상의, 하늘색 재킷. color 적합; 다른 11테마는 확인 결과 비적합."
+            },
+            {
+              "code": "SVAL_022",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "The canonical 022/021 or 023/021 string is internal catalog key, not confirmed physical printed number.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KY1EH5WD1SFDDWBVSASNF311",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "기본 에너지 canonical DB 슬롯은 확인하였으나 한국판 실물 인쇄번호 및 실제 이미지가 확인되지 않아 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_023",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "The canonical 022/021 or 023/021 string is internal catalog key, not confirmed physical printed number.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KY1EH69BWKPEYF2DP3G7VGWZ",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "기본 에너지 canonical DB 슬롯은 확인하였으나 한국판 실물 인쇄번호 및 실제 이미지가 확인되지 않아 12테마 판정 보류."
+            }
+          ]
         }
       ]
     }
@@ -37231,14 +37307,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVAL",
+    "currentSet": "SVB",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAL 011-020: 5 official KR artworks reviewed with 6 theme slots saved; five artwork holds kept, selfhosting unverified. Next SVAL 021-023.",
+    "note": "SVAL all 23 canonical positions catalogued; 8 exact KR art reviews, 15 held, 11 theme slots total. Next SVB canonical 001.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAL 011-020: official images visually reviewed for canonical 011,012,018-020; held 013-017; 6 theme slots saved",
-    "nextStart": "SVAL 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 SVAL 021-023: 021 official art confirmed and color added; 022-023 energy art/printed numbers pending, SVAL 15 holds retained",
+    "nextStart": "SVB 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -37464,8 +37540,15 @@
         "pendingCount": 5,
         "audit": "data/audits/theme-sval-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAL canonical 012, 018-020 art visually verified"
+      },
+      {
+        "set": "SVAL",
+        "range": "canonical-order 022-023, internal ids 022/021 and 023/021",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-sval-021-023-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAL canonical 021"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAL 011-020: 5 official artworks verified; 5 art holds; 6 verified theme additions"
+    "lastEvidenceAuditCheckpoint": "SVAL 021-023: 021 verified official print and color; 022-023 basic energy physical print and illustration pending"
   }
 }

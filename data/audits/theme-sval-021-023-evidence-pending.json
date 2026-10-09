@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-09",
+  "task": 6,
+  "set": "SVAL",
+  "range": "canonical-order 021-023",
+  "reviewStatus": "021_Korean_official_art_verified_022_023_energy_pending",
+  "canonicalCardCount": 3,
+  "artworkReviewedCardCount": 1,
+  "artworkPendingCardCount": 2,
+  "themeAdditions": {
+    "color": 1
+  },
+  "verifiedKoreanArt": {
+    "key": "SVAL_021",
+    "officialDetail": "https://pokemoncard.co.kr/cards/detail/BS2023003021",
+    "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_021.png?w=512",
+    "theme": "color"
+  },
+  "imageBinarySelfHostedCount": 0,
+  "archiveVerificationStatus": "pending",
+  "cards": [
+    {
+      "canonicalOrder": 22,
+      "cardKey": "SVAL_022",
+      "catalogName": "기본 불꽃 에너지",
+      "internalCatalogCardCode": "sval_022/021",
+      "verifiedKoreanPhysicalPrintedNumber": null,
+      "printedNumberStatus": "unverified_unnumbered_basic_energy_possible",
+      "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KY1EH5WD1SFDDWBVSASNF311",
+      "catalogImageUrl": "https://static.tcgexchange.kr/bd14196b8752bdb3c57ee023f3d59051.png",
+      "artworkReviewed": false,
+      "needsReview": true,
+      "all12ThemesDeferred": true,
+      "reason": "Korean printed identifier and exact energy-card artwork not directly verified; do not infer 022/021 or 023/021 as printed values from a synthetic catalog key."
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "SVAL_023",
+      "catalogName": "기본 번개 에너지",
+      "internalCatalogCardCode": "sval_023/021",
+      "verifiedKoreanPhysicalPrintedNumber": null,
+      "printedNumberStatus": "unverified_unnumbered_basic_energy_possible",
+      "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KY1EH69BWKPEYF2DP3G7VGWZ",
+      "catalogImageUrl": "https://static.tcgexchange.kr/a41e01e9baac7ff8dac50b56b0ddd196.png",
+      "artworkReviewed": false,
+      "needsReview": true,
+      "all12ThemesDeferred": true,
+      "reason": "Korean printed identifier and exact energy-card artwork not directly verified; do not infer 022/021 or 023/021 as printed values from a synthetic catalog key."
+    }
+  ],
+  "nextStart": "SVB canonical 001; SVAL 15 artwork holds retained"
+}
