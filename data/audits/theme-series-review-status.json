@@ -36800,6 +36800,222 @@
           ]
         }
       ]
+    },
+    "SVAL": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "note": "Korean SVAL 001-010 canonical catalog recorded; 002 and 003 exact KR art visually reviewed for 12 themes; other 8 held. No self-hosted image binaries verified.",
+      "reviewedCardCount": 2,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010: 002 and 003 confirmed Korean printed art; 001,004-010 art held"
+      ],
+      "newlyAddedThemeSlotCount": 4,
+      "newlyAddedCards": [
+        "SVAL_002",
+        "SVAL_003"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVAL_001",
+        "SVAL_004",
+        "SVAL_005",
+        "SVAL_006",
+        "SVAL_007",
+        "SVAL_008",
+        "SVAL_009",
+        "SVAL_010"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "2_korean_visual_artworks_verified_8_exact_art_holds",
+          "checkedCardCount": 2,
+          "heldCardCount": 8,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea illustrated Korean tutorial SVAL_002 + KREAM Korean-print photographed SVAL_003; the other 8 illustrations unseen",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAL_001",
+              "checked": false,
+              "koreanNumber": "001/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHB9CC67E0NBWGSM6A5",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_002",
+              "checked": true,
+              "koreanNumber": "002/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/info/images/renew/5_8.png",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/info/images/renew/5_8.png",
+              "illustrationSourceNote": "한국어판 카드 이미지에서 그림을 시각 확인한 뒤 열두 테마 개별 판정: color, season."
+            },
+            {
+              "code": "SVAL_003",
+              "checked": true,
+              "koreanNumber": "003/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://kream.co.kr/products/930183",
+              "illustrationReferenceUrl": "https://kream.co.kr/products/930183",
+              "illustrationSourceNote": "한국어판 카드 이미지에서 그림을 시각 확인한 뒤 열두 테마 개별 판정: color, season."
+            },
+            {
+              "code": "SVAL_004",
+              "checked": false,
+              "koreanNumber": "004/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBQPK7DC1HNZCZE4R3",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_005",
+              "checked": false,
+              "koreanNumber": "005/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBY86M3Y3F3GV8EY61",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_006",
+              "checked": false,
+              "koreanNumber": "006/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHB1J9QVYYRNTZ1YFY8",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_007",
+              "checked": false,
+              "koreanNumber": "007/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBFD6AP3BHK9BVYNVC",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_008",
+              "checked": false,
+              "koreanNumber": "008/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBSJ7ZN49E48HCSV8H",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_009",
+              "checked": false,
+              "koreanNumber": "009/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBGJ8KX81X1C9YYB3X",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            },
+            {
+              "code": "SVAL_010",
+              "checked": false,
+              "koreanNumber": "010/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBXCQDM6G9ER61VG58",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -36822,11 +37038,11 @@
     "currentSet": "SVAL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "Continue SVAL 001. SVAW remains in progress: 16 visual verifications + 9 held artwork, no selfhost verified. All SVAW 25 canonical identity dispositions recorded.",
+    "note": "SVAL canonical 001-010: 2 exact Korean art verifications, 8 held artworks. Proceed SVAL 011-020, no false selfhosting.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAW 021-025: 3 physical printed numbered card identities + 2 unnumbered basic energy catalog slots; 5 art holds. SVAW 16 visual verified, 9 artwork pending.",
-    "nextStart": "SVAL 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 6 SVAL 001-010: 002 and 003 exact Korean images visually reviewed and four theme maps saved; 8 artwork holds",
+    "nextStart": "SVAL 011 (canonical order 011)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -37038,8 +37254,15 @@
         "pendingCount": 5,
         "audit": "data/audits/theme-svaw-021-025-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAW 019 official art; 020-025 pending exact art"
+      },
+      {
+        "set": "SVAL",
+        "range": "canonical-order 001,004-010",
+        "pendingCount": 8,
+        "audit": "data/audits/theme-sval-001-010-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAL 002 and 003 exact Korean cards viewed"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAW 021-025: 021-023 numbered, 024-025 synthetic catalog slots with no physical printed number, 5 artworks held."
+    "lastEvidenceAuditCheckpoint": "SVAL 001-010: 002 Korean official educational illustration, 003 KREAM Korean print photo, 8 art holds"
   }
 }
