@@ -39094,8 +39094,8 @@
     "SVD": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVD 001-060: 56/60 Korean printed artwork directly checked; 4 prior evidence holds remain (SVD_007, SVD_012, SVD_042, SVD_045). This 051-060 batch reviewed all ten artwork prints. Image selfhosting unverified.",
-      "reviewedCardCount": 56,
+      "note": "SVD 001-070: 66/147 official Korean images reviewed. Four historical evidence holds remain, no new holds; images not self-hosted.",
+      "reviewedCardCount": 66,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -39117,9 +39117,10 @@
         "SVD 023,024,026: prior exact Korean art holds resolved and classified",
         "canonical-order 031-040: 10 official Korean watermark artworks visually verified",
         "canonical-order 041-050: 8 Korean official artworks visually checked, 042/045 image evidence pending",
-        "canonical-order 051-060: ten exact official Korean printed artworks directly reviewed"
+        "canonical-order 051-060: ten exact official Korean printed artworks directly reviewed",
+        "canonical-order 061-070: 10 exact Korean official artworks visually inspected"
       ],
-      "newlyAddedThemeSlotCount": 103,
+      "newlyAddedThemeSlotCount": 123,
       "newlyAddedCards": [
         "SVD_001",
         "SVD_002",
@@ -39176,7 +39177,17 @@
         "SVD_057",
         "SVD_058",
         "SVD_059",
-        "SVD_060"
+        "SVD_060",
+        "SVD_061",
+        "SVD_062",
+        "SVD_063",
+        "SVD_064",
+        "SVD_065",
+        "SVD_066",
+        "SVD_067",
+        "SVD_068",
+        "SVD_069",
+        "SVD_070"
       ],
       "existingSkippedCards": [
         "SVD_009"
@@ -40633,6 +40644,245 @@
               "illustrationSourceNote": "실제 포켓몬코리아 한국어판 이미지 직접 확인: 루카리오가 황갈색 협곡 바위와 사막 먼지, 푸른 하늘을 배경으로 앞으로 빠르게 달려나간다. 12개 테마 독립 검수 결과 season, color. 공식 파일 재호스팅은 하지 않음."
             }
           ]
+        },
+        {
+          "range": "canonical-order 061-070",
+          "cardNumbers": [
+            "061",
+            "062",
+            "063",
+            "064",
+            "065",
+            "066",
+            "067",
+            "068",
+            "069",
+            "070"
+          ],
+          "status": "10_official_Korean_artworks_verified_0_new_holds",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Official Korean BS2023016061-6070 pages and SVD_061-070 Korean watermarked card art inspected",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "season": 8,
+            "color": 10,
+            "street": 1,
+            "night": 1
+          },
+          "cards": [
+            {
+              "code": "SVD_061",
+              "checked": true,
+              "koreanNumber": "061/139",
+              "name": "두더류",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016061",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_061.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 두더류가 둥그런 땅굴 속에 앉아 있고 갈색 토양 단면과 나무뿌리, 흙 사이 작은 돌들이 보인다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_062",
+              "checked": true,
+              "koreanNumber": "062/139",
+              "name": "깜눈크",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016062",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_062.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 깜눈크가 붉고 노란 무늬의 텐트 모양 구조물에서 뛰어나오며 녹색과 파란 선, 붉은 광채가 그림을 뒤덮는다. 12개 테마 검사 결과 color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_063",
+              "checked": true,
+              "koreanNumber": "063/139",
+              "name": "악비르",
+              "themesMatched": [
+                "street",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016063",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_063.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 악비르가 초록 잔디와 주황 꽃이 있는 성 정원에 앉아 있으며 석재 문과 뾰족한 성탑, 여러 건물이 뒤에 보인다. 12개 테마 검사 결과 street, season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_064",
+              "checked": true,
+              "koreanNumber": "064/139",
+              "name": "악비아르",
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016064",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_064.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 악비아르가 커다란 달과 별이 빛나는 깊은 파란 밤하늘, 야자수와 꽃이 있는 해변 모래 위에 누워 있다. 12개 테마 검사 결과 night, season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_065",
+              "checked": true,
+              "koreanNumber": "065/139",
+              "name": "들눈해",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016065",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_065.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 들눈해가 나무 그림자가 길게 드리운 밝은 연두색 들판에서 하얗고 길쭉한 몸을 기울이고 있다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_066",
+              "checked": true,
+              "koreanNumber": "066/139",
+              "name": "육파리",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016066",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_066.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 육파리가 잎 사이로 노란 햇살이 드는 울창한 숲에서 이끼 낀 나무 사이를 걷는다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_067",
+              "checked": true,
+              "koreanNumber": "067/139",
+              "name": "절벼게",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016067",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_067.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 절벼게가 흰빛이 들어오는 거친 회색 바위절벽과 바위산 사이에서 커다란 집게를 벌리고 있다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_068",
+              "checked": true,
+              "koreanNumber": "068/139",
+              "name": "코라이돈 ex",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016068",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_068.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 코라이돈 ex가 진홍색과 주황색 광선, 모래색 바위 파편이 뒤섞인 공격 이펙트 속으로 돌진한다. 실제 일몰 풍경은 확인되지 않는다. 12개 테마 검사 결과 color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_069",
+              "checked": true,
+              "koreanNumber": "069/139",
+              "name": "팔데아 우파",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016069",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_069.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 팔데아 우파가 초록 수초와 물길, 흰색·주황 꽃이 피어난 화사한 습지 연못에 앉아 있다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            },
+            {
+              "code": "SVD_070",
+              "checked": true,
+              "koreanNumber": "070/139",
+              "name": "팔데아 토오",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016070",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_070.png?w=512",
+              "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 팔데아 토오가 바람에 풀이 흔들리는 초록 들판에 커다란 몸을 낮게 눕히며 맑은 하늘과 나무들이 뒤에 보인다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
+            }
+          ]
         }
       ],
       "nextStart": "SVD 051 (canonical order 051); outstanding holds 007,012,042,045"
@@ -40658,11 +40908,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD canonical 001-060: 56 official Korean illustrations reviewed. Last 051-060 10 verified, 19 theme records. Four historical image evidence holds remain; selfhosting not verified.",
+    "note": "SVD 001-070 Korean illustration batch checkpoints saved. Current SVD artwork holds 007,012,042,045; selfhost image archiving not verified.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD 051-060: ten exact Korean official illustrations reviewed, 19 theme slots added. Prior SVD evidence holds SVD_007, SVD_012, SVD_042, SVD_045 remain unresolved; 56/147 cards reviewed.",
-    "nextStart": "SVD 061 (canonical order 061); outstanding holds 007,012,042,045",
+    "lastSafeCheckpoint": "TASK 6 SVD 061-070: 10 direct Korean art reviews; 20 independent theme placements, previous 4 evidence holds retained; 66/147 done.",
+    "nextStart": "SVD 071 (canonical order 071); unresolved holds 007,012,042,045",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
