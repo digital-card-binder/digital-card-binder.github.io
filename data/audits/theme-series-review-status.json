@@ -30458,7 +30458,7 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical-order 001-200: 실제 그림 154장 검수, 46장 증거 보류. 인쇄번호 204/205 실물 이미지 접근 불가. 이미지 자체 저장/배포는 별도 미검증.",
+      "note": "SV-P canonical-order 001-210 catalog batches processed: 154 artwork-verified, 56 artwork-evidence holds (including 201-210 metadata-only). Image archives remain unverified.",
       "reviewedCardCount": 154,
       "reviewedThemes": [
         "sleeping",
@@ -30494,7 +30494,8 @@
         "canonical-order 161-170 (10 Korean official illustrations verified)",
         "canonical-order 171-180 (9 artworks reviewed, 172 deferred)",
         "canonical-order 181-190 (printed 186-195): 10 official images reviewed",
-        "canonical-order 191-200 (printed 196-205): 8 Korean images inspected, 204/205 deferred"
+        "canonical-order 191-200 (printed 196-205): 8 Korean images inspected, 204/205 deferred",
+        "canonical-order 201-210 (catalog order/printed numbering verified; 10 Korean illustrations evidence held)"
       ],
       "newlyAddedThemeSlotCount": 270,
       "newlyAddedCards": [
@@ -30700,7 +30701,17 @@
         "SV-P_159",
         "SV-P_172",
         "SV-P_204",
-        "SV-P_205"
+        "SV-P_205",
+        "SV-P_206",
+        "SV-P_207",
+        "SV-P_208",
+        "SV-P_209",
+        "SV-P_210",
+        "SV-P_211",
+        "SV-P_500",
+        "SV-P_501",
+        "SV-P_502",
+        "SV-P_503"
       ],
       "batches": [
         {
@@ -34840,6 +34851,169 @@
               "koreanNumber": "205/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 201-210 = printed 206-211,500-503 (artwork evidence pending)",
+          "cardNumbers": [
+            "206/SV-P",
+            "207/SV-P",
+            "208/SV-P",
+            "209/SV-P",
+            "210/SV-P",
+            "211/SV-P",
+            "500/SV-P",
+            "501/SV-P",
+            "502/SV-P",
+            "503/SV-P"
+          ],
+          "status": "catalog_mapping_verified_artwork_evidence_pending",
+          "checkedCardCount": 0,
+          "heldCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "data/series.json Korean master catalog; official Korean picture verification unavailable",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_206",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "206/SV-P",
+              "catalogName": "기본 물 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/dd6525818a43dad7f953baae9219e571.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_207",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "207/SV-P",
+              "catalogName": "기본 번개 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/eeb12c656e54afa0a8e313bee4e1a510.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_208",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "208/SV-P",
+              "catalogName": "기본 초 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/e054badbbac83912dfe7faecd997055b.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_209",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "209/SV-P",
+              "catalogName": "기본 격투 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/14ad7de2047c4959df6bc067ce55869c.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_210",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "210/SV-P",
+              "catalogName": "기본 악 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/323b74f6c55d38409811f8b1660da5b3.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_211",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "211/SV-P",
+              "catalogName": "기본 강철 에너지",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/00836b34957afd7e29b1486fbc913f7c.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_500",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "500/SV-P",
+              "catalogName": "승리의 징표",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/b5ab00dde0fe5acf63137394ec7d09d5.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_501",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "501/SV-P",
+              "catalogName": "승리의 징표",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/a8f7fc4252d990ef0a59e941bb3be55d.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_502",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "502/SV-P",
+              "catalogName": "승리의 징표",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/794a0261fe42cd09a3e9c28c8d32588c.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            },
+            {
+              "code": "SV-P_503",
+              "checked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "koreanNumber": "503/SV-P",
+              "catalogName": "승리의 징표",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/6710dc06b0067bf4846835bfe5bcf994.png",
+              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+            }
+          ]
         }
       ]
     }
@@ -34864,11 +35038,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 154/248 artworks verified, 46 evidence held through canonical 200; image archives unverified",
+    "note": "SV-P 154/248 artworks verified, 56 evidence held through canonical 210; binary selfhosting unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 191-200 / printed 196-205: 8 artworks verified, 2 held, 11 theme memberships",
-    "nextStart": "SV-P 201 (canonical order 201)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 201-210: 10 Korean catalog mappings crosschecked; all artwork evidence held, no theme assignments",
+    "nextStart": "SV-P 211 (canonical order 211)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -35003,8 +35177,15 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-svp-191-200-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203)"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 201-210 / printed 206-211,500-503",
+        "pendingCount": 10,
+        "audit": "data/audits/theme-svp-201-210-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with 199-200 held"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P canonical 191-200: 196-203 images inspected, printed 204/205 artwork evidence pending."
+    "lastEvidenceAuditCheckpoint": "SV-P canonical 201-210: verified printed IDs 206-211 and 500-503 against Korean master; no Korean images accessible, all ten artwork pending."
   }
 }
