@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-110: 한국판 그림 검수 93장, 이미지 근거 보류 17장. 101-110에서 6장 검수, 4장 보류, 신규 테마 수록 12건. 원본 이미지 바이너리 자체호스팅 별도 미완료.",
-      "reviewedCardCount": 93,
+      "note": "SV-P 001-120 한국판 공식 그림 검수 97장, 증거 보류 23장. 111-120 배치의 117-120 4장을 검수해 10개 테마 수록 추가, 기본 에너지 111-116은 그림 열람 불가로 보류. 이미지 바이너리 저장/배포 미실시.",
+      "reviewedCardCount": 97,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30485,9 +30485,10 @@
         "canonical-order 071-080 (075-076 artwork evidence held)",
         "canonical-order 081-090",
         "canonical-order 091-100",
-        "canonical-order 101-110 (106-107,109-110 artwork evidence held)"
+        "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
+        "canonical-order 111-120 (111-116 image evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 167,
+      "newlyAddedThemeSlotCount": 177,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30581,7 +30582,11 @@
         "SV-P_103",
         "SV-P_104",
         "SV-P_105",
-        "SV-P_108"
+        "SV-P_108",
+        "SV-P_117",
+        "SV-P_118",
+        "SV-P_119",
+        "SV-P_120"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30601,7 +30606,13 @@
         "SV-P_106",
         "SV-P_107",
         "SV-P_109",
-        "SV-P_110"
+        "SV-P_110",
+        "SV-P_111",
+        "SV-P_112",
+        "SV-P_113",
+        "SV-P_114",
+        "SV-P_115",
+        "SV-P_116"
       ],
       "batches": [
         {
@@ -32943,6 +32954,197 @@
               "koreanNumber": "110/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 111-120 (111-116 artwork evidence held)",
+          "cardNumbers": [
+            "111",
+            "112",
+            "113",
+            "114",
+            "115",
+            "116",
+            "117",
+            "118",
+            "119",
+            "120"
+          ],
+          "status": "4_artwork_verified_6_held_image_archival_pending",
+          "checkedCardCount": 4,
+          "heldCardCount": 6,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea exact-numbered official Korean promo art 117-120; Korean energy artwork 111-116 unavailable",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_111",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000111",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_111.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "111/SV-P"
+            },
+            {
+              "code": "SV-P_112",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000112",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_112.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "112/SV-P"
+            },
+            {
+              "code": "SV-P_113",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000113",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_113.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "113/SV-P"
+            },
+            {
+              "code": "SV-P_114",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000114",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_114.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "114/SV-P"
+            },
+            {
+              "code": "SV-P_115",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000115",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_115.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "115/SV-P"
+            },
+            {
+              "code": "SV-P_116",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000116",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_116.png?w=512",
+              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "koreanNumber": "116/SV-P"
+            },
+            {
+              "code": "SV-P_117",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000117",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_117.png?w=512",
+              "illustrationSourceNote": "베라카스 ex가 분홍·청록·은빛 회전광과 별빛 같은 효과에 둘러싸인 역동적인 장면.",
+              "koreanNumber": "117/SV-P"
+            },
+            {
+              "code": "SV-P_118",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000118",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_118.png?w=512",
+              "illustrationSourceNote": "무쇠보따리가 빨강·흰색 몸체로 눈 쌓인 땅과 푸른 구름 낀 하늘 앞에 서 있는 겨울 설원.",
+              "koreanNumber": "118/SV-P"
+            },
+            {
+              "code": "SV-P_119",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000119",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_119.png?w=512",
+              "illustrationSourceNote": "히포포타스가 밝은 황토빛 동굴 입구에 서 있고 뒤편에 파란 하늘·구름·푸른 산이 보인다. 120번 하마돈과 같은 Minahamu 작가의 동굴 모티프.",
+              "koreanNumber": "119/SV-P"
+            },
+            {
+              "code": "SV-P_120",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "night",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "color",
+                "night",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000120",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_120.png?w=512",
+              "illustrationSourceNote": "하마돈이 바위 동굴 안에서 입을 벌리고 있고 바깥에 달이 떠 있는 짙은 밤하늘이 보인다. 119번 히포포타스와 같은 Minahamu 작가의 동굴 모티프.",
+              "koreanNumber": "120/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -32967,11 +33169,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 93/248 artworks reviewed, 17 evidence holds through 110; binary archives pending.",
+    "note": "SV-P 97/248 artworks reviewed, 23 held through 120, archive pending",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 101-110 artwork audit: 6 verified, 4 deferred, 12 theme memberships",
-    "nextStart": "SV-P 111 (canonical order 111)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 111-120: 4 artwork verified, 6 deferred, 10 theme memberships",
+    "nextStart": "SV-P 121 (canonical order 121)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -33057,8 +33259,15 @@
         "pendingCount": 4,
         "audit": "data/audits/theme-svp-101-110-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P 101-105 and 108 verified, 106-107 and 109-110 pending"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 111-116",
+        "pendingCount": 6,
+        "audit": "data/audits/theme-svp-111-116-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P 110"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 101-110: six checked, 106-107 and 109-110 deferred."
+    "lastEvidenceAuditCheckpoint": "SV-P 111-120: 4 verified, 111-116 energy evidence held."
   }
 }
