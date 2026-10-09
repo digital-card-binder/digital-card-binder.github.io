@@ -36213,8 +36213,8 @@
     "SVAW": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAW 001-010: 9/10 Korean official printed illustrations directly inspected and assessed for all 12 themes; 003 artwork deferred. 19 verified mappings written, 1 art hold. Archive image binaries/deploy pending.",
-      "reviewedCardCount": 9,
+      "note": "SVAW 001-020: 16 verified Korean illustration images; 4 pending artworks (003,011,016,020). 26 checked theme maps. 21-25 next. Master unchanged and no claimed image selfhosting.",
+      "reviewedCardCount": 16,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -36230,9 +36230,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 9 official Korean illustrations inspected; 003 held"
+        "canonical-order 001-010: 9 official Korean illustrations inspected; 003 held",
+        "canonical-order 011-020: 7 official Korean illustrations inspected; 011,016,020 held"
       ],
-      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedThemeSlotCount": 26,
       "newlyAddedCards": [
         "SVAW_001",
         "SVAW_002",
@@ -36242,11 +36243,21 @@
         "SVAW_007",
         "SVAW_008",
         "SVAW_009",
-        "SVAW_010"
+        "SVAW_010",
+        "SVAW_012",
+        "SVAW_013",
+        "SVAW_014",
+        "SVAW_015",
+        "SVAW_017",
+        "SVAW_018",
+        "SVAW_019"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVAW_003"
+        "SVAW_003",
+        "SVAW_011",
+        "SVAW_016",
+        "SVAW_020"
       ],
       "batches": [
         {
@@ -36477,6 +36488,207 @@
               "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "7_official_korean_illustrations_verified_3_art_holds_archive_pending",
+          "checkedCardCount": 7,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean numbered SVAW cards 012-015 & 017-019 (visual); three images uninspected",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAW_011",
+              "checked": false,
+              "koreanNumber": "011/023",
+              "catalogName": "네스트볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004011",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터 내 카드 번호 및 한국판 발매 세트 이름 확인. 해당 1장 인쇄 일러스트 직접 판독 불가로 12개 테마 전체 판정 보류."
+            },
+            {
+              "code": "SVAW_012",
+              "checked": true,
+              "koreanNumber": "012/023",
+              "catalogName": "에너지 전송",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_012.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 청록·청색 에너지 소용돌이와 검은 판 위 붉은 구체의 선명한 대비. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_013",
+              "checked": true,
+              "koreanNumber": "013/023",
+              "catalogName": "에너지 회수",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_013.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 금빛 섬광 바탕 위 푸른·초록 에너지 구슬과 은빛 집게. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_014",
+              "checked": true,
+              "koreanNumber": "014/023",
+              "catalogName": "크래시 해머",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_014.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 붉은 망치와 황색·주황색으로 산산이 부서지는 광선. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_015",
+              "checked": true,
+              "koreanNumber": "015/023",
+              "catalogName": "포켓기어3.0",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_015.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 푸른 전자 장치와 라임색 네온 광선. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_016",
+              "checked": false,
+              "koreanNumber": "016/023",
+              "catalogName": "포켓몬 교체",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004016",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터 내 카드 번호 및 한국판 발매 세트 이름 확인. 해당 1장 인쇄 일러스트 직접 판독 불가로 12개 테마 전체 판정 보류."
+            },
+            {
+              "code": "SVAW_017",
+              "checked": true,
+              "koreanNumber": "017/023",
+              "catalogName": "포켓몬 캐처",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_017.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 파란 집게와 흰색 전기 효과가 붉은 통로 배경과 대비. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_018",
+              "checked": true,
+              "koreanNumber": "018/023",
+              "catalogName": "하이퍼볼",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_018.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 검정·황색·흰색 하이퍼볼과 주황·자홍색 폭발 광선. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_019",
+              "checked": true,
+              "koreanNumber": "019/023",
+              "catalogName": "기력의머리띠",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_019.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 인쇄 이미지 직접 육안 판독: 흰 머리띠와 붉은 화살표가 푸른 빛줄기 위로 떠오르는 구도. 12개 테마 각각 판정, 색감만 해당. 자체 저장·배포는 검증하지 않음."
+            },
+            {
+              "code": "SVAW_020",
+              "checked": false,
+              "koreanNumber": "020/023",
+              "catalogName": "네모",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004020",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터 내 카드 번호 및 한국판 발매 세트 이름 확인. 해당 1장 인쇄 일러스트 직접 판독 불가로 12개 테마 전체 판정 보류."
+            }
+          ]
         }
       ]
     }
@@ -36501,11 +36713,11 @@
     "currentSet": "SVAW",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAW 001-010 official Korean image review checkpoint, 003 pending; continue SVAW 011-020, no false hosted image claims.",
+    "note": "SVAW 001-020 has 16 image-verified Korean cards and 4 art evidence holds. Proceed SVAW 021-025. No selfhosting claims.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAW 001-010: 9 official KR illustrations checked, 003 evidence held; 19 theme mappings on canonical KR keys",
-    "nextStart": "SVAW 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SVAW 011-020: 7 Korean official illustration artworks checked, 011/016/020 held; color mappings +7",
+    "nextStart": "SVAW 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -36703,8 +36915,15 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svaw-003-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAW 002 then 004-010 visually reviewed"
+      },
+      {
+        "set": "SVAW",
+        "range": "canonical-order 011,016,020",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svaw-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAW 012-015,017-019 visually verified"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAW 001-010: official KR images 001,002,004-010 visually reviewed; 003 hold"
+    "lastEvidenceAuditCheckpoint": "SVAW 011-020: official Korean card images 012-015,017-019 reviewed; 011,016,020 held."
   }
 }
