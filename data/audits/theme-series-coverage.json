@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4227,
-    "uniqueThemeCards": 2550,
+    "themeCardSlots": 4246,
+    "uniqueThemeCards": 2559,
     "strictCompleteSetCount": 13,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 260,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1092,
-      "setCount": 24,
+      "cardSlots": 1099,
+      "setCount": 25,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2016,
-      "setCount": 26,
+      "cardSlots": 2025,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 82,
-      "setCount": 20,
+      "cardSlots": 84,
+      "setCount": 21,
       "rarities": [
         "AR",
         "C",
@@ -185,8 +185,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 65,
-      "setCount": 24,
+      "cardSlots": 66,
+      "setCount": 25,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 0,
       "remainingSetCount": 53,
-      "currentThemeSlots": 609
+      "currentThemeSlots": 628
     },
     {
       "era": "S",
@@ -361,7 +361,7 @@
       "code": "SVAW",
       "name": "스타터 세트 ex 「꾸왁스&따라큐 ex」",
       "cardCount": 25,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2312,9 +2312,14 @@
       "cardCount": 25,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "themeHits": {
+        "season": 7,
+        "color": 9,
+        "sunset": 2,
+        "food": 1
+      }
     },
     {
       "era": "SV",
