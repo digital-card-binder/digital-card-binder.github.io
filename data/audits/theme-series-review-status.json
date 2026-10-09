@@ -30458,7 +30458,7 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical-order 001-210 catalog batches processed: 154 artwork-verified, 56 artwork-evidence holds (including 201-210 metadata-only). Image archives remain unverified.",
+      "note": "SV-P canonical-order 001-220 catalog batches processed: 154 artwork-verified, 66 artwork-evidence holds (including 201-220 metadata-only). No new theme mappings for unverified art; image binary selfhosting pending.",
       "reviewedCardCount": 154,
       "reviewedThemes": [
         "sleeping",
@@ -30495,7 +30495,8 @@
         "canonical-order 171-180 (9 artworks reviewed, 172 deferred)",
         "canonical-order 181-190 (printed 186-195): 10 official images reviewed",
         "canonical-order 191-200 (printed 196-205): 8 Korean images inspected, 204/205 deferred",
-        "canonical-order 201-210 (catalog order/printed numbering verified; 10 Korean illustrations evidence held)"
+        "canonical-order 201-210 (catalog order/printed numbering verified; 10 Korean illustrations evidence held)",
+        "canonical-order 211-220 (master catalog number/name/image refs verified; 10 Korean illustrations evidence held)"
       ],
       "newlyAddedThemeSlotCount": 270,
       "newlyAddedCards": [
@@ -30711,7 +30712,17 @@
         "SV-P_500",
         "SV-P_501",
         "SV-P_502",
-        "SV-P_503"
+        "SV-P_503",
+        "SV-P_504",
+        "SV-P_505",
+        "SV-P_506",
+        "SV-P_507",
+        "SV-P_508",
+        "SV-P_509",
+        "SV-P_510",
+        "SV-P_511",
+        "SV-P_512",
+        "SV-P_513"
       ],
       "batches": [
         {
@@ -35014,6 +35025,169 @@
               "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
             }
           ]
+        },
+        {
+          "range": "canonical-order 211-220 = printed SV-P 504-513 (10 Korean artworks evidence held)",
+          "cardNumbers": [
+            "504",
+            "505",
+            "506",
+            "507",
+            "508",
+            "509",
+            "510",
+            "511",
+            "512",
+            "513"
+          ],
+          "status": "master_catalog_mapping_checked_10_artworks_pending_archive_pending",
+          "checkedCardCount": 0,
+          "heldCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "main data/series.json SV-P entries + referenced Korean catalog URL only; actual art imagery not verified",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_504",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXG5H1WD0YBQMK5E4X",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/62dc2210234bd6cf48299c4836775c3d.png",
+              "illustrationSourceNote": "Canonical order 211, master print 504/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "504/SV-P"
+            },
+            {
+              "code": "SV-P_505",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXBTQP0ZG08VCS1CYC",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/2363fbd209aa89433910513f1d0b37f0.png",
+              "illustrationSourceNote": "Canonical order 212, master print 505/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "505/SV-P"
+            },
+            {
+              "code": "SV-P_506",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF4D0CKKY7D0H8ZQ9",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/661c4d8ca518d6366b323e172bb3a3b1.png",
+              "illustrationSourceNote": "Canonical order 213, master print 506/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "506/SV-P"
+            },
+            {
+              "code": "SV-P_507",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX8HCT1DGQG78N5RGW",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/32dcc83b3ccb152af3d435a4c1ee2bc8.png",
+              "illustrationSourceNote": "Canonical order 214, master print 507/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "507/SV-P"
+            },
+            {
+              "code": "SV-P_508",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXTB9W6BFQX9PTPKWX",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/235c500d136cdb61c30e192977b3d25d.png",
+              "illustrationSourceNote": "Canonical order 215, master print 508/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "508/SV-P"
+            },
+            {
+              "code": "SV-P_509",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX8V5ZD0NV9G3CZFSN",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/24ee33488aa64eba792654c44c9db8d7.png",
+              "illustrationSourceNote": "Canonical order 216, master print 509/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "509/SV-P"
+            },
+            {
+              "code": "SV-P_510",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXB3KR2KY0H7X3N8T1",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/1c805599bdb28c3820a54147478c6420.png",
+              "illustrationSourceNote": "Canonical order 217, master print 510/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "510/SV-P"
+            },
+            {
+              "code": "SV-P_511",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXWW6W2M5H2VMCTKSM",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/139c2011f7e6a8c46a4e20ed6d60f80c.png",
+              "illustrationSourceNote": "Canonical order 218, master print 511/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "511/SV-P"
+            },
+            {
+              "code": "SV-P_512",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX6E99N0M8NMKWDXY8",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/3201c33452cab1134cb80dff6c413140.png",
+              "illustrationSourceNote": "Canonical order 219, master print 512/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "512/SV-P"
+            },
+            {
+              "code": "SV-P_513",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXCT190YJ5E8Q5VTTX",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/ff53ec4876722ee21e89d0e3bbbc62c3.png",
+              "illustrationSourceNote": "Canonical order 220, master print 513/SV-P. External Korean catalog image URL exists in main data but artwork not directly viewed; 12-theme classification deferred.",
+              "koreanNumber": "513/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -35038,11 +35212,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 154/248 artworks verified, 56 evidence held through canonical 210; binary selfhosting unverified",
+    "note": "SV-P 154/248 artworks verified, 66 evidence held through canonical 220; image binary selfhosting unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P canonical 201-210: 10 Korean catalog mappings crosschecked; all artwork evidence held, no theme assignments",
-    "nextStart": "SV-P 211 (canonical order 211)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 211-220: 10 main catalog numbers 504-513 validated; all 10 artwork evidence held, no theme assignments",
+    "nextStart": "SV-P 221 (canonical order 221)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -35184,8 +35358,15 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svp-201-210-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with 199-200 held"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 211-220 / printed 504-513",
+        "pendingCount": 10,
+        "audit": "data/audits/theme-svp-211-220-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with subsequent partial checks/holds"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P canonical 201-210: verified printed IDs 206-211 and 500-503 against Korean master; no Korean images accessible, all ten artwork pending."
+    "lastEvidenceAuditCheckpoint": "SV-P canonical 211-220: Korean master catalog print IDs 504-513 (승리의 징표) and external URLs checked; no direct Korean artwork accessible, all ten evidence held."
   }
 }
