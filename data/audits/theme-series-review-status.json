@@ -37288,6 +37288,246 @@
           ]
         }
       ]
+    },
+    "SVB": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "note": "SVB canonical 001-010: 7 exact official Korean images seen, 3 art holds (002-004); no selfhosted image binaries confirmed.",
+      "reviewedCardCount": 7,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010: 001,005-010 Korean official art reviewed, 002-004 held"
+      ],
+      "newlyAddedThemeSlotCount": 11,
+      "newlyAddedCards": [
+        "SVB_001",
+        "SVB_005",
+        "SVB_006",
+        "SVB_007",
+        "SVB_008",
+        "SVB_009",
+        "SVB_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVB_002",
+        "SVB_003",
+        "SVB_004"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "7_official_Korean_artworks_reviewed_3_illustrations_pending",
+          "checkedCardCount": 7,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean SVB 001,005-010 detail and actual watermark images individually opened; exact 002-004 inaccessible",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVB_001",
+              "checked": true,
+              "koreanNumber": "001/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_001.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 001/028와 실제 공식 일러스트를 확인: 녹색·노란색 네스트볼이 파란색·흰색 빛 줄기 앞에 떠 있는 아이템 장면. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_002",
+              "checked": false,
+              "koreanNumber": "002/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVQ0R5K6CTP6Z7DP42",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "정확한 한국판 ${id} 인쇄 일러스트를 이 실행에서 열람하지 못해 12테마 판정을 모두 보류."
+            },
+            {
+              "code": "SVB_003",
+              "checked": false,
+              "koreanNumber": "003/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YV6XF7TJW3SMJ5D2EN",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "정확한 한국판 ${id} 인쇄 일러스트를 이 실행에서 열람하지 못해 12테마 판정을 모두 보류."
+            },
+            {
+              "code": "SVB_004",
+              "checked": false,
+              "koreanNumber": "004/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVAYZP91RRPPAXQNGC",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "정확한 한국판 ${id} 인쇄 일러스트를 이 실행에서 열람하지 못해 12테마 판정을 모두 보류."
+            },
+            {
+              "code": "SVB_005",
+              "checked": true,
+              "koreanNumber": "005/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_005.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 005/028와 실제 공식 일러스트를 확인: 검정·노랑·흰색 하이퍼볼을 주황·홍자주색 빛과 불꽃 같은 섬광이 둘러싼 장면. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_006",
+              "checked": true,
+              "koreanNumber": "006/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_006.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 006/028와 실제 공식 일러스트를 확인: 회색 금속과 검정 밴드로 된 도구 뒤로 노란색·초록색·주황색 방사광이 번지는 구도. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_007",
+              "checked": true,
+              "koreanNumber": "007/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_007.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 007/028와 실제 공식 일러스트를 확인: 투로박사가 연구실 실험 장비 앞에 서 있고 흰 실험복·남보라 상의·청록색 기기 대비. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_008",
+              "checked": true,
+              "koreanNumber": "008/028",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_008.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 008/028와 실제 공식 일러스트를 확인: 푸른 바닷물에 빛이 쏟아지고 네오라이트 V가 붉은·자홍색 산호초 사이를 유영하는 해저 장면. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_009",
+              "checked": true,
+              "koreanNumber": "009/028",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_009.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 009/028와 실제 공식 일러스트를 확인: 연노란 메리프가 나무와 푸른 수풀, 주황색 흙길과 풀잎이 있는 맑은 날의 야외에 서 있다. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            },
+            {
+              "code": "SVB_010",
+              "checked": true,
+              "koreanNumber": "010/028",
+              "themesMatched": [
+                "color",
+                "season",
+                "night"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "night"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_010.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 010/028와 실제 공식 일러스트를 확인: 보송송이 노란 꽃밭에 서 있고 뒤로 별이 보이는 짙은 남색 밤하늘과 달빛 같은 푸른 광채가 나타남. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -37310,11 +37550,11 @@
     "currentSet": "SVB",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAL all 23 canonical positions catalogued; 8 exact KR art reviews, 15 held, 11 theme slots total. Next SVB canonical 001.",
+    "note": "SVB 001-010: seven Korean official images reviewed across all 12 themes; three artwork holds; next SVB 011-020.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAL 021-023: 021 official art confirmed and color added; 022-023 energy art/printed numbers pending, SVAL 15 holds retained",
-    "nextStart": "SVB 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 6 SVB 001-010: official art 001,005-010 reviewed; 002-004 held, 11 theme slots recorded",
+    "nextStart": "SVB 011 (canonical order 011)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -37547,8 +37787,15 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-sval-021-023-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAL canonical 021"
+      },
+      {
+        "set": "SVB",
+        "range": "canonical-order 002-004",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svb-001-010-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVB 001 and 005-010"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAL 021-023: 021 verified official print and color; 022-023 basic energy physical print and illustration pending"
+    "lastEvidenceAuditCheckpoint": "SVB 001-010: 7 official art inspected, 3 unviewed images (002-004), no selfhosted binaries"
   }
 }
