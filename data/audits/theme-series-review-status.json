@@ -37292,7 +37292,7 @@
     "SVB": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVB canonical 001-030 catalogued: 19 exact official Korean artworks reviewed, 11 artwork/number holds. Selfhost binaries unverified.",
+      "note": "SVB 36 positions catalogued; 19 direct Korean artwork reviews, 17 retained evidence holds; in_progress (not complete).",
       "reviewedCardCount": 19,
       "reviewedThemes": [
         "sleeping",
@@ -37311,7 +37311,8 @@
       "reviewedRanges": [
         "canonical-order 001-010: 001,005-010 Korean official art reviewed, 002-004 held",
         "canonical-order 011-020: exact Korean visual art 011,014-018,020; 012,013,019 art held",
-        "canonical-order 021-030: 021-025 Korean official art reviewed; 026-028 images held; 029-030 basic energies exact print numbering/art held"
+        "canonical-order 021-030: 021-025 Korean official art reviewed; 026-028 images held; 029-030 basic energies exact print numbering/art held",
+        "canonical-order 031-036: six basic energy canonical slots catalogued; physical printed numbering/real artwork unresolved"
       ],
       "newlyAddedThemeSlotCount": 31,
       "newlyAddedCards": [
@@ -37347,7 +37348,13 @@
         "SVB_027",
         "SVB_028",
         "SVB_029",
-        "SVB_030"
+        "SVB_030",
+        "SVB_031",
+        "SVB_032",
+        "SVB_033",
+        "SVB_034",
+        "SVB_035",
+        "SVB_036"
       ],
       "batches": [
         {
@@ -37948,6 +37955,119 @@
               "illustrationSourceNote": "한국판 구성상 기본 에너지 canonical 슬롯 기록. 실제 카드의 물리적 인쇄번호 및 대응 이미지 미확인. 전 테마 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 031-036",
+          "cardNumbers": [
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036"
+          ],
+          "status": "0_exact_artworks_viewed_6_energy_evidence_holds",
+          "checkedCardCount": 0,
+          "heldCardCount": 6,
+          "imageAudit": {
+            "catalogImageReferenceCount": 6,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 6,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 6,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Canonical KR SVB catalog energy slots 031-036; no confirmed physical printed numbers or exact art",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVB_031",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH8PNRWNFJW5NRBT9NQ1C",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            },
+            {
+              "code": "SVB_032",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH93E7X8TY7HH06EFBG3A",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            },
+            {
+              "code": "SVB_033",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH9G9R6N234JH0ZEN09FF",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            },
+            {
+              "code": "SVB_034",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH9X6GTG1BJFAWFN6XJEX",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            },
+            {
+              "code": "SVB_035",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EHAA0YD70DHXQS3RZ5TQ1",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            },
+            {
+              "code": "SVB_036",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Internal canonical ID not verified as printed number; unnumbered basic energy possible.",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EHAPRZSSBC02QQ08GY773",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 스타터 구성 기본 에너지 슬롯. 실제 인쇄번호·일러스트 직접 확인하지 못해 모든 테마 판정 보류."
+            }
+          ]
         }
       ]
     }
@@ -37969,14 +38089,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVB",
+    "currentSet": "SVC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVB 021-030: five exact Korean arts visually reviewed with 10 theme additions; 026-030 pending evidence and basic energy printed identity; next SVB 031-036.",
+    "note": "SVB 031-036 six energy art/print holds saved. SVC canonical 001 next; SVB remains 17 evidence pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVB 021-030: 021-025 viewed/10 themes saved, 026-028 unseen, 029-030 energy printed numbers unverified",
-    "nextStart": "SVB 031 (canonical order 031)",
+    "lastSafeCheckpoint": "TASK 6 SVB canonical 031-036: six energy slots retained as evidence pending; 19 Korean SVB art checks total; no new themes",
+    "nextStart": "SVC 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -38230,8 +38350,15 @@
         "pendingCount": 5,
         "audit": "data/audits/theme-svb-021-030-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVB canonical 025"
+      },
+      {
+        "set": "SVB",
+        "range": "canonical 031-036 / physically unnumbered or unknown energy prints",
+        "pendingCount": 6,
+        "audit": "data/audits/theme-svb-031-036-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVB canonical 025; 026-036 unverified art/print"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVB 021-030: official art 021-025, held 026-030; no image binaries selfhosted"
+    "lastEvidenceAuditCheckpoint": "SVB canonical 031-036 six basic energy image and physical print number holds"
   }
 }
