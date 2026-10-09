@@ -38070,6 +38070,260 @@
           ]
         }
       ]
+    },
+    "SVC": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "note": "SVC canonical 001-010: 9 exact Korean official images verified, 005 art hold, no image binaries selfhosted.",
+      "reviewedCardCount": 9,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010: official exact art for 001-004,006-010; 005 held"
+      ],
+      "newlyAddedThemeSlotCount": 16,
+      "newlyAddedCards": [
+        "SVC_001",
+        "SVC_002",
+        "SVC_003",
+        "SVC_004",
+        "SVC_006",
+        "SVC_007",
+        "SVC_008",
+        "SVC_009",
+        "SVC_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVC_005"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "9_exact_Korean_artworks_reviewed_1_illustration_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official SVC 001-004, 006-010 watermarked Korean art visually examined; 005 not available",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVC_001",
+              "checked": true,
+              "koreanNumber": "001/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_001.png?w=512",
+              "illustrationSourceNote": "한국어판 001/021 실제 공식 카드 이미지 시각 판독: 노란 피카츄 ex가 하얀 섬광과 금빛 번개·별빛을 뿜으며 전신을 드러내고 있다. 모든 12테마 검수, 적합: color. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_002",
+              "checked": true,
+              "koreanNumber": "002/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008002",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_002.png?w=512",
+              "illustrationSourceNote": "한국어판 002/021 실제 공식 카드 이미지 시각 판독: 코일이 붉은·파란 자석과 전기 회로·전자장치가 널린 공업적 배경 위에서 떠 있다. 모든 12테마 검수, 적합: color. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_003",
+              "checked": true,
+              "koreanNumber": "003/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_003.png?w=512",
+              "illustrationSourceNote": "한국어판 003/021 실제 공식 카드 이미지 시각 판독: 붉고 흰 찌리리공이 빛나는 햇살 아래 연녹색 언덕과 나무가 둘러싼 산비탈에서 구르고 있다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_004",
+              "checked": true,
+              "koreanNumber": "004/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_004.png?w=512",
+              "illustrationSourceNote": "한국어판 004/021 실제 공식 카드 이미지 시각 판독: 붐볼이 푸른 하늘과 나뭇가지·절벽이 보이는 숲 속에서 노란 전기광을 일으키며 튀어 오른다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_005",
+              "checked": false,
+              "koreanNumber": "005/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YV6339BP6X9FH0MQTF",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "해당 SVC 한국판 canonical 카드의 이름·번호는 조회하였으나 인쇄 일러스트 실제 이미지를 열람하지 못해 12테마 모두 판정 보류."
+            },
+            {
+              "code": "SVC_006",
+              "checked": true,
+              "koreanNumber": "006/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_006.png?w=512",
+              "illustrationSourceNote": "한국어판 006/021 실제 공식 카드 이미지 시각 판독: 보라색 찌르성게가 자연 바위가 깔린 바닷가의 얕은 물웅덩이에 놓여 있고 수면에 빛이 비친다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_007",
+              "checked": true,
+              "koreanNumber": "007/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_007.png?w=512",
+              "illustrationSourceNote": "한국어판 007/021 실제 공식 카드 이미지 시각 판독: 주황빛 빠모가 바위 사이 풀꽃과 잎사귀가 자란 초록빛 들판에 앉아 있고 하늘이 맑다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_008",
+              "checked": true,
+              "koreanNumber": "008/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_008.png?w=512",
+              "illustrationSourceNote": "한국어판 008/021 실제 공식 카드 이미지 시각 판독: 빠모트가 푸른 전기와 흩날리는 낙엽을 배경으로 나무와 수풀 사이 공중에서 뛰어오른다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_009",
+              "checked": true,
+              "koreanNumber": "009/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_009.png?w=512",
+              "illustrationSourceNote": "한국어판 009/021 실제 공식 카드 이미지 시각 판독: 빠르모트가 푸른 전기 불꽃을 내면서 초록 풀과 키 큰 나무가 우거진 숲을 달린다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            },
+            {
+              "code": "SVC_010",
+              "checked": true,
+              "koreanNumber": "010/021",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023008010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVC/SVC_010.png?w=512",
+              "illustrationSourceNote": "한국어판 010/021 실제 공식 카드 이미지 시각 판독: 맛보돈이 맑은 파란 하늘 아래 식물이 자라는 갈색 밭과 초록 풀밭 사이에 서 있다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -38092,11 +38346,11 @@
     "currentSet": "SVC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVB 031-036 six energy art/print holds saved. SVC canonical 001 next; SVB remains 17 evidence pending.",
+    "note": "SVC 001-010 exact Korean artworks reviewed for nine cards; one artwork hold. Next SVC 011-020.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVB canonical 031-036: six energy slots retained as evidence pending; 19 Korean SVB art checks total; no new themes",
-    "nextStart": "SVC 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 6 SVC 001-010: 9 official Korean artwork reviews; 1 held card SVC 005, 16 theme records saved",
+    "nextStart": "SVC 011 (canonical order 011)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -38357,8 +38611,15 @@
         "pendingCount": 6,
         "audit": "data/audits/theme-svb-031-036-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVB canonical 025; 026-036 unverified art/print"
+      },
+      {
+        "set": "SVC",
+        "range": "canonical-order 005",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svc-001-010-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVC 004, 006-010"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVB canonical 031-036 six basic energy image and physical print number holds"
+    "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"
   }
 }
