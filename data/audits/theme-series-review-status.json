@@ -38776,7 +38776,7 @@
     "SVP2": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "9 numbered Korean cards visually reviewed out of 12 canonical SVP2 cards; 010-012 basic energy print numbers and illustrations pending.",
+      "note": "SVP2 numbered 001-009 9 Korean official art reviews; 010-012 base energies appear as three catalog entries, no individual official Korean print evidence or image; keep 3 on hold; set NOT complete.",
       "reviewedCardCount": 9,
       "reviewedThemes": [
         "sleeping",
@@ -38793,7 +38793,8 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-009: all nine Korean official card artworks checked"
+        "canonical-order 001-009: all nine Korean official card artworks checked",
+        "canonical-order 010-012: three catalog energy slots held; official Korean print identifiers unverified"
       ],
       "newlyAddedThemeSlotCount": 15,
       "newlyAddedCards": [
@@ -38808,7 +38809,11 @@
         "SVP2_009"
       ],
       "existingSkippedCards": [],
-      "heldCards": [],
+      "heldCards": [
+        "SVP2_010",
+        "SVP2_011",
+        "SVP2_012"
+      ],
       "batches": [
         {
           "range": "canonical-order 001-009",
@@ -39015,6 +39020,74 @@
               "illustrationSourceNote": "공식 한국판 카드 이미지 직접 육안 검수: 가디안 ex가 분홍색 사이코 에너지 소용돌이를 펼치며 초록빛 몸으로 화면 앞으로 다가오는 전투 장면. 모든 12개 테마 각각 검수: color. 외부 이미지 링크 유지; 원본 바이너리 자체저장 미확인."
             }
           ]
+        },
+        {
+          "range": "canonical-order 010-012",
+          "cardNumbers": [
+            "unverified 010",
+            "unverified 011",
+            "unverified 012"
+          ],
+          "status": "0_illustrations_reviewed_3_canonical_energy_prints_unverified",
+          "checkedCardCount": 0,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 3,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 3,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean product information https://pokemoncard.co.kr/card/676 confirms three alternative promo packets and product boosters, not individual 010/009-012/009 energy print numbers",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVP2_010",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanName": "기본 풀 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/card/676",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어 공식 제품 설명에서 해당 기본 에너지 카드의 인쇄 번호 및 세트 전용 실물 이미지 확인 불가. 공식 001/009-009/009 카드 이후의 내부 순서 기록만 존재. 12개 테마 판정 전부 보류."
+            },
+            {
+              "code": "SVP2_011",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanName": "기본 번개 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/card/676",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어 공식 제품 설명에서 해당 기본 에너지 카드의 인쇄 번호 및 세트 전용 실물 이미지 확인 불가. 공식 001/009-009/009 카드 이후의 내부 순서 기록만 존재. 12개 테마 판정 전부 보류."
+            },
+            {
+              "code": "SVP2_012",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanName": "기본 초 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/card/676",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어 공식 제품 설명에서 해당 기본 에너지 카드의 인쇄 번호 및 세트 전용 실물 이미지 확인 불가. 공식 001/009-009/009 카드 이후의 내부 순서 기록만 존재. 12개 테마 판정 전부 보류."
+            }
+          ]
         }
       ]
     }
@@ -39039,11 +39112,11 @@
     "currentSet": "SVP2",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "Korean SVP2 001-009 illustrated artwork checked, three canonical energy cards remaining. Images not selfhosted.",
+    "note": "Numbered SVP2 001-009 fully artwork reviewed; three catalog base energy slots 010-012 are NOT confirmed as numbered Korean releases, all 3 held. Never infer 010/009 physically exists.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVP2 001-009: all 9 numbered Korean official images examined, 15 theme records added; 010-012 energies next.",
-    "nextStart": "SVP2 010 (canonical order 010; energy print numbering pending)",
+    "lastSafeCheckpoint": "TASK 6 SVP2 001-009 Korean card illustrations verified (15 theme links), and 010-012 catalog energies evidence hold; SVP2 not strict complete.",
+    "nextStart": "Next unreviewed SV set after SVP2 (consult latest GitHub main queue); SVP2 010-012 evidence held",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -39325,6 +39398,13 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-svc-021-022-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVC 001-010 except 005"
+      },
+      {
+        "set": "SVP2",
+        "range": "canonical-order 010-012",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svp2-010-012-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVP2 009"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"
