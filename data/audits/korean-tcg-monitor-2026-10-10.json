@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-10",
+  "market": "KR",
+  "sourcePolicy": "Korean Pokémon Korea official sources primary; third-party Korean set totals provisional, never substitute for official per-card checks.",
+  "result": "partial-data-update-and-pending-new-sets",
+  "applied": {
+    "source": "data/series.json",
+    "m6a": {
+      "code": "M6a",
+      "officialReleaseDate": "2026-09-16",
+      "currentCanonicalSlotCount": 176,
+      "countStatus": "176-card master inventory retained; not a claim of complete official Korean imagery",
+      "replacements": [
+        {
+          "key": "m6a_104/103",
+          "name": "알로라 나시",
+          "rarity": "AR",
+          "officialCard": "https://pokemoncard.co.kr/cards/detail/BS2026006104",
+          "officialWatermarkedArt": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_104.png?w=512"
+        },
+        {
+          "key": "m6a_130/103",
+          "name": "님피아 ex",
+          "rarity": "SAR",
+          "officialCard": "https://pokemoncard.co.kr/cards/detail/BS2026006130",
+          "officialWatermarkedArt": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_130.png?w=512"
+        }
+      ],
+      "productSource": "https://pokemoncard.co.kr/card/960",
+      "selfHostStatus": "not archived in GitHub/Cloudflare by this audit; first-party URLs are in master DB pending mirror"
+    }
+  },
+  "pendingNewSets": [
+    {
+      "code": "MEE",
+      "productName": "MEGA 스타터 세트 ex 「이브이 ex」",
+      "releaseDate": "2026-09-30",
+      "productSource": "https://pokemoncard.co.kr/card/966",
+      "officialCardEvidence": "https://pokemoncard.co.kr/cards/detail/BS2026007020",
+      "confirmedNumberDenominator": "019",
+      "provisionalKoreanUniqueSlots": 21,
+      "provisionalNumberRange": "001–021/019 (independent Korean catalog count; not fully verified against official index)",
+      "koreanCardImages": "partial verified",
+      "masterDbStatus": "absent",
+      "next": "Verify official Korean names, numbers 001–021/019 and actual watermarked images, then insert 21 unique canonical cards."
+    },
+    {
+      "code": "MEZ",
+      "productName": "MEGA 스타터 세트 ex 「조로아&조로아크 ex」",
+      "releaseDate": "2026-09-30",
+      "productSource": "https://pokemoncard.co.kr/card/967",
+      "officialCardEvidence": "https://pokemoncard.co.kr/cards/detail/BS2026008009",
+      "confirmedNumberDenominator": "019",
+      "provisionalKoreanUniqueSlots": 21,
+      "provisionalNumberRange": "001–021/019 (independent Korean catalog count; not fully verified against official index)",
+      "koreanCardImages": "partial verified",
+      "masterDbStatus": "absent",
+      "next": "Verify official Korean names, numbers 001–021/019 and actual watermarked images, then insert 21 unique canonical cards."
+    },
+    {
+      "code": "MEM",
+      "productName": "MEGA 스타터 세트 ex 「나오하&마스카나 ex」",
+      "releaseDate": "2026-09-30",
+      "productSource": "https://pokemoncard.co.kr/card/968",
+      "officialCardEvidence": "https://pokemoncard.co.kr/cards/detail/BS2026009001",
+      "confirmedNumberDenominator": "017",
+      "provisionalKoreanUniqueSlots": 19,
+      "provisionalNumberRange": "001–019/017 (independent Korean catalog count; not fully verified against official index)",
+      "koreanCardImages": "partial verified",
+      "masterDbStatus": "absent",
+      "next": "Verify official Korean names, numbers 001–019/017 and actual watermarked images, then insert 19 unique canonical cards."
+    }
+  ],
+  "independentCountSource": "https://www.dogam.app/sets",
+  "countsRule": "Do not confuse deck 60 copies with canonical unique slots; independent Korean set directory reports 21 + 21 + 19 = 61 tentative new slots, requiring official verification.",
+  "protect": [
+    "Preserve existing canonical card keys, ownership and printVariants.",
+    "No speculative Japanese-only cards.",
+    "A completed new set needs theme 12-category review under theme-series-review-status.json CI gate.",
+    "After image import, self-host original Korean watermarked art and verify URLs."
+  ],
+  "miscellaneous": [
+    {
+      "name": "30th CELEBRATION FUTURISTIC BOX",
+      "releaseOrLotteryInfo": "2026-09-29 lottery announcement",
+      "status": "announcement only; no verified new collectible card slot in this pass"
+    },
+    {
+      "name": "October 2026 new expansion",
+      "status": "No further new expansion product found on current Korean official landing/news pages as of check"
+    }
+  ]
+}
