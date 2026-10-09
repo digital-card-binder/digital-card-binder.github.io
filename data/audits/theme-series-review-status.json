@@ -35686,7 +35686,7 @@
     "SVAM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAM canonical 001-020 dispositions: 9 earlier same-number JP reference art reviewed, 11 Korean illustration evidence holds (incl. 010). Critical: Korean SVAM 012-020 numbering differs from Japanese, so Korean titles/numbers prevail; no Japanese same-number inference. Image binaries unverified.",
+      "note": "SVAM 25/25 canonical master entries recorded: 9 same-set-number JP illustrative references reviewed for KR 001-009; 16 exact Korean illustration evidence holds. KR vs JP numbering diverges from 012; energy catalog slots 024-025 have no corresponding physical 024/023,025/023 print IDs. SVAM remains in_progress, Korean art binaries/selfhost pending.",
       "reviewedCardCount": 9,
       "reviewedThemes": [
         "sleeping",
@@ -35704,7 +35704,8 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: 001-009 illustration reference reviewed, 010 held",
-        "canonical-order 011-020 (Korean master numbering independently checked, 10 illustrations evidence held; Japanese numbering divergence documented)"
+        "canonical-order 011-020 (Korean master numbering independently checked, 10 illustrations evidence held; Japanese numbering divergence documented)",
+        "canonical-order 021-025 (printed 021-023; unnumbered basic energies catalog slots 024-025; artwork held)"
       ],
       "newlyAddedThemeSlotCount": 16,
       "newlyAddedCards": [
@@ -35730,7 +35731,12 @@
         "SVAM_017",
         "SVAM_018",
         "SVAM_019",
-        "SVAM_020"
+        "SVAM_020",
+        "SVAM_021",
+        "SVAM_022",
+        "SVAM_023",
+        "SVAM_024",
+        "SVAM_025"
       ],
       "batches": [
         {
@@ -36108,6 +36114,99 @@
               "koreanNumber": "020/023"
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-025 (021-023 numbered + two unnumbered basic energies)",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "unnumbered grass energy (catalog 024)",
+            "unnumbered fighting energy (catalog 025)"
+          ],
+          "status": "korean_catalog_tail_validated_5_artworks_pending_not_strict_complete",
+          "checkedCardCount": 0,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 5,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 5,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 5,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean master and independent Korean deck listing; Japanese comparison only for numbering discrepancy; no artwork visual inspection",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAM_021",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDPMDKXJR22JWASHN6",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/0fa5f5b2ab55eeb897ebe477b9f71702.png",
+              "illustrationSourceNote": "박사의 연구(올림박사): 한국판 실제 021/023 인쇄번호. 정확한 한국판 일러스트 검수 보류.",
+              "koreanNumber": "021/023"
+            },
+            {
+              "code": "SVAM_022",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDFAR8MVNY72PDZYMS",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/c4d32ab4f54ebe66d053eeaa37326423.png",
+              "illustrationSourceNote": "반바지 꼬마: 한국판 실제 022/023 인쇄번호. 정확한 한국판 일러스트 검수 보류.",
+              "koreanNumber": "022/023"
+            },
+            {
+              "code": "SVAM_023",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD5610NR3K14T8QRP6",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/2ab95efee516915d1a54768407530da5.png",
+              "illustrationSourceNote": "저지맨: 한국판 실제 023/023 인쇄번호. 정확한 한국판 일러스트 검수 보류.",
+              "koreanNumber": "023/023"
+            },
+            {
+              "code": "SVAM_024",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KY1EH52YMG3JY681P10AAD02",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/9f36b279672f1328dffc1c73d5712f8e.png",
+              "illustrationSourceNote": "기본 풀 에너지: 내부 순서로 관리하는 기본 에너지이며 실제 카드의 024/023 또는 025/023 인쇄번호라고 단정하지 않음. 정확한 한국판 일러스트 검수 보류.",
+              "koreanNumber": null
+            },
+            {
+              "code": "SVAM_025",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KY1EH5FPZPQ9Z0X2ZT0N5D53",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/4e4d9c485f531e0dad04cc6ea725da32.png",
+              "illustrationSourceNote": "기본 격투 에너지: 내부 순서로 관리하는 기본 에너지이며 실제 카드의 024/023 또는 025/023 인쇄번호라고 단정하지 않음. 정확한 한국판 일러스트 검수 보류.",
+              "koreanNumber": null
+            }
+          ]
         }
       ]
     }
@@ -36129,14 +36228,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVAM",
+    "currentSet": "SVAW",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 248/248 catalog dispositions (154 artworks verified, 94 pending), SVAM 001-020 dispositions (9 visual refs, 11 art pending). SVAM numbering differs from Japanese from 012 onward.",
+    "note": "SVAM 25/25 catalog dispositions: 9 illustrated references reviewed, 16 exact Korean art holds; in_progress. Continue SVAW while resolving image backlog, no false complete or selfhosting claims.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAM canonical 011-020: Korean printed IDs and Korean set name listing crosschecked; 10 art pending; JP same-number mismatch documented",
-    "nextStart": "SVAM 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 SVAM 021-025: 25/25 master dispositions recorded (9 artwork reference reviews,16 Korean-art holds); energies 024-025 explicitly unnumbered",
+    "nextStart": "SVAW 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -36320,8 +36419,15 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svam-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAM canonical 009 (010 held)"
+      },
+      {
+        "set": "SVAM",
+        "range": "canonical-order 021-025 (021-023 numbered; 024-025 unnumbered energies)",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-svam-021-025-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAM canonical 009 (010-025 other holds)"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAM canonical 011-020: 10 identities checked; no exact Korean illustration inspected; 012+ Japanese same-number art cannot be used."
+    "lastEvidenceAuditCheckpoint": "SVAM 021-025: printed 021-023 crosschecked, synthetic energy catalog 024-025 distinguished; all 5 artwork held."
   }
 }
