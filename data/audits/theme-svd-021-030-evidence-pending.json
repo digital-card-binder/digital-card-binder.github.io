@@ -4,58 +4,76 @@
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 021-030",
-  "artworkReviewedCardCount": 7,
-  "artworkPendingCardCount": 3,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "color": 7,
+    "color": 10,
     "sunset": 1,
-    "season": 4,
+    "season": 6,
     "street": 1
   },
   "imageBinarySelfHostedCount": 0,
   "cards": [
     {
       "code": "SVD_023",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "023/139",
       "name": "딜리버드",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016023",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국어판 공식 상세 사진 직접 이미지 렌더링 실패. 실제 일러스트 확인까지 12테마 판정 보류."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_023.png?w=512",
+      "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 딜리버드가 눈이 내리는 전나무 숲에서 빨간 선물 보따리를 안고 선 겨울 숲속 장면. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
     },
     {
       "code": "SVD_024",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "024/139",
       "name": "브이젤",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016024",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국어판 공식 상세 사진 직접 이미지 렌더링 실패. 실제 일러스트 확인까지 12테마 판정 보류."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_024.png?w=512",
+      "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 브이젤이 옅은 물결과 푸른 바다 아래에서 붉고 분홍빛 해초 사이를 헤엄친다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
     },
     {
       "code": "SVD_026",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "026/139",
       "name": "맘복치",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016026",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국어판 공식 상세 사진 직접 이미지 렌더링 실패. 실제 일러스트 확인까지 12테마 판정 보류."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_026.png?w=512",
+      "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 맘복치 뒤로 초록·청록·하양·파랑의 소용돌이 해류와 다채로운 물방울·산호 같은 무늬가 어우러진다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
     }
   ],
-  "nextStart": "SVD canonical 031; prior 007,012 and current 023,024,026 remain held"
+  "nextStart": "SVD canonical 041; SVD 007 and 012 remain held",
+  "resolvedAt": "2026-10-10",
+  "resolution": "Original three image access holds 023,024,026 resolved using exact Korean official watermarked artwork visual inspection; no card binary migrated."
 }
