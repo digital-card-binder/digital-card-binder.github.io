@@ -38074,7 +38074,7 @@
     "SVC": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVC canonical 001-010: 9 exact Korean official images verified, 005 art hold, no image binaries selfhosted.",
+      "note": "SVC 001-010 artwork review: 9 exact KR illustrations checked (005 held). SVC 011-020: 10 Korean names/identifiers crosschecked, illustrations not available, all theme verdicts held; no binary saved.",
       "reviewedCardCount": 9,
       "reviewedThemes": [
         "sleeping",
@@ -38091,7 +38091,8 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: official exact art for 001-004,006-010; 005 held"
+        "canonical-order 001-010: official exact art for 001-004,006-010; 005 held",
+        "canonical-order 011-020: KR name/print IDs crosschecked only; 10 illustration holds; zero artwork reviews"
       ],
       "newlyAddedThemeSlotCount": 16,
       "newlyAddedCards": [
@@ -38107,7 +38108,17 @@
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVC_005"
+        "SVC_005",
+        "SVC_011",
+        "SVC_012",
+        "SVC_013",
+        "SVC_014",
+        "SVC_015",
+        "SVC_016",
+        "SVC_017",
+        "SVC_018",
+        "SVC_019",
+        "SVC_020"
       ],
       "batches": [
         {
@@ -38322,6 +38333,180 @@
               "illustrationSourceNote": "한국어판 010/021 실제 공식 카드 이미지 시각 판독: 맛보돈이 맑은 파란 하늘 아래 식물이 자라는 갈색 밭과 초록 풀밭 사이에 서 있다. 모든 12테마 검수, 적합: color, season. 이미지 자체호스팅 미검증."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "0_illustrations_reviewed_10_Korean_print_identifiers_crosschecked_and_held",
+          "checkedCardCount": 0,
+          "heldCardCount": 10,
+          "verifiedKoreanPrintMetadataCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean set listing and SVC seller listing; no exact official image visually inspected",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVC_011",
+              "checked": false,
+              "koreanNumber": "011/021",
+              "koreanName": "네스트볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVYW2ZBRE0T66HPDZA",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_012",
+              "checked": false,
+              "koreanNumber": "012/021",
+              "koreanName": "에너지 갈아 달기",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YV0FJCHS1CY3F52NCD",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_013",
+              "checked": false,
+              "koreanNumber": "013/021",
+              "koreanName": "일렉트릭 제너레이터",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVNWMDR8P4HMPJ0QV3",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_014",
+              "checked": false,
+              "koreanNumber": "014/021",
+              "koreanName": "포켓기어3.0",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YV1SKB4QXZ3TC71PY6",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_015",
+              "checked": false,
+              "koreanNumber": "015/021",
+              "koreanName": "포켓몬 교체",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVH3FAMQBRBFZ3EC63",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_016",
+              "checked": false,
+              "koreanNumber": "016/021",
+              "koreanName": "포켓몬 캐처",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVR8Y5ZFD689JD443M",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_017",
+              "checked": false,
+              "koreanNumber": "017/021",
+              "koreanName": "하이퍼볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVNK6DQ5RY0Q249YGW",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_018",
+              "checked": false,
+              "koreanNumber": "018/021",
+              "koreanName": "네모",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVET9149HSCEARPGFY",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_019",
+              "checked": false,
+              "koreanNumber": "019/021",
+              "koreanName": "반바지 꼬마",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YV29152QY1EX6WESP1",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            },
+            {
+              "code": "SVC_020",
+              "checked": false,
+              "koreanNumber": "020/021",
+              "koreanName": "박사의 연구(투로박사)",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2S3CTB8VCQ15X19QC947/cards/01KW1C68YVWE043DSK5R902P9M",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 이름·번호 확인 완료. 정확한 실물 일러스트 직접 판독 불가로 12테마 모두 보류."
+            }
+          ]
         }
       ]
     }
@@ -38346,11 +38531,11 @@
     "currentSet": "SVC",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVC 001-010 exact Korean artworks reviewed for nine cards; one artwork hold. Next SVC 011-020.",
+    "note": "No illustration classification for SVC 011-020; 10 exact KR names/printed numbers crosschecked, all artwork/evidence held. Next advance to SVC 021 only while pending items remain open.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVC 001-010: 9 official Korean artwork reviews; 1 held card SVC 005, 16 theme records saved",
-    "nextStart": "SVC 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SVC 011-020 metadata-only audit: 10 KR print IDs crosschecked, 0 artwork checked, 10 art holds; preceding SVC 005 remains held",
+    "nextStart": "SVC 021 (canonical order 021), with 005 and 011-020 artwork evidence pending",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -38618,6 +38803,13 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svc-001-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVC 004, 006-010"
+      },
+      {
+        "set": "SVC",
+        "range": "canonical-order 011-020",
+        "pendingCount": 10,
+        "audit": "data/audits/theme-svc-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVC canonical 010 except held 005"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"
