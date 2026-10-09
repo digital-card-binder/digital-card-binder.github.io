@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-09",
+  "updatedAt": "2026-10-10",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -39093,9 +39093,9 @@
     },
     "SVD": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-09",
-      "note": "SVD canonical 001-030: 25 official Korean artworks examined, five image holds 007,012,023,024,026; 49 theme records added across batches and one existing sleeping theme evidence upgraded.",
-      "reviewedCardCount": 25,
+      "reviewedAt": "2026-10-10",
+      "note": "SVD 001-040 canonical: 38/40 Korean illustrations visually verified; only 007 and 012 pending, original card data unchanged; +22 theme slots added on 10OCT.",
+      "reviewedCardCount": 38,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -39113,9 +39113,11 @@
       "reviewedRanges": [
         "canonical-order 001-010: 9 Korean printed artworks verified, 007 held",
         "canonical-order 011-020: 9 official Korean artworks verified, 012 held",
-        "canonical-order 021-030: Korean official illustrations 021,022,025,027-030 verified; 023,024,026 held"
+        "canonical-order 021-030: Korean official illustrations 021,022,025,027-030 verified; 023,024,026 held",
+        "SVD 023,024,026: prior exact Korean art holds resolved and classified",
+        "canonical-order 031-040: 10 official Korean watermark artworks visually verified"
       ],
-      "newlyAddedThemeSlotCount": 49,
+      "newlyAddedThemeSlotCount": 71,
       "newlyAddedCards": [
         "SVD_001",
         "SVD_002",
@@ -39141,17 +39143,27 @@
         "SVD_027",
         "SVD_028",
         "SVD_029",
-        "SVD_030"
+        "SVD_030",
+        "SVD_023",
+        "SVD_024",
+        "SVD_026",
+        "SVD_031",
+        "SVD_032",
+        "SVD_033",
+        "SVD_034",
+        "SVD_035",
+        "SVD_036",
+        "SVD_037",
+        "SVD_038",
+        "SVD_039",
+        "SVD_040"
       ],
       "existingSkippedCards": [
         "SVD_009"
       ],
       "heldCards": [
         "SVD_007",
-        "SVD_012",
-        "SVD_023",
-        "SVD_024",
-        "SVD_026"
+        "SVD_012"
       ],
       "batches": [
         {
@@ -39823,8 +39835,330 @@
               "illustrationSourceNote": "정확한 한국어판 이미지 직접 판독: 바다그다가 청록빛 산호·해초와 빨강·분홍 해양 식물이 자라는 밝은 푸른 바닷속 바닥에서 몸을 뻗는다. 레어도 무관 12테마 독립 검수 결과 season, color. 자체 이미지 저장 미완료."
             }
           ]
+        },
+        {
+          "range": "follow-up SVD 023,024,026 previously held",
+          "cardNumbers": [
+            "023",
+            "024",
+            "026"
+          ],
+          "status": "all_official_Korean_watermark_illustrations_checked",
+          "checkedCardCount": 3,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 3,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 3,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2023016NNN and exact official Korean card watermark PNG, visually opened 2026-10-10",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "season": 2,
+            "color": 3
+          },
+          "cards": [
+            {
+              "code": "SVD_023",
+              "checked": true,
+              "koreanNumber": "023/139",
+              "name": "딜리버드",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_023.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 딜리버드가 눈이 내리는 전나무 숲에서 빨간 선물 보따리를 안고 선 겨울 숲속 장면. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_024",
+              "checked": true,
+              "koreanNumber": "024/139",
+              "name": "브이젤",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_024.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 브이젤이 옅은 물결과 푸른 바다 아래에서 붉고 분홍빛 해초 사이를 헤엄친다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_026",
+              "checked": true,
+              "koreanNumber": "026/139",
+              "name": "맘복치",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016026",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_026.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 맘복치 뒤로 초록·청록·하양·파랑의 소용돌이 해류와 다채로운 물방울·산호 같은 무늬가 어우러진다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
+            }
+          ]
+        },
+        {
+          "range": "canonical-order 031-040",
+          "cardNumbers": [
+            "031",
+            "032",
+            "033",
+            "034",
+            "035",
+            "036",
+            "037",
+            "038",
+            "039",
+            "040"
+          ],
+          "status": "all_official_Korean_watermark_illustrations_checked",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2023016NNN and exact official Korean card watermark PNG, visually opened 2026-10-10",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "season": 5,
+            "color": 10,
+            "street": 1,
+            "night": 1
+          },
+          "cards": [
+            {
+              "code": "SVD_031",
+              "checked": true,
+              "koreanNumber": "031/139",
+              "name": "바닥트리오",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016031",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_031.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 바닥트리오 세 마리가 검은 암반 사이의 밝은 청록색 바다에 고개를 내밀고, 하얀 물방울이 떠 있다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_032",
+              "checked": true,
+              "koreanNumber": "032/139",
+              "name": "터벅고래",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016032",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_032.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 터벅고래가 나뭇잎 없는 나무 사이 하얀 눈밭에서 입을 벌리고 눈을 헤치며 움직인다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_033",
+              "checked": true,
+              "koreanNumber": "033/139",
+              "name": "우락고래",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016033",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_033.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 우락고래가 푸른 바닷물과 거대한 하얀 파도가 소용돌이치는 가운데 몸을 앞으로 내민다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_034",
+              "checked": true,
+              "koreanNumber": "034/139",
+              "name": "피카츄",
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016034",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_034.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 피카츄가 노랑색 교통 표지와 가로수, 주황·파란색 건물들이 늘어선 햇살 비추는 도심 거리에서 뛰어오른다. 12테마: street, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_035",
+              "checked": true,
+              "koreanNumber": "035/139",
+              "name": "라이츄",
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016035",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_035.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 라이츄가 자줏빛 어둠에 싸인 빽빽한 숲 나무들 사이에서 커다란 노란 번개를 발산한다. 12테마: night, season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_036",
+              "checked": true,
+              "koreanNumber": "036/139",
+              "name": "코일",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016036",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_036.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 코일이 짙붉은 배경에서 하늘빛·흰색 전기 궤적을 휘감으며 돌진한다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_037",
+              "checked": true,
+              "koreanNumber": "037/139",
+              "name": "레어코일",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016037",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_037.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 레어코일 세 몸체가 선명한 오렌지·청록·분홍·연두의 팝아트 같은 추상 색면 앞에 떠 있다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_038",
+              "checked": true,
+              "koreanNumber": "038/139",
+              "name": "자포코일",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016038",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_038.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 자포코일이 보라·자홍·푸른색으로 갈라지는 전기 폭풍의 한가운데서 빛을 발산한다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_039",
+              "checked": true,
+              "koreanNumber": "039/139",
+              "name": "로토무",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016039",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_039.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 로토무가 햇빛 반사로 밝게 빛나는 파란 바다 위를 비행하며, 해안의 녹색 절벽과 하얀 등대가 보인다. 12테마: season, color. 이미지 자체 저장·배포 별도 미확인."
+            },
+            {
+              "code": "SVD_040",
+              "checked": true,
+              "koreanNumber": "040/139",
+              "name": "찌르성게",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016040",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_040.png?w=512",
+              "illustrationSourceNote": "한국어판 공식 이미지 직접 열어 장면 확인: 찌르성게가 자주·분홍빛 해저 배경에서 노랗고 흰 전기 불꽃을 뿜는다. 12테마: color. 이미지 자체 저장·배포 별도 미확인."
+            }
+          ]
         }
-      ]
+      ],
+      "nextStart": "SVD 041 (canonical order 041); only prior SVD 007,012 held"
     }
   },
   "queue": {
@@ -39847,11 +40181,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD 001-030 Korean physical artwork checked 25/30, five exact Korean image evidence holds, no Japanese substituted.",
+    "note": "SVD 001-040 canonical: 38/40 Korean illustrations visually verified; only 007 and 012 pending, original card data unchanged; +22 theme slots added on 10OCT.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD 021-030: 7 official Korean artworks verified, 3 holds; 13 themes added",
-    "nextStart": "SVD 031 (canonical order 031); holds 007,012,023,024,026",
+    "lastSafeCheckpoint": "TASK 6 SVD 031-040: 10/10 official Korean arts examined, 17 theme entries; plus 023/024/026 holds resolved with 5 entries; 007 and 012 still held.",
+    "nextStart": "SVD 041 (canonical order 041); outstanding earlier holds 007 and 012",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -40154,15 +40488,8 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svd-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 011 and 013-020 official illustrations checked"
-      },
-      {
-        "set": "SVD",
-        "range": "canonical-order 023,024,026",
-        "pendingCount": 3,
-        "audit": "data/audits/theme-svd-021-030-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVD 021,022,025,027-030 official art verified"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"
+    "lastEvidenceAuditCheckpoint": "SVD 031-040 full batch plus 023,024,026 Korean visual remediation"
   }
 }
