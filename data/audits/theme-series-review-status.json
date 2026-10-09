@@ -36213,7 +36213,7 @@
     "SVAW": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAW 001-020: 16 verified Korean illustration images; 4 pending artworks (003,011,016,020). 26 checked theme maps. 21-25 next. Master unchanged and no claimed image selfhosting.",
+      "note": "SVAW 25/25 Korean master catalog dispositions recorded. Verified Korean visual illustrations 16; held exact Korean artwork 9 (003,011,016,020,021-025). Still in_progress, not 12-theme complete. 26 theme mappings verified. Selfhost unconfirmed.",
       "reviewedCardCount": 16,
       "reviewedThemes": [
         "sleeping",
@@ -36231,7 +36231,8 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: 9 official Korean illustrations inspected; 003 held",
-        "canonical-order 011-020: 7 official Korean illustrations inspected; 011,016,020 held"
+        "canonical-order 011-020: 7 official Korean illustrations inspected; 011,016,020 held",
+        "canonical-order 021-025: 3 numbered Korean trainer entries and 2 unnumbered energy catalog slots recorded; 5 illustration evidence holds"
       ],
       "newlyAddedThemeSlotCount": 26,
       "newlyAddedCards": [
@@ -36257,7 +36258,12 @@
         "SVAW_003",
         "SVAW_011",
         "SVAW_016",
-        "SVAW_020"
+        "SVAW_020",
+        "SVAW_021",
+        "SVAW_022",
+        "SVAW_023",
+        "SVAW_024",
+        "SVAW_025"
       ],
       "batches": [
         {
@@ -36689,6 +36695,109 @@
               "illustrationSourceNote": "한국판 마스터 내 카드 번호 및 한국판 발매 세트 이름 확인. 해당 1장 인쇄 일러스트 직접 판독 불가로 12개 테마 전체 판정 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-025",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025"
+          ],
+          "status": "5_korean_catalog_identities_disposed_all_illustrations_held_energies_unnumbered",
+          "checkedCardCount": 0,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 5,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 5,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 5,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean starter deck published catalog; Pokemon Korea 022 and 023 official named detail; 024-025 unnumbered basic energies in starter listing",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAW_021",
+              "checked": false,
+              "koreanNumber": "021/023",
+              "masterRecordCode": "svaw_021/023",
+              "numberingType": "numbered_Korean_print",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004021",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Card identity/printed number confirmed in Korean catalog and Korean Pokemon official page evidence where available, but corresponding Korean artwork binary not visually inspected. All themes remain pending."
+            },
+            {
+              "code": "SVAW_022",
+              "checked": false,
+              "koreanNumber": "022/023",
+              "masterRecordCode": "svaw_022/023",
+              "numberingType": "numbered_Korean_print",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004022",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Card identity/printed number confirmed in Korean catalog and Korean Pokemon official page evidence where available, but corresponding Korean artwork binary not visually inspected. All themes remain pending."
+            },
+            {
+              "code": "SVAW_023",
+              "checked": false,
+              "koreanNumber": "023/023",
+              "masterRecordCode": "svaw_023/023",
+              "numberingType": "numbered_Korean_print",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004023",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Card identity/printed number confirmed in Korean catalog and Korean Pokemon official page evidence where available, but corresponding Korean artwork binary not visually inspected. All themes remain pending."
+            },
+            {
+              "code": "SVAW_024",
+              "checked": false,
+              "koreanNumber": null,
+              "masterRecordCode": "svaw_024/023",
+              "numberingType": "unnumbered_basic_energy_synthetic_catalog_slot",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QENV50NT7T3KX7982HNCR/cards/01KY1EH6P4XA9VAEF7B977Q2ZP",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Energy is a separate canonical catalog slot; no confirmed physical card number 024/023 or 025/023. Do not treat slot index as printed number and do not assign themes without art."
+            },
+            {
+              "code": "SVAW_025",
+              "checked": false,
+              "koreanNumber": null,
+              "masterRecordCode": "svaw_025/023",
+              "numberingType": "unnumbered_basic_energy_synthetic_catalog_slot",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QENV50NT7T3KX7982HNCR/cards/01KY1EH72V4CZ125YDZ95W9M0F",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Energy is a separate canonical catalog slot; no confirmed physical card number 024/023 or 025/023. Do not treat slot index as printed number and do not assign themes without art."
+            }
+          ]
         }
       ]
     }
@@ -36710,14 +36819,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVAW",
+    "currentSet": "SVAL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAW 001-020 has 16 image-verified Korean cards and 4 art evidence holds. Proceed SVAW 021-025. No selfhosting claims.",
+    "note": "Continue SVAL 001. SVAW remains in progress: 16 visual verifications + 9 held artwork, no selfhost verified. All SVAW 25 canonical identity dispositions recorded.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAW 011-020: 7 Korean official illustration artworks checked, 011/016/020 held; color mappings +7",
-    "nextStart": "SVAW 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 SVAW 021-025: 3 physical printed numbered card identities + 2 unnumbered basic energy catalog slots; 5 art holds. SVAW 16 visual verified, 9 artwork pending.",
+    "nextStart": "SVAL 001 (canonical order 001)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -36922,8 +37031,15 @@
         "pendingCount": 3,
         "audit": "data/audits/theme-svaw-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAW 012-015,017-019 visually verified"
+      },
+      {
+        "set": "SVAW",
+        "range": "canonical-order 021-025 / 021-023 printed, 024-025 unnumbered energy slots",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-svaw-021-025-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAW 019 official art; 020-025 pending exact art"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAW 011-020: official Korean card images 012-015,017-019 reviewed; 011,016,020 held."
+    "lastEvidenceAuditCheckpoint": "SVAW 021-025: 021-023 numbered, 024-025 synthetic catalog slots with no physical printed number, 5 artworks held."
   }
 }
