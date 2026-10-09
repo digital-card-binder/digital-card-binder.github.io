@@ -35686,7 +35686,7 @@
     "SVAM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAM canonical 001-010 reviewed using Korean master identity and same-set-number JP illustration references: 9 visual reference reviews and one hold (SVAM_010). Korean original binary and selfhosting not verified. Remaining 011-025 not started.",
+      "note": "SVAM canonical 001-020 dispositions: 9 earlier same-number JP reference art reviewed, 11 Korean illustration evidence holds (incl. 010). Critical: Korean SVAM 012-020 numbering differs from Japanese, so Korean titles/numbers prevail; no Japanese same-number inference. Image binaries unverified.",
       "reviewedCardCount": 9,
       "reviewedThemes": [
         "sleeping",
@@ -35703,7 +35703,8 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 001-009 illustration reference reviewed, 010 held"
+        "canonical-order 001-010: 001-009 illustration reference reviewed, 010 held",
+        "canonical-order 011-020 (Korean master numbering independently checked, 10 illustrations evidence held; Japanese numbering divergence documented)"
       ],
       "newlyAddedThemeSlotCount": 16,
       "newlyAddedCards": [
@@ -35719,7 +35720,17 @@
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVAM_010"
+        "SVAM_010",
+        "SVAM_011",
+        "SVAM_012",
+        "SVAM_013",
+        "SVAM_014",
+        "SVAM_015",
+        "SVAM_016",
+        "SVAM_017",
+        "SVAM_018",
+        "SVAM_019",
+        "SVAM_020"
       ],
       "batches": [
         {
@@ -35934,6 +35945,169 @@
               "koreanNumber": "010/023"
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "10_korean_catalog_identities_crosschecked_artwork_pending_jp_numbering_diverges",
+          "checkedCardCount": 0,
+          "heldCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean master/independent Korean card list; JP deck listing used only to flag misleading same-number differences",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAM_011",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDYN0Y6GGQXNADT3ZT",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/45e4431afd0265bd806490a73411b3f6.png",
+              "illustrationSourceNote": "한국판 011/023 맛보돈 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "011/023"
+            },
+            {
+              "code": "SVAM_012",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDGK7VA8702ZRT1PDB",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/848d3a7a6ed59ccbe50a4cff00e0ff67.png",
+              "illustrationSourceNote": "한국판 012/023 네스트볼 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "012/023"
+            },
+            {
+              "code": "SVAM_013",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDWKR8T4X9YP7F74BT",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/b17ecf090aceb57b545ad8da2a089713.png",
+              "illustrationSourceNote": "한국판 013/023 상처약 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "013/023"
+            },
+            {
+              "code": "SVAM_014",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD2ESJ9KX70VCZ9NMC",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/127042b818e97944957004d677f7f431.png",
+              "illustrationSourceNote": "한국판 014/023 에너지 갈아 달기 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "014/023"
+            },
+            {
+              "code": "SVAM_015",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDPNSG2RT5PNJAABM2",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/de673723261303a3dcb8fd02b4bd5da3.png",
+              "illustrationSourceNote": "한국판 015/023 에너지 전송 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "015/023"
+            },
+            {
+              "code": "SVAM_016",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD9CNFHG4FW4EZZQEG",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/4385c853fb924d80e0eeeaa096efc64d.png",
+              "illustrationSourceNote": "한국판 016/023 포켓기어3.0 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "016/023"
+            },
+            {
+              "code": "SVAM_017",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD66GMVK2NTZ7T7YQ8",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/04a46907b25c89dc5a34f9845f06ad09.png",
+              "illustrationSourceNote": "한국판 017/023 포켓몬 교체 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "017/023"
+            },
+            {
+              "code": "SVAM_018",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDECM333P6530T37RJ",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/121ca8a042ad362ea048becdb1758896.png",
+              "illustrationSourceNote": "한국판 018/023 포켓몬 캐처 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "018/023"
+            },
+            {
+              "code": "SVAM_019",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD6SXV82SB5NFHY41D",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/858e48fab9567045da746d00ae3f32af.png",
+              "illustrationSourceNote": "한국판 019/023 하이퍼볼 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "019/023"
+            },
+            {
+              "code": "SVAM_020",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDZXZBXZ5SEW6Y3EVT",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/7496762f3b13dd45619ec8816cada01f.png",
+              "illustrationSourceNote": "한국판 020/023 네모 번호 교차확인; 실제 그림 미확인. 일본판 SVAM 같은 인쇄 번호의 카드 이름과 그림이 다를 수 있어 대체 금지.",
+              "koreanNumber": "020/023"
+            }
+          ]
         }
       ]
     }
@@ -35958,11 +36132,11 @@
     "currentSet": "SVAM",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 248/248 catalog dispositions (154 art verified, 94 art held); SVAM canonical 001-010 processed (9 same-number JP art refs examined, one Korean art hold); binary selfhost pending.",
+    "note": "SV-P 248/248 catalog dispositions (154 artworks verified, 94 pending), SVAM 001-020 dispositions (9 visual refs, 11 art pending). SVAM numbering differs from Japanese from 012 onward.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAM canonical 001-010: 9 same-set/number visual refs mapped to 16 theme slots; 010 artwork hold",
-    "nextStart": "SVAM 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SVAM canonical 011-020: Korean printed IDs and Korean set name listing crosschecked; 10 art pending; JP same-number mismatch documented",
+    "nextStart": "SVAM 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -36139,8 +36313,15 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svam-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAM canonical 009"
+      },
+      {
+        "set": "SVAM",
+        "range": "canonical-order 011-020 (Korean printed 011-020)",
+        "pendingCount": 10,
+        "audit": "data/audits/theme-svam-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAM canonical 009 (010 held)"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAM canonical 001-010: Korean catalog identities matched; 9 corresponding JP SVAM art illustrations used as thematic reference; 010 held."
+    "lastEvidenceAuditCheckpoint": "SVAM canonical 011-020: 10 identities checked; no exact Korean illustration inspected; 012+ Japanese same-number art cannot be used."
   }
 }
