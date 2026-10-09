@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4324,
-    "uniqueThemeCards": 2609,
+    "themeCardSlots": 4339,
+    "uniqueThemeCards": 2618,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 173,
-      "setCount": 22,
+      "cardSlots": 174,
+      "setCount": 23,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1118,
-      "setCount": 29,
+      "cardSlots": 1120,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2075,
-      "setCount": 31,
+      "cardSlots": 2084,
+      "setCount": 32,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 384,
-      "setCount": 24,
+      "cardSlots": 387,
+      "setCount": 25,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 1,
       "remainingSetCount": 52,
-      "currentThemeSlots": 706
+      "currentThemeSlots": 721
     },
     {
       "era": "S",
@@ -480,7 +480,7 @@
       "code": "SVP2",
       "name": "ex 스페셜 세트 ver.2",
       "cardCount": 12,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2110,9 +2110,14 @@
       "cardCount": 12,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "themeHits": {
+        "season": 2,
+        "color": 9,
+        "street": 3,
+        "night": 1
+      }
     },
     {
       "era": "SV",
