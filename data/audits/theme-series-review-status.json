@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical 001-160 중 일러스트 117장 검수, 43장 근거 보류. 미검수 항목은 완료로 처리하지 않았으며 이미지 바이너리 자체 저장/배포 미검증.",
-      "reviewedCardCount": 117,
+      "note": "SV-P canonical 001-170 중 일러스트 127장 검수 완료, 43장 증거 보류. 이미지 바이너리 저장·배포 미검증.",
+      "reviewedCardCount": 127,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30490,9 +30490,10 @@
         "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
         "canonical-order 131-140 (136 artwork evidence held)",
         "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)",
-        "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)"
+        "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)",
+        "canonical-order 161-170 (10 Korean official illustrations verified)"
       ],
-      "newlyAddedThemeSlotCount": 210,
+      "newlyAddedThemeSlotCount": 228,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30610,7 +30611,17 @@
         "SV-P_144",
         "SV-P_148",
         "SV-P_152",
-        "SV-P_160"
+        "SV-P_160",
+        "SV-P_161",
+        "SV-P_162",
+        "SV-P_163",
+        "SV-P_164",
+        "SV-P_165",
+        "SV-P_166",
+        "SV-P_167",
+        "SV-P_168",
+        "SV-P_169",
+        "SV-P_170"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -33950,6 +33961,225 @@
               "koreanNumber": "160/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 161-170 (10 Korean official illustrations verified)",
+          "cardNumbers": [
+            "161",
+            "162",
+            "163",
+            "164",
+            "165",
+            "166",
+            "167",
+            "168",
+            "169",
+            "170"
+          ],
+          "status": "10_korean_official_artworks_verified_archive_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "10 individual Pokemon Korea SV-P card detail pages and their full-size watermarked artwork images, visually inspected",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_161",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000161",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_161.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 파이리가 초록 초원을 뛰며 주변에 작은 불꽃이 날리고 멀리 산과 밝은 하늘이 보임.",
+              "koreanNumber": "161/SV-P"
+            },
+            {
+              "code": "SV-P_162",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000162",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_162.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 리자드가 거친 바위 산에서 불을 뿜으며 폭풍 구름이 뒤에 있음. 161·163과 연결된 동일 풍경이나 시간 서사로 볼 증거는 없음.",
+              "koreanNumber": "162/SV-P"
+            },
+            {
+              "code": "SV-P_163",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000163",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_163.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 리자몽 ex의 선명한 다색 테라스탈 기하학과 결정형 효과. 161·162와 같은 장면이 이어지지 않음.",
+              "koreanNumber": "163/SV-P"
+            },
+            {
+              "code": "SV-P_164",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000164",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_164.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 장크로다일 주변에 붉은 잉어킹 여러 마리가 함께 헤엄치는 수중 장면. 반사 이미지가 아닌 실제 물속 장면.",
+              "koreanNumber": "164/SV-P"
+            },
+            {
+              "code": "SV-P_165",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000165",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_165.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 피카츄가 꽃이 핀 야외 돌길에 앉아 크게 하품하며 쉬는 장면. 기술 '편히쉬기'; 잠든 상태가 아니라 휴식 테마.",
+              "koreanNumber": "165/SV-P"
+            },
+            {
+              "code": "SV-P_166",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000166",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_166.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 스트린더 ex의 보라색 몸과 밝은 노란색 전기·빛 대비. 악기 연주나 노동의 장면은 없음.",
+              "koreanNumber": "166/SV-P"
+            },
+            {
+              "code": "SV-P_167",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000167",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_167.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 서포트 네모가 화단·꽃·초록 생울타리와 옆 계단 앞에 서 있음. 포켓몬 카메오는 없음.",
+              "koreanNumber": "167/SV-P"
+            },
+            {
+              "code": "SV-P_168",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000168",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_168.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 서포트 네모가 학교 형태의 건물 및 철제 출입문 앞에 서 있음. 167과 작가가 같으나 그림 간 물리적 연결은 없음.",
+              "koreanNumber": "168/SV-P"
+            },
+            {
+              "code": "SV-P_169",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000169",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_169.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 심향의 칠색조 ex가 적색 및 금색 반짝이는 이펙트 속에서 등장함. 심향 얼굴 마크는 다른 포켓몬 카메오가 아님.",
+              "koreanNumber": "169/SV-P"
+            },
+            {
+              "code": "SV-P_170",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000170",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_170.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 이미지 직접 육안 판독: 난천의 한카리아스 ex가 남색의 몸과 금색 속도선 사이에서 움직임. 난천 인물 마크는 다른 포켓몬의 카메오가 아님.",
+              "koreanNumber": "170/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -33974,11 +34204,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 117/248 art verified, 43 evidence held through canonical 160; image archive unverified",
+    "note": "SV-P 127/248 Korean artworks verified, 43 evidence held through canonical 170; image archive unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 151-160: 2 actual Korean printed illustrations checked, 8 evidence held, 4 theme memberships",
-    "nextStart": "SV-P 161 (canonical order 161)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 161-170: ten official Korean artworks verified, 18 theme memberships",
+    "nextStart": "SV-P 171 (canonical order 171)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -34101,6 +34331,6 @@
         "lastArtSafeCheckpoint": "SV-P 152 and 160"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 151-160: Korean physical prints for 152/160 inspected; 8 art holds."
+    "lastEvidenceAuditCheckpoint": "SV-P 161-170: all ten Korean official artworks verified; no new evidence holds."
   }
 }
