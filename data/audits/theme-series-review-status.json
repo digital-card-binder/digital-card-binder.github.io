@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-130 한국판 일러스트 102장 검수, 근거 보류 28장. 121-130 한국판 사진에서 126-130 5장 검수, 121-125 5장 보류, 테마 수록 10건 추가. 이미지 바이너리 자가호스팅 별도 미완료.",
-      "reviewedCardCount": 102,
+      "note": "SV-P 001-140 한국판 일러스트 111장 검수, 근거 보류 29장. 131-140 중 9장 한국판 실물 또는 동일 아트 확인, 136 증거 보류. 이미지 바이너리 자체호스팅 별도 미완료.",
+      "reviewedCardCount": 111,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30487,9 +30487,10 @@
         "canonical-order 091-100",
         "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
         "canonical-order 111-120 (111-116 image evidence held)",
-        "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)"
+        "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
+        "canonical-order 131-140 (136 artwork evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 187,
+      "newlyAddedThemeSlotCount": 201,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30592,7 +30593,16 @@
         "SV-P_127",
         "SV-P_128",
         "SV-P_129",
-        "SV-P_130"
+        "SV-P_130",
+        "SV-P_131",
+        "SV-P_132",
+        "SV-P_133",
+        "SV-P_134",
+        "SV-P_135",
+        "SV-P_137",
+        "SV-P_138",
+        "SV-P_139",
+        "SV-P_140"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30623,7 +30633,8 @@
         "SV-P_122",
         "SV-P_123",
         "SV-P_124",
-        "SV-P_125"
+        "SV-P_125",
+        "SV-P_136"
       ],
       "batches": [
         {
@@ -33349,6 +33360,218 @@
               "koreanNumber": "130/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 131-140 (136 artwork held)",
+          "cardNumbers": [
+            "131",
+            "132",
+            "133",
+            "134",
+            "135",
+            "136",
+            "137",
+            "138",
+            "139",
+            "140"
+          ],
+          "status": "9_artwork_reviewed_1_evidence_held_image_archival_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean print numbering; Korean physical-print photos of 132-135 and 137-140 (some in 9-card montage); 131 same-art English image crosschecked by Korean illustrator and moves; 136 artwork withheld",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_131",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000131",
+              "illustrationReferenceUrl": "https://www.cardcollectors.au/products/pokemon-tcg-pachirisu-158-promo",
+              "illustrationSourceNote": "푸른 하늘과 나뭇가지 배경에서 파치리스가 노란 번개를 발생시키는 장면. 영어 SVP158의 Yuya Oka 작화와 두 기술을 한국판 131/SV-P 공식 정보와 대조. (same-art EN SVP158 + Korean official). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "131/SV-P"
+            },
+            {
+              "code": "SV-P_132",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [
+                "sleeping"
+              ],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000132",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167260591839",
+              "illustrationSourceNote": "실내의 베개와 소품 사이에서 눈을 감고 쉬는 이브이. 기존 sleeping 수록 유지. 분홍·연노랑·청록 색채가 선명하며 다른 포켓몬 인형은 실제 카메오로 단정하지 않음. (Korean physical card photo). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "132/SV-P"
+            },
+            {
+              "code": "SV-P_133",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000133",
+              "illustrationReferenceUrl": "https://retroworldkorea.com/korean-pokemon-tcg-trading-card-game-terastal-festival-sv8a-promo-reverse-holo-vaporeon-133-sv-p-20250224-bndr/",
+              "illustrationSourceNote": "샤미드가 초록 잎과 바위, 반짝이는 물방울 앞을 뛰어가는 한국어판 실물 사진을 확인. (Korean physical card photo). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "133/SV-P"
+            },
+            {
+              "code": "SV-P_134",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000134",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167414636022",
+              "illustrationSourceNote": "테라스탈 페스타 ex 한국어판 9종 실물 홍보 사진 중 134/SV-P 쥬피썬더의 노란 번개/번쩍이는 배경 확인; 동일 프로모 카드 번호와 명칭 공식 목록 교차검증. (Korean 9-card product montage). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "134/SV-P"
+            },
+            {
+              "code": "SV-P_135",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000135",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167414636022",
+              "illustrationSourceNote": "한국어판 9종 실물 묶음 사진에서 135/SV-P 부스터의 붉은·주황빛 불꽃 장면 확인; 한국 공식 카드명과 번호 대조. (Korean 9-card product montage). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "135/SV-P"
+            },
+            {
+              "code": "SV-P_136",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000136",
+              "illustrationReferenceUrl": "https://retroworldkorea.com/korean-pokemon-tcg-trading-card-game-terastal-festival-sv8a-promo-reverse-holo-espeon-136-sv-p-20250224-bndr/",
+              "illustrationSourceNote": "136/SV-P 에브이 한국판 번호·명칭·일러스트레이터는 공식 기록으로 확인. 충분히 크게 판독 가능한 일러스트 이미지를 확보하지 못하여 12테마 판정 보류. (Korean catalog listing; artwork insufficient). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "136/SV-P"
+            },
+            {
+              "code": "SV-P_137",
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000137",
+              "illustrationReferenceUrl": "https://retroworldkorea.com/korean-pokemon-tcg-trading-card-game-terastal-festival-sv8a-promo-reverse-holo-umbreon-137-sv-p-20250224-bndr/",
+              "illustrationSourceNote": "137/SV-P 한국판 실물 사진에서 블래키가 어두운 나무와 그늘진 숲 내부에 서 있고 빛이 숲 사이로 들어옴. 밤 시각은 확정하지 않으며 밤/어두운 숲의 분위기로 분류. (Korean physical card photo). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "137/SV-P"
+            },
+            {
+              "code": "SV-P_138",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000138",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167414636022",
+              "illustrationSourceNote": "한국어판 9종 실물 제품 사진의 138/SV-P 리피아가 녹색 잔디와 나무, 푸른빛 풍경 속에 있는 장면으로 확인됨. (Korean 9-card product montage). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "138/SV-P"
+            },
+            {
+              "code": "SV-P_139",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000139",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167414636022",
+              "illustrationSourceNote": "한국어판 9종 실물 제품 사진의 139/SV-P 글레이시아가 푸른 얼음과 흰 설빙 지형을 배경으로 서 있는 장면 확인. (Korean 9-card product montage). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "139/SV-P"
+            },
+            {
+              "code": "SV-P_140",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000140",
+              "illustrationReferenceUrl": "https://retroworldkorea.com/korean-pokemon-tcg-trading-card-game-terastal-festival-sv8a-promo-reverse-holo-sylveon-140-sv-p-20250224-bndr/",
+              "illustrationSourceNote": "140/SV-P 님피아 한국판 실물 카드 사진에서 짙은 분홍 꽃과 잎, 청록색 리본과 꽃길 장면 확인. (Korean physical card photo). 원본 이미지 바이너리 자체호스팅 미검증.",
+              "koreanNumber": "140/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -33373,11 +33596,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 102/248 artworks reviewed, 28 evidence held through 130; archives pending.",
+    "note": "SV-P 111/248 artworks reviewed, 29 evidence held through canonical 140; image archives pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 121-130: 5 Korean physical-print illustrations verified, 5 held, 10 theme memberships",
-    "nextStart": "SV-P 131 (canonical order 131)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 131-140: 9 illustrations visually crosschecked; 136 evidence held; 14 new theme memberships",
+    "nextStart": "SV-P 141 (canonical order 141)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -33477,8 +33700,15 @@
         "pendingCount": 5,
         "audit": "data/audits/theme-svp-121-125-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 120"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 136",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svp-136-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 135"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 121-130: five Korean print artwork photos reviewed, 121-125 artwork evidence held."
+    "lastEvidenceAuditCheckpoint": "SV-P 131-140: 9 artworks crosschecked, 136 evidence held, no image binaries selfhosted."
   }
 }
