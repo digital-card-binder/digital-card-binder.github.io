@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4311,
-    "uniqueThemeCards": 2602,
-    "strictCompleteSetCount": 13,
+    "themeCardSlots": 4324,
+    "uniqueThemeCards": 2609,
+    "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 260,
+    "baselineRemainingSetCount": 259,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 171,
-      "setCount": 21,
+      "cardSlots": 173,
+      "setCount": 22,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1115,
-      "setCount": 28,
+      "cardSlots": 1118,
+      "setCount": 29,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2068,
-      "setCount": 30,
+      "cardSlots": 2075,
+      "setCount": 31,
       "rarities": [
         "AR",
         "C",
@@ -225,8 +225,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 54,
-      "setCount": 20,
+      "cardSlots": 55,
+      "setCount": 21,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 0,
-      "remainingSetCount": 53,
-      "currentThemeSlots": 693
+      "completeSetCount": 1,
+      "remainingSetCount": 52,
+      "currentThemeSlots": 706
     },
     {
       "era": "S",
@@ -386,13 +386,6 @@
     },
     {
       "era": "SV",
-      "code": "SVP1",
-      "name": "ex 스페셜 세트",
-      "cardCount": 7,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
       "code": "SVD",
       "name": "ex 스타트 덱",
       "cardCount": 147,
@@ -521,6 +514,13 @@
       "era": "SV",
       "code": "sv11W",
       "name": "sv11W 도감",
+      "cardCount": 174,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv11B",
+      "name": "sv11B 도감",
       "cardCount": 174,
       "status": "pending"
     }
@@ -2268,9 +2268,14 @@
       "cardCount": 7,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-09",
+      "themeHits": {
+        "season": 3,
+        "color": 7,
+        "night": 2,
+        "cameo": 1
+      }
     },
     {
       "era": "SV",
