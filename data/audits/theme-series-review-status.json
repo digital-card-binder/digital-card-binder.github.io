@@ -37292,8 +37292,8 @@
     "SVB": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVB canonical 001-010: 7 exact official Korean images seen, 3 art holds (002-004); no selfhosted image binaries confirmed.",
-      "reviewedCardCount": 7,
+      "note": "SVB 001-020 canonical recorded: 14 Korean official images directly inspected, 6 artwork holds; no image binaries selfhosted.",
+      "reviewedCardCount": 14,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -37309,9 +37309,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 001,005-010 Korean official art reviewed, 002-004 held"
+        "canonical-order 001-010: 001,005-010 Korean official art reviewed, 002-004 held",
+        "canonical-order 011-020: exact Korean visual art 011,014-018,020; 012,013,019 art held"
       ],
-      "newlyAddedThemeSlotCount": 11,
+      "newlyAddedThemeSlotCount": 21,
       "newlyAddedCards": [
         "SVB_001",
         "SVB_005",
@@ -37319,13 +37320,23 @@
         "SVB_007",
         "SVB_008",
         "SVB_009",
-        "SVB_010"
+        "SVB_010",
+        "SVB_011",
+        "SVB_014",
+        "SVB_015",
+        "SVB_016",
+        "SVB_017",
+        "SVB_018",
+        "SVB_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [
         "SVB_002",
         "SVB_003",
-        "SVB_004"
+        "SVB_004",
+        "SVB_012",
+        "SVB_013",
+        "SVB_019"
       ],
       "batches": [
         {
@@ -37526,6 +37537,203 @@
               "illustrationSourceNote": "한국판 인쇄번호 010/028와 실제 공식 일러스트를 확인: 보송송이 노란 꽃밭에 서 있고 뒤로 별이 보이는 짙은 남색 밤하늘과 달빛 같은 푸른 광채가 나타남. 12개 독립 테마 적합성 검토. 원본 이미지 자가저장/배포 미검증."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "7_official_Korean_artworks_reviewed_3_illustrations_pending",
+          "checkedCardCount": 7,
+          "heldCardCount": 3,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official Korean SVB 011,014-018,020 watermark images visually opened; 012,013,019 not seen",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVB_011",
+              "checked": true,
+              "koreanNumber": "011/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_011.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 뮤가 황금빛·분홍빛으로 번지는 빛과 별 모양 섬광 속에서 꼬리를 들며 떠 있음. color 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_012",
+              "checked": false,
+              "koreanNumber": "012/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YV5YT20W6CH4R3GZD0",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명·인쇄번호 대조 후 공식 이미지 직접 열람을 못 하여 12테마 모두 보류."
+            },
+            {
+              "code": "SVB_013",
+              "checked": false,
+              "koreanNumber": "013/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVBXJQ08KQ2TKY67BS",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명·인쇄번호 대조 후 공식 이미지 직접 열람을 못 하여 12테마 모두 보류."
+            },
+            {
+              "code": "SVB_014",
+              "checked": true,
+              "koreanNumber": "014/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_014.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 날카로운 금속 도구에 푸른·보랏빛 번개가 모이고 자홍·청록 테두리가 둘러진다. color 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_015",
+              "checked": true,
+              "koreanNumber": "015/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_015.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 연보라색·자주색 별무리처럼 빛나는 투명 수정 구체가 흰빛 고리 안에 떠 있다. color 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_016",
+              "checked": true,
+              "koreanNumber": "016/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_016.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 검정·회색 히스이의 헤비볼이 주홍·빨강·금빛 회오리 광선 위에 떠 있다. color 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_017",
+              "checked": true,
+              "koreanNumber": "017/028",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_017.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 금랑이 검정·주황 복장을 하고 붉고 푸른 무늬가 있는 대형 경기장 한가운데 손짓한다. color 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_018",
+              "checked": true,
+              "koreanNumber": "018/028",
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_018.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 분홍 머리의 도정이 붉은 기와지붕과 목조 외벽이 이어진 마을 거리 앞에 서 있다. color, street 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            },
+            {
+              "code": "SVB_019",
+              "checked": false,
+              "koreanNumber": "019/028",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVR5A2JS15GWXTYCFD",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명·인쇄번호 대조 후 공식 이미지 직접 열람을 못 하여 12테마 모두 보류."
+            },
+            {
+              "code": "SVB_020",
+              "checked": true,
+              "koreanNumber": "020/028",
+              "themesMatched": [
+                "color",
+                "night",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "night",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_020.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 태홍이 빌딩과 창들이 보이는 대도시 야경 앞에 서 있고 밝은 보름달과 별이 떠 있다. color, night, street 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
+            }
+          ]
         }
       ]
     }
@@ -37550,11 +37758,11 @@
     "currentSet": "SVB",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVB 001-010: seven Korean official images reviewed across all 12 themes; three artwork holds; next SVB 011-020.",
+    "note": "SVB 011-020 Korean official art reviewed for seven cards, held three. Next SVB 021-030.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVB 001-010: official art 001,005-010 reviewed; 002-004 held, 11 theme slots recorded",
-    "nextStart": "SVB 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SVB 011-020: official Korean artworks 011,014-018,020 reviewed and 10 theme records added; 012,013,019 deferred",
+    "nextStart": "SVB 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -37794,8 +38002,15 @@
         "pendingCount": 3,
         "audit": "data/audits/theme-svb-001-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVB 001 and 005-010"
+      },
+      {
+        "set": "SVB",
+        "range": "canonical-order 012-013 and 019",
+        "pendingCount": 3,
+        "audit": "data/audits/theme-svb-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVB 011,014-018,020"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVB 001-010: 7 official art inspected, 3 unviewed images (002-004), no selfhosted binaries"
+    "lastEvidenceAuditCheckpoint": "SVB 011-020: 7 Korean visual checks, 3 image holds, 0 image binaries selfhosted"
   }
 }
