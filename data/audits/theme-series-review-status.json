@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-120 한국판 공식 그림 검수 97장, 증거 보류 23장. 111-120 배치의 117-120 4장을 검수해 10개 테마 수록 추가, 기본 에너지 111-116은 그림 열람 불가로 보류. 이미지 바이너리 저장/배포 미실시.",
-      "reviewedCardCount": 97,
+      "note": "SV-P 001-130 한국판 일러스트 102장 검수, 근거 보류 28장. 121-130 한국판 사진에서 126-130 5장 검수, 121-125 5장 보류, 테마 수록 10건 추가. 이미지 바이너리 자가호스팅 별도 미완료.",
+      "reviewedCardCount": 102,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30486,9 +30486,10 @@
         "canonical-order 081-090",
         "canonical-order 091-100",
         "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
-        "canonical-order 111-120 (111-116 image evidence held)"
+        "canonical-order 111-120 (111-116 image evidence held)",
+        "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)"
       ],
-      "newlyAddedThemeSlotCount": 177,
+      "newlyAddedThemeSlotCount": 187,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30586,7 +30587,12 @@
         "SV-P_117",
         "SV-P_118",
         "SV-P_119",
-        "SV-P_120"
+        "SV-P_120",
+        "SV-P_126",
+        "SV-P_127",
+        "SV-P_128",
+        "SV-P_129",
+        "SV-P_130"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30612,7 +30618,12 @@
         "SV-P_113",
         "SV-P_114",
         "SV-P_115",
-        "SV-P_116"
+        "SV-P_116",
+        "SV-P_121",
+        "SV-P_122",
+        "SV-P_123",
+        "SV-P_124",
+        "SV-P_125"
       ],
       "batches": [
         {
@@ -33145,6 +33156,199 @@
               "koreanNumber": "120/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 121-130 (121-125 evidence held)",
+          "cardNumbers": [
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130"
+          ],
+          "status": "5_korean_photo_verified_5_held_image_archival_pending",
+          "checkedCardCount": 5,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean 126 Pikachu photograph and 127-130 Korean print montage, crosschecked with Pokemon Korea official named card details; 121-125 Korean artworks inaccessible",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_121",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000121",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_121.png?w=512",
+              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "koreanNumber": "121/SV-P"
+            },
+            {
+              "code": "SV-P_122",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000122",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_122.png?w=512",
+              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "koreanNumber": "122/SV-P"
+            },
+            {
+              "code": "SV-P_123",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000123",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_123.png?w=512",
+              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "koreanNumber": "123/SV-P"
+            },
+            {
+              "code": "SV-P_124",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000124",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_124.png?w=512",
+              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "koreanNumber": "124/SV-P"
+            },
+            {
+              "code": "SV-P_125",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000125",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_125.png?w=512",
+              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "koreanNumber": "125/SV-P"
+            },
+            {
+              "code": "SV-P_126",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://media.bunjang.co.kr/product/365677973_1_1765193739_w1200.jpg",
+              "illustrationReferenceUrl": "https://media.bunjang.co.kr/product/365677973_1_1765193739_w1200.jpg",
+              "illustrationSourceNote": "초록 나무·초원과 푸른 하늘, 오두막을 배경으로 피카츄와 나오하·뜨아거·꾸왁스가 함께 등장한다. 스타팅 포켓몬 세 마리가 피카츄 카드에 동반 등장한다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
+              "koreanNumber": "126/SV-P"
+            },
+            {
+              "code": "SV-P_127",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://rerolltactics.com/cdn/shop/files/2024-12-06_18-24-53-45841-1733477093-Photoroom.png?v=1758308841&width=1445",
+              "illustrationReferenceUrl": "https://rerolltactics.com/cdn/shop/files/2024-12-06_18-24-53-45841-1733477093-Photoroom.png?v=1758308841&width=1445",
+              "illustrationSourceNote": "나옹이 나뭇가지에 앉아 있고 주변에 초록·노랑 식물과 따뜻한 햇빛이 비치는 풀·꽃이 펼쳐진다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
+              "koreanNumber": "127/SV-P"
+            },
+            {
+              "code": "SV-P_128",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://rerolltactics.com/cdn/shop/files/2024-12-06_18-24-53-45841-1733477093-Photoroom.png?v=1758308841&width=1445",
+              "illustrationReferenceUrl": "https://rerolltactics.com/cdn/shop/files/2024-12-06_18-24-53-45841-1733477093-Photoroom.png?v=1758308841&width=1445",
+              "illustrationSourceNote": "팔데아 우파가 풀밭·개울·꽃 사이에 서 있고 뒤로 초록 구릉과 밝은 하늘이 펼쳐진다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
+              "koreanNumber": "128/SV-P"
+            },
+            {
+              "code": "SV-P_129",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://i.ebayimg.com/images/g/y4kAAOSwajloPm35/s-l1600.jpg",
+              "illustrationReferenceUrl": "https://i.ebayimg.com/images/g/y4kAAOSwajloPm35/s-l1600.jpg",
+              "illustrationSourceNote": "스이쿤이 청록·남보라 하늘과 흰색 물결 모양의 광선 사이로 달려 나가고 다채로운 빛이 겹친다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
+              "koreanNumber": "129/SV-P"
+            },
+            {
+              "code": "SV-P_130",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://i.ebayimg.com/images/g/UboAAOSw8kRoPm4B/s-l1600.jpg",
+              "illustrationReferenceUrl": "https://i.ebayimg.com/images/g/UboAAOSw8kRoPm4B/s-l1600.jpg",
+              "illustrationSourceNote": "두랄루돈 뒤에 주황·분홍·노랑으로 물든 노을빛 하늘과 먼 절벽 지형이 펼쳐진다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
+              "koreanNumber": "130/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -33169,11 +33373,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 97/248 artworks reviewed, 23 held through 120, archive pending",
+    "note": "SV-P 102/248 artworks reviewed, 28 evidence held through 130; archives pending.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 111-120: 4 artwork verified, 6 deferred, 10 theme memberships",
-    "nextStart": "SV-P 121 (canonical order 121)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 121-130: 5 Korean physical-print illustrations verified, 5 held, 10 theme memberships",
+    "nextStart": "SV-P 131 (canonical order 131)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -33266,8 +33470,15 @@
         "pendingCount": 6,
         "audit": "data/audits/theme-svp-111-116-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P 110"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 121-125",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-svp-121-125-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 120"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 111-120: 4 verified, 111-116 energy evidence held."
+    "lastEvidenceAuditCheckpoint": "SV-P 121-130: five Korean print artwork photos reviewed, 121-125 artwork evidence held."
   }
 }
