@@ -37292,8 +37292,8 @@
     "SVB": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVB 001-020 canonical recorded: 14 Korean official images directly inspected, 6 artwork holds; no image binaries selfhosted.",
-      "reviewedCardCount": 14,
+      "note": "SVB canonical 001-030 catalogued: 19 exact official Korean artworks reviewed, 11 artwork/number holds. Selfhost binaries unverified.",
+      "reviewedCardCount": 19,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -37310,9 +37310,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: 001,005-010 Korean official art reviewed, 002-004 held",
-        "canonical-order 011-020: exact Korean visual art 011,014-018,020; 012,013,019 art held"
+        "canonical-order 011-020: exact Korean visual art 011,014-018,020; 012,013,019 art held",
+        "canonical-order 021-030: 021-025 Korean official art reviewed; 026-028 images held; 029-030 basic energies exact print numbering/art held"
       ],
-      "newlyAddedThemeSlotCount": 21,
+      "newlyAddedThemeSlotCount": 31,
       "newlyAddedCards": [
         "SVB_001",
         "SVB_005",
@@ -37327,7 +37328,12 @@
         "SVB_016",
         "SVB_017",
         "SVB_018",
-        "SVB_020"
+        "SVB_020",
+        "SVB_021",
+        "SVB_022",
+        "SVB_023",
+        "SVB_024",
+        "SVB_025"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -37336,7 +37342,12 @@
         "SVB_004",
         "SVB_012",
         "SVB_013",
-        "SVB_019"
+        "SVB_019",
+        "SVB_026",
+        "SVB_027",
+        "SVB_028",
+        "SVB_029",
+        "SVB_030"
       ],
       "batches": [
         {
@@ -37734,6 +37745,209 @@
               "illustrationSourceNote": "포켓몬코리아 공식 한국판 실물 카드 이미지 시각 확인: 태홍이 빌딩과 창들이 보이는 대도시 야경 앞에 서 있고 밝은 보름달과 별이 떠 있다. color, night, street 등 12테마 모두 판정. 이미지 바이너리 자가 저장·Cloudflare 배포 여부 미검증."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030"
+          ],
+          "status": "5_Korean_official_artworks_reviewed_5_image_or_number_holds",
+          "checkedCardCount": 5,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea official watermarked SVB 021-025 individually checked; 026-028 inaccessible; 029-030 energy physical numbering and art unknown",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVB_021",
+              "checked": true,
+              "koreanNumber": "021/028",
+              "koreanNumberVerification": "official",
+              "themesMatched": [
+                "color",
+                "season",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009021",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_021.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 및 공식 일러스트 직접 대조: 세레나가 맑고 푸른 하늘 아래 녹음이 우거진 나무와 석재 담장 사이에 놓인 포장된 정원 산책로에 서 있다. 전체 12테마 중 color, season, street 판정."
+            },
+            {
+              "code": "SVB_022",
+              "checked": true,
+              "koreanNumber": "022/028",
+              "koreanNumberVerification": "official",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009022",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_022.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 및 공식 일러스트 직접 대조: 원규가 황금빛과 주황·갈색으로 이루어진 동굴 속 바위와 석재 구조물 앞에 서 있다. 전체 12테마 중 color 판정."
+            },
+            {
+              "code": "SVB_023",
+              "checked": true,
+              "koreanNumber": "023/028",
+              "koreanNumberVerification": "official",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_023.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 및 공식 일러스트 직접 대조: 유채가 초록 숲속에서 두 팔을 벌리고 있고 노란 빛점과 분홍 꽃, 푸른 나무가 뒤에 가득하다. 전체 12테마 중 color, season 판정."
+            },
+            {
+              "code": "SVB_024",
+              "checked": true,
+              "koreanNumber": "024/028",
+              "koreanNumberVerification": "official",
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_024.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 및 공식 일러스트 직접 대조: 주혜가 파란 하늘 아래 붉은 건물과 노란 창문, 상점 형태의 거리 건물 및 먼 산 앞에 서 있다. 전체 12테마 중 color, street 판정."
+            },
+            {
+              "code": "SVB_025",
+              "checked": true,
+              "koreanNumber": "025/028",
+              "koreanNumberVerification": "official",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023009025",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_025.png?w=512",
+              "illustrationSourceNote": "한국판 인쇄번호 및 공식 일러스트 직접 대조: 피아나가 베이지색 바위 절벽과 푸른 하늘 아래 있는 협곡을 달리는 장면. 전체 12테마 중 color, season 판정."
+            },
+            {
+              "code": "SVB_026",
+              "checked": false,
+              "koreanNumber": "026/028",
+              "koreanNumberVerification": "catalog confirmed, exact artwork not seen",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVVD8KKBYX1VZAB6JG",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명과 인쇄번호 카탈로그 대조 완료했으나 동일 한국판 일러스트 직접 열람 못해 12테마 판정 보류."
+            },
+            {
+              "code": "SVB_027",
+              "checked": false,
+              "koreanNumber": "027/028",
+              "koreanNumberVerification": "catalog confirmed, exact artwork not seen",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVHPZ5GCPK9S3HQ4KP",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명과 인쇄번호 카탈로그 대조 완료했으나 동일 한국판 일러스트 직접 열람 못해 12테마 판정 보류."
+            },
+            {
+              "code": "SVB_028",
+              "checked": false,
+              "koreanNumber": "028/028",
+              "koreanNumberVerification": "catalog confirmed, exact artwork not seen",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVF11J6H91WATKEQNN",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드명과 인쇄번호 카탈로그 대조 완료했으나 동일 한국판 일러스트 직접 열람 못해 12테마 판정 보류."
+            },
+            {
+              "code": "SVB_029",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Unnumbered basic energy canonical slot; physical printed number not established",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH7WZ3J1JHD1AS17Q2MQX",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 구성상 기본 에너지 canonical 슬롯 기록. 실제 카드의 물리적 인쇄번호 및 대응 이미지 미확인. 전 테마 보류."
+            },
+            {
+              "code": "SVB_030",
+              "checked": false,
+              "koreanNumber": null,
+              "koreanNumberVerification": "Unnumbered basic energy canonical slot; physical printed number not established",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KY1EH89VG5GKX15Z1M655TE7",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 구성상 기본 에너지 canonical 슬롯 기록. 실제 카드의 물리적 인쇄번호 및 대응 이미지 미확인. 전 테마 보류."
+            }
+          ]
         }
       ]
     }
@@ -37758,11 +37972,11 @@
     "currentSet": "SVB",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVB 011-020 Korean official art reviewed for seven cards, held three. Next SVB 021-030.",
+    "note": "SVB 021-030: five exact Korean arts visually reviewed with 10 theme additions; 026-030 pending evidence and basic energy printed identity; next SVB 031-036.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVB 011-020: official Korean artworks 011,014-018,020 reviewed and 10 theme records added; 012,013,019 deferred",
-    "nextStart": "SVB 021 (canonical order 021)",
+    "lastSafeCheckpoint": "TASK 6 SVB 021-030: 021-025 viewed/10 themes saved, 026-028 unseen, 029-030 energy printed numbers unverified",
+    "nextStart": "SVB 031 (canonical order 031)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -38009,8 +38223,15 @@
         "pendingCount": 3,
         "audit": "data/audits/theme-svb-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVB 011,014-018,020"
+      },
+      {
+        "set": "SVB",
+        "range": "canonical 026-030; last two basic energies with unknown physical printed numbers",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-svb-021-030-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVB canonical 025"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVB 011-020: 7 Korean visual checks, 3 image holds, 0 image binaries selfhosted"
+    "lastEvidenceAuditCheckpoint": "SVB 021-030: official art 021-025, held 026-030; no image binaries selfhosted"
   }
 }
