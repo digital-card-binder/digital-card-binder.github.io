@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-09",
+  "updatedAt": "2026-10-10",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -1411,6 +1411,52 @@
       },
       "nextStart": "SVD canonical 031",
       "note": "7 official Korean watermark images visually verified; 023,024,026 art deferred. Zero original binary files saved."
+    },
+    {
+      "task": 6,
+      "set": "SVD",
+      "range": "previous holds 023,024,026 resolved",
+      "canonicalCardCount": 3,
+      "artworkReviewedCardCount": 3,
+      "artworkPendingCardCount": 0,
+      "externalImageReferenceCountBefore": 3,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 3,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 3,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "season": 2,
+        "color": 3
+      },
+      "nextStart": "SVD 031",
+      "note": "Korean official card image rendered and artwork visually checked. Asset binaries were not copied/self-hosted or CDN deployed."
+    },
+    {
+      "task": 6,
+      "set": "SVD",
+      "range": "canonical-order 031-040",
+      "canonicalCardCount": 10,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "season": 5,
+        "color": 10,
+        "street": 1,
+        "night": 1
+      },
+      "nextStart": "SVD 041",
+      "note": "Korean official card image rendered and artwork visually checked. Asset binaries were not copied/self-hosted or CDN deployed."
     }
   ]
 }
