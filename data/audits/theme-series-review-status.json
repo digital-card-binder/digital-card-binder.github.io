@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical 001-170 중 일러스트 127장 검수 완료, 43장 증거 보류. 이미지 바이너리 저장·배포 미검증.",
-      "reviewedCardCount": 127,
+      "note": "SV-P canonical 001-180: 136장 실제 그림 검수, 44장 증거 보류. 172 공식 상세 410. 이미지 바이너리 저장·배포 별도 미검증.",
+      "reviewedCardCount": 136,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30491,9 +30491,10 @@
         "canonical-order 131-140 (136 artwork evidence held)",
         "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)",
         "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)",
-        "canonical-order 161-170 (10 Korean official illustrations verified)"
+        "canonical-order 161-170 (10 Korean official illustrations verified)",
+        "canonical-order 171-180 (9 artworks reviewed, 172 deferred)"
       ],
-      "newlyAddedThemeSlotCount": 228,
+      "newlyAddedThemeSlotCount": 247,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30621,7 +30622,16 @@
         "SV-P_167",
         "SV-P_168",
         "SV-P_169",
-        "SV-P_170"
+        "SV-P_170",
+        "SV-P_171",
+        "SV-P_173",
+        "SV-P_174",
+        "SV-P_175",
+        "SV-P_176",
+        "SV-P_177",
+        "SV-P_178",
+        "SV-P_179",
+        "SV-P_180"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30667,7 +30677,8 @@
         "SV-P_156",
         "SV-P_157",
         "SV-P_158",
-        "SV-P_159"
+        "SV-P_159",
+        "SV-P_172"
       ],
       "batches": [
         {
@@ -34180,6 +34191,225 @@
               "koreanNumber": "170/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 171-180 (172 artwork evidence held)",
+          "cardNumbers": [
+            "171",
+            "172",
+            "173",
+            "174",
+            "175",
+            "176",
+            "177",
+            "178",
+            "179",
+            "180"
+          ],
+          "status": "9_korean_official_artworks_verified_1_evidence_held_archive_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Official Pokemon Korea original Korean artwork 171 and 173-180; 172 official card page returned 410 Gone",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_171",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000171",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_171.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 페퍼의 마피티프 ex가 눈에 띄는 흰 털과 황금빛 파편·푸른 방사형 이펙트에 둘러싸여 크게 포효함. 페퍼의 얼굴 마크는 별도 포켓몬 카메오가 아님.",
+              "koreanNumber": "171/SV-P"
+            },
+            {
+              "code": "SV-P_172",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000172",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/5a7577d6de4cec22880e5020348f9c85.png",
+              "illustrationSourceNote": "172/SV-P 핫삼 ex: 한국 포켓몬코리아 공식 상세 페이지가 410 Gone으로 표시되어 실제 한국판 일러스트를 직접 판독하지 못함. 외부 한국판 도감 카드 번호·이름은 확인되나 이미지 확인 전에는 어느 테마에도 넣지 않음.",
+              "koreanNumber": "172/SV-P"
+            },
+            {
+              "code": "SV-P_173",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000173",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_173.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 한국 공식 메타몽 프로모에는 라프라스처럼 보이는 파란 형상 위에 피카츄가 함께 앉고, 왼쪽에 보라색 메타몽 둘, 잉어킹, 오른쪽 연꽃 옆 작은 포켓몬, 무지개가 함께 등장함.",
+              "koreanNumber": "173/SV-P"
+            },
+            {
+              "code": "SV-P_174",
+              "checked": true,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "sleeping",
+                "season",
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000174",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_174.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 174 고라파덕은 연잎과 다양한 수련꽃이 핀 연못에 등을 대고 느긋하게 떠 있음. 175 골덕은 같은 Jiro Sasumo 작가가 같은 꽃·연못 풍경을 그려 이어지는 진화 연출로 큐레이션.",
+              "koreanNumber": "174/SV-P"
+            },
+            {
+              "code": "SV-P_175",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "connected",
+                "evolution"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000175",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_175.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 175 골덕은 수련이 가득한 수면을 가르며 빠르게 헤엄침. 174 고라파덕과 Jiro Sasumo 작가 및 같은 색의 수련·연못 자연 배경을 공유하는 연속 진화 모티프.",
+              "koreanNumber": "175/SV-P"
+            },
+            {
+              "code": "SV-P_176",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000176",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_176.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 날개치는머리가 검보라 바탕에서 청록색 머리카락과 분홍빛 소용돌이 에너지 사이에 등장. 명확한 밤하늘·달 장면은 확인되지 않음.",
+              "koreanNumber": "176/SV-P"
+            },
+            {
+              "code": "SV-P_177",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000177",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_177.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 로켓단의 캥카 ex가 아기 캥카와 함께 금빛 방사형 배틀 이펙트에 등장. 아기 캥카는 동일 포켓몬의 새끼로 별도 다른 종 카메오로 세지 않음.",
+              "koreanNumber": "177/SV-P"
+            },
+            {
+              "code": "SV-P_178",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000178",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_178.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 밤의 들것은 파란색 빛 위에 회색과 금색 들것 물품만 그려져 있음. 카드 이름만 보고 실제 밤 풍경으로 분류하지 않음.",
+              "koreanNumber": "178/SV-P"
+            },
+            {
+              "code": "SV-P_179",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000179",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_179.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 로켓단의 최면장치는 파랑 소용돌이 배경의 검은색 헬멧형 도구와 진분홍 부품을 묘사함.",
+              "koreanNumber": "179/SV-P"
+            },
+            {
+              "code": "SV-P_180",
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000180",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_180.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 카드 이미지 직접 판독: 서포트 카지가 녹색 상점 차양, 거리 매장과 색색의 진열대 앞에 서 있음. 진열품은 음식으로 명확하게 식별되지 않아 food를 적용하지 않음.",
+              "koreanNumber": "180/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -34204,11 +34434,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 127/248 Korean artworks verified, 43 evidence held through canonical 170; image archive unverified",
+    "note": "SV-P 136/248 artwork verified, 44 evidence held through canonical 180; image archive unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 161-170: ten official Korean artworks verified, 18 theme memberships",
-    "nextStart": "SV-P 171 (canonical order 171)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 171-180: 9 official artworks verified, 1 evidence held, 19 theme memberships",
+    "nextStart": "SV-P 181 (canonical order 181)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -34329,8 +34559,15 @@
         "pendingCount": 8,
         "audit": "data/audits/theme-svp-151-160-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P 152 and 160"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 172",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svp-171-180-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P canonical 171"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 161-170: all ten Korean official artworks verified; no new evidence holds."
+    "lastEvidenceAuditCheckpoint": "SV-P 171-180: nine official Korean pictures verified; 172 artwork held after official detail HTTP 410."
   }
 }
