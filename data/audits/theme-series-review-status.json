@@ -36209,6 +36209,276 @@
           ]
         }
       ]
+    },
+    "SVAW": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-09",
+      "note": "SVAW 001-010: 9/10 Korean official printed illustrations directly inspected and assessed for all 12 themes; 003 artwork deferred. 19 verified mappings written, 1 art hold. Archive image binaries/deploy pending.",
+      "reviewedCardCount": 9,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010: 9 official Korean illustrations inspected; 003 held"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "SVAW_001",
+        "SVAW_002",
+        "SVAW_004",
+        "SVAW_005",
+        "SVAW_006",
+        "SVAW_007",
+        "SVAW_008",
+        "SVAW_009",
+        "SVAW_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVAW_003"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "9_official_korean_illustrations_verified_1_art_hold_archive_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea printed card images (001,004-010), Korean official tutorial printed 002, Korean catalog printed identities (001-010); 003 unverified illustration",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAW_001",
+              "checked": true,
+              "koreanNumber": "001/023",
+              "catalogName": "맘복치",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_001.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_002",
+              "checked": true,
+              "koreanNumber": "002/023",
+              "catalogName": "꾸왁스",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004002",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/info/images/renew/7_3.png",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_003",
+              "checked": false,
+              "koreanNumber": "003/023",
+              "catalogName": "아꾸왁",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004003",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 마스터 및 한국판 카드 목록으로 번호·이름은 확인, 정확한 인쇄본 그림 이미지 확인이 실패하여 12테마 검수 보류."
+            },
+            {
+              "code": "SVAW_004",
+              "checked": true,
+              "koreanNumber": "004/023",
+              "catalogName": "웨이니발",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_004.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_005",
+              "checked": true,
+              "koreanNumber": "005/023",
+              "catalogName": "데덴네",
+              "themesMatched": [
+                "color",
+                "season",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_005.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_006",
+              "checked": true,
+              "koreanNumber": "006/023",
+              "catalogName": "따라큐 ex",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_006.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_007",
+              "checked": true,
+              "koreanNumber": "007/023",
+              "catalogName": "하느라기",
+              "themesMatched": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_007.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_008",
+              "checked": true,
+              "koreanNumber": "008/023",
+              "catalogName": "쟝고",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_008.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_009",
+              "checked": true,
+              "koreanNumber": "009/023",
+              "catalogName": "맛보돈",
+              "themesMatched": [
+                "color",
+                "season"
+              ],
+              "themesAdded": [
+                "color",
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_009.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            },
+            {
+              "code": "SVAW_010",
+              "checked": true,
+              "koreanNumber": "010/023",
+              "catalogName": "모토마",
+              "themesMatched": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "themesAdded": [
+                "color",
+                "season",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023004010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_010.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 한국판 공식 카드 이미지에서 한국어 카드번호 및 그림을 직접 시각 확인. 각 12개 테마별로 판정. 이미지 자가 저장 및 배포 여부는 별도 보류."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -36231,11 +36501,11 @@
     "currentSet": "SVAW",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAM 25/25 catalog dispositions: 9 illustrated references reviewed, 16 exact Korean art holds; in_progress. Continue SVAW while resolving image backlog, no false complete or selfhosting claims.",
+    "note": "SVAW 001-010 official Korean image review checkpoint, 003 pending; continue SVAW 011-020, no false hosted image claims.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAM 021-025: 25/25 master dispositions recorded (9 artwork reference reviews,16 Korean-art holds); energies 024-025 explicitly unnumbered",
-    "nextStart": "SVAW 001 (canonical order 001)",
+    "lastSafeCheckpoint": "TASK 6 SVAW 001-010: 9 official KR illustrations checked, 003 evidence held; 19 theme mappings on canonical KR keys",
+    "nextStart": "SVAW 011 (canonical order 011)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -36426,8 +36696,15 @@
         "pendingCount": 5,
         "audit": "data/audits/theme-svam-021-025-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAM canonical 009 (010-025 other holds)"
+      },
+      {
+        "set": "SVAW",
+        "range": "canonical-order 003 / printed 003/023",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svaw-003-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAW 002 then 004-010 visually reviewed"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAM 021-025: printed 021-023 crosschecked, synthetic energy catalog 024-025 distinguished; all 5 artwork held."
+    "lastEvidenceAuditCheckpoint": "SVAW 001-010: official KR images 001,002,004-010 visually reviewed; 003 hold"
   }
 }
