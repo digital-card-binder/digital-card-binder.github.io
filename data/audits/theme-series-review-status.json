@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical 001-150 중 일러스트 115장 검수, 35장 판독 근거 보류. 이미지 바이너리 자체호스팅 및 CDN 배포 미완료.",
-      "reviewedCardCount": 115,
+      "note": "SV-P canonical 001-160 중 일러스트 117장 검수, 43장 근거 보류. 미검수 항목은 완료로 처리하지 않았으며 이미지 바이너리 자체 저장/배포 미검증.",
+      "reviewedCardCount": 117,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30489,9 +30489,10 @@
         "canonical-order 111-120 (111-116 image evidence held)",
         "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
         "canonical-order 131-140 (136 artwork evidence held)",
-        "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)"
+        "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)",
+        "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 206,
+      "newlyAddedThemeSlotCount": 210,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30607,7 +30608,9 @@
         "SV-P_142",
         "SV-P_143",
         "SV-P_144",
-        "SV-P_148"
+        "SV-P_148",
+        "SV-P_152",
+        "SV-P_160"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30645,7 +30648,15 @@
         "SV-P_146",
         "SV-P_147",
         "SV-P_149",
-        "SV-P_150"
+        "SV-P_150",
+        "SV-P_151",
+        "SV-P_153",
+        "SV-P_154",
+        "SV-P_155",
+        "SV-P_156",
+        "SV-P_157",
+        "SV-P_158",
+        "SV-P_159"
       ],
       "batches": [
         {
@@ -33764,6 +33775,181 @@
               "koreanNumber": "150/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 151-160 (152,160 artwork reviewed)",
+          "cardNumbers": [
+            "151",
+            "152",
+            "153",
+            "154",
+            "155",
+            "156",
+            "157",
+            "158",
+            "159",
+            "160"
+          ],
+          "status": "2_korean_artwork_verified_8_evidence_held_archive_pending",
+          "checkedCardCount": 2,
+          "heldCardCount": 8,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Two full-size Korean physical-card images for 152 and 160; blog and product references insufficient for other eight",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_151",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000151",
+              "illustrationReferenceUrl": "https://hobbystorys.tistory.com/703",
+              "illustrationSourceNote": "151/SV-P N의 불비달마 한국 실물 수록은 블로그 개봉기로 확인했으나 해당 카드 그림을 충분한 화질로 판독할 이미지 접근 불가.",
+              "koreanNumber": "151/SV-P"
+            },
+            {
+              "code": "SV-P_152",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000152",
+              "illustrationReferenceUrl": "https://globalbunjang.com/product/327227631",
+              "illustrationSourceNote": "한국판 152/SV-P 모야모의 찌리비 카드 사진: 노랑·핑크 번개 모티프와 청록 헤어의 모야모가 찌리비 뒤에 함께 등장. 일러스트 속 사람은 포켓몬 카메오로 오인하지 않음.",
+              "koreanNumber": "152/SV-P"
+            },
+            {
+              "code": "SV-P_153",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000153",
+              "illustrationReferenceUrl": "https://hobbystorys.tistory.com/703",
+              "illustrationSourceNote": "153/SV-P 릴리에의 에리본 한국판 실물 공개 자료 존재하나 실제 배경·추가 등장 개체를 판독할 원본 이미지 확인 불가.",
+              "koreanNumber": "153/SV-P"
+            },
+            {
+              "code": "SV-P_154",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000154",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167378826463",
+              "illustrationSourceNote": "154/SV-P 호브의 윽우지는 배틀파트너즈 5종 모음 속 카드임을 확인했으나 장면/테마 단정이 가능한 크기로 확인하지 못함.",
+              "koreanNumber": "154/SV-P"
+            },
+            {
+              "code": "SV-P_155",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000155",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167378826463",
+              "illustrationSourceNote": "155/SV-P 대체 티켓 개별 한국판 일러스트 장면 확인 전이라 명칭만으로 음식·일·도시 테마 분류하지 않음.",
+              "koreanNumber": "155/SV-P"
+            },
+            {
+              "code": "SV-P_156",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000156",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000156",
+              "illustrationSourceNote": "156/SV-P 릴리에의 큐아링 한국 공식 카드번호 확인. 일본 199/SV-P 이미지는 한국판 실물 그림 검증을 대신하지 않음.",
+              "koreanNumber": "156/SV-P"
+            },
+            {
+              "code": "SV-P_157",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000157",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000157",
+              "illustrationSourceNote": "157/SV-P N의 조로아 한국 실물 그림 및 동일 일러스트 근거 판독 대기.",
+              "koreanNumber": "157/SV-P"
+            },
+            {
+              "code": "SV-P_158",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000158",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000158",
+              "illustrationSourceNote": "158/SV-P 모야모 서포트 한국판 실물 장면을 판독할 근거 대기.",
+              "koreanNumber": "158/SV-P"
+            },
+            {
+              "code": "SV-P_159",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000159",
+              "illustrationReferenceUrl": "https://collectory.cc/cards/a20b3d2e-abe1-466c-bfad-8d9e67567755?lang=en",
+              "illustrationSourceNote": "159/SV-P 캥카 한국 리그 프로모·Mékayu 일러스트레이터가 교차확인되나 그림 속 장면/카메오를 제대로 판독할 이미지 접근 불가.",
+              "koreanNumber": "159/SV-P"
+            },
+            {
+              "code": "SV-P_160",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "cameo"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000160",
+              "illustrationReferenceUrl": "https://globalbunjang.com/product/381854612",
+              "illustrationSourceNote": "한국판 160/SV-P 피카츄 실물 카드 사진에서 꽃밭 사이를 뛰는 피카츄, 왼쪽의 나오하, 오른쪽의 뜨아거 등 포켓몬 동반 출연과 밝은 자연 배경 확인.",
+              "koreanNumber": "160/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -33788,11 +33974,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 115/248 reviewed, 35 image-evidence held through 150; image archive not verified",
+    "note": "SV-P 117/248 art verified, 43 evidence held through canonical 160; image archive unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 141-150: 4 artwork evidences reviewed, 6 held, 5 theme memberships",
-    "nextStart": "SV-P 151 (canonical order 151)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 151-160: 2 actual Korean printed illustrations checked, 8 evidence held, 4 theme memberships",
+    "nextStart": "SV-P 161 (canonical order 161)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -33906,8 +34092,15 @@
         "pendingCount": 6,
         "audit": "data/audits/theme-svp-141-150-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P 144 and 148"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 151,153-159",
+        "pendingCount": 8,
+        "audit": "data/audits/theme-svp-151-160-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P 152 and 160"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 141-150: six exact Korean images uninspected; no image binaries hosted."
+    "lastEvidenceAuditCheckpoint": "SV-P 151-160: Korean physical prints for 152/160 inspected; 8 art holds."
   }
 }
