@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P canonical 001-180: 136장 실제 그림 검수, 44장 증거 보류. 172 공식 상세 410. 이미지 바이너리 저장·배포 별도 미검증.",
-      "reviewedCardCount": 136,
+      "note": "SV-P canonical order 001-190 중 146장 그림 검수, 44장 증거 보류. canonical 181-190은 실제 인쇄 186-195이며 번호 혼용 방지. 바이너리 저장·배포 미검증.",
+      "reviewedCardCount": 146,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30492,9 +30492,10 @@
         "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)",
         "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)",
         "canonical-order 161-170 (10 Korean official illustrations verified)",
-        "canonical-order 171-180 (9 artworks reviewed, 172 deferred)"
+        "canonical-order 171-180 (9 artworks reviewed, 172 deferred)",
+        "canonical-order 181-190 (printed 186-195): 10 official images reviewed"
       ],
-      "newlyAddedThemeSlotCount": 247,
+      "newlyAddedThemeSlotCount": 259,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30631,7 +30632,17 @@
         "SV-P_177",
         "SV-P_178",
         "SV-P_179",
-        "SV-P_180"
+        "SV-P_180",
+        "SV-P_186",
+        "SV-P_187",
+        "SV-P_188",
+        "SV-P_189",
+        "SV-P_190",
+        "SV-P_191",
+        "SV-P_192",
+        "SV-P_193",
+        "SV-P_194",
+        "SV-P_195"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -34410,6 +34421,213 @@
               "koreanNumber": "180/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 181-190 = printed SV-P 186-195 (all ten Korean artworks verified)",
+          "cardNumbers": [
+            "186",
+            "187",
+            "188",
+            "189",
+            "190",
+            "191",
+            "192",
+            "193",
+            "194",
+            "195"
+          ],
+          "status": "10_korean_official_artworks_verified_canonical_vs_print_numbers_mapped_archive_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Official Korean detail/image archive for printed 186-195/SV-P, crosschecked with canonical-order 181-190",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_186",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000186",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_186.png?w=512",
+              "illustrationSourceNote": "캐노니컬 181/248, 한국판 인쇄번호 186/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 하얀·푸른 약제 분무기가 연둣빛·청록빛 원형 보케 배경에서 빛나는 장면. 꽃밭이나 자연 풍경 실물은 아님.",
+              "koreanNumber": "186/SV-P"
+            },
+            {
+              "code": "SV-P_187",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000187",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_187.png?w=512",
+              "illustrationSourceNote": "캐노니컬 182/248, 한국판 인쇄번호 187/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 다양한 에너지 심볼을 가진 검은 장치 위의 붉은 불꽃 에너지 구체와 청록·파란빛 원형 광선.",
+              "koreanNumber": "187/SV-P"
+            },
+            {
+              "code": "SV-P_188",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000188",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_188.png?w=512",
+              "illustrationSourceNote": "캐노니컬 183/248, 한국판 인쇄번호 188/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 검은 손잡이의 빨간 대형 해머가 금색·주황빛 파편을 깨뜨리는 배틀 이펙트.",
+              "koreanNumber": "188/SV-P"
+            },
+            {
+              "code": "SV-P_189",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000189",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_189.png?w=512",
+              "illustrationSourceNote": "캐노니컬 184/248, 한국판 인쇄번호 189/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 보라색·파랑색 전광선 속에 두 몬스터볼이 기계 장치 위를 움직이는 추상적인 교체 그림.",
+              "koreanNumber": "189/SV-P"
+            },
+            {
+              "code": "SV-P_190",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000190",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_190.png?w=512",
+              "illustrationSourceNote": "캐노니컬 185/248, 한국판 인쇄번호 190/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 파란색의 진공총 형태 포획 장치가 붉은 소용돌이 배경에서 노란 원형 고리를 발사하는 그림.",
+              "koreanNumber": "190/SV-P"
+            },
+            {
+              "code": "SV-P_191",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000191",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_191.png?w=512",
+              "illustrationSourceNote": "캐노니컬 186/248, 한국판 인쇄번호 191/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 검정과 노랑의 하이퍼볼이 주황·분홍 반짝임에 둘러싸여 있는 추상 배경. 해질녘의 실제 자연 풍경은 아니므로 sunset 제외.",
+              "koreanNumber": "191/SV-P"
+            },
+            {
+              "code": "SV-P_192",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "night"
+              ],
+              "themesAdded": [
+                "color",
+                "night"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000192",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_192.png?w=512",
+              "illustrationSourceNote": "캐노니컬 187/248, 한국판 인쇄번호 192/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 게치스가 어두운 석조 아치 아래 서 있으며 뒤쪽 밤하늘의 보름달과 구름이 명확하게 보임. 밤/달빛과 인물 중심 카드를 구분함.",
+              "koreanNumber": "192/SV-P"
+            },
+            {
+              "code": "SV-P_193",
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000193",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_193.png?w=512",
+              "illustrationSourceNote": "캐노니컬 188/248, 한국판 인쇄번호 193/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 체렌이 건물 외벽 및 창과 포켓몬볼 간판 앞에 서 있고 왼쪽에 가로수·하늘이 보이는 생활 공간. 다른 포켓몬 카메오는 없음.",
+              "koreanNumber": "193/SV-P"
+            },
+            {
+              "code": "SV-P_194",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000194",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_194.png?w=512",
+              "illustrationSourceNote": "캐노니컬 189/248, 한국판 인쇄번호 194/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 짙은 녹색과 연두색 체크 배경에 녹색 풀 에너지 심볼이 떠 있는 추상 무늬. 진짜 식물이나 숲 장면은 아님.",
+              "koreanNumber": "194/SV-P"
+            },
+            {
+              "code": "SV-P_195",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000195",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_195.png?w=512",
+              "illustrationSourceNote": "캐노니컬 190/248, 한국판 인쇄번호 195/SV-P: 포켓몬코리아 공식 일러스트 대조 결과 빨간색과 주황색 체크 배경의 불꽃 에너지 심볼과 흰빛 광선. 실제 계절·일출·노을 장면은 아님.",
+              "koreanNumber": "195/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -34434,11 +34652,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 136/248 artwork verified, 44 evidence held through canonical 180; image archive unverified",
+    "note": "SV-P 146/248 artworks verified; 44 evidence held through canonical 190; print numbering diverges at canonical 181. Image archive unverified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 171-180: 9 official artworks verified, 1 evidence held, 19 theme memberships",
-    "nextStart": "SV-P 181 (canonical order 181)",
+    "lastSafeCheckpoint": "TASK 6 SV-P canonical 181-190 / printed 186-195: ten Korean official images, 12 theme memberships",
+    "nextStart": "SV-P 191 (canonical order 191)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -34568,6 +34786,6 @@
         "lastArtSafeCheckpoint": "SV-P canonical 171"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 171-180: nine official Korean pictures verified; 172 artwork held after official detail HTTP 410."
+    "lastEvidenceAuditCheckpoint": "SV-P canonical 181-190 printed 186-195: 10 official Korean print artworks inspected, no new evidence holds."
   }
 }

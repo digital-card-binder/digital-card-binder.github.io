@@ -810,6 +810,24 @@
       "brokenReferenceCount": null,
       "nextStart": "SV-P 181",
       "note": "9 official Korean watermark artwork images visually inspected. 172 Korean official artwork inaccessible (HTTP 410), so deferred. 10 underlying binary archives/decode/CDN deployment unverified."
+    },
+    {
+      "task": 6,
+      "set": "SV-P",
+      "range": "canonical 181-190 corresponds to printed 186-195 (10 official artworks verified)",
+      "canonicalCardCount": 10,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "nextStart": "SV-P canonical 191",
+      "note": "All ten exact Korean printed card images 186-195 read and mapped correctly to canonical 181-190. No underlying binaries self-hosted, decoded, or Cloudflare deployed."
     }
   ]
 }
