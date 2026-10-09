@@ -39094,8 +39094,8 @@
     "SVD": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVD 001-010 nine exact Korean official illustrations reviewed; 007 illustration inaccessible; one existing SVD_009 sleeping record preserved/official evidence upgraded. 20 new theme placements.",
-      "reviewedCardCount": 9,
+      "note": "SVD canonical 001-020: official Korean artworks 18 reviewed, 007 and 012 held, 36 new theme placements, 1 previous SVD_009 sleeping evidence corrected.",
+      "reviewedCardCount": 18,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -39111,9 +39111,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 9 Korean printed artworks verified, 007 held"
+        "canonical-order 001-010: 9 Korean printed artworks verified, 007 held",
+        "canonical-order 011-020: 9 official Korean artworks verified, 012 held"
       ],
-      "newlyAddedThemeSlotCount": 20,
+      "newlyAddedThemeSlotCount": 36,
       "newlyAddedCards": [
         "SVD_001",
         "SVD_002",
@@ -39123,13 +39124,23 @@
         "SVD_006",
         "SVD_008",
         "SVD_009",
-        "SVD_010"
+        "SVD_010",
+        "SVD_011",
+        "SVD_013",
+        "SVD_014",
+        "SVD_015",
+        "SVD_016",
+        "SVD_017",
+        "SVD_018",
+        "SVD_019",
+        "SVD_020"
       ],
       "existingSkippedCards": [
         "SVD_009"
       ],
       "heldCards": [
-        "SVD_007"
+        "SVD_007",
+        "SVD_012"
       ],
       "batches": [
         {
@@ -39365,6 +39376,229 @@
               "illustrationSourceNote": "정확한 한국어판 공식 일러스트를 시각 검수: 올리뇨가 파란 하늘 아래 주황빛 작은 들꽃과 푸른 덤불이 우거진 초원 속에 서 있다. 12개 테마 결과 season, color. 기존 없음 기록 보존, 보강. 이미지 자체저장 미검증."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "9_official_Korean_artworks_reviewed_1_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean official printed BS2023016011-020, actual watermark images individually opened except image SVD_012 unavailable",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVD_011",
+              "checked": true,
+              "koreanNumber": "011/139",
+              "name": "올리르바",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_011.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 푸른 하늘과 짙푸른 구름, 풀숲과 바위산 사이에서 갈색 올리브 열매가 달린 큰 녹색 잎을 펼치고 서 있는 올리르바. 12개 테마 독립 검수 후 season, color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_012",
+              "checked": false,
+              "koreanNumber": "012/139",
+              "name": "팔데아 켄타로스",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016012",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국 공식 상세 카드 이미지 직접 접근 불가로 실물 그림 판독 미완료; 12개 독립 테마 판정 모두 보류."
+            },
+            {
+              "code": "SVD_013",
+              "checked": true,
+              "koreanNumber": "013/139",
+              "name": "코터스",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_013.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 코터스가 밝은 하늘 아래 황토빛 바위 절벽 사이의 돌길을 걸어가는 장면. 12개 테마 독립 검수 후 season, color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_014",
+              "checked": true,
+              "koreanNumber": "014/139",
+              "name": "비크티니 ex",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_014.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 비크티니 ex가 주황색 불꽃 광륜과 강렬한 노랑빛 소용돌이를 배경으로 공중에서 돌진하는 전투 일러스트. 12개 테마 독립 검수 후 color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_015",
+              "checked": true,
+              "koreanNumber": "015/139",
+              "name": "불켜미",
+              "themesMatched": [
+                "night",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_015.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 불켜미가 어두운 남색 하늘과 조명이 있는 뾰족 지붕·창문의 도시 건물 앞에서 청록 유령불을 일으키고 있다. 12개 테마 독립 검수 후 night, street, color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_016",
+              "checked": true,
+              "koreanNumber": "016/139",
+              "name": "램프라",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_016.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 램프라가 나선형 장식과 둥근 유리 장식이 보이는 고풍스러운 갈색 돔 실내 천장을 배경으로 떠 있다. 12개 테마 독립 검수 후 color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_017",
+              "checked": true,
+              "koreanNumber": "017/139",
+              "name": "샹델라",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_017.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 샹델라가 회오리치는 청록색 바람과 땅을 휘감는 주황색 불꽃 앞에서 검은 촛대 형태를 펼친다. 12개 테마 독립 검수 후 color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_018",
+              "checked": true,
+              "koreanNumber": "018/139",
+              "name": "활화르바",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_018.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 흰 털과 붉은 뿔을 가진 활화르바가 거친 회갈색 돌바닥과 바위 절벽에 엎드려 있는 실사풍 장면. 12개 테마 독립 검수 후 season, color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_019",
+              "checked": true,
+              "koreanNumber": "019/139",
+              "name": "불카모스",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_019.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 불카모스가 보라빛 산맥과 노랑 구름이 겹친 원색적 산악 풍경 위에서 커다란 붉은 날개를 펼친다. 12개 테마 독립 검수 후 season, color 해당. 이미지 원본 저장 미확인."
+            },
+            {
+              "code": "SVD_020",
+              "checked": true,
+              "koreanNumber": "020/139",
+              "name": "카르본",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_020.png?w=512",
+              "illustrationSourceNote": "한국 공식 일러스트 실제 육안 확인: 카르본이 회갈색 산악 절벽을 배경으로 불꽃을 흩뿌리며 뛰어오르는 장면. 12개 테마 독립 검수 후 season, color 해당. 이미지 원본 저장 미확인."
+            }
+          ]
         }
       ]
     }
@@ -39389,11 +39623,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "Continue Korean SVD 011 onward. SVD 007 image unavailable; no inference. Retain all earlier holds and other sets.",
+    "note": "SVD 001-020 actual Korean images reviewed 18, holds 007 and 012. Next 021.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD 001-010: 9 Korean official artworks visually verified, 1 held (007), 20 new theme links and 1 existing theme evidence updated.",
-    "nextStart": "SVD 011 (canonical order 011), SVD 007 held",
+    "lastSafeCheckpoint": "TASK 6 SVD 011-020: 9 Korean official artworks reviewed, 1 image hold (012), 16 theme links added; previous 007 hold remains",
+    "nextStart": "SVD 021 (canonical order 021); holds 007,012",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -39689,6 +39923,13 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svd-001-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 006 with 008-010 independently reviewed"
+      },
+      {
+        "set": "SVD",
+        "range": "canonical-order 012",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svd-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVD 011 and 013-020 official illustrations checked"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVC 001-010: nine official art images inspected, 005 held"
