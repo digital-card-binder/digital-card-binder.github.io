@@ -1075,6 +1075,28 @@
       },
       "nextStart": "SVAL canonical 011",
       "note": "SVAL 002 and 003 Korean art visually examined. 8 Korean images unviewed. 0 selfhost image binaries archived or deployed."
+    },
+    {
+      "task": 6,
+      "set": "SVAL",
+      "range": "canonical-order 011-020",
+      "canonicalCardCount": 10,
+      "artworkReviewedCardCount": 5,
+      "artworkPendingCardCount": 5,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "color": 5,
+        "season": 1
+      },
+      "nextStart": "SVAL canonical 021",
+      "note": "Korean official watermark artwork inspected for SVAL 011,012,018,019,020; remaining 013-017 held. No image binary saved or deployed; external image URL left unchanged."
     }
   ]
 }

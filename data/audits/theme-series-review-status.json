@@ -36804,8 +36804,8 @@
     "SVAL": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "Korean SVAL 001-010 canonical catalog recorded; 002 and 003 exact KR art visually reviewed for 12 themes; other 8 held. No self-hosted image binaries verified.",
-      "reviewedCardCount": 2,
+      "note": "SVAL 001-020 catalogued, 7 exact Korean artworks reviewed (002,003,011,012,018-020), 13 artwork holds, no selfhost image binaries verified.",
+      "reviewedCardCount": 7,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -36821,12 +36821,18 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 002 and 003 confirmed Korean printed art; 001,004-010 art held"
+        "canonical-order 001-010: 002 and 003 confirmed Korean printed art; 001,004-010 art held",
+        "canonical-order 011-020: 011,012,018-020 official Korean art reviewed; 013-017 held"
       ],
-      "newlyAddedThemeSlotCount": 4,
+      "newlyAddedThemeSlotCount": 10,
       "newlyAddedCards": [
         "SVAL_002",
-        "SVAL_003"
+        "SVAL_003",
+        "SVAL_011",
+        "SVAL_012",
+        "SVAL_018",
+        "SVAL_019",
+        "SVAL_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -36837,7 +36843,12 @@
         "SVAL_007",
         "SVAL_008",
         "SVAL_009",
-        "SVAL_010"
+        "SVAL_010",
+        "SVAL_013",
+        "SVAL_014",
+        "SVAL_015",
+        "SVAL_016",
+        "SVAL_017"
       ],
       "batches": [
         {
@@ -37014,6 +37025,191 @@
               "illustrationSourceNote": "한국판 카드 이름·관리코드 대조, 이미지 직접 판독 불가로 12테마 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "5_korean_official_illustrations_reviewed_5_pending",
+          "checkedCardCount": 5,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokemon Korea Korean-print SVAL_011,012,018,019,020 official watermark imagery visually inspected; other five inaccessible",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SVAL_011",
+              "checked": true,
+              "koreanNumber": "011/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_011.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 초록색 바탕과 노란 띠의 네스트볼이 푸른색·흰색 광선을 배경으로 중앙에 떠 있음. 12개 테마 개별 비교 후 color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
+            },
+            {
+              "code": "SVAL_012",
+              "checked": true,
+              "koreanNumber": "012/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_012.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 검은 에너지 전송 장치 위로 붉은 불꽃 에너지 구체가 떠 있으며 흰·푸른 소용돌이가 배경을 이룸. 12개 테마 개별 비교 후 color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
+            },
+            {
+              "code": "SVAL_013",
+              "checked": false,
+              "koreanNumber": "013/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBYZCFSDCW3B84XTDN",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 canonical 카드명·번호 및 카탈로그 원문 확보. 동일 카드의 한국판 인쇄 일러스트를 직접 열람하지 못해 모든 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_014",
+              "checked": false,
+              "koreanNumber": "014/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHB2ZC03R5YKZS01ZS1",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 canonical 카드명·번호 및 카탈로그 원문 확보. 동일 카드의 한국판 인쇄 일러스트를 직접 열람하지 못해 모든 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_015",
+              "checked": false,
+              "koreanNumber": "015/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHB7G2W9WKRF8MJV0Z1",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 canonical 카드명·번호 및 카탈로그 원문 확보. 동일 카드의 한국판 인쇄 일러스트를 직접 열람하지 못해 모든 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_016",
+              "checked": false,
+              "koreanNumber": "016/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBNA6MWGQKDN98DK5V",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 canonical 카드명·번호 및 카탈로그 원문 확보. 동일 카드의 한국판 인쇄 일러스트를 직접 열람하지 못해 모든 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_017",
+              "checked": false,
+              "koreanNumber": "017/021",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEN26DVCMTW7REVRJMGFT/cards/01KW1C5ZHBPFCS9WVBMHXD1SHP",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국어판 canonical 카드명·번호 및 카탈로그 원문 확보. 동일 카드의 한국판 인쇄 일러스트를 직접 열람하지 못해 모든 12테마 판정 보류."
+            },
+            {
+              "code": "SVAL_018",
+              "checked": true,
+              "koreanNumber": "018/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_018.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 투로박사가 청록색 연구실 기기 앞에서 흰 실험복과 보라색 복장을 하고 서 있음. 포켓몬은 없음. 12개 테마 개별 비교 후 color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
+            },
+            {
+              "code": "SVAL_019",
+              "checked": true,
+              "koreanNumber": "019/021",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_019.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 노란 상의·빨간 바지의 반바지 꼬마가 햇볕이 비치는 나무가 우거진 숲길 위를 달림. 12개 테마 개별 비교 후 season, color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
+            },
+            {
+              "code": "SVAL_020",
+              "checked": true,
+              "koreanNumber": "020/021",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023003020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAL_020.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어판 이미지에서 직접 확인: 저지맨이 녹색·검정색 심판복을 입고 주황색 무대 조명과 푸른 전광판이 보이는 경기장에 서 있음. 12개 테마 개별 비교 후 color 판정. 이미지 자체호스팅·배포 검증은 수행하지 않음."
+            }
+          ]
         }
       ]
     }
@@ -37038,11 +37234,11 @@
     "currentSet": "SVAL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVAL canonical 001-010: 2 exact Korean art verifications, 8 held artworks. Proceed SVAL 011-020, no false selfhosting.",
+    "note": "SVAL 011-020: 5 official KR artworks reviewed with 6 theme slots saved; five artwork holds kept, selfhosting unverified. Next SVAL 021-023.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVAL 001-010: 002 and 003 exact Korean images visually reviewed and four theme maps saved; 8 artwork holds",
-    "nextStart": "SVAL 011 (canonical order 011)",
+    "lastSafeCheckpoint": "TASK 6 SVAL 011-020: official images visually reviewed for canonical 011,012,018-020; held 013-017; 6 theme slots saved",
+    "nextStart": "SVAL 021 (canonical order 021)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -37261,8 +37457,15 @@
         "pendingCount": 8,
         "audit": "data/audits/theme-sval-001-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVAL 002 and 003 exact Korean cards viewed"
+      },
+      {
+        "set": "SVAL",
+        "range": "canonical-order 013-017",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-sval-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAL canonical 012, 018-020 art visually verified"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVAL 001-010: 002 Korean official educational illustration, 003 KREAM Korean print photo, 8 art holds"
+    "lastEvidenceAuditCheckpoint": "SVAL 011-020: 5 official artworks verified; 5 art holds; 6 verified theme additions"
   }
 }
