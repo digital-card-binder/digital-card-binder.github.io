@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-09",
+  "task": 6,
+  "set": "SVD",
+  "range": "canonical-order 001-010",
+  "canonicalCardCount": 10,
+  "artworkReviewedCardCount": 9,
+  "artworkPendingCardCount": 1,
+  "themeAdditions": {
+    "night": 1,
+    "season": 8,
+    "color": 9,
+    "street": 2
+  },
+  "themeEvidenceModifications": [
+    {
+      "card": "SVD_009",
+      "theme": "sleeping"
+    }
+  ],
+  "imageBinarySelfHostedCount": 0,
+  "cards": [
+    {
+      "code": "SVD_007",
+      "checked": false,
+      "koreanNumber": "007/139",
+      "name": "빼미스로우",
+      "themesMatched": [],
+      "themesAdded": [],
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "needsReview": true,
+      "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016007",
+      "illustrationReferenceUrl": null,
+      "illustrationSourceNote": "공식 한국판 카드 상세 이름·번호 확인 완료. 공식 이미지 접근에 실패하여 12테마 판정 보류."
+    }
+  ],
+  "nextStart": "SVD 011; revisit 007 when Korean official art becomes accessible"
+}
