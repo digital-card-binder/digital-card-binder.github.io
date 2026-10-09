@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SV-P 001-140 한국판 일러스트 111장 검수, 근거 보류 29장. 131-140 중 9장 한국판 실물 또는 동일 아트 확인, 136 증거 보류. 이미지 바이너리 자체호스팅 별도 미완료.",
-      "reviewedCardCount": 111,
+      "note": "SV-P canonical 001-150 중 일러스트 115장 검수, 35장 판독 근거 보류. 이미지 바이너리 자체호스팅 및 CDN 배포 미완료.",
+      "reviewedCardCount": 115,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30488,9 +30488,10 @@
         "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
         "canonical-order 111-120 (111-116 image evidence held)",
         "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
-        "canonical-order 131-140 (136 artwork evidence held)"
+        "canonical-order 131-140 (136 artwork evidence held)",
+        "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)"
       ],
-      "newlyAddedThemeSlotCount": 201,
+      "newlyAddedThemeSlotCount": 206,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30602,7 +30603,11 @@
         "SV-P_137",
         "SV-P_138",
         "SV-P_139",
-        "SV-P_140"
+        "SV-P_140",
+        "SV-P_142",
+        "SV-P_143",
+        "SV-P_144",
+        "SV-P_148"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30634,7 +30639,13 @@
         "SV-P_123",
         "SV-P_124",
         "SV-P_125",
-        "SV-P_136"
+        "SV-P_136",
+        "SV-P_141",
+        "SV-P_145",
+        "SV-P_146",
+        "SV-P_147",
+        "SV-P_149",
+        "SV-P_150"
       ],
       "batches": [
         {
@@ -33572,6 +33583,187 @@
               "koreanNumber": "140/SV-P"
             }
           ]
+        },
+        {
+          "range": "canonical-order 141-150 (141,145-147,149-150 artwork held)",
+          "cardNumbers": [
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147",
+            "148",
+            "149",
+            "150"
+          ],
+          "status": "4_artwork_reviewed_6_evidence_held_image_archive_pending",
+          "checkedCardCount": 4,
+          "heldCardCount": 6,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean physical-card photo 142-144; identical-illustration comparison for 148 with official Korean illustrator/card effect; 141,145-147,149-150 artwork unresolved",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_141",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000141",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/389791953580",
+              "illustrationSourceNote": "141/SV-P 자루도 한국 리그 프로모 한국판 실물 존재는 확인. 일러스트 장면의 형태·배경/테마를 충분히 판독할 근거 미확보.",
+              "koreanNumber": "141/SV-P"
+            },
+            {
+              "code": "SV-P_142",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000142",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/236065280400",
+              "illustrationSourceNote": "한국판 테라스탈 페스타 ex 컬렉션 세트 142/SV-P 에브이 ex 실물 사진의 보라·청록 테라스탈 결정 빛 배경. 143번과 나란히 인쇄번호 대조. 연결된 단일 장면 증거는 없어 connected 제외.",
+              "koreanNumber": "142/SV-P"
+            },
+            {
+              "code": "SV-P_143",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000143",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/236065280400",
+              "illustrationSourceNote": "같은 한국판 실물 사진에서 143/SV-P 블래키 ex가 테라스탈 광채로 표현된 장면. 명백한 밤/달빛 장면이 아니므로 night 제외.",
+              "koreanNumber": "143/SV-P"
+            },
+            {
+              "code": "SV-P_144",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000144",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/167378826463",
+              "illustrationSourceNote": "한국판 5장 묶음 사진에서 144/SV-P 호브의 찌르성게 ex가 노랑·주황색 전기광을 내는 그래픽. 나머지 동봉 카드는 개별 번호와 혼동하지 않음.",
+              "koreanNumber": "144/SV-P"
+            },
+            {
+              "code": "SV-P_145",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000145",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000145",
+              "illustrationSourceNote": "145/SV-P 흔들풍손 한국 공식 번호·일러스트 작가 Shimaris Yukichi 확인. 화면 장면을 충분히 판독할 한국판 실물 사진 미확보.",
+              "koreanNumber": "145/SV-P"
+            },
+            {
+              "code": "SV-P_146",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000146",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000146",
+              "illustrationSourceNote": "146/SV-P 둥실라이드 한국 공식 번호·작가 Shimaris Yukichi 확인. 그림의 장소/빛/주변 카메오를 판독할 사진 미확보.",
+              "koreanNumber": "146/SV-P"
+            },
+            {
+              "code": "SV-P_147",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000147",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000147",
+              "illustrationSourceNote": "147/SV-P 싸리용 한국 공식 번호·작가 Jerky 확인. 공격 이름이나 포켓몬 생태 서술로 테마를 추론하지 않고 그림 검수 보류.",
+              "koreanNumber": "147/SV-P"
+            },
+            {
+              "code": "SV-P_148",
+              "checked": true,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000148",
+              "illustrationReferenceUrl": "https://www.ebay.com/itm/286358314134",
+              "illustrationSourceNote": "한국 SV8a 145/187 절친 포핀 카드 사진에서 음식인 포핀 두 개가 그림 중심. 한국 148/SV-P 공식 항목과 같은 AYUMI ODASHIMA 작가 및 아이템 카드 효과로 동일 그림을 대조하며 한국 프로모 카드 번호는 별도 유지. 한국 148 실물 아트 바이너리는 미확보.",
+              "koreanNumber": "148/SV-P"
+            },
+            {
+              "code": "SV-P_149",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000149",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000149",
+              "illustrationSourceNote": "149/SV-P 페퍼 한국판 번호는 마스터에 존재. 서포트 캐릭터라는 명칭만으로 street/food/cameo 테마를 추론할 수 없어 보류.",
+              "koreanNumber": "149/SV-P"
+            },
+            {
+              "code": "SV-P_150",
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000150",
+              "illustrationReferenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000150",
+              "illustrationSourceNote": "150/SV-P 포켓몬센터 직원 한국 공식 번호·작가 Tomowaka 확인. 의료 업무 장면이라는 실물 이미지 증거는 없어 work 테마를 추론하지 않고 보류.",
+              "koreanNumber": "150/SV-P"
+            }
+          ]
         }
       ]
     }
@@ -33596,11 +33788,11 @@
     "currentSet": "SV-P",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SV-P 111/248 artworks reviewed, 29 evidence held through canonical 140; image archives pending.",
+    "note": "SV-P 115/248 reviewed, 35 image-evidence held through 150; image archive not verified",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SV-P 131-140: 9 illustrations visually crosschecked; 136 evidence held; 14 new theme memberships",
-    "nextStart": "SV-P 141 (canonical order 141)",
+    "lastSafeCheckpoint": "TASK 6 SV-P 141-150: 4 artwork evidences reviewed, 6 held, 5 theme memberships",
+    "nextStart": "SV-P 151 (canonical order 151)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -33707,8 +33899,15 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svp-136-evidence-pending.json",
         "lastArtSafeCheckpoint": "SV-P canonical 135"
+      },
+      {
+        "set": "SV-P",
+        "range": "canonical-order 141,145-147,149-150",
+        "pendingCount": 6,
+        "audit": "data/audits/theme-svp-141-150-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SV-P 144 and 148"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SV-P 131-140: 9 artworks crosschecked, 136 evidence held, no image binaries selfhosted."
+    "lastEvidenceAuditCheckpoint": "SV-P 141-150: six exact Korean images uninspected; no image binaries hosted."
   }
 }
