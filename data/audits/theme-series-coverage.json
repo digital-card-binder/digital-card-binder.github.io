@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4648,
-    "uniqueThemeCards": 2783,
+    "themeCardSlots": 4651,
+    "uniqueThemeCards": 2784,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -438,7 +438,7 @@
       "code": "SVI",
       "name": "배틀 아카데미",
       "cardCount": 74,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2181,9 +2181,13 @@
       "cardCount": 74,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "themeHits": {
+        "night": 1,
+        "sunset": 1,
+        "color": 1
+      }
     },
     {
       "era": "SV",
