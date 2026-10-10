@@ -1257,7 +1257,7 @@ test("Android owner Sheets uses native authorization while browsers keep popup f
   assert.match(androidActivity, /PokemonDexOwnerSheetsNativeResult/);
   assert.match(androidActivity, /HOME_HOST[.]equalsIgnoreCase[(]current[.]getHost[(][)][)]/);
   assert.match(androidGradle, /play-services-auth:22[.]0[.]0/);
-  assert.match(androidGradle, /versionCode 15/);
+  assert.match(androidGradle, /versionCode 16/);
   assert.match(dashboard, /owner-sheets-sync[.]js[?]v=[0-9a-f]{12}/);
 });
 
@@ -1423,7 +1423,7 @@ test("Binder Studio custom editor keeps saved work isolated from collection stat
   assert.doesNotMatch(page, /data-studio-help="9"/);
   assert.equal((page.match(/data-studio-help="/g) || []).length, 9);
   assert.equal((page.match(/studio-step-badge is-required/g) || []).length, 3);
-  assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 5);
+  assert.equal((page.match(/studio-step-badge is-optional/g) || []).length, 6);
   assert.match(page, /바인더 페이지 <span class="studio-step-badge is-required">필수<\/span>/);
   assert.match(page, /확장 이미지 배치 <span class="studio-step-badge is-optional">선택<\/span>/);
   assert.match(page, /확장 이미지 배치/);
