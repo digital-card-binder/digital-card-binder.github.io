@@ -42572,7 +42572,7 @@
     "SVF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVF canonical 001-030: 23 exact Korean artworks visually reviewed, 7 holds and 28 theme placements; 031-040 Korean catalog crosschecked but exact artworks all held; no unverified theme placement.",
+      "note": "SVF 001-046 Korean catalog entries crosschecked: 23 exact Korean artworks visually reviewed and 23 exact-image holds. 28 theme placements from only verified artwork. Korean SVF is not strict complete. 039-046 are unnumbered basic energies despite synthetic master indexes.",
       "reviewedCardCount": 23,
       "reviewedThemes": [
         "sleeping",
@@ -42592,7 +42592,8 @@
         "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold",
         "canonical-order 011-020: nine official Korean watermarked artworks checked, 020 evidence held",
         "canonical-order 021-030: 5 official Korean images verified; 021-022,026,028-029 image evidence pending",
-        "canonical-order 031-040: 10 한국판 수록 명칭·실제 인쇄번호 대조, 정확한 인쇄 일러스트 검증 불가 10장 증거 보류"
+        "canonical-order 031-040: 10 한국판 수록 명칭·실제 인쇄번호 대조, 정확한 인쇄 일러스트 검증 불가 10장 증거 보류",
+        "canonical-order 041-046: 6 한국판 기본 에너지 종류 대조, 인쇄번호 없음 확인, 정확한 일러스트 6장 검증 보류"
       ],
       "newlyAddedThemeSlotCount": 28,
       "newlyAddedCards": [
@@ -42638,7 +42639,13 @@
         "SVF_037",
         "SVF_038",
         "SVF_039",
-        "SVF_040"
+        "SVF_040",
+        "SVF_041",
+        "SVF_042",
+        "SVF_043",
+        "SVF_044",
+        "SVF_045",
+        "SVF_046"
       ],
       "batches": [
         {
@@ -43483,6 +43490,144 @@
               "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
             }
           ]
+        },
+        {
+          "range": "canonical-order 041-046",
+          "cardNumbers": [
+            "041",
+            "042",
+            "043",
+            "044",
+            "045",
+            "046"
+          ],
+          "status": "6_Korean_unnumbered_energy_entries_crosschecked_6_artwork_evidence_pending",
+          "checkedCardCount": 0,
+          "heldCardCount": 6,
+          "imageAudit": {
+            "catalogImageReferenceCount": 6,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 6,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 6,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean SVF 46-card product listing, six unnumbered base Energy types and canonical master; precise print images inaccessible",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {},
+          "cards": [
+            {
+              "code": "SVF_041",
+              "canonicalOrder": 41,
+              "canonicalMasterCode": "svf_041/038",
+              "koreanName": "기본 물 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 41 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/444bf2b099b2e6b7ae4f6d328a68c35f.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            },
+            {
+              "code": "SVF_042",
+              "canonicalOrder": 42,
+              "canonicalMasterCode": "svf_042/038",
+              "koreanName": "기본 번개 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 42 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/fbec779348a251247e90a5a3943614bc.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            },
+            {
+              "code": "SVF_043",
+              "canonicalOrder": 43,
+              "canonicalMasterCode": "svf_043/038",
+              "koreanName": "기본 초 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 43 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/d37308ec4c1d8c18ea8efae15515f2a6.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            },
+            {
+              "code": "SVF_044",
+              "canonicalOrder": 44,
+              "canonicalMasterCode": "svf_044/038",
+              "koreanName": "기본 격투 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 44 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/0a4a3e85f6c29d406965ea2cca19d00f.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            },
+            {
+              "code": "SVF_045",
+              "canonicalOrder": 45,
+              "canonicalMasterCode": "svf_045/038",
+              "koreanName": "기본 악 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 45 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/13c6145cba78c68f37dd7a80bb57cdb5.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            },
+            {
+              "code": "SVF_046",
+              "canonicalOrder": 46,
+              "canonicalMasterCode": "svf_046/038",
+              "koreanName": "기본 강철 에너지",
+              "koreanPrintedNumber": null,
+              "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 46 is a synthetic catalog position, not a printed collector number",
+              "masterImageReference": "https://static.tcgexchange.kr/7a06f3fee21769589884b1ed4a2252f8.png",
+              "existingThemePlacement": false,
+              "checked": false,
+              "needsReview": true,
+              "artworkProofStatus": "exact_Korean_artwork_unverified",
+              "all12ThemesChecked": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "imageBinarySelfHosted": false,
+              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+            }
+          ]
         }
       ],
       "nextStart": "SVF canonical 031"
@@ -43505,14 +43650,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVF",
+    "currentSet": "SVEL",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVF 001-030 23 Korean artworks checked (7 holds); SVF 031-040 10 Korean catalog slots crosschecked but artworks held. No unverifiable thematic verdicts.",
+    "note": "SVF all 46 canonical slots catalog crosschecked, but 23 exact-artwork image holds remain; move next work to SVEL while keeping SVF in-progress and holding all unverified theme judgments.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVF 031-040 catalog/printed-number audit recorded; last exact Korean-artwork checkpoint SVF 030 (23 cumulative verified)",
-    "nextStart": "SVF canonical 041",
+    "lastSafeCheckpoint": "TASK 6 SVF 001-046 Korean catalog audited; last visually verified art is SVF 030; 23 artwork holds preserved",
+    "nextStart": "SVEL canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -43885,6 +44030,13 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svf-031-040-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVF 030, with 031-040 on artwork evidence hold"
+      },
+      {
+        "set": "SVF",
+        "range": "canonical-order 041-046",
+        "pendingCount": 6,
+        "audit": "data/audits/theme-svf-041-046-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVF 030 (SVF 031-046 exact artwork held)"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."
