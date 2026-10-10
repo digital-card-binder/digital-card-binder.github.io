@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-11",
   "task": 6,
   "set": "SVK",
   "setTitle": "배틀 강화 BOX 「스텔라미라클」",
-  "status": "full_Korean_membership_inventory_artwork_review_pending",
+  "status": "partial_Korean_artwork_review_20_verified_32_pending",
   "masterCardCount": 52,
   "officialKoreanProductCardKinds": 52,
   "numberedKoreanCards": 44,
   "unnumberedBasicEnergyKinds": 8,
   "membershipInventoryCrosschecked": 52,
-  "artworkVisuallyVerifiedCount": 0,
-  "all12ThemeDecisionsComplete": 0,
-  "artworkEvidenceHolds": 52,
-  "newThemePlacements": 0,
+  "artworkVisuallyVerifiedCount": 20,
+  "all12ThemeDecisionsComplete": 20,
+  "artworkEvidenceHolds": 32,
+  "newThemePlacements": 33,
   "cardMasterMutations": 0,
   "duplicateCanonicalKeys": 0,
   "sources": [
@@ -36,6 +36,11 @@
       "type": "secondary_Korean_list_with_name_number_conflict",
       "url": "https://www.namu.moe/w/스텔라미라클",
       "note": "52 types: numbered 001-044 and eight basic-energy types; 013/014 swapped relative to master/Collectory. Not authoritative for per-card mapping."
+    },
+    {
+      "type": "official_Korean_watermarked_20_artworks",
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013004",
+      "note": "Twenty distinct SVK Korean printed images visually checked; individual official URLs are saved on each audit card."
     }
   ],
   "evidenceConflicts": [
@@ -44,7 +49,7 @@
       "githubMaster": "013 곤충채집세트; 014 네스트볼",
       "namuList": "013 네스트볼; 014 곤충채집세트",
       "secondaryCorroboration": "https://collectory.cc/sets/edd60f81-d440-407f-87f6-95f256b1ba1c?region=kr",
-      "resolution": "DO NOT change or certify card names until exact Korean official card image/details verify printed numbers."
+      "resolution": "Official Korean 014/044 Nest Ball confirmed by official detail and card art; 013/044 still needs official exact-art check. Master unchanged."
     },
     {
       "range": "032/044",
@@ -53,37 +58,18 @@
       "resolution": "Potential display-name specificity; retain master until official confirmation."
     }
   ],
-  "limitations": "All 52 canonical rows, Korean product membership, numbered 001–044 and eight unnumbered basic energies audited. Individual exact Korean card artwork not directly viewed; no 12-theme placements asserted, no theme completeness claim. Korean official product confirms quantity but not individual visual theme classification. No image downloads, self-hosting or CDN deployment.",
+  "limitations": "52 Korean canonical entries inventoried; 20 Korean official art images visually inspected across all 12 themes, with 32 held until exact artwork confirmation. 013 conflict partially resolved by 014 official card evidence. No binary selfhosting or image CDN deployment verified.",
   "heldCards": [
-    "SVK_001",
-    "SVK_002",
-    "SVK_003",
-    "SVK_004",
     "SVK_005",
-    "SVK_006",
-    "SVK_007",
-    "SVK_008",
-    "SVK_009",
-    "SVK_010",
-    "SVK_011",
-    "SVK_012",
     "SVK_013",
-    "SVK_014",
     "SVK_015",
     "SVK_016",
     "SVK_017",
-    "SVK_018",
     "SVK_019",
-    "SVK_020",
-    "SVK_021",
     "SVK_022",
     "SVK_023",
     "SVK_024",
     "SVK_025",
-    "SVK_026",
-    "SVK_027",
-    "SVK_028",
-    "SVK_029",
     "SVK_030",
     "SVK_031",
     "SVK_032",
@@ -92,7 +78,6 @@
     "SVK_035",
     "SVK_036",
     "SVK_037",
-    "SVK_038",
     "SVK_039",
     "SVK_040",
     "SVK_041",
@@ -121,10 +106,15 @@
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
       "officialKoreanDetailVerified": true,
       "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013001",
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_001.png?w=512",
+      "artworkDescription": "산악 눈 풍경을 배경으로 푸른 하늘을 날며 불꽃을 뿜는 찬란한 리자몽"
     },
     {
       "code": "SVK_002",
@@ -136,12 +126,17 @@
       "catalogImage": "https://static.tcgexchange.kr/7758f4997dbc19153aa1a8709603de3d.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKP9Q5W23C1388D7B7",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013002",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_002.png?w=512",
+      "artworkDescription": "분홍·보라 산호초가 펼쳐진 청색 해저를 가로지르는 네오라이트 V"
     },
     {
       "code": "SVK_003",
@@ -153,12 +148,18 @@
       "catalogImage": "https://static.tcgexchange.kr/3980077bae80e2472d75a4a12234ba03.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKA40CMB3F15WETQK0",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013003",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_003.png?w=512",
+      "artworkDescription": "분홍빛 석양의 바다에 반사된 햇살과 분홍 물결 위에 마나피가 떠 있음"
     },
     {
       "code": "SVK_004",
@@ -170,12 +171,18 @@
       "catalogImage": "https://static.tcgexchange.kr/c0c2a6a14c0fd15a8afa0de2a0f8d416.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKGERW2539MFCQZX0W",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013004",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_004.png?w=512",
+      "artworkDescription": "붉은 해가 수평선에 가까운 석양의 바위 해안에 찬란한 개굴닌자가 앉아 있음"
     },
     {
       "code": "SVK_005",
@@ -204,12 +211,16 @@
       "catalogImage": "https://static.tcgexchange.kr/3e37a1a59d43bf3ccadedbf0444d4f61.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQK7VFSZJG7V55T4MM9",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013006",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_006.png?w=512",
+      "artworkDescription": "분홍 뮤 ex 주변의 검푸른 우주·행성과 무지개색 별빛 광휘"
     },
     {
       "code": "SVK_007",
@@ -221,12 +232,17 @@
       "catalogImage": "https://static.tcgexchange.kr/661a8ef1981234aa72bd26b8e055060e.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKRW02PGRF6SDDHDB2",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013007",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_007.png?w=512",
+      "artworkDescription": "구구가 노란 잎과 푸른 나무들이 어우러진 숲에서 날아감"
     },
     {
       "code": "SVK_008",
@@ -238,12 +254,17 @@
       "catalogImage": "https://static.tcgexchange.kr/65d9859c826d8e34fe9be45ecdb9f2dd.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKEMYYCR0H8AVZSQ2N",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013008",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_008.png?w=512",
+      "artworkDescription": "피죤이 뭉게구름이 있는 파란 하늘과 녹색 수목 위로 비행"
     },
     {
       "code": "SVK_009",
@@ -255,12 +276,16 @@
       "catalogImage": "https://static.tcgexchange.kr/e99d2a16025ceb3f8292839232e3e103.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQK7ERP7B125AETGRS0",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013009",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_009.png?w=512",
+      "artworkDescription": "바람과 잎이 휘날리는 푸른 역동적 선 속에 빨강·노랑 깃털의 피죤투 ex"
     },
     {
       "code": "SVK_010",
@@ -272,12 +297,16 @@
       "catalogImage": "https://static.tcgexchange.kr/1a8fdc6fee37f31a4ba9aa5dba13515c.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQK62HT5DSEVJX8KV3R",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013010",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_010.png?w=512",
+      "artworkDescription": "싱그러운 녹색 숲에서 비버니가 큰 나무 그루터기를 갉는 모습"
     },
     {
       "code": "SVK_011",
@@ -289,12 +318,18 @@
       "catalogImage": "https://static.tcgexchange.kr/9706fab851c4fae4fd9582dcf260cfd6.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKS95W1E9EZB3TRWVW",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013011",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "work",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_011.png?w=512",
+      "artworkDescription": "초록 숲의 강 위에서 비버통이 통나무 다발을 뗏목에 싣고 운반하는 장면"
     },
     {
       "code": "SVK_012",
@@ -306,12 +341,17 @@
       "catalogImage": "https://static.tcgexchange.kr/2ea0c7b702ae9101cf857cabf7511bd9.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQKN0P82JGKSWXT9AKE",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013012",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_012.png?w=512",
+      "artworkDescription": "시비꼬 ex가 녹색 풀숲과 나무 사이를 흙먼지를 일으키며 달려나옴"
     },
     {
       "code": "SVK_013",
@@ -340,12 +380,16 @@
       "catalogImage": "https://static.tcgexchange.kr/7ea6518f7280c66ccdbbf0173d9330b8.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQK8X4CKR92BABSG97Y",
       "membershipEvidenceStatus": "secondary_name_number_conflict_pending_official_card_detail",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013014",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_014.png?w=512",
+      "artworkDescription": "파란빛 광선 앞에 녹색·노랑 줄무늬 네스트볼이 떠 있음"
     },
     {
       "code": "SVK_015",
@@ -408,12 +452,16 @@
       "catalogImage": "https://static.tcgexchange.kr/6143033333255bd52460ad596ec869a6.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQM89N35SQ70CQCXFJM",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013018",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_018.png?w=512",
+      "artworkDescription": "로스트스위퍼 장치의 청색·흰색 번개와 보랏빛 소용돌이"
     },
     {
       "code": "SVK_019",
@@ -442,12 +490,17 @@
       "catalogImage": "https://static.tcgexchange.kr/2203d97771154a05f70e5eed3786a7f9.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMJDZWFP47T3C60E81",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013020",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "food",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_020.png?w=512",
+      "artworkDescription": "초록 토핑을 얹은 노랗고 황금빛으로 구운 포핀 두 개"
     },
     {
       "code": "SVK_021",
@@ -459,12 +512,16 @@
       "catalogImage": "https://static.tcgexchange.kr/cfeb970411524f3259153f276fc94cce.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMKDVJYWGYR312SZNG",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013021",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_021.png?w=512",
+      "artworkDescription": "카운터 캐처 금속장치가 푸른빛 빔과 하얀 광휘 사이에 있음"
     },
     {
       "code": "SVK_022",
@@ -544,12 +601,16 @@
       "catalogImage": "https://static.tcgexchange.kr/3af40743ff3343944f180a68090e02f4.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMGN1506C50SQAXCCG",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013026",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_026.png?w=512",
+      "artworkDescription": "기술머신 에볼루션 초록 원반과 연두·황색 회오리 광선"
     },
     {
       "code": "SVK_027",
@@ -561,12 +622,16 @@
       "catalogImage": "https://static.tcgexchange.kr/ff7451dcbf98f7576d70419899ec7f16.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMNM3BCDK9M4WBW2JV",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013027",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_027.png?w=512",
+      "artworkDescription": "긴급 보드에 그려진 빨간 마크와 보라·주황색 빛 줄기"
     },
     {
       "code": "SVK_028",
@@ -578,12 +643,16 @@
       "catalogImage": "https://static.tcgexchange.kr/c0f2d228c2ebabb429c65828c7a9d28d.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQM4F9QJA7B24HF44XD",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013028",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_028.png?w=512",
+      "artworkDescription": "푸른 덩굴과 잎으로 덮인 봉인석과 에메랄드 녹색 광채"
     },
     {
       "code": "SVK_029",
@@ -595,12 +664,16 @@
       "catalogImage": "https://static.tcgexchange.kr/0c7b31943f756ae84fd01a79097c4a3f.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMQGDHHVKDPA6NHPBM",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013029",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_029.png?w=512",
+      "artworkDescription": "용기의부적의 금빛 결정과 빨간 술, 초록·노랑 광휘"
     },
     {
       "code": "SVK_030",
@@ -748,12 +821,17 @@
       "catalogImage": "https://static.tcgexchange.kr/b4561cf7bf737a7fd6c048d8578ee2b5.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQMB122VPAXFM01EP5V",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013038",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_038.png?w=512",
+      "artworkDescription": "페퍼가 녹색 나무와 밝은 하늘, 돌 건물과 울타리 앞에 서 있는 풍경"
     },
     {
       "code": "SVK_039",
@@ -994,5 +1072,160 @@
       "selfHostedImageBinaryVerified": false
     }
   ],
-  "nextStart": "SVK exact Korean print artwork comparison for canonical 001-052; check numbered 013/014 source conflict first."
+  "nextStart": "SVK 32 held Korean artworks; first 005, 013, 015",
+  "verifiedArtworks": [
+    {
+      "code": "SVK_001",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013001"
+    },
+    {
+      "code": "SVK_002",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013002"
+    },
+    {
+      "code": "SVK_003",
+      "themes": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013003"
+    },
+    {
+      "code": "SVK_004",
+      "themes": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013004"
+    },
+    {
+      "code": "SVK_006",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013006"
+    },
+    {
+      "code": "SVK_007",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013007"
+    },
+    {
+      "code": "SVK_008",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013008"
+    },
+    {
+      "code": "SVK_009",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013009"
+    },
+    {
+      "code": "SVK_010",
+      "themes": [
+        "season"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013010"
+    },
+    {
+      "code": "SVK_011",
+      "themes": [
+        "season",
+        "work",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013011"
+    },
+    {
+      "code": "SVK_012",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013012"
+    },
+    {
+      "code": "SVK_014",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013014"
+    },
+    {
+      "code": "SVK_018",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013018"
+    },
+    {
+      "code": "SVK_020",
+      "themes": [
+        "food",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013020"
+    },
+    {
+      "code": "SVK_021",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013021"
+    },
+    {
+      "code": "SVK_026",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013026"
+    },
+    {
+      "code": "SVK_027",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013027"
+    },
+    {
+      "code": "SVK_028",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013028"
+    },
+    {
+      "code": "SVK_029",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013029"
+    },
+    {
+      "code": "SVK_038",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013038"
+    }
+  ]
 }
