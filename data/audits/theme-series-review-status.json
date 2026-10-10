@@ -49142,6 +49142,556 @@
           ]
         }
       ]
+    },
+    "SVJL": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "note": "Full SVJL 22 Korean membership slots inventoried together; 17 exact Korean official watermarked illustrations visually inspected and classified across 12 themes; 5 original-artwork holds; image hosting not performed.",
+      "reviewedCardCount": 17,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "whole canonical 001-022 inventory; 17 original Korean watermarked art verified; five pending"
+      ],
+      "newlyAddedThemeSlotCount": 29,
+      "newlyAddedCards": [
+        "SVJL_001",
+        "SVJL_002",
+        "SVJL_003",
+        "SVJL_005",
+        "SVJL_006",
+        "SVJL_007",
+        "SVJL_008",
+        "SVJL_009",
+        "SVJL_010",
+        "SVJL_012",
+        "SVJL_013",
+        "SVJL_015",
+        "SVJL_017",
+        "SVJL_018",
+        "SVJL_019",
+        "SVJL_020",
+        "SVJL_021"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVJL_004",
+        "SVJL_011",
+        "SVJL_014",
+        "SVJL_016",
+        "SVJL_022"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-022 (complete set membership inventory)",
+          "status": "17_official_Korean_artworks_verified_5_evidence_holds",
+          "checkedCardCount": 17,
+          "inventoryCrosscheckedCardCount": 22,
+          "heldCardCount": 5,
+          "artworkAudit": "data/audits/theme-svjl-001-022-evidence-pending.json",
+          "evidenceSource": "https://pokemoncard.co.kr/card/647",
+          "imageAudit": {
+            "catalogImageReferenceCount": 22,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 22,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 22,
+            "brokenReferenceCount": null
+          },
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "season": 6,
+            "color": 17,
+            "work": 1,
+            "night": 2,
+            "food": 1,
+            "street": 2
+          },
+          "cards": [
+            {
+              "code": "SVJL_001",
+              "canonicalOrder": 1,
+              "canonicalMasterCode": "svjl_001/021",
+              "koreanNumber": "001/021",
+              "koreanName": "파이리",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_001.png?w=512",
+              "illustrationSourceNote": "파란 하늘과 흰 구름, 햇살 비추는 넓은 초록 초원에서 달리는 파이리와 꼬리 불꽃"
+            },
+            {
+              "code": "SVJL_002",
+              "canonicalOrder": 2,
+              "canonicalMasterCode": "svjl_002/021",
+              "koreanNumber": "002/021",
+              "koreanName": "리자드",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009002",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_002.png?w=512",
+              "illustrationSourceNote": "검고 붉은 배경에서 거세게 쏟아지는 황금빛 화염 속 리자드"
+            },
+            {
+              "code": "SVJL_003",
+              "canonicalOrder": 3,
+              "canonicalMasterCode": "svjl_003/021",
+              "koreanNumber": "003/021",
+              "koreanName": "찬란한 리자몽",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_003.png?w=512",
+              "illustrationSourceNote": "눈 덮인 산봉우리와 맑은 하늘 위를 나는 찬란한 리자몽"
+            },
+            {
+              "code": "SVJL_004",
+              "canonicalOrder": 4,
+              "canonicalMasterCode": "svjl_004/021",
+              "koreanNumber": "004/021",
+              "koreanName": "파이어",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean visual evidence pending."
+            },
+            {
+              "code": "SVJL_005",
+              "canonicalOrder": 5,
+              "canonicalMasterCode": "svjl_005/021",
+              "koreanNumber": "005/021",
+              "koreanName": "앤테이",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_005.png?w=512",
+              "illustrationSourceNote": "붉은 암석 지형, 폭풍 구름과 낙석 사이를 질주하는 앤테이"
+            },
+            {
+              "code": "SVJL_006",
+              "canonicalOrder": 6,
+              "canonicalMasterCode": "svjl_006/021",
+              "koreanNumber": "006/021",
+              "koreanName": "리자몽 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_006.png?w=512",
+              "illustrationSourceNote": "유리 같은 주황·적색 테라스탈 결정과 청록색 화면의 대비 속 리자몽 ex"
+            },
+            {
+              "code": "SVJL_007",
+              "canonicalOrder": 7,
+              "canonicalMasterCode": "svjl_007/021",
+              "koreanNumber": "007/021",
+              "koreanName": "비버니",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_007.png?w=512",
+              "illustrationSourceNote": "푸른 숲의 나무 그루터기를 갉아내는 비버니"
+            },
+            {
+              "code": "SVJL_008",
+              "canonicalOrder": 8,
+              "canonicalMasterCode": "svjl_008/021",
+              "koreanNumber": "008/021",
+              "koreanName": "비버통",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "work"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "work"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_008.png?w=512",
+              "illustrationSourceNote": "강물과 초록 숲가에서 통나무를 묶어 운반하는 비버통"
+            },
+            {
+              "code": "SVJL_009",
+              "canonicalOrder": 9,
+              "canonicalMasterCode": "svjl_009/021",
+              "koreanNumber": "009/021",
+              "koreanName": "아르세우스 V",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_009.png?w=512",
+              "illustrationSourceNote": "별과 성운이 빛나는 어두운 우주 배경에서 질주하는 아르세우스 V"
+            },
+            {
+              "code": "SVJL_010",
+              "canonicalOrder": 10,
+              "canonicalMasterCode": "svjl_010/021",
+              "koreanNumber": "010/021",
+              "koreanName": "아르세우스 VSTAR",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_010.png?w=512",
+              "illustrationSourceNote": "금빛·핑크빛 결정 에너지가 터지는 화면의 아르세우스 VSTAR"
+            },
+            {
+              "code": "SVJL_011",
+              "canonicalOrder": 11,
+              "canonicalMasterCode": "svjl_011/021",
+              "koreanNumber": "011/021",
+              "koreanName": "네스트볼",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean visual evidence pending."
+            },
+            {
+              "code": "SVJL_012",
+              "canonicalOrder": 12,
+              "canonicalMasterCode": "svjl_012/021",
+              "koreanNumber": "012/021",
+              "koreanName": "대단한낚싯대",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_012.png?w=512",
+              "illustrationSourceNote": "짙은 청록·파랑 물결과 물방울 속 노란 낚싯대"
+            },
+            {
+              "code": "SVJL_013",
+              "canonicalOrder": 13,
+              "canonicalMasterCode": "svjl_013/021",
+              "koreanNumber": "013/021",
+              "koreanName": "이상한사탕",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_013.png?w=512",
+              "illustrationSourceNote": "분홍·빨강 바탕에 하늘색 포장지의 푸른 사탕"
+            },
+            {
+              "code": "SVJL_014",
+              "canonicalOrder": 14,
+              "canonicalMasterCode": "svjl_014/021",
+              "koreanNumber": "014/021",
+              "koreanName": "포켓몬 교체",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean visual evidence pending."
+            },
+            {
+              "code": "SVJL_015",
+              "canonicalOrder": 15,
+              "canonicalMasterCode": "svjl_015/021",
+              "koreanNumber": "015/021",
+              "koreanName": "하이퍼볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_015.png?w=512",
+              "illustrationSourceNote": "빨강·오렌지·금빛 섬광을 배경으로 날아가는 하이퍼볼"
+            },
+            {
+              "code": "SVJL_016",
+              "canonicalOrder": 16,
+              "canonicalMasterCode": "svjl_016/021",
+              "koreanNumber": "016/021",
+              "koreanName": "난천의 패기",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean visual evidence pending."
+            },
+            {
+              "code": "SVJL_017",
+              "canonicalOrder": 17,
+              "canonicalMasterCode": "svjl_017/021",
+              "koreanNumber": "017/021",
+              "koreanName": "모야모",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_017.png?w=512",
+              "illustrationSourceNote": "고층 빌딩과 현대적 광장이 보이는 도시에서 모야모가 등장하는 장면"
+            },
+            {
+              "code": "SVJL_018",
+              "canonicalOrder": 18,
+              "canonicalMasterCode": "svjl_018/021",
+              "koreanNumber": "018/021",
+              "koreanName": "박사의 연구",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_018.png?w=512",
+              "illustrationSourceNote": "청록·백색 연구실 게시판과 주황빛 의상이 대비되는 올림박사"
+            },
+            {
+              "code": "SVJL_019",
+              "canonicalOrder": 19,
+              "canonicalMasterCode": "svjl_019/021",
+              "koreanNumber": "019/021",
+              "koreanName": "보스의 지령",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_019.png?w=512",
+              "illustrationSourceNote": "달이 보이는 검푸른 밤하늘과 석조 아치 아래 서 있는 게치스"
+            },
+            {
+              "code": "SVJL_020",
+              "canonicalOrder": 20,
+              "canonicalMasterCode": "svjl_020/021",
+              "koreanNumber": "020/021",
+              "koreanName": "보울마을",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_020.png?w=512",
+              "illustrationSourceNote": "풍차, 꽃밭, 푸른 하늘과 아담한 건물이 이어지는 밝은 마을 거리"
+            },
+            {
+              "code": "SVJL_021",
+              "canonicalOrder": 21,
+              "canonicalMasterCode": "svjl_021/021",
+              "koreanNumber": "021/021",
+              "koreanName": "더블 터보 에너지",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024009021",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_021.png?w=512",
+              "illustrationSourceNote": "초록·황금 방사형 광선 앞에 떠 있는 두 개의 하얀 무색 에너지 구체"
+            },
+            {
+              "code": "SVJL_022",
+              "canonicalOrder": 22,
+              "canonicalMasterCode": "svjl_022/021",
+              "koreanNumber": null,
+              "koreanName": "기본 불꽃 에너지",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean visual evidence pending."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -49161,14 +49711,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVJL",
+    "currentSet": "SVJP",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVG 20/55, SVHM & SVHK 0/61 artworks each, SVI 1/74 artwork verified. Strict completion not claimed for any; next SVJL. No image binary selfhosting.",
+    "note": "SVJL 17/22 art confirmed, 5 holds; no image binary self-hosting or CDN deployment. Strict complete unchanged.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVI all 74 Korean print membership verified; SVI_025 exact Korean artwork classified night/sunset/color; 73 art holds retained.",
-    "nextStart": "SVJL canonical 001 (SVI remaining 73 artwork evidence holds)",
+    "lastSafeCheckpoint": "TASK 6 SVJL canonical 001-022 Korean inventory; 17 official Korean artworks reviewed, 29 theme memberships committed; 5 evidence holds",
+    "nextStart": "SVJP canonical 001 (SVJL 004,011,014,016,022 image holds)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
