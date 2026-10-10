@@ -1698,6 +1698,31 @@
       "themeAdditions": {},
       "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)",
       "note": "Seven energy slots are local canonical inventory with unverified Korean printed numbers/images; original image URLs retained; no binary selfhosting or deployment."
+    },
+    {
+      "task": 6,
+      "set": "SVF",
+      "range": "canonical-order 001-010",
+      "canonicalCardCount": 10,
+      "artworkVisuallyVerifiedCount": 9,
+      "artworkPendingCount": 1,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "season": 7,
+        "color": 8,
+        "sunset": 2,
+        "street": 1,
+        "work": 1
+      },
+      "nextStart": "SVF canonical 011",
+      "note": "Nine official Korean watermarked images manually inspected. SVF 002 inaccessible. Image bytes not downloaded, hosted or deployed; external source references unchanged."
     }
   ]
 }

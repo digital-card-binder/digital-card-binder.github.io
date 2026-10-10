@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4539,
-    "uniqueThemeCards": 2721,
+    "themeCardSlots": 4558,
+    "uniqueThemeCards": 2729,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1192,
-      "setCount": 31,
+      "cardSlots": 1199,
+      "setCount": 32,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2188,
-      "setCount": 33,
+      "cardSlots": 2196,
+      "setCount": 34,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 89,
-      "setCount": 22,
+      "cardSlots": 91,
+      "setCount": 23,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 18,
-      "setCount": 9,
+      "cardSlots": 19,
+      "setCount": 10,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 397,
-      "setCount": 26,
+      "cardSlots": 398,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 1,
       "remainingSetCount": 52,
-      "currentThemeSlots": 921
+      "currentThemeSlots": 940
     },
     {
       "era": "S",
@@ -396,7 +396,7 @@
       "code": "SVF",
       "name": "배틀 강화 BOX 「흑염의 지배자」",
       "cardCount": 46,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2249,9 +2249,15 @@
       "cardCount": 46,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "themeHits": {
+        "season": 7,
+        "color": 8,
+        "sunset": 2,
+        "street": 1,
+        "work": 1
+      }
     },
     {
       "era": "SV",

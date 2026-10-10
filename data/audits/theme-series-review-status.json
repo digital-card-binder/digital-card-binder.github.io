@@ -42568,6 +42568,282 @@
         }
       ],
       "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)"
+    },
+    "SVF": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "note": "SVF 001-010: 9 Korean official artworks reviewed, 1 evidence held, 19 new theme slots; image hosting unchanged",
+      "reviewedCardCount": 9,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "SVF_001",
+        "SVF_003",
+        "SVF_004",
+        "SVF_005",
+        "SVF_006",
+        "SVF_007",
+        "SVF_008",
+        "SVF_009",
+        "SVF_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVF_002"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010"
+          ],
+          "status": "9_official_Korean_artworks_verified_1_evidence_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Official Pokémon Korea BS2023017001-010 details and direct viewing of nine official Korean-watermarked SVF_###.png cards; 002 inaccessible",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "season": 7,
+            "color": 8,
+            "sunset": 2,
+            "street": 1,
+            "work": 1
+          },
+          "cards": [
+            {
+              "code": "SVF_001",
+              "checked": true,
+              "koreanNumber": "001/038",
+              "name": "찬란한 리자몽",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_001.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 찬란한 리자몽이 눈 덮인 산악 지형과 구름 사이를 날며 붉은 날개와 푸른 설산이 대비됨. 12개 독립 테마 전부 판정하여 season, color 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_002",
+              "checked": false,
+              "koreanNumber": "002/038",
+              "name": "네오라이트 V",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017002",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 번호와 마스터 DB의 이름은 확인하였으나, 정확한 카드 그림 직접 접근에 실패하여 12테마 판정 보류. 일본판 및 다른 인쇄 그림 대체 금지."
+            },
+            {
+              "code": "SVF_003",
+              "checked": true,
+              "koreanNumber": "003/038",
+              "name": "마나피",
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_003.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 마나피가 분홍·주황 노을 아래 잔잔한 바다 수면을 뛰어오르며 물보라를 일으킴. 12개 독립 테마 전부 판정하여 season, color, sunset 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_004",
+              "checked": true,
+              "koreanNumber": "004/038",
+              "name": "찬란한 개굴닌자",
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_004.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 찬란한 개굴닌자가 주황빛 태양이 낮게 떠 있는 붉은 하늘과 보라빛 해안 바위 위에 앉음. 12개 독립 테마 전부 판정하여 season, color, sunset 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_005",
+              "checked": true,
+              "koreanNumber": "005/038",
+              "name": "뮤",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_005.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 뮤가 분홍·노랑·청록 원형 빛과 별 모양의 반짝임이 모인 다채로운 에너지 속에 떠 있음. 12개 독립 테마 전부 판정하여 color 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_006",
+              "checked": true,
+              "koreanNumber": "006/038",
+              "name": "랄토스",
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_006.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 랄토스가 흰 꽃과 분홍 꽃이 만발한 도시 정원 및 주황색 도시 건축물 옆을 지남. 12개 독립 테마 전부 판정하여 season, color, street 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_007",
+              "checked": true,
+              "koreanNumber": "007/038",
+              "name": "킬리아",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_007.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 킬리아가 분홍 꽃밭과 초록 침엽수, 연보라 언덕이 이어지는 야외 초원에서 춤춤. 12개 독립 테마 전부 판정하여 season, color 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_008",
+              "checked": true,
+              "koreanNumber": "008/038",
+              "name": "비버니",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_008.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 비버니가 햇살이 스며드는 숲속에서 큰 나무 그루터기를 갉으며 앞니를 가는 모습이며 식사 장면은 아님. 12개 독립 테마 전부 판정하여 season, color 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_009",
+              "checked": true,
+              "koreanNumber": "009/038",
+              "name": "비버통",
+              "themesMatched": [
+                "season",
+                "color",
+                "work"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "work"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_009.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 비버통이 물살이 흐르는 강에서 나뭇가지를 모아 댐을 구축하며 자연 속 작업이 명확함. 12개 독립 테마 전부 판정하여 season, color, work 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            },
+            {
+              "code": "SVF_010",
+              "checked": true,
+              "koreanNumber": "010/038",
+              "name": "네스트볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_010.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 네스트볼 아이템의 구형 볼 단독 컷으로 자연·도시·노을·일·카메오 등 12개 장면 테마에 직접 부합하지 않음. 12개 독립 테마 전부 판정하여 해당 없음 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
+            }
+          ]
+        }
+      ],
+      "nextStart": "SVF canonical 011"
     }
   },
   "queue": {
@@ -42587,14 +42863,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVD",
+    "currentSet": "SVF",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD card inventory traversed through 147, 104/147 actual Korean artwork reviews remain; 43 evidence_pending. All cards retained, all external image URLs retained. 140+ IDs synthetic.",
+    "note": "SVF first 10 canonical slots: 9 artworks verified; 002 pending; 19 new theme slots. SVD existing 43 holds maintained.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SVD 141-147 inventoried as unnumbered/basic energy canonical slots; 7 evidence holds, 0 visual verifications, 0 theme changes. Full SVD 104 verified, 43 pending.",
-    "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)",
+    "lastSafeCheckpoint": "TASK 6 SVF canonical-order 001-010: nine Korean official art checks, 19 theme placements, 002 held, archive pending",
+    "nextStart": "SVF canonical 011",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -42939,6 +43215,13 @@
         "pendingCount": 7,
         "audit": "data/audits/theme-svd-141-147-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 101-109 final contiguous verified, all 110-147 image evidence pending"
+      },
+      {
+        "set": "SVF",
+        "range": "canonical 002",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svf-001-010-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVF 001; 003-010 independently verified"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."
