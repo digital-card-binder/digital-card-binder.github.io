@@ -39094,7 +39094,7 @@
     "SVD": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVD canonical 001-120 inventoried. 104/147 Korean artworks verified; 16 holds including 111-120. Last ten trainer illustrations not visual-confirmed, no thematic verdict; selfhosting unverified.",
+      "note": "SVD all canonical slots through 130 enumerated; 104/147 Korean artwork checks, 26 pending image evidence. No theme classification for unverified cards.",
       "reviewedCardCount": 104,
       "reviewedThemes": [
         "sleeping",
@@ -39123,7 +39123,8 @@
         "canonical-order 081-090: 10 exact Korean official card illustrations visually checked",
         "canonical-order 091-100: 10 official Korean card watermark illustrations visually verified",
         "canonical-order 101-110: 9 exact Korean watermark artworks reviewed, 110 held",
-        "canonical-order 111-120: Korean canonical identity checked; exact 10 Korean illustration images inaccessible; 10 evidence_pending (0 visually verified)"
+        "canonical-order 111-120: Korean canonical identity checked; exact 10 Korean illustration images inaccessible; 10 evidence_pending (0 visually verified)",
+        "canonical-order 121-130: 10 Korean master slot identities checked; exact numbered Korean artwork not verified; all 10 evidence pending"
       ],
       "newlyAddedThemeSlotCount": 200,
       "newlyAddedCards": [
@@ -39251,7 +39252,17 @@
         "SVD_117",
         "SVD_118",
         "SVD_119",
-        "SVD_120"
+        "SVD_120",
+        "SVD_121",
+        "SVD_122",
+        "SVD_123",
+        "SVD_124",
+        "SVD_125",
+        "SVD_126",
+        "SVD_127",
+        "SVD_128",
+        "SVD_129",
+        "SVD_130"
       ],
       "batches": [
         {
@@ -42058,9 +42069,183 @@
               "illustrationSourceNote": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome."
             }
           ]
+        },
+        {
+          "range": "canonical-order 121-130",
+          "cardNumbers": [
+            "121",
+            "122",
+            "123",
+            "124",
+            "125",
+            "126",
+            "127",
+            "128",
+            "129",
+            "130"
+          ],
+          "status": "0_official_Korean_artworks_verified_10_evidence_pending",
+          "checkedCardCount": 0,
+          "heldCardCount": 10,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean card identities from data/series.json; official numbered illustration not accessible. Cards 140+ have synthetic master keys.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {},
+          "cards": [
+            {
+              "code": "SVD_121",
+              "checked": false,
+              "koreanNumber": "121/139",
+              "name": "포켓몬 교체",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016121",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_122",
+              "checked": false,
+              "koreanNumber": "122/139",
+              "name": "포켓몬 캐처",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016122",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_123",
+              "checked": false,
+              "koreanNumber": "123/139",
+              "name": "하이퍼볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016123",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_124",
+              "checked": false,
+              "koreanNumber": "124/139",
+              "name": "기력의머리띠",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016124",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_125",
+              "checked": false,
+              "koreanNumber": "125/139",
+              "name": "바위 가슴보호대",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016125",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_126",
+              "checked": false,
+              "koreanNumber": "126/139",
+              "name": "울퉁불퉁멧",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016126",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_127",
+              "checked": false,
+              "koreanNumber": "127/139",
+              "name": "네모",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016127",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_128",
+              "checked": false,
+              "koreanNumber": "128/139",
+              "name": "네모",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016128",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_129",
+              "checked": false,
+              "koreanNumber": "129/139",
+              "name": "박사의 연구(올림박사)",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016129",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            },
+            {
+              "code": "SVD_130",
+              "checked": false,
+              "koreanNumber": "130/139",
+              "name": "박사의 연구(투로박사)",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016130",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict."
+            }
+          ]
         }
       ],
-      "nextStart": "SVD 121 (canonical order 121); evidence holds 007,012,042,045,078,110,111-120"
+      "nextStart": "SVD canonical 131"
     }
   },
   "queue": {
@@ -42083,11 +42268,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD 001-120 inventoried, 104 official Korean artworks visually checked, 16 artwork holds. New 111-120 only evidence checkpoint; no art classification. All external image URLs retained.",
+    "note": "SVD 121-130 exact Korean artwork not visually verified. 26 SVD pending, 104/147 reviewed. No source image changes.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD canonical 111-120: Korean master identity verified for 10 items; image proof inaccessible, 0 artwork checks, 10 pending, 0 theme changes. Earlier verified card count remains 104.",
-    "nextStart": "SVD 121 (canonical order 121); evidence holds 007,012,042,045,078,110,111-120",
+    "lastSafeCheckpoint": "TASK 6 SVD canonical-order 121-130: 10 card identities checked, 0 actual illustrations verified, 10 evidence held; thematic verdict pending. SVD reviewed 104/147.",
+    "nextStart": "SVD canonical 131",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -42411,6 +42596,13 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svd-111-120-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 101-109 Korean artwork checked; 110 and 111-120 pending"
+      },
+      {
+        "set": "SVD",
+        "range": "canonical-order 121-130",
+        "pendingCount": 10,
+        "audit": "data/audits/theme-svd-121-130-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVD 101-109 verified; remaining trainer/energy images evidence pending"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."
