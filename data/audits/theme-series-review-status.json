@@ -44157,6 +44157,541 @@
           ]
         }
       ]
+    },
+    "SVEM": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "note": "Full Korean SVEM 21-slot set audited. 19 official Korean printed artworks actually visually verified; 013 item and 021 unnumbered energy held; 12-theme placements inserted only for verified artwork; no image binaries downloaded or hosted.",
+      "reviewedCardCount": 19,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical-order 001-021: full set checked at once; 19 Korean official images verified and 2 evidence holds"
+      ],
+      "newlyAddedThemeSlotCount": 22,
+      "newlyAddedCards": [
+        "SVEM_001",
+        "SVEM_002",
+        "SVEM_003",
+        "SVEM_004",
+        "SVEM_005",
+        "SVEM_006",
+        "SVEM_007",
+        "SVEM_009",
+        "SVEM_010",
+        "SVEM_011",
+        "SVEM_012",
+        "SVEM_014",
+        "SVEM_015",
+        "SVEM_016",
+        "SVEM_017",
+        "SVEM_018",
+        "SVEM_020"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVEM_013",
+        "SVEM_021"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-021",
+          "cardNumbers": [
+            "001",
+            "002",
+            "003",
+            "004",
+            "005",
+            "006",
+            "007",
+            "008",
+            "009",
+            "010",
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020",
+            "021"
+          ],
+          "status": "19_official_Korean_artworks_verified_2_image_holds",
+          "checkedCardCount": 19,
+          "heldCardCount": 2,
+          "imageAudit": {
+            "catalogImageReferenceCount": 21,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 21,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 21,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea exact-numbered 001-012,014-020 Korean watermarked art reached via Korean card details; SVEM_013 and unnumbered energy 021 held.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "color": 15,
+            "season": 4,
+            "street": 2,
+            "night": 1
+          },
+          "cards": [
+            {
+              "code": "SVEM_001",
+              "canonicalOrder": 1,
+              "canonicalMasterCode": "svem_001/020",
+              "koreanNumber": "001/020",
+              "koreanName": "뮤츠 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_001.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 001/020 및 해당 한국어 워터마크를 직접 육안 검수: 황금빛 테라스탈 결정 및 푸른 우주 배경 속 뮤츠 ex의 명암 대비. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_002",
+              "canonicalOrder": 2,
+              "canonicalMasterCode": "svem_002/020",
+              "koreanNumber": "002/020",
+              "koreanName": "아라리",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season"
+              ],
+              "themesAdded": [
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018002",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_002.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 002/020 및 해당 한국어 워터마크를 직접 육안 검수: 잎과 덩굴이 우거진 숲에서 여섯 아라리가 모여 있는 자연 풍경. 12테마 개별 검토 결과 season. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_003",
+              "canonicalOrder": 3,
+              "canonicalMasterCode": "svem_003/020",
+              "koreanNumber": "003/020",
+              "koreanName": "나시",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_003.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 003/020 및 해당 한국어 워터마크를 직접 육안 검수: 붉은·노란·초록 열대식물이 울창한 수풀 가운데 나시. 12테마 개별 검토 결과 season, color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_004",
+              "canonicalOrder": 4,
+              "canonicalMasterCode": "svem_004/020",
+              "koreanNumber": "004/020",
+              "koreanName": "네이티",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season"
+              ],
+              "themesAdded": [
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_004.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 004/020 및 해당 한국어 워터마크를 직접 육안 검수: 야자수와 사암 유적, 연두색 풀밭이 있는 야외에 날고 있는 네이티. 12테마 개별 검토 결과 season. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_005",
+              "canonicalOrder": 5,
+              "canonicalMasterCode": "svem_005/020",
+              "koreanNumber": "005/020",
+              "koreanName": "네이티오",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_005.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 005/020 및 해당 한국어 워터마크를 직접 육안 검수: 초록·보라색 추상 공간에 떠 있는 네이티오, 선명한 입자와 날개 색감. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_006",
+              "canonicalOrder": 6,
+              "canonicalMasterCode": "svem_006/020",
+              "koreanNumber": "006/020",
+              "koreanName": "테오키스",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_006.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 006/020 및 해당 한국어 워터마크를 직접 육안 검수: 푸른 별무리와 청록 에너지 선 위 빨강·파랑 테오키스. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_007",
+              "canonicalOrder": 7,
+              "canonicalMasterCode": "svem_007/020",
+              "koreanNumber": "007/020",
+              "koreanName": "소미안",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_007.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 007/020 및 해당 한국어 워터마크를 직접 육안 검수: 밝은 파란 하늘 및 푸른 산과 나뭇가지 사이 소미안 두 마리가 흩날리는 장면. 12테마 개별 검토 결과 season, color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_008",
+              "canonicalOrder": 8,
+              "canonicalMasterCode": "svem_008/020",
+              "koreanNumber": "008/020",
+              "koreanName": "엘풍",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_008.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 008/020 및 해당 한국어 워터마크를 직접 육안 검수: 실내 책장과 의자, 창가 앞 엘풍이 공중에 떠 있는 생활 장면. 침대에 누워 잠든 모습 아니며 12테마 불일치. 12테마 개별 검토 결과 해당 없음. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_009",
+              "canonicalOrder": 9,
+              "canonicalMasterCode": "svem_009/020",
+              "koreanNumber": "009/020",
+              "koreanName": "데덴네",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_009.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 009/020 및 해당 한국어 워터마크를 직접 육안 검수: 분홍빛 키보드와 방 안의 주황 데덴네, 연분홍·크림색의 파스텔 컬러 구성. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_010",
+              "canonicalOrder": 10,
+              "canonicalMasterCode": "svem_010/020",
+              "koreanNumber": "010/020",
+              "koreanName": "네스트볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_010.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 010/020 및 해당 한국어 워터마크를 직접 육안 검수: 초록·노란 네스트볼과 푸른 추상 소용돌이의 대비. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_011",
+              "canonicalOrder": 11,
+              "canonicalMasterCode": "svem_011/020",
+              "koreanNumber": "011/020",
+              "koreanName": "대단한낚싯대",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_011.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 011/020 및 해당 한국어 워터마크를 직접 육안 검수: 청색 소용돌이 배경과 노란 낚싯대, 몬스터볼의 고대비 일러스트. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_012",
+              "canonicalOrder": 12,
+              "canonicalMasterCode": "svem_012/020",
+              "koreanNumber": "012/020",
+              "koreanName": "안개의 수정",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_012.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 012/020 및 해당 한국어 워터마크를 직접 육안 검수: 보라색 결정 수정구 안의 백색·분홍 성운 및 빛. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_013",
+              "canonicalOrder": 13,
+              "canonicalMasterCode": "svem_013/020",
+              "koreanNumber": "013/020",
+              "koreanName": "포켓기어3.0",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018013",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국 공식 013/020 포켓기어3.0 카드 상세는 교차 확인 시도했으나 해당 한국어판 공식 이미지 접근 실패. 다른 인쇄판 이미지로 대체하지 않고 12테마 판정 보류."
+            },
+            {
+              "code": "SVEM_014",
+              "canonicalOrder": 14,
+              "canonicalMasterCode": "svem_014/020",
+              "koreanNumber": "014/020",
+              "koreanName": "포켓몬 교체",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_014.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 014/020 및 해당 한국어 워터마크를 직접 육안 검수: 두 몬스터볼을 실은 기계 장치가 짙은 보랏빛 광선 위에 놓임. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_015",
+              "canonicalOrder": 15,
+              "canonicalMasterCode": "svem_015/020",
+              "koreanNumber": "015/020",
+              "koreanName": "하이퍼볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_015.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 015/020 및 해당 한국어 워터마크를 직접 육안 검수: 금빛·검정색 하이퍼볼이 강렬한 분홍·주황 빛을 뿜는 추상 장면. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_016",
+              "canonicalOrder": 16,
+              "canonicalMasterCode": "svem_016/020",
+              "koreanNumber": "016/020",
+              "koreanName": "용기의부적",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_016.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 016/020 및 해당 한국어 워터마크를 직접 육안 검수: 황금색 용기의부적이 초록·노랑 방사형 빛에 둘러싸임. 12테마 개별 검토 결과 color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_017",
+              "canonicalOrder": 17,
+              "canonicalMasterCode": "svem_017/020",
+              "koreanNumber": "017/020",
+              "koreanName": "네모",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_017.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 017/020 및 해당 한국어 워터마크를 직접 육안 검수: 도심형 학원 교문·철제 울타리와 파란 지붕 건물, 하늘 아래 서 있는 네모. 12테마 개별 검토 결과 street, color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_018",
+              "canonicalOrder": 18,
+              "canonicalMasterCode": "svem_018/020",
+              "koreanNumber": "018/020",
+              "koreanName": "모야모",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_018.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 018/020 및 해당 한국어 워터마크를 직접 육안 검수: 고층 빌딩과 도로 시설이 보이는 도시 야외에 선 모야모. 머리 장신구는 살아있는 카메오 포켓몬이 아님. 12테마 개별 검토 결과 street, color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_019",
+              "canonicalOrder": 19,
+              "canonicalMasterCode": "svem_019/020",
+              "koreanNumber": "019/020",
+              "koreanName": "박사의 연구",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_019.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 019/020 및 해당 한국어 워터마크를 직접 육안 검수: 실내 연구실과 화이트보드 앞 투로박사가 서 있음. '일하는 포켓몬'의 포켓몬 노동 장면이 아니므로 work 제외. 12테마 개별 검토 결과 해당 없음. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_020",
+              "canonicalOrder": 20,
+              "canonicalMasterCode": "svem_020/020",
+              "koreanNumber": "020/020",
+              "koreanName": "보스의 지령",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023018020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVEM/SVEM_020.png?w=512",
+              "illustrationSourceNote": "한국 공식 포켓몬코리아 카드 020/020 및 해당 한국어 워터마크를 직접 육안 검수: 게치스가 석조 아치와 달빛이 비치는 짙은 남색 밤하늘 앞에 서 있는 장면. 12테마 개별 검토 결과 night, color. 이미지 자가 호스팅 및 바이너리 배포 보류."
+            },
+            {
+              "code": "SVEM_021",
+              "canonicalOrder": 21,
+              "canonicalMasterCode": "svem_021/020",
+              "koreanNumber": null,
+              "koreanName": "기본 초 에너지",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QED7VD7914H829CV9Z3ZZ/cards/01KY1EHHJZF7JJYR8F7NGEXN12",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 마스터에는 기본 초 에너지 슬롯으로 등록. 제품 동봉 인쇄 에너지의 정확한 한국판 그림은 미확인. 021/020은 인쇄 수집번호 아닌 canonical DB 순번. 테마 판단 보류."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -44176,14 +44711,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVEM",
+    "currentSet": "SVG",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVEL 21-card Korean set audited, 15 artworks verified and 6 held (not strict complete); 21 theme placements applied from verified cards. SVF 23 holds retained. Continue full SVEM set.",
+    "note": "SVEL (15 of 21 verified + 6 holds), SVEM (19 of 21 verified + 2 holds) audited as complete set-sized passes; thematic placements only from directly viewed Korean printed artworks. Remaining image holds separate.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVEL canonical 001-021 set-level audit: 15 verified Korean artworks, 6 image-evidence holds",
-    "nextStart": "SVEM canonical 001",
+    "lastSafeCheckpoint": "TASK 6 SVEM full 21 canonical slots reviewed: 19 Korean artwork verified, two pending image evidence",
+    "nextStart": "SVG canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -44570,6 +45105,13 @@
         "pendingCount": 6,
         "audit": "data/audits/theme-svel-001-021-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVEL 019"
+      },
+      {
+        "set": "SVEM",
+        "range": "canonical 013/020 and unnumbered basic energy 021",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-svem-001-021-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVEM canonical 020 except 013"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."

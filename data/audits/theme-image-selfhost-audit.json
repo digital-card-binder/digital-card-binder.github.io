@@ -1831,6 +1831,30 @@
       },
       "nextStart": "SVEM canonical 001",
       "note": "All 21 Korean SVEL master slots audited in one set pass, 15 actual Korean watermarked artwork visuals checked, six unresolved; no image bytes downloaded/self-hosted/deployed."
+    },
+    {
+      "task": 6,
+      "set": "SVEM",
+      "range": "canonical-order 001-021 (full set)",
+      "canonicalCardCount": 21,
+      "artworkVisuallyVerifiedCount": 19,
+      "artworkPendingCount": 2,
+      "externalImageReferenceCountBefore": 21,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 21,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 21,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "color": 15,
+        "season": 4,
+        "street": 2,
+        "night": 1
+      },
+      "nextStart": "SVG canonical 001",
+      "note": "19 exact Korean watermarked card illustrations visually checked; 013 and 021 exact artwork hold. No image binaries self-hosted or deployed."
     }
   ]
 }
