@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4700,
-    "uniqueThemeCards": 2814,
+    "themeCardSlots": 4733,
+    "uniqueThemeCards": 2834,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1227,
-      "setCount": 37,
+      "cardSlots": 1237,
+      "setCount": 38,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2279,
-      "setCount": 40,
+      "cardSlots": 2298,
+      "setCount": 41,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 95,
-      "setCount": 27,
+      "cardSlots": 97,
+      "setCount": 28,
       "rarities": [
         "AR",
         "C",
@@ -185,8 +185,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 71,
-      "setCount": 29,
+      "cardSlots": 72,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 21,
-      "setCount": 12,
+      "cardSlots": 22,
+      "setCount": 13,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 1,
       "remainingSetCount": 52,
-      "currentThemeSlots": 1082
+      "currentThemeSlots": 1115
     },
     {
       "era": "S",
@@ -2150,7 +2150,13 @@
       "changedSinceBaseline": false,
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "themeHits": {}
+      "themeHits": {
+        "season": 10,
+        "color": 19,
+        "sunset": 2,
+        "food": 1,
+        "work": 1
+      }
     },
     {
       "era": "SV",
