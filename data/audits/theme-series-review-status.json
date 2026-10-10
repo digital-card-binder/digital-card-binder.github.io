@@ -42572,8 +42572,8 @@
     "SVF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVF 001-010: 9 Korean official artworks reviewed, 1 evidence held, 19 new theme slots; image hosting unchanged",
-      "reviewedCardCount": 9,
+      "note": "SVF 001-020: 18 exact Korean official artworks reviewed, 002 and 020 held; 21 theme placements total; original images unchanged",
+      "reviewedCardCount": 18,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -42589,9 +42589,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold"
+        "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold",
+        "canonical-order 011-020: nine official Korean watermarked artworks checked, 020 evidence held"
       ],
-      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedThemeSlotCount": 21,
       "newlyAddedCards": [
         "SVF_001",
         "SVF_003",
@@ -42601,11 +42602,21 @@
         "SVF_007",
         "SVF_008",
         "SVF_009",
-        "SVF_010"
+        "SVF_010",
+        "SVF_011",
+        "SVF_012",
+        "SVF_013",
+        "SVF_014",
+        "SVF_015",
+        "SVF_016",
+        "SVF_017",
+        "SVF_018",
+        "SVF_019"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVF_002"
+        "SVF_002",
+        "SVF_020"
       ],
       "batches": [
         {
@@ -42841,9 +42852,192 @@
               "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 네스트볼 아이템의 구형 볼 단독 컷으로 자연·도시·노을·일·카메오 등 12개 장면 테마에 직접 부합하지 않음. 12개 독립 테마 전부 판정하여 해당 없음 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "cardNumbers": [
+            "011",
+            "012",
+            "013",
+            "014",
+            "015",
+            "016",
+            "017",
+            "018",
+            "019",
+            "020"
+          ],
+          "status": "9_official_Korean_artworks_verified_1_evidence_pending",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Official Korean pokemoncard.co.kr cards BS2023017011-20 and nine exact SVF_011-019 watermark artworks visibly checked; 020 held",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "food": 1,
+            "color": 1
+          },
+          "cards": [
+            {
+              "code": "SVF_011",
+              "checked": true,
+              "koreanNumber": "011/038",
+              "name": "다크패치",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_011.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_011.png?w=512 직접 시각 확인: 푸른 소용돌이 속 원형 다크패치 아이템 단독 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_012",
+              "checked": true,
+              "koreanNumber": "012/038",
+              "name": "대단한낚싯대",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_012.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_012.png?w=512 직접 시각 확인: 푸른 추상 배경 속 노란 낚싯대와 몬스터볼 단독 컷; 실제 물가 풍경은 보이지 않음. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_013",
+              "checked": true,
+              "koreanNumber": "013/038",
+              "name": "동굴탈출로프",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_013.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_013.png?w=512 직접 시각 확인: 분홍색 속도선 위의 황갈색 감긴 로프 단독 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_014",
+              "checked": true,
+              "koreanNumber": "014/038",
+              "name": "레벨볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_014.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_014.png?w=512 직접 시각 확인: 노란 빛 배경 속 황금색·검정색 레벨볼 단독 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_015",
+              "checked": true,
+              "koreanNumber": "015/038",
+              "name": "로스트스위퍼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_015.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_015.png?w=512 직접 시각 확인: 청색·보라색 광선을 내는 기계형 로스트스위퍼 단독 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_016",
+              "checked": true,
+              "koreanNumber": "016/038",
+              "name": "배틀VIP패스",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_016.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_016.png?w=512 직접 시각 확인: 붉은 리본과 반짝이는 금빛 입장권을 보여주는 단독 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_017",
+              "checked": true,
+              "koreanNumber": "017/038",
+              "name": "안개의 수정",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_017.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_017.png?w=512 직접 시각 확인: 금색 받침 위의 보라빛 수정구슬 단독 컷, 수면이나 거울에 실제 풍경이 비치는 장면은 아님. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_018",
+              "checked": true,
+              "koreanNumber": "018/038",
+              "name": "이상한사탕",
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_018.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_018.png?w=512 직접 시각 확인: 파란 포장지의 사탕이 선명한 분홍·주황색 원형 배경 가운데 놓여 간식 소재와 색감 대비가 뚜렷한 장면. 12개 테마 전부 독립 판정: food, color. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_019",
+              "checked": true,
+              "koreanNumber": "019/038",
+              "name": "캔슬코롱",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_019.png?w=512",
+              "illustrationSourceNote": "공식 한국어 워터마크 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_019.png?w=512 직접 시각 확인: 보라·청록색 향수병과 금색 분무기 및 추상적 파란빛 반짝임만 있는 아이템 컷. 12개 테마 전부 독립 판정: 해당 없음. 자가호스팅/디코딩/CDN 배포는 수행하지 않음."
+            },
+            {
+              "code": "SVF_020",
+              "checked": false,
+              "koreanNumber": "020/038",
+              "name": "트레킹슈즈",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017020",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 공식 카드 상세와 동일 인쇄번호 이미지 직접 접근 불가. 다른 수록판·일본판 이미지는 판정 근거로 사용하지 않고 증빙 보류."
+            }
+          ]
         }
       ],
-      "nextStart": "SVF canonical 011"
+      "nextStart": "SVF canonical 021"
     }
   },
   "queue": {
@@ -42866,11 +43060,11 @@
     "currentSet": "SVF",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVF first 10 canonical slots: 9 artworks verified; 002 pending; 19 new theme slots. SVD existing 43 holds maintained.",
+    "note": "SVF first 20 card slots: 18 official Korean artworks checked, 002 and 020 pending; 21 theme placements total. SVD holds preserved.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVF canonical-order 001-010: nine Korean official art checks, 19 theme placements, 002 held, archive pending",
-    "nextStart": "SVF canonical 011",
+    "lastSafeCheckpoint": "TASK 6 SVF 011-020: 9 Korean item artwork checks, 1 missing image, candy food+color curated",
+    "nextStart": "SVF canonical 021",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -43222,6 +43416,13 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svf-001-010-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVF 001; 003-010 independently verified"
+      },
+      {
+        "set": "SVF",
+        "range": "canonical 020",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svf-011-020-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVF canonical 019"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."
