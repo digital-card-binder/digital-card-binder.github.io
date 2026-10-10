@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-11",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4734,
-    "uniqueThemeCards": 2835,
-    "strictCompleteSetCount": 14,
+    "themeCardSlots": 4777,
+    "uniqueThemeCards": 2870,
+    "strictCompleteSetCount": 15,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 259,
+    "baselineRemainingSetCount": 258,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -2148,14 +2148,17 @@
       "cardCount": 52,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-11",
       "themeHits": {
-        "season": 10,
-        "color": 20,
+        "season": 14,
+        "color": 51,
         "sunset": 2,
-        "food": 1,
-        "work": 1
+        "work": 1,
+        "food": 2,
+        "street": 4,
+        "connected": 2,
+        "night": 1
       }
     },
     {

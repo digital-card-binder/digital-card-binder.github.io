@@ -50182,10 +50182,10 @@
       ]
     },
     "SVK": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-11",
-      "note": "21 official Korean printed artwork images directly checked with 34 new theme placements. SVK_005 찬란한 후딘 color verified, 013 numbering conflict and 30 other holds remain. No image binaries hosted.",
-      "reviewedCardCount": 21,
+      "note": "All 52 SVK Korean product card kinds visually checked against official Korean watermarked artwork and all 12 themes adjudicated. No image binary hosted.",
+      "reviewedCardCount": 52,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -50196,14 +50196,14 @@
         "sunset",
         "reflections",
         "food",
-        "street",
         "work",
+        "street",
         "cameo"
       ],
       "reviewedRanges": [
-        "52 Korean catalog members checked; 21 official Korean art images inspected across all 12 themes, 31 evidence holds"
+        "canonical-order 001-052; all 52 Korean card kinds visually checked against official Korean watermarked images; all 12 themes adjudicated"
       ],
-      "newlyAddedThemeSlotCount": 34,
+      "newlyAddedThemeSlotCount": 77,
       "newlyAddedCards": [
         "SVK_001",
         "SVK_002",
@@ -50225,10 +50225,7 @@
         "SVK_027",
         "SVK_028",
         "SVK_029",
-        "SVK_038"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SVK_038",
         "SVK_013",
         "SVK_015",
         "SVK_016",
@@ -50261,13 +50258,15 @@
         "SVK_051",
         "SVK_052"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-052 (full set membership)",
-          "status": "21_official_Korean_artworks_verified_31_evidence_holds",
-          "checkedCardCount": 21,
+          "status": "partial_52_official_Korean_artworks_visually_verified",
+          "checkedCardCount": 52,
           "inventoryCrosscheckedCardCount": 52,
-          "heldCardCount": 31,
+          "heldCardCount": 0,
           "artworkAudit": "data/audits/theme-svk-001-052-evidence-pending.json",
           "evidenceSource": "https://pokemoncard.co.kr/card/661",
           "imageAudit": {
@@ -50283,11 +50282,14 @@
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "themeAdditions": {
-            "season": 10,
-            "color": 20,
+            "season": 14,
+            "color": 51,
             "sunset": 2,
             "work": 1,
-            "food": 1
+            "food": 2,
+            "street": 4,
+            "connected": 2,
+            "night": 1
           },
           "cards": [
             {
@@ -50303,10 +50305,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013001",
@@ -50326,10 +50325,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013002",
@@ -50350,11 +50346,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "sunset",
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013003",
@@ -50375,11 +50367,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "sunset",
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013004",
@@ -50398,9 +50386,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013005",
@@ -50419,9 +50405,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013006",
@@ -50441,10 +50425,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013007",
@@ -50464,10 +50445,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013008",
@@ -50486,9 +50464,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013009",
@@ -50507,9 +50483,7 @@
               "themesMatched": [
                 "season"
               ],
-              "themesAdded": [
-                "season"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013010",
@@ -50530,11 +50504,7 @@
                 "work",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "work",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013011",
@@ -50554,10 +50524,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013012",
@@ -50570,16 +50537,20 @@
               "canonicalMasterCode": "svk_013/044",
               "koreanNumber": "013/044",
               "koreanName": "곤충채집세트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_013.png?w=512",
+              "illustrationSourceNote": "한국어 인쇄 카드 013/044 확인. 빨간 곤충채집통과 파란 포충망, 연두·노랑 방사형 배경."
             },
             {
               "code": "SVK_014",
@@ -50593,9 +50564,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013014",
@@ -50608,16 +50577,20 @@
               "canonicalMasterCode": "svk_015/044",
               "koreanNumber": "015/044",
               "koreanName": "다크패치",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_015.png?w=512",
+              "illustrationSourceNote": "한국어 카드 015/044의 어두운 패치 도구와 청색 에너지 효과."
             },
             {
               "code": "SVK_016",
@@ -50625,16 +50598,20 @@
               "canonicalMasterCode": "svk_016/044",
               "koreanNumber": "016/044",
               "koreanName": "대단한낚싯대",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_016.png?w=512",
+              "illustrationSourceNote": "한국어 카드 016/044의 낚싯대·도구와 청색 원형 속도 효과."
             },
             {
               "code": "SVK_017",
@@ -50642,16 +50619,20 @@
               "canonicalMasterCode": "svk_017/044",
               "koreanNumber": "017/044",
               "koreanName": "대지의 그릇",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_017.png?w=512",
+              "illustrationSourceNote": "한국어 카드 017/044의 갈색 대지의 그릇, 황금·연두 소용돌이 배경."
             },
             {
               "code": "SVK_018",
@@ -50665,9 +50646,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013018",
@@ -50680,16 +50659,22 @@
               "canonicalMasterCode": "svk_019/044",
               "koreanNumber": "019/044",
               "koreanName": "이상한사탕",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_019.png?w=512",
+              "illustrationSourceNote": "한국어 카드 019/044의 파란 포장 사탕과 붉은·분홍 방사형 배경."
             },
             {
               "code": "SVK_020",
@@ -50704,10 +50689,7 @@
                 "food",
                 "color"
               ],
-              "themesAdded": [
-                "food",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013020",
@@ -50726,9 +50708,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013021",
@@ -50741,16 +50721,20 @@
               "canonicalMasterCode": "svk_022/044",
               "koreanNumber": "022/044",
               "koreanName": "캡처아로마",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013022",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_022.png?w=512",
+              "illustrationSourceNote": "한국어 카드 022/044의 캡처아로마 도구와 황록색 빛 효과."
             },
             {
               "code": "SVK_023",
@@ -50758,16 +50742,20 @@
               "canonicalMasterCode": "svk_023/044",
               "koreanNumber": "023/044",
               "koreanName": "포켓몬 교체",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_023.png?w=512",
+              "illustrationSourceNote": "한국어 카드 023/044의 포켓몬 교체 도구 2개와 보라·청색 배경; 묘사된 포켓몬은 확인되지 않음."
             },
             {
               "code": "SVK_024",
@@ -50775,16 +50763,20 @@
               "canonicalMasterCode": "svk_024/044",
               "koreanNumber": "024/044",
               "koreanName": "하이퍼볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_024.png?w=512",
+              "illustrationSourceNote": "한국어 카드 024/044의 노랑·검정 하이퍼볼과 빨강·주황 방사형 배경."
             },
             {
               "code": "SVK_025",
@@ -50792,16 +50784,20 @@
               "canonicalMasterCode": "svk_025/044",
               "koreanNumber": "025/044",
               "koreanName": "기술머신 데볼루션",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013025",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_025.png?w=512",
+              "illustrationSourceNote": "한국어 카드 025/044의 분홍 원반형 기술머신과 분홍·보라색 효과."
             },
             {
               "code": "SVK_026",
@@ -50815,9 +50811,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013026",
@@ -50836,9 +50830,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013027",
@@ -50857,9 +50849,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013028",
@@ -50878,9 +50868,7 @@
               "themesMatched": [
                 "color"
               ],
-              "themesAdded": [
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013029",
@@ -50893,16 +50881,22 @@
               "canonicalMasterCode": "svk_030/044",
               "koreanNumber": "030/044",
               "koreanName": "모야모",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013030",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_030.png?w=512",
+              "illustrationSourceNote": "한국어 카드 030/044. 맑은 하늘, 고층 빌딩 및 현대적 광장에 선 모야모."
             },
             {
               "code": "SVK_031",
@@ -50910,16 +50904,22 @@
               "canonicalMasterCode": "svk_031/044",
               "koreanNumber": "031/044",
               "koreanName": "박사의 연구(올림박사)",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "connected",
+                "color"
+              ],
+              "themesAdded": [
+                "connected",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013031",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_031.png?w=512",
+              "illustrationSourceNote": "한국어 카드 031/044. 올림박사가 연구실 게시판 앞에 있으며 032 투로박사 카드와 같은 배경 구도."
             },
             {
               "code": "SVK_032",
@@ -50927,16 +50927,22 @@
               "canonicalMasterCode": "svk_032/044",
               "koreanNumber": "032/044",
               "koreanName": "박사의 연구",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "connected",
+                "color"
+              ],
+              "themesAdded": [
+                "connected",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013032",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_032.png?w=512",
+              "illustrationSourceNote": "한국어 카드 032/044. 투로박사가 031 올림박사 카드와 같은 연구실 게시판 앞에 있음."
             },
             {
               "code": "SVK_033",
@@ -50944,16 +50950,22 @@
               "canonicalMasterCode": "svk_033/044",
               "koreanNumber": "033/044",
               "koreanName": "보스의 지령",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013033",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_033.png?w=512",
+              "illustrationSourceNote": "한국어 카드 033/044. 달빛이 보이는 어두운 남색 건축 배경의 게치스."
             },
             {
               "code": "SVK_034",
@@ -50961,16 +50973,22 @@
               "canonicalMasterCode": "svk_034/044",
               "koreanNumber": "034/044",
               "koreanName": "수련의 돌봄",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013034",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_034.png?w=512",
+              "illustrationSourceNote": "한국어 카드 034/044. 밝은 하늘·물·나무가 있는 야외 풍경의 수련."
             },
             {
               "code": "SVK_035",
@@ -50978,16 +50996,20 @@
               "canonicalMasterCode": "svk_035/044",
               "koreanNumber": "035/044",
               "koreanName": "아크로마의 실험",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013035",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_035.png?w=512",
+              "illustrationSourceNote": "한국어 카드 035/044. 실험실 도구 및 시험관 배경의 아크로마."
             },
             {
               "code": "SVK_036",
@@ -50995,16 +51017,22 @@
               "canonicalMasterCode": "svk_036/044",
               "koreanNumber": "036/044",
               "koreanName": "카지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013036",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_036.png?w=512",
+              "illustrationSourceNote": "한국어 카드 036/044. 건물 처마와 나무가 있는 밝은 마을 상점가의 카지."
             },
             {
               "code": "SVK_037",
@@ -51012,16 +51040,20 @@
               "canonicalMasterCode": "svk_037/044",
               "koreanNumber": "037/044",
               "koreanName": "투로박사의 시나리오",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013037",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_037.png?w=512",
+              "illustrationSourceNote": "한국어 카드 037/044. 어두운 실내의 투로박사; 실내 어둠만으로 밤 테마를 부여하지 않음."
             },
             {
               "code": "SVK_038",
@@ -51036,10 +51068,7 @@
                 "season",
                 "color"
               ],
-              "themesAdded": [
-                "season",
-                "color"
-              ],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013038",
@@ -51052,16 +51081,22 @@
               "canonicalMasterCode": "svk_039/044",
               "koreanNumber": "039/044",
               "koreanName": "하솔",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013039",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_039.png?w=512",
+              "illustrationSourceNote": "한국어 카드 039/044. 밝은 하늘, 수목과 금빛 풀 풍경의 하솔."
             },
             {
               "code": "SVK_040",
@@ -51069,16 +51104,24 @@
               "canonicalMasterCode": "svk_040/044",
               "koreanNumber": "040/044",
               "koreanName": "마을백화점",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013040",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_040.png?w=512",
+              "illustrationSourceNote": "한국어 카드 040/044. 맑은 하늘 아래 야외 광장의 마을백화점, 주변 나무·산과 구름."
             },
             {
               "code": "SVK_041",
@@ -51086,16 +51129,24 @@
               "canonicalMasterCode": "svk_041/044",
               "koreanNumber": "041/044",
               "koreanName": "보울마을",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013041",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_041.png?w=512",
+              "illustrationSourceNote": "한국어 카드 041/044. 보울마을 풍차·꽃밭·푸른 하늘·마을 거리."
             },
             {
               "code": "SVK_042",
@@ -51103,16 +51154,20 @@
               "canonicalMasterCode": "svk_042/044",
               "koreanNumber": "042/044",
               "koreanName": "더블 터보 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013042",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_042.png?w=512",
+              "illustrationSourceNote": "한국어 카드 042/044. 녹색·금색·흰색 이중 터보 에너지 구체."
             },
             {
               "code": "SVK_043",
@@ -51120,16 +51175,20 @@
               "canonicalMasterCode": "svk_043/044",
               "koreanNumber": "043/044",
               "koreanName": "루미너스 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013043",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_043.png?w=512",
+              "illustrationSourceNote": "한국어 카드 043/044. 무지개색 광채의 루미너스 에너지 구체."
             },
             {
               "code": "SVK_044",
@@ -51137,16 +51196,20 @@
               "canonicalMasterCode": "svk_044/044",
               "koreanNumber": "044/044",
               "koreanName": "제트 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013044",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_044.png?w=512",
+              "illustrationSourceNote": "한국어 카드 044/044. 청색 궤적의 제트 에너지 구체."
             },
             {
               "code": "SVK_045",
@@ -51154,16 +51217,20 @@
               "canonicalMasterCode": "svk_045/044",
               "koreanNumber": null,
               "koreanName": "기본 풀 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_045.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 풀 에너지 카드. 초록 기하학 배경과 구체."
             },
             {
               "code": "SVK_046",
@@ -51171,16 +51238,20 @@
               "canonicalMasterCode": "svk_046/044",
               "koreanNumber": null,
               "koreanName": "기본 불꽃 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_046.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 불꽃 에너지 카드. 빨강·주황 기하학 배경과 구체."
             },
             {
               "code": "SVK_047",
@@ -51188,16 +51259,20 @@
               "canonicalMasterCode": "svk_047/044",
               "koreanNumber": null,
               "koreanName": "기본 물 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_047.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 물 에너지 카드. 파랑 기하학 배경과 구체."
             },
             {
               "code": "SVK_048",
@@ -51205,16 +51280,20 @@
               "canonicalMasterCode": "svk_048/044",
               "koreanNumber": null,
               "koreanName": "기본 번개 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_048.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 번개 에너지 카드. 노랑 기하학 배경과 구체."
             },
             {
               "code": "SVK_049",
@@ -51222,16 +51301,20 @@
               "canonicalMasterCode": "svk_049/044",
               "koreanNumber": null,
               "koreanName": "기본 초 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_049.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 초 에너지 카드. 보라 기하학 배경과 구체."
             },
             {
               "code": "SVK_050",
@@ -51239,16 +51322,20 @@
               "canonicalMasterCode": "svk_050/044",
               "koreanNumber": null,
               "koreanName": "기본 격투 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_050.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 격투 에너지 카드. 주황·갈색 기하학 배경과 구체."
             },
             {
               "code": "SVK_051",
@@ -51256,16 +51343,20 @@
               "canonicalMasterCode": "svk_051/044",
               "koreanNumber": null,
               "koreanName": "기본 악 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_051.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 악 에너지 카드. 어두운 청록·검정 기하학 배경과 구체."
             },
             {
               "code": "SVK_052",
@@ -51273,18 +51364,23 @@
               "canonicalMasterCode": "svk_052/044",
               "koreanNumber": null,
               "koreanName": "기본 강철 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/card/661",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_052.png?w=512",
+              "illustrationSourceNote": "공식 한국 기본 강철 에너지 카드. 회색·은색 기하학 배경과 구체."
             }
-          ]
+          ],
+          "newlyAddedThemeSlotCount": 43
         }
       ]
     }
@@ -51309,11 +51405,11 @@
     "currentSet": "SVK",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVK Korean official images 21/52, 34 new theme placements; 31 held. No binary selfhosting/CDN deployment.",
+    "note": "SVK full Korean official artwork review completed: all 52 card kinds, all 12 themes, verified; no binaries self-hosted.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVK 21/52 confirmed official Korean artwork visuals, +34 theme placements; 31 evidence holds; strict complete still 14.",
-    "nextStart": "SVK 013,015,016,017,019,022,023,024,025,030,031,032,033,034,035,036,037,039,040,041,042,043,044,045,046,047,048,049,050,051,052; prioritize 013 print-number conflict.",
+    "lastSafeCheckpoint": "TASK 6 SVK full 52/52 Korean official artwork verified; all 12 themes adjudicated; committed theme placements pending.",
+    "nextStart": "CLL canonical 033-034 evidence holds (per existing deferredEvidence); next set after completion: CLK.",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
