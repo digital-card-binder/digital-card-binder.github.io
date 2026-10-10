@@ -39094,7 +39094,7 @@
     "SVD": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVD all canonical slots through 140 enumerated; 104/147 Korean artwork checks, 36 pending image evidence. No theme classification for unverified cards.",
+      "note": "All SVD 147 canonical slots inventoried; 104 exact Korean artworks reviewed, 43 pending including 110 and all trainer/energy 111-147. Do not complete set without verified images.",
       "reviewedCardCount": 104,
       "reviewedThemes": [
         "sleeping",
@@ -39125,7 +39125,8 @@
         "canonical-order 101-110: 9 exact Korean watermark artworks reviewed, 110 held",
         "canonical-order 111-120: Korean canonical identity checked; exact 10 Korean illustration images inaccessible; 10 evidence_pending (0 visually verified)",
         "canonical-order 121-130: 10 Korean master slot identities checked; exact numbered Korean artwork not verified; all 10 evidence pending",
-        "canonical-order 131-140: 10 Korean master slot identities checked; exact numbered Korean artwork not verified; all 10 evidence pending"
+        "canonical-order 131-140: 10 Korean master slot identities checked; exact numbered Korean artwork not verified; all 10 evidence pending",
+        "canonical-order 141-147: 7 local canonical basic-energy identities checked; exact Korean prints/images all evidence pending"
       ],
       "newlyAddedThemeSlotCount": 200,
       "newlyAddedCards": [
@@ -39273,7 +39274,14 @@
         "SVD_137",
         "SVD_138",
         "SVD_139",
-        "SVD_140"
+        "SVD_140",
+        "SVD_141",
+        "SVD_142",
+        "SVD_143",
+        "SVD_144",
+        "SVD_145",
+        "SVD_146",
+        "SVD_147"
       ],
       "batches": [
         {
@@ -42428,9 +42436,138 @@
               "illustrationSourceNote": "This is an unnumbered/basic-energy candidate after printed #139 in the Korean master; the stored nn/139 identifier is a local canonical key, NOT evidence that the physical Korean card prints nn/139. Actual Korean energy print illustration is pending."
             }
           ]
+        },
+        {
+          "range": "canonical-order 141-147",
+          "cardNumbers": [
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147"
+          ],
+          "status": "0_official_Korean_artworks_verified_7_evidence_pending",
+          "checkedCardCount": 0,
+          "heldCardCount": 7,
+          "imageAudit": {
+            "catalogImageReferenceCount": 7,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 7,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 7,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean series.json energy names and local canonical order only. Actual printed Korean energy artwork & numbering not verified.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {},
+          "cards": [
+            {
+              "code": "SVD_141",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 불꽃 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_142",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 물 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_143",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 번개 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_144",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 초 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_145",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 격투 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_146",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 악 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            },
+            {
+              "code": "SVD_147",
+              "checked": false,
+              "koreanNumber": null,
+              "name": "기본 강철 에너지",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean base-energy artwork/print unverified; no Japanese-image substitution and no extrapolation from synthetic canonical numbering"
+            }
+          ]
         }
       ],
-      "nextStart": "SVD canonical 141"
+      "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)"
     }
   },
   "queue": {
@@ -42453,11 +42590,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD 131-140 exact Korean artwork not visually verified. 36 SVD pending, 104/147 reviewed. No source image changes.",
+    "note": "SVD card inventory traversed through 147, 104/147 actual Korean artwork reviews remain; 43 evidence_pending. All cards retained, all external image URLs retained. 140+ IDs synthetic.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD canonical-order 131-140: 10 card identities checked, 0 actual illustrations verified, 10 evidence held; thematic verdict pending. SVD reviewed 104/147.",
-    "nextStart": "SVD canonical 141",
+    "lastSafeCheckpoint": "SVD 141-147 inventoried as unnumbered/basic energy canonical slots; 7 evidence holds, 0 visual verifications, 0 theme changes. Full SVD 104 verified, 43 pending.",
+    "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -42795,6 +42932,13 @@
         "pendingCount": 10,
         "audit": "data/audits/theme-svd-131-140-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 101-109 verified; remaining trainer/energy images evidence pending"
+      },
+      {
+        "set": "SVD",
+        "range": "canonical-order 141-147",
+        "pendingCount": 7,
+        "audit": "data/audits/theme-svd-141-147-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVD 101-109 final contiguous verified, all 110-147 image evidence pending"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."
