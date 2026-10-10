@@ -42572,8 +42572,8 @@
     "SVF": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVF 001-020: 18 exact Korean official artworks reviewed, 002 and 020 held; 21 theme placements total; original images unchanged",
-      "reviewedCardCount": 18,
+      "note": "SVF 001-030 canonical: 23 exact Korean artworks visually reviewed; 7 evidence holds; 28 total new theme placements, no card deletion or binary hosting.",
+      "reviewedCardCount": 23,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -42590,9 +42590,10 @@
       ],
       "reviewedRanges": [
         "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold",
-        "canonical-order 011-020: nine official Korean watermarked artworks checked, 020 evidence held"
+        "canonical-order 011-020: nine official Korean watermarked artworks checked, 020 evidence held",
+        "canonical-order 021-030: 5 official Korean images verified; 021-022,026,028-029 image evidence pending"
       ],
-      "newlyAddedThemeSlotCount": 21,
+      "newlyAddedThemeSlotCount": 28,
       "newlyAddedCards": [
         "SVF_001",
         "SVF_003",
@@ -42611,12 +42612,22 @@
         "SVF_016",
         "SVF_017",
         "SVF_018",
-        "SVF_019"
+        "SVF_019",
+        "SVF_023",
+        "SVF_024",
+        "SVF_025",
+        "SVF_027",
+        "SVF_030"
       ],
       "existingSkippedCards": [],
       "heldCards": [
         "SVF_002",
-        "SVF_020"
+        "SVF_020",
+        "SVF_021",
+        "SVF_022",
+        "SVF_026",
+        "SVF_028",
+        "SVF_029"
       ],
       "batches": [
         {
@@ -43035,9 +43046,211 @@
               "illustrationSourceNote": "한국판 공식 카드 상세와 동일 인쇄번호 이미지 직접 접근 불가. 다른 수록판·일본판 이미지는 판정 근거로 사용하지 않고 증빙 보류."
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030",
+          "cardNumbers": [
+            "021",
+            "022",
+            "023",
+            "024",
+            "025",
+            "026",
+            "027",
+            "028",
+            "029",
+            "030"
+          ],
+          "status": "5_official_Korean_artworks_verified_5_evidence_pending",
+          "checkedCardCount": 5,
+          "heldCardCount": 5,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Exact Korean pokemoncard.co.kr/SVF_023,024,025,027,030 watermark artworks directly viewed; other five detail/images unavailable",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "color": 5,
+            "street": 1,
+            "night": 1
+          },
+          "cards": [
+            {
+              "code": "SVF_021",
+              "checked": false,
+              "koreanNumber": "021/038",
+              "name": "포켓몬 교체",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017021",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 021/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+            },
+            {
+              "code": "SVF_022",
+              "checked": false,
+              "koreanNumber": "022/038",
+              "name": "하이퍼볼",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017022",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 022/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+            },
+            {
+              "code": "SVF_023",
+              "checked": true,
+              "koreanNumber": "023/038",
+              "name": "히스이의 헤비볼",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_023.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 히스이의 헤비볼 단독 이미지로 짙은 검정·은색 금속 볼이 강렬한 주황·붉은 에너지 소용돌이 앞에 떠 있음. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
+            },
+            {
+              "code": "SVF_024",
+              "checked": true,
+              "koreanNumber": "024/038",
+              "name": "숲의 봉인석",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_024.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 숲의 봉인석 단독 컷으로 초록빛 소용돌이·담쟁이 잎·회색 석판이 선명한 초록 색감을 만듦. 실물 숲 풍경이 아님. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
+            },
+            {
+              "code": "SVF_025",
+              "checked": true,
+              "koreanNumber": "025/038",
+              "name": "금랑",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017025",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_025.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 금랑이 주황색 머리와 어두운 남색 옷을 입고 푸른 경기장과 붉은 장식이 있는 실내 관중석 앞에 서 있음. 거리나 작업 장면 아님. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
+            },
+            {
+              "code": "SVF_026",
+              "checked": false,
+              "koreanNumber": "026/038",
+              "name": "모미",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017026",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 026/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+            },
+            {
+              "code": "SVF_027",
+              "checked": true,
+              "koreanNumber": "027/038",
+              "name": "모야모",
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017027",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_027.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 모야모가 노란 코트와 분홍 머리로, 건물·고층 탑·가로 구조물 등이 보이는 청명한 도시 거리에서 포즈를 취하는 장면. 12개 테마 전체 각각 검수: color, street. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
+            },
+            {
+              "code": "SVF_028",
+              "checked": false,
+              "koreanNumber": "028/038",
+              "name": "박사의 연구",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017028",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 028/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+            },
+            {
+              "code": "SVF_029",
+              "checked": false,
+              "koreanNumber": "029/038",
+              "name": "박사의 연구",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017029",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국판 카드 029/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+            },
+            {
+              "code": "SVF_030",
+              "checked": true,
+              "koreanNumber": "030/038",
+              "name": "보스의 지령",
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017030",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_030.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 게치스가 거대한 아치와 붉은 눈을 가진 채 창백한 달이 보이는 푸른 밤하늘의 돌기둥 사이에 서 있는 장면. 12개 테마 전체 각각 검수: night, color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
+            }
+          ]
         }
       ],
-      "nextStart": "SVF canonical 021"
+      "nextStart": "SVF canonical 031"
     }
   },
   "queue": {
@@ -43060,11 +43273,11 @@
     "currentSet": "SVF",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVF first 20 card slots: 18 official Korean artworks checked, 002 and 020 pending; 21 theme placements total. SVD holds preserved.",
+    "note": "SVF 001-030: 23 official Korean artworks checked, 7 card images still pending; 28 theme slots newly curated. SVD 43 holds preserved.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVF 011-020: 9 Korean item artwork checks, 1 missing image, candy food+color curated",
-    "nextStart": "SVF canonical 021",
+    "lastSafeCheckpoint": "TASK 6 SVF canonical-order 021-030: 5 verified Korean artworks, 5 holds; seven theme placements",
+    "nextStart": "SVF canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -43423,6 +43636,13 @@
         "pendingCount": 1,
         "audit": "data/audits/theme-svf-011-020-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVF canonical 019"
+      },
+      {
+        "set": "SVF",
+        "range": "canonical 021-022,026,028-029",
+        "pendingCount": 5,
+        "audit": "data/audits/theme-svf-021-030-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVF canonical 030 (023,024,025,027,030 checked)"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD 081-090 10 exact Korean artwork slots visually reviewed without new holds."

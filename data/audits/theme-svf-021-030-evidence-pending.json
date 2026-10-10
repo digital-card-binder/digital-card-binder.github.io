@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-10",
+  "task": 6,
+  "set": "SVF",
+  "range": "canonical-order 021-030",
+  "sourceOfTruth": "Pokémon Korea official Korean card details and precisely numbered Korean watermark images",
+  "canonicalCardCount": 10,
+  "officialKoreanArtworkVerifiedCount": 5,
+  "artworkPendingCount": 5,
+  "all12ThemesCheckedForVerifiedCards": true,
+  "themeAdditions": {
+    "color": 5,
+    "street": 1,
+    "night": 1
+  },
+  "imageBinarySelfHostedCount": 0,
+  "archiveVerificationStatus": "pending",
+  "reasonForHolds": "021-022,026,028-029 exact Korean official images inaccessible this run; hold all thematic verdicts; no Japanese substitutes",
+  "cards": [
+    {
+      "code": "SVF_021",
+      "canonicalOrder": 21,
+      "canonicalMasterCode": "svf_021/038",
+      "koreanName": "포켓몬 교체",
+      "koreanPrintedNumber": "021/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017021",
+      "officialKoreanImage": null,
+      "checked": false,
+      "needsReview": true,
+      "artworkProofStatus": "evidence_pending",
+      "all12ThemesChecked": false,
+      "themesMatched": [],
+      "themesAdded": [],
+      "illustrationObservation": "한국판 카드 021/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_022",
+      "canonicalOrder": 22,
+      "canonicalMasterCode": "svf_022/038",
+      "koreanName": "하이퍼볼",
+      "koreanPrintedNumber": "022/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017022",
+      "officialKoreanImage": null,
+      "checked": false,
+      "needsReview": true,
+      "artworkProofStatus": "evidence_pending",
+      "all12ThemesChecked": false,
+      "themesMatched": [],
+      "themesAdded": [],
+      "illustrationObservation": "한국판 카드 022/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_023",
+      "canonicalOrder": 23,
+      "canonicalMasterCode": "svf_023/038",
+      "koreanName": "히스이의 헤비볼",
+      "koreanPrintedNumber": "023/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017023",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_023.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 히스이의 헤비볼 단독 이미지로 짙은 검정·은색 금속 볼이 강렬한 주황·붉은 에너지 소용돌이 앞에 떠 있음. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_024",
+      "canonicalOrder": 24,
+      "canonicalMasterCode": "svf_024/038",
+      "koreanName": "숲의 봉인석",
+      "koreanPrintedNumber": "024/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017024",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_024.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 숲의 봉인석 단독 컷으로 초록빛 소용돌이·담쟁이 잎·회색 석판이 선명한 초록 색감을 만듦. 실물 숲 풍경이 아님. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_025",
+      "canonicalOrder": 25,
+      "canonicalMasterCode": "svf_025/038",
+      "koreanName": "금랑",
+      "koreanPrintedNumber": "025/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017025",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_025.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 금랑이 주황색 머리와 어두운 남색 옷을 입고 푸른 경기장과 붉은 장식이 있는 실내 관중석 앞에 서 있음. 거리나 작업 장면 아님. 12개 테마 전체 각각 검수: color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_026",
+      "canonicalOrder": 26,
+      "canonicalMasterCode": "svf_026/038",
+      "koreanName": "모미",
+      "koreanPrintedNumber": "026/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017026",
+      "officialKoreanImage": null,
+      "checked": false,
+      "needsReview": true,
+      "artworkProofStatus": "evidence_pending",
+      "all12ThemesChecked": false,
+      "themesMatched": [],
+      "themesAdded": [],
+      "illustrationObservation": "한국판 카드 026/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_027",
+      "canonicalOrder": 27,
+      "canonicalMasterCode": "svf_027/038",
+      "koreanName": "모야모",
+      "koreanPrintedNumber": "027/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017027",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_027.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "color",
+        "street"
+      ],
+      "themesAdded": [
+        "color",
+        "street"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 모야모가 노란 코트와 분홍 머리로, 건물·고층 탑·가로 구조물 등이 보이는 청명한 도시 거리에서 포즈를 취하는 장면. 12개 테마 전체 각각 검수: color, street. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_028",
+      "canonicalOrder": 28,
+      "canonicalMasterCode": "svf_028/038",
+      "koreanName": "박사의 연구",
+      "koreanPrintedNumber": "028/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017028",
+      "officialKoreanImage": null,
+      "checked": false,
+      "needsReview": true,
+      "artworkProofStatus": "evidence_pending",
+      "all12ThemesChecked": false,
+      "themesMatched": [],
+      "themesAdded": [],
+      "illustrationObservation": "한국판 카드 028/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_029",
+      "canonicalOrder": 29,
+      "canonicalMasterCode": "svf_029/038",
+      "koreanName": "박사의 연구",
+      "koreanPrintedNumber": "029/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017029",
+      "officialKoreanImage": null,
+      "checked": false,
+      "needsReview": true,
+      "artworkProofStatus": "evidence_pending",
+      "all12ThemesChecked": false,
+      "themesMatched": [],
+      "themesAdded": [],
+      "illustrationObservation": "한국판 카드 029/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지.",
+      "imageBinarySelfHosted": false
+    },
+    {
+      "code": "SVF_030",
+      "canonicalOrder": 30,
+      "canonicalMasterCode": "svf_030/038",
+      "koreanName": "보스의 지령",
+      "koreanPrintedNumber": "030/038",
+      "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017030",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_030.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "night",
+        "color"
+      ],
+      "themesAdded": [
+        "night",
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 게치스가 거대한 아치와 붉은 눈을 가진 채 창백한 달이 보이는 푸른 밤하늘의 돌기둥 사이에 서 있는 장면. 12개 테마 전체 각각 검수: night, color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음.",
+      "imageBinarySelfHosted": false
+    }
+  ],
+  "nextStart": "SVF canonical 031",
+  "note": "Master list unchanged, no image URLs rewritten."
+}
