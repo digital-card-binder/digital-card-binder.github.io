@@ -50184,7 +50184,7 @@
     "SVK": {
       "status": "complete",
       "reviewedAt": "2026-10-11",
-      "note": "All 52 SVK Korean product card kinds visually checked against official Korean watermarked artwork and all 12 themes adjudicated. No image binary hosted.",
+      "note": "52 official Korean watermarked artworks directly checked; all 12 themes adjudicated, 43 new theme placements; 8 physically unnumbered basic-energy kinds. Image binaries not self-hosted.",
       "reviewedCardCount": 52,
       "reviewedThemes": [
         "sleeping",
@@ -50263,7 +50263,7 @@
       "batches": [
         {
           "range": "canonical-order 001-052 (full set membership)",
-          "status": "partial_52_official_Korean_artworks_visually_verified",
+          "status": "complete_52_official_Korean_artworks_all12_themes_checked",
           "checkedCardCount": 52,
           "inventoryCrosscheckedCardCount": 52,
           "heldCardCount": 0,
@@ -51405,11 +51405,11 @@
     "currentSet": "SVK",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVK full Korean official artwork review completed: all 52 card kinds, all 12 themes, verified; no binaries self-hosted.",
+    "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVK full 52/52 Korean official artwork verified; all 12 themes adjudicated; committed theme placements pending.",
-    "nextStart": "CLL canonical 033-034 evidence holds (per existing deferredEvidence); next set after completion: CLK.",
+    "lastSafeCheckpoint": "SVK complete 52/52 Korean official artwork checks and all 12 theme decisions; commit 4b307366478954a9e280bc48b6f253c965a85e77.",
+    "nextStart": "CLL canonical-order 033-034",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
