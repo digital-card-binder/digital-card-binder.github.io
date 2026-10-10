@@ -39094,8 +39094,8 @@
     "SVD": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "SVD 001-070: 66/147 official Korean images reviewed. Four historical evidence holds remain, no new holds; images not self-hosted.",
-      "reviewedCardCount": 66,
+      "note": "SVD 001-080: 75/147 Korean artworks reviewed across 12 themes; evidence holds 007,012,042,045,078; image archive pending.",
+      "reviewedCardCount": 75,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -39118,9 +39118,10 @@
         "canonical-order 031-040: 10 official Korean watermark artworks visually verified",
         "canonical-order 041-050: 8 Korean official artworks visually checked, 042/045 image evidence pending",
         "canonical-order 051-060: ten exact official Korean printed artworks directly reviewed",
-        "canonical-order 061-070: 10 exact Korean official artworks visually inspected"
+        "canonical-order 061-070: 10 exact Korean official artworks visually inspected",
+        "canonical-order 071-080: 9 exact Korean official card images reviewed, 078 held"
       ],
-      "newlyAddedThemeSlotCount": 123,
+      "newlyAddedThemeSlotCount": 140,
       "newlyAddedCards": [
         "SVD_001",
         "SVD_002",
@@ -39187,7 +39188,16 @@
         "SVD_067",
         "SVD_068",
         "SVD_069",
-        "SVD_070"
+        "SVD_070",
+        "SVD_071",
+        "SVD_072",
+        "SVD_073",
+        "SVD_074",
+        "SVD_075",
+        "SVD_076",
+        "SVD_077",
+        "SVD_079",
+        "SVD_080"
       ],
       "existingSkippedCards": [
         "SVD_009"
@@ -39196,7 +39206,8 @@
         "SVD_007",
         "SVD_012",
         "SVD_042",
-        "SVD_045"
+        "SVD_045",
+        "SVD_078"
       ],
       "batches": [
         {
@@ -40883,9 +40894,239 @@
               "illustrationSourceNote": "실제 한국판 공식 일러스트 직접 확인: 팔데아 토오가 바람에 풀이 흔들리는 초록 들판에 커다란 몸을 낮게 눕히며 맑은 하늘과 나무들이 뒤에 보인다. 12개 테마 검사 결과 season, color. 이미지 바이너리 별도 보관 미실시."
             }
           ]
+        },
+        {
+          "range": "canonical-order 071-080",
+          "cardNumbers": [
+            "071",
+            "072",
+            "073",
+            "074",
+            "075",
+            "076",
+            "077",
+            "078",
+            "079",
+            "080"
+          ],
+          "status": "9_korean_artworks_reviewed_1_hold",
+          "checkedCardCount": 9,
+          "heldCardCount": 1,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean official BS2023016071-6080 details and exact Korean SVD 071-077,079-080 official watermarked card images",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "street": 1,
+            "color": 9,
+            "season": 7
+          },
+          "cards": [
+            {
+              "code": "SVD_071",
+              "checked": true,
+              "koreanNumber": "071/139",
+              "name": "델빌",
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016071",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_071.png?w=512",
+              "illustrationSourceNote": "델빌이 벽면 배관, 표지판과 쓰레기통이 있는 어두운 도시 골목에 서 있다. 낮·밤을 확정할 근거는 없으므로 night 제외. 12개 테마 각각 검토 결과: street, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_072",
+              "checked": true,
+              "koreanNumber": "072/139",
+              "name": "헬가 ex",
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016072",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_072.png?w=512",
+              "illustrationSourceNote": "헬가 ex가 불꽃과 바위 파편이 휘몰아치는 전투 연출 속에 돌진한다. 실제 일몰이 아니다. 12개 테마 각각 검토 결과: color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_073",
+              "checked": true,
+              "koreanNumber": "073/139",
+              "name": "세비퍼",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016073",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_073.png?w=512",
+              "illustrationSourceNote": "회보라색 자연 암벽 동굴 안의 세비퍼. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_074",
+              "checked": true,
+              "koreanNumber": "074/139",
+              "name": "야도뇽",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016074",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_074.png?w=512",
+              "illustrationSourceNote": "야도뇽이 보라 안개로 둘러싸인 커다란 숲 나무 그루터기에 매달려 있다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_075",
+              "checked": true,
+              "koreanNumber": "075/139",
+              "name": "염뉴트",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016075",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_075.png?w=512",
+              "illustrationSourceNote": "염뉴트가 기암 기둥과 밝은 하늘이 보이는 협곡 바닥에 있다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_076",
+              "checked": true,
+              "koreanNumber": "076/139",
+              "name": "오라티프",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016076",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_076.png?w=512",
+              "illustrationSourceNote": "오라티프가 햇살과 나무뿌리가 있는 푸른 숲길에서 짖고 있다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_077",
+              "checked": true,
+              "koreanNumber": "077/139",
+              "name": "마피티프",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016077",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_077.png?w=512",
+              "illustrationSourceNote": "마피티프가 푸른 하늘, 초록 나무와 누런 흙길 앞에서 울부짖는다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_078",
+              "checked": false,
+              "koreanNumber": "078/139",
+              "name": "땃쭈르",
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016078",
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "한국 공식 상세와 정확한 한국판 카드 이미지에 접근하지 못함. 같은 번호 일본판으로 대체하거나 장면을 추정하지 않음. 12개 테마 각각 검토 결과: 그림 판독 보류. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_079",
+              "checked": true,
+              "koreanNumber": "079/139",
+              "name": "떨구새",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016079",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_079.png?w=512",
+              "illustrationSourceNote": "떨구새가 나무와 수풀 사이의 밝은 하늘 앞에서 날고 있으며 하얗고 둥근 햇빛이 보인다. 밤·노을 근거 없음. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            },
+            {
+              "code": "SVD_080",
+              "checked": true,
+              "koreanNumber": "080/139",
+              "name": "쏘콘",
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016080",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_080.png?w=512",
+              "illustrationSourceNote": "쏘콘이 나뭇잎과 큰 나무 사이, 밝은 푸른 하늘이 보이는 숲에 떠 있다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+            }
+          ]
         }
       ],
-      "nextStart": "SVD 051 (canonical order 051); outstanding holds 007,012,042,045"
+      "nextStart": "SVD 081 (canonical order 081); evidence holds 007,012,042,045,078"
     }
   },
   "queue": {
@@ -40908,11 +41149,11 @@
     "currentSet": "SVD",
     "method": "약 10장 Atomic Batch마다 모든 canonical card slot을 12개 테마 기준으로 실제 일러스트 판독 후 checkpoint",
     "status": "stage-6-in-progress",
-    "note": "SVD 001-070 Korean illustration batch checkpoints saved. Current SVD artwork holds 007,012,042,045; selfhost image archiving not verified.",
+    "note": "SVD Korean illustrations 001-080 inspected except 007,012,042,045,078; archive transfers not performed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVD 061-070: 10 direct Korean art reviews; 20 independent theme placements, previous 4 evidence holds retained; 66/147 done.",
-    "nextStart": "SVD 071 (canonical order 071); unresolved holds 007,012,042,045",
+    "lastSafeCheckpoint": "TASK 6 SVD 071-080: nine official Korean watermarked images verified across 12 themes; +17 theme slots; one exact image evidence hold 078. 75/147 reviewed.",
+    "nextStart": "SVD 081 (canonical order 081); evidence holds 007,012,042,045,078",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -41222,8 +41463,15 @@
         "pendingCount": 2,
         "audit": "data/audits/theme-svd-041-050-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVD 041,043,044,046-050 artwork verified"
+      },
+      {
+        "set": "SVD",
+        "range": "canonical-order 078",
+        "pendingCount": 1,
+        "audit": "data/audits/theme-svd-071-080-art-review.json",
+        "lastArtSafeCheckpoint": "SVD 077 then 079-080"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVD 041-050: 041,043,044,046-050 exact Korean official image reviewed"
+    "lastEvidenceAuditCheckpoint": "SVD 071-080 nine exact printed images reviewed; one held 078"
   }
 }
