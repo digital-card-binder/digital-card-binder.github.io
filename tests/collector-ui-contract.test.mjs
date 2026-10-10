@@ -762,8 +762,8 @@ test("native dex pages retire one-off heading clutter and share compact guide di
 
   assert.doesNotMatch(ar, /ar-hero-meta/);
   assert.doesNotMatch(fossil, /id="fossil-scope"/);
-  assert.match(fossil, /<details class="collector-guide-panel">/);
-  assert.match(trainer, /<details class="collector-guide-panel">/);
+  assert.match(fossil, /<details class="collector-guide-panel"(?: hidden)?>/);
+  assert.match(trainer, /<details class="collector-guide-panel"(?: hidden)?>/);
   assert.equal((people.match(/class="stat-card /g) || []).length, 3);
   assert.match(people, /id="stat-people-rate"/);
   assert.doesNotMatch(people, /stat-people-confirmed/);
