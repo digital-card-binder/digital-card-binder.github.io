@@ -49692,6 +49692,494 @@
           ]
         }
       ]
+    },
+    "SVJP": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "note": "Full 20-item Korean SVJP inventory processed in one set batch. 13 exact Korean watermarked card artworks individually inspected and all 12 themes evaluated; seven remain image evidence holds. No master or hosting changes.",
+      "reviewedCardCount": 13,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical 001-020 entire Korean membership crosscheck; 13 official Korean art checks, 7 evidence holds"
+      ],
+      "newlyAddedThemeSlotCount": 20,
+      "newlyAddedCards": [
+        "SVJP_001",
+        "SVJP_002",
+        "SVJP_003",
+        "SVJP_005",
+        "SVJP_007",
+        "SVJP_008",
+        "SVJP_009",
+        "SVJP_010",
+        "SVJP_012",
+        "SVJP_013",
+        "SVJP_014",
+        "SVJP_015",
+        "SVJP_016"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
+        "SVJP_004",
+        "SVJP_006",
+        "SVJP_011",
+        "SVJP_017",
+        "SVJP_018",
+        "SVJP_019",
+        "SVJP_020"
+      ],
+      "batches": [
+        {
+          "range": "canonical-order 001-020 (full set inventory)",
+          "status": "13_Korean_artworks_verified_7_evidence_holds",
+          "checkedCardCount": 13,
+          "inventoryCrosscheckedCardCount": 20,
+          "heldCardCount": 7,
+          "artworkAudit": "data/audits/theme-svjp-001-020-evidence-pending.json",
+          "evidenceSource": "https://pokemoncard.co.kr/card/646",
+          "imageAudit": {
+            "catalogImageReferenceCount": 20,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 20,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 20,
+            "brokenReferenceCount": null
+          },
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "color": 12,
+            "sunset": 1,
+            "season": 4,
+            "work": 1,
+            "food": 1,
+            "street": 1
+          },
+          "cards": [
+            {
+              "code": "SVJP_001",
+              "canonicalOrder": 1,
+              "canonicalMasterCode": "svjp_001/019",
+              "koreanNumber": "001/019",
+              "koreanName": "오리진 펄기아 V",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_001.png?w=512",
+              "illustrationSourceNote": "녹색·푸른 섬광과 눈부신 흰 유리빛 갑각이 대비되는 오리진 펄기아 V"
+            },
+            {
+              "code": "SVJP_002",
+              "canonicalOrder": 2,
+              "canonicalMasterCode": "svjp_002/019",
+              "koreanNumber": "002/019",
+              "koreanName": "오리진 펄기아 VSTAR",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010002",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_002.png?w=512",
+              "illustrationSourceNote": "황금 별빛과 푸른 우주빛, 연보라색 몸체가 교차하는 오리진 펄기아 VSTAR"
+            },
+            {
+              "code": "SVJP_003",
+              "canonicalOrder": 3,
+              "canonicalMasterCode": "svjp_003/019",
+              "koreanNumber": "003/019",
+              "koreanName": "찬란한 개굴닌자",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "sunset",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "sunset",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_003.png?w=512",
+              "illustrationSourceNote": "붉은 노을에 닿는 태양과 분홍빛 바다, 바위 위에 서 있는 찬란한 개굴닌자"
+            },
+            {
+              "code": "SVJP_004",
+              "canonicalOrder": 4,
+              "canonicalMasterCode": "svjp_004/019",
+              "koreanNumber": "004/019",
+              "koreanName": "드니차",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_005",
+              "canonicalOrder": 5,
+              "canonicalMasterCode": "svjp_005/019",
+              "koreanNumber": "005/019",
+              "koreanName": "드니꽁",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_005.png?w=512",
+              "illustrationSourceNote": "초록 나무와 갈색 흙·바위가 어우러진 숲속에서 움직이는 파란 드니꽁"
+            },
+            {
+              "code": "SVJP_006",
+              "canonicalOrder": 6,
+              "canonicalMasterCode": "svjp_006/019",
+              "koreanNumber": "006/019",
+              "koreanName": "드닐레이브",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_007",
+              "canonicalOrder": 7,
+              "canonicalMasterCode": "svjp_007/019",
+              "koreanNumber": "007/019",
+              "koreanName": "파오젠 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_007.png?w=512",
+              "illustrationSourceNote": "파랗고 흰 얼음 결정과 검푸른 검, 반짝이는 서리 사이 파오젠 ex"
+            },
+            {
+              "code": "SVJP_008",
+              "canonicalOrder": 8,
+              "canonicalMasterCode": "svjp_008/019",
+              "koreanNumber": "008/019",
+              "koreanName": "비버니",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season"
+              ],
+              "themesAdded": [
+                "season"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_008.png?w=512",
+              "illustrationSourceNote": "햇빛 비치는 숲에서 나무 그루터기에 이를 가는 비버니"
+            },
+            {
+              "code": "SVJP_009",
+              "canonicalOrder": 9,
+              "canonicalMasterCode": "svjp_009/019",
+              "koreanNumber": "009/019",
+              "koreanName": "비버통",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "work",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "work",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_009.png?w=512",
+              "illustrationSourceNote": "숲속 강물 위를 나무 통나무 무더기를 싣고 건너는 비버통"
+            },
+            {
+              "code": "SVJP_010",
+              "canonicalOrder": 10,
+              "canonicalMasterCode": "svjp_010/019",
+              "koreanNumber": "010/019",
+              "koreanName": "네스트볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_010.png?w=512",
+              "illustrationSourceNote": "하늘색 속도감 있는 배경 위에 녹색·황색 띠가 있는 네스트볼"
+            },
+            {
+              "code": "SVJP_011",
+              "canonicalOrder": 11,
+              "canonicalMasterCode": "svjp_011/019",
+              "koreanNumber": "011/019",
+              "koreanName": "수퍼 에너지 회수",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_012",
+              "canonicalOrder": 12,
+              "canonicalMasterCode": "svjp_012/019",
+              "koreanNumber": "012/019",
+              "koreanName": "이상한사탕",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_012.png?w=512",
+              "illustrationSourceNote": "붉은·분홍빛 방사형 배경에 파란 포장지를 감싼 둥근 사탕"
+            },
+            {
+              "code": "SVJP_013",
+              "canonicalOrder": 13,
+              "canonicalMasterCode": "svjp_013/019",
+              "koreanNumber": "013/019",
+              "koreanName": "포켓몬 교체",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_013.png?w=512",
+              "illustrationSourceNote": "보라색 디지털 회로 속에서 교체되는 두 빨강·하양 몬스터볼"
+            },
+            {
+              "code": "SVJP_014",
+              "canonicalOrder": 14,
+              "canonicalMasterCode": "svjp_014/019",
+              "koreanNumber": "014/019",
+              "koreanName": "하이퍼볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_014.png?w=512",
+              "illustrationSourceNote": "빨간·금빛 빛줄기 가운데 노란 띠를 두른 하이퍼볼"
+            },
+            {
+              "code": "SVJP_015",
+              "canonicalOrder": 15,
+              "canonicalMasterCode": "svjp_015/019",
+              "koreanNumber": "015/019",
+              "koreanName": "모야모",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_015.png?w=512",
+              "illustrationSourceNote": "맑은 하늘의 도시 초고층 건물과 광장에 선 노랑 코트의 모야모"
+            },
+            {
+              "code": "SVJP_016",
+              "canonicalOrder": 16,
+              "canonicalMasterCode": "svjp_016/019",
+              "koreanNumber": "016/019",
+              "koreanName": "박사의 연구",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_016.png?w=512",
+              "illustrationSourceNote": "푸른·연두색 실내 연구실 칠판 앞에 흰 실험복과 검정·보라 의상의 투로박사"
+            },
+            {
+              "code": "SVJP_017",
+              "canonicalOrder": 17,
+              "canonicalMasterCode": "svjp_017/019",
+              "koreanNumber": "017/019",
+              "koreanName": "보스의 지령",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_018",
+              "canonicalOrder": 18,
+              "canonicalMasterCode": "svjp_018/019",
+              "koreanNumber": "018/019",
+              "koreanName": "주혜",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_019",
+              "canonicalOrder": 19,
+              "canonicalMasterCode": "svjp_019/019",
+              "koreanNumber": "019/019",
+              "koreanName": "비치코트",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            },
+            {
+              "code": "SVJP_020",
+              "canonicalOrder": 20,
+              "canonicalMasterCode": "svjp_020/019",
+              "koreanNumber": null,
+              "koreanName": "기본 물 에너지",
+              "checked": false,
+              "all12ThemesChecked": false,
+              "needsReview": true,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": null,
+              "illustrationReferenceUrl": null,
+              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+            }
+          ]
+        }
+      ]
     }
   },
   "queue": {
@@ -49711,14 +50199,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVJP",
+    "currentSet": "SVK",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVJL 17/22 art confirmed, 5 holds; no image binary self-hosting or CDN deployment. Strict complete unchanged.",
+    "note": "SVJL 17/22 art inspected and SVJP 13/20 inspected. No image binary selfhosting or CDN deployment; strict completion count unchanged.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVJL canonical 001-022 Korean inventory; 17 official Korean artworks reviewed, 29 theme memberships committed; 5 evidence holds",
-    "nextStart": "SVJP canonical 001 (SVJL 004,011,014,016,022 image holds)",
+    "lastSafeCheckpoint": "TASK 6 SVJP canonical 001-020 Korean inventory checked; 13 exact Korean arts placed in 20 theme slots; 7 image evidence holds.",
+    "nextStart": "SVK canonical 001 (SVJP 004,006,011,017,018,019,020 remain artwork holds)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

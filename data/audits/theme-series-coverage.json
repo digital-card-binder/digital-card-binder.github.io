@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4680,
-    "uniqueThemeCards": 2801,
+    "themeCardSlots": 4700,
+    "uniqueThemeCards": 2816,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -67,7 +67,7 @@
       "code": "sleeping",
       "name": "잠자는 포켓몬",
       "cardSlots": 153,
-      "setCount": 70,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1223,
-      "setCount": 36,
+      "cardSlots": 1227,
+      "setCount": 37,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2267,
-      "setCount": 39,
+      "cardSlots": 2279,
+      "setCount": 40,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 94,
-      "setCount": 26,
+      "cardSlots": 95,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
@@ -185,8 +185,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 70,
-      "setCount": 28,
+      "cardSlots": 71,
+      "setCount": 29,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 20,
-      "setCount": 11,
+      "cardSlots": 21,
+      "setCount": 12,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 406,
-      "setCount": 31,
+      "cardSlots": 407,
+      "setCount": 32,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 1,
       "remainingSetCount": 52,
-      "currentThemeSlots": 1062
+      "currentThemeSlots": 1082
     },
     {
       "era": "S",
@@ -452,7 +452,7 @@
       "code": "SVJP",
       "name": "배틀 마스터 덱 「파오젠 ex」",
       "cardCount": 20,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2159,9 +2159,16 @@
       "cardCount": 20,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "themeHits": {
+        "color": 12,
+        "sunset": 1,
+        "season": 4,
+        "work": 1,
+        "food": 1,
+        "street": 1
+      }
     },
     {
       "era": "SV",
