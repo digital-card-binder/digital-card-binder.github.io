@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-10",
+  "updatedAt": "2026-10-11",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -50184,8 +50184,8 @@
     "SVK": {
       "status": "in_progress",
       "reviewedAt": "2026-10-11",
-      "note": "20 individual official Korean printed artwork images directly verified with 33 theme placements. 32 pending Korean artwork checks, including 013/044. Korean 014/044 Nest Ball confirmed. Master 52 unchanged, no image binaries downloaded or hosted.",
-      "reviewedCardCount": 20,
+      "note": "21 official Korean printed artwork images directly checked with 34 new theme placements. SVK_005 찬란한 후딘 color verified, 013 numbering conflict and 30 other holds remain. No image binaries hosted.",
+      "reviewedCardCount": 21,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -50201,14 +50201,15 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "52 Korean catalog members checked; 20 official Korean art images directly inspected across 12 themes, 32 evidence holds"
+        "52 Korean catalog members checked; 21 official Korean art images inspected across all 12 themes, 31 evidence holds"
       ],
-      "newlyAddedThemeSlotCount": 33,
+      "newlyAddedThemeSlotCount": 34,
       "newlyAddedCards": [
         "SVK_001",
         "SVK_002",
         "SVK_003",
         "SVK_004",
+        "SVK_005",
         "SVK_006",
         "SVK_007",
         "SVK_008",
@@ -50228,7 +50229,6 @@
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVK_005",
         "SVK_013",
         "SVK_015",
         "SVK_016",
@@ -50264,10 +50264,10 @@
       "batches": [
         {
           "range": "canonical-order 001-052 (full set membership)",
-          "status": "20_official_Korean_artworks_verified_32_evidence_holds",
-          "checkedCardCount": 20,
+          "status": "21_official_Korean_artworks_verified_31_evidence_holds",
+          "checkedCardCount": 21,
           "inventoryCrosscheckedCardCount": 52,
-          "heldCardCount": 32,
+          "heldCardCount": 31,
           "artworkAudit": "data/audits/theme-svk-001-052-evidence-pending.json",
           "evidenceSource": "https://pokemoncard.co.kr/card/661",
           "imageAudit": {
@@ -50284,7 +50284,7 @@
           "brokenReferenceCount": null,
           "themeAdditions": {
             "season": 10,
-            "color": 19,
+            "color": 20,
             "sunset": 2,
             "work": 1,
             "food": 1
@@ -50392,16 +50392,20 @@
               "canonicalMasterCode": "svk_005/044",
               "koreanNumber": "005/044",
               "koreanName": "찬란한 후딘",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean artwork not verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_005.png?w=512",
+              "illustrationSourceNote": "보라·분홍색 기하학 배경과 하얀 에너지 광선 속에 노란 찬란한 후딘이 두 숟가락을 들고 있는 모습"
             },
             {
               "code": "SVK_006",
@@ -51305,11 +51309,11 @@
     "currentSet": "SVK",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVK Korean official images 20/52, 33 theme placements; 32 held. No binary selfhosting/CDN deployment.",
+    "note": "SVK Korean official images 21/52, 34 new theme placements; 31 held. No binary selfhosting/CDN deployment.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "TASK 6 SVK 20/52 confirmed official Korean artwork visuals, +33 theme placements; 32 original card artwork evidence holds; strict complete still 14.",
-    "nextStart": "SVK official Korean art remaining 005,013,015,016,017,019,022,023,024,025,030,031,032,033,034,035,036,037,039,040,041,042,043,044,045,046,047,048,049,050,051,052; prioritize 013 printed number conflict",
+    "lastSafeCheckpoint": "TASK 6 SVK 21/52 confirmed official Korean artwork visuals, +34 theme placements; 31 evidence holds; strict complete still 14.",
+    "nextStart": "SVK 013,015,016,017,019,022,023,024,025,030,031,032,033,034,035,036,037,039,040,041,042,043,044,045,046,047,048,049,050,051,052; prioritize 013 print-number conflict.",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -51735,9 +51739,9 @@
       {
         "set": "SVK",
         "range": "canonical pending 005,013,015,016,017,019,022,023,024,025,030,031,032,033,034,035,036,037,039,040,041,042,043,044,045,046,047,048,049,050,051,052",
-        "pendingCount": 32,
+        "pendingCount": 31,
         "audit": "data/audits/theme-svk-001-052-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVK official Korean artwork 20 verified"
+        "lastArtSafeCheckpoint": "SVK 21 official image checks, 31 pending"
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVI canonical 001-074 inventory, only 025/066 exact Korean artwork visually checked and 3 theme placements."

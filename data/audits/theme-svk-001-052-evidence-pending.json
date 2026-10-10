@@ -4,16 +4,16 @@
   "task": 6,
   "set": "SVK",
   "setTitle": "배틀 강화 BOX 「스텔라미라클」",
-  "status": "partial_Korean_artwork_review_20_verified_32_pending",
+  "status": "partial_Korean_artwork_review_21_verified_31_pending",
   "masterCardCount": 52,
   "officialKoreanProductCardKinds": 52,
   "numberedKoreanCards": 44,
   "unnumberedBasicEnergyKinds": 8,
   "membershipInventoryCrosschecked": 52,
-  "artworkVisuallyVerifiedCount": 20,
-  "all12ThemeDecisionsComplete": 20,
-  "artworkEvidenceHolds": 32,
-  "newThemePlacements": 33,
+  "artworkVisuallyVerifiedCount": 21,
+  "all12ThemeDecisionsComplete": 21,
+  "artworkEvidenceHolds": 31,
+  "newThemePlacements": 34,
   "cardMasterMutations": 0,
   "duplicateCanonicalKeys": 0,
   "sources": [
@@ -58,9 +58,8 @@
       "resolution": "Potential display-name specificity; retain master until official confirmation."
     }
   ],
-  "limitations": "52 Korean canonical entries inventoried; 20 Korean official art images visually inspected across all 12 themes, with 32 held until exact artwork confirmation. 013 conflict partially resolved by 014 official card evidence. No binary selfhosting or image CDN deployment verified.",
+  "limitations": "52 Korean canonical entries checked; 21 official Korean images visually verified, 31 held. No image binary selfhosting/deployment verified.",
   "heldCards": [
-    "SVK_005",
     "SVK_013",
     "SVK_015",
     "SVK_016",
@@ -194,12 +193,16 @@
       "catalogImage": "https://static.tcgexchange.kr/89bd7b60c5692dac0ba38b10d390c593.png",
       "masterSource": "https://www.dogam.app/sets/01KW0QCPSBEPYCGH5CRYQ16BXJ/cards/01KW1C5VQK8YMAA1SSYPNAGBKM",
       "membershipEvidenceStatus": "master_inventory_and_korean_secondary_list_consistent",
-      "officialKoreanDetailVerified": false,
-      "officialKoreanDetailUrl": null,
-      "artworkReviewStatus": "pending_exact_Korean_print_visual_confirmation",
-      "all12ThemesChecked": false,
-      "themeMatches": [],
-      "selfHostedImageBinaryVerified": false
+      "officialKoreanDetailVerified": true,
+      "officialKoreanDetailUrl": "https://pokemoncard.co.kr/cards/detail/BS2024013005",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVK/SVK_005.png?w=512",
+      "artworkDescription": "보라·분홍색 기하학 배경과 하얀 에너지 광선 속에 노란 찬란한 후딘이 두 숟가락을 들고 있는 모습"
     },
     {
       "code": "SVK_006",
@@ -1072,7 +1075,7 @@
       "selfHostedImageBinaryVerified": false
     }
   ],
-  "nextStart": "SVK 32 held Korean artworks; first 005, 013, 015",
+  "nextStart": "SVK 013/044 Korean print numbering conflict and 30 other exact-art holds",
   "verifiedArtworks": [
     {
       "code": "SVK_001",
@@ -1226,6 +1229,13 @@
         "color"
       ],
       "url": "https://pokemoncard.co.kr/cards/detail/BS2024013038"
+    },
+    {
+      "code": "SVK_005",
+      "themes": [
+        "color"
+      ],
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024013005"
     }
   ]
 }

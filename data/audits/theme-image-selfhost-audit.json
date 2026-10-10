@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-10",
+  "updatedAt": "2026-10-11",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -1996,10 +1996,10 @@
     {
       "task": 6,
       "set": "SVK",
-      "range": "canonical 001-052 Korean inventory and 20 official Korean artwork checks",
+      "range": "canonical 001-052 Korean inventory and 21 official Korean artwork checks",
       "canonicalCardCount": 52,
-      "artworkVisuallyVerifiedCount": 20,
-      "artworkPendingCount": 32,
+      "artworkVisuallyVerifiedCount": 21,
+      "artworkPendingCount": 31,
       "externalImageReferenceCountBefore": 52,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -2010,13 +2010,13 @@
       "brokenReferenceCount": null,
       "themeAdditions": {
         "season": 10,
-        "color": 19,
+        "color": 20,
         "sunset": 2,
         "work": 1,
         "food": 1
       },
-      "nextStart": "SVK 32 held exact Korean images",
-      "note": "Official Korean watermarked artwork directly reviewed for 20 of 52 card kinds. No binary images downloaded, self-hosted, or deployed. 52 original external catalog URLs kept and remain CDN-health unverified."
+      "nextStart": "SVK 31 held Korean artwork checks",
+      "note": "SVK 005 Korean official artwork verified as color. 21/52 art images checked; no binary downloaded or self-hosted, 52 original external URLs remain unverified."
     }
   ]
 }
