@@ -1996,10 +1996,10 @@
     {
       "task": 6,
       "set": "SVK",
-      "range": "canonical-order 001-052 (Korean inventory crosscheck only)",
+      "range": "canonical 001-052 Korean inventory and 20 official Korean artwork checks",
       "canonicalCardCount": 52,
-      "artworkVisuallyVerifiedCount": 0,
-      "artworkPendingCount": 52,
+      "artworkVisuallyVerifiedCount": 20,
+      "artworkPendingCount": 32,
       "externalImageReferenceCountBefore": 52,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -2008,9 +2008,15 @@
       "verifiedImageCount": 0,
       "unverifiedImageCount": 52,
       "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVK exact Korean artwork 001-052",
-      "note": "Official Korean product verifies 52 kinds; 44 numbered and 8 unnumbered basic energies. No image binaries fetched. Image files, CDN health and individual illustrations remain pending."
+      "themeAdditions": {
+        "season": 10,
+        "color": 19,
+        "sunset": 2,
+        "work": 1,
+        "food": 1
+      },
+      "nextStart": "SVK 32 held exact Korean images",
+      "note": "Official Korean watermarked artwork directly reviewed for 20 of 52 card kinds. No binary images downloaded, self-hosted, or deployed. 52 original external catalog URLs kept and remain CDN-health unverified."
     }
   ]
 }
