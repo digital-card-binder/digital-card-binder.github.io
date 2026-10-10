@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4567,
-    "uniqueThemeCards": 2735,
+    "themeCardSlots": 4588,
+    "uniqueThemeCards": 2748,
     "strictCompleteSetCount": 14,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 259,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 180,
-      "setCount": 25,
+      "cardSlots": 182,
+      "setCount": 26,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1199,
-      "setCount": 32,
+      "cardSlots": 1203,
+      "setCount": 33,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2202,
-      "setCount": 34,
+      "cardSlots": 2215,
+      "setCount": 35,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 91,
-      "setCount": 23,
+      "cardSlots": 92,
+      "setCount": 24,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 399,
-      "setCount": 27,
+      "cardSlots": 400,
+      "setCount": 28,
       "rarities": [
         "AR",
         "C",
@@ -254,7 +254,7 @@
       "cardCount": 4749,
       "completeSetCount": 1,
       "remainingSetCount": 52,
-      "currentThemeSlots": 949
+      "currentThemeSlots": 970
     },
     {
       "era": "S",
@@ -403,7 +403,7 @@
       "code": "SVEL",
       "name": "스타터 세트 테라스탈 「라우드본 ex」",
       "cardCount": 21,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -2238,9 +2238,15 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-10",
+      "themeHits": {
+        "night": 2,
+        "season": 4,
+        "color": 13,
+        "sunset": 1,
+        "street": 1
+      }
     },
     {
       "era": "SV",
