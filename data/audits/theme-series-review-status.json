@@ -30457,9 +30457,9 @@
     },
     "SV-P": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-09",
-      "note": "SV-P 248/248 canonical catalog slots accounted for (metadata only for 94 holds): 154 Korean art-verified, 94 exact-art evidence pending. NOT a completed 12-theme exhaustive review; selfhost unverified.",
-      "reviewedCardCount": 154,
+      "reviewedAt": "2026-10-11",
+      "note": "SV-P Korean official images checked; canonical 009-010 and 016-018 verified. Remaining documented evidence holds retained.",
+      "reviewedCardCount": 159,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30475,8 +30475,8 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-008; 009-010 evidence held",
-        "canonical-order 011-020 (016-018 image evidence deferred)",
+        "canonical-order 001-010; all 10 official Korean artworks verified",
+        "canonical-order 011-020; 016-018 official Korean artworks verified; other prior holds retained",
         "canonical-order 021-030 (021,026,028 evidence held)",
         "canonical-order 031-040",
         "canonical-order 041-050 (049 evidence held)",
@@ -30501,7 +30501,7 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
       ],
-      "newlyAddedThemeSlotCount": 270,
+      "newlyAddedThemeSlotCount": 279,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30656,15 +30656,15 @@
         "SV-P_200",
         "SV-P_201",
         "SV-P_202",
-        "SV-P_203"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SV-P_203",
         "SV-P_009",
         "SV-P_010",
         "SV-P_016",
         "SV-P_017",
-        "SV-P_018",
+        "SV-P_018"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
         "SV-P_021",
         "SV-P_026",
         "SV-P_028",
@@ -30770,9 +30770,9 @@
             "009",
             "010"
           ],
-          "status": "partially_complete_with_evidence_hold",
-          "checkedCardCount": 8,
-          "heldCardCount": 2,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -30943,27 +30943,48 @@
             },
             {
               "code": "SV-P_009",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "sunset",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "sunset",
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YW7W35B86JTS6DBWZP",
-              "illustrationSourceNote": "Korean-only promo image cannot be fully inspected; art theme decision deferred"
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000009",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 카드 009/SV-P 직접 확인. 미니브가 큰 주황빛 석양 아래 나무와 풀밭 가장자리에 있음.",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_09.png?w=512"
             },
             {
               "code": "SV-P_010",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YWNMBFDJBM4VHQ085A",
-              "illustrationSourceNote": "Korean-only promo image cannot be fully inspected; art theme decision deferred"
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000010",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 카드 010/SV-P 직접 확인. 가디가 맑은 하늘·폭포·바위와 푸른 숲이 있는 물가 숲길을 달림.",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_010.png?w=512"
             }
-          ]
+          ],
+          "themeAdditions": {
+            "color": 10,
+            "season": 7,
+            "sunset": 1
+          }
         },
         {
           "range": "canonical-order 011-020 (016-018 deferred)",
@@ -30979,9 +31000,9 @@
             "019",
             "020"
           ],
-          "status": "partially_complete_with_evidence_hold",
-          "checkedCardCount": 7,
-          "heldCardCount": 3,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -31089,41 +31110,55 @@
             },
             {
               "code": "SV-P_016",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_016.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 카드 016/SV-P 직접 확인. 빨강·흰색 몬스터볼과 청록·연두색 광선 배경.",
               "koreanNumber": "016/SV-P"
             },
             {
               "code": "SV-P_017",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_017.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 카드 017/SV-P 직접 확인. 포켓몬 교체 장치와 보라·남색의 전자 광선.",
               "koreanNumber": "017/SV-P"
             },
             {
               "code": "SV-P_018",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 마스터에 번호·명칭 존재. 공개된 포켓몬코리아 상세/이미지 링크 응답 확인 불가로 실제 아트 판독과 테마 확정 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_018.png?w=512",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 카드 018/SV-P 직접 확인. 맑은 하늘 아래 현대적 학교 건물·광장과 네모.",
               "koreanNumber": "018/SV-P"
             },
             {
@@ -31164,7 +31199,13 @@
               "illustrationSourceNote": "청록색 바다, 해안 절벽과 선박 위를 전기와 함께 날아다니는 로토무.",
               "koreanNumber": "020/SV-P"
             }
-          ]
+          ],
+          "themeAdditions": {
+            "season": 3,
+            "color": 10,
+            "night": 1,
+            "street": 2
+          }
         },
         {
           "range": "canonical-order 021-030 (021,026,028 deferred)",
@@ -51402,14 +51443,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVK",
+    "currentSet": "SV-P",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SVK complete 52/52 Korean official artwork checks and all 12 theme decisions; commit 4b307366478954a9e280bc48b6f253c965a85e77.",
-    "nextStart": "CLL canonical-order 033-034",
+    "lastSafeCheckpoint": "SV-P 018 official Korean artwork verified; commit includes additions for 009-010 and 016-018.",
+    "nextStart": "SV-P canonical-order 021",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

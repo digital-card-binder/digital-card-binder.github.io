@@ -4,9 +4,9 @@
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 009-010",
-  "status": "pending_korean_artwork_illustration_evidence",
-  "lastSafeArtworkCheckpoint": "SV-P canonical 008",
-  "pendingCount": 2,
+  "status": "verified_korean_artwork_009-010",
+  "lastSafeArtworkCheckpoint": "SV-P canonical 010; 공식 한국판 009-010 그림 검증",
+  "pendingCount": 0,
   "cards": [
     {
       "cardKey": "SV-P_009",
@@ -16,10 +16,17 @@
       "catalogImage": "https://static.tcgexchange.kr/167fc70b2bc30766757b92f2dbfedbf4.png",
       "catalogPage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YW7W35B86JTS6DBWZP",
       "koreanOfficialPage": "https://pokemoncard.co.kr/cards/detail/SVP000000009",
-      "status": "pending_korean_artwork_visual_evidence",
-      "themesReviewed": false,
-      "reason": "Korean-only promo numbering after 008 has no same-number Japanese visual guarantee; official Korean card metadata verified but matching full illustration could not be inspected reliably.",
-      "needed": "Visual inspection of Korean card picture or authenticated same-art reference before classifying 12 themes."
+      "status": "official_Korean_watermarked_artwork_visually_verified",
+      "themesReviewed": true,
+      "reason": "한국 포켓몬코리아 워터마크 카드에서 인쇄 번호와 일러스트를 직접 확인.",
+      "needed": null,
+      "themes": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_09.png?w=512",
+      "illustrationDescription": "한국 포켓몬코리아 공식 워터마크 카드 009/SV-P 직접 확인. 미니브가 큰 주황빛 석양 아래 나무와 풀밭 가장자리에 있음."
     },
     {
       "cardKey": "SV-P_010",
@@ -29,13 +36,19 @@
       "catalogImage": "https://static.tcgexchange.kr/86539585acf5416f74211ecefd995d29.png",
       "catalogPage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C68YWNMBFDJBM4VHQ085A",
       "koreanOfficialPage": "https://pokemoncard.co.kr/cards/detail/SVP000000010",
-      "status": "pending_korean_artwork_visual_evidence",
-      "themesReviewed": false,
-      "reason": "Korean-only promo numbering after 008 has no same-number Japanese visual guarantee; official Korean card metadata verified but matching full illustration could not be inspected reliably.",
-      "needed": "Visual inspection of Korean card picture or authenticated same-art reference before classifying 12 themes."
+      "status": "official_Korean_watermarked_artwork_visually_verified",
+      "themesReviewed": true,
+      "reason": "한국 포켓몬코리아 워터마크 카드에서 인쇄 번호와 일러스트를 직접 확인.",
+      "needed": null,
+      "themes": [
+        "season",
+        "color"
+      ],
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_010.png?w=512",
+      "illustrationDescription": "한국 포켓몬코리아 공식 워터마크 카드 010/SV-P 직접 확인. 가디가 맑은 하늘·폭포·바위와 푸른 숲이 있는 물가 숲길을 달림."
     }
   ],
-  "nextStart": "SV-P canonical 011",
+  "nextStart": "SV-P canonical-order 011",
   "sources": [
     "https://bulbapedia.bulbagarden.net/wiki/SV-P_Promotional_cards_(KTCG)",
     "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB"
