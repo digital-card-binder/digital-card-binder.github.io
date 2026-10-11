@@ -4,45 +4,43 @@
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 021-030",
-  "reviewStatus": "seven_artwork_complete_three_pending",
-  "nextStart": "SV-P 031",
-  "blocked": [
+  "reviewStatus": "verified_all_10_Korean_artworks",
+  "nextStart": "SV-P canonical-order 031",
+  "blocked": [],
+  "note": "일본 SV-P 동일 번호의 이미지를 한국판 카드의 근거로 쓰지 않는다. 이미지 확보 전에는 테마 추가/검수완료 처리 금지.",
+  "verified": [
     {
-      "canonicalOrder": 21,
       "cardKey": "SV-P_021",
-      "name": "뜨아거",
-      "koreanPrintNumber": "021/SV-P",
-      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY196T2KPK97P8KPR1KPK2YJ",
-      "masterImage": "https://static.tcgexchange.kr/0f6b7580b432baab7a860d33123554e0.png",
-      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000021",
-      "artworkReviewed": false,
-      "reason": "Korean official detail returned 410/Gone or image unavailable to current audit tool; matching-art visual evidence not established.",
-      "selfHostedImageBinary": false
+      "number": "021/SV-P",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_021.png?w=512",
+      "description": "한국 공식 워터마크 021/SV-P. 뜨아거가 흰 구름과 맑은 하늘, 푸른 수목·잎 배경에 있음."
     },
     {
-      "canonicalOrder": 26,
       "cardKey": "SV-P_026",
-      "name": "미라이돈",
-      "koreanPrintNumber": "026/SV-P",
-      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY196WARQKA2YPXNVSS6ZJX5",
-      "masterImage": "https://static.tcgexchange.kr/e796dee0368f872111ca0b8b3dfde917.png",
-      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000026",
-      "artworkReviewed": false,
-      "reason": "Korean official detail returned 410/Gone or image unavailable to current audit tool; matching-art visual evidence not established.",
-      "selfHostedImageBinary": false
+      "number": "026/SV-P",
+      "themes": [
+        "night",
+        "street",
+        "color"
+      ],
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_026.png?w=512",
+      "description": "한국 공식 워터마크 026/SV-P. 분홍빛 달·야간 하늘과 네온 조명의 도시 거리에서 미라이돈이 달림."
     },
     {
-      "canonicalOrder": 28,
       "cardKey": "SV-P_028",
-      "name": "꾸왁스",
-      "koreanPrintNumber": "028/SV-P",
-      "masterSource": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KW1C69C6V2AZB5PD9FS3YQYA",
-      "masterImage": "https://static.tcgexchange.kr/668638d3bf4d179304598f829228f850.png",
-      "koreanOfficialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000028",
-      "artworkReviewed": false,
-      "reason": "Korean official detail returned 410/Gone or image unavailable to current audit tool; matching-art visual evidence not established.",
-      "selfHostedImageBinary": false
+      "number": "028/SV-P",
+      "themes": [
+        "season",
+        "color"
+      ],
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_028.png?w=512",
+      "description": "한국 공식 워터마크 028/SV-P. 꾸왁스가 호수와 푸른 숲, 여러 색의 꽃이 핀 야외 풍경에 서 있음."
     }
   ],
-  "note": "일본 SV-P 동일 번호의 이미지를 한국판 카드의 근거로 쓰지 않는다. 이미지 확보 전에는 테마 추가/검수완료 처리 금지."
+  "pendingCount": 0,
+  "lastSafeArtworkCheckpoint": "SV-P canonical-order 030; 021,026,028 verified"
 }

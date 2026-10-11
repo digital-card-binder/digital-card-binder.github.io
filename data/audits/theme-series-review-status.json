@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-11",
-      "note": "SV-P Korean official images checked; canonical 009-010 and 016-018 verified. Remaining documented evidence holds retained.",
-      "reviewedCardCount": 159,
+      "note": "SV-P official Korean artwork verified through canonical 030; 021,026,028 newly inspected; other deferred holds remain.",
+      "reviewedCardCount": 162,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30477,7 +30477,7 @@
       "reviewedRanges": [
         "canonical-order 001-010; all 10 official Korean artworks verified",
         "canonical-order 011-020; 016-018 official Korean artworks verified; other prior holds retained",
-        "canonical-order 021-030 (021,026,028 evidence held)",
+        "canonical-order 021-030; all 10 official Korean artworks verified",
         "canonical-order 031-040",
         "canonical-order 041-050 (049 evidence held)",
         "canonical-order 051-060 (054-055 evidence held)",
@@ -30501,7 +30501,7 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
       ],
-      "newlyAddedThemeSlotCount": 279,
+      "newlyAddedThemeSlotCount": 286,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30661,13 +30661,13 @@
         "SV-P_010",
         "SV-P_016",
         "SV-P_017",
-        "SV-P_018"
+        "SV-P_018",
+        "SV-P_021",
+        "SV-P_026",
+        "SV-P_028"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SV-P_021",
-        "SV-P_026",
-        "SV-P_028",
         "SV-P_049",
         "SV-P_054",
         "SV-P_055",
@@ -31221,9 +31221,9 @@
             "029",
             "030"
           ],
-          "status": "partially_complete_with_evidence_hold",
-          "checkedCardCount": 7,
-          "heldCardCount": 3,
+          "status": "complete_10_official_Korean_artworks",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -31240,15 +31240,21 @@
           "cards": [
             {
               "code": "SV-P_021",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000021",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_021.png?w=512",
+              "illustrationSourceNote": "한국 공식 워터마크 021/SV-P. 뜨아거가 흰 구름과 맑은 하늘, 푸른 수목·잎 배경에 있음.",
               "koreanNumber": "021/SV-P"
             },
             {
@@ -31327,15 +31333,23 @@
             },
             {
               "code": "SV-P_026",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "night",
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000026",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_026.png?w=512",
+              "illustrationSourceNote": "한국 공식 워터마크 026/SV-P. 분홍빛 달·야간 하늘과 네온 조명의 도시 거리에서 미라이돈이 달림.",
               "koreanNumber": "026/SV-P"
             },
             {
@@ -31362,15 +31376,21 @@
             },
             {
               "code": "SV-P_028",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 번호·명칭은 마스터에서 확인되나 공식 이미지 또는 판독 가능한 동일 아트 근거 미확인. 테마 미판정으로 보류.",
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000028",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_028.png?w=512",
+              "illustrationSourceNote": "한국 공식 워터마크 028/SV-P. 꾸왁스가 호수와 푸른 숲, 여러 색의 꽃이 핀 야외 풍경에 서 있음.",
               "koreanNumber": "028/SV-P"
             },
             {
@@ -31413,7 +31433,16 @@
               "illustrationSourceNote": "울긋불긋한 단풍과 버섯·낙엽이 흩어진 숲속 피콘.",
               "koreanNumber": "030/SV-P"
             }
-          ]
+          ],
+          "themeAdditions": {
+            "season": 7,
+            "color": 10,
+            "street": 2,
+            "night": 1,
+            "sleeping": 1,
+            "cameo": 1
+          },
+          "newlyAddedThemeSlotCount": 7
         },
         {
           "range": "canonical-order 031-040",
@@ -51449,8 +51478,8 @@
     "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P 018 official Korean artwork verified; commit includes additions for 009-010 and 016-018.",
-    "nextStart": "SV-P canonical-order 021",
+    "lastSafeCheckpoint": "SV-P 030 Korean artwork verified; evidence holds in later ranges remain.",
+    "nextStart": "SV-P canonical-order 049",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
