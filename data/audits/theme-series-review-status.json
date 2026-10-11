@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-11",
-      "note": "SV-P official Korean artworks verified through canonical 076; 054-055 and 075-076 confirmed from exact Korean prints. Other holds retained.",
-      "reviewedCardCount": 167,
+      "note": "SV-P official Korean artworks verified through canonical 110; 054-055, 075-076, 106-107, and 109-110 directly confirmed from exact Korean prints. Other holds retained.",
+      "reviewedCardCount": 171,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30485,7 +30485,7 @@
         "canonical-order 071-080; all 10 official Korean artworks verified",
         "canonical-order 081-090",
         "canonical-order 091-100",
-        "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
+        "canonical-order 101-110; all 10 official Korean artworks verified",
         "canonical-order 111-120 (111-116 image evidence held)",
         "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
         "canonical-order 131-140 (136 artwork evidence held)",
@@ -30501,7 +30501,7 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
       ],
-      "newlyAddedThemeSlotCount": 296,
+      "newlyAddedThemeSlotCount": 302,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30669,14 +30669,14 @@
         "SV-P_054",
         "SV-P_055",
         "SV-P_075",
-        "SV-P_076"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SV-P_076",
         "SV-P_106",
         "SV-P_107",
         "SV-P_109",
-        "SV-P_110",
+        "SV-P_110"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
         "SV-P_111",
         "SV-P_112",
         "SV-P_113",
@@ -33028,9 +33028,9 @@
             "109",
             "110"
           ],
-          "status": "6_artwork_verified_4_held_image_archival_pending",
-          "checkedCardCount": 6,
-          "heldCardCount": 4,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -33040,7 +33040,7 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "Pokemon Korea exact-numbered 101-105,108 visual images; 106-107 Nemona and 109-110 basic energy pending",
+          "evidenceSource": "Korean Pokemon Korea official art images 101-110; held 106-107 and 109-110 verified from Korean watermark images",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
@@ -33144,28 +33144,40 @@
             },
             {
               "code": "SV-P_106",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000106",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_106.png?w=512",
-              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 106/SV-P 직접 확인: 꽃이 만발한 정원과 계단 사이에 네모가 서 있는 장면.",
               "koreanNumber": "106/SV-P"
             },
             {
               "code": "SV-P_107",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000107",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_107.png?w=512",
-              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 107/SV-P 직접 확인: 맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 네모가 서 있는 장면.",
               "koreanNumber": "107/SV-P"
             },
             {
@@ -33187,28 +33199,36 @@
             },
             {
               "code": "SV-P_109",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000109",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_109.png?w=512",
-              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 109/SV-P 직접 확인: 초록색 기본 풀 에너지 구체가 녹색·흰색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "109/SV-P"
             },
             {
               "code": "SV-P_110",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000110",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_110.png?w=512",
-              "illustrationSourceNote": "한국판 원본 공식 이미지 열람이 실패한 상태이므로 그림 적합성 검수 보류. 같은 번호의 해외 인쇄본은 대체 증거가 아님.",
+              "illustrationSourceNote": "한국 포켓몬코리아 공식 워터마크 110/SV-P 직접 확인: 주황·붉은색 기본 불꽃 에너지 구체가 따뜻한 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "110/SV-P"
             }
           ]

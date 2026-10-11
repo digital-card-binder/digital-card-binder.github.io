@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-11",
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 106-107,109-110",
-  "reviewStatus": "korean_official_artwork_image_inaccessible",
-  "pendingCount": 4,
+  "reviewStatus": "verified_korean_official_artwork",
+  "pendingCount": 0,
   "nextStart": "SV-P 111",
   "cards": [
     {
@@ -16,9 +16,16 @@
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000106",
       "officialImageCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_106.png?w=512",
       "catalogImage": "https://static.tcgexchange.kr/8ec25ab91298480aa5c31f1b3d67892f.png",
-      "needsReview": true,
+      "needsReview": false,
       "imageBinaryArchived": false,
-      "reason": "Both official page/image URL and catalog image were inaccessible to current tools, so picture-theme classification must not be guessed."
+      "reason": null,
+      "artworkConfirmed": true,
+      "themes": [
+        "season",
+        "color"
+      ],
+      "illustrationDescription": "꽃이 만발한 정원과 계단 사이에 네모가 서 있는 장면.",
+      "officialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_106.png?w=512"
     },
     {
       "canonicalOrder": 107,
@@ -28,9 +35,16 @@
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000107",
       "officialImageCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_107.png?w=512",
       "catalogImage": "https://static.tcgexchange.kr/0e6fa6a8f493b961bdc7295deaac5f71.png",
-      "needsReview": true,
+      "needsReview": false,
       "imageBinaryArchived": false,
-      "reason": "Both official page/image URL and catalog image were inaccessible to current tools, so picture-theme classification must not be guessed."
+      "reason": null,
+      "artworkConfirmed": true,
+      "themes": [
+        "street",
+        "color"
+      ],
+      "illustrationDescription": "맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 네모가 서 있는 장면.",
+      "officialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_107.png?w=512"
     },
     {
       "canonicalOrder": 109,
@@ -40,9 +54,15 @@
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000109",
       "officialImageCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_109.png?w=512",
       "catalogImage": "https://static.tcgexchange.kr/2254dd9ec2399b9e51f9fa52c49204c6.png",
-      "needsReview": true,
+      "needsReview": false,
       "imageBinaryArchived": false,
-      "reason": "Both official page/image URL and catalog image were inaccessible to current tools, so picture-theme classification must not be guessed."
+      "reason": null,
+      "artworkConfirmed": true,
+      "themes": [
+        "color"
+      ],
+      "illustrationDescription": "초록색 기본 풀 에너지 구체가 녹색·흰색 기하학적 광채에 둘러싸여 떠 있음.",
+      "officialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_109.png?w=512"
     },
     {
       "canonicalOrder": 110,
@@ -52,11 +72,18 @@
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000110",
       "officialImageCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_110.png?w=512",
       "catalogImage": "https://static.tcgexchange.kr/af9e49cad07e123356c1901ff04e26f6.png",
-      "needsReview": true,
+      "needsReview": false,
       "imageBinaryArchived": false,
-      "reason": "Both official page/image URL and catalog image were inaccessible to current tools, so picture-theme classification must not be guessed."
+      "reason": null,
+      "artworkConfirmed": true,
+      "themes": [
+        "color"
+      ],
+      "illustrationDescription": "주황·붉은색 기본 불꽃 에너지 구체가 따뜻한 기하학적 광채에 둘러싸여 떠 있음.",
+      "officialImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_110.png?w=512"
     }
   ],
   "doNotUseJapaneseSameNumber": true,
-  "themeAdditionsForHeld": 0
+  "themeAdditionsForHeld": 0,
+  "artThemesUpdatedForHeld": true
 }
