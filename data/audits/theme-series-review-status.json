@@ -30458,8 +30458,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-11",
-      "note": "SV-P official Korean artworks verified through canonical 060; 054-055 confirmed from exact Korean print. Other holds retained.",
-      "reviewedCardCount": 165,
+      "note": "SV-P official Korean artworks verified through canonical 076; 054-055 and 075-076 confirmed from exact Korean prints. Other holds retained.",
+      "reviewedCardCount": 167,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30482,7 +30482,7 @@
         "canonical-order 041-050; all 10 official Korean artworks visually verified",
         "canonical-order 051-060; all 10 official Korean artworks visually verified",
         "canonical-order 061-070",
-        "canonical-order 071-080 (075-076 artwork evidence held)",
+        "canonical-order 071-080; all 10 official Korean artworks verified",
         "canonical-order 081-090",
         "canonical-order 091-100",
         "canonical-order 101-110 (106-107,109-110 artwork evidence held)",
@@ -30501,7 +30501,7 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
       ],
-      "newlyAddedThemeSlotCount": 292,
+      "newlyAddedThemeSlotCount": 296,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30667,12 +30667,12 @@
         "SV-P_028",
         "SV-P_049",
         "SV-P_054",
-        "SV-P_055"
+        "SV-P_055",
+        "SV-P_075",
+        "SV-P_076"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SV-P_075",
-        "SV-P_076",
         "SV-P_106",
         "SV-P_107",
         "SV-P_109",
@@ -32379,9 +32379,9 @@
             "079",
             "080"
           ],
-          "status": "8_artwork_verified_2_held_image_archival_pending",
-          "checkedCardCount": 8,
-          "heldCardCount": 2,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -32391,7 +32391,7 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "Korean Pokemon Korea official art image 071-074,077-080; 075-076 held",
+          "evidenceSource": "Korean Pokemon Korea official art images 071-080; 075-076 confirmed from official watermark images",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
@@ -32468,29 +32468,41 @@
             },
             {
               "code": "SV-P_075",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000075",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_075.png?w=512",
-              "illustrationSourceNote": "075-076 한국판 네모 카드의 공식 일러스트 확인 불가. 일본판 동일 번호의 다른 카드를 참조하지 않음.",
-              "koreanNumber": "075/SV-P"
+              "illustrationSourceNote": "한국 공식 워터마크 0075/SV-P 직접 확인. 네모가 맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 서 있음.",
+              "koreanNumber": "0075/SV-P"
             },
             {
               "code": "SV-P_076",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000076",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_076.png?w=512",
-              "illustrationSourceNote": "075-076 한국판 네모 카드의 공식 일러스트 확인 불가. 일본판 동일 번호의 다른 카드를 참조하지 않음.",
-              "koreanNumber": "076/SV-P"
+              "illustrationSourceNote": "한국 공식 워터마크 0076/SV-P 직접 확인. 네모가 맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 서 있음.",
+              "koreanNumber": "0076/SV-P"
             },
             {
               "code": "SV-P_077",

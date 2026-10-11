@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-11",
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 075-076",
-  "reviewStatus": "korean_official_artwork_evidence_pending",
-  "pendingCount": 2,
+  "reviewStatus": "verified_korean_official_artwork",
+  "pendingCount": 0,
   "nextStart": "SV-P 081",
   "cards": [
     {
@@ -15,8 +15,14 @@
       "printNumber": "075/SV-P",
       "catalogImage": "https://static.tcgexchange.kr/1280b059c958078fa4ecc0cd67157549.png",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000075",
-      "artworkConfirmed": false,
-      "reason": "Korean official image could not be opened; Japan same numbered prints are different, so do not substitute them."
+      "artworkConfirmed": true,
+      "reason": null,
+      "themes": [
+        "street",
+        "color"
+      ],
+      "illustrationDescription": "네모가 맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 서 있는 트레이너 일러스트.",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_075.png?w=512"
     },
     {
       "canonicalOrder": 76,
@@ -25,11 +31,17 @@
       "printNumber": "076/SV-P",
       "catalogImage": "https://static.tcgexchange.kr/ac91dad9ca88c94c0cf68098bc5af0e1.png",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/SVP000000076",
-      "artworkConfirmed": false,
-      "reason": "Korean official image could not be opened; Japan same numbered prints are different, so do not substitute them."
+      "artworkConfirmed": true,
+      "reason": null,
+      "themes": [
+        "street",
+        "color"
+      ],
+      "illustrationDescription": "네모가 맑은 하늘 아래 현대적 학교 건물과 열린 철문 앞에 서 있는 트레이너 일러스트.",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_076.png?w=512"
     }
   ],
   "koreanPrintCrosscheck": "https://bulbapedia.bulbagarden.net/wiki/SV-P_Promotional_cards_(KTCG)",
   "japanesePrintNumberDoNotReuse": true,
-  "artThemesUpdatedForPending": false
+  "artThemesUpdatedForPending": true
 }
