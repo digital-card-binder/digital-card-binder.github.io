@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-12",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5325,
-    "uniqueThemeCards": 3281,
-    "strictCompleteSetCount": 27,
+    "themeCardSlots": 5368,
+    "uniqueThemeCards": 3306,
+    "strictCompleteSetCount": 28,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 246,
+    "baselineRemainingSetCount": 245,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 153,
-      "setCount": 70,
+      "cardSlots": 154,
+      "setCount": 71,
       "rarities": [
         "AR",
         "C",
@@ -95,8 +95,8 @@
     {
       "code": "evolution",
       "name": "진화 스토리",
-      "cardSlots": 76,
-      "setCount": 16,
+      "cardSlots": 79,
+      "setCount": 17,
       "rarities": [
         "AR",
         "PROMO",
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 201,
+      "cardSlots": 202,
       "setCount": 34,
       "rarities": [
         "AR",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1314,
-      "setCount": 40,
+      "cardSlots": 1322,
+      "setCount": 41,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2738,
-      "setCount": 43,
+      "cardSlots": 2763,
+      "setCount": 44,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 104,
-      "setCount": 29,
+      "cardSlots": 105,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
@@ -199,8 +199,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 37,
-      "setCount": 19,
+      "cardSlots": 38,
+      "setCount": 20,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 430,
-      "setCount": 36,
+      "cardSlots": 433,
+      "setCount": 37,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 14,
-      "remainingSetCount": 39,
-      "currentThemeSlots": 1697
+      "completeSetCount": 15,
+      "remainingSetCount": 38,
+      "currentThemeSlots": 1740
     },
     {
       "era": "S",
@@ -379,10 +379,17 @@
     },
     {
       "era": "SV",
+      "code": "SVJP",
+      "name": "배틀 마스터 덱 「파오젠 ex」",
+      "cardCount": 20,
+      "status": "complete"
+    },
+    {
+      "era": "SV",
       "code": "SVLN",
       "name": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
       "cardCount": 25,
-      "status": "pending"
+      "status": "complete"
     },
     {
       "era": "SV",
@@ -515,13 +522,6 @@
       "code": "sv5K",
       "name": "와일드포스",
       "cardCount": 100,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
-      "code": "sv4a",
-      "name": "샤이니트레져 ex",
-      "cardCount": 360,
       "status": "pending"
     }
   ],
@@ -2137,9 +2137,18 @@
       "cardCount": 25,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "themeHits": {
+        "color": 25,
+        "season": 8,
+        "evolution": 3,
+        "sunset": 1,
+        "sleeping": 1,
+        "street": 3,
+        "work": 1,
+        "night": 1
+      }
     },
     {
       "era": "SV",
@@ -2171,13 +2180,13 @@
       "status": "complete",
       "reviewedAt": "2026-10-12",
       "themeHits": {
-        "night": 1,
         "season": 8,
         "color": 19,
         "sunset": 1,
-        "food": 2,
         "work": 2,
-        "street": 2
+        "food": 2,
+        "street": 2,
+        "night": 1
       }
     },
     {
@@ -4020,5 +4029,6 @@
       }
     }
   ],
-  "unknownThemeSetRefs": []
+  "unknownThemeSetRefs": [],
+  "nextStart": "SVLN Korean artwork/theme review complete; 25-image archive pending; next SVLS canonical 001."
 }

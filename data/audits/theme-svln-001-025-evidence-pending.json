@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-12",
+  "task": 6,
+  "set": "SVLN",
+  "setTitle": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
+  "status": "resolved_artwork_review_image_archive_pending",
+  "masterCardCount": 25,
+  "numberedKoreanCards": 22,
+  "unnumberedBasicEnergyKinds": 3,
+  "exactKoreanArtworksReviewed": 25,
+  "all12ThemeDecisionsComplete": 25,
+  "artworkEvidenceHolds": 0,
+  "newThemePlacements": 43,
+  "cardMasterMutations": 0,
+  "duplicateCanonicalKeys": 0,
+  "sourcePriority": "포켓몬코리아 공식 한국어 제품·카드 상세 및 공식 한국어 워터마크 일러스트. 일본판 이미지는 한국판 확인 근거로 대체하지 않음.",
+  "sources": [
+    {
+      "type": "official_Korean_deck",
+      "url": "https://pokemoncard.co.kr/card/665",
+      "note": "제품 식별 및 한국판 스타터 덱 구성 확인"
+    },
+    {
+      "type": "official_Korean_numbered_card_details",
+      "url": "https://pokemoncard.co.kr/cards/detail/BS2024014005",
+      "note": "번호별 공식 한국어 카드 상세 페이지. 001/022–022/022 인쇄번호 및 카드명 대조; 카드별 URL은 아래 증거 목록 참조."
+    },
+    {
+      "type": "official_Korean_card_visual",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_001.png?w=512",
+      "note": "공식 한국어 워터마크 이미지, 카드별 파일 URL은 아래에 보존."
+    },
+    {
+      "type": "secondary_Korean_inventory",
+      "url": "https://www.dogam.app/sets/01KW0QCN7D4KT4NXYGG8SQPDNX",
+      "note": "마스터 canonical order 25개 항목 및 이름 교차대조."
+    }
+  ],
+  "notableFindings": [
+    {
+      "range": "023-025",
+      "finding": "마스터의 /022 접미사는 canonical key이며 기본 물·번개·초 에너지 실물에는 세트 인쇄번호가 없음.",
+      "resolution": "정합성 때문에 마스터 키는 유지하고 물리 인쇄번호는 null로 기록."
+    },
+    {
+      "range": "003-005,009",
+      "finding": "마릴-마릴리와 이브이-님피아의 진화 관계가 세트 이미지에 표현됨.",
+      "resolution": "004 마릴리, 005 님피아 ex, 009 이브이를 evolution으로 분류."
+    },
+    {
+      "range": "007",
+      "finding": "춤추새 이미지의 꽃 숲 배경과 낮은 황금빛 석양이 뚜렷함.",
+      "resolution": "season, sunset, color 각각 분류."
+    }
+  ],
+  "limitations": "전체 25개 공식 한국어 카드 일러스트를 시각 확인하고 12개 테마 판정을 완료. 이미지 바이너리 다운로드·자체 저장·디코딩·배포 검증은 하지 않아 이미지 보관 상태는 pending.",
+  "reviewedCards": [
+    "SVLN_001",
+    "SVLN_002",
+    "SVLN_003",
+    "SVLN_004",
+    "SVLN_005",
+    "SVLN_006",
+    "SVLN_007",
+    "SVLN_008",
+    "SVLN_009",
+    "SVLN_010",
+    "SVLN_011",
+    "SVLN_012",
+    "SVLN_013",
+    "SVLN_014",
+    "SVLN_015",
+    "SVLN_016",
+    "SVLN_017",
+    "SVLN_018",
+    "SVLN_019",
+    "SVLN_020",
+    "SVLN_021",
+    "SVLN_022",
+    "SVLN_023",
+    "SVLN_024",
+    "SVLN_025"
+  ],
+  "heldCards": [],
+  "cards": [
+    {
+      "code": "SVLN_001",
+      "canonicalOrder": 1,
+      "masterCode": "svln_001/022",
+      "koreanMasterName": "만타인",
+      "printedCardNumber": "001/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 001/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/7d0d247dc9aadc1446b9d714dacecfe3.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014001",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_001.png?w=512",
+      "artworkDescription": "푸른 바다와 산호초 사이를 헤엄치는 만타인",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_002",
+      "canonicalOrder": 2,
+      "masterCode": "svln_002/022",
+      "koreanMasterName": "썬더",
+      "printedCardNumber": "002/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 002/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/6bed23c61ff26918dfc30806e0ae1922.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014002",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_002.png?w=512",
+      "artworkDescription": "짙은 먹구름과 보랏빛 번개가 둘러싼 썬더",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_003",
+      "canonicalOrder": 3,
+      "masterCode": "svln_003/022",
+      "koreanMasterName": "마릴",
+      "printedCardNumber": "003/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 003/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/0e14b40b9a5c47022b9f890bca131f9e.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014003",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_003.png?w=512",
+      "artworkDescription": "꽃과 초록 언덕, 집이 보이는 밝은 들판의 마릴",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_004",
+      "canonicalOrder": 4,
+      "masterCode": "svln_004/022",
+      "koreanMasterName": "마릴리",
+      "printedCardNumber": "004/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 004/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/2af5a569124ca98e48035d0345a4615b.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014004",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_004.png?w=512",
+      "artworkDescription": "꽃이 핀 초록 언덕을 달리는 마릴리",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "evolution",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_005",
+      "canonicalOrder": 5,
+      "masterCode": "svln_005/022",
+      "koreanMasterName": "님피아 ex",
+      "printedCardNumber": "005/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 005/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/c8c1bee7ebaaed641a8a87f009044fe3.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014005",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_005.png?w=512",
+      "artworkDescription": "별빛·무지개빛 테라스탈 결정과 사탕빛 배경, 이브이가 함께 보이는 님피아 ex",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "evolution",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_006",
+      "canonicalOrder": 6,
+      "masterCode": "svln_006/022",
+      "koreanMasterName": "제르네아스",
+      "printedCardNumber": "006/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 006/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/2af52cb271495d1381165d659f4b6500.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014006",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_006.png?w=512",
+      "artworkDescription": "빛이 스며드는 숲의 제르네아스",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_007",
+      "canonicalOrder": 7,
+      "masterCode": "svln_007/022",
+      "koreanMasterName": "춤추새",
+      "printedCardNumber": "007/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 007/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/e55f062213adb5548dbce401568a2a79.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014007",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_007.png?w=512",
+      "artworkDescription": "꽃이 가득한 숲에 낮은 황금빛 석양이 비치는 춤추새",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "sunset",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_008",
+      "canonicalOrder": 8,
+      "masterCode": "svln_008/022",
+      "koreanMasterName": "따라큐",
+      "printedCardNumber": "008/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 008/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/de67dfa9bd4fb408f86669b46c8fc4e0.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014008",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_008.png?w=512",
+      "artworkDescription": "밝은 초록 숲속의 따라큐",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_009",
+      "canonicalOrder": 9,
+      "masterCode": "svln_009/022",
+      "koreanMasterName": "이브이",
+      "printedCardNumber": "009/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 009/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/719501793d9380e3cbcfeb48a5ac8d0a.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014009",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_009.png?w=512",
+      "artworkDescription": "꽃밭과 산을 배경으로 한 이브이",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "evolution",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_010",
+      "canonicalOrder": 10,
+      "masterCode": "svln_010/022",
+      "koreanMasterName": "잠만보",
+      "printedCardNumber": "010/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "pokemon",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 010/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/4d4173a76412df23f1b227407a563b08.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014010",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_010.png?w=512",
+      "artworkDescription": "풀밭에 누워 잠든 잠만보",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "sleeping",
+        "season",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_011",
+      "canonicalOrder": 11,
+      "masterCode": "svln_011/022",
+      "koreanMasterName": "네스트볼",
+      "printedCardNumber": "011/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 011/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/6b1ae79c8ac99361473f12e76b76f2ae.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014011",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_011.png?w=512",
+      "artworkDescription": "푸른 광선 배경의 녹색·노란 네스트볼",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_012",
+      "canonicalOrder": 12,
+      "masterCode": "svln_012/022",
+      "koreanMasterName": "대단한낚싯대",
+      "printedCardNumber": "012/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 012/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/2044cc25cea8efb63fda4726dd69e6de.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014012",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_012.png?w=512",
+      "artworkDescription": "푸른 물방울과 소용돌이 속 노란 낚싯대",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_013",
+      "canonicalOrder": 13,
+      "masterCode": "svln_013/022",
+      "koreanMasterName": "테라스탈오브",
+      "printedCardNumber": "013/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 013/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/2c628c7301f2eff10679960a82fdeb4d.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014013",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_013.png?w=512",
+      "artworkDescription": "우주빛 소용돌이 안의 푸른 테라스탈오브",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_014",
+      "canonicalOrder": 14,
+      "masterCode": "svln_014/022",
+      "koreanMasterName": "포켓기어3.0",
+      "printedCardNumber": "014/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 014/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/12c7ae47240c9f7019b4a61b0cb9fc14.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014014",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_014.png?w=512",
+      "artworkDescription": "초록·노랑의 역동적인 배경 위 포켓기어3.0",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_015",
+      "canonicalOrder": 15,
+      "masterCode": "svln_015/022",
+      "koreanMasterName": "포켓몬 교체",
+      "printedCardNumber": "015/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 015/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/1cdda87e17444bcb7783808d020e5a47.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014015",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_015.png?w=512",
+      "artworkDescription": "밝은 색상과 회로 배경에 놓인 몬스터볼 두 개",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_016",
+      "canonicalOrder": 16,
+      "masterCode": "svln_016/022",
+      "koreanMasterName": "프레셔스캐리",
+      "printedCardNumber": "016/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 016/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/81b3672e5216d33edabc121799ffc43b.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014016",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_016.png?w=512",
+      "artworkDescription": "초록·주황 무지개빛 배경의 프레셔스캐리",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_017",
+      "canonicalOrder": 17,
+      "masterCode": "svln_017/022",
+      "koreanMasterName": "하이퍼볼",
+      "printedCardNumber": "017/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "item",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 017/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/34827cf21420c6011df863fe2bb0cb76.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014017",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_017.png?w=512",
+      "artworkDescription": "주황·분홍·금빛 광선 속 하이퍼볼",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_018",
+      "canonicalOrder": 18,
+      "masterCode": "svln_018/022",
+      "koreanMasterName": "네모",
+      "printedCardNumber": "018/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "supporter",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 018/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/8fbeb2203e64c055daecdb0650aff973.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014018",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_018.png?w=512",
+      "artworkDescription": "꽃밭과 캠퍼스 계단이 이어지는 네모",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color",
+        "street"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_019",
+      "canonicalOrder": 19,
+      "masterCode": "svln_019/022",
+      "koreanMasterName": "모야모",
+      "printedCardNumber": "019/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "supporter",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 019/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/6c6476618d1763c0225c63c121d9670b.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014019",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_019.png?w=512",
+      "artworkDescription": "고층 건물과 도시 광장에 선 모야모",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "street",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_020",
+      "canonicalOrder": 20,
+      "masterCode": "svln_020/022",
+      "koreanMasterName": "박사의 연구",
+      "printedCardNumber": "020/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "supporter",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 020/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/1c4d674db0ff74322972266ceaa72849.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014020",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_020.png?w=512",
+      "artworkDescription": "연구실 내부의 박사",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "work",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_021",
+      "canonicalOrder": 21,
+      "masterCode": "svln_021/022",
+      "koreanMasterName": "보스의 지령",
+      "printedCardNumber": "021/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "supporter",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 021/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/2b655a850d041c4027d0fca054f5749d.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014021",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_021.png?w=512",
+      "artworkDescription": "달빛 아래 석조 아치와 밤하늘의 게치스",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "night",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_022",
+      "canonicalOrder": 22,
+      "masterCode": "svln_022/022",
+      "koreanMasterName": "하솔",
+      "printedCardNumber": "022/022",
+      "masterSuffixSyntheticForUnnumberedEnergy": false,
+      "cardType": "supporter",
+      "membershipCrosscheck": "한국 마스터 목록과 포켓몬코리아 공식 한국어 카드 022/022 및 SVLN 제품 페이지 대조.",
+      "catalogImage": "https://static.tcgexchange.kr/19f7cfe09f2637103858dc1a57fa03de.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024014022",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_022.png?w=512",
+      "artworkDescription": "캠퍼스 건물과 야외 식물이 보이는 하솔",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "street",
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_023",
+      "canonicalOrder": 23,
+      "masterCode": "svln_023/022",
+      "koreanMasterName": "기본 물 에너지",
+      "printedCardNumber": null,
+      "masterSuffixSyntheticForUnnumberedEnergy": true,
+      "cardType": "basic_energy",
+      "membershipCrosscheck": "한국 마스터 에너지 슬롯과 공식 한국어 워터마크 에너지 이미지 대조; 물리 인쇄 세트번호 없음.",
+      "catalogImage": "https://static.tcgexchange.kr/b03f2c9292737d5645e7a4758603c5e2.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_023.png?w=512",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_023.png?w=512",
+      "artworkDescription": "푸른 바탕과 물 에너지 심볼의 기본 물 에너지",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_024",
+      "canonicalOrder": 24,
+      "masterCode": "svln_024/022",
+      "koreanMasterName": "기본 번개 에너지",
+      "printedCardNumber": null,
+      "masterSuffixSyntheticForUnnumberedEnergy": true,
+      "cardType": "basic_energy",
+      "membershipCrosscheck": "한국 마스터 에너지 슬롯과 공식 한국어 워터마크 에너지 이미지 대조; 물리 인쇄 세트번호 없음.",
+      "catalogImage": "https://static.tcgexchange.kr/c53d4d1deb78f780c1c541e2f7564935.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_024.png?w=512",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_024.png?w=512",
+      "artworkDescription": "노란 바탕과 번개 심볼의 기본 번개 에너지",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    },
+    {
+      "code": "SVLN_025",
+      "canonicalOrder": 25,
+      "masterCode": "svln_025/022",
+      "koreanMasterName": "기본 초 에너지",
+      "printedCardNumber": null,
+      "masterSuffixSyntheticForUnnumberedEnergy": true,
+      "cardType": "basic_energy",
+      "membershipCrosscheck": "한국 마스터 에너지 슬롯과 공식 한국어 워터마크 에너지 이미지 대조; 물리 인쇄 세트번호 없음.",
+      "catalogImage": "https://static.tcgexchange.kr/e5a74eacf9e34855e8ab2a7373c9fc70.png",
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_025.png?w=512",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLN/SVLN_025.png?w=512",
+      "artworkDescription": "보라색 바탕과 초 에너지 심볼의 기본 초 에너지",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false
+    }
+  ]
+}

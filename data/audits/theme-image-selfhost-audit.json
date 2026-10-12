@@ -2328,7 +2328,35 @@
       },
       "nextStart": "SVJL canonical 001",
       "note": "All 74 Korean images and printed numbers checked; 12 theme decisions complete. 74 external refs remain; none archived/verified."
+    },
+    {
+      "task": 6,
+      "set": "SVLN",
+      "range": "canonical-order 001-025 (full set)",
+      "canonicalCardCount": 25,
+      "artworkVisuallyVerifiedCount": 25,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 25,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 25,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 25,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "color": 25,
+        "season": 8,
+        "evolution": 3,
+        "sunset": 1,
+        "sleeping": 1,
+        "street": 3,
+        "work": 1,
+        "night": 1
+      },
+      "nextStart": "SVLS canonical 001",
+      "note": "Official Korean product/card pages and exact Korean watermarked artwork endpoints checked for all 25 canonical slots; 22 printed Korean numbers and three physically unnumbered basic energies. No binary download, self-hosting, decode or deployment verification."
     }
   ],
-  "nextStart": "SVJP Korean artwork review complete; image archive verification pending; next SVLN canonical 001."
+  "nextStart": "SVLN artwork/theme review complete; archive pending for 25 images; next SVLS canonical 001."
 }
