@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-10-12",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -30457,9 +30457,9 @@
     },
     "SV-P": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-11",
-      "note": "SV-P official Korean artworks verified through canonical 110; 054-055, 075-076, 106-107, and 109-110 directly confirmed from exact Korean prints. Other holds retained.",
-      "reviewedCardCount": 171,
+      "reviewedAt": "2026-10-12",
+      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained.",
+      "reviewedCardCount": 182,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30486,8 +30486,8 @@
         "canonical-order 081-090",
         "canonical-order 091-100",
         "canonical-order 101-110; all 10 official Korean artworks verified",
-        "canonical-order 111-120 (111-116 image evidence held)",
-        "canonical-order 121-130 (121-125 artwork evidence held; 126-130 Korean physical-print photos inspected)",
+        "canonical-order 111-120; all 10 official Korean artworks visually verified",
+        "canonical-order 121-130; all 10 Korean artworks visually verified",
         "canonical-order 131-140 (136 artwork evidence held)",
         "canonical-order 141-150 (141,145-147,149-150 artwork evidence held)",
         "canonical-order 151-160 (152,160 artwork reviewed, remaining 8 evidence held)",
@@ -30501,7 +30501,7 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
       ],
-      "newlyAddedThemeSlotCount": 302,
+      "newlyAddedThemeSlotCount": 314,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30673,21 +30673,19 @@
         "SV-P_106",
         "SV-P_107",
         "SV-P_109",
-        "SV-P_110"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SV-P_110",
         "SV-P_111",
         "SV-P_112",
         "SV-P_113",
         "SV-P_114",
         "SV-P_115",
         "SV-P_116",
-        "SV-P_121",
-        "SV-P_122",
         "SV-P_123",
         "SV-P_124",
-        "SV-P_125",
+        "SV-P_125"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
         "SV-P_136",
         "SV-P_141",
         "SV-P_145",
@@ -33234,7 +33232,7 @@
           ]
         },
         {
-          "range": "canonical-order 111-120 (111-116 artwork evidence held)",
+          "range": "canonical-order 111-120; all artworks visually verified",
           "cardNumbers": [
             "111",
             "112",
@@ -33247,9 +33245,9 @@
             "119",
             "120"
           ],
-          "status": "4_artwork_verified_6_held_image_archival_pending",
-          "checkedCardCount": 4,
-          "heldCardCount": 6,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -33259,87 +33257,111 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "Pokemon Korea exact-numbered official Korean promo art 117-120; Korean energy artwork 111-116 unavailable",
+          "evidenceSource": "Pokemon Korea exact numbered SV-P official Korean watermarked images 111-120; visual checks recorded per card.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "cards": [
             {
               "code": "SV-P_111",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000111",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_111.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "파란 기본 물 에너지 구체가 푸른색·흰색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "111/SV-P"
             },
             {
               "code": "SV-P_112",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000112",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_112.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "노란 기본 번개 에너지 구체가 노랑·흰색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "112/SV-P"
             },
             {
               "code": "SV-P_113",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000113",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_113.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "보라색 기본 초 에너지 구체가 보라·흰색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "113/SV-P"
             },
             {
               "code": "SV-P_114",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000114",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_114.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "주황색 기본 격투 에너지 구체가 주황·흰색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "114/SV-P"
             },
             {
               "code": "SV-P_115",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000115",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_115.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "청록색 기본 악 에너지 구체가 청록·회청색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "115/SV-P"
             },
             {
               "code": "SV-P_116",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000116",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_116.png?w=512",
-              "illustrationSourceNote": "111-116 기본 에너지의 공식 한국판 일러스트 파일을 열람하지 못해 테마 판정 유보.",
+              "illustrationSourceNote": "은회색 기본 강철 에너지 구체가 회백색 기하학적 광채에 둘러싸여 떠 있음.",
               "koreanNumber": "116/SV-P"
             },
             {
@@ -33422,10 +33444,13 @@
               "illustrationSourceNote": "하마돈이 바위 동굴 안에서 입을 벌리고 있고 바깥에 달이 떠 있는 짙은 밤하늘이 보인다. 119번 히포포타스와 같은 Minahamu 작가의 동굴 모티프.",
               "koreanNumber": "120/SV-P"
             }
-          ]
+          ],
+          "themeAdditions": {
+            "color": 10
+          }
         },
         {
-          "range": "canonical-order 121-130 (121-125 evidence held)",
+          "range": "canonical-order 121-130; all artworks visually verified",
           "cardNumbers": [
             "121",
             "122",
@@ -33438,9 +33463,9 @@
             "129",
             "130"
           ],
-          "status": "5_korean_photo_verified_5_held_image_archival_pending",
-          "checkedCardCount": 5,
-          "heldCardCount": 5,
+          "status": "complete_all_artworks_visually_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -33450,74 +33475,88 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "Korean 126 Pikachu photograph and 127-130 Korean print montage, crosschecked with Pokemon Korea official named card details; 121-125 Korean artworks inaccessible",
+          "evidenceSource": "Pokemon Korea exact numbered SV-P official Korean watermarked images 121-125 and Korean print images 126-130; visual checks recorded per card.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "cards": [
             {
               "code": "SV-P_121",
-              "checked": false,
+              "checked": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
-              "noApplicableTheme": false,
-              "needsReview": true,
+              "noApplicableTheme": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000121",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_121.png?w=512",
-              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "illustrationSourceNote": "어두운 복도에서 푸른 하늘을 배경으로 보스의 지령을 쓰는 남성 트레이너가 묘사됨.",
               "koreanNumber": "121/SV-P"
             },
             {
               "code": "SV-P_122",
-              "checked": false,
+              "checked": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
-              "noApplicableTheme": false,
-              "needsReview": true,
+              "noApplicableTheme": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000122",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_122.png?w=512",
-              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "illustrationSourceNote": "녹색 기기와 화면 형태의 부품이 푸른색·연두색의 방사형 광선 배경 위에 떠 있음.",
               "koreanNumber": "122/SV-P"
             },
             {
               "code": "SV-P_123",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000123",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_123.png?w=512",
-              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "illustrationSourceNote": "푸른 속도선과 흰 광선 속에서 무색 에너지 구체가 이동하는 그림.",
               "koreanNumber": "123/SV-P"
             },
             {
               "code": "SV-P_124",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "food",
+                "color"
+              ],
+              "themesAdded": [
+                "food",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000124",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_124.png?w=512",
-              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "illustrationSourceNote": "초록·빨강 토핑을 올린 황금빛 빵 두 개가 밝은 초록·흰색 배경 위에 놓여 있음.",
               "koreanNumber": "124/SV-P"
             },
             {
               "code": "SV-P_125",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/SVP000000125",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV-P/SV-P_125.png?w=512",
-              "illustrationSourceNote": "정확한 한국판 해당 카드 일러스트 사진을 열람하지 못해 그림 적합성 보류.",
+              "illustrationSourceNote": "분홍색 뮤 ex가 별빛·무지갯빛의 분홍·보라 배경 속에서 크게 묘사됨.",
               "koreanNumber": "125/SV-P"
             },
             {
@@ -33615,7 +33654,14 @@
               "illustrationSourceNote": "두랄루돈 뒤에 주황·분홍·노랑으로 물든 노을빛 하늘과 먼 절벽 지형이 펼쳐진다. 한국어 카드 사진으로 그림 판독, 포켓몬코리아 해당 번호·명칭 교차 대조. 공식 원본 바이너리 자체 열람과 자가 저장은 미실시.",
               "koreanNumber": "130/SV-P"
             }
-          ]
+          ],
+          "themeAdditions": {
+            "color": 9,
+            "season": 4,
+            "cameo": 1,
+            "sunset": 1,
+            "food": 1
+          }
         },
         {
           "range": "canonical-order 131-140 (136 artwork held)",
