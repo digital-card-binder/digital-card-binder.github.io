@@ -51798,11 +51798,11 @@
     "currentSet": "SV-P",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed.",
+    "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed. Checkpoint reconciled 2026-10-12 against SV-P batch log: batches through canonical 200 are recorded (with per-card holds); next unreviewed batch is 201-210. M-P 051-057 art review is complete but archive pending; M-P 058-060 exact Korean print remains unresolved.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P canonical 060; official Korean artwork 054-055 directly verified.",
-    "nextStart": "SV-P canonical-order 061",
+    "lastSafeCheckpoint": "SV-P canonical-order 191-200 processed; 201-248 remain artwork evidence-held. Earlier held cards stay listed individually.",
+    "nextStart": "SV-P canonical-order 201-210 (printed 206-211,500-503; Korean artwork evidence pending)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -51817,7 +51817,10 @@
         "range": "canonical 051-068 with non-contiguous printed numbers",
         "pendingCount": 18,
         "audit": "data/audits/theme-mp-051-068-evidence-pending.json",
-        "lastArtSafeCheckpoint": "M-P canonical 050"
+        "lastArtSafeCheckpoint": "M-P canonical 057 artwork reviewed (archive pending); exact print unresolved from 058 onward",
+        "artworkPendingCount": 11,
+        "archivePendingReviewedCount": 7,
+        "totalOutstandingCount": 18
       },
       {
         "set": "CLL",
