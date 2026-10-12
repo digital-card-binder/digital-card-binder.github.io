@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-06",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -37,10 +37,10 @@
     "masterCardCount": 20243,
     "themeCount": 12,
     "themeCardSlots": 5304,
-    "uniqueThemeCards": 3271,
-    "strictCompleteSetCount": 24,
+    "uniqueThemeCards": 3269,
+    "strictCompleteSetCount": 25,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 249,
+    "baselineRemainingSetCount": 248,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -96,7 +96,7 @@
       "code": "evolution",
       "name": "진화 스토리",
       "cardSlots": 76,
-      "setCount": 15,
+      "setCount": 16,
       "rarities": [
         "AR",
         "PROMO",
@@ -123,7 +123,7 @@
       "code": "season",
       "name": "계절 · 풍경",
       "cardSlots": 1310,
-      "setCount": 39,
+      "setCount": 40,
       "rarities": [
         "AR",
         "C",
@@ -186,7 +186,7 @@
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
       "cardSlots": 78,
-      "setCount": 31,
+      "setCount": 32,
       "rarities": [
         "AR",
         "C",
@@ -200,7 +200,7 @@
       "code": "work",
       "name": "일하는 포켓몬",
       "cardSlots": 35,
-      "setCount": 18,
+      "setCount": 19,
       "rarities": [
         "AR",
         "C",
@@ -212,7 +212,7 @@
       "code": "street",
       "name": "도시 · 스트리트",
       "cardSlots": 429,
-      "setCount": 35,
+      "setCount": 36,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 11,
-      "remainingSetCount": 42,
-      "currentThemeSlots": 1576
+      "completeSetCount": 12,
+      "remainingSetCount": 41,
+      "currentThemeSlots": 1676
     },
     {
       "era": "S",
@@ -375,13 +375,6 @@
       "code": "SVG",
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVI",
-      "name": "배틀 아카데미",
-      "cardCount": 74,
       "status": "in_progress"
     },
     {
@@ -522,6 +515,13 @@
       "code": "sv5a",
       "name": "크림슨헤이즈",
       "cardCount": 96,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv5M",
+      "name": "사이버저지",
+      "cardCount": 100,
       "status": "pending"
     }
   ],
@@ -2204,12 +2204,17 @@
       "cardCount": 74,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-12",
       "themeHits": {
-        "night": 1,
-        "color": 2,
-        "sunset": 1
+        "evolution": 1,
+        "night": 6,
+        "season": 12,
+        "color": 74,
+        "sunset": 4,
+        "food": 2,
+        "work": 4,
+        "street": 1
       }
     },
     {
