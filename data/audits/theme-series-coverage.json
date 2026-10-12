@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-06",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -37,7 +37,7 @@
     "masterCardCount": 20243,
     "themeCount": 12,
     "themeCardSlots": 5142,
-    "uniqueThemeCards": 3137,
+    "uniqueThemeCards": 3135,
     "strictCompleteSetCount": 23,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 250,
@@ -67,7 +67,7 @@
       "code": "sleeping",
       "name": "잠자는 포켓몬",
       "cardSlots": 153,
-      "setCount": 77,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 9,
-      "remainingSetCount": 44,
-      "currentThemeSlots": 1420
+      "completeSetCount": 10,
+      "remainingSetCount": 43,
+      "currentThemeSlots": 1514
     },
     {
       "era": "S",
@@ -515,6 +515,13 @@
       "code": "sv6a",
       "name": "나이트 원더러",
       "cardCount": 94,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv6",
+      "name": "변환의 가면",
+      "cardCount": 133,
       "status": "pending"
     }
   ],
