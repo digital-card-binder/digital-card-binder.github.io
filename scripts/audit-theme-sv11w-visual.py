@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build evidence-only contact sheets for the next entire Korean master set sv11W.
+"""Build evidence-only contact sheets for the complete Korean sv11W set.
 Read-only relative to master, theme data, and user ownership states."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
