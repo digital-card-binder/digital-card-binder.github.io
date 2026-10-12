@@ -50561,10 +50561,10 @@
       ]
     },
     "SVI": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-12",
-      "note": "66/74 exact Korean print images visually confirmed; 8 held for image identity; all retained card data and archive pending.",
-      "reviewedCardCount": 66,
+      "note": "All 74 Korean SVI images individually matched by visible printed number; 12 theme decisions complete. Existing thematic records reconciled with the actual theme catalog; external archive remains unverified.",
+      "reviewedCardCount": 74,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -50580,12 +50580,19 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "exact Korean print image confirmed: SVI_003, SVI_006, SVI_010, SVI_011, SVI_012, SVI_013, SVI_014, SVI_015, SVI_016, SVI_017, SVI_018, SVI_019, SVI_020, SVI_021, SVI_022, SVI_024, SVI_025, SVI_026, SVI_027, SVI_028, SVI_029, SVI_030, SVI_031, SVI_032, SVI_033, SVI_034, SVI_035, SVI_036, SVI_037, SVI_038, SVI_039, SVI_040, SVI_041, SVI_042, SVI_043, SVI_044, SVI_045, SVI_046, SVI_047, SVI_048, SVI_049, SVI_050, SVI_051, SVI_052, SVI_053, SVI_054, SVI_055, SVI_056, SVI_057, SVI_058, SVI_059, SVI_060, SVI_061, SVI_062, SVI_063, SVI_064, SVI_065, SVI_066, SVI_067, SVI_068, SVI_069, SVI_070, SVI_071, SVI_072, SVI_073, SVI_074"
+        "canonical 001-074: Korean printed card number, name and illustration checked"
       ],
-      "newlyAddedThemeSlotCount": 89,
+      "newlyAddedThemeSlotCount": 101,
       "newlyAddedCards": [
+        "SVI_001",
+        "SVI_002",
         "SVI_003",
+        "SVI_004",
+        "SVI_005",
         "SVI_006",
+        "SVI_007",
+        "SVI_008",
+        "SVI_009",
         "SVI_010",
         "SVI_011",
         "SVI_012",
@@ -50599,8 +50606,8 @@
         "SVI_020",
         "SVI_021",
         "SVI_022",
+        "SVI_023",
         "SVI_024",
-        "SVI_025",
         "SVI_026",
         "SVI_027",
         "SVI_028",
@@ -50652,24 +50659,16 @@
         "SVI_074"
       ],
       "existingSkippedCards": [
-        "SVI_025"
+        "SVI_025 (prior verified Korean print preserved)"
       ],
-      "heldCards": [
-        "SVI_001",
-        "SVI_002",
-        "SVI_004",
-        "SVI_005",
-        "SVI_007",
-        "SVI_008",
-        "SVI_009",
-        "SVI_023"
-      ],
+      "heldCards": [],
+      "nextStart": "SVJL canonical 001",
       "batches": [
         {
           "range": "canonical-order 001-074",
-          "status": "66 image-verified, 8 held",
-          "checkedCardCount": 66,
-          "heldCardCount": 8,
+          "status": "complete_artwork_review_archive_pending",
+          "checkedCardCount": 74,
+          "heldCardCount": 0,
           "artworkAudit": "data/audits/theme-svi-001-074-evidence-pending.json",
           "imageAudit": {
             "catalogImageReferenceCount": 74,
@@ -50682,10 +50681,11 @@
             "brokenReferenceCount": null
           },
           "themeAdditions": {
-            "color": 66,
-            "night": 5,
-            "season": 10,
-            "sunset": 1,
+            "color": 74,
+            "season": 12,
+            "evolution": 1,
+            "sunset": 4,
+            "night": 6,
             "street": 1,
             "food": 2,
             "work": 4
@@ -52952,14 +52952,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVI",
+    "currentSet": "SVJL",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVHK set review complete; official image archive validation pending.",
-    "lastSafeCheckpoint": "SVI: 66/74 Korean images and themes verified; 8 identity holds; archive pending.",
-    "nextStart": "SVI held cards 001,002,004,005,007,008,009,023; then SVJL",
+    "currentTaskScope": "SVI Korean artwork/theme review complete; archive pending.",
+    "lastSafeCheckpoint": "SVI canonical 001-074 complete: 74 Korean artworks matched by print number; 104 theme placements; 0 artwork holds; archive pending.",
+    "nextStart": "SVJL canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
