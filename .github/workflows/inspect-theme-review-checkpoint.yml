@@ -1,0 +1,21 @@
+name: Inspect current theme-review checkpoint
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/inspect-theme-review-checkpoint.mjs
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Print safe compact canonical and review status
+        run: node scripts/inspect-theme-review-checkpoint.mjs
