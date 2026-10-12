@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enlarge printed Korean titles from already-self-hosted SV9 card scans; evidence only."""
+"""Enlarge all 132 Korean Battle Partners printed titles from already-self-hosted SV9 card scans; evidence only."""
 from pathlib import Path
 from PIL import Image,ImageDraw
 from concurrent.futures import ThreadPoolExecutor,as_completed
