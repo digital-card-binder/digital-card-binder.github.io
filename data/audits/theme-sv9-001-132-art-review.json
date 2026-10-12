@@ -3320,5 +3320,18 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv9/sv9-09.webp.b64",
       "koreanTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv9/sv9-title-09.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "checks": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "strictCheckpoint": "sv9 canonical 001",
+    "nextAfter": "sv8a canonical 001",
+    "ownedImageAssetCount": 132,
+    "noOriginDownload": true
+  }
 }
