@@ -44242,10 +44242,10 @@
       "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)"
     },
     "SVF": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "SVF 001-046 Korean catalog entries crosschecked: 23 exact Korean artworks visually reviewed and 23 exact-image holds. 28 theme placements from only verified artwork. Korean SVF is not strict complete. 039-046 are unnumbered basic energies despite synthetic master indexes.",
-      "reviewedCardCount": 23,
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "note": "SVF 001-046 한국판 공식 이미지·인쇄 카드 46장을 시각 검수하고 12테마 판정을 완료. 기본 에너지 슬롯 039-046은 물리적 인쇄번호가 없음을 공식 이미지에서 확인. 이미지 자체 저장·배포 감사는 pending.",
+      "reviewedCardCount": 46,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -44261,15 +44261,16 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 9 exact Korean official art checks, 002 on evidence hold",
-        "canonical-order 011-020: nine official Korean watermarked artworks checked, 020 evidence held",
-        "canonical-order 021-030: 5 official Korean images verified; 021-022,026,028-029 image evidence pending",
-        "canonical-order 031-040: 10 한국판 수록 명칭·실제 인쇄번호 대조, 정확한 인쇄 일러스트 검증 불가 10장 증거 보류",
-        "canonical-order 041-046: 6 한국판 기본 에너지 종류 대조, 인쇄번호 없음 확인, 정확한 일러스트 6장 검증 보류"
+        "canonical-order 001-010: 10/10 exact Korean official watermark artworks visually verified; all 12 themes decided",
+        "canonical-order 011-020: 10/10 exact Korean official watermark artworks visually verified; all 12 themes decided",
+        "canonical-order 021-030: 10/10 exact Korean official watermark artworks visually verified; all 12 themes decided",
+        "canonical-order 031-040: 10/10 exact Korean official watermark artworks visually verified; 039-040 physically unnumbered",
+        "canonical-order 041-046: 6/6 official Korean basic Energy watermark artworks visually verified; all physically unnumbered"
       ],
-      "newlyAddedThemeSlotCount": 28,
+      "newlyAddedThemeSlotCount": 62,
       "newlyAddedCards": [
         "SVF_001",
+        "SVF_002",
         "SVF_003",
         "SVF_004",
         "SVF_005",
@@ -44287,21 +44288,17 @@
         "SVF_017",
         "SVF_018",
         "SVF_019",
-        "SVF_023",
-        "SVF_024",
-        "SVF_025",
-        "SVF_027",
-        "SVF_030"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
-        "SVF_002",
         "SVF_020",
         "SVF_021",
         "SVF_022",
+        "SVF_023",
+        "SVF_024",
+        "SVF_025",
         "SVF_026",
+        "SVF_027",
         "SVF_028",
         "SVF_029",
+        "SVF_030",
         "SVF_031",
         "SVF_032",
         "SVF_033",
@@ -44319,6 +44316,8 @@
         "SVF_045",
         "SVF_046"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-010",
@@ -44334,9 +44333,9 @@
             "009",
             "010"
           ],
-          "status": "9_official_Korean_artworks_verified_1_evidence_pending",
-          "checkedCardCount": 9,
-          "heldCardCount": 1,
+          "status": "10_official_Korean_watermarked_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -44344,15 +44343,16 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 10,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0,
+            "verifiedImageCount": 0
           },
-          "evidenceSource": "Official Pokémon Korea BS2023017001-010 details and direct viewing of nine official Korean-watermarked SVF_###.png cards; 002 inaccessible",
+          "evidenceSource": "Direct visual inspection of exact official Pokémon Korea Korean-watermarked SVF card image URLs; printed card number checked for 001-038; basic Energy 039-046 confirmed physically unnumbered.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "themeAdditions": {
-            "season": 7,
-            "color": 8,
+            "season": 8,
+            "color": 9,
             "sunset": 2,
             "street": 1,
             "work": 1
@@ -44380,17 +44380,23 @@
             },
             {
               "code": "SVF_002",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "002/038",
               "name": "네오라이트 V",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017002",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 번호와 마스터 DB의 이름은 확인하였으나, 정확한 카드 그림 직접 접근에 실패하여 12테마 판정 보류. 일본판 및 다른 인쇄 그림 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_002.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 002/038 네오라이트 V의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 네오라이트 V가 산호초와 기포가 있는 푸른 바닷속을 헤엄친다. 바다 풍경과 청색·분홍색 대비가 명확하다. 12개 테마를 각각 판정하여 season, color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_003",
@@ -44552,7 +44558,8 @@
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_010.png?w=512",
               "illustrationSourceNote": "공식 한국어 워터마크 이미지를 직접 판독: 네스트볼 아이템의 구형 볼 단독 컷으로 자연·도시·노을·일·카메오 등 12개 장면 테마에 직접 부합하지 않음. 12개 독립 테마 전부 판정하여 해당 없음 선택. 이미지 바이너리 자체저장/디코딩/CDN 배포는 미실시."
             }
-          ]
+          ],
+          "nextStart": "next SVF range already verified"
         },
         {
           "range": "canonical-order 011-020",
@@ -44568,9 +44575,9 @@
             "019",
             "020"
           ],
-          "status": "9_official_Korean_artworks_verified_1_evidence_pending",
-          "checkedCardCount": 9,
-          "heldCardCount": 1,
+          "status": "10_official_Korean_watermarked_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -44578,15 +44585,16 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 10,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0,
+            "verifiedImageCount": 0
           },
-          "evidenceSource": "Official Korean pokemoncard.co.kr cards BS2023017011-20 and nine exact SVF_011-019 watermark artworks visibly checked; 020 held",
+          "evidenceSource": "Direct visual inspection of exact official Pokémon Korea Korean-watermarked SVF card image URLs; printed card number checked for 001-038; basic Energy 039-046 confirmed physically unnumbered.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "themeAdditions": {
             "food": 1,
-            "color": 1
+            "color": 2
           },
           "cards": [
             {
@@ -44723,19 +44731,24 @@
             },
             {
               "code": "SVF_020",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "020/038",
               "name": "트레킹슈즈",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017020",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 공식 카드 상세와 동일 인쇄번호 이미지 직접 접근 불가. 다른 수록판·일본판 이미지는 판정 근거로 사용하지 않고 증빙 보류."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_020.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 020/038 트레킹슈즈의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 빨강·노랑·남색의 트레킹슈즈 두 짝만 추상적인 황록색 광선 배경에 놓여 있다. 도시 거리 장면은 아니다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             }
-          ]
+          ],
+          "nextStart": "next SVF range already verified"
         },
         {
           "range": "canonical-order 021-030",
@@ -44751,9 +44764,9 @@
             "029",
             "030"
           ],
-          "status": "5_official_Korean_artworks_verified_5_evidence_pending",
-          "checkedCardCount": 5,
-          "heldCardCount": 5,
+          "status": "10_official_Korean_watermarked_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -44761,45 +44774,55 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 10,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0,
+            "verifiedImageCount": 0
           },
-          "evidenceSource": "Exact Korean pokemoncard.co.kr/SVF_023,024,025,027,030 watermark artworks directly viewed; other five detail/images unavailable",
+          "evidenceSource": "Direct visual inspection of exact official Pokémon Korea Korean-watermarked SVF card image URLs; printed card number checked for 001-038; basic Energy 039-046 confirmed physically unnumbered.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "themeAdditions": {
-            "color": 5,
+            "color": 10,
+            "season": 1,
             "street": 1,
             "night": 1
           },
           "cards": [
             {
               "code": "SVF_021",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "021/038",
               "name": "포켓몬 교체",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017021",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 021/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_021.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 021/038 포켓몬 교체의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 포켓몬 교체 기계 두 대와 이를 잇는 노란 연결부가 보인다. 카드 간 연결 일러스트 장면이 아닌 단일 아이템 컷이며 청색·보라색 대비를 기준으로 분류한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_022",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "022/038",
               "name": "하이퍼볼",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017022",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 022/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_022.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 022/038 하이퍼볼의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 하이퍼볼 단독 컷으로 분홍·주황·노란 광선과 검정·노랑 볼의 대비가 강하다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_023",
@@ -44857,17 +44880,23 @@
             },
             {
               "code": "SVF_026",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "026/038",
               "name": "모미",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017026",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 026/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_026.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 026/038 모미의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 모미가 나무와 초록빛 숲을 배경으로 서 있다. 숲 풍경과 녹색 계열이 뚜렷하다. 12개 테마를 각각 판정하여 season, color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_027",
@@ -44891,31 +44920,39 @@
             },
             {
               "code": "SVF_028",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "028/038",
               "name": "박사의 연구",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017028",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 028/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_028.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 028/038 박사의 연구의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 박사의 연구(올림)가 실험실 칠판 앞에 서 있다. 사람의 연구 장면은 work 테마의 ‘일하는 포켓몬’ 기준에 해당하지 않으며, 청록·백색·주황 계열 색감을 분류한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_029",
-              "checked": false,
+              "checked": true,
               "koreanNumber": "029/038",
               "name": "박사의 연구",
-              "themesMatched": [],
-              "themesAdded": [],
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017029",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "한국판 카드 029/038 명칭과 마스터 슬롯은 확인하였으나 정확한 인쇄판 한국어 일러스트 접근 실패. 한국판 증거가 확보될 때까지 12테마 판정 보류. 일본판 대체 금지."
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_029.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 029/038 박사의 연구의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 박사의 연구(투로)가 실험실에서 자료를 들고 있다. 사람의 연구 장면은 work 테마의 ‘일하는 포켓몬’ 기준에 해당하지 않으며, 보라·청록·백색 색감을 분류한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시."
             },
             {
               "code": "SVF_030",
@@ -44937,7 +44974,8 @@
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_030.png?w=512",
               "illustrationSourceNote": "한국 포켓몬코리아 한국어 카드 워터마크 원본 직접 시각 판독: 게치스가 거대한 아치와 붉은 눈을 가진 채 창백한 달이 보이는 푸른 밤하늘의 돌기둥 사이에 서 있는 장면. 12개 테마 전체 각각 검수: night, color. 외부 이미지 링크 그대로 유지하며 바이너리 저장·CDN 배포하지 않음."
             }
-          ]
+          ],
+          "nextStart": "next SVF range already verified"
         },
         {
           "range": "canonical-order 031-040",
@@ -44953,9 +44991,9 @@
             "039",
             "040"
           ],
-          "status": "10_Korean_catalog_entries_crosschecked_10_artwork_evidence_pending",
-          "checkedCardCount": 0,
-          "heldCardCount": 10,
+          "status": "10_official_Korean_watermarked_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -44963,13 +45001,18 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 10,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0,
+            "verifiedImageCount": 0
           },
-          "evidenceSource": "Korean SVF checklist + data/series.json; no exact official Korean artwork view; Japanese and reprints excluded",
+          "evidenceSource": "Direct visual inspection of exact official Pokémon Korea Korean-watermarked SVF card image URLs; printed card number checked for 001-038; basic Energy 039-046 confirmed physically unnumbered.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
-          "themeAdditions": {},
+          "themeAdditions": {
+            "season": 6,
+            "color": 10,
+            "street": 3
+          },
           "cards": [
             {
               "code": "SVF_031",
@@ -44981,14 +45024,31 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017031",
               "masterImageReference": "https://static.tcgexchange.kr/b340bb445c006b4302d2c64b504c86fe.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 031/038 세레나; 세레나가 팔데아 마을의 보도와 건물 사이에 서 있다. 거리·마을 생활공간, 맑은 야외 풍경, 녹색·주황색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "031/038",
+              "name": "세레나",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017031",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_031.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 031/038 세레나의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 세레나가 팔데아 마을의 보도와 건물 사이에 서 있다. 거리·마을 생활공간, 맑은 야외 풍경, 녹색·주황색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_031.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_032",
@@ -45000,14 +45060,27 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017032",
               "masterImageReference": "https://static.tcgexchange.kr/52ad9b0de0da71afc81d824c91b19ffd.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 032/038 세이버리; 세이버리가 실내 상점·생활공간에 서 있는 장면이다. 보라색 의상과 밝은 배경의 색 대비를 분류한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "032/038",
+              "name": "세이버리",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017032",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_032.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 032/038 세이버리의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 세이버리가 실내 상점·생활공간에 서 있는 장면이다. 보라색 의상과 밝은 배경의 색 대비를 분류한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_032.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_033",
@@ -45019,14 +45092,31 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017033",
               "masterImageReference": "https://static.tcgexchange.kr/c21de676858bd201fdf24b966ce7dffb.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 033/038 주혜; 주혜가 밝은 하늘 아래 마을 건물과 보도 사이에 서 있다. 마을 거리와 야외 풍경, 녹색·하늘색·분홍색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "033/038",
+              "name": "주혜",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017033",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_033.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 033/038 주혜의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 주혜가 밝은 하늘 아래 마을 건물과 보도 사이에 서 있다. 마을 거리와 야외 풍경, 녹색·하늘색·분홍색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_033.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_034",
@@ -45038,14 +45128,29 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017034",
               "masterImageReference": "https://static.tcgexchange.kr/1b4615075262e8d0898dc40bd45ae6e7.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 034/038 마그마의 용소; 마그마가 흐르는 어두운 화산 지형의 스타디움 풍경이다. 자연 풍경과 용암의 주황색·암석의 검정색을 분류한다. 밤하늘 장면은 아니다. 12개 테마를 각각 판정하여 season, color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "034/038",
+              "name": "마그마의 용소",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017034",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_034.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 034/038 마그마의 용소의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 마그마가 흐르는 어두운 화산 지형의 스타디움 풍경이다. 자연 풍경과 용암의 주황색·암석의 검정색을 분류한다. 밤하늘 장면은 아니다. 12개 테마를 각각 판정하여 season, color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_034.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_035",
@@ -45057,14 +45162,31 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017035",
               "masterImageReference": "https://static.tcgexchange.kr/5e3819362ffb7e3c5279dbe6ce2602ba.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 035/038 보울마을; 보울마을의 집과 풍차, 꽃길이 보이는 야외 마을 풍경이다. 계절감 있는 꽃·하늘, 마을 거리, 녹색·빨강·파랑색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "035/038",
+              "name": "보울마을",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017035",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_035.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 035/038 보울마을의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 보울마을의 집과 풍차, 꽃길이 보이는 야외 마을 풍경이다. 계절감 있는 꽃·하늘, 마을 거리, 녹색·빨강·파랑색을 분류한다. 12개 테마를 각각 판정하여 season, color, street 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_035.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_036",
@@ -45076,14 +45198,29 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017036",
               "masterImageReference": "https://static.tcgexchange.kr/ed5a557b2dd0ded908f37b9b95ff6232.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 036/038 비치코트; 바다와 모래사장 옆 야외 테니스 코트가 보인다. 해변 풍경과 파랑·모래색 대비를 분류한다. 12개 테마를 각각 판정하여 season, color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "036/038",
+              "name": "비치코트",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017036",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_036.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 036/038 비치코트의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 바다와 모래사장 옆 야외 테니스 코트가 보인다. 해변 풍경과 파랑·모래색 대비를 분류한다. 12개 테마를 각각 판정하여 season, color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_036.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_037",
@@ -45095,14 +45232,29 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017037",
               "masterImageReference": "https://static.tcgexchange.kr/7af4c6026959c23beceaeffa2b93bf5d.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 037/038 정상으로 가는 눈길; 눈 덮인 숲길과 겨울 나무가 화면을 채운다. 눈 풍경과 청백색을 분류한다. 12개 테마를 각각 판정하여 season, color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "037/038",
+              "name": "정상으로 가는 눈길",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017037",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_037.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 037/038 정상으로 가는 눈길의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 눈 덮인 숲길과 겨울 나무가 화면을 채운다. 눈 풍경과 청백색을 분류한다. 12개 테마를 각각 판정하여 season, color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_037.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_038",
@@ -45114,14 +45266,27 @@
               "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023017038",
               "masterImageReference": "https://static.tcgexchange.kr/81486bade644c5b61a0419d0c9b1d43f.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 038/038 더블 터보 에너지; 한국어 ‘더블 터보 에너지’ 카드의 에너지 두 구체가 녹색·노란 광선 속에 있다. 구체가 연결된 별도 카드 장면은 아니며 색감만 해당한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "038/038",
+              "name": "더블 터보 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023017038",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_038.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 038/038 더블 터보 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 한국어 ‘더블 터보 에너지’ 카드의 에너지 두 구체가 녹색·노란 광선 속에 있다. 구체가 연결된 별도 카드 장면은 아니며 색감만 해당한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_038.png?w=512",
+              "koreanNumberVerification": "Official Korean watermark shows exact printed number and matching illustration"
             },
             {
               "code": "SVF_039",
@@ -45133,14 +45298,27 @@
               "officialKoreanDetailCandidate": null,
               "masterImageReference": "https://static.tcgexchange.kr/9e34a3bf3a024bd25d95077cba464479.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 풀 에너지; 공식 한국어 ‘기본 풀 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 녹색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 풀 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_039.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_039.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 풀 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 풀 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 녹색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_039.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_040",
@@ -45152,16 +45330,30 @@
               "officialKoreanDetailCandidate": null,
               "masterImageReference": "https://static.tcgexchange.kr/3e41d67176e8c990a97bd2734377d5ad.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "한국어판 세트 코드와 수록 명칭을 대조했으나 해당 SVF 인쇄판의 정확한 일러스트를 직접 확인하지 못하여 12테마 판정 보류. 다른 한국판 재수록·일본판 동일 번호 카드 사진 대체 금지."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 불꽃 에너지; 공식 한국어 ‘기본 불꽃 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 빨강·주황색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 불꽃 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_040.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_040.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 불꽃 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 불꽃 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 빨강·주황색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_040.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             }
-          ]
+          ],
+          "nextStart": "next SVF range already verified"
         },
         {
           "range": "canonical-order 041-046",
@@ -45173,9 +45365,9 @@
             "045",
             "046"
           ],
-          "status": "6_Korean_unnumbered_energy_entries_crosschecked_6_artwork_evidence_pending",
-          "checkedCardCount": 0,
-          "heldCardCount": 6,
+          "status": "6_official_Korean_watermarked_artworks_verified",
+          "checkedCardCount": 6,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 6,
             "selfHostedImageReferenceCountAfter": 0,
@@ -45183,13 +45375,16 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 6,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0,
+            "verifiedImageCount": 0
           },
-          "evidenceSource": "Korean SVF 46-card product listing, six unnumbered base Energy types and canonical master; precise print images inaccessible",
+          "evidenceSource": "Direct visual inspection of exact official Pokémon Korea Korean-watermarked SVF card image URLs; printed card number checked for 001-038; basic Energy 039-046 confirmed physically unnumbered.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
-          "themeAdditions": {},
+          "themeAdditions": {
+            "color": 6
+          },
           "cards": [
             {
               "code": "SVF_041",
@@ -45200,14 +45395,27 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 41 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/444bf2b099b2e6b7ae4f6d328a68c35f.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 물 에너지; 공식 한국어 ‘기본 물 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 파랑색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 물 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_041.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_041.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 물 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 물 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 파랑색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_041.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_042",
@@ -45218,14 +45426,27 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 42 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/fbec779348a251247e90a5a3943614bc.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 번개 에너지; 공식 한국어 ‘기본 번개 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 노랑색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 번개 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_042.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_042.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 번개 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 번개 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 노랑색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_042.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_043",
@@ -45236,14 +45457,27 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 43 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/d37308ec4c1d8c18ea8efae15515f2a6.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 초 에너지; 공식 한국어 ‘기본 초 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 보라색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 초 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_043.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_043.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 초 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 초 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 보라색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_043.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_044",
@@ -45254,14 +45488,27 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 44 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/0a4a3e85f6c29d406965ea2cca19d00f.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 격투 에너지; 공식 한국어 ‘기본 격투 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 주황·갈색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 격투 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_044.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_044.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 격투 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 격투 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 주황·갈색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_044.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_045",
@@ -45272,14 +45519,27 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 45 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/13c6145cba78c68f37dd7a80bb57cdb5.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 악 에너지; 공식 한국어 ‘기본 악 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 청록·검정색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 악 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_045.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_045.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 악 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 악 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 청록·검정색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_045.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             },
             {
               "code": "SVF_046",
@@ -45290,16 +45550,30 @@
               "printedNumberPolicy": "Korean original basic Energy unnumbered; DB canonical order 46 is a synthetic catalog position, not a printed collector number",
               "masterImageReference": "https://static.tcgexchange.kr/7a06f3fee21769589884b1ed4a2252f8.png",
               "existingThemePlacement": false,
-              "checked": false,
-              "needsReview": true,
-              "artworkProofStatus": "exact_Korean_artwork_unverified",
-              "all12ThemesChecked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "needsReview": false,
+              "artworkProofStatus": "verified_Korean_watermark_visual",
+              "all12ThemesChecked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "imageBinarySelfHosted": false,
-              "illustrationObservation": "기본 에너지 한국판 수록 종류·순서를 대조했지만 해당 제품에 동봉된 한국어 인쇄판 실제 이미지 검증 실패. 일본판/다른 세트 이미지가 동일하다는 추정으로 12테마 판정하지 않음."
+              "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지를 직접 확인. 기본 에너지(실물 무번호) 기본 강철 에너지; 공식 한국어 ‘기본 강철 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 회색·은색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 자체 저장·배포는 미검증.",
+              "koreanNumber": "기본 에너지(실물 무번호)",
+              "name": "기본 강철 에너지",
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_046.png?w=512",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_046.png?w=512",
+              "illustrationSourceNote": "포켓몬코리아 공식 한국어 워터마크 이미지에서 기본 에너지(실물 무번호) 기본 강철 에너지의 이름·인쇄 번호(기본 에너지는 실물 무번호)·일러스트를 직접 확인. 관찰: 공식 한국어 ‘기본 강철 에너지’ 실물 이미지. 실제 인쇄 번호가 없는 카드이며 회색·은색이 화면 전체를 지배한다. 12개 테마를 각각 판정하여 color 선택. 이미지 바이너리 자체 저장·디코딩·배포 검증은 미실시.",
+              "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_046.png?w=512",
+              "koreanNumberVerification": "Official Korean basic Energy image visually verified; physically unnumbered; canonical slot ID is synthetic"
             }
-          ]
+          ],
+          "nextStart": "SVEL canonical 001"
         }
       ],
       "nextStart": "SVF canonical 031"
@@ -53074,14 +53348,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVF",
+    "currentSet": "SVEL",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVAL, SVB, SVC, SVP2, and SVD Korean artwork reviews complete. Image archival/deployment remains pending. M-P 058-060 exact Korean promo print identity remains deferred.",
+    "note": "SVF artwork review complete; image archival/deployment remains pending. Other deferred evidence items remain queued.",
     "currentTask": 6,
-    "currentTaskScope": "SVD 한국판 147/147 슬롯의 공식 이미지·12테마 검수를 완료. 다음 미완료 세트 SVF는 기존 23장 완료와 카드별 보류를 보존하고 첫 보류부터 재개.",
-    "lastSafeCheckpoint": "SVD canonical 001-139 printed Korean cards plus eight unnumbered Korean basic Energy slots 140-147 fully reviewed across 12 themes; 147/147. Image archive pending.",
-    "nextStart": "SVF_002; resume from remaining held cards, do not repeat reviewed cards",
+    "currentTaskScope": "SVF 한국판 46/46 카드의 12개 테마 시각 검수 완료. 자체 이미지 보관·배포 검증은 pending; 다음 세트 SVEL은 기존 기록을 보존하고 미완료 카드부터 시작.",
+    "lastSafeCheckpoint": "SVF canonical 001-038 printed Korean cards plus eight physically unnumbered Korean basic Energy slots 039-046 fully reviewed across 12 themes; 46/46. Image archive pending.",
+    "nextStart": "SVEL canonical 001; skip already reviewed cards and retain image archive as pending",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -53317,41 +53591,6 @@
         "lastArtSafeCheckpoint": "SVAW 019 official art; 020-025 pending exact art"
       },
       {
-        "set": "SVF",
-        "range": "canonical 002",
-        "pendingCount": 1,
-        "audit": "data/audits/theme-svf-001-010-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVF 001; 003-010 independently verified"
-      },
-      {
-        "set": "SVF",
-        "range": "canonical 020",
-        "pendingCount": 1,
-        "audit": "data/audits/theme-svf-011-020-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVF canonical 019"
-      },
-      {
-        "set": "SVF",
-        "range": "canonical 021-022,026,028-029",
-        "pendingCount": 5,
-        "audit": "data/audits/theme-svf-021-030-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVF canonical 030 (023,024,025,027,030 checked)"
-      },
-      {
-        "set": "SVF",
-        "range": "canonical-order 031-040",
-        "pendingCount": 10,
-        "audit": "data/audits/theme-svf-031-040-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVF 030, with 031-040 on artwork evidence hold"
-      },
-      {
-        "set": "SVF",
-        "range": "canonical-order 041-046",
-        "pendingCount": 6,
-        "audit": "data/audits/theme-svf-041-046-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVF 030 (SVF 031-046 exact artwork held)"
-      },
-      {
         "set": "SVEL",
         "range": "canonical 012,014,015,018,020,unnumbered 021",
         "pendingCount": 6,
@@ -53404,5 +53643,140 @@
     "lastEvidenceAuditCheckpoint": "SVD canonical 001-147; numbered Korean cards and eight physically unnumbered basic Energy slots reviewed; image archive pending.",
     "updatedAt": "2026-10-12"
   },
-  "lastEvidenceAuditCheckpoint": "SVD canonical 001-147; numbered Korean cards and eight physically unnumbered basic Energy slots reviewed; image archive pending."
+  "lastEvidenceAuditCheckpoint": {
+    "0": "S",
+    "1": "V",
+    "2": "D",
+    "3": " ",
+    "4": "c",
+    "5": "a",
+    "6": "n",
+    "7": "o",
+    "8": "n",
+    "9": "i",
+    "10": "c",
+    "11": "a",
+    "12": "l",
+    "13": " ",
+    "14": "0",
+    "15": "0",
+    "16": "1",
+    "17": "-",
+    "18": "1",
+    "19": "4",
+    "20": "7",
+    "21": ";",
+    "22": " ",
+    "23": "n",
+    "24": "u",
+    "25": "m",
+    "26": "b",
+    "27": "e",
+    "28": "r",
+    "29": "e",
+    "30": "d",
+    "31": " ",
+    "32": "K",
+    "33": "o",
+    "34": "r",
+    "35": "e",
+    "36": "a",
+    "37": "n",
+    "38": " ",
+    "39": "c",
+    "40": "a",
+    "41": "r",
+    "42": "d",
+    "43": "s",
+    "44": " ",
+    "45": "a",
+    "46": "n",
+    "47": "d",
+    "48": " ",
+    "49": "e",
+    "50": "i",
+    "51": "g",
+    "52": "h",
+    "53": "t",
+    "54": " ",
+    "55": "p",
+    "56": "h",
+    "57": "y",
+    "58": "s",
+    "59": "i",
+    "60": "c",
+    "61": "a",
+    "62": "l",
+    "63": "l",
+    "64": "y",
+    "65": " ",
+    "66": "u",
+    "67": "n",
+    "68": "n",
+    "69": "u",
+    "70": "m",
+    "71": "b",
+    "72": "e",
+    "73": "r",
+    "74": "e",
+    "75": "d",
+    "76": " ",
+    "77": "b",
+    "78": "a",
+    "79": "s",
+    "80": "i",
+    "81": "c",
+    "82": " ",
+    "83": "E",
+    "84": "n",
+    "85": "e",
+    "86": "r",
+    "87": "g",
+    "88": "y",
+    "89": " ",
+    "90": "s",
+    "91": "l",
+    "92": "o",
+    "93": "t",
+    "94": "s",
+    "95": " ",
+    "96": "r",
+    "97": "e",
+    "98": "v",
+    "99": "i",
+    "100": "e",
+    "101": "w",
+    "102": "e",
+    "103": "d",
+    "104": ";",
+    "105": " ",
+    "106": "i",
+    "107": "m",
+    "108": "a",
+    "109": "g",
+    "110": "e",
+    "111": " ",
+    "112": "a",
+    "113": "r",
+    "114": "c",
+    "115": "h",
+    "116": "i",
+    "117": "v",
+    "118": "e",
+    "119": " ",
+    "120": "p",
+    "121": "e",
+    "122": "n",
+    "123": "d",
+    "124": "i",
+    "125": "n",
+    "126": "g",
+    "127": ".",
+    "set": "SVF",
+    "range": "001-046",
+    "reviewedCardCount": 46,
+    "heldCardCount": 0,
+    "checkedAt": "2026-10-12",
+    "note": "All exact Korean watermark artworks visually reviewed; eight basic Energy cards physically unnumbered; image archive pending."
+  }
 }
