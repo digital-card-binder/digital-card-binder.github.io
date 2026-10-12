@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 6348,
-    "uniqueThemeCards": 3839,
-    "strictCompleteSetCount": 35,
+    "themeCardSlots": 6523,
+    "uniqueThemeCards": 3960,
+    "strictCompleteSetCount": 36,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 238,
+    "baselineRemainingSetCount": 237,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 236,
-      "setCount": 41,
+      "cardSlots": 239,
+      "setCount": 42,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1673,
-      "setCount": 48,
+      "cardSlots": 1700,
+      "setCount": 49,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 3224,
-      "setCount": 51,
+      "cardSlots": 3324,
+      "setCount": 52,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 128,
-      "setCount": 35,
+      "cardSlots": 129,
+      "setCount": 36,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 508,
-      "setCount": 44,
+      "cardSlots": 552,
+      "setCount": 45,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 22,
-      "remainingSetCount": 31,
-      "currentThemeSlots": 2720
+      "completeSetCount": 23,
+      "remainingSetCount": 30,
+      "currentThemeSlots": 2895
     },
     {
       "era": "S",
@@ -376,13 +376,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv10",
-      "name": "sv10 도감",
-      "cardCount": 132,
-      "status": "pending"
     },
     {
       "era": "SV",
@@ -522,6 +515,13 @@
       "code": "sv1a",
       "name": "트리플렛비트",
       "cardCount": 103,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv1V",
+      "name": "바이올렛 ex",
+      "cardCount": 108,
       "status": "pending"
     }
   ],
@@ -1725,14 +1725,19 @@
     {
       "era": "SV",
       "code": "sv10",
-      "name": "sv10 도감",
+      "name": "로켓단의 영광",
       "cardCount": 132,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 3,
+        "season": 27,
+        "color": 100,
+        "sunset": 1,
+        "street": 44
       }
     },
     {
