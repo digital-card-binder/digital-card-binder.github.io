@@ -54405,8 +54405,8 @@
     "SVM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SVM canonical 001-100 99장 공식 한국판 일러스트 검수 완료; 079 아트 증거 보류, 101-183 미검수. 신규 이미지 자가 저장·배포 미확인.",
-      "reviewedCardCount": 99,
+      "note": "SVM canonical 001-110, 109 Korean official artworks verified; 079 evidence held, 111-183 unreviewed. Image binaries/deployment not verified.",
+      "reviewedCardCount": 109,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -54429,9 +54429,10 @@
         "canonical 041-060 (한국판 공식 상세·그림 20장 시각 확인)",
         "canonical 061-080 (19 Korean official artworks inspected; SVM 079 held for missing official artwork access)",
         "canonical 081-090 (official Korean stamped artwork checked, all 10)",
-        "canonical 091-100 (10 Korean official artworks and theme matches inspected)"
+        "canonical 091-100 (10 Korean official artworks and theme matches inspected)",
+        "canonical 101-110 (10 official Korean card illustrations checked)"
       ],
-      "newlyAddedThemeSlotCount": 188,
+      "newlyAddedThemeSlotCount": 209,
       "newlyAddedCards": [
         "SVM_001",
         "SVM_002",
@@ -54531,7 +54532,17 @@
         "SVM_097",
         "SVM_098",
         "SVM_099",
-        "SVM_100"
+        "SVM_100",
+        "SVM_101",
+        "SVM_102",
+        "SVM_103",
+        "SVM_104",
+        "SVM_105",
+        "SVM_106",
+        "SVM_107",
+        "SVM_108",
+        "SVM_109",
+        "SVM_110"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -57512,6 +57523,312 @@
               "cloudflareDeployVerified": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 101-110",
+          "status": "complete_10_official_Korean_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "artworkAudit": "data/audits/theme-svm-101-110-art-review.json",
+          "themeAdditions": {
+            "season": 8,
+            "color": 10,
+            "sunset": 1,
+            "street": 2
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_101",
+              "canonicalOrder": 101,
+              "canonicalMasterCode": "svm_101/175",
+              "koreanNumber": "101/175",
+              "koreanName": "트로피우스",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018101",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_101.png?w=512",
+              "illustrationSourceNote": "열대 해변의 푸른 바다와 야자수, 노란 열매와 꽃이 있는 나무 아래 서 있는 트로피우스.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_102",
+              "canonicalOrder": 102,
+              "canonicalMasterCode": "svm_102/175",
+              "koreanNumber": "102/175",
+              "koreanName": "이어롤",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018102",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_102.png?w=512",
+              "illustrationSourceNote": "흰 설산이 보이는 맑은 푸른 하늘 아래 분홍 꽃과 울창한 초록 나뭇잎 사이에 앉은 이어롤.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_103",
+              "canonicalOrder": 103,
+              "canonicalMasterCode": "svm_103/175",
+              "koreanNumber": "103/175",
+              "koreanName": "이어롭",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018103",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_103.png?w=512",
+              "illustrationSourceNote": "눈송이가 흩날리는 겨울 산림, 새하얀 나뭇가지와 붉은 열매를 배경으로 선 이어롭.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_104",
+              "canonicalOrder": 104,
+              "canonicalMasterCode": "svm_104/175",
+              "koreanNumber": "104/175",
+              "koreanName": "페라페",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018104",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_104.png?w=512",
+              "illustrationSourceNote": "커다란 열대 잎과 초록 덩굴, 가지가 가득한 밝은 숲속의 페라페.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_105",
+              "canonicalOrder": 105,
+              "canonicalMasterCode": "svm_105/175",
+              "koreanNumber": "105/175",
+              "koreanName": "쉐이미",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018105",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_105.png?w=512",
+              "illustrationSourceNote": "주황빛 저녁 하늘 아래 황금색으로 빛나는 초원, 떨어지는 잎과 풀꽃 사이를 걷는 쉐이미.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_106",
+              "canonicalOrder": 106,
+              "canonicalMasterCode": "svm_106/175",
+              "koreanNumber": "106/175",
+              "koreanName": "다부니",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018106",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_106.png?w=512",
+              "illustrationSourceNote": "황금색 마른 억새와 곡식 이삭이 빽빽한 들판 한가운데 서 있는 분홍색 다부니.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_107",
+              "canonicalOrder": 107,
+              "canonicalMasterCode": "svm_107/175",
+              "koreanNumber": "107/175",
+              "koreanName": "치라미",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018107",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_107.png?w=512",
+              "illustrationSourceNote": "주황 원형 장식과 건물 외벽, 현대적 도심 구조물이 있는 포장된 장소에서 뛰는 치라미.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_108",
+              "canonicalOrder": 108,
+              "canonicalMasterCode": "svm_108/175",
+              "koreanNumber": "108/175",
+              "koreanName": "치라치노",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018108",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_108.png?w=512",
+              "illustrationSourceNote": "파란 하늘과 흰 구름 아래 데이지꽃과 푸른 초목이 가득한 초원에서 뛰어오르는 치라치노.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_109",
+              "canonicalOrder": 109,
+              "canonicalMasterCode": "svm_109/175",
+              "koreanNumber": "109/175",
+              "koreanName": "화살꼬빈",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018109",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_109.png?w=512",
+              "illustrationSourceNote": "햇살이 나뭇잎 사이로 들어오는 연녹색 숲에서 날고 있는 주황색 화살꼬빈.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_110",
+              "canonicalOrder": 110,
+              "canonicalMasterCode": "svm_110/175",
+              "koreanNumber": "110/175",
+              "koreanName": "트리미앙",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018110",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_110.png?w=512",
+              "illustrationSourceNote": "푸른 지붕의 석조 건물과 아치형 통로, 마을 광장 앞에 서 있는 하얀 트리미앙.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ]
         }
       ],
       "nextStart": "SVM canonical 031"
@@ -57539,9 +57856,9 @@
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVM 99/183 Korean artworks visually verified",
-    "lastSafeCheckpoint": "SVM 001-100: 99 Korean official artwork reviews complete, 079 held; 20 new placements from 091-100. SVLS 6 additional holds remain.",
-    "nextStart": "SVM canonical 101 (SVM 079 and SVLS six art evidence holds)",
+    "currentTaskScope": "SVM 109/183 Korean official artworks visually verified (079 held)",
+    "lastSafeCheckpoint": "SVM 001-110: 109 Korean artwork reviews complete, SVM 079 evidence held. SVLS 6 additional holds remain; new archive verification pending.",
+    "nextStart": "SVM canonical 111 (SVM 079 and SVLS six holds)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -57840,7 +58157,7 @@
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "SVM",
-    "range": "canonical 091-100",
+    "range": "canonical 101-110",
     "reviewedCardCount": 10,
     "artworkEvidenceHolds": 0,
     "archiveVerificationStatus": "pending",
