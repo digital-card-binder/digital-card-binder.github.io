@@ -5968,5 +5968,18 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv8a/sv8a-16.webp.b64",
       "koreanTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv8a/sv8a-title-15.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "checks": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "expectedCheckpoint": "sv8a canonical 001",
+    "nextStart": "sv8 canonical 001",
+    "cdnAssetsVerified": 237,
+    "allowedImageOrigin": "Digital Card Binder Cloudflare only"
+  }
 }
