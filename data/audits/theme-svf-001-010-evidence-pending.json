@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVF",
   "range": "canonical-order 001-010",
   "sourceOfTruth": "Korean official pokemoncard.co.kr/details and Korean watermarked art",
   "canonicalCardCount": 10,
-  "officialKoreanArtworkVerifiedCount": 9,
-  "artworkPendingCount": 1,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
   "all12ThemesCheckedForVerifiedCards": true,
   "themeAdditions": {
-    "season": 7,
-    "color": 8,
+    "season": 8,
+    "color": 9,
     "sunset": 2,
     "street": 1,
     "work": 1
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
-  "reasonForHold": "002/038 네오라이트 V 한국판 정확한 공식 이미지에 직접 접근 실패하여 12개 테마 보류; 일본판 대체하지 않음",
+  "reasonForHold": "한국 포켓몬코리아 공식 한국어 워터마크 원본에서 해당 범위의 모든 인쇄본 이미지를 직접 확인했으며, 기존 증거 보류를 해소함. 이미지 바이너리 자체 저장·디코딩·배포는 별도 미완료.",
   "cards": [
     {
       "code": "SVF_001",
@@ -50,14 +50,20 @@
       "koreanName": "네오라이트 V",
       "koreanPrintedNumber": "002/038",
       "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017002",
-      "officialKoreanImage": null,
-      "checked": false,
-      "needsReview": true,
-      "artworkProofStatus": "evidence_pending",
-      "all12ThemesChecked": false,
-      "themesMatched": [],
-      "themesAdded": [],
-      "illustrationObservation": "한국판 카드 번호와 마스터 DB의 이름은 확인하였으나, 정확한 카드 그림 직접 접근에 실패하여 12테마 판정 보류. 일본판 및 다른 인쇄 그림 대체 금지.",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_002.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_002.png?w=512에서 네오라이트 V 002/038를 직접 확인. 네오라이트 V가 산호초와 기포가 있는 푸른 바닷속을 헤엄친다. 바다 풍경과 청색·분홍색 대비가 명확하다. 12개 테마 전체 독립 판정: season, color. 바이너리 자체 저장·배포 검증 전.",
       "imageBinarySelfHosted": false
     },
     {
@@ -245,6 +251,7 @@
       "imageBinarySelfHosted": false
     }
   ],
-  "nextStart": "SVF canonical 011",
-  "note": "No canonical cards removed or changed, no master image URLs modified, and no self-hosting claims."
+  "nextStart": "SVF canonical 011-046 artwork verified",
+  "note": "이 파일은 이전 증거 보류와 그 해소 이력을 보존합니다. 공식 한국어 이미지가 직접 확인되어 테마 판정은 완료했으며, 이미지 자체 보관만 pending입니다.",
+  "resolutionStatus": "all_artwork_reviewed_archive_pending"
 }
