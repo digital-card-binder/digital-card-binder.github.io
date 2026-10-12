@@ -34,7 +34,7 @@ if(prev?.status==="complete"&&prev.reviewedCardCount===174){
   console.log("Korean Black Bolt already marked complete; no duplicate edits.");process.exit(0);
 }
 if(prev && prev.reviewedCardCount>0)throw Error("Unexpected pre-reviewed sv11B; do not overwrite.");
-if(!String(images.nextStart||"").toLowerCase().includes("sv11w canonical 001"))
+if(!String(images.nextStart||"").toLowerCase().includes("sv11b canonical 001"))
   throw Error("Image review checkpoint moved, not safe to reapply.");
 
 if(e.set!=="sv11B"||e.masterCanonicalCount!==174||e.cardsReviewed!==174||
