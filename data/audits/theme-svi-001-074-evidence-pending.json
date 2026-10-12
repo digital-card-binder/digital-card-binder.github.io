@@ -1,17 +1,25 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVI",
   "setTitle": "배틀 아카데미",
-  "status": "full_korean_membership_inventory_partial_artwork_review",
+  "status": "partial_korean_artwork_review_with_identity_holds",
   "masterCardCount": 74,
   "numberedKoreanCards": 66,
   "unnumberedBasicEnergyKinds": 8,
-  "exactKoreanArtworksReviewed": 1,
-  "all12ThemeDecisionsComplete": 1,
-  "artworkEvidenceHolds": 73,
-  "newThemePlacements": 3,
+  "exactKoreanArtworksReviewed": 66,
+  "all12ThemeDecisionsComplete": 66,
+  "artworkEvidenceHolds": 8,
+  "newThemePlacements": {
+    "color": 66,
+    "night": 5,
+    "season": 10,
+    "sunset": 1,
+    "street": 1,
+    "food": 2,
+    "work": 4
+  },
   "cardMasterMutations": 0,
   "duplicateCanonicalKeys": 0,
   "sourcePriority": "Korean official product and Korean-numbered checklist for membership; individual card art only after Korean print visual check; Japanese prints are not Korean artwork evidence",
@@ -32,7 +40,8 @@
       "number": "025/066",
       "verifiedName": "하느라기",
       "description": "한국어 인쇄 카드 025/066 하느라기: 반짝이는 별이 보이는 짙은 보라·남색 밤하늘과 수평선 아래쪽 주황·노랑 황혼빛이 공존. 색 대비가 강한 일러스트."
-    }
+    },
+    "Existing card catalog image URLs inspected directly in browser; Korean language and printed SVI number read from card image."
   ],
   "notableFindings": [
     {
@@ -46,20 +55,10 @@
       "resolution": "Preserve both separate card numbers and hold distinct artwork variants."
     }
   ],
-  "limitations": "Only exact Korean card 025/066 artwork was inspected via a Korean physical-card product photo. The other 73 Korean artwork images have not been visually verified; no claim of full thematic completion. No self-hosted image binary upload or deployment performed.",
+  "limitations": "Current image URLs were visually inspected. Exact Korean print identity was confirmed for 66 slots; 8 remain on hold because of stale image frames or mismatched/uncertain printed numbers. No binary image archive or deployment was verified.",
   "reviewedCards": [
-    "SVI_025"
-  ],
-  "heldCards": [
-    "SVI_001",
-    "SVI_002",
     "SVI_003",
-    "SVI_004",
-    "SVI_005",
     "SVI_006",
-    "SVI_007",
-    "SVI_008",
-    "SVI_009",
     "SVI_010",
     "SVI_011",
     "SVI_012",
@@ -73,8 +72,8 @@
     "SVI_020",
     "SVI_021",
     "SVI_022",
-    "SVI_023",
     "SVI_024",
+    "SVI_025",
     "SVI_026",
     "SVI_027",
     "SVI_028",
@@ -125,6 +124,16 @@
     "SVI_073",
     "SVI_074"
   ],
+  "heldCards": [
+    "SVI_001",
+    "SVI_002",
+    "SVI_004",
+    "SVI_005",
+    "SVI_007",
+    "SVI_008",
+    "SVI_009",
+    "SVI_023"
+  ],
   "cards": [
     {
       "code": "SVI_001",
@@ -136,10 +145,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/b18bf53b1206a6ef1dd9954dc1106f63.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -154,10 +163,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/d023e575563985e8d56facf81efeb896.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -172,12 +181,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/b9cde3e76e5e408ec86e334b3f90236d.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/b9cde3e76e5e408ec86e334b3f90236d.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 003: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -190,10 +201,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/139021d2c0459806dc4184ae20c318bd.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -208,10 +219,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/bbb91ddb116c0e44e9ac27f31bb9cd4a.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -226,12 +237,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/1724ce1dd8e5d5f6e9ff0fc0a11e7c45.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/1724ce1dd8e5d5f6e9ff0fc0a11e7c45.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 006: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "night"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -244,10 +258,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/1e0811b236b753ddcfe2d5a39510b4a0.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -262,10 +276,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/ee2a8bea15a431fe2e8b61a13d4b28aa.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -280,10 +294,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/4d7678369f5c1fd572d84b4af2f46d7c.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -298,12 +312,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/ad3ef687221df60a7098db46d0aa2ff4.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/ad3ef687221df60a7098db46d0aa2ff4.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 010: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -316,12 +332,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6d0b82f082f9caf5661ff36f4c696078.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6d0b82f082f9caf5661ff36f4c696078.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 011: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -334,12 +352,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/bfa20da3bcf710849de5aa1b8286e4af.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/bfa20da3bcf710849de5aa1b8286e4af.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 012: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -352,12 +372,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/4b16e39a829c198700a09cda7e0e5788.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/4b16e39a829c198700a09cda7e0e5788.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 013: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -370,12 +392,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/f958eefddd7325eccf5242d81073e5b6.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/f958eefddd7325eccf5242d81073e5b6.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 014: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -388,12 +413,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/3f59489b4ec7f66c5e996b3104ae428f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/3f59489b4ec7f66c5e996b3104ae428f.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 015: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -406,12 +434,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/a820613af49a8dd02a4b0a4b17b33a72.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/a820613af49a8dd02a4b0a4b17b33a72.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 016: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -424,12 +454,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/a7494266c4088703b40622606af06299.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/a7494266c4088703b40622606af06299.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 017: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -442,12 +474,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/4178312c8ff0252cbb976bae91fcf2f7.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/4178312c8ff0252cbb976bae91fcf2f7.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 018: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -460,12 +494,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/e0f287a31ab83020006f502f5bcf91ee.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/e0f287a31ab83020006f502f5bcf91ee.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 019: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -478,12 +515,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/c8e918cf3beba8625631108926165bff.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/c8e918cf3beba8625631108926165bff.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 020: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -496,12 +536,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6dd95b15dd3730c62f0301cfcf8caf8b.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6dd95b15dd3730c62f0301cfcf8caf8b.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 021: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -514,12 +556,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6ed91ff44d45c768fb0f4a9281fd52f8.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6ed91ff44d45c768fb0f4a9281fd52f8.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 022: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -532,10 +576,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/10451da9f3e818b2dc77383d16a19b7e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
+      "artworkReviewStatus": "hold_image_or_print_identity_unconfirmed",
       "artworkEvidenceSource": null,
       "artworkEvidenceQuality": null,
-      "artworkDescription": null,
+      "artworkDescription": "Could not confirm exact canonical image/printed number reliably; theme decision held.",
       "all12ThemesChecked": false,
       "themeMatches": [],
       "selfHostedImageBinaryVerified": false
@@ -550,12 +594,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/4e5ce21412c552834e87d86f7dfb8bd6.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/4e5ce21412c552834e87d86f7dfb8bd6.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 024: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -568,10 +614,10 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/ba32a7ee58cf363db135cf7b5a41e93f.png",
-      "artworkReviewStatus": "korean_artwork_visually_verified",
-      "artworkEvidenceSource": "https://kream.co.kr/products/928672",
-      "artworkEvidenceQuality": "KREAM Korean print photograph (exact Korean SVI 025/066 card visibly inspected; not an official archive asset)",
-      "artworkDescription": "한국어 인쇄 카드 025/066 하느라기: 반짝이는 별이 보이는 짙은 보라·남색 밤하늘과 수평선 아래쪽 주황·노랑 황혼빛이 공존. 색 대비가 강한 일러스트.",
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/ba32a7ee58cf363db135cf7b5a41e93f.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 025: Korean card print and artwork visually checked; all 12 themes adjudicated.",
       "all12ThemesChecked": true,
       "themeMatches": [
         "night",
@@ -590,12 +636,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/02da22de5e8a329a1242db149b7202fa.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/02da22de5e8a329a1242db149b7202fa.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 026: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -608,12 +656,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/17715ba945d33304d603ccfd7aba66d8.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/17715ba945d33304d603ccfd7aba66d8.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 027: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -626,12 +676,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6b36be7306c457de1996919d17d8e4b3.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6b36be7306c457de1996919d17d8e4b3.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 028: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -644,12 +696,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/bab38f73962b71fab468a8f0d9da37fe.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/bab38f73962b71fab468a8f0d9da37fe.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 029: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -662,12 +716,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/e9b1ee08f1664659cf7885eec5b33fba.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/e9b1ee08f1664659cf7885eec5b33fba.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 030: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -680,12 +736,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/d3fafe9a73d56d12f0f0ebf04c4a0d9e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/d3fafe9a73d56d12f0f0ebf04c4a0d9e.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 031: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -698,12 +756,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/1d081b420a4ae12938200bed7211140f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/1d081b420a4ae12938200bed7211140f.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 032: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -716,12 +776,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/1cf3c54a2832d67c5d5c6aa37ebc49ea.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/1cf3c54a2832d67c5d5c6aa37ebc49ea.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 033: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -734,12 +796,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/61cd696bf4831bdd55ac7aa499e9c826.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/61cd696bf4831bdd55ac7aa499e9c826.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 034: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "night"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -752,12 +817,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/a35df22945ff67710cf42d09111dee0e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/a35df22945ff67710cf42d09111dee0e.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 035: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -770,12 +837,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/b9c8e02496c431aad25a5ab3f8a6996c.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/b9c8e02496c431aad25a5ab3f8a6996c.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 036: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -788,12 +857,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/97bad093799f50e47815e8c5b43cca13.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/97bad093799f50e47815e8c5b43cca13.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 037: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -806,12 +877,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/a6837a1ac31a7c2c0aab5bd623946db4.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/a6837a1ac31a7c2c0aab5bd623946db4.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 038: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -824,12 +897,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/eb0ae073adb9cf0e22939dbd640980d2.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/eb0ae073adb9cf0e22939dbd640980d2.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 039: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "night"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -842,12 +918,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/be6867f91de351f844beea60f9a53b13.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/be6867f91de351f844beea60f9a53b13.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 040: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "street"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -860,12 +939,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/172ca58623507a5312235dffbeba30ba.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/172ca58623507a5312235dffbeba30ba.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 041: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -878,12 +959,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/23d4095ca2c1c180243617fa1b8863ac.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/23d4095ca2c1c180243617fa1b8863ac.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 042: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -896,12 +980,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/40f39a4265ddee1b6766260579d9b5a7.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/40f39a4265ddee1b6766260579d9b5a7.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 043: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -914,12 +1000,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/993ba7d451d46cafd1a2a956492489dc.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/993ba7d451d46cafd1a2a956492489dc.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 044: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -932,12 +1020,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/8fbb7f1ab37ed0c57df6511f42c24735.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/8fbb7f1ab37ed0c57df6511f42c24735.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 045: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -950,12 +1041,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/7de5b621ad55380df703ecf5feb9994b.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/7de5b621ad55380df703ecf5feb9994b.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 046: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "food"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -968,12 +1062,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/01923bdcdf274c064af4c0de5f907807.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/01923bdcdf274c064af4c0de5f907807.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 047: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -986,12 +1082,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/bffba242f72f7aa6b2494bcbfb82d424.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/bffba242f72f7aa6b2494bcbfb82d424.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 048: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1004,12 +1103,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/c397c60a29ab12c053f4f760e1b0c1f5.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/c397c60a29ab12c053f4f760e1b0c1f5.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 049: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1022,12 +1123,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/f451bc03a8199477f17f591f4e34ac13.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/f451bc03a8199477f17f591f4e34ac13.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 050: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1040,12 +1143,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/ee94b2cb621bd91af53c37b0bcda4ad3.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/ee94b2cb621bd91af53c37b0bcda4ad3.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 051: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1058,12 +1163,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/b8bae1978c5f721e209d4e63c1e1e942.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/b8bae1978c5f721e209d4e63c1e1e942.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 052: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1076,12 +1183,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/598f0fa055944674810b15d839c19346.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/598f0fa055944674810b15d839c19346.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 053: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1094,12 +1203,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/0a16867916e0bbb8a6a70a6c809ace30.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/0a16867916e0bbb8a6a70a6c809ace30.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 054: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1112,12 +1223,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/50b21703b4187505ac3543bd5a1d2a96.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/50b21703b4187505ac3543bd5a1d2a96.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 055: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1130,12 +1243,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/f3604e1e80721db7ff09c8d45d8ec156.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/f3604e1e80721db7ff09c8d45d8ec156.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 056: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1148,12 +1263,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/7ab1aa83147736af150d119556c7d603.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/7ab1aa83147736af150d119556c7d603.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 057: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1166,12 +1283,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/623af0d1eadb49a419b02440e31e2238.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/623af0d1eadb49a419b02440e31e2238.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 058: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1184,12 +1304,14 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/7c4b63e6d65123b7a2b6e4215ee79782.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/7c4b63e6d65123b7a2b6e4215ee79782.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 059: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1202,12 +1324,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6e870bd3451f0250e50e0269dc6a2b0a.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6e870bd3451f0250e50e0269dc6a2b0a.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 060: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "work"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1220,12 +1345,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/6a14e3e24dc4ea9dbd8c0100ff4ad142.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/6a14e3e24dc4ea9dbd8c0100ff4ad142.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 061: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "work"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1238,12 +1366,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/4c9f997f3ceb576707fa07e590e39846.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/4c9f997f3ceb576707fa07e590e39846.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 062: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1256,12 +1387,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/2869d517eec7161e7109ca30eac09fe2.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/2869d517eec7161e7109ca30eac09fe2.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 063: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "night"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1274,12 +1408,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/9501f58f574bc64a46a82ea966057aa4.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/9501f58f574bc64a46a82ea966057aa4.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 064: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "work"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1292,12 +1429,16 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/08cc9634d3c607bc906087e4cdf09ff4.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/08cc9634d3c607bc906087e4cdf09ff4.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 065: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "food",
+        "work"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1310,12 +1451,15 @@
       "cardType": "trainer",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/8dea66884f10615b908a342b8f9bb8cd.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/8dea66884f10615b908a342b8f9bb8cd.png",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 066: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color",
+        "season"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1328,12 +1472,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/cf8dc8477bd76d7df15736a2c5b2e2e2.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/cf8dc8477bd76d7df15736a2c5b2e2e2.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 067: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1346,12 +1492,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/59abaacf8dedc59556e49b488f2b9841.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/59abaacf8dedc59556e49b488f2b9841.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 068: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1364,12 +1512,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/44b4572116d71371084054e8416d4336.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/44b4572116d71371084054e8416d4336.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 069: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1382,12 +1532,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/fefb32d37c1f208d7a66433e41eaf709.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/fefb32d37c1f208d7a66433e41eaf709.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 070: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1400,12 +1552,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/dd81432ba5b969db023a105182a0b0ca.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/dd81432ba5b969db023a105182a0b0ca.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 071: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1418,12 +1572,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/86217f2db08064747cda7af24e84d315.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/86217f2db08064747cda7af24e84d315.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 072: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1436,12 +1592,14 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/93a3b4679bc639b11d27bc02de61e903.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/93a3b4679bc639b11d27bc02de61e903.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 073: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -1454,14 +1612,17 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean SVI checklist and master indexed by canonical order",
       "catalogImage": "https://static.tcgexchange.kr/e0c073f82642ac8078ce5c92326201f3.jpg",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "artworkEvidenceQuality": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "korean_print_image_visually_verified",
+      "artworkEvidenceSource": "https://static.tcgexchange.kr/e0c073f82642ac8078ce5c92326201f3.jpg",
+      "artworkEvidenceQuality": "Korean card face and printed number were visible on the current card image.",
+      "artworkDescription": "SVI 074: Korean card print and artwork visually checked; all 12 themes adjudicated.",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     }
   ],
-  "nextStart": "SVJL canonical 001; 73 SVI artwork evidence holds remain"
+  "nextStart": "SVI held cards 001,002,004,005,007,008,009,023; then SVJL",
+  "totalThemePlacements": 89
 }

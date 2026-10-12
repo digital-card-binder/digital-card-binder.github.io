@@ -2266,6 +2266,61 @@
       },
       "nextStart": "SVB canonical 001",
       "note": "All 21 numbered Korean official watermarked artwork images visually inspected and classified across all 12 themes. No binary downloaded, self-hosted, decoded from archive or deployed; all external master image URLs remain in place. SVAL canonical 022-023 Korean unnumbered basic Energy images now directly inspected; no binaries self-hosted/deployed."
+    },
+    {
+      "task": 6,
+      "set": "SVI",
+      "range": "canonical 001-074; matching Korean print images 60, mismatches 14",
+      "canonicalCardCount": 74,
+      "artworkVisuallyVerifiedCount": 55,
+      "artworkPendingCount": 19,
+      "externalImageReferenceCountBefore": 74,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 74,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 74,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "color": 47,
+        "season": 8,
+        "evolution": 1,
+        "sunset": 2,
+        "night": 5,
+        "street": 1,
+        "food": 2,
+        "work": 4
+      },
+      "nextStart": "SVI catalog URL corrections / official exact-image lookup for mismatched print slots 008-009, 011-024, 026-028; then next set SVJL",
+      "note": "All 74 current catalog images inspected; 60 matching Korean printed numbers reviewed for all themes, 14 mismatched Korean image numbers held. No images archived."
+    },
+    {
+      "task": 6,
+      "set": "SVI",
+      "range": "canonical 001-074; 55 artwork images verified, 19 held",
+      "canonicalCardCount": 74,
+      "artworkVisuallyVerifiedCount": 66,
+      "artworkPendingCount": 8,
+      "externalImageReferenceCountBefore": 74,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 74,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 74,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "color": 66,
+        "night": 5,
+        "season": 10,
+        "sunset": 1,
+        "street": 1,
+        "food": 2,
+        "work": 4
+      },
+      "nextStart": "SVI canonical 001-074 held-link recheck, then SVJL",
+      "note": "66 Korean print artwork images verified; 8 identity holds. No image archive verified."
     }
   ],
   "nextStart": "SVHK official artwork review complete; archive verification pending, then SVI canonical 001."
