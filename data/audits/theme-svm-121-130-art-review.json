@@ -180,5 +180,11 @@
       "artworkReviewed": false,
       "archiveVerificationStatus": "pending"
     }
-  ]
+  ],
+  "validationRun": {
+    "javaVersion": 21,
+    "fullProjectTests": true,
+    "guardedApplicator": "scripts/apply-theme-svm-121-130-review.mjs",
+    "unreviewedCardsHeld": true
+  }
 }
