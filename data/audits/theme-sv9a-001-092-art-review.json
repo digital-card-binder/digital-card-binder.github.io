@@ -2340,5 +2340,17 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv9a/sv9a-07.webp.b64",
       "koreanTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv9a/sv9a-title-06.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "expectedMain": "sv9a canonical 001",
+    "nextStart": "sv9 canonical 001",
+    "imageOriginRule": "100% own Cloudflare 92/92 decoded; no unrouteable external CDN"
+  }
 }
