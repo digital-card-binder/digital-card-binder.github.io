@@ -111,7 +111,9 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
     assert.ok(manifest.counts.external >= 5_400 && manifest.counts.external < 5_500);
 
     // The catalog's non-existent M1L 093 entry must not create an image destination.
-    // New verified source images legitimately increase the archive manifest over time.\n    // Keep the regression floor, while the non-existent M1L 093 check below stays strict.\n    assert.ok(manifest.counts.total >= 21295 && manifest.counts.total < 22000);
+    // Verified source changes can shift external-image destinations over time.
+    // Keep regression bands for both external destinations and total manifest size.
+    assert.ok(manifest.counts.total >= 21_295 && manifest.counts.total < 22_000);
     assert.ok(!manifest.assets.some((asset) => asset.relativePath === "data/wmimages/MEGA/M1L/M1L_093.webp"));
     const repaired = manifest.assets.find((asset) => asset.relativePath === "data/wmimages/MEGA/M2/M2_116.webp");
     assert.equal(repaired.project, "modern");
