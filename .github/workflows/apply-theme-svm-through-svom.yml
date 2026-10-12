@@ -1,0 +1,55 @@
+name: Apply full Korean theme reviews SVM to SVOM
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json'
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-review-svm-through-svom
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out live main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Set up Java 21 for Firebase tests
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Apply 156 actual Korean-print image reviews with identity and image gates
+        run: node scripts/apply-theme-svm-svn-svod-svom-visual-review.mjs
+      - name: Regenerate derived audits
+        run: npm run site:prepare
+      - name: Check all generated audit data
+        run: npm run site:check
+      - name: Run full site regression tests and Firestore tests
+        run: npm test
+      - name: Commit only after all gates pass
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-series-coverage.json
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git diff --cached --name-only
+          git commit -m "Complete Korean 12-theme artwork reviews SVM SVN SVOD SVOM"
+          git push origin HEAD:main
