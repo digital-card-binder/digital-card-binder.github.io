@@ -1,21 +1,21 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVF",
   "range": "canonical-order 011-020",
   "sourceOfTruth": "Official Korean Pokémon card details and Korean watermarked illustrations",
   "canonicalCardCount": 10,
-  "officialKoreanArtworkVerifiedCount": 9,
-  "artworkPendingCount": 1,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
   "all12ThemesCheckedForVerifiedCards": true,
   "themeAdditions": {
     "food": 1,
-    "color": 1
+    "color": 2
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
-  "reasonForHold": "020/038 트레킹슈즈 정확한 한국판 이미지 직접 접근 실패로 판정 보류",
+  "reasonForHold": "한국 포켓몬코리아 공식 한국어 워터마크 원본에서 해당 범위의 모든 인쇄본 이미지를 직접 확인했으며, 기존 증거 보류를 해소함. 이미지 바이너리 자체 저장·디코딩·배포는 별도 미완료.",
   "cards": [
     {
       "code": "SVF_011",
@@ -183,17 +183,22 @@
       "koreanName": "트레킹슈즈",
       "koreanPrintedNumber": "020/038",
       "officialKoreanDetail": "https://pokemoncard.co.kr/cards/detail/BS2023017020",
-      "officialKoreanImage": null,
-      "checked": false,
-      "needsReview": true,
-      "artworkProofStatus": "evidence_pending",
-      "all12ThemesChecked": false,
-      "themesMatched": [],
-      "themesAdded": [],
-      "illustrationObservation": "한국판 공식 카드 상세와 동일 인쇄번호 이미지 직접 접근 불가. 다른 수록판·일본판 이미지는 판정 근거로 사용하지 않고 증빙 보류.",
+      "officialKoreanImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_020.png?w=512",
+      "checked": true,
+      "needsReview": false,
+      "artworkProofStatus": "verified_Korean_watermark_visual",
+      "all12ThemesChecked": true,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "illustrationObservation": "한국 포켓몬코리아 공식 한국어 워터마크 이미지 https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVF/SVF_020.png?w=512에서 트레킹슈즈 020/038를 직접 확인. 빨강·노랑·남색의 트레킹슈즈 두 짝만 추상적인 황록색 광선 배경에 놓여 있다. 도시 거리 장면은 아니다. 12개 테마 전체 독립 판정: color. 바이너리 자체 저장·배포 검증 전.",
       "imageBinarySelfHosted": false
     }
   ],
-  "nextStart": "SVF canonical 021",
-  "note": "No master card changes or deletes. No external image URLs touched."
+  "nextStart": "SVF canonical 021-046 artwork verified",
+  "note": "이 파일은 이전 증거 보류와 그 해소 이력을 보존합니다. 공식 한국어 이미지가 직접 확인되어 테마 판정은 완료했으며, 이미지 자체 보관만 pending입니다.",
+  "resolutionStatus": "all_artwork_reviewed_archive_pending"
 }
