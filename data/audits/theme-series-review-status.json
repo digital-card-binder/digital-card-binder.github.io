@@ -54405,8 +54405,8 @@
     "SVM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SVM canonical 001-080 중 79장 공식 일러스트 검수 완료, 079번 증거 보류. 081-183 미검수. 이미지 자가저장·배포 검증 미완료.",
-      "reviewedCardCount": 79,
+      "note": "SVM 001-090 중 89장 공식 한국판 그림 검수 완료, 079 증거 보류. 091-183 미검수. 신규 이미지 저장·배포 미확인.",
+      "reviewedCardCount": 89,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -54427,9 +54427,10 @@
         "canonical 021-030 (한국판 공식 이미지 10장 시각 확인)",
         "canonical 031-040 (한국판 포켓몬코리아 상세·워터마크 그림 10장 직접 시각 확인)",
         "canonical 041-060 (한국판 공식 상세·그림 20장 시각 확인)",
-        "canonical 061-080 (19 Korean official artworks inspected; SVM 079 held for missing official artwork access)"
+        "canonical 061-080 (19 Korean official artworks inspected; SVM 079 held for missing official artwork access)",
+        "canonical 081-090 (official Korean stamped artwork checked, all 10)"
       ],
-      "newlyAddedThemeSlotCount": 146,
+      "newlyAddedThemeSlotCount": 168,
       "newlyAddedCards": [
         "SVM_001",
         "SVM_002",
@@ -54509,7 +54510,17 @@
         "SVM_076",
         "SVM_077",
         "SVM_078",
-        "SVM_080"
+        "SVM_080",
+        "SVM_081",
+        "SVM_082",
+        "SVM_083",
+        "SVM_084",
+        "SVM_085",
+        "SVM_086",
+        "SVM_087",
+        "SVM_088",
+        "SVM_089",
+        "SVM_090"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -56857,6 +56868,325 @@
               "cloudflareDeployVerified": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 081-090",
+          "status": "complete_10_official_Korean_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "artworkAudit": "data/audits/theme-svm-081-090-art-review.json",
+          "themeAdditions": {
+            "season": 9,
+            "color": 10,
+            "night": 1,
+            "street": 1,
+            "sunset": 1
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_081",
+              "canonicalOrder": 81,
+              "canonicalMasterCode": "svm_081/175",
+              "koreanNumber": "081/175",
+              "koreanName": "동미러",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018081",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_081.png?w=512",
+              "illustrationSourceNote": "눈 덮인 산림과 얼음 처마가 내려앉은 고대 석조 건물 앞에 떠 있는 푸른 동미러.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/a36bba8346377c5c0df8261f806507ba.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_082",
+              "canonicalOrder": 82,
+              "canonicalMasterCode": "svm_082/175",
+              "koreanNumber": "082/175",
+              "koreanName": "동탁군",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018082",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_082.png?w=512",
+              "illustrationSourceNote": "짙푸른 밤하늘과 반짝이는 별, 눈으로 덮인 겨울 수풀 위에서 떠 있는 동탁군.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/4089e2d62088d5cee8e9a772b52f86be.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_083",
+              "canonicalOrder": 83,
+              "canonicalMasterCode": "svm_083/175",
+              "koreanNumber": "083/175",
+              "koreanName": "디아루가 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018083",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_083.png?w=512",
+              "illustrationSourceNote": "설산과 분홍·하늘색 번개빛이 교차하는 눈보라 구도 속의 디아루가 ex.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/881e9b38e27a68234e172bec91346cd2.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_084",
+              "canonicalOrder": 84,
+              "canonicalMasterCode": "svm_084/175",
+              "koreanNumber": "084/175",
+              "koreanName": "히드런",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018084",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_084.png?w=512",
+              "illustrationSourceNote": "초록 산림과 바위가 있는 야외에서 주황색 불길을 일으키는 히드런.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/54abfb38442f3cefd75b2137a0aeb13c.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_085",
+              "canonicalOrder": 85,
+              "canonicalMasterCode": "svm_085/175",
+              "koreanNumber": "085/175",
+              "koreanName": "가라르 메더",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018085",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_085.png?w=512",
+              "illustrationSourceNote": "노랑 열매가 주렁주렁 맺힌 초록 나무 밑에 누워 있는 짙은 회색 가라르 메더.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/627a4d38de927d545a86e5261a0b1b73.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_086",
+              "canonicalOrder": 86,
+              "canonicalMasterCode": "svm_086/175",
+              "koreanNumber": "086/175",
+              "koreanName": "끼리동",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018086",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_086.png?w=512",
+              "illustrationSourceNote": "빨간 벽돌 기둥과 잎이 흩날리는 오래된 건물 사이 초록 풀밭에서 달리는 끼리동.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/44e2968761fc96bc925f4a8a97c0c0ba.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_087",
+              "canonicalOrder": 87,
+              "canonicalMasterCode": "svm_087/175",
+              "koreanNumber": "087/175",
+              "koreanName": "대왕끼리동",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018087",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_087.png?w=512",
+              "illustrationSourceNote": "맑은 하늘과 큰 나무·부서지는 바위를 배경으로 주황·남색 대왕끼리동이 몸을 부딪치는 장면.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/35448e8964e2df4c8ab03b8e1f4b9160.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_088",
+              "canonicalOrder": 88,
+              "canonicalMasterCode": "svm_088/175",
+              "koreanNumber": "088/175",
+              "koreanName": "두랄루돈",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018088",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_088.png?w=512",
+              "illustrationSourceNote": "노랑·주황빛 석양이 비치는 붉은 협곡과 황색 먼지 구름 가운데 빛나는 두랄루돈.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/6c8b125f96ab97e9e84ae510c42de65b.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_089",
+              "canonicalOrder": 89,
+              "canonicalMasterCode": "svm_089/175",
+              "koreanNumber": "089/175",
+              "koreanName": "자시안 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018089",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_089.png?w=512",
+              "illustrationSourceNote": "파란색·노란색 갑옷과 붉은 칼날이 흰빛 속도선과 별빛을 뚫고 나가는 자시안 ex.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/ea38f8ea060fd52a57531b3d40551481.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_090",
+              "canonicalOrder": 90,
+              "canonicalMasterCode": "svm_090/175",
+              "koreanNumber": "090/175",
+              "koreanName": "꼬렛",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018090",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_090.png?w=512",
+              "illustrationSourceNote": "초록 나무와 야생화, 맑은 시냇물이 흐르는 숲속 통나무를 건너뛰는 보라색 꼬렛.",
+              "sourceRegion": "KR",
+              "catalogImageSource": "https://static.tcgexchange.kr/897f84a8db7f99b75bf7180e72962667.png",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ]
         }
       ],
       "nextStart": "SVM canonical 031"
@@ -56884,9 +57214,9 @@
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVM 79/183 Korean artworks verified (001-080 except 079), 1 hold; SVLS 6 more holds.",
-    "lastSafeCheckpoint": "SVM canonical 001-080, 79 artwork reviews complete with SVM_079 held; 36 new thematic placements 061-080. SVLS 6 holds remain. All new image archives pending.",
-    "nextStart": "SVM canonical 081 (SVM_079 and SVLS 6 held for evidence)",
+    "currentTaskScope": "SVM 89/183 visual artworks verified, 079 missing evidence",
+    "lastSafeCheckpoint": "SVM canonical 001-090, 89 artwork reviews complete, SVM 079 evidence held. SVLS six holds remain; all newly reviewed CDN image archive checks pending.",
+    "nextStart": "SVM canonical 091 (SVM 079 and SVLS six held)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -57185,9 +57515,9 @@
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "SVM",
-    "range": "canonical 061-080",
-    "reviewedCardCount": 19,
-    "artworkEvidenceHolds": 1,
+    "range": "canonical 081-090",
+    "reviewedCardCount": 10,
+    "artworkEvidenceHolds": 0,
     "archiveVerificationStatus": "pending",
     "checkedAt": "2026-10-12"
   }
