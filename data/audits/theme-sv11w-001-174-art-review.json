@@ -4298,5 +4298,17 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv11W/sv11W-12.webp.b64"
     }
   ],
-  "themeClassificationNote": "Conservative visual-only category tagging: no presumed cross-card connected panoramas; cameo/work restricted to specifically depicted background species or depicted activity, color limited to visually distinctive compositions, existing four sleeping placements kept unchanged."
+  "themeClassificationNote": "Conservative visual-only category tagging: no presumed cross-card connected panoramas; cameo/work restricted to specifically depicted background species or depicted activity, color limited to visually distinctive compositions, existing four sleeping placements kept unchanged.",
+  "validationRun": {
+    "runner": "GitHub Actions",
+    "nodeVersion": "22",
+    "javaVersion": "21",
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "applicator": "scripts/apply-theme-sv11w-complete-review.mjs",
+    "requiredSafeMainCheckpoint": "sv11W canonical 001"
+  }
 }
