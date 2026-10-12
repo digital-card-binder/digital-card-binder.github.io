@@ -53657,8 +53657,8 @@
     "SVLS": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "한국판 SVLS 25 canonical 슬롯을 마스터 DB에 대조. 18개 공식 한국어 워터마크 이미지를 직접 열어 12테마 판정; 4장 그림 접근 보류 및 3종 무번호 에너지 인쇄/그림 근거 보류. 이미지 자체 저장 및 Cloudflare 배포 검증은 0장. 세트 완료 아님.",
-      "reviewedCardCount": 18,
+      "note": "SVLS 25 canonical 슬롯 중 한국판 공식 일러스트 19개 검수 완료(심보러 007 새로 해결). 카드 017-019 및 무번호 에너지 023-025 총 6개 증거 보류. 신규 이미지 자체 저장/배포 확인은 0개.",
+      "reviewedCardCount": 19,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -53674,9 +53674,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical 001-025: 18 exact Korean artworks visually verified; 007,017-019 and unnumbered energy 023-025 held"
+        "canonical 001-025: 18 exact Korean artworks visually verified; 007,017-019 and unnumbered energy 023-025 held",
+        "canonical 007 심보러 007/022: 공식 한국판 이미지 직접 시각 확인 및 season/color 2테마 신규 판정"
       ],
-      "newlyAddedThemeSlotCount": 33,
+      "newlyAddedThemeSlotCount": 35,
       "newlyAddedCards": [
         "SVLS_001",
         "SVLS_002",
@@ -53695,11 +53696,11 @@
         "SVLS_016",
         "SVLS_020",
         "SVLS_021",
-        "SVLS_022"
+        "SVLS_022",
+        "SVLS_007"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVLS_007",
         "SVLS_017",
         "SVLS_018",
         "SVLS_019",
@@ -53709,11 +53710,11 @@
       ],
       "batches": [
         {
-          "range": "canonical-order 001-025 (18 official visual; 7 evidence holds)",
-          "status": "in_progress_18_Korean_official_artworks_verified_7_holds",
-          "checkedCardCount": 18,
+          "range": "canonical-order 001-025 (19 official visual; 6 evidence holds)",
+          "status": "in_progress_19_Korean_official_artworks_verified_6_holds",
+          "checkedCardCount": 19,
           "inventoryCrosscheckedCardCount": 25,
-          "heldCardCount": 7,
+          "heldCardCount": 6,
           "artworkAudit": "data/audits/theme-svls-001-025-evidence-pending.json",
           "evidenceSource": "https://pokemoncard.co.kr/card/664",
           "imageAudit": {
@@ -53730,8 +53731,8 @@
           "brokenReferenceCount": null,
           "themeAdditions": {
             "night": 3,
-            "season": 7,
-            "color": 18,
+            "season": 8,
+            "color": 19,
             "sunset": 3,
             "street": 1,
             "work": 1
@@ -53915,21 +53916,27 @@
               "canonicalMasterCode": "svls_007/022",
               "koreanNumber": "007/022",
               "koreanName": "심보러",
-              "artworkReviewed": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "artworkObservation": null,
-              "evidencePendingReason": "공식 한국판 상세/카드 이미지 링크 열람 실패; 심보러 그림 미확인.",
+              "artworkReviewed": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024015007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVLS/SVLS_007.png?w=512",
+              "artworkObservation": "심보러가 주황빛 암벽 협곡과 초록 수목 사이를 비행함. 밝은 주간 야외 자연 풍경이며 파랑·주황·초록의 대조가 뚜렷함.",
+              "evidencePendingReason": null,
               "archiveVerificationStatus": "pending",
               "verifiedImageBinary": false,
               "cloudflareDeployVerified": false,
-              "checked": false,
+              "checked": true,
               "noApplicableTheme": false,
               "alreadyExisted": [],
-              "themesAdded": []
+              "themesAdded": [
+                "season",
+                "color"
+              ]
             },
             {
               "code": "SVLS_008",
@@ -54393,7 +54400,7 @@
           "nextStart": "SVLS 7 evidence holds; SVM canonical 001 available for independent review"
         }
       ],
-      "nextStart": "SVLS 7 evidence holds; SVM canonical 001 (independent)"
+      "nextStart": "SVLS 6 evidence holds; SVM canonical 001 (independent)"
     }
   },
   "queue": {
@@ -54419,8 +54426,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "SVLS 18 verified / 7 pending; next independent set SVM canonical 001",
-    "lastSafeCheckpoint": "SVLS canonical 001-025: 18 exact Korean visual reviews + 33 theme placements; 7 held (007,017-019,023-025). No new image archives verified.",
-    "nextStart": "SVM canonical 001 (SVLS 007,017-019,023-025 held for evidence)",
+    "lastSafeCheckpoint": "SVLS canonical 001-025: 19 verified Korean artworks + 35 theme placements; 6 held (017-019,023-025). No new verified image archive.",
+    "nextStart": "SVM canonical 001 (SVLS 017-019,023-025 held for evidence)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -54708,10 +54715,10 @@
       }
     ],
     "lastEvidenceAuditCheckpoint": {
-      "set": "SVHM",
-      "range": "001-061",
-      "reviewedCardCount": 61,
-      "artworkEvidenceHolds": 0,
+      "set": "SVLS",
+      "range": "canonical 001-025",
+      "reviewedCardCount": 19,
+      "artworkEvidenceHolds": 6,
       "archiveVerificationStatus": "pending",
       "checkedAt": "2026-10-12"
     },
@@ -54720,8 +54727,8 @@
   "lastEvidenceAuditCheckpoint": {
     "set": "SVLS",
     "range": "canonical 001-025",
-    "reviewedCardCount": 18,
-    "artworkEvidenceHolds": 7,
+    "reviewedCardCount": 19,
+    "artworkEvidenceHolds": 6,
     "archiveVerificationStatus": "pending",
     "checkedAt": "2026-10-12"
   }
