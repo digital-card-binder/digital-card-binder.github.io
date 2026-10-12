@@ -36763,8 +36763,8 @@
     "SVAM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-09",
-      "note": "SVAM 25/25 canonical master entries recorded: 9 same-set-number JP illustrative references reviewed for KR 001-009; 16 exact Korean illustration evidence holds. KR vs JP numbering diverges from 012; energy catalog slots 024-025 have no corresponding physical 024/023,025/023 print IDs. SVAM remains in_progress, Korean art binaries/selfhost pending.",
-      "reviewedCardCount": 9,
+      "note": "SVAM canonical 001-005 Korean artwork and print IDs directly verified. Prior Japanese-only illustration checks for 006-009 are not accepted as Korean proof and those theme assignments are suspended. Canonical 010-025 remain pending Korean artwork evidence. Korean binaries remain external/unarchived.",
+      "reviewedCardCount": 5,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -36780,24 +36780,24 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical-order 001-010: 001-009 illustration reference reviewed, 010 held",
+        "canonical-order 001-010: Korean artworks 001-005 directly reviewed; 006-009 prior Japanese-only classifications suspended pending Korean artwork evidence; 010 pending.",
         "canonical-order 011-020 (Korean master numbering independently checked, 10 illustrations evidence held; Japanese numbering divergence documented)",
         "canonical-order 021-025 (printed 021-023; unnumbered basic energies catalog slots 024-025; artwork held)"
       ],
-      "newlyAddedThemeSlotCount": 16,
+      "newlyAddedThemeSlotCount": 10,
       "newlyAddedCards": [
         "SVAM_001",
         "SVAM_002",
         "SVAM_003",
         "SVAM_004",
-        "SVAM_005",
-        "SVAM_006",
-        "SVAM_007",
-        "SVAM_008",
-        "SVAM_009"
+        "SVAM_005"
       ],
       "existingSkippedCards": [],
       "heldCards": [
+        "SVAM_006",
+        "SVAM_007",
+        "SVAM_008",
+        "SVAM_009",
         "SVAM_010",
         "SVAM_011",
         "SVAM_012",
@@ -36830,9 +36830,9 @@
             "009",
             "010"
           ],
-          "status": "9_same_set_visual_references_reviewed_one_artwork_hold_korean_archive_pending",
-          "checkedCardCount": 9,
-          "heldCardCount": 1,
+          "status": "5_korean_artworks_reviewed_five_artwork_evidence_holds_archive_pending",
+          "checkedCardCount": 5,
+          "heldCardCount": 5,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
             "selfHostedImageReferenceCountAfter": 0,
@@ -36842,7 +36842,7 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "Korean master/catalog printed-card identities (SVAM 001-010) + corresponding Japanese same-set-number printed art references for 001-009; 010 art withheld",
+          "evidenceSource": "Korean series master records, Korean Dogam card records, and direct inspection of Korean static.tcgexchange card images for 001-005. Japanese reference images for 006-009 are not accepted as Korean proof; 010 remains held.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
@@ -36861,9 +36861,9 @@
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "needsReview": false,
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023002001",
-              "illustrationReferenceUrl": "https://media.okini.land/133886-large_default/pokemon-tcg-svam-001-023-balignon-the.jpg",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD55F8551VWSYRVYKM",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/2970a5422aae06bbb29acd74bc10b19c.png",
+              "illustrationSourceNote": "직접 열어 한국판 카드의 한국어 문구, SVAM 로고와 001/023 번호를 확인. 12개 테마 전체를 판독해 color, season로 분류함. 외부 워터마크 이미지이며 바이너리 자체 보관·배포 검증은 미완료.",
               "koreanNumber": "001/023"
             },
             {
@@ -36881,8 +36881,8 @@
               "noApplicableTheme": false,
               "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD087V6NT0EVDXRSH6",
-              "illustrationReferenceUrl": "https://cdn.artofpkm.com/uzgnmnq6w4fphb0m0rp7lt73f3mz",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/939ab42c5fc7b60c7dd4bdf8beff20cc.png",
+              "illustrationSourceNote": "직접 열어 한국판 카드의 한국어 문구, SVAM 로고와 002/023 번호를 확인. 12개 테마 전체를 판독해 color, season로 분류함. 외부 워터마크 이미지이며 바이너리 자체 보관·배포 검증은 미완료.",
               "koreanNumber": "002/023"
             },
             {
@@ -36900,8 +36900,8 @@
               "noApplicableTheme": false,
               "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDBWYYTCHWSXNQNWPY",
-              "illustrationReferenceUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/95b73d3b5ebbc9c6e4f2e3dd28e365a9.jpg",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/5c266050c017307997c6992d013371ff.png",
+              "illustrationSourceNote": "직접 열어 한국판 카드의 한국어 문구, SVAM 로고와 003/023 번호를 확인. 12개 테마 전체를 판독해 color, season로 분류함. 외부 워터마크 이미지이며 바이너리 자체 보관·배포 검증은 미완료.",
               "koreanNumber": "003/023"
             },
             {
@@ -36918,9 +36918,9 @@
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "needsReview": false,
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023002004",
-              "illustrationReferenceUrl": "https://item-shopping.c.yimg.jp/i/n/lead-netstore_sv1am202301tt004",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDM7Q05B0C660BKE9N",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/52145d09e82dc0136aa1ae66fad0f787.png",
+              "illustrationSourceNote": "직접 열어 한국판 카드의 한국어 문구, SVAM 로고와 004/023 번호를 확인. 12개 테마 전체를 판독해 color, season로 분류함. 외부 워터마크 이미지이며 바이너리 자체 보관·배포 검증은 미완료.",
               "koreanNumber": "004/023"
             },
             {
@@ -36938,81 +36938,79 @@
               "noApplicableTheme": false,
               "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD6P8S8A6Y3YKX3YA5",
-              "illustrationReferenceUrl": "https://media.okini.land/133892-large_default/pokemon-tcg-svam-005-023-matourgeon-the.jpg",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/a640c3c963c38b990e02cf4e28dca407.png",
+              "illustrationSourceNote": "직접 열어 한국판 카드의 한국어 문구, SVAM 로고와 005/023 번호를 확인. 12개 테마 전체를 판독해 color, season로 분류함. 외부 워터마크 이미지이며 바이너리 자체 보관·배포 검증은 미완료.",
               "koreanNumber": "005/023"
             },
             {
               "code": "SVAM_006",
-              "checked": true,
-              "themesMatched": [
-                "color"
-              ],
-              "themesAdded": [
-                "color"
-              ],
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": false,
+              "needsReview": true,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD59S5ZSJSYCBBP3CV",
-              "illustrationReferenceUrl": "https://www.serebii.net/card/startersetsprigatitoandlucarioex/6.jpg",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
-              "koreanNumber": "006/023"
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/1e22341f5c32234d840bd776d5d5f069.png",
+              "illustrationSourceNote": "한국판 master record의 카드명·번호와 한국 이미지 경로는 확인됨. 기존 color 분류는 일본판 참고 이미지로만 판독한 기록이므로 보류로 전환; 일본판 이미지는 한국판 일러스트 증거로 사용하지 않음. 이 한국판 이미지는 아직 직접 시각 판독되지 않음.",
+              "koreanNumber": "006/023",
+              "previousJapaneseIllustrationReferenceUrl": "https://www.serebii.net/card/startersetsprigatitoandlucarioex/6.jpg",
+              "previousProvisionalThemeAssignments": [
+                "color"
+              ]
             },
             {
               "code": "SVAM_007",
-              "checked": true,
-              "themesMatched": [
-                "color",
-                "season"
-              ],
-              "themesAdded": [
-                "color",
-                "season"
-              ],
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": false,
+              "needsReview": true,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDCC389AYYMBSE9N16",
-              "illustrationReferenceUrl": "https://media.okini.land/133895-medium_default/pokemon-tcg-svam-007-023-tissenboule-the.jpg",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
-              "koreanNumber": "007/023"
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/6879abde612c3cf696d751092371d92f.png",
+              "illustrationSourceNote": "한국판 master record의 카드명·번호와 한국 이미지 경로는 확인됨. 기존 color, season 분류는 일본판 참고 이미지로만 판독한 기록이므로 보류로 전환; 일본판 이미지는 한국판 일러스트 증거로 사용하지 않음. 이 한국판 이미지는 아직 직접 시각 판독되지 않음.",
+              "koreanNumber": "007/023",
+              "previousJapaneseIllustrationReferenceUrl": "https://media.okini.land/133895-medium_default/pokemon-tcg-svam-007-023-tissenboule-the.jpg",
+              "previousProvisionalThemeAssignments": [
+                "color",
+                "season"
+              ]
             },
             {
               "code": "SVAM_008",
-              "checked": true,
-              "themesMatched": [
-                "color",
-                "season"
-              ],
-              "themesAdded": [
-                "color",
-                "season"
-              ],
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": false,
+              "needsReview": true,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDQNX5J7EKQ2CYZMDK",
-              "illustrationReferenceUrl": "https://ichiba-japan.com/cdn/shop/products/japanese-pokemon-cards-starter-set-ex-sprigatito-and-lucario-pokemon-card-game-scarlet-and-violet-tcg-pokemon-center-978508_480x480.jpg?v=1677094001",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
-              "koreanNumber": "008/023"
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/9831554f10183f58238dafbeb1f35c27.png",
+              "illustrationSourceNote": "한국판 master record의 카드명·번호와 한국 이미지 경로는 확인됨. 기존 color, season 분류는 일본판 참고 이미지로만 판독한 기록이므로 보류로 전환; 일본판 이미지는 한국판 일러스트 증거로 사용하지 않음. 이 한국판 이미지는 아직 직접 시각 판독되지 않음.",
+              "koreanNumber": "008/023",
+              "previousJapaneseIllustrationReferenceUrl": "https://ichiba-japan.com/cdn/shop/products/japanese-pokemon-cards-starter-set-ex-sprigatito-and-lucario-pokemon-card-game-scarlet-and-violet-tcg-pokemon-center-978508_480x480.jpg?v=1677094001",
+              "previousProvisionalThemeAssignments": [
+                "color",
+                "season"
+              ]
             },
             {
               "code": "SVAM_009",
-              "checked": true,
-              "themesMatched": [
-                "color"
-              ],
-              "themesAdded": [
-                "color"
-              ],
+              "checked": false,
+              "themesMatched": [],
+              "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": false,
+              "needsReview": true,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDMQMYT5P5Y56S0QMF",
-              "illustrationReferenceUrl": "https://i.ebayimg.com/images/g/ktEAAOSw-c5j3hKK/s-l1200.png",
-              "illustrationSourceNote": "한국판 SVAM 마스터 이름·번호와 동일 번호/세트의 일본 SVAM 참고 일러스트를 육안 대조. 일본판은 그림 참고만 사용, 카드 엔트리는 한국판 고유 ID. 한국판 원본 이미지 바이너리·자체 호스팅은 미검증.",
-              "koreanNumber": "009/023"
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/494c082edcf3cb223c90ab6e4c71a042.png",
+              "illustrationSourceNote": "한국판 master record의 카드명·번호와 한국 이미지 경로는 확인됨. 기존 color 분류는 일본판 참고 이미지로만 판독한 기록이므로 보류로 전환; 일본판 이미지는 한국판 일러스트 증거로 사용하지 않음. 이 한국판 이미지는 아직 직접 시각 판독되지 않음.",
+              "koreanNumber": "009/023",
+              "previousJapaneseIllustrationReferenceUrl": "https://i.ebayimg.com/images/g/ktEAAOSw-c5j3hKK/s-l1200.png",
+              "previousProvisionalThemeAssignments": [
+                "color"
+              ]
             },
             {
               "code": "SVAM_010",
@@ -37027,7 +37025,8 @@
               "illustrationSourceNote": "010/023 돌헨진 한국판 카드 식별은 마스터 목록에서 확인, 정확한 그림을 시각적으로 확인하지 못해 12테마 분류 보류.",
               "koreanNumber": "010/023"
             }
-          ]
+          ],
+          "note": "Korean prints 001-005 directly inspected and all 12 themes checked. Records 006-009 were previously classified from Japanese reference art only; their provisional theme tags are suspended pending direct Korean-artwork review. Card 010 remains pending. No binaries self-hosted."
         },
         {
           "range": "canonical-order 011-020",
@@ -52482,11 +52481,11 @@
     "currentSet": "SVAM",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SV-P artwork batch log reconciled through canonical 248. Korean Victory Symbol 500-541 reviewed in batches; 206-211 energy candidates still held for Korean catalog-number mismatch. Paradise Resort 539-541 visually reviewed; images external and archive/deployment pending. M-P 051-057 artwork review complete but archive pending; M-P 058-060 exact Korean print unresolved. Resume at SVAM canonical 001; preserve all earlier SV-P artwork holds.",
+    "note": "SV-P canonical 248 artwork reviewed. SVAM 001-005 Korean card images now directly reviewed; 006-009 prior Japanese-only classifications suspended pending Korean image verification, 010 held. Resume at SVAM canonical 006.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P canonical-order 241-248 / Korean printed 534-541 visually reviewed against mapped Korean card images and Dogam No.; all 12 themes checked (color 8, cameo 539-541). Image archive/deployment pending.",
-    "nextStart": "SVAM canonical 001; SV-P deferred artwork backlog 94",
+    "lastSafeCheckpoint": "SVAM canonical 005; Korean images 001-005 reviewed, 006-009 previously JP-only assignments suspended, 010 pending.",
+    "nextStart": "SVAM canonical 006 (Korean artwork evidence re-review); 006-010 held",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -52496,6 +52495,13 @@
       "note": "Verify/catalog sync/Pages in_progress, image deploy pending; 기다리지 않고 121-130 배치 진행."
     },
     "deferredEvidence": [
+      {
+        "set": "SVAM",
+        "range": "canonical-order 006-009; prior JP-only artwork classifications suspended",
+        "pendingCount": 4,
+        "audit": "data/audits/theme-svam-006-009-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVAM canonical 005"
+      },
       {
         "set": "M-P",
         "range": "canonical 051-068 with non-contiguous printed numbers",
@@ -52677,21 +52683,21 @@
         "range": "canonical-order 010",
         "pendingCount": 1,
         "audit": "data/audits/theme-svam-010-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVAM canonical 009"
+        "lastArtSafeCheckpoint": "SVAM canonical 005; 006-010 pending"
       },
       {
         "set": "SVAM",
         "range": "canonical-order 011-020 (Korean printed 011-020)",
         "pendingCount": 10,
         "audit": "data/audits/theme-svam-011-020-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVAM canonical 009 (010 held)"
+        "lastArtSafeCheckpoint": "SVAM canonical 005; 006-010 pending"
       },
       {
         "set": "SVAM",
         "range": "canonical-order 021-025 (021-023 numbered; 024-025 unnumbered energies)",
         "pendingCount": 5,
         "audit": "data/audits/theme-svam-021-025-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVAM canonical 009 (010-025 other holds)"
+        "lastArtSafeCheckpoint": "SVAM canonical 005; 006-010 pending"
       },
       {
         "set": "SVAW",
