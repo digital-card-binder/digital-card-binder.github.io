@@ -7,7 +7,7 @@ root=Path(__file__).resolve().parents[1]
 series=json.loads((root/"data/series.json").read_text(encoding="utf8"))
 s=next(x for x in series if x["code"].upper()=="SVLS")
 assert len(s["cards"])==25
-numbers=[17,18,19,23,24,25]
+numbers=[17,18,19,23,24,25] # existing art holds, no new Korean print inferred
 def fnv64(x):
  h=0xcbf29ce484222325
  for letter in x:
