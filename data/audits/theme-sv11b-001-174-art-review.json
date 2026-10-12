@@ -4354,5 +4354,16 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv11B/sv11B-12.webp.b64"
     }
   ],
-  "themeClassificationNote": "Direct visual review of all printed Korean artworks; preexisting sleeping 5 retained. No speculative connected/evolution/cameo categories without scene evidence."
+  "themeClassificationNote": "Direct visual review of all printed Korean artworks; preexisting sleeping 5 retained. No speculative connected/evolution/cameo categories without scene evidence.",
+  "validationRun": {
+    "nodeVersion": "22",
+    "javaVersion": "21",
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "applicator": "scripts/apply-theme-sv11b-complete-review.mjs",
+    "requiresCheckpoint": "sv11B canonical 001"
+  }
 }
