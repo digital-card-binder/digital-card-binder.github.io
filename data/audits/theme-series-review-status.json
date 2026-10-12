@@ -54405,8 +54405,8 @@
     "SVM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SVM canonical 001-010 한국판 공식 10개 카드 이미지를 직접 확인하고 12테마 판정 완료. 기존 sleeping SVM_004 유지, season 001-009/color 001-010 신규 분류. 011-183은 미검수, 신규 이미지 아카이브 검증 0.",
-      "reviewedCardCount": 10,
+      "note": "SVM canonical 001-020 한국판 공식 카드 이미지를 직접 확인해 12테마 판정 완료. 기존 SVM_004 sleeping 유지, 021-183 미검수. 신규 이미지 자가 저장/Cloudflare 배포는 미확인.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -54422,9 +54422,10 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical 001-010 (한국판 상세 번호와 워터마크 원본 일러스트 10장 직접 확인)"
+        "canonical 001-010 (한국판 상세 번호와 워터마크 원본 일러스트 10장 직접 확인)",
+        "canonical 011-020 (한국판 공식 상세/일러스트 10장 시각 확인)"
       ],
-      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedThemeSlotCount": 36,
       "newlyAddedCards": [
         "SVM_001",
         "SVM_002",
@@ -54435,7 +54436,17 @@
         "SVM_007",
         "SVM_008",
         "SVM_009",
-        "SVM_010"
+        "SVM_010",
+        "SVM_011",
+        "SVM_012",
+        "SVM_013",
+        "SVM_014",
+        "SVM_015",
+        "SVM_016",
+        "SVM_017",
+        "SVM_018",
+        "SVM_019",
+        "SVM_020"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -54722,9 +54733,286 @@
               "cloudflareDeployVerified": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 011-020",
+          "status": "complete_10_official_Korean_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "artworkAudit": "data/audits/theme-svm-011-020-art-review.json",
+          "themeAdditions": {
+            "night": 1,
+            "season": 6,
+            "color": 10
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_011",
+              "canonicalOrder": 11,
+              "canonicalMasterCode": "svm_011/175",
+              "koreanNumber": "011/175",
+              "koreanName": "아이앤트",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_011.png?w=512",
+              "illustrationSourceNote": "어두운 주홍·갈색 암반 동굴에서 땅을 가르는 아이앤트, 붉은 색조가 중심인 지하 풍경.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_012",
+              "canonicalOrder": 12,
+              "canonicalMasterCode": "svm_012/175",
+              "koreanNumber": "012/175",
+              "koreanName": "비리디온",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018012",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_012.png?w=512",
+              "illustrationSourceNote": "햇살이 나뭇잎 사이로 비치는 초록빛 숲과 시냇물 사이 바위에 서 있는 비리디온.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_013",
+              "canonicalOrder": 13,
+              "canonicalMasterCode": "svm_013/175",
+              "koreanNumber": "013/175",
+              "koreanName": "콩알뚜기",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018013",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_013.png?w=512",
+              "illustrationSourceNote": "갈색 흙과 무성한 풀 위의 콩알뚜기, 멀리 밝은 하늘이 비치는 자연 초원.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_014",
+              "canonicalOrder": 14,
+              "canonicalMasterCode": "svm_014/175",
+              "koreanNumber": "014/175",
+              "koreanName": "아차모",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018014",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_014.png?w=512",
+              "illustrationSourceNote": "흰 데이지와 연한 분홍 꽃이 가득한 밝은 꽃밭 속 아차모.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_015",
+              "canonicalOrder": 15,
+              "canonicalMasterCode": "svm_015/175",
+              "koreanNumber": "015/175",
+              "koreanName": "영치코",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018015",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_015.png?w=512",
+              "illustrationSourceNote": "밝은 햇살 아래 바람에 흩날리는 풀과 야외 땅 위의 영치코.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_016",
+              "canonicalOrder": 16,
+              "canonicalMasterCode": "svm_016/175",
+              "koreanNumber": "016/175",
+              "koreanName": "번치코 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018016",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_016.png?w=512",
+              "illustrationSourceNote": "붉고 황금빛 불꽃과 빛나는 타격 효과를 두른 번치코 ex의 역동적인 전투 장면.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_017",
+              "canonicalOrder": 17,
+              "canonicalMasterCode": "svm_017/175",
+              "koreanNumber": "017/175",
+              "koreanName": "코터스",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_017.png?w=512",
+              "illustrationSourceNote": "초록 들판, 붉은빛 화산과 먼 건축물이 보이는 야외 지형에서 움직이는 코터스.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_018",
+              "canonicalOrder": 18,
+              "canonicalMasterCode": "svm_018/175",
+              "koreanNumber": "018/175",
+              "koreanName": "비크티니",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_018.png?w=512",
+              "illustrationSourceNote": "나뭇잎과 큰 나무가 둘러싼 녹색 숲속 밝은 공간의 비크티니.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_019",
+              "canonicalOrder": 19,
+              "canonicalMasterCode": "svm_019/175",
+              "koreanNumber": "019/175",
+              "koreanName": "앤티골",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_019.png?w=512",
+              "illustrationSourceNote": "어두운 암반 배경과 둥근 밝은 달 아래에서 화염을 내뿜는 앤티골.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_020",
+              "canonicalOrder": 20,
+              "canonicalMasterCode": "svm_020/175",
+              "koreanNumber": "020/175",
+              "koreanName": "활화르바",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018020",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_020.png?w=512",
+              "illustrationSourceNote": "붉고 주황색으로 불타는 듯한 숲 바닥과 불꽃 이펙트 사이의 활화르바.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ]
         }
       ],
-      "nextStart": "SVM canonical 011"
+      "nextStart": "SVM canonical 021"
     }
   },
   "queue": {
@@ -54750,8 +55038,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "SVLS 18 verified / 7 pending; next independent set SVM canonical 001",
-    "lastSafeCheckpoint": "SVM canonical 001-010: 10 Korean official artworks and 12 themes visually checked, 19 new theme placements (SVM_004 sleeping already existed). No new archive binary.",
-    "nextStart": "SVM canonical 011 (SVLS 6 independent artwork holds remain)",
+    "lastSafeCheckpoint": "SVM canonical 001-020: 20 official Korean artworks, 36 new theme placements. SVLS 6 unrelated artwork holds. No new image archive verified.",
+    "nextStart": "SVM canonical 021 (SVLS 6 artwork holds remain)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -55040,7 +55328,7 @@
     ],
     "lastEvidenceAuditCheckpoint": {
       "set": "SVM",
-      "range": "canonical 001-010",
+      "range": "canonical 011-020",
       "reviewedCardCount": 10,
       "artworkEvidenceHolds": 0,
       "archiveVerificationStatus": "pending",
@@ -55050,7 +55338,7 @@
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "SVM",
-    "range": "canonical 001-010",
+    "range": "canonical 011-020",
     "reviewedCardCount": 10,
     "artworkEvidenceHolds": 0,
     "archiveVerificationStatus": "pending",
