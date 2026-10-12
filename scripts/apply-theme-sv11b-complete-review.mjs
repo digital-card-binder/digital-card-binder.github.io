@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
 const read=async(p)=>JSON.parse(await readFile(path.join(root,p),"utf8"));
 const write=async(p,val)=>writeFile(path.join(root,p),JSON.stringify(val,null,2)+"\n");
-const evidencePath="data/audits/theme-sv11w-001-174-art-review.json";
+const evidencePath="data/audits/theme-sv11b-001-174-art-review.json";
 const indexPath="data/audits/theme-visual-evidence/sv11B/visual-index.json";
 const [e,index,series,legacy,themes,state,images]=await Promise.all([
   read(evidencePath),read(indexPath),read("data/series.json"),
@@ -13,7 +13,7 @@ const [e,index,series,legacy,themes,state,images]=await Promise.all([
   read("data/audits/theme-series-review-status.json"),
   read("data/audits/theme-image-selfhost-audit.json")
 ]);
-const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv11w");
+const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv11b");
 if(masterMatches.length!==1)throw Error("Expected exactly one canonical Korean SV11B set.");
 const set=masterMatches[0],code=set.code;
 const expectedThemes=["sleeping","connected","evolution","night","season","color","sunset",
@@ -22,7 +22,7 @@ const grouped=new Map(themes.groups.map(g=>[g.code,g]));
 const preexisting=new Map();
 for(const theme of themes.groups){
   for(const item of theme.cards||[]){
-    if(String(item.set||"").toLowerCase()==="sv11w" ||
+    if(String(item.set||"").toLowerCase()==="sv11b" ||
       /^SV11B_\d{3}$/.test(String(item.code||"").toUpperCase())){
       const arr=preexisting.get(String(item.code).toUpperCase())||[];
       arr.push(theme.code);preexisting.set(String(item.code).toUpperCase(),arr);
