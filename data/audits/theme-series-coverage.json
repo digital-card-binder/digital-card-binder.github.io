@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-06",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -107,7 +107,7 @@
       "code": "night",
       "name": "밤 · 달빛",
       "cardSlots": 201,
-      "setCount": 33,
+      "setCount": 34,
       "rarities": [
         "AR",
         "C",
@@ -379,13 +379,6 @@
     },
     {
       "era": "SV",
-      "code": "SVJP",
-      "name": "배틀 마스터 덱 「파오젠 ex」",
-      "cardCount": 20,
-      "status": "complete"
-    },
-    {
-      "era": "SV",
       "code": "SVLN",
       "name": "스타터 세트 테라스탈타입:스텔라 「님피아 ex」",
       "cardCount": 25,
@@ -522,6 +515,13 @@
       "code": "sv5K",
       "name": "와일드포스",
       "cardCount": 100,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv4a",
+      "name": "샤이니트레져 ex",
+      "cardCount": 360,
       "status": "pending"
     }
   ],
@@ -2171,13 +2171,13 @@
       "status": "complete",
       "reviewedAt": "2026-10-12",
       "themeHits": {
+        "night": 1,
         "season": 8,
         "color": 19,
         "sunset": 1,
-        "work": 2,
         "food": 2,
-        "street": 2,
-        "night": 1
+        "work": 2,
+        "street": 2
       }
     },
     {
