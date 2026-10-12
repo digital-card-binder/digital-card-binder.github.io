@@ -2356,7 +2356,33 @@
       },
       "nextStart": "SVLS canonical 001",
       "note": "Official Korean product/card pages and exact Korean watermarked artwork endpoints checked for all 25 canonical slots; 22 printed Korean numbers and three physically unnumbered basic energies. No binary download, self-hosting, decode or deployment verification."
+    },
+    {
+      "task": 6,
+      "set": "SVLS",
+      "range": "canonical-order 001-025 (18 verified art / 7 evidence holds)",
+      "canonicalCardCount": 25,
+      "artworkVisuallyVerifiedCount": 18,
+      "artworkPendingCount": 7,
+      "externalImageReferenceCountBefore": 25,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 25,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 25,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "night": 3,
+        "season": 7,
+        "color": 18,
+        "sunset": 3,
+        "street": 1,
+        "work": 1
+      },
+      "nextStart": "SVM canonical 001; SVLS artwork holds 007,017-019,023-025",
+      "note": "18 verified official Korean artwork visuals; 7 evidence holds. No card image files downloaded, decoded or Cloudflare-deployed. Existing third-party source URLs unchanged; do not claim any rehosting."
     }
   ],
-  "nextStart": "SVLN artwork/theme review complete; archive pending for 25 images; next SVLS canonical 001."
+  "nextStart": "SVM canonical 001 (SVLS 7 artwork holds open)"
 }
