@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-06",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -379,13 +379,6 @@
     },
     {
       "era": "SV",
-      "code": "SVHK",
-      "name": "스타터 덱&강화 세트 「고대의 코라이돈 ex」",
-      "cardCount": 61,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
       "code": "SVI",
       "name": "배틀 아카데미",
       "cardCount": 74,
@@ -522,6 +515,13 @@
       "code": "sv6",
       "name": "변환의 가면",
       "cardCount": 133,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv5a",
+      "name": "크림슨헤이즈",
+      "cardCount": 96,
       "status": "pending"
     }
   ],
@@ -2219,9 +2219,11 @@
       "cardCount": 61,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "themeHits": {
+        "color": 61
+      }
     },
     {
       "era": "SV",
