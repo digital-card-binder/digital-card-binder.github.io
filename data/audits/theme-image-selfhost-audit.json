@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-13",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -2668,7 +2668,107 @@
       },
       "nextStart": "SVM canonical 131",
       "note": "Three Korean card artworks inspected; seven unverified visuals held. Existing image URLs preserved. Binary self-host and deployment unverified."
+    },
+    {
+      "task": 6,
+      "set": "SVM",
+      "range": "canonical 131-183 plus held 079,122,123,126-130",
+      "canonicalCardCount": 61,
+      "artworkVisuallyVerifiedCount": 61,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 61,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 61,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_CDN_binary_decoded",
+      "verifiedImageCount": 61,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "season": 19,
+        "color": 5,
+        "sleeping": 1,
+        "street": 15,
+        "food": 1
+      },
+      "fullEvidence": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json",
+      "note": "Existing self-hosted Cloudflare CDN Korean-print files decoded and visually inspected. External image source is catalog provenance only; no new image downloaded or hotlinked."
+    },
+    {
+      "task": 6,
+      "set": "SVN",
+      "range": "canonical 001-053",
+      "canonicalCardCount": 53,
+      "artworkVisuallyVerifiedCount": 53,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 53,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 53,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_CDN_binary_decoded",
+      "verifiedImageCount": 53,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 9,
+        "food": 2,
+        "season": 7,
+        "sunset": 1,
+        "night": 2,
+        "street": 8
+      },
+      "fullEvidence": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json",
+      "note": "Existing self-hosted Cloudflare CDN Korean-print files decoded and visually inspected. External image source is catalog provenance only; no new image downloaded or hotlinked."
+    },
+    {
+      "task": 6,
+      "set": "SVOD",
+      "range": "canonical 001-021",
+      "canonicalCardCount": 21,
+      "artworkVisuallyVerifiedCount": 21,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 21,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 21,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_CDN_binary_decoded",
+      "verifiedImageCount": 21,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "season": 4,
+        "color": 8,
+        "food": 1,
+        "street": 2
+      },
+      "fullEvidence": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json",
+      "note": "Existing self-hosted Cloudflare CDN Korean-print files decoded and visually inspected. External image source is catalog provenance only; no new image downloaded or hotlinked."
+    },
+    {
+      "task": 6,
+      "set": "SVOM",
+      "range": "canonical 001-021",
+      "canonicalCardCount": 21,
+      "artworkVisuallyVerifiedCount": 21,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 21,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 21,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_CDN_binary_decoded",
+      "verifiedImageCount": 21,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 9,
+        "night": 3,
+        "street": 9,
+        "season": 3,
+        "food": 1
+      },
+      "fullEvidence": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json",
+      "note": "Existing self-hosted Cloudflare CDN Korean-print files decoded and visually inspected. External image source is catalog provenance only; no new image downloaded or hotlinked."
     }
   ],
-  "nextStart": "SVM canonical 131"
+  "nextStart": "SVLS six outstanding older evidence holds; then sv11W canonical 001"
 }

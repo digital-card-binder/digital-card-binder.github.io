@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5636,
-    "uniqueThemeCards": 3445,
-    "strictCompleteSetCount": 28,
+    "themeCardSlots": 5746,
+    "uniqueThemeCards": 3519,
+    "strictCompleteSetCount": 32,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 245,
+    "baselineRemainingSetCount": 241,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -66,7 +66,7 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 155,
+      "cardSlots": 156,
       "setCount": 71,
       "rarities": [
         "AR",
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 210,
-      "setCount": 37,
+      "cardSlots": 215,
+      "setCount": 39,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1415,
-      "setCount": 43,
+      "cardSlots": 1448,
+      "setCount": 46,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2903,
-      "setCount": 46,
+      "cardSlots": 2934,
+      "setCount": 49,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 116,
-      "setCount": 32,
+      "cardSlots": 117,
+      "setCount": 33,
       "rarities": [
         "AR",
         "C",
@@ -185,8 +185,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 83,
-      "setCount": 33,
+      "cardSlots": 88,
+      "setCount": 36,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 443,
-      "setCount": 39,
+      "cardSlots": 477,
+      "setCount": 42,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 15,
-      "remainingSetCount": 38,
-      "currentThemeSlots": 2008
+      "completeSetCount": 19,
+      "remainingSetCount": 34,
+      "currentThemeSlots": 2118
     },
     {
       "era": "S",
@@ -386,34 +386,6 @@
     },
     {
       "era": "SV",
-      "code": "SVM",
-      "name": "스타트 덱 Generations 스페셜 배틀 세트",
-      "cardCount": 183,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVN",
-      "name": "배틀 강화 BOX 「배틀파트너즈」",
-      "cardCount": 53,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
-      "code": "SVOD",
-      "name": "스타터 세트 ex 「성호의 메탕&메타그로스 ex」",
-      "cardCount": 21,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
-      "code": "SVOM",
-      "name": "스타터 세트 ex 「마리의 모르페코&오롱털 ex」",
-      "cardCount": 21,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
       "code": "sv11W",
       "name": "sv11W 도감",
       "cardCount": 174,
@@ -522,6 +494,34 @@
       "code": "sv4M",
       "name": "미래의 일섬",
       "cardCount": 95,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv4K",
+      "name": "고대의 포효",
+      "cardCount": 95,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv3a",
+      "name": "레이징서프",
+      "cardCount": 92,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv3",
+      "name": "흑염의 지배자",
+      "cardCount": 141,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv2a",
+      "name": "포켓몬카드 151",
+      "cardCount": 210,
       "status": "pending"
     }
   ],
@@ -2064,9 +2064,15 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "themeHits": {
+        "night": 3,
+        "season": 3,
+        "color": 9,
+        "food": 1,
+        "street": 9
+      }
     },
     {
       "era": "SV",
@@ -2075,9 +2081,14 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "themeHits": {
+        "season": 4,
+        "color": 8,
+        "food": 1,
+        "street": 2
+      }
     },
     {
       "era": "SV",
@@ -2086,9 +2097,16 @@
       "cardCount": 53,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "themeHits": {
+        "night": 2,
+        "season": 7,
+        "color": 9,
+        "sunset": 1,
+        "food": 2,
+        "street": 8
+      }
     },
     {
       "era": "SV",
@@ -2097,16 +2115,16 @@
       "cardCount": 183,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-13",
       "themeHits": {
-        "sleeping": 2,
+        "sleeping": 3,
         "night": 5,
-        "season": 85,
-        "color": 121,
+        "season": 104,
+        "color": 126,
         "sunset": 8,
-        "food": 4,
-        "street": 9
+        "food": 5,
+        "street": 24
       }
     },
     {
