@@ -299,5 +299,11 @@
       "verifiedImageBinary": false,
       "cloudflareDeployVerified": false
     }
-  ]
+  ],
+  "validationRun": {
+    "tool": "GitHub Actions",
+    "javaVersion": 21,
+    "requiresFullSuite": true,
+    "applier": "scripts/apply-theme-svm-111-120-review.mjs"
+  }
 }
