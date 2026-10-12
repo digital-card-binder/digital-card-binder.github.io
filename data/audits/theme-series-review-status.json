@@ -27260,7 +27260,7 @@
     "M-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete. 2026-10-12: canonical 051-057 confirmed from exact Korean official watermarked images and visually checked against all 12 themes; image binary archive remains pending.",
+      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete. 2026-10-12: canonical 051-057 confirmed from exact Korean official watermarked images and visually checked against all 12 themes; image binary archive remains pending. 2026-10-12: candidate Dogam pages for M-P 058-060 resolve to different Korean promo prints 503-505/MP, so target slots remain held and unreviewed.",
       "reviewedCardCount": 57,
       "reviewedThemes": [
         "sleeping",
@@ -28492,6 +28492,61 @@
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_057.png?w=512",
               "koreanNumber": "057/M-P",
               "illustrationSourceNote": "포켓몬코리아 공식 워터마크 057/M-P 이미지. 빛나가 열린 하늘과 초록 언덕·풀잎이 있는 야외에 등장한다. 계절·풍경과 컬러 테마 해당; 도시 거리나 연결 일러스트는 확인되지 않음."
+            }
+          ]
+        },
+        {
+          "range": "canonical-order 058-060 (Korean print mismatch; visual theme review deferred)",
+          "cardNumbers": [
+            "058",
+            "059",
+            "060"
+          ],
+          "status": "evidence_hold_print_identifier_mismatch",
+          "checkedCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 3,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 3,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 3,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Dogam catalog pages for candidate images were directly inspected: Korean promotional energy cards numbered 503/MP, 504/MP, and 505/MP; these do not match M-P canonical slots/printed identifiers 058/M-P, 059/M-P, 060/M-P. Pokémon Korea official image CDN URLs for the target identifiers returned HTTP 415 in prior run. No target print image established; no themes adjudicated.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_058",
+              "checked": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJPWCKAP3PYY9ZQHJKSV3",
+              "catalogImageReference": "https://static.tcgexchange.kr/90f110a6f3897010a80bd26ce0ed9fc4.png",
+              "catalogClaimedKoreanCardNumber": "503/MP",
+              "targetPrintedIdentifier": "058/M-P",
+              "note": "Candidate is Korean-language promo 503/MP, not verified target slot; no theme decision."
+            },
+            {
+              "code": "M-P_059",
+              "checked": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQ96J1FSM69WGTB0DG4P",
+              "catalogImageReference": "https://static.tcgexchange.kr/67d8b2b1684ef566efb182e920f3d654.png",
+              "catalogClaimedKoreanCardNumber": "504/MP",
+              "targetPrintedIdentifier": "059/M-P",
+              "note": "Candidate is Korean-language promo 504/MP, not verified target slot; no theme decision."
+            },
+            {
+              "code": "M-P_060",
+              "checked": false,
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQNY0KBASYKFMHE8AH8D",
+              "catalogImageReference": "https://static.tcgexchange.kr/def902432a81c8e3cade4b4b1ef7a720.png",
+              "catalogClaimedKoreanCardNumber": "505/MP",
+              "targetPrintedIdentifier": "060/M-P",
+              "note": "Candidate is Korean-language promo 505/MP, not verified target slot; no theme decision."
             }
           ]
         }

@@ -4,7 +4,7 @@
   "task": 5,
   "set": "M-P",
   "range": "canonical-order 051-068",
-  "status": "partial_051-057_theme_review_complete_archive_pending_058-060_image_unavailable",
+  "status": "partial_051-057_theme_review_complete_archive_pending_058-060_print_identity_mismatch",
   "lastArtSafeCheckpoint": "M-P canonical 057",
   "attemptedCardCount": 18,
   "artworkVerifiedCount": 7,
@@ -30,7 +30,7 @@
     "directCdnImageUnavailable": "058-060"
   },
   "preservedPhotoEvidenceFrom": "data/audits/theme-mp-048-056-evidence-progress.json: M-P_053",
-  "nextAction": "M-P canonical 058. Keep 058-060 evidence-pending because the official image CDN returned 415; then continue the remaining M-P canonical slots.",
+  "nextAction": "M-P canonical 058 remains held until exact target print is found; do not substitute Korean promo prints 503-505/MP. After resolving M-P queue, resume execution pointer SV-P canonical-order 061.",
   "cards": [
     {
       "cardKey": "M-P_051",
@@ -212,8 +212,10 @@
       "imageDeploymentVerified": false,
       "catalogImageReference": "https://static.tcgexchange.kr/90f110a6f3897010a80bd26ce0ed9fc4.png",
       "catalogEvidencePage": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJPWCKAP3PYY9ZQHJKSV3",
-      "evidenceStatus": "official_page_inaccessible_in_this_run",
-      "neededEvidence": "Reliable Korean numbered print photograph or official artwork for all 12 theme classification, plus actual image archive verification."
+      "evidenceStatus": "candidate_catalog_print_mismatch",
+      "neededEvidence": "Exact Korean M-P print identifier 058/M-P, 059/M-P, or 060/M-P established by official artwork or reliable Korean print evidence, followed by 12-theme visual review; image archive verification separately required.",
+      "catalogClaimedKoreanCardNumber": "503/MP",
+      "evidenceObservation": "Candidate is Korean-language promo 503/MP, not verified target slot; no theme decision."
     },
     {
       "cardKey": "M-P_059",
@@ -228,8 +230,10 @@
       "imageDeploymentVerified": false,
       "catalogImageReference": "https://static.tcgexchange.kr/67d8b2b1684ef566efb182e920f3d654.png",
       "catalogEvidencePage": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQ96J1FSM69WGTB0DG4P",
-      "evidenceStatus": "official_page_inaccessible_in_this_run",
-      "neededEvidence": "Reliable Korean numbered print photograph or official artwork for all 12 theme classification, plus actual image archive verification."
+      "evidenceStatus": "candidate_catalog_print_mismatch",
+      "neededEvidence": "Exact Korean M-P print identifier 058/M-P, 059/M-P, or 060/M-P established by official artwork or reliable Korean print evidence, followed by 12-theme visual review; image archive verification separately required.",
+      "catalogClaimedKoreanCardNumber": "504/MP",
+      "evidenceObservation": "Candidate is Korean-language promo 504/MP, not verified target slot; no theme decision."
     },
     {
       "cardKey": "M-P_060",
@@ -244,8 +248,10 @@
       "imageDeploymentVerified": false,
       "catalogImageReference": "https://static.tcgexchange.kr/def902432a81c8e3cade4b4b1ef7a720.png",
       "catalogEvidencePage": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQNY0KBASYKFMHE8AH8D",
-      "evidenceStatus": "official_page_inaccessible_in_this_run",
-      "neededEvidence": "Reliable Korean numbered print photograph or official artwork for all 12 theme classification, plus actual image archive verification."
+      "evidenceStatus": "candidate_catalog_print_mismatch",
+      "neededEvidence": "Exact Korean M-P print identifier 058/M-P, 059/M-P, or 060/M-P established by official artwork or reliable Korean print evidence, followed by 12-theme visual review; image archive verification separately required.",
+      "catalogClaimedKoreanCardNumber": "505/MP",
+      "evidenceObservation": "Candidate is Korean-language promo 505/MP, not verified target slot; no theme decision."
     },
     {
       "cardKey": "M-P_085",
