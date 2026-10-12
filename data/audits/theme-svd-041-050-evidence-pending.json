@@ -4,11 +4,17 @@
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 041-050",
-  "artworkReviewedCardCount": 8,
-  "artworkPendingCardCount": 2,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "themeAdditions": {
     "season": 5,
-    "color": 8
+    "color": 8,
+    "SVD_042": [
+      "color"
+    ],
+    "SVD_045": [
+      "color"
+    ]
   },
   "imageBinarySelfHostedCount": 0,
   "brokenReferenceCount": null,
@@ -35,17 +41,21 @@
     },
     {
       "code": "SVD_042",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "042/139",
       "name": "찌리배리",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016042",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국판 카드 목록으로 이름/번호 확인. 공식 상세 또는 정확한 한국판 이미지 접근 오류로 일러스트 판독 불가: 12개 테마 보류. 일본판 추정 대입 금지."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_042.png?w=512",
+      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 찌리배리와 SVD 042/139 인쇄번호 확인. 동굴의 어두운 암석 배경과 노란빛으로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
     },
     {
       "code": "SVD_043",
@@ -89,17 +99,21 @@
     },
     {
       "code": "SVD_045",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "045/139",
       "name": "찌리비크",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016045",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국판 카드 목록으로 이름/번호 확인. 공식 상세 또는 정확한 한국판 이미지 접근 오류로 일러스트 판독 불가: 12개 테마 보류. 일본판 추정 대입 금지."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_045.png?w=512",
+      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 찌리비크와 SVD 045/139 인쇄번호 확인. 푸른 하늘과 노란 날개, 비행 장면으로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
     },
     {
       "code": "SVD_046",

@@ -5,13 +5,16 @@
   "set": "SVD",
   "range": "canonical-order 001-010",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 9,
-  "artworkPendingCardCount": 1,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "themeAdditions": {
     "night": 1,
     "season": 8,
     "color": 9,
-    "street": 2
+    "street": 2,
+    "SVD_007": [
+      "color"
+    ]
   },
   "themeEvidenceModifications": [
     {
@@ -23,17 +26,21 @@
   "cards": [
     {
       "code": "SVD_007",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "007/139",
       "name": "빼미스로우",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016007",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "공식 한국판 카드 상세 이름·번호 확인 완료. 공식 이미지 접근에 실패하여 12테마 판정 보류."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_007.png?w=512",
+      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 빼미스로우와 SVD 007/139 인쇄번호 확인. 숲속 배경과 푸른 빛을 두른 일러스트로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
     }
   ],
   "nextStart": "SVD 011; revisit 007 when Korean official art becomes accessible"
