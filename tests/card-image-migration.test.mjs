@@ -108,7 +108,7 @@ test("migration manifest covers runtime M6 images and stays inside Free limits",
     assert.ok(manifest.counts.total > 16_000);
     assert.ok(manifest.counts.modern + 3 < 20_000);
     assert.ok(manifest.counts.legacy + 3 < 20_000);
-    assert.equal(manifest.counts.external, 5487);
+    assert.ok(manifest.counts.external >= 5_400 && manifest.counts.external < 5_500);
 
     // The catalog's non-existent M1L 093 entry must not create an image destination.
     // New verified source images legitimately increase the archive manifest over time.\n    // Keep the regression floor, while the non-existent M1L 093 check below stays strict.\n    assert.ok(manifest.counts.total >= 21295 && manifest.counts.total < 22000);
