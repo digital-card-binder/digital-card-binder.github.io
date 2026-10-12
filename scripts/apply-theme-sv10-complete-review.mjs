@@ -63,7 +63,7 @@ for(let i=0;i<132;i++){
      masterCode.toLowerCase()!==row.canonicalMasterCode.toLowerCase()||
      proof.masterCode.toLowerCase()!==masterCode.toLowerCase()||
      proof.canonicalOrder!==n||
-     row.number!==String(n).padStart(3,"0")+"/086"||
+     row.printedNumber!==String(n).padStart(3,"0")+"/098"||
      typeof row.koreanName!=="string"||!row.koreanName.trim()||
      row.verifiedCdnUrl!==proof.cdnUrl||
      row.sourceImage!==proof.rawSource||
@@ -96,7 +96,7 @@ for(let i=0;i<132;i++){
       throw Error("Would duplicate art-theme existing placement: "+key+"/"+themeCode);
     group.cards.push({
       code:key,name:row.koreanName,series:"SV",set:code,setName:e.officialKoreanSetName,
-      cardNumber:row.number,rarity:card.rarity||"",
+      cardNumber:row.printedNumber,rarity:card.rarity||"",
       category:group.cards[0]?.category||group.name,
       evidence:"포켓몬코리아 한국판 확장팩 로켓단의 영광("+e.officialProductUrl+
         ") 원본과 자체 저장 한국어 인쇄 카드("+
