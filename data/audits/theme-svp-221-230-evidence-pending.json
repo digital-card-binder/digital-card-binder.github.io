@@ -4,17 +4,17 @@
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 221-230 (printed 514-523/SV-P)",
-  "reviewStatus": "master_catalog_order_checked_artwork_evidence_pending",
+  "reviewStatus": "artwork_reviewed_all_12_themes_image_archive_pending",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 10,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
   "unverifiedImageCount": 10,
   "catalogEvidence": "data/series.json | SV-P | cards[220:230] + source and image URLs",
-  "koreanPrintIndependentConfirmation": "pending: not independently proven beyond master metadata",
-  "thematicClassification": "deferred: no themes assigned without exact Korean artwork visual evidence",
+  "koreanPrintIndependentConfirmation": "confirmed: all mapped Dogam records identify Korean SV-P prints 514-523; corresponding Korean images were visually opened and show Korean card text and SV-P marks.",
+  "thematicClassification": "all ten artworks checked against all 12 themes; color only; no other theme applies.",
   "regionWarning": "No substitution from Japanese SV-P same printed numbers.",
   "nextStart": "SV-P canonical 231",
   "cards": [
@@ -25,11 +25,11 @@
       "koreanPrintIdentifier": "514/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/121a2936f75f2d243ed0c2c2982f490f.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX91HWYQJPC7GWTGR9",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 222,
@@ -38,11 +38,11 @@
       "koreanPrintIdentifier": "515/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/b5ab00dde0fe5acf63137394ec7d09d5.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXR84BSVXEZHGBS58E",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 223,
@@ -51,11 +51,11 @@
       "koreanPrintIdentifier": "516/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/a8f7fc4252d990ef0a59e941bb3be55d.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXJHAPBB3NKFJATD24",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 224,
@@ -64,11 +64,11 @@
       "koreanPrintIdentifier": "517/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/794a0261fe42cd09a3e9c28c8d32588c.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX6K85RG0K1D30K98B",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 225,
@@ -77,11 +77,11 @@
       "koreanPrintIdentifier": "518/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/aecca74aa338e60eaa9588e6bb9edcff.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXBHSP92MNNGT6T33Y",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 226,
@@ -90,11 +90,11 @@
       "koreanPrintIdentifier": "519/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/43db4165ba45f686deae6746436edac5.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXM4R84NBJY09345N4",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 227,
@@ -103,11 +103,11 @@
       "koreanPrintIdentifier": "520/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/c360342d48c765e7a21d52a72701538f.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX8YFKGMGBAE9W7JGG",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 228,
@@ -116,11 +116,11 @@
       "koreanPrintIdentifier": "521/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/488d3e848de6a6c12cfe31e6185cf03a.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXAFVZ6ZDWD5C79E01",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 229,
@@ -129,11 +129,11 @@
       "koreanPrintIdentifier": "522/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/58131198d5eb97ed51db50f79b21e8fc.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXZDKY2JEQDYG3SSRD",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     },
     {
       "canonicalOrder": 230,
@@ -142,11 +142,12 @@
       "koreanPrintIdentifier": "523/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/6bcc73819b2e9740dcaa7c2086e8cd9f.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX7NZ1X7DVCEPTECBS",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Catalog identity checked in main data only; actual Korean card illustration not opened or decoded. Same-number Japanese promos cannot serve as evidence."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_only_archive_pending",
+      "reason": "Korean card image opened and visually inspected; Korean text and SV-P marks confirmed. Classified only under color after checking all 12 themes. Binary archive/self-hosting remains pending."
     }
-  ]
+  ],
+  "note": "All ten mapped Korean card image URLs from the main master records were opened and visually inspected. Korean text and SV-P print marks are visible. Card-to-image pairings match the master records and Korean Dogam detail pages. Color palette entries were added. External card-image files retain a third-party watermark and were not archived, uploaded, or deployment-verified."
 }

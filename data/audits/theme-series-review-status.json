@@ -30668,8 +30668,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held. 2026-10-12: canonical 211-220 / Korean printed 504-513 individually visually reviewed from mapped Korean card images; color theme added to ten. External watermarked binaries remain unarchived.",
-      "reviewedCardCount": 196,
+      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held. 2026-10-12: canonical 211-220 / Korean printed 504-513 individually visually reviewed from mapped Korean card images; color theme added to ten. External watermarked binaries remain unarchived. 2026-10-12: canonical 221-230 / Korean printed 514-523 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived.",
+      "reviewedCardCount": 206,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30711,9 +30711,10 @@
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
         "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)",
         "canonical-order 201-210 (SV-P 500-503 reviewed; 206-211 energy candidates held for catalog-number mismatch)",
-        "canonical-order 211-220 (printed 504-513): 10 Korean Victory Symbol artworks visually reviewed against master image references; color only; image archive pending."
+        "canonical-order 211-220 (printed 504-513): 10 Korean Victory Symbol artworks visually reviewed against master image references; color only; image archive pending.",
+        "canonical-order 221-230 (printed 514-523): ten Korean Victory Symbol artworks visually reviewed against mapped Korean card records; color only; image archive pending."
       ],
-      "newlyAddedThemeSlotCount": 326,
+      "newlyAddedThemeSlotCount": 336,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30908,7 +30909,17 @@
         "SV-P_510",
         "SV-P_511",
         "SV-P_512",
-        "SV-P_513"
+        "SV-P_513",
+        "SV-P_514",
+        "SV-P_515",
+        "SV-P_516",
+        "SV-P_517",
+        "SV-P_518",
+        "SV-P_519",
+        "SV-P_520",
+        "SV-P_521",
+        "SV-P_522",
+        "SV-P_523"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30936,16 +30947,6 @@
         "SV-P_209",
         "SV-P_210",
         "SV-P_211",
-        "SV-P_514",
-        "SV-P_515",
-        "SV-P_516",
-        "SV-P_517",
-        "SV-P_518",
-        "SV-P_519",
-        "SV-P_520",
-        "SV-P_521",
-        "SV-P_522",
-        "SV-P_523",
         "SV-P_524",
         "SV-P_525",
         "SV-P_526",
@@ -36309,6 +36310,209 @@
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/ff53ec4876722ee21e89d0e3bbbc62c3.png",
               "illustrationSourceNote": "Korean printed Victory Symbol 513/SV-P directly inspected; representative palette 파랑·은색·다색. Korean text and league/event print marks visible. All 12 themes checked; color only. Image binary not self-hosted.",
               "koreanNumber": "513/SV-P"
+            }
+          ]
+        },
+        {
+          "range": "canonical-order 221-230 (printed 514-523)",
+          "cardNumbers": [
+            "514",
+            "515",
+            "516",
+            "517",
+            "518",
+            "519",
+            "520",
+            "521",
+            "522",
+            "523"
+          ],
+          "status": "artwork_reviewed_all_12_themes_archive_pending",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Korean master catalog records + corresponding Dogam Korean card records and direct visual review of all ten mapped Korean image files; Korean print text and SV-P mark confirmed.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "SV-P_514",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX91HWYQJPC7GWTGR9",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/121a2936f75f2d243ed0c2c2982f490f.png",
+              "illustrationSourceNote": "Korean Victory Symbol 514/SV-P image directly inspected; representative palette 노랑·금색·주황. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "514/SV-P"
+            },
+            {
+              "code": "SV-P_515",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXR84BSVXEZHGBS58E",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/b5ab00dde0fe5acf63137394ec7d09d5.png",
+              "illustrationSourceNote": "Korean Victory Symbol 515/SV-P image directly inspected; representative palette 빨강·파랑·보라·금색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "515/SV-P"
+            },
+            {
+              "code": "SV-P_516",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXJHAPBB3NKFJATD24",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/a8f7fc4252d990ef0a59e941bb3be55d.png",
+              "illustrationSourceNote": "Korean Victory Symbol 516/SV-P image directly inspected; representative palette 파랑·은색·다색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "516/SV-P"
+            },
+            {
+              "code": "SV-P_517",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX6K85RG0K1D30K98B",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/794a0261fe42cd09a3e9c28c8d32588c.png",
+              "illustrationSourceNote": "Korean Victory Symbol 517/SV-P image directly inspected; representative palette 노랑·금색·주황. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "517/SV-P"
+            },
+            {
+              "code": "SV-P_518",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXBHSP92MNNGT6T33Y",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/aecca74aa338e60eaa9588e6bb9edcff.png",
+              "illustrationSourceNote": "Korean Victory Symbol 518/SV-P image directly inspected; representative palette 빨강·파랑·보라·금색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "518/SV-P"
+            },
+            {
+              "code": "SV-P_519",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXM4R84NBJY09345N4",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/43db4165ba45f686deae6746436edac5.png",
+              "illustrationSourceNote": "Korean Victory Symbol 519/SV-P image directly inspected; representative palette 파랑·은색·다색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "519/SV-P"
+            },
+            {
+              "code": "SV-P_520",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX8YFKGMGBAE9W7JGG",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/c360342d48c765e7a21d52a72701538f.png",
+              "illustrationSourceNote": "Korean Victory Symbol 520/SV-P image directly inspected; representative palette 노랑·금색·주황. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "520/SV-P"
+            },
+            {
+              "code": "SV-P_521",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXAFVZ6ZDWD5C79E01",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/488d3e848de6a6c12cfe31e6185cf03a.png",
+              "illustrationSourceNote": "Korean Victory Symbol 521/SV-P image directly inspected; representative palette 빨강·파랑·보라·금색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "521/SV-P"
+            },
+            {
+              "code": "SV-P_522",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXZDKY2JEQDYG3SSRD",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/58131198d5eb97ed51db50f79b21e8fc.png",
+              "illustrationSourceNote": "Korean Victory Symbol 522/SV-P image directly inspected; representative palette 파랑·은색·다색. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "522/SV-P"
+            },
+            {
+              "code": "SV-P_523",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX7NZ1X7DVCEPTECBS",
+              "illustrationReferenceUrl": "https://static.tcgexchange.kr/6bcc73819b2e9740dcaa7c2086e8cd9f.png",
+              "illustrationSourceNote": "Korean Victory Symbol 523/SV-P image directly inspected; representative palette 노랑·금색·주황. Korean text and SV-P mark visible. All 12 themes checked; color only. Binary image not self-hosted.",
+              "koreanNumber": "523/SV-P"
             }
           ]
         }
@@ -52036,11 +52240,11 @@
     "currentSet": "SV-P",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SV-P batch log reconciled through canonical 220. Korean Victory Symbol 500-503 and 504-513 artworks reviewed; 206-211 energy candidates remain held for Korean catalog-number mismatch. Images in reviewed batches remain external and archive/deployment pending. M-P 051-057 art review complete but archive pending; M-P 058-060 exact Korean print unresolved. Resume at SV-P 221-230; preserve all earlier holds.",
+    "note": "SV-P batch log reconciled through canonical 230. Korean Victory Symbol 500-503, 504-513, and 514-523 artworks reviewed; 206-211 energy candidates remain held for Korean catalog-number mismatch. Images in reviewed batches remain external and archive/deployment pending. M-P 051-057 art review complete but archive pending; M-P 058-060 exact Korean print unresolved. Resume at SV-P 231-240; preserve all earlier holds.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P canonical-order 211-220 / Korean printed 504-513 visually reviewed against mapped Korean images; color theme added to all ten. Binary image archive remains pending.",
-    "nextStart": "SV-P canonical-order 221-230 (printed 514-523; artwork evidence pending)",
+    "lastSafeCheckpoint": "SV-P canonical-order 221-230 / Korean printed 514-523 visually reviewed against mapped Korean images; color theme added to all ten. Binary image archive remains pending.",
+    "nextStart": "SV-P canonical-order 231-240 (printed 524-533; artwork evidence pending)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -52198,10 +52402,13 @@
       },
       {
         "set": "SV-P",
-        "range": "canonical-order 221-230 / printed 514-523",
+        "range": "canonical-order 221-230 / printed 514-523 (artwork reviewed; image archive pending)",
         "pendingCount": 10,
         "audit": "data/audits/theme-svp-221-230-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with subsequent partial checks/holds"
+        "lastArtSafeCheckpoint": "SV-P canonical 230; Korean artworks and 12-theme classification complete, image archive pending",
+        "artworkPendingCount": 0,
+        "archivePendingReviewedCount": 10,
+        "totalOutstandingCount": 10
       },
       {
         "set": "SV-P",
@@ -52479,5 +52686,5 @@
     ],
     "lastEvidenceAuditCheckpoint": "SVI canonical 001-074 inventory, only 025/066 exact Korean artwork visually checked and 3 theme placements."
   },
-  "lastEvidenceAuditCheckpoint": "SV-P canonical-order 211-220 / printed 504-513: ten Korean artworks visually reviewed; color theme added; image archive pending."
+  "lastEvidenceAuditCheckpoint": "SV-P canonical-order 221-230 / printed 514-523: ten Korean artworks visually reviewed; color theme added; image archive pending."
 }
