@@ -2523,7 +2523,31 @@
       },
       "nextStart": "SVM canonical 061",
       "note": "20 official Korean watermark artworks individually inspected; no new image binary downloaded, self-hosted or deployed. Source usage permission not verified."
+    },
+    {
+      "task": 6,
+      "set": "SVM",
+      "range": "canonical-order 061-080 (19 verified, 079 image evidence hold)",
+      "canonicalCardCount": 20,
+      "artworkVisuallyVerifiedCount": 19,
+      "artworkPendingCount": 1,
+      "externalImageReferenceCountBefore": 20,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 20,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 20,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "season": 15,
+        "color": 19,
+        "night": 1,
+        "sunset": 1
+      },
+      "nextStart": "SVM canonical 081; 079 art evidence held",
+      "note": "19 official Korean card artwork binaries visually inspected; canonical SVM 079 official image inaccessible, not classified. No new image binary downloaded, self-hosted, or deployed."
     }
   ],
-  "nextStart": "SVM canonical 061"
+  "nextStart": "SVM canonical 081, SVM 079 art hold"
 }
