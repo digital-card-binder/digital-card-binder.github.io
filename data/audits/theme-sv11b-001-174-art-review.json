@@ -4364,6 +4364,7 @@
       "npm test"
     ],
     "applicator": "scripts/apply-theme-sv11b-complete-review.mjs",
-    "requiresCheckpoint": "sv11B canonical 001"
+    "requiresCheckpoint": "sv11B canonical 001",
+    "reconciliation": "Explicitly require sv11B canonical master, not completed sv11W; prior run was a no-op on wrong referenced set. Script refs corrected before this rerun."
   }
 }
