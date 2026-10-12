@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build self-hosted Korean Heat Wave Arena 132-image contact sheets, read only to main master.
+"""Build self-hosted Korean Heat Wave Arena 92-image contact sheets, read only to main master.
 Read-only relative to master, theme data, and user ownership states."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
