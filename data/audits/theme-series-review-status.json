@@ -54405,8 +54405,8 @@
     "SVM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-13",
-      "note": "SVM canonical 001-120, 119 Korean official artworks verified; 079 evidence held, 121-183 unreviewed. Image binaries/deployment not verified.",
-      "reviewedCardCount": 119,
+      "note": "SVM canonical 001-130: 122 Korean images inspected, 079 and 122,123,126-130 evidence-held; 131-183 unreviewed. Archive verification pending.",
+      "reviewedCardCount": 122,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -54431,9 +54431,10 @@
         "canonical 081-090 (official Korean stamped artwork checked, all 10)",
         "canonical 091-100 (10 Korean official artworks and theme matches inspected)",
         "canonical 101-110 (10 official Korean card illustrations checked)",
-        "canonical 111-120 (10 official Korean card illustrations checked)"
+        "canonical 111-120 (10 official Korean card illustrations checked)",
+        "canonical 121-130 (3 Korean originals reviewed, 7 image evidence holds)"
       ],
-      "newlyAddedThemeSlotCount": 228,
+      "newlyAddedThemeSlotCount": 233,
       "newlyAddedCards": [
         "SVM_001",
         "SVM_002",
@@ -54553,11 +54554,21 @@
         "SVM_117",
         "SVM_118",
         "SVM_119",
-        "SVM_120"
+        "SVM_120",
+        "SVM_121",
+        "SVM_124",
+        "SVM_125"
       ],
       "existingSkippedCards": [],
       "heldCards": [
-        "SVM_079"
+        "SVM_079",
+        "SVM_122",
+        "SVM_123",
+        "SVM_126",
+        "SVM_127",
+        "SVM_128",
+        "SVM_129",
+        "SVM_130"
       ],
       "batches": [
         {
@@ -58142,6 +58153,189 @@
               "cloudflareDeployVerified": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 121-130",
+          "status": "partial_3_official_Korean_artworks_verified_7_evidence_held",
+          "checkedCardCount": 3,
+          "heldCardCount": 7,
+          "artworkAudit": "data/audits/theme-svm-121-130-art-review.json",
+          "themeAdditions": {
+            "street": 1,
+            "color": 2,
+            "season": 1,
+            "sunset": 1
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_121",
+              "canonicalOrder": 121,
+              "canonicalMasterCode": "svm_121/175",
+              "koreanNumber": "121/175",
+              "koreanName": "맛보돈",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "street",
+                "color"
+              ],
+              "themesAdded": [
+                "street",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018121",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_121.png?w=512",
+              "illustrationSourceNote": "밝은 푸른 하늘과 높은 석조 탑, 성곽형 건물이 있는 큰 도시 광장을 뛰어가는 맛보돈.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_124",
+              "canonicalOrder": 124,
+              "canonicalMasterCode": "svm_124/175",
+              "koreanNumber": "124/175",
+              "koreanName": "모토마",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018124",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_124.png?w=512",
+              "illustrationSourceNote": "황금빛 햇살과 주황 잎이 가득한 야외 수풀, 하얀 꽃 사이에 서 있는 모토마.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_125",
+              "canonicalOrder": 125,
+              "canonicalMasterCode": "svm_125/175",
+              "koreanNumber": "125/175",
+              "koreanName": "네스트볼",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [],
+              "themesAdded": [],
+              "alreadyExisted": [],
+              "noApplicableTheme": true,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018125",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_125.png?w=512",
+              "illustrationSourceNote": "푸른 방사형 빛을 배경으로 녹색·노랑·흰색 네스트볼이 떠 있는 아이템 카드 원본. 12개 장면 테마에 해당하지 않음.",
+              "sourceRegion": "KR",
+              "artworkReviewed": true,
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ],
+          "heldCards": [
+            {
+              "code": "SVM_122",
+              "canonicalOrder": 122,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018122",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_122.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_123",
+              "canonicalOrder": 123,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018123",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_123.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_126",
+              "canonicalOrder": 126,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018126",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_126.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_127",
+              "canonicalOrder": 127,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018127",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_127.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_128",
+              "canonicalOrder": 128,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018128",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_128.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_129",
+              "canonicalOrder": 129,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018129",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_129.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            },
+            {
+              "code": "SVM_130",
+              "canonicalOrder": 130,
+              "evidenceStatus": "held_official_image_not_accessible",
+              "reason": "Official Korean watermarked image could not be opened for visual theme review. Do not use Japanese same-number image as Korean evidence; do not mark inspected.",
+              "sourceRegion": "KR",
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018130",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_130.png?w=512",
+              "artworkReviewed": false,
+              "archiveVerificationStatus": "pending"
+            }
+          ]
         }
       ],
       "nextStart": "SVM canonical 031"
@@ -58169,9 +58363,9 @@
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVM 119/183 Korean official artworks visually verified (079 held)",
-    "lastSafeCheckpoint": "SVM 001-120: 119 Korean artwork reviews complete, SVM 079 evidence held. SVLS 6 additional holds remain; new archive verification pending.",
-    "nextStart": "SVM canonical 121 (SVM 079 and SVLS six holds)",
+    "currentTaskScope": "SVM 122/183 Korean originals verified, 8 SVM evidence holds",
+    "lastSafeCheckpoint": "SVM 001-130: 122 artwork reviews complete, SVM 079 plus 122,123,126-130 evidence-held; SVLS six holds remain. Archive verification pending.",
+    "nextStart": "SVM canonical 131 (8 SVM artwork evidence holds, 6 SVLS holds)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -58470,9 +58664,9 @@
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "SVM",
-    "range": "canonical 111-120",
-    "reviewedCardCount": 10,
-    "artworkEvidenceHolds": 0,
+    "range": "canonical 121-130",
+    "reviewedCardCount": 3,
+    "artworkEvidenceHolds": 7,
     "archiveVerificationStatus": "pending",
     "checkedAt": "2026-10-12"
   }
