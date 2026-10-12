@@ -2114,8 +2114,8 @@
       "set": "SVHK",
       "range": "canonical-order 001-061 full set Korean membership inventory",
       "canonicalCardCount": 61,
-      "artworkVisuallyVerifiedCount": 0,
-      "artworkPendingCount": 61,
+      "artworkVisuallyVerifiedCount": 61,
+      "artworkPendingCount": 0,
       "externalImageReferenceCountBefore": 61,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -2125,7 +2125,10 @@
       "unverifiedImageCount": 61,
       "brokenReferenceCount": null,
       "nextStart": "SVI canonical 001",
-      "note": "53 numbered Korean prints plus 8 physically unnumbered energy types catalog-matched. Exact artworks pending, original external image URLs untouched; no binary downloaded or deployed."
+      "note": "53 numbered Korean prints + 8 unnumbered energy kinds. Official Korean image artworks 001-061 visually checked and all 12 themes adjudicated. Catalog URLs point to official Korean images; internal archive/deployment verification pending.",
+      "themeAdditions": {
+        "color": 61
+      }
     },
     {
       "task": 6,
@@ -2265,5 +2268,5 @@
       "note": "All 21 numbered Korean official watermarked artwork images visually inspected and classified across all 12 themes. No binary downloaded, self-hosted, decoded from archive or deployed; all external master image URLs remain in place. SVAL canonical 022-023 Korean unnumbered basic Energy images now directly inspected; no binaries self-hosted/deployed."
     }
   ],
-  "nextStart": "SVEL artwork evidence holds: SVEL_012, SVEL_014, SVEL_015, SVEL_018, SVEL_020, SVEL_021; after resolving these continue SVEM_013, SVEM_021, then SVG holds. Do not restart reviewed cards."
+  "nextStart": "SVHK official artwork review complete; archive verification pending, then SVI canonical 001."
 }

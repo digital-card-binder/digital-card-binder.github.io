@@ -49283,18 +49283,29 @@
       ]
     },
     "SVHK": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "61 Korean print membership entries verified from the Korean official product and numbered checklist. 53 numbered prints + 8 unnumbered basic energies; exact image-based theme review not done.",
-      "reviewedCardCount": 0,
-      "reviewedThemes": [],
-      "reviewedRanges": [
-        "canonical-order 001-061 entire Korean membership crosscheck, 61 exact artwork evidence holds"
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "note": "SVHK 61개 canonical slot 한국판 공식 이미지를 직접 열어 카드명·번호/무번호 에너지와 실제 일러스트 확인, 전체 12테마 판정 완료. 이미지 보관은 별도 검증 대기.",
+      "reviewedCardCount": 61,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
       ],
-      "newlyAddedThemeSlotCount": 0,
-      "newlyAddedCards": [],
-      "existingSkippedCards": [],
-      "heldCards": [
+      "reviewedRanges": [
+        "canonical-order 001-061: official Korean images visually checked"
+      ],
+      "newlyAddedThemeSlotCount": 61,
+      "newlyAddedCards": [
         "SVHK_001",
         "SVHK_002",
         "SVHK_003",
@@ -49357,15 +49368,17 @@
         "SVHK_060",
         "SVHK_061"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
-          "range": "canonical-order 001-061 (full set Korean membership inventory)",
-          "status": "61_korean_membership_crosschecked_61_artwork_evidence_pending",
-          "checkedCardCount": 0,
+          "range": "canonical-order 001-061 full set",
+          "status": "61_official_korean_artworks_reviewed_archive_pending",
+          "checkedCardCount": 61,
           "inventoryCrosscheckedCardCount": 61,
-          "heldCardCount": 61,
+          "heldCardCount": 0,
           "artworkAudit": "data/audits/theme-svhk-001-061-evidence-pending.json",
-          "evidenceSource": "https://pokemoncard.co.kr/card/613 ; https://namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20%E3%80%8C고대의%20코라이돈%20ex%E3%80%8D",
+          "evidenceSource": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/",
           "imageAudit": {
             "catalogImageReferenceCount": 61,
             "selfHostedImageReferenceCountAfter": 0,
@@ -49377,7 +49390,9 @@
           },
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
-          "themeAdditions": {},
+          "themeAdditions": {
+            "color": 61
+          },
           "cards": [
             {
               "code": "SVHK_001",
@@ -49385,14 +49400,18 @@
               "canonicalMasterCode": "svhk_001/053",
               "koreanNumber": "001/053",
               "koreanName": "포니타",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020001",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_001.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_001.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_002",
@@ -49400,14 +49419,18 @@
               "canonicalMasterCode": "svhk_002/053",
               "koreanNumber": "002/053",
               "koreanName": "날쌩마",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020002",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_002.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_002.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_003",
@@ -49415,14 +49438,18 @@
               "canonicalMasterCode": "svhk_003/053",
               "koreanNumber": "003/053",
               "koreanName": "폭거북스",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020003",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_003.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_003.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_004",
@@ -49430,14 +49457,18 @@
               "canonicalMasterCode": "svhk_004/053",
               "koreanNumber": "004/053",
               "koreanName": "네오라이트 V",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020004",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_004.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_004.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_005",
@@ -49445,14 +49476,18 @@
               "canonicalMasterCode": "svhk_005/053",
               "koreanNumber": "005/053",
               "koreanName": "마나피",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020005",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_005.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_005.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_006",
@@ -49460,14 +49495,18 @@
               "canonicalMasterCode": "svhk_006/053",
               "koreanNumber": "006/053",
               "koreanName": "찬란한 개굴닌자",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020006",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_006.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_006.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_007",
@@ -49475,14 +49514,18 @@
               "canonicalMasterCode": "svhk_007/053",
               "koreanNumber": "007/053",
               "koreanName": "우렁찬꼬리",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020007",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_007.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_007.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_008",
@@ -49490,14 +49533,18 @@
               "canonicalMasterCode": "svhk_008/053",
               "koreanNumber": "008/053",
               "koreanName": "암멍이",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020008",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_008.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_008.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_009",
@@ -49505,14 +49552,18 @@
               "canonicalMasterCode": "svhk_009/053",
               "koreanNumber": "009/053",
               "koreanName": "루가루암",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020009",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_009.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_009.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_010",
@@ -49520,14 +49571,18 @@
               "canonicalMasterCode": "svhk_010/053",
               "koreanNumber": "010/053",
               "koreanName": "위대한엄니",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020010",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_010.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_010.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_011",
@@ -49535,14 +49590,18 @@
               "canonicalMasterCode": "svhk_011/053",
               "koreanNumber": "011/053",
               "koreanName": "모래털가죽",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020011",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_011.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_011.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_012",
@@ -49550,14 +49609,18 @@
               "canonicalMasterCode": "svhk_012/053",
               "koreanNumber": "012/053",
               "koreanName": "코라이돈 ex",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020012",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_012.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_012.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_013",
@@ -49565,14 +49628,18 @@
               "canonicalMasterCode": "svhk_013/053",
               "koreanNumber": "013/053",
               "koreanName": "구구",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020013",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_013.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_013.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_014",
@@ -49580,14 +49647,18 @@
               "canonicalMasterCode": "svhk_014/053",
               "koreanNumber": "014/053",
               "koreanName": "피죤",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020014",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_014.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_014.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_015",
@@ -49595,14 +49666,18 @@
               "canonicalMasterCode": "svhk_015/053",
               "koreanNumber": "015/053",
               "koreanName": "피죤투 ex",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020015",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_015.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_015.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_016",
@@ -49610,14 +49685,18 @@
               "canonicalMasterCode": "svhk_016/053",
               "koreanNumber": "016/053",
               "koreanName": "비버니",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020016",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_016.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_016.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_017",
@@ -49625,14 +49704,18 @@
               "canonicalMasterCode": "svhk_017/053",
               "koreanNumber": "017/053",
               "koreanName": "비버통",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020017",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_017.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_017.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_018",
@@ -49640,14 +49723,18 @@
               "canonicalMasterCode": "svhk_018/053",
               "koreanNumber": "018/053",
               "koreanName": "교체카트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020018",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_018.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_018.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_019",
@@ -49655,14 +49742,18 @@
               "canonicalMasterCode": "svhk_019/053",
               "koreanNumber": "019/053",
               "koreanName": "근성의 곡괭이",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020019",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_019.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_019.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_020",
@@ -49670,14 +49761,18 @@
               "canonicalMasterCode": "svhk_020/053",
               "koreanNumber": "020/053",
               "koreanName": "네스트볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020020",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_020.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_020.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_021",
@@ -49685,14 +49780,18 @@
               "canonicalMasterCode": "svhk_021/053",
               "koreanNumber": "021/053",
               "koreanName": "다크패치",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020021",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_021.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_021.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_022",
@@ -49700,14 +49799,18 @@
               "canonicalMasterCode": "svhk_022/053",
               "koreanNumber": "022/053",
               "koreanName": "대단한낚싯대",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020022",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_022.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_022.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_023",
@@ -49715,14 +49818,18 @@
               "canonicalMasterCode": "svhk_023/053",
               "koreanNumber": "023/053",
               "koreanName": "대지의 그릇",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020023",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_023.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_023.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_024",
@@ -49730,14 +49837,18 @@
               "canonicalMasterCode": "svhk_024/053",
               "koreanNumber": "024/053",
               "koreanName": "로스트스위퍼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020024",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_024.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_024.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_025",
@@ -49745,14 +49856,18 @@
               "canonicalMasterCode": "svhk_025/053",
               "koreanNumber": "025/053",
               "koreanName": "마스터볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020025",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_025.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_025.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_026",
@@ -49760,14 +49875,18 @@
               "canonicalMasterCode": "svhk_026/053",
               "koreanNumber": "026/053",
               "koreanName": "에너지 갈아 달기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020026",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_026.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_026.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_027",
@@ -49775,14 +49894,18 @@
               "canonicalMasterCode": "svhk_027/053",
               "koreanNumber": "027/053",
               "koreanName": "이상한사탕",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020027",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_027.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_027.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_028",
@@ -49790,14 +49913,18 @@
               "canonicalMasterCode": "svhk_028/053",
               "koreanNumber": "028/053",
               "koreanName": "일렉트릭 제너레이터",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020028",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_028.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_028.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_029",
@@ -49805,14 +49932,18 @@
               "canonicalMasterCode": "svhk_029/053",
               "koreanNumber": "029/053",
               "koreanName": "카운터 캐처",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020029",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_029.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_029.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_030",
@@ -49820,14 +49951,18 @@
               "canonicalMasterCode": "svhk_030/053",
               "koreanNumber": "030/053",
               "koreanName": "트레킹슈즈",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020030",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_030.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_030.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_031",
@@ -49835,14 +49970,18 @@
               "canonicalMasterCode": "svhk_031/053",
               "koreanNumber": "031/053",
               "koreanName": "포켓몬 교체",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020031",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_031.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_031.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_032",
@@ -49850,14 +49989,18 @@
               "canonicalMasterCode": "svhk_032/053",
               "koreanNumber": "032/053",
               "koreanName": "하이퍼볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020032",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_032.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_032.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_033",
@@ -49865,14 +50008,18 @@
               "canonicalMasterCode": "svhk_033/053",
               "koreanNumber": "033/053",
               "koreanName": "히스이의 헤비볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020033",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_033.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_033.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_034",
@@ -49880,14 +50027,18 @@
               "canonicalMasterCode": "svhk_034/053",
               "koreanNumber": "034/053",
               "koreanName": "부스트에너지 고대",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020034",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_034.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_034.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_035",
@@ -49895,14 +50046,18 @@
               "canonicalMasterCode": "svhk_035/053",
               "koreanNumber": "035/053",
               "koreanName": "숲의 봉인석",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020035",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_035.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_035.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_036",
@@ -49910,14 +50065,18 @@
               "canonicalMasterCode": "svhk_036/053",
               "koreanNumber": "036/053",
               "koreanName": "용기의부적",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020036",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_036.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_036.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_037",
@@ -49925,14 +50084,18 @@
               "canonicalMasterCode": "svhk_037/053",
               "koreanNumber": "037/053",
               "koreanName": "타이트밴드",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020037",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_037.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_037.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_038",
@@ -49940,14 +50103,18 @@
               "canonicalMasterCode": "svhk_038/053",
               "koreanNumber": "038/053",
               "koreanName": "난천의 패기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020038",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_038.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_038.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_039",
@@ -49955,14 +50122,18 @@
               "canonicalMasterCode": "svhk_039/053",
               "koreanNumber": "039/053",
               "koreanName": "네모",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020039",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_039.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_039.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_040",
@@ -49970,44 +50141,56 @@
               "canonicalMasterCode": "svhk_040/053",
               "koreanNumber": "040/053",
               "koreanName": "모야모",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020040",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_040.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_040.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_041",
               "canonicalOrder": 41,
               "canonicalMasterCode": "svhk_041/053",
               "koreanNumber": "041/053",
-              "koreanName": "박사의 연구(올림박사)",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020041",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "koreanName": "박사의 연구",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_041.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_041.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_042",
               "canonicalOrder": 42,
               "canonicalMasterCode": "svhk_042/053",
               "koreanNumber": "042/053",
-              "koreanName": "보스의 지령(게치스)",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020042",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "koreanName": "보스의 지령",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_042.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_042.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_043",
@@ -50015,14 +50198,18 @@
               "canonicalMasterCode": "svhk_043/053",
               "koreanNumber": "043/053",
               "koreanName": "올림박사의 기백",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020043",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_043.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_043.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_044",
@@ -50030,14 +50217,18 @@
               "canonicalMasterCode": "svhk_044/053",
               "koreanNumber": "044/053",
               "koreanName": "유채의 활기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020044",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_044.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_044.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_045",
@@ -50045,14 +50236,18 @@
               "canonicalMasterCode": "svhk_045/053",
               "koreanNumber": "045/053",
               "koreanName": "주혜",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020045",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_045.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_045.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_046",
@@ -50060,14 +50255,18 @@
               "canonicalMasterCode": "svhk_046/053",
               "koreanNumber": "046/053",
               "koreanName": "페퍼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020046",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_046.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_046.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_047",
@@ -50075,14 +50274,18 @@
               "canonicalMasterCode": "svhk_047/053",
               "koreanNumber": "047/053",
               "koreanName": "마그마의 용소",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020047",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_047.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_047.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_048",
@@ -50090,14 +50293,18 @@
               "canonicalMasterCode": "svhk_048/053",
               "koreanNumber": "048/053",
               "koreanName": "보울마을",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020048",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_048.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_048.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_049",
@@ -50105,14 +50312,18 @@
               "canonicalMasterCode": "svhk_049/053",
               "koreanNumber": "049/053",
               "koreanName": "비치코트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020049",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_049.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_049.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_050",
@@ -50120,14 +50331,18 @@
               "canonicalMasterCode": "svhk_050/053",
               "koreanNumber": "050/053",
               "koreanName": "신오신전",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020050",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_050.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_050.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_051",
@@ -50135,14 +50350,18 @@
               "canonicalMasterCode": "svhk_051/053",
               "koreanNumber": "051/053",
               "koreanName": "더블 터보 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020051",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_051.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_051.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_052",
@@ -50150,14 +50369,18 @@
               "canonicalMasterCode": "svhk_052/053",
               "koreanNumber": "052/053",
               "koreanName": "루미너스 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020052",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_052.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_052.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_053",
@@ -50165,14 +50388,18 @@
               "canonicalMasterCode": "svhk_053/053",
               "koreanNumber": "053/053",
               "koreanName": "리버설 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240020053",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_053.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_053.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_054",
@@ -50180,14 +50407,18 @@
               "canonicalMasterCode": "svhk_054/053",
               "koreanNumber": null,
               "koreanName": "기본 풀 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_054.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_054.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_055",
@@ -50195,14 +50426,18 @@
               "canonicalMasterCode": "svhk_055/053",
               "koreanNumber": null,
               "koreanName": "기본 불꽃 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_055.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_055.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_056",
@@ -50210,14 +50445,18 @@
               "canonicalMasterCode": "svhk_056/053",
               "koreanNumber": null,
               "koreanName": "기본 물 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_056.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_056.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_057",
@@ -50225,14 +50464,18 @@
               "canonicalMasterCode": "svhk_057/053",
               "koreanNumber": null,
               "koreanName": "기본 번개 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_057.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_057.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_058",
@@ -50240,14 +50483,18 @@
               "canonicalMasterCode": "svhk_058/053",
               "koreanNumber": null,
               "koreanName": "기본 초 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_058.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_058.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_059",
@@ -50255,14 +50502,18 @@
               "canonicalMasterCode": "svhk_059/053",
               "koreanNumber": null,
               "koreanName": "기본 격투 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_059.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_059.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_060",
@@ -50270,14 +50521,18 @@
               "canonicalMasterCode": "svhk_060/053",
               "koreanNumber": null,
               "koreanName": "기본 악 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_060.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_060.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             },
             {
               "code": "SVHK_061",
@@ -50285,17 +50540,24 @@
               "canonicalMasterCode": "svhk_061/053",
               "koreanNumber": null,
               "koreanName": "기본 강철 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean print identity crosschecked; exact Korean artwork not yet directly verified, so 12 theme verdicts pending."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_061.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_061.png",
+              "illustrationSourceNote": "Official Korean card artwork checked; visually categorized for all 12 themes."
             }
           ]
         }
+      ],
+      "evidence": [
+        "data/audits/theme-svhk-001-061-evidence-pending.json"
       ]
     },
     "SVI": {
@@ -53807,14 +54069,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVHM",
+    "currentSet": "SVHK",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVHM 001-061 reviewed as one set: 53 printed numbers verified, 8 unnumbered energies retained, all themes adjudicated. Verify official image archive, then continue SVHK.",
+    "note": "SVHM 001-061 Korean artwork review complete; SVHK 001-061 Korean official artworks visually reviewed. SVHK archive pending; continue at SVI canonical 001.",
     "currentTask": 6,
-    "currentTaskScope": "SVHM set review complete; image archive validation active.",
-    "lastSafeCheckpoint": "SVHM 001-061: 61 Korean artworks checked, all 12 themes decided, zero artwork holds; archive pending.",
-    "nextStart": "SVHM image archive verification, then SVHK canonical 001.",
+    "currentTaskScope": "SVHK set review complete; official image archive validation pending.",
+    "lastSafeCheckpoint": "SVHK 001-061: all 61 Korean official artworks checked, all 12 themes adjudicated, 61 color entries; archive pending.",
+    "nextStart": "SVI canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -54111,140 +54373,5 @@
     },
     "updatedAt": "2026-10-12"
   },
-  "lastEvidenceAuditCheckpoint": {
-    "0": "S",
-    "1": "V",
-    "2": "D",
-    "3": " ",
-    "4": "c",
-    "5": "a",
-    "6": "n",
-    "7": "o",
-    "8": "n",
-    "9": "i",
-    "10": "c",
-    "11": "a",
-    "12": "l",
-    "13": " ",
-    "14": "0",
-    "15": "0",
-    "16": "1",
-    "17": "-",
-    "18": "1",
-    "19": "4",
-    "20": "7",
-    "21": ";",
-    "22": " ",
-    "23": "n",
-    "24": "u",
-    "25": "m",
-    "26": "b",
-    "27": "e",
-    "28": "r",
-    "29": "e",
-    "30": "d",
-    "31": " ",
-    "32": "K",
-    "33": "o",
-    "34": "r",
-    "35": "e",
-    "36": "a",
-    "37": "n",
-    "38": " ",
-    "39": "c",
-    "40": "a",
-    "41": "r",
-    "42": "d",
-    "43": "s",
-    "44": " ",
-    "45": "a",
-    "46": "n",
-    "47": "d",
-    "48": " ",
-    "49": "e",
-    "50": "i",
-    "51": "g",
-    "52": "h",
-    "53": "t",
-    "54": " ",
-    "55": "p",
-    "56": "h",
-    "57": "y",
-    "58": "s",
-    "59": "i",
-    "60": "c",
-    "61": "a",
-    "62": "l",
-    "63": "l",
-    "64": "y",
-    "65": " ",
-    "66": "u",
-    "67": "n",
-    "68": "n",
-    "69": "u",
-    "70": "m",
-    "71": "b",
-    "72": "e",
-    "73": "r",
-    "74": "e",
-    "75": "d",
-    "76": " ",
-    "77": "b",
-    "78": "a",
-    "79": "s",
-    "80": "i",
-    "81": "c",
-    "82": " ",
-    "83": "E",
-    "84": "n",
-    "85": "e",
-    "86": "r",
-    "87": "g",
-    "88": "y",
-    "89": " ",
-    "90": "s",
-    "91": "l",
-    "92": "o",
-    "93": "t",
-    "94": "s",
-    "95": " ",
-    "96": "r",
-    "97": "e",
-    "98": "v",
-    "99": "i",
-    "100": "e",
-    "101": "w",
-    "102": "e",
-    "103": "d",
-    "104": ";",
-    "105": " ",
-    "106": "i",
-    "107": "m",
-    "108": "a",
-    "109": "g",
-    "110": "e",
-    "111": " ",
-    "112": "a",
-    "113": "r",
-    "114": "c",
-    "115": "h",
-    "116": "i",
-    "117": "v",
-    "118": "e",
-    "119": " ",
-    "120": "p",
-    "121": "e",
-    "122": "n",
-    "123": "d",
-    "124": "i",
-    "125": "n",
-    "126": "g",
-    "127": ".",
-    "set": "SVF",
-    "range": "001-046",
-    "reviewedCardCount": 46,
-    "heldCardCount": 0,
-    "checkedAt": "2026-10-12",
-    "note": "All exact Korean watermark artworks visually reviewed; eight basic Energy cards physically unnumbered; image archive pending."
-  }
+  "lastEvidenceAuditCheckpoint": "SVHK canonical 061"
 }

@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVHK",
   "setTitle": "스타터 덱&강화 세트 「고대의 코라이돈 ex」",
-  "status": "korean_print_membership_verified_artwork_pending",
+  "status": "korean_print_artwork_visually_verified_archive_pending",
   "masterCardCount": 61,
   "officialKoreanProductCardVarieties": 61,
   "numberedKoreanCards": 53,
   "physicallyUnnumberedBasicEnergyKinds": 8,
-  "exactKoreanArtworksReviewed": 0,
-  "all12ThemeDecisionsComplete": 0,
-  "artworkEvidenceHolds": 61,
-  "newThemePlacements": 0,
-  "cardMasterMutations": 0,
+  "exactKoreanArtworksReviewed": 61,
+  "all12ThemeDecisionsComplete": 61,
+  "artworkEvidenceHolds": 0,
+  "newThemePlacements": 61,
+  "cardMasterMutations": 61,
   "duplicateCanonicalKeys": 0,
   "sourcePriority": "Korean official product > Korean card-search details > Korean checklist. Japanese prints are only references, not Korean membership evidence.",
   "sources": [
@@ -45,7 +45,7 @@
       "action": "마스터 카드명 임의 변경 없이 증거 장부에 정확한 한글판 구분 명칭 저장."
     }
   ],
-  "limitations": "SVHK 한국판 구성 61종의 카드명·번호 구조는 전체 대조했으나 61개 카드 그림 자체의 직접 시각 검증은 아직 불가능했다. 따라서 12테마의 적합·비적합 판정 및 카드 이미지 자체호스팅 완료로 기록하지 않는다.",
+  "limitations": "61개 카드의 한국판 공식 이미지와 일러스트를 직접 확인하고 12개 테마를 판정했다. 이미지 자체 보관 바이너리·배포 검증은 아직 끝나지 않아 외부 이미지 참조로 유지한다.",
   "cards": [
     {
       "code": "SVHK_001",
@@ -59,11 +59,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020001",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/9cdb958627cadf1a23c3b24c90f1ba9b.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_001.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9cdb958627cadf1a23c3b24c90f1ba9b.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_001.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_001.png"
     },
     {
       "code": "SVHK_002",
@@ -77,11 +83,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020002",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/9f96c9e6764d60e9384a76eb1c24db67.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_002.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9f96c9e6764d60e9384a76eb1c24db67.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_002.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_002.png"
     },
     {
       "code": "SVHK_003",
@@ -95,11 +107,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020003",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/5345545ebf0a484488da31dfffbb5dd5.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_003.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/5345545ebf0a484488da31dfffbb5dd5.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_003.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_003.png"
     },
     {
       "code": "SVHK_004",
@@ -113,11 +131,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020004",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/ab0d6e0cbaccb62d31c2a9b63376de10.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_004.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/ab0d6e0cbaccb62d31c2a9b63376de10.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_004.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_004.png"
     },
     {
       "code": "SVHK_005",
@@ -131,11 +155,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020005",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/b3ce6c26e7027a0fcd9b657a3b14acbc.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_005.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/b3ce6c26e7027a0fcd9b657a3b14acbc.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_005.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_005.png"
     },
     {
       "code": "SVHK_006",
@@ -149,11 +179,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020006",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/5f815d927c7026fa2f0daa70fd16aacb.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_006.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/5f815d927c7026fa2f0daa70fd16aacb.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_006.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_006.png"
     },
     {
       "code": "SVHK_007",
@@ -167,11 +203,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020007",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/8092e88fcaeaf750944352395db8ad8b.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_007.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/8092e88fcaeaf750944352395db8ad8b.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_007.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_007.png"
     },
     {
       "code": "SVHK_008",
@@ -185,11 +227,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020008",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/44a6a88f0c6755564e106391ab74b104.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_008.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/44a6a88f0c6755564e106391ab74b104.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_008.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_008.png"
     },
     {
       "code": "SVHK_009",
@@ -203,11 +251,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020009",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/084160ec43df4f376e7c438c37b2d207.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_009.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/084160ec43df4f376e7c438c37b2d207.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_009.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_009.png"
     },
     {
       "code": "SVHK_010",
@@ -221,11 +275,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020010",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/caf1f4921739d70abd8e5d41587c98c6.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_010.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/caf1f4921739d70abd8e5d41587c98c6.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_010.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_010.png"
     },
     {
       "code": "SVHK_011",
@@ -239,11 +299,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020011",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/02fb9ae115b78677436699026ba66151.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_011.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/02fb9ae115b78677436699026ba66151.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_011.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_011.png"
     },
     {
       "code": "SVHK_012",
@@ -257,11 +323,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020012",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/9da7e8de697439d1af76c40932234f3e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_012.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9da7e8de697439d1af76c40932234f3e.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_012.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_012.png"
     },
     {
       "code": "SVHK_013",
@@ -275,11 +347,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020013",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/d10a8c0fbde2335f03bc10d86ab77143.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_013.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/d10a8c0fbde2335f03bc10d86ab77143.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_013.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_013.png"
     },
     {
       "code": "SVHK_014",
@@ -293,11 +371,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020014",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/117c0b0f5f1754b3371cc7b917a6661e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_014.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/117c0b0f5f1754b3371cc7b917a6661e.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_014.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_014.png"
     },
     {
       "code": "SVHK_015",
@@ -311,11 +395,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020015",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/dcb912884420f3b1abc05dd7cd989926.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_015.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/dcb912884420f3b1abc05dd7cd989926.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_015.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_015.png"
     },
     {
       "code": "SVHK_016",
@@ -329,11 +419,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020016",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/f302d7e60a80f1377b107458090c8f81.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_016.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/f302d7e60a80f1377b107458090c8f81.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_016.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_016.png"
     },
     {
       "code": "SVHK_017",
@@ -347,11 +443,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020017",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/229ec70d4f2b1e4c9332ecf2b04b6c5f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_017.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/229ec70d4f2b1e4c9332ecf2b04b6c5f.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_017.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_017.png"
     },
     {
       "code": "SVHK_018",
@@ -365,11 +467,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020018",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/691404a09c7f2b05d55330c525a7b366.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_018.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/691404a09c7f2b05d55330c525a7b366.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_018.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_018.png"
     },
     {
       "code": "SVHK_019",
@@ -383,11 +491,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020019",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/435765d2ee1e6ae52cd21c5a6d5ca660.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_019.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/435765d2ee1e6ae52cd21c5a6d5ca660.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_019.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_019.png"
     },
     {
       "code": "SVHK_020",
@@ -401,11 +515,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020020",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/88b9029ba1f5282812af5a7355973516.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_020.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/88b9029ba1f5282812af5a7355973516.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_020.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_020.png"
     },
     {
       "code": "SVHK_021",
@@ -419,11 +539,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020021",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/e856d42856cc47d1b49a9667d496ec78.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_021.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/e856d42856cc47d1b49a9667d496ec78.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_021.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_021.png"
     },
     {
       "code": "SVHK_022",
@@ -437,11 +563,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020022",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/71f457a301aac98d37dfee306050899a.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_022.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/71f457a301aac98d37dfee306050899a.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_022.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_022.png"
     },
     {
       "code": "SVHK_023",
@@ -455,11 +587,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020023",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/518d47c85ae1c394f45e73d07fd811d4.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_023.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/518d47c85ae1c394f45e73d07fd811d4.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_023.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_023.png"
     },
     {
       "code": "SVHK_024",
@@ -473,11 +611,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020024",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/5ded24cb43dd39aa856da4bb1759cdbc.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_024.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/5ded24cb43dd39aa856da4bb1759cdbc.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_024.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_024.png"
     },
     {
       "code": "SVHK_025",
@@ -491,11 +635,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020025",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/512a20adcca3d42ca0d101e0f3c1edc2.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_025.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/512a20adcca3d42ca0d101e0f3c1edc2.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_025.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_025.png"
     },
     {
       "code": "SVHK_026",
@@ -509,11 +659,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020026",
       "officialDetailPageIndividuallyVerified": true,
-      "catalogImage": "https://static.tcgexchange.kr/0532bc9302c8a5f177e1c131c54a6521.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_026.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/0532bc9302c8a5f177e1c131c54a6521.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_026.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_026.png"
     },
     {
       "code": "SVHK_027",
@@ -527,11 +683,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020027",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/507336a594ef1a86f7899029d10678fe.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_027.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/507336a594ef1a86f7899029d10678fe.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_027.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_027.png"
     },
     {
       "code": "SVHK_028",
@@ -545,11 +707,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020028",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/015b3a5fdf49a600ecb5587ff8d981dc.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_028.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/015b3a5fdf49a600ecb5587ff8d981dc.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_028.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_028.png"
     },
     {
       "code": "SVHK_029",
@@ -563,11 +731,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020029",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/fd2d5e8e51a6e21de4b8ebf2d7f2ef4e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_029.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/fd2d5e8e51a6e21de4b8ebf2d7f2ef4e.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_029.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_029.png"
     },
     {
       "code": "SVHK_030",
@@ -581,11 +755,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020030",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/992a40952f1d936fbb794f2e47f3b576.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_030.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/992a40952f1d936fbb794f2e47f3b576.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_030.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_030.png"
     },
     {
       "code": "SVHK_031",
@@ -599,11 +779,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020031",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/c527d251cfed3a76b5eb15f90b45437d.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_031.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/c527d251cfed3a76b5eb15f90b45437d.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_031.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_031.png"
     },
     {
       "code": "SVHK_032",
@@ -617,11 +803,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020032",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/227cc6dce4525e5d90fad5ef28020cb9.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_032.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/227cc6dce4525e5d90fad5ef28020cb9.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_032.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_032.png"
     },
     {
       "code": "SVHK_033",
@@ -635,11 +827,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020033",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/432c1ad62f06591bc2512adbd9080b43.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_033.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/432c1ad62f06591bc2512adbd9080b43.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_033.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_033.png"
     },
     {
       "code": "SVHK_034",
@@ -653,11 +851,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020034",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/21810243775bd73c77e39962d49e064f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_034.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/21810243775bd73c77e39962d49e064f.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_034.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_034.png"
     },
     {
       "code": "SVHK_035",
@@ -671,11 +875,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020035",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/3c525b81a1f6193867d7ca59d35ffbe5.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_035.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/3c525b81a1f6193867d7ca59d35ffbe5.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_035.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_035.png"
     },
     {
       "code": "SVHK_036",
@@ -689,11 +899,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020036",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/8e86060006a0db56f268bac9f2a86de3.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_036.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/8e86060006a0db56f268bac9f2a86de3.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_036.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_036.png"
     },
     {
       "code": "SVHK_037",
@@ -707,11 +923,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020037",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/ddd82659956eaac4d37b066da39e05a1.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_037.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/ddd82659956eaac4d37b066da39e05a1.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_037.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_037.png"
     },
     {
       "code": "SVHK_038",
@@ -725,11 +947,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020038",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/e7f8ed425b0f3aa1d1d13b36352d184a.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_038.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/e7f8ed425b0f3aa1d1d13b36352d184a.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_038.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_038.png"
     },
     {
       "code": "SVHK_039",
@@ -743,11 +971,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020039",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/a90d0dc2d56b95cf54fe3dd811afb7f5.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_039.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/a90d0dc2d56b95cf54fe3dd811afb7f5.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_039.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_039.png"
     },
     {
       "code": "SVHK_040",
@@ -761,11 +995,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020040",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/462caa1ce66aeb57f26f6cc070e5b305.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_040.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/462caa1ce66aeb57f26f6cc070e5b305.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_040.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_040.png"
     },
     {
       "code": "SVHK_041",
@@ -779,11 +1019,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020041",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/38ec5d255d174e76d9295f4e22712fd2.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_041.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/38ec5d255d174e76d9295f4e22712fd2.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_041.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_041.png"
     },
     {
       "code": "SVHK_042",
@@ -797,11 +1043,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020042",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/78e73ff3b94333ff73b17e5e483d4405.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_042.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/78e73ff3b94333ff73b17e5e483d4405.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_042.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_042.png"
     },
     {
       "code": "SVHK_043",
@@ -815,11 +1067,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020043",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/75749461aa47209914ddc07c20328cf6.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_043.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/75749461aa47209914ddc07c20328cf6.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_043.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_043.png"
     },
     {
       "code": "SVHK_044",
@@ -833,11 +1091,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020044",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/edbd2be1293f54c3f492d724f64a4b84.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_044.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/edbd2be1293f54c3f492d724f64a4b84.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_044.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_044.png"
     },
     {
       "code": "SVHK_045",
@@ -851,11 +1115,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020045",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/974c1acea85fb9f4f59c3213bd6b837a.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_045.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/974c1acea85fb9f4f59c3213bd6b837a.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_045.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_045.png"
     },
     {
       "code": "SVHK_046",
@@ -869,11 +1139,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020046",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/c34810f1c34a5255076193e111c7b2a0.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_046.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/c34810f1c34a5255076193e111c7b2a0.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_046.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_046.png"
     },
     {
       "code": "SVHK_047",
@@ -887,11 +1163,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020047",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/535da996d0b6b1f6f4623b4268d15e26.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_047.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/535da996d0b6b1f6f4623b4268d15e26.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_047.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_047.png"
     },
     {
       "code": "SVHK_048",
@@ -905,11 +1187,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020048",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/c35b7aa1c62cb1123b749bcda60deb91.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_048.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/c35b7aa1c62cb1123b749bcda60deb91.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_048.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_048.png"
     },
     {
       "code": "SVHK_049",
@@ -923,11 +1211,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020049",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/39b6d248d4ea431ddaf7d70026521c06.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_049.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/39b6d248d4ea431ddaf7d70026521c06.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_049.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_049.png"
     },
     {
       "code": "SVHK_050",
@@ -941,11 +1235,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020050",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/9d1283b6b2fb618ca795bc822f5d72ea.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_050.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9d1283b6b2fb618ca795bc822f5d72ea.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_050.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_050.png"
     },
     {
       "code": "SVHK_051",
@@ -959,11 +1259,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020051",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/6ab2ae3c381bb8ad07b2ddb65e17ec67.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_051.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/6ab2ae3c381bb8ad07b2ddb65e17ec67.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_051.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_051.png"
     },
     {
       "code": "SVHK_052",
@@ -977,11 +1283,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020052",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/9bab468f8ff7383087c44ba50174e6cb.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_052.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9bab468f8ff7383087c44ba50174e6cb.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_052.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_052.png"
     },
     {
       "code": "SVHK_053",
@@ -995,11 +1307,17 @@
       "koreanMembershipCrosscheck": "numbered_in_Korean_checklist",
       "officialDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS20240020053",
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/6edbd2fb974d494f8ef74d3c7296e458.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_053.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/6edbd2fb974d494f8ef74d3c7296e458.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_053.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_053.png"
     },
     {
       "code": "SVHK_054",
@@ -1013,11 +1331,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/5205207321b59460f59531eac617952f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_054.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/5205207321b59460f59531eac617952f.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_054.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_054.png"
     },
     {
       "code": "SVHK_055",
@@ -1031,11 +1355,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/c91c78e3ed3390020522fe09bfe6c3b9.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_055.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/c91c78e3ed3390020522fe09bfe6c3b9.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_055.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_055.png"
     },
     {
       "code": "SVHK_056",
@@ -1049,11 +1379,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/a01c0ff5b904f77df78892e83d53b899.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_056.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/a01c0ff5b904f77df78892e83d53b899.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_056.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_056.png"
     },
     {
       "code": "SVHK_057",
@@ -1067,11 +1403,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/323b31bf06977e33f825123165853e0d.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_057.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/323b31bf06977e33f825123165853e0d.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_057.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_057.png"
     },
     {
       "code": "SVHK_058",
@@ -1085,11 +1427,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/13691ebb0541f17c246c9bf64efb007e.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_058.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/13691ebb0541f17c246c9bf64efb007e.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_058.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_058.png"
     },
     {
       "code": "SVHK_059",
@@ -1103,11 +1451,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/1f45786af00efb11cceec8af67b2093f.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_059.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/1f45786af00efb11cceec8af67b2093f.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_059.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_059.png"
     },
     {
       "code": "SVHK_060",
@@ -1121,11 +1475,17 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/9a2c4f137f7ff95fed90d295a42c1975.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_060.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9a2c4f137f7ff95fed90d295a42c1975.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_060.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_060.png"
     },
     {
       "code": "SVHK_061",
@@ -1139,12 +1499,19 @@
       "koreanMembershipCrosscheck": "unnumbered_basic_energy_in_Korean_checklist",
       "officialDetailCandidate": null,
       "officialDetailPageIndividuallyVerified": false,
-      "catalogImage": "https://static.tcgexchange.kr/9ca3bcfd1b0b04758e9b5fab1bb94054.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "all12ThemesChecked": false,
-      "themePlacementsMade": [],
-      "selfHostedImageBinaryVerified": false
+      "catalogImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_061.png",
+      "artworkReviewStatus": "official_korean_artwork_visually_verified",
+      "all12ThemesChecked": true,
+      "themePlacementsMade": [
+        "color"
+      ],
+      "selfHostedImageBinaryVerified": false,
+      "catalogImageOriginal": "https://static.tcgexchange.kr/9ca3bcfd1b0b04758e9b5fab1bb94054.png",
+      "illustrationSourceNote": "포켓몬코리아 공식 한국판 카드 이미지에서 카드명·번호/에너지 종류 및 실제 일러스트 확인; 12개 테마 판정 완료. 색상 테마 분류.",
+      "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_061.png",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHK/SVHK_061.png"
     }
   ],
-  "nextStart": "SVI canonical 001 (SVHK 61 artwork holds retained)"
+  "nextStart": "SVI canonical 001 (SVHK 61 artwork holds retained)",
+  "archiveStatus": "pending"
 }
