@@ -54401,6 +54401,330 @@
         }
       ],
       "nextStart": "SVLS 6 evidence holds; SVM canonical 001 (independent)"
+    },
+    "SVM": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-12",
+      "note": "SVM canonical 001-010 한국판 공식 10개 카드 이미지를 직접 확인하고 12테마 판정 완료. 기존 sleeping SVM_004 유지, season 001-009/color 001-010 신규 분류. 011-183은 미검수, 신규 이미지 아카이브 검증 0.",
+      "reviewedCardCount": 10,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "canonical 001-010 (한국판 상세 번호와 워터마크 원본 일러스트 10장 직접 확인)"
+      ],
+      "newlyAddedThemeSlotCount": 19,
+      "newlyAddedCards": [
+        "SVM_001",
+        "SVM_002",
+        "SVM_003",
+        "SVM_004",
+        "SVM_005",
+        "SVM_006",
+        "SVM_007",
+        "SVM_008",
+        "SVM_009",
+        "SVM_010"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [],
+      "batches": [
+        {
+          "range": "canonical-order 001-010",
+          "status": "in_progress_10_official_Korean_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "artworkAudit": "data/audits/theme-svm-001-010-art-review.json",
+          "themeAdditions": {
+            "season": 9,
+            "color": 10
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_001",
+              "canonicalOrder": 1,
+              "canonicalMasterCode": "svm_001/175",
+              "koreanNumber": "001/175",
+              "koreanName": "뚜벅쵸",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018001",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_001.png?w=512",
+              "illustrationSourceNote": "화분에 앉은 뚜벅쵸와 노란 야생화가 핀 맑은 정원, 녹색 잎과 흙색 나무 줄기.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_002",
+              "canonicalOrder": 2,
+              "canonicalMasterCode": "svm_002/175",
+              "koreanNumber": "002/175",
+              "koreanName": "냄새꼬",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018002",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_002.png?w=512",
+              "illustrationSourceNote": "주황색 꽃잎을 드리운 냄새꼬가 알록달록 꽃이 핀 나무 아래에 서 있는 밝은 정원 풍경.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_003",
+              "canonicalOrder": 3,
+              "canonicalMasterCode": "svm_003/175",
+              "koreanNumber": "003/175",
+              "koreanName": "라플레시아",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018003",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_003.png?w=512",
+              "illustrationSourceNote": "커다란 붉은 꽃 모양 갓의 라플레시아가 형형색색 꽃이 핀 정원에 앉은 모습.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_004",
+              "canonicalOrder": 4,
+              "canonicalMasterCode": "svm_004/175",
+              "koreanNumber": "004/175",
+              "koreanName": "아라리",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [
+                "sleeping"
+              ],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_004.png?w=512",
+              "illustrationSourceNote": "낮의 초록 풀밭과 흰 집 앞에서 눈을 감고 서로 기대어 쉬거나 잠든 아라리 무리.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_005",
+              "canonicalOrder": 5,
+              "canonicalMasterCode": "svm_005/175",
+              "koreanNumber": "005/175",
+              "koreanName": "나시",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018005",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_005.png?w=512",
+              "illustrationSourceNote": "작은 시내·연못과 열대 나무·수련잎이 무성한 초록 숲에서 움직이는 나시.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_006",
+              "canonicalOrder": 6,
+              "canonicalMasterCode": "svm_006/175",
+              "koreanNumber": "006/175",
+              "koreanName": "쁘사이저",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_006.png?w=512",
+              "illustrationSourceNote": "물과 들풀이 있는 푸른 사바나 초원, 넓게 퍼진 아카시아 모양 나무 앞의 쁘사이저.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_007",
+              "canonicalOrder": 7,
+              "canonicalMasterCode": "svm_007/175",
+              "koreanNumber": "007/175",
+              "koreanName": "치릴리",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018007",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_007.png?w=512",
+              "illustrationSourceNote": "초록 잔디·숲의 나무와 멀리 건물의 첨탑이 보이는 밝은 야외를 걷는 치릴리.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_008",
+              "canonicalOrder": 8,
+              "canonicalMasterCode": "svm_008/175",
+              "koreanNumber": "008/175",
+              "koreanName": "드레디어",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018008",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_008.png?w=512",
+              "illustrationSourceNote": "빨강·분홍 튤립과 하얀 데이지가 가득한 햇살 좋은 꽃밭에 서 있는 드레디어.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_009",
+              "canonicalOrder": 9,
+              "canonicalMasterCode": "svm_009/175",
+              "koreanNumber": "009/175",
+              "koreanName": "깜놀버슬",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018009",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_009.png?w=512",
+              "illustrationSourceNote": "어두운 숲 바닥에 떨어진 잎과 다양한 버섯 사이에 있는 깜놀버슬.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_010",
+              "canonicalOrder": 10,
+              "canonicalMasterCode": "svm_010/175",
+              "koreanNumber": "010/175",
+              "koreanName": "뽀록나 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018010",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_010.png?w=512",
+              "illustrationSourceNote": "황금빛과 분홍·초록의 반짝이는 다색 광선·결정 효과 속에 커다랗게 나타난 뽀록나 ex.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ]
+        }
+      ],
+      "nextStart": "SVM canonical 011"
     }
   },
   "queue": {
@@ -54420,14 +54744,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVLS",
+    "currentSet": "SVM",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "SVLS 18 verified / 7 pending; next independent set SVM canonical 001",
-    "lastSafeCheckpoint": "SVLS canonical 001-025: 19 verified Korean artworks + 35 theme placements; 6 held (017-019,023-025). No new verified image archive.",
-    "nextStart": "SVM canonical 001 (SVLS 017-019,023-025 held for evidence)",
+    "lastSafeCheckpoint": "SVM canonical 001-010: 10 Korean official artworks and 12 themes visually checked, 19 new theme placements (SVM_004 sleeping already existed). No new archive binary.",
+    "nextStart": "SVM canonical 011 (SVLS 6 independent artwork holds remain)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -54715,20 +55039,20 @@
       }
     ],
     "lastEvidenceAuditCheckpoint": {
-      "set": "SVLS",
-      "range": "canonical 001-025",
-      "reviewedCardCount": 19,
-      "artworkEvidenceHolds": 6,
+      "set": "SVM",
+      "range": "canonical 001-010",
+      "reviewedCardCount": 10,
+      "artworkEvidenceHolds": 0,
       "archiveVerificationStatus": "pending",
       "checkedAt": "2026-10-12"
     },
     "updatedAt": "2026-10-12"
   },
   "lastEvidenceAuditCheckpoint": {
-    "set": "SVLS",
-    "range": "canonical 001-025",
-    "reviewedCardCount": 19,
-    "artworkEvidenceHolds": 6,
+    "set": "SVM",
+    "range": "canonical 001-010",
+    "reviewedCardCount": 10,
+    "artworkEvidenceHolds": 0,
     "archiveVerificationStatus": "pending",
     "checkedAt": "2026-10-12"
   }

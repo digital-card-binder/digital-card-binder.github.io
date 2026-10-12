@@ -2404,7 +2404,29 @@
       },
       "nextStart": "SVM canonical 001 (SVLS 6 artwork holds open)",
       "note": "Official Korean SVLS 007/022 artwork visually inspected; no new download or CDN upload performed; existing source image reference preserved."
+    },
+    {
+      "task": 6,
+      "set": "SVM",
+      "range": "canonical 001-010 Korean artwork theme review",
+      "canonicalCardCount": 10,
+      "artworkVisuallyVerifiedCount": 10,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 10,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 0,
+      "externalImageReferenceCountAfter": 10,
+      "archiveVerificationStatus": "pending",
+      "verifiedImageCount": 0,
+      "unverifiedImageCount": 10,
+      "brokenReferenceCount": null,
+      "themeAdditions": {
+        "season": 9,
+        "color": 10
+      },
+      "nextStart": "SVM canonical 011",
+      "note": "Ten official Korean card detail pages and watermarked SVM illustrations visually verified; no new image files downloaded/self-hosted or Cloudflare-deployed."
     }
   ],
-  "nextStart": "SVM canonical 001 (SVLS 6 artwork holds open)"
+  "nextStart": "SVM canonical 011 (SVLS 6 artwork holds open)"
 }
