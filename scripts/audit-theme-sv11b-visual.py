@@ -43,7 +43,7 @@ cards=[]
 for i,c in enumerate(master["cards"],1):
  name=c.get("name") or "";raw=c.get("sourceImage") or c.get("image") or ""
  ident=str(c.get("code") or "")
- assert ident.lower().startswith("sv11w_"),(i,ident)
+ assert ident.lower().startswith("sv11b_"),(i,ident)
  cards.append({"canonicalOrder":i,"masterCode":ident,"name":name,
  "rawSource":raw,"cdnUrl":route(raw),
  "existingThemes":sorted(set(existing.get(f"SV11B_{i:03d}",[]))),
