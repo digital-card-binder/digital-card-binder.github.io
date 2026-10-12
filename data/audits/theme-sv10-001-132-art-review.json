@@ -3236,6 +3236,7 @@
     ],
     "reviewApplicator": "scripts/apply-theme-sv10-complete-review.mjs",
     "expectedMainPrecondition": "previous completed sv11B, image audit next pending Korean set after sv11B",
-    "oneSetOnly": true
+    "oneSetOnly": true,
+    "schemaCorrection": "Check printedNumber matching Korean /098 numbering for all 132 cards; stop on first mismatch."
   }
 }
