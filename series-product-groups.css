@@ -1,0 +1,96 @@
+/* Series product-type accordion — view layer only. */
+body[data-catalog="series"] .series-dashboard.is-set-dashboard {
+  align-items: start;
+}
+body[data-catalog="series"] .series-product-group {
+  grid-column: 1 / -1;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dfe3ec;
+  border-radius: 14px;
+  background: #fff;
+}
+body[data-catalog="series"] .series-product-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 12px 14px;
+  color: #24324b;
+  background: #f6f8fb;
+  font-size: .76rem;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+body[data-catalog="series"] .series-product-heading::-webkit-details-marker {
+  display: none;
+}
+body[data-catalog="series"] .series-product-heading::before {
+  content: "⌄";
+  color: #667792;
+  font-size: 1.05rem;
+  font-weight: 800;
+  transform: rotate(-90deg);
+  transition: transform .18s ease;
+}
+body[data-catalog="series"] .series-product-group[open] > .series-product-heading::before {
+  transform: rotate(0);
+}
+body[data-catalog="series"] .series-product-heading:focus-visible {
+  outline: 3px solid #80a8d4;
+  outline-offset: -3px;
+}
+body[data-catalog="series"] .series-product-title {
+  flex: 1;
+  min-width: 0;
+}
+body[data-catalog="series"] .series-product-meta {
+  color: #68748b;
+  font-size: .63rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+body[data-catalog="series"] .series-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid #e8ebf1;
+}
+body[data-catalog="series"] .series-product-grid .series-set-dashboard-card {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 920px) {
+  body[data-catalog="series"] .series-product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 690px) {
+  body[data-catalog="series"] .series-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+  }
+  body[data-catalog="series"] .series-product-heading {
+    min-height: 48px;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+  body[data-catalog="series"] .series-product-title {
+    flex-basis: calc(100% - 26px);
+  }
+  body[data-catalog="series"] .series-product-meta {
+    margin-left: 22px;
+  }
+}
+@media print {
+  body[data-catalog="series"] .series-product-grid {
+    display: grid;
+  }
+  body[data-catalog="series"] .series-product-group {
+    break-inside: avoid;
+  }
+}
