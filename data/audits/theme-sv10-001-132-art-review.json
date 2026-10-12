@@ -3225,5 +3225,17 @@
       "sourceRegion": "KR",
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv10/sv10-09.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "requiresAll": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "reviewApplicator": "scripts/apply-theme-sv10-complete-review.mjs",
+    "expectedMainPrecondition": "previous completed sv11B, image audit next pending Korean set after sv11B",
+    "oneSetOnly": true
+  }
 }
