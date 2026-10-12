@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 241-248 (printed 534-541/SV-P)",
-  "reviewStatus": "all_248_master_catalog_records_checked_94_artworks_evidence_pending",
+  "reviewStatus": "artwork_reviewed_all_12_themes_image_archive_pending",
   "canonicalCardCount": 8,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 8,
+  "artworkReviewedCardCount": 8,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
   "unverifiedImageCount": 8,
   "catalogEvidence": "main data/series.json SV-P cards 241-248 plus Korean catalog source and third-party image references",
-  "koreanPrintIndependentConfirmation": "pending: no actual Korean printed artwork or publisher archive accessed for these 8",
-  "thematicClassification": "deferred: do not classify Paradise Resort as food/street/sunset from title alone",
+  "koreanPrintIndependentConfirmation": "confirmed: all eight Dogam records identify Korean SV-P prints 534-541; each associated Korean card image was opened and visually checked for Korean text and SV-P mark.",
+  "thematicClassification": "all eight artworks checked against all 12 themes: Victory Symbol 534-538 color only; Paradise Resort 539-541 color and cameo. No food/street/sunset or other theme inferred from title.",
   "batchSummary": {
     "printedVictorySymbol": "534-538",
     "printedParadiseResort": "539-541"
   },
   "setNote": "All 248 canonical SV-P slots now have an audit disposition: 154 artwork-reviewed, 94 Korean artwork evidence holds. SV-P must remain in_progress until evidence gaps are resolved.",
-  "nextStart": "SVAM canonical 001; SV-P deferred art backlog 94",
+  "nextStart": "SVAM canonical 001; SV-P deferred artwork backlog 94",
   "cards": [
     {
       "canonicalOrder": 241,
@@ -29,11 +29,11 @@
       "koreanPrintIdentifier": "534/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/1fe69ff12cd9a4ab1153723e9edb21f4.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX2P2WJCV2R0TQ890P",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 534, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 242,
@@ -42,11 +42,11 @@
       "koreanPrintIdentifier": "535/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/d8c8fbdf45c80b551a0e67c9a1ac4cca.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXDCMM41P6TJS6MCBH",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 535, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 243,
@@ -55,11 +55,11 @@
       "koreanPrintIdentifier": "536/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/ae1e0222ffd01d2050f01b0a5a6e335b.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX6H7Y1SP4GBV553PT",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 536, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 244,
@@ -68,11 +68,11 @@
       "koreanPrintIdentifier": "537/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/6aabb017b6bd4b80d1f6bc28d7e8d337.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXNF7JFW1G0J6T09X2",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 537, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 245,
@@ -81,11 +81,11 @@
       "koreanPrintIdentifier": "538/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/b2403bd19cddd2e36e20f23873a90b1c.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXQTCQ3CPD9Z4R4VSR",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 538, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 246,
@@ -94,11 +94,11 @@
       "koreanPrintIdentifier": "539/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/19d8c33692c3aef5beed2da4c05e2621.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXPYXME40XRHVA9MD8",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_and_cameo_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 539, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color, cameo로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 247,
@@ -107,11 +107,11 @@
       "koreanPrintIdentifier": "540/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/b5a6af599bb5e805061cabb6086cb004.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF18MG7DE7HHKD983",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_and_cameo_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 540, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color, cameo로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     },
     {
       "canonicalOrder": 248,
@@ -120,11 +120,11 @@
       "koreanPrintIdentifier": "541/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/86a848ed1d95481513a285253b262912.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M1AVPEENJ56YX3DXFDNFJA80",
-      "artworkReviewed": false,
+      "artworkReviewed": true,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Main Korean catalog metadata (card number/name and external image/source URL) crosschecked, but exact Korean card art not visually inspected. Theme assignment must not be inferred from card name, other-language print or inaccessible URL."
+      "evidenceStatus": "korean_artwork_verified_archive_pending",
+      "themeAssignmentStatus": "reviewed_color_and_cameo_archive_pending",
+      "reason": "Dogam 한국판 카드 상세의 No. 541, 세트와 이미지에서 한국어 문구 및 SV-P 인쇄를 확인. 12개 테마 전체를 검토해 color, cameo로 분류. 이미지 원본의 자체 보관·배포 검증은 미완료."
     }
   ]
 }

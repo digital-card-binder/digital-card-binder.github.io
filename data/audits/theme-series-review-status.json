@@ -30668,8 +30668,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held. 2026-10-12: canonical 211-220 / Korean printed 504-513 individually visually reviewed from mapped Korean card images; color theme added to ten. External watermarked binaries remain unarchived. 2026-10-12: canonical 221-230 / Korean printed 514-523 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived. 2026-10-12: canonical 231-240 / Korean printed 524-533 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived.",
-      "reviewedCardCount": 216,
+      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held. 2026-10-12: canonical 211-220 / Korean printed 504-513 individually visually reviewed from mapped Korean card images; color theme added to ten. External watermarked binaries remain unarchived. 2026-10-12: canonical 221-230 / Korean printed 514-523 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived. 2026-10-12: canonical 231-240 / Korean printed 524-533 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived. 2026-10-12: canonical 241-248 / Korean printed 534-541 visually reviewed against mapped Korean card images and Dogam print records; color added to eight and cameo to 539-541. External watermarked binaries remain unarchived.",
+      "reviewedCardCount": 224,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30709,13 +30709,13 @@
         "canonical-order 211-220 (master catalog number/name/image refs verified; 10 Korean illustrations evidence held)",
         "canonical-order 221-230 (master catalog print IDs 514-523 checked; 10 artwork holds)",
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
-        "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)",
         "canonical-order 201-210 (SV-P 500-503 reviewed; 206-211 energy candidates held for catalog-number mismatch)",
         "canonical-order 211-220 (printed 504-513): 10 Korean Victory Symbol artworks visually reviewed against master image references; color only; image archive pending.",
         "canonical-order 221-230 (printed 514-523): ten Korean Victory Symbol artworks visually reviewed against mapped Korean card records; color only; image archive pending.",
-        "canonical-order 231-240 (printed 524-533): ten Korean Victory Symbol artworks visually reviewed against mapped Korean card records; color only; image archive pending."
+        "canonical-order 231-240 (printed 524-533): ten Korean Victory Symbol artworks visually reviewed against mapped Korean card records; color only; image archive pending.",
+        "canonical-order 241-248 (printed 534-541): 8 Korean artworks visually reviewed against mapped Dogam records; all 12 themes checked, color on all and cameo on 539-541; image archive pending."
       ],
-      "newlyAddedThemeSlotCount": 346,
+      "newlyAddedThemeSlotCount": 357,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30930,7 +30930,15 @@
         "SV-P_530",
         "SV-P_531",
         "SV-P_532",
-        "SV-P_533"
+        "SV-P_533",
+        "SV-P_534",
+        "SV-P_535",
+        "SV-P_536",
+        "SV-P_537",
+        "SV-P_538",
+        "SV-P_539",
+        "SV-P_540",
+        "SV-P_541"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30957,15 +30965,7 @@
         "SV-P_208",
         "SV-P_209",
         "SV-P_210",
-        "SV-P_211",
-        "SV-P_534",
-        "SV-P_535",
-        "SV-P_536",
-        "SV-P_537",
-        "SV-P_538",
-        "SV-P_539",
-        "SV-P_540",
-        "SV-P_541"
+        "SV-P_211"
       ],
       "batches": [
         {
@@ -35977,7 +35977,7 @@
           ]
         },
         {
-          "range": "canonical-order 241-248 = printed SV-P 534-541 (8 artworks held)",
+          "range": "canonical-order 241-248 (printed 534-541)",
           "cardNumbers": [
             "534",
             "535",
@@ -35988,9 +35988,9 @@
             "540",
             "541"
           ],
-          "status": "master_catalog_mapping_checked_8_artworks_pending_archive_pending",
-          "checkedCardCount": 0,
-          "heldCardCount": 8,
+          "status": "artwork_reviewed_all_12_themes_archive_pending",
+          "checkedCardCount": 8,
+          "heldCardCount": 0,
           "imageAudit": {
             "catalogImageReferenceCount": 8,
             "selfHostedImageReferenceCountAfter": 0,
@@ -35998,115 +35998,153 @@
             "newlyInternalizedReferenceCount": 0,
             "archiveVerificationStatus": "pending",
             "unverifiedImageCount": 8,
-            "brokenReferenceCount": null
+            "brokenReferenceCount": 0
           },
-          "evidenceSource": "Korean master catalog only; external image content unavailable for visual thematic classification",
+          "evidenceSource": "Korean master catalog records + corresponding Dogam Korean card pages and direct visual review of all eight mapped Korean images; Korean card text, No. and SV-P set confirmed.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
-          "brokenReferenceCount": null,
+          "brokenReferenceCount": 0,
           "cards": [
             {
               "code": "SV-P_534",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX2P2WJCV2R0TQ890P",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/1fe69ff12cd9a4ab1153723e9edb21f4.png",
-              "illustrationSourceNote": "Canonical 241, Korean master 534/SV-P: 승리의 징표. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 534/SV-P 이미지 직접 확인. 피카츄의 노란색, 금빛 메달과 주황빛 배경이 대표 색감. 12개 테마 전체 판독: color. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "534/SV-P"
             },
             {
               "code": "SV-P_535",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXDCMM41P6TJS6MCBH",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/d8c8fbdf45c80b551a0e67c9a1ac4cca.png",
-              "illustrationSourceNote": "Canonical 242, Korean master 535/SV-P: 승리의 징표. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 535/SV-P 이미지 직접 확인. 피카츄의 노란색, 금빛 메달과 주황빛 배경이 대표 색감. 12개 테마 전체 판독: color. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "535/SV-P"
             },
             {
               "code": "SV-P_536",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX6H7Y1SP4GBV553PT",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/ae1e0222ffd01d2050f01b0a5a6e335b.png",
-              "illustrationSourceNote": "Canonical 243, Korean master 536/SV-P: 승리의 징표. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 536/SV-P 이미지 직접 확인. 코라이돈의 빨강, 미라이돈의 보라·파랑과 금색 메달이 대비. 12개 테마 전체 판독: color. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "536/SV-P"
             },
             {
               "code": "SV-P_537",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXNF7JFW1G0J6T09X2",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/6aabb017b6bd4b80d1f6bc28d7e8d337.png",
-              "illustrationSourceNote": "Canonical 244, Korean master 537/SV-P: 승리의 징표. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 537/SV-P 이미지 직접 확인. 팔데아 스타팅의 파랑·초록·빨강과 은청색 메달이 함께 보임. 12개 테마 전체 판독: color. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "537/SV-P"
             },
             {
               "code": "SV-P_538",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXQTCQ3CPD9Z4R4VSR",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/b2403bd19cddd2e36e20f23873a90b1c.png",
-              "illustrationSourceNote": "Canonical 245, Korean master 538/SV-P: 승리의 징표. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 538/SV-P 이미지 직접 확인. 피카츄의 노란색, 금빛 메달과 주황빛 배경이 대표 색감. 12개 테마 전체 판독: color. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "538/SV-P"
             },
             {
               "code": "SV-P_539",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXPYXME40XRHVA9MD8",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/19d8c33692c3aef5beed2da4c05e2621.png",
-              "illustrationSourceNote": "Canonical 246, Korean master 539/SV-P: 파라다이스 리조트. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 539/SV-P 이미지 직접 확인. 라프라스의 파랑과 피카츄의 노랑이 대표 색감. 라프라스 주변에 피카츄·나오하·꾸왁스 등 다른 포켓몬이 함께 등장. 12개 테마 전체 판독: color, cameo. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "539/SV-P"
             },
             {
               "code": "SV-P_540",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF18MG7DE7HHKD983",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/b5a6af599bb5e805061cabb6086cb004.png",
-              "illustrationSourceNote": "Canonical 247, Korean master 540/SV-P: 파라다이스 리조트. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 540/SV-P 이미지 직접 확인. 피카츄의 노랑과 바다의 파랑이 대표 색감. 피카츄 주변에 여러 포켓몬이 함께 등장. 12개 테마 전체 판독: color, cameo. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "540/SV-P"
             },
             {
               "code": "SV-P_541",
-              "checked": false,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color",
+                "cameo"
+              ],
+              "themesAdded": [
+                "color",
+                "cameo"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "needsReview": true,
+              "needsReview": false,
               "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M1AVPEENJ56YX3DXFDNFJA80",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/86a848ed1d95481513a285253b262912.png",
-              "illustrationSourceNote": "Canonical 248, Korean master 541/SV-P: 파라다이스 리조트. Original illustration not inspected; no 12-theme classification.",
+              "illustrationSourceNote": "한국판 SV-P 541/SV-P 이미지 직접 확인. 잠만기의 보라·회색과 피카츄·이브이의 노랑·갈색이 대표 색감. 장면에 잠만기 외 여러 포켓몬이 함께 등장. 12개 테마 전체 판독: color, cameo. 외부 워터마크 이미지이며 바이너리 자체 보관은 미완료.",
               "koreanNumber": "541/SV-P"
             }
           ]
@@ -52441,14 +52479,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SV-P",
+    "currentSet": "SVAM",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SV-P batch log reconciled through canonical 240. Korean Victory Symbol 500-503, 504-513, 514-523, and 524-533 artworks reviewed; 206-211 energy candidates remain held for Korean catalog-number mismatch. Images in reviewed batches remain external and archive/deployment pending. M-P 051-057 art review complete but archive pending; M-P 058-060 exact Korean print unresolved. Resume at SV-P 241-248; preserve all earlier holds.",
+    "note": "SV-P artwork batch log reconciled through canonical 248. Korean Victory Symbol 500-541 reviewed in batches; 206-211 energy candidates still held for Korean catalog-number mismatch. Paradise Resort 539-541 visually reviewed; images external and archive/deployment pending. M-P 051-057 artwork review complete but archive pending; M-P 058-060 exact Korean print unresolved. Resume at SVAM canonical 001; preserve all earlier SV-P artwork holds.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P canonical-order 231-240 / Korean printed 524-533 visually reviewed against mapped Korean images; color theme added to all ten. Binary image archive remains pending.",
-    "nextStart": "SV-P canonical-order 241-248 (printed 534-541; artwork evidence pending)",
+    "lastSafeCheckpoint": "SV-P canonical-order 241-248 / Korean printed 534-541 visually reviewed against mapped Korean card images and Dogam No.; all 12 themes checked (color 8, cameo 539-541). Image archive/deployment pending.",
+    "nextStart": "SVAM canonical 001; SV-P deferred artwork backlog 94",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -52629,7 +52667,10 @@
         "range": "canonical-order 241-248 / printed 534-541",
         "pendingCount": 8,
         "audit": "data/audits/theme-svp-241-248-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with subsequent partial checks/holds"
+        "lastArtSafeCheckpoint": "SV-P canonical 248; 534-541 Korean artworks reviewed; image archive pending",
+        "artworkPendingCount": 0,
+        "archivePendingReviewedCount": 8,
+        "totalOutstandingCount": 8
       },
       {
         "set": "SVAM",
@@ -52891,7 +52932,8 @@
         "lastArtSafeCheckpoint": "SVK 21 official image checks, 31 pending"
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVI canonical 001-074 inventory, only 025/066 exact Korean artwork visually checked and 3 theme placements."
+    "lastEvidenceAuditCheckpoint": "SVI canonical 001-074 inventory, only 025/066 exact Korean artwork visually checked and 3 theme placements.",
+    "updatedAt": "2026-10-12"
   },
   "lastEvidenceAuditCheckpoint": "SV-P canonical-order 231-240 / printed 524-533: ten Korean artworks visually reviewed; color theme added; image archive pending."
 }
