@@ -51,7 +51,7 @@ if(e.set!=="sv11B"||e.masterCanonicalCount!==174||e.cardsReviewed!==174||
 const currentExisting=[...preexisting.entries()].map(([n,t])=>({n,t})).sort((a,b)=>a.n.localeCompare(b.n));
 if(currentExisting.length!==5||
     currentExisting.some(p=>p.t.length!==1||p.t[0]!=="sleeping"))
-  throw Error("Preexisting four sleeping placements diverge from reviewed baseline.");
+  throw Error("Preexisting five sleeping placements diverge from reviewed baseline.");
 
 const counts={};
 let namesRepaired=0, placed=0;
@@ -114,7 +114,7 @@ if(JSON.stringify(Object.keys(counts).sort())!==
   throw Error("Unexpected theme category in additions.");
 for(const [code,n] of Object.entries(e.themeAdditions))
   if(counts[code]!==n)throw Error("Incorrect artwork slot count for "+code);
-if(!set.name || /^sv11w 도감$/i.test(set.name))set.name=e.officialKoreanSetName;
+if(!set.name || /^sv11b 도감$/i.test(set.name))set.name=e.officialKoreanSetName;
 else if(set.name!==e.officialKoreanSetName)
   throw Error("Existing Korean set name differs from official title; manual review needed.");
 
@@ -128,13 +128,13 @@ state.reviews[code]={
   verifiedSelfHostedImageCount:174,
   archiveVerificationStatus:"174_existing_official_Korean_card_images_decoded",
   fullSetEvidence:evidencePath,
-  note:"SV11B 블랙볼트 한국판 공식 인쇄 이미지 174장 전수 육안 검수. 기존 sleeping 4건 유지, 비어 있던 한국 카드명 163건만 채움. 신규 이미지 바이너리 저장/소유상태 변경 없음."
+  note:"SV11B 블랙볼트 한국판 공식 인쇄 이미지 174장 전수 육안 검수. 기존 sleeping 5건 유지, 비어 있던 한국 카드명 163건만 채움. 신규 이미지 바이너리 저장/소유상태 변경 없음."
 };
 const updateProgress=node=>{
   if(!node||typeof node!=="object")return false;
   if(typeof node.lastSafeCheckpoint==="string"&&
      node.lastSafeCheckpoint.includes("sv11W")){
-    node.lastSafeCheckpoint="Black Bolt sv11B 174/174 Korean cards visually reviewed and Korean names repaired; prior five completed SV sets preserved.";
+    node.lastSafeCheckpoint="Black Bolt sv11B 174/174 Korean cards visually reviewed and Korean names repaired; prior six completed SV sets preserved.";
     node.currentTaskScope="sv11B strict complete; next pending Korean set";
     node.nextStart="next pending Korean set after sv11B; choose from coverage";
     return true;
@@ -146,7 +146,7 @@ if(!updateProgress(state))
   throw Error("Cannot locate current safe stage-progress checkpoint.");
 if(!state.lastEvidenceAuditCheckpoint||
    String(state.lastEvidenceAuditCheckpoint.set).toUpperCase()!=="SV11W")
-  throw Error("Evidence review checkpoint was moved from previously completed SVLS.");
+  throw Error("Evidence review checkpoint was moved from previously completed sv11W.");
 Object.assign(state.lastEvidenceAuditCheckpoint,{
   set:code,range:"canonical 001-174",reviewedCardCount:174,
   artworkEvidenceHolds:0,archiveVerificationStatus:"existing_CDN_174_Korean_images_verified",
@@ -174,4 +174,4 @@ await Promise.all([
   write("data/audits/theme-image-selfhost-audit.json",images)
 ]);
 console.log(JSON.stringify({set:code,canonicalReviewed:174,restoredKoreanNames:namesRepaired,
-  keptPriorSleeping:4,themeSlotsAdded:placed,themeAdditions:counts,nextStart:images.nextStart},null,2));
+  keptPriorSleeping:5,themeSlotsAdded:placed,themeAdditions:counts,nextStart:images.nextStart},null,2));
