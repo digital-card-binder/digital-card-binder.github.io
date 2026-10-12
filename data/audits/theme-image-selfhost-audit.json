@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-10-12",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -690,8 +690,8 @@
       "set": "SV-P",
       "range": "canonical-order 111-120 (111-116 artwork held)",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 4,
-      "artworkPendingCardCount": 6,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -701,15 +701,15 @@
       "unverifiedImageCount": 10,
       "brokenReferenceCount": null,
       "nextStart": "SV-P 121",
-      "note": "Four exact Korean official artworks opened 117-120; six energy images held 111-116. Binary archival/CDN deployment not performed."
+      "note": "Ten exact Korean official artworks visually verified. Korean official image sources recorded for 111-116; Cloudflare archive refresh requested, deployment verification pending."
     },
     {
       "task": 6,
       "set": "SV-P",
       "range": "canonical-order 121-130 (121-125 artwork held)",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 5,
-      "artworkPendingCardCount": 5,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -719,7 +719,7 @@
       "unverifiedImageCount": 10,
       "brokenReferenceCount": null,
       "nextStart": "SV-P 131",
-      "note": "Korean physical-print photographs permitted 126-130 artwork classification; Korean picture evidence for 121-125 deferred. No binary archived or CDN deployed."
+      "note": "Ten exact Korean card artworks visually verified across 121-130. Korean official image sources recorded for 121-125; Cloudflare archive refresh requested, deployment verification pending."
     },
     {
       "task": 6,
