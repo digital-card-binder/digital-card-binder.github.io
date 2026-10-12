@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 6776,
-    "uniqueThemeCards": 4151,
-    "strictCompleteSetCount": 38,
+    "themeCardSlots": 7057,
+    "uniqueThemeCards": 4360,
+    "strictCompleteSetCount": 39,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 235,
+    "baselineRemainingSetCount": 234,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 241,
-      "setCount": 43,
+      "cardSlots": 250,
+      "setCount": 44,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1805,
-      "setCount": 51,
+      "cardSlots": 1891,
+      "setCount": 52,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 3438,
-      "setCount": 54,
+      "cardSlots": 3582,
+      "setCount": 55,
       "rarities": [
         "AR",
         "C",
@@ -159,8 +159,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 131,
-      "setCount": 38,
+      "cardSlots": 135,
+      "setCount": 39,
       "rarities": [
         "AR",
         "C",
@@ -185,8 +185,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 95,
-      "setCount": 39,
+      "cardSlots": 96,
+      "setCount": 40,
       "rarities": [
         "AR",
         "C",
@@ -211,8 +211,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 580,
-      "setCount": 47,
+      "cardSlots": 617,
+      "setCount": 48,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 25,
-      "remainingSetCount": 28,
-      "currentThemeSlots": 3148
+      "completeSetCount": 26,
+      "remainingSetCount": 27,
+      "currentThemeSlots": 3429
     },
     {
       "era": "S",
@@ -376,13 +376,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv8a",
-      "name": "테라스탈 페스타 ex",
-      "cardCount": 237,
-      "status": "pending"
     },
     {
       "era": "SV",
@@ -522,6 +515,13 @@
       "code": "S-P",
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SA-W",
+      "name": "스타터 세트 V 「물」",
+      "cardCount": 24,
       "status": "pending"
     }
   ],
@@ -1690,10 +1690,16 @@
       "cardCount": 237,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
-        "evolution": 1
+        "evolution": 1,
+        "night": 9,
+        "season": 86,
+        "color": 144,
+        "sunset": 4,
+        "food": 1,
+        "street": 37
       }
     },
     {
