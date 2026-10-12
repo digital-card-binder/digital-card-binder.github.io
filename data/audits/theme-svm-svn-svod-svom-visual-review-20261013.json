@@ -3550,5 +3550,12 @@
     "SVLS_023",
     "SVLS_024",
     "SVLS_025"
-  ]
+  ],
+  "fullVerification": {
+    "requiresNode": "22",
+    "requiresJava": "21",
+    "checkOnlyAfterAudits": true,
+    "reviewImplementation": "scripts/apply-theme-svm-svn-svod-svom-visual-review.mjs",
+    "triggerDate": "2026-10-13"
+  }
 }
