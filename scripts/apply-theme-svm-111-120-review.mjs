@@ -135,4 +135,4 @@ await Promise.all([
   writeJson("data/audits/theme-series-review-status.json", state),
   writeJson("data/audits/theme-image-selfhost-audit.json", images)
 ]);
-console.log("Applied SVM 111-120: 10 artwork checks, " + totalAdded + " theme placements, next SVM 111.");
+console.log("Applied SVM 111-120: 10 artwork checks, " + totalAdded + " theme placements, next SVM 121.");
