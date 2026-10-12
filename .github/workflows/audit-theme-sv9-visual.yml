@@ -1,0 +1,35 @@
+name: Audit full sv9 Korean artwork
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/audit-theme-sv9-visual.py
+permissions:
+  contents: write
+concurrency:
+  group: sv9-evidence-main
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Decode archived Korean card images and build review sheets
+        run: python scripts/audit-theme-sv9-visual.py
+      - name: Commit read-only evidence, never ownership or catalog changes
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/sv9
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Capture complete Korean sv9 card artwork contact sheets and archive status"
+          git push origin HEAD:main
