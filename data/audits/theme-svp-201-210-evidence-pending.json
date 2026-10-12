@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SV-P",
   "range": "canonical-order 201-210 (printed 206-211 and 500-503)",
-  "reviewStatus": "catalog_order_verified_korean_illustration_evidence_pending",
+  "reviewStatus": "partial_4_victory_symbols_reviewed_6_energy_slot_mappings_held_archive_pending",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 10,
+  "artworkReviewedCardCount": 4,
+  "artworkPendingCardCount": 6,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
   "unverifiedImageCount": 10,
-  "note": "The Korean SV-P series.json canonical order 201-210 was crosschecked directly. Order 201-206 maps to 206-211/SV-P energy cards and 207-210 maps to 500-503/SV-P Victory Symbol prints. This is metadata verification only; no image was directly viewed, downloaded, decoded, or uploaded. Japanese SV-P numbers denote different cards and must not be used for Korean theme curation.",
+  "note": "Ten candidate images were directly inspected. Victory Symbol No.500-503 Korean SV-P records match their canonical slots and were reviewed across all 12 themes. Six energy images are Korean-language SV-P promo art, but catalog pages report No.544-549 while master canonical slots are 206-211; the card images show only SV-P/PROMO without numeric suffixes, so exact slot identity remains held. No binaries self-hosted/deployment-verified.",
   "regionalNumberWarning": "Example: Korean master 206/SV-P=Basic Water Energy, while Japanese 206/SV-P=Basic Psychic Energy; regional catalog numbering cannot be exchanged.",
   "cards": [
     {
@@ -24,9 +24,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM2RHND3HFJTDS54QG93X",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "544",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM2RHND3HFJTDS54QG93X",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 물 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.544가 마스터 canonical 키 206/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 202,
@@ -37,9 +43,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM359P6HGKH6JR92F69K7",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "545",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM359P6HGKH6JR92F69K7",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 번개 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.545가 마스터 canonical 키 207/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 203,
@@ -50,9 +62,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3J2E126GPDJEGMG326V",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "546",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3J2E126GPDJEGMG326V",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 초 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.546가 마스터 canonical 키 208/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 204,
@@ -63,9 +81,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3YS2KBYXVJQPJZC7RXT",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "547",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3YS2KBYXVJQPJZC7RXT",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 격투 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.547가 마스터 canonical 키 209/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 205,
@@ -76,9 +100,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4BGCFZPCTJ58S24N6YA",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "548",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4BGCFZPCTJ58S24N6YA",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 악 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.548가 마스터 canonical 키 210/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 206,
@@ -89,9 +119,15 @@
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4R5K5V9GWSQQVGKMB2N",
       "artworkReviewed": false,
       "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "evidenceStatus": "korean_catalog_number_conflicts_with_canonical_slot",
+      "themeAssignmentStatus": "held_pending_exact_slot_mapping",
+      "reason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification.",
+      "candidateArtworkInspected": true,
+      "catalogPageCardNo": "549",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4R5K5V9GWSQQVGKMB2N",
+      "candidateArtworkObservation": "후보 이미지는 한국어 기본 강철 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.549가 마스터 canonical 키 211/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 207,
@@ -100,11 +136,19 @@
       "koreanPrintIdentifier": "500/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/b5ab00dde0fe5acf63137394ec7d09d5.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXY0PZJ77R3C6EA3ZB",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "korean_catalog_card_number_and_artwork_verified",
+      "themeAssignmentStatus": "reviewed_color",
+      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data.",
+      "themes": [
+        "color"
+      ],
+      "catalogPageCardNo": "500",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXY0PZJ77R3C6EA3ZB",
+      "artworkObservation": "한국판 도감 SV-P 카드 상세 No.500와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 208,
@@ -113,11 +157,19 @@
       "koreanPrintIdentifier": "501/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/a8f7fc4252d990ef0a59e941bb3be55d.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX9YMJCH937PBJ1239",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "korean_catalog_card_number_and_artwork_verified",
+      "themeAssignmentStatus": "reviewed_color",
+      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data.",
+      "themes": [
+        "color"
+      ],
+      "catalogPageCardNo": "501",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX9YMJCH937PBJ1239",
+      "artworkObservation": "한국판 도감 SV-P 카드 상세 No.501와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 209,
@@ -126,11 +178,19 @@
       "koreanPrintIdentifier": "502/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/794a0261fe42cd09a3e9c28c8d32588c.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF1V2JJ630WT99J9Z",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "korean_catalog_card_number_and_artwork_verified",
+      "themeAssignmentStatus": "reviewed_color",
+      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data.",
+      "themes": [
+        "color"
+      ],
+      "catalogPageCardNo": "502",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF1V2JJ630WT99J9Z",
+      "artworkObservation": "한국판 도감 SV-P 카드 상세 No.502와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     },
     {
       "canonicalOrder": 210,
@@ -139,12 +199,21 @@
       "koreanPrintIdentifier": "503/SV-P",
       "catalogImageUrl": "https://static.tcgexchange.kr/6710dc06b0067bf4846835bfe5bcf994.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX58D12K8QSN71SCDR",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "not_classified_pending_artwork",
-      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "korean_catalog_card_number_and_artwork_verified",
+      "themeAssignmentStatus": "reviewed_color",
+      "reason": "Exact Korean print artwork not accessible for direct inspection; do not substitute Japanese SV-P same-number print or rely on text-only catalog data.",
+      "themes": [
+        "color"
+      ],
+      "catalogPageCardNo": "503",
+      "evidencePage": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX58D12K8QSN71SCDR",
+      "artworkObservation": "한국판 도감 SV-P 카드 상세 No.503와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료.",
+      "imageBinarySelfHosted": false,
+      "imageDeploymentVerified": false
     }
   ],
-  "nextStart": "SV-P 211 (canonical order 211)"
+  "nextStart": "SV-P 211 (canonical order 211)",
+  "nextAction": "Continue SV-P canonical 211-220 while retaining energy candidates 206-211 as evidence-pending. Resolve the six only when a Korean source establishes exact canonical-slot mapping."
 }

@@ -850,10 +850,10 @@
     {
       "task": 6,
       "set": "SV-P",
-      "range": "canonical-order 201-210 (printed 206-211,500-503)",
+      "range": "canonical-order 201-210 (4 artwork reviews; six energy number mappings held)",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 0,
-      "artworkPendingCardCount": 10,
+      "artworkReviewedCardCount": 4,
+      "artworkPendingCardCount": 6,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -862,8 +862,11 @@
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
       "brokenReferenceCount": null,
-      "nextStart": "SV-P canonical 211",
-      "note": "Korean canonical/catalog mapping checked, 10 artwork images unavailable for validation. No image binaries downloaded, decoded, or selfhosted. Never use same-number Japanese artwork."
+      "nextStart": "SV-P 211",
+      "note": "Four Korean Victory Symbol No.500-503 artworks were directly reviewed. Six Korean energy candidate images were viewed but exact mapping to canonical 206-211 remains held because catalog No.544-549 conflicts and print images show only SV-P/PROMO. No binary fetched, decoded, uploaded, or deployed.",
+      "themeAdditions": {
+        "color": 4
+      }
     },
     {
       "task": 6,

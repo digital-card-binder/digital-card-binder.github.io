@@ -30668,8 +30668,8 @@
     "SV-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained.",
-      "reviewedCardCount": 182,
+      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held.",
+      "reviewedCardCount": 186,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30709,9 +30709,10 @@
         "canonical-order 211-220 (master catalog number/name/image refs verified; 10 Korean illustrations evidence held)",
         "canonical-order 221-230 (master catalog print IDs 514-523 checked; 10 artwork holds)",
         "canonical-order 231-240 (master catalog IDs 524-533 checked; 10 artwork holds)",
-        "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)"
+        "canonical-order 241-248 (printed 534-541: five Victory Symbol + three Paradise Resort; 8 artwork holds)",
+        "canonical-order 201-210 (SV-P 500-503 reviewed; 206-211 energy candidates held for catalog-number mismatch)"
       ],
-      "newlyAddedThemeSlotCount": 312,
+      "newlyAddedThemeSlotCount": 316,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30892,7 +30893,11 @@
         "SV-P_116",
         "SV-P_123",
         "SV-P_124",
-        "SV-P_125"
+        "SV-P_125",
+        "SV-P_500",
+        "SV-P_501",
+        "SV-P_502",
+        "SV-P_503"
       ],
       "existingSkippedCards": [],
       "heldCards": [
@@ -30920,10 +30925,6 @@
         "SV-P_209",
         "SV-P_210",
         "SV-P_211",
-        "SV-P_500",
-        "SV-P_501",
-        "SV-P_502",
-        "SV-P_503",
         "SV-P_504",
         "SV-P_505",
         "SV-P_506",
@@ -35288,7 +35289,7 @@
           ]
         },
         {
-          "range": "canonical-order 201-210 = printed 206-211,500-503 (artwork evidence pending)",
+          "range": "canonical-order 201-210 (Victory Symbol 500-503 reviewed; six energy candidates held for number mismatch)",
           "cardNumbers": [
             "206/SV-P",
             "207/SV-P",
@@ -35301,8 +35302,8 @@
             "502/SV-P",
             "503/SV-P"
           ],
-          "status": "catalog_mapping_verified_artwork_evidence_pending",
-          "checkedCardCount": 0,
+          "status": "4_korean_artworks_reviewed_6_number_mapping_evidence_held_archive_pending",
+          "checkedCardCount": 4,
           "heldCardCount": 10,
           "imageAudit": {
             "catalogImageReferenceCount": 10,
@@ -35313,7 +35314,7 @@
             "unverifiedImageCount": 10,
             "brokenReferenceCount": null
           },
-          "evidenceSource": "data/series.json Korean master catalog; official Korean picture verification unavailable",
+          "evidenceSource": "Direct visual inspection of ten Dogam Korean SV-P candidate card images and their Korean card detail pages. Victory Symbol catalog No.500-503 match master slots and were reviewed; energy candidate pages are No.544-549 and conflict with canonical 206-211 slots, so their theme mapping remains held. No Japanese artwork used.",
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
@@ -35321,134 +35322,167 @@
             {
               "code": "SV-P_206",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "206/SV-P",
-              "catalogName": "기본 물 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM2RHND3HFJTDS54QG93X",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/dd6525818a43dad7f953baae9219e571.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.544",
+              "catalogPageCardNo": "544",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 물 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.544가 마스터 canonical 키 206/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_207",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "207/SV-P",
-              "catalogName": "기본 번개 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM359P6HGKH6JR92F69K7",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/eeb12c656e54afa0a8e313bee4e1a510.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.545",
+              "catalogPageCardNo": "545",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 번개 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.545가 마스터 canonical 키 207/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_208",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "208/SV-P",
-              "catalogName": "기본 초 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3J2E126GPDJEGMG326V",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/e054badbbac83912dfe7faecd997055b.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.546",
+              "catalogPageCardNo": "546",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 초 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.546가 마스터 canonical 키 208/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_209",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "209/SV-P",
-              "catalogName": "기본 격투 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM3YS2KBYXVJQPJZC7RXT",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/14ad7de2047c4959df6bc067ce55869c.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.547",
+              "catalogPageCardNo": "547",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 격투 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.547가 마스터 canonical 키 209/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_210",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "210/SV-P",
-              "catalogName": "기본 악 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4BGCFZPCTJ58S24N6YA",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/323b74f6c55d38409811f8b1660da5b3.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.548",
+              "catalogPageCardNo": "548",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 악 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.548가 마스터 canonical 키 210/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_211",
               "checked": false,
-              "needsReview": true,
               "themesMatched": [],
               "themesAdded": [],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "211/SV-P",
-              "catalogName": "기본 강철 에너지",
+              "needsReview": true,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01KY1EM4R5K5V9GWSQQVGKMB2N",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/00836b34957afd7e29b1486fbc913f7c.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "SV-P PROMO · Korean catalog No.549",
+              "catalogPageCardNo": "549",
+              "illustrationSourceNote": "후보 이미지는 한국어 기본 강철 에너지 프로모이며 SV-P/PROMO 표기와 2023 코리안리그 워터마크를 직접 확인함. 그러나 한국어 도감 카드 번호 No.549가 마스터 canonical 키 211/SV-P와 다르고 이미지에는 숫자 suffix가 인쇄되지 않아 정확한 슬롯 대응은 보류.",
+              "holdReason": "Korean catalog number does not match the canonical master slot; exact Korean print-to-slot mapping required before theme classification."
             },
             {
               "code": "SV-P_500",
-              "checked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "500/SV-P",
-              "catalogName": "승리의 징표",
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXY0PZJ77R3C6EA3ZB",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/b5ab00dde0fe5acf63137394ec7d09d5.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "500/SV-P",
+              "catalogPageCardNo": "500",
+              "illustrationSourceNote": "한국판 도감 SV-P 카드 상세 No.500와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료."
             },
             {
               "code": "SV-P_501",
-              "checked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "501/SV-P",
-              "catalogName": "승리의 징표",
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX9YMJCH937PBJ1239",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/a8f7fc4252d990ef0a59e941bb3be55d.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "501/SV-P",
+              "catalogPageCardNo": "501",
+              "illustrationSourceNote": "한국판 도감 SV-P 카드 상세 No.501와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료."
             },
             {
               "code": "SV-P_502",
-              "checked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "502/SV-P",
-              "catalogName": "승리의 징표",
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MXF1V2JJ630WT99J9Z",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/794a0261fe42cd09a3e9c28c8d32588c.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "502/SV-P",
+              "catalogPageCardNo": "502",
+              "illustrationSourceNote": "한국판 도감 SV-P 카드 상세 No.502와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료."
             },
             {
               "code": "SV-P_503",
-              "checked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "koreanNumber": "503/SV-P",
-              "catalogName": "승리의 징표",
+              "needsReview": false,
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0T2TNNRVHATA5D0HJCAHMB/cards/01M0FNY4MX58D12K8QSN71SCDR",
               "illustrationReferenceUrl": "https://static.tcgexchange.kr/6710dc06b0067bf4846835bfe5bcf994.png",
-              "illustrationSourceNote": "Korean image not directly inspected; Japanese image prohibited as substitute."
+              "koreanNumber": "503/SV-P",
+              "catalogPageCardNo": "503",
+              "illustrationSourceNote": "한국판 도감 SV-P 카드 상세 No.503와 한국어 카드 이미지 직접 대조. 인쇄 이미지에는 SV-P/PROMO 표기가 있고 페이지 번호가 canonical 카드 번호와 일치한다. 모든 12개 테마 검수 결과 color만 해당. 이미지 자체 보관/배포 검증은 미완료."
             }
-          ]
+          ],
+          "nextStart": "SV-P canonical 211"
         },
         {
           "range": "canonical-order 211-220 = printed SV-P 504-513 (10 Korean artworks evidence held)",
@@ -51798,11 +51832,11 @@
     "currentSet": "SV-P",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed. Checkpoint reconciled 2026-10-12 against SV-P batch log: batches through canonical 200 are recorded (with per-card holds); next unreviewed batch is 201-210. M-P 051-057 art review is complete but archive pending; M-P 058-060 exact Korean print remains unresolved.",
+    "note": "SVK all 52 Korean official artwork images directly checked, 43 new theme placements. No image binaries self-hosted or deployed. Checkpoint reconciled 2026-10-12 against SV-P batch log: batches through canonical 200 are recorded (with per-card holds); next unreviewed batch is 201-210. M-P 051-057 art review is complete but archive pending; M-P 058-060 exact Korean print remains unresolved. Reconciled 201-210: Victory Symbol 500-503 reviewed; six Korean energy candidate images remain held because catalog No.544-549 conflicts with canonical 206-211. Proceed to next batch with this hold preserved.",
     "currentTask": 6,
     "currentTaskScope": "SV classic / promo / starter sets, starting at CLL, while M-P 051-068 remains pending",
-    "lastSafeCheckpoint": "SV-P canonical-order 191-200 processed; 201-248 remain artwork evidence-held. Earlier held cards stay listed individually.",
-    "nextStart": "SV-P canonical-order 201-210 (printed 206-211,500-503; Korean artwork evidence pending)",
+    "lastSafeCheckpoint": "SV-P canonical-order 201-210 processed: 500-503 reviewed; energy candidates 206-211 held for catalog-number mismatch.",
+    "nextStart": "SV-P canonical-order 211-220 (printed 504-513; Korean artwork evidence pending)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -51943,10 +51977,10 @@
       },
       {
         "set": "SV-P",
-        "range": "canonical-order 201-210 / printed 206-211,500-503",
-        "pendingCount": 10,
+        "range": "canonical 201-206 / master 206-211 energy slots (candidate catalog No.544-549 mismatch)",
+        "pendingCount": 6,
         "audit": "data/audits/theme-svp-201-210-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SV-P canonical 198 (printed 203), with 199-200 held"
+        "lastArtSafeCheckpoint": "SV-P canonical 200; Victory Symbol 500-503 reviewed; 206-211 held"
       },
       {
         "set": "SV-P",
