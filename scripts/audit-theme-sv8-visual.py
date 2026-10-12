@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate 138 Korean Super Electric Breaker source-safe owned-CDN image contact sheets, read only to main master.
+"""Generate 138 Korean Super Electric Breaker owned-CDN Korean image contact sheets with no third-party requests, read only to main master.
 Read-only relative to master, theme data, and user ownership states."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
