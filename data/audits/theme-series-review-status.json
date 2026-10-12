@@ -27259,9 +27259,9 @@
     },
     "M-P": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-08",
-      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete.",
-      "reviewedCardCount": 50,
+      "reviewedAt": "2026-10-12",
+      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete. 2026-10-12: canonical 051-057 confirmed from exact Korean official watermarked images and visually checked against all 12 themes; image binary archive remains pending.",
+      "reviewedCardCount": 57,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27283,9 +27283,10 @@
         "canonical-order 031-040",
         "canonical-order 041-046",
         "canonical-order 047-049",
-        "canonical-order 050"
+        "canonical-order 050",
+        "canonical-order 051-057 (7 exact Korean official watermarked artworks visually checked; 12 themes adjudicated)"
       ],
-      "newlyAddedThemeSlotCount": 81,
+      "newlyAddedThemeSlotCount": 91,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27336,17 +27337,17 @@
         "M-P_047",
         "M-P_048",
         "M-P_049",
-        "M-P_050"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "M-P_050",
         "M-P_051",
         "M-P_052",
         "M-P_053",
         "M-P_054",
         "M-P_055",
         "M-P_056",
-        "M-P_057",
+        "M-P_057"
+      ],
+      "existingSkippedCards": [],
+      "heldCards": [
         "M-P_058",
         "M-P_059",
         "M-P_060",
@@ -28339,9 +28340,163 @@
               "illustrationSourceNote": "공식 카드 그림 판독. 비주기 트레이너 R 초상 배지는 별도 포켓몬 카메오에 포함하지 않는다."
             }
           ]
+        },
+        {
+          "range": "canonical-order 051-057 (official Korean watermarked images; full 12-theme visual check)",
+          "cardNumbers": [
+            "051",
+            "052",
+            "053",
+            "054",
+            "055",
+            "056",
+            "057"
+          ],
+          "status": "complete_visual_review_archive_pending",
+          "checkedCardCount": 7,
+          "imageAudit": {
+            "catalogImageReferenceCount": 7,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 7,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 7,
+            "brokenReferenceCount": null
+          },
+          "evidenceSource": "Pokémon Korea official Korean card image CDN; exact printed identifiers 051/M-P–057/M-P are visible on official watermarked card images. Per-card image URLs and 12-theme decisions stored in data/audits/theme-mp-051-068-evidence-pending.json.",
+          "duplicateCount": 0,
+          "invalidCardKeyCount": 0,
+          "brokenReferenceCount": null,
+          "cards": [
+            {
+              "code": "M-P_051",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000051",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_051.png?w=512",
+              "koreanNumber": "051/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 051/M-P 이미지. 쉐이미가 노란 야생화가 핀 초록 초원과 얕은 물가에 등장한다. 계절·풍경과 초록·노랑 색감만 해당; 잠자는 장면이나 다른 포켓몬 카메오는 확인되지 않음."
+            },
+            {
+              "code": "M-P_052",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000052",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_052.png?w=512",
+              "koreanNumber": "052/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 052/M-P 이미지. 메가마폭시 ex의 역동적인 액션과 다색 속도선 배경. 컬러 테마만 해당; 진화 전후를 잇는 성장 장면이나 도시·자연 풍경은 없음."
+            },
+            {
+              "code": "M-P_053",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000053",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_053.png?w=512",
+              "koreanNumber": "053/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 053/M-P 이미지. 쥬쥬가 눈과 얼음 풍경 속에 클로즈업되어 있다. 계절·풍경과 청백색 컬러만 해당; 반사면은 확인되지 않음."
+            },
+            {
+              "code": "M-P_054",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000054",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_054.png?w=512",
+              "koreanNumber": "054/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 054/M-P 이미지. 슈쁘와 분홍·파랑·노랑의 그래픽 배경. 컬러 테마만 해당; 음식이나 먹는 장면은 확인되지 않음."
+            },
+            {
+              "code": "M-P_055",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000055",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_055.png?w=512",
+              "koreanNumber": "055/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 055/M-P 이미지. 파랑·청록색 방사형 배경 위에 포켓패드 단독 등장. 컬러 테마만 해당; 포켓몬 작업 장면이나 도시 풍경은 없음."
+            },
+            {
+              "code": "M-P_056",
+              "checked": true,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000056",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_056.png?w=512",
+              "koreanNumber": "056/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 056/M-P 이미지. 차량 내부에 있는 그리 트레이너 일러스트. 컬러 테마만 해당; 사람의 직업 활동은 일하는 포켓몬 테마에 포함하지 않고, 도시 거리 장면도 아님."
+            },
+            {
+              "code": "M-P_057",
+              "checked": true,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "needsReview": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/MP000000057",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M-P/M-P_057.png?w=512",
+              "koreanNumber": "057/M-P",
+              "illustrationSourceNote": "포켓몬코리아 공식 워터마크 057/M-P 이미지. 빛나가 열린 하늘과 초록 언덕·풀잎이 있는 야외에 등장한다. 계절·풍경과 컬러 테마 해당; 도시 거리나 연결 일러스트는 확인되지 않음."
+            }
+          ]
         }
       ],
-      "nextStart": "M-P 051 (canonical order 051)"
+      "nextStart": "M-P canonical 058 (official Korean image evidence pending)"
     },
     "CLL": {
       "status": "in_progress",
