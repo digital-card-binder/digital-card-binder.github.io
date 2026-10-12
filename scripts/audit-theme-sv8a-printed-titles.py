@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enlarge all 237 Korean Terastal Festival ex printed titles from already-self-hosted SV8A card scans; evidence only."""
+"""Verify all 237 Korean Terastal Festival ex printed titles from already-self-hosted SV8A card scans; evidence only."""
 from pathlib import Path
 from PIL import Image,ImageDraw
 from concurrent.futures import ThreadPoolExecutor,as_completed
