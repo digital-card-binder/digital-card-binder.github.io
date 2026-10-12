@@ -114,7 +114,7 @@ async function check(url){
  }
  return {ok:false,status:0,reason:"unknown"};
 }
-const WORKERS=28;
+const WORKERS=28; // throttle exclusively on our own Cloudflare Pages archives
 await Promise.all(Array.from({length:WORKERS},async()=>{
  while(true){
   const i=cursor++; if(i>=urls.length)return;
