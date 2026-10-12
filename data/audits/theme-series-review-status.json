@@ -47808,18 +47808,29 @@
       ]
     },
     "SVHM": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "Korean official product/card-list membership verified for all 61 canonical slots; 53 numbered cards, 8 unnumbered base energies. No artwork visually confirmed; strict theme completion withheld.",
-      "reviewedCardCount": 0,
-      "reviewedThemes": [],
-      "reviewedRanges": [
-        "canonical 001-061 membership and printed numbering only, 61 exact-artwork holds"
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "note": "61 official Korean artworks visually checked; all 12 themes adjudicated. 53 printed numbers verified; 8 physically unnumbered Korean basic energy kinds retained as synthetic canonical slots. Image archive validation pending.",
+      "reviewedCardCount": 61,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "work",
+        "street",
+        "cameo"
       ],
-      "newlyAddedThemeSlotCount": 0,
-      "newlyAddedCards": [],
-      "existingSkippedCards": [],
-      "heldCards": [
+      "reviewedRanges": [
+        "canonical 001-061; 61 Korean artworks checked; 53 printed numbers and 8 unnumbered energies; all 12 themes decided"
+      ],
+      "newlyAddedThemeSlotCount": 94,
+      "newlyAddedCards": [
         "SVHM_001",
         "SVHM_002",
         "SVHM_003",
@@ -47882,14 +47893,16 @@
         "SVHM_060",
         "SVHM_061"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
-          "range": "canonical-order 001-061 (full-set Korean membership inventory)",
-          "status": "61_Korean_membership_crosschecked_0_artworks_verified_61_evidence_pending",
-          "checkedCardCount": 0,
+          "range": "canonical-order 001-061 (complete set)",
+          "status": "complete_61_official_Korean_artworks_all12_themes_checked_archive_pending",
+          "checkedCardCount": 61,
           "inventoryCrosscheckedCardCount": 61,
-          "heldCardCount": 61,
-          "evidenceSource": "https://new.pokemonkorea.co.kr/card/612 ; https://d.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20%E3%80%8C미래의%20미라이돈%20ex%E3%80%8D",
+          "heldCardCount": 0,
+          "evidenceSource": "Official Korean watermarked cards.image.pokemonkorea.co.kr SVHM images; 001/053–053/053 read from images; 8 unnumbered energies checked against Korean product inventory.",
           "artworkAudit": "data/audits/theme-svhm-001-061-evidence-pending.json",
           "imageAudit": {
             "catalogImageReferenceCount": 61,
@@ -47902,7 +47915,21 @@
           },
           "duplicateCount": 0,
           "invalidCardKeyCount": 0,
-          "themeAdditions": {},
+          "brokenReferenceCount": null,
+          "themeAdditions": {
+            "sleeping": 0,
+            "connected": 0,
+            "evolution": 0,
+            "night": 3,
+            "season": 17,
+            "color": 61,
+            "sunset": 3,
+            "reflections": 2,
+            "food": 2,
+            "work": 1,
+            "street": 5,
+            "cameo": 0
+          },
           "cards": [
             {
               "code": "SVHM_001",
@@ -47910,14 +47937,22 @@
               "canonicalMasterCode": "svhm_001/053",
               "koreanNumber": "001/053",
               "koreanName": "네오라이트 V",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030001",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_001.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_001.png?w=512",
+              "illustrationSourceNote": "네오라이트 V의 산호초·푸른 해저 확인. 카드 하단 번호 001/053가 마스터와 일치."
             },
             {
               "code": "SVHM_002",
@@ -47925,14 +47960,26 @@
               "canonicalMasterCode": "svhm_002/053",
               "koreanNumber": "002/053",
               "koreanName": "마나피",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030002",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset",
+                "reflections"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset",
+                "reflections"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_002.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_002.png?w=512",
+              "illustrationSourceNote": "마나피의 노을빛 해변 확인. 카드 하단 번호 002/053가 마스터와 일치."
             },
             {
               "code": "SVHM_003",
@@ -47940,14 +47987,24 @@
               "canonicalMasterCode": "svhm_003/053",
               "koreanNumber": "003/053",
               "koreanName": "찬란한 개굴닌자",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030003",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_003.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_003.png?w=512",
+              "illustrationSourceNote": "찬란한 개굴닌자의 분홍빛 황야 확인. 카드 하단 번호 003/053가 마스터와 일치."
             },
             {
               "code": "SVHM_004",
@@ -47955,14 +48012,22 @@
               "canonicalMasterCode": "svhm_004/053",
               "koreanNumber": "004/053",
               "koreanName": "멍파치",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030004",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_004.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_004.png?w=512",
+              "illustrationSourceNote": "멍파치의 풀밭 풍경 확인. 카드 하단 번호 004/053가 마스터와 일치."
             },
             {
               "code": "SVHM_005",
@@ -47970,14 +48035,22 @@
               "canonicalMasterCode": "svhm_005/053",
               "koreanNumber": "005/053",
               "koreanName": "펄스멍",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030005",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_005.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_005.png?w=512",
+              "illustrationSourceNote": "펄스멍의 초원 풍경 확인. 카드 하단 번호 005/053가 마스터와 일치."
             },
             {
               "code": "SVHM_006",
@@ -47985,14 +48058,20 @@
               "canonicalMasterCode": "svhm_006/053",
               "koreanNumber": "006/053",
               "koreanName": "무쇠손",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030006",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_006.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_006.png?w=512",
+              "illustrationSourceNote": "무쇠손의 미래형 배경 확인. 카드 하단 번호 006/053가 마스터와 일치."
             },
             {
               "code": "SVHM_007",
@@ -48000,14 +48079,24 @@
               "canonicalMasterCode": "svhm_007/053",
               "koreanNumber": "007/053",
               "koreanName": "라티아스",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030007",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_007.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_007.png?w=512",
+              "illustrationSourceNote": "라티아스의 노을 바다·산 확인. 카드 하단 번호 007/053가 마스터와 일치."
             },
             {
               "code": "SVHM_008",
@@ -48015,14 +48104,22 @@
               "canonicalMasterCode": "svhm_008/053",
               "koreanNumber": "008/053",
               "koreanName": "리그레",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030008",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_008.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_008.png?w=512",
+              "illustrationSourceNote": "리그레의 다색 숲 확인. 카드 하단 번호 008/053가 마스터와 일치."
             },
             {
               "code": "SVHM_009",
@@ -48030,14 +48127,22 @@
               "canonicalMasterCode": "svhm_009/053",
               "koreanNumber": "009/053",
               "koreanName": "벰크",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030009",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_009.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_009.png?w=512",
+              "illustrationSourceNote": "벰크의 달과 별밤 확인. 카드 하단 번호 009/053가 마스터와 일치."
             },
             {
               "code": "SVHM_010",
@@ -48045,14 +48150,22 @@
               "canonicalMasterCode": "svhm_010/053",
               "koreanNumber": "010/053",
               "koreanName": "무쇠무인",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030010",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_010.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_010.png?w=512",
+              "illustrationSourceNote": "무쇠무인의 달빛 야간 확인. 카드 하단 번호 010/053가 마스터와 일치."
             },
             {
               "code": "SVHM_011",
@@ -48060,14 +48173,20 @@
               "canonicalMasterCode": "svhm_011/053",
               "koreanNumber": "011/053",
               "koreanName": "미라이돈 ex",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030011",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_011.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_011.png?w=512",
+              "illustrationSourceNote": "미라이돈 ex의 다색 빛 확인. 카드 하단 번호 011/053가 마스터와 일치."
             },
             {
               "code": "SVHM_012",
@@ -48075,14 +48194,22 @@
               "canonicalMasterCode": "svhm_012/053",
               "koreanNumber": "012/053",
               "koreanName": "구구",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030012",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_012.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_012.png?w=512",
+              "illustrationSourceNote": "구구의 노란 단풍 확인. 카드 하단 번호 012/053가 마스터와 일치."
             },
             {
               "code": "SVHM_013",
@@ -48090,14 +48217,22 @@
               "canonicalMasterCode": "svhm_013/053",
               "koreanNumber": "013/053",
               "koreanName": "피죤",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030013",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_013.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_013.png?w=512",
+              "illustrationSourceNote": "피죤의 푸른 하늘 확인. 카드 하단 번호 013/053가 마스터와 일치."
             },
             {
               "code": "SVHM_014",
@@ -48105,14 +48240,20 @@
               "canonicalMasterCode": "svhm_014/053",
               "koreanNumber": "014/053",
               "koreanName": "피죤투 ex",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030014",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_014.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_014.png?w=512",
+              "illustrationSourceNote": "피죤투 ex의 비행 배경 확인. 카드 하단 번호 014/053가 마스터와 일치."
             },
             {
               "code": "SVHM_015",
@@ -48120,14 +48261,22 @@
               "canonicalMasterCode": "svhm_015/053",
               "koreanNumber": "015/053",
               "koreanName": "비버니",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030015",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_015.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_015.png?w=512",
+              "illustrationSourceNote": "비버니의 숲 확인. 카드 하단 번호 015/053가 마스터와 일치."
             },
             {
               "code": "SVHM_016",
@@ -48135,14 +48284,26 @@
               "canonicalMasterCode": "svhm_016/053",
               "koreanNumber": "016/053",
               "koreanName": "비버통",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030016",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "reflections",
+                "work"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "reflections",
+                "work"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_016.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_016.png?w=512",
+              "illustrationSourceNote": "비버통의 강·통나무 확인. 카드 하단 번호 016/053가 마스터와 일치."
             },
             {
               "code": "SVHM_017",
@@ -48150,14 +48311,20 @@
               "canonicalMasterCode": "svhm_017/053",
               "koreanNumber": "017/053",
               "koreanName": "무쇠머리",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030017",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_017.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_017.png?w=512",
+              "illustrationSourceNote": "무쇠머리의 미래 배경 확인. 카드 하단 번호 017/053가 마스터와 일치."
             },
             {
               "code": "SVHM_018",
@@ -48165,14 +48332,20 @@
               "canonicalMasterCode": "svhm_018/053",
               "koreanNumber": "018/053",
               "koreanName": "교체카트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030018",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_018.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_018.png?w=512",
+              "illustrationSourceNote": "교체카트 확인. 카드 하단 번호 018/053가 마스터와 일치."
             },
             {
               "code": "SVHM_019",
@@ -48180,14 +48353,20 @@
               "canonicalMasterCode": "svhm_019/053",
               "koreanNumber": "019/053",
               "koreanName": "근성의 곡괭이",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030019",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_019.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_019.png?w=512",
+              "illustrationSourceNote": "근성의 곡괭이 확인. 카드 하단 번호 019/053가 마스터와 일치."
             },
             {
               "code": "SVHM_020",
@@ -48195,14 +48374,20 @@
               "canonicalMasterCode": "svhm_020/053",
               "koreanNumber": "020/053",
               "koreanName": "네스트볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030020",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_020.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_020.png?w=512",
+              "illustrationSourceNote": "네스트볼 확인. 카드 하단 번호 020/053가 마스터와 일치."
             },
             {
               "code": "SVHM_021",
@@ -48210,14 +48395,20 @@
               "canonicalMasterCode": "svhm_021/053",
               "koreanNumber": "021/053",
               "koreanName": "다크패치",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030021",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_021.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_021.png?w=512",
+              "illustrationSourceNote": "다크패치 확인. 카드 하단 번호 021/053가 마스터와 일치."
             },
             {
               "code": "SVHM_022",
@@ -48225,14 +48416,20 @@
               "canonicalMasterCode": "svhm_022/053",
               "koreanNumber": "022/053",
               "koreanName": "대단한낚싯대",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030022",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_022.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_022.png?w=512",
+              "illustrationSourceNote": "대단한낚싯대 확인. 카드 하단 번호 022/053가 마스터와 일치."
             },
             {
               "code": "SVHM_023",
@@ -48240,14 +48437,20 @@
               "canonicalMasterCode": "svhm_023/053",
               "koreanNumber": "023/053",
               "koreanName": "로스트스위퍼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030023",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_023.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_023.png?w=512",
+              "illustrationSourceNote": "로스트스위퍼 확인. 카드 하단 번호 023/053가 마스터와 일치."
             },
             {
               "code": "SVHM_024",
@@ -48255,14 +48458,20 @@
               "canonicalMasterCode": "svhm_024/053",
               "koreanNumber": "024/053",
               "koreanName": "마스터볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030024",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_024.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_024.png?w=512",
+              "illustrationSourceNote": "마스터볼 확인. 카드 하단 번호 024/053가 마스터와 일치."
             },
             {
               "code": "SVHM_025",
@@ -48270,14 +48479,20 @@
               "canonicalMasterCode": "svhm_025/053",
               "koreanNumber": "025/053",
               "koreanName": "에너지 갈아 달기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030025",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_025.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_025.png?w=512",
+              "illustrationSourceNote": "에너지 갈아 달기 확인. 카드 하단 번호 025/053가 마스터와 일치."
             },
             {
               "code": "SVHM_026",
@@ -48285,14 +48500,22 @@
               "canonicalMasterCode": "svhm_026/053",
               "koreanNumber": "026/053",
               "koreanName": "이상한사탕",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030026",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color",
+                "food"
+              ],
+              "themesAdded": [
+                "color",
+                "food"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_026.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_026.png?w=512",
+              "illustrationSourceNote": "이상한사탕 확인. 카드 하단 번호 026/053가 마스터와 일치."
             },
             {
               "code": "SVHM_027",
@@ -48300,14 +48523,20 @@
               "canonicalMasterCode": "svhm_027/053",
               "koreanNumber": "027/053",
               "koreanName": "일렉트릭 제너레이터",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030027",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_027.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_027.png?w=512",
+              "illustrationSourceNote": "일렉트릭 제너레이터 확인. 카드 하단 번호 027/053가 마스터와 일치."
             },
             {
               "code": "SVHM_028",
@@ -48315,14 +48544,20 @@
               "canonicalMasterCode": "svhm_028/053",
               "koreanNumber": "028/053",
               "koreanName": "카운터 캐처",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030028",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_028.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_028.png?w=512",
+              "illustrationSourceNote": "카운터 캐처 확인. 카드 하단 번호 028/053가 마스터와 일치."
             },
             {
               "code": "SVHM_029",
@@ -48330,14 +48565,20 @@
               "canonicalMasterCode": "svhm_029/053",
               "koreanNumber": "029/053",
               "koreanName": "테크노레이더",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030029",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_029.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_029.png?w=512",
+              "illustrationSourceNote": "테크노레이더 확인. 카드 하단 번호 029/053가 마스터와 일치."
             },
             {
               "code": "SVHM_030",
@@ -48345,14 +48586,20 @@
               "canonicalMasterCode": "svhm_030/053",
               "koreanNumber": "030/053",
               "koreanName": "트레킹슈즈",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030030",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_030.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_030.png?w=512",
+              "illustrationSourceNote": "트레킹슈즈 확인. 카드 하단 번호 030/053가 마스터와 일치."
             },
             {
               "code": "SVHM_031",
@@ -48360,14 +48607,20 @@
               "canonicalMasterCode": "svhm_031/053",
               "koreanNumber": "031/053",
               "koreanName": "포켓몬 교체",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030031",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_031.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_031.png?w=512",
+              "illustrationSourceNote": "포켓몬 교체 확인. 카드 하단 번호 031/053가 마스터와 일치."
             },
             {
               "code": "SVHM_032",
@@ -48375,14 +48628,20 @@
               "canonicalMasterCode": "svhm_032/053",
               "koreanNumber": "032/053",
               "koreanName": "하이퍼볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030032",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_032.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_032.png?w=512",
+              "illustrationSourceNote": "하이퍼볼 확인. 카드 하단 번호 032/053가 마스터와 일치."
             },
             {
               "code": "SVHM_033",
@@ -48390,14 +48649,20 @@
               "canonicalMasterCode": "svhm_033/053",
               "koreanNumber": "033/053",
               "koreanName": "히스이의 헤비볼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030033",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_033.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_033.png?w=512",
+              "illustrationSourceNote": "히스이의 헤비볼 확인. 카드 하단 번호 033/053가 마스터와 일치."
             },
             {
               "code": "SVHM_034",
@@ -48405,14 +48670,20 @@
               "canonicalMasterCode": "svhm_034/053",
               "koreanNumber": "034/053",
               "koreanName": "부스트에너지 미래",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030034",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_034.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_034.png?w=512",
+              "illustrationSourceNote": "부스트에너지 미래 확인. 카드 하단 번호 034/053가 마스터와 일치."
             },
             {
               "code": "SVHM_035",
@@ -48420,14 +48691,22 @@
               "canonicalMasterCode": "svhm_035/053",
               "koreanNumber": "035/053",
               "koreanName": "숲의 봉인석",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030035",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_035.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_035.png?w=512",
+              "illustrationSourceNote": "숲의 봉인석 확인. 카드 하단 번호 035/053가 마스터와 일치."
             },
             {
               "code": "SVHM_036",
@@ -48435,14 +48714,20 @@
               "canonicalMasterCode": "svhm_036/053",
               "koreanNumber": "036/053",
               "koreanName": "용기의부적",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030036",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_036.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_036.png?w=512",
+              "illustrationSourceNote": "용기의부적 확인. 카드 하단 번호 036/053가 마스터와 일치."
             },
             {
               "code": "SVHM_037",
@@ -48450,14 +48735,20 @@
               "canonicalMasterCode": "svhm_037/053",
               "koreanNumber": "037/053",
               "koreanName": "타이트밴드",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030037",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_037.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_037.png?w=512",
+              "illustrationSourceNote": "타이트밴드 확인. 카드 하단 번호 037/053가 마스터와 일치."
             },
             {
               "code": "SVHM_038",
@@ -48465,14 +48756,20 @@
               "canonicalMasterCode": "svhm_038/053",
               "koreanNumber": "038/053",
               "koreanName": "난천의 패기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030038",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_038.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_038.png?w=512",
+              "illustrationSourceNote": "난천의 패기 확인. 카드 하단 번호 038/053가 마스터와 일치."
             },
             {
               "code": "SVHM_039",
@@ -48480,14 +48777,22 @@
               "canonicalMasterCode": "svhm_039/053",
               "koreanNumber": "039/053",
               "koreanName": "네모",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030039",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_039.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_039.png?w=512",
+              "illustrationSourceNote": "네모의 학교 공간 확인. 카드 하단 번호 039/053가 마스터와 일치."
             },
             {
               "code": "SVHM_040",
@@ -48495,44 +48800,66 @@
               "canonicalMasterCode": "svhm_040/053",
               "koreanNumber": "040/053",
               "koreanName": "모야모",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030040",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_040.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_040.png?w=512",
+              "illustrationSourceNote": "모야모의 도시 거리 확인. 카드 하단 번호 040/053가 마스터와 일치."
             },
             {
               "code": "SVHM_041",
               "canonicalOrder": 41,
               "canonicalMasterCode": "svhm_041/053",
               "koreanNumber": "041/053",
-              "koreanName": "박사의 연구(투로박사)",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030041",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "koreanName": "박사의 연구",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_041.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_041.png?w=512",
+              "illustrationSourceNote": "투로박사의 실험실 확인. 카드 하단 번호 041/053가 마스터와 일치."
             },
             {
               "code": "SVHM_042",
               "canonicalOrder": 42,
               "canonicalMasterCode": "svhm_042/053",
               "koreanNumber": "042/053",
-              "koreanName": "보스의 지령(게치스)",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030042",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "koreanName": "보스의 지령",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_042.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_042.png?w=512",
+              "illustrationSourceNote": "달빛의 보스의 지령 확인. 카드 하단 번호 042/053가 마스터와 일치."
             },
             {
               "code": "SVHM_043",
@@ -48540,14 +48867,22 @@
               "canonicalMasterCode": "svhm_043/053",
               "koreanNumber": "043/053",
               "koreanName": "유채의 활기",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030043",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_043.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_043.png?w=512",
+              "illustrationSourceNote": "유채의 숲·꽃 확인. 카드 하단 번호 043/053가 마스터와 일치."
             },
             {
               "code": "SVHM_044",
@@ -48555,14 +48890,24 @@
               "canonicalMasterCode": "svhm_044/053",
               "koreanNumber": "044/053",
               "koreanName": "주혜",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030044",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color",
+                "food",
+                "street"
+              ],
+              "themesAdded": [
+                "color",
+                "food",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_044.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_044.png?w=512",
+              "illustrationSourceNote": "주혜의 간식·마을 확인. 카드 하단 번호 044/053가 마스터와 일치."
             },
             {
               "code": "SVHM_045",
@@ -48570,14 +48915,20 @@
               "canonicalMasterCode": "svhm_045/053",
               "koreanNumber": "045/053",
               "koreanName": "투로박사의 시나리오",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030045",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_045.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_045.png?w=512",
+              "illustrationSourceNote": "투로박사의 미래 실내 확인. 카드 하단 번호 045/053가 마스터와 일치."
             },
             {
               "code": "SVHM_046",
@@ -48585,14 +48936,24 @@
               "canonicalMasterCode": "svhm_046/053",
               "koreanNumber": "046/053",
               "koreanName": "페퍼",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030046",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_046.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_046.png?w=512",
+              "illustrationSourceNote": "페퍼의 마을 풍경 확인. 카드 하단 번호 046/053가 마스터와 일치."
             },
             {
               "code": "SVHM_047",
@@ -48600,14 +48961,20 @@
               "canonicalMasterCode": "svhm_047/053",
               "koreanNumber": "047/053",
               "koreanName": "마그마의 용소",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030047",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_047.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_047.png?w=512",
+              "illustrationSourceNote": "마그마의 용소 확인. 카드 하단 번호 047/053가 마스터와 일치."
             },
             {
               "code": "SVHM_048",
@@ -48615,14 +48982,24 @@
               "canonicalMasterCode": "svhm_048/053",
               "koreanNumber": "048/053",
               "koreanName": "보울마을",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030048",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "street"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_048.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_048.png?w=512",
+              "illustrationSourceNote": "보울마을 광장 확인. 카드 하단 번호 048/053가 마스터와 일치."
             },
             {
               "code": "SVHM_049",
@@ -48630,14 +49007,22 @@
               "canonicalMasterCode": "svhm_049/053",
               "koreanNumber": "049/053",
               "koreanName": "비치코트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030049",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_049.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_049.png?w=512",
+              "illustrationSourceNote": "해변 코트 확인. 카드 하단 번호 049/053가 마스터와 일치."
             },
             {
               "code": "SVHM_050",
@@ -48645,14 +49030,22 @@
               "canonicalMasterCode": "svhm_050/053",
               "koreanNumber": "050/053",
               "koreanName": "신오신전",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030050",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_050.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_050.png?w=512",
+              "illustrationSourceNote": "눈 위의 신오신전 확인. 카드 하단 번호 050/053가 마스터와 일치."
             },
             {
               "code": "SVHM_051",
@@ -48660,14 +49053,20 @@
               "canonicalMasterCode": "svhm_051/053",
               "koreanNumber": "051/053",
               "koreanName": "더블 터보 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030051",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_051.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_051.png?w=512",
+              "illustrationSourceNote": "더블 터보 에너지 확인. 카드 하단 번호 051/053가 마스터와 일치."
             },
             {
               "code": "SVHM_052",
@@ -48675,14 +49074,20 @@
               "canonicalMasterCode": "svhm_052/053",
               "koreanNumber": "052/053",
               "koreanName": "루미너스 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030052",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_052.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_052.png?w=512",
+              "illustrationSourceNote": "루미너스 에너지 확인. 카드 하단 번호 052/053가 마스터와 일치."
             },
             {
               "code": "SVHM_053",
@@ -48690,14 +49095,20 @@
               "canonicalMasterCode": "svhm_053/053",
               "koreanNumber": "053/053",
               "koreanName": "리버설 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS20240030053",
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_053.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_053.png?w=512",
+              "illustrationSourceNote": "리버설 에너지 확인. 카드 하단 번호 053/053가 마스터와 일치."
             },
             {
               "code": "SVHM_054",
@@ -48705,14 +49116,20 @@
               "canonicalMasterCode": "svhm_054/053",
               "koreanNumber": null,
               "koreanName": "기본 풀 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_054.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_054.png?w=512",
+              "illustrationSourceNote": "기본 풀 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_055",
@@ -48720,14 +49137,20 @@
               "canonicalMasterCode": "svhm_055/053",
               "koreanNumber": null,
               "koreanName": "기본 불꽃 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_055.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_055.png?w=512",
+              "illustrationSourceNote": "기본 불꽃 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_056",
@@ -48735,14 +49158,20 @@
               "canonicalMasterCode": "svhm_056/053",
               "koreanNumber": null,
               "koreanName": "기본 물 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_056.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_056.png?w=512",
+              "illustrationSourceNote": "기본 물 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_057",
@@ -48750,14 +49179,20 @@
               "canonicalMasterCode": "svhm_057/053",
               "koreanNumber": null,
               "koreanName": "기본 번개 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_057.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_057.png?w=512",
+              "illustrationSourceNote": "기본 번개 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_058",
@@ -48765,14 +49200,20 @@
               "canonicalMasterCode": "svhm_058/053",
               "koreanNumber": null,
               "koreanName": "기본 초 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_058.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_058.png?w=512",
+              "illustrationSourceNote": "기본 초 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_059",
@@ -48780,14 +49221,20 @@
               "canonicalMasterCode": "svhm_059/053",
               "koreanNumber": null,
               "koreanName": "기본 격투 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_059.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_059.png?w=512",
+              "illustrationSourceNote": "기본 격투 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_060",
@@ -48795,14 +49242,20 @@
               "canonicalMasterCode": "svhm_060/053",
               "koreanNumber": null,
               "koreanName": "기본 악 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_060.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_060.png?w=512",
+              "illustrationSourceNote": "기본 악 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             },
             {
               "code": "SVHM_061",
@@ -48810,14 +49263,20 @@
               "canonicalMasterCode": "svhm_061/053",
               "koreanNumber": null,
               "koreanName": "기본 강철 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Korean list membership and print number checked; exact Korean card illustration and all 12 theme judgments not verified."
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_061.png",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVHM/SVHM_061.png?w=512",
+              "illustrationSourceNote": "기본 강철 에너지 확인.한국어 기본 에너지이며 인쇄 세트번호 없음."
             }
           ]
         }
@@ -53348,14 +53807,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVEL",
+    "currentSet": "SVHM",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVEL artwork review has six unresolved image-evidence holds. SVEM and SVG evidence queues remain preserved; resume from the six SVEL cards.",
+    "note": "SVHM 001-061 reviewed as one set: 53 printed numbers verified, 8 unnumbered energies retained, all themes adjudicated. Verify official image archive, then continue SVHK.",
     "currentTask": 6,
-    "currentTaskScope": "Continue Korean SVEL set evidence resolution; retain 15 verified art classifications and 6 exact-image holds. Official image pixels currently unavailable to review; do not claim set completion.",
-    "lastSafeCheckpoint": "SVEL canonical 001-021 inventory; 15 Korean artworks visually verified, 6 exact artwork evidence holds. No SVEL completion claim.",
-    "nextStart": "SVEL artwork evidence holds: SVEL_012, SVEL_014, SVEL_015, SVEL_018, SVEL_020, SVEL_021; after resolving these continue SVEM_013, SVEM_021, then SVG holds. Do not restart reviewed cards.",
+    "currentTaskScope": "SVHM set review complete; image archive validation active.",
+    "lastSafeCheckpoint": "SVHM 001-061: 61 Korean artworks checked, all 12 themes decided, zero artwork holds; archive pending.",
+    "nextStart": "SVHM image archive verification, then SVHK canonical 001.",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -53592,10 +54051,13 @@
       },
       {
         "set": "SVHM",
-        "range": "canonical-order 001-061 (53 numbered + 8 physically unnumbered energies)",
+        "range": "canonical 001-061 image archive verification only",
         "pendingCount": 61,
         "audit": "data/audits/theme-svhm-001-061-evidence-pending.json",
-        "lastArtSafeCheckpoint": "No SVHM artwork visually reviewed; all 61 require Korean image."
+        "lastArtSafeCheckpoint": "SVHM artwork and themes complete; archive pending",
+        "artworkPendingCount": 0,
+        "archivePendingReviewedCount": 61,
+        "totalOutstandingCount": 61
       },
       {
         "set": "SVHK",
@@ -53639,7 +54101,14 @@
         "lastArtSafeCheckpoint": "SVG verified artwork entries preserved; resume only held cards."
       }
     ],
-    "lastEvidenceAuditCheckpoint": "SVD canonical 001-147; numbered Korean cards and eight physically unnumbered basic Energy slots reviewed; image archive pending.",
+    "lastEvidenceAuditCheckpoint": {
+      "set": "SVHM",
+      "range": "001-061",
+      "reviewedCardCount": 61,
+      "artworkEvidenceHolds": 0,
+      "archiveVerificationStatus": "pending",
+      "checkedAt": "2026-10-12"
+    },
     "updatedAt": "2026-10-12"
   },
   "lastEvidenceAuditCheckpoint": {
