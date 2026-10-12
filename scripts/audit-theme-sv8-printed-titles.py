@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Enlarge all 138 Korean Super Electric Breaker printed titles from already-self-hosted SV8 card scans; evidence only."""
+"""Verify every Korean Super Electric Breaker printed title on the self-hosted scan from already-self-hosted SV8 card scans; evidence only."""
 from pathlib import Path
 from PIL import Image,ImageDraw
 from concurrent.futures import ThreadPoolExecutor,as_completed
