@@ -45581,7 +45581,7 @@
     "SVEL": {
       "status": "in_progress",
       "reviewedAt": "2026-10-10",
-      "note": "Entire Korean SVEL set 21 canonical slots checked at once; 15 exact Korean official card artworks visually verified, 6 image-evidence holds. 21 new independent theme placements are only from verified art; no image self-hosting.",
+      "note": "15/21 Korean SVEL artworks visually verified in prior review; six exact-artwork holds retained. This run checked card-slot membership only; official image endpoints loaded but image pixels were unavailable to the review tool, so no holds are cleared.",
       "reviewedCardCount": 15,
       "reviewedThemes": [
         "sleeping",
@@ -53351,11 +53351,11 @@
     "currentSet": "SVEL",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
-    "note": "SVF artwork review complete; image archival/deployment remains pending. Other deferred evidence items remain queued.",
+    "note": "SVEL artwork review has six unresolved image-evidence holds. SVEM and SVG evidence queues remain preserved; resume from the six SVEL cards.",
     "currentTask": 6,
-    "currentTaskScope": "SVF 한국판 46/46 카드의 12개 테마 시각 검수 완료. 자체 이미지 보관·배포 검증은 pending; 다음 세트 SVEL은 기존 기록을 보존하고 미완료 카드부터 시작.",
-    "lastSafeCheckpoint": "SVF canonical 001-038 printed Korean cards plus eight physically unnumbered Korean basic Energy slots 039-046 fully reviewed across 12 themes; 46/46. Image archive pending.",
-    "nextStart": "SVEL canonical 001; skip already reviewed cards and retain image archive as pending",
+    "currentTaskScope": "Continue Korean SVEL set evidence resolution; retain 15 verified art classifications and 6 exact-image holds. Official image pixels currently unavailable to review; do not claim set completion.",
+    "lastSafeCheckpoint": "SVEL canonical 001-021 inventory; 15 Korean artworks visually verified, 6 exact artwork evidence holds. No SVEL completion claim.",
+    "nextStart": "SVEL artwork evidence holds: SVEL_012, SVEL_014, SVEL_015, SVEL_018, SVEL_020, SVEL_021; after resolving these continue SVEM_013, SVEM_021, then SVG holds. Do not restart reviewed cards.",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -53591,27 +53591,6 @@
         "lastArtSafeCheckpoint": "SVAW 019 official art; 020-025 pending exact art"
       },
       {
-        "set": "SVEL",
-        "range": "canonical 012,014,015,018,020,unnumbered 021",
-        "pendingCount": 6,
-        "audit": "data/audits/theme-svel-001-021-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVEL 019"
-      },
-      {
-        "set": "SVEM",
-        "range": "canonical 013/020 and unnumbered basic energy 021",
-        "pendingCount": 2,
-        "audit": "data/audits/theme-svem-001-021-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVEM canonical 020 except 013"
-      },
-      {
-        "set": "SVG",
-        "range": "35 unverified artworks among canonical 001-055",
-        "pendingCount": 35,
-        "audit": "data/audits/theme-svg-001-055-evidence-pending.json",
-        "lastArtSafeCheckpoint": "SVG all 55 inventorially checked; 20 artworks verified"
-      },
-      {
         "set": "SVHM",
         "range": "canonical-order 001-061 (53 numbered + 8 physically unnumbered energies)",
         "pendingCount": 61,
@@ -53638,6 +53617,26 @@
         "pendingCount": 31,
         "audit": "data/audits/theme-svk-001-052-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVK 21 official image checks, 31 pending"
+      },
+      {
+        "set": "SVEL",
+        "range": "canonical-order 001-021",
+        "pendingCount": 6,
+        "audit": "data/audits/theme-svel-001-021-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVEL verified artwork entries preserved; resume only held cards."
+      },
+      {
+        "set": "SVEM",
+        "range": "canonical-order 001-021",
+        "pendingCount": 2,
+        "audit": "data/audits/theme-svem-001-021-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVEM verified artwork entries preserved; resume only held cards."
+      },
+      {
+        "set": "SVG",
+        "pendingCount": 35,
+        "audit": "data/audits/theme-svg-001-055-evidence-pending.json",
+        "lastArtSafeCheckpoint": "SVG verified artwork entries preserved; resume only held cards."
       }
     ],
     "lastEvidenceAuditCheckpoint": "SVD canonical 001-147; numbered Korean cards and eight physically unnumbered basic Energy slots reviewed; image archive pending.",
