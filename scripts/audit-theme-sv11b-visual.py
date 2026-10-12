@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build evidence-only contact sheets for the complete Korean sv11B set.
+"""Build self-hosted Korean Black Bolt 174-image contact sheets without altering master data.
 Read-only relative to master, theme data, and user ownership states."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
