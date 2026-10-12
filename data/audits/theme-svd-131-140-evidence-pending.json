@@ -1,15 +1,20 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 131-140",
   "sourceOfTruth": "data/series.json",
   "canonicalCardCount": 10,
-  "officialKoreanArtworkVerifiedCount": 0,
-  "artworkPendingCount": 10,
-  "themeAdditions": {},
-  "all12ThemesCheckedForVerifiedCards": false,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
+  "themeAdditions": {
+    "season": 2,
+    "night": 2,
+    "color": 8,
+    "work": 1
+  },
+  "all12ThemesCheckedForVerifiedCards": true,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "koreanPrintSource": "SVD Korean master catalog names and canonical sequence. Public Korean set listing independently corroborates numbered trainer identities but is not artwork evidence; the exact Korean watermark image was inaccessible.",
@@ -26,16 +31,24 @@
       "name": "반바지 꼬마",
       "masterImageUrl": "https://static.tcgexchange.kr/7f8ace41a8bd2d1a060160f2cc359a24.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVGDXDWGWAZ4H6ZQJ6",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "season"
+      ],
+      "themesAdded": [
+        "season"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016131",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_131.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 반바지 꼬마가 나무 그늘의 숲길에서 달린다. season. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_132",
@@ -48,16 +61,26 @@
       "name": "보스의 지령(게치스)",
       "masterImageUrl": "https://static.tcgexchange.kr/2287e156eefa45e316b00634704355a6.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV2MH538KVF897MRC1",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "night",
+        "color"
+      ],
+      "themesAdded": [
+        "night",
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016132",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_132.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 게치스가 달빛이 비치는 어두운 건축 공간에 서 있다. night 및 의상·배경 색채 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_133",
@@ -70,16 +93,24 @@
       "name": "사구아로",
       "masterImageUrl": "https://static.tcgexchange.kr/0003b98a0b3c2d1835db1915498b2f86.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVPVGYTA8EWX1BPTG2",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016133",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_133.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 사구아로가 주방 실내에 서 있다. 명확한 음식·조리 장면은 없어 food 비해당; 색채 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_134",
@@ -92,16 +123,24 @@
       "name": "스타단의 조무래기",
       "masterImageUrl": "https://static.tcgexchange.kr/67f5bc2763ab71f85c1b0927f0b01867.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVE4A8X165SH0F56KS",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016134",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_134.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 스타단 조무래기 두 명이 훈련장 앞에서 포즈를 취한다. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_135",
@@ -114,16 +153,24 @@
       "name": "운향",
       "masterImageUrl": "https://static.tcgexchange.kr/0a82170bd56076fb5cc4891850775ba9.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV7CCG0KB7JRJ2VAT6",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016135",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_135.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 운향이 실내 기기·스크린 옆에 서 있다. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_136",
@@ -136,16 +183,26 @@
       "name": "저지맨",
       "masterImageUrl": "https://static.tcgexchange.kr/0cd8e59fb8f5455d681e924e64962f68.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVCFT2FAFRXQFDP1GY",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "night",
+        "color"
+      ],
+      "themesAdded": [
+        "night",
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016136",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_136.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 저지맨이 조명이 켜진 어두운 경기장 안에 있다. night 및 녹색·주황 중심 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_137",
@@ -158,16 +215,24 @@
       "name": "지니어",
       "masterImageUrl": "https://static.tcgexchange.kr/af428189d0a15f7c0c91dc091f664917.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV5XRE1EGWRYPCRTNC",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "work"
+      ],
+      "themesAdded": [
+        "work"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016137",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_137.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 지니어가 교실 칠판 앞에서 설명하는 교사 장면. work. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_138",
@@ -180,16 +245,26 @@
       "name": "페퍼",
       "masterImageUrl": "https://static.tcgexchange.kr/a59906941ebb23e814ed5c08fee41bd1.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVNC9M35A2RJJ58N9H",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016138",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_138.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 페퍼가 푸른 하늘과 나무, 먼 산이 보이는 야외에 있다. season 및 색채 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_139",
@@ -202,16 +277,24 @@
       "name": "리버설 에너지",
       "masterImageUrl": "https://static.tcgexchange.kr/506d192ac78fbc45cf018859933fc8ad.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV78YE17DVXGC4SM7K",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016139",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_139.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 139/139 특수 리버설 에너지 카드. 무지개색 에너지 구체와 밝은 섬광으로 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_140",
@@ -224,18 +307,26 @@
       "name": "기본 풀 에너지",
       "masterImageUrl": "https://static.tcgexchange.kr/9f36b279672f1328dffc1c73d5712f8e.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KY1EHB3J0YGD56GGQKSFGABT",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": null,
       "officialKoreanIllustrationUrl": null,
       "reason": "This is an unnumbered/basic-energy candidate after printed #139 in the Korean master; the stored nn/139 identifier is a local canonical key, NOT evidence that the physical Korean card prints nn/139. Actual Korean energy print illustration is pending.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_140.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 한국어 기본 풀 에너지 공식 이미지. 물리적 인쇄번호 없는 카드이며 녹색 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     }
   ],
-  "nextStart": "SVD canonical 141",
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
   "note": "No images visually inspected; no theme match or no-theme conclusion. Neither image binary nor Cloudflare deployment verified; original links unchanged."
 }

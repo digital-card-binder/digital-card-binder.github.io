@@ -1,20 +1,14 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 011-020",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 10,
+  "artworkReviewedCardCount": 1,
   "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "season": 5,
-    "color": 9,
-    "night": 1,
-    "street": 1,
-    "SVD_012": [
-      "color"
-    ]
+    "color": 1
   },
   "imageBinarySelfHostedCount": 0,
   "cards": [
@@ -34,8 +28,9 @@
       "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016012",
       "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_012.png?w=512",
-      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 팔데아 켄타로스와 SVD 012/139 인쇄번호 확인. 불꽃과 붉은·주황색 중심의 전투 장면으로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 팔데아 켄타로스가 불꽃·파편 속에서 돌진하는 전투 장면. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     }
   ],
-  "nextStart": "SVD 021; retain 007 and 012 image holds"
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
+  "all12ThemesCheckedForVerifiedCards": true
 }

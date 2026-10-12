@@ -1,15 +1,17 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 111-120",
   "sourceOfTruth": "data/series.json",
   "canonicalCardCount": 10,
-  "officialKoreanArtworkVerifiedCount": 0,
-  "artworkPendingCount": 10,
-  "themeAdditions": {},
-  "all12ThemesCheckedForVerifiedCards": false,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
+  "themeAdditions": {
+    "color": 10
+  },
+  "all12ThemesCheckedForVerifiedCards": true,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "koreanPrintSource": "Master Korean SVD inventory identifies item/trainer prints; official exact-art illustration was not accessible; other SVD/non-SVD print numbers and overseas images are excluded.",
@@ -22,16 +24,24 @@
       "masterCardCode": "svd_111/139",
       "masterImageUrl": "https://static.tcgexchange.kr/ff2d39f836d2c50c39757cebe52f6d16.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVSV4AAJX6CWNV4APF",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016111",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_111.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 딜리버리드론 단독 기계 일러스트와 파란 원형 속도선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_112",
@@ -41,16 +51,24 @@
       "masterCardCode": "svd_112/139",
       "masterImageUrl": "https://static.tcgexchange.kr/096761326f8d66e5895f68e45c623146.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVW0ND5VGYJB85MVGJ",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016112",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_112.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 상처약 병 단독 일러스트와 연두·청록·보라 빛방울. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_113",
@@ -60,16 +78,24 @@
       "masterCardCode": "svd_113/139",
       "masterImageUrl": "https://static.tcgexchange.kr/41c04cc67e5e9e3e485b15c12c336b9a.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV1VXZGGGENDMHT384",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016113",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_113.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 슈퍼볼 단독 제품 일러스트와 녹색·황록 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_114",
@@ -79,16 +105,24 @@
       "masterCardCode": "svd_114/139",
       "masterImageUrl": "https://static.tcgexchange.kr/7c8ec74ec79e7d4097c35ca0fb379efd.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KY1JMQ4SR1BN6Y2H5BVZQY65",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016114",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_114.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 에너지 갈아 달기 장치와 보라·청색 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_115",
@@ -98,16 +132,24 @@
       "masterCardCode": "svd_115/139",
       "masterImageUrl": "https://static.tcgexchange.kr/1ff04753ea16278e5d504ef3bdda38c4.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV0S2JJXQ9YWRYC25N",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016115",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_115.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 에너지 전송 도구에서 불꽃 에너지가 떠오르는 청록·파랑 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_116",
@@ -117,16 +159,24 @@
       "masterCardCode": "svd_116/139",
       "masterImageUrl": "https://static.tcgexchange.kr/315816e2b268bf8cf0fb0a27f35a73b4.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVJJNJY53FMX9CWCCS",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016116",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_116.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 에너지 회수 장치와 노랑·금색 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_117",
@@ -136,16 +186,24 @@
       "masterCardCode": "svd_117/139",
       "masterImageUrl": "https://static.tcgexchange.kr/05f56946723bcc167b197bcd35a23586.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVDQJKYTGYT9AKN31R",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016117",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_117.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 이상한사탕 단독 제품 일러스트와 분홍·빨강·하늘색 배경. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_118",
@@ -155,16 +213,24 @@
       "masterCardCode": "svd_118/139",
       "masterImageUrl": "https://static.tcgexchange.kr/b404c2b95d2647372e88a3105f76a256.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVQT17YXJBQNV3RSKY",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016118",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_118.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 일렉트릭 제너레이터가 번개와 파란 배경에 놓인 장면. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_119",
@@ -174,16 +240,24 @@
       "masterCardCode": "svd_119/139",
       "masterImageUrl": "https://static.tcgexchange.kr/99b549d0e642ef5a40c01cc498662ef4.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV1P4G5SDR3FM3AM1R",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016119",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_119.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 크래시 해머와 깨지는 주황·노란 파편. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_120",
@@ -193,18 +267,26 @@
       "masterCardCode": "svd_120/139",
       "masterImageUrl": "https://static.tcgexchange.kr/2f1b2538572af60d49cca1f88608d37e.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVHQKKW55PS6AWJC62",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016120",
       "officialKoreanIllustrationUrl": null,
       "reason": "Exact Korean SVD artwork not accessed in this run. Search result for similarly named cards or a different numbered printing is not proof of this card's illustration. Do not infer a no-theme outcome.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_120.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 포켓기어3.0 기기와 밝은 황록색 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     }
   ],
-  "nextStart": "SVD canonical 121; return to holds 007,012,042,045,078,110,111-120 before claiming set completion",
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
   "note": "Evidence-only checkpoint, no thematic verdict. Official Korean detail and source image binaries were not read, downloaded or hosted; original catalog image references were preserved."
 }

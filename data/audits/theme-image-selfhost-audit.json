@@ -1373,8 +1373,8 @@
       "set": "SVC",
       "range": "canonical-order 001-010",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 9,
-      "artworkPendingCardCount": 1,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1382,21 +1382,21 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "color": 9,
         "season": 7
       },
-      "nextStart": "SVC canonical 011",
-      "note": "Nine official Korean SVC illustrations reviewed; card 005 not seen, retained as hold. No image binaries saved/deployed."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Korean official watermarked card art visually verified. All themes decided; binary archive/CDN deployment pending."
     },
     {
       "task": 6,
       "set": "SVC",
       "range": "canonical-order 011-020",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 0,
-      "artworkPendingCardCount": 10,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1404,18 +1404,23 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVC canonical 021 (pending SVC 005,011-020)",
-      "note": "Only Korean-print metadata crosschecked. No illustrations independently viewed, no binary saved or CDN verified."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 5,
+        "season": 2,
+        "street": 1,
+        "work": 1
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Korean official watermarked card art visually verified. All themes decided; binary archive/CDN deployment pending."
     },
     {
       "task": 6,
       "set": "SVC",
       "range": "canonical-order 021-022",
       "canonicalCardCount": 2,
-      "artworkReviewedCardCount": 0,
-      "artworkPendingCardCount": 2,
+      "artworkReviewedCardCount": 2,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 2,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1423,10 +1428,13 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 2,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVP1 canonical 001 (SVC artwork holds still open)",
-      "note": "Official KR page validates 021/021 Judge, 022 is synthetic-order unnumbered basic energy. No illustration binaries saved, no theme decisions."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "night": 1,
+        "color": 2
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Korean official watermarked card art visually verified. All themes decided; binary archive/CDN deployment pending."
     },
     {
       "task": 6,
@@ -1473,7 +1481,7 @@
         "street": 3,
         "night": 1
       },
-      "nextStart": "SVP2 canonical 010",
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
       "note": "Nine official Korean watermark card illustrations seen. External catalog image links retained; no source binary saved or deployed."
     },
     {
@@ -1481,8 +1489,8 @@
       "set": "SVP2",
       "range": "canonical-order 010-012",
       "canonicalCardCount": 3,
-      "artworkReviewedCardCount": 0,
-      "artworkPendingCardCount": 3,
+      "artworkReviewedCardCount": 3,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 3,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1490,18 +1498,20 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 3,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "Next unreviewed SV set",
-      "note": "Three catalog basic energy slots lack exact official Korean print identity. Do not mistake ordinal suffix for printed 010/009 etc."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 3
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Three official Korean unnumbered basic Energy images visually verified; archive/CDN deployment pending."
     },
     {
       "task": 6,
       "set": "SVD",
       "range": "canonical-order 001-010",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 9,
-      "artworkPendingCardCount": 1,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1509,12 +1519,13 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "night": 1,
-        "season": 8,
-        "color": 9,
-        "street": 2
+        "season": 9,
+        "color": 10,
+        "street": 2,
+        "sleeping": 1
       },
       "themeEvidenceModifications": [
         {
@@ -1522,16 +1533,16 @@
           "theme": "sleeping"
         }
       ],
-      "nextStart": "SVD 011",
-      "note": "Nine official Korean watermark art visually inspected; 007 art held; no original binary ingested."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
       "set": "SVD",
       "range": "canonical-order 011-020",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 9,
-      "artworkPendingCardCount": 1,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1539,23 +1550,23 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 5,
-        "color": 9,
+        "color": 10,
         "night": 1,
         "street": 1
       },
-      "nextStart": "SVD 021",
-      "note": "Nine official Korean watercolor/watermarked artworks visually inspected. SVD_012 inaccessible; binary images not archived."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
       "set": "SVD",
       "range": "canonical-order 021-030",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 7,
-      "artworkPendingCardCount": 3,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1563,15 +1574,15 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
-        "color": 7,
+        "color": 10,
         "sunset": 1,
-        "season": 4,
+        "season": 6,
         "street": 1
       },
-      "nextStart": "SVD canonical 031",
-      "note": "7 official Korean watermark images visually verified; 023,024,026 art deferred. Zero original binary files saved."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
@@ -1592,7 +1603,7 @@
         "season": 2,
         "color": 3
       },
-      "nextStart": "SVD 031",
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
       "note": "Korean official card image rendered and artwork visually checked. Asset binaries were not copied/self-hosted or CDN deployed."
     },
     {
@@ -1609,23 +1620,23 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 5,
         "color": 10,
         "street": 1,
         "night": 1
       },
-      "nextStart": "SVD 041",
-      "note": "Korean official card image rendered and artwork visually checked. Asset binaries were not copied/self-hosted or CDN deployed."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
       "set": "SVD",
       "range": "canonical-order 041-050",
       "canonicalCardCount": 10,
-      "artworkReviewedCardCount": 8,
-      "artworkPendingCardCount": 2,
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0,
       "externalImageReferenceCountBefore": 10,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -1633,13 +1644,13 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
-        "season": 5,
-        "color": 8
+        "season": 6,
+        "color": 10
       },
-      "nextStart": "SVD 051",
-      "note": "Eight Korean official printed artworks visually verified; 042,045 on hold; no original binary saved or Cloudflare deployed."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
@@ -1655,14 +1666,14 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "night": 1,
         "season": 8,
         "color": 10
       },
-      "nextStart": "SVD canonical 061",
-      "note": "All 10 Korean official printed card artworks directly inspected; original image binaries were not copied, self-hosted or deployed."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
@@ -1678,15 +1689,15 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 8,
         "color": 10,
         "street": 1,
         "night": 1
       },
-      "nextStart": "SVD canonical 071",
-      "note": "Ten Korean official card images directly inspected, no source image binaries saved or deployed."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed."
     },
     {
       "task": 6,
@@ -1702,14 +1713,16 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "street": 1,
-        "color": 9,
-        "season": 7
+        "color": 10,
+        "season": 8
       },
-      "nextStart": "SVD canonical 081",
-      "note": "9/10 exact Korean official watermarked images visually reviewed; 078 exact Korean artwork unverified. No binary downloads, file hosting, or deployment. External image references retained."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1725,7 +1738,7 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 6,
         "color": 10,
@@ -1733,8 +1746,10 @@
         "sunset": 3,
         "reflections": 1
       },
-      "nextStart": "SVD canonical 091",
-      "note": "All ten Korean official watermark artworks visually checked; no image binary downloaded, self-hosted, decoded or deployed. Existing external references maintained."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1750,15 +1765,17 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 6,
         "color": 10,
         "sleeping": 1,
         "food": 2
       },
-      "nextStart": "SVD canonical 101",
-      "note": "Ten numbered Korean official watermark pictures visually checked. Underlying external image binaries were not downloaded, self-hosted, or deployed. Original external catalog image URLs preserved."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1774,15 +1791,17 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
+      "brokenReferenceCount": 0,
       "themeAdditions": {
         "season": 8,
         "color": 9,
         "sunset": 1,
         "street": 1
       },
-      "nextStart": "SVD canonical 111",
-      "note": "Korean artwork 101-109 confirmed; 110 inaccessible, held. No image binaries selfhosted or deployed; all original external refs preserved."
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1798,10 +1817,14 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVD canonical 121",
-      "note": "Korean master URLs inspected, but exact Korean card artwork and image binaries not accessible. No source links replaced and no binary rehosting claims."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 10
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1817,10 +1840,17 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVD canonical 131",
-      "note": "No image downloaded / decoded / self-hosted / deployed. Master external image URLs left untouched. Exact Korean illustrated print pending."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 8,
+        "season": 2,
+        "street": 2,
+        "work": 2
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1836,10 +1866,17 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 10,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVD canonical 141",
-      "note": "No image downloaded / decoded / self-hosted / deployed. Master external image URLs left untouched. Exact Korean illustrated print pending."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "season": 2,
+        "night": 2,
+        "color": 8,
+        "work": 1
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 10,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -1855,10 +1892,14 @@
       "archiveVerificationStatus": "pending",
       "verifiedImageCount": 0,
       "unverifiedImageCount": 7,
-      "brokenReferenceCount": null,
-      "themeAdditions": {},
-      "nextStart": "SVD: revisit evidence_pending artworks 007,012,042,045,078,110,111-147; do not mark complete (104/147 verified)",
-      "note": "Seven energy slots are local canonical inventory with unverified Korean printed numbers/images; original image URLs retained; no binary selfhosting or deployment."
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 7
+      },
+      "nextStart": "SVF_002; artwork complete for this set; image archive pending",
+      "note": "Official Korean watermarked card images visually verified; all 12 themes decided. Image binaries are not archived/deployed.",
+      "artworkReviewedCardCount": 7,
+      "artworkPendingCardCount": 0
     },
     {
       "task": 6,
@@ -2216,5 +2257,6 @@
       "nextStart": "SVB canonical 001",
       "note": "All 21 numbered Korean official watermarked artwork images visually inspected and classified across all 12 themes. No binary downloaded, self-hosted, decoded from archive or deployed; all external master image URLs remain in place. SVAL canonical 022-023 Korean unnumbered basic Energy images now directly inspected; no binaries self-hosted/deployed."
     }
-  ]
+  ],
+  "nextStart": "SVF_002; archive work remains pending for reviewed sets"
 }

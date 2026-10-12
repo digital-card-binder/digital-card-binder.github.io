@@ -11,38 +11,8 @@
   "artworkReviewedCardCount": 2,
   "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "SVC_013": [
-      "color"
-    ],
-    "SVC_014": [
-      "color"
-    ],
-    "SVC_015": [
-      "color"
-    ],
-    "SVC_016": [
-      "color"
-    ],
-    "SVC_017": [
-      "color"
-    ],
-    "SVC_018": [
-      "season",
-      "street"
-    ],
-    "SVC_019": [
-      "season"
-    ],
-    "SVC_020": [
-      "work"
-    ],
-    "SVC_021": [
-      "night",
-      "color"
-    ],
-    "SVC_022": [
-      "color"
-    ]
+    "night": 1,
+    "color": 2
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
@@ -73,7 +43,7 @@
       "canonicalCode": "svc_022/021",
       "canonicalNumberIsSynthetic": true,
       "koreanNumberSource": "https://namu.moe/w/%EC%8A%A4%EC%B9%BC%EB%A0%9B%26%EB%B0%94%EC%9D%B4%EC%98%AC%EB%A0%9B%20%EC%8A%A4%ED%83%80%ED%84%B0%20%EC%84%B8%ED%8A%B8%20ex%20%ED%94%BC%EC%B9%B4%EC%B8%84%20%EC%8A%A4%ED%8E%98%EC%85%9C%20%EC%84%B8%ED%8A%B8",
-      "officialKoreanCardPageConfirmed": true,
+      "officialKoreanCardPageConfirmed": false,
       "artworkReviewed": true,
       "all12ThemesDeferred": false,
       "reason": "Official Korean watermarked card image visually inspected; all 12 themes decided. Binary archival and deployment remain pending.",
@@ -83,10 +53,11 @@
       "themesMatched": [
         "color"
       ],
-      "koreanPrintIdentifierText": "기본 번개 에너지(실물 무번호)"
+      "koreanPrintIdentifierText": "기본 번개 에너지(실물 무번호)",
+      "officialKoreanImageVerified": true
     }
   ],
   "importantNumberingNote": "Do not treat synthetic canonical SVC_022 / svc_022/021 as an actual printed 022/021. Basic Lightning Energy is not part of 001/021 through 021/021 collection numbering.",
-  "nextStart": "SVP1 canonical-order 001",
+  "nextStart": "SVF canonical-order first held card SVF_002",
   "reason": "Artwork holds resolved through official Korean watermarked images; image binary self-hosting/deployment remains pending."
 }

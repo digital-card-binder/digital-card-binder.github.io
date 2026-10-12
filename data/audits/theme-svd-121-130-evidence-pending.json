@@ -1,15 +1,20 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 121-130",
   "sourceOfTruth": "data/series.json",
   "canonicalCardCount": 10,
-  "officialKoreanArtworkVerifiedCount": 0,
-  "artworkPendingCount": 10,
-  "themeAdditions": {},
-  "all12ThemesCheckedForVerifiedCards": false,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
+  "themeAdditions": {
+    "color": 8,
+    "season": 2,
+    "street": 2,
+    "work": 2
+  },
+  "all12ThemesCheckedForVerifiedCards": true,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "koreanPrintSource": "SVD Korean master catalog names and canonical sequence. Public Korean set listing independently corroborates numbered trainer identities but is not artwork evidence; the exact Korean watermark image was inaccessible.",
@@ -26,16 +31,24 @@
       "name": "포켓몬 교체",
       "masterImageUrl": "https://static.tcgexchange.kr/52166d76b252896d3ae46de3c90dde94.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVQ6Z4Y2YJZWP1Z3CG",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016121",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_121.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 포켓몬 교체 장치와 보라·파란 회로 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_122",
@@ -48,16 +61,24 @@
       "name": "포켓몬 캐처",
       "masterImageUrl": "https://static.tcgexchange.kr/a4fec18c1a31b8008480cc70bac74af0.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV1EKNT3KTHWMTTEF8",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016122",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_122.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 포켓몬 캐처와 붉은 레이더형 배경. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_123",
@@ -70,16 +91,24 @@
       "name": "하이퍼볼",
       "masterImageUrl": "https://static.tcgexchange.kr/e51259fb31378b9bfbed9eabb284df2e.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV0F02W746PN3KTVT1",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016123",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_123.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 하이퍼볼과 분홍·주황·노랑 광선. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_124",
@@ -92,16 +121,24 @@
       "name": "기력의머리띠",
       "masterImageUrl": "https://static.tcgexchange.kr/3be152ca0ee20647ad46dc196fc78244.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVR2DZ8AS90TKJ19AB",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016124",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_124.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 기력의머리띠와 청색 광선 배경. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_125",
@@ -114,16 +151,24 @@
       "name": "바위 가슴보호대",
       "masterImageUrl": "https://static.tcgexchange.kr/8c6cc60e05bfa5cb10647c8df858362b.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV9MD9WP7FKMRVVQTW",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016125",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_125.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 바위 가슴보호대와 주황·갈색 빛 배경. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_126",
@@ -136,16 +181,24 @@
       "name": "울퉁불퉁멧",
       "masterImageUrl": "https://static.tcgexchange.kr/dc4f49ba408b56c719b6936aa4d1fa7f.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVF9SBQE8JRRTZFZNG",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "color"
+      ],
+      "themesAdded": [
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016126",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_126.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 울퉁불퉁멧과 짙은 녹색·청록 빛 배경. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_127",
@@ -158,16 +211,28 @@
       "name": "네모",
       "masterImageUrl": "https://static.tcgexchange.kr/0798fbf622f64ad5b01048ee3817b761.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVZT30RK5JAN4SCPJZ",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "season",
+        "street",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "street",
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016127",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_127.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 네모가 꽃과 초목이 핀 학교 정원·계단 옆 보행로에 있다. season, street, color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_128",
@@ -180,16 +245,28 @@
       "name": "네모",
       "masterImageUrl": "https://static.tcgexchange.kr/2e561331b17c8b867ed701b04b512a70.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YVY6QZJECV72GHX2NG",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "season",
+        "street",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "street",
+        "color"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016128",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_128.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 네모가 학교 건물과 철문, 정원 앞 보행로에 서 있다. season, street, color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_129",
@@ -202,16 +279,24 @@
       "name": "박사의 연구(올림박사)",
       "masterImageUrl": "https://static.tcgexchange.kr/9d605883e941aee2c82ac6bb617d2664.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV62ZNCWAXPZW064GH",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "work"
+      ],
+      "themesAdded": [
+        "work"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016129",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_129.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 올림박사가 실험실에서 연구 문서를 들고 있다. work. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_130",
@@ -224,18 +309,26 @@
       "name": "박사의 연구(투로박사)",
       "masterImageUrl": "https://static.tcgexchange.kr/54e5117d60265cd2543914c2ef832d0f.png",
       "masterSourceUrl": "https://www.dogam.app/sets/01KW0T2RAEMZTME7N0K0MXQ6TC/cards/01KW1C68YV9SB1GBAYZJGMD9HW",
-      "checked": false,
-      "needsReview": true,
-      "themesMatched": [],
-      "themesAdded": [],
-      "all12ThemesChecked": false,
-      "artworkProofStatus": "evidence_pending",
+      "checked": true,
+      "needsReview": false,
+      "themesMatched": [
+        "work"
+      ],
+      "themesAdded": [
+        "work"
+      ],
+      "all12ThemesChecked": true,
+      "artworkProofStatus": "reviewed_official_Korean_watermarked_art",
       "officialKoreanDetailCandidate": "https://pokemoncard.co.kr/cards/detail/BS2023016130",
       "officialKoreanIllustrationUrl": null,
       "reason": "This card is named and ordered in the Korean master, but the exact SVD Korean numbered artwork is not visually accessible from the official source. Trainer names or analogous Japanese/English art are insufficient for theme verdict.",
-      "imageBinarySelfHosted": false
+      "imageBinarySelfHosted": false,
+      "alreadyExisted": [],
+      "noApplicableTheme": false,
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_130.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 투로박사가 실험실에서 연구 문서를 들고 있다. work. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     }
   ],
-  "nextStart": "SVD canonical 131",
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
   "note": "No images visually inspected; no theme match or no-theme conclusion. Neither image binary nor Cloudflare deployment verified; original links unchanged."
 }

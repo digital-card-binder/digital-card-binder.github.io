@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 071-080",
-  "officialKoreanArtworkVerifiedCount": 9,
-  "artworkPendingCount": 1,
+  "officialKoreanArtworkVerifiedCount": 10,
+  "artworkPendingCount": 0,
   "all12ThemesCheckedForVerifiedCards": true,
   "themeAdditions": {
     "street": 1,
-    "color": 9,
-    "season": 7
+    "color": 10,
+    "season": 8
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
@@ -156,17 +156,23 @@
     },
     {
       "code": "SVD_078",
-      "checked": false,
+      "checked": true,
       "koreanNumber": "078/139",
       "name": "땃쭈르",
-      "themesMatched": [],
-      "themesAdded": [],
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "themesAdded": [
+        "season",
+        "color"
+      ],
       "alreadyExisted": [],
       "noApplicableTheme": false,
-      "needsReview": true,
+      "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016078",
-      "illustrationReferenceUrl": null,
-      "illustrationSourceNote": "한국 공식 상세와 정확한 한국판 카드 이미지에 접근하지 못함. 같은 번호 일본판으로 대체하거나 장면을 추정하지 않음. 12개 테마 각각 검토 결과: 그림 판독 보류. 이미지 바이너리 자가 호스팅 및 배포 미검증."
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_078.png?w=512",
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 땃쭈르가 큰 나무 밑동의 숲속에 있다. 자연 풍경 season 및 녹색·청록 색채 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_079",
@@ -209,6 +215,6 @@
       "illustrationSourceNote": "쏘콘이 나뭇잎과 큰 나무 사이, 밝은 푸른 하늘이 보이는 숲에 떠 있다. 12개 테마 각각 검토 결과: season, color. 이미지 바이너리 자가 호스팅 및 배포 미검증."
     }
   ],
-  "nextStart": "SVD 081; unresolved 007,012,042,045,078",
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
   "note": "9/10 Korean official cards examined visually; 078 left pending. No downloaded/hosted/decoded files and no claim of image migration."
 }

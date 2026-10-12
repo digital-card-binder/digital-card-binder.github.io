@@ -1,20 +1,14 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-10",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVD",
   "range": "canonical-order 041-050",
   "artworkReviewedCardCount": 10,
   "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "season": 5,
-    "color": 8,
-    "SVD_042": [
-      "color"
-    ],
-    "SVD_045": [
-      "color"
-    ]
+    "season": 6,
+    "color": 10
   },
   "imageBinarySelfHostedCount": 0,
   "brokenReferenceCount": null,
@@ -55,7 +49,7 @@
       "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016042",
       "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_042.png?w=512",
-      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 찌리배리와 SVD 042/139 인쇄번호 확인. 동굴의 어두운 암석 배경과 노란빛으로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 찌리배리가 어두운 동굴 바위와 노란 발광점 앞에 있다. color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_043",
@@ -103,9 +97,11 @@
       "koreanNumber": "045/139",
       "name": "찌리비크",
       "themesMatched": [
+        "season",
         "color"
       ],
       "themesAdded": [
+        "season",
         "color"
       ],
       "alreadyExisted": [],
@@ -113,7 +109,7 @@
       "needsReview": false,
       "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2023016045",
       "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVD/SVD_045.png?w=512",
-      "illustrationSourceNote": "한국어 공식 워터마크 이미지에서 찌리비크와 SVD 045/139 인쇄번호 확인. 푸른 하늘과 노란 날개, 비행 장면으로 color 해당, 나머지 11테마 비해당. 모든 12개 테마 확인. 바이너리 자체 저장 및 배포 검증은 pending."
+      "illustrationSourceNote": "한국어 포켓몬코리아 공식 워터마크 이미지 직접 판독: 찌리비크가 푸른 하늘과 구름, 산 능선 위로 난다. 자연 풍경 season 및 노랑·파랑 색채 color. 12개 테마 모두 확인. 바이너리 자체 저장·배포 미검증."
     },
     {
       "code": "SVD_046",
@@ -210,6 +206,7 @@
       "illustrationSourceNote": "한국어판 공식 카드 이미지 직접 시각 검수: 그랑블루가 초록색 야자나무가 여러 그루 선 밝은 열대 해변 위에 서서 하늘을 향해 얼굴을 든다. 12개 테마 중 season, color 판정. 이미지 자체저장 및 CDN 배포 미검증."
     }
   ],
-  "nextStart": "SVD 051 (canonical order 051); outstanding holds 007,012,042,045",
-  "note": "8 official Korean watermarked card images directly visually classified among 12 themes; exact Korean artworks 042 and 045 inaccessible, held."
+  "nextStart": "SVF_002; SVD complete (147/147), resume next set without repeating completed cards",
+  "note": "8 official Korean watermarked card images directly visually classified among 12 themes; exact Korean artworks 042 and 045 inaccessible, held.",
+  "all12ThemesCheckedForVerifiedCards": true
 }
