@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'data/audits/theme-svm-101-110-art-review.json'
+      - 'data/audits/theme-svm-111-120-art-review.json'
 
 permissions:
   contents: write
@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Apply only verified Korean art records and checkpoint
-        run: node scripts/apply-theme-svm-101-110-review.mjs
+        run: node scripts/apply-theme-svm-111-120-review.mjs
       - name: Synchronize site audit and derived indices
         run: npm run site:prepare
       - name: Validate generated consistency
@@ -54,5 +54,5 @@ jobs:
             exit 0
           fi
           git diff --cached --name-only
-          git commit -m "Apply SVM 101-110 Korean artwork theme review and validated checkpoint"
+          git commit -m "Apply SVM 111-120 Korean artwork theme review and validated checkpoint"
           git push origin HEAD:main
