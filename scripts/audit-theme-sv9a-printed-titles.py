@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Zoom printed Korean titles from already-self-hosted SV9a card scans; evidence only."""
+"""Enlarge printed Korean titles from already-self-hosted SV9a card scans; evidence only."""
 from pathlib import Path
 from PIL import Image,ImageDraw
 from concurrent.futures import ThreadPoolExecutor,as_completed
