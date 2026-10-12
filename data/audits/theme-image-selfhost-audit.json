@@ -2768,7 +2768,28 @@
       },
       "fullEvidence": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json",
       "note": "Existing self-hosted Cloudflare CDN Korean-print files decoded and visually inspected. External image source is catalog provenance only; no new image downloaded or hotlinked."
+    },
+    {
+      "task": 6,
+      "set": "SVLS",
+      "range": "previously held canonical 017,018,019,023-025",
+      "canonicalCardCount": 6,
+      "artworkVisuallyVerifiedCount": 6,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 6,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 6,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_CDN_Korean_print_decoded",
+      "verifiedImageCount": 6,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "street": 2
+      },
+      "nextStart": "sv11W canonical 001",
+      "note": "Six old SVLS print images inspected from owned CDN, existing 19 reviews unchanged. Base energies have no printed card numbers."
     }
   ],
-  "nextStart": "SVLS six outstanding older evidence holds; then sv11W canonical 001"
+  "nextStart": "sv11W canonical 001; other older in-progress sets remain"
 }

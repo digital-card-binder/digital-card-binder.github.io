@@ -53655,10 +53655,10 @@
       "nextStart": "SVLN review complete; 25-image archive pending; next SVLS canonical 001"
     },
     "SVLS": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
-      "note": "SVLS 25 canonical 슬롯 중 한국판 공식 일러스트 19개 검수 완료(심보러 007 새로 해결). 카드 017-019 및 무번호 에너지 023-025 총 6개 증거 보류. 신규 이미지 자체 저장/배포 확인은 0개.",
-      "reviewedCardCount": 19,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "SVLS 25/25 Korean-print cards visually reviewed; six old evidence holds resolved with decoded self-hosted Korean image files, including three unnumbered energy cards. Previously verified 19 unchanged.",
+      "reviewedCardCount": 25,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -53677,7 +53677,7 @@
         "canonical 001-025: 18 exact Korean artworks visually verified; 007,017-019 and unnumbered energy 023-025 held",
         "canonical 007 심보러 007/022: 공식 한국판 이미지 직접 시각 확인 및 season/color 2테마 신규 판정"
       ],
-      "newlyAddedThemeSlotCount": 35,
+      "newlyAddedThemeSlotCount": 37,
       "newlyAddedCards": [
         "SVLS_001",
         "SVLS_002",
@@ -53697,10 +53697,7 @@
         "SVLS_020",
         "SVLS_021",
         "SVLS_022",
-        "SVLS_007"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SVLS_007",
         "SVLS_017",
         "SVLS_018",
         "SVLS_019",
@@ -53708,6 +53705,8 @@
         "SVLS_024",
         "SVLS_025"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-025 (19 official visual; 6 evidence holds)",
@@ -54400,7 +54399,17 @@
           "nextStart": "SVLS 7 evidence holds; SVM canonical 001 available for independent review"
         }
       ],
-      "nextStart": "SVLS 6 evidence holds; SVM canonical 001 (independent)"
+      "nextStart": "SVLS 6 evidence holds; SVM canonical 001 (independent)",
+      "resolvedHeldCards": [
+        "SVLS_017",
+        "SVLS_018",
+        "SVLS_019",
+        "SVLS_023",
+        "SVLS_024",
+        "SVLS_025"
+      ],
+      "fullSetEvidence": "data/audits/theme-svls-held-closure-20261013.json",
+      "archiveVerificationStatus": "held_six_existing_CDN_print_verified"
     },
     "SVM": {
       "status": "complete",
@@ -58600,9 +58609,9 @@
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVM, SVN, SVOD, SVOM strict complete. Earlier separate holds outside these four sets remain.",
-    "lastSafeCheckpoint": "SVM 183/183; SVN 53/53; SVOD 21/21; SVOM 21/21. All pictured Korean-print images verified against existing CDN, with SVM eight old holds resolved. SVLS six evidence holds remain separate.",
-    "nextStart": "SVLS six older evidence holds; then sv11W canonical 001",
+    "currentTaskScope": "Five targeted SV sets complete with validated Korean-print images.",
+    "lastSafeCheckpoint": "SVM 183/183, SVN 53/53, SVOD 21/21, SVOM 21/21 and SVLS 25/25 strict complete. Earlier unrelated sets remain in progress.",
+    "nextStart": "sv11W canonical 001; independently review earlier incomplete sets as queued",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -58900,12 +58909,12 @@
     "updatedAt": "2026-10-12"
   },
   "lastEvidenceAuditCheckpoint": {
-    "set": "SVOM",
-    "range": "canonical 001-021",
-    "reviewedCardCount": 21,
+    "set": "SVLS",
+    "range": "canonical held 017,018,019,023,024,025",
+    "reviewedCardCount": 6,
     "artworkEvidenceHolds": 0,
-    "archiveVerificationStatus": "existing_CDN_print_verified",
+    "archiveVerificationStatus": "existing_CDN_Korean_print_decoded",
     "checkedAt": "2026-10-12",
-    "evidenceFile": "data/audits/theme-svm-svn-svod-svom-visual-review-20261013.json"
+    "evidenceFile": "data/audits/theme-svls-held-closure-20261013.json"
   }
 }

@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5746,
-    "uniqueThemeCards": 3519,
-    "strictCompleteSetCount": 32,
+    "themeCardSlots": 5748,
+    "uniqueThemeCards": 3521,
+    "strictCompleteSetCount": 33,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 241,
+    "baselineRemainingSetCount": 240,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -211,7 +211,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 477,
+      "cardSlots": 479,
       "setCount": 42,
       "rarities": [
         "AR",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 19,
-      "remainingSetCount": 34,
-      "currentThemeSlots": 2118
+      "completeSetCount": 20,
+      "remainingSetCount": 33,
+      "currentThemeSlots": 2120
     },
     {
       "era": "S",
@@ -375,13 +375,6 @@
       "code": "SVG",
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVLS",
-      "name": "스타터 세트 테라스탈타입:스텔라 「파라블레이즈 ex」",
-      "cardCount": 25,
       "status": "in_progress"
     },
     {
@@ -522,6 +515,13 @@
       "code": "sv2a",
       "name": "포켓몬카드 151",
       "cardCount": 210,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv2P",
+      "name": "스노해저드",
+      "cardCount": 99,
       "status": "pending"
     }
   ],
@@ -2150,15 +2150,15 @@
       "cardCount": 25,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "night": 3,
         "season": 8,
         "color": 19,
         "sunset": 3,
         "work": 1,
-        "street": 1
+        "street": 3
       }
     },
     {
