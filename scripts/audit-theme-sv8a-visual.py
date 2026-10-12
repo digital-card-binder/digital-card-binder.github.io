@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate 237 Korean Terastal Festival ex source-safe owned-CDN image contact sheets, read only to main master.
+"""Generate 237 Korean Terastal Festival ex source-safe owned-CDN image contact sheets, read-only to the original master catalog.
 Read-only relative to master, theme data, and user ownership states."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
