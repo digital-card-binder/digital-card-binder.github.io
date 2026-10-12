@@ -2163,8 +2163,8 @@
       "set": "SVJL",
       "range": "canonical-order 001-022 (full Korean inventory)",
       "canonicalCardCount": 22,
-      "artworkVisuallyVerifiedCount": 17,
-      "artworkPendingCount": 5,
+      "artworkVisuallyVerifiedCount": 22,
+      "artworkPendingCount": 0,
       "externalImageReferenceCountBefore": 22,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -2175,14 +2175,14 @@
       "brokenReferenceCount": null,
       "themeAdditions": {
         "season": 6,
-        "color": 17,
-        "work": 1,
+        "color": 22,
+        "work": 2,
         "night": 2,
         "food": 1,
         "street": 2
       },
-      "nextStart": "SVJP canonical 001",
-      "note": "17 exact Korean officially watermarked arts inspected; remaining five holds 004,011,014,016 and unnumbered Fire Energy 022. No binary downloaded/self-hosted/deployed. Master images unchanged."
+      "nextStart": "SVJL artwork complete; 22-image archive pending; next SVJP canonical 001",
+      "note": "All 22 Korean card artworks visually verified against the official Korean watermarked images, including the unnumbered basic Fire Energy. 35 theme placements recorded. No binary download, self-hosting or deployment verification performed."
     },
     {
       "task": 6,
@@ -2329,5 +2329,5 @@
       "note": "All 74 Korean images and printed numbers checked; 12 theme decisions complete. 74 external refs remain; none archived/verified."
     }
   ],
-  "nextStart": "SVHK official artwork review complete; archive verification pending, then SVI canonical 001."
+  "nextStart": "SVJL Korean artwork review complete; image archive verification pending; SVJP canonical 001."
 }

@@ -4,14 +4,14 @@
   "task": 6,
   "set": "SVJL",
   "setTitle": "배틀 마스터 덱 「테라스탈 리자몽 ex」",
-  "status": "full_Korean_membership_inventory_partial_artwork_review",
+  "status": "resolved_artwork_review_image_archive_pending",
   "masterCardCount": 22,
   "numberedKoreanCards": 21,
   "unnumberedBasicEnergyKinds": 1,
-  "exactKoreanArtworksReviewed": 17,
-  "all12ThemeDecisionsComplete": 17,
-  "artworkEvidenceHolds": 5,
-  "newThemePlacements": 29,
+  "exactKoreanArtworksReviewed": 22,
+  "all12ThemeDecisionsComplete": 22,
+  "artworkEvidenceHolds": 0,
+  "newThemePlacements": 35,
   "cardMasterMutations": 0,
   "duplicateCanonicalKeys": 0,
   "sourcePriority": "Korean Pokémon Korea official product and individually-numbered Korean original watermarked card art; Japanese print reference never substitutes for Korean printed artwork",
@@ -49,33 +49,32 @@
       "resolution": "night and color, no incorrect daytime/street tagging"
     }
   ],
-  "limitations": "Cards 004, 011, 014, 016 and 022 not visually confirmed from matching exact Korean numbered card image during this pass. Retained as evidence holds and not considered fully reviewed. No binary image copies, archive upload or Cloudflare validation performed.",
+  "limitations": "All 22 Korean artwork slots visually verified and classified across 12 themes. No image binary downloads, self-hosting, decoding from archived copy, or Cloudflare deployment were performed; image archive remains pending.",
   "reviewedCards": [
     "SVJL_001",
     "SVJL_002",
     "SVJL_003",
+    "SVJL_004",
     "SVJL_005",
     "SVJL_006",
     "SVJL_007",
     "SVJL_008",
     "SVJL_009",
     "SVJL_010",
+    "SVJL_011",
     "SVJL_012",
     "SVJL_013",
+    "SVJL_014",
     "SVJL_015",
+    "SVJL_016",
     "SVJL_017",
     "SVJL_018",
     "SVJL_019",
     "SVJL_020",
-    "SVJL_021"
-  ],
-  "heldCards": [
-    "SVJL_004",
-    "SVJL_011",
-    "SVJL_014",
-    "SVJL_016",
+    "SVJL_021",
     "SVJL_022"
   ],
+  "heldCards": [],
   "cards": [
     {
       "code": "SVJL_001",
@@ -149,12 +148,14 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean set SVJL in source master and product: https://pokemoncard.co.kr/card/647",
       "catalogImage": "https://static.tcgexchange.kr/3bf9df759c9489535b39a7f3ff8e2b0f.png",
-      "artworkReviewStatus": "pending_exact_Korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024009004",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_004.png?w=512",
+      "artworkDescription": "파이어가 불꽃과 푸른 하늘이 휘몰아치는 장면을 날아감",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -292,12 +293,14 @@
       "cardType": "item",
       "membershipCrosscheck": "Korean set SVJL in source master and product: https://pokemoncard.co.kr/card/647",
       "catalogImage": "https://static.tcgexchange.kr/b2b7b6fa8e844dbf5d2968c071ac5caa.png",
-      "artworkReviewStatus": "pending_exact_Korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024009011",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_011.png?w=512",
+      "artworkDescription": "푸른빛 광선 속에 초록·노란 네스트볼이 떠 있음",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -351,12 +354,14 @@
       "cardType": "item",
       "membershipCrosscheck": "Korean set SVJL in source master and product: https://pokemoncard.co.kr/card/647",
       "catalogImage": "https://static.tcgexchange.kr/0d40ea1cf598794d96b16e038e3b8e9d.png",
-      "artworkReviewStatus": "pending_exact_Korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024009014",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_014.png?w=512",
+      "artworkDescription": "보라·남색의 속도감 있는 배경에 두 개의 포켓몬 교체 장치가 보임",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -389,12 +394,14 @@
       "cardType": "supporter",
       "membershipCrosscheck": "Korean set SVJL in source master and product: https://pokemoncard.co.kr/card/647",
       "catalogImage": "https://static.tcgexchange.kr/d2d163c263f32ff2ab2d227c4825115b.png",
-      "artworkReviewStatus": "pending_exact_Korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024009016",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_016.png?w=512",
+      "artworkDescription": "난천의 노란 머리와 어두운 옷, 흐릿한 녹회색 배경이 대비됨",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -431,10 +438,11 @@
       "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
       "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024009018",
       "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_018.png?w=512",
-      "artworkDescription": "청록·백색 연구실 게시판과 주황빛 의상이 대비되는 올림박사",
+      "artworkDescription": "청록·백색 연구실 게시판과 주황빛 의상이 대비되는 올림박사; 올림박사가 연구실에서 연구 업무를 수행",
       "all12ThemesChecked": true,
       "themeMatches": [
-        "color"
+        "color",
+        "work"
       ],
       "selfHostedImageBinaryVerified": false
     },
@@ -511,14 +519,31 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean set SVJL in source master and product: https://pokemoncard.co.kr/card/647",
       "catalogImage": "https://static.tcgexchange.kr/f9a342a3cbdaf9c6ddd4ddfc69414099.png",
-      "artworkReviewStatus": "pending_exact_Korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_illustration_visually_verified",
+      "artworkEvidenceSource": "https://www.dogam.app/sets/01KW0QCS4ZSMBEZB30553AGJ0P",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJL/SVJL_022.png?w=512",
+      "artworkDescription": "빨강·주황 바탕에 불꽃 에너지 심볼이 담긴 구체",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     }
   ],
-  "nextStart": "SVJP canonical 001 (SVJL held images 004,011,014,016,022 later)"
+  "nextStart": "SVJP canonical 001 (SVJL held images 004,011,014,016,022 later)",
+  "previousPartialReview": {
+    "recordedAt": "2026-10-10",
+    "status": "full_Korean_membership_inventory_partial_artwork_review",
+    "exactKoreanArtworksReviewed": 17,
+    "artworkEvidenceHolds": 5,
+    "heldCards": [
+      "SVJL_004",
+      "SVJL_011",
+      "SVJL_014",
+      "SVJL_016",
+      "SVJL_022"
+    ],
+    "limitations": "Cards 004, 011, 014, 016 and 022 not visually confirmed from matching exact Korean numbered card image during this pass. Retained as evidence holds and not considered fully reviewed. No binary image copies, archive upload or Cloudflare validation performed."
+  },
+  "resolvedAt": "2026-10-12"
 }

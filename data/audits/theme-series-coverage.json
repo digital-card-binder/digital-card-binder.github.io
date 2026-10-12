@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-12",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5304,
-    "uniqueThemeCards": 3269,
-    "strictCompleteSetCount": 25,
+    "themeCardSlots": 5310,
+    "uniqueThemeCards": 3274,
+    "strictCompleteSetCount": 26,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 248,
+    "baselineRemainingSetCount": 247,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2726,
+      "cardSlots": 2731,
       "setCount": 43,
       "rarities": [
         "AR",
@@ -199,7 +199,7 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 35,
+      "cardSlots": 36,
       "setCount": 19,
       "rarities": [
         "AR",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 12,
-      "remainingSetCount": 41,
-      "currentThemeSlots": 1676
+      "completeSetCount": 13,
+      "remainingSetCount": 40,
+      "currentThemeSlots": 1682
     },
     {
       "era": "S",
@@ -382,7 +382,7 @@
       "code": "SVJL",
       "name": "배틀 마스터 덱 「테라스탈 리자몽 ex」",
       "cardCount": 22,
-      "status": "in_progress"
+      "status": "complete"
     },
     {
       "era": "SV",
@@ -2186,14 +2186,14 @@
       "cardCount": 22,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
         "night": 2,
         "season": 6,
-        "color": 17,
+        "color": 22,
         "food": 1,
-        "work": 1,
+        "work": 2,
         "street": 2
       }
     },
