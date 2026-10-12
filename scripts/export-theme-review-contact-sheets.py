@@ -10,7 +10,7 @@ audit=json.loads((ROOT/"data/audits/theme-next-batches-master-inventory.json").r
 outdir=ROOT/"data/audits/theme-visual-evidence"
 outdir.mkdir(parents=True,exist_ok=True)
 report={"date":"2026-10-13","source":"Existing user-owned CDN route only","sets":{}}
-MAX_SIDE=(220,310); COLUMNS=5; PER_PAGE=15
+MAX_SIDE=(220,310) # preserve readable card-number region; COLUMNS=5; PER_PAGE=15
 for set_code, entry in audit["sets"].items():
     collected=[]
     for card in entry["cards"]:
