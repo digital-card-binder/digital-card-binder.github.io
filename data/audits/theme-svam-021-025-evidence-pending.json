@@ -4,10 +4,10 @@
   "task": 6,
   "set": "SVAM",
   "range": "canonical-order 021-025: Korean printed 021-023/023 + unnumbered energies at catalog 024-025",
-  "reviewStatus": "complete_25_of_25_master_catalog_disposition_not_complete_12_theme_art_review",
+  "reviewStatus": "5_official_Korean_artworks_reviewed_all_12_themes",
   "canonicalCardCount": 5,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 5,
+  "artworkReviewedCardCount": 5,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
@@ -24,7 +24,7 @@
     "selfHostedImageBinariesConfirmed": 0,
     "note": "Five Korean card artworks 001-005 visually reviewed. 006-009 prior Japanese-only assignments suspended, and 010-025 remain artwork evidence pending."
   },
-  "nextStart": "SVAM canonical 006 (Korean artwork evidence re-review); canonical 006-025 remain pending or held",
+  "nextStart": "SVAM canonical 001-025 visually checked; proceed to next set SVAW canonical 003 re-review",
   "cards": [
     {
       "canonicalOrder": 21,
@@ -35,11 +35,16 @@
       "numberingType": "numbered_Korean_print",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDPMDKXJR22JWASHN6",
       "catalogImageUrl": "https://static.tcgexchange.kr/0fa5f5b2ab55eeb897ebe477b9f71702.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "themeAssignmentStatus": "deferred_until_verified_illustration",
-      "evidenceStatus": "korean_print_name_number_crosschecked_artwork_pending",
-      "reason": "Korean numbered print identity checked against independent Korean set listing; art image not visually verified. JP same number differs."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "reason": "연구실 장비 앞의 올림박사. 실험복과 연구 공간이 함께 보임. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color, work. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color",
+        "work"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_021.png?w=512"
     },
     {
       "canonicalOrder": 22,
@@ -50,11 +55,16 @@
       "numberingType": "numbered_Korean_print",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDFAR8MVNY72PDZYMS",
       "catalogImageUrl": "https://static.tcgexchange.kr/c4d32ab4f54ebe66d053eeaa37326423.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "themeAssignmentStatus": "deferred_until_verified_illustration",
-      "evidenceStatus": "korean_print_name_number_crosschecked_artwork_pending",
-      "reason": "Korean numbered print identity checked against independent Korean set listing; art image not visually verified. JP same number differs."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "reason": "나무가 우거진 햇볕 드는 숲길을 달리는 반바지 꼬마. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: season, color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_022.png?w=512"
     },
     {
       "canonicalOrder": 23,
@@ -65,11 +75,16 @@
       "numberingType": "numbered_Korean_print",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD5610NR3K14T8QRP6",
       "catalogImageUrl": "https://static.tcgexchange.kr/2ab95efee516915d1a54768407530da5.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "themeAssignmentStatus": "deferred_until_verified_illustration",
-      "evidenceStatus": "korean_print_name_number_crosschecked_artwork_pending",
-      "reason": "Korean numbered print identity checked against independent Korean set listing; art image not visually verified. JP same number differs."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "reason": "밝은 전광판과 조명이 있는 경기장에서 심판 역할을 하는 저지맨. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color, work. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color",
+        "work"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_023.png?w=512"
     },
     {
       "canonicalOrder": 24,
@@ -80,11 +95,15 @@
       "numberingType": "unnumbered_basic_energy_synthetic_catalog_slot",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KY1EH52YMG3JY681P10AAD02",
       "catalogImageUrl": "https://static.tcgexchange.kr/9f36b279672f1328dffc1c73d5712f8e.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "themeAssignmentStatus": "deferred_until_verified_illustration",
-      "evidenceStatus": "Korean_deck_energy_identity_crosschecked_no_print_number_artwork_pending",
-      "reason": "Catalog canonical order 024/025 is for basic energy cards without a printed 024/023 or 025/023 identifier in Korean deck list. Do not treat internal catalog order as physical print number. Exact energy art unseen."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "reason": "한국어 기본 풀 에너지 실물 그림. 초록색 바탕과 에너지 마크가 중심이며 세트 인쇄번호는 없음. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_024.png?w=512"
     },
     {
       "canonicalOrder": 25,
@@ -95,11 +114,15 @@
       "numberingType": "unnumbered_basic_energy_synthetic_catalog_slot",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KY1EH5FPZPQ9Z0X2ZT0N5D53",
       "catalogImageUrl": "https://static.tcgexchange.kr/4e4d9c485f531e0dad04cc6ea725da32.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "themeAssignmentStatus": "deferred_until_verified_illustration",
-      "evidenceStatus": "Korean_deck_energy_identity_crosschecked_no_print_number_artwork_pending",
-      "reason": "Catalog canonical order 024/025 is for basic energy cards without a printed 024/023 or 025/023 identifier in Korean deck list. Do not treat internal catalog order as physical print number. Exact energy art unseen."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "reason": "한국어 기본 격투 에너지 실물 그림. 주황색 바탕과 에너지 마크가 중심이며 세트 인쇄번호는 없음. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_025.png?w=512"
     }
   ]
 }

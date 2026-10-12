@@ -4,10 +4,10 @@
   "task": 6,
   "set": "SVAM",
   "range": "canonical-order 006-009 (printed 006-009/023)",
-  "reviewStatus": "korean_artwork_pending_prior_japanese_only_theme_assignments_suspended",
+  "reviewStatus": "4_official_Korean_artworks_reviewed_all_12_themes",
   "canonicalCardCount": 4,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 4,
+  "artworkReviewedCardCount": 4,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
@@ -16,7 +16,7 @@
   "koreanPrintIndependentConfirmation": "Korean catalog records identify the Korean SVAM cards and their printed numbers. Prior audit used Japanese references for visual classification, which are not accepted as Korean artwork proof.",
   "thematicClassification": "Prior color/season labels suspended for all four cards. Review all 12 themes only after direct inspection of each corresponding Korean image.",
   "regionWarning": "Japanese card images may be retained as reference only and must not be used to confirm Korean-language print artwork or theme assignments.",
-  "nextStart": "SVAM canonical 006",
+  "nextStart": "SVAM canonical 001-025 visually checked; proceed to next set SVAW canonical 003 re-review",
   "cards": [
     {
       "canonicalOrder": 6,
@@ -25,14 +25,18 @@
       "koreanPrintIdentifier": "006/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/1e22341f5c32234d840bd776d5d5f069.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD59S5ZSJSYCBBP3CV",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "provisional_japanese_only_assignments_suspended",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "themeAssignmentStatus": "reviewed_all_12_themes",
       "previousProvisionalThemes": [
         "color"
       ],
-      "reason": "기존 분류 color는 일본판 이미지 참고로만 판독되어 활성 분류에서 보류 처리. 한국판 master/Dogam 카드 및 번호는 확인되지만 한국 이미지 직접 판독 전에는 어떤 테마도 완료 처리하지 않음."
+      "reason": "마스카나가 파편·빛무늬가 겹친 도시적 배경에서 뛰어오르는 장면. 녹색·분홍·흰색·청색이 두드러짐. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_006.png?w=512"
     },
     {
       "canonicalOrder": 7,
@@ -41,15 +45,19 @@
       "koreanPrintIdentifier": "007/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/6879abde612c3cf696d751092371d92f.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDCC389AYYMBSE9N16",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "provisional_japanese_only_assignments_suspended",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "themeAssignmentStatus": "reviewed_all_12_themes",
       "previousProvisionalThemes": [
         "color",
         "season"
       ],
-      "reason": "기존 분류 color, season는 일본판 이미지 참고로만 판독되어 활성 분류에서 보류 처리. 한국판 master/Dogam 카드 및 번호는 확인되지만 한국 이미지 직접 판독 전에는 어떤 테마도 완료 처리하지 않음."
+      "reason": "타랜툴라가 숲속 거미줄에 매달린 그림. 보라색 숲과 노랑·초록 포켓몬의 색 대비. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_007.png?w=512"
     },
     {
       "canonicalOrder": 8,
@@ -58,15 +66,20 @@
       "koreanPrintIdentifier": "008/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/9831554f10183f58238dafbeb1f35c27.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDQNX5J7EKQ2CYZMDK",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "provisional_japanese_only_assignments_suspended",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "themeAssignmentStatus": "reviewed_all_12_themes",
       "previousProvisionalThemes": [
         "color",
         "season"
       ],
-      "reason": "기존 분류 color, season는 일본판 이미지 참고로만 판독되어 활성 분류에서 보류 처리. 한국판 master/Dogam 카드 및 번호는 확인되지만 한국 이미지 직접 판독 전에는 어떤 테마도 완료 처리하지 않음."
+      "reason": "큰 달이 뜬 어두운 숲길을 리오르가 달리는 밤 장면. 푸른 달빛과 녹색 숲. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: night, color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "night",
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_008.png?w=512"
     },
     {
       "canonicalOrder": 9,
@@ -75,14 +88,18 @@
       "koreanPrintIdentifier": "009/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/494c082edcf3cb223c90ab6e4c71a042.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDMQMYT5P5Y56S0QMF",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
-      "themeAssignmentStatus": "provisional_japanese_only_assignments_suspended",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
+      "themeAssignmentStatus": "reviewed_all_12_themes",
       "previousProvisionalThemes": [
         "color"
       ],
-      "reason": "기존 분류 color는 일본판 이미지 참고로만 판독되어 활성 분류에서 보류 처리. 한국판 master/Dogam 카드 및 번호는 확인되지만 한국 이미지 직접 판독 전에는 어떤 테마도 완료 처리하지 않음."
+      "reason": "루카리오 ex가 청색·백색의 강한 빛과 파편 효과 속에서 돌진하는 장면. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_009.png?w=512"
     }
   ]
 }

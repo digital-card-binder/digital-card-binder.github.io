@@ -1,17 +1,16 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVB",
   "range": "canonical-order 011-020",
-  "reviewStatus": "7_korean_official_artworks_reviewed_3_pending",
+  "reviewStatus": "resolved_all_Korean_official_artwork_reviewed_all12_themes",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 7,
-  "artworkPendingCardCount": 3,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "color": 7,
-    "street": 2,
-    "night": 1
+    "color": 3,
+    "season": 1
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
@@ -23,10 +22,16 @@
       "catalogName": "근성의 곡괭이",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YV5YT20W6CH4R3GZD0",
       "catalogImageUrl": "https://static.tcgexchange.kr/278b5737e3b07ba811db8af2d776fb86.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
-      "reason": "Korean printed card identity is catalogued but exact Korean official art unavailable for direct visual classification."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
+      "reason": "근성의 곡괭이 한글명·012/028 및 곡괭이 그림 확인. 금색·갈색 광채와 붉은 손잡이. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "012/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_012.png?w=512",
+      "themesMatched": [
+        "color"
+      ]
     },
     {
       "canonicalOrder": 13,
@@ -35,10 +40,16 @@
       "catalogName": "레벨볼",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVBXJQ08KQ2TKY67BS",
       "catalogImageUrl": "https://static.tcgexchange.kr/c1de17aeac3845d2a1546fed76450e9e.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
-      "reason": "Korean printed card identity is catalogued but exact Korean official art unavailable for direct visual classification."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
+      "reason": "레벨볼 한글명·013/028 및 노란색 볼 그림 확인. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "013/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_013.png?w=512",
+      "themesMatched": [
+        "color"
+      ]
     },
     {
       "canonicalOrder": 19,
@@ -47,11 +58,19 @@
       "catalogName": "모미",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVR5A2JS15GWXTYCFD",
       "catalogImageUrl": "https://static.tcgexchange.kr/f88655ff736acb70622eb42ebc4c9f40.png",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
-      "reason": "Korean printed card identity is catalogued but exact Korean official art unavailable for direct visual classification."
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
+      "reason": "모미 한글명·019/028 및 숲속 인물 그림 확인. 숲 풍경의 season, 녹색 중심의 color. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "019/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_019.png?w=512",
+      "themesMatched": [
+        "season",
+        "color"
+      ]
     }
   ],
-  "nextStart": "SVB canonical 021; retain SVB 012,013,019 artwork holds"
+  "nextStart": "SVC canonical 001",
+  "note": "한국 포켓몬코리아 공식 워터마크 이미지에서 카드명·세트번호(무번호 에너지 구분 포함)·일러스트를 직접 확인. 자체 이미지 바이너리 저장/배포 검증은 별도 pending."
 }

@@ -4,10 +4,10 @@
   "task": 6,
   "set": "SVAM",
   "range": "canonical-order 011-020 (Korean printed 011-020/023)",
-  "reviewStatus": "korean_master_and_independent_korean_numbering_confirmed_artwork_evidence_pending",
+  "reviewStatus": "10_official_Korean_artworks_reviewed_all_12_themes",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 0,
-  "artworkPendingCardCount": 10,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "verifiedImageCount": 0,
@@ -44,7 +44,7 @@
   "safetyRule": "Korean SVAM print numbering is NOT interchangeable with Japanese SVAM numbering after 011. Never assign a theme from same-number JP artwork. Check actual Korean print illustration or confirmed reprint artwork before classifying.",
   "thematicClassification": "deferred all 12 themes. No theme item added solely from card type/title.",
   "imageArchive": "External catalog URLs remain; no binary download, self-hosting or deployment.",
-  "nextStart": "SVAM canonical 006 (Korean artwork evidence re-review); canonical 006-025 remain pending or held",
+  "nextStart": "SVAM canonical 001-025 visually checked; proceed to next set SVAW canonical 003 re-review",
   "cards": [
     {
       "canonicalOrder": 11,
@@ -54,12 +54,17 @@
       "koreanPrintIdentifier": "011/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/45e4431afd0265bd806490a73411b3f6.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDYN0Y6GGQXNADT3ZT",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "푸른 하늘 아래 풀과 작은 식물이 난 흙길에서 먹이를 찾는 맛보돈. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: season, color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_011.png?w=512"
     },
     {
       "canonicalOrder": 12,
@@ -69,12 +74,16 @@
       "koreanPrintIdentifier": "012/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/848d3a7a6ed59ccbe50a4cff00e0ff67.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDGK7VA8702ZRT1PDB",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "초록·노랑 네스트볼과 흰색·푸른색 광선 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_012.png?w=512"
     },
     {
       "canonicalOrder": 13,
@@ -84,12 +93,16 @@
       "koreanPrintIdentifier": "013/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/b17ecf090aceb57b545ad8da2a089713.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDWKR8T4X9YP7F74BT",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "보라색 상처약 병과 민트·하늘색 빛방울 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_013.png?w=512"
     },
     {
       "canonicalOrder": 14,
@@ -99,12 +112,16 @@
       "koreanPrintIdentifier": "014/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/127042b818e97944957004d677f7f431.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD2ESJ9KX70VCZ9NMC",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "노란 전기 에너지 구체를 두 장치가 빛으로 끌어당기는 청색·보라색 장면. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_014.png?w=512"
     },
     {
       "canonicalOrder": 15,
@@ -114,12 +131,16 @@
       "koreanPrintIdentifier": "015/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/de673723261303a3dcb8fd02b4bd5da3.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDPNSG2RT5PNJAABM2",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "붉은 불꽃 에너지 구체와 청록·하늘색 소용돌이 및 장치. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_015.png?w=512"
     },
     {
       "canonicalOrder": 16,
@@ -129,12 +150,16 @@
       "koreanPrintIdentifier": "016/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/4385c853fb924d80e0eeeaa096efc64d.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD9CNFHG4FW4EZZQEG",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "파랑 포켓기어와 노랑·연두색 발광 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_016.png?w=512"
     },
     {
       "canonicalOrder": 17,
@@ -144,12 +169,16 @@
       "koreanPrintIdentifier": "017/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/04a46907b25c89dc5a34f9845f06ad09.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD66GMVK2NTZ7T7YQ8",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "빨강·흰색 포켓볼 두 개와 보라·남색 속도감 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_017.png?w=512"
     },
     {
       "canonicalOrder": 18,
@@ -159,12 +188,16 @@
       "koreanPrintIdentifier": "018/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/121ca8a042ad362ea048becdb1758896.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDECM333P6530T37RJ",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "푸른색 포켓몬 캐처 도구와 붉은 원형 광선 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_018.png?w=512"
     },
     {
       "canonicalOrder": 19,
@@ -174,12 +207,16 @@
       "koreanPrintIdentifier": "019/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/858e48fab9567045da746d00ae3f32af.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHD6SXV82SB5NFHY41D",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "검정·흰색 하이퍼볼과 분홍·주황·노랑 빛이 퍼지는 배경. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_019.png?w=512"
     },
     {
       "canonicalOrder": 20,
@@ -189,12 +226,17 @@
       "koreanPrintIdentifier": "020/023",
       "catalogImageUrl": "https://static.tcgexchange.kr/7496762f3b13dd45619ec8816cada01f.png",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0QEQD5KY1ENEHYDY0M3RZR/cards/01KW1C5ZHDZXZBXZ5SEW6Y3EVT",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "evidenceStatus": "korean_artwork_unverified",
+      "artworkReviewed": true,
+      "needsReview": false,
+      "evidenceStatus": "official_korean_artwork_visually_verified",
       "koreanPrintIdentityEvidence": "data/series.json SVAM card and independently listed Korean SVAM numbered contents https://www.namu.moe/w/스칼렛%26바이올렛%20스타터%20세트%20ex%20「나오하%26루카리오%20ex」",
-      "themeAssignmentStatus": "deferred_no_artwork",
-      "reason": "Korean card number and name verified via Korean master and Korean set listing, but exact Korean printed illustration was not directly accessed. JP SVAM card number sequence diverges after 011; same-number JP artwork is NOT reliable."
+      "themeAssignmentStatus": "reviewed_all_12_themes",
+      "reason": "꽃이 핀 초록 정원과 계단에 서 있는 네모. 공식 한국판 이미지에서 인쇄 식별과 그림 확인. 12개 테마 전수 대조: season, color. 이미지 저장/배포 검증은 pending.",
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAM_020.png?w=512"
     }
   ]
 }

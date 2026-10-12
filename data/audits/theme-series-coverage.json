@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 4868,
-    "uniqueThemeCards": 2937,
-    "strictCompleteSetCount": 15,
+    "themeCardSlots": 4947,
+    "uniqueThemeCards": 2996,
+    "strictCompleteSetCount": 18,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 258,
+    "baselineRemainingSetCount": 255,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 188,
-      "setCount": 30,
+      "cardSlots": 189,
+      "setCount": 31,
       "rarities": [
         "AR",
         "C",
@@ -122,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1249,
+      "cardSlots": 1264,
       "setCount": 38,
       "rarities": [
         "AR",
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2401,
+      "cardSlots": 2460,
       "setCount": 41,
       "rarities": [
         "AR",
@@ -199,8 +199,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 22,
-      "setCount": 13,
+      "cardSlots": 26,
+      "setCount": 15,
       "rarities": [
         "AR",
         "C",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 2,
-      "remainingSetCount": 51,
-      "currentThemeSlots": 1240
+      "completeSetCount": 5,
+      "remainingSetCount": 48,
+      "currentThemeSlots": 1319
     },
     {
       "era": "S",
@@ -354,27 +354,6 @@
       "code": "SVAM",
       "name": "스타터 세트 ex 「나오하&루카리오 ex」",
       "cardCount": 25,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVAW",
-      "name": "스타터 세트 ex 「꾸왁스&따라큐 ex」",
-      "cardCount": 25,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVAL",
-      "name": "스타터 세트 ex 「뜨아거&전룡 ex」",
-      "cardCount": 23,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVB",
-      "name": "프리미엄 트레이너 박스 ex",
-      "cardCount": 36,
       "status": "in_progress"
     },
     {
@@ -522,6 +501,27 @@
       "code": "sv10",
       "name": "sv10 도감",
       "cardCount": 132,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv9a",
+      "name": "sv9a 도감",
+      "cardCount": 92,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv9",
+      "name": "sv9 도감",
+      "cardCount": 132,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv8a",
+      "name": "테라스탈 페스타 ex",
+      "cardCount": 237,
       "status": "pending"
     }
   ],
@@ -2362,12 +2362,12 @@
       "cardCount": 36,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-09",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
         "night": 2,
-        "season": 6,
-        "color": 19,
+        "season": 9,
+        "color": 36,
         "street": 4
       }
     },
@@ -2378,11 +2378,11 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-09",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
-        "season": 3,
-        "color": 8
+        "season": 8,
+        "color": 21
       }
     },
     {
@@ -2392,13 +2392,14 @@
       "cardCount": 25,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-09",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
-        "season": 7,
-        "color": 16,
+        "season": 10,
+        "color": 25,
         "sunset": 2,
-        "food": 1
+        "food": 1,
+        "work": 2
       }
     },
     {
@@ -2409,10 +2410,12 @@
       "origin": "baseline",
       "changedSinceBaseline": false,
       "status": "in_progress",
-      "reviewedAt": "2026-10-09",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
-        "season": 5,
-        "color": 5
+        "night": 1,
+        "season": 9,
+        "color": 25,
+        "work": 2
       }
     },
     {

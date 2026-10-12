@@ -1,17 +1,15 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVB",
   "range": "canonical-order 001-010",
-  "reviewStatus": "7_official_Korean_artworks_reviewed_3_pending",
+  "reviewStatus": "resolved_all_Korean_official_artwork_reviewed_all12_themes",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 7,
-  "artworkPendingCardCount": 3,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "themeAdditions": {
-    "color": 7,
-    "season": 3,
-    "night": 1
+    "color": 3
   },
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
@@ -23,10 +21,16 @@
       "catalogName": "이상한사탕",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVQ0R5K6CTP6Z7DP42",
       "catalogImageUrl": "https://static.tcgexchange.kr/eb968734b49ce75116b8d9e8ce56861a.png",
-      "needsReview": true,
-      "artworkReviewed": false,
-      "all12ThemesDeferred": true,
-      "reason": "Actual exact Korean SVB printed artwork was not visually accessed. Catalog identity recorded, all 12 theme decisions deferred."
+      "needsReview": false,
+      "artworkReviewed": true,
+      "all12ThemesDeferred": false,
+      "reason": "공식 이미지에서 이상한사탕 한글명과 002/028 인쇄번호를 확인. 푸른 사탕과 분홍·주황 방사형 배경. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "002/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_002.png?w=512",
+      "themesMatched": [
+        "color"
+      ]
     },
     {
       "canonicalOrder": 3,
@@ -35,10 +39,16 @@
       "catalogName": "포켓기어3.0",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YV6XF7TJW3SMJ5D2EN",
       "catalogImageUrl": "https://static.tcgexchange.kr/a1fdec7ccae462effad5dcf733a65b91.png",
-      "needsReview": true,
-      "artworkReviewed": false,
-      "all12ThemesDeferred": true,
-      "reason": "Actual exact Korean SVB printed artwork was not visually accessed. Catalog identity recorded, all 12 theme decisions deferred."
+      "needsReview": false,
+      "artworkReviewed": true,
+      "all12ThemesDeferred": false,
+      "reason": "포켓기어 3.0 한글명·003/028 및 기기 그림 확인. 파랑 기기와 연두·노랑 빛. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "003/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_003.png?w=512",
+      "themesMatched": [
+        "color"
+      ]
     },
     {
       "canonicalOrder": 4,
@@ -47,11 +57,18 @@
       "catalogName": "포켓몬 교체",
       "catalogSourceUrl": "https://www.dogam.app/sets/01KW0T2SWNAD6ZK32J3KN154K8/cards/01KW1C68YVAYZP91RRPPAXQNGC",
       "catalogImageUrl": "https://static.tcgexchange.kr/432097d747189d1f20334f8fb94f7d3d.png",
-      "needsReview": true,
-      "artworkReviewed": false,
-      "all12ThemesDeferred": true,
-      "reason": "Actual exact Korean SVB printed artwork was not visually accessed. Catalog identity recorded, all 12 theme decisions deferred."
+      "needsReview": false,
+      "artworkReviewed": true,
+      "all12ThemesDeferred": false,
+      "reason": "포켓몬 교체 한글명·004/028 및 두 포켓볼 장치 그림 확인. 보라·청색 광선이 중심. 12개 테마 판독 완료. 자체 이미지 저장 및 배포 검증은 별도 pending.",
+      "verifiedKoreanPhysicalPrintedNumber": "004/028",
+      "printedNumberStatus": "official_korean_print_number_and_art_verified",
+      "officialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVB/SVB_004.png?w=512",
+      "themesMatched": [
+        "color"
+      ]
     }
   ],
-  "nextStart": "SVB canonical 011; retain SVB 002-004 artwork holds"
+  "nextStart": "SVC canonical 001",
+  "note": "한국 포켓몬코리아 공식 워터마크 이미지에서 카드명·세트번호(무번호 에너지 구분 포함)·일러스트를 직접 확인. 자체 이미지 바이너리 저장/배포 검증은 별도 pending."
 }

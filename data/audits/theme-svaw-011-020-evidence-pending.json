@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09",
+  "recordedAt": "2026-10-12",
   "task": 6,
   "set": "SVAW",
   "range": "canonical-order 011-020",
-  "reviewStatus": "7_korean_official_illustrations_reviewed_3_pending",
+  "reviewStatus": "10_Korean_official_artworks_reviewed_0_artwork_pending",
   "canonicalCardCount": 10,
-  "artworkReviewedCardCount": 7,
-  "artworkPendingCardCount": 3,
+  "artworkReviewedCardCount": 10,
+  "artworkPendingCardCount": 0,
   "imageBinarySelfHostedCount": 0,
   "archiveVerificationStatus": "pending",
   "cards": [
@@ -17,12 +17,16 @@
       "catalogName": "네스트볼",
       "koreanPrintIdentifier": "011/023",
       "koreanOfficialCardDetail": "https://pokemoncard.co.kr/cards/detail/BS2023004011",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
       "catalogSource": "https://www.dogam.app/sets/01KW0QENV50NT7T3KX7982HNCR/cards/01KW1C5ZHBB3DT7V02D2J8FE2J",
       "catalogImageUrl": "https://static.tcgexchange.kr/2ad9c4ce12f6132fa6ea09926cf1856a.png",
-      "reason": "Exact Korean printed artwork binary was not visually inspected, so no theme classification was made. Same-name art from another expansion cannot substitute."
+      "reason": "초록·노랑 네스트볼과 흰색·푸른색 광선 배경. 포켓몬코리아 공식 한국판 워터마크 이미지에서 확인; 12개 테마 전수 대조 후 color. 이미지 바이너리 자체 저장/배포는 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_011.png?w=512"
     },
     {
       "canonicalOrder": 16,
@@ -30,12 +34,16 @@
       "catalogName": "포켓몬 교체",
       "koreanPrintIdentifier": "016/023",
       "koreanOfficialCardDetail": "https://pokemoncard.co.kr/cards/detail/BS2023004016",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
       "catalogSource": "https://www.dogam.app/sets/01KW0QENV50NT7T3KX7982HNCR/cards/01KW1C5ZHB8EAXTZQTY4D53Q9B",
       "catalogImageUrl": "https://static.tcgexchange.kr/c3c05a6c3809197bf75a16afbffe53f4.png",
-      "reason": "Exact Korean printed artwork binary was not visually inspected, so no theme classification was made. Same-name art from another expansion cannot substitute."
+      "reason": "빨강·흰색 포켓볼 두 개와 보라·남색 속도감 배경. 포켓몬코리아 공식 한국판 워터마크 이미지에서 확인; 12개 테마 전수 대조 후 color. 이미지 바이너리 자체 저장/배포는 pending.",
+      "themesMatched": [
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_016.png?w=512"
     },
     {
       "canonicalOrder": 20,
@@ -43,13 +51,18 @@
       "catalogName": "네모",
       "koreanPrintIdentifier": "020/023",
       "koreanOfficialCardDetail": "https://pokemoncard.co.kr/cards/detail/BS2023004020",
-      "artworkReviewed": false,
-      "needsReview": true,
-      "all12ThemesDeferred": true,
+      "artworkReviewed": true,
+      "needsReview": false,
+      "all12ThemesDeferred": false,
       "catalogSource": "https://www.dogam.app/sets/01KW0QENV50NT7T3KX7982HNCR/cards/01KW1C5ZHB3W02VPR4MRZASW4Z",
       "catalogImageUrl": "https://static.tcgexchange.kr/9d2dcabad5bde15ac2cd6c1d77c2a67b.png",
-      "reason": "Exact Korean printed artwork binary was not visually inspected, so no theme classification was made. Same-name art from another expansion cannot substitute."
+      "reason": "꽃이 핀 초록 정원과 계단에 서 있는 네모. 포켓몬코리아 공식 한국판 워터마크 이미지에서 확인; 12개 테마 전수 대조 후 season, color. 이미지 바이너리 자체 저장/배포는 pending.",
+      "themesMatched": [
+        "season",
+        "color"
+      ],
+      "officialKoreanImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVA/SVAW_020.png?w=512"
     }
   ],
-  "nextStart": "SVAW canonical 021; 011,016,020 remain pending"
+  "nextStart": "SVAW art review complete; continue M-P canonical 058-060 Korean identity evidence"
 }
