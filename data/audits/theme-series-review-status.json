@@ -51266,10 +51266,10 @@
       "nextStart": "SVJL artwork/theme review complete; image archive pending. Continue SVJP canonical 001."
     },
     "SVJP": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "Full 20-item Korean SVJP inventory processed in one set batch. 13 exact Korean watermarked card artworks individually inspected and all 12 themes evaluated; seven remain image evidence holds. No master or hosting changes.",
-      "reviewedCardCount": 13,
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
+      "note": "20개 한국판 카드 슬롯의 공식 한국어 워터마크 일러스트와 카드명을 대조하고 12개 테마 전체 판정을 완료했다. 기본 물 에너지는 번호 없는 한국판 에너지 종류로 확인했다. 이미지 자체 저장·배포 검증은 미완료.",
+      "reviewedCardCount": 20,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -51285,9 +51285,9 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "canonical 001-020 entire Korean membership crosscheck; 13 official Korean art checks, 7 evidence holds"
+        "canonical-order 001-020 (전체 세트); 20개 한국판 공식 일러스트 및 12개 테마 판정 완료"
       ],
-      "newlyAddedThemeSlotCount": 20,
+      "newlyAddedThemeSlotCount": 35,
       "newlyAddedCards": [
         "SVJP_001",
         "SVJP_002",
@@ -51301,10 +51301,7 @@
         "SVJP_013",
         "SVJP_014",
         "SVJP_015",
-        "SVJP_016"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SVJP_016",
         "SVJP_004",
         "SVJP_006",
         "SVJP_011",
@@ -51313,13 +51310,15 @@
         "SVJP_019",
         "SVJP_020"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-020 (full set inventory)",
-          "status": "13_Korean_artworks_verified_7_evidence_holds",
-          "checkedCardCount": 13,
+          "status": "all_20_exact_Korean_artworks_verified",
+          "checkedCardCount": 20,
           "inventoryCrosscheckedCardCount": 20,
-          "heldCardCount": 7,
+          "heldCardCount": 0,
           "artworkAudit": "data/audits/theme-svjp-001-020-evidence-pending.json",
           "evidenceSource": "https://pokemoncard.co.kr/card/646",
           "imageAudit": {
@@ -51335,12 +51334,13 @@
           "invalidCardKeyCount": 0,
           "brokenReferenceCount": null,
           "themeAdditions": {
-            "color": 12,
+            "color": 19,
+            "season": 8,
             "sunset": 1,
-            "season": 4,
-            "work": 1,
-            "food": 1,
-            "street": 1
+            "work": 2,
+            "food": 2,
+            "street": 2,
+            "night": 1
           },
           "cards": [
             {
@@ -51416,16 +51416,22 @@
               "canonicalMasterCode": "svjp_004/019",
               "koreanNumber": "004/019",
               "koreanName": "드니차",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010004",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_004.png?w=512",
+              "illustrationSourceNote": "높은 산의 갈색·보라색 바위와 층층이 펼쳐진 구름 속에서 움직이는 드니차"
             },
             {
               "code": "SVJP_005",
@@ -51456,16 +51462,22 @@
               "canonicalMasterCode": "svjp_006/019",
               "koreanNumber": "006/019",
               "koreanName": "드닐레이브",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010006",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_006.png?w=512",
+              "illustrationSourceNote": "얼음 산맥과 휘몰아치는 눈·빙설을 뚫고 나아가는 드닐레이브"
             },
             {
               "code": "SVJP_007",
@@ -51561,16 +51573,20 @@
               "canonicalMasterCode": "svjp_011/019",
               "koreanNumber": "011/019",
               "koreanName": "수퍼 에너지 회수",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010011",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_011.png?w=512",
+              "illustrationSourceNote": "빨강·노랑·파랑·초록 에너지 구체가 기계 장치와 함께 빛남"
             },
             {
               "code": "SVJP_012",
@@ -51670,16 +51686,18 @@
               "all12ThemesChecked": true,
               "needsReview": false,
               "themesMatched": [
-                "color"
+                "color",
+                "work"
               ],
               "themesAdded": [
-                "color"
+                "color",
+                "work"
               ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
               "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010016",
               "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_016.png?w=512",
-              "illustrationSourceNote": "푸른·연두색 실내 연구실 칠판 앞에 흰 실험복과 검정·보라 의상의 투로박사"
+              "illustrationSourceNote": "푸른·연두색 실내 연구실 칠판 앞에 흰 실험복과 검정·보라 의상의 투로박사; 투로박사의 연구실 업무 장면을 work에 추가 판정"
             },
             {
               "code": "SVJP_017",
@@ -51687,16 +51705,22 @@
               "canonicalMasterCode": "svjp_017/019",
               "koreanNumber": "017/019",
               "koreanName": "보스의 지령",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "night",
+                "color"
+              ],
+              "themesAdded": [
+                "night",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010017",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_017.png?w=512",
+              "illustrationSourceNote": "달이 뜬 어두운 푸른 하늘과 석조 아치 아래의 게치스"
             },
             {
               "code": "SVJP_018",
@@ -51704,16 +51728,26 @@
               "canonicalMasterCode": "svjp_018/019",
               "koreanNumber": "018/019",
               "koreanName": "주혜",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "food",
+                "street"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "food",
+                "street"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010018",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_018.png?w=512",
+              "illustrationSourceNote": "주혜가 간식을 입에 대고 있으며 푸른 하늘과 언덕, 마을 건물이 이어짐"
             },
             {
               "code": "SVJP_019",
@@ -51721,16 +51755,22 @@
               "canonicalMasterCode": "svjp_019/019",
               "koreanNumber": "019/019",
               "koreanName": "비치코트",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024010019",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_019.png?w=512",
+              "illustrationSourceNote": "야자수와 해안 절벽, 맑은 바다를 배경으로 한 해변 코트"
             },
             {
               "code": "SVJP_020",
@@ -51738,20 +51778,26 @@
               "canonicalMasterCode": "svjp_020/019",
               "koreanNumber": null,
               "koreanName": "기본 물 에너지",
-              "checked": false,
-              "all12ThemesChecked": false,
-              "needsReview": true,
-              "themesMatched": [],
-              "themesAdded": [],
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
               "alreadyExisted": [],
               "noApplicableTheme": false,
-              "evidenceUrl": null,
-              "illustrationReferenceUrl": null,
-              "illustrationSourceNote": "Exact Korean watermark artwork has not been verified."
+              "evidenceUrl": "https://www.dogam.app/sets/01KW0QCRC0N76TG81X5A86Y3WT",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_020.png?w=512",
+              "illustrationSourceNote": "파란 바탕과 물 에너지 심볼을 담은 푸른 구체; 번호 없는 기본 에너지"
             }
-          ]
+          ],
+          "nextStart": "SVJP artwork/theme review complete; image archive pending."
         }
-      ]
+      ],
+      "nextStart": "SVJP artwork/theme review complete; image archive pending. Continue SVLN canonical 001."
     },
     "SVK": {
       "status": "complete",
@@ -52974,14 +53020,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "SV",
-    "currentSet": "SVJP",
+    "currentSet": "SVLN",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
-    "currentTaskScope": "SVJL canonical 001-022 Korean artwork/theme review complete; image archive pending.",
-    "lastSafeCheckpoint": "SVJL canonical 001-022 complete: 22 Korean artwork slots visually verified; 35 theme placements; 0 artwork holds; 22 image binaries still external and archive pending.",
-    "nextStart": "SVJP canonical 001",
+    "currentTaskScope": "SVJP canonical 001-020 Korean artwork/theme review complete; image archive pending.",
+    "lastSafeCheckpoint": "SVJP canonical 001-020 complete: 20 Korean artwork slots visually verified; 35 theme placements; 0 artwork holds; 20 image binaries remain external and archive pending.",
+    "nextStart": "SVLN canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -53278,5 +53324,5 @@
     },
     "updatedAt": "2026-10-12"
   },
-  "lastEvidenceAuditCheckpoint": "SVJL canonical 022; Korean artwork complete, image archive pending."
+  "lastEvidenceAuditCheckpoint": "SVJP canonical 020; Korean artwork complete, image archive pending."
 }

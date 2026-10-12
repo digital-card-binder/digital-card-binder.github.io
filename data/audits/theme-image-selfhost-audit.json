@@ -2189,8 +2189,8 @@
       "set": "SVJP",
       "range": "canonical-order 001-020 (full Korean inventory)",
       "canonicalCardCount": 20,
-      "artworkVisuallyVerifiedCount": 13,
-      "artworkPendingCount": 7,
+      "artworkVisuallyVerifiedCount": 20,
+      "artworkPendingCount": 0,
       "externalImageReferenceCountBefore": 20,
       "newlyInternalizedReferenceCount": 0,
       "selfHostedReferenceCountAfter": 0,
@@ -2200,15 +2200,16 @@
       "unverifiedImageCount": 20,
       "brokenReferenceCount": null,
       "themeAdditions": {
-        "color": 12,
+        "color": 19,
+        "season": 8,
         "sunset": 1,
-        "season": 4,
-        "work": 1,
-        "food": 1,
-        "street": 1
+        "work": 2,
+        "food": 2,
+        "street": 2,
+        "night": 1
       },
-      "nextStart": "SVK canonical 001",
-      "note": "13 Korean official watermarked art viewed. 7 artwork holds 004,006,011,017,018,019,020 (20 unnumbered Water Energy). No image files downloaded/selfhosted/deployed."
+      "nextStart": "SVJP artwork complete; 20-image archive pending; next SVLN canonical 001",
+      "note": "All 20 Korean official watermarked artworks visually verified; 35 theme placements recorded. No binary download, self-hosting, decoding or deployment verification performed."
     },
     {
       "task": 6,
@@ -2329,5 +2330,5 @@
       "note": "All 74 Korean images and printed numbers checked; 12 theme decisions complete. 74 external refs remain; none archived/verified."
     }
   ],
-  "nextStart": "SVJL Korean artwork review complete; image archive verification pending; SVJP canonical 001."
+  "nextStart": "SVJP Korean artwork review complete; image archive verification pending; next SVLN canonical 001."
 }

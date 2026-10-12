@@ -4,14 +4,14 @@
   "task": 6,
   "set": "SVJP",
   "setTitle": "배틀 마스터 덱 「파오젠 ex」",
-  "status": "full_Korean_membership_inventory_partial_artwork_review",
+  "status": "resolved_artwork_review_image_archive_pending",
   "masterCardCount": 20,
   "numberedKoreanCards": 19,
   "unnumberedBasicEnergyKinds": 1,
-  "exactKoreanArtworksReviewed": 13,
-  "all12ThemeDecisionsComplete": 13,
-  "artworkEvidenceHolds": 7,
-  "newThemePlacements": 20,
+  "exactKoreanArtworksReviewed": 20,
+  "all12ThemeDecisionsComplete": 20,
+  "artworkEvidenceHolds": 0,
+  "newThemePlacements": 35,
   "cardMasterMutations": 0,
   "duplicateCanonicalKeys": 0,
   "sourcePriority": "Pokémon Korea official numbered Korean product/cards and official Korean-watermarked card illustrations. Japanese printed artwork never treated as Korean visual evidence.",
@@ -49,31 +49,30 @@
       "resolution": "Place in work plus season and color."
     }
   ],
-  "limitations": "Cards 004, 006, 011, 017, 018, 019 and unnumbered energy 020 not directly visually inspected from matching Korean official images; do not mark set strictly complete. No original image download, selfhosting or Cloudflare deployment and original external catalog images unchanged.",
+  "limitations": "All 20 Korean artwork slots visually verified and classified across 12 themes. No image binaries were downloaded, self-hosted, decoded from an archived copy, or deployed; archive verification remains pending.",
   "reviewedCards": [
     "SVJP_001",
     "SVJP_002",
     "SVJP_003",
+    "SVJP_004",
     "SVJP_005",
+    "SVJP_006",
     "SVJP_007",
     "SVJP_008",
     "SVJP_009",
     "SVJP_010",
+    "SVJP_011",
     "SVJP_012",
     "SVJP_013",
     "SVJP_014",
     "SVJP_015",
-    "SVJP_016"
-  ],
-  "heldCards": [
-    "SVJP_004",
-    "SVJP_006",
-    "SVJP_011",
+    "SVJP_016",
     "SVJP_017",
     "SVJP_018",
     "SVJP_019",
     "SVJP_020"
   ],
+  "heldCards": [],
   "cards": [
     {
       "code": "SVJP_001",
@@ -147,12 +146,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/f3b1a42b0d3916b5478fefe83ae45457.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010004",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_004.png?w=512",
+      "artworkDescription": "높은 산의 갈색·보라색 바위와 층층이 펼쳐진 구름 속에서 움직이는 드니차",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -186,12 +188,15 @@
       "cardType": "pokemon",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/5c1d297f72ff668babbd1c4859a07fd8.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010006",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_006.png?w=512",
+      "artworkDescription": "얼음 산맥과 휘몰아치는 눈·빙설을 뚫고 나아가는 드닐레이브",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -286,12 +291,14 @@
       "cardType": "item",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/e6a399d00d0aca94d1e4fca89aecd791.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010011",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_011.png?w=512",
+      "artworkDescription": "빨강·노랑·파랑·초록 에너지 구체가 기계 장치와 함께 빛남",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -389,10 +396,11 @@
       "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
       "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010016",
       "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_016.png?w=512",
-      "artworkDescription": "푸른·연두색 실내 연구실 칠판 앞에 흰 실험복과 검정·보라 의상의 투로박사",
+      "artworkDescription": "푸른·연두색 실내 연구실 칠판 앞에 흰 실험복과 검정·보라 의상의 투로박사; 연구실에서 연구 업무를 수행하는 투로박사",
       "all12ThemesChecked": true,
       "themeMatches": [
-        "color"
+        "color",
+        "work"
       ],
       "selfHostedImageBinaryVerified": false
     },
@@ -406,12 +414,15 @@
       "cardType": "supporter",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/38fecbfdaac41131ac834333569d578b.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010017",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_017.png?w=512",
+      "artworkDescription": "달이 뜬 어두운 푸른 하늘과 석조 아치 아래의 게치스",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "night",
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -424,12 +435,17 @@
       "cardType": "supporter",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/dcd2297e51676f136dc0edbc40ce4180.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010018",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_018.png?w=512",
+      "artworkDescription": "주혜가 간식을 입에 대고 있으며 푸른 하늘과 언덕, 마을 건물이 이어짐",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color",
+        "food",
+        "street"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -442,12 +458,15 @@
       "cardType": "stadium",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/d8ab241a102291c45d6c5ec44c8d1ac5.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://pokemoncard.co.kr/cards/detail/BS2024010019",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_019.png?w=512",
+      "artworkDescription": "야자수와 해안 절벽, 맑은 바다를 배경으로 한 해변 코트",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "season",
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     },
     {
@@ -460,14 +479,33 @@
       "cardType": "basic_energy",
       "membershipCrosscheck": "Korean master and official Pokémon Korea SVJP 001/019–019/019; unnumbered Water Energy 020/019 is catalog key only.",
       "catalogImage": "https://static.tcgexchange.kr/b39aa104146909449e69daa07b787f84.png",
-      "artworkReviewStatus": "pending_exact_korean_image_visual_check",
-      "artworkEvidenceSource": null,
-      "illustrationReferenceUrl": null,
-      "artworkDescription": null,
-      "all12ThemesChecked": false,
-      "themeMatches": [],
+      "artworkReviewStatus": "official_Korean_watermarked_artwork_visually_verified",
+      "artworkEvidenceSource": "https://www.dogam.app/sets/01KW0QCRC0N76TG81X5A86Y3WT",
+      "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVJP/SVJP_020.png?w=512",
+      "artworkDescription": "파란 바탕과 물 에너지 심볼을 담은 푸른 구체; 번호 없는 기본 에너지",
+      "all12ThemesChecked": true,
+      "themeMatches": [
+        "color"
+      ],
       "selfHostedImageBinaryVerified": false
     }
   ],
-  "nextStart": "SVK canonical 001 (SVJP held 004,006,011,017,018,019,020)"
+  "nextStart": "SVK canonical 001 (SVJP held 004,006,011,017,018,019,020)",
+  "previousPartialReview": {
+    "recordedAt": "2026-10-10",
+    "status": "full_Korean_membership_inventory_partial_artwork_review",
+    "exactKoreanArtworksReviewed": 13,
+    "artworkEvidenceHolds": 7,
+    "heldCards": [
+      "SVJP_004",
+      "SVJP_006",
+      "SVJP_011",
+      "SVJP_017",
+      "SVJP_018",
+      "SVJP_019",
+      "SVJP_020"
+    ],
+    "limitations": "Cards 004, 006, 011, 017, 018, 019 and unnumbered energy 020 not directly visually inspected from matching Korean official images; do not mark set strictly complete. No original image download, selfhosting or Cloudflare deployment and original external catalog images unchanged."
+  },
+  "resolvedAt": "2026-10-12"
 }

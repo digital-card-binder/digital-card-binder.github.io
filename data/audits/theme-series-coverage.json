@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-12",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5310,
-    "uniqueThemeCards": 3274,
-    "strictCompleteSetCount": 26,
+    "themeCardSlots": 5325,
+    "uniqueThemeCards": 3281,
+    "strictCompleteSetCount": 27,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 247,
+    "baselineRemainingSetCount": 246,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 200,
+      "cardSlots": 201,
       "setCount": 33,
       "rarities": [
         "AR",
@@ -122,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1310,
+      "cardSlots": 1314,
       "setCount": 40,
       "rarities": [
         "AR",
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2731,
+      "cardSlots": 2738,
       "setCount": 43,
       "rarities": [
         "AR",
@@ -185,7 +185,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 78,
+      "cardSlots": 79,
       "setCount": 32,
       "rarities": [
         "AR",
@@ -199,7 +199,7 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 36,
+      "cardSlots": 37,
       "setCount": 19,
       "rarities": [
         "AR",
@@ -211,7 +211,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 429,
+      "cardSlots": 430,
       "setCount": 36,
       "rarities": [
         "AR",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 13,
-      "remainingSetCount": 40,
-      "currentThemeSlots": 1682
+      "completeSetCount": 14,
+      "remainingSetCount": 39,
+      "currentThemeSlots": 1697
     },
     {
       "era": "S",
@@ -382,7 +382,7 @@
       "code": "SVJP",
       "name": "배틀 마스터 덱 「파오젠 ex」",
       "cardCount": 20,
-      "status": "in_progress"
+      "status": "complete"
     },
     {
       "era": "SV",
@@ -2168,15 +2168,16 @@
       "cardCount": 20,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
-        "season": 4,
-        "color": 12,
+        "season": 8,
+        "color": 19,
         "sunset": 1,
-        "food": 1,
-        "work": 1,
-        "street": 1
+        "work": 2,
+        "food": 2,
+        "street": 2,
+        "night": 1
       }
     },
     {
