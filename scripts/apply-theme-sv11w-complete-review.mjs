@@ -166,8 +166,9 @@ images.batches.push({
 });
 images.nextStart="sv11B canonical 001";
 images.updatedAt=e.recordedAt;
+const masterSourcePath=series.includes(set)?"data/series.json":"data/series-legacy.json";
 await Promise.all([
-  write("data/series.json",series),write("data/series-legacy.json",legacy),
+  write(masterSourcePath,masterSourcePath==="data/series.json"?series:legacy),
   write("data/art-themes.json",themes),
   write("data/audits/theme-series-review-status.json",state),
   write("data/audits/theme-image-selfhost-audit.json",images)
