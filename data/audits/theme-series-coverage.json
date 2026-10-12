@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06",
+  "updatedAt": "2026-10-12",
   "title": "테마 도감 한국판 전체 시리즈 전수검수 현황",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 5014,
-    "uniqueThemeCards": 3051,
-    "strictCompleteSetCount": 21,
+    "themeCardSlots": 5048,
+    "uniqueThemeCards": 3074,
+    "strictCompleteSetCount": 22,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 252,
+    "baselineRemainingSetCount": 251,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 1273,
+      "cardSlots": 1281,
       "setCount": 38,
       "rarities": [
         "AR",
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 2508,
+      "cardSlots": 2531,
       "setCount": 41,
       "rarities": [
         "AR",
@@ -211,7 +211,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 420,
+      "cardSlots": 423,
       "setCount": 34,
       "rarities": [
         "AR",
@@ -252,9 +252,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 8,
-      "remainingSetCount": 45,
-      "currentThemeSlots": 1386
+      "completeSetCount": 9,
+      "remainingSetCount": 44,
+      "currentThemeSlots": 1420
     },
     {
       "era": "S",
@@ -354,13 +354,6 @@
       "code": "SVAM",
       "name": "스타터 세트 ex 「나오하&루카리오 ex」",
       "cardCount": 25,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "SVF",
-      "name": "배틀 강화 BOX 「흑염의 지배자」",
-      "cardCount": 46,
       "status": "in_progress"
     },
     {
@@ -522,6 +515,13 @@
       "code": "sv7",
       "name": "스텔라미라클",
       "cardCount": 135,
+      "status": "pending"
+    },
+    {
+      "era": "SV",
+      "code": "sv6a",
+      "name": "나이트 원더러",
+      "cardCount": 94,
       "status": "pending"
     }
   ],
@@ -2293,16 +2293,16 @@
       "cardCount": 46,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
+      "status": "complete",
+      "reviewedAt": "2026-10-12",
       "themeHits": {
         "night": 1,
-        "season": 7,
-        "color": 14,
+        "season": 15,
+        "color": 37,
         "sunset": 2,
         "food": 1,
         "work": 1,
-        "street": 2
+        "street": 5
       }
     },
     {
