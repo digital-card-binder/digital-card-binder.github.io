@@ -54405,8 +54405,8 @@
     "SVM": {
       "status": "in_progress",
       "reviewedAt": "2026-10-12",
-      "note": "SVM canonical 001-020 한국판 공식 카드 이미지를 직접 확인해 12테마 판정 완료. 기존 SVM_004 sleeping 유지, 021-183 미검수. 신규 이미지 자가 저장/Cloudflare 배포는 미확인.",
-      "reviewedCardCount": 20,
+      "note": "SVM canonical 001-030 한국판 공식 일러스트 30장 직접 확인·12테마 판정 완료, 기존 sleeping SVM_004 유지. 031-183은 아직 미검수. 신규 이미지 자체 저장/배포 미확인.",
+      "reviewedCardCount": 30,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -54423,9 +54423,10 @@
       ],
       "reviewedRanges": [
         "canonical 001-010 (한국판 상세 번호와 워터마크 원본 일러스트 10장 직접 확인)",
-        "canonical 011-020 (한국판 공식 상세/일러스트 10장 시각 확인)"
+        "canonical 011-020 (한국판 공식 상세/일러스트 10장 시각 확인)",
+        "canonical 021-030 (한국판 공식 이미지 10장 시각 확인)"
       ],
-      "newlyAddedThemeSlotCount": 36,
+      "newlyAddedThemeSlotCount": 54,
       "newlyAddedCards": [
         "SVM_001",
         "SVM_002",
@@ -54446,7 +54447,17 @@
         "SVM_017",
         "SVM_018",
         "SVM_019",
-        "SVM_020"
+        "SVM_020",
+        "SVM_021",
+        "SVM_022",
+        "SVM_023",
+        "SVM_024",
+        "SVM_025",
+        "SVM_026",
+        "SVM_027",
+        "SVM_028",
+        "SVM_029",
+        "SVM_030"
       ],
       "existingSkippedCards": [],
       "heldCards": [],
@@ -55010,9 +55021,289 @@
               "cloudflareDeployVerified": false
             }
           ]
+        },
+        {
+          "range": "canonical-order 021-030",
+          "status": "complete_10_official_Korean_artworks_verified",
+          "checkedCardCount": 10,
+          "heldCardCount": 0,
+          "artworkAudit": "data/audits/theme-svm-021-030-art-review.json",
+          "themeAdditions": {
+            "sleeping": 1,
+            "season": 6,
+            "color": 10,
+            "sunset": 1
+          },
+          "imageAudit": {
+            "catalogImageReferenceCount": 10,
+            "selfHostedImageReferenceCountAfter": 0,
+            "externalImageReferenceCountAfter": 10,
+            "newlyInternalizedReferenceCount": 0,
+            "archiveVerificationStatus": "pending",
+            "unverifiedImageCount": 10,
+            "brokenReferenceCount": null
+          },
+          "cards": [
+            {
+              "code": "SVM_021",
+              "canonicalOrder": 21,
+              "canonicalMasterCode": "svm_021/175",
+              "koreanNumber": "021/175",
+              "koreanName": "불카모스",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018021",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_021.png?w=512",
+              "illustrationSourceNote": "거대한 화염의 소용돌이 속에서 황금색으로 빛나는 날개를 펼친 불카모스.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_022",
+              "canonicalOrder": 22,
+              "canonicalMasterCode": "svm_022/175",
+              "koreanNumber": "022/175",
+              "koreanName": "레시라무 ex",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018022",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_022.png?w=512",
+              "illustrationSourceNote": "푸른빛·백색의 물결과 얼음처럼 빛나는 다색 결정 및 불꽃 효과 사이의 레시라무 ex.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_023",
+              "canonicalOrder": 23,
+              "canonicalMasterCode": "svm_023/175",
+              "koreanNumber": "023/175",
+              "koreanName": "불화살빈",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018023",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_023.png?w=512",
+              "illustrationSourceNote": "빨강·주황·노랑과 푸른 하늘로 분할된 역동적인 만화풍 장면에서 나는 불화살빈.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_024",
+              "canonicalOrder": 24,
+              "canonicalMasterCode": "svm_024/175",
+              "koreanNumber": "024/175",
+              "koreanName": "파이어로",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018024",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_024.png?w=512",
+              "illustrationSourceNote": "하얀 눈발과 회색 암석·나무가 보이는 차가운 야외 계곡 사이를 가로지르는 파이어로.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_025",
+              "canonicalOrder": 25,
+              "canonicalMasterCode": "svm_025/175",
+              "koreanNumber": "025/175",
+              "koreanName": "레오꼬",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "themesAdded": [
+                "season",
+                "color",
+                "sunset"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018025",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_025.png?w=512",
+              "illustrationSourceNote": "금빛 구름과 누런 풀로 덮인 초원, 황금빛 낮은 하늘 앞의 어린 레오꼬.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_026",
+              "canonicalOrder": 26,
+              "canonicalMasterCode": "svm_026/175",
+              "koreanNumber": "026/175",
+              "koreanName": "화염레오",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018026",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_026.png?w=512",
+              "illustrationSourceNote": "넓은 하늘과 거대한 암벽·사막 협곡에서 포효하는 화염레오.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_027",
+              "canonicalOrder": 27,
+              "canonicalMasterCode": "svm_027/175",
+              "koreanNumber": "027/175",
+              "koreanName": "야돈",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "sleeping",
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018027",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_027.png?w=512",
+              "illustrationSourceNote": "푸른 바다·야자수·하얀 구름과 작은 범선이 있는 열대 해변에 누워 눈감은 야돈.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_028",
+              "canonicalOrder": 28,
+              "canonicalMasterCode": "svm_028/175",
+              "koreanNumber": "028/175",
+              "koreanName": "야도킹",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018028",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_028.png?w=512",
+              "illustrationSourceNote": "회색 비가 내리는 호숫가 초록 잔디, 주변 집과 안내판 앞의 야도킹.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_029",
+              "canonicalOrder": 29,
+              "canonicalMasterCode": "svm_029/175",
+              "koreanNumber": "029/175",
+              "koreanName": "마릴",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "color"
+              ],
+              "themesAdded": [
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018029",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_029.png?w=512",
+              "illustrationSourceNote": "맑은 푸른 물과 하얀 거품 속에서 웃는 마릴, 파랑·하양 색조의 역동적인 물결.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            },
+            {
+              "code": "SVM_030",
+              "canonicalOrder": 30,
+              "canonicalMasterCode": "svm_030/175",
+              "koreanNumber": "030/175",
+              "koreanName": "마릴리",
+              "checked": true,
+              "all12ThemesChecked": true,
+              "needsReview": false,
+              "themesMatched": [
+                "season",
+                "color"
+              ],
+              "themesAdded": [
+                "season",
+                "color"
+              ],
+              "alreadyExisted": [],
+              "noApplicableTheme": false,
+              "evidenceUrl": "https://pokemoncard.co.kr/cards/detail/BS2024018030",
+              "illustrationReferenceUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SVM/SVM_030.png?w=512",
+              "illustrationSourceNote": "바위 해안에 부딪힌 하얀 포말과 높은 하늘 아래를 튀어 오르는 마릴리.",
+              "archiveVerificationStatus": "pending",
+              "verifiedImageBinary": false,
+              "cloudflareDeployVerified": false
+            }
+          ]
         }
       ],
-      "nextStart": "SVM canonical 021"
+      "nextStart": "SVM canonical 031"
     }
   },
   "queue": {
@@ -55038,8 +55329,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "SVLS 18 verified / 7 pending; next independent set SVM canonical 001",
-    "lastSafeCheckpoint": "SVM canonical 001-020: 20 official Korean artworks, 36 new theme placements. SVLS 6 unrelated artwork holds. No new image archive verified.",
-    "nextStart": "SVM canonical 021 (SVLS 6 artwork holds remain)",
+    "lastSafeCheckpoint": "SVM canonical 001-030: 30 Korean official artworks checked with 54 new theme placements. SVLS 6 independent holds remain. Image archive no new binary.",
+    "nextStart": "SVM canonical 031 (SVLS 6 artwork holds remain)",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -55328,7 +55619,7 @@
     ],
     "lastEvidenceAuditCheckpoint": {
       "set": "SVM",
-      "range": "canonical 011-020",
+      "range": "canonical 021-030",
       "reviewedCardCount": 10,
       "artworkEvidenceHolds": 0,
       "archiveVerificationStatus": "pending",
@@ -55338,7 +55629,7 @@
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "SVM",
-    "range": "canonical 011-020",
+    "range": "canonical 021-030",
     "reviewedCardCount": 10,
     "artworkEvidenceHolds": 0,
     "archiveVerificationStatus": "pending",
