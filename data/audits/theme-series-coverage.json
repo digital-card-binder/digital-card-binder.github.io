@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11052,
-    "uniqueThemeCards": 6601,
-    "strictCompleteSetCount": 64,
+    "themeCardSlots": 11093,
+    "uniqueThemeCards": 6625,
+    "strictCompleteSetCount": 65,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 209,
+    "baselineRemainingSetCount": 208,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -82,8 +82,8 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 123,
-      "setCount": 27,
+      "cardSlots": 124,
+      "setCount": 28,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3236,
-      "setCount": 71,
+      "cardSlots": 3247,
+      "setCount": 72,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5568,
-      "setCount": 69,
+      "cardSlots": 5592,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 208,
-      "setCount": 52,
+      "cardSlots": 209,
+      "setCount": 53,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 55,
-      "setCount": 27,
+      "cardSlots": 56,
+      "setCount": 28,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 936,
-      "setCount": 63,
+      "cardSlots": 938,
+      "setCount": 64,
       "rarities": [
         "AR",
         "C",
@@ -229,8 +229,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 117,
-      "setCount": 34,
+      "cardSlots": 118,
+      "setCount": 35,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 0,
-      "remainingSetCount": 61,
-      "currentThemeSlots": 451
+      "completeSetCount": 1,
+      "remainingSetCount": 60,
+      "currentThemeSlots": 492
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SA-W",
-      "name": "스타터 세트 V 「물」",
-      "cardCount": 24,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "era": "S",
       "code": "SPZ",
       "name": "VSTAR&VMAX 하이클래스 덱 「제라오라」",
+      "cardCount": 21,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SPD",
+      "name": "VSTAR&VMAX 하이클래스 덱 「테오키스」",
       "cardCount": 21,
       "status": "pending"
     }
@@ -3016,9 +3016,17 @@
       "cardCount": 24,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "themeHits": {
+        "connected": 1,
+        "season": 11,
+        "color": 24,
+        "sunset": 1,
+        "work": 1,
+        "street": 2,
+        "cameo": 1
+      }
     },
     {
       "era": "S",
