@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "sv1V",
+  "name": "바이올렛 ex",
+  "status": "all_image_archives_decoded_Korean_artwork_12_theme_review_pending",
+  "canonicalCardSlots": 108,
+  "verifiedOwnedCDNImages": 108,
+  "missingOwnedCDNImages": 0,
+  "externalOriginImageRequests": 0,
+  "KoreanMasterNamesAlreadyPresent": 108,
+  "unresolvedKoreanMasterNames": 0,
+  "preexistingThemeSlotsToPreserve": 13,
+  "preexistingUniqueThemedCards": 8,
+  "visualContactSheets": [
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-01.webp.b64",
+      "start": 1,
+      "end": 15
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-02.webp.b64",
+      "start": 16,
+      "end": 30
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-03.webp.b64",
+      "start": 31,
+      "end": 45
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-04.webp.b64",
+      "start": 46,
+      "end": 60
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-05.webp.b64",
+      "start": 61,
+      "end": 75
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-06.webp.b64",
+      "start": 76,
+      "end": 90
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-07.webp.b64",
+      "start": 91,
+      "end": 105
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv1V/sv1V-08.webp.b64",
+      "start": 106,
+      "end": 108
+    }
+  ],
+  "evidenceIndex": "data/audits/theme-visual-evidence/sv1V/visual-index.json",
+  "appliedReviewThrough": 0,
+  "nextSafeStart": "sv1V canonical 001; 108 verified Korean self-hosted image binaries already stored. Classify artworks against all 12 themes; preserve 13 previously placed theme slots.",
+  "remaining": [
+    "Manual Korean printed-card scene classification for 108 canonical records",
+    "Guard all 13 preexisting theme placements and keep ownership states separate",
+    "Run site:prepare, site:check and entire regression test before complete-set commit"
+  ],
+  "nextSetAfterCompletion": "sv1S canonical 001",
+  "notes": "Self-host-only visual evidence: no third-party card source requested and no master, theme or user ownership data changed."
+}
