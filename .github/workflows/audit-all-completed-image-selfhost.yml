@@ -1,0 +1,40 @@
+name: Audit all strict-complete set self-hosted images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-all-completed-card-images.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: selfhost-all-complete-audit
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check existing DCB-owned Cloudflare archives only
+        run: node scripts/audit-all-completed-card-images.mjs
+      - name: Commit read-only image audit without changing catalog or ownership
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/completed-all-sets-image-selfhost-20261013.json
+          if git diff --cached --quiet; then
+            echo "Existing audit output unchanged."
+            exit 0
+          fi
+          git commit -m "Audit all completed Korean sets for self-hosted card images"
+          git pull --rebase origin main
+          git push origin HEAD:main
