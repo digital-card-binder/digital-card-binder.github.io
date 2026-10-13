@@ -43,5 +43,19 @@ jobs:
           git add -u
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Apply Korean Snow Hazard first 30 artwork themes and names"
-          git pull --rebase origin main
+          if git push origin HEAD:main; then
+            exit 0
+          fi
+          # Checkpoint evidence may be updated in parallel. Avoid rebasing generated
+          # JSON over stale checkpoints: re-apply guarded changes on current main.
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/apply-theme-sv2p-001-030-review.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sv2P-set-progress-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Apply Korean Snow Hazard first 30 artwork themes and names on latest main"
           git push origin HEAD:main
