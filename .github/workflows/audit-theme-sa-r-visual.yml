@@ -1,0 +1,37 @@
+name: Audit Korean SA-R 24 fire starter images from own CDN
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-sa-r-visual.yml'
+      - 'scripts/audit-theme-sa-r-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: sa-r-korean-own-cdn-24-art-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Inspect exactly 24 SA-R Korean master cards via Digital Card Binder CDN only
+        run: python scripts/audit-theme-sa-r-visual.py
+      - name: Checkpoint decoded self-host evidence and card contact sheets
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/SA-R
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint Korean SA-R 24 fire starter own-CDN visual evidence"
+          git pull --rebase origin main
+          git push origin HEAD:main
