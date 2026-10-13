@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 10629,
-    "uniqueThemeCards": 6364,
-    "strictCompleteSetCount": 62,
+    "themeCardSlots": 10641,
+    "uniqueThemeCards": 6375,
+    "strictCompleteSetCount": 63,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 211,
+    "baselineRemainingSetCount": 210,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5331,
+      "cardSlots": 5342,
       "setCount": 68,
       "rarities": [
         "AR",
@@ -228,7 +228,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 101,
+      "cardSlots": 102,
       "setCount": 33,
       "rarities": [
         "AR",
@@ -247,9 +247,9 @@
       "era": "M",
       "setCount": 14,
       "cardCount": 2133,
-      "completeSetCount": 13,
-      "remainingSetCount": 1,
-      "currentThemeSlots": 3509
+      "completeSetCount": 14,
+      "remainingSetCount": 0,
+      "currentThemeSlots": 3521
     },
     {
       "era": "SV",
@@ -317,13 +317,6 @@
     }
   ],
   "nextQueue": [
-    {
-      "era": "M",
-      "code": "M-P",
-      "name": "메가 진화 프로모",
-      "cardCount": 68,
-      "status": "in_progress"
-    },
     {
       "era": "SV",
       "code": "CLL",
@@ -525,6 +518,13 @@
       "code": "SLL",
       "name": "스타터 세트 VSTAR 「루카리오」",
       "cardCount": 22,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SLD",
+      "name": "스타터 세트 VSTAR 「다크라이」",
+      "cardCount": 21,
       "status": "pending"
     }
   ],
@@ -2189,13 +2189,13 @@
       "cardCount": 68,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "season": 27,
-        "color": 57,
+        "color": 68,
         "street": 5,
-        "cameo": 2
+        "cameo": 3
       }
     },
     {

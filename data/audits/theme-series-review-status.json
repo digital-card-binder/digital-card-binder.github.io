@@ -27258,10 +27258,10 @@
       "nextStart": "M-P 001 (canonical order 001)"
     },
     "M-P": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
-      "note": "M-P 001-050 illustration-verified; 051-068 canonical order deferred, printed numbers 051-060,085,086,500-502,GRA/FIR/WAT. Set remains incomplete. 2026-10-12: canonical 051-057 confirmed from exact Korean official watermarked images and visually checked against all 12 themes; image binary archive remains pending. 2026-10-12: candidate Dogam pages for M-P 058-060 resolve to different Korean promo prints 503-505/MP, so target slots remain held and unreviewed.",
-      "reviewedCardCount": 57,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "M-P 한국어판 68장 12테마 전수검수 완료. 기존 57장 기록 보존, 11장 보류 해소, 이미지 자체 호스팅 확인.",
+      "reviewedCardCount": 68,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -27286,7 +27286,7 @@
         "canonical-order 050",
         "canonical-order 051-057 (7 exact Korean official watermarked artworks visually checked; 12 themes adjudicated)"
       ],
-      "newlyAddedThemeSlotCount": 91,
+      "newlyAddedThemeSlotCount": 12,
       "newlyAddedCards": [
         "M-P_001",
         "M-P_002",
@@ -27347,19 +27347,7 @@
         "M-P_057"
       ],
       "existingSkippedCards": [],
-      "heldCards": [
-        "M-P_058",
-        "M-P_059",
-        "M-P_060",
-        "M-P_085",
-        "M-P_086",
-        "M-P_500",
-        "M-P_501",
-        "M-P_502",
-        "M-P_GRA",
-        "M-P_FIR",
-        "M-P_WAT"
-      ],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-010",
@@ -28551,7 +28539,11 @@
           ]
         }
       ],
-      "nextStart": "M-P canonical 058 (official Korean image evidence pending)"
+      "nextStart": "M-P canonical 058 (official Korean image evidence pending)",
+      "verifiedSelfHostedImageCount": 68,
+      "archiveVerificationStatus": "68_owned_CDN_Korean_print_images_decoded",
+      "fullSetEvidence": "data/audits/theme-mp-final-058-068-owned-art-review.json",
+      "previouslyPreservedThemeSlotCount": 91
     },
     "CLL": {
       "status": "in_progress",
