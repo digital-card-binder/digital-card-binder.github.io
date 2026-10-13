@@ -30658,10 +30658,10 @@
       ]
     },
     "SV-P": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
-      "note": "SV-P official Korean artworks verified through canonical 125; energy promos 111-116 and trainer/item/energy/Poffin/Mew promos 121-125 directly confirmed from exact Korean prints. Other holds retained. 2026-10-12: SV-P 500-503 Korean Victory Symbol images and catalog numbers directly verified; color theme added. Energy candidates 206-211 visually show Korean cards, but Korean catalog No.544-549 conflicts with canonical IDs, so exact slot mapping stays held. 2026-10-12: canonical 211-220 / Korean printed 504-513 individually visually reviewed from mapped Korean card images; color theme added to ten. External watermarked binaries remain unarchived. 2026-10-12: canonical 221-230 / Korean printed 514-523 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived. 2026-10-12: canonical 231-240 / Korean printed 524-533 individually reviewed from Korean card image references; color theme added to all ten. Watermarked external image binaries remain unarchived. 2026-10-12: canonical 241-248 / Korean printed 534-541 visually reviewed against mapped Korean card images and Dogam print records; color added to eight and cameo to 539-541. External watermarked binaries remain unarchived.",
-      "reviewedCardCount": 224,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "한국판 SV-P 248장 12테마 시각 전수검수 완료. 기존 224장 보존, 카드 16장 + 한국 코리안리그 무번호 에너지 8장 확인. 204~211은 인쇄번호가 아닌 내부 카탈로그 키. 기존 소유권/체크 상태 불변. 공식 상세 페이지 미공개 프로모 50건의 후속 메타 증빙은 별도.",
+      "reviewedCardCount": 248,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -30707,7 +30707,7 @@
         "canonical-order 231-240 (printed 524-533): ten Korean Victory Symbol artworks visually reviewed against mapped Korean card records; color only; image archive pending.",
         "canonical-order 241-248 (printed 534-541): 8 Korean artworks visually reviewed against mapped Dogam records; all 12 themes checked, color on all and cameo on 539-541; image archive pending."
       ],
-      "newlyAddedThemeSlotCount": 357,
+      "newlyAddedThemeSlotCount": 394,
       "newlyAddedCards": [
         "SV-P_001",
         "SV-P_002",
@@ -30930,10 +30930,7 @@
         "SV-P_538",
         "SV-P_539",
         "SV-P_540",
-        "SV-P_541"
-      ],
-      "existingSkippedCards": [],
-      "heldCards": [
+        "SV-P_541",
         "SV-P_136",
         "SV-P_141",
         "SV-P_145",
@@ -30959,6 +30956,8 @@
         "SV-P_210",
         "SV-P_211"
       ],
+      "existingSkippedCards": [],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-010 (009-010 deferred)",
@@ -36750,6 +36749,22 @@
             }
           ]
         }
+      ],
+      "newKoreanArtworkReviews": 24,
+      "previousKoreanArtworkReviewsPreserved": 224,
+      "verifiedSelfHostedImageCount": 248,
+      "archiveVerificationStatus": "248_owned_CDN_Korean_promo_print_artworks_decoded_8_unnumbered_energy_identified",
+      "fullSetEvidence": "data/audits/theme-svp-final-16-artworks-energy8-held-20261013.json",
+      "unnumberedEnergyEvidence": "data/audits/theme-svp-eight-unnumbered-energy-korean-proof-20261013.json",
+      "KoreanUnnumberedEnergyMasterKeys": [
+        "SV-P_204",
+        "SV-P_205",
+        "SV-P_206",
+        "SV-P_207",
+        "SV-P_208",
+        "SV-P_209",
+        "SV-P_210",
+        "SV-P_211"
       ]
     },
     "SVAM": {
