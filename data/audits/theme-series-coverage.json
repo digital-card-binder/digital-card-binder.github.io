@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11562,
-    "uniqueThemeCards": 6931,
-    "strictCompleteSetCount": 79,
+    "themeCardSlots": 11588,
+    "uniqueThemeCards": 6944,
+    "strictCompleteSetCount": 80,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 194,
+    "baselineRemainingSetCount": 193,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -82,8 +82,8 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 124,
-      "setCount": 28,
+      "cardSlots": 136,
+      "setCount": 29,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5899,
-      "setCount": 84,
+      "cardSlots": 5912,
+      "setCount": 85,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 72,
-      "setCount": 38,
+      "cardSlots": 73,
+      "setCount": 39,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 15,
-      "remainingSetCount": 46,
-      "currentThemeSlots": 961
+      "completeSetCount": 16,
+      "remainingSetCount": 45,
+      "currentThemeSlots": 987
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP5",
-      "name": "스페셜 카드 세트 「뮤츠 V-UNION」 「개굴닌자 V-UNION」 「자시안 V-UNION」",
-      "cardCount": 13,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s8b",
       "name": "VMAX 클라이맥스",
       "cardCount": 293,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s8a",
+      "name": "25th ANNIVERSARY COLLECTION",
+      "cardCount": 38,
       "status": "pending"
     }
   ],
@@ -2827,9 +2827,13 @@
       "cardCount": 13,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "connected": 12,
+        "color": 13,
+        "work": 1
+      }
     },
     {
       "era": "S",
