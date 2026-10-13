@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 import base64,json,time
 ROOT=Path(__file__).resolve().parents[1]
-CODE="sv5a" # 96-card Korean expansion; read-only user CDN image verification # only Digital Card Binder Cloudflare CDN URLs will be opened # only user-owned Cloudflare image URLs may be opened
+CODE="sv5a" # new complete one-set Korean self-hosted evidence run # 96-card Korean expansion; read-only user CDN image verification # only Digital Card Binder Cloudflare CDN URLs will be opened # only user-owned Cloudflare image URLs may be opened
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/"sv5a"
 AUDIT.mkdir(parents=True,exist_ok=True)
 def read(p):
