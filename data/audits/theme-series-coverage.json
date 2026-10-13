@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11384,
-    "uniqueThemeCards": 6816,
-    "strictCompleteSetCount": 74,
+    "themeCardSlots": 11418,
+    "uniqueThemeCards": 6838,
+    "strictCompleteSetCount": 75,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 199,
+    "baselineRemainingSetCount": 198,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 375,
-      "setCount": 64,
+      "cardSlots": 376,
+      "setCount": 65,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3312,
-      "setCount": 80,
+      "cardSlots": 3322,
+      "setCount": 81,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5783,
-      "setCount": 79,
+      "cardSlots": 5805,
+      "setCount": 80,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 67,
-      "setCount": 35,
+      "cardSlots": 68,
+      "setCount": 36,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 10,
-      "remainingSetCount": 51,
-      "currentThemeSlots": 783
+      "completeSetCount": 11,
+      "remainingSetCount": 50,
+      "currentThemeSlots": 817
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SEF",
-      "name": "스타터 세트 VMAX 「이상해꽃」",
-      "cardCount": 22,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s10a",
       "name": "다크판타스마",
       "cardCount": 99,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s10D",
+      "name": "타임게이저",
+      "cardCount": 88,
       "status": "pending"
     }
   ],
@@ -2906,9 +2906,14 @@
       "cardCount": 22,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "night": 1,
+        "season": 10,
+        "color": 22,
+        "work": 1
+      }
     },
     {
       "era": "S",
