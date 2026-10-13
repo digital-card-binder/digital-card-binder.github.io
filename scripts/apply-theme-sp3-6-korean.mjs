@@ -71,13 +71,13 @@ for(let i=0;i<6;i++){
   const g=groups.get(t);
   g.cards.push({
    code:key,name:c.name,series:"S",set:master.code,setName:master.name,
-   cardNumber:false?"":c.code.split("_")[1],rarity:c.rarity||"",
+   cardNumber:c.code.split("_")[1],rarity:c.rarity||"",
    category:g.cards[0]?.category||g.name,
    image:p.cdnUrl,
-   printedNumberStatus:false?"unnumbered_energy_master_key_is_internal":undefined,
+   printedNumberStatus:undefined,
    evidence:"한국판 SP3 카드 실물 일러스트 12테마 시각검수: "+row.artObservation+
       ". 확인 시트 "+row.proofImage+
-      (false?" 무번호 기본 악 에너지, 내부 키는 인쇄번호 아님.":"")+
+      ""+
       " 자가 CDN, 외부 원본 핫링크 없음."
   });
   addedThemes[t]=(addedThemes[t]||0)+1;added++;
@@ -101,7 +101,7 @@ images.batches.push({task:6,set:master.code,range:"canonical 001-006 full Korean
  verifiedImageCount:6,unverifiedImageCount:0,brokenReferenceCount:0,
  unnumberedBasicEnergiesInternalKeysPreserved:0,themeAdditions:addedThemes,
  nextStart:"SGI canonical 001",
- note:"20 printed Korean card numbers + 1 genuinely unnumbered basic dark energy. 12 independent themes inspected; no offsite image requests."});
+ note:"6 physically numbered Korean cards, zero unnumbered energy cards; 12 themes inspected against own CDN proof only."});
 images.nextStart="SGI canonical 001";images.updatedAt="2026-10-14";
 const report={schemaVersion:1,recordedAt:"2026-10-14",set:"SP3",status:"complete",
  KoreanMasterCards:6,actualPrintedNumberCards:6,
