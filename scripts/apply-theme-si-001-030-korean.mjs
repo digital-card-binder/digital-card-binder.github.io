@@ -22,7 +22,12 @@ if(prior?.status==="complete"||prior?.reviewedCardCount>0||images.nextStart!=="S
  throw Error("SI 001-030 safe batch checkpoint mismatch");
 const groups=new Map(art.groups.map(g=>[g.code,g]));
 for(const t of T)if(!Array.isArray(groups.get(t)?.cards))throw Error("Missing independent theme "+t);
-for(const g of art.groups)for(const c of g.cards||[])if(String(c.set||"").toUpperCase()==="SI"||/^SI_\d{3}$/.test(String(c.code||"").toUpperCase()))throw Error("Prior SI themes must not be overwritten");
+for(const g of art.groups)for(const c of g.cards||[]){
+ const code=String(c.code||"").toUpperCase();
+ if((String(c.set||"").toUpperCase()==="SI"||/^SI_\d{3}$/.test(code))&&/^SI_(00[1-9]|0[12][0-9]|030)$/.test(code))
+  throw Error("Cannot overwrite an existing SI 001-030 theme "+code);
+ // Previously curated SI cards outside this batch, such as SI_342 sleeping, are preserved.
+}
 overrides.sets??={};overrides.sets.si??={};
 let inspected=0,assigned=0;const added={};
 for(let i=0;i<30;i++){
