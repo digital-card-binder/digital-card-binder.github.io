@@ -1,0 +1,49 @@
+name: Complete 92 Korean sv3a Raging Surf artwork reviews
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-sv3a-001-092-art-review.json'
+      - '.github/workflows/apply-theme-sv3a-complete.yml'
+permissions:
+  contents: write
+concurrency:
+  group: theme-sv3a-strict-complete
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply 92 guarded canonical Korean card artwork checks
+        run: node scripts/apply-theme-sv3a-complete-review.mjs
+      - name: Rebuild site indexes
+        run: npm run site:prepare
+      - name: Verify derived output consistency
+        run: npm run site:check
+      - name: Run full project regression tests
+        run: npm test
+      - name: Commit verified master, themes, audit and site updates
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json
+          git add -u
+          if git diff --cached --quiet; then echo "Already complete"; exit 0; fi
+          git commit -m "Complete all 92 Korean SV3a Raging Surf artworks and archive audit"
+          git pull --rebase origin main
+          git push origin HEAD:main
