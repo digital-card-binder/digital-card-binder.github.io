@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "setScope": [
+    "CLL",
+    "CLK",
+    "CLF"
+  ],
+  "status": "15_real_Korean_firstparty_card_art_rehosted_as_interim_low_resolution",
+  "imagesChanged": 15,
+  "priorGenuineKoreanOwnedAssets": 16,
+  "currentGenuineKoreanOwnedAssets": 31,
+  "remainingVisiblyJapaneseWrongImages": 65,
+  "printedEditionEnergyProofStillPending": 6,
+  "firstpartyProductSource": "https://pokemoncard.co.kr/card/590",
+  "artworkSourceQuality": "860px-wide marketing original; cropped images ~185-267 pixels wide; lower resolution than individual original 420px scan",
+  "nextPriority": "CLL_004 Korean full-resolution print; then remaining 65 Japanese scans and 6 energy identity verifications",
+  "archiveRef": "data/audits/theme-classic-15-interim-official-asset-preparation-20261013.json",
+  "bySet": {
+    "CLL": {
+      "expected": 34,
+      "priorKoreanVerified": 9,
+      "previousWrong": 23,
+      "expectedReplacements": 3,
+      "updated": 3,
+      "themeDisplayImageReplacements": 3,
+      "newArtThemeSlots": 0,
+      "previousThemeMembershipsPreserved": 3,
+      "remainingJapaneseWrong": 20,
+      "energyRegionHolds": 2
+    },
+    "CLK": {
+      "expected": 34,
+      "priorKoreanVerified": 7,
+      "previousWrong": 25,
+      "expectedReplacements": 5,
+      "updated": 5,
+      "themeDisplayImageReplacements": 6,
+      "newArtThemeSlots": 2,
+      "previousThemeMembershipsPreserved": 6,
+      "remainingJapaneseWrong": 20,
+      "energyRegionHolds": 2
+    },
+    "CLF": {
+      "expected": 34,
+      "priorKoreanVerified": 0,
+      "previousWrong": 32,
+      "expectedReplacements": 7,
+      "updated": 7,
+      "themeDisplayImageReplacements": 8,
+      "newArtThemeSlots": 4,
+      "previousThemeMembershipsPreserved": 8,
+      "remainingJapaneseWrong": 25,
+      "energyRegionHolds": 2
+    }
+  },
+  "safety": {
+    "masterCardIdsChanged": false,
+    "ownershipChanged": false,
+    "priorThemeMembershipsRemoved": false,
+    "newThirdPartyHotlinkCount": 0,
+    "priorArtRecordsPreserved": true,
+    "noFalseEntireSetCompletion": true,
+    "productDesignNotClaimedAsFullHighResolutionScan": true
+  }
+}
