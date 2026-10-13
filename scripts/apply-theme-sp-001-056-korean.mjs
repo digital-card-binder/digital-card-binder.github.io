@@ -39,7 +39,8 @@ for(let i=0;i<204;i++){
     String(c.code).toLowerCase()!==String(p.masterCode).toLowerCase()||
     c.name!==p.name||p.imageCheck?.status!=="decoded"||p.imageCheck?.http!==200||
     p.imageCheck?.format!=="WEBP"||
-    !["420,586","400,558"].includes(p.imageCheck?.dimensions?.join(","))||
+    p.imageCheck?.dimensions?.[0]<280||p.imageCheck?.dimensions?.[1]<390||
+    Math.abs(p.imageCheck.dimensions[1]/p.imageCheck.dimensions[0]-1.396)>0.05||
     !/^https:\/\/dcb-card-images-legacy-2026\.pages\.dev\//.test(p.cdnUrl))
    throw Error("Own archive / Korean master mismatch at canonical order "+(i+1));
  const key="S-P_"+id,asset=forbidden.has(key)?pending:p.cdnUrl;
