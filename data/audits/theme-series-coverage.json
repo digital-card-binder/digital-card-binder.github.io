@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11376,
-    "uniqueThemeCards": 6808,
-    "strictCompleteSetCount": 73,
+    "themeCardSlots": 11384,
+    "uniqueThemeCards": 6816,
+    "strictCompleteSetCount": 74,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 200,
+    "baselineRemainingSetCount": 199,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5775,
-      "setCount": 78,
+      "cardSlots": 5783,
+      "setCount": 79,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 9,
-      "remainingSetCount": 52,
-      "currentThemeSlots": 775
+      "completeSetCount": 10,
+      "remainingSetCount": 51,
+      "currentThemeSlots": 783
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP2",
-      "name": "VMAX 스페셜 세트",
-      "cardCount": 8,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s10a",
+      "name": "다크판타스마",
+      "cardCount": 99,
       "status": "pending"
     }
   ],
@@ -2917,9 +2917,11 @@
       "cardCount": 8,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "color": 8
+      }
     },
     {
       "era": "S",
