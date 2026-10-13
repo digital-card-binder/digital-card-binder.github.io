@@ -1,0 +1,38 @@
+name: Audit nine unfinished MEGA and SV self-hosted image sets
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-nine-m-sv-owned-cdn.yml'
+      - 'scripts/audit-theme-nine-m-sv-owned-cdn.py'
+permissions:
+  contents: write
+concurrency:
+  group: unfinished-nine-owned-images
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image decode library
+        run: python -m pip install --quiet Pillow==12.3.0
+      - name: Decode only own Cloudflare archives for nine incomplete sets
+        run: python scripts/audit-theme-nine-m-sv-owned-cdn.py
+      - name: Commit only image evidence and archival audit summaries
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-nine-sets-owned-image-20261013
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint nine M SV sets owned image audit and contact sheets"
+          git pull --rebase origin main
+          git push origin HEAD:main
