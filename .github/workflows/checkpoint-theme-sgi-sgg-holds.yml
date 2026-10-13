@@ -1,0 +1,53 @@
+name: Safely checkpoint two Korean VMAX print-variant identity holds
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/checkpoint-theme-sgi-sgg-holds.yml'
+      - 'scripts/checkpoint-theme-sgi-sgg-korean-variant-holds.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: korean-sgi-sgg-safe-variant-hold
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Record safe holds and advance only the per-set progress pointer
+        run: node scripts/checkpoint-theme-sgi-sgg-korean-variant-holds.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit holds only after passing full tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Hold SGI SGG alternate Korean print identity, safely resume at SP4"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/checkpoint-theme-sgi-sgg-korean-variant-holds.mjs
+            npm run site:prepare
+            npm run site:check
+            npm test
+          done
