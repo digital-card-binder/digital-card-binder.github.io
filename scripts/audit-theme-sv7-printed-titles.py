@@ -21,7 +21,7 @@ images={}
 with ThreadPoolExecutor(max_workers=12) as pool:
  for f in as_completed([pool.submit(download,c) for c in index["cards"]]):
   n,im=f.result();images[n]=im
-assert len(images)==135 # exact full Korean canonical set
+assert len(images)==135 # SV7 Korean canonical prints read from user-owned CDN
 for start in range(1,136,16):
  sheet=Image.new("RGB",(4*450,4*190),(245,245,245))
  d=ImageDraw.Draw(sheet)
