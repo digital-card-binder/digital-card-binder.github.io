@@ -1,0 +1,28 @@
+name: Read existing Korean 151-210 themed print map
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-theme-sv2a-pending-print-map.mjs'
+      - '.github/workflows/audit-theme-sv2a-pending-print-map.yml'
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/audit-theme-sv2a-pending-print-map.mjs
+      - run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-sv2a-pending-printed-theme-map-20261013.json
+          git commit -m "Record original printed-key art themes remaining in Korean 151"
+          git pull --rebase origin main
+          git push origin HEAD:main
