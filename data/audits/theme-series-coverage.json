@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11178,
-    "uniqueThemeCards": 6674,
-    "strictCompleteSetCount": 67,
+    "themeCardSlots": 11214,
+    "uniqueThemeCards": 6698,
+    "strictCompleteSetCount": 68,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 206,
+    "baselineRemainingSetCount": 205,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3271,
-      "setCount": 74,
+      "cardSlots": 3279,
+      "setCount": 75,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5641,
-      "setCount": 72,
+      "cardSlots": 5665,
+      "setCount": 73,
       "rarities": [
         "AR",
         "C",
@@ -188,8 +188,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 140,
-      "setCount": 50,
+      "cardSlots": 141,
+      "setCount": 51,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 59,
-      "setCount": 30,
+      "cardSlots": 60,
+      "setCount": 31,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 942,
-      "setCount": 66,
+      "cardSlots": 943,
+      "setCount": 67,
       "rarities": [
         "AR",
         "C",
@@ -229,8 +229,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 120,
-      "setCount": 37,
+      "cardSlots": 121,
+      "setCount": 38,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 3,
-      "remainingSetCount": 58,
-      "currentThemeSlots": 577
+      "completeSetCount": 4,
+      "remainingSetCount": 57,
+      "currentThemeSlots": 613
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SA-R",
-      "name": "스타터 세트 V 「불꽃」",
-      "cardCount": 24,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "SO",
       "name": "스페셜 덱 세트 「리자몽 VSTAR VS 레쿠쟈 VMAX」",
       "cardCount": 34,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "sD",
+      "name": "sD 도감",
+      "cardCount": 31,
       "status": "pending"
     }
   ],
@@ -2983,9 +2983,16 @@
       "cardCount": 24,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 8,
+        "color": 24,
+        "food": 1,
+        "work": 1,
+        "street": 1,
+        "cameo": 1
+      }
     },
     {
       "era": "S",
