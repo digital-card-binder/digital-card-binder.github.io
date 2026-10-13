@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 9610,
-    "uniqueThemeCards": 5848,
+    "themeCardSlots": 9672,
+    "uniqueThemeCards": 5878,
     "strictCompleteSetCount": 53,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 220,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 341,
-      "setCount": 55,
+      "cardSlots": 343,
+      "setCount": 56,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2811,
-      "setCount": 65,
+      "cardSlots": 2838,
+      "setCount": 66,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4781,
-      "setCount": 64,
+      "cardSlots": 4811,
+      "setCount": 65,
       "rarities": [
         "AR",
         "C",
@@ -214,8 +214,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 833,
-      "setCount": 58,
+      "cardSlots": 836,
+      "setCount": 59,
       "rarities": [
         "AR",
         "C",
@@ -257,7 +257,7 @@
       "cardCount": 4749,
       "completeSetCount": 40,
       "remainingSetCount": 13,
-      "currentThemeSlots": 5982
+      "currentThemeSlots": 6044
     },
     {
       "era": "S",
@@ -385,7 +385,7 @@
       "code": "sv2P",
       "name": "스노해저드",
       "cardCount": 99,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -1457,10 +1457,14 @@
       "cardCount": 99,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 2,
+        "season": 27,
+        "color": 30,
+        "street": 3
       }
     },
     {

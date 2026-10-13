@@ -3,13 +3,13 @@
   "recordedAt": "2026-10-13",
   "set": "sv2P",
   "name": "스노해저드",
-  "status": "all_99_name_scene_evidence_recorded_theme_classification_pending",
+  "status": "in_progress",
   "canonicalCardSlots": 99,
   "existingOwnedCdnImagesDecoded": 99,
   "missingOwnedCdnImages": 0,
   "externalOriginRequests": 0,
   "existingKoreanMasterNames": 12,
-  "unresolvedKoreanMasterNames": 87,
+  "unresolvedKoreanMasterNames": 57,
   "existingThemeRecordsToPreserve": {
     "SV2P_060": [
       "sleeping"
@@ -17,14 +17,14 @@
   },
   "evidenceIndex": "data/audits/theme-visual-evidence/sv2P/visual-index.json",
   "evidenceSheetCount": 7,
-  "nextSafeStart": "Crosscheck 99 transcriptions against official Korean print, decide 12 themes independently, preserve existing SV2P_060 sleeping; then guarded batch application + site:check + npm test",
+  "nextSafeStart": "sv2P canonical 031; 001-030 preserved, 99/99 owned CDN images previously decoded",
   "remainingWork": [
     "Official Korean print spelling crosscheck for 99 provisional image transcriptions",
     "12-theme conservative illustration classification for all 99 canonical slots",
     "Preserve preexisting theme assignments and all owned states",
     "Commit verified changes only after full regression tests"
   ],
-  "notes": "All 99 self-hosted image binaries decoded; seven evidence files record Korean printed names and visual scenes. No 12-theme final classification or master edits have been claimed.",
+  "notes": "The first 30 Korean printed cards and all twelve theme criteria reviewed. Card ownership/UI untouched.",
   "printedKoreanNameSceneEvidenceCount": 99,
   "visualEvidenceBatches": [
     "data/audits/theme-sv2p-001-015-visual-names-20261013.json",
@@ -34,5 +34,17 @@
     "data/audits/theme-sv2p-061-075-visual-names-20261013.json",
     "data/audits/theme-sv2p-076-090-visual-names-20261013.json",
     "data/audits/theme-sv2p-091-099-visual-names-20261013.json"
+  ],
+  "appliedReviewThrough": 30,
+  "reviewedKoreanNames": 30,
+  "appliedThemeSlots": 62,
+  "appliedThemeAdditions": {
+    "season": 27,
+    "color": 30,
+    "street": 3,
+    "night": 2
+  },
+  "batchEvidence": [
+    "data/audits/theme-sv2P-001-030-art-review.json"
   ]
 }
