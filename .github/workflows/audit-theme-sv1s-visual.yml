@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/audit-theme-sv1s-visual.py'
+      - '.github/workflows/audit-theme-sv1s-visual.yml'
 permissions:
   contents: write
 concurrency:
