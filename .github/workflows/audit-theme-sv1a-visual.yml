@@ -1,0 +1,36 @@
+name: Audit 103 Korean Triplet Beat self-hosted card images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-theme-sv1a-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: sv1a-evidence-main
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Verify 103 Korean printed card assets exclusively on DCB self-hosted CDN
+        run: python scripts/audit-theme-sv1a-visual.py
+      - name: Commit read-only evidence after CDN decoding
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/sv1a
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Capture all 103 Korean Triplet Beat self-hosted image contact sheets"
+          git pull --rebase origin main
+          git push origin HEAD:main
