@@ -62162,6 +62162,32 @@
       "fullSetEvidence": "data/audits/theme-sj-001-032-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "32_Korean_owned_CDNBinaries_decoded_and_originals_artwork_reviewed",
       "note": "SJ 한국판 인쇄번호 카드 30장과 무번호 기본 에너지 2장, 비밀 번호 029/028 및 030/028 실제 인쇄 확인. 32장 자체 CDN 검증. 소유 상태 불변."
+    },
+    "S8a-G": {
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 16,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "verifiedSelfHostedImageCount": 16,
+      "newlyAddedThemeSlotCount": 21,
+      "priorThemeSlotsPreserved": 0,
+      "fullSetEvidence": "data/audits/theme-s8a-g-001-016-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "16_Korean_owned_CDN_webp_decoded_and_artworks_reviewed",
+      "note": "한국판 골든 박스 001/015-016/015, 전 16장 자체 CDN 디코딩 및 12테마 시각검수. 016/015 기본 번개 에너지 번호 보존. 기존 소유 기록 불변."
     }
   },
   "queue": {
@@ -62180,15 +62206,15 @@
   },
   "execution": {
     "startedAt": "2026-10-06",
-    "currentEra": "SV",
-    "currentSet": "SVM",
+    "currentEra": "S",
+    "currentSet": "SN",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "Ancient Roar sv4K 95/95 Korean cards visually reviewed and Korean names repaired; prior nine completed SV sets preserved.",
-    "nextStart": "sv4a canonical 001",
+    "lastSafeCheckpoint": "S8a-G 16/16 Korean prints and 12 themes verified, own CDN decoded 16/16",
+    "nextStart": "SN canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -62483,7 +62509,7 @@
       "archiveVerificationStatus": "pending",
       "checkedAt": "2026-10-12"
     },
-    "updatedAt": "2026-10-12"
+    "updatedAt": "2026-10-14"
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "sv4K",

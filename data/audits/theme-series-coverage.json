@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11669,
-    "uniqueThemeCards": 7001,
-    "strictCompleteSetCount": 82,
+    "themeCardSlots": 11690,
+    "uniqueThemeCards": 7017,
+    "strictCompleteSetCount": 83,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 191,
+    "baselineRemainingSetCount": 190,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3374,
-      "setCount": 86,
+      "cardSlots": 3379,
+      "setCount": 87,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5969,
-      "setCount": 87,
+      "cardSlots": 5985,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 18,
-      "remainingSetCount": 43,
-      "currentThemeSlots": 1068
+      "completeSetCount": 19,
+      "remainingSetCount": 42,
+      "currentThemeSlots": 1089
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "S8a-G",
-      "name": "「25th ANNIVERSARY GOLDEN BOX」",
-      "cardCount": 16,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "era": "S",
       "code": "s7R",
       "name": "창공스트림",
+      "cardCount": 90,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s7D",
+      "name": "마천퍼펙트",
       "cardCount": 90,
       "status": "pending"
     }
@@ -2794,9 +2794,12 @@
       "cardCount": 16,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 5,
+        "color": 16
+      }
     },
     {
       "era": "S",
