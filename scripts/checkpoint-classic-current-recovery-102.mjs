@@ -24,6 +24,22 @@ const report={schemaVersion:1,recordedAt:"2026-10-13",branch:"main",
   "never overwrite canonical card identities, collection/ownership data, old independent theme checkmarks",
   "existing 15 new Korean image crops are low-res temporary until a higher-resolution Korean print is available",
   "do not mark complete before all 102 Korean print identities are proven and all 12 theme groups inspected"]};
+const secondary=await read(base+"theme-classic-cll004-005-secondary-korean-photo-evidence-20261013.json");
+if(secondary.set!=="CLL"||secondary.cards?.length!==2||
+ secondary.cards[0].cardKey!=="CLL_004"||secondary.cards[1].cardKey!=="CLL_005"||
+ secondary.constraints?.doNotHotlinkOrCopySellerPhotos!==true ||
+ secondary.cards.some(x=>x.photoRepublishPermissionConfirmed!==false||
+  x.masterImageReplacementStatus!=="pending_verified_licensed_Korean_local_image"))
+ throw Error("Korean secondary photographs do not authorize copying or completing 004-005");
+report.secondaryKoreanPrintedArtifactEvidence={
+ source:"data/audits/theme-classic-cll004-005-secondary-korean-photo-evidence-20261013.json",
+ cardKeys:secondary.cards.map(x=>x.cardKey),
+ KoreanTextVisuallySeen:true,
+ permissionToRepublish:false,
+ sourceImageReplacementsPerformed:0,
+ exactPrintedNumbersSellerStatedButNotVisuallyRead:true,
+ note:"Two physical Korean-language card photographs document original print appearance only; photo copyrights and inadequate scan resolution mean neither is counted as owned Korean image yet."
+};
 const localCodes=new Set(after.bySet?Object.values(overrides.sets).flatMap(v=>Object.keys(v).filter(k=>/^(cll|clk|clf)_/.test(k))):[]);
 for(const code of report.orderedSets){
  const oldProof=old.sets[code],group=[...modern,...legacy].find(g=>String(g.code||"").toUpperCase()===code);
