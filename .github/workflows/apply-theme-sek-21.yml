@@ -1,0 +1,62 @@
+name: Complete Korean SEK 21 Blastoise VMAX starter cards
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sek-21.yml'
+      - 'scripts/apply-theme-sek-21-korean.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: sek-21-Korean-verified-artwork-apply
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply Korean SEK 21 images and 12 independent art themes
+        run: node scripts/apply-theme-sek-21-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit verified data only, refresh latest main on push conflict
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sek-set-progress-20261014.json
+            git add -u
+            if git diff --cached --quiet; then
+              echo "No changes needed: set already safely applied"
+              exit 0
+            fi
+            git commit -m "Complete Korean SEK 21 own-CDN artworks and independent themes (attempt $attempt)"
+            if git push origin HEAD:main; then
+              echo "SEK committed successfully on main"
+              exit 0
+            fi
+            if [[ "$attempt" -eq 5 ]]; then
+              echo "Five push conflicts: safe stop rather than overwriting concurrent changes"
+              exit 1
+            fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-sek-21-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm test
+          done
