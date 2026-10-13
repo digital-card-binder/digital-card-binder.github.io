@@ -1,0 +1,1429 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "branch": "main",
+  "purpose": "Exact next-session restart after recovering 15 Korean first-party Classic originals; do not re-review/overwrite prior proofs",
+  "orderedSets": [
+    "CLL",
+    "CLK",
+    "CLF"
+  ],
+  "completeSetCount": 64,
+  "summary": {
+    "expected": 102,
+    "verifiedExisting": 16,
+    "verifiedNew": 15,
+    "JapaneseReplacementPending": 65,
+    "neutralEnergyHeld": 6
+  },
+  "status": {
+    "CLL": {
+      "state": "in_progress",
+      "counts": {
+        "verified_existing_Korean": 9,
+        "verified_new_Korean_from_official_product_lowres": 3,
+        "wrong_language_Japanese_image": 20,
+        "energy_exact_region_print_id_pending": 2
+      },
+      "masterCardCount": 34,
+      "latestReviewedSourceRef": "data/audits/theme-classic-15-interim-official-asset-preparation-20261013.json",
+      "verifiedNewKoreanSourceKeys": [
+        "CLL_021",
+        "CLL_026",
+        "CLL_030"
+      ],
+      "queueNext": "CLL_004",
+      "cards": [
+        {
+          "canonicalOrder": 1,
+          "cardKey": "CLL_001",
+          "koreanName": "파이리",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 2,
+          "cardKey": "CLL_002",
+          "koreanName": "리자드",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 3,
+          "cardKey": "CLL_003",
+          "koreanName": "리자몽",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 4,
+          "cardKey": "CLL_004",
+          "koreanName": "포니타",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 5,
+          "cardKey": "CLL_005",
+          "koreanName": "날쌩마",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 6,
+          "cardKey": "CLL_006",
+          "koreanName": "마그마",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 7,
+          "cardKey": "CLL_007",
+          "koreanName": "칠색조 ex",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 8,
+          "cardKey": "CLL_008",
+          "koreanName": "피카츄",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 9,
+          "cardKey": "CLL_009",
+          "koreanName": "라이츄",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 10,
+          "cardKey": "CLL_010",
+          "koreanName": "찌리리공",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 11,
+          "cardKey": "CLL_011",
+          "koreanName": "붐볼",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 12,
+          "cardKey": "CLL_012",
+          "koreanName": "썬더",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 13,
+          "cardKey": "CLL_013",
+          "koreanName": "삐삐",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 14,
+          "cardKey": "CLL_014",
+          "koreanName": "픽시",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 15,
+          "cardKey": "CLL_015",
+          "koreanName": "노고치",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 16,
+          "cardKey": "CLL_016",
+          "koreanName": "노라키",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 17,
+          "cardKey": "CLL_017",
+          "koreanName": "밀탱크",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 18,
+          "cardKey": "CLL_018",
+          "koreanName": "수퍼 포켓몬 회수",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 19,
+          "cardKey": "CLL_019",
+          "koreanName": "대단한낚싯대",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 20,
+          "cardKey": "CLL_020",
+          "koreanName": "하이퍼볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 21,
+          "cardKey": "CLL_021",
+          "koreanName": "컴퓨터 통신",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_021.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 22,
+          "cardKey": "CLL_022",
+          "koreanName": "배틀서처",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 23,
+          "cardKey": "CLL_023",
+          "koreanName": "이상한 사탕",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 24,
+          "cardKey": "CLL_024",
+          "koreanName": "포켓몬 교체",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 25,
+          "cardKey": "CLL_025",
+          "koreanName": "몬스터볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 26,
+          "cardKey": "CLL_026",
+          "koreanName": "작열하는 목탄",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_026.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 27,
+          "cardKey": "CLL_027",
+          "koreanName": "오박사",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 28,
+          "cardKey": "CLL_028",
+          "koreanName": "포켓몬애호가클럽",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 29,
+          "cardKey": "CLL_029",
+          "koreanName": "보스의 지령",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 30,
+          "cardKey": "CLL_030",
+          "koreanName": "이수재",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_030.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 31,
+          "cardKey": "CLL_031",
+          "koreanName": "로켓단의 간부",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 32,
+          "cardKey": "CLL_032",
+          "koreanName": "더블 무색 에너지",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 33,
+          "cardKey": "CLL_033",
+          "koreanName": "기본 불꽃 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        },
+        {
+          "canonicalOrder": 34,
+          "cardKey": "CLL_034",
+          "koreanName": "기본 번개 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        }
+      ]
+    },
+    "CLK": {
+      "state": "in_progress",
+      "counts": {
+        "verified_existing_Korean": 7,
+        "verified_new_Korean_from_official_product_lowres": 5,
+        "wrong_language_Japanese_image": 20,
+        "energy_exact_region_print_id_pending": 2
+      },
+      "masterCardCount": 34,
+      "latestReviewedSourceRef": "data/audits/theme-classic-15-interim-official-asset-preparation-20261013.json",
+      "verifiedNewKoreanSourceKeys": [
+        "CLK_014",
+        "CLK_015",
+        "CLK_021",
+        "CLK_025",
+        "CLK_031"
+      ],
+      "queueNext": "CLK_004",
+      "cards": [
+        {
+          "canonicalOrder": 1,
+          "cardKey": "CLK_001",
+          "koreanName": "꼬부기",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 2,
+          "cardKey": "CLK_002",
+          "koreanName": "어니부기",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 3,
+          "cardKey": "CLK_003",
+          "koreanName": "거북왕",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 4,
+          "cardKey": "CLK_004",
+          "koreanName": "별가사리",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 5,
+          "cardKey": "CLK_005",
+          "koreanName": "아쿠스타",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 6,
+          "cardKey": "CLK_006",
+          "koreanName": "잉어킹",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 7,
+          "cardKey": "CLK_007",
+          "koreanName": "갸라도스",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 8,
+          "cardKey": "CLK_008",
+          "koreanName": "라프라스",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 9,
+          "cardKey": "CLK_009",
+          "koreanName": "프리져",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 10,
+          "cardKey": "CLK_010",
+          "koreanName": "스이쿤 ex",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 11,
+          "cardKey": "CLK_011",
+          "koreanName": "슬리프",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 12,
+          "cardKey": "CLK_012",
+          "koreanName": "슬리퍼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 13,
+          "cardKey": "CLK_013",
+          "koreanName": "마임맨",
+          "status": "verified_existing_Korean"
+        },
+        {
+          "canonicalOrder": 14,
+          "cardKey": "CLK_014",
+          "koreanName": "뮤츠",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_014.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 15,
+          "cardKey": "CLK_015",
+          "koreanName": "마티스의 꼬렛",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_015.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 16,
+          "cardKey": "CLK_016",
+          "koreanName": "마티스의 레트라",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 17,
+          "cardKey": "CLK_017",
+          "koreanName": "캥카",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 18,
+          "cardKey": "CLK_018",
+          "koreanName": "대단한낚싯대",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 19,
+          "cardKey": "CLK_019",
+          "koreanName": "하이퍼볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 20,
+          "cardKey": "CLK_020",
+          "koreanName": "컴퓨터 통신",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 21,
+          "cardKey": "CLK_021",
+          "koreanName": "배틀서처",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_021.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 22,
+          "cardKey": "CLK_022",
+          "koreanName": "이상한 사탕",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 23,
+          "cardKey": "CLK_023",
+          "koreanName": "포켓몬 교체",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 24,
+          "cardKey": "CLK_024",
+          "koreanName": "몬스터볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 25,
+          "cardKey": "CLK_025",
+          "koreanName": "대해의 물방울",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_025.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 26,
+          "cardKey": "CLK_026",
+          "koreanName": "오박사",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 27,
+          "cardKey": "CLK_027",
+          "koreanName": "낚시꾼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 28,
+          "cardKey": "CLK_028",
+          "koreanName": "포켓몬애호가클럽",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 29,
+          "cardKey": "CLK_029",
+          "koreanName": "보스의 지령",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 30,
+          "cardKey": "CLK_030",
+          "koreanName": "이수재",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 31,
+          "cardKey": "CLK_031",
+          "koreanName": "로켓단의 간부",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_031.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 32,
+          "cardKey": "CLK_032",
+          "koreanName": "더블 무색 에너지",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 33,
+          "cardKey": "CLK_033",
+          "koreanName": "기본 물 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        },
+        {
+          "canonicalOrder": 34,
+          "cardKey": "CLK_034",
+          "koreanName": "기본 초 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        }
+      ]
+    },
+    "CLF": {
+      "state": "in_progress",
+      "counts": {
+        "verified_existing_Korean": 0,
+        "verified_new_Korean_from_official_product_lowres": 7,
+        "wrong_language_Japanese_image": 25,
+        "energy_exact_region_print_id_pending": 2
+      },
+      "masterCardCount": 34,
+      "latestReviewedSourceRef": "data/audits/theme-classic-15-interim-official-asset-preparation-20261013.json",
+      "verifiedNewKoreanSourceKeys": [
+        "CLF_003",
+        "CLF_010",
+        "CLF_015",
+        "CLF_017",
+        "CLF_025",
+        "CLF_026",
+        "CLF_028"
+      ],
+      "queueNext": "CLF_001",
+      "cards": [
+        {
+          "canonicalOrder": 1,
+          "cardKey": "CLF_001",
+          "koreanName": "이상해씨",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 2,
+          "cardKey": "CLF_002",
+          "koreanName": "이상해풀",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 3,
+          "cardKey": "CLF_003",
+          "koreanName": "이상해꽃",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_003.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 4,
+          "cardKey": "CLF_004",
+          "koreanName": "파라스",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 5,
+          "cardKey": "CLF_005",
+          "koreanName": "파라섹트",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 6,
+          "cardKey": "CLF_006",
+          "koreanName": "스라크",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 7,
+          "cardKey": "CLF_007",
+          "koreanName": "쁘사이저",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 8,
+          "cardKey": "CLF_008",
+          "koreanName": "모래두지",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 9,
+          "cardKey": "CLF_009",
+          "koreanName": "고지",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 10,
+          "cardKey": "CLF_010",
+          "koreanName": "롱스톤",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_010.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 11,
+          "cardKey": "CLF_011",
+          "koreanName": "시라소몬",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 12,
+          "cardKey": "CLF_012",
+          "koreanName": "홍수몬",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 13,
+          "cardKey": "CLF_013",
+          "koreanName": "두두",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 14,
+          "cardKey": "CLF_014",
+          "koreanName": "두트리오",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 15,
+          "cardKey": "CLF_015",
+          "koreanName": "럭키",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_015.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 16,
+          "cardKey": "CLF_016",
+          "koreanName": "잠만보",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 17,
+          "cardKey": "CLF_017",
+          "koreanName": "루기아 ex",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_017.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 18,
+          "cardKey": "CLF_018",
+          "koreanName": "대단한낚싯대",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 19,
+          "cardKey": "CLF_019",
+          "koreanName": "하이퍼볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 20,
+          "cardKey": "CLF_020",
+          "koreanName": "컴퓨터 통신",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 21,
+          "cardKey": "CLF_021",
+          "koreanName": "배틀서처",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 22,
+          "cardKey": "CLF_022",
+          "koreanName": "이상한 사탕",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 23,
+          "cardKey": "CLF_023",
+          "koreanName": "포켓몬 교체",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 24,
+          "cardKey": "CLF_024",
+          "koreanName": "몬스터볼",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 25,
+          "cardKey": "CLF_025",
+          "koreanName": "태양의 씨",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_025.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 26,
+          "cardKey": "CLF_026",
+          "koreanName": "오박사",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_026.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 27,
+          "cardKey": "CLF_027",
+          "koreanName": "포켓몬애호가클럽",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 28,
+          "cardKey": "CLF_028",
+          "koreanName": "포켓몬 간호사",
+          "status": "verified_new_Korean_from_official_product_lowres",
+          "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_028.webp",
+          "next": "Wait higher resolution original Korean individual scan"
+        },
+        {
+          "canonicalOrder": 29,
+          "cardKey": "CLF_029",
+          "koreanName": "보스의 지령",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 30,
+          "cardKey": "CLF_030",
+          "koreanName": "이수재",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 31,
+          "cardKey": "CLF_031",
+          "koreanName": "로켓단의 간부",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 32,
+          "cardKey": "CLF_032",
+          "koreanName": "더블 무색 에너지",
+          "status": "wrong_language_Japanese_image",
+          "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+        },
+        {
+          "canonicalOrder": 33,
+          "cardKey": "CLF_033",
+          "koreanName": "기본 풀 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        },
+        {
+          "canonicalOrder": 34,
+          "cardKey": "CLF_034",
+          "koreanName": "기본 격투 에너지",
+          "status": "energy_exact_region_print_id_pending",
+          "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+        }
+      ]
+    }
+  },
+  "nextSafeStart": "CLL_004",
+  "remainingOriginalKoreanImageQueue": [
+    {
+      "canonicalOrder": 4,
+      "cardKey": "CLL_004",
+      "koreanName": "포니타",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 5,
+      "cardKey": "CLL_005",
+      "koreanName": "날쌩마",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 6,
+      "cardKey": "CLL_006",
+      "koreanName": "마그마",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 12,
+      "cardKey": "CLL_012",
+      "koreanName": "썬더",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 13,
+      "cardKey": "CLL_013",
+      "koreanName": "삐삐",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 15,
+      "cardKey": "CLL_015",
+      "koreanName": "노고치",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 16,
+      "cardKey": "CLL_016",
+      "koreanName": "노라키",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "CLL_017",
+      "koreanName": "밀탱크",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "CLL_018",
+      "koreanName": "수퍼 포켓몬 회수",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 19,
+      "cardKey": "CLL_019",
+      "koreanName": "대단한낚싯대",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 20,
+      "cardKey": "CLL_020",
+      "koreanName": "하이퍼볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "CLL_022",
+      "koreanName": "배틀서처",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "CLL_023",
+      "koreanName": "이상한 사탕",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 24,
+      "cardKey": "CLL_024",
+      "koreanName": "포켓몬 교체",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 25,
+      "cardKey": "CLL_025",
+      "koreanName": "몬스터볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 27,
+      "cardKey": "CLL_027",
+      "koreanName": "오박사",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 28,
+      "cardKey": "CLL_028",
+      "koreanName": "포켓몬애호가클럽",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 29,
+      "cardKey": "CLL_029",
+      "koreanName": "보스의 지령",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 31,
+      "cardKey": "CLL_031",
+      "koreanName": "로켓단의 간부",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 32,
+      "cardKey": "CLL_032",
+      "koreanName": "더블 무색 에너지",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 33,
+      "cardKey": "CLL_033",
+      "koreanName": "기본 불꽃 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    },
+    {
+      "canonicalOrder": 34,
+      "cardKey": "CLL_034",
+      "koreanName": "기본 번개 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    },
+    {
+      "canonicalOrder": 4,
+      "cardKey": "CLK_004",
+      "koreanName": "별가사리",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 5,
+      "cardKey": "CLK_005",
+      "koreanName": "아쿠스타",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 8,
+      "cardKey": "CLK_008",
+      "koreanName": "라프라스",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 9,
+      "cardKey": "CLK_009",
+      "koreanName": "프리져",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 11,
+      "cardKey": "CLK_011",
+      "koreanName": "슬리프",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 12,
+      "cardKey": "CLK_012",
+      "koreanName": "슬리퍼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 16,
+      "cardKey": "CLK_016",
+      "koreanName": "마티스의 레트라",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "CLK_017",
+      "koreanName": "캥카",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "CLK_018",
+      "koreanName": "대단한낚싯대",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 19,
+      "cardKey": "CLK_019",
+      "koreanName": "하이퍼볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 20,
+      "cardKey": "CLK_020",
+      "koreanName": "컴퓨터 통신",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "CLK_022",
+      "koreanName": "이상한 사탕",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "CLK_023",
+      "koreanName": "포켓몬 교체",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 24,
+      "cardKey": "CLK_024",
+      "koreanName": "몬스터볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 26,
+      "cardKey": "CLK_026",
+      "koreanName": "오박사",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 27,
+      "cardKey": "CLK_027",
+      "koreanName": "낚시꾼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 28,
+      "cardKey": "CLK_028",
+      "koreanName": "포켓몬애호가클럽",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 29,
+      "cardKey": "CLK_029",
+      "koreanName": "보스의 지령",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 30,
+      "cardKey": "CLK_030",
+      "koreanName": "이수재",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 32,
+      "cardKey": "CLK_032",
+      "koreanName": "더블 무색 에너지",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 33,
+      "cardKey": "CLK_033",
+      "koreanName": "기본 물 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    },
+    {
+      "canonicalOrder": 34,
+      "cardKey": "CLK_034",
+      "koreanName": "기본 초 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    },
+    {
+      "canonicalOrder": 1,
+      "cardKey": "CLF_001",
+      "koreanName": "이상해씨",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 2,
+      "cardKey": "CLF_002",
+      "koreanName": "이상해풀",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 4,
+      "cardKey": "CLF_004",
+      "koreanName": "파라스",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 5,
+      "cardKey": "CLF_005",
+      "koreanName": "파라섹트",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 6,
+      "cardKey": "CLF_006",
+      "koreanName": "스라크",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 7,
+      "cardKey": "CLF_007",
+      "koreanName": "쁘사이저",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 8,
+      "cardKey": "CLF_008",
+      "koreanName": "모래두지",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 9,
+      "cardKey": "CLF_009",
+      "koreanName": "고지",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 11,
+      "cardKey": "CLF_011",
+      "koreanName": "시라소몬",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 12,
+      "cardKey": "CLF_012",
+      "koreanName": "홍수몬",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 13,
+      "cardKey": "CLF_013",
+      "koreanName": "두두",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 14,
+      "cardKey": "CLF_014",
+      "koreanName": "두트리오",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 16,
+      "cardKey": "CLF_016",
+      "koreanName": "잠만보",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "CLF_018",
+      "koreanName": "대단한낚싯대",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 19,
+      "cardKey": "CLF_019",
+      "koreanName": "하이퍼볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 20,
+      "cardKey": "CLF_020",
+      "koreanName": "컴퓨터 통신",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 21,
+      "cardKey": "CLF_021",
+      "koreanName": "배틀서처",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "CLF_022",
+      "koreanName": "이상한 사탕",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "CLF_023",
+      "koreanName": "포켓몬 교체",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 24,
+      "cardKey": "CLF_024",
+      "koreanName": "몬스터볼",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 27,
+      "cardKey": "CLF_027",
+      "koreanName": "포켓몬애호가클럽",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 29,
+      "cardKey": "CLF_029",
+      "koreanName": "보스의 지령",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 30,
+      "cardKey": "CLF_030",
+      "koreanName": "이수재",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 31,
+      "cardKey": "CLF_031",
+      "koreanName": "로켓단의 간부",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 32,
+      "cardKey": "CLF_032",
+      "koreanName": "더블 무색 에너지",
+      "status": "wrong_language_Japanese_image",
+      "next": "Find identical Korean physical printed card, locally archive source and validate region/ID and 12 themes"
+    },
+    {
+      "canonicalOrder": 33,
+      "cardKey": "CLF_033",
+      "koreanName": "기본 풀 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    },
+    {
+      "canonicalOrder": 34,
+      "cardKey": "CLF_034",
+      "koreanName": "기본 격투 에너지",
+      "status": "energy_exact_region_print_id_pending",
+      "next": "Match original Korean physical energy print identifier against verified Korean edition, then classify"
+    }
+  ],
+  "qualityUpgradeQueue": [
+    {
+      "canonicalOrder": 21,
+      "cardKey": "CLL_021",
+      "koreanName": "컴퓨터 통신",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_021.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 26,
+      "cardKey": "CLL_026",
+      "koreanName": "작열하는 목탄",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_026.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 30,
+      "cardKey": "CLL_030",
+      "koreanName": "이수재",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLL_030.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 14,
+      "cardKey": "CLK_014",
+      "koreanName": "뮤츠",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_014.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 15,
+      "cardKey": "CLK_015",
+      "koreanName": "마티스의 꼬렛",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_015.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 21,
+      "cardKey": "CLK_021",
+      "koreanName": "배틀서처",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_021.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 25,
+      "cardKey": "CLK_025",
+      "koreanName": "대해의 물방울",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_025.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 31,
+      "cardKey": "CLK_031",
+      "koreanName": "로켓단의 간부",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLK_031.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 3,
+      "cardKey": "CLF_003",
+      "koreanName": "이상해꽃",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_003.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 10,
+      "cardKey": "CLF_010",
+      "koreanName": "롱스톤",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_010.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 15,
+      "cardKey": "CLF_015",
+      "koreanName": "럭키",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_015.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "CLF_017",
+      "koreanName": "루기아 ex",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_017.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 25,
+      "cardKey": "CLF_025",
+      "koreanName": "태양의 씨",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_025.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 26,
+      "cardKey": "CLF_026",
+      "koreanName": "오박사",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_026.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    },
+    {
+      "canonicalOrder": 28,
+      "cardKey": "CLF_028",
+      "koreanName": "포켓몬 간호사",
+      "status": "verified_new_Korean_from_official_product_lowres",
+      "currentDisplayedImage": "/assets/cards/classic-korean-official-2023/CLF_028.webp",
+      "next": "Wait higher resolution original Korean individual scan"
+    }
+  ],
+  "historicAudit": "data/audits/theme-classic-three-102-card-regional-print-checkpoint-20261013.json",
+  "currentOfficialKoreanImageAssets": "data/audits/theme-classic-15-firstparty-korean-display-recovery-20261013.json",
+  "inputOfficialProductArtwork": "https://pokemoncard.co.kr/card/590",
+  "nonNegotables": [
+    "Korean physical print only; never classify Japanese card art as Korean evidence",
+    "all displayed images must load locally from DCB-owned URLs and never hotlink external source hosts",
+    "never overwrite canonical card identities, collection/ownership data, old independent theme checkmarks",
+    "existing 15 new Korean image crops are low-res temporary until a higher-resolution Korean print is available",
+    "do not mark complete before all 102 Korean print identities are proven and all 12 theme groups inspected"
+  ]
+}
