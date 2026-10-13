@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "sv4a",
+  "setName": "샤이니트레져 ex",
+  "status": "in_progress",
+  "canonicalCardSlots": 360,
+  "existingOwnedCdnImagesDecoded": 360,
+  "missingOwnedCdnImages": 0,
+  "externalSourceRequestsDuringImageAudit": 0,
+  "existingKoreanMasterCardNames": 205,
+  "koreanMasterNamesRequiringReview": 155,
+  "existingThemePlacementsToPreserve": {
+    "SV4A_340": [
+      "sleeping"
+    ],
+    "SV4A_085": [
+      "connected"
+    ]
+  },
+  "visualContactSheets": [
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-01.webp.b64",
+      "start": 1,
+      "end": 15
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-02.webp.b64",
+      "start": 16,
+      "end": 30
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-03.webp.b64",
+      "start": 31,
+      "end": 45
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-04.webp.b64",
+      "start": 46,
+      "end": 60
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-05.webp.b64",
+      "start": 61,
+      "end": 75
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-06.webp.b64",
+      "start": 76,
+      "end": 90
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-07.webp.b64",
+      "start": 91,
+      "end": 105
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-08.webp.b64",
+      "start": 106,
+      "end": 120
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-09.webp.b64",
+      "start": 121,
+      "end": 135
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-10.webp.b64",
+      "start": 136,
+      "end": 150
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-11.webp.b64",
+      "start": 151,
+      "end": 165
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-12.webp.b64",
+      "start": 166,
+      "end": 180
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-13.webp.b64",
+      "start": 181,
+      "end": 195
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-14.webp.b64",
+      "start": 196,
+      "end": 210
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-15.webp.b64",
+      "start": 211,
+      "end": 225
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-16.webp.b64",
+      "start": 226,
+      "end": 240
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-17.webp.b64",
+      "start": 241,
+      "end": 255
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-18.webp.b64",
+      "start": 256,
+      "end": 270
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-19.webp.b64",
+      "start": 271,
+      "end": 285
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-20.webp.b64",
+      "start": 286,
+      "end": 300
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-21.webp.b64",
+      "start": 301,
+      "end": 315
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-22.webp.b64",
+      "start": 316,
+      "end": 330
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-23.webp.b64",
+      "start": 331,
+      "end": 345
+    },
+    {
+      "path": "data/audits/theme-visual-evidence/sv4a/sv4a-24.webp.b64",
+      "start": 346,
+      "end": 360
+    }
+  ],
+  "verifiedArtifact": "data/audits/theme-visual-evidence/sv4a/visual-index.json",
+  "nextSafeStart": "SV4a canonical 001: manual printed Korean card name and 12-theme visual review; all 360 archived image binaries already verified",
+  "cannotMarkCompleteUntil": [
+    "all 360 canonical slots visually classified",
+    "155 missing Korean master names sourced from visual Korean print",
+    "all 12 thematic groups cross-checked without duplicating existing two links",
+    "full test suite and deployed site checked",
+    "self-host-only image checks remain 360/360"
+  ],
+  "nextSetAfterCompletion": "sv4K already complete; next choose earlier pending from latest coverage",
+  "notes": "Safe continuation checkpoint only; no catalog or ownership data modified. Existing Cloudflare archival files re-used."
+}
