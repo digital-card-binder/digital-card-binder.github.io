@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 8265,
-    "uniqueThemeCards": 5044,
-    "strictCompleteSetCount": 46,
+    "themeCardSlots": 8409,
+    "uniqueThemeCards": 5128,
+    "strictCompleteSetCount": 47,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 227,
+    "baselineRemainingSetCount": 226,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 301,
-      "setCount": 50,
+      "cardSlots": 307,
+      "setCount": 51,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2305,
-      "setCount": 58,
+      "cardSlots": 2357,
+      "setCount": 59,
       "rarities": [
         "AR",
         "C",
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4138,
+      "cardSlots": 4203,
       "setCount": 60,
       "rarities": [
         "AR",
@@ -160,8 +160,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 160,
-      "setCount": 44,
+      "cardSlots": 161,
+      "setCount": 45,
       "rarities": [
         "AR",
         "C",
@@ -173,8 +173,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 50,
-      "setCount": 23,
+      "cardSlots": 52,
+      "setCount": 24,
       "rarities": [
         "AR",
         "C",
@@ -186,8 +186,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 113,
-      "setCount": 45,
+      "cardSlots": 115,
+      "setCount": 46,
       "rarities": [
         "AR",
         "C",
@@ -212,8 +212,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 729,
-      "setCount": 53,
+      "cardSlots": 743,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -226,7 +226,7 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 85,
+      "cardSlots": 87,
       "setCount": 29,
       "rarities": [
         "AR",
@@ -253,9 +253,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 33,
-      "remainingSetCount": 20,
-      "currentThemeSlots": 4637
+      "completeSetCount": 34,
+      "remainingSetCount": 19,
+      "currentThemeSlots": 4781
     },
     {
       "era": "S",
@@ -377,13 +377,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv5K",
-      "name": "와일드포스",
-      "cardCount": 100,
-      "status": "pending"
     },
     {
       "era": "SV",
@@ -523,6 +516,13 @@
       "code": "SCD",
       "name": "스타터 세트 VMAX 「오롱털」",
       "cardCount": 21,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SCR",
+      "name": "스타터 세트 VMAX 「리자몽」",
+      "cardCount": 23,
       "status": "pending"
     }
   ],
@@ -1566,13 +1566,19 @@
       "cardCount": 100,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "connected": 5,
         "evolution": 4,
-        "color": 1,
-        "cameo": 1
+        "night": 6,
+        "season": 52,
+        "color": 66,
+        "sunset": 1,
+        "reflections": 2,
+        "food": 2,
+        "street": 14,
+        "cameo": 3
       }
     },
     {
