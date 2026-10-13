@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'data/audits/theme-sv3-001-141-art-review.json'
+      - 'scripts/apply-theme-sv3-complete-review.mjs'
+      - '.github/workflows/apply-theme-sv3-complete.yml'
 permissions:
   contents: write
 concurrency:
