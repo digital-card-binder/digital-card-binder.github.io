@@ -1,0 +1,36 @@
+name: Audit SB Korean trainer box images from owned archive
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-sb-visual.yml'
+      - 'scripts/audit-theme-sb-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: sb-Korean-33-images-evidence
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Inspect Korean SB originals from DCB-owned CDN only
+        run: python scripts/audit-theme-sb-visual.py
+      - name: Save image-contact evidence and no external-origin requests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/SB
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Capture Korean SB 25 own-card image proof"
+          git pull --rebase origin main
+          git push origin HEAD:main
