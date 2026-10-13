@@ -127,9 +127,9 @@ const bump=(node)=>{
  for(const value of Object.values(node)){if(!Array.isArray(value)&&bump(value))return true}
  return false;
 };
-if(!bump(state))throw Error("Refusing update: cannot find recent safe sv8a checkpoint");
+if(!bump(state))throw Error("Refusing update: cannot find previous sv7a verified checkpoint");
 if(String(state.lastEvidenceAuditCheckpoint?.set).toLowerCase()!=="sv7a")
- throw Error("Last verified evidence set not sv8a");
+ throw Error("Last verified evidence set not sv7a");
 Object.assign(state.lastEvidenceAuditCheckpoint,{set:code,range:"canonical 001-135",reviewedCardCount:135,
  artworkEvidenceHolds:0,archiveVerificationStatus:"existing_own_CDN_135_images_verified",evidenceFile:evidencePath});
 imageAudit.batches.push({
