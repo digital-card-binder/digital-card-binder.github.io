@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 import base64,json,time
 ROOT=Path(__file__).resolve().parents[1]
-CODE="sv7" # only user-owned Cloudflare image URLs may be opened
+CODE="sv7" # 135 Korean prints, DCB Cloudflare archive only
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/"sv7"
 AUDIT.mkdir(parents=True,exist_ok=True)
 def read(p):
