@@ -1,0 +1,36 @@
+name: Assert nine priority M and SV artwork review checkpoint and no hotlinks
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-nine-priority-closeout.yml'
+      - 'scripts/audit-theme-nine-priority-closeout.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: nine-m-sv-closeout
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check exact 9-set restart keys and completed image display URLs
+        run: node scripts/audit-theme-nine-priority-closeout.mjs
+      - name: Commit protected Korean print and 9-set closeout audit
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-nine-priority-completion-checkpoint-20261013.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint six completed nine-priority sets and three Korean Classic image repair gates"
+          git pull --rebase origin main
+          git push origin HEAD:main
