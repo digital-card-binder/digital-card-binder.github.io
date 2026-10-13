@@ -3,7 +3,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'data/audits/theme-sv2a-*-art-review.json'
+      - 'data/audits/theme-sv2a-151-180-art-review.json'
+      - 'data/audits/theme-sv2a-181-210-art-review.json'
       - '.github/workflows/apply-theme-sv2a-next-batch.yml'
 permissions:
   contents: write
