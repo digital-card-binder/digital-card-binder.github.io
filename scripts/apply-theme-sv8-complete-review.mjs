@@ -103,7 +103,8 @@ for(const t of new Set([...Object.keys(counts),...Object.keys(evidence.themeAddi
  if((counts[t]||0)!==(evidence.themeAdditions[t]||0))
   throw Error("Theme count mismatch: "+t);
 }
-if(master.name!=="초전브레이커")throw Error("Unexpected Korean set name "+master.name);
+if(!master.name || /^sv8 도감$/i.test(master.name))master.name="초전브레이커";
+else if(master.name!=="초전브레이커")throw Error("Unexpected Korean set name "+master.name);
 state.reviews||={};
 state.reviews[code]={
  status:"complete",reviewedAt:evidence.recordedAt,reviewedCardCount:138,
