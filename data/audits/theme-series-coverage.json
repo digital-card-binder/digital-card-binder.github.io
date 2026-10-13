@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11308,
-    "uniqueThemeCards": 6764,
-    "strictCompleteSetCount": 71,
+    "themeCardSlots": 11343,
+    "uniqueThemeCards": 6785,
+    "strictCompleteSetCount": 72,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 202,
+    "baselineRemainingSetCount": 201,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3298,
-      "setCount": 78,
+      "cardSlots": 3306,
+      "setCount": 79,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5731,
-      "setCount": 76,
+      "cardSlots": 5752,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 209,
-      "setCount": 53,
+      "cardSlots": 210,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -188,8 +188,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 141,
-      "setCount": 51,
+      "cardSlots": 142,
+      "setCount": 52,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 64,
-      "setCount": 33,
+      "cardSlots": 66,
+      "setCount": 34,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 945,
-      "setCount": 69,
+      "cardSlots": 947,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 7,
-      "remainingSetCount": 54,
-      "currentThemeSlots": 707
+      "completeSetCount": 8,
+      "remainingSetCount": 53,
+      "currentThemeSlots": 742
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SCD",
-      "name": "스타터 세트 VMAX 「오롱털」",
-      "cardCount": 21,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s11a",
       "name": "백열의 아르카나",
       "cardCount": 94,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s11",
+      "name": "로스트어비스",
+      "cardCount": 127,
       "status": "pending"
     }
   ],
@@ -2939,9 +2939,16 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 8,
+        "color": 21,
+        "sunset": 1,
+        "food": 1,
+        "work": 2,
+        "street": 2
+      }
     },
     {
       "era": "S",
