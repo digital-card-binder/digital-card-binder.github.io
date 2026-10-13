@@ -11,7 +11,7 @@
   "visualEvidenceIndex": "data/audits/theme-visual-evidence/sv2a/visual-index.json",
   "visualContactSheetCount": 14,
   "alreadyNamedKoreanMasterCards": 22,
-  "unnamedMasterCardsRequiringOfficialKoreanProof": 98,
+  "unnamedMasterCardsRequiringOfficialKoreanProof": 68,
   "existingThemedCardKeys": 23,
   "remainingWork": [
     "Read the Korean print artwork for each of 210 canonical cards, independently classify all twelve themes",
@@ -19,22 +19,24 @@
     "Never duplicate or remove existing theme placements",
     "After full review run site:prepare, site:check and npm test before marking complete"
   ],
-  "nextSafeStart": "sv2a canonical 091; preserve completed 001-090; owned images 210/210",
-  "notes": "Cards canonical 001-090 reviewed; remaining 120 pending. Original image origin not requested.",
-  "appliedReviewThrough": 90,
-  "reviewedKoreanNames": 90,
-  "appliedThemeSlots": 158,
+  "nextSafeStart": "sv2a canonical 121; preserve completed 001-120; owned images 210/210",
+  "notes": "Cards canonical 001-120 reviewed; remaining 90 pending. Original image origin not requested.",
+  "appliedReviewThrough": 120,
+  "reviewedKoreanNames": 120,
+  "appliedThemeSlots": 210,
   "appliedThemeAdditions": {
-    "season": 62,
-    "color": 86,
+    "season": 80,
+    "color": 116,
     "sunset": 4,
-    "night": 3,
-    "street": 2,
-    "sleeping": 1
+    "night": 4,
+    "street": 3,
+    "sleeping": 2,
+    "food": 1
   },
   "batchEvidence": [
     "data/audits/theme-sv2a-001-030-art-review.json",
     "data/audits/theme-sv2a-031-060-art-review.json",
-    "data/audits/theme-sv2a-061-090-art-review.json"
+    "data/audits/theme-sv2a-061-090-art-review.json",
+    "data/audits/theme-sv2a-091-120-art-review.json"
   ]
 }
