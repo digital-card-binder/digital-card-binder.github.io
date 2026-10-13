@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11295,
-    "uniqueThemeCards": 6756,
-    "strictCompleteSetCount": 70,
+    "themeCardSlots": 11308,
+    "uniqueThemeCards": 6764,
+    "strictCompleteSetCount": 71,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 203,
+    "baselineRemainingSetCount": 202,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3294,
-      "setCount": 77,
+      "cardSlots": 3298,
+      "setCount": 78,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5723,
-      "setCount": 75,
+      "cardSlots": 5731,
+      "setCount": 76,
       "rarities": [
         "AR",
         "C",
@@ -229,8 +229,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 122,
-      "setCount": 39,
+      "cardSlots": 123,
+      "setCount": 40,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 6,
-      "remainingSetCount": 55,
-      "currentThemeSlots": 694
+      "completeSetCount": 7,
+      "remainingSetCount": 54,
+      "currentThemeSlots": 707
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP1",
-      "name": "자시안+자마젠타 BOX",
-      "cardCount": 8,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s12",
       "name": "패러다임트리거",
       "cardCount": 125,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s11a",
+      "name": "백열의 아르카나",
+      "cardCount": 94,
       "status": "pending"
     }
   ],
@@ -2950,9 +2950,13 @@
       "cardCount": 8,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 4,
+        "color": 8,
+        "cameo": 1
+      }
     },
     {
       "era": "S",
