@@ -3657,5 +3657,19 @@
       "visualTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv8/sv8-title-09.webp.b64",
       "visualObservation": "구름, 침엽수와 푸른 산을 그린 그래비티 마운틴."
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "safeGuardedApplicator": "scripts/apply-theme-sv8-complete-review.mjs",
+    "commands": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "requiresImageCdnVerified": 138,
+    "originalSourceTraffic": 0,
+    "checkpointBefore": "sv8 canonical 001",
+    "checkpointAfter": "sv7a canonical 001"
+  }
 }
