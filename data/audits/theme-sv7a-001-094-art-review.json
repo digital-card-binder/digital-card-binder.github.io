@@ -2512,5 +2512,21 @@
       "visualTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv7a/sv7a-title-06.webp.b64",
       "visualObservation": "폭발하는 초록·분홍 열대 숲과 빛 속의 알로라 나시 ex."
     }
-  ]
+  ],
+  "previousMasterNameCorrectionsRequired": [],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "checkpoints": {
+      "before": "sv7a canonical 001",
+      "after": "sv7 canonical 001"
+    },
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "imageHostPolicy": "Only previously decoded DCB Cloudflare owned CDN URLs; never request third party origin",
+    "guardedScript": "scripts/apply-theme-sv7a-complete-review.mjs"
+  }
 }
