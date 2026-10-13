@@ -2476,5 +2476,17 @@
       "sourceRegion": "KR",
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv5K/sv5K-07.webp.b64"
     }
-  ]
+  ],
+  "validation": {
+    "node": "22",
+    "java": "21",
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "target": "SV5K",
+    "expectedPriorRecordCount": 7,
+    "applicator": "scripts/apply-theme-sv5k-complete-review.mjs"
+  }
 }
