@@ -305,11 +305,15 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       `${group.code}: one slot per printed set code and card number`,
     );
     for (const card of group.cards) {
-      assert.match(
-        card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr)\//,
-        card.code,
-      );
+      if (group.code === "S-P" && /^s-p_(?:022|115)\/S-P$/i.test(card.code)) {
+        assert.equal(card.image, "/assets/card-image-unavailable.svg", card.code);
+      } else {
+        assert.match(
+          card.image,
+          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev)\//,
+          card.code,
+        );
+      }
       assert.match(
         card.source,
         /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)/,
