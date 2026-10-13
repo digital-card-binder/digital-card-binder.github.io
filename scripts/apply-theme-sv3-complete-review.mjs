@@ -4,7 +4,7 @@ import {fileURLToPath} from "node:url";
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
 const read=async p=>JSON.parse(await readFile(path.join(root,p),"utf8"));
 const write=async(p,data)=>writeFile(path.join(root,p),JSON.stringify(data,null,2)+"\n");
-const evidencePath="data/audits/theme-sv3-001-0141-art-review.json";
+const evidencePath="data/audits/theme-sv3-001-141-art-review.json";
 const indexPath="data/audits/theme-visual-evidence/sv3/visual-index.json";
 const [e,index,series,legacy,themes,state,images]=await Promise.all([
 read(evidencePath),read(indexPath),read("data/series.json"),read("data/series-legacy.json"),
