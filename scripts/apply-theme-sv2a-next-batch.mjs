@@ -54,7 +54,7 @@ for(let i=0;i<30;i++){
   throw Error("Invalid Korean print or archive evidence: "+key);
  const already=[];
  for(const g of themes.groups)
-  if(g.cards.some(item=>String(item.code).toUpperCase()===key))already.push(g.code);
+  if(g.cards.some(item=>String(item.code).toUpperCase()===key.toUpperCase()))already.push(g.code);
  if(JSON.stringify(already.sort())!==JSON.stringify([...row.wasAlreadyInThemes].sort()))
   throw Error("Preserve previous independent theme slots: "+key);
  if(row.themesMatched.some(t=>already.includes(t)))
