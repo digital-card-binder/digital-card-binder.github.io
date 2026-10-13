@@ -3,22 +3,30 @@
   "recordedAt": "2026-10-13",
   "set": "sv1S",
   "name": "스칼렛 ex",
-  "status": "all_image_archives_decoded_Korean_artwork_review_evidence_recorded",
+  "status": "complete",
   "canonicalCardSlots": 108,
   "verifiedOwnedCDNImages": 108,
   "missingOwnedCDNImages": 0,
   "externalOriginImageRequests": 0,
-  "koreanMasterNamesAlreadyPresent": 18,
-  "unresolvedKoreanMasterNames": 90,
+  "koreanMasterNamesAlreadyPresent": 108,
+  "unresolvedKoreanMasterNames": 0,
   "preexistingThemeSlotsToPreserve": 11,
   "preexistingUniqueThemedCards": 8,
   "evidenceIndex": "data/audits/theme-visual-evidence/sv1S/visual-index.json",
   "artReviewEvidence": "data/audits/theme-sv1S-001-108-art-review.json",
-  "appliedReviewThrough": 0,
-  "nextSafeStart": "sv1S canonical 001; visual evidence for 108 cards recorded, apply guarded Korean names and theme placements",
-  "remaining": [
-    "Guard and repair 90 previously blank Korean master names using visually inspected official prints",
-    "Preserve 11 previously placed theme references and user ownership data",
-    "Run entire site prepare, check, and regression tests before strict-complete commit"
-  ]
+  "appliedReviewThrough": 108,
+  "nextSafeStart": "sv1S strict complete; next pending S-P canonical 001",
+  "remaining": [],
+  "newThemeSlotsAdded": 192,
+  "themeAdditionsApplied": {
+    "season": 61,
+    "street": 15,
+    "color": 107,
+    "night": 2,
+    "sunset": 6,
+    "sleeping": 1
+  },
+  "previousThemePlacementsKept": 11,
+  "namedCardsRepaired": 90,
+  "notes": "108 Korean Scarlet ex card images reviewed; missing 90 Korean card names repaired, 11 previous slots intact. All archived and decoded from owned CDN; no ownership-state edits."
 }

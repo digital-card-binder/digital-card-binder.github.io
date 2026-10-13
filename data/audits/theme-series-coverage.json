@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 10368,
-    "uniqueThemeCards": 6221,
-    "strictCompleteSetCount": 57,
+    "themeCardSlots": 10560,
+    "uniqueThemeCards": 6321,
+    "strictCompleteSetCount": 58,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 216,
+    "baselineRemainingSetCount": 215,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -66,7 +66,7 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 159,
+      "cardSlots": 160,
       "setCount": 71,
       "rarities": [
         "AR",
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 363,
-      "setCount": 59,
+      "cardSlots": 365,
+      "setCount": 60,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3052,
-      "setCount": 69,
+      "cardSlots": 3113,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5181,
+      "cardSlots": 5288,
       "setCount": 68,
       "rarities": [
         "AR",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 196,
-      "setCount": 50,
+      "cardSlots": 202,
+      "setCount": 51,
       "rarities": [
         "AR",
         "C",
@@ -214,8 +214,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 898,
-      "setCount": 61,
+      "cardSlots": 913,
+      "setCount": 62,
       "rarities": [
         "AR",
         "C",
@@ -255,9 +255,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 44,
-      "remainingSetCount": 9,
-      "currentThemeSlots": 6740
+      "completeSetCount": 45,
+      "remainingSetCount": 8,
+      "currentThemeSlots": 6932
     },
     {
       "era": "S",
@@ -379,13 +379,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv1S",
-      "name": "스칼렛 ex",
-      "cardCount": 108,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "code": "S8a-P",
       "name": "프로모 카드 팩 25th ANNIVERSARY edition",
       "cardCount": 25,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SJ",
+      "name": "스페셜 덱 세트 「자시안·자마젠타 VS 무한다이노」",
+      "cardCount": 32,
       "status": "pending"
     }
   ],
@@ -1387,14 +1387,18 @@
       "cardCount": 108,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
-        "sleeping": 2,
+        "sleeping": 3,
         "connected": 3,
         "evolution": 3,
-        "color": 1,
+        "night": 2,
+        "season": 61,
+        "color": 108,
+        "sunset": 6,
         "food": 1,
+        "street": 15,
         "cameo": 1
       }
     },
