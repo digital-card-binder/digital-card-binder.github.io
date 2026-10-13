@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/apply-theme-sp-001-056.yml'
       - 'scripts/apply-theme-sp-001-056-korean.mjs'
+      - 'tests/collector-registry.test.mjs'
 permissions:
   contents: write
 concurrency:
