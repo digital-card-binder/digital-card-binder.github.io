@@ -5,7 +5,7 @@ const [cov,img,state]=await Promise.all([
   parse("data/audits/theme-image-selfhost-audit.json"),
   parse("data/audits/theme-series-review-status.json")
 ]);
-const byCode=new Map(cov.sets.map(x=>[x.code,x]));
+const byCode=new Map(cov.sets.map(x=>[x.code,x])); // preserve completion and collection state
 if(byCode.has("sv5")||byCode.get("sv5a")?.status!=="complete"||
   byCode.get("sv5M")?.status!=="pending"||
   byCode.get("sv5K")?.status!=="pending")
