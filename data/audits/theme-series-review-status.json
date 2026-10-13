@@ -61381,16 +61381,29 @@
       "note": "흑염의 지배자 한국판 141개 canonical 카드의 인쇄 번호와 원본 이미지 및 12테마 개별 그림 검수 완료. 기존 9개 테마 기록 유지, 새 카드명 124건 보완. 수집·UX/UI 변경 없음."
     },
     "sv2a": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-13",
-      "reviewedCardCount": 180,
-      "reviewedThemes": [],
-      "partialBatchEvidence": "data/audits/theme-sv2a-151-180-art-review.json",
-      "partialReviewedRange": "canonical 001-180",
-      "newlyAddedThemeSlotCount": 300,
-      "masterKoreanNamesRepaired": 166,
+      "reviewedCardCount": 210,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "partialBatchEvidence": "data/audits/theme-sv2a-181-210-art-review.json",
+      "partialReviewedRange": "canonical 001-210",
+      "newlyAddedThemeSlotCount": 342,
+      "masterKoreanNamesRepaired": 188,
       "verifiedSelfHostedImageCount": 210,
-      "note": "SV2a 한국판 001-180 이름 및 12테마 시각 검수 완료. 나머지 검수 필요.",
+      "note": "SV2a 한국판 210장 이름, 12테마 완전 검수. 소유상태 및 기존 테마 배치 유지. 210개 이미지 자가호스팅 검증.",
       "heldCards": []
     }
   },

@@ -3,7 +3,7 @@
   "recordedAt": "2026-10-13",
   "set": "sv2a",
   "setName": "포켓몬카드 151",
-  "status": "in_progress",
+  "status": "complete",
   "canonicalCardSlots": 210,
   "ownedCdnImageBinariesDecoded": 210,
   "missingCdnBinaries": 0,
@@ -11,7 +11,7 @@
   "visualEvidenceIndex": "data/audits/theme-visual-evidence/sv2a/visual-index.json",
   "visualContactSheetCount": 14,
   "alreadyNamedKoreanMasterCards": 22,
-  "unnamedMasterCardsRequiringOfficialKoreanProof": 22,
+  "unnamedMasterCardsRequiringOfficialKoreanProof": 0,
   "existingThemedCardKeys": 23,
   "remainingWork": [
     "Read the Korean print artwork for each of 210 canonical cards, independently classify all twelve themes",
@@ -19,20 +19,21 @@
     "Never duplicate or remove existing theme placements",
     "After full review run site:prepare, site:check and npm test before marking complete"
   ],
-  "nextSafeStart": "sv2a canonical 181; preserve completed 001-180; owned images 210/210",
-  "notes": "Cards canonical 001-180 reviewed; remaining 30 pending. Original image origin not requested.",
-  "appliedReviewThrough": 180,
-  "reviewedKoreanNames": 180,
-  "appliedThemeSlots": 300,
+  "nextSafeStart": "sv2a strict complete; next pending sv2P canonical 001 (confirm latest main first)",
+  "notes": "All 210 Korean printed cards classified against 12 independent themes; 188 originally absent Korean names resolved; all owned CDN assets decoded. Ownership/UI unchanged.",
+  "appliedReviewThrough": 210,
+  "reviewedKoreanNames": 210,
+  "appliedThemeSlots": 342,
   "appliedThemeAdditions": {
     "sleeping": 3,
     "night": 4,
-    "season": 116,
-    "color": 165,
-    "sunset": 5,
+    "season": 126,
+    "color": 190,
+    "sunset": 6,
     "reflections": 2,
     "food": 1,
-    "street": 4
+    "street": 6,
+    "cameo": 4
   },
   "batchEvidence": [
     "data/audits/theme-sv2a-001-030-art-review.json",
@@ -40,7 +41,8 @@
     "data/audits/theme-sv2a-061-090-art-review.json",
     "data/audits/theme-sv2a-091-120-art-review.json",
     "data/audits/theme-sv2a-121-150-art-review.json",
-    "data/audits/theme-sv2a-151-180-art-review.json"
+    "data/audits/theme-sv2a-151-180-art-review.json",
+    "data/audits/theme-sv2a-181-210-art-review.json"
   ],
   "identityCorrection": {
     "correctedAt": "2026-10-13",
@@ -51,5 +53,6 @@
     "duplicateNewRemoved": 5,
     "repairedEvidenceCardCodes": 96,
     "verifiedAgainstMaster": true
-  }
+  },
+  "cannotMarkCompleteUntil": []
 }
