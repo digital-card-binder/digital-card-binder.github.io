@@ -13,7 +13,7 @@ const [e,index,series,legacy,themes,state,images]=await Promise.all([
   read("data/audits/theme-series-review-status.json"),
   read("data/audits/theme-image-selfhost-audit.json")
 ]);
-const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv5K");
+const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv5k");
 if(masterMatches.length!==1)throw Error("Expected exactly one canonical Korean SV5K set.");
 const set=masterMatches[0],code=set.code;
 const expectedThemes=["sleeping","connected","evolution","night","season","color","sunset",
@@ -22,7 +22,7 @@ const grouped=new Map(themes.groups.map(g=>[g.code,g]));
 const preexisting=new Map();
 for(const theme of themes.groups){
   for(const item of theme.cards||[]){
-    if(String(item.set||"").toLowerCase()==="sv5K" ||
+    if(String(item.set||"").toLowerCase()==="sv5k" ||
       /^SV5K_\d{3}$/.test(String(item.code||"").toUpperCase())){
       const arr=preexisting.get(String(item.code).toUpperCase())||[];
       arr.push(theme.code);preexisting.set(String(item.code).toUpperCase(),arr);
@@ -135,7 +135,7 @@ const updateProgress=node=>{
   if(typeof node.lastSafeCheckpoint==="string"&&
      node.lastSafeCheckpoint.includes("sv5M")){
     node.lastSafeCheckpoint="Wild Force sv5K 100/100 Korean cards visually reviewed and Korean names repaired; prior seven completed SV sets preserved.";
-    node.currentTaskScope="sv5K strict complete; next sv9a set";
+    node.currentTaskScope="sv5K strict complete; next pending set chosen from latest coverage";
     node.nextStart="sv5M canonical 001; use latest coverage to pick pending";
     return true;
   }
