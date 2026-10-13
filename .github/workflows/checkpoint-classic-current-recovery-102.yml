@@ -1,0 +1,36 @@
+name: Verify Korean Classic 102-card exact safe restart checkpoint
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/checkpoint-classic-current-recovery-102.yml'
+      - 'scripts/checkpoint-classic-current-recovery-102.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: classic-exact-102-card-safe-restart
+  cancel-in-progress: false
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Enumerate 31 self-hosted Korean, 65 wrong Japanese and six energy holds
+        run: node scripts/checkpoint-classic-current-recovery-102.mjs
+      - name: Persist exact 71 unfinished card keys and 15 low-res upgrade keys
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-classic-latest-safe-restart-20261013.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint 31 Korean Classic image prints, 65 Japanese replacements, six energy holds"
+          git pull --rebase origin main
+          git push origin HEAD:main
