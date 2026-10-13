@@ -57,7 +57,11 @@ for row in evidence["items"]:
  y0=max(0,y0-3);y1=min(crop.height,y1+3)
  trimmed=crop.crop((0,y0,crop.width,y1))
  if not(1.21<=trimmed.height/trimmed.width<=1.75 and trimmed.width>=180 and trimmed.height>=220):
-  raise ValueError("Out-of-range original crop ratio / size for "+row["cardKey"]+": "+str(trimmed.size))
+  # Dark artwork can split a bright-run threshold; preserve the original manually inspected full-card crop instead.
+  if 1.21<=crop.height/crop.width<=1.75 and crop.width>=180 and crop.height>=220:
+   trimmed=crop;y0=0;y1=crop.height
+  else:
+   raise ValueError("Out-of-range source art crop for "+row["cardKey"]+": "+str(trimmed.size))
  dest=output/(row["cardKey"]+".webp")
  trimmed.save(dest,format="WEBP",quality=89,method=6)
  im=Image.open(dest);im.load()
