@@ -1,0 +1,31 @@
+name: Scan SV7a Korean printed card titles
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/audit-theme-sv7-printed-titles.py
+permissions:
+  contents: write
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Render printed Korean titles from user-owned CDN only
+        run: python scripts/audit-theme-sv7-printed-titles.py
+      - name: Commit evidence sheets without changing master or ownership
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/sv7/sv7-title-*.webp.b64
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Save enlarged Korean SV7a card-name proof sheets"
+          git push origin HEAD:main
