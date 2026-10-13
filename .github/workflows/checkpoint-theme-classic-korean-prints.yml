@@ -1,0 +1,56 @@
+name: Record verified Korean Classic artwork-only checkpoint
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/checkpoint-theme-classic-korean-prints.yml'
+      - 'scripts/checkpoint-theme-classic-sixteen-korean-prints.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: classic-16-Korean-printed-artwork-checkpoint
+  cancel-in-progress: false
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Validate and checkpoint only 16 Korean original prints, keep 86 foreign/neutral pending
+        run: node scripts/checkpoint-theme-classic-sixteen-korean-prints.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit 16 proven Korean originals without touching existing theme or ownership data
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-series-review-status.json data/audits/theme-classic-three-16-korean-print-artwork-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint sixteen Korean Classic printed originals and flag eighty wrong-language images"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/checkpoint-theme-classic-sixteen-korean-prints.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/audits/theme-series-review-status.json data/audits/theme-classic-three-16-korean-print-artwork-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Checkpoint sixteen verified Classic originals on latest main"
+          git push origin HEAD:main
