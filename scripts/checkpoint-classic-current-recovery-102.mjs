@@ -40,6 +40,22 @@ report.secondaryKoreanPrintedArtifactEvidence={
  exactPrintedNumbersSellerStatedButNotVisuallyRead:true,
  note:"Two physical Korean-language card photographs document original print appearance only; photo copyrights and inadequate scan resolution mean neither is counted as owned Korean image yet."
 };
+const energyOfficial=await read(base+"theme-classic-three-official-energy-design-proofs-20261013.json");
+if(energyOfficial.items?.length!==3||
+ energyOfficial.observedEnergyTypes!==3||
+ energyOfficial.strictVerifiedEditionAndPrintNumbers!==0||
+ energyOfficial.stillUnresolvedClassicEnergySlots!==6||
+ ["CLL_033","CLK_033","CLF_033"].some(id=>
+  !energyOfficial.items.some(x=>x.cardKey===id&&
+   x.exactPrintedCardNumberVerified===false&&x.canReplaceLiveEnergyCard===false)))
+ throw Error("Do not promote marketing energy designs to physical Korean printed number proof");
+report.officialMarketingEnergyDesignProof={
+ source:"data/audits/theme-classic-three-official-energy-design-proofs-20261013.json",
+ threeKoreanProductEnergyTypeDesignsSeen:["CLL_033","CLK_033","CLF_033"],
+ exactPrintedCardIdentifiersProved:0,
+ stillUnresolvedEnergyEditionSlots:6,
+ note:"Official product marketing confirms featured energy types only; not printed numbers or variant ownership keys."
+};
 const localCodes=new Set(after.bySet?Object.values(overrides.sets).flatMap(v=>Object.keys(v).filter(k=>/^(cll|clk|clf)_/.test(k))):[]);
 for(const code of report.orderedSets){
  const oldProof=old.sets[code],group=[...modern,...legacy].find(g=>String(g.code||"").toUpperCase()===code);
