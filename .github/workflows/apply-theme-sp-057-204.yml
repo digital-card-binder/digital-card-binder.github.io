@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/apply-theme-sp-057-204.yml'
       - 'scripts/apply-theme-sp-057-204-korean.mjs'
+      - 'data/audits/theme-sp-121-204-Korean-art-review-20261013.json'
 permissions:
   contents: write
 concurrency:
