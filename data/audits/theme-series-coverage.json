@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 10172,
-    "uniqueThemeCards": 6121,
-    "strictCompleteSetCount": 56,
+    "themeCardSlots": 10368,
+    "uniqueThemeCards": 6221,
+    "strictCompleteSetCount": 57,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 217,
+    "baselineRemainingSetCount": 216,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 360,
-      "setCount": 58,
+      "cardSlots": 363,
+      "setCount": 59,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2991,
-      "setCount": 68,
+      "cardSlots": 3052,
+      "setCount": 69,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5073,
-      "setCount": 67,
+      "cardSlots": 5181,
+      "setCount": 68,
       "rarities": [
         "AR",
         "C",
@@ -162,7 +162,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 193,
+      "cardSlots": 196,
       "setCount": 50,
       "rarities": [
         "AR",
@@ -175,8 +175,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 54,
-      "setCount": 26,
+      "cardSlots": 55,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
@@ -188,7 +188,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 126,
+      "cardSlots": 132,
       "setCount": 48,
       "rarities": [
         "AR",
@@ -214,7 +214,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 884,
+      "cardSlots": 898,
       "setCount": 61,
       "rarities": [
         "AR",
@@ -255,9 +255,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 43,
-      "remainingSetCount": 10,
-      "currentThemeSlots": 6544
+      "completeSetCount": 44,
+      "remainingSetCount": 9,
+      "currentThemeSlots": 6740
     },
     {
       "era": "S",
@@ -379,13 +379,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv1V",
-      "name": "바이올렛 ex",
-      "cardCount": 108,
-      "status": "pending"
     },
     {
       "era": "SV",
@@ -525,6 +518,13 @@
       "code": "SP5",
       "name": "스페셜 카드 세트 「뮤츠 V-UNION」 「개굴닌자 V-UNION」 「자시안 V-UNION」",
       "cardCount": 13,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "S8a-P",
+      "name": "프로모 카드 팩 25th ANNIVERSARY edition",
+      "cardCount": 25,
       "status": "pending"
     }
   ],
@@ -1405,15 +1405,19 @@
       "cardCount": 108,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 4,
         "connected": 3,
         "evolution": 2,
-        "sunset": 1,
-        "food": 1,
-        "street": 2
+        "night": 3,
+        "season": 61,
+        "color": 108,
+        "sunset": 4,
+        "reflections": 1,
+        "food": 7,
+        "street": 16
       }
     },
     {
