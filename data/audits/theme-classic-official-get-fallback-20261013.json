@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "scope": "4 sampled Classic GETs after all 12 HEAD probes blocked with 415",
+  "thirdPartyRequests": 0,
+  "officialFirstPartyRequests": 4,
+  "records": [
+    {
+      "set": "CLL",
+      "number": "001",
+      "candidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_001.png",
+      "method": "GET",
+      "result": "official_origin_rejects_GET",
+      "status": 415,
+      "bytesRead": 0,
+      "isKoreanPrinted": false,
+      "file": null
+    },
+    {
+      "set": "CLL",
+      "number": "004",
+      "candidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_004.png",
+      "method": "GET",
+      "result": "official_origin_rejects_GET",
+      "status": 415,
+      "bytesRead": 0,
+      "isKoreanPrinted": false,
+      "file": null
+    },
+    {
+      "set": "CLK",
+      "number": "004",
+      "candidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLK/CLK_004.png",
+      "method": "GET",
+      "result": "official_origin_rejects_GET",
+      "status": 415,
+      "bytesRead": 0,
+      "isKoreanPrinted": false,
+      "file": null
+    },
+    {
+      "set": "CLF",
+      "number": "001",
+      "candidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLF/CLF_001.png",
+      "method": "GET",
+      "result": "official_origin_rejects_GET",
+      "status": 415,
+      "bytesRead": 0,
+      "isKoreanPrinted": false,
+      "file": null
+    }
+  ],
+  "note": "GET failures cannot prove absence. Verified Korean print artwork is a separate human gate. No public site assets deployed."
+}
