@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11450,
-    "uniqueThemeCards": 6859,
-    "strictCompleteSetCount": 76,
+    "themeCardSlots": 11458,
+    "uniqueThemeCards": 6865,
+    "strictCompleteSetCount": 77,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 197,
+    "baselineRemainingSetCount": 196,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 376,
-      "setCount": 65,
+      "cardSlots": 377,
+      "setCount": 66,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3331,
-      "setCount": 82,
+      "cardSlots": 3332,
+      "setCount": 83,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5826,
-      "setCount": 81,
+      "cardSlots": 5832,
+      "setCount": 82,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 12,
-      "remainingSetCount": 49,
-      "currentThemeSlots": 849
+      "completeSetCount": 13,
+      "remainingSetCount": 48,
+      "currentThemeSlots": 857
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP3",
-      "name": "「백은의 랜스&칠흑의 가이스트」 BOX",
-      "cardCount": 6,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s10P",
       "name": "스페이스 저글러",
       "cardCount": 88,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s9a",
+      "name": "배틀리전",
+      "cardCount": 93,
       "status": "pending"
     }
   ],
@@ -2884,9 +2884,13 @@
       "cardCount": 6,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "night": 1,
+        "season": 1,
+        "color": 6
+      }
     },
     {
       "era": "S",
