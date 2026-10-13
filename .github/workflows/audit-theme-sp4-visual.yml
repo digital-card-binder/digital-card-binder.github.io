@@ -1,0 +1,41 @@
+name: Audit SP4 8 Korean Eevee Heroes special cards from own Cloudflare CDN
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-sp4-visual.yml'
+      - 'scripts/audit-theme-sp4-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: sp4-korean-own-cdn-image-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Check all 8 Korean images only against own existing CDN
+        run: python scripts/audit-theme-sp4-visual.py
+      - name: Checkpoint card image evidence and contacts
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/SP4
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Capture SP4 8 Korean self-hosted card image proof"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/audit-theme-sp4-visual.py
+          done
