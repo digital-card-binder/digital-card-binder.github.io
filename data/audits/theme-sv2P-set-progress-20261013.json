@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "sv2P",
+  "name": "스노해저드",
+  "status": "image_archive_verified_theme_review_pending",
+  "canonicalCardSlots": 99,
+  "existingOwnedCdnImagesDecoded": 99,
+  "missingOwnedCdnImages": 0,
+  "externalOriginRequests": 0,
+  "existingKoreanMasterNames": 12,
+  "unresolvedKoreanMasterNames": 87,
+  "existingThemeRecordsToPreserve": {
+    "SV2P_060": [
+      "sleeping"
+    ]
+  },
+  "evidenceIndex": "data/audits/theme-visual-evidence/sv2P/visual-index.json",
+  "evidenceSheetCount": 7,
+  "nextSafeStart": "sv2P canonical 001 (use printed Korean card IDs for themes, not shuffled master ordinal)",
+  "remainingWork": [
+    "Visually inspect every Korean printed card against twelve independent themes",
+    "Verify Korean names of 87 blank canonical records directly from archived Korean card images",
+    "Preserve preexisting card theme mappings and never change ownership states",
+    "Regenerate indexes, run full tests and commit each verified batch"
+  ],
+  "notes": "Read-only owned-CDN binary validation succeeded 99/99; this does not mark artwork or all 12 themes completed."
+}
