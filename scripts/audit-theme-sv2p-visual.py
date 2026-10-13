@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 import base64,json,time
 ROOT=Path(__file__).resolve().parents[1]
-CODE="sv2P" # complete 99 canonical Korean print artworks, self-hosted images only # rerun all 99 Korean card images from owned CDN only # self-hosted original card prints only # audit only self-hosted Cloudflare card binaries # Korean print, owned CDN only # scan archived Korean print cards; do not touch third-party origin # new complete one-set Korean self-hosted evidence run # 100-card Korean expansion; read-only user CDN image verification # only Digital Card Binder Cloudflare CDN URLs will be opened # only user-owned Cloudflare image URLs may be opened
+CODE="sv2P" # new Korean Snow Hazard 99-card proof, own archives exclusively # complete 99 canonical Korean print artworks, self-hosted images only # rerun all 99 Korean card images from owned CDN only # self-hosted original card prints only # audit only self-hosted Cloudflare card binaries # Korean print, owned CDN only # scan archived Korean print cards; do not touch third-party origin # new complete one-set Korean self-hosted evidence run # 100-card Korean expansion; read-only user CDN image verification # only Digital Card Binder Cloudflare CDN URLs will be opened # only user-owned Cloudflare image URLs may be opened
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/"sv2P"
 AUDIT.mkdir(parents=True,exist_ok=True)
 def read(p):
