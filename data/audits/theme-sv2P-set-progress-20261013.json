@@ -3,13 +3,13 @@
   "recordedAt": "2026-10-13",
   "set": "sv2P",
   "name": "스노해저드",
-  "status": "in_progress",
+  "status": "complete",
   "canonicalCardSlots": 99,
   "existingOwnedCdnImagesDecoded": 99,
   "missingOwnedCdnImages": 0,
   "externalOriginRequests": 0,
   "existingKoreanMasterNames": 12,
-  "unresolvedKoreanMasterNames": 27,
+  "unresolvedKoreanMasterNames": 0,
   "existingThemeRecordsToPreserve": {
     "SV2P_060": [
       "sleeping"
@@ -17,14 +17,9 @@
   },
   "evidenceIndex": "data/audits/theme-visual-evidence/sv2P/visual-index.json",
   "evidenceSheetCount": 7,
-  "nextSafeStart": "sv2P canonical 061; Korean 001-060 reviewed, all 99 owned-CDN images previously verified",
-  "remainingWork": [
-    "Official Korean print spelling crosscheck for 99 provisional image transcriptions",
-    "12-theme conservative illustration classification for all 99 canonical slots",
-    "Preserve preexisting theme assignments and all owned states",
-    "Commit verified changes only after full regression tests"
-  ],
-  "notes": "Printed card identifiers used, prior sleeping theme preserved. No user ownership or layout edits.",
+  "nextSafeStart": "sv2P strict complete; next pending sv2D canonical 001 after checking current main",
+  "remainingWork": [],
+  "notes": "99/99 owned CDN images decoded, Korean printed names verified, 12 independent themes classified. Existing sleeping and ownership preserved.",
   "printedKoreanNameSceneEvidenceCount": 99,
   "visualEvidenceBatches": [
     "data/audits/theme-sv2p-001-015-visual-names-20261013.json",
@@ -35,18 +30,19 @@
     "data/audits/theme-sv2p-076-090-visual-names-20261013.json",
     "data/audits/theme-sv2p-091-099-visual-names-20261013.json"
   ],
-  "appliedReviewThrough": 60,
-  "reviewedKoreanNames": 60,
-  "appliedThemeSlots": 117,
+  "appliedReviewThrough": 99,
+  "reviewedKoreanNames": 99,
+  "appliedThemeSlots": 186,
   "appliedThemeAdditions": {
-    "season": 47,
-    "color": 60,
-    "street": 6,
-    "night": 3,
-    "sunset": 1
+    "season": 64,
+    "color": 94,
+    "street": 18,
+    "night": 6,
+    "sunset": 4
   },
   "batchEvidence": [
     "data/audits/theme-sv2P-001-030-art-review.json",
-    "data/audits/theme-sv2P-031-060-art-review.json"
+    "data/audits/theme-sv2P-031-060-art-review.json",
+    "data/audits/theme-sv2P-061-099-art-review.json"
   ]
 }

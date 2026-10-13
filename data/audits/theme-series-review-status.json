@@ -61407,16 +61407,36 @@
       "heldCards": []
     },
     "sv2P": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-13",
-      "reviewedCardCount": 60,
-      "reviewedThemes": [],
-      "partialBatchEvidence": "data/audits/theme-sv2P-031-060-art-review.json",
-      "partialReviewedRange": "canonical 001-060",
-      "newlyAddedThemeSlotCount": 117,
-      "masterKoreanNamesRepaired": 60,
+      "reviewedCardCount": 99,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "partialBatchEvidence": "data/audits/theme-sv2P-061-099-art-review.json",
+      "partialReviewedRange": "canonical 001-099",
+      "newlyAddedThemeSlotCount": 186,
+      "masterKoreanNamesRepaired": 87,
       "verifiedSelfHostedImageCount": 99,
-      "note": "스노해저드 한국판 001-060 실물 번호 기준 카드명/12테마 검수. 나머지 39장 보류, 기존 sleeping 배치 유지."
+      "note": "스노해저드 한국판 인쇄카드 99장 12테마 전수 검수, 87개 빈 카드명 보완, 기존 잠자는 포켓몬 배치 유지. 외부 이미지 요청 및 소유상태 변경 없음.",
+      "heldCards": [],
+      "fullSetEvidence": [
+        "data/audits/theme-sv2P-001-030-art-review.json",
+        "data/audits/theme-sv2P-031-060-art-review.json",
+        "data/audits/theme-sv2P-061-099-art-review.json"
+      ],
+      "archiveVerificationStatus": "99_existing_Korean_print_owned_CDN_images_decoded"
     }
   },
   "queue": {
