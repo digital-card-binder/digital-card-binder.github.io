@@ -3,7 +3,7 @@
   "recordedAt": "2026-10-13",
   "set": "sv2P",
   "name": "스노해저드",
-  "status": "image_archive_verified_theme_review_pending",
+  "status": "all_99_name_scene_evidence_recorded_theme_classification_pending",
   "canonicalCardSlots": 99,
   "existingOwnedCdnImagesDecoded": 99,
   "missingOwnedCdnImages": 0,
@@ -17,12 +17,22 @@
   },
   "evidenceIndex": "data/audits/theme-visual-evidence/sv2P/visual-index.json",
   "evidenceSheetCount": 7,
-  "nextSafeStart": "sv2P canonical 001 (use printed Korean card IDs for themes, not shuffled master ordinal)",
+  "nextSafeStart": "Crosscheck 99 transcriptions against official Korean print, decide 12 themes independently, preserve existing SV2P_060 sleeping; then guarded batch application + site:check + npm test",
   "remainingWork": [
-    "Visually inspect every Korean printed card against twelve independent themes",
-    "Verify Korean names of 87 blank canonical records directly from archived Korean card images",
-    "Preserve preexisting card theme mappings and never change ownership states",
-    "Regenerate indexes, run full tests and commit each verified batch"
+    "Official Korean print spelling crosscheck for 99 provisional image transcriptions",
+    "12-theme conservative illustration classification for all 99 canonical slots",
+    "Preserve preexisting theme assignments and all owned states",
+    "Commit verified changes only after full regression tests"
   ],
-  "notes": "Read-only owned-CDN binary validation succeeded 99/99; this does not mark artwork or all 12 themes completed."
+  "notes": "All 99 self-hosted image binaries decoded; seven evidence files record Korean printed names and visual scenes. No 12-theme final classification or master edits have been claimed.",
+  "printedKoreanNameSceneEvidenceCount": 99,
+  "visualEvidenceBatches": [
+    "data/audits/theme-sv2p-001-015-visual-names-20261013.json",
+    "data/audits/theme-sv2p-016-030-visual-names-20261013.json",
+    "data/audits/theme-sv2p-031-045-visual-names-20261013.json",
+    "data/audits/theme-sv2p-046-060-visual-names-20261013.json",
+    "data/audits/theme-sv2p-061-075-visual-names-20261013.json",
+    "data/audits/theme-sv2p-076-090-visual-names-20261013.json",
+    "data/audits/theme-sv2p-091-099-visual-names-20261013.json"
+  ]
 }
