@@ -19,7 +19,7 @@ if(previous?.status==="complete"&&previous.reviewedCardCount===103){
  console.log("Korean Triplet Beat already complete; do not reapply");process.exit(0);
 }
 if((previous?.reviewedCardCount||0)>0||progress.appliedReviewThrough!==0||
- String(images.nextStart||"").toLowerCase()!=="sv1V canonical 001")
+ String(images.nextStart||"").toLowerCase()!=="sv1a canonical 001")
  throw Error("Latest checkpoint moved; refusing overlapping Korean print edits");
 const themes12=["sleeping","connected","evolution","night","season","color","sunset","reflections","food","street","work","cameo"];
 if(e.set!=="sv1a"||e.officialKoreanSetName!=="트리플렛비트"||
@@ -41,7 +41,7 @@ for(const g of themes.groups)
    v.push(g.code);existing.set(key,v);
   }
 const existingTotal=[...existing.values()].reduce((sum,v)=>sum+v.length,0);
-if(existingTotal!==21)throw Error("Eight prior SV1A theme references have changed");
+if(existingTotal!==21)throw Error("Twenty-one prior SV1A theme references have changed");
 const newHits={};let named=0,added=0;
 for(let i=0;i<103;i++){
  const n=i+1,row=e.cards[i],proof=index.cards[i],c=master.cards[i];
@@ -52,7 +52,7 @@ for(let i=0;i<103;i++){
   String(row.code).toUpperCase()!==key.toUpperCase()||
   String(c.code).toLowerCase()!==String(proof.masterCode).toLowerCase()||
   String(row.canonicalMasterCode).toLowerCase()!==String(proof.masterCode).toLowerCase()||
-  row.printedNumber!==String(proof.masterCode).match(/_(\\d{3}\\/\\d{3})/)?.[1]||
+  row.printedNumber!==String(proof.masterCode).match(/_(\d{3}\/\d{3})/)?.[1]||
   row.sourceImage!==proof.rawSource||row.verifiedCdnUrl!==proof.cdnUrl||
   row.verifiedImageBinary!==true||proof.imageCheck?.status!=="decoded"||
   row.verifiedImageSize?.join(",")!==proof.imageCheck?.dimensions?.join(",")||
