@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11690,
-    "uniqueThemeCards": 7017,
+    "themeCardSlots": 11727,
+    "uniqueThemeCards": 7041,
     "strictCompleteSetCount": 83,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 190,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 163,
-      "setCount": 73,
+      "cardSlots": 164,
+      "setCount": 74,
       "rarities": [
         "AR",
         "C",
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 382,
-      "setCount": 69,
+      "cardSlots": 383,
+      "setCount": 70,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3379,
-      "setCount": 87,
+      "cardSlots": 3387,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5985,
-      "setCount": 88,
+      "cardSlots": 6009,
+      "setCount": 89,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 952,
-      "setCount": 74,
+      "cardSlots": 955,
+      "setCount": 75,
       "rarities": [
         "AR",
         "C",
@@ -266,7 +266,7 @@
       "cardCount": 4800,
       "completeSetCount": 19,
       "remainingSetCount": 42,
-      "currentThemeSlots": 1089
+      "currentThemeSlots": 1126
     },
     {
       "era": "SM",
@@ -365,7 +365,7 @@
       "code": "SN",
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -2783,9 +2783,15 @@
       "cardCount": 26,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "sleeping": 1,
+        "night": 1,
+        "season": 8,
+        "color": 24,
+        "street": 3
+      }
     },
     {
       "era": "S",
