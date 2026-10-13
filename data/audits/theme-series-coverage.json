@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11466,
-    "uniqueThemeCards": 6873,
-    "strictCompleteSetCount": 78,
+    "themeCardSlots": 11562,
+    "uniqueThemeCards": 6931,
+    "strictCompleteSetCount": 79,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 195,
+    "baselineRemainingSetCount": 194,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 377,
-      "setCount": 66,
+      "cardSlots": 380,
+      "setCount": 67,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3332,
-      "setCount": 83,
+      "cardSlots": 3358,
+      "setCount": 84,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5840,
-      "setCount": 83,
+      "cardSlots": 5899,
+      "setCount": 84,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 210,
-      "setCount": 54,
+      "cardSlots": 211,
+      "setCount": 55,
       "rarities": [
         "AR",
         "C",
@@ -188,8 +188,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 142,
-      "setCount": 52,
+      "cardSlots": 144,
+      "setCount": 53,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 69,
-      "setCount": 37,
+      "cardSlots": 72,
+      "setCount": 38,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 949,
-      "setCount": 72,
+      "cardSlots": 951,
+      "setCount": 73,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 14,
-      "remainingSetCount": 47,
-      "currentThemeSlots": 865
+      "completeSetCount": 15,
+      "remainingSetCount": 46,
+      "currentThemeSlots": 961
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SH",
-      "name": "패밀리 포켓몬 카드 게임",
-      "cardCount": 59,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s9",
       "name": "스타버스",
       "cardCount": 127,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s8b",
+      "name": "VMAX 클라이맥스",
+      "cardCount": 293,
       "status": "pending"
     }
   ],
@@ -2838,10 +2838,17 @@
       "cardCount": 59,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 3,
+        "season": 26,
+        "color": 59,
+        "sunset": 1,
+        "food": 2,
+        "work": 3,
+        "street": 2
       }
     },
     {
