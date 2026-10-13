@@ -2343,5 +2343,17 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv6a/sv6a-07.webp.b64",
       "titleStripEvidence": "data/audits/theme-visual-evidence/sv6a/sv6a-title-06.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "script": "scripts/apply-theme-sv6a-complete-review.mjs",
+    "requires": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "selfHostedImages": 94,
+    "externalDirectReferencesExpected": 0
+  }
 }
