@@ -1,0 +1,36 @@
+name: Normalize next Korean theme set SV5M
+on:
+  push:
+    branches: [main]
+    paths: [scripts/fix-theme-next-sv5m-checkpoint.mjs]
+permissions:
+  contents: write
+concurrency:
+  group: theme-checkpoint-normalize-sv5m
+  cancel-in-progress: false
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Correct checkpoint using canonical master coverage guard
+        run: node scripts/fix-theme-next-sv5m-checkpoint.mjs
+      - name: Validate site consistency
+        run: npm run site:check
+      - name: Commit only checkpoint audits
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-image-selfhost-audit.json data/audits/theme-series-review-status.json
+          git commit -m "Fix next Korean theme review checkpoint to real SV5M set"
+          git push origin HEAD:main
