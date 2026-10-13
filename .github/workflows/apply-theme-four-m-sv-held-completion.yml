@@ -1,0 +1,57 @@
+name: Complete four Korean starter and special theme sets
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-four-m-sv-held-completion.yml'
+      - 'scripts/apply-theme-four-m-sv-held-completion.mjs'
+      - 'data/audits/theme-four-m-sv-held-reviews-20261013.json'
+permissions:
+  contents: write
+concurrency:
+  group: four-korean-SV-held-completion
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Complete SVAM SVEL SVEM SVG Korean artwork themes without foreign origin traffic
+        run: node scripts/apply-theme-four-m-sv-held-completion.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit four sets only after passing site and ownership tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-four-m-sv-completion-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete four Korean SV starter special sets and 43 held artworks"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/apply-theme-four-m-sv-held-completion.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-four-m-sv-completion-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete four Korean SV starter special sets on latest main"
+          git push origin HEAD:main
