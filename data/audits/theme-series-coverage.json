@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11458,
-    "uniqueThemeCards": 6865,
-    "strictCompleteSetCount": 77,
+    "themeCardSlots": 11466,
+    "uniqueThemeCards": 6873,
+    "strictCompleteSetCount": 78,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 196,
+    "baselineRemainingSetCount": 195,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5832,
-      "setCount": 82,
+      "cardSlots": 5840,
+      "setCount": 83,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 13,
-      "remainingSetCount": 48,
-      "currentThemeSlots": 857
+      "completeSetCount": 14,
+      "remainingSetCount": 47,
+      "currentThemeSlots": 865
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP4",
-      "name": "VMAX 스페셜 세트 「이브이 히어로즈」",
-      "cardCount": 8,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s9a",
       "name": "배틀리전",
       "cardCount": 93,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s9",
+      "name": "스타버스",
+      "cardCount": 127,
       "status": "pending"
     }
   ],
@@ -2851,9 +2851,11 @@
       "cardCount": 8,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "color": 8
+      }
     },
     {
       "era": "S",
