@@ -1,0 +1,56 @@
+name: Publish 15 Korean Classic first-party low resolution card image corrections
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-classic-korean-15-official-selfhosted.yml'
+      - 'scripts/apply-classic-korean-15-official-selfhosted.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: korean-classic-15-safe-card-image-recovery
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Validate exact Korean 15 firstparty and self-hosting without mutating card identifiers
+        run: node scripts/apply-classic-korean-15-official-selfhosted.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit only fully regression-tested fifteen genuine Korean original card display references
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-classic-15-firstparty-korean-display-recovery-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Replace fifteen Japanese Classic card images with selfhosted official Korean artwork"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/apply-classic-korean-15-official-selfhosted.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-classic-15-firstparty-korean-display-recovery-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Replace fifteen Japanese Classic images after main advanced"
+          git push origin HEAD:main
