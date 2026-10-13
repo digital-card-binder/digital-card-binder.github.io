@@ -1,0 +1,57 @@
+name: Complete 248 Korean SV-P promo artworks and 8 unnumbered Korean energies
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-svp-complete-korean.yml'
+      - 'scripts/apply-theme-svp-complete-korean-248.mjs'
+      - 'data/audits/theme-svp-eight-unnumbered-energy-korean-proof-20261013.json'
+permissions:
+  contents: write
+concurrency:
+  group: svp-korean-248-complete
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply guarded Korean SV-P 248 theme visual records and no-number promo energies
+        run: node scripts/apply-theme-svp-complete-korean-248.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit Korean 248 promo reviews only after regression tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+Youngdeukseo@users.noreply.github.com"
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-svp-strict-completion-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete Korean SV-P 248 artworks and eight unnumbered energy promos"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/apply-theme-svp-complete-korean-248.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-svp-strict-completion-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete Korean SV-P 248 theme review on latest main"
+          git push origin HEAD:main
