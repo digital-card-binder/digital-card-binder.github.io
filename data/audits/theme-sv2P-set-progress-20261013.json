@@ -9,7 +9,7 @@
   "missingOwnedCdnImages": 0,
   "externalOriginRequests": 0,
   "existingKoreanMasterNames": 12,
-  "unresolvedKoreanMasterNames": 57,
+  "unresolvedKoreanMasterNames": 27,
   "existingThemeRecordsToPreserve": {
     "SV2P_060": [
       "sleeping"
@@ -17,14 +17,14 @@
   },
   "evidenceIndex": "data/audits/theme-visual-evidence/sv2P/visual-index.json",
   "evidenceSheetCount": 7,
-  "nextSafeStart": "sv2P canonical 031; 001-030 preserved, 99/99 owned CDN images previously decoded",
+  "nextSafeStart": "sv2P canonical 061; Korean 001-060 reviewed, all 99 owned-CDN images previously verified",
   "remainingWork": [
     "Official Korean print spelling crosscheck for 99 provisional image transcriptions",
     "12-theme conservative illustration classification for all 99 canonical slots",
     "Preserve preexisting theme assignments and all owned states",
     "Commit verified changes only after full regression tests"
   ],
-  "notes": "The first 30 Korean printed cards and all twelve theme criteria reviewed. Card ownership/UI untouched.",
+  "notes": "Printed card identifiers used, prior sleeping theme preserved. No user ownership or layout edits.",
   "printedKoreanNameSceneEvidenceCount": 99,
   "visualEvidenceBatches": [
     "data/audits/theme-sv2p-001-015-visual-names-20261013.json",
@@ -35,16 +35,18 @@
     "data/audits/theme-sv2p-076-090-visual-names-20261013.json",
     "data/audits/theme-sv2p-091-099-visual-names-20261013.json"
   ],
-  "appliedReviewThrough": 30,
-  "reviewedKoreanNames": 30,
-  "appliedThemeSlots": 62,
+  "appliedReviewThrough": 60,
+  "reviewedKoreanNames": 60,
+  "appliedThemeSlots": 117,
   "appliedThemeAdditions": {
-    "season": 27,
-    "color": 30,
-    "street": 3,
-    "night": 2
+    "season": 47,
+    "color": 60,
+    "street": 6,
+    "night": 3,
+    "sunset": 1
   },
   "batchEvidence": [
-    "data/audits/theme-sv2P-001-030-art-review.json"
+    "data/audits/theme-sv2P-001-030-art-review.json",
+    "data/audits/theme-sv2P-031-060-art-review.json"
   ]
 }
