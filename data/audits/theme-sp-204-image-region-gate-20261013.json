@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "S-P",
+  "officialKoreanSet": "소드&실드 프로모 카드",
+  "source": "data/audits/theme-visual-evidence/S-P/visual-index.json",
+  "status": "image_archive_verified_region_and_visual_review_pending",
+  "canonicalCardSlots": 204,
+  "ownedCDNBinaryDecoded": 204,
+  "ownedCDNBinaryMissing": 0,
+  "sourceOriginRequestsThisAudit": 0,
+  "visualContactSheetsSaved": 14,
+  "masterKoreanNameBlanks": 0,
+  "previouslyThemedCardSlots": 0,
+  "visuallyScreenedContactSheetRange": "canonical 001-204",
+  "strictKoreanPrintedArtworksReviewedAndApplied": 0,
+  "strictComplete": false,
+  "exceptions": [
+    {
+      "canonicalOrder": 18,
+      "cardKey": "S-P_022",
+      "koreanMasterName": "나옹 VMAX",
+      "imageCdnUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/0d823c90a6041637.webp",
+      "archivedSourceProvenance": "https://static.tcgexchange.kr/00a26102a9e1b0550f7e647ec9134e2f.jpg",
+      "issue": "regional_mismatch_japanese_print",
+      "visualEvidenceSheet": "data/audits/theme-visual-evidence/S-P/S-P-02.webp.b64",
+      "observation": "Picture reads ニャースVMAX and Japanese move/body text; this is visibly a Japanese-language card, not the Korean 022/S-P print.",
+      "requiredAction": "Find officially confirmed Korean 022/S-P card artwork, safely archive binary in DCB own CDN and verify printed Korean ID before accepting evidence or theme classification."
+    },
+    {
+      "canonicalOrder": 111,
+      "cardKey": "S-P_115",
+      "koreanMasterName": "박사의 연구",
+      "imageCdnUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/c11429ceadfa35c3.webp",
+      "archivedSourceProvenance": "https://static.tcgexchange.kr/6732679a67d894bb0d240d6fd2c1e54d.png",
+      "issue": "image_contains_masked_or_placeholder_identifier",
+      "visualEvidenceSheet": "data/audits/theme-visual-evidence/S-P/S-P-08.webp.b64",
+      "observation": "Image of Korean 박사의 연구 has prominent 0000000000000000 placeholder/barcode-style text in print field.",
+      "requiredAction": "Verify whether this is intended original Korean print or a masked reproduction; prefer a non-manipulated official Korean artwork for own archive."
+    }
+  ],
+  "policy": {
+    "externalHotlinkToImageSourceProhibited": true,
+    "ownershipAndThemeEditsPerformed": false,
+    "japaneseCannotProveKoreanPrint": true,
+    "doNotMarkReviewedFromCDNDecodeAlone": true
+  },
+  "nextSafeStart": "S-P canonical 001: verify region of each archived print and classify all 12 themes from Korean card images; resolve S-P 022 mismatch before strict complete",
+  "note": "Read-only early visual integrity screening. No 12-theme changes made, no claim that 204 self-hosted binaries are verified Korean prints."
+}
