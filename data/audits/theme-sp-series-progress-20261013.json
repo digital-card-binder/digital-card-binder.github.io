@@ -4,11 +4,12 @@
   "set": "S-P",
   "status": "in_progress",
   "canonicalCardSlots": 204,
-  "canonicalCheckedThrough": 56,
-  "KoreanArtworkReviewed": 55,
-  "approvedKoreanArtCount": 55,
+  "canonicalCheckedThrough": 204,
+  "KoreanArtworkReviewed": 202,
+  "approvedKoreanArtCount": 202,
   "heldCardKeys": [
-    "S-P_022"
+    "S-P_022",
+    "S-P_115"
   ],
   "otherKnownIssue": [
     "S-P_115"
@@ -16,22 +17,34 @@
   "ownedCdnImagesDisplayed": 202,
   "localPendingImagesDisplayed": 2,
   "thirdPartyImageHotlinksRemaining": 0,
-  "newThemeSlotsAdded": 90,
+  "newThemeSlotsAdded": 368,
   "themeAdditions": {
-    "color": 55,
-    "season": 19,
-    "cameo": 2,
-    "food": 2,
-    "street": 3,
-    "night": 2,
-    "sunset": 1,
-    "connected": 4,
-    "work": 1,
-    "reflections": 1
+    "color": 202,
+    "season": 95,
+    "cameo": 15,
+    "food": 7,
+    "street": 13,
+    "night": 6,
+    "sunset": 5,
+    "connected": 19,
+    "work": 4,
+    "reflections": 1,
+    "sleeping": 1
   },
   "priorCompletedSetsUntouched": true,
   "noOwnershipChanges": true,
   "originImageRequests": 0,
   "evidence": "data/audits/theme-sp-001-060-Korean-art-review-20261013.json",
-  "nextSafeStart": "S-P canonical 057 (printed S-P_061)"
+  "nextSafeStart": "SA-W canonical 001",
+  "remaining": [
+    {
+      "key": "S-P_022",
+      "reason": "Japanese image replacement needed"
+    },
+    {
+      "key": "S-P_115",
+      "reason": "Korean printed ID masked in source"
+    }
+  ],
+  "note": "S-P Korean 202 card artwork inspections complete. Two held and independently tracked; do not mark entire set complete. Proceed to SA-W."
 }

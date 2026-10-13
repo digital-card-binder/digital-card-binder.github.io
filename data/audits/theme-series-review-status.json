@@ -61616,8 +61616,8 @@
     "S-P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-13",
-      "reviewedCardCount": 55,
-      "lastReviewedCanonicalOrder": 56,
+      "reviewedCardCount": 202,
+      "lastReviewedCanonicalOrder": 204,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -61633,16 +61633,25 @@
         "cameo"
       ],
       "heldCards": [
-        "S-P_022"
+        "S-P_022",
+        "S-P_115"
       ],
       "otherRegionExceptionsPending": [
         "S-P_115"
       ],
       "verifiedSelfHostedImageCount": 202,
-      "newlyAddedThemeSlotCount": 90,
+      "newlyAddedThemeSlotCount": 368,
       "fullSetSelfhostAudit": "data/audits/theme-visual-evidence/S-P/visual-index.json",
       "partialEvidence": "data/audits/theme-sp-001-060-Korean-art-review-20261013.json",
-      "note": "S-P 56 canonical slots examined: 55 Korean visuals reviewed across 12 themes, Japanese S-P_022 held. All 204 display image references routed to owned Cloudflare 202 or local placeholder 2. No ownership edits."
+      "note": "한국판 S-P 204장 전체 시트 검수 완료. 202장은 실제 한국어판으로 판정 및 12테마 분류, 022 일본판과 115 인쇄정보 훼손 이미지 2장 보류. 소유 상태 변경 없음. 다음 SA-W 계속.",
+      "artifactRegionExceptionsPending": 2,
+      "fullContactSheetEvidence": "data/audits/theme-visual-evidence/S-P/visual-index.json",
+      "continuationEvidence": [
+        "data/audits/theme-sp-001-060-Korean-art-review-20261013.json",
+        "data/audits/theme-sp-057-120-Korean-art-review-20261013.json",
+        "data/audits/theme-sp-121-204-Korean-art-review-20261013.json"
+      ],
+      "nextIndependentSet": "SA-W"
     }
   },
   "queue": {
