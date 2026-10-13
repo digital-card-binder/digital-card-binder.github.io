@@ -1,0 +1,33 @@
+name: Diagnose Korean 151 printed-number theme keys
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-theme-sv2a-print-identity.mjs'
+      - '.github/workflows/audit-theme-sv2a-print-identity.yml'
+permissions:
+  contents: write
+concurrency:
+  group: theme-sv2a-identity-audit
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/audit-theme-sv2a-print-identity.mjs
+      - name: Save report without touching card data
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-sv2a-print-identity-audit-20261013.json
+          git commit -m "Report actual vs canonical card identity in Korean 151 theme placements"
+          git pull --rebase origin main
+          git push origin HEAD:main
