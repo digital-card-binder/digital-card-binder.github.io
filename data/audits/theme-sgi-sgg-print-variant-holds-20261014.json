@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "policy": "Do not create an independent Korean base card for an alternate printed artwork with same Korean set/card number. Keep all collection ownership untouched. Confirm Korean printed number and link alternate artwork as printVariants before marking complete.",
+  "datasets": [
+    {
+      "set": "SGI",
+      "koreanName": "하이클래스 덱 「인텔리레온 VMAX」",
+      "canonicalMasterEntries": 24,
+      "ownCDNImagesDecoded": 24,
+      "officiallyNumberedBaseEntries": 22,
+      "unnumberedBasicEnergyEntries": 1,
+      "heldMasterCode": "sgi_023/022",
+      "heldName": "인텔리레온 VMAX",
+      "candidateBaseMasterCode": "sgi_006/022",
+      "holdReason": "23rd internal entry is a distinct artwork of the same Korean Inteleon VMAX name; physical printed card number must be checked against the 006/022 base before treating this as a print variant. 420x596 image is different size from 420x586 base.",
+      "proof": "data/audits/theme-visual-evidence/SGI/SGI-02.webp.b64",
+      "index": "data/audits/theme-visual-evidence/SGI/visual-index.json"
+    },
+    {
+      "set": "SGG",
+      "koreanName": "하이클래스 덱 「팬텀 VMAX」",
+      "canonicalMasterEntries": 21,
+      "ownCDNImagesDecoded": 21,
+      "officiallyNumberedBaseEntries": 19,
+      "unnumberedBasicEnergyEntries": 1,
+      "heldMasterCode": "sgg_020/019",
+      "heldName": "팬텀 VMAX",
+      "candidateBaseMasterCode": "sgg_002/019",
+      "holdReason": "20th internal entry uses 020/019 even though artwork appears to be a variant of printed Gengar VMAX at 002/019, and 286x400 differs from 420x586 base. Do not assert 020/019 is printed.",
+      "proof": "data/audits/theme-visual-evidence/SGG/SGG-02.webp.b64",
+      "index": "data/audits/theme-visual-evidence/SGG/visual-index.json"
+    }
+  ],
+  "originImageRequests": 0,
+  "ownCDNAssetsAltered": 0,
+  "ownershipStateChanges": 0,
+  "masterEntryDeletes": 0,
+  "notes": "These are unresolved print variant identity records, not fully completed sets. Preserve them for focused follow-up without reprocessing verified originals."
+}
