@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 import base64,json,time
 ROOT=Path(__file__).resolve().parents[1]
-CODE="sv6a" # only user-owned Cloudflare image URLs may be opened
+CODE="sv6a" # only Digital Card Binder Cloudflare CDN URLs will be opened # only user-owned Cloudflare image URLs may be opened
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/"sv6a"
 AUDIT.mkdir(parents=True,exist_ok=True)
 def read(p):
