@@ -1,0 +1,56 @@
+name: Enforce Korean-only Classic card images without Japanese substitutes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/protect-classic-korean-only-displays.yml'
+      - 'scripts/protect-classic-korean-only-displays.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: classic-korean-only-original-image-safety
+  cancel-in-progress: false
+jobs:
+  protect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Protect 65 Korean Classic image slots without foreign print substitutes
+        run: node scripts/protect-classic-korean-only-displays.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit strict Korean-only display changes only after full regression
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-classic-latest-safe-restart-20261013.json data/audits/theme-classic-korean-only-display-protection-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Protect 65 Korean Classic card slots from incorrect Japanese-language display artwork"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/protect-classic-korean-only-displays.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-classic-latest-safe-restart-20261013.json data/audits/theme-classic-korean-only-display-protection-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Protect Korean Classic displays on latest main"
+          git push origin HEAD:main
