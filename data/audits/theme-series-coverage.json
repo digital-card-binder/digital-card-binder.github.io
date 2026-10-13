@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 9975,
-    "uniqueThemeCards": 6033,
-    "strictCompleteSetCount": 55,
+    "themeCardSlots": 10172,
+    "uniqueThemeCards": 6121,
+    "strictCompleteSetCount": 56,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 218,
+    "baselineRemainingSetCount": 217,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 353,
-      "setCount": 57,
+      "cardSlots": 360,
+      "setCount": 58,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2931,
-      "setCount": 67,
+      "cardSlots": 2991,
+      "setCount": 68,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4972,
-      "setCount": 66,
+      "cardSlots": 5073,
+      "setCount": 67,
       "rarities": [
         "AR",
         "C",
@@ -162,7 +162,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 189,
+      "cardSlots": 193,
       "setCount": 50,
       "rarities": [
         "AR",
@@ -188,7 +188,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 124,
+      "cardSlots": 126,
       "setCount": 48,
       "rarities": [
         "AR",
@@ -214,8 +214,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 861,
-      "setCount": 60,
+      "cardSlots": 884,
+      "setCount": 61,
       "rarities": [
         "AR",
         "C",
@@ -255,9 +255,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 42,
-      "remainingSetCount": 11,
-      "currentThemeSlots": 6347
+      "completeSetCount": 43,
+      "remainingSetCount": 10,
+      "currentThemeSlots": 6544
     },
     {
       "era": "S",
@@ -379,13 +379,6 @@
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
       "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv1a",
-      "name": "트리플렛비트",
-      "cardCount": 103,
-      "status": "pending"
     },
     {
       "era": "SV",
@@ -525,6 +518,13 @@
       "code": "SH",
       "name": "패밀리 포켓몬 카드 게임",
       "cardCount": 59,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SP5",
+      "name": "스페셜 카드 세트 「뮤츠 V-UNION」 「개굴닌자 V-UNION」 「자시안 V-UNION」",
+      "cardCount": 13,
       "status": "pending"
     }
   ],
@@ -1423,15 +1423,19 @@
       "cardCount": 103,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 3,
         "connected": 7,
         "evolution": 6,
-        "sunset": 1,
+        "night": 7,
+        "season": 60,
+        "color": 101,
+        "sunset": 5,
         "reflections": 3,
-        "food": 1
+        "food": 3,
+        "street": 23
       }
     },
     {

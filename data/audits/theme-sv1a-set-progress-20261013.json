@@ -3,7 +3,7 @@
   "recordedAt": "2026-10-13",
   "set": "sv1a",
   "name": "트리플렛비트",
-  "status": "full_Korean_artwork_evidence_prepared_apply_pending",
+  "status": "complete",
   "canonicalCardSlots": 103,
   "ownedCDNImagesDecoded": 103,
   "missingCDNImages": 0,
@@ -22,8 +22,20 @@
     "sunset": 4,
     "night": 7
   },
-  "appliedReviewThrough": 0,
-  "nextSafeStart": "Apply guarded full sv1a 103-card artwork and preserve 21 previous independent theme slots; run full tests first",
+  "appliedReviewThrough": 103,
+  "nextSafeStart": "sv1a strict complete; next pending sv1V canonical 001",
   "nextSetAfterComplete": "sv1V canonical 001",
-  "note": "Evidence-only checkpoint: no current catalog or theme mutation. Self-hosted original Korean print images already decoded."
+  "note": "Evidence-only checkpoint: no current catalog or theme mutation. Self-hosted original Korean print images already decoded.",
+  "namedCardsRepaired": 0,
+  "themeSlotsApplied": 197,
+  "appliedThemeAdditions": {
+    "season": 60,
+    "color": 101,
+    "street": 23,
+    "food": 2,
+    "sunset": 4,
+    "night": 7
+  },
+  "remainingWork": [],
+  "notes": "103 Korean printed cards visually examined; 0 blank names fixed. Eight existing placements retained and 103 preexisting owned CDN image files decoded."
 }
