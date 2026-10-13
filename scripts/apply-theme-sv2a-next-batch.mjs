@@ -35,8 +35,8 @@ const groups=new Map(themes.groups.map(g=>[g.code,g]));
 for(const t of themes12)if(!Array.isArray(groups.get(t)?.cards))throw Error("Required theme missing: "+t);
 let fixed=0,added=0;const counts={};
 for(let i=0;i<30;i++){
- const n=start+i,row=e.cards[i],p=proof.cards[n-1],c=master.cards[n-1],key="SV2A_"+slug(n);
- if(!row||!p||!c||row.canonicalOrder!==n||p.canonicalOrder!==n||row.code!==key||
+ const n=start+i,row=e.cards[i],p=proof.cards[n-1],c=master.cards[n-1],key="SV2a_"+String(p?.masterCode||"").split("_")[1]?.split("/")[0];
+ if(!row||!p||!c||row.canonicalOrder!==n||p.canonicalOrder!==n||String(row.code||"").toLowerCase()!==key.toLowerCase()||
   String(row.canonicalMasterCode).toLowerCase()!==String(p.masterCode).toLowerCase()||
   String(c.code).toLowerCase()!==String(p.masterCode).toLowerCase()||
   row.printedNumber!==String(p.masterCode).split("_")[1]||
