@@ -49,6 +49,7 @@ for(const q of checks){
   verifiedImageCount:q.n,unverifiedImageCount:0,artworkVisuallyVerifiedCount:0,
   artworkPendingCount:q.n,confirmedOriginImageRequests:0,
   heldCards:[q.set+"_"+String(q.variant).padStart(3,"0")],
+  nextStart:q.set==="SGI"?"SGG canonical 001":"SP4 canonical 001",
   externalImageReferenceCountAfter:null,
   note:"Only own-CDN image decoding and safe checkpoint; master images, theme slots, user ownership untouched. Full Korean print variant audit required."
  });
