@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 8720,
-    "uniqueThemeCards": 5297,
+    "themeCardSlots": 8798,
+    "uniqueThemeCards": 5357,
     "strictCompleteSetCount": 49,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 224,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 317,
-      "setCount": 53,
+      "cardSlots": 319,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2473,
-      "setCount": 61,
+      "cardSlots": 2505,
+      "setCount": 62,
       "rarities": [
         "AR",
         "C",
@@ -139,8 +139,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4339,
-      "setCount": 61,
+      "cardSlots": 4376,
+      "setCount": 62,
       "rarities": [
         "AR",
         "C",
@@ -160,8 +160,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 166,
-      "setCount": 46,
+      "cardSlots": 167,
+      "setCount": 47,
       "rarities": [
         "AR",
         "C",
@@ -212,8 +212,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 777,
-      "setCount": 55,
+      "cardSlots": 783,
+      "setCount": 56,
       "rarities": [
         "AR",
         "C",
@@ -255,7 +255,7 @@
       "cardCount": 4749,
       "completeSetCount": 36,
       "remainingSetCount": 17,
-      "currentThemeSlots": 5092
+      "currentThemeSlots": 5170
     },
     {
       "era": "S",
@@ -383,7 +383,7 @@
       "code": "sv4a",
       "name": "샤이니트레져 ex",
       "cardCount": 360,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -1564,11 +1564,16 @@
       "cardCount": 360,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 1,
-        "connected": 1
+        "connected": 1,
+        "night": 2,
+        "season": 32,
+        "color": 37,
+        "sunset": 1,
+        "street": 6
       }
     },
     {
