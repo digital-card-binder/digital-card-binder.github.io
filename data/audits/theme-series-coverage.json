@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 8922,
-    "uniqueThemeCards": 5451,
-    "strictCompleteSetCount": 49,
+    "themeCardSlots": 8963,
+    "uniqueThemeCards": 5477,
+    "strictCompleteSetCount": 50,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 224,
+    "baselineRemainingSetCount": 223,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2554,
+      "cardSlots": 2563,
       "setCount": 62,
       "rarities": [
         "AR",
@@ -133,13 +133,14 @@
         "RR",
         "SAR",
         "SR",
+        "SSR",
         "U"
       ]
     },
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4432,
+      "cardSlots": 4455,
       "setCount": 62,
       "rarities": [
         "AR",
@@ -153,6 +154,7 @@
         "RR",
         "SAR",
         "SR",
+        "SSR",
         "U",
         "UR"
       ]
@@ -160,7 +162,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 170,
+      "cardSlots": 171,
       "setCount": 47,
       "rarities": [
         "AR",
@@ -212,7 +214,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 794,
+      "cardSlots": 799,
       "setCount": 56,
       "rarities": [
         "AR",
@@ -226,8 +228,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 92,
-      "setCount": 31,
+      "cardSlots": 95,
+      "setCount": 32,
       "rarities": [
         "AR",
         "C",
@@ -253,9 +255,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 36,
-      "remainingSetCount": 17,
-      "currentThemeSlots": 5294
+      "completeSetCount": 37,
+      "remainingSetCount": 16,
+      "currentThemeSlots": 5335
     },
     {
       "era": "S",
@@ -376,13 +378,6 @@
       "code": "SVG",
       "name": "스페셜 덱 세트 ex 「이상해꽃·리자몽·거북왕」",
       "cardCount": 55,
-      "status": "in_progress"
-    },
-    {
-      "era": "SV",
-      "code": "sv4a",
-      "name": "샤이니트레져 ex",
-      "cardCount": 360,
       "status": "in_progress"
     },
     {
@@ -523,6 +518,13 @@
       "code": "SEF",
       "name": "스타터 세트 VMAX 「이상해꽃」",
       "cardCount": 22,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SEK",
+      "name": "스타터 세트 VMAX 「거북왕」",
+      "cardCount": 21,
       "status": "pending"
     }
   ],
@@ -1564,16 +1566,17 @@
       "cardCount": 360,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 2,
         "connected": 1,
         "night": 6,
-        "season": 81,
-        "color": 93,
-        "sunset": 4,
-        "street": 17
+        "season": 90,
+        "color": 116,
+        "sunset": 5,
+        "street": 22,
+        "cameo": 3
       }
     },
     {

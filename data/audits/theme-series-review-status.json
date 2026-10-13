@@ -61075,16 +61075,38 @@
       "note": "SV4K 고대의 포효 한국판 공식 인쇄 이미지 95장 전수 육안 검수. 기존 6개 테마 배치 유지, 비어 있던 한국 카드명 80건만 채움. 신규 이미지 바이너리 저장/소유상태 변경 없음."
     },
     "sv4a": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-13",
-      "reviewedCardCount": 180,
-      "reviewedThemes": [],
-      "partialBatchEvidence": "data/audits/theme-sv4a-121-180-art-review.json",
-      "partialReviewedRange": "canonical 001-180",
-      "newlyAddedThemeSlotCount": 202,
+      "reviewedCardCount": 360,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "partialBatchEvidence": "data/audits/theme-sv4a-181-360-art-review.json",
+      "partialReviewedRange": "canonical 001-360",
+      "newlyAddedThemeSlotCount": 243,
       "masterKoreanNamesRepaired": 155,
       "verifiedSelfHostedImageCount": 360,
-      "note": "SV4a 001-180 한국판 카드명 및 12테마 그림 검수. 나머지 180장은 미완료. 기존 SV4A_085 connected, SV4A_340 sleeping 보존."
+      "note": "한국판 샤이니트레저 ex 360장 12테마 모두 확인. 무늬만 동일한 191-337 반짝이 카드의 임의 테마 수록 배제. 미수집·수집데이터 변경 없음.",
+      "heldCards": [],
+      "archiveVerificationStatus": "360_existing_official_Korean_card_images_decoded",
+      "fullSetEvidence": "data/audits/theme-sv4a-181-360-art-review.json",
+      "nameCorrection": {
+        "code": "SV4A_001",
+        "from": "뚜벅초",
+        "to": "뚜벅쵸",
+        "source": "https://pokemoncard.co.kr/cards/detail/BS2024001001"
+      }
     }
   },
   "queue": {

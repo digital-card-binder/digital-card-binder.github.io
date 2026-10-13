@@ -3,7 +3,7 @@
   "recordedAt": "2026-10-13",
   "set": "sv4a",
   "setName": "샤이니트레져 ex",
-  "status": "in_progress",
+  "status": "complete",
   "canonicalCardSlots": 360,
   "existingOwnedCdnImagesDecoded": 360,
   "missingOwnedCdnImages": 0,
@@ -141,7 +141,7 @@
     }
   ],
   "verifiedArtifact": "data/audits/theme-visual-evidence/sv4a/visual-index.json",
-  "nextSafeStart": "SV4a canonical 181: continue Korean printed-card and 12-theme review; 360/360 images self-hosted",
+  "nextSafeStart": "SV4a strict complete, next pending sv3a canonical 001; rerun latest coverage before starting",
   "cannotMarkCompleteUntil": [
     "all 360 canonical slots visually classified",
     "155 missing Korean master names sourced from visual Korean print",
@@ -150,21 +150,29 @@
     "self-host-only image checks remain 360/360"
   ],
   "nextSetAfterCompletion": "sv4K already complete; next choose earlier pending from latest coverage",
-  "notes": "001-180 visual evidence and all 155 previously missing Korean printed names applied, 181-360 pending; existing independent deck ownership, UX/UI unchanged.",
-  "appliedReviewThrough": 180,
+  "notes": "360/360 visually checked, 155 missing Korean names restored, all 360 owned-CDN images previously decoded, all 12 themes checked and ownership states preserved.",
+  "appliedReviewThrough": 360,
   "reviewedKoreanNames": 155,
-  "appliedThemeSlots": 202,
+  "appliedThemeSlots": 243,
   "appliedThemeAdditions": {
-    "season": 81,
-    "color": 93,
-    "street": 17,
-    "sunset": 4,
+    "season": 90,
+    "color": 116,
+    "street": 22,
+    "sunset": 5,
     "night": 6,
-    "sleeping": 1
+    "sleeping": 1,
+    "cameo": 3
   },
   "batchEvidence": [
     "data/audits/theme-sv4a-001-060-art-review.json",
     "data/audits/theme-sv4a-061-120-art-review.json",
-    "data/audits/theme-sv4a-121-180-art-review.json"
-  ]
+    "data/audits/theme-sv4a-121-180-art-review.json",
+    "data/audits/theme-sv4a-181-360-art-review.json"
+  ],
+  "nameCorrectionOfficial": {
+    "card": "SV4A_001",
+    "name": "뚜벅쵸",
+    "officialDetail": "https://pokemoncard.co.kr/cards/detail/BS2024001001",
+    "previousIncorrect": "뚜벅초"
+  }
 }
