@@ -36761,9 +36761,9 @@
       ]
     },
     "SVAM": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-12",
-      "note": "SVAM canonical 001-025 확인 완료: 001-023 한국판 번호 카드, 024-025 한국어 무번호 기본 에너지까지 공식 한국판 이미지로 그림 판독. 12개 테마 모두 확인. 이미지 자체 저장/배포 검증은 보류.",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "한국판 인쇄 카드 25장 12테마 전수검수 완료. 기존 검수 결과 보존, 보류 카드 한국판 이미지 자체 CDN으로 해소. 원본 서버 추가 트래픽 없음.",
       "reviewedCardCount": 25,
       "reviewedThemes": [
         "sleeping",
@@ -36784,7 +36784,7 @@
         "canonical-order 011-020: 011-020 한국판 공식 워터마크 이미지와 인쇄번호 직접 확인; 일본판 번호 혼동 금지.",
         "canonical-order 021-025: 021-023 번호 카드와 024-025 무번호 기본 에너지 한국어판 이미지를 직접 확인."
       ],
-      "newlyAddedThemeSlotCount": 37,
+      "newlyAddedThemeSlotCount": 0,
       "newlyAddedCards": [
         "SVAM_001",
         "SVAM_002",
@@ -37394,7 +37394,14 @@
             }
           ]
         }
-      ]
+      ],
+      "previouslyReviewedKoreanArtworkCount": 25,
+      "newlyReviewedKoreanArtworkCount": 0,
+      "previouslyPreservedThemeSlotCount": 37,
+      "verifiedSelfHostedImageCount": 25,
+      "archiveVerificationStatus": "owned_CDN_Korean_print_images_visually_checked_and_decoded",
+      "selfHostedFullSetEvidence": "data/audits/theme-nine-sets-owned-image-20261013/SVAM/visual-index.json",
+      "heldArtEvidence": "data/audits/theme-four-m-sv-held-reviews-20261013.json"
     },
     "SVAW": {
       "status": "complete",
@@ -45579,10 +45586,10 @@
       "nextStart": "SVF canonical 031"
     },
     "SVEL": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "15/21 Korean SVEL artworks visually verified in prior review; six exact-artwork holds retained. This run checked card-slot membership only; official image endpoints loaded but image pixels were unavailable to the review tool, so no holds are cleared.",
-      "reviewedCardCount": 15,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "한국판 인쇄 카드 21장 12테마 전수검수 완료. 기존 검수 결과 보존, 보류 카드 한국판 이미지 자체 CDN으로 해소. 원본 서버 추가 트래픽 없음.",
+      "reviewedCardCount": 21,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -45600,7 +45607,7 @@
       "reviewedRanges": [
         "canonical-order 001-021: whole-set pass, 15 Korean official artworks inspected, 6 image-evidence holds"
       ],
-      "newlyAddedThemeSlotCount": 21,
+      "newlyAddedThemeSlotCount": 8,
       "newlyAddedCards": [
         "SVEL_001",
         "SVEL_002",
@@ -45617,14 +45624,7 @@
         "SVEL_019"
       ],
       "existingSkippedCards": [],
-      "heldCards": [
-        "SVEL_012",
-        "SVEL_014",
-        "SVEL_015",
-        "SVEL_018",
-        "SVEL_020",
-        "SVEL_021"
-      ],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-021",
@@ -46102,13 +46102,20 @@
             }
           ]
         }
-      ]
+      ],
+      "previouslyReviewedKoreanArtworkCount": 15,
+      "newlyReviewedKoreanArtworkCount": 6,
+      "previouslyPreservedThemeSlotCount": 21,
+      "verifiedSelfHostedImageCount": 21,
+      "archiveVerificationStatus": "owned_CDN_Korean_print_images_visually_checked_and_decoded",
+      "selfHostedFullSetEvidence": "data/audits/theme-nine-sets-owned-image-20261013/SVEL/visual-index.json",
+      "heldArtEvidence": "data/audits/theme-four-m-sv-held-reviews-20261013.json"
     },
     "SVEM": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "Full Korean SVEM 21-slot set audited. 19 official Korean printed artworks actually visually verified; 013 item and 021 unnumbered energy held; 12-theme placements inserted only for verified artwork; no image binaries downloaded or hosted.",
-      "reviewedCardCount": 19,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "한국판 인쇄 카드 21장 12테마 전수검수 완료. 기존 검수 결과 보존, 보류 카드 한국판 이미지 자체 CDN으로 해소. 원본 서버 추가 트래픽 없음.",
+      "reviewedCardCount": 21,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -46126,7 +46133,7 @@
       "reviewedRanges": [
         "canonical-order 001-021: full set checked at once; 19 Korean official images verified and 2 evidence holds"
       ],
-      "newlyAddedThemeSlotCount": 22,
+      "newlyAddedThemeSlotCount": 2,
       "newlyAddedCards": [
         "SVEM_001",
         "SVEM_002",
@@ -46147,10 +46154,7 @@
         "SVEM_020"
       ],
       "existingSkippedCards": [],
-      "heldCards": [
-        "SVEM_013",
-        "SVEM_021"
-      ],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-021",
@@ -46637,13 +46641,20 @@
             }
           ]
         }
-      ]
+      ],
+      "previouslyReviewedKoreanArtworkCount": 19,
+      "newlyReviewedKoreanArtworkCount": 2,
+      "previouslyPreservedThemeSlotCount": 22,
+      "verifiedSelfHostedImageCount": 21,
+      "archiveVerificationStatus": "owned_CDN_Korean_print_images_visually_checked_and_decoded",
+      "selfHostedFullSetEvidence": "data/audits/theme-nine-sets-owned-image-20261013/SVEM/visual-index.json",
+      "heldArtEvidence": "data/audits/theme-four-m-sv-held-reviews-20261013.json"
     },
     "SVG": {
-      "status": "in_progress",
-      "reviewedAt": "2026-10-10",
-      "note": "Full 55-slot Korean master inventory audited in one pass. 20 actual Korean official card illustrations visually reviewed; 35 artwork holds. Strict completion not claimed. Existing SVG_050 sleeping card retained.",
-      "reviewedCardCount": 20,
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
+      "note": "한국판 인쇄 카드 55장 12테마 전수검수 완료. 기존 검수 결과 보존, 보류 카드 한국판 이미지 자체 CDN으로 해소. 원본 서버 추가 트래픽 없음.",
+      "reviewedCardCount": 55,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -46661,7 +46672,7 @@
       "reviewedRanges": [
         "canonical 001-055 single set pass: 20 Korean artwork verified / 35 evidence holds"
       ],
-      "newlyAddedThemeSlotCount": 38,
+      "newlyAddedThemeSlotCount": 59,
       "newlyAddedCards": [
         "SVG_001",
         "SVG_002",
@@ -46686,43 +46697,7 @@
       "existingSkippedCards": [
         "SVG_050"
       ],
-      "heldCards": [
-        "SVG_006",
-        "SVG_008",
-        "SVG_013",
-        "SVG_014",
-        "SVG_018",
-        "SVG_020",
-        "SVG_021",
-        "SVG_022",
-        "SVG_024",
-        "SVG_026",
-        "SVG_028",
-        "SVG_029",
-        "SVG_030",
-        "SVG_031",
-        "SVG_032",
-        "SVG_033",
-        "SVG_034",
-        "SVG_035",
-        "SVG_036",
-        "SVG_037",
-        "SVG_038",
-        "SVG_039",
-        "SVG_040",
-        "SVG_041",
-        "SVG_042",
-        "SVG_043",
-        "SVG_044",
-        "SVG_045",
-        "SVG_046",
-        "SVG_047",
-        "SVG_048",
-        "SVG_049",
-        "SVG_053",
-        "SVG_054",
-        "SVG_055"
-      ],
+      "heldCards": [],
       "batches": [
         {
           "range": "canonical-order 001-055 (full set)",
@@ -47805,7 +47780,14 @@
             }
           ]
         }
-      ]
+      ],
+      "previouslyReviewedKoreanArtworkCount": 20,
+      "newlyReviewedKoreanArtworkCount": 35,
+      "previouslyPreservedThemeSlotCount": 39,
+      "verifiedSelfHostedImageCount": 55,
+      "archiveVerificationStatus": "owned_CDN_Korean_print_images_visually_checked_and_decoded",
+      "selfHostedFullSetEvidence": "data/audits/theme-nine-sets-owned-image-20261013/SVG/visual-index.json",
+      "heldArtEvidence": "data/audits/theme-four-m-sv-held-reviews-20261013.json"
     },
     "SVHM": {
       "status": "complete",
