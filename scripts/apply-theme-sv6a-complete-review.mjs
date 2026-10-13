@@ -57,8 +57,8 @@ const counts={};
 let namesRepaired=0, placed=0;
 for(let i=0;i<94;i++){
   const row=e.cards[i], card=set.cards[i], proof=index.cards[i], n=i+1;
-  const key="SV6A_"+String(masterCode.match(/_(\d+)\//)?.[1]||"").padStart(3,"0");
   const masterCode=String(card.code||"");
+  const key="SV6A_"+String(masterCode.match(/_(\d+)\//)?.[1]||"").padStart(3,"0");
   if(row.canonicalOrder!==n||row.code!==key||
      masterCode.toLowerCase()!==row.canonicalMasterCode.toLowerCase()||
      proof.masterCode.toLowerCase()!==masterCode.toLowerCase()||
