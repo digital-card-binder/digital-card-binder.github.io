@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "sv2a",
+  "setName": "포켓몬카드 151",
+  "status": "image_archive_verified_theme_review_pending",
+  "canonicalCardSlots": 210,
+  "ownedCdnImageBinariesDecoded": 210,
+  "missingCdnBinaries": 0,
+  "externalOriginRequests": 0,
+  "visualEvidenceIndex": "data/audits/theme-visual-evidence/sv2a/visual-index.json",
+  "visualContactSheetCount": 14,
+  "alreadyNamedKoreanMasterCards": 22,
+  "unnamedMasterCardsRequiringOfficialKoreanProof": 188,
+  "existingThemedCardKeys": 23,
+  "remainingWork": [
+    "Read the Korean print artwork for each of 210 canonical cards, independently classify all twelve themes",
+    "Resolve 188 missing Korean master card names from Korean print or official Korean source; preserve existing named cards",
+    "Never duplicate or remove existing theme placements",
+    "After full review run site:prepare, site:check and npm test before marking complete"
+  ],
+  "nextSafeStart": "sv2a canonical 001 / full Korean printed-name and 12-theme visual review",
+  "notes": "Self-hosted Cloudflare image files were decoded; image existence does not by itself certify each thematic classification. No ownership, master or theme data changed by this checkpoint."
+}
