@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11418,
-    "uniqueThemeCards": 6838,
-    "strictCompleteSetCount": 75,
+    "themeCardSlots": 11450,
+    "uniqueThemeCards": 6859,
+    "strictCompleteSetCount": 76,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 198,
+    "baselineRemainingSetCount": 197,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3322,
-      "setCount": 81,
+      "cardSlots": 3331,
+      "setCount": 82,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5805,
-      "setCount": 80,
+      "cardSlots": 5826,
+      "setCount": 81,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 68,
-      "setCount": 36,
+      "cardSlots": 69,
+      "setCount": 37,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 948,
-      "setCount": 71,
+      "cardSlots": 949,
+      "setCount": 72,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 11,
-      "remainingSetCount": 50,
-      "currentThemeSlots": 817
+      "completeSetCount": 12,
+      "remainingSetCount": 49,
+      "currentThemeSlots": 849
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SEK",
-      "name": "스타터 세트 VMAX 「거북왕」",
-      "cardCount": 21,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "era": "S",
       "code": "s10D",
       "name": "타임게이저",
+      "cardCount": 88,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s10P",
+      "name": "스페이스 저글러",
       "cardCount": 88,
       "status": "pending"
     }
@@ -2895,9 +2895,14 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 9,
+        "color": 21,
+        "work": 1,
+        "street": 1
+      }
     },
     {
       "era": "S",
