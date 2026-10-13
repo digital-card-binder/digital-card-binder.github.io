@@ -62218,6 +62218,35 @@
       "partialReviewEvidence": "data/audits/theme-sn-001-026-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "26_own_CDN_binary_decoded_24_artwork_reviewed_2_print_identity_holds",
       "note": "SN 한국판 물리 번호 001/024–024/024 24장을 12테마 검수. 동일한 무번호 번개 에너지 2장은 캐노니컬 중복 가능성으로 보류. 완료 처리 금지."
+    },
+    "SI": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "heldCards": [],
+      "verifiedSelfHostedImageCount": 30,
+      "newlyAddedThemeSlotCount": 54,
+      "partialReviewEvidence": "data/audits/theme-si-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "SI_001-030_Korean_owned_CDN_30_decoded_and_artwork_reviewed",
+      "nextStart": "SI canonical 031",
+      "note": "스타트 덱 100 총 430개 중 한국판 실물 번호 001/414-030/414 시각검수 완료. 남은 400장 검수 필요. 수집 상태 무변경."
     }
   },
   "queue": {
@@ -62243,8 +62272,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SN printed 001-024 reviewed (24), two unnumbered duplicate-energy identity holds, 26 CDN decoded; defer full set completion",
-    "nextStart": "SI canonical 001",
+    "lastSafeCheckpoint": "SI first 30 of 430 Korean cards artwork reviewed, 30/30 CDN decoded; no prior completed cards overwritten",
+    "nextStart": "SI canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
