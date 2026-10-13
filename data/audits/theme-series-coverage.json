@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11588,
-    "uniqueThemeCards": 6944,
-    "strictCompleteSetCount": 80,
+    "themeCardSlots": 11624,
+    "uniqueThemeCards": 6969,
+    "strictCompleteSetCount": 81,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 193,
+    "baselineRemainingSetCount": 192,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 380,
-      "setCount": 67,
+      "cardSlots": 381,
+      "setCount": 68,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3358,
-      "setCount": 84,
+      "cardSlots": 3365,
+      "setCount": 85,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5912,
-      "setCount": 85,
+      "cardSlots": 5937,
+      "setCount": 86,
       "rarities": [
         "AR",
         "C",
@@ -188,8 +188,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 144,
-      "setCount": 53,
+      "cardSlots": 145,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -229,8 +229,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 125,
-      "setCount": 41,
+      "cardSlots": 127,
+      "setCount": 42,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 16,
-      "remainingSetCount": 45,
-      "currentThemeSlots": 987
+      "completeSetCount": 17,
+      "remainingSetCount": 44,
+      "currentThemeSlots": 1023
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "S8a-P",
-      "name": "프로모 카드 팩 25th ANNIVERSARY edition",
-      "cardCount": 25,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s8a",
       "name": "25th ANNIVERSARY COLLECTION",
       "cardCount": 38,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s8",
+      "name": "퓨전아츠",
+      "cardCount": 129,
       "status": "pending"
     }
   ],
@@ -2816,9 +2816,15 @@
       "cardCount": 25,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "night": 1,
+        "season": 7,
+        "color": 25,
+        "food": 1,
+        "cameo": 2
+      }
     },
     {
       "era": "S",
