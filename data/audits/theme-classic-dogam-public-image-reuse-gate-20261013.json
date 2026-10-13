@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-13",
+  "sourceName": "도감.app",
+  "serviceHomepage": "https://www.dogam.app/",
+  "tosUrl": "https://www.dogam.app/terms",
+  "termsEffectiveDate": "2026-09-23",
+  "tosKeyConstraints": {
+    "article6": "Service forbids unauthorized replication/collection/crawling of its content",
+    "article10": "Service/content intellectual-property reuse needs prior permission",
+    "thirdPartyImageHost": "static.tcgexchange.kr"
+  },
+  "publicKoreanClassicSets": [
+    {
+      "name": "포켓몬 카드 게임 클래식 (이상해꽃) CLF · 34장",
+      "publicUrl": "https://www.dogam.app/sets/01KY1RHJ7E3YXJ01EMQJG0YVV2",
+      "publicSetItemCount": 34,
+      "linkIsEvidenceNotImageLicense": true
+    },
+    {
+      "name": "포켓몬 카드 게임 클래식 (거북왕) CLK · 34장",
+      "publicUrl": "https://www.dogam.app/sets/01KY1RJ39P122EFFVA1YA371V0",
+      "publicSetItemCount": 34,
+      "linkIsEvidenceNotImageLicense": true
+    },
+    {
+      "name": "포켓몬 카드 게임 클래식 (리자몽) CLL · 34장",
+      "publicUrl": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK",
+      "publicSetItemCount": 34,
+      "linkIsEvidenceNotImageLicense": true
+    }
+  ],
+  "conclusion": "The site lists Korean Classic card catalog items, but public page presence does not authorize bulk media downloads or re-hosting. No blanket import. Verify exact printed Korean card image per slot from first-party or expressly permitted reuse source.",
+  "lookupsActuallyPerformed": [
+    {
+      "url": "https://www.dogam.app/robots.txt",
+      "http": 200,
+      "size": 494
+    },
+    {
+      "url": "https://www.dogam.app/sets",
+      "http": 200,
+      "size": 513792
+    },
+    {
+      "url": "https://www.dogam.app/sets/01KY1RJKV7YNX9PSDB56SZDFDK",
+      "http": 200,
+      "size": 113952
+    }
+  ],
+  "usage": {
+    "publicPageReadCount": 3,
+    "cardImageBinariesDownloaded": 0,
+    "copiedSiteImagesToRepo": 0,
+    "newThirdPartyHotlinks": 0,
+    "existingCollectorStatesEdited": false,
+    "existingMasterCardsEdited": false
+  },
+  "koreanImageRecoveryCheckpoint": {
+    "allThreeSets": 102,
+    "alreadyVerifiedOrSelfHostedKoreanImages": 31,
+    "stillJapaneseArchiveImages": 65,
+    "energyPhysicalPrintProofPending": 6
+  },
+  "nextPermittedActions": [
+    "Use public set and card identities as supplementary reference without duplicating proprietary site catalogs/images",
+    "Seek operator permission for redistribution of static.tcgexchange.kr card images, or obtain independently verified Korean print scans from Pokémon Korea/authorized source",
+    "Self-host only authorized Korean card image binaries and verify full artwork/12 independent themes",
+    "Do not claim CLL/CLK/CLF strict complete until those image or region proofs are resolved"
+  ],
+  "sourceReviewNotEqualToCardCompletion": true
+}
