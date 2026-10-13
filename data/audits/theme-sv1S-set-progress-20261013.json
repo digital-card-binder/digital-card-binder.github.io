@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "set": "sv1S",
+  "name": "스칼렛 ex",
+  "status": "all_image_archives_decoded_Korean_artwork_review_evidence_recorded",
+  "canonicalCardSlots": 108,
+  "verifiedOwnedCDNImages": 108,
+  "missingOwnedCDNImages": 0,
+  "externalOriginImageRequests": 0,
+  "koreanMasterNamesAlreadyPresent": 18,
+  "unresolvedKoreanMasterNames": 90,
+  "preexistingThemeSlotsToPreserve": 11,
+  "preexistingUniqueThemedCards": 8,
+  "evidenceIndex": "data/audits/theme-visual-evidence/sv1S/visual-index.json",
+  "artReviewEvidence": "data/audits/theme-sv1S-001-108-art-review.json",
+  "appliedReviewThrough": 0,
+  "nextSafeStart": "sv1S canonical 001; visual evidence for 108 cards recorded, apply guarded Korean names and theme placements",
+  "remaining": [
+    "Guard and repair 90 previously blank Korean master names using visually inspected official prints",
+    "Preserve 11 previously placed theme references and user ownership data",
+    "Run entire site prepare, check, and regression tests before strict-complete commit"
+  ]
+}
