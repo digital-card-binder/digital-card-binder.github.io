@@ -1,0 +1,36 @@
+name: Inspect exact Korean SV-P 248 promo preclose checkpoint
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-theme-svp-preclose.yml'
+      - 'scripts/inspect-theme-svp-preclose.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: svp-closure-snapshot
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect all exact Korean promo master and prior theme checkpoint
+        run: node scripts/inspect-theme-svp-preclose.mjs
+      - name: Save state snapshot without altering card data
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-svp-preclose-inventory-20261013.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Snapshot full 248 Korean SV-P promo prior review and theme keys"
+          git pull --rebase origin main
+          git push origin HEAD:main
