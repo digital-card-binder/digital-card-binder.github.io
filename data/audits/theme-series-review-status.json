@@ -62222,7 +62222,7 @@
     "SI": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
+      "reviewedCardCount": 60,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -62238,15 +62238,16 @@
         "cameo"
       ],
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "heldCards": [],
-      "verifiedSelfHostedImageCount": 30,
-      "newlyAddedThemeSlotCount": 54,
-      "partialReviewEvidence": "data/audits/theme-si-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "SI_001-030_Korean_owned_CDN_30_decoded_and_artwork_reviewed",
-      "nextStart": "SI canonical 031",
-      "note": "스타트 덱 100 총 430개 중 한국판 실물 번호 001/414-030/414 시각검수 완료. 남은 400장 검수 필요. 수집 상태 무변경."
+      "verifiedSelfHostedImageCount": 60,
+      "newlyAddedThemeSlotCount": 107,
+      "partialReviewEvidence": "data/audits/theme-si-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "SI_001-060_60_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "nextStart": "SI canonical 061",
+      "note": "스타트 덱 100 한국판 카드 실물 번호 001/414–060/414 시각검수 완료. 미검수 370개, 기존 SI_342 테마 그대로 유지."
     }
   },
   "queue": {
@@ -62272,8 +62273,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SI first 30 of 430 Korean cards artwork reviewed, 30/30 CDN decoded; no prior completed cards overwritten",
-    "nextStart": "SI canonical 031",
+    "lastSafeCheckpoint": "SI canonical 001-060 (60 of 430) Korean artwork checked against own CDN; SI_342 prior sleeping theme preserved",
+    "nextStart": "SI canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
