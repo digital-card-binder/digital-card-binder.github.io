@@ -3200,7 +3200,37 @@
       "priorPreservedThemePlacements": 7,
       "nextStart": "sv5M canonical 001; use latest coverage to pick pending",
       "note": "100 Korean official Pokémon Korea watermark original prints visually inspected, 84 previously blank Korean master names repaired. Existing Cloudflare archive used without origin downloads."
+    },
+    {
+      "task": 6,
+      "set": "sv4M",
+      "range": "canonical 001-95 full Korean Future Flash artwork review",
+      "canonicalCardCount": 95,
+      "artworkVisuallyVerifiedCount": 95,
+      "artworkPendingCount": 0,
+      "externalImageReferenceCountBefore": 95,
+      "newlyInternalizedReferenceCount": 0,
+      "selfHostedReferenceCountAfter": 95,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "verified_existing_official_Korean_CDN_binary_decoded",
+      "verifiedImageCount": 95,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "season": 51,
+        "color": 68,
+        "sunset": 1,
+        "street": 17,
+        "reflections": 1,
+        "night": 3,
+        "cameo": 3,
+        "work": 1
+      },
+      "masterKoreanNamesRepaired": 80,
+      "priorPreservedThemePlacements": 6,
+      "nextStart": "sv4K canonical 001",
+      "note": "95 Korean official Pokémon Korea watermark original prints visually inspected, 80 previously blank Korean master names repaired. Existing Cloudflare archive used without origin downloads."
     }
   ],
-  "nextStart": "sv5M canonical 001; use latest coverage to pick pending"
+  "nextStart": "sv4K canonical 001"
 }

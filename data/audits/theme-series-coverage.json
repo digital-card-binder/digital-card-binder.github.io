@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 8409,
-    "uniqueThemeCards": 5128,
-    "strictCompleteSetCount": 47,
+    "themeCardSlots": 8554,
+    "uniqueThemeCards": 5212,
+    "strictCompleteSetCount": 48,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 226,
+    "baselineRemainingSetCount": 225,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 307,
-      "setCount": 51,
+      "cardSlots": 310,
+      "setCount": 52,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2357,
-      "setCount": 59,
+      "cardSlots": 2408,
+      "setCount": 60,
       "rarities": [
         "AR",
         "C",
@@ -139,7 +139,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4203,
+      "cardSlots": 4271,
       "setCount": 60,
       "rarities": [
         "AR",
@@ -160,7 +160,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 161,
+      "cardSlots": 162,
       "setCount": 45,
       "rarities": [
         "AR",
@@ -173,8 +173,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 52,
-      "setCount": 24,
+      "cardSlots": 53,
+      "setCount": 25,
       "rarities": [
         "AR",
         "C",
@@ -200,7 +200,7 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 45,
+      "cardSlots": 46,
       "setCount": 23,
       "rarities": [
         "AR",
@@ -212,7 +212,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 743,
+      "cardSlots": 760,
       "setCount": 54,
       "rarities": [
         "AR",
@@ -226,8 +226,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 87,
-      "setCount": 29,
+      "cardSlots": 90,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
@@ -253,9 +253,9 @@
       "era": "SV",
       "setCount": 53,
       "cardCount": 4749,
-      "completeSetCount": 34,
-      "remainingSetCount": 19,
-      "currentThemeSlots": 4781
+      "completeSetCount": 35,
+      "remainingSetCount": 18,
+      "currentThemeSlots": 4926
     },
     {
       "era": "S",
@@ -383,13 +383,6 @@
       "code": "sv4a",
       "name": "샤이니트레져 ex",
       "cardCount": 360,
-      "status": "pending"
-    },
-    {
-      "era": "SV",
-      "code": "sv4M",
-      "name": "미래의 일섬",
-      "cardCount": 95,
       "status": "pending"
     },
     {
@@ -523,6 +516,13 @@
       "code": "SCR",
       "name": "스타터 세트 VMAX 「리자몽」",
       "cardCount": 23,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "SP2",
+      "name": "VMAX 스페셜 세트",
+      "cardCount": 8,
       "status": "pending"
     }
   ],
@@ -1534,15 +1534,19 @@
       "cardCount": 95,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 1,
         "connected": 1,
-        "color": 1,
-        "sunset": 1,
-        "work": 1,
-        "street": 1
+        "night": 3,
+        "season": 51,
+        "color": 69,
+        "sunset": 2,
+        "reflections": 1,
+        "work": 2,
+        "street": 18,
+        "cameo": 3
       }
     },
     {
