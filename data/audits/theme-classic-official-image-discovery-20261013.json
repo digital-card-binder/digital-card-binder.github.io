@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13",
+  "scope": "CLL CLK CLF four representative official Pokemon Korea art paths per set",
+  "networkRequestsToOfficialHost": 12,
+  "policy": "One HEAD per representative number. HTTP 200 image header alone does not prove Korean printed card; no files ingested or deployed. Never infer missing for 403, 415, 5xx.",
+  "summary": {
+    "confirmedImageHeaders": 0,
+    "notFound": 0,
+    "blockedOrUnproven": 12
+  },
+  "probes": [
+    {
+      "set": "CLL",
+      "cardNumber": "001",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_001.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLL",
+      "cardNumber": "004",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_004.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLL",
+      "cardNumber": "018",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_018.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLL",
+      "cardNumber": "031",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLL/CLL_031.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLK",
+      "cardNumber": "001",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLK/CLK_001.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLK",
+      "cardNumber": "004",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLK/CLK_004.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLK",
+      "cardNumber": "018",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLK/CLK_018.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLK",
+      "cardNumber": "031",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLK/CLK_031.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLF",
+      "cardNumber": "001",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLF/CLF_001.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLF",
+      "cardNumber": "004",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLF/CLF_004.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLF",
+      "cardNumber": "018",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLF/CLF_018.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    },
+    {
+      "set": "CLF",
+      "cardNumber": "031",
+      "candidateOfficialImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/CLF/CLF_031.png",
+      "source": "Pokémon Korea official Korean image domain candidate; unconfirmed until HTTP 200 and image visually checked",
+      "method": "HEAD",
+      "httpStatus": 415,
+      "contentType": "",
+      "knownKoreanCard": false,
+      "error": "Unsupported Media Type",
+      "availability": "official_access_blocked_or_not_proven"
+    }
+  ]
+}
