@@ -32,7 +32,7 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
       - name: Apply guarded entire Korean Wild Force set
-        run: node scripts/apply-theme-sv5K-complete-review.mjs
+        run: node scripts/apply-theme-sv5k-complete-review.mjs
       - name: Rebuild derived site indexes
         run: npm run site:prepare
       - name: Check generated output
