@@ -1,0 +1,57 @@
+name: Complete Korean Scarlet ex 108 card names and artwork themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sv1s-complete.yml'
+      - 'data/audits/theme-sv1S-001-108-art-review.json'
+      - 'scripts/apply-theme-sv1s-complete-review.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: sv1S-Korean-complete
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply 108 guarded Korean Scarlet ex names and scene-theme decisions
+        run: node scripts/apply-theme-sv1s-complete-review.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit master name fixes and 12-theme cards only after successful tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sv1S-set-progress-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete 108 Scarlet ex Korean artworks and repair 90 Korean card names"
+          if git push origin HEAD:main; then exit 0; fi
+          git fetch origin main
+          git reset --hard origin/main
+          node scripts/apply-theme-sv1s-complete-review.mjs
+          npm run site:prepare
+          npm run site:check
+          npm test
+          git add data/series.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sv1S-set-progress-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Complete 108 Scarlet ex artworks on latest main"
+          git push origin HEAD:main
