@@ -49,9 +49,9 @@ if(e.set!=="sv5K"||e.masterCanonicalCount!==100||e.cardsReviewed!==100||
   throw Error("Korean full-set evidence count, metadata, or coverage invalid.");
 
 const currentExisting=[...preexisting.entries()].map(([n,t])=>({n,t})).sort((a,b)=>a.n.localeCompare(b.n));
-if(currentExisting.length!==5||
+if(currentExisting.length!==7||
     currentExisting.some(p=>!p.t.every(x=>["connected","evolution","color","cameo"].includes(x))))
-  throw Error("Preexisting one sleeping placements diverge from reviewed baseline.");
+  throw Error("Preexisting seven thematic placements diverge from reviewed baseline.");
 
 const counts={};
 let namesRepaired=0, placed=0;
@@ -146,7 +146,7 @@ if(!updateProgress(state))
   throw Error("Cannot locate current safe stage-progress checkpoint.");
 if(!state.lastEvidenceAuditCheckpoint||
    String(state.lastEvidenceAuditCheckpoint.set).toUpperCase()!=="SV5M")
-  throw Error("Evidence review checkpoint was moved from previously completed sv11B.");
+  throw Error("Evidence review checkpoint was moved from previously completed sv5M.");
 Object.assign(state.lastEvidenceAuditCheckpoint,{
   set:code,range:"canonical 001-100",reviewedCardCount:100,
   artworkEvidenceHolds:0,archiveVerificationStatus:"existing_CDN_100_Korean_images_verified",
