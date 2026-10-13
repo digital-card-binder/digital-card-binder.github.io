@@ -3,13 +3,13 @@
   "recordedAt": "2026-10-13",
   "set": "sv2D",
   "name": "클레이버스트",
-  "status": "complete_evidence_guarded_apply_pending",
+  "status": "complete",
   "canonicalCardSlots": 99,
   "existingOwnedCdnImagesDecoded": 99,
   "missingOwnedCdnImages": 0,
   "externalImageOriginRequests": 0,
   "alreadyNamedMasterCards": 12,
-  "masterKoreanNamesToRestore": 87,
+  "masterKoreanNamesToRestore": 0,
   "existingThemePlacementsToPreserve": 8,
   "visualEvidenceIndex": "data/audits/theme-visual-evidence/sv2D/visual-index.json",
   "reviewEvidence": "data/audits/theme-sv2D-001-099-art-review.json",
@@ -22,9 +22,20 @@
     "food": 4,
     "cameo": 2
   },
-  "appliedReviewThrough": 0,
-  "themeSlotsApplied": 0,
-  "nextSafeStart": "Apply 99 reviewed Korean Clay Burst cards with guarded printed-number matching, full regression and complete-set commit",
+  "appliedReviewThrough": 99,
+  "themeSlotsApplied": 179,
+  "nextSafeStart": "sv2D strict complete; next pending sv1a canonical 001",
   "nextSetAfterCompletion": "sv1a canonical 001",
-  "notes": "Evidence only; no catalog, theme or ownership mutation until guarded apply and tests pass."
+  "notes": "99 Korean printed cards visually examined; 87 blank names fixed. Eight existing placements retained and 99 preexisting owned CDN image files decoded.",
+  "namedCardsRepaired": 87,
+  "appliedThemeAdditions": {
+    "season": 56,
+    "color": 97,
+    "sunset": 4,
+    "street": 10,
+    "night": 6,
+    "food": 4,
+    "cameo": 2
+  },
+  "remainingWork": []
 }
