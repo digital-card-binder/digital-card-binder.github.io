@@ -1,0 +1,47 @@
+name: Apply Korean Snow Hazard first 30 artwork reviews
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-sv2P-001-030-art-review.json'
+      - 'scripts/apply-theme-sv2p-001-030-review.mjs'
+      - '.github/workflows/apply-theme-sv2p-001-030.yml'
+permissions:
+  contents: write
+concurrency:
+  group: theme-sv2p-guarded-batches
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply validated Korean print identity, names and twelve themes
+        run: node scripts/apply-theme-sv2p-001-030-review.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit only verified catalog and safe checkpoint
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sv2P-set-progress-20261013.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Apply Korean Snow Hazard first 30 artwork themes and names"
+          git pull --rebase origin main
+          git push origin HEAD:main
