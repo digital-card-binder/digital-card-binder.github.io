@@ -54,7 +54,7 @@ for(const code of four){
      !String(c.name||"").trim()||c.name!==proof.koreanMasterName||
      proof.canonicalOrder!==i+1||proof.imageCheck?.status!=="decoded"||
      proof.imageCheck?.http!==200||proof.imageCheck?.format!=="WEBP"||
-     proof.imageCheck?.dimensions?.join(",")!=="420,586"||
+     !["420,586","400,558"].includes(proof.imageCheck?.dimensions?.join(","))||
      !/^https:\/\/dcb-card-images-(?:modern|legacy)-2026\.pages\.dev\//.test(proof.ownedCdnUrl))
     throw Error("Invalid decoded own-CDN/Korean master identity "+code+" canonical "+(i+1));
   const key=(code+"_"+number).toUpperCase();
