@@ -21,7 +21,8 @@
     {
       "code": "SV2a_167",
       "themes": [
-        "evolution"
+        "evolution",
+        "reflections"
       ]
     },
     {
@@ -56,8 +57,15 @@
       ]
     },
     {
+      "code": "SV2a_181",
+      "themes": [
+        "sleeping"
+      ]
+    },
+    {
       "code": "SV2a_176",
       "themes": [
+        "reflections",
         "street"
       ]
     }
@@ -66,10 +74,9 @@
     "color": 19,
     "season": 16,
     "street": 1,
-    "sleeping": 1,
     "night": 1
   },
-  "identityPolicy": "Themed code = actual Korean printed number, master ordering separately tracked by canonicalOrder",
+  "identityPolicy": "Printed-number thematic IDs and all existing current theme placements verified against actual image filenames; no canonical-order assumptions.",
   "cards": [
     {
       "canonicalOrder": 151,
@@ -380,7 +387,8 @@
       "printedNumber": "167/165",
       "wasMasterNameBlank": true,
       "wasAlreadyInThemes": [
-        "evolution"
+        "evolution",
+        "reflections"
       ],
       "themesMatched": [
         "season",
@@ -661,9 +669,10 @@
       "koreanName": "잠만보",
       "printedNumber": "181/165",
       "wasMasterNameBlank": true,
-      "wasAlreadyInThemes": [],
+      "wasAlreadyInThemes": [
+        "sleeping"
+      ],
       "themesMatched": [
-        "sleeping",
         "season",
         "color"
       ],
@@ -763,6 +772,7 @@
       "printedNumber": "176/165",
       "wasMasterNameBlank": true,
       "wasAlreadyInThemes": [
+        "reflections",
         "street"
       ],
       "themesMatched": [
