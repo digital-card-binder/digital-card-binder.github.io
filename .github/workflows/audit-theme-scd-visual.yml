@@ -13,7 +13,7 @@ concurrency:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 121
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,9 +28,9 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "41219212212+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/audits/theme-visual-evidence/SCD
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Capture Korean SCD 25 own-card image proof"
+          git commit -m "Capture Korean SCD 21 own-card image proof"
           git pull --rebase origin main
           git push origin HEAD:main
