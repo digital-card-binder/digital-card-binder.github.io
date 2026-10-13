@@ -1,0 +1,50 @@
+name: Apply Korean Card 151 SV2a 001-030 art review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-sv2a-001-030-art-review.json'
+      - 'scripts/apply-theme-sv2a-001-030-review.mjs'
+      - '.github/workflows/apply-theme-sv2a-001-030.yml'
+permissions:
+  contents: write
+concurrency:
+  group: theme-sv2a-guarded-batches
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply 30 actual Korean printed-card visual reviews with ownership protected
+        run: node scripts/apply-theme-sv2a-001-030-review.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit verified catalog, themes and checkpoint after full tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-sv2a-set-progress-20261013.json
+          git add -u
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+            exit 0
+          fi
+          git commit -m "Apply Korean Card 151 first 30 visual theme reviews and names"
+          git pull --rebase origin main
+          git push origin HEAD:main
