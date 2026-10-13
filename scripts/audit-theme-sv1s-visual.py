@@ -46,7 +46,7 @@ for i,c in enumerate(master["cards"],1):
  assert ident.lower().startswith("sv1s_"),(i,ident)
  cards.append({"canonicalOrder":i,"masterCode":ident,"name":name,
  "rawSource":raw,"cdnUrl":route(raw),
- "existingThemes":sorted(set(existing.get(f"SV1V_{ident.split('_')[1].split('/')[0]}",[]))),
+ "existingThemes":sorted(set(existing.get(f"SV1S_{ident.split('_')[1].split('/')[0]}",[]))),
  "rarity":c.get("rarity") or ""})
 def get(c):
  r={"canonicalOrder":c["canonicalOrder"],"code":c["masterCode"],"name":c["name"],"cdnUrl":c["cdnUrl"],"status":"pending"}
