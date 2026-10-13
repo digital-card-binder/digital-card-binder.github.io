@@ -20,18 +20,19 @@
     "After full review run site:prepare, site:check and npm test before marking complete"
   ],
   "nextSafeStart": "sv2a canonical 151; preserve completed 001-150; owned images 210/210",
-  "notes": "Cards canonical 001-150 reviewed; remaining 60 pending. Original image origin not requested.",
+  "notes": "SV2a canonical 001-150 visual reviews preserved. All theme IDs now use Korean printed card numbers rather than shuffled canonical order. Next canonical 151; ownership unchanged.",
   "appliedReviewThrough": 150,
   "reviewedKoreanNames": 150,
   "appliedThemeSlots": 263,
   "appliedThemeAdditions": {
+    "sleeping": 3,
+    "night": 3,
     "season": 100,
     "color": 146,
-    "sunset": 4,
-    "night": 6,
-    "street": 3,
-    "sleeping": 3,
-    "food": 1
+    "sunset": 5,
+    "reflections": 2,
+    "food": 1,
+    "street": 3
   },
   "batchEvidence": [
     "data/audits/theme-sv2a-001-030-art-review.json",
@@ -39,5 +40,15 @@
     "data/audits/theme-sv2a-061-090-art-review.json",
     "data/audits/theme-sv2a-091-120-art-review.json",
     "data/audits/theme-sv2a-121-150-art-review.json"
-  ]
+  ],
+  "identityCorrection": {
+    "correctedAt": "2026-10-13",
+    "oldOriginalSlotsPreserved": 24,
+    "newBefore": 267,
+    "newAfter": 263,
+    "changedKeys": 173,
+    "duplicateNewRemoved": 5,
+    "repairedEvidenceCardCodes": 96,
+    "verifiedAgainstMaster": true
+  }
 }
