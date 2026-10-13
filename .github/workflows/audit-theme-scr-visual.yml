@@ -1,0 +1,36 @@
+name: Audit SCR Korean Charizard VMAX starter 23 images from owned archive
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-scr-visual.yml'
+      - 'scripts/audit-theme-scr-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: scr-Korean-23-image-evidence
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Check exactly 23 Korean SCR master cards in own Cloudflare CDN
+        run: python scripts/audit-theme-scr-visual.py
+      - name: Save image contact sheets and indexed self-host evidence
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/theme-visual-evidence/SCR
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Archive SCR 23 original Korean printed card image proofs"
+          git pull --rebase origin main
+          git push origin HEAD:main
