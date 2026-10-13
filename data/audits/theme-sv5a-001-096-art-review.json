@@ -2300,5 +2300,17 @@
       ],
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv5a/sv5a-07.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": 22,
+    "java": 21,
+    "script": "scripts/apply-theme-sv5a-complete-review.mjs",
+    "requires": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "verifiedSelfHostedImages": 96,
+    "externalOriginRequests": 0
+  }
 }
