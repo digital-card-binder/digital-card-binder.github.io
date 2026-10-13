@@ -114,7 +114,7 @@ async function check(url){
  }
  return {ok:false,status:0,reason:"unknown"};
 }
-const WORKERS=28; // throttle exclusively on our own Cloudflare Pages archives
+const WORKERS=12; // avoid bursts even to our own Cloudflare archive
 await Promise.all(Array.from({length:WORKERS},async()=>{
  while(true){
   const i=cursor++; if(i>=urls.length)return;
@@ -122,6 +122,14 @@ await Promise.all(Array.from({length:WORKERS},async()=>{
   checked.set(url,outcome);
  }
 }));
+// A small number of CDN handshake failures can be transient. Re-check only
+// failed owned-host URLs sequentially, never request third-party origins.
+const initialFailures=[...checked.entries()].filter(([url,result])=>!result.ok);
+for (const [url] of initialFailures) {
+  await new Promise(resolve=>setTimeout(resolve,900));
+  const retry=await check(url);
+  checked.set(url,retry);
+}
 for(const [url,refs]of seenUrls.entries()){
  const result=checked.get(url);
  for(const ref of refs){
@@ -154,7 +162,7 @@ const totals={
 const report={
  schemaVersion:1,generatedAt:new Date().toISOString(),
  auditScope:`${complete.length} strict-complete Korean sets + associated art-theme images and card print variant images`,
- method:"Repository source-image classification using real card-image-routing.mjs. HTTP HEAD sent exclusively to the two Digital Card Binder self-hosted Cloudflare Pages image domains. No third-party origin requests. HEAD verifies response, not pixel identity.",
+ method:"Repository source-image classification using real card-image-routing.mjs. HTTP HEAD sent exclusively to the two Digital Card Binder self-hosted Cloudflare Pages image domains. Retry failed owned URLs after bulk scan to distinguish transient errors. No third-party origin requests. HEAD verifies response, not pixel identity.",
  mainSafety:"Read-only: does not modify master data, ownership state, themes, or image files.",
  totals,perSet,failedCdnAssets:failures,unroutablePaths:badPaths.slice(0,150),
  notes:["Original third-party URLs stored as provenance are NOT automatically hotlinks when recognized by active client-side image router.","Unknown domains, missing images and CDN failures are listed explicitly.","Sets still pending or in progress, unscoped promotional products and pack images are outside this completed-set audit."]
