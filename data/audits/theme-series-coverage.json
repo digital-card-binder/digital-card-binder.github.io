@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11255,
-    "uniqueThemeCards": 6723,
-    "strictCompleteSetCount": 69,
+    "themeCardSlots": 11295,
+    "uniqueThemeCards": 6756,
+    "strictCompleteSetCount": 70,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 204,
+    "baselineRemainingSetCount": 203,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3290,
-      "setCount": 76,
+      "cardSlots": 3294,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5690,
-      "setCount": 74,
+      "cardSlots": 5723,
+      "setCount": 75,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 62,
-      "setCount": 32,
+      "cardSlots": 64,
+      "setCount": 33,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 944,
-      "setCount": 68,
+      "cardSlots": 945,
+      "setCount": 69,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 5,
-      "remainingSetCount": 56,
-      "currentThemeSlots": 654
+      "completeSetCount": 6,
+      "remainingSetCount": 55,
+      "currentThemeSlots": 694
     },
     {
       "era": "SM",
@@ -345,13 +345,6 @@
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SB",
-      "name": "프리미엄 트레이너 박스 「소드&실드」",
-      "cardCount": 33,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s12a",
       "name": "VSTAR 유니버스",
       "cardCount": 262,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s12",
+      "name": "패러다임트리거",
+      "cardCount": 125,
       "status": "pending"
     }
   ],
@@ -2961,9 +2961,14 @@
       "cardCount": 33,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 4,
+        "color": 33,
+        "work": 2,
+        "street": 1
+      }
     },
     {
       "era": "S",
