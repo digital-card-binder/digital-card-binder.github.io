@@ -21,7 +21,7 @@ images={}
 with ThreadPoolExecutor(max_workers=12) as pool:
  for f in as_completed([pool.submit(download,c) for c in index["cards"]]):
   n,im=f.result();images[n]=im
-assert len(images)==94
+assert len(images)==94 # exact full Korean canonical set
 for start in range(1,95,16):
  sheet=Image.new("RGB",(4*450,4*190),(245,245,245))
  d=ImageDraw.Draw(sheet)
