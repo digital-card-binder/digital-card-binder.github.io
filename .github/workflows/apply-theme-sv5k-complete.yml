@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'data/audits/theme-sv5K-001-100-art-review.json'
+      - 'data/audits/theme-sv5k-001-100-art-review.json'
 permissions:
   contents: write
 concurrency:
