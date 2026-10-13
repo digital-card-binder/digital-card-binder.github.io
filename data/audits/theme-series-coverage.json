@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 11624,
-    "uniqueThemeCards": 6969,
-    "strictCompleteSetCount": 81,
+    "themeCardSlots": 11669,
+    "uniqueThemeCards": 7001,
+    "strictCompleteSetCount": 82,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 192,
+    "baselineRemainingSetCount": 191,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 381,
-      "setCount": 68,
+      "cardSlots": 382,
+      "setCount": 69,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3365,
-      "setCount": 85,
+      "cardSlots": 3374,
+      "setCount": 86,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5937,
-      "setCount": 86,
+      "cardSlots": 5969,
+      "setCount": 87,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 211,
-      "setCount": 55,
+      "cardSlots": 212,
+      "setCount": 56,
       "rarities": [
         "AR",
         "C",
@@ -202,8 +202,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 73,
-      "setCount": 39,
+      "cardSlots": 74,
+      "setCount": 40,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 951,
-      "setCount": 73,
+      "cardSlots": 952,
+      "setCount": 74,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 17,
-      "remainingSetCount": 44,
-      "currentThemeSlots": 1023
+      "completeSetCount": 18,
+      "remainingSetCount": 43,
+      "currentThemeSlots": 1068
     },
     {
       "era": "SM",
@@ -359,13 +359,6 @@
       "name": "하이클래스 덱 「팬텀 VMAX」",
       "cardCount": 21,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SJ",
-      "name": "스페셜 덱 세트 「자시안·자마젠타 VS 무한다이노」",
-      "cardCount": 32,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s8",
       "name": "퓨전아츠",
       "cardCount": 129,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s7R",
+      "name": "창공스트림",
+      "cardCount": 90,
       "status": "pending"
     }
   ],
@@ -2805,9 +2805,16 @@
       "cardCount": 32,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "night": 1,
+        "season": 9,
+        "color": 32,
+        "sunset": 1,
+        "work": 1,
+        "street": 1
+      }
     },
     {
       "era": "S",
