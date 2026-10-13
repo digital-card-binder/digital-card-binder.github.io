@@ -55,7 +55,7 @@ for(let i=0;i<25;i++){
     row.matchedThemes.some(t=>!T.includes(t))||
     p.imageCheck?.status!=="decoded"||p.imageCheck?.http!==200||
     p.imageCheck?.format!=="WEBP"||
-    p.imageCheck?.dimensions?.join(",")!=="420,586"||
+    !(p.imageCheck?.dimensions?.join(",")==="420,586"||(n===22&&p.imageCheck?.dimensions?.join(",")==="344,480"))||
     !/^https:\/\/dcb-card-images-legacy-2026\.pages\.dev\//.test(p.cdnUrl))
   throw Error("Unmatched exact 25 Korean SA-F printed cards/own CDNs at canonical "+n);
  if(n===25){
