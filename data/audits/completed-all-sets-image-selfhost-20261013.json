@@ -1,24 +1,43 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-13T05:05:32.730Z",
-  "auditScope": "48 strict-complete Korean sets + associated art-theme images and card print variant images",
-  "method": "Repository source-image classification using real card-image-routing.mjs. HTTP HEAD sent exclusively to the two Digital Card Binder self-hosted Cloudflare Pages image domains. No third-party origin requests. HEAD verifies response, not pixel identity.",
+  "generatedAt": "2026-10-13T05:08:39.556Z",
+  "auditScope": "49 strict-complete Korean sets + associated art-theme images and card print variant images",
+  "method": "Repository source-image classification using real card-image-routing.mjs. HTTP HEAD sent exclusively to the two Digital Card Binder self-hosted Cloudflare Pages image domains. Retry failed owned URLs after bulk scan to distinguish transient errors. No third-party origin requests. HEAD verifies response, not pixel identity.",
   "mainSafety": "Read-only: does not modify master data, ownership state, themes, or image files.",
   "totals": {
-    "completedSets": 48,
-    "canonicalMasterCards": 4927,
-    "themeCardReferences": 7634,
-    "checkedImageFieldReferences": 12607,
-    "uniqueOwnedCdnAssets": 5007,
-    "verifiedUniqueOwnedCdnAssets": 5005,
-    "failedUniqueOwnedCdnAssets": 2,
+    "completedSets": 49,
+    "canonicalMasterCards": 5022,
+    "themeCardReferences": 7805,
+    "checkedImageFieldReferences": 12873,
+    "uniqueOwnedCdnAssets": 5102,
+    "verifiedUniqueOwnedCdnAssets": 5102,
+    "failedUniqueOwnedCdnAssets": 0,
     "missingImageReferences": 0,
     "unroutableExternalReferences": 0,
     "localOrEmbeddedReferences": 0,
-    "sourceUrlsRoutedToOwnedCDN": 12321,
-    "setsFullyPassed": 46
+    "sourceUrlsRoutedToOwnedCDN": 12587,
+    "setsFullyPassed": 49
   },
   "perSet": [
+    {
+      "set": "sv4K",
+      "name": "고대의 포효",
+      "canonicalCount": 95,
+      "allImageReferences": 266,
+      "cdnReferences": 266,
+      "originalSourceUrlsRouted": 266,
+      "alreadyOwnedUrls": 0,
+      "missing": 0,
+      "unroutable": 0,
+      "localOrEmbedded": 0,
+      "cdnVerified": 266,
+      "cdnFailed": 0,
+      "themeImages": 171,
+      "variants": 0,
+      "examples": [],
+      "cdnFailures": [],
+      "completeSelfHosted": true
+    },
     {
       "set": "sv4M",
       "name": "미래의 일섬",
@@ -847,50 +866,13 @@
       "missing": 0,
       "unroutable": 0,
       "localOrEmbedded": 0,
-      "cdnVerified": 16,
-      "cdnFailed": 4,
+      "cdnVerified": 20,
+      "cdnFailed": 0,
       "themeImages": 13,
       "variants": 0,
       "examples": [],
-      "cdnFailures": [
-        {
-          "where": "master[006].image",
-          "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/60fe4096e32ccc1c.webp",
-          "result": {
-            "ok": false,
-            "status": 0,
-            "reason": "TypeError: fetch failed"
-          }
-        },
-        {
-          "where": "art-themes.night.SVP1_006",
-          "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/60fe4096e32ccc1c.webp",
-          "result": {
-            "ok": false,
-            "status": 0,
-            "reason": "TypeError: fetch failed"
-          }
-        },
-        {
-          "where": "art-themes.color.SVP1_006",
-          "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/60fe4096e32ccc1c.webp",
-          "result": {
-            "ok": false,
-            "status": 0,
-            "reason": "TypeError: fetch failed"
-          }
-        },
-        {
-          "where": "art-themes.cameo.SVP1_006",
-          "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/60fe4096e32ccc1c.webp",
-          "result": {
-            "ok": false,
-            "status": 0,
-            "reason": "TypeError: fetch failed"
-          }
-        }
-      ],
-      "completeSelfHosted": false
+      "cdnFailures": [],
+      "completeSelfHosted": true
     },
     {
       "set": "SVC",
@@ -903,23 +885,13 @@
       "missing": 0,
       "unroutable": 0,
       "localOrEmbedded": 0,
-      "cdnVerified": 49,
-      "cdnFailed": 1,
+      "cdnVerified": 50,
+      "cdnFailed": 0,
       "themeImages": 28,
       "variants": 0,
       "examples": [],
-      "cdnFailures": [
-        {
-          "where": "master[020].image",
-          "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/2a20ef3c1d2be624.webp",
-          "result": {
-            "ok": false,
-            "status": 0,
-            "reason": "TypeError: fetch failed"
-          }
-        }
-      ],
-      "completeSelfHosted": false
+      "cdnFailures": [],
+      "completeSelfHosted": true
     },
     {
       "set": "SVB",
@@ -979,50 +951,7 @@
       "completeSelfHosted": true
     }
   ],
-  "failedCdnAssets": [
-    {
-      "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/60fe4096e32ccc1c.webp",
-      "result": {
-        "ok": false,
-        "status": 0,
-        "reason": "TypeError: fetch failed"
-      },
-      "usedBy": [
-        {
-          "set": "SVP1",
-          "where": "master[006].image"
-        },
-        {
-          "set": "SVP1",
-          "where": "art-themes.night.SVP1_006"
-        },
-        {
-          "set": "SVP1",
-          "where": "art-themes.color.SVP1_006"
-        },
-        {
-          "set": "SVP1",
-          "where": "art-themes.cameo.SVP1_006"
-        }
-      ],
-      "referenceCount": 4
-    },
-    {
-      "url": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/2a20ef3c1d2be624.webp",
-      "result": {
-        "ok": false,
-        "status": 0,
-        "reason": "TypeError: fetch failed"
-      },
-      "usedBy": [
-        {
-          "set": "SVC",
-          "where": "master[020].image"
-        }
-      ],
-      "referenceCount": 1
-    }
-  ],
+  "failedCdnAssets": [],
   "unroutablePaths": [],
   "notes": [
     "Original third-party URLs stored as provenance are NOT automatically hotlinks when recognized by active client-side image router.",
