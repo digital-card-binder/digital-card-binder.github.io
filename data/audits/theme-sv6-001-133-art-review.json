@@ -3187,5 +3187,18 @@
       ],
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv6/sv6-09.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "runner": "GitHub Actions",
+    "node": 22,
+    "java": 21,
+    "fullTests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "script": "scripts/apply-theme-sv6-complete-review.mjs",
+    "guard": "Complete exactly SV6 133/133 and preserve 9 existing placements",
+    "externalOriginsRequested": 0
+  }
 }
