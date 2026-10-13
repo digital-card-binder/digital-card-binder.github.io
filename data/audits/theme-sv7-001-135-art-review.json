@@ -3586,5 +3586,19 @@
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv7/sv7-09.webp.b64",
       "visualTitleEvidenceSheet": "data/audits/theme-visual-evidence/sv7/sv7-title-09.webp.b64"
     }
-  ]
+  ],
+  "validationRun": {
+    "node": "22",
+    "java": "21",
+    "expectedCheckpoint": "sv7 canonical 001",
+    "nextCheckpoint": "sv6a canonical 001",
+    "commands": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "script": "scripts/apply-theme-sv7-complete-review.mjs",
+    "requiresOwnedArchive": 135,
+    "thirdPartyOriginRequests": 0
+  }
 }
