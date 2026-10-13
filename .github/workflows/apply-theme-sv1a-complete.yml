@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/apply-theme-sv1a-complete.yml'
       - 'data/audits/theme-sv1a-001-103-art-review.json'
+      - 'scripts/apply-theme-sv1a-complete-review.mjs'
 permissions:
   contents: write
 concurrency:
