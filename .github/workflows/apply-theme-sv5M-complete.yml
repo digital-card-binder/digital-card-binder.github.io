@@ -1,0 +1,55 @@
+name: Finish Korean Cyber Judge sv5M complete set review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-sv5M-001-100-art-review.json'
+permissions:
+  contents: write
+concurrency:
+  group: finish-theme-sv5M-one-set
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out latest live main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Set up Java 21 for Firebase tests
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Apply guarded entire Korean Cyber Judge set
+        run: node scripts/apply-theme-sv5M-complete-review.mjs
+      - name: Rebuild derived site indexes
+        run: npm run site:prepare
+      - name: Check generated output
+        run: npm run site:check
+      - name: Run complete project regression suite
+        run: npm test
+      - name: Commit only fully tested data and generated artifacts
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-series-coverage.json
+          git add -u
+          if git diff --cached --quiet; then
+            echo "No change after successful full set verification."
+            exit 0
+          fi
+          git diff --cached --name-only
+          git commit -m "Complete all 100 Korean Cyber Judge artworks, 12-theme audit and missing names"
+          git push origin HEAD:main
