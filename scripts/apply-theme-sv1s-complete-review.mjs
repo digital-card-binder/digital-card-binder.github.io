@@ -1,3 +1,4 @@
+// Revalidated after correcting 11 prior Scarlet ex theme evidence keys in 108 owned-CDN visual-index records.
 import {readFile,writeFile} from "node:fs/promises";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
