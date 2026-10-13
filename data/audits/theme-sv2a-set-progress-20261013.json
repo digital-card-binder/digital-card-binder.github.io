@@ -11,7 +11,7 @@
   "visualEvidenceIndex": "data/audits/theme-visual-evidence/sv2a/visual-index.json",
   "visualContactSheetCount": 14,
   "alreadyNamedKoreanMasterCards": 22,
-  "unnamedMasterCardsRequiringOfficialKoreanProof": 158,
+  "unnamedMasterCardsRequiringOfficialKoreanProof": 128,
   "existingThemedCardKeys": 23,
   "remainingWork": [
     "Read the Korean print artwork for each of 210 canonical cards, independently classify all twelve themes",
@@ -19,18 +19,19 @@
     "Never duplicate or remove existing theme placements",
     "After full review run site:prepare, site:check and npm test before marking complete"
   ],
-  "nextSafeStart": "sv2a canonical 031, preserve 001-030; 210/210 self-hosted images already verified",
-  "notes": "Korean printed names 001-030 and independent 12-theme artwork checked with existing 23 historical themed keys preserved.",
-  "appliedReviewThrough": 30,
-  "reviewedKoreanNames": 30,
-  "appliedThemeSlots": 55,
+  "nextSafeStart": "sv2a canonical 061; 001-060 complete partial batches; 210/210 selfhosted images verified",
+  "notes": "Korean visual art and 60 printed names reviewed. Remaining 150 canonical slots deferred. No independent collection states changed.",
+  "appliedReviewThrough": 60,
+  "reviewedKoreanNames": 60,
+  "appliedThemeSlots": 107,
   "appliedThemeAdditions": {
-    "season": 24,
-    "color": 27,
+    "season": 46,
+    "color": 56,
     "sunset": 3,
-    "night": 1
+    "night": 2
   },
   "batchEvidence": [
-    "data/audits/theme-sv2a-001-030-art-review.json"
+    "data/audits/theme-sv2a-001-030-art-review.json",
+    "data/audits/theme-sv2a-031-060-art-review.json"
   ]
 }
