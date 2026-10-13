@@ -2375,5 +2375,15 @@
       "sourceRegion": "KR",
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv4K/sv4K-07.webp.b64"
     }
-  ]
+  ],
+  "validation": {
+    "target": "sv4K",
+    "selfhostedKoreanPrintImagesVerified": 95,
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "applicator": "scripts/apply-theme-sv4k-complete-review.mjs"
+  }
 }
