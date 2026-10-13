@@ -13,7 +13,7 @@ const [e,index,series,legacy,themes,state,images]=await Promise.all([
   read("data/audits/theme-series-review-status.json"),
   read("data/audits/theme-image-selfhost-audit.json")
 ]);
-const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv5M");
+const masterMatches=[...series,...legacy].filter(s=>String(s.code).toLowerCase()==="sv5m");
 if(masterMatches.length!==1)throw Error("Expected exactly one canonical Korean SV5M set.");
 const set=masterMatches[0],code=set.code;
 const expectedThemes=["sleeping","connected","evolution","night","season","color","sunset",
@@ -22,7 +22,7 @@ const grouped=new Map(themes.groups.map(g=>[g.code,g]));
 const preexisting=new Map();
 for(const theme of themes.groups){
   for(const item of theme.cards||[]){
-    if(String(item.set||"").toLowerCase()==="sv5M" ||
+    if(String(item.set||"").toLowerCase()==="sv5m" ||
       /^SV5M_\d{3}$/.test(String(item.code||"").toUpperCase())){
       const arr=preexisting.get(String(item.code).toUpperCase())||[];
       arr.push(theme.code);preexisting.set(String(item.code).toUpperCase(),arr);
