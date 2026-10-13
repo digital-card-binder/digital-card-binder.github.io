@@ -1,0 +1,47 @@
+name: Complete SV7a Korean 94-card theme review
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/audits/theme-sv7a-001-094-art-review.json'
+permissions:
+  contents: write
+concurrency:
+  group: finish-korean-theme-sv7a
+  cancel-in-progress: false
+jobs:
+  verify-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply 94 Korean printed card reviews with strict checkpoint and CDN proof checks
+        run: node scripts/apply-theme-sv7a-complete-review.mjs
+      - name: Prepare derived catalogs
+        run: npm run site:prepare
+      - name: Audit generated consistency
+        run: npm run site:check
+      - name: Run complete regression tests
+        run: npm test
+      - name: Commit one full Korean set after all tests
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/series.json data/series-legacy.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-series-coverage.json
+          git add -u
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Complete SV7a 94 Korean artwork reviews and preserve owned-image routing"
+          git push origin HEAD:main
