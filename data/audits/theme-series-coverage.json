@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 9272,
-    "uniqueThemeCards": 5678,
+    "themeCardSlots": 9327,
+    "uniqueThemeCards": 5706,
     "strictCompleteSetCount": 52,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 221,
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 337,
+      "cardSlots": 338,
       "setCount": 55,
       "rarities": [
         "AR",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 2685,
-      "setCount": 64,
+      "cardSlots": 2709,
+      "setCount": 65,
       "rarities": [
         "AR",
         "C",
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 4591,
+      "cardSlots": 4618,
       "setCount": 64,
       "rarities": [
         "AR",
@@ -162,7 +162,7 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 176,
+      "cardSlots": 179,
       "setCount": 49,
       "rarities": [
         "AR",
@@ -257,7 +257,7 @@
       "cardCount": 4749,
       "completeSetCount": 39,
       "remainingSetCount": 14,
-      "currentThemeSlots": 5644
+      "currentThemeSlots": 5699
     },
     {
       "era": "S",
@@ -385,7 +385,7 @@
       "code": "sv2a",
       "name": "포켓몬카드 151",
       "cardCount": 210,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "SV",
@@ -1470,14 +1470,15 @@
       "cardCount": 210,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-13",
       "themeHits": {
         "sleeping": 4,
         "evolution": 9,
-        "night": 7,
-        "color": 1,
-        "sunset": 1,
+        "night": 8,
+        "season": 24,
+        "color": 28,
+        "sunset": 4,
         "reflections": 2,
         "street": 3,
         "cameo": 1
