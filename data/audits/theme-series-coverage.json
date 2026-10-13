@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 10684,
-    "uniqueThemeCards": 6399,
+    "themeCardSlots": 10774,
+    "uniqueThemeCards": 6454,
     "strictCompleteSetCount": 64,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 209,
@@ -82,8 +82,8 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 104,
-      "setCount": 26,
+      "cardSlots": 108,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 367,
-      "setCount": 61,
+      "cardSlots": 369,
+      "setCount": 62,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3141,
-      "setCount": 70,
+      "cardSlots": 3160,
+      "setCount": 71,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 5366,
-      "setCount": 68,
+      "cardSlots": 5421,
+      "setCount": 69,
       "rarities": [
         "AR",
         "C",
@@ -162,8 +162,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 203,
-      "setCount": 51,
+      "cardSlots": 204,
+      "setCount": 52,
       "rarities": [
         "AR",
         "C",
@@ -175,8 +175,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 55,
-      "setCount": 27,
+      "cardSlots": 56,
+      "setCount": 28,
       "rarities": [
         "AR",
         "C",
@@ -188,8 +188,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 132,
-      "setCount": 48,
+      "cardSlots": 134,
+      "setCount": 49,
       "rarities": [
         "AR",
         "C",
@@ -202,11 +202,12 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 51,
-      "setCount": 26,
+      "cardSlots": 52,
+      "setCount": 27,
       "rarities": [
         "AR",
         "C",
+        "PROMO",
         "R",
         "U"
       ]
@@ -214,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 923,
-      "setCount": 62,
+      "cardSlots": 926,
+      "setCount": 63,
       "rarities": [
         "AR",
         "C",
@@ -228,8 +229,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 102,
-      "setCount": 33,
+      "cardSlots": 104,
+      "setCount": 34,
       "rarities": [
         "AR",
         "C",
@@ -265,7 +266,7 @@
       "cardCount": 4800,
       "completeSetCount": 0,
       "remainingSetCount": 61,
-      "currentThemeSlots": 83
+      "currentThemeSlots": 173
     },
     {
       "era": "SM",
@@ -343,7 +344,7 @@
       "code": "S-P",
       "name": "소드&실드 프로모 카드",
       "cardCount": 204,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -3026,9 +3027,20 @@
       "cardCount": 204,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-13",
+      "themeHits": {
+        "connected": 4,
+        "night": 2,
+        "season": 19,
+        "color": 55,
+        "sunset": 1,
+        "reflections": 1,
+        "food": 2,
+        "work": 1,
+        "street": 3,
+        "cameo": 2
+      }
     },
     {
       "era": "SM",

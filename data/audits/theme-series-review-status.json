@@ -61612,6 +61612,37 @@
       "archiveVerificationStatus": "108_owned_CDN_Korean_print_images_decoded",
       "fullSetEvidence": "data/audits/theme-sv1S-001-108-art-review.json",
       "note": "스칼렛 ex 한국판 108장 인쇄 카드명과 전 레어도 12테마 전수검수. 빈 한국어 카드명 90건 복구, 기존 테마 11건 보존, 신규 외부 요청 0건."
+    },
+    "S-P": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-13",
+      "reviewedCardCount": 55,
+      "lastReviewedCanonicalOrder": 56,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [
+        "S-P_022"
+      ],
+      "otherRegionExceptionsPending": [
+        "S-P_115"
+      ],
+      "verifiedSelfHostedImageCount": 202,
+      "newlyAddedThemeSlotCount": 90,
+      "fullSetSelfhostAudit": "data/audits/theme-visual-evidence/S-P/visual-index.json",
+      "partialEvidence": "data/audits/theme-sp-001-060-Korean-art-review-20261013.json",
+      "note": "S-P 56 canonical slots examined: 55 Korean visuals reviewed across 12 themes, Japanese S-P_022 held. All 204 display image references routed to owned Cloudflare 202 or local placeholder 2. No ownership edits."
     }
   },
   "queue": {

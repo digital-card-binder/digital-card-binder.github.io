@@ -3715,7 +3715,36 @@
       "nextStart": "CLF_004 Korean full resolution source pending",
       "evidence": "data/audits/theme-classic-15-interim-official-asset-preparation-20261013.json",
       "note": "Fifteen cards are first-party Korean product illustration crops; less sharp than standalone scans, clearly flagged for high-res followup. No master ownership flags or card IDs changed."
+    },
+    {
+      "task": 6,
+      "set": "S-P",
+      "range": "canonical 001-056, 55 approved Korean and 1 Japanese hold",
+      "canonicalCardCount": 204,
+      "artworkVisuallyVerifiedCount": 55,
+      "artworkPendingCount": 149,
+      "selfHostedReferenceCountAfter": 202,
+      "externalImageReferenceCountAfter": 0,
+      "localPendingImageCount": 2,
+      "archiveVerificationStatus": "204_decoded_owned_images_2_held_for_original_print",
+      "verifiedImageCount": 204,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "themeAdditions": {
+        "color": 55,
+        "season": 19,
+        "cameo": 2,
+        "food": 2,
+        "street": 3,
+        "night": 2,
+        "sunset": 1,
+        "connected": 4,
+        "work": 1,
+        "reflections": 1
+      },
+      "nextStart": "S-P canonical 057",
+      "note": "S-P display image pointers all use DCB-owned CDN or local placeholder; source URLs stored only for provenance."
     }
   ],
-  "nextStart": "S-P canonical 001"
+  "nextStart": "S-P canonical 057"
 }
