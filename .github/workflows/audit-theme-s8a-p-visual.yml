@@ -1,0 +1,41 @@
+name: Audit S8a-P Korean 25th anniversary promo 25 own-CDN images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-s8a-p-visual.yml'
+      - 'scripts/audit-theme-s8a-p-visual.py'
+permissions:
+  contents: write
+concurrency:
+  group: s8a-p-25-korean-selfhosted-image-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Inspect Korean S8a-P image inventory from own CDN only
+        run: python scripts/audit-theme-s8a-p-visual.py
+      - name: Checkpoint local archive evidence and image contact sheets
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/S8a-P
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Checkpoint S8a-P 25th anniversary Korean promo image proofs"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/audit-theme-s8a-p-visual.py
+          done
