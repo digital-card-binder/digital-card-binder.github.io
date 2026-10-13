@@ -2357,5 +2357,16 @@
       "sourceRegion": "KR",
       "visualEvidenceSheet": "data/audits/theme-visual-evidence/sv4M/sv4M-07.webp.b64"
     }
-  ]
+  ],
+  "validation": {
+    "node": "22",
+    "java": "21",
+    "applicator": "scripts/apply-theme-sv4m-complete-review.mjs",
+    "tests": [
+      "npm run site:prepare",
+      "npm run site:check",
+      "npm test"
+    ],
+    "selfhostImagesVerified": 95
+  }
 }
