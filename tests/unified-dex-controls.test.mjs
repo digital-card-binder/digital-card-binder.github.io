@@ -22,7 +22,7 @@ test("all standalone dexes use the shared quick control contract", () => {
     assert.match(nav, new RegExp(`\\b${id}: \\{`), `${id}: unified control config`);
   }
 
-  for (const label of ["전체", "보유", "미보유", "필터"]) {
+  for (const label of ["전체", "보유", "미보유"]) {
     assert.match(nav, new RegExp(`>${label}<`));
   }
 
@@ -43,12 +43,15 @@ test("shared quick controls never write or merge collection ownership", () => {
   assert.match(sharedControls, /button\[data-status=/);
 });
 
-test("mobile filter surfaces collapse behind one shared Filter button", () => {
+test("all collection filters are directly available with three compact status buttons", () => {
   const css = read("collector.css");
+  const nav = read("collector-nav.js");
   assert.match(css, /[.]collector-quick-controls/);
-  assert.match(css, /grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/);
+  assert.match(css, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
   assert.match(css, /[.]collector-status-source \{\s*display: none !important/);
-  assert.match(css, /[.]collector-quick-filter-surface[.]is-quick-filter-collapsed/);
+  assert.match(css, /[.]collector-filter-always-visible/);
+  assert.match(nav, /surface[.]classList[.]add\("collector-filter-always-visible"\)/);
+  assert.doesNotMatch(nav, /setFilterOpen\(/);
   assert.match(css, /@media \(max-width: 690px\)[\s\S]*?[.]collector-quick-controls/);
 });
 
