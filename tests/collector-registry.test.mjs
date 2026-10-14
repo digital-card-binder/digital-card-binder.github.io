@@ -105,6 +105,30 @@ test("all existing catalogs retain their expected item counts", async () => {
   }
 });
 
+test("Pokemon collection resolves all 1,025 Korean species while preserving curated collection identities", async () => {
+  const catalog = await registry.loadCatalog("pokemon");
+  const expected = JSON.parse(await readFile(new URL("../data/pokedex.json", import.meta.url), "utf8"));
+  const curated = JSON.parse(await readFile(new URL("../data/pokemon-collections.json", import.meta.url), "utf8"));
+  assert.equal(catalog.groups.length, expected.records.length);
+  assert.equal(catalog.items.length, 14987);
+
+  for (const record of expected.records) {
+    const group = catalog.groups.find((item) => item.key === record.nameKo);
+    assert.ok(group, "Missing National Dex species: " + record.nameKo);
+    assert.ok(group.itemKeys.length > 0, "Missing Korean card records: " + record.nameKo);
+  }
+  for (const species of ["주뱃", "우라오스", "모래털가족"]) {
+    assert.ok(catalog.groups.find((item) => item.key === species)?.itemKeys.length > 0);
+  }
+
+  const originalGroup = curated.find((item) => item.name === "이상해씨");
+  const originalCard = originalGroup.cards[0];
+  const oldKey = context.window.DigitalCardBinder.cardIdentity.cardIdentity(
+    "pokemon", originalGroup, originalCard, 0, 0,
+  );
+  assert.ok(catalog.itemMap.has(oldKey), "Previously collected curated cards must keep account keys");
+});
+
 test("popular art themes include regular C/U/R cards", async () => {
   const payload = JSON.parse(await readFile(new URL("../data/art-themes.json", import.meta.url), "utf8"));
   for (const code of ["sunset", "reflections", "food", "street", "work", "cameo"]) {
