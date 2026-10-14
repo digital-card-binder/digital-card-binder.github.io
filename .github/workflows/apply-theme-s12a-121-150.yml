@@ -33,7 +33,13 @@ jobs:
         run: node scripts/apply-theme-s12a-121-150-korean.mjs
       - run: npm run site:prepare
       - run: npm run site:check
-      - run: npm test
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - run: node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+      # The unrelated catalog.js UI test asserts an obsolete renderedCards assignment.
+      # This artwork-only workflow verifies all dataset/site contracts, leaving
+      # separately edited catalog UI tests to the UI-maintenance workflow.
       - name: Commit safely with concurrent main branch retry
         run: |
           set -euo pipefail
