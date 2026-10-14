@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 import base64,json
 ROOT=Path(__file__).resolve().parents[1]
-CODE="s10D"
+CODE="s10d"
 COUNT=30
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/CODE/"001-030"
 AUDIT.mkdir(parents=True,exist_ok=True)
@@ -81,7 +81,7 @@ for start in range(0,COUNT,15):
   draw.text((x+7,y+318),str(c["canonicalOrder"])+" "+str(c["name"])[:18],fill=(10,10,10))
   draw.text((x+7,y+338),str(c["masterCode"])[:25]+" "+proof["status"],fill=(10,10,10))
  out=BytesIO();sheet.save(out,format="WEBP",quality=78)
- file=f"s10D-001-030-{start//15+1:02}.webp.b64"
+ file=f"s10d-001-030-{start//15+1:02}.webp.b64"
  (AUDIT/file).write_text(base64.b64encode(out.getvalue()).decode("ascii"),encoding="ascii")
  sheets.append({"file":file,"canonicalStart":start+1,"canonicalEnd":min(start+15,30),"encodedBytes":len(out.getvalue())})
 counter={"verified":sum(proof["status"]=="decoded" for proof,_ in items),"missing":sum(proof["status"]!="decoded" for proof,_ in items)}
