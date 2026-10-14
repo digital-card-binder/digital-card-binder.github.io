@@ -62454,15 +62454,16 @@
     "s12a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 180,
-      "verifiedSelfHostedImageCount": 180,
+      "reviewedCardCount": 210,
+      "verifiedSelfHostedImageCount": 210,
       "reviewedRanges": [
         "001-030",
         "031-060",
         "061-090",
         "091-120",
         "121-150",
-        "151-180"
+        "151-180",
+        "181-210"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62479,12 +62480,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 211,
-      "priorThemeSlotsPreserved": 246,
-      "partialReviewEvidence": "data/audits/theme-s12a-151-180-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12a_001-180_180_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12a canonical 181",
-      "note": "한국판 VSTAR 유니버스 262장 중 001-180까지 실제 카드와 12테마 검수. 이번 AR 8장의 기존 13건 유지하고 풍경 3·거리 2·컬러 2·밤 1 추가. 트레이너 22장은 포켓몬 테마에서 제외. 수집 원본 변경 없음."
+      "newlyAddedThemeSlotCount": 259,
+      "priorThemeSlotsPreserved": 254,
+      "partialReviewEvidence": "data/audits/theme-s12a-181-210-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-210_210_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12a canonical 211",
+      "note": "한국어 VSTAR 유니버스 262장 중 001-210 실제 일러스트 전수검수. 이번 30장 포켓몬 그림 재검토, 기존 연결 파노라마 등 25개 배치 테마를 보존하고 근거 있는 48개 도감 슬롯만 추가. 보유 CDN 모던 28, 레거시 2, 수집 정보 변경 없음."
     }
   },
   "queue": {
@@ -62510,8 +62511,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-180 (180/262) Korean artwork and 180 DCB-owned CDN images verified",
-    "nextStart": "s12a canonical 181",
+    "lastSafeCheckpoint": "s12a canonical 001-210 (210/262) Korean artwork and 210 DCB-owned CDN images verified",
+    "nextStart": "s12a canonical 211",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
