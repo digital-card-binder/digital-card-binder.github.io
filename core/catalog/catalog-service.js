@@ -30,8 +30,8 @@
       "promoCardCount": 186
     },
     "pokemon": {
-      "itemCount": 1333,
-      "groupCount": 67,
+      "itemCount": 14987,
+      "groupCount": 1025,
       "unit": "장"
     },
     "artist": {
@@ -163,12 +163,97 @@
     return cache.get(path);
   }
 
-  async function pokemonCollections() {
-    const [base, supplement] = await Promise.all([
+  // Preserve curated collection entries and their existing ownership identities.
+  // The Korean master index supplies cards for all previously empty species.
+  let pokemonCollectionsPromise = null;
+
+  function pokemonCollectionSpecies(rawName, nameSet) {
+    let name = clean(rawName).normalize("NFKC").replace(/\s+/g, " ");
+    const aliases = { "모래털가죽": "모래털가족" };
+    const suffix = /(?:\s*(?:ex|gx|vmax|vstar|v-union|v|break|lv\.?x|legend|☆|★|프라임|δ|x))+$/i;
+    const prefix = /^(?:알로라|가라르|히스이|팔데아|빛나는|찬란한|다크|메가|M|일격|연격)\s*/i;
+    for (let i = 0; i < 4 && name; i += 1) {
+      if (nameSet.has(name)) return name;
+      if (nameSet.has(aliases[name])) return aliases[name];
+      const shortened = name
+        .replace(suffix, "")
+        .replace(prefix, "")
+        .replace(/^[^\s]{1,20}의\s+/, "")
+        .trim();
+      if (shortened === name) break;
+      name = shortened;
+    }
+    return nameSet.has(name) ? name : aliases[name] || "";
+  }
+
+  async function buildPokemonCollections() {
+    const [base, supplement, pokedex, index] = await Promise.all([
       json("./data/pokemon-collections.json"),
       json("./data/pokemon-collections-21-40.json"),
+      json("./data/pokedex.json"),
+      pokemonSearchIndex(),
     ]);
-    return mergeGroups(base, supplement, "name");
+    const records = Array.isArray(pokedex?.records) ? pokedex.records : [];
+    if (records.length !== 1025 || index?.version !== 2) {
+      throw new Error("포켓몬 컬렉션 원본 데이터의 구조가 올바르지 않습니다.");
+    }
+
+    const curated = mergeGroups(base, supplement, "name");
+    const curatedByName = new Map(curated.map((group) => [clean(group.name), group]));
+    const allNames = new Set(records.map((record) => clean(record.nameKo)));
+    const additional = new Map(
+      records.filter((record) => !curatedByName.has(clean(record.nameKo)))
+        .map((record) => [clean(record.nameKo), {
+          name: record.nameKo,
+          dexNumber: record.number,
+          cards: [],
+        }]),
+    );
+    const knownCards = new Map([...additional.keys()].map((name) => [name, new Set()]));
+
+    for (const group of Array.isArray(index.groups) ? index.groups : []) {
+      for (const entry of Array.isArray(group?.[4]) ? group[4] : []) {
+        const species = pokemonCollectionSpecies(entry?.[1], allNames)
+          || pokemonCollectionSpecies(entry?.[2], allNames);
+        const target = additional.get(species);
+        if (!target) continue;
+        const code = clean(entry?.[0]);
+        const encodedImage = clean(entry?.[3]);
+        if (!code || !encodedImage) continue;
+        const identity = code.toLowerCase();
+        if (knownCards.get(species).has(identity)) continue;
+        knownCards.get(species).add(identity);
+        const image = encodedImage.startsWith("@/")
+          ? index.imageBase + encodedImage.slice(1)
+          : encodedImage;
+        target.cards.push({
+          name: clean(entry?.[1]) || species,
+          code,
+          meta: code,
+          image,
+          owned: false,
+          accountIndex: 0,
+        });
+      }
+    }
+
+    return records.map((record) => {
+      const name = clean(record.nameKo);
+      const existing = curatedByName.get(name);
+      return existing
+        ? { ...existing, dexNumber: record.number }
+        : additional.get(name);
+    });
+  }
+
+  async function pokemonCollections() {
+    if (!pokemonCollectionsPromise) {
+      pokemonCollectionsPromise = buildPokemonCollections().catch((error) => {
+        pokemonCollectionsPromise = null;
+        throw error;
+      });
+    }
+    return pokemonCollectionsPromise;
   }
 
   async function ar() {
