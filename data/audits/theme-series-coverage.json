@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13272,
-    "uniqueThemeCards": 7949,
+    "themeCardSlots": 13325,
+    "uniqueThemeCards": 7976,
     "strictCompleteSetCount": 95,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 178,
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 407,
+      "cardSlots": 408,
       "setCount": 74,
       "rarities": [
         "AR",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3903,
-      "setCount": 98,
+      "cardSlots": 3923,
+      "setCount": 99,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6943,
-      "setCount": 100,
+      "cardSlots": 6973,
+      "setCount": 101,
       "rarities": [
         "AR",
         "C",
@@ -178,8 +178,8 @@
     {
       "code": "reflections",
       "name": "반사 · 거울",
-      "cardSlots": 57,
-      "setCount": 29,
+      "cardSlots": 58,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
@@ -218,7 +218,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 992,
+      "cardSlots": 993,
       "setCount": 82,
       "rarities": [
         "AR",
@@ -269,7 +269,7 @@
       "cardCount": 4800,
       "completeSetCount": 31,
       "remainingSetCount": 30,
-      "currentThemeSlots": 2671
+      "currentThemeSlots": 2724
     },
     {
       "era": "SM",
@@ -375,7 +375,7 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -852,13 +852,16 @@
       "cardCount": 109,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 3,
-        "night": 1,
+        "night": 2,
+        "season": 20,
+        "color": 30,
+        "reflections": 1,
         "food": 1,
-        "street": 1
+        "street": 2
       }
     },
     {

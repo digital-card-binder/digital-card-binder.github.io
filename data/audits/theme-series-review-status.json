@@ -62590,6 +62590,36 @@
       "archiveVerificationStatus": "s11_001-127_all_127_Korean_DCB_owned_CDN_images_decoded",
       "nextStart": "s10b canonical 001",
       "note": "로스트어비스 한국판 127장 전체 12개 테마 전수검수 완료. 마지막 금색 특별 레어도 7장 중 컬러 1·유적 풍경 1 추가. 전 카드 한국판 이미지 127장 자체 CDN 확인, 보유 수집키와 001-120 체크포인트 보존."
+    },
+    "s10b": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 53,
+      "priorThemeSlotsPreserved": 6,
+      "partialReviewEvidence": "data/audits/theme-s10b-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10b_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10b canonical 031",
+      "note": "Pokémon GO 한국판 109장 중 001-030 30장 한국어 인쇄 이미지와 12테마 검수 완료. 기존 테마 3건 보존, 신규 53건 반영; 모던 자체 CDN 30장 확인, 수집 데이터 보존."
     }
   },
   "queue": {
@@ -62615,8 +62645,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s11 canonical 001-127 (127/127) Korean full set complete; all owned Korean images verified",
-    "nextStart": "s10b canonical 001",
+    "lastSafeCheckpoint": "s10b canonical 001-030 (30/109) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10b canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
