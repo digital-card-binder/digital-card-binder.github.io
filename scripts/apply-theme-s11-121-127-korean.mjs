@@ -106,7 +106,7 @@ images.batches.push({task:6,set:"s11",range:"canonical 121-127 Korean Lost Abyss
  unverifiedImageCount:0,brokenReferenceCount:0,modernArchiveImages:7,
  legacyArchiveImages:0,priorThemeSlotsPreserved:0,themeAdditions:additions,
  nextStart:"s10b canonical 001",
- note:"All 30 Korean printed images decoded from own CDN; no third-party origin downloads."});
+ note:"All final seven Korean printed images decoded from own CDN; full 127/127 strict set completed without origin downloads."});
 images.nextStart="s10b canonical 001";images.updatedAt="2026-10-14";art.updatedAt="2026-10-14";
 const progress={schemaVersion:1,recordedAt:"2026-10-14",set:"s11",status:"complete",
  totalMasterCards:127,reviewedCanonicalCards:127,remainingUnreviewed:0,
