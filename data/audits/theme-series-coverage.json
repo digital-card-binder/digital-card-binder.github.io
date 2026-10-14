@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13535,
-    "uniqueThemeCards": 8098,
-    "strictCompleteSetCount": 95,
+    "themeCardSlots": 13538,
+    "uniqueThemeCards": 8101,
+    "strictCompleteSetCount": 96,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 178,
+    "baselineRemainingSetCount": 177,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -142,7 +142,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7096,
+      "cardSlots": 7099,
       "setCount": 102,
       "rarities": [
         "AR",
@@ -269,9 +269,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 31,
-      "remainingSetCount": 30,
-      "currentThemeSlots": 2934
+      "completeSetCount": 32,
+      "remainingSetCount": 29,
+      "currentThemeSlots": 2937
     },
     {
       "era": "SM",
@@ -377,13 +377,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s10a",
-      "name": "다크판타스마",
-      "cardCount": 99,
       "status": "in_progress"
     },
     {
@@ -531,6 +524,13 @@
       "code": "s2",
       "name": "반역크래시",
       "cardCount": 115,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s1a",
+      "name": "VMAX라이징",
+      "cardCount": 86,
       "status": "pending"
     }
   ],
@@ -841,13 +841,13 @@
       "cardCount": 99,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 2,
         "night": 8,
         "season": 38,
-        "color": 77,
+        "color": 80,
         "street": 9
       }
     },
