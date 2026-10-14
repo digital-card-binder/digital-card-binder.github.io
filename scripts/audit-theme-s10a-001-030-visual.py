@@ -86,7 +86,7 @@ for start in range(0,COUNT,15):
  sheets.append({"file":file,"canonicalStart":start+1,"canonicalEnd":min(start+15,30),"encodedBytes":len(out.getvalue())})
 counter={"verified":sum(proof["status"]=="decoded" for proof,_ in items),"missing":sum(proof["status"]!="decoded" for proof,_ in items)}
 report={"schemaVersion":1,"recordedAt":"2026-10-14","set":CODE,
- "name":master.get("name"),"cardCount":COUNT,"masterSetCardCount":109,"canonicalRange":"001-030","verificationCounts":counter,
+ "name":master.get("name"),"cardCount":COUNT,"masterSetCardCount":99,"canonicalRange":"001-030","verificationCounts":counter,
  "existingThemeRecords":existing,
  "masterMissingKoreanNames":sum(not str(c["name"]).strip() for c in cards),
  "source":"User-owned DCB Cloudflare archives only; 0 third-party origin requests.",
