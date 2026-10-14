@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -57,6 +58,20 @@ function countPopulatedGroups(groups) {
   ).length;
 }
 
+async function buildRuntimePokemonCatalog() {
+  // Use the same species matching and account identities as the browser.
+  // Counting only the original two curated JSON files would miss 958 species.
+  const runtime = { window: {} };
+  runtime.fetch = async (url) => {
+    const source = String(url || "").replace(/^\.\/+/, "");
+    return { ok: true, json: () => readJson(source) };
+  };
+  vm.runInNewContext(await readFile(targetPath, "utf8"), runtime, {
+    filename: "core/catalog/catalog-service.js",
+  });
+  return runtime.window.DigitalCardBinder.catalog.pokemonCollections();
+}
+
 async function buildMetrics() {
   const [
     pokedex,
@@ -93,7 +108,7 @@ async function buildMetrics() {
   ]);
 
   const series = mergeGroups(seriesBase, seriesLegacy, "code");
-  const pokemon = mergeGroups(pokemonBase, pokemonSupplement, "name");
+  const pokemon = await buildRuntimePokemonCatalog();
   const ar = mergeGroups(arBase, arSupplement, "code");
   const artistGroups = Array.isArray(artists?.artists) ? artists.artists : [];
   const trainerGroups = Array.isArray(trainerPokemon?.groups) ? trainerPokemon.groups : [];
