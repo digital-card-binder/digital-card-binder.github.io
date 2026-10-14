@@ -1,0 +1,55 @@
+name: Apply SI Korean Start Deck 100 canonical 331-360 themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-si-331-360.yml'
+      - 'scripts/apply-theme-si-331-360-korean.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: si-331-360-korean-themes
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply verified SI 331-360 Korean cards and owned archive theme illustrations
+        run: node scripts/apply-theme-si-331-360-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm test
+      - name: Commit all inspected changes with safe retry
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-si-331-360-progress-20261014.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Review SI 331-360 Korean art themes and self-hosted card images"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-si-331-360-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm test
+          done
