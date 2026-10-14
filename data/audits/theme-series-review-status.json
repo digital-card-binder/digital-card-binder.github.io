@@ -62222,7 +62222,7 @@
     "SI": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 180,
+      "reviewedCardCount": 210,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -62243,15 +62243,16 @@
         "061-090",
         "091-120",
         "121-150",
-        "151-180"
+        "151-180",
+        "181-210"
       ],
       "heldCards": [],
-      "verifiedSelfHostedImageCount": 180,
-      "newlyAddedThemeSlotCount": 316,
-      "partialReviewEvidence": "data/audits/theme-si-151-180-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "SI_001-180_180_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
-      "nextStart": "SI canonical 181",
-      "note": "SI 한국판 001/414-180/414 시각검수 180장, 자체 CDN 180장 검증, 나머지 250장 미검수. 기존 SI_342 수면 테마/수집 데이터 유지."
+      "verifiedSelfHostedImageCount": 210,
+      "newlyAddedThemeSlotCount": 372,
+      "partialReviewEvidence": "data/audits/theme-si-181-210-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "SI_001-210_210_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "nextStart": "SI canonical 211",
+      "note": "SI 한국판 001/414-210/414 시각검수 210장, 자체 CDN 210장 검증, 나머지 220장 미검수. 기존 SI_342 수면 테마/수집 데이터 유지."
     }
   },
   "queue": {
@@ -62277,8 +62278,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SI canonical 001-180 (180/430) Korean artwork checked; previous 150 and original SI_342 preserved",
-    "nextStart": "SI canonical 181",
+    "lastSafeCheckpoint": "SI canonical 001-210 (210/430) Korean artwork checked; previous 180 and original SI_342 preserved",
+    "nextStart": "SI canonical 211",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
