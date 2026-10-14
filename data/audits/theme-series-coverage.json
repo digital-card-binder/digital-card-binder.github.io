@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13403,
-    "uniqueThemeCards": 8022,
+    "themeCardSlots": 13460,
+    "uniqueThemeCards": 8052,
     "strictCompleteSetCount": 95,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 178,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 410,
-      "setCount": 74,
+      "cardSlots": 416,
+      "setCount": 75,
       "rarities": [
         "AR",
         "C",
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3941,
-      "setCount": 99,
+      "cardSlots": 3956,
+      "setCount": 100,
       "rarities": [
         "AR",
         "C",
@@ -141,8 +141,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7019,
-      "setCount": 101,
+      "cardSlots": 7049,
+      "setCount": 102,
       "rarities": [
         "AR",
         "C",
@@ -219,8 +219,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1005,
-      "setCount": 82,
+      "cardSlots": 1011,
+      "setCount": 83,
       "rarities": [
         "AR",
         "C",
@@ -270,7 +270,7 @@
       "cardCount": 4800,
       "completeSetCount": 31,
       "remainingSetCount": 30,
-      "currentThemeSlots": 2802
+      "currentThemeSlots": 2859
     },
     {
       "era": "SM",
@@ -383,7 +383,7 @@
       "code": "s10a",
       "name": "다크판타스마",
       "cardCount": 99,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -840,10 +840,14 @@
       "cardCount": 99,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "night": 6,
+        "season": 15,
+        "color": 30,
+        "street": 6
       }
     },
     {

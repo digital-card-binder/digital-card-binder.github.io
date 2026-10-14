@@ -62672,6 +62672,36 @@
       "archiveVerificationStatus": "101_verified_Korean_card_prints_8_energy_variants_held",
       "nextStart": "s10b canonical 102 evidence",
       "note": "Pokémon GO 한국판 101/109 카드 아트·자체 CDN 검수 완료. 마지막 102-109 에너지 8개는 094-101과 중복된 이미지와 No. 명칭이므로 한국판 인쇄 구분 증거 보류. 수집키·기존 데이터 보존."
+    },
+    "s10a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 57,
+      "priorThemeSlotsPreserved": 2,
+      "partialReviewEvidence": "data/audits/theme-s10a-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10a_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10a canonical 031",
+      "note": "다크판타스마 한국판 001-030 30장 실제 일러스트와 12테마 검수. 신규 57건, 자체 CDN 29+1장. 이전 S10b 에너지 인쇄 증거 보류 8건과 기존 사용자 수집정보 보존."
     }
   },
   "queue": {
@@ -62691,14 +62721,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s10b",
+    "currentSet": "s10a",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10b canonical 001-101 (101/109); 102-109 exact Korean energy-print evidence pending",
-    "nextStart": "s10b canonical 102 evidence",
+    "lastSafeCheckpoint": "s10a canonical 001-030 (30/99) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10a canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
