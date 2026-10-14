@@ -213,6 +213,11 @@ for (const record of pokedex.records || []) {
     "national",
     record.number,
     record.nameKo || record.nameEn || `#${record.number}`,
+    {
+      image: record.imageUrl,
+      setCode: setFromImage(record.imageUrl),
+      cardNumber: record.imageUrl,
+    },
   );
 }
 
