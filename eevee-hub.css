@@ -1,0 +1,74 @@
+/* Compact Eevee sub-dex navigation; scoped to the Eevee landing page. */
+.eevee-subdex-heading {
+  align-items: center;
+  margin-bottom: 14px;
+}
+.eevee-subdex-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  letter-spacing: -.03em;
+}
+.eevee-subdex-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 27px;
+  height: 27px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #eef1f7;
+  color: #52617a;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.eevee-back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid #dfe5ef;
+  border-radius: 999px;
+  background: #fff;
+  color: #536078;
+  font-size: .77rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.eevee-back-link:hover {
+  border-color: #bccce0;
+  background: #f3f6fb;
+}
+.eevee-back-link:focus-visible {
+  outline: 3px solid rgba(42, 117, 187, .35);
+  outline-offset: 2px;
+}
+@media (max-width: 620px) {
+  .theme-grid-heading.eevee-subdex-heading {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .eevee-subdex-heading h2 {
+    font-size: 1.03rem;
+  }
+  .eevee-subdex-count {
+    min-width: 24px;
+    height: 24px;
+    font-size: .69rem;
+  }
+  .eevee-back-link {
+    min-height: 33px;
+    padding: 6px 10px;
+    font-size: .69rem;
+  }
+}
