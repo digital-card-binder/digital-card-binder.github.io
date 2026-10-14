@@ -62489,6 +62489,36 @@
       "nextStart": "s12 canonical 001",
       "note": "한국판 VSTAR 유니버스 전체 262장 모든 레어도 및 트레이너·에너지 슬롯 12테마 검수 완료. 최종 22장 이미지 검증, 골드 레어 포켓몬 4장에 5개 신규 슬롯. 기존 수집 아이디·카드 코드·이미지 원본 출처 보존. 미확인 이미지 0.",
       "finalReviewEvidence": "data/audits/theme-s12a-241-262-Korean-art-review-20261014.json"
+    },
+    "s12": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 54,
+      "priorThemeSlotsPreserved": 2,
+      "partialReviewEvidence": "data/audits/theme-s12-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12 canonical 031",
+      "note": "패러다임트리거 한국판 125장 중 30장 실제 그림 12테마 검수. 총 54 슬롯 추가, 기존 잠자는 어흥염 분류 보존. 한국판 자사 보관 이미지 30장 모두 검증, 소유·번호 유지."
     }
   },
   "queue": {
@@ -62514,8 +62544,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-262 (262/262) Korean artwork and DCB-owned CDN images verified; strict complete",
-    "nextStart": "s12 canonical 001",
+    "lastSafeCheckpoint": "s12 canonical 001-030 (30/125) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s12 canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
