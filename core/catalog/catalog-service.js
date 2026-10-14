@@ -289,7 +289,7 @@
   // Keep world JSON, slot numbers and ownership identities unchanged.
   const REVIEWED_WORLD_IMAGES = Object.freeze({
     "kanto-pokemon-center": "https://cards.image.pokemonkorea.co.kr/data/wmimages/BW/BGR/bw3_hb_051.jpg",
-    "kanto-pokestop": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10b/S10b_071.png",
+    "kanto-pokestop": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10b/S10b_071.webp",
   });
 
   // Reference metadata only: each world item keeps its independent worldDex key.
