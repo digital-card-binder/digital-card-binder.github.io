@@ -1419,6 +1419,15 @@
     actions.append(layoutOptions);
     resultsBar.append(actions);
 
+    // The catalog script may have created quick collection before this
+    // toolbar existed. Re-parent the existing control without resetting it.
+    const quickCollect = document.querySelector("#catalog-quick-collect");
+    if (quickCollect && !actions.contains(quickCollect)) {
+      quickCollect.classList.remove("catalog-quick-collect--nested");
+      quickCollect.classList.add("catalog-quick-collect--inline");
+      actions.prepend(quickCollect);
+    }
+
     // A status filter moved into a shared three-button bar must not leave
     // a visually empty row below the search field.
     const redundantRow = document.querySelector(".catalog-filter-row");
