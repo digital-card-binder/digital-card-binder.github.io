@@ -115,7 +115,7 @@ const progress={schemaVersion:1,recordedAt:"2026-10-14",set:"s11",status:"in_pro
  modernArchiveImages:modernCount,legacyArchiveImages:legacyCount,
  proof:A+"theme-visual-evidence/s11/031-060/visual-index.json",
  visualReviewEvidence:A+"theme-s11-031-060-Korean-art-review-20261014.json",
- originalSourceRequests:0,ownershipStateChanges:0,nextSafeStart:"s11 canonical 031"};
+ originalSourceRequests:0,ownershipStateChanges:0,nextSafeStart:"s11 canonical 061"};
 await Promise.all([
  save("data/series.json",modern),save("data/series-legacy.json",legacy),
  save("data/series-image-overrides.json",overrides),save("data/art-themes.json",art),
