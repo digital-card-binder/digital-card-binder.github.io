@@ -54,7 +54,7 @@ for(let i=0;i<9;i++){
  row.officialKoreanImage!=='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10a/S10a_'+id+'.png'||
  row.matchedThemes?.join(',')!==(i===0||i===1||i===6?'color':'')||
  !row.artObservation||ev.all12ThemesConsidered!==true)
-  throw Error('Korean print/rarity/thematic proof mismatch at '+n);
+  throw Error('Korean print/rarity/thematic proof mismatch at '+n+' master='+JSON.stringify({code:card?.code,name:card?.name,rarity:card?.rarity})+' evidence='+JSON.stringify({code:row?.masterCode,name:row?.koreanName,rarity:row?.rarity,officialKoreanImage:row?.officialKoreanImage,matched:row?.matchedThemes}));
  const existing=(priorKeys.get(n)||[]).slice().sort();
  const matched=row.matchedThemes;
  for(const t of existing)if(!T.includes(t))throw Error('Unexpected existing theme '+t);
