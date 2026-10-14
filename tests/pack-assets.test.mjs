@@ -153,3 +153,20 @@ test("individual pack artwork is never stretched", async () => {
     "individual pack artwork must not be stretched to the container",
   );
 });
+
+test("regular pack navigation shows newest eras and packs first", async () => {
+  const javascript = await source("packs.js");
+  const groups = javascript.match(/const packGroups = \\[([\\s\\S]*?)\\n\\];/);
+  assert.ok(groups, "packGroups display ordering should exist");
+  const eras = [...groups[1].matchAll(/\\["([A-Z]+)",/g)].map((match) => match[1]);
+  assert.deepEqual(eras, ["M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"]);
+  assert.match(javascript, /\\.sort\\(\\(left, right\\) => right\\.i - left\\.i\\)/);
+  assert.match(javascript, /const pos = spritePosition\\(pack\\.i\\)/);
+});
+
+test("pack era picker fits mobile viewport without horizontal overflow", async () => {
+  const css = await source("packs.css");
+  assert.match(css, /[.]pack-filter-row > #era-filters \\{[\\s\\S]*?flex-wrap: wrap/);
+  assert.match(css, /@media \\(max-width: 720px\\) \\{[\\s\\S]*?[.]pack-filter-row > #era-filters \\{[\\s\\S]*?grid-template-columns: repeat\\(3, minmax\\(0, 1fr\\)\\)/);
+  assert.match(css, /[.]pack-filter-row > #era-filters button \\{[\\s\\S]*?overflow-wrap: anywhere/);
+});
