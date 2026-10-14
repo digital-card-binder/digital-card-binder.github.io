@@ -1,7 +1,8 @@
 "use strict";
 
 (function () {
-  const DATA_URL = "./data/art-themes.json?v=20261005-regular-rarity";
+  const EEVEE_MODE = new URL(window.location.href).searchParams.get("eevee") === "1";
+  const DATA_URL = EEVEE_MODE ? "./data/eevee-dex.json?v=20261014" : "./data/art-themes.json?v=20261005-regular-rarity";
   const THEME_DESCRIPTIONS = Object.freeze({
     sleeping: "잠들거나 느긋하게 쉬는 포켓몬이 등장하는 카드를 모은 테마 도감입니다.",
     connected: "여러 장을 나란히 놓았을 때 하나의 풍경이나 이야기가 이어지는 카드를 모았습니다.",
@@ -190,9 +191,9 @@
     const owned = cards.filter((card) => card.owned).length;
     recentDex.remember({
       collectionId: "artThemes",
-      title: "테마 도감",
+      title: EEVEE_MODE ? "이브이 도감" : "테마 도감",
       detail: group.name || "테마",
-      href: `./art-themes.html?theme=${encodeURIComponent(group.code || "")}`,
+      href: `./art-themes.html?${EEVEE_MODE ? "eevee=1&" : ""}theme=${encodeURIComponent(group.code || "")}`,
       owned,
       total: cards.length,
       unit: "장",
@@ -216,6 +217,36 @@
       await manager?.ready;
       if (manager?.applyGroups) dataset.groups = manager.applyGroups(dataset.groups);
       selectedTheme = requestedTheme();
+      if (EEVEE_MODE) {
+        document.title = "이브이 도감 | 디지털 카드 바인더";
+        el("page-title").textContent = "이브이 도감";
+        const hero = document.querySelector(".art-theme-hero .hero-description");
+        if (hero) hero.textContent = "이브이와 8종 진화체 · 8개 하위도감, 총 73장의 보유 상태를 체크합니다.";
+        const kicker = document.querySelector(".art-theme-kicker");
+        if (kicker) kicker.textContent = "EEVEE FAMILY COLLECTION";
+        const panel = document.querySelector(".art-theme-catalog");
+        if (panel && !document.querySelector(".eevee-back-link")) {
+          const back = document.createElement("p");
+          back.className = "eevee-back-link";
+          back.style.cssText = "margin:0 0 16px;font-weight:700";
+          const link = document.createElement("a");
+          link.href = "./eevee.html";
+          link.textContent = "← 8개 이브이 하위도감";
+          back.append(link);
+          panel.before(back);
+        }
+        const summary = document.querySelector(".hero-progress-copy > span");
+        if (summary) summary.textContent = "이브이 카드 체크";
+        const groupMetric = document.querySelector(".stats-grid .stat-card--owned span:not(.stat-icon)");
+        if (groupMetric) groupMetric.textContent = "하위도감 수";
+        if (selectedTheme === "eevee-pokeball" || selectedTheme === "eevee-masterball") {
+          const mirrorNote = document.createElement("p");
+          mirrorNote.className = "eevee-mirror-note";
+          mirrorNote.style.cssText = "margin:10px 0;font-size:13px;line-height:1.5;color:var(--text-muted,#737b88)";
+          mirrorNote.textContent = "※ 미러 카드는 동일 카드번호의 일반판 이미지를 참고로 표시합니다. 실제 몬스터볼·마스터볼 무늬는 이미지에 재현되지 않았습니다.";
+          document.querySelector(".art-theme-filter-panel")?.after(mirrorNote);
+        }
+      }
       renderSources();
       render();
 
