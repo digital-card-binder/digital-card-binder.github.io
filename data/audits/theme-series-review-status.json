@@ -62594,11 +62594,12 @@
     "s10b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62615,12 +62616,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 106,
-      "priorThemeSlotsPreserved": 59,
-      "partialReviewEvidence": "data/audits/theme-s10b-031-060-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s10b_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10b canonical 061",
-      "note": "Pokémon GO 한국판 031-060 30장 추가 검수 완료. 누적 60/109장, 신규 53개 테마 슬롯 추가. 기존 001-030 및 수집키·테마 보존, 자체 CDN 29+1장 확인."
+      "newlyAddedThemeSlotCount": 130,
+      "priorThemeSlotsPreserved": 112,
+      "partialReviewEvidence": "data/audits/theme-s10b-061-090-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10b_061-090_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10b canonical 091",
+      "note": "Pokémon GO 한국판 061-090 30장 추가 검수 완료. 누적 60/109장, 신규 53개 테마 슬롯 추가. 기존 001-030 및 수집키·테마 보존, 자체 CDN 29+1장 확인."
     }
   },
   "queue": {
@@ -62646,8 +62647,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10b canonical 001-060 (60/109) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s10b canonical 061",
+    "lastSafeCheckpoint": "s10b canonical 001-090 (90/109) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10b canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
