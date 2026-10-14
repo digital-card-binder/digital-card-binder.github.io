@@ -1040,7 +1040,16 @@
         };
       } else if (item.kind === "eevee") {
         const source = eeveeOverviewMetric();
-        if (!source) continue;
+        if (!source) {
+          // Keep the link visible if its optional detail dataset is temporarily unavailable.
+          const card = document.createElement("a");
+          card.className = "dashboard-collection-card dashboard-theme-card dashboard-theme-card--untracked";
+          card.href = item.href;
+          card.innerHTML = `<div class="dashboard-card-title"><strong>${escapeHtml(item.title)}</strong></div><div class="dashboard-card-count"><span>도감 열기 →</span></div>`;
+          fragment.append(card);
+          displayed += 1;
+          continue;
+        }
         metric = { ...source, title: item.title, href: item.href };
       } else {
         // Do not fabricate ownership figures for a page without a registered catalog.
