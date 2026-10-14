@@ -40,6 +40,17 @@ for (const [screen, viewport] of viewports) {
           await page.waitForTimeout(1000);
         }
       }
+      let interaction = null;
+      if (name === "pack" && screen === "mobile") {
+        const picker = page.locator("#pack-era-mobile");
+        if (await picker.count()) {
+          await picker.selectOption("M");
+          const megaCount = await page.locator("#pack-result-count").innerText().catch(() => "");
+          await picker.selectOption("all");
+          const allCount = await page.locator("#pack-result-count").innerText().catch(() => "");
+          interaction = { packMobileSelect: true, megaCount, allCount, restoresAll: allCount === "151" };
+        }
+      }
       const info = await page.evaluate(() => {
         const rect = (selector) => {
           const node = document.querySelector(selector);
@@ -63,6 +74,10 @@ for (const [screen, viewport] of viewports) {
         return {
           path: location.pathname + location.search,
           title: document.title, viewport: innerWidth,
+          catalogSelectedValue: document.querySelector("#catalog-select")?.value || null,
+          selectedName: document.querySelector("#selected-name")?.textContent?.trim() || null,
+          mobileEraSelectVisible: !!document.querySelector("#pack-era-mobile") && getComputedStyle(document.querySelector("#pack-era-mobile")).display !== "none",
+
           documentWidth: document.documentElement.scrollWidth,
           overflowX: Math.max(0, document.documentElement.scrollWidth - innerWidth),
           bodyClass: document.body.className,
@@ -86,7 +101,7 @@ for (const [screen, viewport] of viewports) {
           verticalScrollable: document.documentElement.scrollHeight > innerHeight,
         };
       });
-      results.push({ screen, name, httpStatus: response?.status() ?? null, url: page.url(), ...info, errors });
+      results.push({ screen, name, httpStatus: response?.status() ?? null, url: page.url(), ...info, interaction, errors });
       if (name === "series" || name === "pack") {
         const target = page.locator(".collector-quick-controls");
         if (await target.count()) {
