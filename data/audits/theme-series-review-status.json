@@ -62676,10 +62676,11 @@
     "s10a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62696,12 +62697,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 57,
-      "priorThemeSlotsPreserved": 2,
-      "partialReviewEvidence": "data/audits/theme-s10a-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s10a_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10a canonical 031",
-      "note": "다크판타스마 한국판 001-030 30장 실제 일러스트와 12테마 검수. 신규 57건, 자체 CDN 29+1장. 이전 S10b 에너지 인쇄 증거 보류 8건과 기존 사용자 수집정보 보존."
+      "newlyAddedThemeSlotCount": 111,
+      "priorThemeSlotsPreserved": 59,
+      "partialReviewEvidence": "data/audits/theme-s10a-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10a_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10a canonical 061",
+      "note": "다크판타스마 한국판 031-060 신규 54개 테마 분류, 누적 60/99장. 기존 잠만보 수면 분류와 S10b 8건 인쇄 증거 보류 및 수집 데이터를 유지."
     }
   },
   "queue": {
@@ -62727,8 +62728,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10a canonical 001-030 (30/99) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s10a canonical 031",
+    "lastSafeCheckpoint": "s10a canonical 001-060 (60/99) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10a canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
