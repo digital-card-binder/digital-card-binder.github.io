@@ -14,6 +14,21 @@
   gap: 16px;
   flex-wrap: wrap;
 }
+.pack-era-mobile-select { display: none; }
+.pack-era-mobile-select span { color: #68718a; font-size: .65rem; font-weight: 800; }
+.pack-era-mobile-select select {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  border: 1px solid #dfe3ec;
+  border-radius: 9px;
+  background: #fff;
+  color: #17233f;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: .75rem;
+  font-weight: 800;
+}
 
 /* Keep every era button inside the filter panel instead of letting one
    long, non-wrapping flex row widen the page on smaller screens. */
@@ -1069,5 +1084,15 @@
   .promo-collection-action,
   .promo-create-dialog {
     display: none !important;
+  }
+}
+@media (max-width: 690px) {
+  .pack-filter-row > #era-filters { display: none !important; }
+  .pack-filter-row > .pack-era-mobile-select {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+    gap: 4px;
   }
 }
