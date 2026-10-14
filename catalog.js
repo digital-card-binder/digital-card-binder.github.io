@@ -96,6 +96,7 @@ let seriesLegacyPackImages = new Map();
 let quickCollectMode = false;
 let quickVariantCard = null;
 let renderedCards = [];
+let pokemonVisibleLimit = 96;
 let mobileSheetGestureStart = null;
 const QUICK_COLLECT_STORAGE_KEY = "pokemonDexQuickCollectV1";
 
@@ -1805,8 +1806,30 @@ function render() {
     return matchesStatus && (!normalizedQuery || haystack.includes(normalizedQuery));
   });
 
-  renderedCards = shown;
-  $("catalog-grid").replaceChildren(...shown.map(makeCard));
+  // Rendering thousands of images at once can freeze mobile browsers.
+  const visibleCards = mode === "pokemon"
+    ? shown.slice(0, pokemonVisibleLimit)
+    : shown;
+  renderedCards = visibleCards;
+  $("catalog-grid").replaceChildren(...visibleCards.map(makeCard));
+  if (mode === "pokemon") {
+    let moreButton = $("catalog-more");
+    if (!moreButton) {
+      moreButton = document.createElement("button");
+      moreButton.id = "catalog-more";
+      moreButton.type = "button";
+      moreButton.className = "primary-button catalog-load-more";
+      moreButton.addEventListener("click", () => {
+        pokemonVisibleLimit += 96;
+        render();
+      });
+      $("catalog-grid").insertAdjacentElement("afterend", moreButton);
+    }
+    moreButton.hidden = visibleCards.length >= shown.length;
+    moreButton.textContent = "카드 더 보기 (" +
+      visibleCards.length.toLocaleString("ko-KR") + " / " +
+      shown.length.toLocaleString("ko-KR") + "장)";
+  }
   setText("result-count", shown.length);
   const empty = $("catalog-empty");
   empty.hidden = shown.length !== 0;
@@ -1924,6 +1947,7 @@ function rememberCurrentCatalog() {
 }
 
 function loadGroup(value) {
+  if (mode === "pokemon") pokemonVisibleLimit = 96;
   if (mode === "pokemon" && value === "ALL") {
     selected = null;
     cards = groups.flatMap((group) => group.cards || []);
@@ -2022,38 +2046,10 @@ async function loadCatalogGroups() {
     );
   }
 
-  const [baseGroups, sequenceGroups, pokedex] = await Promise.all([
-    fetchJson(POKEMON_DATA_URL),
-    fetchJson(POKEMON_SEQUENCE_DATA_URL),
-    fetchJson(POKEDEX_DATA_URL),
-  ]);
-
-  // 기존에 카드 데이터가 있는 포켓몬은 그대로 보존하되,
-  // #0001~#1025 전국도감 전체를 선택 목록의 기준으로 사용합니다.
-  const populatedByName = new Map();
-  for (const group of baseGroups) {
-    if (group?.name) populatedByName.set(group.name, group);
+  if (window.DigitalCardBinder?.catalog?.pokemonCollections) {
+    return window.DigitalCardBinder.catalog.pokemonCollections();
   }
-  for (const group of sequenceGroups) {
-    if (group?.name) populatedByName.set(group.name, group);
-  }
-
-  const records = Array.isArray(pokedex?.records) ? pokedex.records : [];
-  if (records.length !== 1025) {
-    throw new Error(`전국도감 데이터가 1025종이 아닙니다: ${records.length}`);
-  }
-
-  return records.map((record) => {
-    const existing = populatedByName.get(record.nameKo);
-    if (existing) {
-      return { ...existing, dexNumber: record.number };
-    }
-    return {
-      name: record.nameKo,
-      dexNumber: record.number,
-      cards: [],
-    };
-  });
+  throw new Error("포켓몬 컬렉션 마스터 데이터를 불러올 수 없습니다.");
 }
 
 async function init() {
@@ -2150,6 +2146,7 @@ async function init() {
     });
     $("catalog-search").oninput = (event) => {
       query = event.target.value;
+      if (mode === "pokemon") pokemonVisibleLimit = 96;
       if (mode === "pokemon" && query.trim() && selected) {
         choosePokemonGroup("ALL");
       } else {
@@ -2160,6 +2157,7 @@ async function init() {
       const button = event.target.closest("button");
       if (!button) return;
       status = button.dataset.status;
+      if (mode === "pokemon") pokemonVisibleLimit = 96;
       event.currentTarget
         .querySelectorAll("button")
         .forEach((item) => item.classList.toggle("is-active", item === button));
