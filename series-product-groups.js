@@ -113,9 +113,10 @@
 
       const choiceKey = era + ":" + type.key;
       const savedChoice = openChoices.get(choiceKey);
-      const activeCard = nodes.some((node) => node.classList.contains("is-active"));
+      // Only expansion packs start open. Selecting a promo or special set
+      // must not automatically expand its category on a fresh page load.
       details.open = savedChoice === undefined
-        ? (type.key === "expansion" || activeCard)
+        ? type.key === "expansion"
         : savedChoice;
 
       const summary = document.createElement("summary");
