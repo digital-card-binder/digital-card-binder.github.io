@@ -1347,17 +1347,8 @@
       stickyStack.append(summary, controls);
     }
 
-    const filterSurface = document.querySelector(
-      ".collector-quick-filter-surface",
-    );
-    const catalogActions = document.querySelector(
-      ".catalog-heading .catalog-actions",
-    );
-    if (filterSurface && catalogActions && !filterSurface.contains(catalogActions)) {
-      catalogActions.classList.add("collector-simple-secondary-actions");
-      filterSurface.append(catalogActions);
-    }
-
+    // Keep search and selection surfaces dedicated to searching.
+    // Toolbar actions move to the compact results bar in addCardLayoutToggle().
     const heading = document.querySelector(".catalog-panel > .catalog-heading");
     if (heading) heading.classList.add("collector-simple-catalog-heading");
   }
@@ -1415,16 +1406,28 @@
       });
       actions.append(filterButton);
     }
+    // One accessory cluster per dex: no more orphaned print/layout rows
+    // below the search box. Move existing buttons (preserve listeners).
+    const headerActions = document.querySelector(
+      ".catalog-panel > .catalog-heading .catalog-actions",
+    );
+    if (headerActions) {
+      for (const button of [...headerActions.children]) {
+        if (button.matches("button, a")) actions.append(button);
+      }
+    }
     actions.append(layoutOptions);
-    const simpleFilterSurface =
-      document.body?.classList?.contains?.("collector-simple-dex")
-        ? document.querySelector(".collector-quick-filter-surface")
-        : null;
-    if (simpleFilterSurface) {
-      actions.classList.add("collector-simple-view-actions");
-      simpleFilterSurface.append(actions);
-    } else {
-      resultsBar.append(actions);
+    resultsBar.append(actions);
+
+    // A status filter moved into a shared three-button bar must not leave
+    // a visually empty row below the search field.
+    const redundantRow = document.querySelector(".catalog-filter-row");
+    if (
+      redundantRow &&
+      redundantRow.children.length === 1 &&
+      redundantRow.firstElementChild?.classList?.contains("collector-status-source")
+    ) {
+      redundantRow.classList.add("collector-redundant-filter-row");
     }
 
     const restoreLayout = () => {
