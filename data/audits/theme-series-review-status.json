@@ -62560,10 +62560,11 @@
     "s11": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62580,12 +62581,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 54,
-      "priorThemeSlotsPreserved": 0,
-      "partialReviewEvidence": "data/audits/theme-s11-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s11_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s11 canonical 031",
-      "note": "로스트어비스 한국판 127장 중 첫 30장 실제 그림 12테마 검수. 컬러 30·자연풍경 23·도시 1 신규 슬롯 추가, 모던 자체 CDN 29장·레거시 자체 CDN 1장 확인. 수집 데이터 변경 없음."
+      "newlyAddedThemeSlotCount": 113,
+      "priorThemeSlotsPreserved": 54,
+      "partialReviewEvidence": "data/audits/theme-s11-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s11_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s11 canonical 061",
+      "note": "로스트어비스 한국판 031-060 추가 30장 그림·자체 CDN 검수 완료. 누적 60/127장, 컬러·풍경·달빛·도시·수면 검수 분류 반영. 이전 001-030 검수/보유 데이터 보존."
     }
   },
   "queue": {
@@ -62611,8 +62612,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s11 canonical 001-030 (30/127) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s11 canonical 031",
+    "lastSafeCheckpoint": "s11 canonical 001-060 (60/127) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s11 canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
