@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12377,
-    "uniqueThemeCards": 7419,
-    "strictCompleteSetCount": 85,
+    "themeCardSlots": 12392,
+    "uniqueThemeCards": 7429,
+    "strictCompleteSetCount": 86,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 188,
+    "baselineRemainingSetCount": 187,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3611,
-      "setCount": 90,
+      "cardSlots": 3615,
+      "setCount": 91,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6388,
-      "setCount": 91,
+      "cardSlots": 6398,
+      "setCount": 92,
       "rarities": [
         "AR",
         "C",
@@ -215,8 +215,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 968,
-      "setCount": 76,
+      "cardSlots": 969,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 21,
-      "remainingSetCount": 40,
-      "currentThemeSlots": 1776
+      "completeSetCount": 22,
+      "remainingSetCount": 39,
+      "currentThemeSlots": 1791
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SLD",
-      "name": "스타터 세트 VSTAR 「다크라이」",
-      "cardCount": 21,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "era": "S",
       "code": "s6K",
       "name": "칠흑의 가이스트",
+      "cardCount": 95,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s6H",
+      "name": "백은의 랜스",
       "cardCount": 95,
       "status": "pending"
     }
@@ -2748,9 +2748,13 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 4,
+        "color": 10,
+        "street": 1
+      }
     },
     {
       "era": "S",
