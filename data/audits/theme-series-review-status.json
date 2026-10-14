@@ -62594,12 +62594,13 @@
     "s10b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "reviewedCardCount": 101,
+      "verifiedSelfHostedImageCount": 101,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-101"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62615,13 +62616,62 @@
         "work",
         "cameo"
       ],
-      "heldCards": [],
-      "newlyAddedThemeSlotCount": 130,
+      "heldCards": [
+        {
+          "cardKey": "S10B_102",
+          "canonicalOrder": 102,
+          "masterCode": "s10b_102/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_103",
+          "canonicalOrder": 103,
+          "masterCode": "s10b_103/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_104",
+          "canonicalOrder": 104,
+          "masterCode": "s10b_104/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_105",
+          "canonicalOrder": 105,
+          "masterCode": "s10b_105/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_106",
+          "canonicalOrder": 106,
+          "masterCode": "s10b_106/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_107",
+          "canonicalOrder": 107,
+          "masterCode": "s10b_107/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_108",
+          "canonicalOrder": 108,
+          "masterCode": "s10b_108/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        },
+        {
+          "cardKey": "S10B_109",
+          "canonicalOrder": 109,
+          "masterCode": "s10b_109/071",
+          "reason": "Legacy source shows identical unnumbered Pokémon GO energy artwork as a separately indexed earlier energy entry. The suffix 'No.' and printed-variant provenance are unverified; do not assert exact independent Korean print identity or change its image/ownership until documented."
+        }
+      ],
+      "newlyAddedThemeSlotCount": 131,
       "priorThemeSlotsPreserved": 112,
-      "partialReviewEvidence": "data/audits/theme-s10b-061-090-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s10b_061-090_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10b canonical 091",
-      "note": "Pokémon GO 한국판 061-090 30장 추가 검수 완료. 누적 60/109장, 신규 53개 테마 슬롯 추가. 기존 001-030 및 수집키·테마 보존, 자체 CDN 29+1장 확인."
+      "partialReviewEvidence": "data/audits/theme-s10b-091-109-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "101_verified_Korean_card_prints_8_energy_variants_held",
+      "nextStart": "s10b canonical 102 evidence",
+      "note": "Pokémon GO 한국판 101/109 카드 아트·자체 CDN 검수 완료. 마지막 102-109 에너지 8개는 094-101과 중복된 이미지와 No. 명칭이므로 한국판 인쇄 구분 증거 보류. 수집키·기존 데이터 보존."
     }
   },
   "queue": {
@@ -62647,8 +62697,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10b canonical 001-090 (90/109) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s10b canonical 091",
+    "lastSafeCheckpoint": "s10b canonical 001-101 (101/109); 102-109 exact Korean energy-print evidence pending",
+    "nextStart": "s10b canonical 102 evidence",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
@@ -62933,6 +62983,13 @@
         "pendingCount": 35,
         "audit": "data/audits/theme-svg-001-055-evidence-pending.json",
         "lastArtSafeCheckpoint": "SVG verified artwork entries preserved; resume only held cards."
+      },
+      {
+        "set": "s10b",
+        "range": "canonical 102-109",
+        "pendingCount": 8,
+        "audit": "data/audits/theme-s10b-091-109-Korean-art-review-20261014.json",
+        "lastArtSafeCheckpoint": "s10b canonical 101 verified; print provenance and No. duplicate variants held"
       }
     ],
     "lastEvidenceAuditCheckpoint": {
