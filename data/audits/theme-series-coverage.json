@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13086,
-    "uniqueThemeCards": 7839,
-    "strictCompleteSetCount": 93,
+    "themeCardSlots": 13087,
+    "uniqueThemeCards": 7840,
+    "strictCompleteSetCount": 94,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 180,
+    "baselineRemainingSetCount": 179,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,13 +140,14 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6835,
+      "cardSlots": 6836,
       "setCount": 99,
       "rarities": [
         "AR",
         "C",
         "CSR",
         "FUR",
+        "HR",
         "MA",
         "MUR",
         "PROMO",
@@ -266,9 +267,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 29,
-      "remainingSetCount": 32,
-      "currentThemeSlots": 2485
+      "completeSetCount": 30,
+      "remainingSetCount": 31,
+      "currentThemeSlots": 2486
     },
     {
       "era": "SM",
@@ -367,13 +368,6 @@
       "code": "SN",
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s11a",
-      "name": "백열의 아르카나",
-      "cardCount": 94,
       "status": "in_progress"
     },
     {
@@ -528,6 +522,13 @@
       "code": "s3",
       "name": "무한존",
       "cardCount": 119,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s2a",
+      "name": "폭염워커",
+      "cardCount": 86,
       "status": "pending"
     }
   ],
@@ -878,13 +879,13 @@
       "cardCount": 94,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 1,
         "night": 2,
         "season": 36,
-        "color": 75,
+        "color": 76,
         "street": 1
       }
     },
