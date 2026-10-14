@@ -62745,10 +62745,11 @@
     "s10P": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62765,12 +62766,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 55,
-      "priorThemeSlotsPreserved": 1,
-      "partialReviewEvidence": "data/audits/theme-s10p-001-030-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s10P_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10P canonical 031",
-      "note": "스페이스 저글러 001-030 한국판 이미지 30장 12테마 검수 완료. 기존 자체 CDN 30개 대조 및 원본 출처 보존."
+      "newlyAddedThemeSlotCount": 108,
+      "priorThemeSlotsPreserved": 2,
+      "partialReviewEvidence": "data/audits/theme-s10p-031-060-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s10P_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10P canonical 061",
+      "note": "스페이스 저글러 001-060 60장 한국판 원본 그림 12테마 검수. 059 자말라 sleeping 기존 항목 보존; 자체 CDN 확인, 061부터 계속."
     }
   },
   "queue": {
@@ -62796,8 +62797,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10P canonical 001-030 (30/88) Korean art and DCB-owned CDN images verified",
-    "nextStart": "s10P canonical 031",
+    "lastSafeCheckpoint": "s10P canonical 001-060 (60/88) Korean art and DCB-owned CDN images verified",
+    "nextStart": "s10P canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
