@@ -863,6 +863,13 @@ function populateCatalogSelect() {
   }
 
   select.disabled = false;
+  if (mode === "pokemon") {
+    const allOption = document.createElement("option");
+    allOption.value = "ALL";
+    const total = groups.reduce((count, group) => count + group.total, 0);
+    allOption.textContent = `전체 포켓몬 · ${total.toLocaleString("ko-KR")}장`;
+    select.append(allOption);
+  }
   visibleGroups.forEach((group) => {
     const option = document.createElement("option");
     option.value = group.code || group.name;
@@ -928,35 +935,34 @@ function syncPokemonChooserNavigation() {
   const select = $("catalog-select");
   if (!prev || !next || !select) return;
 
-  const visibleGroups = selectableGroups();
-  const value = selected?.code || selected?.name || select.value;
-  const index = visibleGroups.findIndex(
-    (group) => (group.code || group.name) === value,
-  );
+  const choices = [
+    { value: "ALL", label: "전체 포켓몬" },
+    ...selectableGroups().map((group) => ({
+      value: group.code || group.name,
+      label: pokemonGroupLabel(group),
+    })),
+  ];
+  const value = selected?.code || selected?.name || "ALL";
+  const index = choices.findIndex((choice) => choice.value === value);
   const current = index >= 0 ? index : 0;
-  const count = visibleGroups.length;
+  const count = choices.length;
 
   prev.disabled = count < 2;
   next.disabled = count < 2;
+  if (count < 2) return;
 
-  if (!count) {
-    prev.title = "이전 포켓몬";
-    next.title = "다음 포켓몬";
-    return;
-  }
-
-  const prevGroup = visibleGroups[(current - 1 + count) % count];
-  const nextGroup = visibleGroups[(current + 1) % count];
-  prev.title = `이전 · ${pokemonGroupLabel(prevGroup)}`;
-  next.title = `다음 · ${pokemonGroupLabel(nextGroup)}`;
+  const prevChoice = choices[(current - 1 + count) % count];
+  const nextChoice = choices[(current + 1) % count];
+  prev.title = `이전 · ${prevChoice.label}`;
+  next.title = `다음 · ${nextChoice.label}`;
   prev.setAttribute("aria-label", prev.title);
   next.setAttribute("aria-label", next.title);
 }
-
 function updatePokemonCollectionUrl(value) {
   if (mode !== "pokemon" || !value || typeof window.history?.replaceState !== "function") return;
   const url = new URL(window.location.href);
-  url.searchParams.set("group", value);
+  if (value === "ALL") url.searchParams.delete("group");
+  else url.searchParams.set("group", value);
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 }
 
@@ -973,19 +979,18 @@ function choosePokemonGroup(value) {
 
 function stepPokemonGroup(offset) {
   if (mode !== "pokemon") return;
-  const visibleGroups = selectableGroups();
-  if (!visibleGroups.length) return;
+  const choices = ["ALL", ...selectableGroups().map((group) => group.code || group.name)];
+  if (!choices.length) return;
 
-  const currentValue = selected?.code || selected?.name || $("catalog-select")?.value;
-  const index = visibleGroups.findIndex(
-    (group) => (group.code || group.name) === currentValue,
-  );
+  const currentValue = selected?.code || selected?.name || "ALL";
+  const index = choices.indexOf(currentValue);
   const current = index >= 0 ? index : 0;
-  const nextIndex = (current + offset + visibleGroups.length) % visibleGroups.length;
-  const group = visibleGroups[nextIndex];
-  choosePokemonGroup(group.code || group.name);
+  const nextValue = choices[(current + offset + choices.length) % choices.length];
+  const search = $("catalog-search");
+  if (search) search.value = "";
+  query = "";
+  choosePokemonGroup(nextValue);
 }
-
 function readQuickCollectPreference() {
   try {
     return window.localStorage.getItem(QUICK_COLLECT_STORAGE_KEY) === "1";
@@ -1294,6 +1299,11 @@ function updateSelected() {
   }
 
   const owned = cards.filter((card) => card.owned).length;
+  if (mode === "pokemon" && !selected) {
+    setText("selected-name", "전체 포켓몬");
+    setText("selected-progress", `${owned} / ${cards.length}장 · ${pct(owned, cards.length)}%`);
+    return;
+  }
   setText(
     "selected-name",
     mode === "series"
@@ -1530,7 +1540,7 @@ function updateDialog(card) {
 
   setText("dialog-name", displayName(card));
   setText("dialog-meta", card.code || card.meta);
-  setText("dialog-group", groupName(selected));
+  setText("dialog-group", mode === "pokemon" ? (card.pokemonCollectionGroupLabel || groupName(selected)) : groupName(selected));
 }
 
 function isMobileCardSheet() {
@@ -1680,7 +1690,7 @@ function openDialog(card) {
   ensureMobileCardSheetControls();
   void window.DigitalCardBinder?.relatedDex?.render?.(dialog, card, {
     currentCollectionId: mode,
-    currentGroupKey: selected?.code || selected?.name || "",
+    currentGroupKey: mode === "pokemon" ? (card.pokemonCollectionGroupKey || "") : (selected?.code || selected?.name || ""),
     setCode: mode === "series" || mode === "ar" ? selected?.code || "" : "",
     name: displayName(card),
   });
@@ -1736,7 +1746,7 @@ function makeCard(card) {
 
   const group = document.createElement("span");
   group.className = "card-name-en";
-  group.textContent = groupName(selected);
+  group.textContent = mode === "pokemon" ? (card.pokemonCollectionGroupLabel || groupName(selected)) : groupName(selected);
 
   const meta = document.createElement("span");
   meta.className = "card-meta";
@@ -1786,6 +1796,8 @@ function render() {
       card.meta,
       selected?.code,
       selectedGroupName,
+      mode === "pokemon" ? card.pokemonCollectionGroupLabel : "",
+      mode === "pokemon" ? card.pokemonCollectionGroupKey : "",
     ]
       .filter(Boolean)
       .join(" ")
@@ -1912,6 +1924,18 @@ function rememberCurrentCatalog() {
 }
 
 function loadGroup(value) {
+  if (mode === "pokemon" && value === "ALL") {
+    selected = null;
+    cards = groups.flatMap((group) => group.cards || []);
+    const select = $("catalog-select");
+    if (select) select.value = "ALL";
+    syncPokemonChooserNavigation();
+    updateSelected();
+    render();
+    rememberMobileCatalogPreferences();
+    return;
+  }
+
   const fallback = selectableGroups()[0] || (mode === "series" ? null : groups[0]);
   selected =
     groups.find((group) => (group.code || group.name) === value) || fallback;
@@ -2067,6 +2091,12 @@ async function init() {
     groups.forEach((group) => {
       group.total = group.cards.length;
       group.owned = group.cards.filter((card) => card.owned).length;
+      if (mode === "pokemon") {
+        group.cards.forEach((card) => {
+          card.pokemonCollectionGroupLabel = pokemonGroupLabel(group);
+          card.pokemonCollectionGroupKey = group.code || group.name;
+        });
+      }
     });
 
     createSeriesEditor();
@@ -2088,7 +2118,7 @@ async function init() {
         (group.code || group.name) === requestedGroupValue,
       )
         ? requestedGroupValue
-        : rememberedGroup;
+        : (mode === "pokemon" ? "ALL" : rememberedGroup);
     if (
       initialGroups.some((group) =>
         (group.code || group.name) === initialGroupValue,
@@ -2102,10 +2132,16 @@ async function init() {
         button.classList.toggle("is-active", button.dataset.status === status);
       });
 
-    select.onchange = () =>
-      mode === "pokemon"
-        ? choosePokemonGroup(select.value)
-        : loadGroup(select.value);
+    select.onchange = () => {
+      if (mode === "pokemon") {
+        const search = $("catalog-search");
+        if (search) search.value = "";
+        query = "";
+        choosePokemonGroup(select.value);
+      } else {
+        loadGroup(select.value);
+      }
+    };
     $("pokemon-prev")?.addEventListener("click", () => stepPokemonGroup(-1));
     $("pokemon-next")?.addEventListener("click", () => stepPokemonGroup(1));
     $("catalog-era")?.addEventListener("click", (event) => {
@@ -2114,7 +2150,11 @@ async function init() {
     });
     $("catalog-search").oninput = (event) => {
       query = event.target.value;
-      render();
+      if (mode === "pokemon" && query.trim() && selected) {
+        choosePokemonGroup("ALL");
+      } else {
+        render();
+      }
     };
     $("catalog-status").onclick = (event) => {
       const button = event.target.closest("button");
