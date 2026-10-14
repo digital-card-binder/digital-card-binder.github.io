@@ -21,10 +21,14 @@ test("시리즈도감 기본 수록 필터는 각 세트의 분모 이하 카드
   assert.match(seriesPage, /series-scope-filter\.js/);
 });
 
-test("기본 수록은 별도 카테고리 없이 시리즈도감 내부 필터로 제공된다", () => {
+test("마스터/기본 도감 전환은 접힌 필터 밖에서 제공된다", () => {
   assert.match(scopeFilter, /data-scope="all"/);
   assert.match(scopeFilter, /data-scope="base"/);
-  assert.match(scopeFilter, />기본 수록<\/button>/);
+  assert.match(scopeFilter, />마스터 도감<\/button>/);
+  assert.match(scopeFilter, />기본 도감<\/button>/);
+  assert.match(scopeFilter, /heading[.]insertAdjacentElement\("afterend", control\)/);
+  assert.match(scopeFilter, /[.]catalog-panel > [.]catalog-heading/);
+  assert.doesNotMatch(scopeFilter, /row[.]prepend\(control\)/);
   assert.doesNotMatch(nav, /navigationLink\(\s*"\.\/base-series\.html"/);
   assert.doesNotMatch(nav, /"기본 수록 도감"/);
 });
