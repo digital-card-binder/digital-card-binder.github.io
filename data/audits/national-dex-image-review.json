@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "task": "National Pokedex 1,025 image mapping audit",
+  "updatedAt": "2026-10-14",
+  "sourceCommit": "9dc8d51e2b219a67123fdc08f61c08e659aa3c46",
+  "scope": {
+    "totalPokemon": 1025,
+    "automatedImagePathAndCatalogScan": true,
+    "visualImageReviewComplete": false,
+    "completedPokemonNumbers": [],
+    "verifiedAndCorrected": [
+      268,
+      340,
+      424,
+      799,
+      806,
+      916,
+      926,
+      928,
+      930,
+      932,
+      958,
+      972,
+      974,
+      975,
+      1011,
+      1019,
+      1023
+    ],
+    "reviewedRecordCount": 17,
+    "visuallyReviewedCount": 0
+  },
+  "counts": {
+    "corrected": 17,
+    "exactImagePathMatches": 707,
+    "withoutExactSeriesImagePath": 318,
+    "matchedCardsWithoutCatalogTitle": 44,
+    "explicitCatalogTitleMismatches": 2,
+    "duplicateImageReuse": 0,
+    "heldForEvidence": 2,
+    "nextReviewStartingNumber": 1
+  },
+  "corrections": [
+    {
+      "number": 268,
+      "nameKo": "카스쿤",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10a/S10a_005.png?w=512",
+      "cardCode": "sm7a_004/060",
+      "cardName": "카스쿤",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM7A/SM7A_004.png",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2018012004",
+      "setCode": "sm7a",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 340,
+      "nameKo": "메깅",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2P/SV2P_039.png?w=512",
+      "cardCode": "sm2k_033/050",
+      "cardName": "메깅",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2K/SM2K_033.png",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2017004033",
+      "setCode": "sm2K",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 424,
+      "nameKo": "겟핸보숭",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV6/SV6_087.png?w=512",
+      "cardCode": "s10a_060/071",
+      "cardName": "겟핸보숭",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10a/S10a_060.png",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2022011100",
+      "setCode": "s10a",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 799,
+      "nameKo": "악식킹",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_046.png?w=512",
+      "cardCode": "sm6_056/094",
+      "cardName": "악식킹",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_056.png",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2018004056",
+      "setCode": "sm6",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 806,
+      "nameKo": "두파팡",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10a/SM10a_031.png?w=512",
+      "cardCode": "sm10_019/095",
+      "cardName": "두파팡",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM10/SM10_019.png",
+      "source": "https://pokemoncard.co.kr/cards/detail/BS2019007019",
+      "setCode": "sm10",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 916,
+      "nameKo": "퍼퓨돈",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_067.png?w=512",
+      "cardCode": "sv3_098/108",
+      "cardName": "퍼퓨돈",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3/SV3_098.png",
+      "source": "",
+      "setCode": "sv3",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 926,
+      "nameKo": "쫀도기",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_089.png?w=512",
+      "cardCode": "sv1s_032/078",
+      "cardName": "쫀도기",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_032.png",
+      "source": "",
+      "setCode": "sv1S",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 928,
+      "nameKo": "미니브",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_020.png?w=512",
+      "cardCode": "sv1s_005/078",
+      "cardName": "미니브",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_005.png",
+      "source": "",
+      "setCode": "sv1S",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 930,
+      "nameKo": "올리르바",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_023.png?w=512",
+      "cardCode": "sv1s_008/078",
+      "cardName": "올리르바",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV1S/SV1S_008.png",
+      "source": "",
+      "setCode": "sv1S",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 932,
+      "nameKo": "베베솔트",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_079.png?w=512",
+      "cardCode": "sv2d_045/071",
+      "cardName": "베베솔트",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_045.png",
+      "source": "",
+      "setCode": "sv2D",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 958,
+      "nameKo": "벼리짱",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_033.png?w=512",
+      "cardCode": "sv2d_034/071",
+      "cardName": "벼리짱",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2D/SV2D_034.png",
+      "source": "",
+      "setCode": "sv2D",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 972,
+      "nameKo": "묘두기",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_081.png?w=512",
+      "cardCode": "sv3_054/108",
+      "cardName": "묘두기",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3/SV3_054.png",
+      "source": "",
+      "setCode": "sv3",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 974,
+      "nameKo": "터벅고래",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3a/SV3a_031.png?w=512",
+      "cardCode": "sv2p_020/071",
+      "cardName": "터벅고래",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2P/SV2P_020.png",
+      "source": "",
+      "setCode": "sv2P",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 975,
+      "nameKo": "우락고래",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV3a/SV3a_069.png?w=512",
+      "cardCode": "sv2p_022/071",
+      "cardName": "우락고래",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV2P/SV2P_022.png",
+      "source": "",
+      "setCode": "sv2P",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 1011,
+      "nameKo": "과미르",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_068.png?w=512",
+      "cardCode": "sv5a_049/066",
+      "cardName": "과미르",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5a/SV5a_049.png",
+      "source": "",
+      "setCode": "sv5a",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 1019,
+      "nameKo": "과미드라",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV8a/SV8a_009.png?w=512",
+      "cardCode": "sv9a_011/063",
+      "cardName": "과미드라",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV9a/SV9a_011.png",
+      "source": "",
+      "setCode": "sv9a",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 1023,
+      "nameKo": "무쇠감투",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_039.png?w=512",
+      "cardCode": "sv7a_039/064",
+      "cardName": "무쇠감투",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV7a/SV7a_039.png",
+      "source": "",
+      "setCode": "sv7a",
+      "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
+      "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    }
+  ],
+  "holds": [
+    {
+      "number": 433,
+      "nameKo": "랑딸랑",
+      "issue": "Current image resolves to a different Pokémon card title. Catalog search found only a Rocket’s Chingling candidate; excluded pending evidence for a non-Trainer representative."
+    },
+    {
+      "number": 989,
+      "nameKo": "모래털가족",
+      "issue": "Current image resolves to 모래털가죽 ex; Korean names differ by one character. Hold pending species/name evidence."
+    }
+  ],
+  "automatedScan": {
+    "seriesCards": 15632,
+    "recordsWithExactImagePathInSeriesCatalog": 707,
+    "recordsWithoutExactCatalogPath": 318,
+    "recordsWithPathButMissingCardTitle": 44,
+    "explicitPathTitleMismatches": [
+      {
+        "number": 433,
+        "nameKo": "랑딸랑",
+        "titles": [
+          "맨돌핀"
+        ]
+      },
+      {
+        "number": 989,
+        "nameKo": "모래털가족",
+        "titles": [
+          "모래털가죽 ex"
+        ]
+      }
+    ],
+    "duplicateImagePaths": [],
+    "visuallyReviewedCount": 0,
+    "note": "Automated URL/path and catalog-title triage only; the 318 unmapped paths and 44 cards with no catalog title still need image-source confirmation and visual review. This scan does not count as visual image verification."
+  },
+  "nextAction": "Review exact-path card title mismatches and unmapped image paths from #0001 upward; visually inspect confirmed candidates."
+}
