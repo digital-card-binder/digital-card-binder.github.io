@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "set": "SI",
+  "range": "canonical-order 121-150",
+  "expectedMasterCards": 430,
+  "status": "awaiting_owned_cdn_image_preflight_and_manual_artwork_review",
+  "prerequisite": "SI 091-120 verified review applied to main",
+  "artworkReviewedThisBatch": 0,
+  "preflight": "scripts/audit-theme-si-121-150-visual.py",
+  "imageEvidence": "data/audits/theme-visual-evidence/SI/121-150/visual-index.json",
+  "originTrafficPolicy": "owned DCB CDN only",
+  "guard": "Do not increment coverage, series review or audit counters until 121-150 art and image binaries are verified",
+  "nextSafeStart": "SI canonical 121"
+}
