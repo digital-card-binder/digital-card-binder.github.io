@@ -3944,3 +3944,23 @@ body.collector-collection-page.collector-simple-dex .collector-simple-view-actio
     padding: 8px !important;
   }
 }
+
+
+/* AR status already lives in the three-button bar: hide the orphaned
+   informational row, otherwise it creates a blank strip before cards. */
+body.collector-collection-page.collector-simple-dex[data-catalog="ar"] .catalog-filter-row {
+  display: none !important;
+}
+
+/* The compact pack selector replaces a 4-row mobile chip matrix. */
+@media (max-width: 690px) {
+  body.collector-collection-page.collector-simple-dex .pack-filter-row > #era-filters {
+    display: none !important;
+  }
+  body.collector-collection-page.collector-simple-dex .pack-filter-row > .pack-era-mobile-select {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    gap: 4px;
+  }
+}
