@@ -77,7 +77,7 @@ for(let i=0;i<30;i++){
    code:row.cardKey,name:card.name,series:"S",set:master.code,
    setName:master.displayName||master.name,cardNumber:num+"/071",rarity:card.rarity||"",
    category,image:p.cdnUrl,
-   evidence:"한국판 Pokémon GO s10b "+num+"/100 원본 그림 검수: "+row.artObservation+
+   evidence:"한국판 Pokémon GO s10b "+num+"/071 원본 그림 검수: "+row.artObservation+
     " 기존 수집 데이터 보존; 증빙 "+row.proofImage+"; DCB 보관 이미지 디코딩."
   });
   additions[t]=(additions[t]||0)+1;added++;
