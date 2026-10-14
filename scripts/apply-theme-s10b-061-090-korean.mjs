@@ -14,6 +14,10 @@ const [ev,proof,modern,legacy,art,status,images,overrides]=await Promise.all([
 const sets=[...modern,...legacy].filter(s=>String(s.code||"").toLowerCase()==="s10b");
 if(sets.length!==1||sets[0].cards?.length!==109)throw Error("Missing Korean s10b 109-slot master");
 const master=sets[0],prior=status.reviews?.[master.code],codeSequence=master.cards.map(c=>c.code);
+// Preserve the identical verified PokéStop image reference used by the independent world collection.
+const worldCatalog=await readFile("core/catalog/catalog-service.js","utf8");
+if(!worldCatalog.includes('"kanto-pokestop": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S10b/S10b_071.webp"'))
+ throw Error("S10b 071/PokéStop world image must match the verified locally archived card");
 if(prior?.reviewedRanges?.includes("061-090")&&prior.reviewedCardCount>=90){console.log("Already applied 061-090");process.exit(0);}
 if(prior?.reviewedCardCount!==60||!prior?.reviewedRanges?.includes("001-030")||!prior?.reviewedRanges?.includes("031-060")||
  status.execution?.nextStart!=="s10b canonical 061"||
