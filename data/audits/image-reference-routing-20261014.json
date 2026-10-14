@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "purpose": "Count raw image reference URLs in 273 Korean master series and 12-theme catalog, separating data storage from actual runtime external network fetches.",
+  "sources": [
+    {
+      "path": "data/series.json",
+      "sha": "6c6459f67e355409c9161dc9d39aa71cf6bcb335"
+    },
+    {
+      "path": "data/series-legacy.json",
+      "sha": "0f1323e4c91225bdc2445f658f49a5a961abede8"
+    },
+    {
+      "path": "data/art-themes.json",
+      "sha": "ad8966aec609c2b3d972a7610db8425a1c79f025"
+    },
+    {
+      "path": "card-image-cdn.js",
+      "note": "Active site-side routing to two owner-controlled Cloudflare Pages archives; fallback uses local image placeholder rather than origin host."
+    }
+  ],
+  "method": "Read-only JSON scan of card.image in all series and theme groups; sourceImage is provenance metadata, not a displayed image ref. External route classification mirrors the supported hosts, file extensions and official wmimages path checks in card-image-cdn.js. No network requests to origin or archive; not HTTP 200, asset decoding, visual identity or deployment proof.",
+  "summary": {
+    "masterCards": 20243,
+    "themeReferenceSlots": 12690,
+    "overallImageReferences": 32933,
+    "rawExternalReferences": 27967,
+    "uniqueRawExternalUrls": 18752,
+    "rawOwnedCdnReferences": 4775,
+    "rawLocalReferences": 191,
+    "rawMissingReferences": 0,
+    "externalReferencesRoutableByCardImageCdnJs": 27967,
+    "externalUnroutable": 0,
+    "sourceImageProvenanceMetadata": 2152
+  },
+  "perFile": {
+    "series": {
+      "recordCount": 15632,
+      "imageReferenceCount": 15632,
+      "rawOwnedCdnCount": 1397,
+      "rawExternalCount": 14153,
+      "rawLocalCount": 82,
+      "rawMissingCount": 0,
+      "externalRoutableToOwnedCdn": 14153,
+      "externalUnroutable": 0,
+      "sourceImageProvenanceCount": 1479,
+      "uniqueImageUrlCount": 15534
+    },
+    "legacy": {
+      "recordCount": 4611,
+      "imageReferenceCount": 4611,
+      "rawOwnedCdnCount": 0,
+      "rawExternalCount": 4611,
+      "rawLocalCount": 0,
+      "rawMissingCount": 0,
+      "externalRoutableToOwnedCdn": 4611,
+      "externalUnroutable": 0,
+      "sourceImageProvenanceCount": 0,
+      "uniqueImageUrlCount": 4524
+    },
+    "themes": {
+      "recordCount": 12690,
+      "imageReferenceCount": 12690,
+      "rawOwnedCdnCount": 3378,
+      "rawExternalCount": 9203,
+      "rawLocalCount": 109,
+      "rawMissingCount": 0,
+      "externalRoutableToOwnedCdn": 9203,
+      "externalUnroutable": 0,
+      "sourceImageProvenanceCount": 673,
+      "uniqueImageUrlCount": 7578
+    }
+  },
+  "rawExternalByHost": {
+    "cards.image.pokemonkorea.co.kr": 21115,
+    "static.tcgexchange.kr": 6598,
+    "tcgbox.co.kr": 183,
+    "cdn.collectory.cc": 57,
+    "k-tcgpanda.com": 13,
+    "cdn6966.templcdn.com": 1
+  },
+  "interpretation": {
+    "externalRawRefsRemain": true,
+    "allRawExternalRefsRoutableByCurrentJavaScript": true,
+    "runtimeExternalHostTrafficProvedZero": false,
+    "ownedCdnArchiveFilesAllExistProved": false,
+    "routeVsHTTP": "Routeability alone is not evidence a Cloudflare archive file exists/decodes; per-file and live network audits still required.",
+    "localPathsNotExternal": true,
+    "duplicatesCounted": true
+  },
+  "nextSteps": [
+    "Inspect actual browser Network requests after CDN routing on representative sets.",
+    "Verify owned Cloudflare Pages archive HTTP status and WEBP decoding across unverified assets.",
+    "Only then replace remaining card.image original external URLs with self-hosted archive URLs while retaining sourceImage provenance.",
+    "Regenerate counts and CI validation; do not change collection ownership or theme review checkpoint with this reference audit."
+  ]
+}
