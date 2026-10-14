@@ -1,0 +1,56 @@
+name: Apply verified Korean s10D 061-088 rarity metadata
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-s10d-061-088-korean-metadata.yml'
+      - 'scripts/apply-theme-s10d-061-088-korean-metadata.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s10d-061-088-metadata
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply Korean master DB rarity correction without altering art checkpoint
+        run: node scripts/apply-theme-s10d-061-088-korean-metadata.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - name: Commit verified DB changes
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in $(seq 1 10); do
+            git add data/series.json data/audits/theme-series-review-status.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "fix(s10d): persist 28 Korean Time Gazer rarity values"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 10 ]]; then exit 1; fi
+            sleep 3
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-s10d-061-088-korean-metadata.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+          done
