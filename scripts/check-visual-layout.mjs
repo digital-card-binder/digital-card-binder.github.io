@@ -102,7 +102,7 @@ for (const [screen, viewport] of viewports) {
         };
       });
       results.push({ screen, name, httpStatus: response?.status() ?? null, url: page.url(), ...info, interaction, errors });
-      if (name === "series" || name === "pack") {
+      if (name === "series" || name === "pack" || name === "ar") {
         const target = page.locator(".collector-quick-controls");
         if (await target.count()) {
           await target.first().scrollIntoViewIfNeeded().catch(() => {});
