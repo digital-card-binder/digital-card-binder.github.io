@@ -101,7 +101,7 @@ status.reviews[master.code]={...(prior||{}),status:"in_progress",reviewedAt:"202
  partialReviewEvidence:A+"theme-s11-061-090-Korean-art-review-20261014.json",
  archiveVerificationStatus:"s11_061-090_30_Korean_DCB_owned_CDN_images_decoded",
  nextStart:"s11 canonical 091",
- note:"로스트어비스 한국판 061-090 추가 30장 그림·자체 CDN 검수 완료. 누적 60/127장, 컬러·풍경·달빛·도시·수면 검수 분류 반영. 이전 001-030 검수/보유 데이터 보존."};
+ note:"로스트어비스 한국판 061-090 추가 30장 일러스트·자체 CDN 검수. 누적 90/127장 및 신규 테마 52건 반영. S11 067 드래피온 VSTAR 인쇄명 교정; 이전 001-060 검수와 수집정보는 보존."};
 status.execution.currentEra="S";status.execution.currentSet="s11";
 status.execution.lastSafeCheckpoint="s11 canonical 001-090 (90/127) Korean artwork and DCB-owned CDN images verified";
 status.execution.nextStart="s11 canonical 091";status.execution.updatedAt="2026-10-14";
