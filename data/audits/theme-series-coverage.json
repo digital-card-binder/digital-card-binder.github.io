@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12971,
-    "uniqueThemeCards": 7764,
-    "strictCompleteSetCount": 92,
+    "themeCardSlots": 12972,
+    "uniqueThemeCards": 7765,
+    "strictCompleteSetCount": 93,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 181,
+    "baselineRemainingSetCount": 180,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6759,
+      "cardSlots": 6760,
       "setCount": 98,
       "rarities": [
         "AR",
@@ -265,9 +265,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 28,
-      "remainingSetCount": 33,
-      "currentThemeSlots": 2370
+      "completeSetCount": 29,
+      "remainingSetCount": 32,
+      "currentThemeSlots": 2371
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "code": "SN",
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s12",
-      "name": "패러다임트리거",
-      "cardCount": 125,
       "status": "in_progress"
     },
     {
@@ -527,6 +520,13 @@
       "code": "s3a",
       "name": "전설의 고동",
       "cardCount": 94,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s3",
+      "name": "무한존",
+      "cardCount": 119,
       "status": "pending"
     }
   ],
@@ -890,13 +890,13 @@
       "cardCount": 125,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 2,
         "night": 5,
         "season": 53,
-        "color": 104,
+        "color": 105,
         "sunset": 1,
         "street": 2,
         "cameo": 1
