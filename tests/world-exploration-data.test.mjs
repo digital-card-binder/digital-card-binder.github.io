@@ -17,10 +17,13 @@ const normalizeNumber = (value) => {
 const catalogByImage = new Map();
 for (const set of series) {
   for (const card of set.cards || []) {
-    const image = stripQuery(card.image);
-    if (!image) continue;
-    if (!catalogByImage.has(image)) catalogByImage.set(image, []);
-    catalogByImage.get(image).push({ set, card });
+    // A verified self-hosted card may retain the original official URL in sourceImage.
+    // Both are identities of the same Korean printed card; ownership is unaffected.
+    const images = new Set([stripQuery(card.image), stripQuery(card.sourceImage)].filter(Boolean));
+    for (const image of images) {
+      if (!catalogByImage.has(image)) catalogByImage.set(image, []);
+      catalogByImage.get(image).push({ set, card });
+    }
   }
 }
 
