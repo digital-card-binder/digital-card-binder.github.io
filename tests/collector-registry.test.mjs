@@ -113,10 +113,12 @@ test("Pokemon collection resolves all 1,025 Korean species while preserving cura
   assert.equal(catalog.items.length, 14987);
 
   for (const record of expected.records) {
-    const group = catalog.groups.find((item) => item.key === record.nameKo);
+    const group = catalog.groups.find((item) => item.name === record.nameKo);
     assert.ok(group, "Missing National Dex species: " + record.nameKo);
     assert.ok(group.itemKeys.length > 0, "Missing Korean card records: " + record.nameKo);
   }
+  const correctedSandyShocks = catalog.groups.find((item) => item.name === "모래털가죽");
+  assert.equal(correctedSandyShocks.key, "모래털가족", "preserve legacy Firebase group identity");
   for (const species of ["주뱃", "우라오스", "모래털가족"]) {
     assert.ok(catalog.groups.find((item) => item.key === species)?.itemKeys.length > 0);
   }

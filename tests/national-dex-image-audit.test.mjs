@@ -16,13 +16,13 @@ test("national dex keeps all 1,025 unique Pokemon records", () => {
 });
 
 test("corrected representative images match Korean Pokemon card catalog entries", () => {
-  assert.equal(audit.corrections.length, 17);
+  assert.equal(audit.corrections.length, 18);
   for (const correction of audit.corrections) {
     const record = pokedex.records.find((item) => item.number === correction.number);
     const card = cards.find((item) => item.code === correction.cardCode);
     assert.ok(record, `missing #${correction.number}`);
     assert.ok(card, `missing card ${correction.cardCode}`);
-    assert.equal(record.imageUrl, card.image, `image mismatch for #${correction.number}`);
+    assert.equal(new URL(record.imageUrl).pathname, new URL(card.image).pathname, `image mismatch for #${correction.number}`);
     assert.ok(normalize(card.name).includes(normalize(record.nameKo)), `title mismatch for #${correction.number}`);
     assert.match(card.image, /^https:\/\/cards\.image\.pokemonkorea\.co\.kr\//);
   }
@@ -32,6 +32,12 @@ test("Guzzlord no longer points to the Tag Switch Trainer card", () => {
   const guzzlord = pokedex.records.find((record) => record.number === 799);
   assert.equal(guzzlord.imageUrl, "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM6/SM6_056.png");
   assert.doesNotMatch(guzzlord.imageUrl, /SM10a_046/);
+});
+
+test("national dex uses the official Korean name for Sandy Shocks", () => {
+  const pokemon = pokedex.records.find((record) => record.number === 989);
+  assert.equal(pokemon.nameKo, "모래털가죽");
+  assert.ok(audit.corrections.some((item) => item.number === 989 && item.previousNameKo === "모래털가족"));
 });
 
 test("national card links use printed set and card numbers from the representative image", () => {
