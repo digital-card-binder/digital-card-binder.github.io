@@ -179,15 +179,15 @@
       if (!href || !title) continue;
       const location = new URL(href, window.location.href);
       const page = href.split("?")[0];
+      if (page === "./art-themes.html" && location.searchParams.has("theme")) {
+        const theme = location.searchParams.get("theme");
+        if (theme) links.push({ title, href, kind: "art", theme });
+        continue;
+      }
       const category = collectionsByPage.get(page);
       if (category) {
         if (PRIMARY_CATEGORIES.has(category)) continue;
         links.push({ title, href, kind: "collection", category });
-        continue;
-      }
-      if (page === "./art-themes.html" && location.searchParams.has("theme")) {
-        const theme = location.searchParams.get("theme");
-        if (theme) links.push({ title, href, kind: "art", theme });
         continue;
       }
       if (page === "./eevee.html") {
