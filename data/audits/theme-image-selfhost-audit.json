@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-14",
+  "updatedAt": "2026-10-15",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -5555,7 +5555,36 @@
       },
       "nextStart": "s10D canonical 061",
       "note": "All 30 Korean artworks decoded from owned CDN and reviewed for 12 themes; existing S10D_058 sleeping preserved, and previous batch watermark holds retained."
+    },
+    {
+      "task": 6,
+      "set": "s10D",
+      "range": "canonical 061-088 Korean Time Gazer",
+      "canonicalCardCount": 28,
+      "artworkVisuallyVerifiedCount": 28,
+      "artworkPendingCount": 0,
+      "selfHostedReferenceCountAfter": 28,
+      "externalImageReferenceCountAfter": 0,
+      "archiveVerificationStatus": "28_Korean_DCB_owned_CDN_images_decoded",
+      "verifiedImageCount": 28,
+      "unverifiedImageCount": 0,
+      "brokenReferenceCount": 0,
+      "modernArchiveImages": 28,
+      "legacyArchiveImages": 0,
+      "priorThemeSlotsPreserved": 0,
+      "themeAdditions": {
+        "color": 26,
+        "season": 9,
+        "cameo": 1,
+        "street": 2,
+        "food": 1,
+        "work": 1,
+        "night": 1,
+        "sunset": 1
+      },
+      "nextStart": "s10P canonical 001",
+      "note": "28 Korean Time Gazer artworks individually reviewed across 12 themes and matched to decoded DCB-owned CDN files, Korean names and official card numbers. No external origin download."
     }
   ],
-  "nextStart": "s10D canonical 061"
+  "nextStart": "s10P canonical 001"
 }
