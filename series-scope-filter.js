@@ -77,7 +77,7 @@
     ".series-scope-options button:disabled{opacity:.65;cursor:wait;}",
     "@media(max-width:690px){.series-scope-switch{display:grid;gap:8px;padding:9px 10px;}.series-scope-copy{gap:2px;}.series-scope-copy strong{font-size:.66rem;}.series-scope-copy span{font-size:.57rem;}.series-scope-options{width:100%;}.series-scope-options button{min-width:0;min-height:40px;padding:8px 5px;font-size:.69rem;}}",
     "@media print{.series-scope-switch{display:none!important;}}",
-  ].join("\\n");
+  ].join("\n");
   document.head.append(style);
   syncControl();
 
