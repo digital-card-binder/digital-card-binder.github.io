@@ -1,0 +1,58 @@
+name: Apply s10p 061-088 verified Korean Space Juggler themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-s10p-061-088.yml'
+      - 'scripts/apply-theme-s10p-061-088-korean.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s10p-061-088-korean-themes
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply Korean final 28 cards from verified user-owned CDN
+        run: node scripts/apply-theme-s10p-061-088-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - run: node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+      - name: Commit strict Korean Space Juggler 88/88 completion
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in $(seq 1 12); do
+            git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-s10p-061-088-progress-20261015.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Review and self-host s10p 061-088 Korean art; complete 88-slot Space Juggler"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 12 ]]; then exit 1; fi
+            sleep 3
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-s10p-061-088-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+            node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+          done
