@@ -62493,12 +62493,13 @@
     "s12": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "reviewedCardCount": 120,
+      "verifiedSelfHostedImageCount": 120,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-120"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62515,12 +62516,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 146,
-      "priorThemeSlotsPreserved": 103,
-      "partialReviewEvidence": "data/audits/theme-s12-061-090-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12_061-090_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12 canonical 091",
-      "note": "패러다임트리거 한국판 125장 중 연속 90장 실제 그림 12테마 검수. 이번 061-090 포켓몬 28장에 신규 테마 45개 반영, 트레이너 2장 제외. 한국판 자체 보관 이미지 30장 검증, 소유·번호 유지."
+      "newlyAddedThemeSlotCount": 166,
+      "priorThemeSlotsPreserved": 148,
+      "partialReviewEvidence": "data/audits/theme-s12-091-120-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12_091-120_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12 canonical 121",
+      "note": "패러다임트리거 한국판 125장 중 연속 120장 실제 그림 12테마 검수. 이번 091-120 포켓몬 V/HR 16장에 신규 테마 20건 반영, 트레이너·에너지 14장 제외. 기존 잠자는 스컹탱크 V 분류 보존. 자체 보관 이미지 30장 검증."
     }
   },
   "queue": {
@@ -62546,8 +62547,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12 canonical 001-090 (90/125) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s12 canonical 091",
+    "lastSafeCheckpoint": "s12 canonical 001-120 (120/125) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s12 canonical 121",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
