@@ -67,3 +67,26 @@ test("M6a 30th CELEBRATION rarity mapping matches the reviewed Korean catalog", 
   assert.equal(m6a.cards.find((card) => card.code === "m6a_011/103")?.rarity, "");
   assert.equal(m6a.cards.find((card) => card.code === "m6a_017/103")?.rarity, "");
 });
+
+test("M6a Korean cards 104-135 remain self-hosted and match official evidence", () => {
+  const overrides = JSON.parse(readFileSync(new URL("../data/series-image-overrides.json", import.meta.url), "utf8"));
+  const audit = JSON.parse(readFileSync(new URL("../data/audits/m6a-korean-image-sync.json", import.meta.url), "utf8"));
+  const m6a = group("m6a");
+  const known = new Map(m6a.cards.map((card) => [card.code, card]));
+  assert.equal(audit.imported.length, 32);
+  assert.deepEqual(audit.pendingNumbers, []);
+  for (let number = 104; number <= 135; number += 1) {
+    const token = String(number).padStart(3, "0");
+    const identity = `m6a_${token}/103`;
+    const path = `./assets/cards/mega/m6a/M6a_${token}.webp`;
+    assert.ok(known.has(identity), identity);
+    assert.equal(overrides.sets.m6a[identity], path);
+    const content = readFileSync(new URL(`../assets/cards/mega/m6a/M6a_${token}.webp`, import.meta.url));
+    assert.equal(content.subarray(0, 4).toString("ascii"), "RIFF", identity);
+    assert.equal(content.subarray(8, 12).toString("ascii"), "WEBP", identity);
+    assert.ok(content.length > 15_000, identity);
+    const entry = audit.imported.find((item) => item.number === number);
+    assert.equal(entry?.localPath, path);
+    assert.match(entry?.source || "", /^https:\/\/cards[.]image[.]pokemonkorea[.]co[.]kr\//);
+  }
+});
