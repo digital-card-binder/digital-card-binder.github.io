@@ -62556,6 +62556,36 @@
       "archiveVerificationStatus": "s11a_001-094_all_94_Korean_DCB_owned_CDN_images_decoded",
       "nextStart": "s11 canonical 001",
       "note": "백열의 아르카나 한국판 전체 94장 12테마 전수검수 완료. 마지막 4장 검수에서 골드 레어 샤로다 VSTAR 컬러 1건 추가, 트레이너·에너지 3장 포켓몬 테마 제외. 94장 자체 CDN 이미지 증빙과 모든 이전 슬롯 보존."
+    },
+    "s11": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 54,
+      "priorThemeSlotsPreserved": 0,
+      "partialReviewEvidence": "data/audits/theme-s11-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s11_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s11 canonical 031",
+      "note": "로스트어비스 한국판 127장 중 첫 30장 실제 그림 12테마 검수. 컬러 30·자연풍경 23·도시 1 신규 슬롯 추가, 모던 자체 CDN 29장·레거시 자체 CDN 1장 확인. 수집 데이터 변경 없음."
     }
   },
   "queue": {
@@ -62581,8 +62611,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s11a canonical 001-094 (94/94) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s11 canonical 001",
+    "lastSafeCheckpoint": "s11 canonical 001-030 (30/127) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s11 canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

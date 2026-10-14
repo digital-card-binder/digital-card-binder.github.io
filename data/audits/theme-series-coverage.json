@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13087,
-    "uniqueThemeCards": 7840,
+    "themeCardSlots": 13141,
+    "uniqueThemeCards": 7870,
     "strictCompleteSetCount": 94,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 179,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3838,
-      "setCount": 97,
+      "cardSlots": 3861,
+      "setCount": 98,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6836,
-      "setCount": 99,
+      "cardSlots": 6866,
+      "setCount": 100,
       "rarities": [
         "AR",
         "C",
@@ -218,8 +218,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 985,
-      "setCount": 81,
+      "cardSlots": 986,
+      "setCount": 82,
       "rarities": [
         "AR",
         "C",
@@ -269,7 +269,7 @@
       "cardCount": 4800,
       "completeSetCount": 30,
       "remainingSetCount": 31,
-      "currentThemeSlots": 2486
+      "currentThemeSlots": 2540
     },
     {
       "era": "SM",
@@ -375,7 +375,7 @@
       "code": "s11",
       "name": "로스트어비스",
       "cardCount": 127,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -868,9 +868,13 @@
       "cardCount": 127,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 23,
+        "color": 30,
+        "street": 1
+      }
     },
     {
       "era": "S",
