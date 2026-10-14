@@ -62676,11 +62676,12 @@
     "s10a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62697,12 +62698,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 111,
-      "priorThemeSlotsPreserved": 59,
-      "partialReviewEvidence": "data/audits/theme-s10a-031-060-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s10a_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10a canonical 061",
-      "note": "다크판타스마 한국판 031-060 신규 54개 테마 분류, 누적 60/99장. 기존 잠만보 수면 분류와 S10b 8건 인쇄 증거 보류 및 수집 데이터를 유지."
+      "newlyAddedThemeSlotCount": 132,
+      "priorThemeSlotsPreserved": 113,
+      "partialReviewEvidence": "data/audits/theme-s10a-061-090-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10a_061-090_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10a canonical 091",
+      "note": "다크판타스마 한국판 061-090 카드 30장 검수, 컬러 17·풍경 4건 반영하여 누적 90/99장. 피카츄 수면 테마와 S10b 8건 인쇄 증거 보류, 기존 수집 데이터 보존."
     }
   },
   "queue": {
@@ -62728,8 +62729,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10a canonical 001-060 (60/99) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s10a canonical 061",
+    "lastSafeCheckpoint": "s10a canonical 001-090 (90/99) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10a canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
