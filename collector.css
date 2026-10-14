@@ -2806,6 +2806,40 @@ body.collector-collection-page .world-story-header {
 }
 
 
+/* Three always-visible collection statuses; real search/sort/era controls
+   remain in their original panels, with their existing event handlers. */
+body.collector-collection-page .collector-quick-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.collector-collection-page .collector-filter-always-visible {
+  display: grid;
+  min-width: 0;
+  max-width: 100%;
+}
+
+body.collector-collection-page .collector-filter-always-visible :is(
+  .search-field, .fossil-search-field, .art-theme-search-field,
+  .catalog-select, input, select
+) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 690px) {
+  /* Avoid trapping card art under stacked sticky status and result bars. */
+  body.collector-collection-page .collector-quick-controls,
+  body.collector-simple-dex .collector-quick-controls,
+  body.collector-simple-dex .collector-sticky-selector-stack {
+    position: static;
+    top: auto;
+  }
+
+  body.collector-collection-page .catalog-panel .results-bar {
+    position: static;
+  }
+}
+
 /* Unified standalone dex controls */
 body.collector-collection-page .collector-quick-controls {
   display: grid;
