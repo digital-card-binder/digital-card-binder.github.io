@@ -27,7 +27,7 @@ if(prior?.status!=="in_progress"||prior.reviewedCardCount!==90||
  ev.originImageRequests!==0||!ev.all12ThemesInspected||ev.items?.length!==30||
  ev.themeSlotsThisBatch?.season!==12||
  ev.themeSlotsThisBatch?.color!==30||ev.themeSlotsThisBatch?.street!==4||ev.themeSlotsThisBatch?.sunset!==1||
- ev.sourceArchiveBreakdown?.modern!==30||ev.sourceArchiveBreakdown?.legacy!==0||
+ ev.sourceArchiveBreakdown?.modern!==28||ev.sourceArchiveBreakdown?.legacy!==2||
  proof.set!=="s12a"||proof.cardCount!==30||proof.masterSetCardCount!==262||
  proof.canonicalRange!=="091-120"||proof.cards?.length!==30||
  proof.verificationCounts?.verified!==30||proof.verificationCounts?.missing!==0||
@@ -87,7 +87,7 @@ for(let i=0;i<30;i++){
  count++;
 }
 if(master.cards.map(c=>c.code).join(",")!==priorCodes.join(",")||
- count!==30||slotCount!==47||modernSeen!==30||legacySeen!==0||
+ count!==30||slotCount!==47||modernSeen!==28||legacySeen!==2||
  additions.season!==12||additions.color!==30||additions.street!==4||additions.sunset!==1)
  throw Error("s12a second 30 cards / theme counts or archive routing mismatch");
 status.reviews[master.code]={...prior,status:"in_progress",reviewedAt:"2026-10-14",
@@ -99,7 +99,7 @@ status.reviews[master.code]={...prior,status:"in_progress",reviewedAt:"2026-10-1
  partialReviewEvidence:A+"theme-s12a-091-120-Korean-art-review-20261014.json",
  archiveVerificationStatus:"s12a_001-120_120_Korean_DCB_owned_CDN_images_decoded",
  nextStart:"s12a canonical 121",
- note:"VSTAR 유니버스 262장 중 001-120 실물 검수. 이번 배치 30장 이미지 확인 후 47개 테마 분류 추가. 모든 이미지가 모던 보유 CDN에서 검증됨. 고번호 기존 테마·수집 정보 보존."};
+ note:"VSTAR 유니버스 262장 중 001-120 실물 검수. 이번 배치 30장 이미지 확인 후 47개 테마 분류 추가. 모던 보유 CDN 28장과 레거시 보유 CDN 2장 검증. 고번호 기존 테마·수집 정보 보존."};
 status.execution.currentEra="S";status.execution.currentSet="s12a";
 status.execution.lastSafeCheckpoint="s12a canonical 001-120 (120/262) Korean artwork and 120 DCB-owned CDN images verified";
 status.execution.nextStart="s12a canonical 121";status.execution.updatedAt="2026-10-14";
@@ -108,7 +108,7 @@ images.batches.push({task:6,set:"s12a",range:"canonical 091-120 Korean VSTAR Uni
  selfHostedReferenceCountAfter:30,externalImageReferenceCountAfter:0,
  archiveVerificationStatus:"30_Korean_DCB_owned_CDN_images_decoded",
  verifiedImageCount:30,unverifiedImageCount:0,brokenReferenceCount:0,
- modernArchiveImages:30,legacyArchiveImages:0,
+ modernArchiveImages:28,legacyArchiveImages:2,
  themeAdditions:additions,nextStart:"s12a canonical 121",
  note:"30 Korean cards reviewed using user-owned Cloudflare CDN; original third-party source hosts never requested. User collection unchanged."});
 images.nextStart="s12a canonical 121";images.updatedAt="2026-10-14";art.updatedAt="2026-10-14";
@@ -117,7 +117,7 @@ const progress={schemaVersion:1,recordedAt:"2026-10-14",set:"s12a",status:"in_pr
  KoreanArtVerified:120,ownedCDNImagesVerified:120,
  newlyAddedThisBatch:slotCount,totalNewThemeSlots:status.reviews[master.code].newlyAddedThemeSlotCount,
  byTheme:additions,existingThemeSlotsPreserved:previousSlots,
- modernArchiveImages:30,legacyArchiveImages:0,
+ modernArchiveImages:28,legacyArchiveImages:2,
  proof:A+"theme-visual-evidence/s12a/091-120/visual-index.json",
  visualReviewEvidence:A+"theme-s12a-091-120-Korean-art-review-20261014.json",
  originalSourceRequests:0,ownershipStateChanges:0,nextSafeStart:"s12a canonical 121"};
