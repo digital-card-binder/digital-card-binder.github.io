@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12404,
-    "uniqueThemeCards": 7437,
-    "strictCompleteSetCount": 87,
+    "themeCardSlots": 12416,
+    "uniqueThemeCards": 7445,
+    "strictCompleteSetCount": 88,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 186,
+    "baselineRemainingSetCount": 185,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3619,
-      "setCount": 92,
+      "cardSlots": 3623,
+      "setCount": 93,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6406,
-      "setCount": 93,
+      "cardSlots": 6414,
+      "setCount": 94,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 23,
-      "remainingSetCount": 38,
-      "currentThemeSlots": 1803
+      "completeSetCount": 24,
+      "remainingSetCount": 37,
+      "currentThemeSlots": 1815
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SPD",
-      "name": "VSTAR&VMAX 하이클래스 덱 「테오키스」",
-      "cardCount": 21,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s5a",
       "name": "쌍벽의 파이터",
       "cardCount": 96,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s5R",
+      "name": "연격마스터",
+      "cardCount": 91,
       "status": "pending"
     }
   ],
@@ -2726,9 +2726,12 @@
       "cardCount": 21,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 4,
+        "color": 8
+      }
     },
     {
       "era": "S",
