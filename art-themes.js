@@ -27,12 +27,29 @@
 
   const rate = (owned, total) => total ? Math.round((owned / total) * 1000) / 10 : 0;
   const allCards = () => (dataset?.groups || []).flatMap((group) => group.cards || []);
-  const currentGroup = () => (dataset?.groups || []).find((group) => group.code === selectedTheme) || dataset?.groups?.[0] || null;
+  const visibleGroups = () => (dataset?.groups || []).filter((group) => !EEVEE_MODE || !group.hiddenInNavigation);
+  const currentGroup = () => visibleGroups().find((group) => group.code === selectedTheme) || visibleGroups()[0] || null;
+  const isVariantGroup = (group) => EEVEE_MODE && group?.code === "eevee-c";
+
+  // Keep all three original account identities, even though the UI shows one combined dex.
+  function variantsOf(card, group = currentGroup()) {
+    if (!isVariantGroup(group)) return [card];
+    return [
+      card,
+      ...["eevee-pokeball", "eevee-masterball"].map((code) => {
+        const source = dataset?.groups?.find((entry) => entry.code === code);
+        return source?.cards?.find((entry) => entry.name === card.name && entry.cardNumber === card.cardNumber);
+      }),
+    ].filter(Boolean);
+  }
+
+  const collectionCards = (group) => (group?.cards || []).flatMap((card) => variantsOf(card, group));
   const repairedImage = (source) => window.DigitalCardBinderImageCdn?.resolve?.(source) || window.DigitalCardBinderImageCdn?.repairSource?.(source) || source || "";
 
   function requestedTheme() {
     const value = new URL(window.location.href).searchParams.get("theme") || "";
-    return (dataset?.groups || []).some((group) => group.code === value) ? value : dataset?.groups?.[0]?.code || "";
+    if (EEVEE_MODE && ["eevee-pokeball", "eevee-masterball"].includes(value)) return "eevee-c";
+    return visibleGroups().some((group) => group.code === value) ? value : visibleGroups()[0]?.code || "";
   }
 
 
@@ -45,10 +62,10 @@
     el("art-theme-missing").textContent = cards.length - owned;
     el("art-theme-rate").textContent = `${overallRate}%`;
     el("art-theme-progress-ring").style.setProperty("--progress", overallRate);
-    el("art-theme-group-count").textContent = dataset.groups.length;
+    el("art-theme-group-count").textContent = visibleGroups().length;
 
     const group = currentGroup();
-    const selectedCards = group?.cards || [];
+    const selectedCards = collectionCards(group);
     const selectedOwned = selectedCards.filter((card) => card.owned).length;
     const selectedRate = rate(selectedOwned, selectedCards.length);
     el("art-theme-current-count").textContent = selectedCards.length;
@@ -64,8 +81,9 @@
   }
 
   function matches(card) {
-    if (statusFilter === "owned" && !card.owned) return false;
-    if (statusFilter === "missing" && card.owned) return false;
+    const versions = variantsOf(card);
+    if (statusFilter === "owned" && !versions.some((version) => version.owned)) return false;
+    if (statusFilter === "missing" && !versions.some((version) => !version.owned)) return false;
     const query = searchQuery.trim().toLowerCase();
     if (!query) return true;
     return [
@@ -111,8 +129,10 @@
     el("art-theme-dialog-image").alt = card.name || "카드 이미지";
     el("art-theme-dialog-image").classList.toggle("is-missing", !card.owned);
     el("art-theme-dialog-number").textContent = card.cardNumber || card.code || "";
-    el("art-theme-dialog-status").textContent = card.owned ? "보유" : "미보유";
-    el("art-theme-dialog-status").classList.toggle("is-owned", Boolean(card.owned));
+    const versions = variantsOf(card);
+    const variantOwned = versions.filter((version) => version.owned).length;
+    el("art-theme-dialog-status").textContent = versions.length > 1 ? `${variantOwned}/3 보유` : card.owned ? "보유" : "미보유";
+    el("art-theme-dialog-status").classList.toggle("is-owned", variantOwned > 0);
     el("art-theme-dialog-name").textContent = card.name || "";
     el("art-theme-dialog-theme").textContent = group?.name || "";
     el("art-theme-dialog-set").textContent = [card.set, card.setName].filter(Boolean).join(" · ");
@@ -130,6 +150,46 @@
     dialog.showModal();
   }
 
+  function variantButtons(card) {
+    const variants = variantsOf(card);
+    const panel = document.createElement("div");
+    panel.className = "eevee-variant-options";
+    panel.setAttribute("role", "group");
+    panel.setAttribute("aria-label", `${card.name} 일반, 몬스터볼, 마스터볼 보유 체크`);
+    ["일반", "몬스터볼", "마스터볼"].forEach((label, index) => {
+      const version = variants[index];
+      if (!version) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "eevee-variant-button";
+      button.classList.toggle("is-owned", Boolean(version.owned));
+      button.setAttribute("aria-pressed", String(Boolean(version.owned)));
+      button.setAttribute("aria-label", `${card.name} ${label} ${version.owned ? "보유 해제" : "보유 등록"}`);
+      button.textContent = `${version.owned ? "✓ " : ""}${label}`;
+      button.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        const manager = account();
+        if (!manager?.canEdit?.()) {
+          alert("Google 로그인 후 내 도감을 수정할 수 있습니다.");
+          return;
+        }
+        button.disabled = true;
+        try {
+          const next = !version.owned;
+          await manager.saveOwned(version.accountKey, next);
+          version.owned = next;
+          render();
+        } catch (error) {
+          console.error("이브이 인쇄 사양 저장 실패", error);
+          alert(error?.message || "보유 상태를 저장하지 못했습니다.");
+          button.disabled = false;
+        }
+      });
+      panel.append(button);
+    });
+    return panel;
+  }
+
   function renderCards() {
     const group = currentGroup();
     const cards = (group?.cards || []).filter(matches);
@@ -142,8 +202,10 @@
     cards.forEach((card) => {
       const article = document.createElement("article");
       article.className = "art-theme-card";
-      article.classList.toggle("is-owned", Boolean(card.owned));
-      article.classList.toggle("is-missing", !card.owned);
+      const anyOwned = variantsOf(card, group).some((version) => version.owned);
+      article.classList.toggle("is-owned", anyOwned);
+      article.classList.toggle("is-missing", !anyOwned);
+      article.classList.toggle("eevee-variant-card", isVariantGroup(group));
       const image = repairedImage(card.image);
       article.innerHTML = `
         <div class="art-theme-card-image"><img src="${image}" alt="" loading="lazy" decoding="async" /></div>
@@ -159,7 +221,11 @@
       open.className = "art-theme-card-open";
       open.textContent = `${card.name} 상세 보기`;
       open.addEventListener("click", () => openDialog(card));
-      article.append(open, ownedButton(card));
+      if (isVariantGroup(group)) {
+        article.append(open, variantButtons(card));
+      } else {
+        article.append(open, ownedButton(card));
+      }
       grid.append(article);
     });
   }
@@ -187,7 +253,7 @@
     const group = currentGroup();
     const recentDex = window.DigitalCardBinder?.recentDex;
     if (!group || typeof recentDex?.remember !== "function") return;
-    const cards = group.cards || [];
+    const cards = collectionCards(group);
     const owned = cards.filter((card) => card.owned).length;
     recentDex.remember({
       collectionId: "artThemes",
@@ -221,7 +287,7 @@
         document.title = "이브이 도감 | 디지털 카드 바인더";
         el("page-title").textContent = "이브이 도감";
         const hero = document.querySelector(".art-theme-hero .hero-description");
-        if (hero) hero.textContent = "이브이와 8종 진화체 · 8개 하위도감, 총 73장의 보유 상태를 체크합니다.";
+        if (hero) hero.textContent = "이브이와 8종 진화체 · 6개 하위도감, 73개 보유 항목을 체크합니다.";
         const kicker = document.querySelector(".art-theme-kicker");
         if (kicker) kicker.textContent = "EEVEE FAMILY COLLECTION";
         const panel = document.querySelector(".art-theme-catalog");
@@ -231,7 +297,7 @@
           back.style.cssText = "margin:0 0 16px;font-weight:700";
           const link = document.createElement("a");
           link.href = "./eevee.html";
-          link.textContent = "← 8개 이브이 하위도감";
+          link.textContent = "← 6개 이브이 하위도감";
           back.append(link);
           panel.before(back);
         }
@@ -239,11 +305,11 @@
         if (summary) summary.textContent = "이브이 카드 체크";
         const groupMetric = document.querySelector(".stats-grid .stat-card--owned span:not(.stat-icon)");
         if (groupMetric) groupMetric.textContent = "하위도감 수";
-        if (selectedTheme === "eevee-pokeball" || selectedTheme === "eevee-masterball") {
+        if (selectedTheme === "eevee-c") {
           const mirrorNote = document.createElement("p");
           mirrorNote.className = "eevee-mirror-note";
           mirrorNote.style.cssText = "margin:10px 0;font-size:13px;line-height:1.5;color:var(--text-muted,#737b88)";
-          mirrorNote.textContent = "※ 미러 카드는 동일 카드번호의 일반판 이미지를 참고로 표시합니다. 실제 몬스터볼·마스터볼 무늬는 이미지에 재현되지 않았습니다.";
+          mirrorNote.textContent = "각 카드 아래에서 일반·몬스터볼·마스터볼을 각각 선택하세요. 이미지는 일반 카드 1장만 표시하며, 실물 미러 무늬는 표시되지 않습니다.";
           document.querySelector(".art-theme-filter-panel")?.after(mirrorNote);
         }
       }
