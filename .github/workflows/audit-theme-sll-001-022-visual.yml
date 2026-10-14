@@ -32,6 +32,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
+            git rm -f --ignore-unmatch data/audits/theme-visual-evidence/SLL/001-022/SI-001-022-01.webp.b64 data/audits/theme-visual-evidence/SLL/001-022/SI-001-022-02.webp.b64
             git add data/audits/theme-visual-evidence/SLL/001-022
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "Capture SLL 001-022 Korean owned archive image proofs"
