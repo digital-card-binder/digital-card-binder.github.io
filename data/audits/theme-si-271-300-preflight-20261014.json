@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "set": "SI",
+  "range": "canonical-order 271-300",
+  "expectedMasterCards": 430,
+  "status": "pending_own_cdn_evidence_then_independent_visual_review",
+  "prerequisite": "SI 241-270 review applied",
+  "artworkReviewedThisBatch": 0,
+  "imageEvidence": "data/audits/theme-visual-evidence/SI/271-300/visual-index.json",
+  "externalSourceDownloads": 0,
+  "nextSafeStart": "SI canonical 271",
+  "guard": "Only verify Korean printed cards, decode actual images from the user-owned CDN and then apply 12 themes and increment checkpoint after tests succeed"
+}
