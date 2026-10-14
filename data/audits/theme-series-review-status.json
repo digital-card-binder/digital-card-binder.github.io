@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12",
+  "updatedAt": "2026-10-15",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -62735,7 +62735,11 @@
       "partialReviewEvidence": "data/audits/theme-s10d-031-060-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "s10D_031-060_30_Korean_DCB_owned_CDN_images_decoded",
       "nextStart": "s10D canonical 061",
-      "note": "타임게이저 001-060 실제 한국판 일러스트 12테마 검수 완료(60/88). #058 요씽리스 수면 분류 유지; #001~002 기존 이미지 워터마크 품질 개선은 별도 보류."
+      "note": "타임게이저 001-060 실제 한국판 일러스트 12테마 검수 완료(60/88). #058 요씽리스 수면 분류 유지; #001~002 기존 이미지 워터마크 품질 개선은 별도 보류.",
+      "metadataRarityVerifiedThrough": 88,
+      "metadataRarityVerifiedCount": 28,
+      "metadataRarityEvidence": "data/audits/theme-s10d-061-088-korean-metadata-20261015.json",
+      "metadataAuditCommittedAt": "2026-10-15"
     }
   },
   "queue": {
@@ -63064,7 +63068,14 @@
       "archiveVerificationStatus": "pending",
       "checkedAt": "2026-10-12"
     },
-    "updatedAt": "2026-10-14"
+    "updatedAt": "2026-10-14",
+    "lastMetadataAudit": {
+      "set": "s10D",
+      "range": "canonical 061-088",
+      "checkedAt": "2026-10-15",
+      "evidence": "data/audits/theme-s10d-061-088-korean-metadata-20261015.json",
+      "artworkAndCDNPending": true
+    }
   },
   "lastEvidenceAuditCheckpoint": {
     "set": "sv4K",
