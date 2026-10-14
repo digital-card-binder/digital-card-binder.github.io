@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12972,
-    "uniqueThemeCards": 7765,
+    "themeCardSlots": 13023,
+    "uniqueThemeCards": 7794,
     "strictCompleteSetCount": 93,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 180,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3802,
-      "setCount": 96,
+      "cardSlots": 3823,
+      "setCount": 97,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6760,
-      "setCount": 98,
+      "cardSlots": 6790,
+      "setCount": 99,
       "rarities": [
         "AR",
         "C",
@@ -267,7 +267,7 @@
       "cardCount": 4800,
       "completeSetCount": 29,
       "remainingSetCount": 32,
-      "currentThemeSlots": 2371
+      "currentThemeSlots": 2422
     },
     {
       "era": "SM",
@@ -373,7 +373,7 @@
       "code": "s11a",
       "name": "백열의 아르카나",
       "cardCount": 94,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -877,10 +877,12 @@
       "cardCount": 94,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "season": 21,
+        "color": 30
       }
     },
     {
