@@ -62493,11 +62493,12 @@
     "s12": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62514,12 +62515,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 101,
-      "priorThemeSlotsPreserved": 56,
-      "partialReviewEvidence": "data/audits/theme-s12-031-060-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12 canonical 061",
-      "note": "패러다임트리거 한국판 125장 중 연속 60장 실제 그림 12테마 검수. 이번 031-060에 47개 신규 테마 슬롯 추가. 한국판 자사 보관 이미지 30장 모두 검증, 소유·번호 유지."
+      "newlyAddedThemeSlotCount": 146,
+      "priorThemeSlotsPreserved": 103,
+      "partialReviewEvidence": "data/audits/theme-s12-061-090-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12_061-090_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12 canonical 091",
+      "note": "패러다임트리거 한국판 125장 중 연속 90장 실제 그림 12테마 검수. 이번 061-090 포켓몬 28장에 신규 테마 45개 반영, 트레이너 2장 제외. 한국판 자체 보관 이미지 30장 검증, 소유·번호 유지."
     }
   },
   "queue": {
@@ -62545,8 +62546,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12 canonical 001-060 (60/125) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s12 canonical 061",
+    "lastSafeCheckpoint": "s12 canonical 001-090 (90/125) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s12 canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
