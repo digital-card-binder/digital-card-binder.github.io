@@ -1,0 +1,56 @@
+/* Pokemon Collection only: keep search visible beside the selector, even with Filters closed. */
+body[data-catalog="pokemon"] .pokemon-selection-summary {
+  display:grid;
+  grid-template-columns:minmax(180px,1fr) minmax(240px,1fr) auto;
+  align-items:center;
+  gap:12px;
+}
+body[data-catalog="pokemon"] .pokemon-collection-search {
+  display:flex;
+  width:100%;
+  min-width:0;
+  min-height:42px;
+  height:42px;
+  margin:0;
+}
+body[data-catalog="pokemon"] .pokemon-collection-search input {
+  width:100%;
+  min-width:0;
+}
+body[data-catalog="pokemon"] .pokemon-selection-summary .pokemon-chooser {
+  width:100%;
+  min-width:0;
+  gap:0;
+}
+body[data-catalog="pokemon"] .pokemon-chooser-controls {
+  grid-template-columns:38px minmax(0,1fr) 38px;
+}
+body[data-catalog="pokemon"] #selected-progress {
+  white-space:nowrap;
+}
+@media(max-width:1080px) {
+  body[data-catalog="pokemon"] .pokemon-selection-summary {
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  }
+  body[data-catalog="pokemon"] #selected-progress {
+    grid-column:1/-1;
+    justify-self:end;
+  }
+}
+@media(max-width:690px) {
+  body[data-catalog="pokemon"] .pokemon-selection-summary {
+    grid-template-columns:minmax(0,1fr);
+    gap:7px;
+  }
+  body[data-catalog="pokemon"] .pokemon-collection-search {
+    min-height:42px;
+    height:42px;
+  }
+  body[data-catalog="pokemon"] .pokemon-chooser-controls {
+    grid-template-columns:38px minmax(0,1fr) 38px;
+  }
+  body[data-catalog="pokemon"] #selected-progress {
+    grid-column:auto;
+    justify-self:end;
+  }
+}
