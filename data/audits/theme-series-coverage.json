@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12416,
-    "uniqueThemeCards": 7445,
-    "strictCompleteSetCount": 88,
+    "themeCardSlots": 12422,
+    "uniqueThemeCards": 7451,
+    "strictCompleteSetCount": 89,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 185,
+    "baselineRemainingSetCount": 184,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6414,
-      "setCount": 94,
+      "cardSlots": 6420,
+      "setCount": 95,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 24,
-      "remainingSetCount": 37,
-      "currentThemeSlots": 1815
+      "completeSetCount": 25,
+      "remainingSetCount": 36,
+      "currentThemeSlots": 1821
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SP6",
-      "name": "VSTAR 스페셜 세트",
-      "cardCount": 6,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -525,6 +518,13 @@
       "era": "S",
       "code": "s5R",
       "name": "연격마스터",
+      "cardCount": 91,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s5I",
+      "name": "일격마스터",
       "cardCount": 91,
       "status": "pending"
     }
@@ -2715,9 +2715,11 @@
       "cardCount": 6,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "color": 6
+      }
     },
     {
       "era": "S",
