@@ -25,19 +25,22 @@
       975,
       1011,
       1019,
-      1023
+      1023,
+      989
     ],
-    "reviewedRecordCount": 17,
+    "reviewedRecordCount": 18,
     "visuallyReviewedCount": 0
   },
   "counts": {
-    "corrected": 17,
-    "exactImagePathMatches": 707,
-    "withoutExactSeriesImagePath": 318,
+    "totalCorrections": 18,
+    "imageCorrections": 17,
+    "nameCorrections": 1,
+    "exactImagePathMatches": 701,
+    "withoutExactSeriesImagePath": 324,
     "matchedCardsWithoutCatalogTitle": 44,
-    "explicitCatalogTitleMismatches": 2,
+    "explicitCatalogTitleMismatches": 1,
     "duplicateImageReuse": 0,
-    "heldForEvidence": 2,
+    "heldForEvidence": 1,
     "nextReviewStartingNumber": 1
   },
   "corrections": [
@@ -244,6 +247,18 @@
       "setCode": "sv7a",
       "reason": "National Dex representative image pointed to a different Korean card title; replaced with the exact Pokémon card record from the Korean master series catalog.",
       "verifiedBy": "series.json card name, printed card code, official Korean image URL"
+    },
+    {
+      "number": 989,
+      "nameKo": "모래털가죽",
+      "previousNameKo": "모래털가족",
+      "oldImageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_042.png?w=512",
+      "cardCode": "sv4k_042/066",
+      "cardName": "모래털가죽 ex",
+      "imageUrl": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV4K/SV4K_042.png?w=512",
+      "source": "https://pokemonkorea.co.kr/pokedex/view/1254",
+      "reason": "Official Korean Pokédex and Korean card catalog use 모래털가죽; the existing representative card image already showed this species, while the National Dex Korean name had a typo.",
+      "verifiedBy": "official Korean Pokédex and Korean card catalog"
     }
   ],
   "holds": [
@@ -251,17 +266,12 @@
       "number": 433,
       "nameKo": "랑딸랑",
       "issue": "Current image resolves to a different Pokémon card title. Catalog search found only a Rocket’s Chingling candidate; excluded pending evidence for a non-Trainer representative."
-    },
-    {
-      "number": 989,
-      "nameKo": "모래털가족",
-      "issue": "Current image resolves to 모래털가죽 ex; Korean names differ by one character. Hold pending species/name evidence."
     }
   ],
   "automatedScan": {
     "seriesCards": 15632,
-    "recordsWithExactImagePathInSeriesCatalog": 707,
-    "recordsWithoutExactCatalogPath": 318,
+    "recordsWithExactImagePathInSeriesCatalog": 701,
+    "recordsWithoutExactCatalogPath": 324,
     "recordsWithPathButMissingCardTitle": 44,
     "explicitPathTitleMismatches": [
       {
@@ -270,18 +280,11 @@
         "titles": [
           "맨돌핀"
         ]
-      },
-      {
-        "number": 989,
-        "nameKo": "모래털가족",
-        "titles": [
-          "모래털가죽 ex"
-        ]
       }
     ],
     "duplicateImagePaths": [],
     "visuallyReviewedCount": 0,
-    "note": "Automated URL/path and catalog-title triage only; the 318 unmapped paths and 44 cards with no catalog title still need image-source confirmation and visual review. This scan does not count as visual image verification."
+    "note": "Automated URL/path and catalog-title triage only; 324 unmapped paths and 44 mapped images without catalog titles still need source confirmation and visual review. This does not count as full visual image verification."
   },
-  "nextAction": "Review exact-path card title mismatches and unmapped image paths from #0001 upward; visually inspect confirmed candidates."
+  "nextAction": "Visually inspect remaining records from #0001 upward, prioritizing the #0433 title mismatch and unmapped image paths."
 }

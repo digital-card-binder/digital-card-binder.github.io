@@ -205,6 +205,7 @@
       records.filter((record) => !curatedByName.has(clean(record.nameKo)))
         .map((record) => [clean(record.nameKo), {
           name: record.nameKo,
+          ...(record.number === 989 ? { code: "모래털가족" } : {}),
           dexNumber: record.number,
           cards: [],
         }]),
