@@ -62560,12 +62560,13 @@
     "s11": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "reviewedCardCount": 120,
+      "verifiedSelfHostedImageCount": 120,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-120"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62582,12 +62583,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 165,
-      "priorThemeSlotsPreserved": 113,
-      "partialReviewEvidence": "data/audits/theme-s11-061-090-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s11_061-090_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s11 canonical 091",
-      "note": "로스트어비스 한국판 061-090 추가 30장 일러스트·자체 CDN 검수. 누적 90/127장 및 신규 테마 52건 반영. S11 067 드래피온 VSTAR 인쇄명 교정; 이전 001-060 검수와 수집정보는 보존."
+      "newlyAddedThemeSlotCount": 183,
+      "priorThemeSlotsPreserved": 165,
+      "partialReviewEvidence": "data/audits/theme-s11-091-120-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s11_091-120_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s11 canonical 121",
+      "note": "로스트어비스 한국판 091-120 추가 30장 검수. 누적 120/127장, 컬러 16·풍경 1·도시 1 슬롯 추가. 아이템·서포트·스타디움·에너지 14장의 테마 적합성도 점검, 기존 001-090 검수와 수집정보 보존."
     }
   },
   "queue": {
@@ -62613,8 +62614,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s11 canonical 001-090 (90/127) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s11 canonical 091",
+    "lastSafeCheckpoint": "s11 canonical 001-120 (120/127) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s11 canonical 121",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
