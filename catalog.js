@@ -1063,6 +1063,17 @@ function renderQuickCollectControl() {
     });
   }
 
+  // The shared results toolbar may be installed after the catalog finishes
+  // loading. Move the existing switch when it becomes available.
+  const finalActions = document.querySelector(
+    ".catalog-panel .results-bar .results-bar-actions",
+  );
+  if (finalActions && wrap.parentElement !== finalActions) {
+    wrap.classList.remove("catalog-quick-collect--nested");
+    wrap.classList.add("catalog-quick-collect--inline");
+    finalActions.prepend(wrap);
+  }
+
   const input = wrap.querySelector("#catalog-quick-collect-toggle");
   const label = wrap.querySelector(".catalog-quick-collect-switch b");
   if (input) input.checked = quickCollectMode;
