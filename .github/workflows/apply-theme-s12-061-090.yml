@@ -58,5 +58,8 @@ jobs:
             node scripts/apply-theme-s12-061-090-korean.mjs
             npm run site:prepare
             npm run site:check
-            npm test
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+            node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
           done
