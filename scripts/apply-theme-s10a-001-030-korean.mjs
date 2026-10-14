@@ -24,6 +24,7 @@ if(prior?.reviewedCardCount>0||
  ev.originImageRequests!==0||!ev.all12ThemesInspected||ev.items?.length!==30||
  JSON.stringify(ev.newThemeSlotsThisBatch)!==JSON.stringify(EXPECTED)||
  ev.existingThemeSlotsPreserved!==0||ev.priorSetEvidenceHoldsRetained?.count!==8||
+ ev.priorSetEvidenceHoldsRetained?.audit!==A+"theme-s10b-091-109-Korean-art-review-20261014.json"||
  proof.set!=="s10a"||proof.cardCount!==30||proof.masterSetCardCount!==99||
  proof.canonicalRange!=="001-030"||proof.cards?.length!==30||
  proof.verificationCounts?.verified!==30||proof.verificationCounts?.missing!==0||
