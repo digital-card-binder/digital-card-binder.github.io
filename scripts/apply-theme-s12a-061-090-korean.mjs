@@ -41,7 +41,7 @@ let previousSlots=0;
 for(const g of art.groups)for(const card of g.cards||[]){
  const m=/^S12A_(\d{3})$/i.exec(String(card.code||""));
  if(m){
-  if(+m[1]>=31&&+m[1]<=60)throw Error("Theme already exists for second 30-card batch: "+card.code+"/"+g.code);
+  if(+m[1]>=61&&+m[1]<=90)throw Error("Theme already exists for s12a canonical 061-090: "+card.code+"/"+g.code);
   previousSlots++;
  }
 }
