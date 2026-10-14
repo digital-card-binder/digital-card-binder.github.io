@@ -62315,6 +62315,33 @@
       "fullSetEvidence": "data/audits/theme-sld-001-021-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "22_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
       "note": "한국판 스타터 세트 VSTAR 다크라이 21장 실제 그림 전수검수. 인쇄번호 20장과 무번호 기본 악 에너지 1장 구분. 테마 15슬롯, 소유 기록 불변. 외부 원본 트래픽 0."
+    },
+    "SPZ": {
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 21,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "verifiedSelfHostedImageCount": 21,
+      "newlyAddedThemeSlotCount": 12,
+      "priorThemeSlotsPreserved": 0,
+      "KoreanPhysicalNumberPolicy": "SPZ 001/020–020/020 are printed, basic lightning energy card 21 uses internal ID SPZ_021 (not printed 021/020)",
+      "fullSetEvidence": "data/audits/theme-spz-001-021-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "22_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "note": "한국판 VSTAR&VMAX 하이클래스 덱 제라오라 21장 시각검수. 인쇄번호 20장과 무번호 기본 번개 에너지 1장 구분. 포켓몬 그림에 12테마 슬롯 추가, 소유 기록 불변. 외부 원본 트래픽 0."
     }
   },
   "queue": {
@@ -62334,14 +62361,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "SPZ",
+    "currentSet": "SPD",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SLD canonical 001-021 (21/21) Korean artwork and owned CDN verified; one energy unnumbered",
-    "nextStart": "SPZ canonical 001",
+    "lastSafeCheckpoint": "SPZ canonical 001-021 (21/21) Korean artwork and owned CDN verified; one energy unnumbered",
+    "nextStart": "SPD canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
