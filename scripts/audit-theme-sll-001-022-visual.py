@@ -81,7 +81,7 @@ for start in range(0,COUNT,15):
   draw.text((x+7,y+318),str(c["canonicalOrder"])+" "+str(c["name"])[:18],fill=(10,10,10))
   draw.text((x+7,y+338),str(c["masterCode"])[:25]+" "+proof["status"],fill=(10,10,10))
  out=BytesIO();sheet.save(out,format="WEBP",quality=78)
- file=f"SI-001-022-{start//15+1:02}.webp.b64"
+ file=f"SLL-001-022-{start//15+1:02}.webp.b64"
  (AUDIT/file).write_text(base64.b64encode(out.getvalue()).decode("ascii"),encoding="ascii")
  sheets.append({"file":file,"canonicalStart":start+1,"canonicalEnd":min(start+15,COUNT),"encodedBytes":len(out.getvalue())})
 counter={"verified":sum(proof["status"]=="decoded" for proof,_ in items),"missing":sum(proof["status"]!="decoded" for proof,_ in items)}
