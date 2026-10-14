@@ -35,8 +35,11 @@ for(let i=0;i<30;i++){
  evCard.preExistingThemes?.slice().sort().join(',')!==expectedExisting.join(',')||
  p.imageCheck?.status!=='decoded'||p.imageCheck.http!==200||p.imageCheck.format!=='WEBP'||
  p.imageCheck.dimensions?.join(',')!=='420,586'||
- !p.cdnUrl.startsWith('https://dcb-card-images-modern-2026.pages.dev/')||
- p.rawSource!=='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_'+id+'.png'||
+ !((p.cdnUrl.startsWith('https://dcb-card-images-modern-2026.pages.dev/') &&
+ p.rawSource==='https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S10/S10P_'+id+'.png')||
+ (n===44&&p.cdnUrl==='https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/9f63be115947151e.webp'&&
+ p.rawSource==='https://static.tcgexchange.kr/9eb58e69ce26d6af85a1c794b4ca8688.png'&&
+ card.source==='https://www.dogam.app/cards/01KW1C60V1PJJ2H5B6FYN7HHPS'))||
  (card.image!==p.cdnUrl&&card.image!==p.rawSource))
  throw Error('s10P Korean image/identity/existing-theme mismatch '+id);
  preserved+=expectedExisting.length;
