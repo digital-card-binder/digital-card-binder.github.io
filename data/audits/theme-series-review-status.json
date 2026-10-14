@@ -62594,10 +62594,11 @@
     "s10b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62614,12 +62615,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 53,
-      "priorThemeSlotsPreserved": 6,
-      "partialReviewEvidence": "data/audits/theme-s10b-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s10b_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10b canonical 031",
-      "note": "Pokémon GO 한국판 109장 중 001-030 30장 한국어 인쇄 이미지와 12테마 검수 완료. 기존 테마 3건 보존, 신규 53건 반영; 모던 자체 CDN 30장 확인, 수집 데이터 보존."
+      "newlyAddedThemeSlotCount": 106,
+      "priorThemeSlotsPreserved": 59,
+      "partialReviewEvidence": "data/audits/theme-s10b-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10b_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10b canonical 061",
+      "note": "Pokémon GO 한국판 031-060 30장 추가 검수 완료. 누적 60/109장, 신규 53개 테마 슬롯 추가. 기존 001-030 및 수집키·테마 보존, 자체 CDN 29+1장 확인."
     }
   },
   "queue": {
@@ -62645,8 +62646,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10b canonical 001-030 (30/109) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s10b canonical 031",
+    "lastSafeCheckpoint": "s10b canonical 001-060 (60/109) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s10b canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
