@@ -1,0 +1,156 @@
+/* Compact dashboard collection tiles — desktop and mobile. */
+/* Only the landing page is affected; collection detail pages keep their sizes. */
+body[data-page="dashboard"] #home-collection-section {
+  margin-top: 16px;
+  padding: 16px 18px;
+}
+body[data-page="dashboard"] #home-collection-section .dashboard-section-heading h2 {
+  font-size: 1rem;
+}
+body[data-page="dashboard"] #dashboard-primary-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+body[data-page="dashboard"] #dashboard-theme-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  padding: 0 15px 15px;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-collection-card,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-collection-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0;
+  height: 92px;
+  min-height: 92px;
+  border-radius: 12px;
+  padding: 10px 11px;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-collection-card::before,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-collection-card::before {
+  top: -37px;
+  right: -28px;
+  width: 82px;
+  height: 82px;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-top,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-top {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-rate,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-rate {
+  font-size: 0.68rem;
+  line-height: 1;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title {
+  margin-top: 0;
+  padding-right: 43px;
+  min-width: 0;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title strong,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title strong {
+  font-size: 0.74rem;
+  line-height: 1.23;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-count {
+  margin-top: 5px;
+  line-height: 1.1;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count strong,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-count strong {
+  font-size: 0.9rem;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count span,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-count span {
+  font-size: 0.53rem;
+}
+body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-progress,
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-progress {
+  height: 3px;
+  margin-top: 9px;
+}
+body[data-page="dashboard"] #dashboard-theme-section {
+  margin-top: 13px;
+}
+body[data-page="dashboard"] #dashboard-theme-section .dashboard-theme-summary {
+  padding: 13px 16px;
+}
+body[data-page="dashboard"] #dashboard-theme-section .dashboard-theme-hub-link {
+  margin: 8px 15px 6px;
+}
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-theme-card--untracked {
+  justify-content: center;
+}
+body[data-page="dashboard"] #dashboard-theme-grid .dashboard-theme-card--untracked .dashboard-card-count span {
+  color: #738096;
+  font-weight: 750;
+}
+@media (max-width: 1240px) {
+  body[data-page="dashboard"] #dashboard-theme-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 920px) {
+  body[data-page="dashboard"] #dashboard-primary-grid,
+  body[data-page="dashboard"] #dashboard-theme-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 690px) {
+  body[data-page="dashboard"] #home-collection-section {
+    margin-top: 10px !important;
+    padding: 10px 9px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid,
+  body[data-page="dashboard"] #dashboard-theme-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    margin-top: 7px !important;
+  }
+  body[data-page="dashboard"] #dashboard-theme-grid {
+    padding: 0 8px 9px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-collection-card,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-collection-card {
+    height: 82px !important;
+    min-height: 82px !important;
+    padding: 9px !important;
+    border-radius: 10px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-top,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-top {
+    top: 7px !important;
+    right: 8px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title {
+    margin-top: 0 !important;
+    padding-right: 34px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-title strong,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-title strong {
+    font-size: 0.64rem !important;
+    line-height: 1.2 !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-count,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-count {
+    margin-top: 5px !important;
+  }
+  body[data-page="dashboard"] #dashboard-primary-grid .dashboard-card-progress,
+  body[data-page="dashboard"] #dashboard-theme-grid .dashboard-card-progress {
+    margin-top: 7px !important;
+  }
+  body[data-page="dashboard"] #dashboard-theme-section .dashboard-theme-summary {
+    padding: 10px 11px;
+  }
+}
