@@ -1195,14 +1195,18 @@
       <button type="button" data-quick-status="all" aria-pressed="false">전체</button>
       <button type="button" data-quick-status="owned" aria-pressed="false">보유</button>
       <button type="button" data-quick-status="missing" aria-pressed="false">미보유</button>
-      <button type="button" class="collector-quick-filter-button" data-quick-filter aria-expanded="true">필터</button>
     `;
     anchor.insertAdjacentElement("beforebegin", controls);
 
     const quickButtons = [
       ...controls.querySelectorAll("button[data-quick-status]"),
     ];
-    const filterButton = controls.querySelector("[data-quick-filter]");
+    // All available searches and collection-specific filters stay visible.
+    // Preserve each existing input and its listeners in place.
+    surfaces.forEach((surface) => {
+      surface.classList.remove("is-quick-filter-collapsed");
+      surface.classList.add("collector-filter-always-visible");
+    });
 
     const currentStatus = () =>
       config.worldVisualFilter
@@ -1216,14 +1220,6 @@
         button.classList.toggle("is-active", active);
         button.setAttribute("aria-pressed", String(active));
       });
-    };
-
-    const setFilterOpen = (open) => {
-      surfaces.forEach((surface) => {
-        surface.classList.toggle("is-quick-filter-collapsed", !open);
-      });
-      controls.classList.toggle("is-filter-open", open);
-      filterButton?.setAttribute("aria-expanded", String(open));
     };
 
     quickButtons.forEach((button) => {
@@ -1241,17 +1237,6 @@
         target?.click?.();
         window.requestAnimationFrame?.(syncQuickStatus);
       });
-    });
-
-    filterButton?.addEventListener("click", () => {
-      const open = filterButton.getAttribute("aria-expanded") !== "true";
-      setFilterOpen(open);
-      if (open) {
-        surfaces[0]?.scrollIntoView?.({
-          behavior: "smooth",
-          block: "nearest",
-        });
-      }
     });
 
     if (statusSource && typeof MutationObserver === "function") {
@@ -1280,18 +1265,8 @@
       applyWorldVisualStatus("all");
     }
 
-    const syncFilterLayout = () => {
-      setFilterOpen(false);
-    };
-
+    // No hidden filter state to reset when rotating a device or resizing.
     syncQuickStatus();
-    syncFilterLayout();
-
-    if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
-      mobileCardLayoutMedia.addEventListener("change", syncFilterLayout);
-    } else if (typeof mobileCardLayoutMedia?.addListener === "function") {
-      mobileCardLayoutMedia.addListener(syncFilterLayout);
-    }
   }
 
   const SIMPLE_DEX_COLLECTIONS = new Set([
