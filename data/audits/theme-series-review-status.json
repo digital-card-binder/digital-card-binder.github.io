@@ -62705,6 +62705,36 @@
       "archiveVerificationStatus": "s10a_091-099_9_Korean_DCB_owned_CDN_WEBP_verified",
       "nextStart": "s10D canonical 001",
       "note": "한국 다크판타스마 001-099 전체 99장 12테마 검수 완료. HR·UR 9장 검수 및 color 3건 추가. 기존 컬렉션 키와 출처 보존."
+    },
+    "s10D": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 56,
+      "priorThemeSlotsPreserved": 1,
+      "partialReviewEvidence": "data/audits/theme-s10d-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s10D_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s10D canonical 031",
+      "note": "타임게이저 한국판 001-030 그림 30장 12테마 검수; 셀프호스팅 28 modern + 2 legacy. 001·002는 사진 워터마크 품질 교체 대기(한국어 카드 신원 확인 완료)."
     }
   },
   "queue": {
@@ -62730,8 +62760,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10a 001-099 (99/99) Korean printed cards, themes and DCB-owned WebP verified",
-    "nextStart": "s10D canonical 001",
+    "lastSafeCheckpoint": "s10D canonical 001-030 (30/88) Korean artwork and 30 DCB-owned CDN images decoded",
+    "nextStart": "s10D canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
