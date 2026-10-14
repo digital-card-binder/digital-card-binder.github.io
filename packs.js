@@ -108,16 +108,18 @@ const promoPalettes = {
   ]
 };
 
+// Display newest era first; the source packs array and its sprite indices
+// stay unchanged because image lookup and ownership depend on their identities.
 const packGroups = [
-  ["ORIGIN", "오리지널"],
-  ["ADV", "ADV"],
-  ["DP", "DP"],
-  ["BW", "BW"],
-  ["XY", "XY"],
-  ["SM", "썬&문"],
-  ["S", "소드&실드"],
+  ["M", "MEGA"],
   ["SV", "스칼렛&바이올렛"],
-  ["M", "MEGA"]
+  ["S", "소드&실드"],
+  ["SM", "썬&문"],
+  ["XY", "XY"],
+  ["BW", "BW"],
+  ["DP", "DP"],
+  ["ADV", "ADV"],
+  ["ORIGIN", "오리지널"]
 ];
 
 const packGroupLabels = new Map(packGroups);
@@ -866,7 +868,11 @@ function render() {
   const host = $("pack-groups");
   host.replaceChildren();
   packGroups.forEach(([key, label]) => {
-    const items = shown.filter((pack) => pack.era === key);
+    // The canonical pack list is chronological within each era.
+    // Sort only presentation copies: never reorder the sprite-backed source.
+    const items = shown
+      .filter((pack) => pack.era === key)
+      .sort((left, right) => right.i - left.i);
     if (!items.length) return;
     const section = document.createElement("section");
     section.className = "pack-series";
