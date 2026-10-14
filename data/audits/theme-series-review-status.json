@@ -62454,12 +62454,13 @@
     "s12a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "reviewedCardCount": 120,
+      "verifiedSelfHostedImageCount": 120,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-120"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62476,12 +62477,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 141,
-      "priorThemeSlotsPreserved": 133,
-      "partialReviewEvidence": "data/audits/theme-s12a-061-090-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12a_001-090_90_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12a canonical 091",
-      "note": "VSTAR 유니버스 262장 중 001-090 실물 검수. 이번 배치 30장 이미지 확인 후 51개 테마 분류 추가. 한 건의 레거시 저장 이미지는 보유 CDN으로 검증. 고번호 기존 테마·수집 정보 보존."
+      "newlyAddedThemeSlotCount": 188,
+      "priorThemeSlotsPreserved": 184,
+      "partialReviewEvidence": "data/audits/theme-s12a-091-120-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-120_120_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12a canonical 121",
+      "note": "VSTAR 유니버스 262장 중 001-120 실물 검수. 이번 배치 30장 이미지 확인 후 47개 테마 분류 추가. 모던 보유 CDN 28장과 레거시 보유 CDN 2장 검증. 고번호 기존 테마·수집 정보 보존."
     }
   },
   "queue": {
@@ -62507,8 +62508,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-090 (90/262) Korean artwork and 90 DCB-owned CDN images verified",
-    "nextStart": "s12a canonical 091",
+    "lastSafeCheckpoint": "s12a canonical 001-120 (120/262) Korean artwork and 120 DCB-owned CDN images verified",
+    "nextStart": "s12a canonical 121",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
