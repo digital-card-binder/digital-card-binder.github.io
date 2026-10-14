@@ -53,6 +53,7 @@ for(let i=0;i<31;i++){
   row.cardKey!==key||row.physicalPrintedNumber!==keyPart[1]+"/031"||
   p.name!==""||c.name!==""||row.masterKoreanNameAtPreflight!==""||
   !row.nameRestorationRequired||!row.koreanName?.trim()||
+  !(row.koreanName.startsWith(String(c.pokemonName||""))||(n===25&&c.pokemonName==="야도란"&&row.koreanName==="가라르 야도란 V"))||
   row.illustrationType!=="pokemon"||!row.artObservation?.trim()||
   !row.all12ThemesInspected||!row.imageInKorean||row.originalSourceRequests!==0||
   row.matchedThemes?.join(",")!==expectedThemes.join(",")||!row.colorCategory||
@@ -60,7 +61,7 @@ for(let i=0;i<31;i++){
   row.proofImage!==A+"theme-visual-evidence/sD/001-031/sD-001-031-"+String(Math.ceil(n/15)).padStart(2,"0")+".webp.b64"||
   p.imageCheck?.status!=="decoded"||p.imageCheck?.http!==200||
   p.imageCheck?.format!=="WEBP"||p.imageCheck?.dimensions?.join(",")!=="420,586"||
-  !p.cdnUrl?.startsWith("https://dcb-card-images-legacy-2026.pages.dev/"))
+  !p.cdnUrl?.startsWith("https://dcb-card-images-modern-2026.pages.dev/"))
   throw Error("sD 31 Korean art/printed identity/name evidence mismatch at canonical "+n);
  c.name=row.koreanName;namesRestored++;
  if(c.image!==p.cdnUrl){if(c.image&&!c.sourceImage)c.sourceImage=c.image;c.image=p.cdnUrl;}
