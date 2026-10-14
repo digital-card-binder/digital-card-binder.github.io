@@ -62454,11 +62454,12 @@
     "s12a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62475,12 +62476,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 90,
-      "priorThemeSlotsPreserved": 92,
-      "partialReviewEvidence": "data/audits/theme-s12a-031-060-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12a_001-060_60_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12a canonical 061",
-      "note": "VSTAR 유니버스 262장 중 001-060 실물 검수. 이번 배치 30장 이미지 확인 후 41개 테마 분류 추가. 네 건의 레거시 저장 이미지는 보유 CDN으로 검증. 고번호 기존 테마·수집 정보 보존."
+      "newlyAddedThemeSlotCount": 141,
+      "priorThemeSlotsPreserved": 133,
+      "partialReviewEvidence": "data/audits/theme-s12a-061-090-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-090_90_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12a canonical 091",
+      "note": "VSTAR 유니버스 262장 중 001-090 실물 검수. 이번 배치 30장 이미지 확인 후 51개 테마 분류 추가. 한 건의 레거시 저장 이미지는 보유 CDN으로 검증. 고번호 기존 테마·수집 정보 보존."
     }
   },
   "queue": {
@@ -62506,8 +62507,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-060 (60/262) Korean artwork and 60 DCB-owned CDN images verified",
-    "nextStart": "s12a canonical 061",
+    "lastSafeCheckpoint": "s12a canonical 001-090 (90/262) Korean artwork and 60 DCB-owned CDN images verified",
+    "nextStart": "s12a canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
