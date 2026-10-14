@@ -611,24 +611,26 @@ function selectSeriesGroup(group) {
   if (select) select.value = value;
   loadGroup(value);
 
-  // The compact UI keeps .catalog-toolbar collapsed until "필터" is opened,
-  // so scrolling to it makes a set tap look like nothing happened.
-  // Move directly to the rendered card list instead.
+  // Scroll to the selected-set heading and its quick filters, not the
+  // first card. The sticky quick-filter bar otherwise overlaps card art.
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => {
       const target =
-        document.querySelector("#catalog-grid .pokemon-card") ||
-        document.querySelector("#catalog-grid") ||
+        document.querySelector(".catalog-summary") ||
+        document.querySelector(".collector-quick-controls") ||
         document.querySelector(".results-bar");
       if (!target) return;
 
       const reducedMotion =
         typeof window.matchMedia === "function" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const headerBottom =
+        document.querySelector(".site-header")?.getBoundingClientRect().bottom || 0;
+      const targetTop = window.scrollY + target.getBoundingClientRect().top;
 
-      target.scrollIntoView({
+      window.scrollTo({
+        top: Math.max(0, targetTop - headerBottom - 20),
         behavior: reducedMotion ? "auto" : "smooth",
-        block: "start",
       });
     });
   });
