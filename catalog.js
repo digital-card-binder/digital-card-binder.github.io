@@ -2062,9 +2062,16 @@ async function init() {
 
     const requestedGroupValue =
       new URLSearchParams(window.location.search).get("group") || "";
+    // Shared links use both original-set casing ("M6a") and lowercase
+    // URL tokens ("m6a"). Resolve to the canonical saved group identity.
     const requestedGroup = requestedGroupValue
-      ? groups.find((group) => (group.code || group.name) === requestedGroupValue)
+      ? groups.find((group) =>
+          String(group.code || group.name || "").toLowerCase() ===
+          requestedGroupValue.trim().toLowerCase(),
+        )
       : null;
+    const requestedGroupCanonicalValue =
+      requestedGroup ? (requestedGroup.code || requestedGroup.name) : "";
 
     if (mode === "series") {
       activeEra = requestedGroup ? seriesEra(requestedGroup) : "ALL";
@@ -2114,9 +2121,9 @@ async function init() {
     const initialGroupValue =
       requestedGroup &&
       initialGroups.some((group) =>
-        (group.code || group.name) === requestedGroupValue,
+        (group.code || group.name) === requestedGroupCanonicalValue,
       )
-        ? requestedGroupValue
+        ? requestedGroupCanonicalValue
         : (mode === "pokemon" ? "ALL" : rememberedGroup);
     if (
       initialGroups.some((group) =>
