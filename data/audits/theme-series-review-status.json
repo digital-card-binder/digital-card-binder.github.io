@@ -62450,6 +62450,36 @@
       "fullSetEvidence": "data/audits/theme-sd-001-031-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "31_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
       "note": "sD 한국판 31장 시각검수. 마스터에 빈 한국어 카드명 31건 실제 사진에서 복원. 인쇄번호 순서와 원래 저장 순서가 다른 위치도 수집 키·원본 배열 순서 보존. 총 55개 테마 분류, 원본 소스 요청 0."
+    },
+    "s12a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 49,
+      "priorThemeSlotsPreserved": 43,
+      "partialReviewEvidence": "data/audits/theme-s12a-001-030-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-030_30_Korean_modern_owned_CDN_images_decoded",
+      "nextStart": "s12a canonical 031",
+      "note": "한국판 VSTAR 유니버스 262장 중 001-030 일러스트 30장 실물 12테마 검수 및 자체 CDN 확인. 49개 테마 슬롯 추가. 기존 173번 이상 테마, 마스터 카드 키 및 사용자 수집정보 유지. 다음 031부터."
     }
   },
   "queue": {
@@ -62475,8 +62505,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "sD canonical order 001-031 (31/31), 31 Korean names restored; all original print keys and order preserved",
-    "nextStart": "s12a canonical 001",
+    "lastSafeCheckpoint": "s12a canonical 001-030 (30/262) Korean artworks and modern own CDN images verified",
+    "nextStart": "s12a canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
