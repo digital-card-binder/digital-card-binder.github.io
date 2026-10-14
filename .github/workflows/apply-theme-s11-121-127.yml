@@ -1,0 +1,66 @@
+name: Apply s11 121-127 verified Korean Lost Abyss themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-s11-121-127.yml'
+      - 'scripts/apply-theme-s11-121-127-korean.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s11-121-127-korean-themes
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci
+      - name: Apply only verified Korean artwork and owned CDN placements
+        run: node scripts/apply-theme-s11-121-127-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      # Validate world card identity against both owned CDN and retained official source.
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - run: node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+      # The unrelated catalog.js UI test asserts an obsolete renderedCards assignment.
+      # This artwork-only workflow verifies all dataset/site contracts, leaving
+      # separately edited catalog UI tests to the UI-maintenance workflow.
+      - name: Commit safely with concurrent main branch retry
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in $(seq 1 15); do
+            git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json data/audits/theme-s11-121-127-progress-20261014.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Review s11 121-127 Korean art themes and owned card images"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 15 ]]; then exit 1; fi
+            sleep 2
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-s11-121-127-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+            node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+          done
