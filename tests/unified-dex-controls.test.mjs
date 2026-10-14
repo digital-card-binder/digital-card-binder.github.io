@@ -63,3 +63,41 @@ test("world exploration gets the same visual all-owned-missing filter without ch
   assert.match(nav, /classList[.]contains\("is-missing"\)/);
   assert.match(nav, /attributeFilter: \["class"\]/);
 });
+
+
+test("collection actions never create a second row inside search filters", () => {
+  const nav = read("collector-nav.js");
+  const quick = read("catalog.js");
+  const css = read("collector.css");
+
+  assert.match(nav, /actions[.]append\(layoutOptions\);\s*resultsBar[.]append\(actions\);/);
+  assert.match(nav, /headerActions[.]children/);
+  assert.doesNotMatch(nav, /filterSurface[.]append\(catalogActions\)/);
+  assert.doesNotMatch(nav, /simpleFilterSurface[.]append\(actions\)/);
+  assert.match(nav, /collector-redundant-filter-row/);
+
+  assert.match(quick, /resultActions[.]prepend\(wrap\)/);
+  assert.match(quick, /catalog-quick-collect--inline/);
+  assert.doesNotMatch(quick, /simpleFilterSurface[.]append\(wrap\)/);
+  assert.match(quick, /aria-label="빠른 수집 모드"/);
+
+  assert.match(css, /Unified compact dex toolbars/);
+  assert.match(css, /[.]catalog-filter-row[.]collector-redundant-filter-row/);
+  assert.match(css, /[.]catalog-quick-collect--inline/);
+  assert.match(css, /[.]pack-filter-panel/);
+});
+
+test("all 11 standalone dexes share the same collection action placement", () => {
+  const nav = read("collector-nav.js");
+  const start = nav.indexOf("const UNIFIED_DEX_CONTROL_CONFIG");
+  const end = nav.indexOf("const SIMPLE_DEX_COLLECTIONS", start);
+  const config = nav.slice(start, end);
+  for (const id of [
+    "national", "series", "ar", "pack", "pokemon",
+    "artist", "people", "trainerPokemon", "fossil", "world", "artThemes",
+  ]) {
+    assert.match(config, new RegExp(`\\b${id}: \\{`));
+  }
+  assert.match(nav, /function addCardLayoutToggle\(\)/);
+  assert.match(nav, /resultsBar[.]append\(actions\)/);
+});
