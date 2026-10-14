@@ -62422,6 +62422,34 @@
       "fullSetEvidence": "data/audits/theme-so-001-034-Korean-art-review-20261014.json",
       "archiveVerificationStatus": "34_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
       "note": "한국판 리자몽 VSTAR VS 레쿠쟈 VMAX 스페셜 덱 34장 전수검수. 실제 인쇄번호 30장과 무번호 에너지 4장 유지, 16장 포켓몬 그림 25개 테마 슬롯 검수. 기존 수집 정보 불변, 원본 외부 요청 0."
+    },
+    "sD": {
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 31,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "verifiedSelfHostedImageCount": 31,
+      "newlyAddedThemeSlotCount": 55,
+      "previousMissingKoreanNamesRestored": 31,
+      "preservedMasterCanonicalOrder": true,
+      "priorThemeSlotsPreserved": 0,
+      "fullSetEvidence": "data/audits/theme-sd-001-031-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "31_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "note": "sD 한국판 31장 시각검수. 마스터에 빈 한국어 카드명 31건 실제 사진에서 복원. 인쇄번호 순서와 원래 저장 순서가 다른 위치도 수집 키·원본 배열 순서 보존. 총 55개 테마 분류, 원본 소스 요청 0."
     }
   },
   "queue": {
@@ -62441,14 +62469,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "sD",
+    "currentSet": "s12a",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SO canonical 001-034 (34/34) Korean artwork and owned CDN images checked, four unnumbered energies",
-    "nextStart": "sD canonical 001",
+    "lastSafeCheckpoint": "sD canonical order 001-031 (31/31), 31 Korean names restored; all original print keys and order preserved",
+    "nextStart": "s12a canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
