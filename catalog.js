@@ -1032,13 +1032,14 @@ function renderQuickCollectControl() {
       </label>
     `;
 
-    const simpleFilterSurface =
-      document.body?.classList?.contains?.("collector-simple-dex")
-        ? document.querySelector(".collector-quick-filter-surface")
-        : null;
-    if (simpleFilterSurface) {
-      wrap.classList.add("catalog-quick-collect--nested");
-      simpleFilterSurface.append(wrap);
+    // Keep quick collection alongside view/print tools, never as a giant
+    // extra grid cell in the search and set-selection area.
+    const resultActions = document.querySelector(
+      ".catalog-panel .results-bar .results-bar-actions",
+    );
+    if (resultActions) {
+      wrap.classList.add("catalog-quick-collect--inline");
+      resultActions.prepend(wrap);
     } else {
       const anchor =
         document.querySelector(".catalog-filter-row") ||
