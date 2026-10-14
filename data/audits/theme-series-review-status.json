@@ -62527,10 +62527,11 @@
     "s11a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62547,12 +62548,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 51,
-      "priorThemeSlotsPreserved": 1,
-      "partialReviewEvidence": "data/audits/theme-s11a-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s11a_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s11a canonical 031",
-      "note": "백열의 아르카나 한국판 94장 중 첫 30장 실제 그림 12테마 검수. 컬러 30·풍경 21건 추가, 기존 잠자는 빈티나 유지. 자체 모던 CDN 28장·레거시 CDN 2장 검증."
+      "newlyAddedThemeSlotCount": 91,
+      "priorThemeSlotsPreserved": 52,
+      "partialReviewEvidence": "data/audits/theme-s11a-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s11a_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s11a canonical 061",
+      "note": "백열의 아르카나 한국판 94장 중 001-060까지 실제 그림 12테마 검수. 이번 컬러 28·풍경 11·밤 1 추가, 트레이너 2장은 제외. 자체 모던 CDN 29장·레거시 CDN 1장 검증."
     }
   },
   "queue": {
@@ -62578,8 +62579,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s11a canonical 001-030 (30/94) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s11a canonical 031",
+    "lastSafeCheckpoint": "s11a canonical 001-060 (60/94) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s11a canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
