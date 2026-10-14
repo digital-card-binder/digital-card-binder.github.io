@@ -62261,6 +62261,33 @@
       "nextStart": "SLL canonical 001",
       "note": "한국판 스타트 덱 100 SI 430/430 카드 12테마 일러스트 전수검수 및 자가 CDN 430장 디코딩 완료. 391-430 중 포켓몬 V 6장만 컬러 도감 반영하고 인물/에너지 34장 제외. 기존 390장 검수, 테마, 수집 정보 보존.",
       "fullSetEvidence": "data/audits/theme-si-391-430-Korean-art-review-20261014.json"
+    },
+    "SLL": {
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "reviewedCardCount": 22,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "verifiedSelfHostedImageCount": 22,
+      "newlyAddedThemeSlotCount": 16,
+      "priorThemeSlotsPreserved": 0,
+      "KoreanPhysicalNumberPolicy": "SLL 001/021–021/021 are printed, basic fighting energy card 22 uses internal canonical ID SLL_022 (not printed 022/021)",
+      "fullSetEvidence": "data/audits/theme-sll-001-022-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "22_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "note": "한국판 스타터 세트 VSTAR 루카리오 22장 실제 그림 전수검수. 인쇄번호 21장과 무번호 기본 격투 에너지 1장 구분. 테마 16슬롯, 소유 기록 불변. 외부 원본 트래픽 0."
     }
   },
   "queue": {
@@ -62280,14 +62307,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "SLL",
+    "currentSet": "SLD",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SI canonical 001-430 (430/430) Korean artwork reviewed, all 430 owned CDN image binaries decoded",
-    "nextStart": "SLL canonical 001",
+    "lastSafeCheckpoint": "SLL canonical 001-022 (22/22) Korean artwork and owned CDN verified; one energy unnumbered",
+    "nextStart": "SLD canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
