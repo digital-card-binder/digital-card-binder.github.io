@@ -62454,10 +62454,11 @@
     "s12a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62474,12 +62475,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 49,
-      "priorThemeSlotsPreserved": 43,
-      "partialReviewEvidence": "data/audits/theme-s12a-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12a_001-030_30_Korean_modern_owned_CDN_images_decoded",
-      "nextStart": "s12a canonical 031",
-      "note": "한국판 VSTAR 유니버스 262장 중 001-030 일러스트 30장 실물 12테마 검수 및 자체 CDN 확인. 49개 테마 슬롯 추가. 기존 173번 이상 테마, 마스터 카드 키 및 사용자 수집정보 유지. 다음 031부터."
+      "newlyAddedThemeSlotCount": 90,
+      "priorThemeSlotsPreserved": 92,
+      "partialReviewEvidence": "data/audits/theme-s12a-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-060_60_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12a canonical 061",
+      "note": "VSTAR 유니버스 262장 중 001-060 실물 검수. 이번 배치 30장 이미지 확인 후 41개 테마 분류 추가. 네 건의 레거시 저장 이미지는 보유 CDN으로 검증. 고번호 기존 테마·수집 정보 보존."
     }
   },
   "queue": {
@@ -62505,8 +62506,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-030 (30/262) Korean artworks and modern own CDN images verified",
-    "nextStart": "s12a canonical 031",
+    "lastSafeCheckpoint": "s12a canonical 001-060 (60/262) Korean artwork and 60 DCB-owned CDN images verified",
+    "nextStart": "s12a canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
