@@ -3745,3 +3745,22 @@ body.collector-simple-dex .catalog-quick-collect--nested .catalog-quick-collect-
     box-shadow: none;
   }
 }
+
+
+/* Final cascade: filtering and searching are always exposed on every dex. */
+body.collector-collection-page .collector-quick-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 690px) {
+  body.collector-collection-page .collector-quick-controls,
+  body.collector-collection-page.collector-simple-dex .collector-quick-controls,
+  body.collector-collection-page.collector-simple-dex .collector-sticky-selector-stack {
+    position: static;
+    top: auto;
+  }
+
+  body.collector-collection-page .catalog-panel .results-bar {
+    position: static;
+  }
+}
