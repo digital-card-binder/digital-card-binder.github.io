@@ -34,6 +34,7 @@ jobs:
       - run: npm run site:prepare
       - run: npm run site:check
       - run: npm run test:syntax
+      # Validate world card identity against both owned CDN and retained official source.
       - run: npm run test:registry
       - run: npm run test:architecture
       - run: node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
