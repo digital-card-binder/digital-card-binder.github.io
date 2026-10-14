@@ -62220,9 +62220,9 @@
       "note": "SN 한국판 물리 번호 001/024–024/024 24장을 12테마 검수. 동일한 무번호 번개 에너지 2장은 캐노니컬 중복 가능성으로 보류. 완료 처리 금지."
     },
     "SI": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 390,
+      "reviewedCardCount": 430,
       "reviewedThemes": [
         "sleeping",
         "connected",
@@ -62250,15 +62250,17 @@
         "271-300",
         "301-330",
         "331-360",
-        "361-390"
+        "361-390",
+        "391-430"
       ],
       "heldCards": [],
-      "verifiedSelfHostedImageCount": 390,
-      "newlyAddedThemeSlotCount": 628,
-      "partialReviewEvidence": "data/audits/theme-si-361-390-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "SI_001-390_390_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
-      "nextStart": "SI canonical 391",
-      "note": "SI 한국판 001/414-390/414 이미지 390장 검증 및 12테마 판독. 361-363 포켓몬 관련 8개 테마 슬롯 추가, 364-390 도구/서포트 27장은 12테마 확인 후 비대상 처리. 외부 원본 트래픽 0, 수집 내역 보존."
+      "verifiedSelfHostedImageCount": 430,
+      "newlyAddedThemeSlotCount": 634,
+      "partialReviewEvidence": "data/audits/theme-si-391-430-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "SI_001-430_430_Korean_owned_CDN_images_decoded_and_artwork_reviewed",
+      "nextStart": "SLL canonical 001",
+      "note": "한국판 스타트 덱 100 SI 430/430 카드 12테마 일러스트 전수검수 및 자가 CDN 430장 디코딩 완료. 391-430 중 포켓몬 V 6장만 컬러 도감 반영하고 인물/에너지 34장 제외. 기존 390장 검수, 테마, 수집 정보 보존.",
+      "fullSetEvidence": "data/audits/theme-si-391-430-Korean-art-review-20261014.json"
     }
   },
   "queue": {
@@ -62278,14 +62280,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "SI",
+    "currentSet": "SLL",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "SI canonical 001-390 (390/430) Korean artwork reviewed; previous 360 preserved",
-    "nextStart": "SI canonical 391",
+    "lastSafeCheckpoint": "SI canonical 001-430 (430/430) Korean artwork reviewed, all 430 owned CDN image binaries decoded",
+    "nextStart": "SLL canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

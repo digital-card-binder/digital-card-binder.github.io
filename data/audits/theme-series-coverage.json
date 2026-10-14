@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12355,
-    "uniqueThemeCards": 7403,
-    "strictCompleteSetCount": 83,
+    "themeCardSlots": 12361,
+    "uniqueThemeCards": 7409,
+    "strictCompleteSetCount": 84,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 190,
+    "baselineRemainingSetCount": 189,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6372,
+      "cardSlots": 6378,
       "setCount": 90,
       "rarities": [
         "AR",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 19,
-      "remainingSetCount": 42,
-      "currentThemeSlots": 1754
+      "completeSetCount": 20,
+      "remainingSetCount": 41,
+      "currentThemeSlots": 1760
     },
     {
       "era": "SM",
@@ -365,13 +365,6 @@
       "code": "SN",
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SI",
-      "name": "스타트 덱 100",
-      "cardCount": 430,
       "status": "in_progress"
     },
     {
@@ -526,6 +519,13 @@
       "code": "s7D",
       "name": "마천퍼펙트",
       "cardCount": 90,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s6a",
+      "name": "이브이 히어로즈",
+      "cardCount": 101,
       "status": "pending"
     }
   ],
@@ -2770,13 +2770,13 @@
       "cardCount": 430,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 4,
         "night": 6,
         "season": 218,
-        "color": 363,
+        "color": 369,
         "sunset": 11,
         "reflections": 1,
         "food": 9,
