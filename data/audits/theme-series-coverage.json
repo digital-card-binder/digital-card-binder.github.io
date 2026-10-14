@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13799,
-    "uniqueThemeCards": 8244,
-    "strictCompleteSetCount": 97,
+    "themeCardSlots": 13836,
+    "uniqueThemeCards": 8272,
+    "strictCompleteSetCount": 98,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 176,
+    "baselineRemainingSetCount": 175,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 426,
+      "cardSlots": 427,
       "setCount": 77,
       "rarities": [
         "AR",
@@ -123,7 +123,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4069,
+      "cardSlots": 4073,
       "setCount": 102,
       "rarities": [
         "AR",
@@ -143,7 +143,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7243,
+      "cardSlots": 7271,
       "setCount": 104,
       "rarities": [
         "AR",
@@ -223,7 +223,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1025,
+      "cardSlots": 1029,
       "setCount": 85,
       "rarities": [
         "AR",
@@ -272,9 +272,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 33,
-      "remainingSetCount": 28,
-      "currentThemeSlots": 3198
+      "completeSetCount": 34,
+      "remainingSetCount": 27,
+      "currentThemeSlots": 3235
     },
     {
       "era": "SM",
@@ -380,13 +380,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s10P",
-      "name": "스페이스 저글러",
-      "cardCount": 88,
       "status": "in_progress"
     },
     {
@@ -533,6 +526,13 @@
       "era": "S",
       "code": "s1H",
       "name": "실드",
+      "cardCount": 75,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s1W",
+      "name": "소드",
       "cardCount": 75,
       "status": "pending"
     }
@@ -818,14 +818,14 @@
       "cardCount": 88,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 1,
-        "night": 4,
-        "season": 41,
-        "color": 59,
-        "street": 4
+        "night": 5,
+        "season": 45,
+        "color": 87,
+        "street": 8
       }
     },
     {

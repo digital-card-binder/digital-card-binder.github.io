@@ -62743,13 +62743,14 @@
       "metadataAuditCommittedAt": "2026-10-15"
     },
     "s10P": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 88,
+      "verifiedSelfHostedImageCount": 88,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-088"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62766,12 +62767,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 108,
+      "newlyAddedThemeSlotCount": 145,
       "priorThemeSlotsPreserved": 2,
-      "partialReviewEvidence": "data/audits/theme-s10p-031-060-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s10P_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s10P canonical 061",
-      "note": "스페이스 저글러 001-060 60장 한국판 원본 그림 12테마 검수. 059 자말라 sleeping 기존 항목 보존; 자체 CDN 확인, 061부터 계속."
+      "partialReviewEvidence": "data/audits/theme-s10p-061-088-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s10P_061-088_28_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9a canonical 001",
+      "note": "스페이스 저글러 88개 한국판 카드 전체 12테마 그림 검수 완료. 061-088 28장 중 공식원본->modern 26장, 기존 legacy 2장 검증·자가호스팅, 원본 출처 보존. 044/074/075 legacy 워터마크 화질 개선 후보 별도."
     }
   },
   "queue": {
@@ -62791,14 +62792,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s10P",
+    "currentSet": "s9a",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10P canonical 001-060 (60/88) Korean art and DCB-owned CDN images verified",
-    "nextStart": "s10P canonical 061",
+    "lastSafeCheckpoint": "s10P canonical 001-088 (88/88) Korean artwork and owned CDN images verified",
+    "nextStart": "s9a canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
