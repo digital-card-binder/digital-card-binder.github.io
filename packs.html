@@ -96,7 +96,7 @@
           </div>
           <div class="pack-filter-panel">
             <label class="search-field"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">팩 검색</span><input id="pack-search" type="search" autocomplete="off" placeholder="팩 이름 또는 코드로 검색" /></label>
-            <div class="pack-filter-row"><div id="era-filters" class="pill-group" role="group" aria-label="시리즈 선택"></div><div id="pack-status-filters" class="segmented-control" role="group" aria-label="수집 상태 선택"><button class="is-active" type="button" data-status="all">전체</button><button type="button" data-status="owned">수집완료</button><button type="button" data-status="missing">미수집</button></div></div>
+            <div class="pack-filter-row"><label class="pack-era-mobile-select"><span>시리즈 선택</span><select id="pack-era-mobile" aria-label="팩 시리즈 선택"></select></label><div id="era-filters" class="pill-group" role="group" aria-label="시리즈 선택"></div><div id="pack-status-filters" class="segmented-control" role="group" aria-label="수집 상태 선택"><button class="is-active" type="button" data-status="all">전체</button><button type="button" data-status="owned">수집완료</button><button type="button" data-status="missing">미수집</button></div></div>
           </div>
           <div class="results-bar"><p>정규팩 검색 결과 <strong id="pack-result-count">—</strong>팩</p></div>
           <div id="pack-groups"></div>
