@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "updatedAt": "2026-10-14",
   "title": "이브이 도감",
-  "scope": "한국판 카드 우선. 이브이 VMAX 한 장만 해외판. 미러는 동일 번호를 가진 별도 수집 사양이며 원본 카드는 일반판 이미지 참고용.",
+  "scope": "한국판 카드 중심의 이브이 컬렉션. 이브이 VMAX만 영문 프로모로 보완. 테라스탈 일반/몬스터볼/마스터볼은 9종 각 3개 보유 체크로 합쳐 표시하되 기존 개별 수집 기록은 유지합니다.",
   "groups": [
     {
       "code": "eevee-v",
@@ -649,10 +649,10 @@
     },
     {
       "code": "eevee-c",
-      "name": "테라스탈 C 도감",
-      "badge": "C",
-      "icon": "◌",
-      "description": "이브이 가족의 테라스탈 일반 카드 9장",
+      "name": "테라스탈 일반/몬스터볼/마스터볼",
+      "badge": "3 VARIANTS",
+      "icon": "◉",
+      "description": "9종의 카드에서 일반·몬스터볼·마스터볼 수집 여부를 각각 선택합니다. (9종 · 총 27칸)",
       "cards": [
         {
           "code": "sv8a_125/187",
@@ -771,6 +771,11 @@
           "category": "테라스탈 페스타 ex",
           "evidence": "한국판 테라스탈 페스타 ex 수록 카드입니다."
         }
+      ],
+      "variantCodes": [
+        "eevee-c",
+        "eevee-pokeball",
+        "eevee-masterball"
       ]
     },
     {
@@ -906,7 +911,8 @@
           "evidence": "동일 카드번호의 미러 사양을 별개로 수집합니다. 카드는 일반판 이미지를 참고용으로 표시하며 미러 패턴은 재현되지 않습니다.",
           "imageIsReference": true
         }
-      ]
+      ],
+      "hiddenInNavigation": true
     },
     {
       "code": "eevee-masterball",
@@ -1041,7 +1047,8 @@
           "evidence": "동일 카드번호의 미러 사양을 별개로 수집합니다. 카드는 일반판 이미지를 참고용으로 표시하며 미러 패턴은 재현되지 않습니다.",
           "imageIsReference": true
         }
-      ]
+      ],
+      "hiddenInNavigation": true
     }
   ]
 }
