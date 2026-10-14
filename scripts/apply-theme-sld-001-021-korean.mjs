@@ -14,7 +14,14 @@ const matches=[...modern,...legacy].filter(x=>String(x.code||"").toUpperCase()==
 if(matches.length!==1||matches[0].cards?.length!==21)throw Error("SLD Korean master expected 21 cards");
 const master=matches[0],prior=state.reviews?.[master.code];
 if(prior?.status==="complete"&&prior.reviewedCardCount===21){
- console.log("SLD already complete; do not overwrite");process.exit(0);
+ const entry=art.groups.find(g=>g.code==="street")?.cards?.find(c=>String(c.code||"").toUpperCase()==="SLD_006");
+ if(!entry)throw Error("SLD_006 verified street theme entry missing");
+ if(entry.category!=="거리·도시"){
+  entry.category="거리·도시";
+  await save("data/art-themes.json",art);
+  console.log("Fixed SLD_006 street category display only; all card identity and ownership retained");
+ }else console.log("SLD already complete, no overwrite");
+ process.exit(0);
 }
 if(prior?.status==="complete"||(prior?.reviewedCardCount||0)>0||
  images.nextStart!=="SLD canonical 001"||
@@ -83,7 +90,7 @@ for(let i=0;i<21;i++){
   g.cards.push({
    code:row.cardKey,name:c.name,series:"S",set:master.code,setName:master.displayName||master.name,
    cardNumber:row.printedNumber||"",rarity:c.rarity||"",
-   category:t==="color"?row.colorCategory:"계절·풍경",
+   category:t==="color"?row.colorCategory:t==="street"?"거리·도시":"계절·풍경",
    image:p.cdnUrl,
    evidence:"한국판 SLD "+(row.printedNumber||"무번호 기본 에너지")+
      " 원본 그림 12테마 검수: "+row.artObservation+
