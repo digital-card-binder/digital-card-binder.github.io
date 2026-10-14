@@ -150,6 +150,127 @@
   let collectorPrompt = { exists: false, createdAt: null, dismissed: false };
   let documentReadFailed = false;
   let unsubscribeDocuments = [];
+  let themeOverviewLinks = [...THEME_OVERVIEW_LINKS];
+  let eeveeCatalogGroups = null;
+
+  function normalizeThemeHref(raw) {
+    try {
+      const value = new URL(raw, window.location.href);
+      if (value.origin !== window.location.origin) return "";
+      const filename = value.pathname.split("/").pop();
+      if (!filename || !/^[a-z0-9][a-z0-9._-]*[.]html$/i.test(filename)) return "";
+      return `./${filename}${value.search}`;
+    } catch {
+      return "";
+    }
+  }
+
+  function parseThemeMenu(html) {
+    const parsed = new DOMParser().parseFromString(html, "text/html");
+    const links = [];
+    const collectionsByPage = new Map(
+      Object.entries(CATEGORY_META)
+        .map(([category, info]) => [normalizeThemeHref(info.href).split("?")[0], category])
+        .filter(([href]) => href),
+    );
+    for (const entry of parsed.querySelectorAll(".theme-card-grid > a.theme-card")) {
+      const href = normalizeThemeHref(entry.getAttribute("href") || "");
+      const title = entry.querySelector("h3")?.textContent?.trim();
+      if (!href || !title) continue;
+      const location = new URL(href, window.location.href);
+      const page = href.split("?")[0];
+      const category = collectionsByPage.get(page);
+      if (category) {
+        if (PRIMARY_CATEGORIES.has(category)) continue;
+        links.push({ title, href, kind: "collection", category });
+        continue;
+      }
+      if (page === "./art-themes.html" && location.searchParams.has("theme")) {
+        const theme = location.searchParams.get("theme");
+        if (theme) links.push({ title, href, kind: "art", theme });
+        continue;
+      }
+      if (page === "./eevee.html") {
+        links.push({ title, href, kind: "eevee" });
+        continue;
+      }
+      links.push({ title, href, kind: "standalone" });
+    }
+
+    // Pokémon Collection predates the main theme directory. Keep it visible.
+    for (const legacy of THEME_OVERVIEW_LINKS.filter((item) => item.kind === "collection")) {
+      if (!links.some((item) => item.kind === "collection" && item.category === legacy.category)) {
+        links.unshift(legacy);
+      }
+    }
+    const seen = new Set();
+    return links.filter((item) => {
+      if (seen.has(item.href)) return false;
+      seen.add(item.href);
+      return true;
+    });
+  }
+
+  async function loadThemeOverviewSources() {
+    const [menu, eevee] = await Promise.allSettled([
+      fetch("./theme.html", { cache: "no-store" }).then((response) => {
+        if (!response.ok) throw new Error(`theme.html ${response.status}`);
+        return response.text();
+      }),
+      fetch("./data/eevee-dex.json", { cache: "no-store" }).then((response) => {
+        if (!response.ok) throw new Error(`eevee-dex.json ${response.status}`);
+        return response.json();
+      }),
+    ]);
+    if (eevee.status === "fulfilled" && Array.isArray(eevee.value?.groups)) {
+      eeveeCatalogGroups = eevee.value.groups;
+    }
+    if (menu.status === "fulfilled") {
+      try {
+        const links = parseThemeMenu(menu.value);
+        if (links.length) themeOverviewLinks = links;
+      } catch (error) {
+        console.warn("테마 도감 목록 파싱 실패", error);
+      }
+    } else {
+      console.warn("테마 도감 목록 확인 실패", menu.reason);
+    }
+    if (eeveeCatalogGroups && !themeOverviewLinks.some((item) => item.kind === "eevee")) {
+      themeOverviewLinks.push({ title: "이브이 도감", href: "./eevee.html", kind: "eevee" });
+    }
+  }
+
+  function eeveeOverviewMetric() {
+    if (!eeveeCatalogGroups) return null;
+    const document = documents.artThemes || {};
+    const overrides = document.overrides && typeof document.overrides === "object"
+      ? document.overrides
+      : {};
+    const identity = window.DigitalCardBinder?.cardIdentity;
+    if (typeof identity?.cardIdentity !== "function") return null;
+
+    let owned = 0;
+    let total = 0;
+    eeveeCatalogGroups.forEach((group, groupIndex) => {
+      (group.cards || []).forEach((card, cardIndex) => {
+        const key = identity.cardIdentity("artThemes", group, card, groupIndex, cardIndex);
+        const value = overrides[key];
+        if (value === true || (value && typeof value === "object" && value.owned === true)) owned += 1;
+        total += 1;
+      });
+    });
+    return {
+      key: "eevee",
+      title: "이브이 도감",
+      href: "./eevee.html",
+      unit: "장",
+      owned,
+      total,
+      missing: total - owned,
+      rate: percentage(owned, total),
+    };
+  }
+
 
   function preserveLegacyNationalLinks() {
     const params = new URLSearchParams(window.location.search);
@@ -883,34 +1004,53 @@
 
   function renderThemeOverview(metrics) {
     const fragment = document.createDocumentFragment();
-    const artGroups = new Map(
-      (metrics.categories.artThemes?.groups || []).map((group) => [group.key, group]),
-    );
+    const allArtGroups = metrics.categories.artThemes?.groups || [];
+    const artGroups = new Map(allArtGroups.map((group) => [group.key, group]));
+    const links = [...themeOverviewLinks];
+    const listedThemes = new Set(links.filter((item) => item.kind === "art").map((item) => item.theme));
 
-    for (const item of THEME_OVERVIEW_LINKS) {
+    // New groups in the art-theme dataset also appear automatically, even before
+    // their detail link is manually added to the theme directory.
+    for (const group of allArtGroups) {
+      if (!listedThemes.has(group.key)) {
+        links.push({
+          title: group.name,
+          href: `./art-themes.html?theme=${encodeURIComponent(group.key)}`,
+          kind: "art",
+          theme: group.key,
+        });
+        listedThemes.add(group.key);
+      }
+    }
+
+    let displayed = 0;
+    for (const item of links) {
       let metric;
       if (item.kind === "collection") {
         const source = metrics.categories[item.category];
         if (!source) continue;
-        metric = {
-          ...source,
-          key: item.category,
-          title: item.title,
-          href: item.href,
-        };
-      } else {
+        metric = { ...source, key: item.category, title: item.title, href: item.href };
+      } else if (item.kind === "art") {
         const source = artGroups.get(item.theme);
         if (!source) continue;
         metric = {
-          key: `art-${item.theme}`,
-          title: item.title,
-          href: item.href,
-          unit: "장",
-          owned: source.owned,
-          total: source.total,
-          missing: source.missing,
-          rate: source.rate,
+          key: `art-${item.theme}`, title: item.title, href: item.href,
+          unit: "장", owned: source.owned, total: source.total,
+          missing: source.missing, rate: source.rate,
         };
+      } else if (item.kind === "eevee") {
+        const source = eeveeOverviewMetric();
+        if (!source) continue;
+        metric = { ...source, title: item.title, href: item.href };
+      } else {
+        // Do not fabricate ownership figures for a page without a registered catalog.
+        const card = document.createElement("a");
+        card.className = "dashboard-collection-card dashboard-theme-card dashboard-theme-card--untracked";
+        card.href = item.href;
+        card.innerHTML = `<div class="dashboard-card-title"><strong>${escapeHtml(item.title)}</strong></div><div class="dashboard-card-count"><span>도감 열기 →</span></div>`;
+        fragment.append(card);
+        displayed += 1;
+        continue;
       }
 
       const card = createCollectionCard(metric);
@@ -918,15 +1058,12 @@
       card.dataset.themeKind = item.kind;
       if (item.theme) card.dataset.theme = item.theme;
       fragment.append(card);
+      displayed += 1;
     }
 
     elements.themeGrid?.replaceChildren(fragment);
-    if (elements.themeOverviewCount) {
-      elements.themeOverviewCount.textContent = `${THEME_OVERVIEW_LINKS.length}개`;
-    }
-    if (elements.themeCount) {
-      elements.themeCount.textContent = formatNumber(THEME_OVERVIEW_LINKS.length);
-    }
+    if (elements.themeOverviewCount) elements.themeOverviewCount.textContent = `${displayed}개`;
+    if (elements.themeCount) elements.themeCount.textContent = formatNumber(displayed);
   }
 
   function renderCollections(metrics) {
@@ -1141,6 +1278,7 @@
       const [loadedCatalogs] = await Promise.all([
         loadCatalogs(),
         initializeFirebase(),
+        loadThemeOverviewSources(),
       ]);
       catalogs = loadedCatalogs;
       await loadUserDocuments();
