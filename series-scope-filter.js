@@ -7,6 +7,7 @@
   let activeScope = params.get("scope") === "base" ? "base" : "all";
   const caption = document.querySelector(".catalog-caption");
   const defaultCaption = caption?.textContent || "";
+  const scopeHint = () => document.querySelector("#series-scope-hint");
 
   function syncControl() {
     document.querySelectorAll("#catalog-scope button[data-scope]").forEach((button) => {
@@ -16,9 +17,13 @@
     });
     if (caption) {
       caption.textContent = activeScope === "base"
-        ? "기본 수록은 각 세트의 분모 번호까지 표시하며, 분모를 초과하는 AR·SR·SAR 등은 제외됩니다."
+        ? "기본 도감은 각 세트의 분모 번호까지 표시하며, 분모를 초과하는 카드는 제외됩니다."
         : defaultCaption;
     }
+    const hint = scopeHint();
+    if (hint) hint.textContent = activeScope === "base"
+      ? "세트 카드 번호의 분모까지 표시합니다."
+      : "등록된 모든 수록 카드와 분모 초과 카드를 표시합니다.";
   }
 
   function switchScope(nextScope, updateHistory = true) {
@@ -33,23 +38,47 @@
     syncControl();
   }
 
-  const row = document.querySelector(".catalog-filter-row");
-  if (!row || document.querySelector("#catalog-scope")) return;
+  // 수집 범위는 검색/보유 필터와 달리 항상 바로 선택할 수 있어야 합니다.
+  const heading = document.querySelector(".catalog-panel > .catalog-heading");
+  if (!heading || document.querySelector("#catalog-scope")) return;
 
   const control = document.createElement("div");
   control.id = "catalog-scope";
-  control.className = "segmented-control";
+  control.className = "series-scope-switch";
   control.setAttribute("role", "group");
-  control.setAttribute("aria-label", "수록 구분");
+  control.setAttribute("aria-label", "시리즈 도감 수집 범위");
   control.innerHTML = `
-    <button type="button" data-scope="all">전체</button>
-    <button type="button" data-scope="base">기본 수록</button>
+    <div class="series-scope-copy">
+      <strong>도감 구성</strong>
+      <span id="series-scope-hint" aria-live="polite"></span>
+    </div>
+    <div class="series-scope-options">
+      <button type="button" data-scope="all" aria-pressed="false" title="분모 초과 카드까지 포함">마스터 도감</button>
+      <button type="button" data-scope="base" aria-pressed="false" title="세트 카드 번호의 분모까지 표시">기본 도감</button>
+    </div>
   `;
   control.querySelectorAll("button[data-scope]").forEach((button) => {
     button.disabled = true;
     button.addEventListener("click", () => switchScope(button.dataset.scope));
   });
-  row.prepend(control);
+  heading.insertAdjacentElement("afterend", control);
+
+  const style = document.createElement("style");
+  style.textContent = [
+    ".series-scope-switch{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 14px;padding:10px 12px;border:1px solid #dfe6ed;border-radius:12px;background:#f8fafc;}",
+    ".series-scope-copy{display:grid;min-width:0;gap:3px;}",
+    ".series-scope-copy strong{color:#263a4e;font-size:.72rem;}",
+    ".series-scope-copy span{color:#687b8e;font-size:.61rem;line-height:1.4;}",
+    ".series-scope-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;flex:0 0 auto;padding:4px;border:1px solid #dce5ed;border-radius:10px;background:#edf2f6;}",
+    ".series-scope-options button{min-width:108px;min-height:36px;padding:7px 12px;border:0;border-radius:8px;background:transparent;color:#526477;font:inherit;font-size:.72rem;font-weight:800;cursor:pointer;touch-action:manipulation;}",
+    ".series-scope-options button:hover:not(:disabled){background:#e1e9ef;color:#18364f;}",
+    ".series-scope-options button.is-active{background:#173a53;color:#fff;box-shadow:0 2px 8px rgba(23,58,83,.15);}",
+    ".series-scope-options button:focus-visible{outline:3px solid #68a2d2;outline-offset:2px;}",
+    ".series-scope-options button:disabled{opacity:.65;cursor:wait;}",
+    "@media(max-width:690px){.series-scope-switch{display:grid;gap:8px;padding:9px 10px;}.series-scope-copy{gap:2px;}.series-scope-copy strong{font-size:.66rem;}.series-scope-copy span{font-size:.57rem;}.series-scope-options{width:100%;}.series-scope-options button{min-width:0;min-height:40px;padding:8px 5px;font-size:.69rem;}}",
+    "@media print{.series-scope-switch{display:none!important;}}",
+  ].join("\\n");
+  document.head.append(style);
   syncControl();
 
   window.addEventListener("pokemon-dex:catalog-ready", () => {
