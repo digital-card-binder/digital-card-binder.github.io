@@ -24,6 +24,8 @@ if(prior?.reviewedCardCount!==60||!prior?.reviewedRanges?.includes("001-030")||!
  ev.originImageRequests!==0||!ev.all12ThemesInspected||ev.items?.length!==30||
  JSON.stringify(ev.newThemeSlotsThisBatch)!==JSON.stringify(EXPECTED)||
  ev.existingThemeSlotsPreserved!==0||
+ ev.nameCorrections?.length!==1||ev.nameCorrections[0]?.cardCode!=="s11_067/100"||
+ ev.nameCorrections[0]?.after!=="드래피온 VSTAR"||
  proof.set!=="s11"||proof.cardCount!==30||proof.masterSetCardCount!==127||
  proof.canonicalRange!=="061-090"||proof.cards?.length!==30||
  proof.verificationCounts?.verified!==30||proof.verificationCounts?.missing!==0||
