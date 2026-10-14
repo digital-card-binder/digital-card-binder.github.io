@@ -44,7 +44,7 @@ def cdn_route(src):
 cards=[]
 for i,card in enumerate(master["cards"][0:22],1):
  ident=str(card.get("code") or "")
- assert ident.lower().startswith("si_"),(i,ident)
+ assert ident.lower().startswith("sll_"),(i,ident)
  raw=card.get("sourceImage") or card.get("image") or ""
  key=CODE.upper()+"_"+ident.split("_",1)[1].split("/")[0].split(" ")[0]
  cards.append({"canonicalOrder":i,"masterCode":ident,"name":card.get("name") or "",
