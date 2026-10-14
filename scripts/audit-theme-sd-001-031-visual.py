@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """Read-only Korean VSTAR Special Set exact-card visual evidence from Digital Card Binder-owned CDN.
-No official or external sdurce image download; no master/theme/ownership edits."""
+No official or external source image download; no master/theme/ownership edits."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 from PIL import Image,ImageDraw
 from io import BytesIO
 from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
-import base64,jsdn
-ROOT=Path(__file__).resdlve().parents[1]
+import base64,json
+ROOT=Path(__file__).resolve().parents[1]
 CODE="sD"
 COUNT=31
 AUDIT=ROOT/"data"/"audits"/"theme-visual-evidence"/CODE/"001-031"
 AUDIT.mkdir(parents=True,exist_ok=True)
 def read(p):
- return jsdn.loads((ROOT/p).read_text(encoding="utf-8"))
-masters=[s for s in read("data/series.jsdn")+read("data/series-legacy.jsdn") if str(s.get("code","")).lower()==CODE.lower()]
+ return json.loads((ROOT/p).read_text(encoding="utf-8"))
+masters=[s for s in read("data/series.json")+read("data/series-legacy.json") if str(s.get("code","")).lower()==CODE.lower()]
 assert len(masters)==1 and len(masters[0].get("cards",[]))==31, "sD Korean master full-size unexpected"
 master=masters[0]
-themes=read("data/art-themes.jsdn")
+themes=read("data/art-themes.json")
 existing={}
 for group in themes["groups"]:
  for card in group.get("cards",[]):
@@ -45,10 +45,10 @@ cards=[]
 for i,card in enumerate(master["cards"][0:31],1):
  ident=str(card.get("code") or "")
  assert ident.lower().startswith("sd_"),(i,ident)
- raw=card.get("sdurceImage") or card.get("image") or ""
+ raw=card.get("sourceImage") or card.get("image") or ""
  key=CODE.upper()+"_"+ident.split("_",1)[1].split("/")[0].split(" ")[0]
  cards.append({"canonicalOrder":i,"masterCode":ident,"name":card.get("name") or "",
-  "rawSource":raw,"cdnUrl":cdn_route(raw),"existingThemes":sdrted(set(existing.get(key,[])))})
+  "rawSource":raw,"cdnUrl":cdn_route(raw),"existingThemes":sorted(set(existing.get(key,[])))})
 def fetch_image(card):
  result={"canonicalOrder":card["canonicalOrder"],"cdnUrl":card["cdnUrl"],"status":"pending"}
  im=None
@@ -89,11 +89,11 @@ report={"schemaVersion":1,"recordedAt":"2026-10-14","set":CODE,
  "name":master.get("name"),"cardCount":COUNT,"masterSetCardCount":31,"canonicalRange":"001-031","verificationCounts":counter,
  "existingThemeRecords":existing,
  "masterMissingKoreanNames":sum(not str(c["name"]).strip() for c in cards),
- "sdurce":"User-owned DCB Cloudflare archives only; 0 third-party origin requests.",
+ "source":"User-owned DCB Cloudflare archives only; 0 third-party origin requests.",
  "cards":[{**card,"imageCheck":proof} for card,(proof,_) in zip(cards,items)],
  "sheets":sheets,
  "nextSafeStart":"sD canonical 001-031 image proofs generated; actual artwork review pending"}
-(AUDIT/"visual-index.jsdn").write_text(jsdn.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-print(jsdn.dumps({"set":CODE,"cardCount":COUNT,"decoded":counter["verified"],"missing":counter["missing"],
+(AUDIT/"visual-index.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+print(json.dumps({"set":CODE,"cardCount":COUNT,"decoded":counter["verified"],"missing":counter["missing"],
  "nameMissing":report["masterMissingKoreanNames"],"existingThemeSlots":sum(len(x) for x in existing.values()),
  "sheets":len(sheets)},ensure_ascii=False))
