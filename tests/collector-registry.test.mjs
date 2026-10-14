@@ -56,7 +56,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     series: [20243, 273],
     ar: [530, 33],
     pack: [151, 9],
-    pokemon: [14987, 1025],
+    pokemon: [14988, 1025],
     artist: [4873, 40],
     people: [179, 9],
     trainerPokemon: [245, 172],
@@ -80,7 +80,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     pack: 151,
     artist: 4873,
     series: 20243,
-    pokemon: 14987,
+    pokemon: 14988,
     ar: 530,
     people: 179,
     trainerPokemon: 245,
@@ -110,7 +110,7 @@ test("Pokemon collection resolves all 1,025 Korean species while preserving cura
   const expected = JSON.parse(await readFile(new URL("../data/pokedex.json", import.meta.url), "utf8"));
   const curated = JSON.parse(await readFile(new URL("../data/pokemon-collections.json", import.meta.url), "utf8"));
   assert.equal(catalog.groups.length, expected.records.length);
-  assert.equal(catalog.items.length, 14987);
+  assert.equal(catalog.items.length, 14988);
 
   for (const record of expected.records) {
     const group = catalog.groups.find((item) => item.name === record.nameKo);
