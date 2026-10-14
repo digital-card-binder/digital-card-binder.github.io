@@ -269,15 +269,23 @@ function renderQuickCollectControl() {
         <span>카드를 한 번 눌러 보유 · 미보유를 바로 바꿉니다.</span>
       </div>
       <label class="catalog-quick-collect-switch">
-        <input id="catalog-quick-collect-toggle" type="checkbox" />
+        <input id="catalog-quick-collect-toggle" type="checkbox" aria-label="빠른 수집 모드" />
         <span aria-hidden="true"></span>
         <b>OFF</b>
       </label>
     `;
-    const anchor =
-      document.querySelector(".catalog-filter-row") ||
-      document.querySelector(".catalog-toolbar");
-    anchor?.insertAdjacentElement("afterend", wrap);
+    const resultActions = document.querySelector(
+      ".catalog-panel .results-bar .results-bar-actions",
+    );
+    if (resultActions) {
+      wrap.classList.add("catalog-quick-collect--inline");
+      resultActions.prepend(wrap);
+    } else {
+      const anchor =
+        document.querySelector(".catalog-filter-row") ||
+        document.querySelector(".catalog-toolbar");
+      anchor?.insertAdjacentElement("afterend", wrap);
+    }
 
     const input = wrap.querySelector("#catalog-quick-collect-toggle");
     input?.addEventListener("change", () => {
@@ -293,6 +301,16 @@ function renderQuickCollectControl() {
       renderQuickCollectControl();
       render();
     });
+  }
+
+  // AR has its own script. Keep its switch in the same compact results
+  // toolbar as the other card dexes, even if load order changes.
+  const finalActions = document.querySelector(
+    ".catalog-panel .results-bar .results-bar-actions",
+  );
+  if (finalActions && wrap.parentElement !== finalActions) {
+    wrap.classList.add("catalog-quick-collect--inline");
+    finalActions.prepend(wrap);
   }
 
   const input = wrap.querySelector("#catalog-quick-collect-toggle");
