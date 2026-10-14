@@ -77,7 +77,7 @@ for(let i=0;i<30;i++){
    code:row.cardKey,name:card.name,series:"S",set:master.code,
    setName:master.displayName||master.name,cardNumber:num+"/071",rarity:card.rarity||"",
    category,image:p.cdnUrl,
-   evidence:"한국판 패러다임트리거 s10b "+num+"/100 원본 그림 검수: "+row.artObservation+
+   evidence:"한국판 Pokémon GO s10b "+num+"/100 원본 그림 검수: "+row.artObservation+
     " 기존 수집 데이터 보존; 증빙 "+row.proofImage+"; DCB 보관 이미지 디코딩."
   });
   additions[t]=(additions[t]||0)+1;added++;
@@ -99,7 +99,7 @@ status.reviews[master.code]={...(prior||{}),status:"in_progress",reviewedAt:"202
 status.execution.currentEra="S";status.execution.currentSet="s10b";
 status.execution.lastSafeCheckpoint="s10b canonical 001-030 (30/109) Korean artwork and DCB-owned CDN images verified";
 status.execution.nextStart="s10b canonical 031";status.execution.updatedAt="2026-10-14";
-images.batches.push({task:6,set:"s10b",range:"canonical 001-030 Korean Paradigm Trigger",
+images.batches.push({task:6,set:"s10b",range:"canonical 001-030 Korean Pokémon GO",
  canonicalCardCount:30,artworkVisuallyVerifiedCount:30,artworkPendingCount:0,
  selfHostedReferenceCountAfter:30,externalImageReferenceCountAfter:0,
  archiveVerificationStatus:"30_Korean_DCB_owned_CDN_images_decoded",verifiedImageCount:30,
