@@ -101,3 +101,17 @@ test("all 11 standalone dexes share the same collection action placement", () =>
   assert.match(nav, /function addCardLayoutToggle\(\)/);
   assert.match(nav, /resultsBar[.]append\(actions\)/);
 });
+
+test("compact mobile pack picker and canonical series deep links remain functional", () => {
+  const packMarkup = read("packs.html");
+  const packScript = read("packs.js");
+  const packStyles = read("packs.css");
+  const seriesScript = read("catalog.js");
+  assert.match(packMarkup, /id="pack-era-mobile"/);
+  assert.match(packScript, /mobileSelect[?][.]addEventListener\("change"/);
+  assert.match(packScript, /mobileSelect[.]value = value/);
+  assert.match(packStyles, /[.]pack-filter-row > #era-filters \{ display: none !important; \}/);
+  assert.match(packStyles, /[.]pack-era-mobile-select/);
+  assert.match(seriesScript, /requestedGroupCanonicalValue/);
+  assert.match(seriesScript, /requestedGroupValue[.]trim\(\)[.]toLowerCase\(\)/);
+});
