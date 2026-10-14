@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12422,
-    "uniqueThemeCards": 7451,
-    "strictCompleteSetCount": 89,
+    "themeCardSlots": 12447,
+    "uniqueThemeCards": 7467,
+    "strictCompleteSetCount": 90,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 184,
+    "baselineRemainingSetCount": 183,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,8 +122,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3623,
-      "setCount": 93,
+      "cardSlots": 3632,
+      "setCount": 94,
       "rarities": [
         "AR",
         "C",
@@ -140,8 +140,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6420,
-      "setCount": 95,
+      "cardSlots": 6436,
+      "setCount": 96,
       "rarities": [
         "AR",
         "C",
@@ -264,9 +264,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 25,
-      "remainingSetCount": 36,
-      "currentThemeSlots": 1821
+      "completeSetCount": 26,
+      "remainingSetCount": 35,
+      "currentThemeSlots": 1846
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "SO",
-      "name": "스페셜 덱 세트 「리자몽 VSTAR VS 레쿠쟈 VMAX」",
-      "cardCount": 34,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -526,6 +519,13 @@
       "code": "s5I",
       "name": "일격마스터",
       "cardCount": 91,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s4a",
+      "name": "샤이니스타 V",
+      "cardCount": 330,
       "status": "pending"
     }
   ],
@@ -2704,9 +2704,12 @@
       "cardCount": 34,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "complete",
+      "reviewedAt": "2026-10-14",
+      "themeHits": {
+        "season": 9,
+        "color": 16
+      }
     },
     {
       "era": "S",
