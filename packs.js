@@ -1279,23 +1279,33 @@ async function saveCustomPromo(event) {
 
 function initFilters() {
   const host = $("era-filters");
-  [["all", "전체"], ...packGroups].forEach(
-    ([value, label]) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = label;
-      button.dataset.era = value;
-      button.className = value === "all" ? "is-active" : "";
-      button.addEventListener("click", () => {
-        era = value;
-        host.querySelectorAll("button").forEach((item) => {
-          item.classList.toggle("is-active", item === button);
-        });
-        render();
-      });
-      host.append(button);
+  const mobileSelect = $("pack-era-mobile");
+  const allEras = [["all", "전체"], ...packGroups];
+  const selectEra = (value) => {
+    era = value;
+    host.querySelectorAll("button").forEach((item) => {
+      item.classList.toggle("is-active", item.dataset.era === value);
+    });
+    if (mobileSelect) mobileSelect.value = value;
+    render();
+  };
+  allEras.forEach(([value, label]) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.dataset.era = value;
+    button.className = value === "all" ? "is-active" : "";
+    button.addEventListener("click", () => selectEra(value));
+    host.append(button);
+
+    if (mobileSelect) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      mobileSelect.append(option);
     }
-  );
+  });
+  mobileSelect?.addEventListener("change", () => selectEra(mobileSelect.value));
 
   $("pack-status-filters").addEventListener("click", (event) => {
     const button = event.target.closest("button[data-status]");
