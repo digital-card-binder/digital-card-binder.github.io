@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 12800,
-    "uniqueThemeCards": 7658,
-    "strictCompleteSetCount": 91,
+    "themeCardSlots": 12805,
+    "uniqueThemeCards": 7662,
+    "strictCompleteSetCount": 92,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 182,
+    "baselineRemainingSetCount": 181,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -122,7 +122,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 3748,
+      "cardSlots": 3749,
       "setCount": 95,
       "rarities": [
         "AR",
@@ -140,7 +140,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 6651,
+      "cardSlots": 6655,
       "setCount": 97,
       "rarities": [
         "AR",
@@ -265,9 +265,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 27,
-      "remainingSetCount": 34,
-      "currentThemeSlots": 2199
+      "completeSetCount": 28,
+      "remainingSetCount": 33,
+      "currentThemeSlots": 2204
     },
     {
       "era": "SM",
@@ -366,13 +366,6 @@
       "code": "SN",
       "name": "스타트 덱 100 「피카츄 V & 이브이 V」",
       "cardCount": 26,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s12a",
-      "name": "VSTAR 유니버스",
-      "cardCount": 262,
       "status": "in_progress"
     },
     {
@@ -527,6 +520,13 @@
       "code": "s4",
       "name": "앙천의 볼트태클",
       "cardCount": 121,
+      "status": "pending"
+    },
+    {
+      "era": "S",
+      "code": "s3a",
+      "name": "전설의 고동",
+      "cardCount": 94,
       "status": "pending"
     }
   ],
@@ -903,14 +903,14 @@
       "cardCount": 262,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
       "themeHits": {
         "sleeping": 7,
         "connected": 13,
         "night": 10,
-        "season": 102,
-        "color": 193,
+        "season": 103,
+        "color": 197,
         "sunset": 2,
         "reflections": 1,
         "street": 12,

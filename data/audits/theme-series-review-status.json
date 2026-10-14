@@ -62452,10 +62452,10 @@
       "note": "sD 한국판 31장 시각검수. 마스터에 빈 한국어 카드명 31건 실제 사진에서 복원. 인쇄번호 순서와 원래 저장 순서가 다른 위치도 수집 키·원본 배열 순서 보존. 총 55개 테마 분류, 원본 소스 요청 0."
     },
     "s12a": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 240,
-      "verifiedSelfHostedImageCount": 240,
+      "reviewedCardCount": 262,
+      "verifiedSelfHostedImageCount": 262,
       "reviewedRanges": [
         "001-030",
         "031-060",
@@ -62464,7 +62464,8 @@
         "121-150",
         "151-180",
         "181-210",
-        "211-240"
+        "211-240",
+        "241-262"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62481,12 +62482,13 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 298,
-      "priorThemeSlotsPreserved": 302,
-      "partialReviewEvidence": "data/audits/theme-s12a-211-240-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12a_001-240_240_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12a canonical 241",
-      "note": "VSTAR 유니버스 262 중 한국판 240장 12테마 검수. 이번 24 포켓몬 SAR 그림 분류 39개 추가, 기존 연결·잠자는 5건 보존, 서포트 6장은 제외. 자체 CDN 검증, 수집 정보 보존."
+      "newlyAddedThemeSlotCount": 303,
+      "priorThemeSlotsPreserved": 341,
+      "partialReviewEvidence": "data/audits/theme-s12a-241-262-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12a_001-262_all_262_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12 canonical 001",
+      "note": "한국판 VSTAR 유니버스 전체 262장 모든 레어도 및 트레이너·에너지 슬롯 12테마 검수 완료. 최종 22장 이미지 검증, 골드 레어 포켓몬 4장에 5개 신규 슬롯. 기존 수집 아이디·카드 코드·이미지 원본 출처 보존. 미확인 이미지 0.",
+      "finalReviewEvidence": "data/audits/theme-s12a-241-262-Korean-art-review-20261014.json"
     }
   },
   "queue": {
@@ -62506,14 +62508,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s12a",
+    "currentSet": "s12",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12a canonical 001-240 (240/262) Korean artwork and 240 DCB-owned CDN images verified",
-    "nextStart": "s12a canonical 241",
+    "lastSafeCheckpoint": "s12a canonical 001-262 (262/262) Korean artwork and DCB-owned CDN images verified; strict complete",
+    "nextStart": "s12 canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
