@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "set": "SI",
+  "range": "canonical-order 241-270",
+  "expectedMasterCards": 430,
+  "status": "awaiting_own_cdn_verification_and_korean_artwork_review",
+  "prerequisite": "SI 211-240 applied to main",
+  "reviewedCardCountThisBatch": 0,
+  "imageEvidence": "data/audits/theme-visual-evidence/SI/241-270/visual-index.json",
+  "preflightScript": "scripts/audit-theme-si-241-270-visual.py",
+  "externalOriginRequestsAllowed": 0,
+  "guard": "Do not mark complete before visually checking each Korean card, decoding own CDN and successful theme audit commit",
+  "nextSafeStart": "SI canonical 241"
+}
