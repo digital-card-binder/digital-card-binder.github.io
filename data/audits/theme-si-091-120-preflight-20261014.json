@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "set": "SI",
+  "range": "canonical-order 091-120",
+  "expectedMasterCards": 430,
+  "priorVerifiedCheckpoint": "SI canonical 001-090",
+  "priorReviewedCardCount": 90,
+  "priorVerifiedOwnCDNImages": 90,
+  "status": "awaiting_owned_cdn_image_preflight_and_manual_artwork_review",
+  "verifiedArtworkCountThisBatch": 0,
+  "unverifiedArtworkCountThisBatch": 30,
+  "imageTrafficPolicy": "No external-origin requests; inspect and decode user-owned Cloudflare archive only",
+  "preflightScript": "scripts/audit-theme-si-091-120-visual.py",
+  "preflightWorkflow": ".github/workflows/audit-theme-si-091-120-visual.yml",
+  "preflightEvidence": "data/audits/theme-visual-evidence/SI/091-120/visual-index.json",
+  "nextSafeStart": "SI canonical 091",
+  "guard": "Do not increment theme-series-review-status.json or claim 091-120 complete until card art inspected and archive images decoded"
+}

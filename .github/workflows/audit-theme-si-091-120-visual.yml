@@ -1,0 +1,43 @@
+name: Audit SI 091-120 Korean Start Deck 100 images from owned CDN
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-si-091-120-visual.yml'
+      - 'scripts/audit-theme-si-091-120-visual.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: si-091-120-owned-cdn-visual-evidence
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Verify and capture 30 Korean SI card images from existing DCB CDN only
+        run: python scripts/audit-theme-si-091-120-visual.py
+      - name: Save preflight evidence and pending review checkpoint
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/SI/091-120
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Capture SI 091-120 Korean own-CDN image proofs for theme review"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/audit-theme-si-091-120-visual.py
+          done
