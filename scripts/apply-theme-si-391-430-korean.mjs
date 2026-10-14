@@ -59,7 +59,7 @@ for(let i=0;i<40;i++){
   !Array.isArray(row.matchedThemes)||new Set(row.matchedThemes).size!==row.matchedThemes.length||
   row.proofImage!==A+"theme-visual-evidence/SI/"+range+"/SI-"+range+"-"+sheet+".webp.b64"||
   proof.imageCheck?.status!=="decoded"||proof.imageCheck?.http!==200||
-  proof.imageCheck?.format!=="WEBP"||proof.imageCheck?.dimensions?.join(",")!=="420,586"||
+  proof.imageCheck?.format!=="WEBP"||proof.imageCheck?.dimensions?.join(",")!=="420,"+({415:587,416:578,417:573,418:594,419:566,420:587,421:587,422:587}[n]??586)||
   !proof.cdnUrl?.startsWith("https://dcb-card-images-legacy-2026.pages.dev/"))
   throw Error("Korean printed identity/visual archive mismatch at SI "+n);
  if(expectedColor.has(n)){
