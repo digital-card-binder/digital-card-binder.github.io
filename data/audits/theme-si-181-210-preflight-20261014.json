@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "set": "SI",
+  "range": "canonical-order 181-210",
+  "expectedMasterCards": 430,
+  "status": "pending_owned_cdn_image_preflight_and_korean_art_review",
+  "prerequisite": "SI 151-180 applied to main",
+  "reviewedArtworkThisBatch": 0,
+  "sourceTrafficPolicy": "0 external origin requests",
+  "script": "scripts/audit-theme-si-181-210-visual.py",
+  "evidence": "data/audits/theme-visual-evidence/SI/181-210/visual-index.json",
+  "nextSafeStart": "SI canonical 181",
+  "guard": "Do not treat prepared images as fully inspected until visual review and successful theme commit"
+}
