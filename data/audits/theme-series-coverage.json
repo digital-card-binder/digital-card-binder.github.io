@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13691,
-    "uniqueThemeCards": 8186,
+    "themeCardSlots": 13746,
+    "uniqueThemeCards": 8216,
     "strictCompleteSetCount": 97,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 176,
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 422,
-      "setCount": 76,
+      "cardSlots": 423,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -123,8 +123,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4028,
-      "setCount": 101,
+      "cardSlots": 4049,
+      "setCount": 102,
       "rarities": [
         "AR",
         "C",
@@ -143,8 +143,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7184,
-      "setCount": 103,
+      "cardSlots": 7214,
+      "setCount": 104,
       "rarities": [
         "AR",
         "C",
@@ -223,8 +223,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1021,
-      "setCount": 84,
+      "cardSlots": 1024,
+      "setCount": 85,
       "rarities": [
         "AR",
         "C",
@@ -274,7 +274,7 @@
       "cardCount": 4800,
       "completeSetCount": 33,
       "remainingSetCount": 28,
-      "currentThemeSlots": 3090
+      "currentThemeSlots": 3145
     },
     {
       "era": "SM",
@@ -387,7 +387,7 @@
       "code": "s10P",
       "name": "스페이스 저글러",
       "cardCount": 88,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -818,10 +818,14 @@
       "cardCount": 88,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 1,
+        "season": 21,
+        "color": 30,
+        "street": 3
       }
     },
     {
