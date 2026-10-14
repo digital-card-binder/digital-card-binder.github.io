@@ -62493,10 +62493,11 @@
     "s12": {
       "status": "in_progress",
       "reviewedAt": "2026-10-14",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62513,12 +62514,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 54,
-      "priorThemeSlotsPreserved": 2,
-      "partialReviewEvidence": "data/audits/theme-s12-001-030-Korean-art-review-20261014.json",
-      "archiveVerificationStatus": "s12_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s12 canonical 031",
-      "note": "패러다임트리거 한국판 125장 중 30장 실제 그림 12테마 검수. 총 54 슬롯 추가, 기존 잠자는 어흥염 분류 보존. 한국판 자사 보관 이미지 30장 모두 검증, 소유·번호 유지."
+      "newlyAddedThemeSlotCount": 101,
+      "priorThemeSlotsPreserved": 56,
+      "partialReviewEvidence": "data/audits/theme-s12-031-060-Korean-art-review-20261014.json",
+      "archiveVerificationStatus": "s12_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s12 canonical 061",
+      "note": "패러다임트리거 한국판 125장 중 연속 60장 실제 그림 12테마 검수. 이번 031-060에 47개 신규 테마 슬롯 추가. 한국판 자사 보관 이미지 30장 모두 검증, 소유·번호 유지."
     }
   },
   "queue": {
@@ -62544,8 +62545,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s12 canonical 001-030 (30/125) Korean artwork and DCB-owned CDN images verified",
-    "nextStart": "s12 canonical 031",
+    "lastSafeCheckpoint": "s12 canonical 001-060 (60/125) Korean artwork and DCB-owned CDN images verified",
+    "nextStart": "s12 canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
