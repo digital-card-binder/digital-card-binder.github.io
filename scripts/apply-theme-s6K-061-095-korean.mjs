@@ -57,8 +57,11 @@ for (let i = 0; i < REVIEWED; i++) {
       image.expectedPrintedNumber !== id + "/070" || !image.printedNumberMatches ||
       row.name !== master.name || image.name !== master.name || !row.artObservation?.trim() ||
       image.rawSource !== (master.sourceImage || master.image) ||
-      !image.rawSource.startsWith("https://cards.image.pokemonkorea.co.kr/") ||
-      !image.ownedCdnUrl.startsWith("https://dcb-card-images-modern-2026.pages.dev/") ||
+      (HELD.includes(n)
+        ? (!image.rawSource.startsWith("https://static.tcgexchange.kr/") ||
+           !image.ownedCdnUrl.startsWith("https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/"))
+        : (!image.rawSource.startsWith("https://cards.image.pokemonkorea.co.kr/") ||
+           !image.ownedCdnUrl.startsWith("https://dcb-card-images-modern-2026.pages.dev/"))) ||
       image.imageCheck?.status !== "decoded" || image.imageCheck.http !== 200 ||
       image.imageCheck.format !== "WEBP" || image.imageCheck.dimensions?.[0] < 200 ||
       image.imageCheck.dimensions?.[1] < 250 || image.priorThemes?.length)
