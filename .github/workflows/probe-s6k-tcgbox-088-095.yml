@@ -1,0 +1,42 @@
+name: Probe Korean S6K 088-095 retailer card photographs
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-s6k-tcgbox-088-095.yml'
+      - 'scripts/probe-s6k-tcgbox-088-095.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s6k-tcgbox-retailer-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - run: python scripts/probe-s6k-tcgbox-088-095.py
+      - name: Archive candidates without changing canonical cards
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/s6K/tcgbox-088-095
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(s6K): archive retailer photo evidence for pending Korean 088-095"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/probe-s6k-tcgbox-088-095.py
+          done
