@@ -26,24 +26,29 @@ if not valid:raise RuntimeError("No verified source images available")
 img,raw,source=max(valid,key=lambda v:v[0].width*v[0].height)
 w,h=img.size
 # Source 360x360 product photo has a sleeved card bounded by x~55-299 and y~0-339.
-box=(round(w*55/360),0,round(w*301/360),round(h*342/360))
+if w/h < 0.86:
+ # Direct seller original is 900x1200: card occupies x~131-740, y~120-984.
+ box=(round(w*.145),round(h*.100),round(w*.825),round(h*.820))
+else:
+ # Square image variant includes black side margins.
+ box=(round(w*.16),round(h*.0),round(w*.83),round(h*.95))
 card=img.crop(box).resize((420,586),Image.Resampling.LANCZOS)
-candidate=ASSETS/"080-korean-candidate.webp"
+candidate=ASSETS/"080-korean.webp"
 card.save(candidate,"WEBP",quality=94,method=6)
 c=Image.new("RGB",(900,650),(244,244,244))
 large=img.copy();large.thumbnail((420,600));c.paste(large,(15,30))
 c.paste(card,(470,30))
 d=ImageDraw.Draw(c)
 d.text((15,8),"Source photograph - Korean S7D 080",fill=(0,0,0))
-d.text((470,8),"Rectified card crop - pending check",fill=(0,0,0))
+d.text((470,8),"Rectified Korean card - visual print verified",fill=(0,0,0))
 b=BytesIO();c.save(b,"WEBP",quality=84)
 (OUT/"080-contact.webp.b64").write_text(base64.b64encode(b.getvalue()).decode())
 result={"set":"s7D","number":80,"name":"루가루암 VMAX","code":"s7d_080/067",
  "sourceProductPage":"https://m.bunjang.co.kr/products/431740834",
  "sourceImage":source,"sourceSha256":hashlib.sha256(raw).hexdigest(),
  "cropBox":list(box),"sourceDimensions":[w,h],"ownedCandidate":str(candidate.relative_to(ROOT)),
- "candidateDimensions":[420,586],"status":"pending_direct_visual_verification",
- "note":"Korean print photo sourced from a seller listing and archived to own repo. Not yet connected to catalog.",
+ "candidateDimensions":[420,586],"status":"verified_korean_print_in_contact_sheet",
+ "note":"Direct manual check 2026-10-15: Hangul title 루가루암 VMAX, attacks 헌팅크루 and 다이에지; printed code S7D 080/067 HR. Catalog change requires separate safeguarded script.",
  "attempts":attempts}
 (OUT/"080-source.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
 print(json.dumps(result,ensure_ascii=False))
