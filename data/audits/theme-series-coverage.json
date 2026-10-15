@@ -38,9 +38,9 @@
     "themeCount": 12,
     "themeCardSlots": 15224,
     "uniqueThemeCards": 9120,
-    "strictCompleteSetCount": 104,
+    "strictCompleteSetCount": 105,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 169,
+    "baselineRemainingSetCount": 168,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -283,8 +283,8 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 40,
-      "remainingSetCount": 21,
+      "completeSetCount": 41,
+      "remainingSetCount": 20,
       "currentThemeSlots": 4623
     },
     {
@@ -391,13 +391,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s7D",
-      "name": "마천퍼펙트",
-      "cardCount": 90,
       "status": "in_progress"
     },
     {
@@ -545,6 +538,13 @@
       "code": "SMK",
       "name": "스타터 세트 롱스톤 GX·아쿠스타 GX",
       "cardCount": 32,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMN",
+      "name": "파워업덱 BOX 「TAG TEAM GX」",
+      "cardCount": 44,
       "status": "pending"
     }
   ],
@@ -743,7 +743,7 @@
       "cardCount": 90,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 1,

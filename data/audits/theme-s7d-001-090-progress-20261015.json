@@ -2,17 +2,13 @@
   "schemaVersion": 1,
   "recordedAt": "2026-10-15",
   "set": "s7D",
-  "status": "in_progress",
+  "status": "complete",
   "totalMasterCards": 90,
   "artworkReviewed": 90,
-  "verifiedKoreanPrintImages": 87,
+  "verifiedKoreanPrintImages": 90,
   "ownedImagesVerified": 90,
-  "pendingKoreanImages": [
-    "s7d_080/067",
-    "s7d_081/067",
-    "s7d_082/067"
-  ],
-  "remainingUnreviewedKoreanPrints": 3,
+  "pendingKoreanImages": [],
+  "remainingUnreviewedKoreanPrints": 0,
   "all12ThemesReviewed": true,
   "newThemeSlotsThisBatch": {
     "season": 46,
@@ -24,7 +20,29 @@
     "food": 1
   },
   "added": 148,
-  "nextStart": "s7D Korean print source pending: 080,081,082",
+  "nextStart": "s6a canonical 001",
   "proof": "data/audits/theme-visual-evidence/s7d/001-090/visual-index.json",
-  "caution": "080,081,082 Korean print cards are known to exist, but display images show Japanese script and remain held."
+  "caution": "Full Korean 90/90 print identity confirmed. Source photos are collector listing photographs; clean images may be improved later.",
+  "complete": true,
+  "recoveredKoreanImages": [
+    {
+      "code": "s7d_080/067",
+      "name": "루가루암 VMAX",
+      "source": "https://media.bunjang.co.kr/product/431740834_1_1789395515.jpg",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s7d-korean-rare/080-korean.webp"
+    },
+    {
+      "code": "s7d_081/067",
+      "name": "더스트나 VMAX",
+      "source": "https://i.ebayimg.com/images/g/BzgAAeSwjlJpIH2e/s-l1600.jpg",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s7d-korean-rare/081-korean.webp"
+    },
+    {
+      "code": "s7d_082/067",
+      "name": "두랄루돈 VMAX",
+      "source": "https://i.ebayimg.com/images/g/9Q0AAOSwjUBhR2yV/s-l1600.jpg",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s7d-korean-rare/082-korean.webp"
+    }
+  ],
+  "koreanImageProof": "data/audits/theme-visual-evidence/s7d/korean-rescued-sources"
 }
