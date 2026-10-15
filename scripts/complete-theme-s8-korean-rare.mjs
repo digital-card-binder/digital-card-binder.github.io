@@ -52,16 +52,19 @@ for(let i=0;i<4;i++){
  if(!master.image?.startsWith('https://dcb-card-images-legacy-2026.pages.dev/'))
     throw Error('Prior non-Korean legacy archive unexpectedly changed '+n);
  const matched=allCards.filter(c=>String(c.code||'').toUpperCase()===key);
- if(matched.length!==1||matched[0].name!==expectedNames[n]||
-    matched[0].image!==master.image)throw Error('Expected exactly one prior thematic membership '+n);
+ const expectedThemeSlots={117:1,119:3,120:1,123:3};
+ if(matched.length!==expectedThemeSlots[n]||matched.some(x=>x.name!==expectedNames[n]||x.image!==master.image))
+   throw Error('Prior art theme memberships differ from reviewed slots at '+n);
  master.previousNonKoreanSourceImage=p.rawSource;
  master.sourceImage=row.source;master.image=hosted;
  delete master.koreanPrintImagePending;
  master.koreanPrintImageVerified=true;
- matched[0].image=hosted;
- matched[0].evidence=String(matched[0].evidence||'').replace(
+ for(const themeCard of matched){
+  themeCard.image=hosted;
+  themeCard.evidence=String(themeCard.evidence||'').replace(
   ' (해외판 임시 이미지: 한국어 인쇄판 이미지 대체 필요)','')+
   ' 한국판 실물 이미지 교체 증빙: data/audits/theme-visual-evidence/s8/korean-rescued-sources/approved-crops.json';
+ }
  overrides.sets??={};overrides.sets[CODE]??={};overrides.sets[CODE][master.code.toLowerCase()]=hosted;
  changes.push({code:master.code,source:row.source,owned:hosted});
 }
