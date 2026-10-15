@@ -63005,6 +63005,82 @@
       "nextStart": "s6a canonical 001",
       "note": "마천퍼펙트 한국판 90장 12테마 전수검수 완료. 80·81·82번 일본판 임시 이미지는 한국어 인쇄가 확인된 실물 사진으로 교체했고 148개 신규 테마 슬롯을 유지했습니다.",
       "completedAt": "2026-10-15"
+    },
+    "s6a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "artworkReviewedCardCount": 101,
+      "reviewedCardCount": 94,
+      "verifiedSelfHostedImageCount": 101,
+      "verifiedKoreanPrintImageCount": 94,
+      "heldCards": [
+        "s6a_88/069",
+        "s6a_92/069",
+        "s6a_96/069",
+        "s6a_97/069",
+        "s6a_99/069",
+        "s6a_100/069",
+        "s6a_101/069"
+      ],
+      "unresolvedImageIssues": [
+        {
+          "code": "s6a_088/069",
+          "name": "리피아 VMAX",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_092/069",
+          "name": "님피아 VMAX",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_096/069",
+          "name": "마쿠와",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_097/069",
+          "name": "아로마 아가씨",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_099/069",
+          "name": "부쩍부쩍 셰이크",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_100/069",
+          "name": "터프스타디움",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        },
+        {
+          "code": "s6a_101/069",
+          "name": "기본 악 에너지",
+          "issue": "Japanese print scan placeholder: Korean photograph not verified"
+        }
+      ],
+      "reviewedRanges": [
+        "001-101 (art reviewed; seven Korean prints pending)"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "newlyAddedThemeSlotCount": 177,
+      "partialReviewEvidence": "data/audits/theme-s6a-071-101-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "101_illustrations_94_Korean_print_7_foreign_language_placeholders",
+      "nextStart": "s6a Korean print source pending: 088,092,096,097,099,100,101",
+      "note": "이브이 히어로즈 한국판 101개 일러스트의 12테마 검수 완료. 94개 한국어판 인쇄 확인; 88,92,96,97,99,100,101 외국판 임시 이미지 보류. 기존 95 블래키 VMAX 밤 테마 보존."
     }
   },
   "queue": {
@@ -63030,8 +63106,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s7D 001-090 (90/90) Korean print, owned images and themes verified",
-    "nextStart": "s6a canonical 001",
+    "lastSafeCheckpoint": "s6a illustrations 101/101 and Korean print images 94/101; seven images held",
+    "nextStart": "s6a Korean print source pending: 088,092,096,097,099,100,101",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

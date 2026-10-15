@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15224,
-    "uniqueThemeCards": 9120,
+    "themeCardSlots": 15401,
+    "uniqueThemeCards": 9220,
     "strictCompleteSetCount": 105,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 168,
@@ -109,7 +109,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 468,
+      "cardSlots": 471,
       "setCount": 84,
       "rarities": [
         "AR",
@@ -126,8 +126,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4448,
-      "setCount": 109,
+      "cardSlots": 4501,
+      "setCount": 110,
       "rarities": [
         "AR",
         "C",
@@ -148,8 +148,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8131,
-      "setCount": 111,
+      "cardSlots": 8232,
+      "setCount": 112,
       "rarities": [
         "AR",
         "C",
@@ -174,8 +174,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 244,
-      "setCount": 65,
+      "cardSlots": 245,
+      "setCount": 66,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 166,
-      "setCount": 60,
+      "cardSlots": 167,
+      "setCount": 61,
       "rarities": [
         "AR",
         "C",
@@ -232,8 +232,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1080,
-      "setCount": 90,
+      "cardSlots": 1095,
+      "setCount": 91,
       "rarities": [
         "AR",
         "C",
@@ -248,11 +248,12 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 136,
-      "setCount": 48,
+      "cardSlots": 139,
+      "setCount": 49,
       "rarities": [
         "AR",
         "C",
+        "HR",
         "PROMO",
         "R",
         "RR",
@@ -285,7 +286,7 @@
       "cardCount": 4800,
       "completeSetCount": 41,
       "remainingSetCount": 20,
-      "currentThemeSlots": 4623
+      "currentThemeSlots": 4800
     },
     {
       "era": "SM",
@@ -398,7 +399,7 @@
       "code": "s6a",
       "name": "이브이 히어로즈",
       "cardCount": 101,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -730,10 +731,16 @@
       "cardCount": 101,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
-        "night": 1
+        "night": 4,
+        "season": 53,
+        "color": 101,
+        "sunset": 1,
+        "food": 1,
+        "street": 15,
+        "cameo": 3
       }
     },
     {
