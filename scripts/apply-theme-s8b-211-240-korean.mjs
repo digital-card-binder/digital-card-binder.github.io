@@ -47,6 +47,16 @@ let added=0,internalized=0;
 for(let i=0;i<30;i++){
  const num=i+211,id=String(num).padStart(3,'0'),c=set.cards[num-1],p=proof.cards[i],row=review.items[i];
  const key='S8B_'+id;
+ if(num===226){
+   console.log('DEBUG 226',JSON.stringify({
+     masterCode:c?.code,proofCode:p?.masterCode,order:p?.canonicalOrder,
+     rowOrder:row?.canonicalOrder,cardKey:row?.cardKey,expected:p?.expectedPrintedNumber,
+     numberMatch:p?.printedNumberMatches,check:p?.imageCheck,
+     archive:p?.ownedCdnUrl,raw:p?.rawSource,whitelist:knownLegacy[num],
+     masterSource:c?.sourceImage||c?.image,
+     prior:p?.priorThemes, themes:THEMES.filter(t=>groupMap.get(t).cards.some(x=>String(x.code||'').toUpperCase()===key))
+   }));
+ }
  if(!c||!p||!row||c.code.toLowerCase()!==CODE+'_'+id+'/184'||
  p.masterCode.toLowerCase()!==c.code.toLowerCase()||p.canonicalOrder!==num||
  row.canonicalOrder!==num||row.cardKey!==key||p.expectedPrintedNumber!==id+'/184'||
