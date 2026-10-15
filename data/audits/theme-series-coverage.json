@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14928,
-    "uniqueThemeCards": 8941,
-    "strictCompleteSetCount": 103,
+    "themeCardSlots": 15076,
+    "uniqueThemeCards": 9030,
+    "strictCompleteSetCount": 104,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 170,
+    "baselineRemainingSetCount": 169,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -109,8 +109,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 458,
-      "setCount": 82,
+      "cardSlots": 462,
+      "setCount": 83,
       "rarities": [
         "AR",
         "C",
@@ -126,12 +126,13 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4350,
-      "setCount": 107,
+      "cardSlots": 4402,
+      "setCount": 108,
       "rarities": [
         "AR",
         "C",
         "CSR",
+        "HR",
         "MUR",
         "PROMO",
         "R",
@@ -147,8 +148,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7951,
-      "setCount": 109,
+      "cardSlots": 8041,
+      "setCount": 110,
       "rarities": [
         "AR",
         "C",
@@ -200,8 +201,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 164,
-      "setCount": 58,
+      "cardSlots": 165,
+      "setCount": 59,
       "rarities": [
         "AR",
         "C",
@@ -247,8 +248,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 135,
-      "setCount": 47,
+      "cardSlots": 136,
+      "setCount": 48,
       "rarities": [
         "AR",
         "C",
@@ -282,9 +283,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 39,
-      "remainingSetCount": 22,
-      "currentThemeSlots": 4327
+      "completeSetCount": 40,
+      "remainingSetCount": 21,
+      "currentThemeSlots": 4475
     },
     {
       "era": "SM",
@@ -391,13 +392,6 @@
       "name": "Pokémon GO",
       "cardCount": 109,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s7R",
-      "name": "창공스트림",
-      "cardCount": 90,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -544,6 +538,13 @@
       "code": "SMI",
       "name": "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」",
       "cardCount": 41,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMK",
+      "name": "스타터 세트 롱스톤 GX·아쿠스타 GX",
+      "cardCount": 32,
       "status": "pending"
     }
   ],
@@ -753,10 +754,15 @@
       "cardCount": 90,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 4,
+        "season": 52,
+        "color": 90,
+        "food": 1,
+        "cameo": 1
       }
     },
     {
