@@ -21,8 +21,27 @@
     "sunset": 1,
     "food": 1
   },
-  "koreanMasterNameCorrections": {},
-  "notes": "VMAX 클라이맥스 061-090 한국판 실제 카드 이미지 30장, 12테마 직접 시각검수 완료. 30장 전부 기존 자체 modern CDN에서 디코딩되며 제3자 원본 요청 0. 번호 /184 대조 30/30장.",
+  "koreanMasterNameCorrections": {
+    "073": {
+      "before": "데덴네",
+      "after": "님피아 V",
+      "beforeRarity": "C",
+      "afterRarity": "RR"
+    },
+    "074": {
+      "before": "님피아 V",
+      "after": "님피아 VMAX",
+      "beforeRarity": "RR",
+      "afterRarity": "RRR"
+    },
+    "075": {
+      "before": "님피아 VMAX",
+      "after": "데덴네",
+      "beforeRarity": "RRR",
+      "afterRarity": "C"
+    }
+  },
+  "notes": "VMAX 클라이맥스 061-090 한국판 실제 카드 이미지 30장, 12테마 직접 시각검수 완료. 30장 전부 기존 자체 modern CDN에서 디코딩되며 제3자 원본 요청 0. 번호 /184 대조 30/30장. 한국 공식 카드 DB https://pokemoncard.co.kr/cards/detail/BS2022001073 및 한국판 세트 목록 https://setory.site/sets/s-vmax-climax-kr 대조: 073 님피아 V, 074 님피아 VMAX, 075 데덴네. 현 마스터의 세 카드 이름 및 레어도 정정 필요.",
   "items": [
     {
       "canonicalOrder": 61,
