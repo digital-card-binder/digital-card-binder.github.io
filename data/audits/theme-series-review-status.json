@@ -63100,8 +63100,8 @@
       "reviewedAt": "2026-10-15",
       "imagePreflightComplete": true,
       "masterSetCardCount": 95,
-      "reviewedCardCount": 30,
-      "artworkReviewedCardCount": 30,
+      "reviewedCardCount": 60,
+      "artworkReviewedCardCount": 60,
       "verifiedKoreanPrintImageCount": 83,
       "verifiedSelfHostedImageCount": 95,
       "koreanPrintedImageConfirmed": 83,
@@ -63171,7 +63171,8 @@
         }
       ],
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63190,10 +63191,10 @@
       "complete": false,
       "imagePreflightEvidence": "data/audits/theme-s6H-001-095-Korean-print-review-20261015.json",
       "archiveVerificationStatus": "S6H_95_owned_83_Korean_print_12_Japanese_hold_no_theme_completion",
-      "nextStart": "s6H canonical 031 artwork theme inspection",
-      "note": "백은의 랜스 001~030 12개 테마 일러스트 직접 확인. 검수 시트의 과거 priorThemes 참조와 현행 DB가 달라 현재 빈 S6H 테마 기준으로 분류 56건을 신규 등록; 기존 카드 삭제 없음. 031~095 테마 미검수, 084~095 한국판 이미지 미확보, S6K 이미지 보류 4장은 유지.",
-      "partialReviewEvidence": "data/audits/theme-s6H-001-030-Korean-art-review-20261015.json",
-      "newlyAddedThemeSlotCount": 56,
+      "nextStart": "s6H canonical 061 artwork theme inspection",
+      "note": "백은의 랜스 001-060 총 60장 12독립 테마 직접 시각 검수·반영. 031-060은 48개 슬롯 신규 등록, 이름/번호/한국어판 자체CDN 검증. 061-095 일러스트 미반영; 084-095 한국어 실물 이미지 12장 보류. 기존 S6K 이미지 보류 4장과 사용자 보유 키 보존.",
+      "partialReviewEvidence": "data/audits/theme-s6H-031-060-Korean-art-review-20261015.json",
+      "newlyAddedThemeSlotCount": 104,
       "removedIncorrectThemeSlotCount": 0
     }
   },
