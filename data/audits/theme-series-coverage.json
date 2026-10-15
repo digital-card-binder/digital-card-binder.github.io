@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13836,
-    "uniqueThemeCards": 8272,
+    "themeCardSlots": 13890,
+    "uniqueThemeCards": 8302,
     "strictCompleteSetCount": 98,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 175,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 168,
-      "setCount": 75,
+      "cardSlots": 169,
+      "setCount": 76,
       "rarities": [
         "AR",
         "C",
@@ -106,8 +106,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 427,
-      "setCount": 77,
+      "cardSlots": 428,
+      "setCount": 78,
       "rarities": [
         "AR",
         "C",
@@ -123,8 +123,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4073,
-      "setCount": 102,
+      "cardSlots": 4092,
+      "setCount": 103,
       "rarities": [
         "AR",
         "C",
@@ -143,8 +143,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7271,
-      "setCount": 104,
+      "cardSlots": 7301,
+      "setCount": 105,
       "rarities": [
         "AR",
         "C",
@@ -168,8 +168,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 231,
-      "setCount": 60,
+      "cardSlots": 233,
+      "setCount": 61,
       "rarities": [
         "AR",
         "C",
@@ -223,8 +223,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1029,
-      "setCount": 85,
+      "cardSlots": 1030,
+      "setCount": 86,
       "rarities": [
         "AR",
         "C",
@@ -274,7 +274,7 @@
       "cardCount": 4800,
       "completeSetCount": 34,
       "remainingSetCount": 27,
-      "currentThemeSlots": 3235
+      "currentThemeSlots": 3289
     },
     {
       "era": "SM",
@@ -387,7 +387,7 @@
       "code": "s9a",
       "name": "배틀리전",
       "cardCount": 93,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -807,9 +807,16 @@
       "cardCount": 93,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "themeHits": {
+        "sleeping": 1,
+        "night": 1,
+        "season": 19,
+        "color": 30,
+        "sunset": 2,
+        "street": 1
+      }
     },
     {
       "era": "S",

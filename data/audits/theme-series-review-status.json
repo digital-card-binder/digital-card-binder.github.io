@@ -62773,6 +62773,35 @@
       "archiveVerificationStatus": "s10P_061-088_28_Korean_DCB_owned_CDN_images_decoded",
       "nextStart": "s9a canonical 001",
       "note": "스페이스 저글러 88개 한국판 카드 전체 12테마 그림 검수 완료. 061-088 28장 중 공식원본->modern 26장, 기존 legacy 2장 검증·자가호스팅, 원본 출처 보존. 044/074/075 legacy 워터마크 화질 개선 후보 별도."
+    },
+    "s9a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 54,
+      "partialReviewEvidence": "data/audits/theme-s9a-001-030-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9a_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9a canonical 031",
+      "note": "배틀리전 001-030 30장 한국판 실제 카드 그림 12테마 시각검수 완료. 023/024는 한국어 카드의 히스이 접두어 누락 정정. 자체 저장 이미지 30장 디코딩 확인. 세트 93장 중 30장만 완료."
     }
   },
   "queue": {
@@ -62798,8 +62827,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s10P canonical 001-088 (88/88) Korean artwork and owned CDN images verified",
-    "nextStart": "s9a canonical 001",
+    "lastSafeCheckpoint": "s9a canonical 001-030 (30/93) Korean print/art and DCB owned image proof",
+    "nextStart": "s9a canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
