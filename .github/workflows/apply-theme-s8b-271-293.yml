@@ -6,6 +6,7 @@ on:
       - '.github/workflows/apply-theme-s8b-271-293.yml'
       - 'scripts/apply-theme-s8b-271-293-korean.mjs'
       - 'data/audits/theme-s8b-271-293-Korean-art-review-20261015.json'
+      - 'tests/collector-registry.test.mjs'
   workflow_dispatch:
 permissions:
   contents: write
