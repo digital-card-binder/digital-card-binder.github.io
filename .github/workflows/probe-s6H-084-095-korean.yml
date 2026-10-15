@@ -1,0 +1,43 @@
+name: Probe real Korean S6H 084-095 high-rarity retailer card photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-s6H-084-095-korean.yml'
+      - 'scripts/probe-s6H-084-095-korean.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s6h-unverified-rare-retailer-image-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Gather 12 card photographs as evidence only; preserve all edition holds
+        run: python scripts/probe-s6H-084-095-korean.py
+      - name: Archive candidate images; never modify catalogue from unverified photos
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/s6H/korean-rare-candidates
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(s6H): archive Korean rare print photo candidates 084-095"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/probe-s6H-084-095-korean.py
+          done
