@@ -39,6 +39,14 @@ let added=0,internalized=0;
 for(let i=0;i<30;i++){
  const num=i+181,id=String(num).padStart(3,'0'),c=set.cards[num-1],p=proof.cards[i],row=review.items[i];
  const key='S8B_'+id;
+ if([202,209].includes(num)){
+   console.log('Preexisting card proof',JSON.stringify({
+     num, code:c?.code, raw:p?.rawSource, masterSource:c?.sourceImage||c?.image,
+     priorThemes:p?.priorThemes,
+     groupCodes:THEMES.filter(t=>groupMap.get(t).cards.some(x=>x.code===key)),
+     owned:p?.ownedCdnUrl, imageStatus:p?.imageCheck?.status
+   }));
+ }
  if(!c||!p||!row||c.code.toLowerCase()!==CODE+'_'+id+'/184'||
  p.masterCode.toLowerCase()!==c.code.toLowerCase()||p.canonicalOrder!==num||
  row.canonicalOrder!==num||row.cardKey!==key||p.expectedPrintedNumber!==id+'/184'||
