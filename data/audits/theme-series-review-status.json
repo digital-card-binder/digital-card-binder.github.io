@@ -62841,11 +62841,12 @@
     "s8b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62862,11 +62863,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 102,
-      "partialReviewEvidence": "data/audits/theme-s8b-031-060-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s8b_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s8b canonical 061",
-      "note": "VMAX 클라이맥스 한국판 031-060 30장 12테마 시각검수 완료. 한국판 /184 인쇄 번호 확인. 29 modern, 1 legacy 자체 CDN 파일 디코딩 완료. 남은 263장."
+      "newlyAddedThemeSlotCount": 153,
+      "partialReviewEvidence": "data/audits/theme-s8b-061-090-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8b_061-090_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s8b canonical 091",
+      "note": "VMAX 클라이맥스 한국판 061-090 30장 12테마 시각검수 완료. 한국판 /184 인쇄 번호 확인. 29 modern, 1 legacy 자체 CDN 파일 디코딩 완료. 남은 263장."
     }
   },
   "queue": {
@@ -62892,8 +62893,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-060 (60/293) Korean print/art and DCB owned image proof",
-    "nextStart": "s8b canonical 061",
+    "lastSafeCheckpoint": "s8b canonical 001-090 (90/293) Korean print/art and DCB owned image proof",
+    "nextStart": "s8b canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
