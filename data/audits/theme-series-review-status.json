@@ -62806,15 +62806,16 @@
       "note": "배틀리전 한국판 전체 93장, 12개 테마 시각검수 및 자체 저장 이미지 93장 확인 완료. 마지막 061-093은 modern 29장, legacy 4장. 미검수 0장."
     },
     "s9": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 120,
-      "verifiedSelfHostedImageCount": 120,
+      "reviewedCardCount": 127,
+      "verifiedSelfHostedImageCount": 127,
       "reviewedRanges": [
         "001-030",
         "031-060",
         "061-090",
-        "091-120"
+        "091-120",
+        "121-127"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62831,11 +62832,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 207,
-      "partialReviewEvidence": "data/audits/theme-s9-091-120-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s9_091-120_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s9 canonical 121",
-      "note": "스타버스 001-120 한국판 120장 시각검수 완료. 091-120 modern CDN 30장 정상 디코딩. 남은 7장."
+      "newlyAddedThemeSlotCount": 215,
+      "partialReviewEvidence": "data/audits/theme-s9-121-127-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9_121-127_7_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s8b canonical 001",
+      "note": "스타버스 한국판 127장 전체 실물 그림 12테마 전수검수와 소유 CDN 이미지 127장 확인 완료, 미검수 0장. 마지막 7장 gold/rainbow 기록."
     }
   },
   "queue": {
@@ -62855,14 +62856,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s9",
+    "currentSet": "s8b",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9 canonical 001-120 (120/127) Korean print/art and DCB owned image proof",
-    "nextStart": "s9 canonical 121",
+    "lastSafeCheckpoint": "s9 canonical 001-127 (127/127) Korean prints and user-owned CDN images verified",
+    "nextStart": "s8b canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

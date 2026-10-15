@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14193,
-    "uniqueThemeCards": 8484,
-    "strictCompleteSetCount": 99,
+    "themeCardSlots": 14201,
+    "uniqueThemeCards": 8491,
+    "strictCompleteSetCount": 100,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 174,
+    "baselineRemainingSetCount": 173,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -123,7 +123,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4180,
+      "cardSlots": 4181,
       "setCount": 104,
       "rarities": [
         "AR",
@@ -143,7 +143,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7484,
+      "cardSlots": 7491,
       "setCount": 106,
       "rarities": [
         "AR",
@@ -273,9 +273,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 35,
-      "remainingSetCount": 26,
-      "currentThemeSlots": 3592
+      "completeSetCount": 36,
+      "remainingSetCount": 25,
+      "currentThemeSlots": 3600
     },
     {
       "era": "SM",
@@ -381,13 +381,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s9",
-      "name": "스타버스",
-      "cardCount": 127,
       "status": "in_progress"
     },
     {
@@ -535,6 +528,13 @@
       "code": "SMA",
       "name": "스타터세트 3종",
       "cardCount": 60,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMC",
+      "name": "개조 스타터 세트 「카푸브루루 GX」",
+      "cardCount": 23,
       "status": "pending"
     }
   ],
@@ -795,13 +795,13 @@
       "cardCount": 127,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 1,
         "night": 7,
-        "season": 64,
-        "color": 120,
+        "season": 65,
+        "color": 127,
         "sunset": 3,
         "work": 2,
         "street": 11
