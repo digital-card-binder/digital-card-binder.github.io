@@ -28,7 +28,7 @@ if(review.set!==CODE||review.visuallyReviewedKoreanCards!==30||
  proof.cards?.length!==30||proof.sourceRequestCount!==0)
  throw Error('Korean identity/image proof or 12-theme visual review incomplete');
 const corrections=review.koreanMasterNameCorrections;
-if(JSON.stringify(Object.keys(corrections||{}).sort())!==JSON.stringify([]))
+if(JSON.stringify(Object.keys(corrections||{}).sort())!==JSON.stringify(['073','074','075']))
  throw Error('Unexpected Korean name corrections');
 const groupMap=new Map(art.groups.map(group=>[group.code,group]));
 for(const theme of THEMES)if(!Array.isArray(groupMap.get(theme)?.cards))throw Error('Missing theme '+theme);
@@ -50,8 +50,16 @@ for(let i=0;i<30;i++){
  (c.sourceImage||c.image)!==p.rawSource||p.priorThemes?.length!==0||
  THEMES.some(t=>groupMap.get(t).cards.some(x=>x.code===key)))
  throw Error('Unsafe s8b identity / hosted image / existing theme mismatch at '+num);
- if(!p.koreanNameNonempty||c.name!==p.name||row.name!==c.name){
-  throw Error('Korean name identity mismatch at '+num);
+ const fix=corrections[id];
+ if(fix){
+   if(!p.koreanNameNonempty||c.name!==fix.before||p.name!==fix.before||row.name!==fix.after||
+      !['C','RR','RRR'].includes(fix.afterRarity)||
+      (c.rarity && c.rarity!==fix.beforeRarity))
+       throw Error('Korean printed name/rarity mismatch before correction at '+num);
+   c.name=fix.after;
+   c.rarity=fix.afterRarity;
+ }else if(!p.koreanNameNonempty||c.name!==p.name||row.name!==c.name){
+   throw Error('Korean name identity mismatch at '+num);
  }
  const used=new Set();
  for(const t of row.matchedThemes){
@@ -101,8 +109,8 @@ hosting.batches.push({
  archiveVerificationStatus:'30_Korean_DCB_owned_CDN_images_decoded',verifiedImageCount:30,
  unverifiedImageCount:0,brokenReferenceCount:0,modernArchiveImages:30,legacyArchiveImages:0,
  newlyInternalizedReferenceCount:internalized,themeAdditions:currentSlotCounts,
- koreanCardNameCorrections:[],nextStart:next,
- note:'Korean s8b 061-090 30 modern owned card images decoded, themed from actual artwork; previous 001-060 source references and memberships retained.'
+ koreanCardNameCorrections:['s8b_073/184','s8b_074/184','s8b_075/184'],nextStart:next,
+ note:'s8b 061-090 Korean images decoded 30/30; official printed order of 073-075 and C/RR/RRR rarity corrected; older 001-060 membership preserved.'
 });
 hosting.nextStart=next;hosting.updatedAt=DATE;art.updatedAt=DATE;
 await Promise.all([
@@ -115,8 +123,8 @@ await Promise.all([
   totalMasterCards:293,reviewedCanonicalCards:90,remainingUnreviewed:203,
   newThemeSlotsThisBatch:currentSlotCounts,added,ownedCDNImagesVerified:30,
   imagesPointingToOwnedCDN:30,modernArchiveImages:29,legacyArchiveImages:1,newlyInternalizedReferenceCount:internalized,
-  correctedKoreanNames:[],originRequests:0,
+  correctedKoreanNames:['s8b_073/184','s8b_074/184','s8b_075/184'],originRequests:0,
   proof:'data/audits/theme-visual-evidence/s8b/061-090/visual-index.json',nextStart:next
  })]);
 console.log(JSON.stringify({set:CODE,reviewed:90,remaining:203,themeSlots:added,
- correctedNames:[],newlyInternalizedReferenceCount:internalized,next}));
+ correctedNames:['073','074','075'],newlyInternalizedReferenceCount:internalized,next}));
