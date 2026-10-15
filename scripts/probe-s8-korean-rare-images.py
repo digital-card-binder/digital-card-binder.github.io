@@ -24,7 +24,7 @@ def fetch(n):
         return n,dict(number=n,source=u,ownedPath=str(p.relative_to(root)),width=im.width,height=im.height,sha256=hashlib.sha256(data).hexdigest(),status="candidate_subject_to_manual_korean_print_check"),im.convert("RGB")
       except Exception as e:
         err.append(str(e)[:160])
-    return n,dict(number=n,status="not_found",errors:err),None
+    return n,{"number":n,"status":"not_found","errors":err},None
 rs={}
 with ThreadPoolExecutor(max_workers=6) as pool:
  for fut in as_completed([pool.submit(fetch,n) for n in numbers]):
