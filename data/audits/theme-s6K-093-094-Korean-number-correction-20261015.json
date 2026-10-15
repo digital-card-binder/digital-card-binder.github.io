@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-15",
+  "set": "s6K",
+  "mode": "Korean_print_edition_number_correction",
+  "note": "Prior master 093/094 followed a conflicting Japanese image-to-number mapping. Korean printed S6K 093/070 photo visibly reads 안개의 수정, while Korean retailer catalog lists 094 메아리호른. Identity codes and user ownership retained.",
+  "sourceProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/stage.json",
+  "retailerLinks": [
+    "https://tcgbox.co.kr/product/detail.html?product_no=13096",
+    "https://tcgbox.co.kr/product/detail.html?product_no=13097"
+  ],
+  "corrected": [
+    {
+      "code": "s6k_093/070",
+      "oldName": "메아리호른",
+      "newName": "안개의 수정",
+      "image": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/093-korean.webp",
+      "verifiedKoreanPrint": true
+    },
+    {
+      "code": "s6k_094/070",
+      "oldName": "안개의 수정",
+      "newName": "메아리호른",
+      "placeholder": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/6e36bef8417c34a9.webp",
+      "placeholderPrintedNumber": "JP S6K 093/070",
+      "expectedKoreanPrintedNumber": "S6K 094/070",
+      "verifiedKoreanPrint": false
+    }
+  ],
+  "originalImages": {
+    "s6K093": {
+      "name": "메아리호른",
+      "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/6e36bef8417c34a9.webp",
+      "sourceImage": "https://static.tcgexchange.kr/27f711a26fc04fbbc682270521964f28.jpg"
+    },
+    "s6K094": {
+      "name": "안개의 수정",
+      "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/a2f9ed9df2682cea.webp",
+      "sourceImage": "https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png"
+    }
+  },
+  "independentThemeUpdated": true,
+  "collectionOwnershipKeyChanged": false,
+  "remainingPending": [
+    "s6k_089/070",
+    "s6k_090/070",
+    "s6k_092/070",
+    "s6k_094/070"
+  ]
+}

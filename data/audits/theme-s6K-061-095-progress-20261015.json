@@ -5,15 +5,14 @@
   "status": "in_progress",
   "totalMasterCards": 95,
   "artworkReviewed": 95,
-  "verifiedKoreanPrintImages": 90,
+  "verifiedKoreanPrintImages": 91,
   "ownedImagesVerified": 95,
   "all12ThemesReviewedForRange": true,
-  "remainingUnreviewedKoreanPrints": 5,
+  "remainingUnreviewedKoreanPrints": 4,
   "pendingKoreanImages": [
     "s6k_089/070",
     "s6k_090/070",
     "s6k_092/070",
-    "s6k_093/070",
     "s6k_094/070"
   ],
   "all12ThemesReviewed": true,
@@ -24,7 +23,7 @@
     "night": 1,
     "food": 1
   },
-  "nextStart": "s6K Korean print source pending: 089,090,092-094",
+  "nextStart": "s6K Korean print source pending: 089,090,092,094",
   "proof": "data/audits/theme-visual-evidence/s6K/061-095/visual-index.json",
   "manualReview": "data/audits/theme-s6K-061-095-Korean-art-review-20261015.json",
   "recoveredKoreanImages": [
@@ -83,6 +82,14 @@
       "source": "https://tcgbox.co.kr/web/product/big/s6k/S6K_095.jpg",
       "sourceProductPage": "https://tcgbox.co.kr/product/기본-초에너지-ur-s6k-095/13098/category/252/display/1/",
       "printConfidence": "visible"
+    },
+    {
+      "code": "s6k_093/070",
+      "name": "안개의 수정",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/093-korean.webp",
+      "source": "https://sitem.ssgcdn.com/98/22/20/item/1000523202298_i1_1200.jpg",
+      "sourceProductPage": "https://www.ssg.com/item/itemView.ssg?itemId=1000523202298",
+      "printConfidence": "visible_Korean_title_and_footer_093/070_UR"
     }
   ],
   "koreanPrintSourceProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/approved-crops.json",
@@ -94,5 +101,11 @@
     91,
     95
   ],
-  "koreanPrintSourceProofBatch3": "data/audits/theme-visual-evidence/s6K/korean-candidates/retailer-approved/staged-crops.json"
+  "koreanPrintSourceProofBatch3": "data/audits/theme-visual-evidence/s6K/korean-candidates/retailer-approved/staged-crops.json",
+  "koreanPrintSourceProof093": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/stage.json",
+  "correctedKoreanNameNumberMapping": {
+    "93": "안개의 수정",
+    "94": "메아리호른",
+    "proof": "data/audits/theme-s6K-093-094-Korean-number-correction-20261015.json"
+  }
 }

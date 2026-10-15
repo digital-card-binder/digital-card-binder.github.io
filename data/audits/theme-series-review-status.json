@@ -63043,13 +63043,13 @@
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
       "artworkReviewedCardCount": 95,
-      "reviewedCardCount": 90,
-      "verifiedKoreanPrintImageCount": 90,
+      "reviewedCardCount": 91,
+      "verifiedKoreanPrintImageCount": 91,
       "verifiedSelfHostedImageCount": 95,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-095 (art complete; Korean 089,090,092-094 pending)"
+        "061-095 (art complete; Korean 089,090,092,094 pending)"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63070,7 +63070,6 @@
         "s6k_089/070",
         "s6k_090/070",
         "s6k_092/070",
-        "s6k_093/070",
         "s6k_094/070"
       ],
       "unresolvedImageIssues": [
@@ -63087,18 +63086,14 @@
           "issue": "Japanese printed placeholder; Korean printed artwork required"
         },
         {
-          "code": "s6k_093/070",
-          "issue": "Japanese printed placeholder; Korean printed artwork required"
-        },
-        {
           "code": "s6k_094/070",
-          "issue": "Japanese printed placeholder; Korean printed artwork required"
+          "issue": "Korean S6K 094/070 메아리호른 photo missing; Japanese S6K 093/070 Echoing Horn art used as number-mismatched visual placeholder"
         }
       ],
-      "partialReviewEvidence": "data/audits/theme-visual-evidence/s6K/korean-candidates/retailer-approved/staged-crops.json",
-      "archiveVerificationStatus": "95_artworks_90_Korean_prints_5_Japanese_placeholders",
-      "nextStart": "s6K Korean print source pending: 089,090,092-094",
-      "note": "S6K 088·091·095 한국판 카드명·설명·번호 검증 후 자체 WebP 교체. TCGBOX 저해상도 워터마크 개선 필요. 089·090·092·093·094 한국판 실물 확보 전 보류."
+      "partialReviewEvidence": "data/audits/theme-s6K-093-094-Korean-number-correction-20261015.json",
+      "archiveVerificationStatus": "95_artworks_91_Korean_prints_4_Japanese_placeholders_093_094_Korean_card_number_corrected",
+      "nextStart": "s6K Korean print source pending: 089,090,092,094",
+      "note": "한국판 093 안개의 수정, 094 메아리호른 순서를 한국판 실물 기준으로 정정. 093 자체 WebP 저장. 094는 일본어판 093 그림만 임시 참조하므로 한국어·카드 번호 확인 전 완료 처리 금지."
     }
   },
   "queue": {
@@ -63124,8 +63119,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s6K 95 artworks; Korean printed images 90/95, five foreign placeholders held",
-    "nextStart": "s6K Korean print source pending: 089,090,092-094",
+    "lastSafeCheckpoint": "s6K 95 artworks; 91 Korean print photos; Korean 093/094 printing map corrected; four print images held",
+    "nextStart": "s6K Korean print source pending: 089,090,092,094",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
