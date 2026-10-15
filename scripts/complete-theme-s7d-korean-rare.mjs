@@ -17,6 +17,15 @@ const sets=[...modern,...legacy].filter(x=>String(x.code||"").toLowerCase()===CO
 if(sets.length!==1||sets[0].cards?.length!==90)throw Error("Canonical S7D master not exactly 90 records");
 const set=sets[0],reviewKey=Object.keys(status.reviews||{}).find(k=>k.toLowerCase()===CODE.toLowerCase())||set.code;
 const prior=status.reviews?.[reviewKey]||{};
+console.log("S7D_SAFE_CHECK",JSON.stringify({
+ reviewKey,prior:{status:prior.status,artworkReviewedCardCount:prior.artworkReviewedCardCount,
+ reviewedCardCount:prior.reviewedCardCount,verifiedKoreanPrintImageCount:prior.verifiedKoreanPrintImageCount,
+ heldCards:prior.heldCards},progress:{status:progress.status,artworkReviewed:progress.artworkReviewed,
+ verifiedKoreanPrintImages:progress.verifiedKoreanPrintImages,pendingKoreanImages:progress.pendingKoreanImages},
+ execution:{nextStart:status.execution?.nextStart,currentSet:status.execution?.currentSet},
+ hostingNextStart:hosting.nextStart,proof:{canonicalCardsChecked:proof.canonicalCardsChecked,
+ verifiedOwnedCdnImageCount:proof.verifiedOwnedCdnImageCount}
+}));
 if(prior.status==="complete"&&prior.reviewedCardCount===90){
  console.log("s7D is already complete; not mutating any card");process.exit(0);
 }
