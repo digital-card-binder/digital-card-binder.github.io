@@ -2,6 +2,7 @@ import {readFile,writeFile} from "node:fs/promises";
 const read=async p=>JSON.parse(await readFile(p,"utf8"));
 const save=async(p,x)=>writeFile(p,JSON.stringify(x,null,2)+"\n");
 const CODE="s6K",DATE="2026-10-15",NUM=86;
+// Korean-printed s6K photo is self-hosted under /assets/cards/s6k-korean-rare/; registry allows that owned path.
 const OLD_NEXT="s6K Korean print source pending: 084-095";
 const NEXT="s6K Korean print source pending: 084,085,087-095";
 const approvedPath="data/audits/theme-visual-evidence/s6K/korean-candidates/approved-crops.json";
