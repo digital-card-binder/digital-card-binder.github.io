@@ -63042,12 +63042,13 @@
     "s6K": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "artworkReviewedCardCount": 30,
-      "reviewedCardCount": 30,
-      "verifiedKoreanPrintImageCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "artworkReviewedCardCount": 60,
+      "reviewedCardCount": 60,
+      "verifiedKoreanPrintImageCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63063,13 +63064,13 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 58,
+      "newlyAddedThemeSlotCount": 112,
       "heldCards": [],
       "unresolvedImageIssues": [],
-      "partialReviewEvidence": "data/audits/theme-s6K-001-030-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "30_official_Korean_prints_owned_and_12_themes_reviewed_partial_95",
-      "nextStart": "s6K canonical 031",
-      "note": "한국어 인쇄 공식 원본과 자체 CDN 사본 001-030 시각 검수. 모든 12개 독립 테마 평가. 031-095 미검수, 완료 처리 금지."
+      "partialReviewEvidence": "data/audits/theme-s6K-031-060-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "60_official_Korean_prints_owned_and_12_themes_reviewed_partial_95",
+      "nextStart": "s6K canonical 061",
+      "note": "한국어 인쇄 공식 원본과 자체 CDN 사본 001-060 시각 검수. 모든 12개 독립 테마 평가. 061-095 미검수, 완료 처리 금지."
     }
   },
   "queue": {
@@ -63095,8 +63096,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s6K canonical 001-030 official Korean prints and visual themes reviewed; 031-095 pending",
-    "nextStart": "s6K canonical 031",
+    "lastSafeCheckpoint": "s6K canonical 001-060 official Korean prints and visual themes reviewed; 061-095 pending",
+    "nextStart": "s6K canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
