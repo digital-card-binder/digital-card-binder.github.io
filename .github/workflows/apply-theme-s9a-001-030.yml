@@ -1,0 +1,61 @@
+name: Apply verified s9a Korean Battle Region 001-030 themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-s9a-001-030.yml'
+      - 'scripts/apply-theme-s9a-001-030-korean.mjs'
+      - 'data/audits/theme-s9a-001-030-Korean-art-review-20261015.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s9a-001-030-Korean-themes
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply 30 visually verified Korean artworks, self-hosted links and two print-name fixes
+        run: node scripts/apply-theme-s9a-001-030-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - run: node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+      - name: Commit audited s9a 001-030 changes
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in $(seq 1 10); do
+            git add data/series.json data/series-legacy.json data/series-image-overrides.json data/art-themes.json
+            git add data/audits/theme-series-review-status.json data/audits/theme-image-selfhost-audit.json
+            git add data/audits/theme-s9a-001-030-progress-20261015.json
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Review Korean s9a 001-030, fix 023-024 names and self-host 30 card references"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 10 ]]; then exit 1; fi
+            sleep 4
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-s9a-001-030-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+            node --test tests/theme-navigation.test.mjs tests/audit-regressions.test.mjs tests/related-dex-links.test.mjs
+          done
