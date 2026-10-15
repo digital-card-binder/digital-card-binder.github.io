@@ -48,9 +48,18 @@ for(let i=0;i<30;i++){
  p.imageCheck.format!=='WEBP'||p.imageCheck.dimensions?.join(',')!=='420,586'||
  !(p.ownedCdnUrl?.startsWith('https://dcb-card-images-modern-2026.pages.dev/')&&
       p.rawSource?.startsWith('https://cards.image.pokemonkorea.co.kr/'))||
- (c.sourceImage||c.image)!==p.rawSource||p.priorThemes?.length!==0||
- THEMES.some(t=>groupMap.get(t).cards.some(x=>x.code===key)))
+ (c.sourceImage||c.image)!==p.rawSource||
+ JSON.stringify(p.priorThemes||[])!==JSON.stringify(num===109?['sleeping']:[])||
+ JSON.stringify(THEMES.filter(t=>groupMap.get(t).cards.some(x=>x.code===key)))!==
+ JSON.stringify(num===109?['sleeping']:[]))
  throw Error('Unsafe s9 identity / hosted image / existing theme mismatch at '+num);
+ if(num===109){
+  const existingSleeping=groupMap.get('sleeping').cards.find(x=>x.code===key);
+  if(!existingSleeping||existingSleeping.name!==c.name||
+   row.matchedThemes.includes('sleeping')||!existingSleeping.category)
+   throw Error('Prior s9_109 sleeping entry does not match Korean proof');
+  existingSleeping.image=p.ownedCdnUrl;
+ }
  const correction=corrections[id];
  if(correction){
   if(!p.koreanNameNonempty||c.name!==correction.before||row.name!==correction.after||p.name!==correction.before)throw Error('Incorrect Korean VSTAR print name correction at '+num);
