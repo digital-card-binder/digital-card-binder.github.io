@@ -5,14 +5,13 @@
   "status": "in_progress",
   "totalMasterCards": 95,
   "artworkReviewed": 95,
-  "verifiedKoreanPrintImages": 83,
+  "verifiedKoreanPrintImages": 84,
   "ownedImagesVerified": 95,
   "all12ThemesReviewedForRange": true,
-  "remainingUnreviewedKoreanPrints": 12,
+  "remainingUnreviewedKoreanPrints": 11,
   "pendingKoreanImages": [
     "s6k_084/070",
     "s6k_085/070",
-    "s6k_086/070",
     "s6k_087/070",
     "s6k_088/070",
     "s6k_089/070",
@@ -31,7 +30,18 @@
     "night": 1,
     "food": 1
   },
-  "nextStart": "s6K Korean print source pending: 084-095",
+  "nextStart": "s6K Korean print source pending: 084,085,087-095",
   "proof": "data/audits/theme-visual-evidence/s6K/061-095/visual-index.json",
-  "manualReview": "data/audits/theme-s6K-061-095-Korean-art-review-20261015.json"
+  "manualReview": "data/audits/theme-s6K-061-095-Korean-art-review-20261015.json",
+  "recoveredKoreanImages": [
+    {
+      "code": "s6k_086/070",
+      "name": "흑마 버드렉스 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/086-korean.webp",
+      "source": "https://media.bunjang.co.kr/product/250071997_1_1706006498_w1200.jpg",
+      "sourceProductPage": "https://globalbunjang.com/product/250071997",
+      "printConfidence": "visible_Korean_footer_086/070"
+    }
+  ],
+  "koreanPrintSourceProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/approved-crops.json"
 }
