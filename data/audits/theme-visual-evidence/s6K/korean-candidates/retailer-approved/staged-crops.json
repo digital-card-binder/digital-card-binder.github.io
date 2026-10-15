@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "set": "s6K",
   "count": 3,
-  "status": "staged_pending_print_review",
+  "status": "3_Korean_prints_verified_low_res_watermark",
   "cards": [
     {
       "number": 88,
@@ -20,9 +20,17 @@
         420,
         586
       ],
-      "status": "staged_korean_retailer_photo_needs_number_and_text_review",
-      "verifiedKoreanPrintedEdition": false,
-      "watermark": "TCGBOX overlay; image quality upgrade desirable"
+      "status": "Korean_card_image_and_print_footer_verified",
+      "verifiedKoreanPrintedEdition": true,
+      "watermark": "TCGBOX overlay; image quality upgrade desirable",
+      "inspection": {
+        "visibleKoreanTitle": "국화",
+        "visibleKoreanText": "서포트는 자신의 차례에 1장만 사용할 수 있다",
+        "numberEvidence": "S6K 088/070 HR printed under Korean trainer name",
+        "printConfidence": "visible"
+      },
+      "reviewedAt": "2026-10-15",
+      "imageQualityFollowUp": "replace TCGBOX 286x400 watermarked source with higher-resolution unwatermarked Korean scan if available"
     },
     {
       "number": 91,
@@ -40,9 +48,17 @@
         420,
         586
       ],
-      "status": "staged_korean_retailer_photo_needs_number_and_text_review",
-      "verifiedKoreanPrintedEdition": false,
-      "watermark": "TCGBOX overlay; image quality upgrade desirable"
+      "status": "Korean_card_image_and_print_footer_verified",
+      "verifiedKoreanPrintedEdition": true,
+      "watermark": "TCGBOX overlay; image quality upgrade desirable",
+      "inspection": {
+        "visibleKoreanTitle": "카틀레야",
+        "visibleKoreanText": "자신의 패를 원하는 만큼 선택해서 덱으로 되돌린다",
+        "numberEvidence": "S6K 091/070 HR printed under Korean trainer name",
+        "printConfidence": "visible"
+      },
+      "reviewedAt": "2026-10-15",
+      "imageQualityFollowUp": "replace TCGBOX 286x400 watermarked source with higher-resolution unwatermarked Korean scan if available"
     },
     {
       "number": 95,
@@ -60,9 +76,29 @@
         420,
         586
       ],
-      "status": "staged_korean_retailer_photo_needs_number_and_text_review",
-      "verifiedKoreanPrintedEdition": false,
-      "watermark": "TCGBOX overlay; image quality upgrade desirable"
+      "status": "Korean_card_image_and_print_footer_verified",
+      "verifiedKoreanPrintedEdition": true,
+      "watermark": "TCGBOX overlay; image quality upgrade desirable",
+      "inspection": {
+        "visibleKoreanTitle": "기본 초에너지",
+        "visibleKoreanText": "ENERGY 기본에너지",
+        "numberEvidence": "S6K 095/070 UR printed on Korean energy card",
+        "printConfidence": "visible"
+      },
+      "reviewedAt": "2026-10-15",
+      "imageQualityFollowUp": "replace TCGBOX 286x400 watermarked source with higher-resolution unwatermarked Korean scan if available"
     }
+  ],
+  "reviewedNumbers": [
+    88,
+    91,
+    95
+  ],
+  "nextPendingNumbers": [
+    89,
+    90,
+    92,
+    93,
+    94
   ]
 }
