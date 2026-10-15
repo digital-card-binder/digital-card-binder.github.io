@@ -1,0 +1,68 @@
+name: Recover verified Korean S6H 085 without clearing six image holds
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/complete-s6H-085-Korean.yml'
+      - 'scripts/stage-s6H-085-Korean.py'
+      - 'scripts/complete-s6H-085-Korean.mjs'
+      - 'data/audits/theme-s6H-085-Korean-print-review-20261016.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s6h-085-korean-rare-image
+  cancel-in-progress: false
+jobs:
+  complete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Download and verify Korean S6H 085 card photo, archive WebP locally
+        run: python scripts/stage-s6H-085-Korean.py
+      - name: Apply exactly one Korean-printed rare image with strict audit and ownership guards
+        run: node scripts/complete-s6H-085-Korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit only after independent image verification and all site tests pass
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add -u
+            git add assets/cards/s6h-korean-rare/085-korean.webp
+            git add data/audits/theme-visual-evidence/s6H/korean-rare-candidates/staged-085-korean.json
+            git add data/audits/theme-s6H-085-Korean-progress-20261016.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(s6H): selfhost verified Korean 085, audit 89/95 and preserve six holds"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/stage-s6H-085-Korean.py
+            node scripts/complete-s6H-085-Korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
