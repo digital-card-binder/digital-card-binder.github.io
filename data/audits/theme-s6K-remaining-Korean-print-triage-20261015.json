@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-15",
+  "set": "s6K",
+  "reviewScope": "Korean printed S6K 089,090,092,093,094 source recovery",
+  "state": "five_source_scans_unverified_no_catalog_changes",
+  "fullyReviewedArtworks": 95,
+  "confirmedKoreanPrintImages": 90,
+  "pendingPrintedNumbers": [
+    89,
+    90,
+    92,
+    93,
+    94
+  ],
+  "guardedNextStart": "s6K Korean print source pending: 089,090,092-094",
+  "rules": [
+    "No print completion based on listing title or Japanese placeholder.",
+    "Require legible Korean text and printed S6K number on the same physical card.",
+    "Rehost verified image on digital-card-binder.github.io and update master, theme entries and overrides only after tests.",
+    "Keep all five canonical card IDs and independent 12-theme membership unchanged pending direct print evidence."
+  ],
+  "items": [
+    {
+      "number": 89,
+      "masterName": "니아",
+      "issue": "Korean seller photo captured but footer cropped; printed 089/070 not independently read",
+      "candidate": "https://media.bunjang.co.kr/product/417574579_1_1783014759_w1200.jpg",
+      "next": "Find full Korean card with bottom S6K 089/070 HR number."
+    },
+    {
+      "number": 90,
+      "masterName": "즈미",
+      "issue": "Korean product listing confirms name/number but no directly inspectable Korean print photo",
+      "candidate": "https://tcgbox.co.kr/product/즈미hr-s6k-090/13093/category/252/display/1/",
+      "next": "Find high-res Korean card showing title/printed S6K 090/070 HR."
+    },
+    {
+      "number": 92,
+      "masterName": "붐볼",
+      "issue": "Retailer lists 092 UR but image file S6K_092.jpg 404; available archival card currently Japanese",
+      "candidate": "https://tcgbox.co.kr/product/붐볼-ur-s6k-092/13095/category/252/display/1/",
+      "next": "Find real Korean print with S6K 092/070 UR footer."
+    },
+    {
+      "number": 93,
+      "masterName": "메아리호른",
+      "issue": "Material conflicting listings: current DB/Wiki/eBay seller say 093 Echoing Horn; TCGBOX lists 093 Fog Crystal. No readable Korean physical scan.",
+      "candidate": "https://www.ebay.com/itm/286020325996",
+      "conflictingListing": "https://tcgbox.co.kr/product/안개의-수정-ur-s6k-093/13096/category/252/display/1/",
+      "next": "Do not renumber from Japanese/retailer index; inspect actual printed Korean S6K 093/070 photo first."
+    },
+    {
+      "number": 94,
+      "masterName": "안개의 수정",
+      "issue": "Material conflicting listings: current DB/Wiki has 094 Fog Crystal; TCGBOX lists 094 Echoing Horn. No readable Korean physical scan.",
+      "candidate": "https://tcgbox.co.kr/product/메아리호른-ur-s6k-094/13097/category/252/display/1/",
+      "next": "Cross-check actual Korean print S6K 094/070 physical card before renumbering or replacing."
+    }
+  ],
+  "imageQualityFollowUps": [
+    84,
+    87,
+    88,
+    91,
+    95
+  ],
+  "verifiedKoreanReplacementsLastPass": [
+    88,
+    91,
+    95
+  ],
+  "supportingEvidence": [
+    "data/audits/theme-visual-evidence/s6K/korean-candidates/retailer/retailer-index.json",
+    "data/audits/theme-visual-evidence/s6K/korean-candidates/retailer-approved/staged-crops.json",
+    "data/audits/theme-visual-evidence/s6K/korean-candidates/direct/index.json"
+  ]
+}
