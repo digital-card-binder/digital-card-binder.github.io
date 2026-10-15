@@ -35,6 +35,10 @@ for(const theme of THEMES)if(!Array.isArray(groupMap.get(theme)?.cards))throw Er
 overrides.sets??={};overrides.sets[CODE]??={};
 const firstThirty=set.cards.slice(0,30).map(c=>c.code);
 const currentSlotCounts={};
+const knownLegacy017={
+ raw:'https://static.tcgexchange.kr/ad446803137b06e99fb171fcbf2063c5.png',
+ cdn:'https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/b9e1b648a35f2007.webp'
+};
 let added=0,internalized=0;
 for(let i=0;i<30;i++){
  const num=i+1,id=String(num).padStart(3,'0'),c=set.cards[i],p=proof.cards[i],row=review.items[i];
@@ -45,8 +49,9 @@ for(let i=0;i<30;i++){
  !p.printedNumberMatches||!row.artObservation?.trim()||
  p.imageCheck?.status!=='decoded'||p.imageCheck.http!==200||
  p.imageCheck.format!=='WEBP'||p.imageCheck.dimensions?.join(',')!=='420,586'||
- !p.ownedCdnUrl?.startsWith('https://dcb-card-images-modern-2026.pages.dev/')||
- !p.rawSource?.startsWith('https://cards.image.pokemonkorea.co.kr/')||
+ !((p.ownedCdnUrl?.startsWith('https://dcb-card-images-modern-2026.pages.dev/')&&
+      p.rawSource?.startsWith('https://cards.image.pokemonkorea.co.kr/'))||
+     (num===17&&p.rawSource===knownLegacy017.raw&&p.ownedCdnUrl===knownLegacy017.cdn))||
  (c.sourceImage||c.image)!==p.rawSource||p.priorThemes?.length!==0||
  THEMES.some(t=>groupMap.get(t).cards.some(x=>x.code===key)))
  throw Error('Unsafe s9a identity / hosted image / existing theme mismatch at '+num);
@@ -104,7 +109,7 @@ hosting.batches.push({
  canonicalCardCount:30,artworkVisuallyVerifiedCount:30,artworkPendingCount:0,
  selfHostedReferenceCountAfter:30,externalImageReferenceCountAfter:0,
  archiveVerificationStatus:'30_Korean_DCB_owned_CDN_images_decoded',verifiedImageCount:30,
- unverifiedImageCount:0,brokenReferenceCount:0,modernArchiveImages:30,
+ unverifiedImageCount:0,brokenReferenceCount:0,modernArchiveImages:29,legacyArchiveImages:1,
  newlyInternalizedReferenceCount:internalized,themeAdditions:currentSlotCounts,
  koreanCardNameCorrections:['s9a_023/067','s9a_024/067'],nextStart:next,
  note:'Reviewed real Korean cards in owned CDN sheets. Name corrections 023/024; original sourceImage preserved and 30 already-stored owned images referenced. Third-party requests 0.'
@@ -119,7 +124,7 @@ await Promise.all([
   schemaVersion:1,recordedAt:DATE,set:CODE,status:'in_progress',
   totalMasterCards:93,reviewedCanonicalCards:30,remainingUnreviewed:63,
   newThemeSlotsThisBatch:currentSlotCounts,added,ownedCDNImagesVerified:30,
-  imagesPointingToOwnedCDN:30,newlyInternalizedReferenceCount:internalized,
+  imagesPointingToOwnedCDN:30,modernArchiveImages:29,legacyArchiveImages:1,newlyInternalizedReferenceCount:internalized,
   correctedKoreanNames:['s9a_023/067','s9a_024/067'],originRequests:0,
   proof:'data/audits/theme-visual-evidence/s9a/001-030/visual-index.json',nextStart:next
  })]);
