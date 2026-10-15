@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14201,
-    "uniqueThemeCards": 8491,
+    "themeCardSlots": 14255,
+    "uniqueThemeCards": 8521,
     "strictCompleteSetCount": 100,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 173,
@@ -123,8 +123,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4181,
-      "setCount": 104,
+      "cardSlots": 4202,
+      "setCount": 105,
       "rarities": [
         "AR",
         "C",
@@ -143,8 +143,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7491,
-      "setCount": 106,
+      "cardSlots": 7521,
+      "setCount": 107,
       "rarities": [
         "AR",
         "C",
@@ -224,8 +224,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1045,
-      "setCount": 87,
+      "cardSlots": 1048,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -275,7 +275,7 @@
       "cardCount": 4800,
       "completeSetCount": 36,
       "remainingSetCount": 25,
-      "currentThemeSlots": 3600
+      "currentThemeSlots": 3654
     },
     {
       "era": "SM",
@@ -388,7 +388,7 @@
       "code": "s8b",
       "name": "VMAX 클라이맥스",
       "cardCount": 293,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -782,10 +782,13 @@
       "cardCount": 293,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
-        "sleeping": 3
+        "sleeping": 3,
+        "season": 21,
+        "color": 30,
+        "street": 3
       }
     },
     {
