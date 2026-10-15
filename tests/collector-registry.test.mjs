@@ -361,7 +361,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       } else {
         assert.match(
           card.image,
-          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev|digital-card-binder[.]github[.]io/assets/cards/s8b-ur-korean)\//,
+          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev|digital-card-binder[.]github[.]io\/assets\/cards\/s8b-ur-korean)\//,
           card.code,
         );
       }
