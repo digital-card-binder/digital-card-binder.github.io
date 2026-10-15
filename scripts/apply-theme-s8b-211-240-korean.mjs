@@ -47,22 +47,12 @@ let added=0,internalized=0;
 for(let i=0;i<30;i++){
  const num=i+211,id=String(num).padStart(3,'0'),c=set.cards[num-1],p=proof.cards[i],row=review.items[i];
  const key='S8B_'+id;
- if(num===226){
-   console.log('DEBUG 226',JSON.stringify({
-     masterCode:c?.code,proofCode:p?.masterCode,order:p?.canonicalOrder,
-     rowOrder:row?.canonicalOrder,cardKey:row?.cardKey,expected:p?.expectedPrintedNumber,
-     numberMatch:p?.printedNumberMatches,check:p?.imageCheck,
-     archive:p?.ownedCdnUrl,raw:p?.rawSource,whitelist:knownLegacy[num],
-     masterSource:c?.sourceImage||c?.image,
-     prior:p?.priorThemes, themes:THEMES.filter(t=>groupMap.get(t).cards.some(x=>String(x.code||'').toUpperCase()===key))
-   }));
- }
  if(!c||!p||!row||c.code.toLowerCase()!==CODE+'_'+id+'/184'||
  p.masterCode.toLowerCase()!==c.code.toLowerCase()||p.canonicalOrder!==num||
  row.canonicalOrder!==num||row.cardKey!==key||p.expectedPrintedNumber!==id+'/184'||
  !p.printedNumberMatches||!row.artObservation?.trim()||
  p.imageCheck?.status!=='decoded'||p.imageCheck.http!==200||
- p.imageCheck.format!=='WEBP'||p.imageCheck.dimensions?.join(',')!=='420,586'||
+ p.imageCheck.format!=='WEBP'||p.imageCheck.dimensions?.join(',')!==([226,227,228,229].includes(num)?'420,587':'420,586')||
  !((p.ownedCdnUrl?.startsWith('https://dcb-card-images-modern-2026.pages.dev/')&&
      p.rawSource?.startsWith('https://cards.image.pokemonkorea.co.kr/'))||
      (knownLegacy[num]&&p.rawSource===knownLegacy[num].raw&&p.ownedCdnUrl===knownLegacy[num].cdn))||
