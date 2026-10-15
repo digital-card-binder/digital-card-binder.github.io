@@ -43,7 +43,7 @@ for(let i=0;i<30;i++){
    console.log('Preexisting card proof',JSON.stringify({
      num, code:c?.code, raw:p?.rawSource, masterSource:c?.sourceImage||c?.image,
      priorThemes:p?.priorThemes,
-     groupCodes:THEMES.filter(t=>groupMap.get(t).cards.some(x=>x.code===key)),
+     groupCodes:THEMES.filter(t=>groupMap.get(t).cards.some(x=>String(x.code||'').toUpperCase()===key)),
      owned:p?.ownedCdnUrl, imageStatus:p?.imageCheck?.status
    }));
  }
@@ -64,7 +64,7 @@ for(let i=0;i<30;i++){
    throw Error('Korean name identity mismatch at '+num);
  }
  if([202,209].includes(num)){
-   const existingSleeping=groupMap.get('sleeping').cards.filter(x=>x.code===key);
+   const existingSleeping=groupMap.get('sleeping').cards.filter(x=>String(x.code||'').toUpperCase()===key);
    if(existingSleeping.length!==1||existingSleeping[0].name!==c.name||
      row.matchedThemes.includes('sleeping')||!existingSleeping[0].category)
        throw Error('Preexisting sleeping-theme card inconsistent at '+num);
