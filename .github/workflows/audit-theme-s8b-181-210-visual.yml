@@ -1,0 +1,43 @@
+name: Audit s8b 181-210 Korean VMAX Climax owned card images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-theme-s8b-181-210-visual.yml'
+      - 'scripts/audit-theme-s8b-181-210-visual.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s8b-181-210-owned-korean-image-proof
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - name: Audit Korean s8b card names, numbering and owned images (no theme auto-classification)
+        run: python scripts/audit-theme-s8b-181-210-visual.py
+      - name: Commit verified preflight evidence without changing completed checkpoints
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/theme-visual-evidence/s8b/181-210
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "Capture Korean s8b 181-210 self-hosted image and print identity evidence"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/audit-theme-s8b-181-210-visual.py
+          done
