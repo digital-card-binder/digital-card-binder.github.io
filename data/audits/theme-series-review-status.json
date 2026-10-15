@@ -62908,14 +62908,14 @@
       "note": "25th ANNIVERSARY COLLECTION 한국판 38/38 카드 그림과 번호 12테마 전수검수 완료. 024 파도타기 피카츄 VMAX/029 박사의 연구(오박사) 명칭 정정, 기존 연결6+잠자는1 분류 보존. 새로운 피카츄 V-UNION 연결4장 포함."
     },
     "s8": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "artworkReviewedCardCount": 129,
-      "reviewedCardCount": 125,
+      "reviewedCardCount": 129,
       "verifiedSelfHostedImageCount": 129,
-      "verifiedKoreanPrintImageCount": 125,
+      "verifiedKoreanPrintImageCount": 129,
       "reviewedRanges": [
-        "001-129 (art complete; print exceptions pending)"
+        "001-129"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62932,38 +62932,13 @@
         "cameo"
       ],
       "newlyAddedThemeSlotCount": 234,
-      "partialReviewEvidence": "data/audits/theme-s8-091-129-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "129_owned_images_decoded_125_Korean_language_verified_four_Japanese_pending",
-      "heldCards": [
-        "s8_117/100",
-        "s8_119/100",
-        "s8_120/100",
-        "s8_123/100"
-      ],
-      "unresolvedImageIssues": [
-        {
-          "code": "s8_117/100",
-          "name": "펄스멍 VMAX",
-          "issue": "Japanese-language artwork placeholder; correct Korean image not sourced yet"
-        },
-        {
-          "code": "s8_119/100",
-          "name": "뮤 VMAX",
-          "issue": "Japanese-language artwork placeholder; correct Korean image not sourced yet"
-        },
-        {
-          "code": "s8_120/100",
-          "name": "요씽리스 VMAX",
-          "issue": "Japanese-language artwork placeholder; correct Korean image not sourced yet"
-        },
-        {
-          "code": "s8_123/100",
-          "name": "팟과 덴트와 콘",
-          "issue": "Japanese-language artwork placeholder; correct Korean image not sourced yet"
-        }
-      ],
-      "nextStart": "s8 Korean print source pending: 117,119,120,123",
-      "note": "퓨전아츠 전체 129장 그림 테마 검수/자체 저장 이미지 확인. 한국어 인쇄 검증 125장, 117·119·120·123 해외판 이미지 미해결. 118·124 한국어판 사진은 워터마크가 남아 추후 깨끗한 판 교체 권장. 아직 완료 시리즈로 계산 금지."
+      "partialReviewEvidence": "data/audits/theme-visual-evidence/s8/korean-rescued-sources/approved-crops.json",
+      "archiveVerificationStatus": "s8_all_129_Korean_print_images_verified_owned_by_DCB",
+      "heldCards": [],
+      "unresolvedImageIssues": [],
+      "nextStart": "s7R canonical 001",
+      "note": "퓨전아츠 한국판 129/129 카드와 12테마 직접 검수 완료. 117·119·120·123 일본판 임시 이미지를 소스 검증된 한국판 실물 사진으로 자체 호스팅 교체. 118·124 한국어판 실물 워터마크 이미지와 기타 정상 소유 CDN 자료 보존.",
+      "completedAt": "2026-10-15"
     }
   },
   "queue": {
@@ -62983,14 +62958,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s8",
+    "currentSet": "s7R",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8 artworks 001-129, Korean images 125/129 (missing 117,119,120,123)",
-    "nextStart": "s8 Korean print source pending: 117,119,120,123",
+    "lastSafeCheckpoint": "s8 001-129 (129/129) Korean print, card art and self-hosted image verified",
+    "nextStart": "s7R canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

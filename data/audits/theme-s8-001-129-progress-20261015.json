@@ -2,17 +2,12 @@
   "schemaVersion": 1,
   "recordedAt": "2026-10-15",
   "set": "s8",
-  "status": "in_progress",
+  "status": "complete",
   "totalMasterCards": 129,
   "artworkReviewed": 129,
-  "verifiedKoreanPrintImages": 125,
-  "pendingKoreanImages": [
-    "s8_117/100",
-    "s8_119/100",
-    "s8_120/100",
-    "s8_123/100"
-  ],
-  "remainingUnreviewed": 4,
+  "verifiedKoreanPrintImages": 129,
+  "pendingKoreanImages": [],
+  "remainingUnreviewed": 0,
   "newThemeSlotsThisBatch": {
     "color": 129,
     "season": 59,
@@ -30,6 +25,31 @@
     118,
     124
   ],
-  "nextStart": "s8 Korean print source pending: 117,119,120,123",
-  "proof": "data/audits/theme-visual-evidence/s8/001-129/visual-index.json"
+  "nextStart": "s7R canonical 001",
+  "proof": "data/audits/theme-visual-evidence/s8/001-129/visual-index.json",
+  "complete": true,
+  "recoveredKoreanImages": [
+    {
+      "code": "s8_117/100",
+      "source": "https://ai.esmplus.com/asum0726/MSET/pulsmung_vmax_hr.jpg",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s8-korean-rare/117-korean.webp"
+    },
+    {
+      "code": "s8_119/100",
+      "source": "https://image.coupangcdn.com/image/vendor_inventory/5603/ec9574825add7ad4b89c71bf2a70df65e6e85490e4f69f46d0c27c86bf3b.png",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s8-korean-rare/119-korean.webp"
+    },
+    {
+      "code": "s8_120/100",
+      "source": "https://media.bunjang.co.kr/product/437611641_1_1791209238_w360.jpg",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s8-korean-rare/120-korean.webp"
+    },
+    {
+      "code": "s8_123/100",
+      "source": "https://img2.joongna.com/media/original/2022/12/02/1669971198622yNJ_StbRA.jpg?impolicy=resize&format=webp",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s8-korean-rare/123-korean.webp"
+    }
+  ],
+  "koreanImageProof": "data/audits/theme-visual-evidence/s8/korean-rescued-sources/approved-crops.json",
+  "note": "S8 129/129 complete, 234 theme additions preserved, 4 rare Korean print photos hosted. 118/124 remain real Korean prints with source watermark."
 }
