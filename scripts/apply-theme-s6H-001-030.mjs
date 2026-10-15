@@ -36,6 +36,13 @@ full.visuallyReviewedKoreanPrintCount!==83||full.foreignPrintImagePlaceholderCou
 const groupMap=new Map((themes.groups||[]).map(g=>[g.code,g]));
 for(const t of THEMES)if(!Array.isArray(groupMap.get(t)?.cards))throw Error("Missing theme "+t);
 const origSetIds=source.cards.map(x=>x.code),changes=[],actualCounts={};
+// The evidence snapshot reported S6H memberships, but current main has none.
+// Never blindly remove/rewrite based on that stale snapshot. Initialize only explicitly
+// reviewed Korean cards, and fail if the live set is partially populated.
+const currentSetCards=themes.groups.flatMap(g=>(g.cards||[]).filter(c=>
+ String(c.set||"").toLowerCase()==="s6h"||
+ /^S6H_[0-9]{3}$/i.test(String(c.code||""))).map(c=>({theme:g.code,code:c.code})));
+if(currentSetCards.length!==0)throw Error("S6H expected empty current theme baseline, saw "+JSON.stringify(currentSetCards.slice(0,10)));
 for(let i=0;i<30;i++){
  const n=i+1,id=String(n).padStart(3,"0"),key="S6H_"+id,code="s6h_"+id+"/070";
  const row=review.items[i],proofrow=proof.cards[i],card=source.cards[i];
@@ -60,21 +67,21 @@ for(let i=0;i<30;i++){
  if(slots.length>1)throw Error("Duplicate independent theme card "+key+" "+theme);
  if(slots.length===1)before.push(theme);
  }
- if(JSON.stringify(before.slice().sort())!==JSON.stringify(row.priorThemes.slice().sort())||
- JSON.stringify(before.slice().sort())!==JSON.stringify(proofrow.priorThemes.slice().sort()))
- throw Error("Existing twelve-theme memberships changed at "+id+"; actual="+JSON.stringify(before)+"; review="+JSON.stringify(row.priorThemes)+"; proof="+JSON.stringify(proofrow.priorThemes)+"; candidates="+JSON.stringify(themes.groups.filter(g=>["color","season"].includes(g.code)).map(g=>({t:g.code,c:g.cards.filter(c=>String(c.code||"").toUpperCase().includes("S6H_"+id)).slice(0,3).map(c=>({code:c.code,set:c.set,name:c.name}))}))));
+ if(before.length!==0||
+ JSON.stringify(row.priorThemes.slice().sort())!==JSON.stringify(proofrow.priorThemes.slice().sort()))
+ throw Error("S6H empty current baseline, historical reviewed/proof source inconsistent at "+id);
+ if(!proofrow.ownedCdnUrl.startsWith("https://dcb-card-images-modern-2026.pages.dev/")||
+ proofrow.name!==card.name)
+ throw Error("Missing official Korean-hosted photo at "+id);
  for(const t of THEMES){
  const group=groupMap.get(t),index=group.cards.findIndex(c=>String(c.code||"").toUpperCase()===key);
  if(index>=0&&!selected.has(t)){
   group.cards.splice(index,1);
   changes.push({number:n,theme:t,operation:"remove_wrong_visual_theme"});
  }else if(index<0&&selected.has(t)){
-  const template=groupMap.get("color").cards.find(c=>String(c.code||"").toUpperCase()===key);
-  if(!template||template.name!==card.name||template.image!==proofrow.ownedCdnUrl)
-   throw Error("Missing canonical existing color card template "+id);
-  group.cards.push({...template,code:key,name:card.name,series:"S",set:source.code,
+  group.cards.push({code:key,name:card.name,series:"S",set:source.code,
    setName:source.displayName||"백은의 랜스",cardNumber:id+"/070",rarity:card.rarity||"",
-   category:row.categories[t],image:template.image,
+   category:row.categories[t],image:proofrow.ownedCdnUrl,
    evidence:"한국판 백은의 랜스 "+id+"/070 실물 12테마 일러스트 검수: "+row.artObservation+" ("+REVIEW+")"});
   changes.push({number:n,theme:t,operation:"add_visually_confirmed_theme"});
  }
@@ -85,18 +92,19 @@ if(JSON.stringify(source.cards.map(c=>c.code))!==JSON.stringify(origSetIds))
  throw Error("Canonical or user ownership keys changed");
 if(THEMES.some(t=>(actualCounts[t]||0)!==(review.themeCounts?.[t]||0)))
 throw Error("Visual theme totals inconsistent");
-const expectedAdd=review.themeAdditions.map(x=>x.split(":").reverse().join(":")).sort();
-const expectedRemove=review.themeRemovals.map(x=>x.split(":").reverse().join(":")).sort();
 const actualAdd=changes.filter(c=>c.operation.startsWith("add")).map(c=>c.theme+":"+c.number).sort();
 const actualRemove=changes.filter(c=>c.operation.startsWith("remove")).map(c=>c.theme+":"+c.number).sort();
-if(JSON.stringify(expectedAdd)!==JSON.stringify(actualAdd)||JSON.stringify(expectedRemove)!==JSON.stringify(actualRemove))
-throw Error("Manually reviewed theme changes differ from actual mutations");
+const expectedAdds=review.items.flatMap(row=>row.matchedThemes.map(theme=>theme+":"+row.canonicalOrder)).sort();
+if(JSON.stringify(expectedAdds)!==JSON.stringify(actualAdd)||
+ actualRemove.length!==0||actualAdd.length!==56||
+ new Set(actualAdd).size!==actualAdd.length)
+throw Error("Expected 56 manually reviewed new theme memberships on empty current baseline");
 prior.artworkReviewedCardCount=30;prior.reviewedCardCount=30;
 prior.reviewedRanges=["001-030"];prior.reviewedThemes=THEMES;
 prior.partialReviewEvidence=REVIEW;prior.nextStart=NEXT;
 prior.newlyAddedThemeSlotCount=(prior.newlyAddedThemeSlotCount||0)+actualAdd.length;
 prior.removedIncorrectThemeSlotCount=(prior.removedIncorrectThemeSlotCount||0)+actualRemove.length;
-prior.note="백은의 랜스 001~030 이미지/일러스트 12개 테마 직접 확인, 잘못된 야간·계절 태그 수정. 031~095 테마 미검수, 084~095 한국판 이미지 미확보. S6K 이미지 보류 4장은 그대로 유지.";
+prior.note="백은의 랜스 001~030 12개 테마 일러스트 직접 확인. 검수 시트의 과거 priorThemes 참조와 현행 DB가 달라 현재 빈 S6H 테마 기준으로 분류 56건을 신규 등록; 기존 카드 삭제 없음. 031~095 테마 미검수, 084~095 한국판 이미지 미확보, S6K 이미지 보류 4장은 유지.";
 prior.status="in_progress";prior.reviewedAt=DATE;
 status.updatedAt=DATE;themes.updatedAt=DATE;
 await Promise.all([
@@ -106,6 +114,8 @@ save("data/audits/theme-s6H-001-030-progress-20261015.json",{
  artworkReviewed:30,koreanPrintedImagesVerified:83,foreignPrintedImageHolds:12,
  themeReviewRanges:["001-030"],all12ThemesInspected:true,
  themeAdditions:actualAdd.length,incorrectThemeRemovals:actualRemove.length,
+ baselineReconciliation:"Reviewed prior-theme references were stale; live main contained no S6H themes; created 56 from direct Korean artwork review and did not remove old user records.",
+ historicalReferenceProposedRemovals:review.themeRemovals,
  modified:changes,nextStart:NEXT,globalCheckpointPreserved:GLOBAL,
  themeReviewProof:REVIEW,imageProof:audit,complete:false})
 ]);
