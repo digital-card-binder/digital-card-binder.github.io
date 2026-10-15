@@ -2,7 +2,7 @@
 """Collect sourced Korean s7D rainbow rare-card candidates; never alter live catalog."""
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit, urlunsplit, quote
 from io import BytesIO
 from html.parser import HTMLParser
 from PIL import Image, ImageDraw
@@ -18,7 +18,9 @@ MAX_BYTES=5_000_000
 
 def download(url):
     if not url.startswith("https://"):raise ValueError("Only HTTPS source supported")
-    with urlopen(Request(url,headers=UA),timeout=15) as resp:
+    p=urlsplit(url)
+    encoded=urlunsplit((p.scheme,p.netloc,quote(p.path,safe="/%:@"),quote(p.query,safe="=&%:/?+"),""))
+    with urlopen(Request(encoded,headers=UA),timeout=15) as resp:
         blob=resp.read(MAX_BYTES+1)
         if len(blob)>MAX_BYTES:raise ValueError("Too many bytes")
         return blob,resp.headers.get("Content-Type","")
