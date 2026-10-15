@@ -38,9 +38,9 @@
     "themeCount": 12,
     "themeCardSlots": 15401,
     "uniqueThemeCards": 9220,
-    "strictCompleteSetCount": 105,
+    "strictCompleteSetCount": 106,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 168,
+    "baselineRemainingSetCount": 167,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -284,8 +284,8 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 41,
-      "remainingSetCount": 20,
+      "completeSetCount": 42,
+      "remainingSetCount": 19,
       "currentThemeSlots": 4800
     },
     {
@@ -392,13 +392,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s6a",
-      "name": "이브이 히어로즈",
-      "cardCount": 101,
       "status": "in_progress"
     },
     {
@@ -546,6 +539,13 @@
       "code": "SMN",
       "name": "파워업덱 BOX 「TAG TEAM GX」",
       "cardCount": 44,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SML",
+      "name": "패밀리 포켓몬 카드 게임",
+      "cardCount": 57,
       "status": "pending"
     }
   ],
@@ -731,7 +731,7 @@
       "cardCount": 101,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "night": 4,

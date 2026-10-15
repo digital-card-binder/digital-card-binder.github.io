@@ -63007,60 +63007,16 @@
       "completedAt": "2026-10-15"
     },
     "s6a": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "artworkReviewedCardCount": 101,
-      "reviewedCardCount": 94,
+      "reviewedCardCount": 101,
       "verifiedSelfHostedImageCount": 101,
-      "verifiedKoreanPrintImageCount": 94,
-      "heldCards": [
-        "s6a_88/069",
-        "s6a_92/069",
-        "s6a_96/069",
-        "s6a_97/069",
-        "s6a_99/069",
-        "s6a_100/069",
-        "s6a_101/069"
-      ],
-      "unresolvedImageIssues": [
-        {
-          "code": "s6a_088/069",
-          "name": "리피아 VMAX",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_092/069",
-          "name": "님피아 VMAX",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_096/069",
-          "name": "마쿠와",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_097/069",
-          "name": "아로마 아가씨",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_099/069",
-          "name": "부쩍부쩍 셰이크",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_100/069",
-          "name": "터프스타디움",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        },
-        {
-          "code": "s6a_101/069",
-          "name": "기본 악 에너지",
-          "issue": "Japanese print scan placeholder: Korean photograph not verified"
-        }
-      ],
+      "verifiedKoreanPrintImageCount": 101,
+      "heldCards": [],
+      "unresolvedImageIssues": [],
       "reviewedRanges": [
-        "001-101 (art reviewed; seven Korean prints pending)"
+        "001-101"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63077,10 +63033,11 @@
         "cameo"
       ],
       "newlyAddedThemeSlotCount": 177,
-      "partialReviewEvidence": "data/audits/theme-s6a-071-101-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "101_illustrations_94_Korean_print_7_foreign_language_placeholders",
-      "nextStart": "s6a Korean print source pending: 088,092,096,097,099,100,101",
-      "note": "이브이 히어로즈 한국판 101개 일러스트의 12테마 검수 완료. 94개 한국어판 인쇄 확인; 88,92,96,97,99,100,101 외국판 임시 이미지 보류. 기존 95 블래키 VMAX 밤 테마 보존."
+      "partialReviewEvidence": "data/audits/theme-visual-evidence/s6a/korean-candidates/approved-crops.json",
+      "archiveVerificationStatus": "s6a_101_Korean_print_images_selfhosted_and_themes_verified",
+      "nextStart": "s6K canonical 001",
+      "note": "한국판 이브이 히어로즈 101장 시각·12테마 검수 및 자체 이미지 반영. 기존 95번 밤 테마 유지. 희귀 7장의 일본판 임시 이미지를 실제 한국어 인쇄 실물사진으로 교체. 101번 촬영본의 하단 번호는 흐려서 판매처 번호로 교차 확인했고 추후 화질 보강 권장.",
+      "completedAt": "2026-10-15"
     }
   },
   "queue": {
@@ -63100,14 +63057,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s6a",
+    "currentSet": "s6K",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s6a illustrations 101/101 and Korean print images 94/101; seven images held",
-    "nextStart": "s6a Korean print source pending: 088,092,096,097,099,100,101",
+    "lastSafeCheckpoint": "s6a canonical 001-101, Korean print source checked 101/101, all artwork themes audited",
+    "nextStart": "s6K canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

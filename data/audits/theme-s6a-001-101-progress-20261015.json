@@ -2,22 +2,14 @@
   "schemaVersion": 1,
   "recordedAt": "2026-10-15",
   "set": "s6a",
-  "status": "in_progress",
+  "status": "complete",
   "totalMasterCards": 101,
   "artworkReviewed": 101,
-  "verifiedKoreanPrintImages": 94,
+  "verifiedKoreanPrintImages": 101,
   "ownedImagesVerified": 101,
   "all12ThemesReviewed": true,
-  "pendingKoreanImages": [
-    "s6a_088/069",
-    "s6a_092/069",
-    "s6a_096/069",
-    "s6a_097/069",
-    "s6a_099/069",
-    "s6a_100/069",
-    "s6a_101/069"
-  ],
-  "remainingUnreviewedKoreanPrints": 7,
+  "pendingKoreanImages": [],
+  "remainingUnreviewedKoreanPrints": 0,
   "themeCounts": {
     "color": 101,
     "season": 53,
@@ -31,6 +23,62 @@
   "existingThemesPreserved": {
     "night": 1
   },
-  "nextStart": "s6a Korean print source pending: 088,092,096,097,099,100,101",
-  "proof": "data/audits/theme-visual-evidence/s6a/001-101/visual-index.json"
+  "nextStart": "s6K canonical 001",
+  "proof": "data/audits/theme-visual-evidence/s6a/001-101/visual-index.json",
+  "complete": true,
+  "recoveredKoreanImages": [
+    {
+      "code": "s6a_088/069",
+      "name": "리피아 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/088-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/IPgAAeSwWz1qFjoI/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_092/069",
+      "name": "님피아 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/092-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/xH0AAeSw0v1ptBWB/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_096/069",
+      "name": "마쿠와",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/096-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/4fQAAeSwRZlp2Fsr/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_097/069",
+      "name": "아로마 아가씨",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/097-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/XhkAAOSwxqZjIuTP/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_099/069",
+      "name": "부쩍부쩍 셰이크",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/099-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/MMIAAeSwOxJoMka1/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_100/069",
+      "name": "터프스타디움",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/100-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/saAAAOSwPg9oDAO~/s-l1600.jpg",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6a_101/069",
+      "name": "기본 악 에너지",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6a-korean-rare/101-korean.webp",
+      "source": "https://i.ebayimg.com/images/g/JyAAAOSw0n5k~~x-/s-l1600.jpg",
+      "printConfidence": "corroborated_by_seller_listing"
+    }
+  ],
+  "imageQualityFollowUps": [
+    101
+  ],
+  "koreanPrintSourceProof": "data/audits/theme-visual-evidence/s6a/korean-candidates/approved-crops.json"
 }
