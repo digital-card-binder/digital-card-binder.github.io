@@ -62777,10 +62777,11 @@
     "s9a": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "reviewedCardCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62797,11 +62798,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 54,
-      "partialReviewEvidence": "data/audits/theme-s9a-001-030-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s9a_001-030_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s9a canonical 031",
-      "note": "배틀리전 001-030 30장 한국판 실제 카드 그림 12테마 시각검수 완료. 023/024는 한국어 카드의 히스이 접두어 누락 정정. 자체 저장 이미지 30장 디코딩 확인. 세트 93장 중 30장만 완료."
+      "newlyAddedThemeSlotCount": 104,
+      "partialReviewEvidence": "data/audits/theme-s9a-031-060-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9a_031-060_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9a canonical 061",
+      "note": "배틀리전 001-060 60장 한국판 일러스트 12테마 검수 완료. 045 한국판 카드의 VSTAR 표기로 정정. 031-060 자체 저장 이미지 30장 디코딩 확인(현대 29/legacy 1). 세트 93장 중 60장 완료."
     }
   },
   "queue": {
@@ -62827,8 +62828,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9a canonical 001-030 (30/93) Korean print/art and DCB owned image proof",
-    "nextStart": "s9a canonical 031",
+    "lastSafeCheckpoint": "s9a canonical 001-060 (60/93) Korean print/art and DCB owned image proof",
+    "nextStart": "s9a canonical 061",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
