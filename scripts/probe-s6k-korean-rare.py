@@ -48,10 +48,14 @@ def collect_urls(page):
             m=re.search(r'https://i\.ebayimg\.com/images/g/([A-Za-z0-9~_-]+)/',u)
             if not m: continue
             u="https://i.ebayimg.com/images/g/"+m.group(1)+"/s-l1600.jpg"
-        if not (u.startswith("https://i.ebayimg.com/") or "bunjang" in urlsplit(u).hostname):continue
+        if not (u.startswith("https://i.ebayimg.com/images/g/") or (urlsplit(u).hostname=="media.bunjang.co.kr" and "/product/" in urlsplit(u).path)):continue
         if u in seen: continue
         seen.add(u);urls.append(u)
     return urls[:12]
+directCandidates={
+ 84:["https://media.bunjang.co.kr/product/180251932_1_1645785721_w1200.jpg","https://media.bunjang.co.kr/product/180251932_1_1645785721_w500.jpg"],
+ 86:["https://media.bunjang.co.kr/product/250071997_1_1706006498_w1200.jpg"]
+}
 rows=[];canvas=Image.new("RGB",(4*304,3*470),(245,245,245))
 pen=ImageDraw.Draw(canvas)
 for i,(num,name,listings) in enumerate(seeds):
@@ -59,7 +63,19 @@ for i,(num,name,listings) in enumerate(seeds):
     pen.text((x+6,y+4),f"S6K {num:03d} candidate / not verified",fill=(12,12,12))
     result={"number":num,"name":name,"set":"s6K","code":f"s6k_{num:03d}/070","status":"no_source_confirmed","sourceAttempts":[]}
     found=None
-    for page in listings:
+    for url in directCandidates.get(num,[]):
+        attempt={"directPhoto":url}
+        try:
+            blob=get(url,limit=4500000,timeout=17)
+            pic=Image.open(BytesIO(blob));pic.load()
+            if min(pic.width,pic.height)<250:raise ValueError("Not a card photo")
+            attempt.update(status="decoded",imageSize=[pic.width,pic.height])
+            found=(pic.convert("RGB"),url,("https://globalbunjang.com/product/250071997" if num==86 else "https://m.bunjang.co.kr/products/180251932"),blob)
+        except Exception as err:
+            attempt["error"]=str(err)[:190]
+        result["sourceAttempts"].append(attempt)
+        if found:break
+    for page in ([] if found else listings):
         entry={"listing":page}
         try:
             payload=get(page,limit=2800000)
@@ -88,6 +104,8 @@ for i,(num,name,listings) in enumerate(seeds):
         pic,url,page,blob=found
         thumb=ImageOps.exif_transpose(pic);thumb.thumbnail((292,415))
         canvas.paste(thumb,(x+(304-thumb.width)//2,y+25))
+        proof=BytesIO();ImageOps.exif_transpose(pic).save(proof,"WEBP",quality=93,method=6)
+        (out/f"{num:03d}-candidate.webp.b64").write_text(base64.b64encode(proof.getvalue()).decode("ascii"),encoding="ascii")
         result.update(status="photo_collected_requires_Korean_title_and_number_visual_review",
                       candidateImage=url,listing=page,sha256=hashlib.sha256(blob).hexdigest(),
                       dimensions=[pic.width,pic.height])
