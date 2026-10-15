@@ -9,10 +9,10 @@
   "canonicalNumberNameChecked": 95,
   "ownedImageDecoded": 95,
   "missingOwnedImageCount": 0,
-  "visuallyReviewedKoreanPrintCount": 83,
-  "foreignPrintImagePlaceholderCount": 12,
+  "visuallyReviewedKoreanPrintCount": 88,
+  "foreignPrintImagePlaceholderCount": 7,
   "fullSeriesArtworkThemeClassificationComplete": false,
-  "reasonForNoCompletion": "084-095 일본어 인쇄 이미지로 한국판 실물 인쇄를 확인할 수 없음. 001-083은 한국어판 공식 카드 이미지로 확인. 12테마별 전체 분류 확정은 별도 후속 검수 필요.",
+  "reasonForNoCompletion": "S6H 한국판 카드 88장 확인. 085,088-093 7장의 현재 이미지는 일본어판 임시 자료이며 한국판 인쇄·테마 확정 보류.",
   "allImageAuditRanges": [
     "001-030",
     "031-060",
@@ -24,41 +24,14 @@
     "data/audits/theme-visual-evidence/s6H/061-095/visual-index.json"
   ],
   "preservedGlobalCheckpoint": "s6K Korean print source pending: 089,090,092,094",
-  "nextSetArtworkVisualReview": "s6H 001-030 12-theme illustration category validation",
+  "nextSetArtworkVisualReview": "s6H Korean print source pending: 085,088-093",
   "heldNumbers": [
-    {
-      "number": 84,
-      "code": "s6h_084/070",
-      "name": "백마 버드렉스 VMAX",
-      "archivedSource": "https://static.tcgexchange.kr/330bfcaf2cd487737dc2b8b66b028648.jpg",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/f8aa4f88790b6c58.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
     {
       "number": 85,
       "code": "s6h_085/070",
       "name": "백마 버드렉스 VMAX",
       "archivedSource": "https://static.tcgexchange.kr/497e2e4350dfb9d4185df69098f23bff.png",
       "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/059f89ee7d45426c.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
-    {
-      "number": 86,
-      "code": "s6h_086/070",
-      "name": "사다이사 VMAX",
-      "archivedSource": "https://static.tcgexchange.kr/5237de711ea0920197858258ebfd908d.jpg",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/ce1335f0022544f1.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
-    {
-      "number": 87,
-      "code": "s6h_087/070",
-      "name": "토네로스 VMAX",
-      "archivedSource": "https://static.tcgexchange.kr/37e75de04b2d20a5aeaaac1615e44f37.jpg",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/22e3a188e223160e.webp",
       "printLanguage": "Japanese",
       "currentStatus": "Korean_real_print_image_missing"
     },
@@ -113,24 +86,6 @@
       "name": "마중초롱",
       "archivedSource": "https://static.tcgexchange.kr/93e25afd7bbcf36cc42e1d018ea9f85a.jpg",
       "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/4e451915373079a0.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
-    {
-      "number": 94,
-      "code": "s6h_094/070",
-      "name": "우락부락멧",
-      "archivedSource": "https://static.tcgexchange.kr/531c0189f04f0484fdb95370b20f6261.jpg",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/452f4443ac2ab623.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
-    {
-      "number": 95,
-      "code": "s6h_095/070",
-      "name": "기본 물 에너지",
-      "archivedSource": "https://static.tcgexchange.kr/74dd56c74b23f89f0387fca67a1aac83.jpg",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/29d4910a0474d989.webp",
       "printLanguage": "Japanese",
       "currentStatus": "Korean_real_print_image_missing"
     }
@@ -1241,5 +1196,54 @@
         "color"
       ]
     }
+  ],
+  "newKoreanRarePrintedImages": [
+    {
+      "number": 84,
+      "code": "s6h_084/070",
+      "theme": "color",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/084-korean.webp",
+      "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_084.jpg",
+      "quality": "286x400_source_TCGBOX_watermark"
+    },
+    {
+      "number": 86,
+      "code": "s6h_086/070",
+      "theme": "color",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/086-korean.webp",
+      "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_086.jpg",
+      "quality": "286x400_source_TCGBOX_watermark"
+    },
+    {
+      "number": 87,
+      "code": "s6h_087/070",
+      "theme": "color",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/087-korean.webp",
+      "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_087.jpg",
+      "quality": "286x400_source_TCGBOX_watermark"
+    },
+    {
+      "number": 94,
+      "code": "s6h_094/070",
+      "theme": "color",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/094-korean.webp",
+      "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_094.jpg",
+      "quality": "286x400_source_TCGBOX_watermark"
+    },
+    {
+      "number": 95,
+      "code": "s6h_095/070",
+      "theme": "color",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/095-korean.webp",
+      "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_095.jpg",
+      "quality": "286x400_source_TCGBOX_watermark"
+    }
+  ],
+  "imageQualityFollowUps": [
+    84,
+    86,
+    87,
+    94,
+    95
   ]
 }

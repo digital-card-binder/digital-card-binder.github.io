@@ -63100,41 +63100,24 @@
       "reviewedAt": "2026-10-15",
       "imagePreflightComplete": true,
       "masterSetCardCount": 95,
-      "reviewedCardCount": 83,
-      "artworkReviewedCardCount": 83,
-      "verifiedKoreanPrintImageCount": 83,
+      "reviewedCardCount": 88,
+      "artworkReviewedCardCount": 88,
+      "verifiedKoreanPrintImageCount": 88,
       "verifiedSelfHostedImageCount": 95,
       "koreanPrintedImageConfirmed": 83,
       "koreanPrintImageHoldCount": 12,
       "heldCards": [
-        "s6h_084/070",
         "s6h_085/070",
-        "s6h_086/070",
-        "s6h_087/070",
         "s6h_088/070",
         "s6h_089/070",
         "s6h_090/070",
         "s6h_091/070",
         "s6h_092/070",
-        "s6h_093/070",
-        "s6h_094/070",
-        "s6h_095/070"
+        "s6h_093/070"
       ],
       "unresolvedImageIssues": [
         {
-          "code": "s6h_084/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
-        {
           "code": "s6h_085/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
-        {
-          "code": "s6h_086/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
-        {
-          "code": "s6h_087/070",
           "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
         },
         {
@@ -63160,20 +63143,13 @@
         {
           "code": "s6h_093/070",
           "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
-        {
-          "code": "s6h_094/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
-        {
-          "code": "s6h_095/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
         }
       ],
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-083"
+        "061-083",
+        "084,086,087,094,095"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63191,11 +63167,11 @@
       ],
       "complete": false,
       "imagePreflightEvidence": "data/audits/theme-s6H-001-095-Korean-print-review-20261015.json",
-      "archiveVerificationStatus": "S6H_95_owned_83_Korean_print_12_Japanese_hold_no_theme_completion",
-      "nextStart": "s6H Korean print source pending: 084-095",
-      "note": "S6H 한국어 인쇄 카드 001-083번 그림 12개 독립 테마 모두 검수·반영. 061-083 신규 32개 분류. 084-095 일본어 인쇄 사진은 한국판 검수 불가하여 분류·한국판 이미지 교체 모두 별도 보류, 미완료 유지. S6K 글로벌 카드 보류 4장 및 기존 보유 코드 변경 없음.",
-      "partialReviewEvidence": "data/audits/theme-s6H-061-083-Korean-art-review-20261015.json",
-      "newlyAddedThemeSlotCount": 136,
+      "archiveVerificationStatus": "88_Korean_prints_verified_7_foreign_language_placeholders_5_low_res_quality_followups",
+      "nextStart": "s6H Korean print source pending: 085,088-093",
+      "note": "백은의 랜스 88/95장 한국어판 이미지 및 12테마 검수. 84·86·87·94·95 한국판 실물 제목·인쇄 번호 확인 후 WebP 자체 저장, TCGBOX 286×400 워터마크 고화질 교체 대상 지정. 85·88~93 일본어 이미지 한국판 검수 보류. S6K 글로벌 보류 4장은 유지.",
+      "partialReviewEvidence": "data/audits/theme-s6H-084-095-five-Korean-prints-review-20261015.json",
+      "newlyAddedThemeSlotCount": 141,
       "removedIncorrectThemeSlotCount": 0
     }
   },
