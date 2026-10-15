@@ -62841,15 +62841,16 @@
     "s8b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 180,
-      "verifiedSelfHostedImageCount": 180,
+      "reviewedCardCount": 210,
+      "verifiedSelfHostedImageCount": 210,
       "reviewedRanges": [
         "001-030",
         "031-060",
         "061-090",
         "091-120",
         "121-150",
-        "151-180"
+        "151-180",
+        "181-210"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62866,11 +62867,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 280,
-      "partialReviewEvidence": "data/audits/theme-s8b-151-180-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s8b_151-180_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s8b canonical 181",
-      "note": "한국판 VMAX 클라이맥스 누적 180/293장 시각검수 완료. 151-180 한국판 카드 30장 자체 Modern CDN 정상 디코딩, 트레이너/스타디움/특수 에너지 테마 반영, 완료 150장 유지."
+      "newlyAddedThemeSlotCount": 324,
+      "partialReviewEvidence": "data/audits/theme-s8b-181-210-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8b_181-210_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s8b canonical 211",
+      "note": "한국판 VMAX 클라이맥스 누적 210/293장 직접 검수. 181-210 30장 Modern 자체 CDN 정상, 기존 잠자는 도감 202·209를 보존하면서 44건 추가. 남은 83장."
     }
   },
   "queue": {
@@ -62896,8 +62897,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-180 (180/293) Korean print/art and DCB owned image proof",
-    "nextStart": "s8b canonical 181",
+    "lastSafeCheckpoint": "s8b canonical 001-210 (210/293) Korean print/art and DCB owned image proof",
+    "nextStart": "s8b canonical 211",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
