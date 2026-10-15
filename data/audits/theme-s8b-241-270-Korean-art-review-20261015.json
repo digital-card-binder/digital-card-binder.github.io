@@ -1,0 +1,413 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-15",
+  "set": "s8b",
+  "range": "canonical-order 241-270",
+  "expectedMasterCards": 293,
+  "visuallyReviewedKoreanCards": 30,
+  "verifiedOwnedCDNImages": 30,
+  "all12ThemesInspected": true,
+  "originImageRequests": 0,
+  "proofIndex": "data/audits/theme-visual-evidence/s8b/241-270/visual-index.json",
+  "proofSheets": [
+    "s8b-241-270-01.webp.b64",
+    "s8b-241-270-02.webp.b64"
+  ],
+  "newThemeSlotsThisBatch": {
+    "color": 30,
+    "season": 4,
+    "night": 3,
+    "street": 4
+  },
+  "koreanMasterNameCorrections": {
+    "259": {
+      "before": "마스터드 연격의 태세\n[서포트/연격]",
+      "after": "마스터드 연격의 태세"
+    }
+  },
+  "notes": "한국판 s8b 241-270 CSR·서포트 30장 실제 그림 시각검수. 259는 인쇄 제목 이외 메타 태그 제거. 자체 CDN 29 modern, 1 legacy(249). 30/30 한국판 인쇄 번호 대조, 제3자 원본 접근 0.",
+  "items": [
+    {
+      "canonicalOrder": 241,
+      "cardKey": "S8B_241",
+      "name": "연격 우라오스 VMAX",
+      "artObservation": "화려한 분홍·금빛 배틀 구름 속에서 인물과 연격 우라오스 VMAX가 공격한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·금색"
+      }
+    },
+    {
+      "canonicalOrder": 242,
+      "cardKey": "S8B_242",
+      "name": "가라르 파이어 V",
+      "artObservation": "푸른 하늘과 꽃이 피어 있는 초원에서 가라르 파이어 V와 여성 트레이너가 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "초원·꽃밭",
+        "color": "빨강·초록"
+      }
+    },
+    {
+      "canonicalOrder": 243,
+      "cardKey": "S8B_243",
+      "name": "크로뱃 V",
+      "artObservation": "보라색 크로뱃 V가 트레이너 곁에서 날개를 크게 펼치며 검정·자주빛을 만든다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·남색"
+      }
+    },
+    {
+      "canonicalOrder": 244,
+      "cardKey": "S8B_244",
+      "name": "블래키 V",
+      "artObservation": "밤처럼 어두운 현대 도시의 구조물 아래 트레이너와 블래키 V가 나란히 서 있다.",
+      "matchedThemes": [
+        "night",
+        "street",
+        "color"
+      ],
+      "categories": {
+        "night": "도시·어두운 하늘",
+        "street": "도시·건물",
+        "color": "검정·보라"
+      }
+    },
+    {
+      "canonicalOrder": 245,
+      "cardKey": "S8B_245",
+      "name": "블래키 VMAX",
+      "artObservation": "밤하늘과 붉은빛 도시 건물 위에서 거대한 블래키 VMAX가 서 있고 인물이 아래에 있다.",
+      "matchedThemes": [
+        "night",
+        "street",
+        "color"
+      ],
+      "categories": {
+        "night": "도시·야간",
+        "street": "도시·건물",
+        "color": "검정·분홍"
+      }
+    },
+    {
+      "canonicalOrder": 246,
+      "cardKey": "S8B_246",
+      "name": "무한다이노 V",
+      "artObservation": "어두운 보라빛 에너지 속에서 무한다이노 V와 정장 입은 남성이 함께 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·남색"
+      }
+    },
+    {
+      "canonicalOrder": 247,
+      "cardKey": "S8B_247",
+      "name": "무한다이노 VMAX",
+      "artObservation": "검정·자주색 비현실적인 구조물 속에서 무한다이노 VMAX가 몸을 펼친다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·검정"
+      }
+    },
+    {
+      "canonicalOrder": 248,
+      "cardKey": "S8B_248",
+      "name": "아머까오 V",
+      "artObservation": "짙푸른 숲 앞에서 아머까오 V가 날개를 펼치고 인물이 곁에 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·나무",
+        "color": "남색·초록"
+      }
+    },
+    {
+      "canonicalOrder": 249,
+      "cardKey": "S8B_249",
+      "name": "아머까오 VMAX",
+      "artObservation": "초록 구릉과 푸른 하늘 아래 거대한 아머까오 VMAX와 붉은 구조물이 함께 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "초원·언덕",
+        "color": "남색·초록"
+      }
+    },
+    {
+      "canonicalOrder": 250,
+      "cardKey": "S8B_250",
+      "name": "자시안 V",
+      "artObservation": "초록 숲과 잔디밭에서 자시안 V가 트레이너와 함께 움직인다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·초원",
+        "color": "파랑·초록"
+      }
+    },
+    {
+      "canonicalOrder": 251,
+      "cardKey": "S8B_251",
+      "name": "자마젠타 V",
+      "artObservation": "보라·붉은 빛이 감도는 공간에서 자마젠타 V와 트레이너가 함께 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·보라"
+      }
+    },
+    {
+      "canonicalOrder": 252,
+      "cardKey": "S8B_252",
+      "name": "레쿠쟈 VMAX",
+      "artObservation": "분홍빛 에너지 효과 속에서 레쿠쟈 VMAX와 트레이너가 함께 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·초록"
+      }
+    },
+    {
+      "canonicalOrder": 253,
+      "cardKey": "S8B_253",
+      "name": "두랄루돈 VMAX",
+      "artObservation": "화려한 야간 고층빌딩과 빨간 네온사인 사이로 거대한 두랄루돈 VMAX가 서 있다.",
+      "matchedThemes": [
+        "night",
+        "street",
+        "color"
+      ],
+      "categories": {
+        "night": "도시·네온",
+        "street": "도시·고층 건물",
+        "color": "자주·하양"
+      }
+    },
+    {
+      "canonicalOrder": 254,
+      "cardKey": "S8B_254",
+      "name": "해피너스 V",
+      "artObservation": "분홍빛 담요와 꽃 장식이 보이는 장소에서 해피너스 V가 여성 트레이너와 함께 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·하양"
+      }
+    },
+    {
+      "canonicalOrder": 255,
+      "cardKey": "S8B_255",
+      "name": "가라르의 동료들",
+      "artObservation": "반짝이는 행사 조명이 있는 공간에서 가라르 트레이너 여러 명이 함께 모여 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "다색·보라"
+      }
+    },
+    {
+      "canonicalOrder": 256,
+      "cardKey": "S8B_256",
+      "name": "금랑",
+      "artObservation": "황금빛 회오리 에너지를 배경으로 금랑이 공을 내밀고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·노랑"
+      }
+    },
+    {
+      "canonicalOrder": 257,
+      "cardKey": "S8B_257",
+      "name": "두송",
+      "artObservation": "붉은·보라빛 반짝임 아래서 두송이 트레이너 복장을 하고 꽃과 함께 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·초록"
+      }
+    },
+    {
+      "canonicalOrder": 258,
+      "cardKey": "S8B_258",
+      "name": "마스터",
+      "artObservation": "실내 카운터와 빛나는 물건을 배경으로 마스터가 손에 컵을 들고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "갈색·하양"
+      }
+    },
+    {
+      "canonicalOrder": 259,
+      "cardKey": "S8B_259",
+      "name": "마스터드 연격의 태세",
+      "artObservation": "푸른 물보라와 밝은 격투 경기장 효과 사이에서 마스터드가 자세를 취한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "갈색·하늘색"
+      }
+    },
+    {
+      "canonicalOrder": 260,
+      "cardKey": "S8B_260",
+      "name": "마스터드 일격의 태세",
+      "artObservation": "붉은 타격 효과와 황금빛 배경 속에서 마스터드가 주먹을 앞으로 뻗는다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·금색"
+      }
+    },
+    {
+      "canonicalOrder": 261,
+      "cardKey": "S8B_261",
+      "name": "마쿠와",
+      "artObservation": "검은 공과 노란 빛줄기 속에 마쿠와가 공을 들고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·검정"
+      }
+    },
+    {
+      "canonicalOrder": 262,
+      "cardKey": "S8B_262",
+      "name": "멜론",
+      "artObservation": "흰 옷을 입은 멜론이 푸른 눈결정 효과 속에서 포켓볼을 던진다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "하양·파랑"
+      }
+    },
+    {
+      "canonicalOrder": 263,
+      "cardKey": "S8B_263",
+      "name": "모험가의 발견",
+      "artObservation": "반짝이는 초록 잎과 하늘빛 광채 속에 모험가가 탐험용 가방을 들고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "초록·하늘색"
+      }
+    },
+    {
+      "canonicalOrder": 264,
+      "cardKey": "S8B_264",
+      "name": "박사의 연구(주박사)",
+      "artObservation": "황금색과 붉은 빛줄기를 배경으로 주박사가 정면을 응시하고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·주황"
+      }
+    },
+    {
+      "canonicalOrder": 265,
+      "cardKey": "S8B_265",
+      "name": "버넷박사",
+      "artObservation": "하얀 실내 연구실에서 버넷박사가 웃으며 실험 자료를 보여준다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "하양·청록"
+      }
+    },
+    {
+      "canonicalOrder": 266,
+      "cardKey": "S8B_266",
+      "name": "보스의 지령(플라드리)",
+      "artObservation": "현대 실내 건물을 배경으로 플라드리가 붉은 머리와 흰 털이 달린 옷을 입고 팔을 뻗는다.",
+      "matchedThemes": [
+        "street",
+        "color"
+      ],
+      "categories": {
+        "street": "건물·실내",
+        "color": "빨강·파랑"
+      }
+    },
+    {
+      "canonicalOrder": 267,
+      "cardKey": "S8B_267",
+      "name": "소도와 실디",
+      "artObservation": "장식적인 분홍·보라빛 배경에서 소도와 실디가 나란히 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·보라"
+      }
+    },
+    {
+      "canonicalOrder": 268,
+      "cardKey": "S8B_268",
+      "name": "순무",
+      "artObservation": "강렬한 주황 불빛 앞에서 순무가 주먹을 뻗으며 외친다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "주황·빨강"
+      }
+    },
+    {
+      "canonicalOrder": 269,
+      "cardKey": "S8B_269",
+      "name": "아세로라의 예감",
+      "artObservation": "따뜻한 보라·분홍빛 배경 앞에서 아세로라가 꽃을 머리에 꽂고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·분홍"
+      }
+    },
+    {
+      "canonicalOrder": 270,
+      "cardKey": "S8B_270",
+      "name": "아킬",
+      "artObservation": "초록빛 배경에서 녹색 옷을 입은 아킬이 커다란 모자를 쓰고 달린다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "초록·분홍"
+      }
+    }
+  ]
+}
