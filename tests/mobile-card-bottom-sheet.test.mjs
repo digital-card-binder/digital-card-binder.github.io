@@ -25,7 +25,8 @@ test("catalog detail sheet keeps one-tap ownership and verified version access",
   assert.match(js, /toggleCatalogCompletion\(activeCard, control\)/);
   assert.match(js, /data-sheet-variant/);
   assert.match(js, /openQuickVariantPicker\(activeCard\)/);
-  assert.match(js, /renderedCards = shown/);
+  assert.match(js, /renderedCards = visibleCards/);
+  assert.match(js, /shown[.]slice\(0, pokemonVisibleLimit\)/);
 });
 
 test("catalog detail sheet supports previous-next buttons and horizontal swipe", async () => {

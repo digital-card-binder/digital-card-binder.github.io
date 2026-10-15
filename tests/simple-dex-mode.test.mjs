@@ -27,26 +27,27 @@ test("standalone dex screens use the shared card-first simple mode", () => {
   assert.match(nav, /installUnifiedDexControls\(\);[\s\S]*?installSimpleDexLayout\(\);/);
 });
 
-test("simple dex filters stay closed until the user asks for them", () => {
+test("simple dex filters stay visible beside the compact quick-status controls", () => {
   const nav = read("collector-nav.js");
   const start = nav.indexOf("function installUnifiedDexControls");
   const end = nav.indexOf("const SIMPLE_DEX_COLLECTIONS", start);
   assert.ok(start >= 0 && end > start);
   const controls = nav.slice(start, end);
 
-  assert.match(controls, /const syncFilterLayout = \(\) => \{\s*setFilterOpen\(false\);\s*\};/);
+  assert.match(controls, /surface[.]classList[.]add\("collector-filter-always-visible"\)/);
+  assert.doesNotMatch(controls, /setFilterOpen\(/);
   assert.match(controls, /data-quick-status="all"/);
   assert.match(controls, /data-quick-status="owned"/);
   assert.match(controls, /data-quick-status="missing"/);
-  assert.match(controls, /data-quick-filter/);
 });
 
-test("secondary print and layout tools remain available inside Filter", () => {
+test("secondary print and layout tools remain available outside the search filters", () => {
   const nav = read("collector-nav.js");
-  assert.match(nav, /collector-simple-secondary-actions/);
-  assert.match(nav, /filterSurface[.]append\(catalogActions\)/);
-  assert.match(nav, /collector-simple-view-actions/);
-  assert.match(nav, /simpleFilterSurface[.]append\(actions\)/);
+  assert.match(nav, /actions[.]append\(layoutOptions\);\s*resultsBar[.]append\(actions\);/);
+  assert.match(nav, /headerActions[.]children/);
+  assert.match(nav, /collector-redundant-filter-row/);
+  assert.doesNotMatch(nav, /filterSurface[.]append\(catalogActions\)/);
+  assert.doesNotMatch(nav, /simpleFilterSurface[.]append\(actions\)/);
 });
 
 test("simple dex CSS removes chrome and keeps cards visually first", () => {

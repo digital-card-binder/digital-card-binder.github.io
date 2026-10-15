@@ -28,7 +28,8 @@ test("series and Pokemon collection resume exact standalone group", () => {
 test("theme resume preserves the selected independent theme", () => {
   const themes = read("art-themes.js");
   assert.match(themes, /collectionId: "artThemes"/);
-  assert.match(themes, /[.]\/art-themes[.]html\?theme=/);
+  assert.match(themes, /href: `[.]\/art-themes[.]html\?[^\n]*theme=\$\{encodeURIComponent\(group[.]code/);
+  assert.match(themes, /EEVEE_MODE \? "eevee=1&"/);
   assert.match(themes, /rememberCurrentTheme\(\)/);
 });
 
