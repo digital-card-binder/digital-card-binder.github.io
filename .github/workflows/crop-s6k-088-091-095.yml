@@ -1,0 +1,43 @@
+name: Stage Korean S6K 088 091 095 retailer images for visual proof
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/crop-s6k-088-091-095.py'
+      - '.github/workflows/crop-s6k-088-091-095.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s6k-088-091-095-photo-stage
+  cancel-in-progress: false
+jobs:
+  crop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - run: python scripts/crop-s6k-088-091-095.py
+      - name: Commit staged card scans and footer evidence only
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add assets/cards/s6k-korean-rare/088-korean.webp assets/cards/s6k-korean-rare/091-korean.webp assets/cards/s6k-korean-rare/095-korean.webp
+            git add data/audits/theme-visual-evidence/s6K/korean-candidates/retailer-approved
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(s6K): stage Korean 088 091 095 card scans and magnified print labels"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/crop-s6k-088-091-095.py
+          done
