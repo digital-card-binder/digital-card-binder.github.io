@@ -45,8 +45,8 @@ for idx,(num,name) in enumerate(NUMBERS.items()):
   for link in links:
     url=urljoin(CATEGORY,clean(link))
     if f"s6k-{num}" in url.lower() or f"s6k%20{num}" in url.lower():pageurls.append(url)
-  if num==88:pageurls.insert(0,"https://tcgbox.co.kr/product/국화hr-s6k-088/13091")
-  if num==93:pageurls.insert(0,"https://tcgbox.co.kr/product/안개의-수정-ur-s6k-093/13096/")
+  # TCGBOX catalog identifiers 13091..13098 correspond exactly to s6K 088..095.
+  pageurls.insert(0,"https://tcgbox.co.kr/product/detail.html?product_no="+str(num+13003))
   result={"number":num,"name":name,"code":f"s6k_{num:03d}/070","candidateStatus":"not_collected","productPages":list(dict.fromkeys(pageurls)),"attempts":[]}
   for product in result["productPages"][:3]:
     try:
