@@ -3,7 +3,7 @@
   "recordedAt": "2026-10-15",
   "set": "s6K",
   "count": 3,
-  "status": "staged_pending_print_approval",
+  "status": "Korean_print_photo_verified_3_items",
   "cards": [
     {
       "number": 84,
@@ -27,8 +27,16 @@
         420,
         586
       ],
-      "status": "staged_crop_requires_direct_Korean_footer_review",
-      "verifiedKoreanPrintedEdition": false
+      "status": "Korean_card_photo_reviewed",
+      "verifiedKoreanPrintedEdition": true,
+      "inspection": {
+        "visibleKoreanTitle": "세레비 VMAX",
+        "visibleKoreanText": "치유의 숲·다이플랜트",
+        "numberEvidence": "S6K 084/070 HR in reflective Korean footer; corroborated by Korean seller listing",
+        "sourceCardNumberVisualConfidence": "corroborated_by_photo_and_listing",
+        "imageQualityFollowUp": true
+      },
+      "reviewedAt": "2026-10-15"
     },
     {
       "number": 85,
@@ -52,8 +60,16 @@
         420,
         586
       ],
-      "status": "staged_crop_requires_direct_Korean_footer_review",
-      "verifiedKoreanPrintedEdition": false
+      "status": "Korean_card_photo_reviewed",
+      "verifiedKoreanPrintedEdition": true,
+      "inspection": {
+        "visibleKoreanTitle": "흑마 버드렉스 VMAX",
+        "visibleKoreanText": "명계의 문·다이가이스트",
+        "numberEvidence": "S6K 085/070 HR clearly visible in footer",
+        "sourceCardNumberVisualConfidence": "visible",
+        "imageQualityFollowUp": false
+      },
+      "reviewedAt": "2026-10-15"
     },
     {
       "number": 87,
@@ -77,8 +93,32 @@
         420,
         586
       ],
-      "status": "staged_crop_requires_direct_Korean_footer_review",
-      "verifiedKoreanPrintedEdition": false
+      "status": "Korean_card_photo_reviewed",
+      "verifiedKoreanPrintedEdition": true,
+      "inspection": {
+        "visibleKoreanTitle": "메타그로스 VMAX",
+        "visibleKoreanText": "전자흡착·다이러시",
+        "numberEvidence": "S6K 087/070 HR clearly visible in footer",
+        "sourceCardNumberVisualConfidence": "visible",
+        "imageQualityFollowUp": true
+      },
+      "reviewedAt": "2026-10-15"
     }
-  ]
+  ],
+  "reviewedNumbers": [
+    84,
+    85,
+    87
+  ],
+  "nextPendingNumbers": [
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95
+  ],
+  "note": "Each photographed card contains Korean title and effects; s6K printed footer checked. Card 084 footer reflective and cross-checked against seller listing; 084 and 087 image-quality follow-up retained."
 }
