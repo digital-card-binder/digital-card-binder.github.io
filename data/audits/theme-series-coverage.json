@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15401,
-    "uniqueThemeCards": 9220,
+    "themeCardSlots": 15459,
+    "uniqueThemeCards": 9250,
     "strictCompleteSetCount": 106,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 167,
@@ -109,8 +109,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 471,
-      "setCount": 84,
+      "cardSlots": 475,
+      "setCount": 85,
       "rarities": [
         "AR",
         "C",
@@ -126,8 +126,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4501,
-      "setCount": 110,
+      "cardSlots": 4525,
+      "setCount": 111,
       "rarities": [
         "AR",
         "C",
@@ -148,8 +148,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8232,
-      "setCount": 112,
+      "cardSlots": 8262,
+      "setCount": 113,
       "rarities": [
         "AR",
         "C",
@@ -286,7 +286,7 @@
       "cardCount": 4800,
       "completeSetCount": 42,
       "remainingSetCount": 19,
-      "currentThemeSlots": 4800
+      "currentThemeSlots": 4858
     },
     {
       "era": "SM",
@@ -399,7 +399,7 @@
       "code": "s6K",
       "name": "칠흑의 가이스트",
       "cardCount": 95,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -720,9 +720,13 @@
       "cardCount": 95,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "themeHits": {
+        "night": 4,
+        "season": 24,
+        "color": 30
+      }
     },
     {
       "era": "S",

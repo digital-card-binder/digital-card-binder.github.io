@@ -63038,6 +63038,38 @@
       "nextStart": "s6K canonical 001",
       "note": "한국판 이브이 히어로즈 101장 시각·12테마 검수 및 자체 이미지 반영. 기존 95번 밤 테마 유지. 희귀 7장의 일본판 임시 이미지를 실제 한국어 인쇄 실물사진으로 교체. 101번 촬영본의 하단 번호는 흐려서 판매처 번호로 교차 확인했고 추후 화질 보강 권장.",
       "completedAt": "2026-10-15"
+    },
+    "s6K": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "artworkReviewedCardCount": 30,
+      "reviewedCardCount": 30,
+      "verifiedKoreanPrintImageCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "newlyAddedThemeSlotCount": 58,
+      "heldCards": [],
+      "unresolvedImageIssues": [],
+      "partialReviewEvidence": "data/audits/theme-s6K-001-030-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "30_official_Korean_prints_owned_and_12_themes_reviewed_partial_95",
+      "nextStart": "s6K canonical 031",
+      "note": "한국어 인쇄 공식 원본과 자체 CDN 사본 001-030 시각 검수. 모든 12개 독립 테마 평가. 031-095 미검수, 완료 처리 금지."
     }
   },
   "queue": {
@@ -63063,8 +63095,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s6a canonical 001-101, Korean print source checked 101/101, all artwork themes audited",
-    "nextStart": "s6K canonical 001",
+    "lastSafeCheckpoint": "s6K canonical 001-030 official Korean prints and visual themes reviewed; 031-095 pending",
+    "nextStart": "s6K canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
