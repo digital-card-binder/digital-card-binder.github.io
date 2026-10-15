@@ -1,0 +1,56 @@
+name: Apply verified Korean S6K 084 085 087 prints safely
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/complete-s6k-084-085-087.yml'
+      - 'scripts/complete-s6k-084-085-087.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s6k-korean-084-085-087-apply
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply 084 085 087 Korean printed card photos and keep eight holds
+        run: node scripts/complete-s6k-084-085-087.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit only after comprehensive checks pass
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add -u
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(s6K): replace Korean 084 085 087 photos and hold eight unverified prints"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/complete-s6k-084-085-087.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
