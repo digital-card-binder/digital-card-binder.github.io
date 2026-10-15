@@ -62876,6 +62876,36 @@
       "nextStart": "s8a canonical 001",
       "note": "VMAX 클라이맥스 한국판 293/293장 12테마 실물 전수검수 완료. 278-285 UR 8장 기본 에너지 잘못 연결된 이미지 전량 한국판 UR 실물 자체 저장사진으로 수정. 278, 281-283 이름 복구. 마지막 8장 번호 없는 기본 에너지는 내부 슬롯번호만 사용.",
       "completedAt": "2026-10-15"
+    },
+    "s8a": {
+      "status": "complete",
+      "reviewedAt": "2026-10-15",
+      "completedAt": "2026-10-15",
+      "reviewedCardCount": 38,
+      "verifiedSelfHostedImageCount": 38,
+      "reviewedRanges": [
+        "001-038"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 59,
+      "partialReviewEvidence": "data/audits/theme-s8a-001-038-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8a_001-038_38_Korean_owned_images_verified",
+      "nextStart": "s8 canonical 001",
+      "note": "25th ANNIVERSARY COLLECTION 한국판 38/38 카드 그림과 번호 12테마 전수검수 완료. 024 파도타기 피카츄 VMAX/029 박사의 연구(오박사) 명칭 정정, 기존 연결6+잠자는1 분류 보존. 새로운 피카츄 V-UNION 연결4장 포함."
     }
   },
   "queue": {
@@ -62895,14 +62925,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s8a",
+    "currentSet": "s8",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-293 (293/293) Korean artwork and owned images verified, UR mislinks repaired",
-    "nextStart": "s8a canonical 001",
+    "lastSafeCheckpoint": "s8a canonical 001-038 (38/38) Korean artwork and owned images verified",
+    "nextStart": "s8 canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

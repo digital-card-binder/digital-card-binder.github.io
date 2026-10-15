@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14635,
-    "uniqueThemeCards": 8781,
-    "strictCompleteSetCount": 101,
+    "themeCardSlots": 14694,
+    "uniqueThemeCards": 8812,
+    "strictCompleteSetCount": 102,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 172,
+    "baselineRemainingSetCount": 171,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -82,7 +82,7 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 144,
+      "cardSlots": 148,
       "setCount": 30,
       "rarities": [
         "AR",
@@ -109,8 +109,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 449,
-      "setCount": 80,
+      "cardSlots": 450,
+      "setCount": 81,
       "rarities": [
         "AR",
         "C",
@@ -126,8 +126,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4277,
-      "setCount": 105,
+      "cardSlots": 4291,
+      "setCount": 106,
       "rarities": [
         "AR",
         "C",
@@ -147,8 +147,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7784,
-      "setCount": 107,
+      "cardSlots": 7822,
+      "setCount": 108,
       "rarities": [
         "AR",
         "C",
@@ -214,13 +214,14 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 80,
-      "setCount": 44,
+      "cardSlots": 82,
+      "setCount": 45,
       "rarities": [
         "AR",
         "C",
         "PROMO",
         "R",
+        "RRR",
         "SR",
         "U"
       ]
@@ -277,9 +278,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 37,
-      "remainingSetCount": 24,
-      "currentThemeSlots": 4034
+      "completeSetCount": 38,
+      "remainingSetCount": 23,
+      "currentThemeSlots": 4093
     },
     {
       "era": "SM",
@@ -386,13 +387,6 @@
       "name": "Pokémon GO",
       "cardCount": 109,
       "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s8a",
-      "name": "25th ANNIVERSARY COLLECTION",
-      "cardCount": 38,
-      "status": "pending"
     },
     {
       "era": "S",
@@ -539,6 +533,13 @@
       "code": "SMD",
       "name": "대전 세트 「지우 VS 로켓단」",
       "cardCount": 30,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SME",
+      "name": "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」",
+      "cardCount": 22,
       "status": "pending"
     }
   ],
@@ -772,11 +773,15 @@
       "cardCount": 38,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "complete",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 1,
-        "connected": 6
+        "connected": 10,
+        "night": 1,
+        "season": 14,
+        "color": 38,
+        "work": 2
       }
     },
     {
