@@ -63100,8 +63100,8 @@
       "reviewedAt": "2026-10-15",
       "imagePreflightComplete": true,
       "masterSetCardCount": 95,
-      "reviewedCardCount": 60,
-      "artworkReviewedCardCount": 60,
+      "reviewedCardCount": 83,
+      "artworkReviewedCardCount": 83,
       "verifiedKoreanPrintImageCount": 83,
       "verifiedSelfHostedImageCount": 95,
       "koreanPrintedImageConfirmed": 83,
@@ -63172,7 +63172,8 @@
       ],
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-083"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63191,10 +63192,10 @@
       "complete": false,
       "imagePreflightEvidence": "data/audits/theme-s6H-001-095-Korean-print-review-20261015.json",
       "archiveVerificationStatus": "S6H_95_owned_83_Korean_print_12_Japanese_hold_no_theme_completion",
-      "nextStart": "s6H canonical 061 artwork theme inspection",
-      "note": "백은의 랜스 001-060 총 60장 12독립 테마 직접 시각 검수·반영. 031-060은 48개 슬롯 신규 등록, 이름/번호/한국어판 자체CDN 검증. 061-095 일러스트 미반영; 084-095 한국어 실물 이미지 12장 보류. 기존 S6K 이미지 보류 4장과 사용자 보유 키 보존.",
-      "partialReviewEvidence": "data/audits/theme-s6H-031-060-Korean-art-review-20261015.json",
-      "newlyAddedThemeSlotCount": 104,
+      "nextStart": "s6H Korean print source pending: 084-095",
+      "note": "S6H 한국어 인쇄 카드 001-083번 그림 12개 독립 테마 모두 검수·반영. 061-083 신규 32개 분류. 084-095 일본어 인쇄 사진은 한국판 검수 불가하여 분류·한국판 이미지 교체 모두 별도 보류, 미완료 유지. S6K 글로벌 카드 보류 4장 및 기존 보유 코드 변경 없음.",
+      "partialReviewEvidence": "data/audits/theme-s6H-061-083-Korean-art-review-20261015.json",
+      "newlyAddedThemeSlotCount": 136,
       "removedIncorrectThemeSlotCount": 0
     }
   },
