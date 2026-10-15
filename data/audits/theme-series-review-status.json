@@ -62841,8 +62841,8 @@
     "s8b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 210,
-      "verifiedSelfHostedImageCount": 210,
+      "reviewedCardCount": 240,
+      "verifiedSelfHostedImageCount": 240,
       "reviewedRanges": [
         "001-030",
         "031-060",
@@ -62850,7 +62850,8 @@
         "091-120",
         "121-150",
         "151-180",
-        "181-210"
+        "181-210",
+        "211-240"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62867,11 +62868,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 324,
-      "partialReviewEvidence": "data/audits/theme-s8b-181-210-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s8b_181-210_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s8b canonical 211",
-      "note": "한국판 VMAX 클라이맥스 누적 210/293장 직접 검수. 181-210 30장 Modern 자체 CDN 정상, 기존 잠자는 도감 202·209를 보존하면서 44건 추가. 남은 83장."
+      "newlyAddedThemeSlotCount": 368,
+      "partialReviewEvidence": "data/audits/theme-s8b-211-240-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8b_211-240_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s8b canonical 241",
+      "note": "VMAX 클라이맥스 한국판 누적 240/293장 검수 완료. 211~240번 자체 CDN 25 modern+5 legacy. 모르페코 226-229 연결 4장 및 기존 잠자는 테마 212 보존."
     }
   },
   "queue": {
@@ -62897,8 +62898,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-210 (210/293) Korean print/art and DCB owned image proof",
-    "nextStart": "s8b canonical 211",
+    "lastSafeCheckpoint": "s8b canonical 001-240 (240/293) Korean print/art and DCB owned image proof",
+    "nextStart": "s8b canonical 241",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
