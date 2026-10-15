@@ -1,4 +1,6 @@
 from urllib.request import Request,urlopen
+from urllib.parse import urljoin
+import re,html
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from pathlib import Path
 from io import BytesIO
@@ -12,6 +14,17 @@ numbers=[117,118,119,120,123,124]
 def fetch(n):
     urls=[f"https://tcgbox.co.kr/web/product/big/S8/S8_{n}.jpg",
       f"https://tcgbox.co.kr/web/product/medium/S8/S8_{n}.jpg"]
+    product_nums={117:14081,118:14082,119:14083,120:14084,123:14087,124:14088}
+    producturl="https://tcgbox.co.kr/product/detail.html?product_no="+str(product_nums[n])
+    try:
+      with urlopen(Request(producturl,headers={"User-Agent":"Mozilla/5.0"}),timeout=14) as r:
+         page=html.unescape(r.read(3000000).decode("utf-8","ignore"))
+      picks=re.findall(r"""(?:https?:)?//[^"' <>]+S8[_-]?"""+str(n)+r"""[^"' <>]*[.](?:jpg|jpeg|png|webp)""",page,re.I)
+      picks+=[urljoin(producturl,p) for p in re.findall(r"""(?:src|content|data-src|data-original)=["']([^"']*S8[_-]?"""+str(n)+r"""[^"']*[.](?:jpg|png))""",page,re.I)]
+      urls=list(dict.fromkeys(picks+urls))
+      print("WEB_PRODUCT_CANDIDATES",n,len(urls),urls[:3])
+    except Exception as e:
+      print("PRODUCT_HTML_FAILED",n,str(e)[:100])
     err=[]
     for u in urls:
       try:
