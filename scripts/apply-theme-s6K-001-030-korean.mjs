@@ -81,7 +81,7 @@ for (let i = 0; i < REVIEWED; i++) {
   overrides.sets[set.code][String(master.code).toLowerCase()] = image.ownedCdnUrl;
 }
 if (JSON.stringify(cardIds) !== JSON.stringify(set.cards.map(x => x.code)) ||
-    JSON.stringify(counts) !== JSON.stringify(review.themeCounts))
+    GROUPS.some(t => (counts[t] || 0) !== (review.themeCounts?.[t] || 0)))
   throw Error("Canonical identifiers or manual visual classification totals changed");
 status.reviews[reviewKey] = { ...prior, status:"in_progress", reviewedAt:DATE,
   artworkReviewedCardCount:REVIEWED, reviewedCardCount:REVIEWED,
