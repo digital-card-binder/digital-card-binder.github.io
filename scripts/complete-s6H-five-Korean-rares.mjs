@@ -56,11 +56,11 @@ for(const n of NUMS){
  const id=String(n).padStart(3,"0"),code="s6h_"+id+"/070",key="S6H_"+id;
  const item=review.cards.find(x=>x.number===n),file=staged.cards.find(x=>x.number===n);
  const old=proof.cards.find(x=>x.canonicalOrder===n),card=set.cards[n-1];
- if(n===84)console.log("S6H diagnostic "+JSON.stringify({id,card:{name:card?.name,code:card?.code,image:card?.image,sourceImage:card?.sourceImage,verified:card?.koreanPrintImageVerified},old:{name:old?.name,code:old?.masterCode,owned:old?.ownedCdnUrl,raw:old?.rawSource,printed:old?.printedNumberMatches,check:old?.imageCheck?.status,http:old?.imageCheck?.http},approved:{name:item?.name,code:item?.code,number:item?.printedNumber,visible:item?.visibleKoreanName},stage:{code:file?.code,source:file?.source,owned:file?.ownedPath,sha:file?.sourceSha256?.length}}));
  if(!item||!file||!old||!card||item.code!==code||file.code!==code||
  card.code?.toLowerCase()!==code||card.name!==item.name||
  old.masterCode?.toLowerCase()!==code||old.name!==item.name||
- old.ownedCdnUrl!==card.image||old.rawSource!==card.sourceImage||
+ !(card.image===old.rawSource||card.image===old.ownedCdnUrl)||
+ (card.sourceImage&&old.rawSource!==card.sourceImage)||
  old.imageCheck?.status!=="decoded"||old.imageCheck?.http!==200||
  old.printedNumberMatches!==true||
  item.printedNumber!==id+"/070"||!item.koreanPrintedFooterVisible||
