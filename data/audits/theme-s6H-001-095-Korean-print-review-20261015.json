@@ -9,10 +9,10 @@
   "canonicalNumberNameChecked": 95,
   "ownedImageDecoded": 95,
   "missingOwnedImageCount": 0,
-  "visuallyReviewedKoreanPrintCount": 88,
-  "foreignPrintImagePlaceholderCount": 7,
+  "visuallyReviewedKoreanPrintCount": 89,
+  "foreignPrintImagePlaceholderCount": 6,
   "fullSeriesArtworkThemeClassificationComplete": false,
-  "reasonForNoCompletion": "S6H 한국판 카드 88장 확인. 085,088-093 7장의 현재 이미지는 일본어판 임시 자료이며 한국판 인쇄·테마 확정 보류.",
+  "reasonForNoCompletion": "S6H 한국판 89장 확인, 088-093 일본어 이미지 6장 한국판 확인 보류",
   "allImageAuditRanges": [
     "001-030",
     "031-060",
@@ -24,17 +24,8 @@
     "data/audits/theme-visual-evidence/s6H/061-095/visual-index.json"
   ],
   "preservedGlobalCheckpoint": "s6K Korean print source pending: 089,090,092,094",
-  "nextSetArtworkVisualReview": "s6H Korean print source pending: 085,088-093",
+  "nextSetArtworkVisualReview": "s6H Korean print source pending: 088-093",
   "heldNumbers": [
-    {
-      "number": 85,
-      "code": "s6h_085/070",
-      "name": "백마 버드렉스 VMAX",
-      "archivedSource": "https://static.tcgexchange.kr/497e2e4350dfb9d4185df69098f23bff.png",
-      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/059f89ee7d45426c.webp",
-      "printLanguage": "Japanese",
-      "currentStatus": "Korean_real_print_image_missing"
-    },
     {
       "number": 88,
       "code": "s6h_088/070",
@@ -1237,10 +1228,22 @@
       "owned": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/095-korean.webp",
       "source": "https://tcgbox.co.kr/web/product/big/s6h/S6H_095.jpg",
       "quality": "286x400_source_TCGBOX_watermark"
+    },
+    {
+      "number": 85,
+      "code": "s6h_085/070",
+      "theme": [
+        "color",
+        "season"
+      ],
+      "image": "https://digital-card-binder.github.io/assets/cards/s6h-korean-rare/085-korean.webp",
+      "source": "https://shop4.daumcdn.net/thumb/R500x500/?fname=http%3A%2F%2Fshop4.daumcdn.net%2Fshophow%2Fp%2FH27263625297.jpg%3Fut%3D0",
+      "quality": "Kakao_search_photo_500px_Korean_print"
     }
   ],
   "imageQualityFollowUps": [
     84,
+    85,
     86,
     87,
     94,

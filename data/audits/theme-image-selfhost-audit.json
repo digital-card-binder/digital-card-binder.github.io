@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15",
+  "updatedAt": "2026-10-16",
   "policy": "Theme review image self-hosting audit. Card image is served from Digital Card Binder Cloudflare Pages archive; original supported source is retained only in sourceImage for manifest provenance and repair.",
   "batches": [
     {
@@ -6517,6 +6517,19 @@
       "sourceProof": "data/audits/theme-s6H-084-095-five-Korean-prints-review-20261015.json",
       "nextStart": "s6H Korean print source pending: 085,088-093",
       "note": "Korean title and printed card number confirmed in retailer images; higher-resolution clean replacement needed."
+    },
+    {
+      "set": "s6H",
+      "range": "s6H Korean printed special art 085",
+      "canonicalCardCount": 1,
+      "verifiedKoreanPrintImageCount": 1,
+      "selfHostedReferenceCountAfter": 1,
+      "archiveVerificationStatus": "085_owned_Korean_print_webp",
+      "KoreanPrintImagesConfirmed": 89,
+      "KoreanPrintImagesPending": 6,
+      "sourceProof": "data/audits/theme-s6H-085-Korean-print-review-20261016.json",
+      "nextStart": "s6H Korean print source pending: 088-093",
+      "note": "Korean printed 085/070 visible; hosted own WebP; six Japanese prints held."
     }
   ],
   "nextStart": "s6K Korean print source pending: 089,090,092,094"

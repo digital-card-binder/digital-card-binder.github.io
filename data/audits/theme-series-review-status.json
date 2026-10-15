@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-15",
+  "updatedAt": "2026-10-16",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -63097,17 +63097,16 @@
     },
     "s6H": {
       "status": "in_progress",
-      "reviewedAt": "2026-10-15",
+      "reviewedAt": "2026-10-16",
       "imagePreflightComplete": true,
       "masterSetCardCount": 95,
-      "reviewedCardCount": 88,
-      "artworkReviewedCardCount": 88,
-      "verifiedKoreanPrintImageCount": 88,
+      "reviewedCardCount": 89,
+      "artworkReviewedCardCount": 89,
+      "verifiedKoreanPrintImageCount": 89,
       "verifiedSelfHostedImageCount": 95,
-      "koreanPrintedImageConfirmed": 83,
-      "koreanPrintImageHoldCount": 12,
+      "koreanPrintedImageConfirmed": 89,
+      "koreanPrintImageHoldCount": 6,
       "heldCards": [
-        "s6h_085/070",
         "s6h_088/070",
         "s6h_089/070",
         "s6h_090/070",
@@ -63116,10 +63115,6 @@
         "s6h_093/070"
       ],
       "unresolvedImageIssues": [
-        {
-          "code": "s6h_085/070",
-          "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
-        },
         {
           "code": "s6h_088/070",
           "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
@@ -63149,7 +63144,8 @@
         "001-030",
         "031-060",
         "061-083",
-        "084,086,087,094,095"
+        "084-087 (085 Korea confirmed)",
+        "094-095"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63167,11 +63163,11 @@
       ],
       "complete": false,
       "imagePreflightEvidence": "data/audits/theme-s6H-001-095-Korean-print-review-20261015.json",
-      "archiveVerificationStatus": "88_Korean_prints_verified_7_foreign_language_placeholders_5_low_res_quality_followups",
-      "nextStart": "s6H Korean print source pending: 085,088-093",
-      "note": "백은의 랜스 88/95장 한국어판 이미지 및 12테마 검수. 84·86·87·94·95 한국판 실물 제목·인쇄 번호 확인 후 WebP 자체 저장, TCGBOX 286×400 워터마크 고화질 교체 대상 지정. 85·88~93 일본어 이미지 한국판 검수 보류. S6K 글로벌 보류 4장은 유지.",
-      "partialReviewEvidence": "data/audits/theme-s6H-084-095-five-Korean-prints-review-20261015.json",
-      "newlyAddedThemeSlotCount": 141,
+      "archiveVerificationStatus": "89_Korean_prints_verified_6_foreign_placeholders_6_image_quality_followups",
+      "nextStart": "s6H Korean print source pending: 088-093",
+      "note": "S6H 한국어 인쇄 카드 89/95장 실제 이미지 확인 및 12개 테마 검수. 085 한국어판 스페셜아트 소장형 WebP 보관; 084와 085 HR 표기 정정. 088-093 6장은 일본어판 임시 이미지로 계속 보류. 6장 저해상도 이미지 품질 추후 개선. S6K 글로벌 보류 4장, 기존 보유 코드 유지.",
+      "partialReviewEvidence": "data/audits/theme-s6H-085-Korean-print-review-20261016.json",
+      "newlyAddedThemeSlotCount": 143,
       "removedIncorrectThemeSlotCount": 0
     }
   },
