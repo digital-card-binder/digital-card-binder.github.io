@@ -62841,8 +62841,8 @@
     "s8b": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 240,
-      "verifiedSelfHostedImageCount": 240,
+      "reviewedCardCount": 270,
+      "verifiedSelfHostedImageCount": 270,
       "reviewedRanges": [
         "001-030",
         "031-060",
@@ -62851,7 +62851,8 @@
         "121-150",
         "151-180",
         "181-210",
-        "211-240"
+        "211-240",
+        "241-270"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62868,11 +62869,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 368,
-      "partialReviewEvidence": "data/audits/theme-s8b-211-240-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s8b_211-240_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s8b canonical 241",
-      "note": "VMAX 클라이맥스 한국판 누적 240/293장 검수 완료. 211~240번 자체 CDN 25 modern+5 legacy. 모르페코 226-229 연결 4장 및 기존 잠자는 테마 212 보존."
+      "newlyAddedThemeSlotCount": 409,
+      "partialReviewEvidence": "data/audits/theme-s8b-241-270-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8b_241-270_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s8b canonical 271",
+      "note": "VMAX 클라이맥스 한국판 270/293장 실물 일러스트 12테마 검수 완료. 241-270 현대 29, 레거시 1; 259 이름의 불필요한 내부 태그 제거."
     }
   },
   "queue": {
@@ -62898,8 +62899,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-240 (240/293) Korean print/art and DCB owned image proof",
-    "nextStart": "s8b canonical 241",
+    "lastSafeCheckpoint": "s8b canonical 001-270 (270/293) Korean print/art and DCB owned image proof",
+    "nextStart": "s8b canonical 271",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
