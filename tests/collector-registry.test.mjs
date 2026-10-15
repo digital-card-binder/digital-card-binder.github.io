@@ -56,7 +56,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
     series: [20243, 273],
     ar: [530, 33],
     pack: [151, 9],
-    pokemon: [14988, 1025],
+    pokemon: [14990, 1025],
     artist: [4873, 40],
     people: [179, 9],
     trainerPokemon: [245, 172],
@@ -80,7 +80,7 @@ test("all existing catalogs retain their expected item counts", async () => {
     pack: 151,
     artist: 4873,
     series: 20243,
-    pokemon: 14988,
+    pokemon: 14990,
     ar: 530,
     people: 179,
     trainerPokemon: 245,
@@ -110,7 +110,7 @@ test("Pokemon collection resolves all 1,025 Korean species while preserving cura
   const expected = JSON.parse(await readFile(new URL("../data/pokedex.json", import.meta.url), "utf8"));
   const curated = JSON.parse(await readFile(new URL("../data/pokemon-collections.json", import.meta.url), "utf8"));
   assert.equal(catalog.groups.length, expected.records.length);
-  assert.equal(catalog.items.length, 14988);
+  assert.equal(catalog.items.length, 14990);
 
   for (const record of expected.records) {
     const group = catalog.groups.find((item) => item.name === record.nameKo);
@@ -305,6 +305,31 @@ test("every series card has a real display name instead of a numeric code", asyn
   );
 });
 
+test("Korean s8b gold UR images and printed identities are preserved instead of incorrectly mapped basic Energy files", async () => {
+  const groups = JSON.parse(await readFile(new URL("../data/series.json", import.meta.url), "utf8"));
+  const s8b = groups.find((group) => String(group.code).toLowerCase() === "s8b");
+  assert.ok(s8b && s8b.cards.length === 293, "VMAX Climax master must contain all 293 canonical slots");
+  const expectedNames = [
+    "백마 버드렉스 VMAX", "피카츄 VMAX", "뮤 VMAX", "흑마 버드렉스 VMAX",
+    "일격 우라오스 VMAX", "연격 우라오스 VMAX", "레쿠쟈 VMAX", "두랄루돈 VMAX"
+  ];
+  for (let i = 0; i < 8; i++) {
+    const number = 278 + i;
+    const card = s8b.cards.find((x) => String(x.code).toLowerCase() === "s8b_" + number + "/184");
+    assert.equal(card?.name, expectedNames[i], "Correct Korean UR identity " + number);
+    assert.equal(card?.rarity, "UR");
+    assert.equal(card?.image, "https://digital-card-binder.github.io/assets/cards/s8b-ur-korean/" + number + ".webp");
+    assert.match(card?.sourceImage || "", /^https:\/\/(?!cards[.]image[.]pokemonkorea[.]co[.]kr\/data\/wmimages\/S\/S8b\/S8b_)/);
+    const bytes = await readFile(new URL("../assets/cards/s8b-ur-korean/" + number + ".webp", import.meta.url));
+    assert.equal(bytes.subarray(0, 4).toString(), "RIFF", "Valid locally owned UR image " + number);
+    assert.equal(bytes.subarray(8, 12).toString(), "WEBP");
+  }
+  for (let n = 286; n <= 293; n++) {
+    const card = s8b.cards.find((x) => String(x.code).toLowerCase() === "s8b_" + n + "/184");
+    assert.match(card?.name || "", /No[.]/, "Separate unnumbered energy slot " + n);
+  }
+});
+
 test("series catalog contains the complete Korean S and SM box catalogs", async () => {
   const groups = JSON.parse(
     await readFile(new URL("../data/series.json", import.meta.url), "utf8"),
@@ -336,7 +361,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       } else {
         assert.match(
           card.image,
-          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev)\//,
+          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev|digital-card-binder[.]github[.]io/assets/cards/s8b-ur-korean)\//,
           card.code,
         );
       }
