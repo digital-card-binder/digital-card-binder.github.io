@@ -62808,12 +62808,13 @@
     "s9": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "reviewedCardCount": 120,
+      "verifiedSelfHostedImageCount": 120,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-120"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62830,11 +62831,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 164,
-      "partialReviewEvidence": "data/audits/theme-s9-061-090-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s9_061-090_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s9 canonical 091",
-      "note": "스타버스 001-090 한국판 90장 12테마 직접 시각검수 완료. 061-090 자체 보관된 modern CDN 30장 정상 디코딩. 남은 37장."
+      "newlyAddedThemeSlotCount": 207,
+      "partialReviewEvidence": "data/audits/theme-s9-091-120-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9_091-120_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9 canonical 121",
+      "note": "스타버스 001-120 한국판 120장 시각검수 완료. 091-120 modern CDN 30장 정상 디코딩. 남은 7장."
     }
   },
   "queue": {
@@ -62860,8 +62861,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9 canonical 001-090 (90/127) Korean print/art and DCB owned image proof",
-    "nextStart": "s9 canonical 091",
+    "lastSafeCheckpoint": "s9 canonical 001-120 (120/127) Korean print/art and DCB owned image proof",
+    "nextStart": "s9 canonical 121",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
