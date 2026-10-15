@@ -20,8 +20,13 @@
     "night": 4,
     "sunset": 2
   },
-  "koreanMasterNameCorrections": {},
-  "notes": "한국판 스타버스 031-060 이미지 30장 자체 아카이브 직검수. 037 꼬링크 legacy CDN provenance 유지. 독립 12테마 일러스트 판정 완료, 일본판 증명 사용하지 않음.",
+  "koreanMasterNameCorrections": {
+    "050": {
+      "before": "엘풍",
+      "after": "엘풍 VSTAR"
+    }
+  },
+  "notes": "한국판 스타버스 031-060 이미지 30장 자체 아카이브 직검수. 037 꼬링크 legacy CDN provenance 유지. 독립 12테마 일러스트 판정 완료, 일본판 증명 사용하지 않음. 050/100은 실물 한국판 카드 제목 엘풍 VSTAR 대비 마스터DB 엘풍 누락 정정.",
   "items": [
     {
       "canonicalOrder": 31,
@@ -284,7 +289,7 @@
     {
       "canonicalOrder": 50,
       "cardKey": "S9_050",
-      "name": "엘풍",
+      "name": "엘풍 VSTAR",
       "artObservation": "진주빛 물결과 노란 빛 효과 속에서 엘풍 VSTAR가 솜털을 펼친다.",
       "matchedThemes": [
         "color"
