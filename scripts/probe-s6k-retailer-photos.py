@@ -5,7 +5,7 @@ Seller product titles and Japanese substitutions never count as Korean printed v
 from pathlib import Path
 from io import BytesIO
 from urllib.request import Request,urlopen
-from urllib.parse import urljoin,urlparse
+from urllib.parse import urljoin,urlparse,quote
 from PIL import Image,ImageDraw,ImageOps
 from bs4 import BeautifulSoup
 import base64,html,json,re,hashlib
@@ -17,7 +17,7 @@ DETAIL88="https://tcgbox.co.kr/product/%EA%B5%AD%ED%99%94hr-s6k-088/13091"
 NUMBERS=list(range(88,96))
 results={"schemaVersion":1,"set":"s6K","type":"retailer_photo_source_preflight","status":"not_identity_verified","catalog":CAT,"cards":[]}
 def get(url,limit=2500000):
-    request=Request(url,headers={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36","Accept-Language":"ko-KR,ko;q=0.9,en;q=0.7"})
+    request=Request(quote(url,safe=":/?&=%#@+"),headers={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36","Accept-Language":"ko-KR,ko;q=0.9,en;q=0.7"})
     with urlopen(request,timeout=22) as res:
         data=res.read(limit+1)
         if len(data)>limit:raise ValueError("oversize resource")
