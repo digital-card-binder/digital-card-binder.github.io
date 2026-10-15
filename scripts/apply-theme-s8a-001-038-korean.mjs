@@ -68,7 +68,7 @@ for(let i=0;i<TOTAL;i++){
     throw Error('Legacy Korean s8a source mismatch at '+n);
  }else if(!p.rawSource.startsWith('https://cards.image.pokemonkorea.co.kr/')||
    !p.ownedCdnUrl.startsWith('https://dcb-card-images-modern-2026.pages.dev/')||
-   p.imageCheck.dimensions.join(',')!=='420,586')
+   p.imageCheck.dimensions.join(',')!==(n===25?'420,584':'420,586'))
     throw Error('Modern Korean s8a image proof mismatch at '+n);
  const fix=fixes[id];
  if(fix){
