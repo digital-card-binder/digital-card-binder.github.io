@@ -1,20 +1,20 @@
-name: Apply Korean S6K 088 091 095 printed photos with quality flags
+name: Complete Korean S6K 088 091 095 image and hold five
 on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/complete-s6k-088-091-095.yml'
       - 'scripts/complete-s6k-088-091-095.mjs'
+      - '.github/workflows/complete-s6k-088-091-095.yml'
   workflow_dispatch:
 permissions:
   contents: write
 concurrency:
-  group: s6k-korean-088-091-095-apply
+  group: s6k-088-091-095-korean-printed-check
   cancel-in-progress: false
 jobs:
   apply:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,7 +25,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Replace verified Korean 088 091 095 photos and keep five unresolved held
+      - name: Apply verified Korean 088 091 095 and keep five unverified prints
         run: node scripts/complete-s6k-088-091-095.mjs
       - run: npm run site:prepare
       - run: npm run site:check
@@ -33,7 +33,7 @@ jobs:
       - run: npm run test:registry
       - run: npm run test:ui
       - run: npm run test:architecture
-      - name: Push complete verified images only after all checks pass
+      - name: Commit only after all structural tests pass
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -41,7 +41,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git add -u
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m "audit(s6K): self-host Korean 088 091 095; flag retailer watermarks, hold five"
+            git commit -m "audit(s6K): rehost Korean 088 091 095 and hold five unconfirmed print scans"
             if git push origin HEAD:main; then exit 0; fi
             if [[ "$attempt" -eq 5 ]]; then exit 1; fi
             git fetch origin main
