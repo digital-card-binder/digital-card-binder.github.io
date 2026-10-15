@@ -63042,13 +63042,14 @@
     "s6K": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 95,
+      "reviewedCardCount": 83,
+      "verifiedKoreanPrintImageCount": 83,
+      "verifiedSelfHostedImageCount": 95,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-095 (art complete; Korean 084-095 pending)"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63064,13 +63065,75 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 112,
-      "heldCards": [],
-      "unresolvedImageIssues": [],
-      "partialReviewEvidence": "data/audits/theme-s6K-031-060-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "60_official_Korean_prints_owned_and_12_themes_reviewed_partial_95",
-      "nextStart": "s6K canonical 061",
-      "note": "한국어 인쇄 공식 원본과 자체 CDN 사본 001-060 시각 검수. 모든 12개 독립 테마 평가. 061-095 미검수, 완료 처리 금지."
+      "newlyAddedThemeSlotCount": 155,
+      "heldCards": [
+        "s6k_084/070",
+        "s6k_085/070",
+        "s6k_086/070",
+        "s6k_087/070",
+        "s6k_088/070",
+        "s6k_089/070",
+        "s6k_090/070",
+        "s6k_091/070",
+        "s6k_092/070",
+        "s6k_093/070",
+        "s6k_094/070",
+        "s6k_095/070"
+      ],
+      "unresolvedImageIssues": [
+        {
+          "code": "s6k_084/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_085/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_086/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_087/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_088/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_089/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_090/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_091/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_092/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_093/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_094/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        },
+        {
+          "code": "s6k_095/070",
+          "issue": "Japanese printed placeholder; Korean printed artwork required"
+        }
+      ],
+      "partialReviewEvidence": "data/audits/theme-s6K-061-095-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "95_artworks_83_Korean_prints_12_Japanese_placeholders",
+      "nextStart": "s6K Korean print source pending: 084-095",
+      "note": "95장 일러스트 12테마 검수 완료. 84~95번은 자체 CDN 웹프 이미지에 일본어 제목과 카드 설명 인쇄, 한국판 실물 이미지 확보 전 검수 완료 금지. 83개 한국어판 확인."
     }
   },
   "queue": {
@@ -63096,8 +63159,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s6K canonical 001-060 official Korean prints and visual themes reviewed; 061-095 pending",
-    "nextStart": "s6K canonical 061",
+    "lastSafeCheckpoint": "s6K canonical 001-095 artwork checked, Korean prints 83/95; 084-095 Japanese-print placeholders held",
+    "nextStart": "s6K Korean print source pending: 084-095",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
