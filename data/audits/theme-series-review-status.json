@@ -63100,8 +63100,8 @@
       "reviewedAt": "2026-10-15",
       "imagePreflightComplete": true,
       "masterSetCardCount": 95,
-      "reviewedCardCount": 0,
-      "artworkReviewedCardCount": 0,
+      "reviewedCardCount": 30,
+      "artworkReviewedCardCount": 30,
       "verifiedKoreanPrintImageCount": 83,
       "verifiedSelfHostedImageCount": 95,
       "koreanPrintedImageConfirmed": 83,
@@ -63170,13 +63170,31 @@
           "issue": "Japanese printed high rare placeholder; actual Korean image not verified"
         }
       ],
-      "reviewedRanges": [],
-      "reviewedThemes": [],
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
       "complete": false,
       "imagePreflightEvidence": "data/audits/theme-s6H-001-095-Korean-print-review-20261015.json",
       "archiveVerificationStatus": "S6H_95_owned_83_Korean_print_12_Japanese_hold_no_theme_completion",
-      "nextStart": "s6H 001-030 12-theme artwork review; Korean 084-095 high rare images pending",
-      "note": "001-095 printed numbers and owned images pass. 001-083 Korean official photos; 084-095 Japanese placeholder images. Full 12-theme illustration classification is not yet signed off. S6K 4-image global checkpoint stays unchanged."
+      "nextStart": "s6H canonical 031 artwork theme inspection",
+      "note": "백은의 랜스 001~030 12개 테마 일러스트 직접 확인. 검수 시트의 과거 priorThemes 참조와 현행 DB가 달라 현재 빈 S6H 테마 기준으로 분류 56건을 신규 등록; 기존 카드 삭제 없음. 031~095 테마 미검수, 084~095 한국판 이미지 미확보, S6K 이미지 보류 4장은 유지.",
+      "partialReviewEvidence": "data/audits/theme-s6H-001-030-Korean-art-review-20261015.json",
+      "newlyAddedThemeSlotCount": 56,
+      "removedIncorrectThemeSlotCount": 0
     }
   },
   "queue": {
