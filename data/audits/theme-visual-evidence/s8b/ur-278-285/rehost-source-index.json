@@ -3,7 +3,7 @@
   "set": "s8b",
   "range": "278-285",
   "expected": 8,
-  "fetched": 7,
+  "fetched": 8,
   "items": [
     {
       "number": 278,
@@ -24,12 +24,27 @@
       "number": 279,
       "name": "피카츄 VMAX",
       "source": "https://sitem.ssgcdn.com/85/33/20/item/1000523203385_i1_750.jpg",
-      "sha256": "1eec2065c2cba26199340de86dab4d83a10703412eb47358de03ff88600c917d",
+      "sha256": "3304a0bf54f79e9c3999802bfd3a4039d37c07b127caec9f3837d4d965713602",
       "originalDimensions": [
         750,
         750
       ],
       "ownedPath": "assets/cards/s8b-ur-korean/279.webp",
+      "width": 420,
+      "height": 586,
+      "status": "downloaded_for_visual_review",
+      "koreanArtworkIdentityVerifiedBy": "separate image-source review"
+    },
+    {
+      "number": 280,
+      "name": "뮤 VMAX",
+      "source": "https://kream-phinf.pstatic.net/MjAyNTExMTlfMTM1/MDAxNzYzNTMwODU4MTc5.4J54KR0Xt9V8kj-ZbacrFj5B58_EGjwuUVfUC-RbYlUg.kLYldMIWcXIK6mlIW6u4IxEaeLQMk2LBeSEv5QHqrNEg.PNG/a_ec8bae769cff45f383b9f003364e8755.png",
+      "sha256": "026c97284ade81c9a37b49885de8f0bed705695f33eae89421a1300d94bb56dd",
+      "originalDimensions": [
+        1120,
+        1120
+      ],
+      "ownedPath": "assets/cards/s8b-ur-korean/280.webp",
       "width": 420,
       "height": 586,
       "status": "downloaded_for_visual_review",
@@ -69,7 +84,7 @@
       "number": 283,
       "name": "연격 우라오스 VMAX",
       "source": "https://sitem.ssgcdn.com/52/87/07/item/1000532078752_i1_750.jpg",
-      "sha256": "982810693d7f80017492b06330da3e85250c00c85a2ddf7cd42e82e201313e49",
+      "sha256": "a1e75eda91ae9cbe9ea6f524c06322cba068d36d14ff01f1be659327c0d0dfc3",
       "originalDimensions": [
         750,
         750
@@ -111,15 +126,6 @@
       "koreanArtworkIdentityVerifiedBy": "separate image-source review"
     }
   ],
-  "failed": [
-    {
-      "number": 280,
-      "tried": 2,
-      "errors": [
-        "HTTP Error 404: Not Found",
-        "HTTP Error 500: Internal Server Error"
-      ]
-    }
-  ],
+  "failed": [],
   "criticalNote": "Current official sequence BS2022001278-1285 resolves to unnumbered energies, not eight Korean UR 278-285. Never reuse those images for UR."
 }
