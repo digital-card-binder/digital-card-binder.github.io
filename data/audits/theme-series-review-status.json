@@ -63169,6 +63169,40 @@
       "partialReviewEvidence": "data/audits/theme-s6H-085-Korean-print-review-20261016.json",
       "newlyAddedThemeSlotCount": 143,
       "removedIncorrectThemeSlotCount": 0
+    },
+    "s5a": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-16",
+      "masterSetCardCount": 96,
+      "artworkReviewedCardCount": 30,
+      "reviewedCardCount": 30,
+      "verifiedKoreanPrintImageCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "newlyAddedThemeSlotCount": 53,
+      "heldCards": [],
+      "unresolvedImageIssues": [],
+      "partialReviewEvidence": "data/audits/theme-s5a-001-030-Korean-art-review-20261016.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5a/001-030/visual-index.json",
+      "nextStart": "s5a canonical 031-060",
+      "complete": false,
+      "note": "쌍벽의 파이터 한국어판 001~030번 실제 카드 이미지를 직접 보고 12개 테마 검수, 신규 53개 테마 슬롯 자체 CDN 원본 이미지로 등록. 031~096번 미검수, 기존 061/070 계절 테마 및 원본 카드 보유 키 보존. S6K 글로벌 이미지 보류 4장 미변경."
     }
   },
   "queue": {

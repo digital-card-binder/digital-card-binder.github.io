@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15699,
-    "uniqueThemeCards": 9404,
+    "themeCardSlots": 15752,
+    "uniqueThemeCards": 9434,
     "strictCompleteSetCount": 106,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 167,
@@ -126,7 +126,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4600,
+      "cardSlots": 4621,
       "setCount": 112,
       "rarities": [
         "AR",
@@ -148,8 +148,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8416,
-      "setCount": 114,
+      "cardSlots": 8446,
+      "setCount": 115,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 169,
-      "setCount": 62,
+      "cardSlots": 170,
+      "setCount": 63,
       "rarities": [
         "AR",
         "C",
@@ -232,8 +232,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1099,
-      "setCount": 92,
+      "cardSlots": 1100,
+      "setCount": 93,
       "rarities": [
         "AR",
         "C",
@@ -286,7 +286,7 @@
       "cardCount": 4800,
       "completeSetCount": 42,
       "remainingSetCount": 19,
-      "currentThemeSlots": 5098
+      "currentThemeSlots": 5151
     },
     {
       "era": "SM",
@@ -413,7 +413,7 @@
       "code": "s5a",
       "name": "쌍벽의 파이터",
       "cardCount": 96,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -696,10 +696,13 @@
       "cardCount": 96,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-16",
       "themeHits": {
-        "season": 1
+        "season": 22,
+        "color": 30,
+        "food": 1,
+        "street": 1
       }
     },
     {
