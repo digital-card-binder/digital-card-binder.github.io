@@ -62839,10 +62839,10 @@
       "note": "스타버스 한국판 127장 전체 실물 그림 12테마 전수검수와 소유 CDN 이미지 127장 확인 완료, 미검수 0장. 마지막 7장 gold/rainbow 기록."
     },
     "s8b": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 270,
-      "verifiedSelfHostedImageCount": 270,
+      "reviewedCardCount": 293,
+      "verifiedSelfHostedImageCount": 293,
       "reviewedRanges": [
         "001-030",
         "031-060",
@@ -62852,7 +62852,8 @@
         "151-180",
         "181-210",
         "211-240",
-        "241-270"
+        "241-270",
+        "271-293"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62869,11 +62870,12 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 409,
-      "partialReviewEvidence": "data/audits/theme-s8b-241-270-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s8b_241-270_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s8b canonical 271",
-      "note": "VMAX 클라이맥스 한국판 270/293장 실물 일러스트 12테마 검수 완료. 241-270 현대 29, 레거시 1; 259 이름의 불필요한 내부 태그 제거."
+      "newlyAddedThemeSlotCount": 434,
+      "partialReviewEvidence": "data/audits/theme-s8b-271-293-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s8b_001-293_all_293_Korean_DCB_owned_images_verified",
+      "nextStart": "s8a canonical 001",
+      "note": "VMAX 클라이맥스 한국판 293/293장 12테마 실물 전수검수 완료. 278-285 UR 8장 기본 에너지 잘못 연결된 이미지 전량 한국판 UR 실물 자체 저장사진으로 수정. 278, 281-283 이름 복구. 마지막 8장 번호 없는 기본 에너지는 내부 슬롯번호만 사용.",
+      "completedAt": "2026-10-15"
     }
   },
   "queue": {
@@ -62893,14 +62895,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s8b",
+    "currentSet": "s8a",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s8b canonical 001-270 (270/293) Korean print/art and DCB owned image proof",
-    "nextStart": "s8b canonical 271",
+    "lastSafeCheckpoint": "s8b canonical 001-293 (293/293) Korean artwork and owned images verified, UR mislinks repaired",
+    "nextStart": "s8a canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

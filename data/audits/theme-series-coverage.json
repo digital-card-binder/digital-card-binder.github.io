@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14610,
-    "uniqueThemeCards": 8758,
-    "strictCompleteSetCount": 100,
+    "themeCardSlots": 14635,
+    "uniqueThemeCards": 8781,
+    "strictCompleteSetCount": 101,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 173,
+    "baselineRemainingSetCount": 172,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -147,7 +147,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7761,
+      "cardSlots": 7784,
       "setCount": 107,
       "rarities": [
         "AR",
@@ -200,7 +200,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 157,
+      "cardSlots": 158,
       "setCount": 57,
       "rarities": [
         "AR",
@@ -214,7 +214,7 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 79,
+      "cardSlots": 80,
       "setCount": 44,
       "rarities": [
         "AR",
@@ -277,9 +277,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 36,
-      "remainingSetCount": 25,
-      "currentThemeSlots": 4009
+      "completeSetCount": 37,
+      "remainingSetCount": 24,
+      "currentThemeSlots": 4034
     },
     {
       "era": "SM",
@@ -385,13 +385,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s8b",
-      "name": "VMAX 클라이맥스",
-      "cardCount": 293,
       "status": "in_progress"
     },
     {
@@ -539,6 +532,13 @@
       "code": "SMC",
       "name": "개조 스타터 세트 「카푸브루루 GX」",
       "cardCount": 23,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMD",
+      "name": "대전 세트 「지우 VS 로켓단」",
+      "cardCount": 30,
       "status": "pending"
     }
   ],
@@ -786,17 +786,17 @@
       "cardCount": 293,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 4,
         "connected": 8,
         "night": 10,
         "season": 96,
-        "color": 270,
+        "color": 293,
         "sunset": 3,
-        "food": 2,
-        "work": 1,
+        "food": 3,
+        "work": 2,
         "street": 18
       }
     },
