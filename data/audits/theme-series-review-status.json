@@ -62972,6 +62972,58 @@
       "archiveVerificationStatus": "s7R_90_owned_CDN_Korean_art_images_visually_reviewed",
       "nextStart": "s7D canonical 001",
       "note": "창공스트림 한국판 전체 90장/12테마 아트 검수 완료. 색상 90건 포함 테마 148건 추가. 기존 74번 잠자는 포켓몬 슬롯 보존. 원본 한국어 카드 이미지 자체 CDN 로드 검증."
+    },
+    "s7D": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "artworkReviewedCardCount": 90,
+      "reviewedCardCount": 87,
+      "verifiedSelfHostedImageCount": 90,
+      "verifiedKoreanPrintImageCount": 87,
+      "heldCards": [
+        "s7d_80/067",
+        "s7d_81/067",
+        "s7d_82/067"
+      ],
+      "unresolvedImageIssues": [
+        {
+          "code": "s7d_080/067",
+          "name": "루가루암 VMAX",
+          "issue": "Japanese-language image placeholder; Korean print not yet self-hosted"
+        },
+        {
+          "code": "s7d_081/067",
+          "name": "더스트나 VMAX",
+          "issue": "Japanese-language image placeholder; Korean print not yet self-hosted"
+        },
+        {
+          "code": "s7d_082/067",
+          "name": "두랄루돈 VMAX",
+          "issue": "Japanese-language image placeholder; Korean print not yet self-hosted"
+        }
+      ],
+      "reviewedRanges": [
+        "001-090 (art complete; Korean 080-082 pending)"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "newlyAddedThemeSlotCount": 148,
+      "partialReviewEvidence": "data/audits/theme-s7d-061-090-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "90_owned_image_art_87_Korean_language_verified_3_Japanese_print_placeholders",
+      "nextStart": "s7D Korean print source pending: 080,081,082",
+      "note": "마천퍼펙트 90개 전 카드 아트·12테마 검수와 148 테마 슬롯 반영. 80,81,82번 일본어 인쇄 이미지 때문에 한국판 이미지 검수는 87/90. 외국판 사진을 한국판으로 오인하지 말 것."
     }
   },
   "queue": {
@@ -62997,8 +63049,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s7R 001-090 (90/90) Korean artwork, owned image and 12 themes verified",
-    "nextStart": "s7D canonical 001",
+    "lastSafeCheckpoint": "s7D artworks 001-090, Korean print scans 87/90 (missing 080,081,082)",
+    "nextStart": "s7D Korean print source pending: 080,081,082",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {

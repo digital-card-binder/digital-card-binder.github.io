@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15076,
-    "uniqueThemeCards": 9030,
+    "themeCardSlots": 15224,
+    "uniqueThemeCards": 9120,
     "strictCompleteSetCount": 104,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 169,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 173,
-      "setCount": 77,
+      "cardSlots": 174,
+      "setCount": 78,
       "rarities": [
         "AR",
         "C",
@@ -109,8 +109,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 462,
-      "setCount": 83,
+      "cardSlots": 468,
+      "setCount": 84,
       "rarities": [
         "AR",
         "C",
@@ -126,8 +126,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4402,
-      "setCount": 108,
+      "cardSlots": 4448,
+      "setCount": 109,
       "rarities": [
         "AR",
         "C",
@@ -148,8 +148,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8041,
-      "setCount": 110,
+      "cardSlots": 8131,
+      "setCount": 111,
       "rarities": [
         "AR",
         "C",
@@ -174,8 +174,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 243,
-      "setCount": 64,
+      "cardSlots": 244,
+      "setCount": 65,
       "rarities": [
         "AR",
         "C",
@@ -201,8 +201,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 165,
-      "setCount": 59,
+      "cardSlots": 166,
+      "setCount": 60,
       "rarities": [
         "AR",
         "C",
@@ -232,8 +232,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1077,
-      "setCount": 89,
+      "cardSlots": 1080,
+      "setCount": 90,
       "rarities": [
         "AR",
         "C",
@@ -285,7 +285,7 @@
       "cardCount": 4800,
       "completeSetCount": 40,
       "remainingSetCount": 21,
-      "currentThemeSlots": 4475
+      "currentThemeSlots": 4623
     },
     {
       "era": "SM",
@@ -398,7 +398,7 @@
       "code": "s7D",
       "name": "마천퍼펙트",
       "cardCount": 90,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -743,9 +743,17 @@
       "cardCount": 90,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "themeHits": {
+        "sleeping": 1,
+        "night": 6,
+        "season": 46,
+        "color": 90,
+        "sunset": 1,
+        "food": 1,
+        "street": 3
+      }
     },
     {
       "era": "S",
