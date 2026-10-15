@@ -4,7 +4,7 @@
   "number": 93,
   "code": "s6k_093/070",
   "name": "안개의 수정",
-  "status": "staged_needs_visual_review_do_not_mark_complete",
+  "status": "Korean_card_printed_title_and_number_visually_verified",
   "source": "https://sitem.ssgcdn.com/98/22/20/item/1000523202298_i1_1200.jpg",
   "sourceProductPage": "https://www.ssg.com/item/itemView.ssg?itemId=1000523202298",
   "sourceSha256": "2582d47e042f6c595311c337942928b40fba8c50e254fcdd5c7a1a725e6e671c",
@@ -24,11 +24,21 @@
   ],
   "ownedPath": "assets/cards/s6k-korean-rare/093-korean.webp",
   "sourceContentType": "image/jpeg",
-  "verifiedKoreanPrint": false,
+  "verifiedKoreanPrint": true,
   "requiredManualChecks": [
     "visible Korean title 안개의 수정",
     "footer reads s6K 093/070 UR",
     "no cropped card edges",
     "not a Japanese print"
-  ]
+  ],
+  "reviewedAt": "2026-10-15",
+  "inspection": {
+    "visibleKoreanTitle": "안개의 수정",
+    "visibleKoreanEffect": "자신의 덱에서 초 타입의 기본 포켓몬 또는 초 에너지 1장",
+    "numberEvidence": "s6K 093/070 UR",
+    "cardBorderComplete": true,
+    "noWatermarkVisible": true,
+    "reviewEvidence": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/093-proof-sheet.webp.b64",
+    "photoPrintConfidence": "visible"
+  }
 }
