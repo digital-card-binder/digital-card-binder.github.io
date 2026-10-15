@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-15",
+  "set": "s6K",
+  "status": "four_Korean_print_images_unresolved",
+  "verifiedKoreanImages": 91,
+  "totalCards": 95,
+  "rules": [
+    "Only substitute images when Korean card title, exact s6K card number and rarity are visibly consistent",
+    "Seller metadata without card footer is not sufficient",
+    "Do not replace actual Korean printed images with Japanese images, identical-name SR variants or stock photos",
+    "Keep local self-hosting and preserve card ownership keys",
+    "Previously confirmed 093/070 안개의 수정 physical image takes precedence over conflicting indexed set lists"
+  ],
+  "cards": [
+    {
+      "number": 89,
+      "code": "s6k_089/070",
+      "expectedKoreanName": "니아",
+      "expectedRarity": "HR",
+      "status": "unresolved_print_photo",
+      "caution": "Korean 081/070 SR photograph exists but is wrong variant. Japanese 089 is a different trainer (キクコ), so edition mixing is high risk.",
+      "sources": [
+        "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+        "https://adorenaline.me/52"
+      ],
+      "mustVerify": [
+        "Korean 니아",
+        "089/070",
+        "HR"
+      ]
+    },
+    {
+      "number": 90,
+      "code": "s6k_090/070",
+      "expectedKoreanName": "즈미",
+      "expectedRarity": "HR",
+      "status": "unresolved_print_photo",
+      "sources": [
+        "https://tcgbox.co.kr/product/detail.html?product_no=13093",
+        "https://www.coupang.com/vp/products/5630205706"
+      ],
+      "mustVerify": [
+        "Korean 즈미",
+        "090/070",
+        "HR"
+      ]
+    },
+    {
+      "number": 92,
+      "code": "s6k_092/070",
+      "expectedKoreanName": "붐볼",
+      "expectedRarity": "UR",
+      "status": "unresolved_print_photo",
+      "caution": "Japanese 092/070 images are searchable but Japanese print is not Korean-card proof.",
+      "sources": [
+        "https://tcgbox.co.kr/product/detail.html?product_no=13095",
+        "https://kream.co.kr/products/654794"
+      ],
+      "mustVerify": [
+        "Korean 붐볼",
+        "092/070",
+        "UR"
+      ]
+    },
+    {
+      "number": 94,
+      "code": "s6k_094/070",
+      "expectedKoreanName": "메아리호른",
+      "expectedRarity": "UR",
+      "status": "unresolved_print_photo",
+      "caution": "Japanese 093/070 Echoing Horn illustration is a number-mismatched placeholder. Korean 094/070 image must be obtained before declaring done.",
+      "sources": [
+        "https://tcgbox.co.kr/product/detail.html?product_no=13097"
+      ],
+      "mustVerify": [
+        "Korean 메아리호른",
+        "094/070",
+        "UR"
+      ]
+    }
+  ],
+  "nextAction": "Acquire readable Korean-print 089, 090, 092 and 094 photos and self-host only after manual title / exact footer confirmation.",
+  "imageQualityFollowUps": [
+    84,
+    87,
+    88,
+    91,
+    95
+  ],
+  "doNotMarkSetComplete": true
+}
