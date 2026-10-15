@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13940,
-    "uniqueThemeCards": 8332,
-    "strictCompleteSetCount": 98,
+    "themeCardSlots": 13986,
+    "uniqueThemeCards": 8365,
+    "strictCompleteSetCount": 99,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 175,
+    "baselineRemainingSetCount": 174,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -106,7 +106,7 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 430,
+      "cardSlots": 432,
       "setCount": 78,
       "rarities": [
         "AR",
@@ -123,7 +123,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4109,
+      "cardSlots": 4116,
       "setCount": 103,
       "rarities": [
         "AR",
@@ -143,11 +143,12 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7331,
+      "cardSlots": 7364,
       "setCount": 105,
       "rarities": [
         "AR",
         "C",
+        "CHR",
         "CSR",
         "FUR",
         "HR",
@@ -223,7 +224,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1030,
+      "cardSlots": 1034,
       "setCount": 86,
       "rarities": [
         "AR",
@@ -272,9 +273,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 34,
-      "remainingSetCount": 27,
-      "currentThemeSlots": 3339
+      "completeSetCount": 35,
+      "remainingSetCount": 26,
+      "currentThemeSlots": 3385
     },
     {
       "era": "SM",
@@ -380,13 +381,6 @@
       "code": "s10b",
       "name": "Pokémon GO",
       "cardCount": 109,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s9a",
-      "name": "배틀리전",
-      "cardCount": 93,
       "status": "in_progress"
     },
     {
@@ -534,6 +528,13 @@
       "code": "s1W",
       "name": "소드",
       "cardCount": 75,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMA",
+      "name": "스타터세트 3종",
+      "cardCount": 60,
       "status": "pending"
     }
   ],
@@ -807,15 +808,15 @@
       "cardCount": 93,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
       "themeHits": {
         "sleeping": 1,
-        "night": 3,
-        "season": 36,
-        "color": 60,
+        "night": 5,
+        "season": 43,
+        "color": 93,
         "sunset": 3,
-        "street": 1
+        "street": 5
       }
     },
     {

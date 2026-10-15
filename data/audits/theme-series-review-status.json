@@ -62775,13 +62775,14 @@
       "note": "스페이스 저글러 88개 한국판 카드 전체 12테마 그림 검수 완료. 061-088 28장 중 공식원본->modern 26장, 기존 legacy 2장 검증·자가호스팅, 원본 출처 보존. 044/074/075 legacy 워터마크 화질 개선 후보 별도."
     },
     "s9a": {
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 93,
+      "verifiedSelfHostedImageCount": 93,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-093"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62798,11 +62799,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 104,
-      "partialReviewEvidence": "data/audits/theme-s9a-031-060-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s9a_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s9a canonical 061",
-      "note": "배틀리전 001-060 60장 한국판 일러스트 12테마 검수 완료. 045 한국판 카드의 VSTAR 표기로 정정. 031-060 자체 저장 이미지 30장 디코딩 확인(현대 29/legacy 1). 세트 93장 중 60장 완료."
+      "newlyAddedThemeSlotCount": 150,
+      "partialReviewEvidence": "data/audits/theme-s9a-061-093-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9a_061-093_33_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9 canonical 001",
+      "note": "배틀리전 한국판 전체 93장, 12개 테마 시각검수 및 자체 저장 이미지 93장 확인 완료. 마지막 061-093은 modern 29장, legacy 4장. 미검수 0장."
     }
   },
   "queue": {
@@ -62822,14 +62823,14 @@
   "execution": {
     "startedAt": "2026-10-06",
     "currentEra": "S",
-    "currentSet": "s9a",
+    "currentSet": "s9",
     "method": "세트별 단일 배치 검수·커밋 (중·소형 세트); 150장 초과 대형 세트는 안전 체크포인트를 쓰되 세트 종료까지 연속 진행. 공식 한국판 일러스트 직접 확인 카드만 12개 테마 분류.",
     "status": "stage-6-in-progress",
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9a canonical 001-060 (60/93) Korean print/art and DCB owned image proof",
-    "nextStart": "s9a canonical 061",
+    "lastSafeCheckpoint": "s9a canonical 001-093 (93/93) Korean prints and owned CDN artworks verified",
+    "nextStart": "s9 canonical 001",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
