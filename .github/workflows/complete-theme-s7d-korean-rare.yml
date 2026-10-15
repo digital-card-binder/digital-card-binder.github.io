@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/complete-theme-s7d-korean-rare.yml'
       - 'scripts/complete-theme-s7d-korean-rare.mjs'
+      - 'tests/collector-registry.test.mjs'
       - 'data/audits/theme-visual-evidence/s7d/korean-rescued-sources/080-source.json'
       - 'data/audits/theme-visual-evidence/s7d/korean-rescued-sources/081-082-sources.json'
   workflow_dispatch:
