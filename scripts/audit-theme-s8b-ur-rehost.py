@@ -137,6 +137,8 @@ if images:
         sheet.paste(im.resize((232,324)),(x+6,y+17))
         d.text((x+6,y+2),f"s8b {n}/184 UR",fill="#171717")
     sheet.save(PROOF/"contact.webp","WEBP",quality=85)
+    import base64
+    (PROOF/"contact.webp.b64").write_text(base64.b64encode((PROOF/"contact.webp").read_bytes()).decode("ascii"))
 if failures:
     print("WARNING: incomplete Korean UR images; retain prior checkpoint and do not apply this batch.")
     sys.exit(0)
