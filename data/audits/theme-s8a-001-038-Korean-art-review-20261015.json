@@ -1,0 +1,667 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-15",
+  "set": "s8a",
+  "range": "canonical-order 001-038",
+  "expectedMasterCards": 38,
+  "visuallyReviewedKoreanCards": 38,
+  "verifiedOwnedCDNImages": 38,
+  "all12ThemesInspected": true,
+  "originImageRequests": 0,
+  "proofIndex": "data/audits/theme-visual-evidence/s8a/001-038/visual-index.json",
+  "proofSheets": [
+    "s8a-001-038-01.webp.b64",
+    "s8a-001-038-02.webp.b64",
+    "s8a-001-038-03.webp.b64"
+  ],
+  "newThemeSlotsThisBatch": {
+    "season": 14,
+    "color": 38,
+    "work": 2,
+    "night": 1,
+    "connected": 4
+  },
+  "koreanMasterNameCorrections": {
+    "024": {
+      "before": "공중날기 피카츄 VMAX",
+      "after": "파도타기 피카츄 VMAX"
+    },
+    "029": {
+      "before": "박사의 연구",
+      "after": "박사의 연구(오박사)"
+    }
+  },
+  "existingThemeRecordsPreserved": [
+    4,
+    5,
+    10,
+    11,
+    15,
+    18,
+    19
+  ],
+  "newConnectedArtCards": [
+    25,
+    26,
+    27,
+    28
+  ],
+  "legacyImageChecks": [
+    {
+      "number": 21,
+      "source": "https://static.tcgexchange.kr/36008912f1be5acc58b95283ad74e1ea.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/f8fcb91518dbfc49.webp",
+      "dimensions": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 22,
+      "source": "https://static.tcgexchange.kr/76411ca09f9d9891afb0ab49b9da9f7f.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/481c4b9f888d8cb3.webp",
+      "dimensions": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 26,
+      "source": "https://static.tcgexchange.kr/dbcdb4c1bff4ef8c1784aa66b0c67ea4.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/7fada3e418e65cb7.webp",
+      "dimensions": [
+        241,
+        334
+      ]
+    },
+    {
+      "number": 27,
+      "source": "https://static.tcgexchange.kr/a968beb36e79106d9b472590e0e9a8b3.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/ec166863389cc257.webp",
+      "dimensions": [
+        239,
+        334
+      ]
+    },
+    {
+      "number": 28,
+      "source": "https://static.tcgexchange.kr/24d38e60cb47817c6916e6d918038e2e.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/24dadedc8e7058e7.webp",
+      "dimensions": [
+        240,
+        334
+      ]
+    },
+    {
+      "number": 29,
+      "source": "https://static.tcgexchange.kr/9f2559d0b2a89ca3e328d57ee28028e6.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/da39d8328d886cb6.webp",
+      "dimensions": [
+        420,
+        588
+      ]
+    },
+    {
+      "number": 30,
+      "source": "https://static.tcgexchange.kr/fbd24d55b47eed386aad390f83fed0d1.png",
+      "owned": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/53b0f2fb71ff4199.webp",
+      "dimensions": [
+        420,
+        605
+      ]
+    }
+  ],
+  "notes": "한국판 25th ANNIVERSARY COLLECTION 38장 사진 12개 테마 직접 검수. 024 파도타기 피카츄 VMAX, 029 박사의 연구(오박사) 정정. 기존 연결 004·005·010·011·018·019와 잠자는 015 보존; 피카츄 V-UNION 025~028 연결테마 추가. 모든 이미지 자체 CDN 38/38 검증. 기존 마스터 카드번호 분모 /028 유지. 031~038 추가 기본 에너지들은 내부 추적 슬롯으로 관리.",
+  "items": [
+    {
+      "canonicalOrder": 1,
+      "cardKey": "S8A_001",
+      "name": "피카츄",
+      "artObservation": "초록 풀과 나무가 가득한 숲길에서 피카츄가 앉아 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·풀밭",
+        "color": "노랑·초록"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 2,
+      "cardKey": "S8A_002",
+      "name": "뮤",
+      "artObservation": "분홍·노랑과 하늘색 무지갯빛 반짝임 속에서 뮤가 공중에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·하늘색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 3,
+      "cardKey": "S8A_003",
+      "name": "박사의 연구(오박사)",
+      "artObservation": "오박사가 실내 연구소의 문서와 기계 앞에서 연구에 몰두한다.",
+      "matchedThemes": [
+        "work",
+        "color"
+      ],
+      "categories": {
+        "work": "연구·실험실",
+        "color": "회색·갈색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 4,
+      "cardKey": "S8A_004",
+      "name": "칠색조",
+      "artObservation": "따뜻한 황금빛 가을나무와 빛줄기가 보이는 배경에서 칠색조가 날개를 펼친다. 연결 일러스트 기존 수록 보존.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "가을·숲",
+        "color": "주황·금색"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 5,
+      "cardKey": "S8A_005",
+      "name": "루기아",
+      "artObservation": "황금빛 낙엽이 보이는 숲과 물결 앞에서 루기아가 날개를 펼친다. 연결 일러스트 기존 수록 보존.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "가을·숲",
+        "color": "하양·금색"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 6,
+      "cardKey": "S8A_006",
+      "name": "그란돈",
+      "artObservation": "붉은 바위와 마그마가 비치는 산악에서 그란돈이 포효한다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "산·암벽",
+        "color": "빨강·갈색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 7,
+      "cardKey": "S8A_007",
+      "name": "가이오가",
+      "artObservation": "푸른 바다의 파도와 물보라 사이로 가이오가가 헤엄친다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "바다·물결",
+        "color": "파랑·하양"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 8,
+      "cardKey": "S8A_008",
+      "name": "디아루가",
+      "artObservation": "회색의 시간·공간처럼 갈라진 바위 배경에서 디아루가가 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·파랑"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 9,
+      "cardKey": "S8A_009",
+      "name": "펄기아",
+      "artObservation": "회색 구름과 어두운 공간 효과 속에서 펄기아가 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·보라"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 10,
+      "cardKey": "S8A_010",
+      "name": "레시라무",
+      "artObservation": "갈색의 석벽과 석조 문양을 배경으로 레시라무가 몸을 돌린다. 연결 일러스트 기존 수록 보존.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "하양·갈색"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 11,
+      "cardKey": "S8A_011",
+      "name": "제크로무",
+      "artObservation": "갈색 석벽과 석조 문양을 배경으로 제크로무가 움직인다. 연결 일러스트 기존 수록 보존.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·갈색"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 12,
+      "cardKey": "S8A_012",
+      "name": "제르네아스",
+      "artObservation": "무지갯빛 나무와 밝은 숲 풍경을 배경으로 제르네아스가 서 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·초목",
+        "color": "파랑·무지개"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 13,
+      "cardKey": "S8A_013",
+      "name": "이벨타르",
+      "artObservation": "붉고 검은 번개 같은 기류와 바위 숲 사이로 이벨타르가 날아간다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 14,
+      "cardKey": "S8A_014",
+      "name": "코스모그",
+      "artObservation": "밝은 실내에서 릴리에 곁에 코스모그가 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·하늘색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 15,
+      "cardKey": "S8A_015",
+      "name": "코스모움",
+      "artObservation": "연한 보라빛 실내에서 잠든 모습의 코스모움이 누워 있다. 잠자는 도감 기존 수록 보존.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·금색"
+      },
+      "priorThemesToPreserve": [
+        "sleeping"
+      ]
+    },
+    {
+      "canonicalOrder": 16,
+      "cardKey": "S8A_016",
+      "name": "솔가레오",
+      "artObservation": "하늘과 햇빛이 퍼지는 공간에서 솔가레오가 내달린다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "하늘·햇빛",
+        "color": "하양·파랑"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "S8A_017",
+      "name": "루나아라",
+      "artObservation": "달빛처럼 빛나는 짙푸른 밤하늘과 구름 사이에서 루나아라가 날개를 펼친다.",
+      "matchedThemes": [
+        "night",
+        "color"
+      ],
+      "categories": {
+        "night": "밤하늘·달빛",
+        "color": "보라·남색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "S8A_018",
+      "name": "자시안 V",
+      "artObservation": "초록 잎과 숲 같은 환상적인 배경 속에서 자시안 V가 검을 물고 달린다. 연결 테마 기존 수록 보존.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·초원",
+        "color": "초록·파랑"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 19,
+      "cardKey": "S8A_019",
+      "name": "자마젠타 V",
+      "artObservation": "붉고 초록빛이 빛나는 숲에서 자마젠타 V가 돌진한다. 연결 테마 기존 수록 보존.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "숲·초원",
+        "color": "빨강·초록"
+      },
+      "priorThemesToPreserve": [
+        "connected"
+      ]
+    },
+    {
+      "canonicalOrder": 20,
+      "cardKey": "S8A_020",
+      "name": "피카츄 V",
+      "artObservation": "초록 언덕 위 파란 하늘을 배경으로 피카츄 V가 전기 에너지를 발산한다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "초원·하늘",
+        "color": "노랑·하늘색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 21,
+      "cardKey": "S8A_021",
+      "name": "공중날기 피카츄 V",
+      "artObservation": "푸른 하늘의 구름 사이로 풍선을 매단 공중날기 피카츄 V가 날아간다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "하늘·구름",
+        "color": "노랑·파랑"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "S8A_022",
+      "name": "공중날기 피카츄 VMAX",
+      "artObservation": "구름 낀 하늘과 형형색색 풍선을 배경으로 거대한 공중날기 피카츄 VMAX가 떠 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "하늘·구름",
+        "color": "노랑·다색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "S8A_023",
+      "name": "파도타기 피카츄 V",
+      "artObservation": "하늘색 바다의 파도를 배경으로 서핑 보드 위에 파도타기 피카츄 V가 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "바다·물결",
+        "color": "노랑·하늘색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 24,
+      "cardKey": "S8A_024",
+      "name": "파도타기 피카츄 VMAX",
+      "artObservation": "파란 물보라와 파도 사이로 거대한 파도타기 피카츄 VMAX가 서핑한다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "season": "바다·물결",
+        "color": "노랑·파랑"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 25,
+      "cardKey": "S8A_025",
+      "name": "피카츄 V-UNION",
+      "artObservation": "수많은 작가가 그린 다양한 피카츄 얼굴의 연결 일러스트 중 025/028 구성 카드.",
+      "matchedThemes": [
+        "connected",
+        "color"
+      ],
+      "categories": {
+        "connected": "피카츄 V-UNION 4장 연결",
+        "color": "노랑·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 26,
+      "cardKey": "S8A_026",
+      "name": "피카츄 V-UNION",
+      "artObservation": "다양한 표정의 노란 피카츄가 모여 있는 연결 일러스트의 026/028 조각.",
+      "matchedThemes": [
+        "connected",
+        "color"
+      ],
+      "categories": {
+        "connected": "피카츄 V-UNION 4장 연결",
+        "color": "노랑·하양"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 27,
+      "cardKey": "S8A_027",
+      "name": "피카츄 V-UNION",
+      "artObservation": "여러 일러스트레이터의 피카츄들이 모여 있는 027/028 연결 조각.",
+      "matchedThemes": [
+        "connected",
+        "color"
+      ],
+      "categories": {
+        "connected": "피카츄 V-UNION 4장 연결",
+        "color": "노랑·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 28,
+      "cardKey": "S8A_028",
+      "name": "피카츄 V-UNION",
+      "artObservation": "전기 광선과 다양한 피카츄 얼굴을 보여주는 028/028 연결 조각.",
+      "matchedThemes": [
+        "connected",
+        "color"
+      ],
+      "categories": {
+        "connected": "피카츄 V-UNION 4장 연결",
+        "color": "노랑·초록"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 29,
+      "cardKey": "S8A_029",
+      "name": "박사의 연구(오박사)",
+      "artObservation": "오박사가 실내 책장 앞에 서서 책을 읽는 반짝이는 25주년 트레이너 카드.",
+      "matchedThemes": [
+        "work",
+        "color"
+      ],
+      "categories": {
+        "work": "연구·독서",
+        "color": "회색·갈색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 30,
+      "cardKey": "S8A_030",
+      "name": "뮤",
+      "artObservation": "금빛 반짝임 속에서 밝은 파랑색으로 표현된 뮤 UR 특별 일러스트.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "하늘색·금색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 31,
+      "cardKey": "S8A_031",
+      "name": "기본 풀 에너지",
+      "artObservation": "기본 풀 타입의 녹색 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "초록·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 32,
+      "cardKey": "S8A_032",
+      "name": "기본 불꽃 에너지",
+      "artObservation": "기본 불꽃 타입의 붉은 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·주황"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 33,
+      "cardKey": "S8A_033",
+      "name": "기본 물 에너지",
+      "artObservation": "기본 물 타입의 파란 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "파랑·청록"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 34,
+      "cardKey": "S8A_034",
+      "name": "기본 번개 에너지",
+      "artObservation": "기본 번개 타입의 노란 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 35,
+      "cardKey": "S8A_035",
+      "name": "기본 초 에너지",
+      "artObservation": "기본 초 타입의 보랏빛 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 36,
+      "cardKey": "S8A_036",
+      "name": "기본 격투 에너지",
+      "artObservation": "기본 격투 타입의 주황 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "주황·갈색"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 37,
+      "cardKey": "S8A_037",
+      "name": "기본 악 에너지",
+      "artObservation": "기본 악 타입의 남색 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "남색·검정"
+      },
+      "priorThemesToPreserve": []
+    },
+    {
+      "canonicalOrder": 38,
+      "cardKey": "S8A_038",
+      "name": "기본 강철 에너지",
+      "artObservation": "기본 강철 타입의 회색 에너지 구체에 25주년 마크가 함께 나타난다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·은색"
+      },
+      "priorThemesToPreserve": []
+    }
+  ]
+}
