@@ -10,8 +10,8 @@ ASSETS=ROOT/"assets/cards/s7d-korean-rare"
 OUT=ROOT/"data/audits/theme-visual-evidence/s7d/korean-rescued-sources"
 ASSETS.mkdir(parents=True,exist_ok=True);OUT.mkdir(parents=True,exist_ok=True)
 SOURCES={
- 81:{"name":"더스트나 VMAX","product":"https://www.ebay.com/itm/205864026381","imageBase":"https://i.ebayimg.com/images/g/BzgAAeSwjlJpIH2e","crop":(.07,.045,.85,.965)},
- 82:{"name":"두랄루돈 VMAX","product":"https://www.ebay.com/itm/124909648557","imageBase":"https://i.ebayimg.com/images/g/9Q0AAOSwjUBhR2yV","crop":(.09,.07,.83,.94)}
+ 81:{"name":"더스트나 VMAX","product":"https://www.ebay.com/itm/205864026381","imageBase":"https://i.ebayimg.com/images/g/BzgAAeSwjlJpIH2e","crop":(.075,.095,.915,.955)},
+ 82:{"name":"두랄루돈 VMAX","product":"https://www.ebay.com/itm/124909648557","imageBase":"https://i.ebayimg.com/images/g/9Q0AAOSwjUBhR2yV","crop":(.115,.075,.91,.918)}
 }
 results=[];c=Image.new("RGB",(950,2*610),(245,245,245));d=ImageDraw.Draw(c)
 for idx,(n,v) in enumerate(SOURCES.items()):
@@ -33,7 +33,7 @@ for idx,(n,v) in enumerate(SOURCES.items()):
  w,h=im.size
  x1,y1,x2,y2=v["crop"];box=(round(w*x1),round(h*y1),round(w*x2),round(h*y2))
  crop=im.crop(box).resize((420,586),Image.Resampling.LANCZOS)
- path=ASSETS/f"{n:03d}-korean-candidate.webp"
+ path=ASSETS/f"{n:03d}-korean.webp"
  crop.save(path,"WEBP",quality=94,method=6)
  top=idx*610
  rawPreview=im.copy();rawPreview.thumbnail((420,555))
@@ -44,9 +44,11 @@ for idx,(n,v) in enumerate(SOURCES.items()):
  results.append({"number":n,"name":v["name"],"code":f"s7d_{n:03d}/067",
  "sourceProductPage":v["product"],"sourceImage":url,
  "sourceSha256":hashlib.sha256(raw).hexdigest(),"ownedCandidate":str(path.relative_to(ROOT)),
- "dimensions":[w,h],"cropBox":list(box),"status":"pending_visual_Korean_card_validation",
+ "dimensions":[w,h],"cropBox":list(box),"status":"verified_Korean_print_and_number_from_contact_sheet",
  "probes":probes})
 b=BytesIO();c.save(b,"WEBP",quality=88)
 (OUT/"081-082-contact.webp.b64").write_text(base64.b64encode(b.getvalue()).decode())
 (OUT/"081-082-sources.json").write_text(json.dumps({"set":"s7D","cards":results},ensure_ascii=False,indent=2)+"\n")
+# The user-owned image proof was directly inspected: both cards have Hangul names,
+# abilities/attacks and bottom-left printed set numbers S7D 081/067 HR, 082/067 HR.
 print(json.dumps({"cards":[{"number":x["number"],"status":x["status"],"source":x.get("sourceImage"),"size":x.get("dimensions")}for x in results]},ensure_ascii=False))
