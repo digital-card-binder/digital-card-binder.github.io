@@ -57,7 +57,7 @@ for(let i=0;i<30;i++){
      p.rawSource?.startsWith('https://cards.image.pokemonkorea.co.kr/'))||
  (c.sourceImage||c.image)!==p.rawSource||
  JSON.stringify(p.priorThemes||[])!==JSON.stringify([202,209].includes(num)?['sleeping']:[])||
- JSON.stringify(THEMES.filter(t=>groupMap.get(t).cards.some(x=>x.code===key)))!==
+ JSON.stringify(THEMES.filter(t=>groupMap.get(t).cards.some(x=>String(x.code||'').toUpperCase()===key)))!==
  JSON.stringify([202,209].includes(num)?['sleeping']:[]))
  throw Error('Unsafe s8b identity / hosted image / existing theme mismatch at '+num);
  if(!p.koreanNameNonempty||c.name!==p.name||row.name!==c.name){
