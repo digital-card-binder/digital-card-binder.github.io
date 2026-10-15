@@ -62,7 +62,7 @@ for(let i=0;i<30;i++){
  }
  if(JSON.stringify(before.slice().sort())!==JSON.stringify(row.priorThemes.slice().sort())||
  JSON.stringify(before.slice().sort())!==JSON.stringify(proofrow.priorThemes.slice().sort()))
- throw Error("Existing twelve-theme memberships changed while audit in flight: "+id);
+ throw Error("Existing twelve-theme memberships changed at "+id+"; actual="+JSON.stringify(before)+"; review="+JSON.stringify(row.priorThemes)+"; proof="+JSON.stringify(proofrow.priorThemes)+"; candidates="+JSON.stringify(themes.groups.filter(g=>["color","season"].includes(g.code)).map(g=>({t:g.code,c:g.cards.filter(c=>String(c.code||"").toUpperCase().includes("S6H_"+id)).slice(0,3).map(c=>({code:c.code,set:c.set,name:c.name}))}))));
  for(const t of THEMES){
  const group=groupMap.get(t),index=group.cards.findIndex(c=>String(c.code||"").toUpperCase()===key);
  if(index>=0&&!selected.has(t)){
