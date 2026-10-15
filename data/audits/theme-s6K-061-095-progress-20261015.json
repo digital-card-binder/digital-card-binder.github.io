@@ -5,14 +5,11 @@
   "status": "in_progress",
   "totalMasterCards": 95,
   "artworkReviewed": 95,
-  "verifiedKoreanPrintImages": 84,
+  "verifiedKoreanPrintImages": 87,
   "ownedImagesVerified": 95,
   "all12ThemesReviewedForRange": true,
-  "remainingUnreviewedKoreanPrints": 11,
+  "remainingUnreviewedKoreanPrints": 8,
   "pendingKoreanImages": [
-    "s6k_084/070",
-    "s6k_085/070",
-    "s6k_087/070",
     "s6k_088/070",
     "s6k_089/070",
     "s6k_090/070",
@@ -30,7 +27,7 @@
     "night": 1,
     "food": 1
   },
-  "nextStart": "s6K Korean print source pending: 084,085,087-095",
+  "nextStart": "s6K Korean print source pending: 088-095",
   "proof": "data/audits/theme-visual-evidence/s6K/061-095/visual-index.json",
   "manualReview": "data/audits/theme-s6K-061-095-Korean-art-review-20261015.json",
   "recoveredKoreanImages": [
@@ -41,7 +38,36 @@
       "source": "https://media.bunjang.co.kr/product/250071997_1_1706006498_w1200.jpg",
       "sourceProductPage": "https://globalbunjang.com/product/250071997",
       "printConfidence": "visible_Korean_footer_086/070"
+    },
+    {
+      "code": "s6k_084/070",
+      "name": "세레비 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/084-korean.webp",
+      "source": "https://media.bunjang.co.kr/product/435482104_1_1790580923_w1200.jpg",
+      "sourceProductPage": "https://m.bunjang.co.kr/products/435482104",
+      "printConfidence": "corroborated_by_photo_and_listing"
+    },
+    {
+      "code": "s6k_085/070",
+      "name": "흑마 버드렉스 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/085-korean.webp",
+      "source": "https://media.bunjang.co.kr/product/392889452_1_1772516123_w1200.jpg",
+      "sourceProductPage": "https://m.bunjang.co.kr/products/392889452",
+      "printConfidence": "visible"
+    },
+    {
+      "code": "s6k_087/070",
+      "name": "메타그로스 VMAX",
+      "owned": "https://digital-card-binder.github.io/assets/cards/s6k-korean-rare/087-korean.webp",
+      "source": "https://media.bunjang.co.kr/product/434330735_1_1790211220_w1200.jpg",
+      "sourceProductPage": "https://m.bunjang.co.kr/products/434330735",
+      "printConfidence": "visible"
     }
   ],
-  "koreanPrintSourceProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/approved-crops.json"
+  "koreanPrintSourceProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/approved-crops.json",
+  "koreanPrintSourceProofBatch2": "data/audits/theme-visual-evidence/s6K/korean-candidates/approved-batch2/staged-crops.json",
+  "imageQualityFollowUps": [
+    84,
+    87
+  ]
 }
