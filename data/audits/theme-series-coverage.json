@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 14255,
-    "uniqueThemeCards": 8521,
+    "themeCardSlots": 14303,
+    "uniqueThemeCards": 8551,
     "strictCompleteSetCount": 100,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 173,
@@ -66,7 +66,7 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 169,
+      "cardSlots": 170,
       "setCount": 76,
       "rarities": [
         "AR",
@@ -82,12 +82,14 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 136,
-      "setCount": 29,
+      "cardSlots": 140,
+      "setCount": 30,
       "rarities": [
         "AR",
         "C",
         "PROMO",
+        "RR",
+        "RRR",
         "SAR",
         "V"
       ]
@@ -106,8 +108,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 439,
-      "setCount": 79,
+      "cardSlots": 440,
+      "setCount": 80,
       "rarities": [
         "AR",
         "C",
@@ -123,7 +125,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4202,
+      "cardSlots": 4213,
       "setCount": 105,
       "rarities": [
         "AR",
@@ -143,7 +145,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7521,
+      "cardSlots": 7551,
       "setCount": 107,
       "rarities": [
         "AR",
@@ -224,7 +226,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1048,
+      "cardSlots": 1049,
       "setCount": 88,
       "rarities": [
         "AR",
@@ -275,7 +277,7 @@
       "cardCount": 4800,
       "completeSetCount": 36,
       "remainingSetCount": 25,
-      "currentThemeSlots": 3654
+      "currentThemeSlots": 3702
     },
     {
       "era": "SM",
@@ -785,10 +787,12 @@
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
       "themeHits": {
-        "sleeping": 3,
-        "season": 21,
-        "color": 30,
-        "street": 3
+        "sleeping": 4,
+        "connected": 4,
+        "night": 1,
+        "season": 32,
+        "color": 60,
+        "street": 4
       }
     },
     {
