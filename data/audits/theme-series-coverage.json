@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 13986,
-    "uniqueThemeCards": 8365,
+    "themeCardSlots": 14043,
+    "uniqueThemeCards": 8395,
     "strictCompleteSetCount": 99,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 174,
@@ -123,8 +123,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4116,
-      "setCount": 103,
+      "cardSlots": 4139,
+      "setCount": 104,
       "rarities": [
         "AR",
         "C",
@@ -143,8 +143,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 7364,
-      "setCount": 105,
+      "cardSlots": 7394,
+      "setCount": 106,
       "rarities": [
         "AR",
         "C",
@@ -224,8 +224,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1034,
-      "setCount": 86,
+      "cardSlots": 1038,
+      "setCount": 87,
       "rarities": [
         "AR",
         "C",
@@ -275,7 +275,7 @@
       "cardCount": 4800,
       "completeSetCount": 35,
       "remainingSetCount": 26,
-      "currentThemeSlots": 3385
+      "currentThemeSlots": 3442
     },
     {
       "era": "SM",
@@ -388,7 +388,7 @@
       "code": "s9",
       "name": "스타버스",
       "cardCount": 127,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -795,10 +795,13 @@
       "cardCount": 127,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "season": 23,
+        "color": 30,
+        "street": 4
       }
     },
     {

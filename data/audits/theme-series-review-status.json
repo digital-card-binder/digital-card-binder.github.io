@@ -62804,6 +62804,35 @@
       "archiveVerificationStatus": "s9a_061-093_33_Korean_DCB_owned_CDN_images_decoded",
       "nextStart": "s9 canonical 001",
       "note": "배틀리전 한국판 전체 93장, 12개 테마 시각검수 및 자체 저장 이미지 93장 확인 완료. 마지막 061-093은 modern 29장, legacy 4장. 미검수 0장."
+    },
+    "s9": {
+      "status": "in_progress",
+      "reviewedAt": "2026-10-15",
+      "reviewedCardCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "heldCards": [],
+      "newlyAddedThemeSlotCount": 57,
+      "partialReviewEvidence": "data/audits/theme-s9-001-030-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9_001-030_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9 canonical 031",
+      "note": "스타버스 001-030 한국판 카드 그림 12테마 직접 검수 완료. 한국판 이름/번호 정상, 소유 CDN 30장 디코딩 확인. 011 나메일은 기존 legacy 자체 저장 이미지 출처 보존. 세트 127장 중 30장 완료."
     }
   },
   "queue": {
@@ -62829,8 +62858,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9a canonical 001-093 (93/93) Korean prints and owned CDN artworks verified",
-    "nextStart": "s9 canonical 001",
+    "lastSafeCheckpoint": "s9 canonical 001-030 (30/127) Korean print/art and DCB owned image proof",
+    "nextStart": "s9 canonical 031",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
