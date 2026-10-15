@@ -62808,11 +62808,12 @@
     "s9": {
       "status": "in_progress",
       "reviewedAt": "2026-10-15",
-      "reviewedCardCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "reviewedCardCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -62829,11 +62830,11 @@
         "cameo"
       ],
       "heldCards": [],
-      "newlyAddedThemeSlotCount": 112,
-      "partialReviewEvidence": "data/audits/theme-s9-031-060-Korean-art-review-20261015.json",
-      "archiveVerificationStatus": "s9_031-060_30_Korean_DCB_owned_CDN_images_decoded",
-      "nextStart": "s9 canonical 061",
-      "note": "스타버스 001-060 60장 한국판 시각검수 완료. 050 엘풍 VSTAR 실물 카드명으로 마스터 교정. 031-060 이미지 30장 자체 CDN 검사 통과(현대29/legacy1)."
+      "newlyAddedThemeSlotCount": 164,
+      "partialReviewEvidence": "data/audits/theme-s9-061-090-Korean-art-review-20261015.json",
+      "archiveVerificationStatus": "s9_061-090_30_Korean_DCB_owned_CDN_images_decoded",
+      "nextStart": "s9 canonical 091",
+      "note": "스타버스 001-090 한국판 90장 12테마 직접 시각검수 완료. 061-090 자체 보관된 modern CDN 30장 정상 디코딩. 남은 37장."
     }
   },
   "queue": {
@@ -62859,8 +62860,8 @@
     "note": "SVI artwork review continued; mismatched catalog image links recorded as evidence holds. Do not treat external refs as archived.",
     "currentTask": 6,
     "currentTaskScope": "sv4K strict complete; next pending set chosen from latest coverage",
-    "lastSafeCheckpoint": "s9 canonical 001-060 (60/127) Korean print/art and DCB owned image proof",
-    "nextStart": "s9 canonical 061",
+    "lastSafeCheckpoint": "s9 canonical 001-090 (90/127) Korean print/art and DCB owned image proof",
+    "nextStart": "s9 canonical 091",
     "currentStage": 6,
     "totalStages": 36,
     "lastWorkflowCheck": {
