@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-16",
+  "audit": "S5R and S5I printed-language proof holds",
+  "purpose": "Do not accidentally classify 20 Japanese-language image mirrors as Korean source prints",
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "status": "pending_Korean_image_provenance",
+  "verifiedKoreanFirstPartyRanges": {
+    "s5r": "061-081",
+    "s5i": "061-081"
+  },
+  "foreignSourceHolds": {
+    "s5r": {
+      "holdCount": 10,
+      "artworkLanguageObserved": "Japanese printed text in owned CDN contact sheet",
+      "sourceIndex": "data/audits/theme-visual-evidence/s5r/061-091/visual-index.json",
+      "sourceContactSheets": [
+        "s5r-061-091-02.webp.b64",
+        "s5r-061-091-03.webp.b64"
+      ],
+      "cards": [
+        {
+          "canonicalOrder": 82,
+          "code": "s5r_082/070",
+          "name": "비크티니 VMAX",
+          "rarityInMaster": "SR",
+          "sourceImage": "https://static.tcgexchange.kr/d26dda65f132f554c51862a4f92d4f54.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/3745cae7578ac3c6.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 83,
+          "code": "s5r_083/070",
+          "name": "연격 우라오스 VMAX",
+          "rarityInMaster": "SR",
+          "sourceImage": "https://static.tcgexchange.kr/ba2c18459b681b7bf623b5357ae512c8.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/b21e784fb849fe1f.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 84,
+          "code": "s5r_084/070",
+          "name": "연격 우라오스 VMAX",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/009a2f8c54d8edb352447415716f1d55.png",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/2af0433ba898e11d.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 85,
+          "code": "s5r_085/070",
+          "name": "아머까오 VMAX",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/4541558d84f5d15d91b34b4c5c6a5d62.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/df8e5d1dd2c356ff.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 86,
+          "code": "s5r_086/070",
+          "name": "마스터드 연격의 태세",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/3fc732690985715a4d0b4916600cd13a.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/0e23bd5c61c20d4f.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 87,
+          "code": "s5r_087/070",
+          "name": "모미",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/5d120c7016c0099b29ad1548612362fe.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/67ef667345fed7a1.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 88,
+          "code": "s5r_088/070",
+          "name": "코르니의 기합",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/0c7889f807641eda44d97a5ca0d02bba.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/15e94d3de3f97f0e.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 89,
+          "code": "s5r_089/070",
+          "name": "대포무노",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/2996cabae3cbbb960d7f95ce676f0376.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/72f4e9861001e109.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 90,
+          "code": "s5r_090/070",
+          "name": "레벨볼",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/fb656946c473be945bc241faaaa5a8e4.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/bd62f241b90c7067.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 91,
+          "code": "s5r_091/070",
+          "name": "연격 에너지",
+          "rarityInMaster": "UR",
+          "sourceImage": "https://static.tcgexchange.kr/275e14de7574e2b4c44a5ac377355ad9.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/4a50401893cf67ca.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        }
+      ]
+    },
+    "s5i": {
+      "holdCount": 10,
+      "artworkLanguageObserved": "Japanese printed text in owned CDN contact sheet",
+      "sourceIndex": "data/audits/theme-visual-evidence/s5i/061-091/visual-index.json",
+      "sourceContactSheets": [
+        "s5i-061-091-02.webp.b64",
+        "s5i-061-091-03.webp.b64"
+      ],
+      "cards": [
+        {
+          "canonicalOrder": 82,
+          "code": "s5i_082/070",
+          "name": "애프룡 VMAX",
+          "rarityInMaster": "SR",
+          "sourceImage": "https://static.tcgexchange.kr/7749886b35607a0d9969f370cd59b36f.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/d9b3c48720b7125a.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 83,
+          "code": "s5i_083/070",
+          "name": "카푸꼬꼬꼭 VMAX",
+          "rarityInMaster": "SR",
+          "sourceImage": "https://static.tcgexchange.kr/a37c690c0f2407a8378c81ee7204f8c3.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/220e68bda9ed9039.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 84,
+          "code": "s5i_084/070",
+          "name": "일격 우라오스 VMAX",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/ff1f33b4fc7fbfc2782e3fe27e877f7d.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/7d23857471d55b0b.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 85,
+          "code": "s5i_085/070",
+          "name": "일격 우라오스 VMAX",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/509154e48ac153aded2fa028ac9e9ab5.png",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/91d5b4fde54425ce.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 86,
+          "code": "s5i_086/070",
+          "name": "마스터드 일격의 태세",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/3881cff2a6199bfb0857ef317e71ab54.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/dc8d4d7908e60ade.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 87,
+          "code": "s5i_087/070",
+          "name": "시바",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/9a5cc7a57070255ec6bb2881e9432fe3.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/48123405eb249a9e.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 88,
+          "code": "s5i_088/070",
+          "name": "회연",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/70ef7576452344d7654b8310ae11a8a9.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/c2cc2bf51412b89c.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 89,
+          "code": "s5i_089/070",
+          "name": "헬가",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/ddf3dc0712364e49e469025917346134.png",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/848a9f4ba09e5680.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 90,
+          "code": "s5i_090/070",
+          "name": "학습장치",
+          "rarityInMaster": "HR",
+          "sourceImage": "https://static.tcgexchange.kr/ccd625dfbfd4c7c328766ca2bae325de.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5ae5e56cbc519acf.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        },
+        {
+          "canonicalOrder": 91,
+          "code": "s5i_091/070",
+          "name": "일격 에너지",
+          "rarityInMaster": "UR",
+          "sourceImage": "https://static.tcgexchange.kr/c639e42098a32a59d66a638cc7e3fff8.jpg",
+          "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/8724756896cf1e1d.webp",
+          "regionStatus": "visually_observed_Japanese_card_Korean_image_missing"
+        }
+      ]
+    }
+  },
+  "rules": {
+    "doNotReplaceMasterCardIDs": true,
+    "doNotChangeUserOwnership": true,
+    "doNotClassifyHeldImagesAsKorean": true,
+    "archiveDownloadDoesNotProveKoreanPrint": true,
+    "doNotMarkSetsComplete": true
+  },
+  "crosschecks": [
+    "https://www.namu.moe/w/%EC%97%B0%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0",
+    "https://d.namu.moe/w/%EC%9D%BC%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0"
+  ]
+}
