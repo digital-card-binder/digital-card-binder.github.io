@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-16",
+  "reason": "Master DB legacy rarity metadata mismatch: both Korean 082-088 are HR and 089-091 UR per printed checklist, including AHR alt art within HR for 084 S5R and 085 S5I.",
+  "status": "verified_rare_tier_metadata_only",
+  "rarityCorrections": [
+    {
+      "set": "s5r",
+      "canonicalOrder": 82,
+      "code": "s5r_082/070",
+      "from": "SR",
+      "to": "HR"
+    },
+    {
+      "set": "s5r",
+      "canonicalOrder": 83,
+      "code": "s5r_083/070",
+      "from": "SR",
+      "to": "HR"
+    },
+    {
+      "set": "s5r",
+      "canonicalOrder": 89,
+      "code": "s5r_089/070",
+      "from": "HR",
+      "to": "UR"
+    },
+    {
+      "set": "s5r",
+      "canonicalOrder": 90,
+      "code": "s5r_090/070",
+      "from": "HR",
+      "to": "UR"
+    },
+    {
+      "set": "s5i",
+      "canonicalOrder": 82,
+      "code": "s5i_082/070",
+      "from": "SR",
+      "to": "HR"
+    },
+    {
+      "set": "s5i",
+      "canonicalOrder": 83,
+      "code": "s5i_083/070",
+      "from": "SR",
+      "to": "HR"
+    },
+    {
+      "set": "s5i",
+      "canonicalOrder": 89,
+      "code": "s5i_089/070",
+      "from": "HR",
+      "to": "UR"
+    },
+    {
+      "set": "s5i",
+      "canonicalOrder": 90,
+      "code": "s5i_090/070",
+      "from": "HR",
+      "to": "UR"
+    }
+  ],
+  "expectedPostFixDistribution": {
+    "s5r": {
+      "HR": 7,
+      "UR": 3
+    },
+    "s5i": {
+      "HR": 7,
+      "UR": 3
+    }
+  },
+  "crossCheckRefs": [
+    "https://www.namu.moe/w/%EC%97%B0%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0",
+    "https://dark.namu.moe/w/%EC%9D%BC%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0",
+    "https://tcgbox.co.kr/category/s5r%EC%97%B0%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0/242",
+    "https://tcgbox.co.kr/category/s5l%EC%9D%BC%EA%B2%A9%EB%A7%88%EC%8A%A4%ED%84%B0/248"
+  ],
+  "printRegionSourceHoldsRemain": "data/audits/theme-s5r-s5i-082-091-Japanese-image-holds-20261016.json",
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "cardCountChange": 0,
+  "masterCodeChanges": 0,
+  "ownershipChanges": 0,
+  "themeMembershipChanges": 0,
+  "koreanImageVerifiedCount": 0,
+  "caveat": "Rarity can be corrected from independent Korean checklists while Japanese-language source images remain disallowed for Korean artwork verification."
+}
