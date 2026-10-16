@@ -63240,12 +63240,13 @@
       "note": "S5R 연격마스터 한국어판 001~060 공식 삽화 12개 테마 검수, 신규 91개 테마 멤버십 누적. S5R_006 기존 시즌 카드·91개 마스터 카드 키 보존. 061~091 검증 전까지 완료 처리 금지."
     },
     "s5I": {
-      "artworkReviewedCardCount": 30,
-      "reviewedCardCount": 30,
-      "verifiedKoreanPrintImageCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "artworkReviewedCardCount": 60,
+      "reviewedCardCount": 60,
+      "verifiedKoreanPrintImageCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63261,14 +63262,14 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 45,
-      "partialReviewEvidence": "data/audits/theme-s5i-001-030-Korean-art-review-20261016.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5i/001-030/visual-index.json",
-      "nextStart": "s5i Korean base 031-060 visual review",
+      "newlyAddedThemeSlotCount": 88,
+      "partialReviewEvidence": "data/audits/theme-s5i-031-060-Korean-art-review-20261016.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5i/031-060/visual-index.json",
+      "nextStart": "s5i Korean final 061-091 visual and print provenance review",
       "reviewedAt": "2026-10-16",
       "status": "in_progress",
       "complete": false,
-      "note": "S5I 일격마스터 한국판 001~030 공식 삽화 12테마 직접 검수, 신규 테마 45개. 기존 세트 내 등록된 2개 테마 카드와 91장 마스터 보유키 유지. 031~091 검수 전이므로 완료 표시 금지."
+      "note": "S5I 일격마스터 한국어판 001~060 공식 삽화 12개 테마 검수, 신규 88개 테마 멤버십 누적. 기존 2개 테마 항목과 91개 마스터 카드 키 보존. 061~091 검증 전까지 완료 처리 금지."
     }
   },
   "queue": {
