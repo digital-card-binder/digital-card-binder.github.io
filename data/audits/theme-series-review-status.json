@@ -63352,13 +63352,14 @@
       "heldImageEvidence": "data/audits/theme-visual-evidence/s4a/121-150/s4a-138-source-diagnostics.json"
     },
     "s4": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 90,
+      "reviewedCardCount": 90,
+      "verifiedKoreanPrintImageCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63374,15 +63375,15 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 103,
-      "preservedExistingThemeSlotCount": 1,
-      "partialReviewEvidence": "data/audits/theme-s4-031-060-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s4/031-060/visual-index.json",
-      "nextStart": "s4 Korean 061-090 printed artwork source and 12-theme visual review",
+      "newlyAddedThemeSlotCount": 158,
+      "preservedExistingThemeSlotCount": 2,
+      "partialReviewEvidence": "data/audits/theme-s4-061-090-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s4/061-090/visual-index.json",
+      "nextStart": "s4 Korean 091-121 printed artwork source and 12-theme visual review",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "S4 121장 중 001-060번 한국어 인쇄 카드 실물 및 자체 CDN 이미지의 12개 테마 시각검수 완료. 031-060 신규 50개, 누적 신규 103개 테마 슬롯. 최초 S4_027 음식 테마 및 모든 카드 보유 키 변경 금지. 061-121 검수 전 complete 금지."
+      "note": "S4 121장 중 001~090번 한국판 카드 이미지와 12테마 시각검수 완료, 신규 수록 누적 158개. 최초 음식 S4_027 및 잠자는 포켓몬 S4_084 테마 기록을 무수정 유지. 091-121 검사 완료 전 세트 complete 처리 금지."
     }
   },
   "queue": {
