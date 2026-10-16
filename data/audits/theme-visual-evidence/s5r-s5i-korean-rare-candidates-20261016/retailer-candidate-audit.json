@@ -1,0 +1,941 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-16",
+  "purpose": "Find candidate Korean retail photographs for 20 S5R/S5I 082-091 Japanese source holds",
+  "method": "Retail product card numbers and high resolution card-like image candidates; no Korean print authenticity assumed from listing title or source CDN.",
+  "source": "tcgbox.co.kr",
+  "cardCount": 20,
+  "cardLikeCandidateCount": 11,
+  "officialDirectDecodedCount": 0,
+  "contactSheet": "tcgbox-20-candidate-contact-sheet.webp.b64",
+  "originalJapaneseHoldsUnchanged": true,
+  "koreanArtworkVerifiedCount": 0,
+  "masterOrThemeFilesChanged": false,
+  "cards": [
+    {
+      "set": "s5r",
+      "number": 82,
+      "productNoGuess": 12764,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12764",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_082.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_082.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12764",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_082.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_082.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 83,
+      "productNoGuess": 12765,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12765",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_083.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_083.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12765",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_083.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_083.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 84,
+      "productNoGuess": 12766,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12766",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_084.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "e027ce14f746f59c9c302051632d074b58d69fc4015362ceb4cd4bafff098232",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_084.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "a347c8a54cd47422ee85087acd70c0e40495d03b1e830756d95583bcc1678a45",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12766",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5R/S5R_084.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_084.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_084.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 85,
+      "productNoGuess": 12767,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12767",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_085.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_085.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12767",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_085.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_085.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 86,
+      "productNoGuess": 12768,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12768",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_086.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "4b64fa4862d31ec047a62e2213afc69751139fda3c7db25d090eb0d9c4b0f83c",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_086.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "1919d1a9d379cdfb14b1ebf0ec31b19d83d999bda881a6aeae26862e0f69d0e6",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12768",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5R/S5R_086.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_086.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_086.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 87,
+      "productNoGuess": 12769,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12769",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_087.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_087.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12769",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_087.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_087.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 88,
+      "productNoGuess": 12770,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12770",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_088.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "b5df3176e38a2093cad31873ee9e4c8087f0ab8940c92c11dae1043d3b834e12",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_088.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "eac8ed3d8734605a50ee4acb130265c781860321799a9f98a26e02265aa4a9dc",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12770",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5R/S5R_088.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_088.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_088.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 89,
+      "productNoGuess": 12771,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12771",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_089.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "77909dade423aa7e2d64f0d9e87ddf6c21f2b3b54429cbc1befb8ac7ed4ad828",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_089.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "3c3ec5a3e960ef510fa5d5fe2b1e020b9c3d4b87fb95a7424d72f67190cb3ac1",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12771",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5R/S5R_089.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_089.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_089.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 90,
+      "productNoGuess": 12772,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12772",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_090.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "5cb14ae0dbec43b334ee0d470e0659b95144dc0fe2e0151a062d29f445907fe9",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_090.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "6f56a407e5c3c3755b9af5017602b687d61c2b1e3c13f57a18950928d3e3221c",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12772",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5R/S5R_090.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_090.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_090.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5r",
+      "number": 91,
+      "productNoGuess": 12773,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12773",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5R/S5R_091.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5R/S5R_091.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12773",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_091.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5R_091.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 82,
+      "productNoGuess": 12673,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12673",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_082.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            215,
+            300
+          ],
+          "hash": "3f68ba9febb01fa268e21b8302ab0a4530741fde00ae2c2f3218de5c9684a560",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_082.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "1ed9f0f6ded9171b2a305e74ab8221f6f9deeb0365ccefb865fd6db448bbb4ce",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12673",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_082.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_082.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_082.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 83,
+      "productNoGuess": 12674,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12674",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_083.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            287,
+            400
+          ],
+          "hash": "5688c33b01c46966fcb66d4e6b4eeb2dce00229b8429e4be13c1ebbe6c7e4c0c",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_083.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "0e8fa70be71afc6a6958b7a493eecb8afecb6a4c0eb025bc9d148b71fc677404",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12674",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_083.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_083.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_083.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 84,
+      "productNoGuess": 12675,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12675",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_084.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_084.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12675",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_084.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_084.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 85,
+      "productNoGuess": 12676,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12676",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_085.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            215,
+            300
+          ],
+          "hash": "aa080676647a8171ae6cf35e4ad6b4ba6b8a5799bcf91ba9cc534422404bd1eb",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_085.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "29cebfe454de6d3c01d20cd93e9ce90ab9229fc76dde2511118d8bf8659855e9",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12676",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_085.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_085.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_085.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 86,
+      "productNoGuess": 12677,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12677",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_086.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            215,
+            300
+          ],
+          "hash": "7d23d27fc1635ce9efda1766626efb5b64501df8fac896163728f2a1c8d45020",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_086.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "bd065f90c4b6c052ce0deab8a8e910bee40a5641c2ced7654b17d76bf9b426d8",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12677",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_086.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_086.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_086.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 87,
+      "productNoGuess": 12678,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12678",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_087.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_087.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12678",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_087.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_087.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 88,
+      "productNoGuess": 12679,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12679",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_088.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            215,
+            300
+          ],
+          "hash": "5f08e7dbd617fbee8e4efecd82a0f9865db07b0dd9f8ea5a28e31ffec71e05a7",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_088.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "0e5bb08eed1d795815bdbc55e38127a0d0a9c5b6b43804852abe2aa309d3b3b8",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12679",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_088.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_088.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_088.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 89,
+      "productNoGuess": 12680,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12680",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_089.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_089.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12680",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_089.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_089.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 90,
+      "productNoGuess": 12681,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12681",
+      "status": "product_found_no_valid_card_photo",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_090.jpg",
+          "selector": "meta",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_090.jpg",
+          "selector": "product_img",
+          "status": "unavailable",
+          "reason": "HTTP Error 404: Not Found"
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12681",
+      "candidateImageUrlCount": 2,
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_090.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_090.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    },
+    {
+      "set": "s5i",
+      "number": 91,
+      "productNoGuess": 12682,
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=12682",
+      "status": "candidate_photo_decoded",
+      "candidateImages": [
+        {
+          "url": "https://tcgbox.co.kr/web/product/big/S5I/S5I_091.jpg",
+          "selector": "meta",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            215,
+            300
+          ],
+          "hash": "3664487cc26dbba9593a667cce77eda0423f3c14883ba78b7be1afa6a3b17ea3",
+          "mime": "image/jpeg",
+          "cardLike": true
+        },
+        {
+          "url": "https://tcgbox.co.kr/web/product/small/S5I/S5I_091.jpg",
+          "selector": "product_img",
+          "status": "decoded",
+          "format": "JPEG",
+          "dimensions": [
+            158,
+            220
+          ],
+          "hash": "71e43e897f2f0f5b2f68e55fc44ef7c30b87a2f054e030d567c48d8cecdf4c51",
+          "mime": "image/jpeg",
+          "cardLike": false
+        }
+      ],
+      "pageTitle": "포켓몬카드 티씨지박스 TCGBOX",
+      "titleHasExpectedNumber": false,
+      "titleHasCorrectSet": false,
+      "pageUrlResolved": "https://tcgbox.co.kr/product/detail.html?product_no=12682",
+      "candidateImageUrlCount": 2,
+      "selectedImage": "https://tcgbox.co.kr/web/product/big/S5I/S5I_091.jpg",
+      "officialPokemonKoreaDirectCandidateChecks": [
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_091.png",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        },
+        {
+          "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S5/S5I_091.jpg",
+          "status": "missing",
+          "reason": "HTTP Error 415: Unsupported Media Type"
+        }
+      ]
+    }
+  ]
+}
