@@ -361,7 +361,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       } else {
         assert.match(
           card.image,
-          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev|digital-card-binder[.]github[.]io\/assets\/cards\/s8b-ur-korean|digital-card-binder[.]github[.]io\/assets\/cards\/s8-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s7d-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6a-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6k-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6h-korean-rare)\//,
+          /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|dcb-card-images-(?:legacy|modern)-2026[.]pages[.]dev|digital-card-binder[.]github[.]io\/assets\/cards\/s8b-ur-korean|digital-card-binder[.]github[.]io\/assets\/cards\/s8-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s7d-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6a-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6k-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/s6h-korean-rare|digital-card-binder[.]github[.]io\/assets\/cards\/korean-retail-sources-20261016)\//,
           card.code,
         );
       }
