@@ -156,7 +156,7 @@ for key, name in SETS.items():
     report = {
         "schemaVersion": 1, "recordedAt": DATE,
         "set": key, "name": name, "range": "031-060",
-        "masterCanonicalCards": 91,
+        "masterCanonicalCards": len(set_data["cards"]),
         "checkedCardCount": 30, "ownedImageDecodedCount": decoded,
         "ownedImageMissingCount": 30-decoded,
         "sourceHostCounts": dict(Counter(x["sourceHost"] for x in rows)),
