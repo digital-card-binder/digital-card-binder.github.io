@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15890,
-    "uniqueThemeCards": 9528,
+    "themeCardSlots": 15935,
+    "uniqueThemeCards": 9558,
     "strictCompleteSetCount": 107,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 166,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 478,
-      "setCount": 87,
+      "cardSlots": 479,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4653,
-      "setCount": 112,
+      "cardSlots": 4664,
+      "setCount": 113,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8542,
-      "setCount": 116,
+      "cardSlots": 8572,
+      "setCount": 117,
       "rarities": [
         "AR",
         "C",
@@ -202,7 +202,7 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 170,
+      "cardSlots": 171,
       "setCount": 63,
       "rarities": [
         "AR",
@@ -233,8 +233,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1107,
-      "setCount": 94,
+      "cardSlots": 1109,
+      "setCount": 95,
       "rarities": [
         "AR",
         "C",
@@ -287,7 +287,7 @@
       "cardCount": 4800,
       "completeSetCount": 43,
       "remainingSetCount": 18,
-      "currentThemeSlots": 5289
+      "currentThemeSlots": 5334
     },
     {
       "era": "SM",
@@ -421,7 +421,7 @@
       "code": "s5I",
       "name": "일격마스터",
       "cardCount": 91,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -670,11 +670,15 @@
       "cardCount": 91,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-16",
       "themeHits": {
         "sleeping": 1,
-        "food": 1
+        "night": 1,
+        "season": 11,
+        "color": 30,
+        "food": 2,
+        "street": 2
       }
     },
     {
