@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16088,
-    "uniqueThemeCards": 9670,
+    "themeCardSlots": 16136,
+    "uniqueThemeCards": 9700,
     "strictCompleteSetCount": 107,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 166,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 481,
-      "setCount": 89,
+      "cardSlots": 482,
+      "setCount": 90,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4693,
-      "setCount": 113,
+      "cardSlots": 4710,
+      "setCount": 114,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8685,
-      "setCount": 117,
+      "cardSlots": 8715,
+      "setCount": 118,
       "rarities": [
         "AR",
         "C",
@@ -287,7 +287,7 @@
       "cardCount": 4800,
       "completeSetCount": 43,
       "remainingSetCount": 18,
-      "currentThemeSlots": 5487
+      "currentThemeSlots": 5535
     },
     {
       "era": "SM",
@@ -428,7 +428,7 @@
       "code": "s4a",
       "name": "샤이니스타 V",
       "cardCount": 330,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -659,9 +659,13 @@
       "cardCount": 330,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-16",
+      "themeHits": {
+        "night": 1,
+        "season": 17,
+        "color": 30
+      }
     },
     {
       "era": "S",
