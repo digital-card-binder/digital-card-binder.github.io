@@ -9,6 +9,8 @@
   "checkedCardCount": 26,
   "decodedCandidateCount": 26,
   "unavailableCandidateCount": 0,
+  "ownedArchiveDecodedCount": 26,
+  "ownedArchiveMissingCount": 0,
   "candidateHostCounts": {
     "static.tcgexchange.kr": 26
   },
@@ -49,7 +51,8 @@
   "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
   "nextStart": "s5a Korean rare print source verification pending: 071-096",
   "contactSheets": [
-    "s5a-071-096-candidate-sheet.webp.b64"
+    "s5a-071-096-candidate-sheet.webp.b64",
+    "s5a-071-096-owned-archive-sheet.webp.b64"
   ],
   "cards": [
     {
@@ -66,6 +69,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/9b9521fd80c8a8bb.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -76,6 +80,17 @@
         "format": "PNG",
         "sha256": "c2f4fc237d5655f0d9140b00d61d766453198b40eeb66da6dbbb7589be1bb79b",
         "byteCount": 1976509
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "22e3cf8a53b83c3fd0baa15f8265a0ed5691fb2b68554f469a190aab22379b59",
+        "byteCount": 60682
       }
     },
     {
@@ -92,6 +107,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e7fb7f52824ed3b8.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -102,6 +118,17 @@
         "format": "JPEG",
         "sha256": "91e8c0efe08dc8640277c6e215e492904d0400ab1b707d844e7c001d9a8b907b",
         "byteCount": 88950
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "c6015e8cbfb7f96168d5ba4f15e78246c495d5359b3e1f70de38ab0b865c69ca",
+        "byteCount": 36566
       }
     },
     {
@@ -118,6 +145,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/73eb063d158f091d.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -128,6 +156,17 @@
         "format": "PNG",
         "sha256": "ee2ba66b1d617656a17e6fa0b83cc1b57a5d85f9436013603bf67d874ed19058",
         "byteCount": 1713515
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "sha256": "5fb3675911fab9c8449268bac34e4d93f287e5c83609527b48122e48cbbe3fc2",
+        "byteCount": 39078
       }
     },
     {
@@ -144,6 +183,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/3f044d287ffdb047.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -154,6 +194,17 @@
         "format": "PNG",
         "sha256": "98256b4bad15097106306d67336437d512d9a5aa3490c2a796805e8be99689f6",
         "byteCount": 3782686
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "1dece15280d9f053f2b356f5c85fcea30fab4c45b2e14b31626d02783a50d3cc",
+        "byteCount": 46000
       }
     },
     {
@@ -170,6 +221,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/9e2bfeca6931b16b.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -180,6 +232,17 @@
         "format": "PNG",
         "sha256": "d99b736a6e15b58d18c5bb017e0659ce464e72594cc3f8505c846a0d5d0a917e",
         "byteCount": 1961019
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "768fe12d23318b2b3ffe2f41295cf756a30b0387f27a7339b753af181dd72e0d",
+        "byteCount": 57498
       }
     },
     {
@@ -196,6 +259,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/47417d1f9e419b9a.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -206,6 +270,17 @@
         "format": "PNG",
         "sha256": "376f36164f3773c0d6674a2d707987ed30020f84055b9adb1e73e34e49c17068",
         "byteCount": 3778108
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "4292cc2047c6ad4045f6c4e02aecb0a18dbdd16811b2b591b01660ff537f349b",
+        "byteCount": 57830
       }
     },
     {
@@ -222,6 +297,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/0eeeb214c456dedf.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -232,6 +308,17 @@
         "format": "JPEG",
         "sha256": "03b64b12be78d1dba6aa42227802e61045fa4d0563b54eff64dcc048c9a37ce3",
         "byteCount": 341363
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          588
+        ],
+        "sha256": "21a681424cc44e19dfcd663bc52e8a2e7b4f214185baf00016c8b90d4270285f",
+        "byteCount": 67266
       }
     },
     {
@@ -248,6 +335,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/9986f53350b0dcfa.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -258,6 +346,17 @@
         "format": "PNG",
         "sha256": "f79fc6e4415066f52ed5866c3031c059d8f3bb4b8eb3621e61458e3260febc06",
         "byteCount": 3569053
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "sha256": "cb850da09a21cd21d77df7b56325d1fa5d652c80845d29c2e1c57871102c8469",
+        "byteCount": 65534
       }
     },
     {
@@ -274,6 +373,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1bc01cf1ca534649.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -284,6 +384,17 @@
         "format": "JPEG",
         "sha256": "aa718923bde789dcd4f3257cdd9da08e23afda6dc6d7f29b5756a820a6b40f04",
         "byteCount": 83456
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "4ae9b890855a42dcf98bb8ad0ce1dcd8d2672f05b3a1d79fab9e9249298e0670",
+        "byteCount": 34188
       }
     },
     {
@@ -300,6 +411,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1f43cf9ff4d48ae7.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -310,6 +422,17 @@
         "format": "JPEG",
         "sha256": "e380e2bd30d49b1901db6b585ebea7da07594f2fcfce1b13a516525e0c066bb3",
         "byteCount": 96504
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "434b94256c37233da0385ef1142cda816fa1973f4b5a4e244ae1ad4c95fc7bcf",
+        "byteCount": 42566
       }
     },
     {
@@ -326,6 +449,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/fd8ce9bfaa04ebca.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -336,6 +460,17 @@
         "format": "PNG",
         "sha256": "5475cf5f0d043b406254852f6219b6d0fa3a8033756882d37d1c35f024f9d977",
         "byteCount": 1939651
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "6109e7efc04eaadad578062f199192ffbc8aa3ebfe712b17051d593830351c1d",
+        "byteCount": 53174
       }
     },
     {
@@ -352,6 +487,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5f010c5e01dba8c2.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -362,6 +498,17 @@
         "format": "PNG",
         "sha256": "be90e85fadcd0c7982d4698ac8006a1dfe3b123f2f074942b2a9f71a44d44a1a",
         "byteCount": 1984911
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "07db46bf7c9eee40b4363929b2a24d785f643fee747454e7592f2776e83513ba",
+        "byteCount": 56820
       }
     },
     {
@@ -378,6 +525,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/c8662f02fc263324.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -388,6 +536,17 @@
         "format": "JPEG",
         "sha256": "9d0e63285e49dbfef4a916cd26cbff931fab369c2eff9d345758c14f028c9e84",
         "byteCount": 85995
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "cfec2cfb7845596a1ea93de5e35a181f1cc81a3251da2528501cba16a5a6207a",
+        "byteCount": 34038
       }
     },
     {
@@ -404,6 +563,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/ebcc3f2333af5e6f.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -414,6 +574,17 @@
         "format": "PNG",
         "sha256": "491c2e6d014f5c5b788bc71e43e034ebf5e52b108a9b881280fc7010b1b4090d",
         "byteCount": 1961871
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "9fb08c412bd1cf932a4dad32e3f32b92ce55a136086a1306460bb567abb5b8ba",
+        "byteCount": 55250
       }
     },
     {
@@ -430,6 +601,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/bba71d0eb6fed845.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -440,6 +612,17 @@
         "format": "JPEG",
         "sha256": "9e484f3979b064678661b8590983fd8c375a57631259d5bee65e5ba57758b267",
         "byteCount": 96562
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "a30564048cc3548425fd5799243892f0f7726815db0e1a17e5cfd7f2339ac19a",
+        "byteCount": 43974
       }
     },
     {
@@ -456,6 +639,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/3bd8fae2a0205c08.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -466,6 +650,17 @@
         "format": "PNG",
         "sha256": "abfbaa2742f3213f10dbc75722f9f5684eb9618439c67211a653b0e1baaeee0a",
         "byteCount": 810300
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          589
+        ],
+        "sha256": "1264cbed444c11a3632edde717aacdc6c03a12defc60ce69c3aab83be2954f42",
+        "byteCount": 44442
       }
     },
     {
@@ -482,6 +677,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/83ef9d552818d23b.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -492,6 +688,17 @@
         "format": "PNG",
         "sha256": "0e7b340d528d683fb4d0a75301ef457828c4a80bd7ee0b520afd5eec7f7da06d",
         "byteCount": 2011759
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "496c3c892b67121c3c89430e2e5c9168f29c1da1c8325ef652da71fe911499d7",
+        "byteCount": 73794
       }
     },
     {
@@ -508,6 +715,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/ee6e5e2de58d96ae.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -518,6 +726,17 @@
         "format": "JPEG",
         "sha256": "141c4050bcfbe10cd0c5d1c9f69803ad358cf37cece9038bc4d035bbcf6081e7",
         "byteCount": 468421
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "sha256": "9880e7643432949151806f232e765c5112ae62406824c99559f14b559e5e41e8",
+        "byteCount": 99178
       }
     },
     {
@@ -534,6 +753,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/d23313b34037e171.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -544,6 +764,17 @@
         "format": "JPEG",
         "sha256": "e3919046ff9123d8c6e03b6c807914db148434c628dfa9d5cee3c3ba82ea6b1a",
         "byteCount": 96917
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "dd1a4d65780eca2cfb7684a57b75f622fb947c1adfd1e59e4a94e5da983fb7e5",
+        "byteCount": 43938
       }
     },
     {
@@ -560,6 +791,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/a3f98fe210bfd442.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -570,6 +802,17 @@
         "format": "JPEG",
         "sha256": "dd6dedfe4c0ce7b8a345269e443a4759a1021fadeb9cb7164d8749f338e85630",
         "byteCount": 96749
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "f277e5a97d968c184b67157696f495f5fe3b5467eb030921e75888131760d4ca",
+        "byteCount": 43880
       }
     },
     {
@@ -586,6 +829,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/bd69ab337a1e77b0.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -596,6 +840,17 @@
         "format": "PNG",
         "sha256": "654912f558c150a1d841b6dd948f647a7880075d300095455cd545086c64f3b1",
         "byteCount": 1362427
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "sha256": "45ddfc7a2362af1fb12fc1540d23cb8a338f58f6f27afca80f2f6bff56a67b22",
+        "byteCount": 67712
       }
     },
     {
@@ -612,6 +867,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/df6061f2ef8af4a0.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -622,6 +878,17 @@
         "format": "WEBP",
         "sha256": "0667354f9c9fe6d4271612338685d11c787f28220363f673aee47edc1702e9af",
         "byteCount": 446086
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "sha256": "035d329a4839251a12dd11c52a9068552996371390197c5b5b2270264e6df872",
+        "byteCount": 67504
       }
     },
     {
@@ -638,6 +905,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/414587603c00c6cb.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -648,6 +916,17 @@
         "format": "PNG",
         "sha256": "c0d6e64d19181ed1d0bba100dcc5c4e204793aeebcea7183f53073df4e7ad547",
         "byteCount": 697038
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          600
+        ],
+        "sha256": "ab6b06de187a0a939b914c56f4e969bbc6379d0c8059fc02c24a7c87dd7df566",
+        "byteCount": 34390
       }
     },
     {
@@ -664,6 +943,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/b8a8179371c6524c.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -674,6 +954,17 @@
         "format": "JPEG",
         "sha256": "d51af2fff9d51a4b921970420e38c62067ddc2c23de5d01ce823088e58c733ec",
         "byteCount": 90162
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          287,
+          400
+        ],
+        "sha256": "1a78cedf290cee67df342e1c9de774e106db8b5956e9f5b54018245f50f42ad4",
+        "byteCount": 39700
       }
     },
     {
@@ -690,6 +981,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e79164fe7177e439.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -700,6 +992,17 @@
         "format": "PNG",
         "sha256": "00885f061cf8f4e38e562e894e57a15b4444a62a4f8931e3e0163735db78edde",
         "byteCount": 1716718
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "29a58ad4d65d3f26019574c70234cd4dff430a435369ab2c4065d65072a66080",
+        "byteCount": 69304
       }
     },
     {
@@ -716,6 +1019,7 @@
       "koreanPrintVisuallyVerified": false,
       "themeClassificationApplied": false,
       "holdReason": "Printed Korean rare image identity not independently visually verified",
+      "ownedCandidateUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/c223675a3dedfe19.webp",
       "candidateImageInspection": {
         "status": "decoded_unverified_region",
         "http": 200,
@@ -726,6 +1030,17 @@
         "format": "PNG",
         "sha256": "2d6e84c25f160c7858fc8cf0ad1e3b6ded98dca5edb04eba035b19c7e898a138",
         "byteCount": 690230
+      },
+      "ownedImageInspection": {
+        "status": "decoded_owned_archive",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          587
+        ],
+        "sha256": "069c881bf24bff2b09f25f4837ee0eb7107998ad13c8cf0721b8a1d7c75b3048",
+        "byteCount": 39734
       }
     }
   ],
