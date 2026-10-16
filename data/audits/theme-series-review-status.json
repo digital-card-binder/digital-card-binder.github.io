@@ -63174,13 +63174,14 @@
       "status": "in_progress",
       "reviewedAt": "2026-10-16",
       "masterSetCardCount": 96,
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 70,
+      "reviewedCardCount": 70,
+      "verifiedKoreanPrintImageCount": 70,
+      "verifiedSelfHostedImageCount": 70,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-070"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63196,14 +63197,14 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 99,
+      "newlyAddedThemeSlotCount": 115,
       "heldCards": [],
       "unresolvedImageIssues": [],
-      "partialReviewEvidence": "data/audits/theme-s5a-031-060-Korean-art-review-20261016.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5a/031-060/visual-index.json",
-      "nextStart": "s5a canonical 061-096",
+      "partialReviewEvidence": "data/audits/theme-s5a-061-070-Korean-art-review-20261016.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5a/061-070/visual-index.json",
+      "nextStart": "s5a Korean rare print source verification pending: 071-096",
       "complete": false,
-      "note": "쌍벽의 파이터 한국판 001~060번 실제 이미지와 12개 독립 테마 검수 완료. 신규 031~060번 46개, 누적 99개 신규 테마 슬롯. 공식 한국판 이미지 60장 자체 CDN 표시. 061~096번 추가 검수 필요, 기존 S5a_061 테마 및 보유 ID 유지. S6K 글로벌 보류 4장 보존."
+      "note": "쌍벽의 파이터 공식 한국판 001~070번 실제 이미지 12개 독립 테마 전수 검수, 신규 테마 항목 누적 115개. 기존 S5a_061 봄·벚꽃 시즌 테마 보존, 카드 원본 보유 키 96개 모두 그대로. 희귀 071~096 26장의 한국판 인쇄 이미지 불확실하여 완료 처리 금지. S6K 글로벌 보류 그대로."
     }
   },
   "queue": {
