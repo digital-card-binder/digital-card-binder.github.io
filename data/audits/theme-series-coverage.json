@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15843,
-    "uniqueThemeCards": 9499,
+    "themeCardSlots": 15890,
+    "uniqueThemeCards": 9528,
     "strictCompleteSetCount": 107,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 166,
@@ -127,7 +127,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4640,
+      "cardSlots": 4653,
       "setCount": 112,
       "rarities": [
         "AR",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8512,
-      "setCount": 115,
+      "cardSlots": 8542,
+      "setCount": 116,
       "rarities": [
         "AR",
         "C",
@@ -175,8 +175,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 248,
-      "setCount": 68,
+      "cardSlots": 249,
+      "setCount": 69,
       "rarities": [
         "AR",
         "C",
@@ -233,8 +233,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1104,
-      "setCount": 93,
+      "cardSlots": 1107,
+      "setCount": 94,
       "rarities": [
         "AR",
         "C",
@@ -287,7 +287,7 @@
       "cardCount": 4800,
       "completeSetCount": 43,
       "remainingSetCount": 18,
-      "currentThemeSlots": 5242
+      "currentThemeSlots": 5289
     },
     {
       "era": "SM",
@@ -414,7 +414,7 @@
       "code": "s5R",
       "name": "연격마스터",
       "cardCount": 91,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -684,10 +684,13 @@
       "cardCount": 91,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-16",
       "themeHits": {
-        "season": 1
+        "season": 14,
+        "color": 30,
+        "sunset": 1,
+        "street": 3
       }
     },
     {
