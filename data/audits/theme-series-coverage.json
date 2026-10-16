@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16660,
-    "uniqueThemeCards": 10087,
-    "strictCompleteSetCount": 107,
+    "themeCardSlots": 16696,
+    "uniqueThemeCards": 10118,
+    "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 166,
+    "baselineRemainingSetCount": 165,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -127,7 +127,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4814,
+      "cardSlots": 4816,
       "setCount": 115,
       "rarities": [
         "AR",
@@ -149,7 +149,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9104,
+      "cardSlots": 9135,
       "setCount": 119,
       "rarities": [
         "AR",
@@ -233,7 +233,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1124,
+      "cardSlots": 1127,
       "setCount": 97,
       "rarities": [
         "AR",
@@ -286,9 +286,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 43,
-      "remainingSetCount": 18,
-      "currentThemeSlots": 6059
+      "completeSetCount": 44,
+      "remainingSetCount": 17,
+      "currentThemeSlots": 6095
     },
     {
       "era": "SM",
@@ -433,13 +433,6 @@
     },
     {
       "era": "S",
-      "code": "s4",
-      "name": "앙천의 볼트태클",
-      "cardCount": 121,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
       "code": "s3a",
       "name": "전설의 고동",
       "cardCount": 94,
@@ -549,6 +542,13 @@
       "name": "스타터 세트 TAG TEAM GX",
       "cardCount": 33,
       "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "sm60B",
+      "name": "전격 스타터 세트 「라이코 GX」",
+      "cardCount": 23,
+      "status": "pending"
     }
   ],
   "sets": [
@@ -646,16 +646,16 @@
       "cardCount": 121,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-17",
       "themeHits": {
         "sleeping": 2,
         "night": 4,
-        "season": 55,
-        "color": 90,
+        "season": 57,
+        "color": 121,
         "sunset": 1,
         "food": 2,
-        "street": 5,
+        "street": 8,
         "cameo": 1
       }
     },
