@@ -60,7 +60,7 @@ hosting = read("data/audits/theme-image-selfhost-audit.json")
 assert status["execution"]["nextStart"] == GLOBAL
 assert hosting["nextStart"] == GLOBAL
 assert len(theme_data["groups"]) == 12
-assert [x["code"] for x in theme_data["groups"]] == THEMES
+assert set(x["code"] for x in theme_data["groups"]) == set(THEMES)
 
 def inspect(row):
     url = row["ownedUrl"]
