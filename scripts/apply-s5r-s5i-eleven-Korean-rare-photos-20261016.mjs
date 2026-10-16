@@ -105,7 +105,7 @@ for(const cfg of configs){
     oldThemeCards.some(c=>!themes.groups.some(g=>g.cards.includes(c)))||
     codes.some((code,i)=>code!==set.cards[i].code)||
     originalUnheld.some((c,i)=>c.other!==JSON.stringify(Object.fromEntries(
-      Object.entries(set.cards[i]).filter(([k])=>!["image","sourceImage"].includes(k)))))
+      Object.entries(set.cards[i]).filter(([k])=>!["image","sourceImage"].includes(k))))))
   throw Error("Pre-existing card ownership / artwork metadata changed "+cfg.code);
  for(const row of remaining){
   const n=row.n,num=String(n).padStart(3,"0"),card=set.cards[n-1];
