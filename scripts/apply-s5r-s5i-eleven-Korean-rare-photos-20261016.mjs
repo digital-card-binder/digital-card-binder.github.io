@@ -87,17 +87,18 @@ for(const cfg of configs){
   if(themes.groups.some(g=>g.cards.some(c=>String(c.code||"").toUpperCase()===setcode+"_"+num)))
    throw Error("Existing artwork would be overwritten "+expectedCode);
   const originalImage=master.image, originalSource=master.sourceImage||"";
-  master.image=own;master.sourceImage=own;
+  const publicOwnedUrl="https://digital-card-binder.github.io"+own;
+  master.image=publicOwnedUrl;master.sourceImage=publicOwnedUrl;
   groups.get("color").cards.push({
    code:setcode+"_"+num,name:master.name,series:"S",set:set.code,
    setName:set.displayName||(cfg.code==="s5r"?"연격마스터":"일격마스터"),
    cardNumber:num+"/070",rarity:master.rarity,
-   category:row.colorCategory,image:own,
+   category:row.colorCategory,image:publicOwnedUrl,
    evidence:"한국어 인쇄 희귀 카드 시각 대조 "+expectedCode+
     " (임시 리테일 출처, TCGBOX 워터마크 유지, "+
     "사진 백업: "+own+", 감사기록: "+AR+")"
   });
-  added.push({number:n,code:expectedCode,originalImage,originalSource,localImage:own,
+  added.push({number:n,code:expectedCode,originalImage,originalSource,localImage:publicOwnedUrl,
    watermark:true,provisional:true});
  }
  if(added.length!==cfg.expectedAdds||
