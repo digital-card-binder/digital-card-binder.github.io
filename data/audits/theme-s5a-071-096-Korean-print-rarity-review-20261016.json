@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-16",
+  "set": "s5a",
+  "name": "쌍벽의 파이터",
+  "range": "071-096",
+  "status": "manual_Korean_print_and_rarity_inspection",
+  "method": "Inspect 26-card contact sheet created from the existing Korean-script source images and independently decoded DCB-owned WebP mirror for all 26; match printed set-code/number, Korean title and card artwork against the canonical S5a identity. Korean-language visible on images. Secondary Korean card listing and historic S5a rarity roster used to cross-check six outliers.",
+  "canonicalSetCount": 96,
+  "inspectedRarePrints": 26,
+  "decodedOwnedSourceCount": 26,
+  "sourceEvidence": "data/audits/theme-visual-evidence/s5a/071-096/rare-source-triage.json",
+  "ownedContactSheet": "data/audits/theme-visual-evidence/s5a/071-096/s5a-071-096-owned-archive-sheet.webp.b64",
+  "candidateContactSheet": "data/audits/theme-visual-evidence/s5a/071-096/s5a-071-096-candidate-sheet.webp.b64",
+  "crossChecks": [
+    "https://collectory.cc/sets/1ec93be9-c0e7-46c3-9ab9-faa79a180ed3?region=kr&sort=rarity_desc&type=POKEMON",
+    "https://m.namu.moe/w/%EC%8C%8D%EB%B2%BD%EC%9D%98%20%ED%8C%8C%EC%9D%B4%ED%84%B0",
+    "https://www.pokeguardian.com/628891_s5a-matchless-fighters-all-sr-hr-ur-cards"
+  ],
+  "rarityCorrections": [
+    {
+      "number": 71,
+      "code": "s5a_071/070",
+      "name": "번치코 V",
+      "from": "U",
+      "to": "SR"
+    },
+    {
+      "number": 72,
+      "code": "s5a_072/070",
+      "name": "파치래곤 V",
+      "from": "U",
+      "to": "SR"
+    },
+    {
+      "number": 85,
+      "code": "s5a_085/070",
+      "name": "번치코 VMAX",
+      "from": "SR",
+      "to": "HR"
+    },
+    {
+      "number": 86,
+      "code": "s5a_086/070",
+      "name": "번치코 VMAX",
+      "from": "SR",
+      "to": "HR",
+      "note": "Alternative illustration is called AHR by some Korean collector lists; primary rarity tier HR."
+    },
+    {
+      "number": 93,
+      "code": "s5a_093/070",
+      "name": "잠만보",
+      "from": "HR",
+      "to": "UR"
+    },
+    {
+      "number": 94,
+      "code": "s5a_094/070",
+      "name": "너울의 부채",
+      "from": "HR",
+      "to": "UR"
+    }
+  ],
+  "expectedRareCountsAfterCorrection": {
+    "SR": 14,
+    "HR": 8,
+    "UR": 4
+  },
+  "reviewedPrintNumbers": [
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96
+  ],
+  "noCardAdditionOrDeletion": true,
+  "noCardIdOrOwnershipKeyChanges": true,
+  "themeArtMemberships": "unchanged until independent 12-theme artwork review",
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "notes": "Source images from static.tcgexchange.kr are not claimed to be first-party Pokemon Korea originals. All 26 assets were previously mirrored to DCB-owned CDN and decoded. This record marks a distinct visual Korean-script/rank review after source provenance preflight; it does not itself trigger theme membership application."
+}
