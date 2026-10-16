@@ -98,7 +98,7 @@ for key, name in SETS.items():
     rows = []
     for i in range(30):
         number = i + 31
-        c = set_data["cards"][i]
+        c = set_data["cards"][number - 1]
         code = str(c.get("code") or "")
         pattern = rf"^{key}_{number:03d}/\d{{3}}$"
         assert re.fullmatch(pattern, code.lower()), (key, number, code)
