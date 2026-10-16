@@ -4,7 +4,7 @@ const save=async(p,x)=>writeFile(p,JSON.stringify(x,null,2)+"\n","utf8");
 const CODE="s4a",DATE="2026-10-16",GLOBAL="s6K Korean print source pending: 089,090,092,094";
 const REVIEW="data/audits/theme-s4a-061-090-Korean-art-review-20261016.json";
 const PROOF="data/audits/theme-visual-evidence/s4a/061-090/visual-index.json";
-const PREVIOUS="data/audits/theme-s4a-001-030-progress-20261016.json";
+const PREVIOUS="data/audits/theme-s4a-031-060-progress-20261016.json";
 const PROGRESS="data/audits/theme-s4a-061-090-progress-20261016.json";
 const NEXT="s4a Korean 091-120 12-theme artwork review";
 const THEMES=["sleeping","connected","evolution","night","season","color","sunset","reflections","food","street","work","cameo"];
@@ -22,7 +22,7 @@ const key=Object.keys(status.reviews||{}).find(k=>k.toLowerCase()===CODE);
 if(!key)throw Error("Previous S4a review state missing");
 const meta=status.reviews[key];
 if(meta.artworkReviewedCardCount===90&&meta.reviewedRanges?.includes("061-090")){
- console.log("Already approved 60 Korean S4a artworks: safe no-op");process.exit(0);
+ console.log("Already approved 90 Korean S4a artworks: safe no-op");process.exit(0);
 }
 if(status.execution?.nextStart!==GLOBAL||hosting.nextStart!==GLOBAL||
  coverage.sets.find(s=>String(s.code).toLowerCase()===CODE)?.status!=="in_progress"||
@@ -33,7 +33,7 @@ if(status.execution?.nextStart!==GLOBAL||hosting.nextStart!==GLOBAL||
  JSON.stringify(meta.reviewedRanges)!==JSON.stringify(["001-030","031-060"])||
  previous.KoreanPrintArtworksReviewed!==60||previous.newlyAddedThemeSlotsCumulative!==92||
  previous.globalCheckpointPreserved!==GLOBAL||previous.totalMasterCards!==330)
- throw Error("Previous S4a 001-030 approval state / historic S6K holds altered");
+ throw Error("Previous S4a 001-060 approval state / historic S6K holds altered");
 if(review.set!==CODE||review.range!=="061-090"||
  review.status!=="manual_Korean_artwork_12_theme_reviewed"||
  !review.all12ThemesInspected||review.artworksReviewed!==30||
