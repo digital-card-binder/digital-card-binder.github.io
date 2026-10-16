@@ -74,16 +74,17 @@ for(let i=0;i<10;i++){
  [...chosen].some(t=>!THEMES.includes(t)||!row.categories?.[t]?.trim())||
  Object.keys(row.categories||{}).some(t=>!chosen.has(t)))
  throw Error("Invalid visual 12-theme classification "+id);
+ const priorForCard=themes.groups.flatMap(g=>g.cards.filter(c=>String(c.code||"").toUpperCase()===key.toUpperCase()));
+ if(n===61){
+   if(priorForCard.length!==1||priorForCard[0]!==original061[0])
+     throw Error("Unexpected preexisting S5a 061 artwork memberships");
+ }else if(priorForCard.length)throw Error("Refuse to overwrite existing S5a artwork "+id);
  for(const t of chosen){
-   const same=groups.get(t).cards.filter(c=>String(c.code||"").toUpperCase()===key.toUpperCase());
    if(n===61&&t==="season"){
-     if(same.length!==1||same[0]!==original061[0])
-       throw Error("Expected preserved preexisting S5a 061 season theme");
+     if(!groups.get(t).cards.includes(original061[0]))
+       throw Error("Preserve S5a 061 spring artwork");
      continue;
    }
-   if(same.length||themes.groups.some(g=>g.code!==t&&g.cards.some(c=>String(c.code).toUpperCase()===key.toUpperCase())))
-     // For S5a 061 the original season is intentionally present.
-     if(n!==61)throw Error("Refusing overwrites or duplicates "+id);
    groups.get(t).cards.push({
      code:key,name:master.name,series:"S",set:set.code,
      setName:set.displayName||"쌍벽의 파이터",
