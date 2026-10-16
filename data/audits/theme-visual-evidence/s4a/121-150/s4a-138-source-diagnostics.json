@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-16",
+  "card": "s4a_138/190",
+  "purpose": "Investigate one missing self-hosted Korean official S4a image while preserving printed-language/card-ID evidence",
+  "status": "source_diagnostics_only",
+  "officialSourceConfirmed": false,
+  "ownedArchiveConfirmed": false,
+  "masterOrThemeMutation": false,
+  "sources": [
+    {
+      "url": "https://dcb-card-images-modern-2026.pages.dev/data/wmimages/S/S4a/S4a_138.webp",
+      "decoded": false,
+      "http": 200,
+      "mime": "image/webp",
+      "bytes": 518,
+      "prefix": "52494646fe01000057454250",
+      "error": "Too small or large to be a Pokemon card image"
+    },
+    {
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_138.png",
+      "decoded": false,
+      "http": 200,
+      "mime": "image/png",
+      "bytes": 1899,
+      "prefix": "89504e470d0a1a0a0000000d",
+      "error": "Too small or large to be a Pokemon card image"
+    },
+    {
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_138.jpg",
+      "decoded": false,
+      "error": "HTTP Error 415: Unsupported Media Type"
+    },
+    {
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S4a/S4a_138.webp",
+      "decoded": false,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}
