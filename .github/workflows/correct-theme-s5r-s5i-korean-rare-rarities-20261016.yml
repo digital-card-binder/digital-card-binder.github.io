@@ -1,0 +1,56 @@
+name: Correct eight Korean S5R S5I HR UR labels without affecting image holds
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/correct-theme-s5r-s5i-korean-rare-rarities-20261016.yml'
+      - 'scripts/correct-theme-s5r-s5i-korean-rare-rarities-20261016.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s5r-s5i-rare-rarity-correction
+  cancel-in-progress: false
+jobs:
+  verify-and-apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply Korean rarity corrections strictly preserving all card IDs and Japanese image holds
+        run: node scripts/correct-theme-s5r-s5i-korean-rare-rarities-20261016.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit only verified rarity metadata after all site checks pass
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/series.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "fix(s5r,s5i): correct eight Korean HR and UR rarities; preserve card keys"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/correct-theme-s5r-s5i-korean-rare-rarities-20261016.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
