@@ -75,7 +75,7 @@ for(let i=0;i<30;i++){
    (!pre.sourceAppearsPokemonKoreaOfficial&&pre.sourceHost==="static.tcgexchange.kr"&&
     /^https:\/\/static\.tcgexchange\.kr\/[0-9a-f]{32}\.(png|jpg)$/.test(pre.sourceUrl||"")&&
     /^https:\/\/dcb-card-images-legacy-2026\.pages\.dev\/external\/static\.tcgexchange\.kr\/[0-9a-f]{16}\.webp$/.test(pre.ownedUrl||"")&&
-    row.sourceEvidence==="thirdparty-korean-card-image-and-dcb-legacy-mirror"))||
+    row.sourceEvidence==="thirdparty-korean-card-image-and-dcb-legacy-mirror-not-official"))||
  !pre.imageCheck?.sha256||!/^([0-9a-f]{64})$/.test(pre.imageCheck.sha256)||
  pre.imageCheck?.status!=="decoded_region_unverified"||
  pre.imageCheck?.http!==200||pre.imageCheck?.format!=="WEBP")
