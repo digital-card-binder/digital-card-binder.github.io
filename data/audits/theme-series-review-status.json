@@ -63208,13 +63208,14 @@
       "note": "S5a 쌍벽의 파이터 96개 한국어 카드번호 실물 이미지 12테마 시각검수 완료(기존 70 + 한국판 희귀 26), 신규 테마 멤버십 누적 144건. 26장 원본은 외부 출처를 보존하며 자체 DCB 이미지 CDN 26/26 디코딩 확인. 기존 S5a_061 봄 테마·카드 ID·보유키 유지. 타 세트 S6K 글로벌 보류 유지."
     },
     "s5R": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 81,
+      "reviewedCardCount": 81,
+      "verifiedKoreanPrintImageCount": 81,
+      "verifiedSelfHostedImageCount": 81,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-081"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63230,23 +63231,37 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 91,
-      "partialReviewEvidence": "data/audits/theme-s5r-031-060-Korean-art-review-20261016.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5r/031-060/visual-index.json",
-      "nextStart": "s5r Korean final 061-091 visual and print provenance review",
+      "newlyAddedThemeSlotCount": 120,
+      "partialReviewEvidence": "data/audits/theme-s5r-061-081-Korean-art-review-20261016.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5r/061-091/visual-index.json",
+      "nextStart": "s5r Korean rare print source pending: 082-091",
       "reviewedAt": "2026-10-16",
       "status": "in_progress",
       "complete": false,
-      "note": "S5R 연격마스터 한국어판 001~060 공식 삽화 12개 테마 검수, 신규 91개 테마 멤버십 누적. S5R_006 기존 시즌 카드·91개 마스터 카드 키 보존. 061~091 검증 전까지 완료 처리 금지."
+      "note": "S5R 91장 중 공식 한국판 001~081번 12테마 검수 완료. 082~091번 현재 일본어판 이미지로 추후 한국판 출처 10개 추가 확인 필요. 기존 도감 카드 보유 ID 보존; 미검증 희귀 10장 때문에 완료 표시 금지.",
+      "heldRareCardNumbers": [
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91
+      ],
+      "heldForeignImageEvidence": "data/audits/theme-s5r-s5i-082-091-Japanese-image-holds-20261016.json"
     },
     "s5I": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 81,
+      "reviewedCardCount": 81,
+      "verifiedKoreanPrintImageCount": 81,
+      "verifiedSelfHostedImageCount": 81,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-081"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63262,14 +63277,27 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 88,
-      "partialReviewEvidence": "data/audits/theme-s5i-031-060-Korean-art-review-20261016.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5i/031-060/visual-index.json",
-      "nextStart": "s5i Korean final 061-091 visual and print provenance review",
+      "newlyAddedThemeSlotCount": 114,
+      "partialReviewEvidence": "data/audits/theme-s5i-061-081-Korean-art-review-20261016.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s5i/061-091/visual-index.json",
+      "nextStart": "s5i Korean rare print source pending: 082-091",
       "reviewedAt": "2026-10-16",
       "status": "in_progress",
       "complete": false,
-      "note": "S5I 일격마스터 한국어판 001~060 공식 삽화 12개 테마 검수, 신규 88개 테마 멤버십 누적. 기존 2개 테마 항목과 91개 마스터 카드 키 보존. 061~091 검증 전까지 완료 처리 금지."
+      "note": "S5I 91장 중 공식 한국판 001~081번 12테마 검수 완료. 082~091번 현재 일본어판 이미지로 추후 한국판 출처 10개 추가 확인 필요. 기존 도감 카드 보유 ID 보존; 미검증 희귀 10장 때문에 완료 표시 금지.",
+      "heldRareCardNumbers": [
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91
+      ],
+      "heldForeignImageEvidence": "data/audits/theme-s5r-s5i-082-091-Japanese-image-holds-20261016.json"
     }
   },
   "queue": {
