@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16502,
-    "uniqueThemeCards": 9999,
+    "themeCardSlots": 16555,
+    "uniqueThemeCards": 10028,
     "strictCompleteSetCount": 107,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 166,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4759,
-      "setCount": 114,
+      "cardSlots": 4782,
+      "setCount": 115,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9014,
-      "setCount": 118,
+      "cardSlots": 9044,
+      "setCount": 119,
       "rarities": [
         "AR",
         "C",
@@ -287,7 +287,7 @@
       "cardCount": 4800,
       "completeSetCount": 43,
       "remainingSetCount": 18,
-      "currentThemeSlots": 5901
+      "currentThemeSlots": 5954
     },
     {
       "era": "SM",
@@ -435,7 +435,7 @@
       "code": "s4",
       "name": "앙천의 볼트태클",
       "cardCount": 121,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -645,10 +645,12 @@
       "cardCount": 121,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
       "themeHits": {
         "sleeping": 1,
+        "season": 23,
+        "color": 30,
         "food": 1
       }
     },
