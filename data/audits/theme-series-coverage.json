@@ -36,11 +36,11 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 15814,
-    "uniqueThemeCards": 9473,
-    "strictCompleteSetCount": 106,
+    "themeCardSlots": 15843,
+    "uniqueThemeCards": 9499,
+    "strictCompleteSetCount": 107,
     "baselineSetCount": 273,
-    "baselineRemainingSetCount": 167,
+    "baselineRemainingSetCount": 166,
     "incrementalSetCount": 0,
     "incrementalIncompleteSetCount": 0,
     "changedBaselineSetCount": 0,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 174,
-      "setCount": 78,
+      "cardSlots": 175,
+      "setCount": 79,
       "rarities": [
         "AR",
         "C",
@@ -76,7 +76,8 @@
         "R",
         "SAR",
         "SR",
-        "U"
+        "U",
+        "UR"
       ]
     },
     {
@@ -109,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 477,
-      "setCount": 86,
+      "cardSlots": 478,
+      "setCount": 87,
       "rarities": [
         "AR",
         "C",
@@ -148,7 +149,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 8486,
+      "cardSlots": 8512,
       "setCount": 115,
       "rarities": [
         "AR",
@@ -232,7 +233,7 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1103,
+      "cardSlots": 1104,
       "setCount": 93,
       "rarities": [
         "AR",
@@ -284,9 +285,9 @@
       "era": "S",
       "setCount": 61,
       "cardCount": 4800,
-      "completeSetCount": 42,
-      "remainingSetCount": 19,
-      "currentThemeSlots": 5213
+      "completeSetCount": 43,
+      "remainingSetCount": 18,
+      "currentThemeSlots": 5242
     },
     {
       "era": "SM",
@@ -406,13 +407,6 @@
       "code": "s6H",
       "name": "백은의 랜스",
       "cardCount": 95,
-      "status": "in_progress"
-    },
-    {
-      "era": "S",
-      "code": "s5a",
-      "name": "쌍벽의 파이터",
-      "cardCount": 96,
       "status": "in_progress"
     },
     {
@@ -546,6 +540,13 @@
       "code": "SML",
       "name": "패밀리 포켓몬 카드 게임",
       "cardCount": 57,
+      "status": "pending"
+    },
+    {
+      "era": "SM",
+      "code": "SMM",
+      "name": "스타터 세트 TAG TEAM GX",
+      "cardCount": 33,
       "status": "pending"
     }
   ],
@@ -696,13 +697,15 @@
       "cardCount": 96,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "in_progress",
+      "status": "complete",
       "reviewedAt": "2026-10-16",
       "themeHits": {
+        "sleeping": 1,
+        "night": 1,
         "season": 41,
-        "color": 70,
+        "color": 96,
         "food": 1,
-        "street": 4
+        "street": 5
       }
     },
     {
