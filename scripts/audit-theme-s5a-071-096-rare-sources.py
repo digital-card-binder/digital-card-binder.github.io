@@ -29,6 +29,25 @@ sets = [s for s in read("data/series.json") + read("data/series-legacy.json")
         if str(s.get("code", "")).lower() == "s5a"]
 assert len(sets) == 1 and len(sets[0]["cards"]) == 96
 cards = sets[0]["cards"]
+def own_cdn_destination(url):
+    split = urlsplit(url)
+    if split.scheme not in ("https", "http") or not split.hostname:
+        return ""
+    source = f"{split.scheme}://{split.netloc}{split.path}"
+    if split.hostname == "cards.image.pokemonkorea.co.kr":
+        path = split.path.lstrip("/")
+        if not path.startswith("data/wmimages/") or "." not in path:
+            return ""
+        root = path.split("/")[2].upper()
+        project = "modern" if root in {"MEGA", "S", "SV"} else "legacy"
+        return f"https://dcb-card-images-{project}-2026.pages.dev/{path.rsplit('.', 1)[0]}.webp"
+    h = 0xcbf29ce484222325
+    for ch in source:
+        h ^= ord(ch)
+        h = h * 0x100000001b3 & 0xffffffffffffffff
+    return (f"https://dcb-card-images-legacy-2026.pages.dev/"
+            f"external/{split.hostname}/{h:016x}.webp")
+
 rows = []
 for n in range(71, 97):
     card = cards[n - 1]
@@ -58,6 +77,38 @@ for n in range(71, 97):
         "themeClassificationApplied": False,
         "holdReason": "Printed Korean rare image identity not independently visually verified"
     })
+
+for row in rows:
+    row["ownedCandidateUrl"] = own_cdn_destination(row["candidateUrl"])
+
+def inspect_owned(row):
+    url = row["ownedCandidateUrl"]
+    check = {"status": "not_available", "http": None}
+    photo = None
+    if urlsplit(url).hostname not in {"dcb-card-images-modern-2026.pages.dev",
+                                        "dcb-card-images-legacy-2026.pages.dev"}:
+        check["status"] = "no_owned_destination"
+        return row["canonicalOrder"], check, photo
+    try:
+        with urlopen(Request(url, headers={"User-Agent": "DCB-Owned-Rare-Audit/1.0"}),
+                     timeout=18) as response:
+            check["http"] = response.status
+            body = response.read(6_000_001)
+        if not 1000 < len(body) <= 6_000_000:
+            raise ValueError("Owned image size outside limits")
+        loaded = Image.open(BytesIO(body))
+        loaded.load()
+        if loaded.format != "WEBP" or loaded.width < 150 or loaded.height < 200:
+            raise ValueError("Owned image not valid WebP card asset")
+        check.update(status="decoded_owned_archive", format=loaded.format,
+                     dimensions=[loaded.width, loaded.height],
+                     sha256=sha256(body).hexdigest(), byteCount=len(body))
+        photo = loaded.convert("RGB")
+        photo.thumbnail((205, 280))
+    except Exception as exc:
+        check["status"] = "owned_archive_missing"
+        check["error"] = f"{type(exc).__name__}: {str(exc)}"[:200]
+    return row["canonicalOrder"], check, photo
 
 def inspect(row):
     check = {"status": "not_checked", "http": None}
@@ -115,8 +166,35 @@ canvas.save(sheet, format="WEBP", quality=77, method=4)
 
 for row in rows:
     row["candidateImageInspection"] = found[row["canonicalOrder"]][0]
+with ThreadPoolExecutor(max_workers=5) as workers:
+    owned = {n: (detail, photo) for n, detail, photo in workers.map(inspect_owned, rows)}
+own_sheet = Image.new("RGB", (5 * 240, 6 * 345), (247, 247, 247))
+own_draw = ImageDraw.Draw(own_sheet)
+for i, row in enumerate(rows):
+    n = row["canonicalOrder"]
+    check, photo = owned[n]
+    x, y = (i % 5) * 240, (i // 5) * 345
+    own_draw.rectangle((x + 2, y + 2, x + 237, y + 342),
+                       outline=(130, 130, 130), width=2)
+    if photo is not None:
+        own_sheet.paste(photo, (x + (240 - photo.width) // 2, y + 5))
+    else:
+        own_draw.text((x + 12, y + 130), "OWN CDN MISSING", fill=(30, 30, 30))
+    own_draw.text((x + 8, y + 284), f"{n:03d} {row['code']}", fill=(20, 20, 20))
+    own_draw.text((x + 8, y + 306), check["status"][:30], fill=(30, 30, 30))
+    own_draw.text((x + 8, y + 325), "REGION STILL NEEDS PROOF", fill=(130, 10, 10))
+own_sheet_buf = BytesIO()
+own_sheet.save(own_sheet_buf, format="WEBP", quality=77, method=4)
+(OUT / "s5a-071-096-owned-archive-sheet.webp.b64").write_text(
+    base64.b64encode(own_sheet_buf.getvalue()).decode("ascii"), encoding="ascii")
+
+for row in rows:
+    row["ownedImageInspection"] = owned[row["canonicalOrder"]][0]
+
 decoded = sum(r["candidateImageInspection"]["status"] == "decoded_unverified_region"
               for r in rows)
+owned_decoded = sum(r["ownedImageInspection"]["status"] == "decoded_owned_archive"
+                    for r in rows)
 record = {
     "schemaVersion": 1,
     "recordedAt": "2026-10-16",
@@ -128,6 +206,8 @@ record = {
     "checkedCardCount": len(rows),
     "decodedCandidateCount": decoded,
     "unavailableCandidateCount": 26 - decoded,
+    "ownedArchiveDecodedCount": owned_decoded,
+    "ownedArchiveMissingCount": 26 - owned_decoded,
     "candidateHostCounts": dict(sorted(Counter(r["candidateHost"] for r in rows).items())),
     "officialKoreanUrlShapeCount": sum(r["officialKoreanImageUrlShapeOnly"] for r in rows),
     "visuallyVerifiedKoreanPrintCount": 0,
@@ -138,7 +218,8 @@ record = {
     "existingNewThemeMembershipsUnchanged": 115,
     "globalCheckpointPreserved": progress["globalCheckpointPreserved"],
     "nextStart": progress["nextStart"],
-    "contactSheets": ["s5a-071-096-candidate-sheet.webp.b64"],
+    "contactSheets": ["s5a-071-096-candidate-sheet.webp.b64",
+                      "s5a-071-096-owned-archive-sheet.webp.b64"],
     "cards": rows,
     "safety": "This audit never changes series/card IDs, user ownership, theme memberships, or Korean approval state. A decoded candidate or Korean-looking host is NOT Korean print verification."
 }
@@ -148,6 +229,7 @@ assert len(rows) == 26 and record["heldCardNumbers"] == progress["heldRareCardNu
 print(json.dumps({
     "set": "s5a", "range": "071-096", "checked": 26,
     "decodedCandidatesUnverified": decoded,
+    "decodedSelfHostedArchive": owned_decoded,
     "sourceHosts": record["candidateHostCounts"],
     "heldKoreanRares": 26,
     "themeCardsUnchanged": True,
