@@ -63703,12 +63703,13 @@
       "heldRange": "070-073"
     },
     "sm1m": {
-      "artworkReviewedCardCount": 30,
-      "reviewedCardCount": 30,
-      "verifiedKoreanPrintImageCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "artworkReviewedCardCount": 60,
+      "reviewedCardCount": 60,
+      "verifiedKoreanPrintImageCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63724,15 +63725,15 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 49,
+      "newlyAddedThemeSlotCount": 98,
       "preservedExistingThemeSlotCount": 0,
-      "partialReviewEvidence": "data/audits/theme-sm1m-001-030-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/sm1m/001-030/visual-index.json",
-      "nextStart": "SM1M 문 컬렉션 031-060 한국판 이미지 및 12테마 개별 시각검수",
+      "partialReviewEvidence": "data/audits/theme-sm1m-031-060-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/sm1m/031-060/visual-index.json",
+      "nextStart": "SM1M 문 컬렉션 061-073 한국판 자체 이미지 및 12테마 검수",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "SM1M 문 컬렉션 한국어판 86장 중 001-030 30장 한국어 인쇄 이미지와 12테마 개별 검수. 신규 49건, 기존 SM1M 테마 0건 확인. 43장 검수 전 완료 금지. S2a 일본어 8장·S2/S3 일본어 9장씩·S6K 4건 보류 및 사용자 보유 정보 보존."
+      "note": "SM1M 문 컬렉션 001-060 60장 한국어 카드 이미지와 12테마 시각검수. 신규 테마 누적 98건, 기존 문 컬렉션 테마 0건. 마지막 13장 검수 전 완료 아님. S2a/S2/S3/S6K 보류·원본 카드 및 유저 보유 상태 유지."
     }
   },
   "queue": {
