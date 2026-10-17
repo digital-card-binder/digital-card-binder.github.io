@@ -1,0 +1,61 @@
+name: Self-host approved M6a 136-165 Korean artwork
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync-m6a-136-165-official-korean-images.py'
+      - '.github/workflows/sync-m6a-136-165-korean-artwork.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sync-m6a-136-165-own-korean-art
+  cancel-in-progress: false
+jobs:
+  self-host-after-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Import only exact-source SHA256 matched Korean M6a artwork
+        run: python scripts/sync-m6a-136-165-official-korean-images.py
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Preserve ownership and update only safe image mappings
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git add data/audits/m6a-136-165-korean-image-sync.json data/series-image-overrides.json
+            git add assets/cards/mega/m6a
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "assets(m6a): self-host verified Korean 136-165 artworks; hold invalid 157"
+            if git push origin HEAD:main; then exit 0; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/sync-m6a-136-165-official-korean-images.py
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
