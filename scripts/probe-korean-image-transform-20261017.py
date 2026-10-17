@@ -31,7 +31,7 @@ for rel,key in samples:
       result["status"]=response.status
       body=response.read(6_000_001)
       result["byteCount"]=len(body)
-      if len(body)<=6_000_000 and body.startswith((b"\\x89PNG",b"RIFF",b"\\xff\\xd8")):
+      if len(body)<=6_000_000 and body.startswith((b"\x89PNG",b"RIFF",b"\xff\xd8")):
         with Image.open(BytesIO(body)) as im:
           im.verify()
         with Image.open(BytesIO(body)) as im:
@@ -44,4 +44,4 @@ for rel,key in samples:
   rows.append(result)
   print(key,result.get("status"),result.get("decodedImage"),flush=True)
 out=root/"data/audits/korean-recovery-official-image-width-transform-20261017.json"
-out.write_text(json.dumps({"schemaVersion":1,"strategy":"GET PNG candidate with w=512 first-party width parameter","scope":len(samples),"statuses":rows,"downloadedBytesStored":0,"replacedImages":0,"notProofOfKoreanPrint":True},ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+out.write_text(json.dumps({"schemaVersion":1,"strategy":"GET PNG candidate with w=512 first-party width parameter","scope":len(samples),"statuses":rows,"downloadedBytesStored":0,"replacedImages":0,"notProofOfKoreanPrint":True},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
