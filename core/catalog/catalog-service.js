@@ -30,7 +30,7 @@
       "promoCardCount": 186
     },
     "pokemon": {
-      "itemCount": 14990,
+      "itemCount": 14991,
       "groupCount": 1025,
       "unit": "장"
     },

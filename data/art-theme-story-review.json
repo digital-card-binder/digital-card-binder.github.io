@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "reviewedOn": "2026-10-17",
-  "catalogSha": "9c0f0c66914ff1b497e4fbd300e1610b6ba0552a",
-  "reviewPolicy": "기존 카드 순서·accountKey를 변경하지 않고, 검수 확정/보류/오분류를 화면에서 구분한다. 분류 근거와 한국판 이미지 매칭의 별도 시각 검증을 혼동하지 않는다.",
+  "catalogSha": "d321ff5706b214e8c4b1996af7eace709e5e9105",
+  "reviewPolicy": "기존 카드 순서·accountKey를 변경하지 않고, 검수 확정/보류/오분류를 화면에서 구분한다. 분류 근거와 한국판 이미지 매칭의 별도 시각 검증을 혼동하지 않는다. 2026-10-17 세트 식별자 일괄 정정 후 기존 보유 저장 키는 legacyIdentityCode로 유지.",
   "sources": {
     "combined": "https://bulbapedia.bulbagarden.net/wiki/Combined_illustration_(TCG)",
     "narrative": "https://bulbapedia.bulbagarden.net/wiki/Narrative_illustration_(TCG)",
@@ -214,18 +214,6 @@
         "SV3a_066": {
           "status": "accepted",
           "title": "플러시 × 마이농",
-          "kind": "그림 연결",
-          "imageMatch": "filename-matches-code"
-        },
-        "SV5K_073": {
-          "status": "accepted",
-          "title": "사철록 × 바라철록",
-          "kind": "그림 연결",
-          "imageMatch": "filename-matches-code"
-        },
-        "SV5K_074": {
-          "status": "accepted",
-          "title": "사철록 × 바라철록",
           "kind": "그림 연결",
           "imageMatch": "filename-matches-code"
         },
@@ -940,6 +928,18 @@
           "title": "피카츄 V-UNION 4장 연결",
           "kind": "그림 연결",
           "imageMatch": "opaque-url-needs-visual-check"
+        },
+        "SV5M_073": {
+          "status": "accepted",
+          "title": "사철록 × 바라철록",
+          "kind": "그림 연결",
+          "imageMatch": "korean-sv5m-print-verified"
+        },
+        "SV5M_074": {
+          "status": "accepted",
+          "title": "사철록 × 바라철록",
+          "kind": "그림 연결",
+          "imageMatch": "korean-sv5m-print-verified"
         }
       }
     },
@@ -1100,18 +1100,6 @@
         "SV5K_083": {
           "status": "accepted",
           "title": "치라미 계열",
-          "kind": "진화 스토리",
-          "imageMatch": "filename-matches-code"
-        },
-        "SV5K_073": {
-          "status": "accepted",
-          "title": "사철록 계열",
-          "kind": "진화 스토리",
-          "imageMatch": "filename-matches-code"
-        },
-        "SV5K_074": {
-          "status": "accepted",
-          "title": "사철록 계열",
           "kind": "진화 스토리",
           "imageMatch": "filename-matches-code"
         },
@@ -1432,6 +1420,18 @@
           "kind": "진화 스토리",
           "imageMatch": "opaque-url-needs-visual-check",
           "reason": "관련 후속 카드와 명확한 연속 서사가 확인되지 않았거나 현재 그룹이 너무 포괄적임."
+        },
+        "SV5M_073": {
+          "status": "accepted",
+          "title": "사철록 계열",
+          "kind": "진화 스토리",
+          "imageMatch": "korean-sv5m-print-verified"
+        },
+        "SV5M_074": {
+          "status": "accepted",
+          "title": "사철록 계열",
+          "kind": "진화 스토리",
+          "imageMatch": "korean-sv5m-print-verified"
         }
       }
     }

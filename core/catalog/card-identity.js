@@ -25,7 +25,7 @@
       return [
         "trainerPokemon",
         groupId,
-        card?.meta || card?.code || card?.name || cardIndex,
+        (collectionId === "artThemes" && card?.legacyIdentityCode) || card?.meta || card?.code || card?.name || cardIndex,
         accountIndex,
       ].join("::");
     }
