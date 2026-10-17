@@ -159,6 +159,38 @@ for (const card of originalImport.imported) {
 }
 if (verifiedImportedM6a.size !== 32) throw new Error("Missing M6a 104-135 image provenance");
 
+const verifiedAdditionalM6a = new Map();
+const additionalImport = JSON.parse(
+  await readFile(path.join(root, "data", "audits", "m6a-136-165-korean-image-sync.json"), "utf8"),
+);
+if (additionalImport.setCode !== "M6a" || additionalImport.selfHosted !== true
+    || additionalImport.imported?.length !== 29
+    || additionalImport.stillHeld?.length !== 1
+    || additionalImport.stillHeld[0].number !== 157) {
+  throw new Error("M6a official Korean 136-165 additional import baseline changed");
+}
+for (const card of additionalImport.imported) {
+  const n = card.number, number = String(n).padStart(3, "0");
+  const original = `https://${OFFICIAL_HOST}/data/wmimages/MEGA/M6a/M6a_${number}.png`;
+  const local = `./assets/cards/mega/m6a/M6a_${number}.webp`;
+  if (!Number.isInteger(n) || n < 136 || n > 165 || n === 157
+      || card.source !== original || card.localPath !== local
+      || card.printedKoreanTextVisible !== true
+      || !/^[a-f0-9]{64}$/.test(card.sha256)
+      || !/^[a-f0-9]{64}$/.test(card.sourceSha256)
+      || verifiedAdditionalM6a.has(String(n))) {
+    throw new Error("M6a second official image provenance mismatch " + n);
+  }
+  const binary = await readFile(path.join(root, local));
+  const digest = createHash("sha256").update(binary).digest("hex");
+  if (digest !== card.sha256 || binary.length < 1000) {
+    throw new Error("M6a 136-165 local WebP hash mismatch " + n);
+  }
+  verifiedAdditionalM6a.set(String(n), { source: original, local, sha256: digest });
+}
+if (verifiedAdditionalM6a.size !== 29) throw new Error("Missing verified M6a 136-165 assets");
+
+
 const slots = {};
 const sets = [];
 let networkChecks = 0;
@@ -215,6 +247,24 @@ for (const set of evidence.sets || []) {
       continue;
     }
 
+    const additionalArchived = norm(missing.actualSetCode) === "m6a"
+      ? verifiedAdditionalM6a.get(String(missing.printedNumber))
+      : null;
+    if (additionalArchived) {
+      slots[key] = {
+        setCode: set.code, actualSetCode: missing.actualSetCode,
+        printedNumber: missing.printedNumber, verified: true,
+        evidence: "official-pokemonkorea-Korean-reprint-own-sha256",
+        url: additionalArchived.source,
+        localPath: additionalArchived.local,
+        sha256: additionalArchived.sha256,
+        httpStatus: 200,
+        validation: "Official Korean art, visual printed-language review, revalidated own SHA-256",
+      };
+      verifiedMissingSlotCount += 1;
+      officialLocalImageCount += 1;
+      continue;
+    }
     if (deferredOfficialIndex(
       missing.actualSetCode,
       missing.printedNumber,

@@ -69,10 +69,10 @@ test("MEGA Korean membership keeps secondary evidence provisional until Pokemon 
   assert.equal(membership.summary.completeSetCount, 11);
   assert.equal(membership.summary.pendingSetCount, 3);
   assert.equal(membership.summary.koreanSupportedCompleteSetCount, 14);
-  assert.equal(membership.summary.pendingOfficialEvidenceCount, 44);
+  assert.equal(membership.summary.pendingOfficialEvidenceCount, 15);
   assert.equal(membership.summary.unresolvedGapCount, 0);
-  assert.equal(membership.summary.firstPartyVerifiedGapCount, 120);
-  assert.equal(membership.summary.koreanSecondaryVerifiedGapCount, 44);
+  assert.equal(membership.summary.firstPartyVerifiedGapCount, 149);
+  assert.equal(membership.summary.koreanSecondaryVerifiedGapCount, 15);
 
   assert.equal(
     membership.summary.productSearchSlotCount +
@@ -87,7 +87,7 @@ test("MEGA Korean membership keeps secondary evidence provisional until Pokemon 
   assert.equal(mega.pendingSetCount, 3);
   assert.deepEqual(mega.pendingSetCodes, ["M6a", "MC", "M-P"]);
   assert.equal(mega.koreanSupportedCompleteSetCount, 14);
-  assert.equal(mega.pendingOfficialEvidenceCount, 44);
+  assert.equal(mega.pendingOfficialEvidenceCount, 15);
   assert.equal(mega.unresolvedGapCount, 0);
   assert.ok(audit.summary.koreanMembershipVerifiedSetCount >= 11);
   assert.ok(audit.summary.koreanMembershipPendingSetCount >= 3);
