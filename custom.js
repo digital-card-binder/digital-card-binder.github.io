@@ -21,6 +21,10 @@
     editingDexId: "",
     draggedKey: "",
     saveQueue: Promise.resolve(),
+    pickedCatalogKeys: new Set(),
+    bulkOrderMode: false,
+    bulkOrderKeys: new Set(),
+    bulkSaving: false,
   };
 
   const $ = (id) => document.getElementById(id);
@@ -365,6 +369,9 @@
       `;
       button.addEventListener("click", () => {
         state.selectedDexId = dex.id;
+        state.bulkOrderMode = false;
+        state.bulkOrderKeys.clear();
+        state.pickedCatalogKeys.clear();
         state.filter = "all";
         state.query = "";
         $("custom-search").value = "";
@@ -405,6 +412,29 @@
     article.className = `pokemon-card custom-card${entry.owned ? " is-owned" : " is-missing"}`;
     article.draggable = true;
     article.dataset.cardKey = entry.key;
+    if (state.bulkOrderMode) {
+      article.classList.toggle("is-bulk-selected", state.bulkOrderKeys.has(entry.key));
+      article.draggable = false;
+      const choose = document.createElement("label");
+      choose.className = "custom-bulk-select";
+      const check = document.createElement("input");
+      check.type = "checkbox";
+      check.checked = state.bulkOrderKeys.has(entry.key);
+      check.setAttribute("aria-label", card.name + " 순서 이동 대상으로 선택");
+      check.addEventListener("change", () => {
+        if (check.checked) state.bulkOrderKeys.add(entry.key);
+        else state.bulkOrderKeys.delete(entry.key);
+        renderWorkspace();
+      });
+      choose.append(check, document.createTextNode(" 선택"));
+      article.append(choose);
+      article.addEventListener("click", (event) => {
+        if (!state.bulkOrderMode || event.target.closest("button, input, label, a")) return;
+        if (state.bulkOrderKeys.has(entry.key)) state.bulkOrderKeys.delete(entry.key);
+        else state.bulkOrderKeys.add(entry.key);
+        renderWorkspace();
+      });
+    }
 
     const imageWrap = document.createElement("div");
     imageWrap.className = "card-image-wrap custom-card-image";
@@ -495,7 +525,8 @@
     actions.append(own, up, down, remove);
 
     article.append(imageWrap, body, actions);
-    article.addEventListener("dragstart", () => {
+    article.addEventListener("dragstart", (event) => {
+      if (state.bulkOrderMode) { event.preventDefault(); return; }
       state.draggedKey = entry.key;
       article.classList.add("is-dragging");
     });
@@ -506,6 +537,7 @@
     article.addEventListener("dragover", (event) => event.preventDefault());
     article.addEventListener("drop", (event) => {
       event.preventDefault();
+      if (state.bulkOrderMode) return;
       if (!state.draggedKey || state.draggedKey === entry.key) return;
       void moveCardBefore(dex, state.draggedKey, entry.key);
     });
@@ -547,9 +579,92 @@
     }
   }
 
+  function renderBulkToolbar(dex) {
+    const toolbar = $("custom-bulk-toolbar");
+    toolbar.hidden = !state.bulkOrderMode;
+    $("custom-edit-order-button").textContent = state.bulkOrderMode ? "편집 완료" : "순서 편집";
+    document.body.classList.toggle("custom-bulk-mode", state.bulkOrderMode);
+    if (!state.bulkOrderMode || !dex) return;
+    const valid = new Set(dex.cards.map((card) => card.key));
+    for (const key of state.bulkOrderKeys) if (!valid.has(key)) state.bulkOrderKeys.delete(key);
+    $("custom-bulk-count").textContent = String(state.bulkOrderKeys.size);
+    const position = $("custom-bulk-position");
+    const previous = Number(position.value) || 1;
+    position.replaceChildren();
+    for (let i = 1; i <= dex.cards.length; i += 1) {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = i + "번째";
+      position.append(option);
+    }
+    position.value = String(Math.min(previous, Math.max(1, dex.cards.length)));
+    toolbar.querySelectorAll("button[data-bulk-action]").forEach((button) => {
+      button.disabled = state.bulkSaving || !state.bulkOrderKeys.size;
+    });
+  }
+
+  async function moveSelectedCards(action) {
+    const dex = currentDex();
+    if (!dex || state.bulkSaving || !state.bulkOrderKeys.size) return;
+    const before = [...dex.cards];
+    const selected = state.bulkOrderKeys;
+    const picked = before.filter((entry) => selected.has(entry.key));
+    const rest = before.filter((entry) => !selected.has(entry.key));
+    let reordered;
+    if (action === "front") reordered = [...picked, ...rest];
+    else if (action === "back") reordered = [...rest, ...picked];
+    else if (action === "position") {
+      const insertAt = Math.min(rest.length, Math.max(0, Number($("custom-bulk-position").value) - 1 || 0));
+      reordered = [...rest.slice(0, insertAt), ...picked, ...rest.slice(insertAt)];
+    } else {
+      reordered = [...before];
+      if (action === "up") {
+        for (let i = 1; i < reordered.length; i += 1) {
+          if (selected.has(reordered[i].key) && !selected.has(reordered[i - 1].key)) {
+            [reordered[i - 1], reordered[i]] = [reordered[i], reordered[i - 1]];
+          }
+        }
+      } else if (action === "down") {
+        for (let i = reordered.length - 2; i >= 0; i -= 1) {
+          if (selected.has(reordered[i].key) && !selected.has(reordered[i + 1].key)) {
+            [reordered[i], reordered[i + 1]] = [reordered[i + 1], reordered[i]];
+          }
+        }
+      } else return;
+    }
+    if (reordered.every((entry, index) => entry.key === before[index].key)) return;
+    state.bulkSaving = true;
+    dex.cards = reordered;
+    dex.updatedAt = new Date().toISOString();
+    renderAll();
+    try {
+      await saveDexes();
+      state.bulkOrderKeys.clear();
+    } catch (error) {
+      dex.cards = before;
+      alert(error.message || "선택한 카드의 순서를 저장하지 못했습니다.");
+    } finally {
+      state.bulkSaving = false;
+      renderAll();
+    }
+  }
+
+  function toggleBulkOrderMode() {
+    if (state.bulkSaving) return;
+    state.bulkOrderMode = !state.bulkOrderMode;
+    state.bulkOrderKeys.clear();
+    if (state.bulkOrderMode) {
+      state.query = "";
+      $("custom-search").value = "";
+      setStatusFilter("all");
+    }
+    renderAll();
+  }
+
   function renderWorkspace() {
     const workspace = $("custom-workspace");
     const dex = currentDex();
+    renderBulkToolbar(dex);
     if (!dex) {
       workspace.hidden = true;
       $("custom-no-selection").hidden = false;
