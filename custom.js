@@ -25,6 +25,9 @@
     bulkOrderMode: false,
     bulkOrderKeys: new Set(),
     bulkSaving: false,
+    photoQueue: [],
+    photoSaving: false,
+    photoCache: new Map(),
   };
 
   const $ = (id) => document.getElementById(id);
@@ -442,7 +445,11 @@
       const image = document.createElement("img");
       image.className = "card-image";
       image.loading = "lazy";
-      image.src = card.imageUrl;
+      if (card.imageUrl.startsWith("dcb-photo:")) {
+        schedulePhotoImage(image, card.imageUrl.slice("dcb-photo:".length));
+      } else {
+        image.src = card.imageUrl;
+      }
       image.alt = `${card.name} 카드`;
       image.onerror = () => article.classList.add("has-image-error");
       imageWrap.append(image);
@@ -912,6 +919,217 @@
     }
   }
 
+  const photoObserver = typeof IntersectionObserver === "function"
+    ? new IntersectionObserver((records, observer) => {
+        for (const record of records) {
+          if (!record.isIntersecting) continue;
+          observer.unobserve(record.target);
+          const photoId = record.target.dataset.dexPhoto;
+          if (photoId) void loadPhotoImage(record.target, photoId);
+        }
+      }, { rootMargin: "350px" })
+    : null;
+
+  function photoRef(id) {
+    if (!state.firebase || !state.user || !/^photo_[a-z0-9_]{8,90}$/i.test(id)) return null;
+    return state.firebase.firestoreModule.doc(
+      state.firebase.db, "users", state.user.uid, "customDexPhotos", id,
+    );
+  }
+
+  async function loadPhotoImage(image, photoId) {
+    const reference = photoRef(photoId);
+    if (!reference) return;
+    try {
+      let promise = state.photoCache.get(photoId);
+      if (!promise) {
+        promise = state.firebase.firestoreModule.getDoc(reference)
+          .then((snapshot) => snapshot.exists() ? snapshot.data()?.imageData : "");
+        state.photoCache.set(photoId, promise);
+        if (state.photoCache.size > 80) state.photoCache.delete(state.photoCache.keys().next().value);
+      }
+      const dataUrl = await promise;
+      if (dataUrl && image.isConnected && image.dataset.dexPhoto === photoId) image.src = dataUrl;
+    } catch (error) {
+      state.photoCache.delete(photoId);
+      console.warn("나만의 도감 사진을 불러오지 못했습니다.", error);
+    }
+  }
+
+  function schedulePhotoImage(image, photoId) {
+    image.dataset.dexPhoto = photoId;
+    if (photoObserver) photoObserver.observe(image);
+    else void loadPhotoImage(image, photoId);
+  }
+
+  function clearPhotoQueue() {
+    state.photoQueue.forEach((item) => URL.revokeObjectURL(item.preview));
+    state.photoQueue = [];
+    $("custom-photo-files").value = "";
+    renderPhotoQueue();
+  }
+
+  function renderPhotoQueue() {
+    const panel = $("custom-photo-panel");
+    panel.hidden = state.photoQueue.length === 0;
+    $("custom-photo-count").textContent = String(state.photoQueue.length);
+    const container = $("custom-photo-preview");
+    container.replaceChildren();
+    state.photoQueue.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "custom-photo-item";
+      const img = document.createElement("img");
+      img.src = item.preview;
+      img.alt = "업로드할 사진 " + (index + 1);
+      const name = document.createElement("input");
+      name.type = "text";
+      name.value = item.name;
+      name.maxLength = 80;
+      name.setAttribute("aria-label", "카드명");
+      name.addEventListener("input", () => { item.name = name.value; });
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.textContent = "제외";
+      remove.disabled = state.photoSaving;
+      remove.addEventListener("click", () => {
+        URL.revokeObjectURL(item.preview);
+        state.photoQueue.splice(index, 1);
+        renderPhotoQueue();
+      });
+      card.append(img, name, remove);
+      container.append(card);
+    });
+    $("custom-photo-import").disabled = state.photoSaving || !state.photoQueue.length;
+    $("custom-photo-clear").disabled = state.photoSaving;
+    $("custom-photo-trigger").disabled = state.photoSaving;
+  }
+
+  function preparePhotoBatch(files) {
+    if (state.photoSaving) return;
+    const accepted = [...files].filter((file) => file.type.startsWith("image/") && file.size <= 15 * 1024 * 1024);
+    const slots = Math.max(0, 30 - state.photoQueue.length);
+    for (const file of accepted.slice(0, slots)) {
+      state.photoQueue.push({
+        file,
+        preview: URL.createObjectURL(file),
+        name: clean(file.name.replace(/\.[^.]+$/, "")).slice(0, 80) || "내 카드",
+      });
+    }
+    renderPhotoQueue();
+    if (accepted.length > slots || files.length !== accepted.length) {
+      $("custom-photo-status").textContent = "한 번에 30장까지, 사진 한 장당 15MB 이하로 선택할 수 있습니다.";
+    } else {
+      $("custom-photo-status").textContent = "사진명을 필요하면 수정하고 일괄 등록을 누르세요.";
+    }
+  }
+
+  async function compressPhoto(file) {
+    let bitmap = null;
+    let image = null;
+    let url = "";
+    try {
+      if (typeof createImageBitmap === "function") {
+        try { bitmap = await createImageBitmap(file); } catch { /* Browser fallback */ }
+      }
+      if (!bitmap) {
+        url = URL.createObjectURL(file);
+        image = await new Promise((resolve, reject) => {
+          const el = new Image();
+          el.onload = () => resolve(el);
+          el.onerror = () => reject(new Error("이 사진 형식을 읽을 수 없습니다."));
+          el.src = url;
+        });
+      }
+      const width = bitmap?.width || image.naturalWidth;
+      const height = bitmap?.height || image.naturalHeight;
+      if (!width || !height) throw new Error("이미지 크기를 확인할 수 없습니다.");
+      let scale = Math.min(1, 1050 / Math.max(width, height));
+      for (let attempt = 0; attempt < 9; attempt += 1) {
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(width * scale));
+        canvas.height = Math.max(1, Math.round(height * scale));
+        canvas.getContext("2d", { alpha: false }).drawImage(bitmap || image, 0, 0, canvas.width, canvas.height);
+        let data = canvas.toDataURL("image/webp", Math.max(0.45, 0.83 - attempt * 0.055));
+        if (!data.startsWith("data:image/webp;")) {
+          data = canvas.toDataURL("image/jpeg", Math.max(0.45, 0.83 - attempt * 0.055));
+        }
+        canvas.width = 0;
+        canvas.height = 0;
+        if (data.length <= 245000) return data;
+        scale *= 0.84;
+      }
+      throw new Error("사진 압축에 실패했습니다. 다른 사진을 선택해주세요.");
+    } finally {
+      if (bitmap?.close) bitmap.close();
+      if (url) URL.revokeObjectURL(url);
+    }
+  }
+
+  async function importPhotoBatch() {
+    const dex = currentDex();
+    if (!dex || !state.user || state.photoSaving || !state.photoQueue.length) return;
+    const capacity = MAX_CARDS_PER_DEX - dex.cards.length;
+    if (state.photoQueue.length > capacity) {
+      alert("이 도감에는 " + capacity + "장을 더 넣을 수 있습니다.");
+      return;
+    }
+    state.photoSaving = true;
+    renderPhotoQueue();
+    const candidates = [...state.photoQueue];
+    const uploaded = [];
+    const failed = [];
+    for (const [index, item] of candidates.entries()) {
+      $("custom-photo-status").textContent = "사진 저장 중 " + (index + 1) + " / " + candidates.length;
+      const id = makeId("photo");
+      try {
+        const imageData = await compressPhoto(item.file);
+        await state.firebase.firestoreModule.setDoc(photoRef(id), {
+          schemaVersion: 1,
+          dexId: dex.id,
+          imageData,
+          createdAt: state.firebase.firestoreModule.serverTimestamp(),
+        });
+        uploaded.push({ item, id, imageData });
+      } catch (error) {
+        console.warn("사진 저장 실패", error);
+        failed.push(item);
+      }
+    }
+    if (uploaded.length) {
+      const before = [...dex.cards];
+      dex.cards.push(...uploaded.map(({ item, id }) => ({
+        key: id,
+        owned: $("custom-photo-owned").checked,
+        manual: {
+          name: clean(item.name).slice(0, 80) || "내 카드",
+          setCode: "내 사진",
+          cardNumber: "",
+          imageUrl: "dcb-photo:" + id,
+        },
+      })));
+      dex.updatedAt = new Date().toISOString();
+      try {
+        await saveDexes();
+        uploaded.forEach(({ item, id, imageData }) => {
+          state.photoCache.set(id, Promise.resolve(imageData));
+          URL.revokeObjectURL(item.preview);
+        });
+      } catch (error) {
+        dex.cards = before;
+        failed.push(...uploaded.map(({ item }) => item));
+        await Promise.allSettled(uploaded.map(({ id }) => state.firebase.firestoreModule.deleteDoc(photoRef(id))));
+        alert(error.message || "사진을 도감에 연결하지 못했습니다.");
+      }
+    }
+    state.photoQueue = failed;
+    state.photoSaving = false;
+    renderPhotoQueue();
+    renderAll();
+    $("custom-photo-status").textContent = uploaded.length - (failed.length > candidates.length - uploaded.length ? uploaded.length : 0) +
+      "장 등록 완료 · " + failed.length + "장 실패";
+    if (uploaded.length && failed.length === 0) $("card-picker-dialog").close();
+  }
+
   function bindEvents() {
     $("custom-login").addEventListener("click", signIn);
     $("custom-logout").addEventListener("click", signOut);
@@ -925,6 +1143,7 @@
       if (!currentDex()) return;
       $("card-picker-search").value = "";
       state.pickedCatalogKeys.clear();
+      if (!state.photoSaving) clearPhotoQueue();
       renderPicker();
       $("card-picker-dialog").showModal();
       requestAnimationFrame(() => $("card-picker-search").focus());
@@ -932,7 +1151,9 @@
     $("dex-form").addEventListener("submit", saveDexFromDialog);
     $("dex-dialog-close").addEventListener("click", () => $("dex-dialog").close());
     $("dex-cancel-button").addEventListener("click", () => $("dex-dialog").close());
-    $("card-picker-close").addEventListener("click", () => $("card-picker-dialog").close());
+    $("card-picker-close").addEventListener("click", () => {
+      if (!state.photoSaving) { clearPhotoQueue(); $("card-picker-dialog").close(); }
+    });
     $("card-picker-search").addEventListener("input", renderPicker);
     $("card-picker-select-visible").addEventListener("click", selectVisiblePickerCards);
     $("card-picker-clear-selected").addEventListener("click", () => {
@@ -940,6 +1161,13 @@
       renderPicker();
     });
     $("card-picker-add-selected").addEventListener("click", addSelectedCatalogCards);
+    $("custom-photo-trigger").addEventListener("click", () => $("custom-photo-files").click());
+    $("custom-photo-files").addEventListener("change", (event) => {
+      preparePhotoBatch(event.currentTarget.files || []);
+      event.currentTarget.value = "";
+    });
+    $("custom-photo-clear").addEventListener("click", clearPhotoQueue);
+    $("custom-photo-import").addEventListener("click", () => void importPhotoBatch());
     $("custom-edit-order-button").addEventListener("click", toggleBulkOrderMode);
     $("custom-bulk-toolbar").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-bulk-action]");
