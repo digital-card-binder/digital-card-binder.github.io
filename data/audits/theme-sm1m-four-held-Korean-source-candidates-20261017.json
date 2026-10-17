@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "sm1m",
+  "setName": "문 컬렉션",
+  "scope": "Follow-up recovery research for four previously held 061-073 Korean image slots; source candidate inspection only",
+  "basedOn": "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
+  "reviewedCardsBefore": 69,
+  "totalCanonicalCards": 73,
+  "previouslyHeld": [
+    67,
+    69,
+    71,
+    73
+  ],
+  "newExternalKoreanPrintVisualCandidates": 3,
+  "newlyRecoveredSelfHostedImages": 0,
+  "newlyApprovedArtworkCards": 0,
+  "reviewedCardsAfter": 69,
+  "remainingHeld": [
+    67,
+    69,
+    71,
+    73
+  ],
+  "statuses": {
+    "catalogReview": "in_progress",
+    "completed": false,
+    "nextAction": "Obtain permitted full-resolution Korean-print source files, save to DCB-owned image archive, validate WebP decode/printed language/number, then 12-theme review and guarded apply"
+  },
+  "constraints": {
+    "neverUseJapaneseImageAsKoreanProof": true,
+    "candidateSourcesDoNotCountAsSelfHosted": true,
+    "noMasterCardMutation": true,
+    "noOwnedStatusOrUserStateMutation": true,
+    "noArtThemeMembershipMutation": true
+  },
+  "cards": [
+    {
+      "canonicalOrder": 67,
+      "code": "SM1M_067",
+      "printedNumber": "067/060",
+      "name": "라란티스 GX",
+      "rarity": "HR",
+      "finding": "Korean-printed card candidate visible with Korean move text and SM1M collector number",
+      "evidenceLevel": "external_visual_candidate_not_selfhosted_verified",
+      "sources": [
+        {
+          "type": "Korean-printed image candidate",
+          "page": "https://www.11st.co.kr/products/5716898570",
+          "image": "https://gi.esmplus.com/latjong1/shop/GX/81.jpg"
+        },
+        {
+          "type": "Korean TCGBox catalog item with numbered SKU",
+          "page": "https://tcgbox.co.kr/category/sm1%EB%AC%B8-%EC%BB%AC%EB%A0%89%EC%85%98/103/?cate_no=103&sort_method=4"
+        }
+      ],
+      "ownArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/a3b0238f77385292.webp",
+      "ownArchiveStatus": "prior_audit_undecodable",
+      "pending": "obtain/verify Korean-source binary, self-host and inspect"
+    },
+    {
+      "canonicalOrder": 69,
+      "code": "SM1M_069",
+      "printedNumber": "069/060",
+      "name": "블래키 GX",
+      "rarity": "HR",
+      "finding": "Korean-printed graded-card photo candidate with Korean attacks; collector number as listed by KR catalog and TCGBox",
+      "evidenceLevel": "external_visual_candidate_not_selfhosted_verified",
+      "sources": [
+        {
+          "type": "Korean-print graded-card photo",
+          "page": "https://www.ebay.com/itm/167751244418",
+          "image": "https://i.ebayimg.com/images/g/1RoAAeSwypJosQdf/s-l400.png"
+        },
+        {
+          "type": "TCGBox KR catalog item",
+          "page": "https://tcgbox.co.kr/category/sm1%EB%AC%B8-%EC%BB%AC%EB%A0%89%EC%85%98/103/?cate_no=103&sort_method=4"
+        }
+      ],
+      "ownArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/06693777995d0ed8.webp",
+      "ownArchiveStatus": "prior_audit_undecodable",
+      "pending": "obtain Korean full-face image, self-host and inspect"
+    },
+    {
+      "canonicalOrder": 71,
+      "code": "SM1M_071",
+      "printedNumber": "071/060",
+      "name": "네스트볼",
+      "rarity": "UR",
+      "finding": "Korean-printed Nest Ball UR image candidate; TCGBox confirms SM1M 071 item identifier",
+      "evidenceLevel": "external_visual_candidate_not_selfhosted_verified",
+      "sources": [
+        {
+          "type": "Korean printed candidate image",
+          "page": "https://m.hnsmall.com/goods/view/54741222",
+          "image": "https://image.hnsmall.com/images/goods/222/54741222_g.jpg"
+        },
+        {
+          "type": "TCGBox numbered listing",
+          "page": "https://tcgbox.co.kr/product/%EB%84%A4%EC%8A%A4%ED%8A%B8%EB%B3%BC-ur/3717/"
+        }
+      ],
+      "ownArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/1720cb133a4cb156.webp",
+      "ownArchiveStatus": "prior_audit_undecodable",
+      "pending": "verify printed 071/060 legibility and asset source, self-host and inspect"
+    },
+    {
+      "canonicalOrder": 73,
+      "code": "SM1M_073",
+      "printedNumber": "073/060",
+      "name": "기본 초 에너지",
+      "rarity": "UR",
+      "finding": "KR-numbered catalog record exists, but available illustrated search candidate is Japanese printed; no defensible Korean print photo verified",
+      "evidenceLevel": "catalog_listing_only_Korean_art_unverified",
+      "sources": [
+        {
+          "type": "KR catalog record; may show JP fallback",
+          "page": "https://collectory.cc/sets/1f887b29-8f28-4f27-a565-2c0557953c7d?region=jp&sort=rarity_desc"
+        },
+        {
+          "type": "Japanese-only reference, NOT Korean image evidence",
+          "page": "https://www.cardrush-pokemon.jp/product/444",
+          "image": "https://www.cardrush-pokemon.jp/phone/data/cardrushpokemon/product/tyouur.jpg"
+        }
+      ],
+      "ownArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/3d3099328a5e80d5.webp",
+      "ownArchiveStatus": "prior_audit_undecodable",
+      "pending": "find visibly Korean printed 073/060 card; do not substitute Japanese asset"
+    }
+  ],
+  "auditPolicy": "External search thumbnails and marketplace listings are leads only; none automatically upgrades verifiedSelfHostedImageCount, reviewedCardCount or complete status."
+}
