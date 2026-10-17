@@ -140,6 +140,7 @@
                   </div>
                   <div class="custom-toolbar">
                     <button id="add-card-button" class="primary-button" type="button">+ 카드 추가</button>
+                    <button id="custom-edit-order-button" class="manager-button" type="button">순서 편집</button>
                     <button id="edit-dex-button" class="manager-button" type="button">도감 수정</button>
                     <button id="delete-dex-button" class="manager-button danger-button" type="button">도감 삭제</button>
                   </div>
@@ -157,6 +158,15 @@
                 <div class="custom-results-bar">
                   <p>검색 결과 <strong id="custom-result-count">0</strong>장</p>
                   <span class="custom-sort-hint">카드를 드래그하거나 ↑ ↓ 버튼으로 순서를 바꿀 수 있습니다.</span>
+                </div>
+                <div id="custom-bulk-toolbar" class="custom-bulk-toolbar" hidden>
+                  <strong><span id="custom-bulk-count">0</span>장 선택</strong>
+                  <button type="button" data-bulk-action="front">맨 앞</button>
+                  <button type="button" data-bulk-action="up">한 칸 ↑</button>
+                  <button type="button" data-bulk-action="down">한 칸 ↓</button>
+                  <button type="button" data-bulk-action="back">맨 뒤</button>
+                  <label>이동 위치 <select id="custom-bulk-position" aria-label="이동할 카드 위치"></select></label>
+                  <button type="button" data-bulk-action="position" class="primary-button">선택 위치로 이동</button>
                 </div>
                 <div id="custom-card-grid" class="card-grid"></div>
                 <div id="custom-card-empty" class="empty-state" hidden><span class="empty-ball"><span></span></span><h3>표시할 카드가 없습니다</h3><p>카드를 추가하거나 필터를 변경해보세요.</p></div>
@@ -197,6 +207,12 @@
         <div class="custom-dialog-heading"><div><h2>카드 추가</h2></div><button id="card-picker-close" class="custom-dialog-close" type="button" aria-label="닫기">×</button></div>
         <label class="custom-picker-search"><span class="sr-only">추가할 카드 검색</span><input id="card-picker-search" type="search" autocomplete="off" placeholder="포켓몬명 · 세트코드 · 카드번호 검색"></label>
         <div class="custom-picker-meta"><span>현재 시리즈 도감의 카드 DB에서 검색합니다.</span><span><b id="card-picker-count">0</b>개 표시</span></div>
+        <div class="custom-picker-bulk">
+          <span><b id="card-picker-selected-count">0</b>장 선택됨</span>
+          <button id="card-picker-select-visible" type="button">검색 결과 전체 선택</button>
+          <button id="card-picker-clear-selected" type="button">선택 해제</button>
+          <button id="card-picker-add-selected" type="button" class="primary-button" disabled>선택 카드 일괄 추가</button>
+        </div>
         <div id="card-picker-results" class="custom-picker-results"></div>
         <div id="card-picker-empty" class="custom-empty-card" hidden><strong>검색 결과가 없습니다.</strong><span>아래 직접 추가를 사용하면 사이트 DB에 없는 카드도 넣을 수 있습니다.</span></div>
         <details id="manual-card-details" class="custom-manual-details">
