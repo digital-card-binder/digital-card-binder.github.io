@@ -25,14 +25,18 @@ for (const item of refresh) {
   }
   if (seen.has(item)) throw new Error("Duplicate refresh path: " + item);
   seen.add(item);
-  const asset = known.get("modern:" + item);
-  if (!asset || !asset.official || !asset.sourceUrls.some(url => url.startsWith("https://cards.image.pokemonkorea.co.kr/"))) {
-    throw new Error("Refresh path is not an official modern image in manifest: " + item);
+  // The manifest is the sole allowlist. Support verified official-origin legacy
+  // images as well as modern images without allowing arbitrary cached files.
+  const asset = known.get("modern:" + item) || known.get("legacy:" + item);
+  if (!asset || !["modern", "legacy"].includes(asset.project) ||
+      !asset.official ||
+      !asset.sourceUrls.some(url => url.startsWith("https://cards.image.pokemonkorea.co.kr/"))) {
+    throw new Error("Refresh path is not an official-origin image in manifest: " + item);
   }
-  const destination = path.resolve(archiveRoot, "modern", item);
-  const modernRoot = path.join(archiveRoot, "modern") + path.sep;
-  if (!destination.startsWith(modernRoot)) throw new Error("Image refresh escaped archive: " + item);
+  const destination = path.resolve(archiveRoot, asset.project, item);
+  const projectRoot = path.join(archiveRoot, asset.project) + path.sep;
+  if (!destination.startsWith(projectRoot)) throw new Error("Image refresh escaped archive: " + item);
   fs.rmSync(destination, { force: true });
-  console.log("Official Korean image scheduled for fresh download: " + item);
+  console.log("Official-origin Korean image scheduled for fresh download: " + asset.project + ":" + item);
 }
 console.log("Requested image refreshes: " + seen.size);
