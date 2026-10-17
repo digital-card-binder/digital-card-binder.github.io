@@ -1,0 +1,60 @@
+name: Save Korean official landscape M6a 157
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync-m6a-157-official-korean-landscape.py'
+      - '.github/workflows/sync-m6a-157-official-korean-landscape.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: m6a-korean-landscape-157
+  cancel-in-progress: false
+jobs:
+  archive-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet Pillow==12.3.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Save 157 authentic Korean landscape BREAK card using official original SHA
+        run: python scripts/sync-m6a-157-official-korean-landscape.py
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit only verified 157 artwork and its override
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git add assets/cards/mega/m6a/M6a_157.webp data/series-image-overrides.json data/audits/m6a-157-official-korean-landscape.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "assets(m6a): save Korean official horizontal BREAK 157, preserve printed orientation"
+            if git push origin HEAD:main; then exit 0; fi
+            if [ "$attempt" -eq 3 ]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/sync-m6a-157-official-korean-landscape.py
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
