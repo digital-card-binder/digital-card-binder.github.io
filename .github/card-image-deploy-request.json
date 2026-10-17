@@ -1,6 +1,10 @@
 {
   "mode": "repair_only",
-  "requestId": "theme-svhm-001-061-image-archive-20261012-1",
+  "requestId": "sv5m-ar-073-074-official-korean-image-repair-20261017-1",
   "refreshM6aBase": false,
-  "reason": "Archive the 61 verified official Korean SVHM card images using the existing rate-limited Cloudflare Pages workflow. Preserve canonical slots and validate WebP decoding and deployment before marking self-hosted."
+  "reason": "SV5M Cyber Judge AR 073/071 Deerling and 074/071 Sawsbuck rendered incorrect SV5K artwork despite correct AR metadata. Discard only these two cached Cloudflare WebP assets, retrieve official Korean SV5M images, verify the archive, and redeploy without touching collection data.",
+  "refreshCardImages": [
+    "data/wmimages/SV/SV5M/SV5M_073.webp",
+    "data/wmimages/SV/SV5M/SV5M_074.webp"
+  ]
 }
