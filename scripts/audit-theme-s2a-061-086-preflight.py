@@ -157,7 +157,7 @@ for key, name in SETS.items():
         "schemaVersion": 1, "recordedAt": DATE,
         "set": key, "name": name, "range": "061-086",
         "masterCanonicalCards": len(set_data["cards"]),
-        "checkedCardCount": 30, "ownedImageDecodedCount": decoded,
+        "checkedCardCount": 26, "ownedImageDecodedCount": decoded,
         "ownedImageMissingCount": 26-decoded,
         "sourceHostCounts": dict(Counter(x["sourceHost"] for x in rows)),
         "preExistingThemeMemberships": existing_count,
