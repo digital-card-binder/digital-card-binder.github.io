@@ -6,7 +6,7 @@ const REVIEW="data/audits/theme-s1a-031-060-Korean-art-review-20261017.json";
 const PROOF="data/audits/theme-visual-evidence/s1a/031-060/visual-index.json";
 const PREVIOUS="data/audits/theme-s1a-001-030-progress-20261017.json";
 const PROGRESS="data/audits/theme-s1a-031-060-progress-20261017.json";
-const NEXT="S1a VMAX라이징 061-075 한국판 자체 이미지 및 12테마 검수";
+const NEXT="S1a VMAX라이징 061-086 한국판 자체 이미지 및 12테마 검수";
 const THEMES=["sleeping","connected","evolution","night","season","color","sunset","reflections","food","street","work","cameo"];
 const [review,proof,previous,modern,legacy,themes,status,hosting,coverage,s1w,s1h,s2a,s2,s3]=await Promise.all([
  read(REVIEW),read(PROOF),read(PREVIOUS),read("data/series.json"),read("data/series-legacy.json"),
@@ -25,7 +25,7 @@ const set=matched[0],masterBefore=JSON.stringify(set.cards);
 const key=Object.keys(status.reviews||{}).find(x=>x.toLowerCase()===CODE);
 if(!key)throw Error("S1a 001-030 progress metadata not found");
 const meta=status.reviews[key];
-if(meta.artworkReviewedCardCount===60&&meta.newlyAddedThemeSlotCount===92&&
+if(meta.artworkReviewedCardCount===60&&meta.newlyAddedThemeSlotCount===99&&
  meta.reviewedRanges?.includes("031-060")){
  console.log("S1a 031-060 already safely applied");process.exit(0);
 }
@@ -112,7 +112,7 @@ meta.reviewedRanges=["001-030","031-060"];meta.reviewedThemes=THEMES;
 meta.newlyAddedThemeSlotCount=99;meta.preservedExistingThemeSlotCount=0;
 meta.partialReviewEvidence=REVIEW;meta.imagePreflightEvidence=PROOF;
 meta.nextStart=NEXT;meta.reviewedAt=DATE;meta.status="in_progress";meta.complete=false;
-meta.note="S1a VMAX라이징 001-060 60장 한국어 카드 이미지와 12테마 시각검수. 신규 테마 누적 99건, 기존 VMAX라이징 테마 0건. 마지막 15장 보류 검토 전 완료 아님. S2a/S2/S3/S6K 보류·원본 카드 및 유저 보유 상태 유지.";
+meta.note="S1a VMAX라이징 001-060 60장 한국어 카드 이미지와 12테마 시각검수. 신규 테마 누적 99건, 기존 VMAX라이징 테마 0건. 마지막 26장 검수 전 완료 아님. S2a/S2/S3/S6K 보류·원본 카드 및 유저 보유 상태 유지.";
 status.updatedAt=DATE;themes.updatedAt=DATE;
 if(status.execution.nextStart!==GLOBAL||hosting.nextStart!==GLOBAL)throw Error("S6K global hold changed");
 await Promise.all([
