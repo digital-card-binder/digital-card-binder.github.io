@@ -243,3 +243,34 @@ body[data-page="custom-dex"] .custom-binder-library-status {
 #custom-photo-import{min-height:44px}
 #custom-photo-status{margin:0;color:#536579;font-size:12px;line-height:1.5}
 @media(max-width:640px){.custom-import-methods button{width:100%}.custom-photo-preview{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+
+/* Card sorting: drag one card or a selected group without hijacking mobile scrolling. */
+.custom-card .custom-drag-handle{
+  position:absolute;right:8px;top:8px;z-index:7;
+  display:grid;place-items:center;width:38px;height:38px;
+  padding:0;border:1px solid #9cbdc4;border-radius:10px;
+  background:rgba(255,255,255,.96);color:#136b75;
+  box-shadow:0 2px 7px rgba(15,44,68,.15);
+  font-size:25px;line-height:1;cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.custom-card .custom-drag-handle:active{cursor:grabbing;background:#e1f6f5}
+.custom-card .custom-drag-handle:focus-visible{outline:3px solid #168895;outline-offset:2px}
+.custom-card.custom-drop-before{box-shadow:inset 5px 0 #168895,0 1px 8px rgba(0,0,0,.08)}
+.custom-card.custom-drop-after{box-shadow:inset -5px 0 #168895,0 1px 8px rgba(0,0,0,.08)}
+.custom-card.custom-drop-before.custom-drop-vertical{box-shadow:inset 0 5px #168895,0 1px 8px rgba(0,0,0,.08)}
+.custom-card.custom-drop-after.custom-drop-vertical{box-shadow:inset 0 -5px #168895,0 1px 8px rgba(0,0,0,.08)}
+.custom-card.is-dragging{opacity:.44}
+.custom-touch-sorting{user-select:none;-webkit-user-select:none}
+.custom-drag-ghost{
+  position:fixed;z-index:500;pointer-events:none;
+  padding:8px 13px;border-radius:999px;
+  background:#123f58;color:#fff;
+  box-shadow:0 6px 19px rgba(0,0,0,.22);
+  white-space:nowrap;font-size:13px;font-weight:800;
+}
+@media(pointer:coarse),(max-width:640px){
+  .custom-card .custom-drag-handle{width:42px;height:42px;font-size:27px}
+}
