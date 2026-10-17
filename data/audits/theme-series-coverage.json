@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 17350,
-    "uniqueThemeCards": 10562,
+    "themeCardSlots": 17400,
+    "uniqueThemeCards": 10592,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -66,8 +66,8 @@
     {
       "code": "sleeping",
       "name": "잠자는 포켓몬",
-      "cardSlots": 177,
-      "setCount": 80,
+      "cardSlots": 178,
+      "setCount": 81,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4987,
-      "setCount": 119,
+      "cardSlots": 5006,
+      "setCount": 120,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9584,
-      "setCount": 124,
+      "cardSlots": 9614,
+      "setCount": 125,
       "rarities": [
         "A",
         "AR",
@@ -290,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6749
+      "currentThemeSlots": 6799
     },
     {
       "era": "SM",
@@ -473,7 +473,7 @@
       "code": "s1H",
       "name": "실드",
       "cardCount": 75,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -579,9 +579,13 @@
       "cardCount": 75,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
+      "themeHits": {
+        "sleeping": 1,
+        "season": 19,
+        "color": 30
+      }
     },
     {
       "era": "S",
