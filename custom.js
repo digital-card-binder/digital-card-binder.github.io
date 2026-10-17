@@ -569,6 +569,11 @@
   function finishTouchDrag(event, dex, cancelled = false) {
     const active = state.touchDrag;
     if (!active || active.pointerId !== event.pointerId) return;
+    if (!cancelled && active.started) {
+      active.x = event.clientX;
+      active.y = event.clientY;
+      updateTouchDestination();
+    }
     const destination = !cancelled && active.started ? state.dragDestination : null;
     const movingKeys = [...state.dragKeys];
     const sameDex = active.dexId === dex.id;
