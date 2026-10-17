@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "purpose": "Follow-up: six M-P exact Korean print identifiers and CLL 004/005 rights, keeping prior audited cards and 12-theme work intact.",
+  "sourceMainCommit": "765578893dafd1c665526790abfeca2a53115ff9",
+  "sourceAudits": [
+    "data/audits/mega-korean-membership-audit.json",
+    "data/audits/theme-mp-final-058-068-owned-art-review.json",
+    "data/audits/theme-mp-strict-closure-20261013.json",
+    "data/audits/theme-classic-cll004-005-secondary-korean-photo-evidence-20261013.json"
+  ],
+  "regionalWarnings": [
+    "2026 Korean League media report confirms 승리의 징표 as an award, not exact 500/501/502 M-P card numbers.",
+    "First-party 2023 승리의 징표 record describes an SV-P printing; never confuse it with a 2026 M-P identifier.",
+    "Japanese M-P 058-060 are different named cards than Korean secondary listings M-P 058-060. Cross-country set serials are not interchangeable.",
+    "Previously completed 68-card M-P artwork and 12-theme review must not be duplicated or implicitly treated as exact Korean printed-number validation."
+  ],
+  "supportingPages": [
+    "https://www.fomos.kr/game/news_view?entry_id=151733",
+    "https://ir.newspim.com/news/view/20260527000424",
+    "https://pokemoncard.co.kr/cards/detail/SVP002023011",
+    "https://m.bunjang.co.kr/products/422377621"
+  ],
+  "heldMega": [
+    {
+      "slotKey": "m-p::m-p::58",
+      "name": "기본 풀 에너지",
+      "status": "held_exact_region_number_unverified",
+      "reason": "exact Korean energy footer/region unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    },
+    {
+      "slotKey": "m-p::m-p::59",
+      "name": "기본 불꽃 에너지",
+      "status": "held_exact_region_number_unverified",
+      "reason": "exact Korean energy footer/region unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    },
+    {
+      "slotKey": "m-p::m-p::60",
+      "name": "기본 물 에너지",
+      "status": "held_exact_region_number_unverified",
+      "reason": "exact Korean energy footer/region unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    },
+    {
+      "slotKey": "m-p::m-p::500",
+      "name": "승리의 징표",
+      "status": "held_exact_region_number_unverified",
+      "reason": "2026 Korean League award confirmed in reports; printed M-P 500 unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    },
+    {
+      "slotKey": "m-p::m-p::501",
+      "name": "승리의 징표",
+      "status": "held_exact_region_number_unverified",
+      "reason": "2026 Korean League award confirmed in reports; printed M-P 501 unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    },
+    {
+      "slotKey": "m-p::m-p::502",
+      "name": "승리의 징표",
+      "status": "held_exact_region_number_unverified",
+      "reason": "2026 Korean League award confirmed in reports; printed M-P 502 unverified",
+      "old12ThemeWork": "already_complete_do_not_repeat",
+      "imageLicenseCleared": false,
+      "noCardChange": true
+    }
+  ],
+  "heldClassic": [
+    {
+      "slotKey": "CLL_004",
+      "name": "포니타",
+      "sellerClaim": "004/032 Korean Classic",
+      "photoSource": "https://m.bunjang.co.kr/products/422377621",
+      "numberVisibleInPriorSmallPhoto": false,
+      "photoReprintLicensed": false,
+      "action": "Obtain readable licensed Korean photo."
+    },
+    {
+      "slotKey": "CLL_005",
+      "name": "날쌩마",
+      "sellerClaim": "005/032 Korean Classic",
+      "photoSource": "https://m.bunjang.co.kr/products/422377621",
+      "numberVisibleInPriorSmallPhoto": false,
+      "photoReprintLicensed": false,
+      "action": "Obtain readable licensed Korean photo."
+    }
+  ],
+  "newCardImages": 0,
+  "masterChanges": 0,
+  "ownershipChanges": 0,
+  "removedSlots": 0,
+  "nextStart": "Next seek permitted exact 2026 Korean League printed proof for 500/501/502 and actual Korean energy footer for 58/59/60; CLL 004/005 need license/print footer, not repeated discovery.",
+  "status": "evidence_only_awaiting_exact_print_and_rights"
+}
