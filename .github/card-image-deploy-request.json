@@ -1,15 +1,24 @@
 {
   "mode": "repair_only",
-  "requestId": "sm8a-059-065-hr-ur-image-fix-20261017-1",
+  "requestId": "sm6b-sm9a-16-korean-hr-ur-image-fix-20261017-1",
   "refreshM6aBase": false,
-  "reason": "Repair seven confirmed mismapped SM8a Dark Order 059-065 Korean HR/UR cards. Only delete these seven legacy Cloudflare image cache paths and redownload visually verified Korean correct-number originals. Previously verified SM7b 057-062 remain complete and must not be re-audited.",
+  "reason": "Refresh sixteen confirmed Korean secret rare card images: SM6b Champion Road 078-086 and SM9a Night Unison 064-070. Correct original images verified by printed set, exact number and rarity. Preserve all prior SM7b and SM8a successful files; do not redo finished audits.",
   "refreshCardImages": [
-    "data/wmimages/SM/SM8A/SM8a_059.webp",
-    "data/wmimages/SM/SM8A/SM8a_060.webp",
-    "data/wmimages/SM/SM8A/SM8a_061.webp",
-    "data/wmimages/SM/SM8A/SM8a_062.webp",
-    "data/wmimages/SM/SM8A/SM8a_063.webp",
-    "data/wmimages/SM/SM8A/SM8a_064.webp",
-    "data/wmimages/SM/SM8A/SM8a_065.webp"
+    "data/wmimages/SM/SM6B/SM6B_078.webp",
+    "data/wmimages/SM/SM6B/SM6B_079.webp",
+    "data/wmimages/SM/SM6B/SM6B_080.webp",
+    "data/wmimages/SM/SM6B/SM6B_081.webp",
+    "data/wmimages/SM/SM6B/SM6B_082.webp",
+    "data/wmimages/SM/SM6B/SM6B_083.webp",
+    "data/wmimages/SM/SM6B/SM6B_084.webp",
+    "data/wmimages/SM/SM6B/SM6B_085.webp",
+    "data/wmimages/SM/SM6B/SM6B_086.webp",
+    "data/wmimages/SM/SM9A/SM9a_064.webp",
+    "data/wmimages/SM/SM9A/SM9a_065.webp",
+    "data/wmimages/SM/SM9A/SM9a_066.webp",
+    "data/wmimages/SM/SM9A/SM9a_067.webp",
+    "data/wmimages/SM/SM9A/SM9a_068.webp",
+    "data/wmimages/SM/SM9A/SM9a_069.webp",
+    "data/wmimages/SM/SM9A/SM9a_070.webp"
   ]
 }
