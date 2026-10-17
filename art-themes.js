@@ -27,6 +27,28 @@
   let storyReview = null;
   const storyModes = new Set(["connected", "evolution"]);
   const isStoryGroup = (group) => !EEVEE_MODE && storyModes.has(group?.code);
+  // Historical SV5K slot keys for the Cyber Judge Deerling/Sawsbuck pair.
+  // Preserve the original keys for existing collection saves, but always show
+  // the corresponding Korean SV5M print in both story and evolution themes.
+  function repairCyberJudgeArtwork(groups) {
+    const repairs = {
+      SV5K_073: { name: "사철록", number: "073" },
+      SV5K_074: { name: "바라철록", number: "074" },
+    };
+    for (const group of groups || []) {
+      if (group.code !== "connected" && group.code !== "evolution") continue;
+      for (const card of group.cards || []) {
+        const repair = repairs[card.code];
+        if (!repair || card.name !== repair.name) continue;
+        card.image = `https://cards.image.pokemonkorea.co.kr/data/wmimages/SV/SV5M/SV5M_${repair.number}.png`;
+        card.set = "sv5M";
+        card.setName = "사이버저지";
+        card.cardNumber = `${repair.number}/071`;
+        card.rarity = "AR";
+      }
+    }
+  }
+
   function reviewedCards(group) {
     if (!isStoryGroup(group)) return group?.cards || [];
     const reviews = storyReview?.groups?.[group.code]?.cards || {};
@@ -336,6 +358,7 @@
       const response = await fetch(DATA_URL, { cache: "no-store" });
       if (!response.ok) throw new Error(`${DATA_URL} ${response.status}`);
       dataset = await response.json();
+      if (!EEVEE_MODE) repairCyberJudgeArtwork(dataset.groups);
       if (!EEVEE_MODE) {
         const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017a", { cache: "no-store" });
         if (auditResponse.ok) storyReview = await auditResponse.json();
