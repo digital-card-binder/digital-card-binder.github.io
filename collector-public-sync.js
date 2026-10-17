@@ -104,6 +104,42 @@
     return { ...context, projection };
   }
 
+  // Mirror only photos referenced by currently public custom dexes.
+  // Private photo documents are never made readable directly to visitors.
+  async function syncCustomDexPhotos({ db, firestoreModule, user, publicId, projection }) {
+    if (!publicId || !user?.uid) return;
+    const required = new Set();
+    for (const dex of Array.isArray(projection?.customDexes) ? projection.customDexes : []) {
+      for (const card of Array.isArray(dex?.cards) ? dex.cards : []) {
+        const url = String(card?.manual?.imageUrl || "");
+        if (/^dcb-photo:photo_[a-z0-9_]{8,90}$/i.test(url)) required.add(url.slice(10));
+      }
+    }
+    const publicCollection = firestoreModule.collection(db, "publicProfiles", publicId, "customDexPhotos");
+    const existingSnapshot = await firestoreModule.getDocs(publicCollection);
+    const existing = new Set(existingSnapshot.docs.map((doc) => doc.id));
+    for (const id of required) {
+      if (existing.has(id)) continue;
+      const privateRef = firestoreModule.doc(db, "users", user.uid, "customDexPhotos", id);
+      const snapshot = await firestoreModule.getDoc(privateRef);
+      if (!snapshot.exists()) continue;
+      const source = snapshot.data() || {};
+      if (!/^data:image\/(webp|jpeg);base64,/.test(source.imageData || "")) continue;
+      await firestoreModule.setDoc(firestoreModule.doc(publicCollection, id), {
+        schemaVersion: 1,
+        ownerUid: user.uid,
+        dexId: String(source.dexId || ""),
+        imageData: source.imageData,
+        createdAt: firestoreModule.serverTimestamp(),
+      });
+    }
+    for (const documentSnapshot of existingSnapshot.docs) {
+      if (!required.has(documentSnapshot.id)) {
+        await firestoreModule.deleteDoc(documentSnapshot.ref);
+      }
+    }
+  }
+
   async function syncCollection(options) {
     const { db, firestoreModule, user, collectionId } = options || {};
     if (!db || !firestoreModule || !user?.uid) return { synced: false };
@@ -117,6 +153,9 @@
     });
     const { setting, profile } = context;
     if (setting.visibility !== "public") {
+      if (collectionId === "custom" && profile?.profileCompleted && profile?.publicId) {
+        await syncCustomDexPhotos({ db, firestoreModule, user, publicId: profile.publicId, projection: null });
+      }
       return { synced: false, visibility: "private" };
     }
     if (!profile?.profileCompleted || !profile.publicId) {
@@ -139,6 +178,9 @@
       ),
       payload,
     );
+    if (collectionId === "custom") {
+      await syncCustomDexPhotos({ db, firestoreModule, user, publicId: profile.publicId, projection });
+    }
     return { synced: true, visibility: "public" };
   }
 

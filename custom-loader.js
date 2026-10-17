@@ -1,6 +1,6 @@
 "use strict";
 
-const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"9c383f048d3a","./custom-granular-sharing.js":"f4614080dd6c","./custom.js":"8fdb0dcf5528","./custom-mobile-actions.js":"0cfe2106afd1","./custom-sync.js":"837a3d666240"};
+const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"f4614080dd6c","./custom.js":"9a8cee94317f","./custom-mobile-actions.js":"2cf4a2e9eaf2","./custom-sync.js":"837a3d666240"};
 
 (function () {
   const params = new URLSearchParams(window.location.search);
@@ -21,7 +21,7 @@ const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"9c383f048d3a","./custom-gr
   }
 
   load("./custom-granular-sharing.js", () => {
-    load("./custom.js?v=20260813-2", () => {
+    load("./custom.js", () => {
       load("./custom-mobile-actions.js", () => {
         load("./custom-sync.js");
       });

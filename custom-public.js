@@ -13,6 +13,8 @@
     catalogMap: new Map(),
     filter: "all",
     query: "",
+    firestore: null,
+    photoCache: new Map(),
   };
   const $ = (id) => document.getElementById(id);
 
@@ -137,6 +139,35 @@
     });
   }
 
+  const publicPhotoObserver = typeof IntersectionObserver === "function"
+    ? new IntersectionObserver((records, observer) => {
+        for (const record of records) {
+          if (!record.isIntersecting) continue;
+          observer.unobserve(record.target);
+          void fetchPublicPhoto(record.target);
+        }
+      }, { rootMargin: "350px" }) : null;
+
+  async function fetchPublicPhoto(image) {
+    const id = image.dataset.publicPhoto;
+    if (!state.firestore || !/^photo_[a-z0-9_]{8,90}$/i.test(id || "")) return;
+    try {
+      let promise = state.photoCache.get(id);
+      if (!promise) {
+        const { db, module } = state.firestore;
+        const reference = module.doc(db, "publicProfiles", publicId, "customDexPhotos", id);
+        promise = module.getDoc(reference).then((snap) => snap.exists() ? snap.data()?.imageData : "");
+        state.photoCache.set(id, promise);
+        if (state.photoCache.size > 80) state.photoCache.delete(state.photoCache.keys().next().value);
+      }
+      const src = await promise;
+      if (src && image.isConnected && image.dataset.publicPhoto === id) image.src = src;
+    } catch (error) {
+      state.photoCache.delete(id);
+      console.warn("공개 사진을 표시하지 못했습니다.", error);
+    }
+  }
+
   function renderCard(entry) {
     const card = displayCard(entry);
     const article = document.createElement("article");
@@ -147,7 +178,13 @@
       const image = document.createElement("img");
       image.className = "card-image";
       image.loading = "lazy";
-      image.src = card.imageUrl;
+      if (card.imageUrl.startsWith("dcb-photo:")) {
+        image.dataset.publicPhoto = card.imageUrl.slice(10);
+        if (publicPhotoObserver) publicPhotoObserver.observe(image);
+        else void fetchPublicPhoto(image);
+      } else {
+        image.src = card.imageUrl;
+      }
       image.alt = `${card.name} 카드`;
       image.onerror = () => article.classList.add("has-image-error");
       imageWrap.append(image);
@@ -253,6 +290,7 @@
     ]);
     const app = appModule.getApps().length ? appModule.getApp() : appModule.initializeApp(CONFIG.config);
     const db = firestoreModule.getFirestore(app);
+    state.firestore = { db, module: firestoreModule };
     if (!/^[a-z0-9]{12}$/.test(publicId)) {
       throw new Error("공개 프로필 주소 형식이 올바르지 않습니다.");
     }
@@ -292,6 +330,7 @@
     $("custom-logout").hidden = true;
     $("new-dex-button").hidden = true;
     $("add-card-button").hidden = true;
+    $("custom-edit-order-button").hidden = true;
     $("edit-dex-button").hidden = true;
     $("delete-dex-button").hidden = true;
     document.querySelector(".custom-sort-hint").textContent = "공개된 카드 순서대로 표시합니다.";

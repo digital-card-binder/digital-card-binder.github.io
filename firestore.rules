@@ -1336,6 +1336,31 @@ service cloud.firestore {
         }
       }
 
+      // 공개된 나만의 도감에서 참조하는 사진만 별도 문서로 저장합니다.
+      match /customDexPhotos/{photoId} {
+        allow get, list: if isPublicIdOwner(publicId)
+          || (
+            publicProfileCompleted(publicId)
+            && exists(/databases/$(database)/documents/publicProfiles/$(publicId)/collections/custom)
+          );
+        allow create: if isPublicIdOwner(publicId)
+          && publicProfileCompleted(publicId)
+          && publicSettingEnabled(request.auth.uid, "custom")
+          && photoId.matches('^photo_[a-z0-9_]{8,90}$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid == request.auth.uid
+          && request.resource.data.dexId is string
+          && request.resource.data.dexId.size() <= 120
+          && request.resource.data.imageData is string
+          && request.resource.data.imageData.size() <= 245000
+          && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*$')
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isPublicIdOwner(publicId);
+      }
+
       // 이 경로에는 public 도감의 최소 projection만 존재합니다.
       match /collections/{collectionId} {
         allow get, list: if get(
@@ -1643,6 +1668,25 @@ service cloud.firestore {
           && validCustomBinderChunk(userId, chunkId);
         allow delete: if ownsDocument(userId);
       }
+    }
+
+    // 사진 데이터는 사용자별 별도 문서로 저장하며 소유자만 읽습니다.
+    match /users/{userId}/customDexPhotos/{photoId} {
+      allow get: if ownsDocument(userId);
+      allow list: if false;
+      allow create: if ownsDocument(userId)
+        && photoId.matches('^photo_[a-z0-9_]{8,90}$')
+        && request.resource.data.keys().hasAll(["schemaVersion", "dexId", "imageData", "createdAt"])
+        && request.resource.data.keys().hasOnly(["schemaVersion", "dexId", "imageData", "createdAt"])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.dexId is string
+        && request.resource.data.dexId.size() <= 120
+        && request.resource.data.imageData is string
+        && request.resource.data.imageData.size() <= 245000
+        && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*$')
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+      allow delete: if ownsDocument(userId);
     }
 
     // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
