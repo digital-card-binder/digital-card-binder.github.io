@@ -1336,6 +1336,2015 @@ service cloud.firestore {
         }
       }
 
+      // 공개된 나만의 도감에서 참조하는 사진만 별도 문서로 저장합니다.
+      match /customDexPhotos/{photoId} {
+        allow get, list: if publicProfileCompleted(publicId)
+          && exists(
+            /databases/$(database)/documents/publicProfiles/$(publicId)/collections/custom
+          );
+        allow create: if isPublicIdOwner(publicId)
+          && publicProfileCompleted(publicId)
+          && publicSettingEnabled(request.auth.uid, "custom")
+          && photoId.matches('^photo_[a-z0-9_]{8,90}      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // 사진 바이너리는 도감 전체 Firestore 문서에 넣지 않고 사용자별로 분리합니다.
+    match /users/{userId}/customDexPhotos/{photoId} {
+      allow get: if ownsDocument(userId);
+      allow list: if false;
+      allow create: if ownsDocument(userId)
+        && photoId.matches('^photo_[a-z0-9_]{8,90}    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.keys().hasAll(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid == request.auth.uid
+          && request.resource.data.dexId is string
+          && request.resource.data.dexId.size() <= 120
+          && request.resource.data.imageData is string
+          && request.resource.data.imageData.size() <= 245000
+          && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isPublicIdOwner(publicId);
+      }
+
+      // 이 경로에는 public 도감의 최소 projection만 존재합니다.
+      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+        && request.resource.data.keys().hasAll(["schemaVersion", "dexId", "imageData", "createdAt"])
+        && request.resource.data.keys().hasOnly(["schemaVersion", "dexId", "imageData", "createdAt"])
+        && request.resource.data.schemaVersion == 1
+        && request.resource.data.dexId is string
+        && request.resource.data.dexId.size() <= 120
+        && request.resource.data.imageData is string
+        && request.resource.data.imageData.size() <= 245000
+        && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.keys().hasAll(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid == request.auth.uid
+          && request.resource.data.dexId is string
+          && request.resource.data.dexId.size() <= 120
+          && request.resource.data.imageData is string
+          && request.resource.data.imageData.size() <= 245000
+          && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isPublicIdOwner(publicId);
+      }
+
+      // 이 경로에는 public 도감의 최소 projection만 존재합니다.
+      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+      allow delete: if ownsDocument(userId);
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.keys().hasAll(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "ownerUid", "dexId", "imageData", "createdAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.ownerUid == request.auth.uid
+          && request.resource.data.dexId is string
+          && request.resource.data.dexId.size() <= 120
+          && request.resource.data.imageData is string
+          && request.resource.data.imageData.size() <= 245000
+          && request.resource.data.imageData.matches('^data:image/(webp|jpeg);base64,.*      match /collections/{collectionId} {
+        allow get, list: if get(
+          /databases/$(database)/documents/publicProfiles/$(publicId)
+        ).data.profileCompleted == true;
+        allow create, update: if isPublicIdOwner(publicId)
+          && validProjection(collectionId, publicId)
+          && publicSettingEnabled(request.auth.uid, collectionId);
+        allow delete: if isPublicIdOwner(publicId)
+          && !publicSettingEnabled(request.auth.uid, collectionId);
+      }
+    }
+
+    // 링크 공개 토큰과 UID의 연결도 비공개로 유지합니다.
+    match /collectorShareOwners/{shareId} {
+      allow get: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+      allow list: if false;
+      allow create: if request.auth != null
+        && validShareId(shareId)
+        && request.resource.data.keys().hasAll([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "ownerUid",
+          "collectionId",
+          "createdAt"
+        ])
+        && request.resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(request.resource.data.collectionId)
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.visibility == "unlisted"
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(request.resource.data.collectionId)
+        ).data.shareId == shareId;
+      allow update: if false;
+      allow delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid
+        && supportedCollectorCollection(resource.data.collectionId)
+        && !existsAfter(
+          /databases/$(database)/documents/sharedCollections/$(shareId)
+        )
+        && getAfter(
+          /databases/$(database)/documents/users/$(request.auth.uid)/collectionSettings/$(resource.data.collectionId)
+        ).data.shareId != shareId;
+    }
+
+    // unlisted projection은 추측하기 어려운 exact URL로만 get할 수 있습니다.
+    match /sharedCollections/{shareId} {
+      allow get: if true;
+      allow list: if false;
+      allow create, update: if isShareOwnerAfter(shareId)
+        && validProjection(
+          request.resource.data.collectionId,
+          request.resource.data.publicId
+        )
+        && isPublicIdOwner(request.resource.data.publicId)
+        && sharedSettingEnabled(
+          request.auth.uid,
+          request.resource.data.collectionId,
+          shareId
+        );
+      allow delete: if isShareOwner(shareId)
+        && !sharedSettingEnabled(
+          request.auth.uid,
+          get(
+            /databases/$(database)/documents/collectorShareOwners/$(shareId)
+          ).data.collectionId,
+          shareId
+        );
+    }
+
+    // 각 사용자는 자신의 기존 도감 문서를 읽고 수정할 수 있습니다.
+    // 지정된 공유 계정은 소유자의 legacy 도감만 읽을 수 있고 쓰기는 할 수 없습니다.
+    match /users/{userId}/collections/{collectionId} {
+      allow read: if supportedCollection(collectionId)
+        && (
+          ownsDocument(userId)
+          || (
+            isSharedReadOnlyViewer()
+            && isConfiguredSharedOwner(userId)
+          )
+        );
+
+      allow create: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && request.resource.data.baseMode == requiredBaseMode()
+        && request.resource.data.email == request.auth.token.email;
+
+      // 최초 생성된 시작 모드는 이후 변경할 수 없습니다.
+      // 소유자의 구형 문서에 baseMode가 없으면 legacy로만 복구할 수 있습니다.
+      allow update: if ownsDocument(userId)
+        && supportedCollection(collectionId)
+        && validCollectionBaseModeUpdate()
+        && request.resource.data.email == request.auth.token.email;
+
+      allow delete: if ownsDocument(userId)
+        && supportedCollection(collectionId);
+
+      // Additive storage for large fixed catalogs; no legacy documents are migrated.
+      match /overrideShards/{shardId} {
+        allow read: if (collectionId == "seriesDex" || collectionId == "arDex")
+          && (ownsDocument(userId) || (isSharedReadOnlyViewer() && isConfiguredSharedOwner(userId)));
+        allow create, update: if ownsDocument(userId)
+          && (collectionId == "seriesDex" || collectionId == "arDex")
+          && shardId.matches('^s[0-7][0-9a-f]$')
+          && request.resource.data.keys().hasAll(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.keys().hasOnly(["schemaVersion", "overrides", "updatedAt"])
+          && request.resource.data.schemaVersion == 1
+          && request.resource.data.overrides is map
+          && request.resource.data.overrides.size() <= 2000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if false;
+      }
+
+    }
+
+    // 소유자 계정이 지정된 뷰어에게만 생성하는 읽기 전용 공유 설정입니다.
+    match /sharedDexViews/{viewerId} {
+      allow get: if request.auth != null
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && (
+          isSharedReadOnlyViewer()
+          || request.auth.token.email == "onesmemory@gmail.com"
+        );
+
+      allow create, update: if request.auth != null
+        && request.auth.token.email == "onesmemory@gmail.com"
+        && viewerId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerEmail == "onesmemory@gmail.com"
+        && request.resource.data.viewerUid == viewerId
+        && request.resource.data.mode == "read-only";
+    }
+
+    // 공개 대시보드에 표시할 누적 접속수와 로그인 사용자 수입니다.
+    // 접속수는 일별·기기별 방문 표식과 함께 원자적으로 1씩만 증가합니다.
+    match /siteMetrics/public {
+      allow get: if true;
+      allow list: if false;
+      allow create: if validVisitMetricCreate();
+      allow update: if validVisitMetricUpdate()
+        || (
+          request.auth != null
+          && validUserMetricUpdate(request.auth.uid, "login")
+        )
+        || (
+          isOwnerAccount()
+          && validUserMetricUpdate(
+            "9K11y6y4U4dlVmmi9bkxaT4Ci8u2",
+            "seeded"
+          )
+        );
+      allow delete: if false;
+    }
+
+    // 날짜별 접속수와 같은 기기의 중복 집계를 막는 방문 표식입니다.
+    match /siteDailyMetrics/{date} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits == 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow update: if request.resource.data.keys().hasAll([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && request.resource.data.keys().hasOnly([
+          "date",
+          "visits",
+          "lastVisitorId",
+          "updatedAt"
+        ])
+        && validDateKey(date)
+        && request.resource.data.date == date
+        && request.resource.data.visits is int
+        && request.resource.data.visits == resource.data.visits + 1
+        && request.resource.data.updatedAt == request.time
+        && createsVisitMarker(date, request.resource.data.lastVisitorId);
+      allow delete: if false;
+
+      match /visitors/{visitorId} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if request.resource.data.keys().hasAll([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && request.resource.data.keys().hasOnly([
+            "visitorId",
+            "date",
+            "createdAt"
+          ])
+          && validVisitorId(visitorId)
+          && validDateKey(date)
+          && request.resource.data.visitorId == visitorId
+          && request.resource.data.date == date
+          && request.resource.data.createdAt == request.time
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitDate == date
+          && getAfter(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.lastVisitorId == visitorId
+          && getAfter(
+            /databases/$(database)/documents/siteDailyMetrics/$(date)
+          ).data.lastVisitorId == visitorId;
+        allow update, delete: if false;
+      }
+    }
+
+    // 로그인 계정당 한 번 생성되는 비공개 표식입니다.
+    // 공개 화면에는 계정 정보가 아닌 합계만 표시됩니다.
+    match /siteUserRegistry/{userId} {
+      allow get: if request.auth != null
+        && (
+          request.auth.uid == userId
+          || isOwnerAccount()
+        );
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasAll(["createdAt", "source"])
+        && request.resource.data.keys().hasOnly(["createdAt", "source"])
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.auth.uid == userId
+            && request.resource.data.source == "login"
+          )
+          || (
+            isOwnerAccount()
+            && userId == "9K11y6y4U4dlVmmi9bkxaT4Ci8u2"
+            && request.resource.data.source == "seeded"
+          )
+        )
+        && getAfter(
+          /databases/$(database)/documents/siteMetrics/public
+        ).data.userCount
+          == get(
+            /databases/$(database)/documents/siteMetrics/public
+          ).data.userCount + 1;
+      allow update, delete: if false;
+    }
+
+    // 로그인 사용자는 의견을 보낼 수 있고, 전체 목록과 처리 상태는
+    // 소유자 계정만 확인·변경할 수 있습니다.
+    match /siteFeedback/{feedbackId} {
+      allow get: if request.auth != null
+        && (
+          resource.data.authorUid == request.auth.uid
+          || isOwnerAccount()
+        );
+      allow list: if isOwnerAccount();
+      allow create: if validFeedbackCreate();
+      allow update: if validFeedbackAdminUpdate();
+      allow delete: if false;
+    }
+
+    // 커스텀 바인더 작업은 기존 도감 문서와 완전히 분리된 개인 영역입니다.
+    match /users/{userId}/customBinders/{binderId} {
+      allow read: if ownsDocument(userId);
+      allow create: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == request.time;
+      allow update: if ownsDocument(userId)
+        && validCustomBinderDocument(userId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if ownsDocument(userId);
+
+      match /pages/{pageId} {
+        allow read: if ownsDocument(userId);
+        allow create: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == request.time;
+        allow update: if ownsDocument(userId)
+          && validCustomBinderPage(userId, pageId)
+          && request.resource.data.createdAt == resource.data.createdAt;
+        allow delete: if ownsDocument(userId);
+      }
+
+      match /chunks/{chunkId} {
+        allow read: if ownsDocument(userId);
+        allow create, update: if ownsDocument(userId)
+          && validCustomBinderChunk(userId, chunkId);
+        allow delete: if ownsDocument(userId);
+      }
+    }
+
+    // iPhone/PWA Web Push 구독은 로그인한 사용자의 비공개 하위 문서로 저장합니다.
+    match /users/{userId}/webPushSubscriptions/{subscriptionId} {
+      allow read, write: if ownsDocument(userId);
+    }
+
+    // 그 외 모든 Firestore 경로는 차단합니다.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+          && request.resource.data.createdAt == request.time;
+        allow update: if false;
+        allow delete: if isPublicIdOwner(publicId);
+      }
+
       // 이 경로에는 public 도감의 최소 projection만 존재합니다.
       match /collections/{collectionId} {
         allow get, list: if get(
