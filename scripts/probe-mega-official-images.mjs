@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const evidencePath = path.join(root, "data", "audits", "mega-gap-evidence.json");
@@ -130,6 +131,34 @@ const previousSlots = previous?.slots && typeof previous.slots === "object"
   ? previous.slots
   : {};
 
+const verifiedImportedM6a = new Map();
+const originalImport = JSON.parse(
+  await readFile(path.join(root, "data", "audits", "m6a-korean-image-sync.json"), "utf8"),
+);
+if (originalImport.setCode !== "M6a" || originalImport.selfHosted !== true
+    || originalImport.imported?.length !== 32) {
+  throw new Error("M6a Korean official 104-135 asset baseline changed");
+}
+for (const card of originalImport.imported) {
+  const n = card.number, code = String(n).padStart(3, "0");
+  const original = `https://${OFFICIAL_HOST}/data/wmimages/MEGA/M6a/M6a_${code}.png`;
+  const local = `./assets/cards/mega/m6a/M6a_${code}.webp`;
+  if (!Number.isInteger(n) || n < 104 || n > 135 || card.source !== original
+      || card.localPath !== local || !/^[a-f0-9]{64}$/.test(card.sha256)
+      || !/^[a-f0-9]{64}$/.test(card.sourceSha256)
+      || card.sourceDimensions?.length !== 2
+      || verifiedImportedM6a.has(String(n))) {
+    throw new Error("M6a self-hosted Korean official source mismatch " + n);
+  }
+  const binary = await readFile(path.join(root, local));
+  const digest = createHash("sha256").update(binary).digest("hex");
+  if (digest !== card.sha256 || binary.length < 1000) {
+    throw new Error("M6a local WebP hash mismatch " + n);
+  }
+  verifiedImportedM6a.set(String(n), { source: original, local, sha256: digest });
+}
+if (verifiedImportedM6a.size !== 32) throw new Error("Missing M6a 104-135 image provenance");
+
 const slots = {};
 const sets = [];
 let networkChecks = 0;
@@ -159,6 +188,27 @@ for (const set of evidence.sets || []) {
         evidence: "official-image-in-master",
         url: localOfficial.image,
         httpStatus: null,
+      };
+      verifiedMissingSlotCount += 1;
+      officialLocalImageCount += 1;
+      continue;
+    }
+
+    const archived = norm(missing.actualSetCode) === "m6a"
+      ? verifiedImportedM6a.get(String(missing.printedNumber))
+      : null;
+    if (archived) {
+      slots[key] = {
+        setCode: set.code,
+        actualSetCode: missing.actualSetCode,
+        printedNumber: missing.printedNumber,
+        verified: true,
+        evidence: "official-pokemonkorea-Korean-image-owned-sha256",
+        url: archived.source,
+        localPath: archived.local,
+        sha256: archived.sha256,
+        httpStatus: 200,
+        validation: "Previously downloaded from Pokemon Korea; local binary SHA-256 reverified",
       };
       verifiedMissingSlotCount += 1;
       officialLocalImageCount += 1;
