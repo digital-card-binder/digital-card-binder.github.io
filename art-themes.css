@@ -72,3 +72,15 @@ html[data-card-columns="3"] .art-theme-card-grid{grid-template-columns:repeat(3,
 .art-story-section-note{margin:0 0 12px;color:#64748b;font-size:.74rem;line-height:1.6}
 .art-story-card-grid{margin:0}
 @media(max-width:620px){.art-story-section{padding:10px}.art-story-section-header{align-items:flex-start;flex-direction:column;gap:4px}.art-story-section-header h3{font-size:.86rem}}
+
+/* Story illustrations keep their intended visual rows; this does not change card order or ownership. */
+.is-story-groups .art-story-card-grid.art-story-layout-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:630px}
+.is-story-groups .art-story-card-grid.art-story-layout-3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:840px}
+@media(max-width:620px){
+ .is-story-groups .art-story-card-grid.art-story-layout-2{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-body{padding:7px 6px 55px;gap:4px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card h3{font-size:.7rem}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-meta{font-size:.52rem}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-scene{font-size:.5rem}
+}
