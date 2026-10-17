@@ -263,6 +263,12 @@ jobs:
             echo "No forced M6a base refresh requested."
           fi
 
+      - name: Refresh specifically requested Korean cards
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          node scripts/refresh-requested-card-images.mjs
+
       - name: Repair missing images in restored archives
         run: |
           set -euo pipefail
