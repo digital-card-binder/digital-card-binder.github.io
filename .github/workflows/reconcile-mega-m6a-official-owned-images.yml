@@ -38,9 +38,9 @@ jobs:
             const m=JSON.parse(readFileSync("data/audits/mega-korean-membership-audit.json"));
             const old=JSON.parse(readFileSync("data/audits/m6a-korean-image-sync.json"));
             const official=new Set(old.imported.map(i=>String(i.number)));
-            if(official.size!==32||m.summary.pendingOfficialEvidenceCount!==15||
-               m.summary.firstPartyVerifiedGapCount!==149||
-               m.summary.koreanSecondaryVerifiedGapCount!==15||
+            if(official.size!==32||m.summary.pendingOfficialEvidenceCount!==14||
+               m.summary.firstPartyVerifiedGapCount!==150||
+               m.summary.koreanSecondaryVerifiedGapCount!==14||
                m.summary.expectedSlotCount!==2133) throw Error("Unexpected global totals");
             for(const n of official){
               const key="m6a::m6a::"+n, a=m.slots[key], b=p.slots[key];
@@ -56,11 +56,17 @@ jobs:
                  !String(p.slots[key]?.url||"").startsWith("https://cards.image.pokemonkorea.co.kr/"))
                 throw Error("Missing newly archived official proof "+key);
             }
-            if(!m.sets.some(s=>s.code==="M6a"&&s.pendingOfficialEvidenceCount===4)
+            const break157=JSON.parse(readFileSync("data/audits/m6a-157-official-korean-landscape.json"));
+            const key157="m6a::m6a::157";
+            if(!m.slots[key157]?.officialConfirmed||!p.slots[key157]?.verified||
+               !String(p.slots[key157]?.url||"").startsWith("https://cards.image.pokemonkorea.co.kr/")||
+               break157.selfHostedDimensions?.[0]<=break157.selfHostedDimensions?.[1])
+              throw Error("M6a Korean 157 landscape original proof missing");
+            if(!m.sets.some(s=>s.code==="M6a"&&s.pendingOfficialEvidenceCount===3)
                ||!m.sets.some(s=>s.code==="MC"&&s.pendingOfficialEvidenceCount===1)
                ||!m.sets.some(s=>s.code==="M-P"&&s.pendingOfficialEvidenceCount===10))
               throw Error("Expected unresolved MEGA print slots changed");
-            console.log("PASS: 61 official M6a locally hashed assets; 15 official gaps remain");
+            console.log("PASS: 62 official M6a locally hashed assets; 14 official gaps remain");
           '
       - run: npm run site:prepare
       - run: npm run site:check
@@ -75,7 +81,7 @@ jobs:
           for attempt in 1 2 3 4 5; do
             git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json data/master-card-db-audit.json
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m "audit(mega): reconcile 61 Korean self-hosted first-party M6a image proofs"
+            git commit -m "audit(mega): reconcile 62 Korean self-hosted first-party M6a image proofs"
             if git push origin HEAD:main; then exit 0; fi
             if [ "$attempt" -eq 5 ]; then exit 1; fi
             git fetch origin main

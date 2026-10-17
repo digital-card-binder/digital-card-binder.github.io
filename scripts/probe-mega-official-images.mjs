@@ -190,6 +190,28 @@ for (const card of additionalImport.imported) {
 }
 if (verifiedAdditionalM6a.size !== 29) throw new Error("Missing verified M6a 136-165 assets");
 
+const horizontalM6a = JSON.parse(
+  await readFile(path.join(root, "data", "audits", "m6a-157-official-korean-landscape.json"), "utf8"),
+);
+const horizontalUrl = `https://${OFFICIAL_HOST}/data/wmimages/MEGA/M6a/M6a_157.png`;
+const horizontalLocal = "./assets/cards/mega/m6a/M6a_157.webp";
+if (horizontalM6a.setCode !== "M6a" || horizontalM6a.number !== 157
+    || horizontalM6a.source !== horizontalUrl || horizontalM6a.localPath !== horizontalLocal
+    || horizontalM6a.printedLanguageVisuallyConfirmed !== "Korean"
+    || horizontalM6a.sourceDimensions?.[0] !== 1212
+    || horizontalM6a.sourceDimensions?.[1] !== 868
+    || horizontalM6a.selfHostedDimensions?.[0] <= horizontalM6a.selfHostedDimensions?.[1]
+    || !/^[a-f0-9]{64}$/.test(horizontalM6a.sha256)
+    || !/^[a-f0-9]{64}$/.test(horizontalM6a.sourceSha256)) {
+  throw new Error("M6a 157 official Korean horizontal BREAK proof changed");
+}
+const horizontalBytes = await readFile(path.join(root, horizontalLocal));
+const horizontalDigest = createHash("sha256").update(horizontalBytes).digest("hex");
+if (horizontalDigest !== horizontalM6a.sha256 || horizontalBytes.length < 1000) {
+  throw new Error("M6a 157 Korean horizontal WebP hash mismatch");
+}
+
+
 
 const slots = {};
 const sets = [];
@@ -260,6 +282,18 @@ for (const set of evidence.sets || []) {
         sha256: additionalArchived.sha256,
         httpStatus: 200,
         validation: "Official Korean art, visual printed-language review, revalidated own SHA-256",
+      };
+      verifiedMissingSlotCount += 1;
+      officialLocalImageCount += 1;
+      continue;
+    }
+    if (norm(missing.actualSetCode) === "m6a" && String(missing.printedNumber) === "157") {
+      slots[key] = {
+        setCode: set.code, actualSetCode: missing.actualSetCode, printedNumber: missing.printedNumber,
+        verified: true, evidence: "official-Korean-landscape-BREAK-own-sha256",
+        url: horizontalUrl, localPath: horizontalLocal, sha256: horizontalDigest,
+        httpStatus: 200,
+        validation: "Official Korean horizontally printed BREAK art; own exact SHA256 reverified",
       };
       verifiedMissingSlotCount += 1;
       officialLocalImageCount += 1;
