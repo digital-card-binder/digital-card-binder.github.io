@@ -63595,12 +63595,13 @@
       "heldRange": "069-075"
     },
     "s1h": {
-      "artworkReviewedCardCount": 30,
-      "reviewedCardCount": 30,
-      "verifiedKoreanPrintImageCount": 30,
-      "verifiedSelfHostedImageCount": 30,
+      "artworkReviewedCardCount": 60,
+      "reviewedCardCount": 60,
+      "verifiedKoreanPrintImageCount": 60,
+      "verifiedSelfHostedImageCount": 60,
       "reviewedRanges": [
-        "001-030"
+        "001-030",
+        "031-060"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63616,15 +63617,15 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 50,
+      "newlyAddedThemeSlotCount": 101,
       "preservedExistingThemeSlotCount": 0,
-      "partialReviewEvidence": "data/audits/theme-s1h-001-030-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s1h/001-030/visual-index.json",
-      "nextStart": "S1H 실드 031-060 한국판 이미지 및 12테마 개별 시각검수",
+      "partialReviewEvidence": "data/audits/theme-s1h-031-060-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s1h/031-060/visual-index.json",
+      "nextStart": "S1H 실드 061-075 한국판 자체 이미지 및 12테마 검수",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "S1H 실드 한국어판 75장 중 001-030 30장 한국어 인쇄 이미지와 12테마 개별 검수. 신규 50건, 기존 S1H 테마 0건 확인. 45장 검수 전 완료 금지. S2a 일본어 8장·S2/S3 일본어 9장씩·S6K 4건 보류 및 사용자 보유 정보 보존."
+      "note": "S1H 실드 001-060 60장 한국어 카드 이미지와 12테마 시각검수. 신규 테마 누적 101건, 기존 실드 테마 0건. 마지막 15장 보류 검토 전 완료 아님. S2a/S2/S3/S6K 보류·원본 카드 및 유저 보유 상태 유지."
     }
   },
   "queue": {
