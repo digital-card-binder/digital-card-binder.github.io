@@ -91,7 +91,7 @@
 
   function prepareCard(card) {
     if (!(card instanceof HTMLElement)) return;
-    card.draggable = !touchMode() && !document.body.classList.contains("custom-bulk-mode");
+    card.draggable = !touchMode();
     card.querySelectorAll(".custom-card-actions button").forEach(prepareButton);
   }
 
@@ -100,10 +100,10 @@
     const hint = document.querySelector(".custom-sort-hint");
     if (hint) {
       hint.textContent = document.body.classList.contains("custom-bulk-mode")
-        ? "이동할 카드를 여러 장 선택하세요."
+        ? "여러 장 선택 후 오른쪽 위 ⠿ 손잡이를 잡아 원하는 카드 앞·뒤로 옮기세요."
         : touchMode()
-        ? "↑ ↓ 버튼으로 카드 순서를 바꿀 수 있습니다."
-        : "카드를 드래그하거나 ↑ ↓ 버튼으로 순서를 바꿀 수 있습니다.";
+        ? "카드 오른쪽 위 ⠿ 손잡이를 잡아 순서를 옮기거나 ↑ ↓ 버튼을 누르세요."
+        : "카드를 드래그해 옮기거나 ↑ ↓ 버튼을 사용하세요. 여러 장은 순서 편집에서 선택합니다.";
     }
   }
 
