@@ -1,0 +1,58 @@
+name: Apply S3 031-060 reviewed Korean artwork themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-s3-031-060.yml'
+      - 'scripts/apply-theme-s3-031-060-korean.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s3-korean-031-060-theme-apply
+  cancel-in-progress: false
+jobs:
+  verify-and-apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Apply independently reviewed S3 Korean artwork slots 031-060
+        run: node scripts/apply-theme-s3-031-060-korean.mjs
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:ui
+      - run: npm run test:architecture
+      - name: Commit only audited theme data after validation
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git add data/art-themes.json data/audits/theme-series-review-status.json
+            git add data/audits/theme-s3-031-060-progress-20261017.json
+            git add data/audits/theme-series-coverage.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(theme s3): add 41 Korean artwork theme slots for 031-060"
+            if git push origin HEAD:main; then exit 0; fi
+            if [[ "$attempt" -eq 5 ]]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/apply-theme-s3-031-060-korean.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:ui
+            npm run test:architecture
+          done
