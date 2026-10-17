@@ -63667,13 +63667,14 @@
       "heldRange": "079-086"
     },
     "sm1s": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 69,
+      "reviewedCardCount": 69,
+      "verifiedKoreanPrintImageCount": 69,
+      "verifiedSelfHostedImageCount": 69,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-069"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63689,15 +63690,17 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 100,
+      "newlyAddedThemeSlotCount": 109,
       "preservedExistingThemeSlotCount": 0,
-      "partialReviewEvidence": "data/audits/theme-sm1s-031-060-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/sm1s/031-060/visual-index.json",
-      "nextStart": "SM1S 썬 컬렉션 061-073 한국판 자체 이미지 및 12테마 검수",
+      "partialReviewEvidence": "data/audits/theme-sm1s-061-073-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/sm1s/061-073/visual-index.json",
+      "nextStart": "SM1S 썬 컬렉션 070-073 자체 한국판 이미지 4건 복구·검증 전 보류",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "SM1S 썬 컬렉션 001-060 60장 한국어 카드 이미지와 12테마 시각검수. 신규 테마 누적 100건, 기존 썬 컬렉션 테마 0건. 마지막 13장 검수 전 완료 아님. S2a/S2/S3/S6K 보류·원본 카드 및 유저 보유 상태 유지."
+      "note": "SM1S 썬 컬렉션 69/73장 한글 인쇄 시각검수, 테마 신규 109건. 061-066 공식 6장과 067-069 제3자 한글 원본 자체보관 3장 승인. 070-073 자체 CDN 이미지 파일 미확보/디코드 실패 4건 보류, 언어 미판정. 전체 완료 선언 금지. 마스터/보유 및 다른 일본어판 이미지 보류 보호.",
+      "heldArchiveMissingCount": 4,
+      "heldRange": "070-073"
     }
   },
   "queue": {
