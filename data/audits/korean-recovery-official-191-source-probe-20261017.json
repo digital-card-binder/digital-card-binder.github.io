@@ -1,14 +1,16 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-17T11:33:50.380788+00:00",
+  "recordedAt": "2026-10-17T11:36:04.792429+00:00",
   "scope": "Exactly 191 existing unresolved Korean image/printed-number slots",
   "inputQueue": "data/audits/korean-recovery-active-queue-20261017.json",
   "firstPartyEndpoint": "https://cards.image.pokemonkorea.co.kr/data/wmimages",
   "purpose": "GET and verify candidate official image availability only",
   "totalHeldChecked": 191,
+  "newlyProbed": 39,
+  "cachedPreviousProbes": 152,
   "counts": {
-    "non_numeric_or_uncertain_CDN_path": 39,
-    "official_http_error_not_unreleased": 149,
+    "non_numeric_or_uncertain_CDN_path": 3,
+    "official_http_error_not_unreleased": 185,
     "official_image_decodes_identity_and_rights_unchecked": 3
   },
   "rows": [
@@ -1473,64 +1475,78 @@
       "workId": 134,
       "slot": "s3a_086/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_086.png",
+      "httpStatus": 415
     },
     {
       "workId": 135,
       "slot": "s3a_087/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_087.png",
+      "httpStatus": 415
     },
     {
       "workId": 136,
       "slot": "s3a_088/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_088.png",
+      "httpStatus": 415
     },
     {
       "workId": 137,
       "slot": "s3a_089/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_089.png",
+      "httpStatus": 415
     },
     {
       "workId": 138,
       "slot": "s3a_092/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_092.png",
+      "httpStatus": 415
     },
     {
       "workId": 139,
       "slot": "s3a_093/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_093.png",
+      "httpStatus": 415
     },
     {
       "workId": 140,
       "slot": "s3a_094/076",
       "set": "S3a",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S3a/S3a_094.png",
+      "httpStatus": 415
     },
     {
       "workId": 141,
@@ -1654,91 +1670,111 @@
       "workId": 151,
       "slot": "s6h_088/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_088.png",
+      "httpStatus": 415
     },
     {
       "workId": 152,
       "slot": "s6h_089/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_089.png",
+      "httpStatus": 415
     },
     {
       "workId": 153,
       "slot": "s6h_090/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_090.png",
+      "httpStatus": 415
     },
     {
       "workId": 154,
       "slot": "s6h_091/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_091.png",
+      "httpStatus": 415
     },
     {
       "workId": 155,
       "slot": "s6h_092/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_092.png",
+      "httpStatus": 415
     },
     {
       "workId": 156,
       "slot": "s6h_093/070",
       "set": "S6H",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6H/S6H_093.png",
+      "httpStatus": 415
     },
     {
       "workId": 157,
       "slot": "s6k_089/070",
       "set": "S6K",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6K/S6K_089.png",
+      "httpStatus": 415
     },
     {
       "workId": 158,
       "slot": "s6k_090/070",
       "set": "S6K",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6K/S6K_090.png",
+      "httpStatus": 415
     },
     {
       "workId": 159,
       "slot": "s6k_092/070",
       "set": "S6K",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6K/S6K_092.png",
+      "httpStatus": 415
     },
     {
       "workId": 160,
       "slot": "s6k_094/070",
       "set": "S6K",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6K/S6K_094.png",
+      "httpStatus": 415
     },
     {
       "workId": 161,
@@ -1892,172 +1928,210 @@
       "workId": 173,
       "slot": "sm1plus_059/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_059.png",
+      "httpStatus": 415
     },
     {
       "workId": 174,
       "slot": "sm1plus_060/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_060.png",
+      "httpStatus": 415
     },
     {
       "workId": 175,
       "slot": "sm1plus_061/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_061.png",
+      "httpStatus": 415
     },
     {
       "workId": 176,
       "slot": "sm1plus_062/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_062.png",
+      "httpStatus": 415
     },
     {
       "workId": 177,
       "slot": "sm1plus_063/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_063.png",
+      "httpStatus": 415
     },
     {
       "workId": 178,
       "slot": "sm1plus_064/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_064.png",
+      "httpStatus": 415
     },
     {
       "workId": 179,
       "slot": "sm1plus_065/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_065.png",
+      "httpStatus": 415
     },
     {
       "workId": 180,
       "slot": "sm1plus_066/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_066.png",
+      "httpStatus": 415
     },
     {
       "workId": 181,
       "slot": "sm1plus_067/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_067.png",
+      "httpStatus": 415
     },
     {
       "workId": 182,
       "slot": "sm1plus_068/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_068.png",
+      "httpStatus": 415
     },
     {
       "workId": 183,
       "slot": "sm1plus_069/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_069.png",
+      "httpStatus": 415
     },
     {
       "workId": 184,
       "slot": "sm1plus_070/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_070.png",
+      "httpStatus": 415
     },
     {
       "workId": 185,
       "slot": "sm1plus_071/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_071.png",
+      "httpStatus": 415
     },
     {
       "workId": 186,
       "slot": "sm1plus_072/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_072.png",
+      "httpStatus": 415
     },
     {
       "workId": 187,
       "slot": "sm1plus_073/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_073.png",
+      "httpStatus": 415
     },
     {
       "workId": 188,
       "slot": "sm1plus_074/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_074.png",
+      "httpStatus": 415
     },
     {
       "workId": 189,
       "slot": "sm1plus_075/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_075.png",
+      "httpStatus": 415
     },
     {
       "workId": 190,
       "slot": "sm1plus_076/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_076.png",
+      "httpStatus": 415
     },
     {
       "workId": 191,
       "slot": "sm1plus_077/051",
       "set": "SM1+",
-      "status": "non_numeric_or_uncertain_CDN_path",
+      "status": "official_http_error_not_unreleased",
       "stillStrictHeld": true,
       "koreanPrintVerified": false,
-      "republishPermissionVerified": false
+      "republishPermissionVerified": false,
+      "officialUrlCandidate": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM1%2B/SM1%2B_077.png",
+      "httpStatus": 415
     }
   ],
   "warnings": [
