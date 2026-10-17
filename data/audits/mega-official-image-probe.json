@@ -7,8 +7,8 @@
     "fullyFirstPartyBackedSetCount": 11,
     "partialSetCount": 3,
     "missingExpectedSlotCount": 164,
-    "verifiedMissingSlotCount": 120,
-    "unresolvedMissingSlotCount": 44
+    "verifiedMissingSlotCount": 149,
+    "unresolvedMissingSlotCount": 15
   },
   "sets": [
     {
@@ -122,9 +122,9 @@
       "officialSearchSlotCount": 108,
       "missingExpectedSlotCount": 68,
       "unexpectedOfficialSlotCount": 0,
-      "verifiedMissingSlotCount": 35,
-      "unresolvedMissingSlotCount": 33,
-      "officialLocalImageCount": 32,
+      "verifiedMissingSlotCount": 64,
+      "unresolvedMissingSlotCount": 4,
+      "officialLocalImageCount": 61,
       "officialProbeImageCount": 3,
       "allExpectedSlotsHaveFirstPartyEvidence": false
     },
@@ -614,12 +614,9 @@
       "actualSetCode": "m6a",
       "printedNumber": "104",
       "verified": true,
-      "evidence": "official-pokemonkorea-Korean-image-owned-sha256",
-      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_104.png",
-      "localPath": "./assets/cards/mega/m6a/M6a_104.webp",
-      "sha256": "844933c0541fd4534263cbb8b4533c9d467199b910139bb386ad1f7cbcb3506b",
-      "httpStatus": 200,
-      "validation": "Previously downloaded from Pokemon Korea; local binary SHA-256 reverified"
+      "evidence": "official-image-in-master",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_104.png?w=512",
+      "httpStatus": null
     },
     "m6a::m6a::105": {
       "setCode": "M6a",
@@ -926,12 +923,9 @@
       "actualSetCode": "m6a",
       "printedNumber": "130",
       "verified": true,
-      "evidence": "official-pokemonkorea-Korean-image-owned-sha256",
-      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_130.png",
-      "localPath": "./assets/cards/mega/m6a/M6a_130.webp",
-      "sha256": "647810cb6d48a1952174209f19f684c5dd4af462fa7ad8674b8d36f093c6ad4e",
-      "httpStatus": 200,
-      "validation": "Previously downloaded from Pokemon Korea; local binary SHA-256 reverified"
+      "evidence": "official-image-in-master",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_130.png?w=512",
+      "httpStatus": null
     },
     "m6a::m6a::131": {
       "setCode": "M6a",
@@ -997,190 +991,253 @@
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "136",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_136.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_136.webp",
+      "sha256": "3fc814cfde838cbbdab6ed36913d6ec815c0516b872f36c233a0b8ae7d3d5abe",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::137": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "137",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_137.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_137.webp",
+      "sha256": "d19ca96654bebbe9df00589827dc6340f02bad961197a1a43ff229e8a0beba95",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::138": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "138",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_138.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_138.webp",
+      "sha256": "d2e3a71369c75a6a19e51f670571dc94df4e8616f1aa4af9b2022f56ba8dcdbe",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::139": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "139",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_139.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_139.webp",
+      "sha256": "adedfc942e15e4d1acfb56c360e04ba4a7b1d0b5ccb26d1c446cdff418e3e7b7",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::140": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "140",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_140.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_140.webp",
+      "sha256": "0ddaac1aeec3d492a0f29cd195c9ff1e1e52b658f10ca887e6439c37235eea9d",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::141": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "141",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_141.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_141.webp",
+      "sha256": "af66b31f1eb7935c3e40c41d3bc70f8849b1d75cec24ced5003ec68475fa6580",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::142": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "142",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_142.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_142.webp",
+      "sha256": "cd5eac6e275f58fdc6977b440ad23f43c3db97c143d93106ff7322c716bece77",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::143": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "143",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_143.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_143.webp",
+      "sha256": "e9c29feb34c70d7293f197b92a348ff5457cba4712c874acf10efaa977604492",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::144": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "144",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_144.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_144.webp",
+      "sha256": "f94a92a2d7c64c6a4ae924591d130c51ef6945e6700775b1bd81a8ae8e1067ea",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::145": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "145",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_145.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_145.webp",
+      "sha256": "8d228fc8e35fb1795518a434985fec3e876e3d4a2c73de2dfa4f16fc09e1fe39",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::146": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "146",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_146.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_146.webp",
+      "sha256": "c2aa9c2576c8a40acd8cc062cbb4b8f2f17fa629354138995eed2de70361f493",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::147": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "147",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_147.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_147.webp",
+      "sha256": "ea89036409985654a600cc59d3b4e8648339879267ef6d7a5f7dc9616a29cbbc",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::148": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "148",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_148.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_148.webp",
+      "sha256": "2189133cd9c28df75b146071cc1a1d6138642b836e2a478838ee00533ba5ec44",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::149": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "149",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_149.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_149.webp",
+      "sha256": "f1a5099fd79052ec134d949eb4e2b69f935001b6a3ca3d094b55b83003fe4439",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::150": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "150",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_150.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_150.webp",
+      "sha256": "4b93e7a480f1a4d85a2a0ccd645b28401a288fdaa9bb2bcb5ef0f128585ecb07",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::151": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "151",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_151.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_151.webp",
+      "sha256": "6ba9d54ea8529ca55063a0299309b6076c806642f3f12707899eb56cef8d0f19",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::152": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "152",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_152.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_152.webp",
+      "sha256": "7a211c84a2d93248c51bba4bcc7f4d8cdb1c807ce20fd9e728a5f18e649e89d3",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::153": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "153",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_153.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_153.webp",
+      "sha256": "eb15e7603906df125cfa35c7ee089fdb174136fdb6ca57c7429c81ef300f83c2",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::154": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "154",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_154.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_154.webp",
+      "sha256": "dd17508d909e508f97dedf75fc987a7c8564d245d8a39b85596768fa93d7c15e",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::155": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "155",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_155.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_155.webp",
+      "sha256": "50ffaf8b9f41af0e6153517f709c6c2257c91baad8beefc86b065da9466a97bd",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::156": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "156",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_156.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_156.webp",
+      "sha256": "a5006fea0d8163ca9040c48d043cb20d013d7396ec51f8dbaf4c5c272c0ea2cd",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::157": {
       "setCode": "M6a",
@@ -1195,73 +1252,97 @@
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "158",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_158.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_158.webp",
+      "sha256": "665b441d2778f43f66cf05c6e238010c5e65772a442a6e590737b99bfc64a10e",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::159": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "159",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_159.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_159.webp",
+      "sha256": "741523d9f2133cdcfee0a423adbee592817d654bb4167cfdba8825c764f2dc4d",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::160": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "160",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_160.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_160.webp",
+      "sha256": "be0e62a35207a72cb6c0ecc52f7c3fdf785d6b036423d31e687268baa9b1efdd",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::161": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "161",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_161.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_161.webp",
+      "sha256": "bcff9c73bae88daf3593e5b11064034a434385a75723ccde43e5e1bc57546bb6",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::162": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "162",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_162.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_162.webp",
+      "sha256": "c9fcf0be3f4b678a00d830b3842a9c63415e1fbee0a37c2e5d0cfe830c2625ee",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::163": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "163",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_163.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_163.webp",
+      "sha256": "d0b383302a10e136525bf7a478c05586d9e1b29b6da707830f5aa0489db97852",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::164": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "164",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_164.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_164.webp",
+      "sha256": "140528c7040d4e92356e65651563f2309400194a0c825a8254de6ea6c21dd303",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::165": {
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "165",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-pokemonkorea-Korean-reprint-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_165.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_165.webp",
+      "sha256": "36dbcdb3d3f1ef804591f6ff77613bfabcfe3bf7f36e04bf138331ffbab31748",
+      "httpStatus": 200,
+      "validation": "Official Korean art, visual printed-language review, revalidated own SHA-256"
     },
     "m6a::m6a::25": {
       "setCode": "M6a",
