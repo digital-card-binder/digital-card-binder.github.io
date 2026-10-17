@@ -1,0 +1,41 @@
+name: Examine held Korean S retailer print images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-s-held-korean-retail.yml'
+      - 'scripts/probe-sword-shield-korean-retail-held.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: s-era-korean-retail-visual-preflight-20261017
+  cancel-in-progress: false
+jobs:
+  retail-photo-preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet 'Pillow>=10,<13'
+      - run: python scripts/probe-sword-shield-korean-retail-held.py
+      - name: Save source-link and limited review-only visual evidence
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/korean-recovery-retailer-source-s-20261017
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "audit: stage Korean seller-image review evidence for unreviewed S rarities"
+          for i in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 4
+          done
+          exit 1
