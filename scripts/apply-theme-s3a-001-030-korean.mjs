@@ -7,7 +7,7 @@ const REVIEW="data/audits/theme-s3a-001-030-Korean-art-review-20261017.json";
 const PROOF="data/audits/theme-visual-evidence/s3a/001-030/visual-index.json";
 const PROGRESS="data/audits/theme-s3a-001-030-progress-20261017.json";
 const NEXT="s3a Korean 031-060 printed artwork source and 12-theme visual review";
-const THEMES=["sleeping","connected","evolution","night","season","color","sunset","reflections","sleeping","street","work","cameo"];
+const THEMES=["sleeping","connected","evolution","night","season","color","sunset","reflections","food","street","work","cameo"];
 const [review,proof,modern,legacy,themes,status,hosting,coverage]=await Promise.all([
  read(REVIEW),read(PROOF),read("data/series.json"),read("data/series-legacy.json"),
  read("data/art-themes.json"),read("data/audits/theme-series-review-status.json"),
