@@ -40,7 +40,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for attempt in 1 2 3 4 5; do
             git add data/art-themes.json data/audits/theme-series-review-status.json
-            git add data/audits/theme-s1w-061-075-approved18-held7-progress-20261017.json
+            git add data/audits/theme-s1w-061-075-approved8-held7-progress-20261017.json
             git add data/audits/theme-series-coverage.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "audit(theme s1w): add 8 Korean themes for 061-068; hold JP 069-075"
