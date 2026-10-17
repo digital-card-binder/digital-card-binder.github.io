@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 17136,
-    "uniqueThemeCards": 10419,
+    "themeCardSlots": 17182,
+    "uniqueThemeCards": 10449,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -127,7 +127,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4927,
+      "cardSlots": 4943,
       "setCount": 118,
       "rarities": [
         "AR",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9438,
-      "setCount": 122,
+      "cardSlots": 9468,
+      "setCount": 123,
       "rarities": [
         "A",
         "AR",
@@ -290,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6535
+      "currentThemeSlots": 6581
     },
     {
       "era": "SM",
@@ -452,7 +452,7 @@
       "code": "s2a",
       "name": "폭염워커",
       "cardCount": 86,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -614,10 +614,11 @@
       "cardCount": 86,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
       "themeHits": {
-        "season": 1,
+        "season": 17,
+        "color": 30,
         "sunset": 1,
         "street": 1
       }
