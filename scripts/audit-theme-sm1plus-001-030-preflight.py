@@ -91,7 +91,7 @@ def inspect(row):
     return row["canonicalOrder"], check, im
 
 for key, name in SETS.items():
-    matched = [s for s in modern + legacy if str(s.get("code", "")).lower() == key]
+    matched = [s for s in modern + legacy if str(s.get("code", "")).lower().replace("+", "plus") == key]
     assert len(matched) == 1, (key, len(matched))
     set_data = matched[0]
     assert len(set_data["cards"]) == 77, (key, len(set_data["cards"]))
