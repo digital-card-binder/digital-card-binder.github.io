@@ -205,7 +205,19 @@
     <dialog id="card-picker-dialog" class="custom-dialog custom-picker-dialog">
       <div class="custom-dialog-inner">
         <div class="custom-dialog-heading"><div><h2>카드 추가</h2></div><button id="card-picker-close" class="custom-dialog-close" type="button" aria-label="닫기">×</button></div>
-        <label class="custom-picker-search"><span class="sr-only">추가할 카드 검색</span><input id="card-picker-search" type="search" autocomplete="off" placeholder="포켓몬명 · 세트코드 · 카드번호 검색"></label>
+        <div class="custom-import-methods">
+          <strong>어떤 카드를 추가할까요?</strong>
+          <button type="button" id="custom-photo-trigger" class="manager-button">📷 사진 여러 장 올리기</button>
+          <input id="custom-photo-files" type="file" accept="image/*" multiple hidden>
+        </div>
+        <div id="custom-photo-panel" class="custom-photo-panel" hidden>
+          <div class="custom-photo-heading"><strong>사진 미리보기 · <span id="custom-photo-count">0</span>장</strong><button id="custom-photo-clear" type="button">선택 취소</button></div>
+          <div id="custom-photo-preview" class="custom-photo-preview"></div>
+          <label class="custom-photo-owned"><input id="custom-photo-owned" type="checkbox" checked> 등록 시 보유 카드로 표시</label>
+          <button id="custom-photo-import" class="primary-button" type="button">사진 일괄 등록</button>
+          <p id="custom-photo-status" role="status" aria-live="polite">사진을 등록하면 계정에 별도 저장되어 다른 기기에서도 볼 수 있습니다.</p>
+        </div>
+        <label class="custom-picker-search"><span class="sr-only">추가할 카드 검색</span><input id="card-picker-search" type="search" autocomplete="off" placeholder="기존 카드 검색 · 포켓몬명 · 세트코드 · 카드번호"></label>
         <div class="custom-picker-meta"><span>현재 시리즈 도감의 카드 DB에서 검색합니다.</span><span><b id="card-picker-count">0</b>개 표시</span></div>
         <div class="custom-picker-bulk">
           <span><b id="card-picker-selected-count">0</b>장 선택됨</span>
