@@ -63387,13 +63387,15 @@
       "note": "S4 앙천의 볼트태클 전체 121개 canonical 카드 번호를 한국어 카드 실물로 12테마 전수검수, 자체 CDN 121개 확인. 신규 테마 슬롯 194개, 기존 원본 food S4_027 및 sleeping S4_084 2개 보존. 마지막 112-121 10장은 공식 원본이 아닌 외부 한국어 인쇄본 사진과 DCB 자체 레거시 저장소에 근거함. 마스터 DB와 보유 키 변경 없음."
     },
     "s3a": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 87,
+      "reviewedCardCount": 87,
+      "verifiedKoreanPrintImageCount": 87,
+      "verifiedSelfHostedImageCount": 87,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-085",
+        "090-091"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63409,15 +63411,24 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 96,
+      "newlyAddedThemeSlotCount": 128,
       "preservedExistingThemeSlotCount": 1,
-      "partialReviewEvidence": "data/audits/theme-s3a-031-060-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3a/031-060/visual-index.json",
-      "nextStart": "s3a Korean 061-090 printed artwork source and 12-theme visual review",
+      "partialReviewEvidence": "data/audits/theme-s3a-061-094-partial-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-s3a-061-094-korean-print-gate-20261017.json",
+      "nextStart": "S3a 한국판 이미지 대체 필요 086-089 및 092-094 (7장)",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "S3a 94장 중 001-060 한국판 카드 12테마 육안 검수 완료. 031-060 신규 46건, 누적 신규 96건. 기존 S3A_028 잠자는 테마와 모든 보유 키 유지. 042 이름은 인쇄본에 맞게 별도 교정. 나머지 34장 검수 전 complete 금지."
+      "note": "S3a 94장 중 실제 한국어 인쇄 이미지 87장을 12테마 검수(기존 60+추가 27), 신규 테마 수록 128건 및 기존 S3A_028 보존. 나머지 7장(086-089, 092-094)은 현재 자체 CDN에도 일본어 카드가 저장되어 한국판 검수 보류. 한국판 이미지 구하기 전까지 complete 금지.",
+      "heldCards": [
+        "S3a_086",
+        "S3a_087",
+        "S3a_088",
+        "S3a_089",
+        "S3a_092",
+        "S3a_093",
+        "S3a_094"
+      ]
     }
   },
   "queue": {
