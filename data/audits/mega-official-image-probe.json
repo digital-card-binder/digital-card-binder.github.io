@@ -7,8 +7,8 @@
     "fullyFirstPartyBackedSetCount": 11,
     "partialSetCount": 3,
     "missingExpectedSlotCount": 164,
-    "verifiedMissingSlotCount": 149,
-    "unresolvedMissingSlotCount": 15
+    "verifiedMissingSlotCount": 150,
+    "unresolvedMissingSlotCount": 14
   },
   "sets": [
     {
@@ -122,9 +122,9 @@
       "officialSearchSlotCount": 108,
       "missingExpectedSlotCount": 68,
       "unexpectedOfficialSlotCount": 0,
-      "verifiedMissingSlotCount": 64,
-      "unresolvedMissingSlotCount": 4,
-      "officialLocalImageCount": 61,
+      "verifiedMissingSlotCount": 65,
+      "unresolvedMissingSlotCount": 3,
+      "officialLocalImageCount": 62,
       "officialProbeImageCount": 3,
       "allExpectedSlotsHaveFirstPartyEvidence": false
     },
@@ -1243,10 +1243,13 @@
       "setCode": "M6a",
       "actualSetCode": "m6a",
       "printedNumber": "157",
-      "verified": false,
-      "evidence": "official-index-pending",
-      "url": "",
-      "httpStatus": null
+      "verified": true,
+      "evidence": "official-Korean-landscape-BREAK-own-sha256",
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/MEGA/M6a/M6a_157.png",
+      "localPath": "./assets/cards/mega/m6a/M6a_157.webp",
+      "sha256": "931f94549fae071b88bdad5305b64be646935fd480ca1de861528604cdc9a5bf",
+      "httpStatus": 200,
+      "validation": "Official Korean horizontally printed BREAK art; own exact SHA256 reverified"
     },
     "m6a::m6a::158": {
       "setCode": "M6a",
