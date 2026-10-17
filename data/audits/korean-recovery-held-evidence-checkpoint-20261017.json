@@ -182,17 +182,30 @@
       "corroboratingSourceUrl": "https://m.bunjang.co.kr/keywords/%EC%B6%95%ED%95%98%ED%8C%A1%ED%8C%8C%EB%A0%88",
       "contextOfficialUrl": "https://www.pokemonkorea.co.kr/koreanleague_2026",
       "sourceType": "Community Korean promo list + domestic 2026 physical sales listings + official league programme (not exact printed image)",
-      "evidenceStatus": "secondary_numbered_Korean_promo_list_and_domestic_print_listing",
+      "evidenceStatus": "secondary_readable_Korean_card_name_and_print_number",
       "observation": "Korean fan-maintained promo release list identifies 016/M-P as 축하 팡파레 awarded for 2026 Korean League all-season participation. Marketplace has 2026 Korean celebration-fanfare listings but mixed years; neither independently supplies verified 016 printed footer. Official league page confirms Korean League programme, not this particular card's number.",
       "KoreanReleaseWorkingStatus": "secondary_Korean_distribution_evidence_not_official_card_identity_closed",
-      "officialCardIdentity": "pending_official_016_M-P_print_footer_and_distribution_detail",
-      "printFooterVisuallyConfirmed": false,
+      "officialCardIdentity": "secondary_visual_number_016_M-P_confirmed_not_official_card_detail",
+      "printFooterVisuallyConfirmed": true,
       "imageReuseAuthorized": false,
       "imageSelfHostEligible": false,
       "productionImageUpdated": false,
       "canonicalDataUpdated": false,
       "themeAuditCompleted": false,
-      "followUp": "Obtain photograph with readable Korean 016/M-P footer, distinguish 2024/2025 Korean fanfare printings, confirm distribution, and secure licensed image before mapping."
+      "followUp": "Seek official single-card record and licensed reusable Korean print image. Do not re-review previously completed 12 themes.",
+      "additionalVisualPrintEvidence": {
+        "checkedAt": "2026-10-17",
+        "source": "https://kream.co.kr/products/940634",
+        "type": "KREAM image of Korean card, print footer readable in public product preview",
+        "observedKoreanTitle": "축하 팡파레",
+        "observedPrintedFooter": "016/M-P",
+        "releaseEditionMarker": "2026 Korean League logo",
+        "printedNumberInPublicImageVisuallyReadable": true,
+        "authenticityTier": "secondary_photo_legibility_not_pokemon_korea_firstparty",
+        "republishPermissionEstablished": false,
+        "contentDownloadedOrRehosted": false,
+        "caution": "Card photo seems to show exact 016/M-P, but image license is not demonstrated; do not copy/replace production art. Separate official-source gap and media-rights gap remain."
+      }
     }
   ],
   "unresolvedInherited": [
@@ -330,7 +343,7 @@
     "themeReviewSeparateFromImageReview": true,
     "noAutomaticKoreanUnreleasedExclusions": true
   },
-  "nextStart": "MEGA 14 unresolved exact first-party single-card identity + reuse permission; secondary corroborated 8/14 but no 14 first-party closures; after MEGA move to SV Classic CLL_004 and remaining 65/6.",
+  "nextStart": "M-P 016/M-P Korean number/name now visible in secondary card image but license/first-party detail held; remaining MEGA first-party holds 14; M-P 500-502 league prize exact numbering, M-P 058-060 printed energy identity, CLL_004/005 license & print footer.",
   "testStatus": "8 of original 14 have new item-specific secondary evidence, no original 14 marked officially closed. Safe data-only checkpoint; GitHub Actions CI after commit.",
   "completionStatus": "in_progress_evidence_only_not_card_closure",
   "officialProductReleaseEvidence": [
@@ -381,5 +394,8 @@
     "source": "https://pokemoncard.co.kr/cards",
     "publisherStatement": "Pokemon Korea official site prohibits unauthorized copying of content.",
     "action": "No card image binaries collected from domestic retail sellers, image engines, or indexed official photos this batch. Evidence links only."
-  }
+  },
+  "newImageNumberEvidenceUpgraded": [
+    "m-p::m-p::16"
+  ]
 }
