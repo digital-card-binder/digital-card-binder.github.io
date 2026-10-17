@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16985,
-    "uniqueThemeCards": 10313,
+    "themeCardSlots": 17028,
+    "uniqueThemeCards": 10343,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4892,
-      "setCount": 117,
+      "cardSlots": 4904,
+      "setCount": 118,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9332,
-      "setCount": 121,
+      "cardSlots": 9362,
+      "setCount": 122,
       "rarities": [
         "A",
         "AR",
@@ -203,8 +203,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 178,
-      "setCount": 66,
+      "cardSlots": 179,
+      "setCount": 67,
       "rarities": [
         "AR",
         "C",
@@ -290,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6384
+      "currentThemeSlots": 6427
     },
     {
       "era": "SM",
@@ -459,7 +459,7 @@
       "code": "s2",
       "name": "반역크래시",
       "cardCount": 115,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -596,9 +596,13 @@
       "cardCount": 115,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
+      "themeHits": {
+        "season": 12,
+        "color": 30,
+        "food": 1
+      }
     },
     {
       "era": "S",
