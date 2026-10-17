@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { createHash } from "node:crypto";
+
 import vm from "node:vm";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -201,4 +203,24 @@ test("search client supports unified field scopes without requesting heavy catal
   assert.match(page, /id="pokemon-search-dialog-artist"/);
   assert.match(page, /id="pokemon-search-dialog-trainer"/);
   assert.match(page, /id="pokemon-search-dialog-rarity"/);
+});
+
+
+test("Korean Classic replacement images remain locally archived and routed across catalog and search", () => {
+  const overrides = parse("data/series-image-overrides.json");
+  const audit = parse("data/audits/korean-recovery-classic-clf-001-002-firstparty-display-20261017.json");
+  assert.equal(audit.productionReplacements.length, 2);
+  for (const row of audit.productionReplacements) {
+    assert.ok(["CLF_001", "CLF_002"].includes(row.cardKey));
+    assert.equal(overrides.sets.clf[row.masterCardCode], row.newDisplay);
+    const bytes = readFileSync(new URL(`..${row.newDisplay}`, import.meta.url));
+    assert.equal(bytes.subarray(0, 4).toString("ascii"), "RIFF");
+    assert.equal(bytes.subarray(8, 12).toString("ascii"), "WEBP");
+    assert.equal(bytes.length, row.imageBytes);
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), row.selfhostedWebPSha256);
+    assert.equal(row.printAnd12ThemeFinalClosure, false);
+  }
+  const client = read("pokemon-search.js");
+  assert.match(client, /applySeriesImageOverridesToSearch[(]decoded[.]groups[)]/);
+  assert.match(client, /card[.]originalImage = local/);
 });
