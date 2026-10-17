@@ -337,7 +337,7 @@
       if (!response.ok) throw new Error(`${DATA_URL} ${response.status}`);
       dataset = await response.json();
       if (!EEVEE_MODE) {
-        const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017c", { cache: "no-store" });
+        const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017d", { cache: "no-store" });
         if (auditResponse.ok) storyReview = await auditResponse.json();
       }
       if (!Array.isArray(dataset.groups) || !dataset.groups.length) throw new Error("테마 데이터가 비어 있습니다.");
