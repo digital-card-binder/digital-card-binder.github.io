@@ -35,7 +35,7 @@ def expected_card_number(row: dict) -> tuple[str, str] | None:
     if slot.count("::") == 2:
         printed = slot.rsplit("::", 1)[1]
     else:
-        found = re.fullmatch(r"(?i)([A-Z0-9+_-]+)_([0-9]{3})", slot)
+        found = re.fullmatch(r"(?i)([A-Z0-9+_-]+)_0*([0-9]{1,4})(?:/[0-9]{1,4})?", slot)
         printed = found.group(2) if found else ""
     if not re.fullmatch(r"[0-9]{1,4}", printed):
         return None
@@ -116,8 +116,23 @@ def main() -> None:
         raise RuntimeError("191 inherited hold checkpoint changed; refuse to probe")
     if len({r["slot"] for r in rows}) != len(rows):
         raise RuntimeError("Duplicate inherited identity; refuse to probe")
+    # Reuse completed per-slot source probes. Re-examine only records previously
+    # skipped due to an unrecognized canonical ID shape; never redo 152 good
+    # probes or any completed card audits.
+    cached = {}
+    if REPORT.exists():
+        previous = json.loads(REPORT.read_text(encoding="utf-8"))
+        if previous.get("totalHeldChecked") == 191:
+            cached = {
+                row["slot"]: row for row in previous["rows"]
+                if row.get("status") != "non_numeric_or_uncertain_CDN_path"
+            }
+    fresh = [row for row in rows if row["slot"] not in cached]
     with ThreadPoolExecutor(max_workers=7) as executor:
-        results = list(executor.map(probe, rows))
+        fresh_results = {result["slot"]: result for result in executor.map(probe, fresh)}
+    results = [cached.get(row["slot"], fresh_results.get(row["slot"])) for row in rows]
+    if any(row is None for row in results):
+        raise RuntimeError("Source probe results did not cover the inherited queue")
     status = {}
     for row in results:
         status[row["status"]] = status.get(row["status"], 0) + 1
@@ -129,6 +144,8 @@ def main() -> None:
         "firstPartyEndpoint": OFFICIAL,
         "purpose": "GET and verify candidate official image availability only",
         "totalHeldChecked": len(rows),
+        "newlyProbed": len(fresh),
+        "cachedPreviousProbes": len(cached),
         "counts": status,
         "rows": results,
         "warnings": [
