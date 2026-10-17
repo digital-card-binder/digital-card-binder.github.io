@@ -34,7 +34,7 @@ if(meta.artworkReviewedCardCount!==30||meta.reviewedCardCount!==30||
  JSON.stringify(meta.reviewedRanges)!==JSON.stringify(["001-030"])||
  meta.status!=="in_progress"||meta.complete!==false||
  previous.totalMasterCards!==86||previous.KoreanPrintArtworksReviewed!==30||
- previous.newlyAddedThemeSlotsCumulative!==50||previous.remainingImageAndArtworkCount!==45||
+ previous.newlyAddedThemeSlotsCumulative!==50||previous.remainingImageAndArtworkCount!==56||
  previous.globalCheckpointPreserved!==GLOBAL||
  coverage.sets.find(s=>String(s.code||"").toLowerCase()===CODE)?.status!=="in_progress"||
  status.execution?.nextStart!==GLOBAL||hosting.nextStart!==GLOBAL||
