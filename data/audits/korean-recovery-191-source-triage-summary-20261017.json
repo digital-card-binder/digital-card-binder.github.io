@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "repo": "digital-card-binder/digital-card-binder.github.io",
+  "baseCheckpoint": "data/audits/korean-recovery-active-queue-20261017.json",
+  "purpose": "Finish all source discovery attempts this session without reopening completed card audits or silently mistaking HTTP errors for Korean nonrelease.",
+  "quantitative": {
+    "inheritedUnresolvedSlots": 191,
+    "officialCDNSlotURLProbes": 191,
+    "officialCDNUnqueryableRGBSlots": 3,
+    "officialCDNHTTP415": 185,
+    "officialCDNHTTP200Decodable": 3,
+    "fullyPrintAndLicenseApprovedFrom200": 0,
+    "widthParameterRepresentativeProbes": 12,
+    "widthParameterHTTP415": 11,
+    "widthParameterPlaceholderHTTP200": 1,
+    "retailerGuessedPhotoURLProbes": 75,
+    "retailerGuessedPhotoURLHTTP404": 75,
+    "retailerExactKoreanListEvidence": 4,
+    "newSelfHostedImagesThisSession": 0,
+    "newCanonicalCorrections": 0,
+    "exclusionsNew": 0,
+    "priorCLF001002SelfHostedPreserved": 2
+  },
+  "sourceReports": [
+    "data/audits/korean-recovery-official-191-source-probe-20261017.json",
+    "data/audits/korean-recovery-official-image-width-transform-20261017.json",
+    "data/audits/korean-recovery-retailer-source-s-20261017/index.json"
+  ],
+  "falsePositiveReview": [
+    {
+      "slot": "S4A_138",
+      "decodedFirstPartyURL": true,
+      "bytes": 1899,
+      "variantW512Bytes": 152,
+      "whyNotUsable": "Minimal 868x1212/512x714 PNG placeholder-like response, not verified Korean print.",
+      "promoted": false
+    },
+    {
+      "slot": "S-P_115",
+      "decodedFirstPartyURL": true,
+      "sha256": "6732679a67d894bb0d240d6fd2c1e54dcc67201e6e7f278d61b11299b9c1408a",
+      "whyNotUsable": "Matches previously archived masked placeholder-number source image. See theme-sp-204-image-region-gate-20261013.json.",
+      "promoted": false
+    },
+    {
+      "slot": "SN_025",
+      "decodedFirstPartyURL": true,
+      "whyNotUsable": "Audit canonical 025 inferred by position; Korean physical collector identity of language-neutral Energy unconfirmed.",
+      "promoted": false
+    }
+  ],
+  "verifiedKoreanRetails6K": [
+    {
+      "queueSlot": "s6k_089/070",
+      "name": "니아",
+      "rarity": "HR",
+      "queueConfirmed": true,
+      "retailerCode": "s6K 089",
+      "source": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+      "sourceKind": "Korean retail catalogue of actual item identity, not image reuse license",
+      "correctFullKoreanPrintStillPending": true,
+      "photoFoundInOwnStore": false,
+      "skipGuessingJpImage": true
+    },
+    {
+      "queueSlot": "s6k_090/070",
+      "name": "즈미",
+      "rarity": "HR",
+      "queueConfirmed": true,
+      "retailerCode": "s6K 090",
+      "source": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+      "sourceKind": "Korean retail catalogue of actual item identity, not image reuse license",
+      "correctFullKoreanPrintStillPending": true,
+      "photoFoundInOwnStore": false,
+      "skipGuessingJpImage": true
+    },
+    {
+      "queueSlot": "s6k_092/070",
+      "name": "붐볼",
+      "rarity": "UR",
+      "queueConfirmed": true,
+      "retailerCode": "s6K 092",
+      "source": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+      "sourceKind": "Korean retail catalogue of actual item identity, not image reuse license",
+      "correctFullKoreanPrintStillPending": true,
+      "photoFoundInOwnStore": false,
+      "skipGuessingJpImage": true
+    },
+    {
+      "queueSlot": "s6k_094/070",
+      "name": "메아리호른",
+      "rarity": "UR",
+      "queueConfirmed": true,
+      "retailerCode": "s6K 094",
+      "source": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+      "sourceKind": "Korean retail catalogue of actual item identity, not image reuse license",
+      "correctFullKoreanPrintStillPending": true,
+      "photoFoundInOwnStore": false,
+      "skipGuessingJpImage": true
+    }
+  ],
+  "nextActions": [
+    "Directly access actual Korean product detail pages, extract their non-guessed image links, verify exact printed Korean footer/rarity and rights; check S6K 089,090,092,094 first.",
+    "Carry forward MEGA 14 holds with exact Korean M-P 085/086 distinct from Japanese M-P numbering.",
+    "Then Classic CLL_004, CLL_005 seller photos: need readable 004/032 and 005/032 Korean printed footer and reuse permission before selfhost.",
+    "Preserve existing 31 verified Classic images and 2 earlier CLF provisional Korean first-party low-res slots; do not re-audit finished work.",
+    "Only after image verification commit the source binary as own WebP, update series display and global search overlay, then validate in Pages."
+  ],
+  "controls": {
+    "neverInferUnreleasedFromHTTP415": true,
+    "neverInferUnreleasedFromGuessedRetail404": true,
+    "noImageRehostFromPublicSellerWithoutRightsReview": true,
+    "noJapaneseRegionNumberMapping": true,
+    "noUserOwnershipChanges": true,
+    "noThemesMarkedComplete": true,
+    "noQueueItemsRemoved": true,
+    "all191RemainOpen": true
+  },
+  "status": "source_stage_complete; image_substitution_blocked_by_specific_unverified_identity_or_rights"
+}
