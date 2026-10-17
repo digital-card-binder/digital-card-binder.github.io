@@ -142,6 +142,32 @@
     return { groups, pokedex };
   }
 
+  // Match the series dex's verified display-image routing without changing card IDs.
+  // Search index images may lag behind an individual Korean image recovery.
+  async function applySeriesImageOverridesToSearch(groups) {
+    try {
+      const response = await fetch("./data/series-image-overrides.json");
+      if (!response.ok) return;
+      const payload = await response.json();
+      const sets = payload?.sets && typeof payload.sets === "object"
+        ? payload.sets
+        : {};
+      for (const group of groups) {
+        const images = sets[clean(group?.code).toLowerCase()];
+        if (!images || typeof images !== "object") continue;
+        for (const card of group.cards || []) {
+          const code = clean(card?.code);
+          const local = clean(images[code] || images[code.toLowerCase()]);
+          if (!local) continue;
+          card.image = local;
+          card.originalImage = local;
+        }
+      }
+    } catch (error) {
+      console.warn("시리즈 한국판 이미지 경로를 검색에 반영하지 못했습니다.", error);
+    }
+  }
+
   function cardNumber(card) {
     const match = clean(card?.code || card?.meta).match(/_([0-9]+)/);
     return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
@@ -1254,6 +1280,7 @@
 
       const payload = await catalogService.pokemonSearchIndex();
       const decoded = decodeSearchIndex(payload);
+      await applySeriesImageOverridesToSearch(decoded.groups);
 
       state.groups = decoded.groups.map((group) => ({
         ...group,
