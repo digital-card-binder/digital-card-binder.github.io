@@ -109,7 +109,7 @@ status.reviews[CODE]={
  preservedExistingThemeSlotCount:0,partialReviewEvidence:REVIEW,
  imagePreflightEvidence:PROOF,nextStart:NEXT,reviewedAt:DATE,
  status:"in_progress",complete:false,
- note:"S1a VMAX라이징 한국어판 75장 중 001-030 30장 한국어 인쇄 이미지와 12테마 개별 검수. 신규 50건, 기존 S1a 테마 0건 확인. 56장 검수 전 완료 금지. S2a 일본어 8장·S2/S3 일본어 9장씩·S6K 4건 보류 및 사용자 보유 정보 보존."
+ note:"S1a VMAX라이징 한국어판 86장 중 001-030 30장 한국어 인쇄 이미지와 12테마 개별 검수. 신규 50건, 기존 S1a 테마 0건 확인. 56장 검수 전 완료 금지. S2a 일본어 8장·S2/S3 일본어 9장씩·S6K 4건 보류 및 사용자 보유 정보 보존."
 };
 status.updatedAt=DATE;themes.updatedAt=DATE;
 if(status.execution.nextStart!==GLOBAL||hosting.nextStart!==GLOBAL)
