@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3",
+  "name": "무한존",
+  "range": "091-119",
+  "approvedRange": "091-110",
+  "heldRange": "111-119",
+  "status": "partial_manual_Korean_art_12_theme_reviewed_hold_9",
+  "imagePreflight": "data/audits/theme-visual-evidence/s3/091-119/visual-index.json",
+  "all12ThemesInspectedForApprovedItems": true,
+  "reviewedThemes": [
+    "sleeping",
+    "connected",
+    "evolution",
+    "night",
+    "season",
+    "color",
+    "sunset",
+    "reflections",
+    "food",
+    "street",
+    "work",
+    "cameo"
+  ],
+  "approvedKoreanArtworkCount": 20,
+  "heldNonKoreanPrintCount": 9,
+  "ownedCDNImagesDecodedInFullRange": 29,
+  "officialKoreanSourcesApproved": 20,
+  "nonOfficialJapaneseSourcesHeld": 9,
+  "existingThemesInFullRange": 0,
+  "rarityVerification": "not_in_scope_canonical_rarity_blank",
+  "noMasterOrOwnershipChanges": true,
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "themeCounts": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 1,
+    "season": 1,
+    "color": 20,
+    "sunset": 0,
+    "reflections": 0,
+    "food": 0,
+    "street": 3,
+    "work": 0,
+    "cameo": 0
+  },
+  "themeAdditions": 25,
+  "notes": "DCB 자체 보관 S3 091-119 29장 시트를 육안 검사. 091~110은 포켓몬코리아 등록 한국어 인쇄 이미지를 확인한 20장으로 12테마 분류. 111~119은 9장 모두 static.tcgexchange.kr 기반 일본어 인쇄 이미지이므로 자체 보관 및 파일 디코딩 성공과 무관하게 한국어 카드로 승인할 수 없음. 한국판 확인 이전까지 111-119 마스터 슬롯과 보유 상태를 유지한 채 테마 미검수 보류; complete=false 유지. S3_079 기존 반사 테마 보존, S6K 별도 보류 유지.",
+  "items": [
+    {
+      "canonicalOrder": 91,
+      "cardKey": "S3_091",
+      "artObservation": "고대 화석이 갈색 돌 안에 박혀 있고 뒤로 청록빛 원형 광선이 퍼진다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "갈색·청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 92,
+      "cardKey": "S3_092",
+      "artObservation": "보랏빛 원통형 스모크 도구가 푸른 회오리 모양의 배경 위에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "자주·하늘색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 93,
+      "cardKey": "S3_093",
+      "artObservation": "주황빛 불꽃이 타오르는 두꺼운 빨간 망토가 연두색 섬광 배경 앞에 펼쳐져 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "적갈색·연두"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 94,
+      "cardKey": "S3_094",
+      "artObservation": "두송이 보랏빛 네온 장치와 울타리, 원형 거리 바닥 앞에 서 있다.",
+      "matchedThemes": [
+        "color",
+        "street"
+      ],
+      "categories": {
+        "color": "검정·진분홍",
+        "street": "네온빛 도시 광장"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 95,
+      "cardKey": "S3_095",
+      "artObservation": "로즈가 실내 관중석과 천장 조명이 보이는 큰 경기장 앞에 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 96,
+      "cardKey": "S3_096",
+      "artObservation": "새 조련사가 초록 나무와 풀이 보이는 숲길에서 새를 부르는 자세를 하고 있다.",
+      "matchedThemes": [
+        "color",
+        "season"
+      ],
+      "categories": {
+        "color": "초록·하늘색",
+        "season": "푸른 숲길"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 97,
+      "cardKey": "S3_097",
+      "artObservation": "로즈타워의 녹색 금속 구조물과 건물이 분홍빛 하늘 앞에서 솟아 있다.",
+      "matchedThemes": [
+        "color",
+        "street"
+      ],
+      "categories": {
+        "color": "연두·분홍",
+        "street": "도심 고층 빌딩"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 98,
+      "cardKey": "S3_098",
+      "artObservation": "스파이크마을의 상점과 낡은 건물이 보랏빛 밤하늘 아래 조명을 켜고 있다.",
+      "matchedThemes": [
+        "color",
+        "street",
+        "night"
+      ],
+      "categories": {
+        "color": "진보라·회색",
+        "street": "조명 켜진 마을 골목",
+        "night": "건물에 조명이 켜진 야간 거리"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 99,
+      "cardKey": "S3_099",
+      "artObservation": "진남색과 푸른 빛이 퍼지는 영역 중앙에 검은 악 에너지 심볼이 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "감청·검정"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 100,
+      "cardKey": "S3_100",
+      "artObservation": "은백색 광선과 회색 파편 가운데 검은 무색 에너지 심볼이 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "은백·검정"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 101,
+      "cardKey": "S3_101",
+      "artObservation": "헬가 V가 분홍과 회색의 번쩍임 속에서 입을 벌리고 앞을 향한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·선홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 102,
+      "cardKey": "S3_102",
+      "artObservation": "갈가부기 V가 푸른빛과 분홍빛 번쩍임 속에서 큰 턱을 벌리고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "청록·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 103,
+      "cardKey": "S3_103",
+      "artObservation": "가라르 산호르곤 V가 푸른 빛 속에서 여러 흰 산호 가지를 펼친다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "흰색·연청"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 104,
+      "cardKey": "S3_104",
+      "artObservation": "거대코뿌리 V가 분홍·초록빛이 폭발하는 배경에서 바위 같은 팔을 내민다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·주황"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 105,
+      "cardKey": "S3_105",
+      "artObservation": "크로뱃 V가 자주빛과 노란 광선이 터지는 가운데 날개를 편다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "자주·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 106,
+      "cardKey": "S3_106",
+      "artObservation": "무한다이노 V의 날카로운 빨간 결정 형체가 청록·보라 선 위에 길게 펼쳐져 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "선홍·자주"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 107,
+      "cardKey": "S3_107",
+      "artObservation": "핫삼 V가 주황색 광선이 반짝이는 배경 앞에서 빨간 집게를 크게 펼친다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "주홍·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 108,
+      "cardKey": "S3_108",
+      "artObservation": "보만다 V가 붉은 날개와 청록색 몸을 펼치고 금빛 빛줄기 앞에 날아간다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "빨강·청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 109,
+      "cardKey": "S3_109",
+      "artObservation": "두송의 상반신이 자주색과 녹색 대각선의 빛줄기 속에 크게 표현되어 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·자주"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 110,
+      "cardKey": "S3_110",
+      "artObservation": "로즈가 빨강과 금색의 빛줄기 앞에서 옅은 회색 재킷 차림으로 생각에 잠겨 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "금색·다홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    }
+  ],
+  "heldCards": [
+    {
+      "canonicalOrder": 111,
+      "cardKey": "S3_111",
+      "name": "갈가부기 VMAX",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 112,
+      "cardKey": "S3_112",
+      "name": "무한다이노 VMAX",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 113,
+      "cardKey": "S3_113",
+      "name": "핫삼 VMAX",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 114,
+      "cardKey": "S3_114",
+      "name": "보만다 VMAX",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 115,
+      "cardKey": "S3_115",
+      "name": "두송",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 116,
+      "cardKey": "S3_116",
+      "name": "로즈",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 117,
+      "cardKey": "S3_117",
+      "name": "석탄산",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 118,
+      "cardKey": "S3_118",
+      "name": "터보패치",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    },
+    {
+      "canonicalOrder": 119,
+      "cardKey": "S3_119",
+      "name": "캡처 에너지",
+      "status": "hold_nonKorean_print_source",
+      "sourceHost": "static.tcgexchange.kr",
+      "observedPrintLanguage": "Japanese",
+      "reason": "자체 보관 WebP 원본 인쇄면이 일본어. 한국판 실물 일러스트 및 명칭 검증 전 12테마 확정 금지."
+    }
+  ]
+}
