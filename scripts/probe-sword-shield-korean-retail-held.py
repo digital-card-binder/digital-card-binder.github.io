@@ -36,7 +36,7 @@ def candidate(row):
 
 def check(row):
     uri=candidate(row)
-    result={"slot":row["slot"],"name":row["cardName"],"set":row["series"],
+    result={"slot":row["slot"],"name":row.get("cardName", ""), "set":row["series"],
             "status":"not_probed","verifiedKoreanNumber":False,
             "licenseToPublish":False,"imageApplied":False}
     if not uri:return result,None
