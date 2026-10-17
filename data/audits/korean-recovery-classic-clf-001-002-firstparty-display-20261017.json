@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "baseCommit": "81ca00798c8fadd98b515a9513a921162b19028b",
+  "sourceAudit": "data/audits/theme-classic-korean-official-card-crop-proposals-20261013/index.json",
+  "objective": "Replace two Korean Classic SV CLF blank/protected image slots using independently staged Pokémon Korea product-image crops; image only.",
+  "sourceOfficialProduct": "https://pokemoncard.co.kr/card/590",
+  "productionReplacements": [
+    {
+      "cardKey": "CLF_001",
+      "koreanName": "이상해씨",
+      "masterCardCode": "clf_001/032",
+      "previousDisplay": "/assets/cards/classic-korean-original-pending.svg",
+      "newDisplay": "/assets/cards/classic-korean-official-2023/CLF_001.webp",
+      "sourceGraphic": "https://data1.pokemonkorea.co.kr/2023/12/2023-12-08_17-51-49-77668-1702025509.png",
+      "sourceGraphicSha256": "455c977737eb30eed322b9ed9c8f468e9041eaba79e3e79da49040ca2141db5f",
+      "selfhostedWebPSha256": "ac4da0e0a36273243f945e0847b28b94d86c2ab63c0b7303eba1bb2211b4b9c5",
+      "imageBytes": 7084,
+      "dimensions": [
+        114,
+        165
+      ],
+      "viewedKoreanPrintText": true,
+      "exactPrintedNumberReadable": false,
+      "sourceCredibility": "Official Korean product marketing deck image",
+      "licenseStatus": "third_party_copyright_caution_not_independently_cleared",
+      "printAnd12ThemeFinalClosure": false
+    },
+    {
+      "cardKey": "CLF_002",
+      "koreanName": "이상해풀",
+      "masterCardCode": "clf_002/032",
+      "previousDisplay": "/assets/cards/classic-korean-original-pending.svg",
+      "newDisplay": "/assets/cards/classic-korean-official-2023/CLF_002.webp",
+      "sourceGraphic": "https://data1.pokemonkorea.co.kr/2023/12/2023-12-08_17-51-49-77668-1702025509.png",
+      "sourceGraphicSha256": "455c977737eb30eed322b9ed9c8f468e9041eaba79e3e79da49040ca2141db5f",
+      "selfhostedWebPSha256": "20d3e5297f29e81d6bb2d14f5c5bc26f780accfbb0b85bae6625e3c5772fc27f",
+      "imageBytes": 7932,
+      "dimensions": [
+        117,
+        165
+      ],
+      "viewedKoreanPrintText": true,
+      "exactPrintedNumberReadable": false,
+      "sourceCredibility": "Official Korean product marketing deck image",
+      "licenseStatus": "third_party_copyright_caution_not_independently_cleared",
+      "printAnd12ThemeFinalClosure": false
+    }
+  ],
+  "displayReplacedCount": 2,
+  "canonicalCardIdsChanged": 0,
+  "ownershipChanges": 0,
+  "themeClassificationChanges": 0,
+  "strictClosedCardCount": 0,
+  "remainingOriginalJapaneseImageQueueFromOldAudit": 65,
+  "updatedProvisionalCount": 2,
+  "pendingStrictKoreanReplacementsOrUpgradesRemain": true,
+  "note": "These are small official product artwork crops already staged as base64 in audit, not fresh retailer downloads. Exact 001/032 and 002/032 identity derived from Korean Classic CLF card-list numbering + visible Korean names, not legible bottom footer; keep strict identity and theme checks open. Does not alter legacy master JSON or owned collections."
+}

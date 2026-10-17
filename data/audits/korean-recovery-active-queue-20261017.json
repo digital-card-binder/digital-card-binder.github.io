@@ -948,12 +948,20 @@
       "series": "CLF",
       "slot": "CLF_001",
       "cardName": "이상해씨",
-      "issue": "wrong_language_Japanese_image",
+      "issue": "Korean_edition_display_recovered_but_footer_hires_and_12themes_held",
       "sourceAudit": "data/audits/theme-classic-latest-safe-restart-20261013.json",
       "action": "Obtain full readable Korean printing and a licensed/reusable image, verify exact printing, save WebP/sha256, then independently review 12 themes",
       "imageComplete": false,
       "themeComplete": false,
-      "cardDataChanged": false
+      "cardDataChanged": false,
+      "displayImageStatus": "korean_firstparty_marketing_crop_provisional_lowres",
+      "displayImage": "/assets/cards/classic-korean-official-2023/CLF_001.webp",
+      "displayImageSha256": "ac4da0e0a36273243f945e0847b28b94d86c2ab63c0b7303eba1bb2211b4b9c5",
+      "sourceOfficialProduct": "https://pokemoncard.co.kr/card/590",
+      "verifiedKoreanNameAndArtwork": true,
+      "printedCollectorFooterReadable": false,
+      "qualityHigherResolutionNeeded": true,
+      "nextAction": "Acquire readable full-size Korean card with exact printed number, reconcile same-art and image license, then complete 12 themes. Keep this low-res provisional Korean crop until approved quality upgrade."
     },
     {
       "workId": 60,
@@ -961,12 +969,20 @@
       "series": "CLF",
       "slot": "CLF_002",
       "cardName": "이상해풀",
-      "issue": "wrong_language_Japanese_image",
+      "issue": "Korean_edition_display_recovered_but_footer_hires_and_12themes_held",
       "sourceAudit": "data/audits/theme-classic-latest-safe-restart-20261013.json",
       "action": "Obtain full readable Korean printing and a licensed/reusable image, verify exact printing, save WebP/sha256, then independently review 12 themes",
       "imageComplete": false,
       "themeComplete": false,
-      "cardDataChanged": false
+      "cardDataChanged": false,
+      "displayImageStatus": "korean_firstparty_marketing_crop_provisional_lowres",
+      "displayImage": "/assets/cards/classic-korean-official-2023/CLF_002.webp",
+      "displayImageSha256": "20d3e5297f29e81d6bb2d14f5c5bc26f780accfbb0b85bae6625e3c5772fc27f",
+      "sourceOfficialProduct": "https://pokemoncard.co.kr/card/590",
+      "verifiedKoreanNameAndArtwork": true,
+      "printedCollectorFooterReadable": false,
+      "qualityHigherResolutionNeeded": true,
+      "nextAction": "Acquire readable full-size Korean card with exact printed number, reconcile same-art and image license, then complete 12 themes. Keep this low-res provisional Korean crop until approved quality upgrade."
     },
     {
       "workId": 61,
@@ -2712,22 +2728,19 @@
   },
   "currentResumeMicroCheckpoint": {
     "recordedAt": "2026-10-17",
-    "sincePriorEvidenceCommit": "765578893dafd1c665526790abfeca2a53115ff9",
-    "sourceAudit": "data/audits/korean-recovery-mp-six-cll-two-crosscheck-20261017.json",
-    "crossCheckedPendingSlots": 8,
-    "M_PPreviouslyCompleteArtworkAnd12Themes": 6,
-    "ClassicRightsHolds": 2,
-    "newImageFileCount": 0,
-    "noCardExclusions": true,
-    "noCanonicalEdits": true,
-    "nextExactSourceChallenge": "2026 Korean League 500-502 real Korean printed bottom ID, M-P energy 058-060 number vs unnumbered, then licensed Classic CLL 004/005 Korean artwork.",
-    "safeToMarkFirstPartyComplete": false,
-    "additionalSecondaryPrintVisualConfirmation": {
-      "slotKey": "m-p::m-p::16",
-      "number": "016/M-P",
-      "readableKorean": true,
-      "source": "https://kream.co.kr/products/940634",
-      "licensed": false
-    }
+    "task": "Two CLF Classic Korean first-party marketing crops replacing protected blank slots",
+    "replacedDisplaySlots": [
+      "CLF_001",
+      "CLF_002"
+    ],
+    "binarySavedToRepo": true,
+    "koreanFirstPartyCardImagesNew": 2,
+    "firstPartyProductUrl": "https://pokemoncard.co.kr/card/590",
+    "quality": "Low-resolution original marketing card crop 114-117x165px; authentic Korean image text and name visible but printed collector footer NOT readable.",
+    "status": "provisional_display_recovered_still_held_for_exact_footer_and_12theme",
+    "count191Preserved": true,
+    "doNotCountAsStrictCardCompletion": true,
+    "noCanonicalOrOwnershipDataChanged": true,
+    "next": "Other SV Classic Japanese replacements CLL_004, CLL_005, CLF_004, etc; search for higher-resolution Korean full scans, verify footer/rarity; keep existing completed 31 intact."
   }
 }
