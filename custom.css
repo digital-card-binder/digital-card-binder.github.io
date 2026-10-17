@@ -195,3 +195,33 @@ body[data-page="custom-dex"] .custom-binder-library-status {
     flex: 0 0 auto;
   }
 }
+
+
+/* 나만의 도감: 다중 선택 일괄 등록 및 편집 */
+.custom-picker-bulk{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px;margin:8px 0 12px;border-radius:13px;background:#f2f7fd}
+.custom-picker-bulk span{margin-right:auto;font-size:13px;font-weight:800}
+.custom-picker-bulk button,.custom-bulk-toolbar button{min-height:38px;padding:7px 11px;border:1px solid #cbd5e2;border-radius:10px;background:#fff;color:#17233f;font-weight:700;cursor:pointer}
+.custom-picker-bulk .primary-button,.custom-bulk-toolbar .primary-button{background:#17233f;color:#fff}
+.custom-picker-bulk button:disabled,.custom-bulk-toolbar button:disabled{opacity:.45;cursor:default}
+.custom-picker-card{grid-template-columns:24px 58px minmax(0,1fr) auto}
+.custom-picker-card.is-picked{border-color:#3d9cab;background:#f0fbfb}
+.custom-picker-checkbox,.custom-bulk-select input{width:19px;height:19px;accent-color:#147d86;cursor:pointer}
+.custom-bulk-toolbar{position:sticky;top:8px;z-index:9;display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:10px 0 14px;padding:10px;border:1px solid #b7d9da;border-radius:14px;background:#f2fbfb;box-shadow:0 6px 15px rgba(23,35,63,.08)}
+.custom-bulk-toolbar[hidden]{display:none}
+.custom-bulk-toolbar strong{margin-right:auto;white-space:nowrap}
+.custom-bulk-toolbar label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700}
+.custom-bulk-toolbar select{min-height:38px;border:1px solid #cbd5e2;border-radius:9px;background:#fff;padding:0 8px}
+.custom-bulk-select{display:flex;align-items:center;gap:7px;position:absolute;z-index:5;top:8px;left:8px;padding:7px 10px;background:rgba(255,255,255,.96);border:1px solid #b7d9da;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer}
+.custom-bulk-mode .custom-card{cursor:pointer}
+.custom-bulk-mode .custom-card.is-bulk-selected{outline:3px solid #17858f;outline-offset:-3px}
+@media(max-width:640px){
+  .custom-picker-card{grid-template-columns:22px 50px minmax(0,1fr) auto}
+  .custom-picker-bulk{gap:6px}
+  .custom-picker-bulk span{width:100%;margin:0}
+  .custom-picker-bulk #card-picker-add-selected{flex:1}
+  .custom-bulk-toolbar{top:auto;bottom:8px;gap:6px}
+  .custom-bulk-toolbar strong{width:100%}
+  .custom-bulk-toolbar button{min-height:42px}
+  .custom-bulk-toolbar label{flex:1}
+  .custom-bulk-toolbar label select{flex:1}
+}
