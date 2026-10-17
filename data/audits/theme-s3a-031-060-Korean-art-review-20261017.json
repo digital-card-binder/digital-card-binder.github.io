@@ -4,7 +4,7 @@
   "set": "s3a",
   "name": "전설의 고동",
   "range": "031-060",
-  "status": "manual_Korean_art_12_theme_reviewed_pending_042_canonical_name_correction",
+  "status": "manual_Korean_art_12_theme_reviewed",
   "imagePreflight": "data/audits/theme-visual-evidence/s3a/031-060/visual-index.json",
   "all12ThemesInspected": true,
   "reviewedThemes": [
@@ -43,17 +43,10 @@
   },
   "themeAdditions": 46,
   "noMasterOrOwnershipChanges": true,
-  "canonicalDisplayNameBlockers": [
-    {
-      "code": "s3a_042/076",
-      "masterBeforeCorrection": "석탄산",
-      "visuallyPrintedKorean": "석탄산 V",
-      "correctionWorkflow": ".github/workflows/correct-s3a-042-printed-name.yml"
-    }
-  ],
+  "canonicalDisplayNameBlockers": [],
   "rarityReference": "https://collectory.cc/cards/50f97785-638e-466a-b2f6-85ea9ec66d10",
   "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
-  "notes": "All 30 Korean printed images 031–060 visually inspected on two DCB-owned contact sheets. No existing theme memberships in this range. All 12 themes reviewed without changing canonical IDs. Card 042 printed name is 석탄산 V whereas initial master record is 석탄산; do not apply this review until its canonical display name is corrected by the guarded workflow, while preserving the original card identity.",
+  "notes": "All 30 Korean print images 031–060 visually inspected across 12 themes on DCB-owned sheets. Source S3a_042 Korean printed name 석탄산 V corrected in master (canonical key s3a_042/076, source image, card order and ownership unchanged). The preflight snapshot still records its earlier master name 석탄산; approved exception only for 042. No existing theme slot in this range.",
   "items": [
     {
       "canonicalOrder": 31,
@@ -567,5 +560,16 @@
       "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
       "preExistingThemeRecordsPreserved": []
     }
-  ]
+  ],
+  "resolvedCanonicalNameCorrections": [
+    {
+      "code": "s3a_042/076",
+      "masterBeforeCorrection": "석탄산",
+      "visuallyPrintedKorean": "석탄산 V",
+      "correctionWorkflow": ".github/workflows/correct-s3a-042-printed-name.yml",
+      "resolution": "verified_and_corrected_to_석탄산 V",
+      "evidence": "data/audits/theme-s3a-042-printed-name-correction-20261017.json"
+    }
+  ],
+  "nameCorrectionEvidence": "data/audits/theme-s3a-042-printed-name-correction-20261017.json"
 }
