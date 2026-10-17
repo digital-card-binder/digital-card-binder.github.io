@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16746,
-    "uniqueThemeCards": 10147,
+    "themeCardSlots": 16792,
+    "uniqueThemeCards": 10177,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -127,7 +127,7 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4833,
+      "cardSlots": 4848,
       "setCount": 116,
       "rarities": [
         "AR",
@@ -149,7 +149,7 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9165,
+      "cardSlots": 9195,
       "setCount": 120,
       "rarities": [
         "A",
@@ -203,13 +203,14 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 175,
-      "setCount": 64,
+      "cardSlots": 176,
+      "setCount": 65,
       "rarities": [
         "AR",
         "C",
         "HR",
         "PROMO",
+        "RRR",
         "SAR",
         "SR",
         "U"
@@ -289,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6145
+      "currentThemeSlots": 6191
     },
     {
       "era": "SM",
@@ -639,8 +640,9 @@
       "themeHits": {
         "sleeping": 1,
         "night": 2,
-        "season": 17,
-        "color": 30,
+        "season": 32,
+        "color": 60,
+        "food": 1,
         "street": 1
       }
     },
