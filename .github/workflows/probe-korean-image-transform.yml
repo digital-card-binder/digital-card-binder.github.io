@@ -1,0 +1,41 @@
+name: Probe Korean official card image width-transform
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-korean-image-transform.yml'
+      - 'scripts/probe-korean-image-transform-20261017.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: korean-image-width-query-20261017
+  cancel-in-progress: false
+jobs:
+  candidate-width-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet 'Pillow>=10,<13'
+      - run: python scripts/probe-korean-image-transform-20261017.py
+      - name: Record diagnostics without uploading images
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/korean-recovery-official-image-width-transform-20261017.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "audit: record width-parameter fallback status for twelve Korean prints"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
+          exit 1
