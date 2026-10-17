@@ -63431,13 +63431,14 @@
       ]
     },
     "s3": {
-      "artworkReviewedCardCount": 60,
-      "reviewedCardCount": 60,
-      "verifiedKoreanPrintImageCount": 60,
-      "verifiedSelfHostedImageCount": 60,
+      "artworkReviewedCardCount": 90,
+      "reviewedCardCount": 90,
+      "verifiedKoreanPrintImageCount": 90,
+      "verifiedSelfHostedImageCount": 90,
       "reviewedRanges": [
         "001-030",
-        "031-060"
+        "031-060",
+        "061-090"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63453,15 +63454,15 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 92,
+      "newlyAddedThemeSlotCount": 136,
       "preservedExistingThemeSlotCount": 1,
-      "partialReviewEvidence": "data/audits/theme-s3-031-060-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3/031-060/visual-index.json",
-      "nextStart": "S3 한국판 061-090 카드 12테마 이미지 시각검수",
+      "partialReviewEvidence": "data/audits/theme-s3-061-090-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3/061-090/visual-index.json",
+      "nextStart": "S3 한국판 091-119 카드 12테마 이미지 시각검수",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "S3 119장 중 한국판 001-060 총 60장 자체 보관 카드 일러스트를 12테마 기준으로 검수. 이번 배치 41건, 신규 누적 92건; 기존 079번 반사 테마 보존. 061-119번 검수 전 세트 완료 금지. 사용자 보유 키와 canonical 카드 119개는 변경 없음."
+      "note": "S3 119장 중 001-090 한국판 자체보관 이미지 90장 12개 독립 테마 육안 검수. 이번 44건·누적 136건 신규 테마, S3_079 반사 기존 1건 보존. 091-119 검수 전 완료 처리 금지. 마스터 코드·보유 키 불변."
     }
   },
   "queue": {
