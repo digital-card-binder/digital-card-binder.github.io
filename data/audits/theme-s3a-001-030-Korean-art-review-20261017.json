@@ -1,0 +1,575 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3a",
+  "name": "전설의 고동",
+  "range": "001-030",
+  "status": "manual_Korean_art_12_theme_reviewed",
+  "imagePreflight": "data/audits/theme-visual-evidence/s3a/001-030/visual-index.json",
+  "all12ThemesInspected": true,
+  "reviewedThemes": [
+    "sleeping",
+    "connected",
+    "evolution",
+    "night",
+    "season",
+    "color",
+    "sunset",
+    "reflections",
+    "food",
+    "street",
+    "work",
+    "cameo"
+  ],
+  "artworksReviewed": 30,
+  "verifiedKoreanPrintImagesInRange": 30,
+  "ownedCDNImagesDecoded": 30,
+  "officialSourceCardsInRange": 30,
+  "nonofficialSourceKoreanPrintCardsInRange": 0,
+  "existingThemesInThisRange": 1,
+  "themeCounts": {
+    "sleeping": 1,
+    "connected": 0,
+    "evolution": 0,
+    "night": 2,
+    "season": 17,
+    "color": 30,
+    "sunset": 0,
+    "reflections": 0,
+    "food": 0,
+    "street": 1,
+    "work": 0,
+    "cameo": 0
+  },
+  "themeAdditions": 50,
+  "noMasterOrOwnershipChanges": true,
+  "rarityReference": "https://namu.moe/w/전설의%20고동 (S3a 001-030, cross-check Korean printed rarity)",
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "notes": "All 30 original Korean card images 001-030 inspected visually on DCB-owned selfhosted contact sheets (2 sheets). Cross-checked card number and rarity against published Korean catalog references; 12 independent artwork themes. Existing S3a_028 sleeping membership must be preserved exactly. No Firestore, canonical card key, ownership, or shared catalog mutation.",
+  "items": [
+    {
+      "canonicalOrder": 1,
+      "cardKey": "S3a_001",
+      "name": "뿔충이",
+      "rarity": "C",
+      "artObservation": "뿔충이가 햇살이 닿은 숲의 잎과 나뭇가지 앞에 서 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "황갈·연두",
+        "season": "숲 · 잎사귀"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 2,
+      "cardKey": "S3a_002",
+      "name": "딱충이",
+      "rarity": "C",
+      "artObservation": "딱충이가 잎이 우거진 나무숲과 수풀 사이에 매달려 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "올리브·녹색",
+        "season": "울창한 나무숲"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 3,
+      "cardKey": "S3a_003",
+      "name": "독침붕",
+      "rarity": "U",
+      "artObservation": "독침붕이 맑은 푸른빛과 초록 나뭇잎이 보이는 숲에서 날아간다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·청록",
+        "season": "숲 · 나뭇잎"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 4,
+      "cardKey": "S3a_004",
+      "name": "아라리",
+      "rarity": "C",
+      "artObservation": "아라리가 구름이 떠 있는 하늘과 풀밭 앞에서 모여 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "연분홍·하늘색",
+        "season": "하늘 · 초원"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 5,
+      "cardKey": "S3a_005",
+      "name": "나시",
+      "rarity": "U",
+      "artObservation": "나시가 하얀 눈이 깔린 나무숲 속에 서 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "연두·흰색",
+        "season": "겨울 · 눈 덮인 숲"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 6,
+      "cardKey": "S3a_006",
+      "name": "왕자리",
+      "rarity": "C",
+      "artObservation": "왕자리가 붉은빛 가지와 분홍 배경을 가로질러 날아간다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "연두·다홍",
+        "season": "야외 · 붉은 잎"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 7,
+      "cardKey": "S3a_007",
+      "name": "메가자리",
+      "rarity": "U",
+      "artObservation": "메가자리가 짙은 녹색 잎과 나무가 보이는 숲에서 날고 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "녹색·청록",
+        "season": "초록 숲"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 8,
+      "cardKey": "S3a_008",
+      "name": "피콘",
+      "rarity": "C",
+      "artObservation": "피콘이 주황빛 낙엽과 숲 바닥 가운데 놓여 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "황토·주황",
+        "season": "가을빛 낙엽 숲"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 9,
+      "cardKey": "S3a_009",
+      "name": "세레비",
+      "rarity": "A",
+      "artObservation": "세레비가 무지갯빛이 섞인 화려한 특수 배경에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연두·분홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 10,
+      "cardKey": "S3a_010",
+      "name": "쉐이미",
+      "rarity": "R",
+      "artObservation": "쉐이미가 파스텔색 빛줄기와 기하학적 광채 안에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연두·연분홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 11,
+      "cardKey": "S3a_011",
+      "name": "게노세크트",
+      "rarity": "R",
+      "artObservation": "게노세크트가 어두운 금속 구조와 광선이 비치는 배경 앞에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·회색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 12,
+      "cardKey": "S3a_012",
+      "name": "타타륜",
+      "rarity": "C",
+      "artObservation": "타타륜이 검푸른 수중 구조물과 해조처럼 보이는 배경 앞에 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "남색·청록",
+        "season": "바닷속 · 어두운 해저"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 13,
+      "cardKey": "S3a_013",
+      "name": "자루도 V",
+      "rarity": "RR",
+      "artObservation": "자루도 V가 짙은 녹색 밀림과 구불거리는 나무줄기 사이에 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "검정·진녹색",
+        "season": "울창한 밀림"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 14,
+      "cardKey": "S3a_014",
+      "name": "전룡 V",
+      "rarity": "RR",
+      "artObservation": "전룡 V가 노란빛과 흰 광선이 번쩍이는 추상 전투 배경 앞에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·흰색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 15,
+      "cardKey": "S3a_015",
+      "name": "라이코",
+      "rarity": "A",
+      "artObservation": "라이코가 노랑·파랑·빨강의 강렬한 전기 파동 속에서 움직인다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "황금·파랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 16,
+      "cardKey": "S3a_016",
+      "name": "썬더라이",
+      "rarity": "C",
+      "artObservation": "썬더라이가 밝은 전기 섬광을 따라 뛰어오른다. 특정 계절이나 장소는 확인되지 않는다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연두·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 17,
+      "cardKey": "S3a_017",
+      "name": "썬더볼트",
+      "rarity": "U",
+      "artObservation": "썬더볼트가 번개가 치는 검푸른 먹구름과 거친 바람 속에 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "청색·노랑",
+        "season": "폭풍 · 먹구름"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 18,
+      "cardKey": "S3a_018",
+      "name": "파쪼옥",
+      "rarity": "C",
+      "artObservation": "파쪼옥이 바닥과 벽이 보이는 실내 공간에 앉아 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·회갈"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 19,
+      "cardKey": "S3a_019",
+      "name": "전툴라",
+      "rarity": "U",
+      "artObservation": "전툴라가 검푸른 전기 불꽃과 거미줄 같은 광선 속에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·남색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 20,
+      "cardKey": "S3a_020",
+      "name": "제크로무",
+      "rarity": "R",
+      "artObservation": "제크로무가 바위와 번개가 보이는 야외 지형을 배경으로 서 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "검정·하늘색",
+        "season": "바위 지형 · 하늘"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 21,
+      "cardKey": "S3a_021",
+      "name": "제라오라",
+      "rarity": "R",
+      "artObservation": "제라오라가 청록색 전기 광선과 짙은 남색 전투 효과 가운데 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "하늘색·남색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 22,
+      "cardKey": "S3a_022",
+      "name": "찌르성게",
+      "rarity": "U",
+      "artObservation": "찌르성게가 짙은 녹청색 물속과 해초 사이에 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "짙은 녹색·청록",
+        "season": "바닷속 · 해조"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 23,
+      "cardKey": "S3a_023",
+      "name": "삐삐",
+      "rarity": "C",
+      "artObservation": "삐삐가 별처럼 빛나는 어두운 하늘과 초록 풀밭 앞에 있다.",
+      "matchedThemes": [
+        "night",
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "분홍·청록",
+        "season": "어두운 풀밭",
+        "night": "별빛 · 어두운 하늘"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 24,
+      "cardKey": "S3a_024",
+      "name": "픽시",
+      "rarity": "U",
+      "artObservation": "픽시가 보라와 연분홍의 꽃들이 피어난 공간에서 손을 뻗는다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "연보라·분홍",
+        "season": "꽃 핀 정원"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 25,
+      "cardKey": "S3a_025",
+      "name": "키링키",
+      "rarity": "U",
+      "artObservation": "키링키가 따뜻한 분홍 하늘 아래 나무가 서 있는 초원에서 걸어간다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "황토·분홍",
+        "season": "나무 · 초원"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 26,
+      "cardKey": "S3a_026",
+      "name": "어둠대신",
+      "rarity": "C",
+      "artObservation": "어둠대신이 노란 불이 켜진 건물 사이의 어두운 골목에 서 있다.",
+      "matchedThemes": [
+        "night",
+        "color",
+        "street"
+      ],
+      "categories": {
+        "color": "청록·남색",
+        "night": "밤 · 불 켜진 골목",
+        "street": "도시 건물 · 골목"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 27,
+      "cardKey": "S3a_027",
+      "name": "다크펫",
+      "rarity": "U",
+      "artObservation": "다크펫이 회보라색 연기와 어두운 빛줄기 앞에 움직인다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "남색·회보라"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 28,
+      "cardKey": "S3a_028",
+      "name": "데덴네",
+      "rarity": "C",
+      "artObservation": "데덴네가 초록 잔디와 꽃이 있는 숲속에 눈을 감고 앉아 있다.",
+      "matchedThemes": [
+        "sleeping",
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "황토·초록",
+        "season": "풀밭 · 꽃",
+        "sleeping": "눈을 감고 졸고 있는 데덴네 (기존 기록 유지)"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": [
+        "sleeping"
+      ]
+    },
+    {
+      "canonicalOrder": 29,
+      "cardKey": "S3a_029",
+      "name": "제르네아스",
+      "rarity": "R",
+      "artObservation": "제르네아스가 어두운 배경과 빛나는 여러 갈래의 뿔을 드러내고 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "남색·황금"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 30,
+      "cardKey": "S3a_030",
+      "name": "디안시",
+      "rarity": "R",
+      "artObservation": "디안시가 분홍과 청록의 반짝이는 보석빛 배경 앞에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연분홍·청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "preExistingThemeRecordsPreserved": []
+    }
+  ]
+}
