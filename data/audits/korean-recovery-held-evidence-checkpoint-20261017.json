@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "purpose": "Incremental evidence-only MEGA unresolved-item recovery. Carry forward all prior completed inspections without restart.",
+  "sourceMainCommit": "edde62fab7f17a13cf2d165683f8e3b8a113e117",
+  "sourceAuditFiles": [
+    "data/audits/mega-official-fourteen-pending-handoff-20261017.json",
+    "data/audits/theme-classic-latest-safe-restart-20261013.json",
+    "data/audits/theme-sm1plus-059-077-master-vs-hosted-Korean-art-conflict-20261017.json",
+    "data/audits/theme-s4-091-121-progress-20261017.json"
+  ],
+  "preflightAssertions": {
+    "megaPending": true,
+    "classicQueue": true,
+    "smConflicts": true,
+    "s4Complete": true
+  },
+  "counts": {
+    "MEGA": {
+      "sourceOfficialPending": 14,
+      "sourceBreakdown": {
+        "M6a": 3,
+        "MC": 1,
+        "M-P": 10
+      },
+      "withNewSecondaryCorroboration": 4,
+      "firstPartyClosureThisBatch": 0
+    },
+    "SVClassic": {
+      "KoreanImageVerified": 31,
+      "JapaneseLanguageImageReplacementPending": 65,
+      "energyEditionHeld": 6
+    },
+    "SM1PLUS": {
+      "masterImageConflictsHeld": 19
+    },
+    "S4": {
+      "reviewedKoreanCards": 121,
+      "complete": true
+    }
+  },
+  "newSecondaryEvidence": [
+    {
+      "slotKey": "m6a::m6a::r/rgb",
+      "cardName": "뮤",
+      "marketModelCode": "M6AR-RGB",
+      "sourceUrl": "https://kream.co.kr/products/1098606",
+      "sourceType": "KREAM public KR-edition catalogue",
+      "evidenceStatus": "secondary_kr_labeled_and_completed_transactions",
+      "observation": "KREAM clearly labels Korean version and shows four dated trades (2026-09-22, 10-03, 10-06, 10-12); printed footer not independently resolved.",
+      "KoreanReleaseWorkingStatus": "strong_secondary_Korean_market_evidence_do_not_exclude",
+      "officialCardIdentity": "pending_exact_official_detail_or_product_list",
+      "printFooterVisuallyConfirmed": false,
+      "imageReuseAuthorized": false,
+      "imageSelfHostEligible": false,
+      "productionImageUpdated": false,
+      "canonicalDataUpdated": false,
+      "themeAuditCompleted": false,
+      "followUp": "Confirm official Korean printed identifier, compare full Korean-language footer, obtain licensed Korean high-resolution image, validate WebP decode/hash, then verify all 12 themes."
+    },
+    {
+      "slotKey": "m6a::m6a::g/rgb",
+      "cardName": "뮤",
+      "marketModelCode": "M6AG-RGB",
+      "sourceUrl": "https://kream.co.kr/products/1098611",
+      "sourceType": "KREAM public KR-edition catalogue",
+      "evidenceStatus": "secondary_kr_labeled_with_trade_history",
+      "observation": "KREAM explicitly labels Korean version and distinguishes Japanese listing; printed footer not independently resolved.",
+      "KoreanReleaseWorkingStatus": "strong_secondary_Korean_market_evidence_do_not_exclude",
+      "officialCardIdentity": "pending_exact_official_detail_or_product_list",
+      "printFooterVisuallyConfirmed": false,
+      "imageReuseAuthorized": false,
+      "imageSelfHostEligible": false,
+      "productionImageUpdated": false,
+      "canonicalDataUpdated": false,
+      "themeAuditCompleted": false,
+      "followUp": "Confirm official Korean printed identifier, compare full Korean-language footer, obtain licensed Korean high-resolution image, validate WebP decode/hash, then verify all 12 themes."
+    },
+    {
+      "slotKey": "m6a::m6a::b/rgb",
+      "cardName": "뮤",
+      "marketModelCode": "M6AB-RGB",
+      "sourceUrl": "https://kream.co.kr/products/1098614",
+      "sourceType": "KREAM public KR-edition catalogue",
+      "evidenceStatus": "secondary_kr_labeled_listing_only",
+      "observation": "KREAM labels Korean version; public view currently says zero completed transactions; no Korean footer/high resolution verified.",
+      "KoreanReleaseWorkingStatus": "strong_secondary_Korean_market_evidence_do_not_exclude",
+      "officialCardIdentity": "pending_exact_official_detail_or_product_list",
+      "printFooterVisuallyConfirmed": false,
+      "imageReuseAuthorized": false,
+      "imageSelfHostEligible": false,
+      "productionImageUpdated": false,
+      "canonicalDataUpdated": false,
+      "themeAuditCompleted": false,
+      "followUp": "Confirm official Korean printed identifier, compare full Korean-language footer, obtain licensed Korean high-resolution image, validate WebP decode/hash, then verify all 12 themes."
+    },
+    {
+      "slotKey": "mc::mc::766",
+      "cardName": "메가리자몽Y ex",
+      "claimedKoreanPrintedNumber": "766/742",
+      "claimedRarity": "MUR",
+      "sourceUrl": "https://collectory.cc/cards/1867f32e-9b67-422a-a482-88f9a7419aff",
+      "corroboratingSourceUrl": "https://www.pokepolio.com/cards/e6014684-951f-464f-8927-479dd0dc7fe0",
+      "separateFirstPartyBaseCard": "https://pokemoncard.co.kr/cards/detail/BS2026001085",
+      "sourceType": "Korean region-labelled collector catalogue + second Korean price catalogue",
+      "evidenceStatus": "secondary_kr_number_and_rarity_catalogues_correspond",
+      "observation": "Two collector sources separately identify MC 766/742 as Korean MUR; official first-party detail confirms 085/742 is a different normal printing of 메가리자몽Y ex. Do not map 085/742 official image onto 766/742 MUR.",
+      "KoreanReleaseWorkingStatus": "secondary_corroborated_not_officially_closed",
+      "officialCardIdentity": "pending_exact_MUR_766_742_Korean_firstparty_print_image",
+      "printFooterVisuallyConfirmed": false,
+      "imageReuseAuthorized": false,
+      "imageSelfHostEligible": false,
+      "productionImageUpdated": false,
+      "canonicalDataUpdated": false,
+      "themeAuditCompleted": false,
+      "followUp": "Get readable authentic Korean 766/742 MUR footer and first-party or licensed high-resolution artwork; keep distinct from 085/742."
+    }
+  ],
+  "unresolvedInherited": [
+    {
+      "slotKey": "m6a::m6a::b/rgb",
+      "recordedKoreanName": "뮤",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KYMTS097F86Y45P4R6YVY9N8/cards/01M2PETGVJE4MCJ3M270Z28XH4/normal_holo"
+    },
+    {
+      "slotKey": "m6a::m6a::g/rgb",
+      "recordedKoreanName": "뮤",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KYMTS097F86Y45P4R6YVY9N8/cards/01M2PETG2VGR7QJBHS4DDVJDJY/normal_holo"
+    },
+    {
+      "slotKey": "m6a::m6a::r/rgb",
+      "recordedKoreanName": "뮤",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KYMTS097F86Y45P4R6YVY9N8/cards/01M2PETFCTAYAYB1FJ52JT9W08/normal_holo"
+    },
+    {
+      "slotKey": "mc::mc::766",
+      "recordedKoreanName": "메가리자몽Y ex",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0QC68MSASNTM2GZVPT1KW3/cards/01KW1C5SYP4HN2VY1MCHJ8C15Q"
+    },
+    {
+      "slotKey": "m-p::m-p::16",
+      "recordedKoreanName": "축하 팡파레",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KW1C68HFV38YV4SE2W3DAX73"
+    },
+    {
+      "slotKey": "m-p::m-p::40",
+      "recordedKoreanName": "잉어킹",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KX045X9B5JQ1Q84D0Z2EQAK5"
+    },
+    {
+      "slotKey": "m-p::m-p::500",
+      "recordedKoreanName": "승리의 징표",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KZ6E3MPDKHMGS0YC7AKTHFJ5"
+    },
+    {
+      "slotKey": "m-p::m-p::501",
+      "recordedKoreanName": "승리의 징표",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KZ6E3MQDKA94F7NQJ5PMA98B"
+    },
+    {
+      "slotKey": "m-p::m-p::502",
+      "recordedKoreanName": "승리의 징표",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KZ6E3MRBSBTWGEZM9DMD2G3C"
+    },
+    {
+      "slotKey": "m-p::m-p::58",
+      "recordedKoreanName": "기본 풀 에너지",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJPWCKAP3PYY9ZQHJKSV3"
+    },
+    {
+      "slotKey": "m-p::m-p::59",
+      "recordedKoreanName": "기본 불꽃 에너지",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQ96J1FSM69WGTB0DG4P"
+    },
+    {
+      "slotKey": "m-p::m-p::60",
+      "recordedKoreanName": "기본 물 에너지",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01KY1EJQNY0KBASYKFMHE8AH8D"
+    },
+    {
+      "slotKey": "m-p::m-p::85",
+      "recordedKoreanName": "피카츄 ex",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01M2M0FQW0RG8NZ5DW155ZBJCD"
+    },
+    {
+      "slotKey": "m-p::m-p::86",
+      "recordedKoreanName": "피카츄 ex",
+      "previousTier": "korean-secondary",
+      "officialPrintProofStatus": "pending",
+      "reproSource": "https://www.dogam.app/sets/01KW0T2JN2KD0BK0KB4B5DNABS/cards/01M2M0FT61Y2ZD642GKEKB2JCK"
+    }
+  ],
+  "queuePriority": [
+    {
+      "era": "MEGA",
+      "position": "Only the 14 inherited official holds. Four now have additional market corroboration; all 14 still first-party / exact image held."
+    },
+    {
+      "era": "SV",
+      "position": "CLL_004 and remaining 65 Japanese-language images across CLL/CLK/CLF; 6 energy region print identities. Do not re-review 31 approved images."
+    },
+    {
+      "era": "S",
+      "position": "Only prior held S card keys; include S3a 086/087/088/089/092/093/094, S5R/S5I 082-091 held, S6K 089/090/092/094; do not revisit complete S4."
+    },
+    {
+      "era": "other",
+      "position": "SM1+ 059-077 19 identity mismatches + previously reviewed 001-058 theme application state; do not change canonical keys without high-res identity proof."
+    },
+    {
+      "era": "new",
+      "position": "After inherited holds are safe, determine next genuinely unreviewed slot using existing audit progress; theme completeness separately gated."
+    }
+  ],
+  "safety": {
+    "masterCardFilesChanged": false,
+    "ownedStateChanged": false,
+    "artThemeMappingsChanged": false,
+    "imagePathsChanged": false,
+    "imagesDownloadedFromThirdParties": 0,
+    "thirdPartyImagesRehosted": 0,
+    "unlicensedPhotoUse": false,
+    "releaseDoesNotImplyImageComplete": true,
+    "imageDecodeDoesNotImplyKoreanPrinting": true,
+    "themeReviewSeparateFromImageReview": true,
+    "noAutomaticKoreanUnreleasedExclusions": true
+  },
+  "nextStart": "MEGA M6a RGB 3 exact printed-number/region and authorized image proof; MC 766/742 MUR full-resolution Korean source; M-P 10 inherited slots; then SV Classic CLL_004.",
+  "testStatus": "Evidence preflight assertions executed by this audit creation; full repository CI required after commit.",
+  "completionStatus": "in_progress_evidence_only_not_card_closure"
+}
