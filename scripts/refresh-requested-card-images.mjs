@@ -20,7 +20,7 @@ const archiveRoot = path.resolve(root, "tmp/card-images/build");
 const seen = new Set();
 
 for (const item of refresh) {
-  if (typeof item !== "string" || !/^data\/wmimages\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\/[A-Za-z0-9_.-]+\.webp$/.test(item)) {
+  if (typeof item !== "string" || !/^data\/wmimages\/[A-Za-z0-9_-]+\/[A-Za-z0-9_+-]+\/[A-Za-z0-9_.-]+\.webp$/.test(item)) {
     throw new Error("Unsafe image refresh path: " + String(item));
   }
   if (seen.has(item)) throw new Error("Duplicate refresh path: " + item);
