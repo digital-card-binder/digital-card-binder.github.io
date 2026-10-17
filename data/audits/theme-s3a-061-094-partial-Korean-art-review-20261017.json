@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3a",
+  "name": "전설의 고동",
+  "range": "061-094 (27 Korean-approved and 7 Japanese holds)",
+  "status": "manual_Korean_art_12_theme_partial_27_with_7_Japanese_image_holds",
+  "koreanPrintGate": "data/audits/theme-s3a-061-094-korean-print-gate-20261017.json",
+  "preflights": [
+    "data/audits/theme-visual-evidence/s3a/061-090/visual-index.json",
+    "data/audits/theme-visual-evidence/s3a/091-094/visual-index.json"
+  ],
+  "reviewedThemes": [
+    "sleeping",
+    "connected",
+    "evolution",
+    "night",
+    "season",
+    "color",
+    "sunset",
+    "reflections",
+    "food",
+    "street",
+    "work",
+    "cameo"
+  ],
+  "approvedKoreanCardCount": 27,
+  "ownedCDNDecodedCandidateCount": 34,
+  "heldJapanesePrintedCount": 7,
+  "heldNumbers": [
+    86,
+    87,
+    88,
+    89,
+    92,
+    93,
+    94
+  ],
+  "approvedKoreanNumbers": [
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    90,
+    91
+  ],
+  "all12ThemesInspectedForApprovedKoreanCards": true,
+  "existingThemesInApprovedCards": 0,
+  "themeCounts": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 0,
+    "season": 3,
+    "color": 27,
+    "sunset": 0,
+    "reflections": 0,
+    "food": 0,
+    "street": 2,
+    "work": 0,
+    "cameo": 0
+  },
+  "themeAdditions": 32,
+  "noMasterOrOwnershipChanges": true,
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "notes": "27 images with visible Korean printed text and matching canonical slots; 24 official image-host sources and 3 independently confirmed Korean retail originals mirrored on DCB CDN (085,090,091), provenance not necessarily official. 7 remaining slots are printed in Japanese, NOT approved. Do not complete S3a until authentic Korean images for 086-089,092-094 are verified, archived, and reviewed.",
+  "items": [
+    {
+      "canonicalOrder": 61,
+      "cardKey": "S3a_061",
+      "name": "콕코구리",
+      "rarity": "C",
+      "artObservation": "콕코구리가 초록 들판과 나뭇가지, 보라빛 먼 산이 보이는 풍경에 앉아 있다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "녹색·보라",
+        "season": "풀밭 · 산"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 62,
+      "cardKey": "S3a_062",
+      "name": "크라파",
+      "rarity": "C",
+      "artObservation": "크라파가 잎 달린 나무줄기와 흐린 하늘 위로 날아오른다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "검정·하늘색",
+        "season": "나무 · 구름"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 63,
+      "cardKey": "S3a_063",
+      "name": "왕큰부리",
+      "rarity": "U",
+      "artObservation": "왕큰부리가 연녹색 나무잎과 꽃이 보이는 숲길 위를 날아간다.",
+      "matchedThemes": [
+        "season",
+        "color"
+      ],
+      "categories": {
+        "color": "검정·연두",
+        "season": "꽃 핀 숲"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 64,
+      "cardKey": "S3a_064",
+      "name": "수퍼볼",
+      "rarity": "U",
+      "artObservation": "수퍼볼이 강한 주황색과 붉은 빛줄기를 배경으로 회전한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "주황·파랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 65,
+      "cardKey": "S3a_065",
+      "name": "튼튼치즈",
+      "rarity": "U",
+      "artObservation": "튼튼치즈가 눈부신 노란 광채에 둘러싸인 아이템으로 등장한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·흰색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 66,
+      "cardKey": "S3a_066",
+      "name": "포켓몬 교체",
+      "rarity": "U",
+      "artObservation": "포켓몬 교체 아이템의 볼 두 개가 주황색 빛줄기가 지나가는 기계적 배경 앞에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "은회색·주황"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 67,
+      "cardKey": "S3a_067",
+      "name": "포켓몬 캐처",
+      "rarity": "U",
+      "artObservation": "포켓몬 캐처가 빛나는 줄무늬 속에서 기계적인 장치를 펼친다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "파랑·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 68,
+      "cardKey": "S3a_068",
+      "name": "영웅의 메달",
+      "rarity": "U",
+      "artObservation": "영웅의 메달이 붉은 배경 앞에서 금빛으로 반짝인다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "황금·적갈"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 69,
+      "cardKey": "S3a_069",
+      "name": "울퉁불퉁멧",
+      "rarity": "U",
+      "artObservation": "울퉁불퉁멧이 파랑빛 그물 모양의 추상 배경 위에 놓여 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "청록·노랑"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 70,
+      "cardKey": "S3a_070",
+      "name": "마리",
+      "rarity": "U",
+      "artObservation": "마리가 작은 화분과 가구가 있는 실내에서 미소 짓고 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·연분홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 71,
+      "cardKey": "S3a_071",
+      "name": "아가씨",
+      "rarity": "U",
+      "artObservation": "아가씨가 분홍빛 건물과 포장된 거리가 보이는 시가지 앞에 서 있다.",
+      "matchedThemes": [
+        "color",
+        "street"
+      ],
+      "categories": {
+        "color": "분홍·갈색",
+        "street": "마을 상점 · 거리"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 72,
+      "cardKey": "S3a_072",
+      "name": "어니언",
+      "rarity": "U",
+      "artObservation": "어니언이 보라색 조명과 체육관 장식이 보이는 실내에서 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "보라·남색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 73,
+      "cardKey": "S3a_073",
+      "name": "포플러",
+      "rarity": "U",
+      "artObservation": "포플러가 알록달록한 집과 골목길이 있는 마을을 지나간다.",
+      "matchedThemes": [
+        "color",
+        "street"
+      ],
+      "categories": {
+        "color": "보라·연두",
+        "street": "마을 건물 · 거리"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 74,
+      "cardKey": "S3a_074",
+      "name": "아로마 풀 에너지",
+      "rarity": "U",
+      "artObservation": "아로마 풀 에너지의 초록 구형 심볼이 반짝이는 녹빛 배경 앞에 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "초록·검정"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 75,
+      "cardKey": "S3a_075",
+      "name": "스톤 격투 에너지",
+      "rarity": "U",
+      "artObservation": "스톤 격투 에너지의 갈색 주먹 심볼이 붉은 불꽃 같은 빛 속에 놓여 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "붉은색·갈색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 76,
+      "cardKey": "S3a_076",
+      "name": "트윈 에너지",
+      "rarity": "U",
+      "artObservation": "트윈 에너지의 은색 구체들이 검은 격자 모양 배경에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "은회색·검정"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 77,
+      "cardKey": "S3a_077",
+      "name": "자루도 V",
+      "rarity": "SR",
+      "artObservation": "자루도 V가 검은 윤곽과 붉은색의 강렬한 광선 앞에서 손을 내민다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "검정·빨강"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 78,
+      "cardKey": "S3a_078",
+      "name": "전룡 V",
+      "rarity": "SR",
+      "artObservation": "전룡 V가 밝은 청색 전기 구름 가운데 노란 몸을 드러낸다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "노랑·하늘색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 79,
+      "cardKey": "S3a_079",
+      "name": "마휘핑 V",
+      "rarity": "SR",
+      "artObservation": "마휘핑 V가 부드러운 분홍색과 흰색 빛 속에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연분홍·흰색"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 80,
+      "cardKey": "S3a_080",
+      "name": "석탄산 V",
+      "rarity": "SR",
+      "artObservation": "석탄산 V가 어두운 바위와 주황빛 불꽃 효과에 둘러싸여 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "먹회·주황"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 81,
+      "cardKey": "S3a_081",
+      "name": "강철톤 V",
+      "rarity": "SR",
+      "artObservation": "강철톤 V가 녹색 격자 패턴과 은색 광휘 앞에 서 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "회색·연두"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 82,
+      "cardKey": "S3a_082",
+      "name": "토게키스 V",
+      "rarity": "SR",
+      "artObservation": "토게키스 V가 분홍과 하늘빛 선이 흐르는 추상적인 배경에 떠 있다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "흰색·연청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 83,
+      "cardKey": "S3a_083",
+      "name": "아가씨",
+      "rarity": "SR",
+      "artObservation": "아가씨의 얼굴과 붉은 의상이 여러 방향의 주황과 분홍 광선 속에 등장한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "다홍·연분홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 84,
+      "cardKey": "S3a_084",
+      "name": "어니언",
+      "rarity": "SR",
+      "artObservation": "어니언이 청록·자주색 강렬한 빛을 받는 특별 일러스트로 등장한다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "청록·보라"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "pokemonkorea-catalogue-url-and-dcb-owned-decoded-image",
+      "sourceHost": "cards.image.pokemonkorea.co.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 85,
+      "cardKey": "S3a_085",
+      "name": "포플러",
+      "rarity": "SR",
+      "artObservation": "포플러가 반짝이는 다색 배경에 둘러싸인 한국어 인쇄 SR 카드이다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연보라·분홍"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "retail-korean-printed-photo-and-dcb-owned-decoded-image",
+      "sourceHost": "static.tcgexchange.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 90,
+      "cardKey": "S3a_090",
+      "name": "어니언",
+      "rarity": "HR",
+      "artObservation": "어니언이 무지갯빛 홀로 배경에 그려진 한국어 인쇄 HR 카드이다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "무지개·청록"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "retail-korean-printed-photo-and-dcb-owned-decoded-image",
+      "sourceHost": "static.tcgexchange.kr",
+      "preExistingThemeRecordsPreserved": []
+    },
+    {
+      "canonicalOrder": 91,
+      "cardKey": "S3a_091",
+      "name": "포플러",
+      "rarity": "HR",
+      "artObservation": "포플러가 무지갯빛 홀로 배경에 그려진 한국어 인쇄 HR 카드이다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "무지개·보라"
+      },
+      "koreanPrintImageVerified": true,
+      "sourceEvidence": "retail-korean-printed-photo-and-dcb-owned-decoded-image",
+      "sourceHost": "static.tcgexchange.kr",
+      "preExistingThemeRecordsPreserved": []
+    }
+  ]
+}
