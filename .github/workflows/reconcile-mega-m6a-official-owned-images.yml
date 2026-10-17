@@ -72,7 +72,19 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json data/master-card-db-audit.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "audit(mega): upgrade 32 revalidated M6a Korean PNG/WebP images to first-party evidence"
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json data/master-card-db-audit.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "audit(mega): reconcile 61 Korean self-hosted first-party M6a image proofs"
+            if git push origin HEAD:main; then exit 0; fi
+            if [ "$attempt" -eq 5 ]; then exit 1; fi
+            git fetch origin main
+            git reset --hard origin/main
+            node scripts/probe-mega-official-images.mjs
+            node scripts/audit-mega-korean-membership.mjs
+            npm run site:prepare
+            npm run site:check
+            npm run test:syntax
+            npm run test:registry
+            npm run test:architecture
+          done
