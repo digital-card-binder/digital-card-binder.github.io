@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "sm1s",
+  "setName": "썬 컬렉션",
+  "scope": "Investigate four previously held Korean print artworks 070-073 and cross-locale numbering evidence. Evidence only, not asset recovery.",
+  "priorCheckpoint": "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json",
+  "totalCanonicalCards": 73,
+  "unchangedKoreanImageReviewedCount": 69,
+  "heldBefore": [
+    70,
+    71,
+    72,
+    73
+  ],
+  "heldAfter": [
+    70,
+    71,
+    72,
+    73
+  ],
+  "newExternalKoreanImageCandidates": 2,
+  "selfHostedKoreanPrintImagesRecovered": 0,
+  "artworkRecordsApproved": 0,
+  "complete": false,
+  "criticalCatalogIdentityConflict": {
+    "koreanCatalog": "KR set and TCGBox show 071/060 로토무도감, 072/060 하이퍼볼",
+    "japaneseCatalog": "JP set lists 071/060 Hyper Ball, 072/060 Rotom Dex; may NOT be used to relabel Korean cards",
+    "conflictingAggregator": "https://collectory.cc/sets/758506ad-dbac-4bed-b715-fc4f2cafa864",
+    "koreanSources": [
+      "https://tcgbox.co.kr/product/%EB%A1%9C%ED%86%A0%EB%AC%B4%EB%8F%84%EA%B0%90-ur/3652/",
+      "https://carahi.kr/set/pokemon/%EC%8D%AC%EC%BB%AC%EB%A0%89%EC%85%98-%ED%95%9C%EA%B8%80%ED%8C%90"
+    ],
+    "japaneseSource": "https://koriyama.hareruya2.com/collections/sm",
+    "resolution": "Preserve existing KR master ordering; inspect Korean printed card number in full-resolution self-hosted copies before approval"
+  },
+  "rules": {
+    "noDataOrOwnershipMutation": true,
+    "noJapaneseAsKoreanProof": true,
+    "noArtThemesChanges": true,
+    "noApprovalWithoutKoreanPrintAndSelfHostedDecode": true
+  },
+  "items": [
+    {
+      "canonicalOrder": 70,
+      "cardKey": "SM1S_070",
+      "name": "형사구스 GX",
+      "rarity": "HR",
+      "externalKoreanVisualLead": false,
+      "evidence": "Korean numbered shop listing only; image search returned JP printed item so do not approve",
+      "sourcePages": [
+        "https://tcgbox.co.kr/product/%ED%98%95%EC%82%AC%EA%B5%AC%EC%8A%A4gx-hr/5830/"
+      ],
+      "excludedJapanese": "https://pokevault.com/SM1SunGumshoosGXHRHolofoil",
+      "priorOwnedArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/8ea6a0d5b480d095.webp",
+      "priorOwnedArchiveStatus": "undecodable",
+      "stillHeld": true
+    },
+    {
+      "canonicalOrder": 71,
+      "cardKey": "SM1S_071",
+      "name": "로토무도감",
+      "rarity": "UR",
+      "externalKoreanVisualLead": true,
+      "evidence": "Korean text on Rotom Dex gold card external image, but owned CDN not decodable; Korean catalog/order corroborated by KR TCGBox SKU and KR set catalog",
+      "sourcePages": [
+        "https://www.ssg.com/item/itemView.ssg?itemId=1000523203647",
+        "https://tcgbox.co.kr/product/%EB%A1%9C%ED%86%A0%EB%AC%B4%EB%8F%84%EA%B0%90-ur/3652/"
+      ],
+      "candidateImage": "https://sitem.ssgcdn.com/47/36/20/item/1000523203647_i1_750.jpg",
+      "priorOwnedArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/7908bbf379d3d946.webp",
+      "priorOwnedArchiveStatus": "undecodable",
+      "stillHeld": true
+    },
+    {
+      "canonicalOrder": 72,
+      "cardKey": "SM1S_072",
+      "name": "하이퍼볼",
+      "rarity": "UR",
+      "externalKoreanVisualLead": true,
+      "evidence": "Korean printed Ultra Ball gold card external image; independent KR-specific set numbering labels 072; need full-res printed-number verification before changing any asset",
+      "sourcePages": [
+        "https://catalog.11st.co.kr/pc/410497700",
+        "https://carahi.kr/set/pokemon/%EC%8D%AC%EC%BB%AC%EB%A0%89%EC%85%98-%ED%95%9C%EA%B8%80%ED%8C%90"
+      ],
+      "candidateImage": "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/cat/24/4/9/7/7/0/0/cIzYt/410497700_1.jpg",
+      "priorOwnedArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/27bcfffad75cabee.webp",
+      "priorOwnedArchiveStatus": "undecodable",
+      "stillHeld": true
+    },
+    {
+      "canonicalOrder": 73,
+      "cardKey": "SM1S_073",
+      "name": "기본 강철 에너지",
+      "rarity": "UR",
+      "externalKoreanVisualLead": false,
+      "evidence": "Only Korean checklist/number identified; visual result is explicitly Japanese printed",
+      "sourcePages": [
+        "https://carahi.kr/set/pokemon/%EC%8D%AC%EC%BB%AC%EB%A0%89%EC%85%98-%ED%95%9C%EA%B8%80%ED%8C%90"
+      ],
+      "excludedJapanese": "https://okini.land/en/52684-pokemon-tcg-sm1s-073-060-ur-metal-energy-the-pokemon-company.html",
+      "priorOwnedArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/0e6217cdb7ec8900.webp",
+      "priorOwnedArchiveStatus": "undecodable",
+      "stillHeld": true
+    }
+  ],
+  "nextAction": "Get Korean printed originals with legible bottom number for 070-073; verify permission, download, convert and save to DCB-owned CDN, image decode/checksum, then 12-theme classification and guarded apply."
+}
