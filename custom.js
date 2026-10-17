@@ -773,6 +773,9 @@
     const cards = pickerMatches($("card-picker-search").value);
     $("card-picker-count").textContent = String(cards.length);
     const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
+    for (const key of state.pickedCatalogKeys) if (existing.has(key)) state.pickedCatalogKeys.delete(key);
+    $("card-picker-selected-count").textContent = String(state.pickedCatalogKeys.size);
+    $("card-picker-add-selected").disabled = !state.pickedCatalogKeys.size || state.bulkSaving;
     const fragment = document.createDocumentFragment();
     cards.forEach((card) => {
       const row = document.createElement("article");
@@ -789,11 +792,63 @@
       add.disabled = existing.has(card.key);
       add.textContent = existing.has(card.key) ? "추가됨" : "추가";
       add.addEventListener("click", () => void addCatalogCard(card.key));
+      const chooser = document.createElement("input");
+      chooser.type = "checkbox";
+      chooser.className = "custom-picker-checkbox";
+      chooser.disabled = existing.has(card.key);
+      chooser.checked = state.pickedCatalogKeys.has(card.key);
+      chooser.setAttribute("aria-label", card.name + " 선택");
+      chooser.addEventListener("change", () => {
+        if (chooser.checked) state.pickedCatalogKeys.add(card.key);
+        else state.pickedCatalogKeys.delete(card.key);
+        renderPicker();
+      });
+      row.classList.toggle("is-picked", chooser.checked);
+      row.prepend(chooser);
       row.append(image, copy, add);
       fragment.append(row);
     });
     results.append(fragment);
     $("card-picker-empty").hidden = cards.length > 0;
+  }
+
+  async function addSelectedCatalogCards() {
+    const dex = currentDex();
+    if (!dex || state.bulkSaving) return;
+    const existing = new Set(dex.cards.map((entry) => entry.key));
+    const pending = [...state.pickedCatalogKeys].filter((key) => state.catalogMap.has(key) && !existing.has(key));
+    if (!pending.length) return;
+    const capacity = MAX_CARDS_PER_DEX - dex.cards.length;
+    if (pending.length > capacity) {
+      alert("이 도감에는 " + capacity + "장까지 추가할 수 있습니다. 선택 항목을 줄여주세요.");
+      return;
+    }
+    const before = [...dex.cards];
+    state.bulkSaving = true;
+    dex.cards.push(...pending.map((key) => ({ key, owned: false, manual: null })));
+    dex.updatedAt = new Date().toISOString();
+    renderAll();
+    try {
+      await saveDexes();
+      state.pickedCatalogKeys.clear();
+      $("card-picker-dialog").close();
+    } catch (error) {
+      dex.cards = before;
+      alert(error.message || "카드 일괄 추가에 실패했습니다.");
+    } finally {
+      state.bulkSaving = false;
+      renderPicker();
+      renderAll();
+    }
+  }
+
+  function selectVisiblePickerCards() {
+    const dex = currentDex();
+    const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
+    pickerMatches($("card-picker-search").value).forEach((card) => {
+      if (!existing.has(card.key)) state.pickedCatalogKeys.add(card.key);
+    });
+    renderPicker();
   }
 
   async function addCatalogCard(key) {
@@ -869,6 +924,7 @@
     $("add-card-button").addEventListener("click", () => {
       if (!currentDex()) return;
       $("card-picker-search").value = "";
+      state.pickedCatalogKeys.clear();
       renderPicker();
       $("card-picker-dialog").showModal();
       requestAnimationFrame(() => $("card-picker-search").focus());
@@ -878,6 +934,17 @@
     $("dex-cancel-button").addEventListener("click", () => $("dex-dialog").close());
     $("card-picker-close").addEventListener("click", () => $("card-picker-dialog").close());
     $("card-picker-search").addEventListener("input", renderPicker);
+    $("card-picker-select-visible").addEventListener("click", selectVisiblePickerCards);
+    $("card-picker-clear-selected").addEventListener("click", () => {
+      state.pickedCatalogKeys.clear();
+      renderPicker();
+    });
+    $("card-picker-add-selected").addEventListener("click", addSelectedCatalogCards);
+    $("custom-edit-order-button").addEventListener("click", toggleBulkOrderMode);
+    $("custom-bulk-toolbar").addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-bulk-action]");
+      if (button) void moveSelectedCards(button.dataset.bulkAction);
+    });
     $("manual-card-form").addEventListener("submit", addManualCard);
     $("custom-search").addEventListener("input", (event) => {
       state.query = event.currentTarget.value;
