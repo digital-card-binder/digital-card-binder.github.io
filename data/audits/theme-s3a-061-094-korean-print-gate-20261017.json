@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3a",
+  "masterCanonicalCount": 94,
+  "previousApprovedKoreanCount": 60,
+  "remainingCanonicalCount": 34,
+  "ownedArchiveImagesDecoded": 34,
+  "confirmedKoreanPrintedCount": 27,
+  "notKoreanPrintCount": 7,
+  "heldNumbers": [
+    86,
+    87,
+    88,
+    89,
+    92,
+    93,
+    94
+  ],
+  "approvedKoreanNumbers": [
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    90,
+    91
+  ],
+  "languageGate": "must visually read Korean text from source image; URL naming, owned archive and 200 decode do not prove Korean print",
+  "sourcePreflights": [
+    "data/audits/theme-visual-evidence/s3a/061-090/visual-index.json",
+    "data/audits/theme-visual-evidence/s3a/091-094/visual-index.json"
+  ],
+  "contactSheets": [
+    "data/audits/theme-visual-evidence/s3a/061-090/s3a-061-090-01.webp.b64",
+    "data/audits/theme-visual-evidence/s3a/061-090/s3a-061-090-02.webp.b64",
+    "data/audits/theme-visual-evidence/s3a/091-094/s3a-091-094-01.webp.b64"
+  ],
+  "sourcing": {
+    "approvedOfficialHostCount": 24,
+    "approvedRetailPhotoSourceCount": 3,
+    "heldJapaneseRetailSourceCount": 7
+  },
+  "held": [
+    {
+      "canonicalOrder": 86,
+      "code": "s3a_086/076",
+      "name": "마휘핑 VMAX",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/54874a7d1079d1641c6e5c8fc1e0fbb6.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5198ae9e66db0a56.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 87,
+      "code": "s3a_087/076",
+      "name": "석탄산 VMAX",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/36158d9fa90080a8e28d47e8e692f98d.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/2919481dcb27455d.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 88,
+      "code": "s3a_088/076",
+      "name": "토게키스 VMAX",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/cdf5216e3e263be903febcddaba3ca4d.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/b28a1d6dc3fb24dd.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 89,
+      "code": "s3a_089/076",
+      "name": "아가씨",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/dcd515385c96d7bfc231bd0cd296c136.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/94c1ec1332c662cb.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 92,
+      "code": "s3a_092/076",
+      "name": "하랑우탄",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/133117b6625e9ea9c6f0b9ba28e82d34.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1f828e83a5ef94ff.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 93,
+      "code": "s3a_093/076",
+      "name": "영웅의 메달",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/d1909d285fff1d938c397253435746c3.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e1b062b1bbb16a96.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    },
+    {
+      "canonicalOrder": 94,
+      "code": "s3a_094/076",
+      "name": "터프니스 망토",
+      "sourceHost": "static.tcgexchange.kr",
+      "originalImage": "https://static.tcgexchange.kr/b8676fad6c250dd4d3f721307c589e2f.jpg",
+      "dcBArchivedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5f4489b678c4bcab.webp",
+      "languageObserved": "Japanese",
+      "error": "Japanese printed card visible on DCB owned contact sheet; binary decodes but is NOT Korean art proof.",
+      "requires": "Find authentic Korean-language printing of identical S3a canonical slot, inspect, rehost at own CDN, then only mark Korean image verified"
+    }
+  ],
+  "progress": "S3a remains in_progress, NOT complete until 7 Korean printed cards replace Japanese stand-ins. Do not alter ownership, original canonical keys or invent Korean printing evidence.",
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094"
+}
