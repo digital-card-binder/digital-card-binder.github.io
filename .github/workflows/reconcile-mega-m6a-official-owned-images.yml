@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/reconcile-mega-m6a-official-owned-images.yml'
       - 'scripts/probe-mega-official-images.mjs'
+      - 'tests/master-card-db-audit.test.mjs'
   workflow_dispatch:
 permissions:
   contents: write
@@ -62,7 +63,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json
+          git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json data/master-card-db-audit.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "audit(mega): upgrade 32 revalidated M6a Korean PNG/WebP images to first-party evidence"
           git push origin HEAD:main
