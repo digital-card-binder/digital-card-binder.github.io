@@ -24,9 +24,29 @@
   let statusFilter = "all";
   let searchQuery = "";
   let activeCard = null;
+  let storyReview = null;
+  const storyModes = new Set(["connected", "evolution"]);
+  const isStoryGroup = (group) => !EEVEE_MODE && storyModes.has(group?.code);
+  function reviewedCards(group) {
+    if (!isStoryGroup(group)) return group?.cards || [];
+    const reviews = storyReview?.groups?.[group.code]?.cards || {};
+    return (group?.cards || []).filter((card) => reviews[card.code]?.status === "accepted");
+  }
+  function applyStoryReview() {
+    for (const group of dataset?.groups || []) {
+      if (!isStoryGroup(group)) continue;
+      const reviews = storyReview?.groups?.[group.code]?.cards || {};
+      for (const card of group.cards || []) {
+        const check = reviews[card.code];
+        card.storyTitle = check?.title || card.category || "검수 보류";
+        card.storyKind = check?.kind || "";
+        card.storyReviewStatus = check?.status || "pending";
+      }
+    }
+  }
 
   const rate = (owned, total) => total ? Math.round((owned / total) * 1000) / 10 : 0;
-  const allCards = () => (dataset?.groups || []).flatMap((group) => group.cards || []);
+  const allCards = () => (dataset?.groups || []).flatMap((group) => reviewedCards(group));
   const visibleGroups = () => (dataset?.groups || []).filter((group) => !EEVEE_MODE || !group.hiddenInNavigation);
   const currentGroup = () => visibleGroups().find((group) => group.code === selectedTheme) || visibleGroups()[0] || null;
   const isVariantGroup = (group) => EEVEE_MODE && group?.code === "eevee-c";
@@ -43,7 +63,7 @@
     ].filter(Boolean);
   }
 
-  const collectionCards = (group) => (group?.cards || []).flatMap((card) => variantsOf(card, group));
+  const collectionCards = (group) => reviewedCards(group).flatMap((card) => variantsOf(card, group));
   const repairedImage = (source) => window.DigitalCardBinderImageCdn?.resolve?.(source) || window.DigitalCardBinderImageCdn?.repairSource?.(source) || source || "";
 
   function requestedTheme() {
@@ -74,7 +94,11 @@
     el("art-theme-selected-total").textContent = selectedCards.length;
     el("art-theme-selected-rate").textContent = `${selectedRate}%`;
     el("art-theme-selected-name").textContent = group?.name || "—";
-    el("art-theme-selected-description").textContent = THEME_DESCRIPTIONS[group?.code] || group?.description || "";
+    const description = THEME_DESCRIPTIONS[group?.code] || group?.description || "";
+    const tally = storyReview?.groups?.[group?.code]?.summary;
+    el("art-theme-selected-description").textContent = tally
+      ? description + " · 연결 근거를 확인한 " + tally.accepted + "장만 표시합니다. " + (tally.pending + tally.excluded) + "장은 검수 보류·분류 제외 상태로 기록되어 있습니다."
+      : description;
     el("art-theme-selected-icon").textContent = group?.icon || "✦";
     el("art-theme-selected-badge").textContent = group?.badge || "THEME";
     el("art-theme-catalog-title").textContent = `${group?.name || "테마"} · ${selectedCards.length}장`;
@@ -88,7 +112,7 @@
     if (!query) return true;
     return [
       card.name, card.series, card.set, card.setName, card.cardNumber,
-      card.rarity, card.category, card.evidence,
+      card.rarity, card.category, card.storyTitle, card.evidence,
     ].filter(Boolean).join(" ").toLowerCase().includes(query);
   }
 
@@ -192,14 +216,48 @@
 
   function renderCards() {
     const group = currentGroup();
-    const cards = (group?.cards || []).filter(matches);
+    const cards = reviewedCards(group).filter(matches);
     const grid = el("art-theme-card-grid");
     grid.replaceChildren();
+    grid.classList.toggle("is-story-groups", isStoryGroup(group));
+    const sections = new Map();
     grid.setAttribute("aria-busy", "false");
     el("art-theme-result-count").textContent = cards.length;
     el("art-theme-empty").hidden = cards.length > 0;
 
     cards.forEach((card) => {
+      let destination = grid;
+      if (isStoryGroup(group)) {
+        const title = card.storyTitle || card.category || "연결 그룹";
+        if (!sections.has(title)) {
+          const section = document.createElement("section");
+          section.className = "art-story-section";
+          const head = document.createElement("div");
+          head.className = "art-story-section-header";
+          const heading = document.createElement("h3");
+          heading.textContent = title;
+          const detail = document.createElement("span");
+          detail.textContent = card.storyKind || "연결 이야기";
+          head.append(heading, detail);
+          const note = storyReview?.storyNotes?.[title];
+          section.append(head);
+          if (note) {
+            const p = document.createElement("p");
+            p.className = "art-story-section-note";
+            p.textContent = note;
+            section.append(p);
+          }
+          const cardsRoot = document.createElement("div");
+          cardsRoot.className = "art-theme-card-grid art-story-card-grid";
+          section.append(cardsRoot);
+          grid.append(section);
+          sections.set(title, { root: cardsRoot, count: 0, heading: detail, kind: card.storyKind });
+        }
+        const sectionData = sections.get(title);
+        sectionData.count += 1;
+        sectionData.heading.textContent = sectionData.count + "장 · " + (sectionData.kind || "연결 이야기");
+        destination = sectionData.root;
+      }
       const article = document.createElement("article");
       article.className = "art-theme-card";
       const anyOwned = variantsOf(card, group).some((version) => version.owned);
@@ -213,7 +271,7 @@
           <div class="art-theme-card-badges"><span>${card.cardNumber || card.set || ""}</span><span class="is-rarity">${card.rarity || "CARD"}</span></div>
           <h3>${card.name || ""}</h3>
           <p class="art-theme-card-meta">${[card.set, card.setName].filter(Boolean).join(" · ")}</p>
-          <p class="art-theme-card-scene">${card.category || ""}</p>
+          <p class="art-theme-card-scene">${card.storyTitle || card.category || ""}</p>
         </div>
       `;
       const open = document.createElement("button");
@@ -226,7 +284,7 @@
       } else {
         article.append(open, ownedButton(card));
       }
-      grid.append(article);
+      destination.append(article);
     });
   }
 
@@ -278,11 +336,19 @@
       const response = await fetch(DATA_URL, { cache: "no-store" });
       if (!response.ok) throw new Error(`${DATA_URL} ${response.status}`);
       dataset = await response.json();
+      if (!EEVEE_MODE) {
+        const auditResponse = await fetch("./data/art-theme-story-review.json?v=20261017a", { cache: "no-store" });
+        if (auditResponse.ok) storyReview = await auditResponse.json();
+      }
       if (!Array.isArray(dataset.groups) || !dataset.groups.length) throw new Error("테마 데이터가 비어 있습니다.");
       const manager = account();
       await manager?.ready;
       if (manager?.applyGroups) dataset.groups = manager.applyGroups(dataset.groups);
       selectedTheme = requestedTheme();
+      if (storyModes.has(selectedTheme) && !storyReview?.groups?.[selectedTheme]?.cards) {
+        throw new Error("스토리 도감 검수 데이터가 아직 배포되지 않았습니다.");
+      }
+      applyStoryReview();
       if (EEVEE_MODE) {
         document.title = "이브이 도감 | 디지털 카드 바인더";
         el("page-title").textContent = "이브이 도감";
