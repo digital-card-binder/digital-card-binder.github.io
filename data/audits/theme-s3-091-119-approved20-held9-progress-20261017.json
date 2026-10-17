@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3",
+  "totalMasterCards": 119,
+  "KoreanPrintArtworksReviewed": 110,
+  "sourceImagesSelfHostedDecodedAndKoreanVerified": 110,
+  "newlyAddedThemeSlotsThisBatch": 25,
+  "newlyAddedThemeSlotsCumulative": 161,
+  "existingThemeSlotsPreserved": 1,
+  "reviewedRanges": [
+    "001-030",
+    "031-060",
+    "061-090",
+    "091-110"
+  ],
+  "status": "in_progress",
+  "complete": false,
+  "nextStart": "S3 111-119 Korean-printed source images required before final strict completion",
+  "heldNonKoreanSourceCardCodes": [
+    "S3_111",
+    "S3_112",
+    "S3_113",
+    "S3_114",
+    "S3_115",
+    "S3_116",
+    "S3_117",
+    "S3_118",
+    "S3_119"
+  ],
+  "heldNonKoreanSourceCount": 9,
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "manualReview": "data/audits/theme-s3-091-119-approved20-held9-art-review-20261017.json",
+  "ownedImagePreflight": "data/audits/theme-visual-evidence/s3/091-119/visual-index.json",
+  "remainingImageAndArtworkCount": 9
+}

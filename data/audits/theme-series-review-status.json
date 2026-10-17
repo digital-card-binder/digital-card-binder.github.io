@@ -63431,14 +63431,15 @@
       ]
     },
     "s3": {
-      "artworkReviewedCardCount": 90,
-      "reviewedCardCount": 90,
-      "verifiedKoreanPrintImageCount": 90,
-      "verifiedSelfHostedImageCount": 90,
+      "artworkReviewedCardCount": 110,
+      "reviewedCardCount": 110,
+      "verifiedKoreanPrintImageCount": 110,
+      "verifiedSelfHostedImageCount": 110,
       "reviewedRanges": [
         "001-030",
         "031-060",
-        "061-090"
+        "061-090",
+        "091-110"
       ],
       "reviewedThemes": [
         "sleeping",
@@ -63454,15 +63455,26 @@
         "work",
         "cameo"
       ],
-      "newlyAddedThemeSlotCount": 136,
+      "newlyAddedThemeSlotCount": 161,
       "preservedExistingThemeSlotCount": 1,
-      "partialReviewEvidence": "data/audits/theme-s3-061-090-Korean-art-review-20261017.json",
-      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3/061-090/visual-index.json",
-      "nextStart": "S3 한국판 091-119 카드 12테마 이미지 시각검수",
+      "partialReviewEvidence": "data/audits/theme-s3-091-119-approved20-held9-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3/091-119/visual-index.json",
+      "nextStart": "S3 111-119 Korean-printed source images required before final strict completion",
       "reviewedAt": "2026-10-17",
       "status": "in_progress",
       "complete": false,
-      "note": "S3 119장 중 001-090 한국판 자체보관 이미지 90장 12개 독립 테마 육안 검수. 이번 44건·누적 136건 신규 테마, S3_079 반사 기존 1건 보존. 091-119 검수 전 완료 처리 금지. 마스터 코드·보유 키 불변."
+      "note": "S3 119장 중 한국어 인쇄 카드 110장 12테마 완료. 마지막 111-119 9장은 DCB 자체 CDN에 저장됐지만 일본판 원본이므로 한국판 시각 검수 미완료 보류. 신규 테마 누적 161건, 기존 S3_079 반사 1건 보존. 해당 한국판 확인 전 set complete 절대 금지.",
+      "heldKoreanPrintImageCardCodes": [
+        "S3_111",
+        "S3_112",
+        "S3_113",
+        "S3_114",
+        "S3_115",
+        "S3_116",
+        "S3_117",
+        "S3_118",
+        "S3_119"
+      ]
     }
   },
   "queue": {
