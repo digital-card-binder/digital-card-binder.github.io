@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "sm1+",
+  "setName": "썬&문",
+  "era": "SM",
+  "previousSetCheckpoints": [
+    "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
+    "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json"
+  ],
+  "scope": "Start next pending SM set: official Korean catalogue text and numbering preflight, non-destructive",
+  "masterCanonicalCardCount": 77,
+  "officialMainNumberDenominator": 51,
+  "verifiedOfficialKoreanCatalogueRecords": 5,
+  "confirmedKoreanPrintArtworksThisStage": 0,
+  "selfHostedImagesDecodedThisStage": 0,
+  "twelveThemeArtworksReviewedThisStage": 0,
+  "newlyApprovedThemeSlots": 0,
+  "setReviewStatus": "pending_preflight_only",
+  "complete": false,
+  "evidenceSource": "Pokemon Korea Korean card catalogue indexed detail pages",
+  "rule": "Official Korean detail pages verify printed identity/number metadata only, not an already-decoded or visually verified archived Korean image. Product detail suffix is NOT sequential collector number (005 maps to BS2017003062).",
+  "confirmedRecords": [
+    {
+      "number": 1,
+      "printedNumber": "001/051",
+      "name": "나몰빼미",
+      "detailUrl": "https://pokemoncard.co.kr/cards/detail/BS2017003001",
+      "artist": "Megumi Mizutani",
+      "evidence": "Verified official Korean page with 001/051 and Korean card text",
+      "artworkVerified": false,
+      "selfHostedDecoded": false,
+      "themeClassified": false
+    },
+    {
+      "number": 3,
+      "printedNumber": "003/051",
+      "name": "모크나이퍼 GX",
+      "detailUrl": "https://pokemoncard.co.kr/cards/detail/BS2017003003",
+      "artist": "5ban Graphics",
+      "evidence": "Official Korean search-indexed detail lists 003/051 and 모크나이퍼 GX",
+      "artworkVerified": false,
+      "selfHostedDecoded": false,
+      "themeClassified": false
+    },
+    {
+      "number": 5,
+      "printedNumber": "005/051",
+      "name": "짜랑랑",
+      "detailUrl": "https://pokemoncard.co.kr/cards/detail/BS2017003062",
+      "artist": "Kagemaru Himeno",
+      "evidence": "Official Korean search-indexed detail lists 005/051 and 짜랑랑",
+      "artworkVerified": false,
+      "selfHostedDecoded": false,
+      "themeClassified": false
+    },
+    {
+      "number": 6,
+      "printedNumber": "006/051",
+      "name": "라란티스",
+      "detailUrl": "https://pokemoncard.co.kr/cards/detail/BS2017003063",
+      "artist": "Mitsuhiro Arita",
+      "evidence": "Official Korean search-indexed detail lists 006/051 and 라란티스",
+      "artworkVerified": false,
+      "selfHostedDecoded": false,
+      "themeClassified": false
+    },
+    {
+      "number": 13,
+      "printedNumber": "013/051",
+      "name": "왕구리",
+      "detailUrl": "https://pokemoncard.co.kr/cards/detail/BS2017003013",
+      "artist": "Saya Tsuruta",
+      "evidence": "Official Korean search-indexed detail lists 013/051 and 왕구리",
+      "artworkVerified": false,
+      "selfHostedDecoded": false,
+      "themeClassified": false
+    }
+  ],
+  "notYetChecked": [
+    2,
+    4,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "nextAction": "Fetch the canonical sm1+ slot inventory, inspect Korean printed artwork/collector numbers and DCB CDN image decoding, collect 12-theme visual evidence for 001-030, and apply only through guarded CI workflow. Leave rarity/ownership/master identities untouched."
+}
