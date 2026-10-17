@@ -28,6 +28,7 @@
     photoQueue: [],
     photoSaving: false,
     photoCache: new Map(),
+    publicSyncTimer: null,
   };
 
   const $ = (id) => document.getElementById(id);
@@ -294,6 +295,16 @@
       );
     };
     const queued = state.saveQueue.then(operation, operation);
+    void queued.then(() => {
+      if (!window.CollectorPublicSync || !state.firebase || !state.user) return;
+      window.clearTimeout(state.publicSyncTimer);
+      state.publicSyncTimer = window.setTimeout(() => {
+        const { db, firestoreModule } = state.firebase;
+        void window.CollectorPublicSync.syncCollectionWithRetry({
+          db, firestoreModule, user: state.user, collectionId: "custom", preferServer: true,
+        }).catch((error) => console.warn("나만의 도감 공개 동기화 실패", error));
+      }, 900);
+    }).catch(() => undefined);
     state.saveQueue = queued.catch(() => undefined);
     return queued;
   }
@@ -1125,8 +1136,8 @@
     state.photoSaving = false;
     renderPhotoQueue();
     renderAll();
-    $("custom-photo-status").textContent = uploaded.length - (failed.length > candidates.length - uploaded.length ? uploaded.length : 0) +
-      "장 등록 완료 · " + failed.length + "장 실패";
+    const savedCount = failed.length > candidates.length - uploaded.length ? 0 : uploaded.length;
+    $("custom-photo-status").textContent = savedCount + "장 등록 완료 · " + failed.length + "장 실패";
     if (uploaded.length && failed.length === 0) $("card-picker-dialog").close();
   }
 
@@ -1168,6 +1179,10 @@
     });
     $("custom-photo-clear").addEventListener("click", clearPhotoQueue);
     $("custom-photo-import").addEventListener("click", () => void importPhotoBatch());
+    $("card-picker-dialog").addEventListener("close", () => {
+      if (!state.photoSaving) clearPhotoQueue();
+      state.pickedCatalogKeys.clear();
+    });
     $("custom-edit-order-button").addEventListener("click", toggleBulkOrderMode);
     $("custom-bulk-toolbar").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-bulk-action]");
