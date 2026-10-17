@@ -1,14 +1,15 @@
 {
   "mode": "repair_only",
-  "requestId": "sm7b-057-062-korean-hr-ur-image-fix-20261017-1",
+  "requestId": "sm8a-059-065-hr-ur-image-fix-20261017-1",
   "refreshM6aBase": false,
-  "reason": "SM7b 057-062 show unrelated common cards despite correct card identities. Restore exact Korean HR/UR artworks verified against printed set numbers from Dogam, discard only six bad legacy Cloudflare cache files, rebuild and redeploy without changing card IDs or ownership data. SM7b 063 remains under Korean-image review.",
+  "reason": "Repair seven confirmed mismapped SM8a Dark Order 059-065 Korean HR/UR cards. Only delete these seven legacy Cloudflare image cache paths and redownload visually verified Korean correct-number originals. Previously verified SM7b 057-062 remain complete and must not be re-audited.",
   "refreshCardImages": [
-    "data/wmimages/SM/SM7B/SM7B_057.webp",
-    "data/wmimages/SM/SM7B/SM7B_058.webp",
-    "data/wmimages/SM/SM7B/SM7B_059.webp",
-    "data/wmimages/SM/SM7B/SM7B_060.webp",
-    "data/wmimages/SM/SM7B/SM7B_061.webp",
-    "data/wmimages/SM/SM7B/SM7B_062.webp"
+    "data/wmimages/SM/SM8A/SM8a_059.webp",
+    "data/wmimages/SM/SM8A/SM8a_060.webp",
+    "data/wmimages/SM/SM8A/SM8a_061.webp",
+    "data/wmimages/SM/SM8A/SM8a_062.webp",
+    "data/wmimages/SM/SM8A/SM8a_063.webp",
+    "data/wmimages/SM/SM8A/SM8a_064.webp",
+    "data/wmimages/SM/SM8A/SM8a_065.webp"
   ]
 }
