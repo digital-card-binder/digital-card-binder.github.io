@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-17",
+  "set": "s3a",
+  "name": "전설의 고동",
+  "range": "091-094",
+  "masterCanonicalCards": 94,
+  "checkedCardCount": 4,
+  "ownedImageDecodedCount": 4,
+  "ownedImageMissingCount": 0,
+  "sourceHostCounts": {
+    "static.tcgexchange.kr": 4
+  },
+  "preExistingThemeMemberships": 0,
+  "visuallyVerifiedKoreanPrintCount": 0,
+  "artworkThemesReviewedCount": 0,
+  "all12ThemesInspected": false,
+  "setComplete": false,
+  "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
+  "status": "candidate_preflight_no_master_mutation",
+  "notes": "Source provenance, owned DCB CDN binary image decoding and contact sheets only. JPEG/WebP decoding or Korean-looking URL is NOT Korean print identity or artwork classification. Existing ownership, collection IDs, and theme memberships remain unmodified.",
+  "sheets": [
+    "s3a-091-094-01.webp.b64"
+  ],
+  "cards": [
+    {
+      "canonicalOrder": 91,
+      "code": "s3a_091/076",
+      "name": "포플러",
+      "rarity": "HR",
+      "masterCardNumber": "",
+      "sourceUrl": "https://static.tcgexchange.kr/e41dc9724565cbd1617f8ab420f44f3b.jpg",
+      "sourceHost": "static.tcgexchange.kr",
+      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/8bc595d0902e8437.webp",
+      "sourceAppearsPokemonKoreaOfficial": false,
+      "preExistingThemeMemberships": [],
+      "printedKoreanLanguageVisuallyVerified": false,
+      "reviewedTwelveThemes": false,
+      "imageCheck": {
+        "status": "decoded_region_unverified",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          586
+        ],
+        "bytes": 87978,
+        "sha256": "a3948c7dbef21ccd23c8c461e7d213dd374a22a34fe51deec11643789262dd46"
+      }
+    },
+    {
+      "canonicalOrder": 92,
+      "code": "s3a_092/076",
+      "name": "하랑우탄",
+      "rarity": "HR",
+      "masterCardNumber": "",
+      "sourceUrl": "https://static.tcgexchange.kr/133117b6625e9ea9c6f0b9ba28e82d34.jpg",
+      "sourceHost": "static.tcgexchange.kr",
+      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1f828e83a5ef94ff.webp",
+      "sourceAppearsPokemonKoreaOfficial": false,
+      "preExistingThemeMemberships": [],
+      "printedKoreanLanguageVisuallyVerified": false,
+      "reviewedTwelveThemes": false,
+      "imageCheck": {
+        "status": "decoded_region_unverified",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          593
+        ],
+        "bytes": 69136,
+        "sha256": "38fb686d991a04e9b17a89fef16694f77adc5413954ec2821a13d84073f2adce"
+      }
+    },
+    {
+      "canonicalOrder": 93,
+      "code": "s3a_093/076",
+      "name": "영웅의 메달",
+      "rarity": "HR",
+      "masterCardNumber": "",
+      "sourceUrl": "https://static.tcgexchange.kr/d1909d285fff1d938c397253435746c3.jpg",
+      "sourceHost": "static.tcgexchange.kr",
+      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e1b062b1bbb16a96.webp",
+      "sourceAppearsPokemonKoreaOfficial": false,
+      "preExistingThemeMemberships": [],
+      "printedKoreanLanguageVisuallyVerified": false,
+      "reviewedTwelveThemes": false,
+      "imageCheck": {
+        "status": "decoded_region_unverified",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          593
+        ],
+        "bytes": 79042,
+        "sha256": "914590c29c510f142ca884417e6cfc63a2b1a93999495dbb65d81fcf2aed74a3"
+      }
+    },
+    {
+      "canonicalOrder": 94,
+      "code": "s3a_094/076",
+      "name": "터프니스 망토",
+      "rarity": "UR",
+      "masterCardNumber": "",
+      "sourceUrl": "https://static.tcgexchange.kr/b8676fad6c250dd4d3f721307c589e2f.jpg",
+      "sourceHost": "static.tcgexchange.kr",
+      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5f4489b678c4bcab.webp",
+      "sourceAppearsPokemonKoreaOfficial": false,
+      "preExistingThemeMemberships": [],
+      "printedKoreanLanguageVisuallyVerified": false,
+      "reviewedTwelveThemes": false,
+      "imageCheck": {
+        "status": "decoded_region_unverified",
+        "http": 200,
+        "format": "WEBP",
+        "dimensions": [
+          420,
+          592
+        ],
+        "bytes": 65024,
+        "sha256": "61fa2dad705f27bf72163fa6f8ec643483a689c4b03cc229b4a50cd76f7948f7"
+      }
+    }
+  ]
+}
