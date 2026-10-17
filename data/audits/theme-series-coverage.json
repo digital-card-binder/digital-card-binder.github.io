@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 17460,
-    "uniqueThemeCards": 10630,
+    "themeCardSlots": 17510,
+    "uniqueThemeCards": 10660,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 497,
-      "setCount": 96,
+      "cardSlots": 498,
+      "setCount": 97,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5023,
-      "setCount": 120,
+      "cardSlots": 5042,
+      "setCount": 121,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9652,
-      "setCount": 125,
+      "cardSlots": 9682,
+      "setCount": 126,
       "rarities": [
         "A",
         "AR",
@@ -290,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6859
+      "currentThemeSlots": 6909
     },
     {
       "era": "SM",
@@ -466,7 +466,7 @@
       "code": "s1a",
       "name": "VMAX라이징",
       "cardCount": 86,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -596,9 +596,13 @@
       "cardCount": 86,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
+      "themeHits": {
+        "night": 1,
+        "season": 19,
+        "color": 30
+      }
     },
     {
       "era": "S",
