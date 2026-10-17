@@ -1338,8 +1338,11 @@ service cloud.firestore {
 
       // 공개된 나만의 도감에서 참조하는 사진만 별도 문서로 저장합니다.
       match /customDexPhotos/{photoId} {
-        allow get, list: if publicProfileCompleted(publicId)
-          && exists(/databases/$(database)/documents/publicProfiles/$(publicId)/collections/custom);
+        allow get, list: if isPublicIdOwner(publicId)
+          || (
+            publicProfileCompleted(publicId)
+            && exists(/databases/$(database)/documents/publicProfiles/$(publicId)/collections/custom)
+          );
         allow create: if isPublicIdOwner(publicId)
           && publicProfileCompleted(publicId)
           && publicSettingEnabled(request.auth.uid, "custom")
