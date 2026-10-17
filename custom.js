@@ -20,6 +20,11 @@
     query: "",
     editingDexId: "",
     draggedKey: "",
+    dragKeys: [],
+    dragDestination: null,
+    touchDrag: null,
+    dragGhost: null,
+    dragScrollFrame: 0,
     saveQueue: Promise.resolve(),
     pickedCatalogKeys: new Set(),
     bulkOrderMode: false,
@@ -420,6 +425,157 @@
     });
   }
 
+
+  function selectedDragKeys(dex, key) {
+    const selection = state.bulkOrderMode && state.bulkOrderKeys.has(key)
+      ? dex.cards.filter((item) => state.bulkOrderKeys.has(item.key)).map((item) => item.key)
+      : [key];
+    return selection;
+  }
+
+  function clearDropMarker() {
+    document.querySelectorAll("#custom-card-grid .custom-drop-before, #custom-card-grid .custom-drop-after")
+      .forEach((node) => node.classList.remove("custom-drop-before", "custom-drop-after", "custom-drop-vertical"));
+    state.dragDestination = null;
+  }
+
+  function previewDropOn(card, event) {
+    clearDropMarker();
+    if (!card || !state.dragKeys.length || state.dragKeys.includes(card.dataset.cardKey)) return;
+    const grid = $("custom-card-grid");
+    if (!grid.contains(card)) return;
+    const rect = card.getBoundingClientRect();
+    const isMultiColumn = [...grid.children].some((other) => {
+      if (other === card) return false;
+      const bounds = other.getBoundingClientRect();
+      return Math.abs(bounds.top - rect.top) < Math.min(bounds.height, rect.height) / 2;
+    });
+    const after = isMultiColumn
+      ? event.clientX >= rect.left + rect.width / 2
+      : event.clientY >= rect.top + rect.height / 2;
+    card.classList.add(after ? "custom-drop-after" : "custom-drop-before");
+    if (!isMultiColumn) card.classList.add("custom-drop-vertical");
+    state.dragDestination = { key: card.dataset.cardKey, after };
+  }
+
+  // Retain the stored order of the selected group, including nonadjacent cards.
+  async function dropDragKeys(dex, movingKeys, destination) {
+    if (!dex || !destination || !movingKeys.length || state.bulkSaving) return;
+    const before = [...dex.cards];
+    const set = new Set(movingKeys);
+    if (set.has(destination.key)) return;
+    const picked = before.filter((item) => set.has(item.key));
+    const rest = before.filter((item) => !set.has(item.key));
+    const targetIndex = rest.findIndex((item) => item.key === destination.key);
+    if (!picked.length || targetIndex < 0) return;
+    const insertAt = targetIndex + (destination.after ? 1 : 0);
+    const next = [...rest.slice(0, insertAt), ...picked, ...rest.slice(insertAt)];
+    if (next.every((item, index) => item.key === before[index].key)) return;
+    const previousTime = dex.updatedAt;
+    state.bulkSaving = true;
+    dex.cards = next;
+    dex.updatedAt = new Date().toISOString();
+    renderAll();
+    try {
+      await saveDexes();
+    } catch (error) {
+      dex.cards = before;
+      dex.updatedAt = previousTime;
+      alert(error.message || "드래그한 카드 순서를 저장하지 못했습니다.");
+    } finally {
+      state.bulkSaving = false;
+      renderAll();
+    }
+  }
+
+  function finishSortingDrag() {
+    if (state.dragScrollFrame) cancelAnimationFrame(state.dragScrollFrame);
+    state.dragScrollFrame = 0;
+    clearDropMarker();
+    document.querySelectorAll("#custom-card-grid .is-dragging")
+      .forEach((node) => node.classList.remove("is-dragging"));
+    state.dragGhost?.remove();
+    state.dragGhost = null;
+    state.draggedKey = "";
+    state.dragKeys = [];
+    state.touchDrag = null;
+    document.body.classList.remove("custom-touch-sorting");
+  }
+
+  function updateTouchDestination() {
+    const active = state.touchDrag;
+    if (!active?.started) return;
+    const target = document.elementFromPoint(active.x, active.y)?.closest?.(".custom-card");
+    previewDropOn(target, active);
+    if (state.dragGhost) {
+      state.dragGhost.style.left = Math.min(window.innerWidth - 110, Math.max(8, active.x + 15)) + "px";
+      state.dragGhost.style.top = Math.max(10, active.y - 52) + "px";
+    }
+  }
+
+  function autoScrollTouchDrag() {
+    state.dragScrollFrame = 0;
+    const active = state.touchDrag;
+    if (!active?.started) return;
+    const edge = 85;
+    const y = active.y;
+    const speed = y < edge ? -Math.min(24, Math.round((edge - y) / 3))
+      : y > window.innerHeight - edge ? Math.min(24, Math.round((y - window.innerHeight + edge) / 3))
+      : 0;
+    if (speed) {
+      window.scrollBy(0, speed);
+      updateTouchDestination();
+    }
+    state.dragScrollFrame = requestAnimationFrame(autoScrollTouchDrag);
+  }
+
+  function startTouchDrag(event, handle, dex, key) {
+    if (event.pointerType === "mouse" || state.bulkSaving || state.touchDrag) return;
+    event.preventDefault();
+    event.stopPropagation();
+    state.dragKeys = selectedDragKeys(dex, key);
+    state.touchDrag = {
+      pointerId: event.pointerId, x: event.clientX, y: event.clientY,
+      startX: event.clientX, startY: event.clientY, started: false,
+      dexId: dex.id,
+    };
+    try { handle.setPointerCapture(event.pointerId); } catch { /* Ignore capture limitations */ }
+  }
+
+  function moveTouchDrag(event) {
+    const active = state.touchDrag;
+    if (!active || active.pointerId !== event.pointerId) return;
+    active.x = event.clientX;
+    active.y = event.clientY;
+    if (!active.started && Math.hypot(active.x - active.startX, active.y - active.startY) >= 7) {
+      active.started = true;
+      document.body.classList.add("custom-touch-sorting");
+      const ghost = document.createElement("div");
+      ghost.className = "custom-drag-ghost";
+      ghost.textContent = "↕ " + state.dragKeys.length + "장 이동 중";
+      document.body.append(ghost);
+      state.dragGhost = ghost;
+      document.querySelectorAll("#custom-card-grid .custom-card").forEach((card) => {
+        if (state.dragKeys.includes(card.dataset.cardKey)) card.classList.add("is-dragging");
+      });
+      state.dragScrollFrame = requestAnimationFrame(autoScrollTouchDrag);
+    }
+    if (active.started) {
+      event.preventDefault();
+      updateTouchDestination();
+    }
+  }
+
+  function finishTouchDrag(event, dex, cancelled = false) {
+    const active = state.touchDrag;
+    if (!active || active.pointerId !== event.pointerId) return;
+    const destination = !cancelled && active.started ? state.dragDestination : null;
+    const movingKeys = [...state.dragKeys];
+    const sameDex = active.dexId === dex.id;
+    finishSortingDrag();
+    if (sameDex && destination) void dropDragKeys(dex, movingKeys, destination);
+  }
+
   function makeCustomCard(entry, index, dex) {
     const card = displayCard(entry);
     const article = document.createElement("article");
@@ -428,7 +584,6 @@
     article.dataset.cardKey = entry.key;
     if (state.bulkOrderMode) {
       article.classList.toggle("is-bulk-selected", state.bulkOrderKeys.has(entry.key));
-      article.draggable = false;
       const choose = document.createElement("label");
       choose.className = "custom-bulk-select";
       const check = document.createElement("input");
@@ -542,22 +697,45 @@
     });
     actions.append(own, up, down, remove);
 
-    article.append(imageWrap, body, actions);
+    const grip = document.createElement("button");
+    grip.type = "button";
+    grip.className = "custom-drag-handle";
+    grip.textContent = "⠿";
+    grip.title = "잡고 드래그해 카드 순서 변경";
+    grip.setAttribute("aria-label", card.name + " 드래그로 순서 변경");
+    grip.draggable = false;
+    grip.addEventListener("pointerdown", (event) => startTouchDrag(event, grip, dex, entry.key));
+    grip.addEventListener("pointermove", moveTouchDrag);
+    grip.addEventListener("pointerup", (event) => finishTouchDrag(event, dex));
+    grip.addEventListener("pointercancel", (event) => finishTouchDrag(event, dex, true));
+    grip.addEventListener("lostpointercapture", (event) => finishTouchDrag(event, dex, true));
+
+    article.append(imageWrap, body, actions, grip);
     article.addEventListener("dragstart", (event) => {
-      if (state.bulkOrderMode) { event.preventDefault(); return; }
+      if (state.bulkSaving) { event.preventDefault(); return; }
       state.draggedKey = entry.key;
-      article.classList.add("is-dragging");
+      state.dragKeys = selectedDragKeys(dex, entry.key);
+      if (event.dataTransfer) {
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", entry.key);
+      }
+      document.querySelectorAll("#custom-card-grid .custom-card").forEach((node) => {
+        if (state.dragKeys.includes(node.dataset.cardKey)) node.classList.add("is-dragging");
+      });
     });
-    article.addEventListener("dragend", () => {
-      state.draggedKey = "";
-      article.classList.remove("is-dragging");
+    article.addEventListener("dragend", finishSortingDrag);
+    article.addEventListener("dragover", (event) => {
+      if (!state.dragKeys.length || state.bulkSaving) return;
+      event.preventDefault();
+      if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+      previewDropOn(article, event);
     });
-    article.addEventListener("dragover", (event) => event.preventDefault());
     article.addEventListener("drop", (event) => {
       event.preventDefault();
-      if (state.bulkOrderMode) return;
-      if (!state.draggedKey || state.draggedKey === entry.key) return;
-      void moveCardBefore(dex, state.draggedKey, entry.key);
+      const destination = state.dragDestination;
+      const keys = [...state.dragKeys];
+      finishSortingDrag();
+      if (destination) void dropDragKeys(dex, keys, destination);
     });
     return article;
   }
