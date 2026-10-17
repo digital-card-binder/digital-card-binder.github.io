@@ -1,0 +1,68 @@
+name: Reconcile MEGA M6a official Korean image proofs
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/reconcile-mega-m6a-official-owned-images.yml'
+      - 'scripts/probe-mega-official-images.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: mega-official-korean-image-proof-reconcile
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Verify M6a 104-135 official Korean provenance and owned binary hashes
+        run: node scripts/probe-mega-official-images.mjs
+      - name: Recompute Korean master membership evidence without changing cards
+        run: node scripts/audit-mega-korean-membership.mjs
+      - name: Reject any unexpected count or evidence-tier promotion
+        run: |
+          node --input-type=module -e '
+            import {readFileSync} from "node:fs";
+            const p=JSON.parse(readFileSync("data/audits/mega-official-image-probe.json"));
+            const m=JSON.parse(readFileSync("data/audits/mega-korean-membership-audit.json"));
+            const old=JSON.parse(readFileSync("data/audits/m6a-korean-image-sync.json"));
+            const official=new Set(old.imported.map(i=>String(i.number)));
+            if(official.size!==32||m.summary.pendingOfficialEvidenceCount!==44||
+               m.summary.firstPartyVerifiedGapCount!==120||
+               m.summary.koreanSecondaryVerifiedGapCount!==44||
+               m.summary.expectedSlotCount!==2133) throw Error("Unexpected global totals");
+            for(const n of official){
+              const key="m6a::m6a::"+n, a=m.slots[key], b=p.slots[key];
+              if(!a?.officialConfirmed||!b?.verified||b?.evidence!=="official-pokemonkorea-Korean-image-owned-sha256")
+                throw Error("Missing official SHA-proof "+key);
+            }
+            if(!m.sets.some(s=>s.code==="M6a"&&s.pendingOfficialEvidenceCount===33)
+               ||!m.sets.some(s=>s.code==="MC"&&s.pendingOfficialEvidenceCount===1)
+               ||!m.sets.some(s=>s.code==="M-P"&&s.pendingOfficialEvidenceCount===10))
+              throw Error("Expected unresolved MEGA print slots changed");
+            console.log("PASS: 32 official M6a locally hashed assets; 44 official gaps remain");
+          '
+      - run: npm run site:prepare
+      - run: npm run site:check
+      - run: npm run test:syntax
+      - run: npm run test:registry
+      - run: npm run test:architecture
+      - name: Save only audited membership summaries after regressions pass
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audits/mega-official-image-probe.json data/audits/mega-korean-membership-audit.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "audit(mega): upgrade 32 revalidated M6a Korean PNG/WebP images to first-party evidence"
+          git push origin HEAD:main
