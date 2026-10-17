@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16696,
-    "uniqueThemeCards": 10118,
+    "themeCardSlots": 16746,
+    "uniqueThemeCards": 10147,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 490,
-      "setCount": 91,
+      "cardSlots": 492,
+      "setCount": 92,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4816,
-      "setCount": 115,
+      "cardSlots": 4833,
+      "setCount": 116,
       "rarities": [
         "AR",
         "C",
@@ -149,9 +149,10 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9135,
-      "setCount": 119,
+      "cardSlots": 9165,
+      "setCount": 120,
       "rarities": [
+        "A",
         "AR",
         "C",
         "CHR",
@@ -233,8 +234,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1127,
-      "setCount": 97,
+      "cardSlots": 1128,
+      "setCount": 98,
       "rarities": [
         "AR",
         "C",
@@ -288,7 +289,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6095
+      "currentThemeSlots": 6145
     },
     {
       "era": "SM",
@@ -436,7 +437,7 @@
       "code": "s3a",
       "name": "전설의 고동",
       "cardCount": 94,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -633,10 +634,14 @@
       "cardCount": 94,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 2,
+        "season": 17,
+        "color": 30,
+        "street": 1
       }
     },
     {

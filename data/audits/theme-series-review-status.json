@@ -63385,6 +63385,38 @@
       "status": "complete",
       "complete": true,
       "note": "S4 앙천의 볼트태클 전체 121개 canonical 카드 번호를 한국어 카드 실물로 12테마 전수검수, 자체 CDN 121개 확인. 신규 테마 슬롯 194개, 기존 원본 food S4_027 및 sleeping S4_084 2개 보존. 마지막 112-121 10장은 공식 원본이 아닌 외부 한국어 인쇄본 사진과 DCB 자체 레거시 저장소에 근거함. 마스터 DB와 보유 키 변경 없음."
+    },
+    "s3a": {
+      "artworkReviewedCardCount": 30,
+      "reviewedCardCount": 30,
+      "verifiedKoreanPrintImageCount": 30,
+      "verifiedSelfHostedImageCount": 30,
+      "reviewedRanges": [
+        "001-030"
+      ],
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "newlyAddedThemeSlotCount": 50,
+      "preservedExistingThemeSlotCount": 1,
+      "partialReviewEvidence": "data/audits/theme-s3a-001-030-Korean-art-review-20261017.json",
+      "imagePreflightEvidence": "data/audits/theme-visual-evidence/s3a/001-030/visual-index.json",
+      "nextStart": "s3a Korean 031-060 printed artwork source and 12-theme visual review",
+      "reviewedAt": "2026-10-17",
+      "status": "in_progress",
+      "complete": false,
+      "note": "S3a 94장 중 한국어 인쇄 이미지 001-030번 30장과 자체 CDN 복제본 및 12테마 삽화 시각검수. 새로운 50개 테마 수록, 기존 S3a_028 잠자는 테마 1개 무수정 유지. 031-094번 추가 검수 전 세트 complete 금지."
     }
   },
   "queue": {
