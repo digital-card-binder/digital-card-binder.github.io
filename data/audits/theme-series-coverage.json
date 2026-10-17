@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 16824,
-    "uniqueThemeCards": 10204,
+    "themeCardSlots": 16875,
+    "uniqueThemeCards": 10234,
     "strictCompleteSetCount": 108,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 165,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 4851,
-      "setCount": 116,
+      "cardSlots": 4871,
+      "setCount": 117,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 9222,
-      "setCount": 120,
+      "cardSlots": 9252,
+      "setCount": 121,
       "rarities": [
         "A",
         "AR",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1130,
-      "setCount": 98,
+      "cardSlots": 1131,
+      "setCount": 99,
       "rarities": [
         "AR",
         "C",
@@ -290,7 +290,7 @@
       "cardCount": 4800,
       "completeSetCount": 44,
       "remainingSetCount": 17,
-      "currentThemeSlots": 6223
+      "currentThemeSlots": 6274
     },
     {
       "era": "SM",
@@ -445,7 +445,7 @@
       "code": "s3",
       "name": "무한존",
       "cardCount": 119,
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "era": "S",
@@ -622,10 +622,13 @@
       "cardCount": 119,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "in_progress",
+      "reviewedAt": "2026-10-17",
       "themeHits": {
-        "reflections": 1
+        "season": 20,
+        "color": 30,
+        "reflections": 1,
+        "street": 1
       }
     },
     {
