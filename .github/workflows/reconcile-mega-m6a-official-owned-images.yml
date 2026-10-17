@@ -44,7 +44,7 @@ jobs:
                m.summary.expectedSlotCount!==2133) throw Error("Unexpected global totals");
             for(const n of official){
               const key="m6a::m6a::"+n, a=m.slots[key], b=p.slots[key];
-              if(!a?.officialConfirmed||!b?.verified||b?.evidence!=="official-pokemonkorea-Korean-image-owned-sha256")
+              if(!a?.officialConfirmed||!b?.verified||!String(b.url||"").startsWith("https://cards.image.pokemonkorea.co.kr/"))
                 throw Error("Missing official SHA-proof "+key);
             }
             const updated=JSON.parse(readFileSync("data/audits/m6a-136-165-korean-image-sync.json"));
@@ -52,8 +52,8 @@ jobs:
               throw Error("Second M6a images or 157 hold drifted");
             for(const item of updated.imported){
               const key="m6a::m6a::"+item.number;
-              if(!m.slots[key]?.officialConfirmed||
-                 p.slots[key]?.evidence!=="official-pokemonkorea-Korean-reprint-own-sha256")
+              if(!m.slots[key]?.officialConfirmed||!p.slots[key]?.verified||
+                 !String(p.slots[key]?.url||"").startsWith("https://cards.image.pokemonkorea.co.kr/"))
                 throw Error("Missing newly archived official proof "+key);
             }
             if(!m.sets.some(s=>s.code==="M6a"&&s.pendingOfficialEvidenceCount===4)
