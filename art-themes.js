@@ -221,6 +221,18 @@
     grid.replaceChildren();
     grid.classList.toggle("is-story-groups", isStoryGroup(group));
     const sections = new Map();
+    const storyGroupSizes = new Map();
+    const visibleStorySizes = new Map();
+    if (isStoryGroup(group)) {
+      for (const entry of reviewedCards(group)) {
+        const key = entry.storyTitle || entry.category || "연결 그룹";
+        storyGroupSizes.set(key, (storyGroupSizes.get(key) || 0) + 1);
+      }
+      for (const entry of cards) {
+        const key = entry.storyTitle || entry.category || "연결 그룹";
+        visibleStorySizes.set(key, (visibleStorySizes.get(key) || 0) + 1);
+      }
+    }
     grid.setAttribute("aria-busy", "false");
     el("art-theme-result-count").textContent = cards.length;
     el("art-theme-empty").hidden = cards.length > 0;
@@ -249,6 +261,10 @@
           }
           const cardsRoot = document.createElement("div");
           cardsRoot.className = "art-theme-card-grid art-story-card-grid";
+          const fullSize = storyGroupSizes.get(title) || 0;
+          if (fullSize === visibleStorySizes.get(title) && fullSize >= 2) {
+            cardsRoot.classList.add(fullSize === 4 ? "art-story-layout-2" : "art-story-layout-" + (fullSize === 9 || fullSize === 3 ? 3 : 2));
+          }
           section.append(cardsRoot);
           grid.append(section);
           sections.set(title, { root: cardsRoot, count: 0, heading: detail, kind: card.storyKind });
