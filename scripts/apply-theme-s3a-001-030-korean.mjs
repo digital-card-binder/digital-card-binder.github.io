@@ -44,11 +44,10 @@ if(groupByCode.size!==12||THEMES.some(t=>!Array.isArray(groupByCode.get(t)?.card
 const before=themes.groups.flatMap(g=>g.cards.filter(c=>String(c.set||"").toLowerCase()===CODE));
 const beforeJson=before.map(c=>JSON.stringify(c));
 const inRange=themes.groups.flatMap(g=>g.cards.filter(c=>
- String(c.set||"").toLowerCase()===CODE&&
- /^S3a_0(?:0[1-9]|[12][0-9]|30)$/i.test(String(c.code||"")))
+ /^S3a_0(?:0[1-9]|[12][0-9]|30)$/i.test(String(c.code||"").split("/")[0]))
  .map(c=>({group:g.code,id:c.code})));
 if(inRange.length!==1||inRange[0].group!=="sleeping"||
- String(inRange[0].id).toUpperCase()!=="S3a_028")
+ String(inRange[0].id).toUpperCase().split("/")[0]!=="S3A_028")
  throw Error("Existing S3a artwork group membership does not match preserved sleeping entry");
 const additions=[],counts={};
 for(let i=0;i<30;i++){
