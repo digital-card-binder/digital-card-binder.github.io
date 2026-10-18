@@ -1,0 +1,54 @@
+name: Verify Korean unissued and duplicate card exclusions
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-korean-card-eligibility-20261018.yml'
+      - 'scripts/close-unissued-and-energy-eligibility-20261018.mjs'
+      - 'data/series-collection-exclusions.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: verify-korean-card-eligibility-20261018
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Rebuild search index and unified site metric totals
+        run: |
+          npm run search-index:sync
+          npm run catalog-metrics:sync
+          npm run related-dex:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Reconcile only the three held release and duplicate identifiers
+        run: node scripts/close-unissued-and-energy-eligibility-20261018.mjs
+      - name: Verify full site, 20K catalog and legacy ownership compatibility
+        run: |
+          npm run site:check
+          npm run test:registry
+          npm run test:syntax
+          npm run test:architecture
+      - name: Commit reconciled metrics and audit ONLY after test success
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/final-three-collection-eligibility-resolution-20261018.json
+          if git diff --cached --quiet; then
+            echo "Catalog already reconciled"; exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "fix(catalog): exclude unissued promo and duplicate while keeping SN owner alias"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
