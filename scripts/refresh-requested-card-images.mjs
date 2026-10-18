@@ -29,7 +29,7 @@ const verifiedLegacyRefresh = Object.freeze({
 });
 
 for (const item of refresh) {
-  const officialPattern = /^data\\/wmimages\\/[A-Za-z0-9_-]+\\/[A-Za-z0-9_+-]+\\/[A-Za-z0-9_.-]+\\.webp$/;
+  const officialPattern = new RegExp("^data/wmimages/[A-Za-z0-9_-]+/[A-Za-z0-9_+-]+/[A-Za-z0-9_.-]+[.]webp$");
   const isOfficialPath = typeof item === "string" && officialPattern.test(item);
   const approvedLegacy = typeof item === "string" ? verifiedLegacyRefresh[item] : undefined;
   if (!isOfficialPath && !approvedLegacy) {
