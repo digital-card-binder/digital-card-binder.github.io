@@ -1,0 +1,22 @@
+name: Inspect Korean S6K 094 physical card photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-s6k094-Korean-20261018.yml'
+      - 'scripts/inspect-s6k094-Korean-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet pillow beautifulsoup4
+      - name: Inspect only Korean retailer images, without updating catalog
+        run: python scripts/inspect-s6k094-Korean-20261018.py
