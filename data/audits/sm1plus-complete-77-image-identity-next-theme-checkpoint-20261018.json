@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-18",
+  "workflow": "Continue saved Korean print audit (not restarting already verified cards)",
+  "scope": "SM1+ 001-077 image identity; SM1M and SM1S restored 8 stale image holds",
+  "imageAudit": {
+    "sm1plus": {
+      "total": 77,
+      "imageIdentityApproved": 77,
+      "range001to058ExactAppAndCloudflarePixelNearMatch": 58,
+      "range059to077NewKoreanSelfHostedImageFilesAndLiveSHA256Proof": 19,
+      "wrongImagesStillPending": 0,
+      "imagesModifiedThisTurn": 0,
+      "reason": "All 58 001-058 existing photos already match; 059-077 corrected last stage.",
+      "printedNumberCaveat": "001-058 are Korean app exact numbered records and pixel-correct but actual footer individually not read in high-resolution; 069-077 use unnumbered Energy app ordinal, never assert printed 069-077."
+    },
+    "sm1m": {
+      "total": 73,
+      "verifiedKoreanImages": 73,
+      "artThemeReviewed": 69,
+      "artThemePending": 4,
+      "oldMissingArchiveHoldsResolved": 4
+    },
+    "sm1s": {
+      "total": 73,
+      "verifiedKoreanImages": 73,
+      "artThemeReviewed": 69,
+      "artThemePending": 4,
+      "oldMissingArchiveHoldsResolved": 4
+    }
+  },
+  "themeAudit": {
+    "sm1plus": {
+      "previouslyReviewedWith12Themes": 58,
+      "remainingToReview": 19,
+      "remainingRange": "059-077",
+      "action": "Inspect 19 recovered Korean GX/UR/unnumbered Energy artworks for 12 thematic categories without rechecking first 58"
+    },
+    "sm1m": {
+      "artworksStillNeedThemeReview": [
+        67,
+        69,
+        71,
+        73
+      ]
+    },
+    "sm1s": {
+      "artworksStillNeedThemeReview": [
+        70,
+        71,
+        72,
+        73
+      ]
+    }
+  },
+  "original191ImageRecovery": {
+    "completed": 190,
+    "pending": 1,
+    "held": "S6K_094",
+    "intentionallyUnchanged": true
+  },
+  "nextSafeStarts": [
+    "SM1+ 059-077: 12 art-theme classifications only; image/identity already corrected",
+    "SM1M 067,069,071,073: four art-theme classifications only",
+    "SM1S 070-073: four art-theme classifications only",
+    "Other SM unfinished sets: resume existing per-set records after reconciling above",
+    "S6K_094: hold until exact Korean printed name and number matched"
+  ],
+  "evidenceFiles": [
+    "data/audits/sm1plus-001-058-korean-app-identity-live-CDN-proof-20261018.json",
+    "data/audits/sm1plus-059-077-live-site-image-validation-20261018.json",
+    "data/audits/theme-sm1plus-001-030-Korean-art-12theme-review-20261017.json",
+    "data/audits/theme-sm1plus-031-058-Korean-art-12theme-review-20261017.json",
+    "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
+    "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json"
+  ],
+  "protect": {
+    "canonicalImageChangesNow": 0,
+    "userCollectionChanges": 0,
+    "rerunsOfDoneArtworkReviews": 0,
+    "unresolvedS6K094Overwritten": false
+  }
+}
