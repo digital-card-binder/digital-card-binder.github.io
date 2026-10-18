@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "title": "SN Pikachu V and Eevee V start deck unnumbered Lightning Energy duplicate identity audit",
+  "firstPartyProductPage": "https://pokemoncard.co.kr/card/436",
+  "firstPartyDescription": "60-card deck (entirely holo), explicitly says same card is present multiple times in a single constructed deck.",
+  "secondaryUniqueCardCount": "https://collectory.cc/sets/3bb9ed5a-4aba-446b-a819-b6225ae570e7?region=kr&sort=rarity_desc&type=POKEMON",
+  "secondarySourceObservedDistinctCards": 24,
+  "binderMasterCardCount": 26,
+  "uncertainTwoCatalogSlots": [
+    "SN_025",
+    "SN_026"
+  ],
+  "sameKoreanImageSource": "https://static.tcgexchange.kr/71c07211bfacc422aa59544eeda45b28.png",
+  "sameOwnedArchiveImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1e4f64abfda27d28.webp",
+  "physicalFooterNumberPrinted": false,
+  "conclusion": "Two synthetic 025/024 and 026/024 virtual catalog slots use identical Lightning Energy image; at present no evidence for two distinct numbered Korean prints. Do not claim two additional unique physical cards or invent printed numbers.",
+  "decision": "identity_held_for_safe_legacy_migration",
+  "actionsAlreadyTaken": [
+    "Preserved both canonical IDs and all user ownership records",
+    "Not marked either distinct print verified",
+    "Added first-party repeated-card pack corroboration and 24-distinct-card alternative catalog count"
+  ],
+  "futureActions": [
+    "Identify actual copies of same unnumbered Lightning Energy in 60-card deck",
+    "Design backward-compatible handling of legacy card ownership before hiding/merging virtual duplicate entries",
+    "Recalculate master denominator only together with controlled data migration"
+  ]
+}
