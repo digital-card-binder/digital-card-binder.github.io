@@ -78,6 +78,10 @@
       const codes = [
         card?.code || card?.meta || cardIndex,
         ...(Array.isArray(card?.legacyCodes) ? card.legacyCodes : []),
+        // Retain old SN_026 ownership as an alias of the sole unique unnumbered
+        // Lightning Energy (SN_025). Original Firebase keys remain untouched.
+        ...(groupId === "sn" && normalizedPart(card?.code) === "sn_025/024"
+          ? ["sn_026/024"] : []),
       ]
         .map(normalizedPart)
         .filter(Boolean);
