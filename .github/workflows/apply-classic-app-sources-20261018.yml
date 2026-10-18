@@ -1,0 +1,41 @@
+name: Apply Korean Classic app images to pending slots
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-classic-app-sources-20261018.yml'
+      - 'scripts/apply-classic-app-sources-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: app-classic-restore-20261018
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow
+      - name: Restore only held Classic card image fields
+        run: python scripts/apply-classic-app-sources-20261018.py
+      - name: Commit validated Korean-app source mapping
+        run: |
+          set -euo pipefail
+          git add data/series.json data/audits/classic-71-app-source-image-recovery-20261018.json
+          if git diff --cached --quiet; then
+            echo "No newly verified app image to commit."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "fix(images): restore Korean Classic image URLs for source-confirmed app entries"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
