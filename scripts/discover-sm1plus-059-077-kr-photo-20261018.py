@@ -28,7 +28,7 @@ for a in doc.select("a[href]"):
 print("SM1PLUS_SET",json.dumps({"url":seturl,"bytes":len(sethtml),"totalLinks":len(entries),"first":entries[:4],"last":entries[-6:]},ensure_ascii=False),flush=True)
 lookup={}
 for row in entries:
- match=re.search(r"(?<!\d)(\d{3})/051(?!\d)",row["label"])
+ match=re.search(r"(?<!\d)(\d{3})$",row["label"])
  if match:
   k=int(match.group(1));lookup.setdefault(k,[]).append(row)
 print("SM1PLUS_LINK_NUMBERS",json.dumps({str(n):v for n,v in lookup.items() if 59<=n<=77},ensure_ascii=False),flush=True)
