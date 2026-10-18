@@ -8,6 +8,14 @@ m=json.loads((R/"data/audits/theme-sm1m-061-073-Korean-art-review-20261017.json"
 s=json.loads((R/"data/audits/theme-sm1s-061-073-Korean-art-review-20261017.json").read_text(encoding="utf8"))
 themes=json.loads((R/"data/art-themes.json").read_text(encoding="utf8"))
 print("SM_THEME_SCHEMA",json.dumps([{"code":g["code"],"name":g.get("name"),"description":g.get("description"),"categories":g.get("categories"),"count":len(g.get("cards",[])),"examples":[{k:x.get(k) for k in ("code","name","category","categories","source")} for x in g.get("cards",[])[-3:]]} for g in themes["groups"]],ensure_ascii=False),flush=True)
+color=next(x for x in themes["groups"] if x["code"]=="color")
+for key in ["SM1M_068","SM1S_069","SM1PLUS_057"]:
+ sample=next((z for z in color["cards"] if z.get("code","").upper()==key),None)
+ print("SM_COLOR_EXAMPLE",json.dumps({"key":key,"sample":sample},ensure_ascii=False),flush=True)
+for code in ["sm1+","sm1M","sm1S"]:
+ source=next(x for x in sets if x["code"].lower()==code.lower())
+ print("SM_MASTER_EXAMPLE",json.dumps({"setCode":source["code"],"setDisplay":source.get("displayName"),"era":source.get("era"),"firstCard":source["cards"][0],"lastCard":source["cards"][-1]},ensure_ascii=False),flush=True)
+
 print("SM_THEMES_META",json.dumps({"top":list(themes),"first":list(themes["groups"][0]["cards"][0]),"lastStatus":list(themes["groups"][-1])},ensure_ascii=False),flush=True)
 for g in [x for x in sets if x["code"].lower() in ("sm1+","sm1m","sm1s")]:
  print("SM_SET",json.dumps({"code":g["code"],"cards":len(g["cards"]),"imageFirst":g["cards"][0]["image"],"imageLast":g["cards"][-1]["image"]},ensure_ascii=False),flush=True)
