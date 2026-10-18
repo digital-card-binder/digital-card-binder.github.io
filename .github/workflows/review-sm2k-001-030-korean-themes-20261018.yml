@@ -1,0 +1,52 @@
+name: Review SM2K first 30 Korean artwork themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/review-sm2k-001-030-korean-themes-20261018.yml"
+      - "scripts/review-sm2k-001-030-korean-themes-20261018.mjs"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: review-sm2k-001-030-korean-themes-20261018
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Reconcile 29 new Korean SM2K illustrations while preserving Delibird
+        run: node scripts/review-sm2k-001-030-korean-themes-20261018.mjs
+      - name: Synchronize derived theme catalog and related card indexes
+        run: |
+          npm run theme-audit:sync
+          npm run related-dex:sync
+          npm run catalog-metrics:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Protect owner states, prior theme entries, and all site tests
+        run: |
+          npm run site:check
+          npm run test:registry
+          npm run test:syntax
+          npm run test:architecture
+      - name: Commit new Korean theme entries and scoped progress only if tests pass
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2k-001-030-Korean-art-review-20261018.json
+          git add data/audits/theme-sm2k-001-030-progress-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "audit(themes): review 29 Korean SM2K images, add color and natural landscape tags"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
