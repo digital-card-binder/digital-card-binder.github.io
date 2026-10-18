@@ -25,10 +25,23 @@ jobs:
       - run: python -m pip install --quiet pillow
       - name: Restore S-era Korean card image fields from app pages
         run: python scripts/apply-s-era-app-sources-20261018.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Synchronize dependent audit/index data
+        run: |
+          npm run series-inventory:sync
+          npm run theme-audit:sync
+          npm run related-dex:sync
+          npm run search-index:sync
+          npm run catalog-metrics:sync
+          npm run shell:sync
+          npm run versions:sync
       - name: Commit approved Korean-app image replacements
         run: |
           set -euo pipefail
           git add data/series.json data/audits/s-era-69-app-source-image-recovery-20261018.json
+          git add -u
           if git diff --cached --quiet; then
             echo "No newly source-confirmed S-era card photo."
             exit 0

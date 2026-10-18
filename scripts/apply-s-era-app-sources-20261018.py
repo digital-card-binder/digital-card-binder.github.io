@@ -23,7 +23,7 @@ def walk(obj):
   for v in obj.values():
    if isinstance(v,(list,dict)):walk(v)
 walk(master)
-work=[x for x in queue["unresolved"] if x.get("era")=="S" and x.get("slot","").upper()!="S6K_094"]
+work=[x for x in queue["unresolved"] if x.get("era")=="S" and not x.get("slot","").upper().startswith("S6K_094")]
 if len(work)!=69:raise RuntimeError(f"Unexpected S-era queue size {len(work)}; abort to protect other catalogs")
 def read_one(item):
  slot=item["slot"].lower()
