@@ -6,6 +6,7 @@ on:
       - '.github/workflows/verify-korean-card-eligibility-20261018.yml'
       - 'scripts/close-unissued-and-energy-eligibility-20261018.mjs'
       - 'data/series-collection-exclusions.json'
+      - 'tests/collector-registry.test.mjs'
   workflow_dispatch:
 permissions:
   contents: write
