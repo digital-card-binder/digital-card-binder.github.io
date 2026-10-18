@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-18",
+  "updatedAt": "2026-10-19",
   "scope": "해외 수집 커뮤니티의 실제 체크리스트를 참고해 레어도 제한 없이 한국판 카드로 재구성한 테마 도감",
   "sources": [
     {
@@ -192712,6 +192712,18 @@
           "category": "연두·청록",
           "image": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/7eaad38ea6b1f2c2.webp",
           "evidence": "한국판 앱 개별 카드명과 SM2K 번호, 본 사이트 자체 CDN의 한국어 실물 이미지를 직접 대조했다. 짜랑고우거 GX 한국판 일러스트의 대표 색감은 연두·청록이다. 관련 없는 스토리/진화/연결 테마에 임의 추가하지 않았다. (data/audits/theme-sm2k-031-062-Korean-art-review-20261018.json)."
+        },
+        {
+          "code": "SM2L_005",
+          "name": "샹델라",
+          "series": "SM",
+          "set": "sm2L",
+          "setName": "알로라의 달빛",
+          "cardNumber": "005/050",
+          "rarity": "R",
+          "category": "보라·주황",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_005.png",
+          "evidence": "한국어 실물 카드 사진의 샹델라·SM2L 005/050 표기와 보라빛 불꽃·주황빛 배경을 확인했고, 한국 판매 목록의 동일 카드 번호를 대조했다. 색상 테마만 수록하며 진화·연결·스토리 관계는 미확정. 자료: data/audits/theme-sm2l-005-korean-color-20261019.json"
         }
       ]
     },
