@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "series": "SM2K",
+  "koreanSetName": "알로라의 햇빛",
+  "scope": "Only five pending image holds after verified Korean SM2K 056 replacement. Previously verified card photos and 12-theme data not rechecked.",
+  "baseMainCommit": "051a5c02c177d56e00e6a894550e98d2db516920",
+  "baselineProgress": "data/audits/theme-sm2k-031-062-progress-20261018.json",
+  "sm2kTotalSlots": 62,
+  "imagePreviouslyVerified": 56,
+  "imageNewlyVerifiedByAlreadyDeployedCommit": 1,
+  "imageVerifiedNow": 57,
+  "remainingImageHolds": [
+    57,
+    58,
+    60,
+    61,
+    62
+  ],
+  "themePreviouslyReviewed": 56,
+  "themeNewlyReviewedInThisTriage": 0,
+  "themePending": [
+    56,
+    57,
+    58,
+    60,
+    61,
+    62
+  ],
+  "imageFixAlreadyOnMain": {
+    "number": 56,
+    "code": "sm2k_056/050",
+    "name": "폭거북스 GX",
+    "owned": "assets/cards/sm2k-korean/056.webp",
+    "sourceAudit": "data/audits/sm2k-056-exact-Korean-image-recovery-20261018.json",
+    "commit": "051a5c02c177d56e00e6a894550e98d2db516920",
+    "pagesDeployment": {
+      "runId": 39110551806,
+      "status": "success"
+    },
+    "note": "Source image and owned file hashes recorded in 056 audit. Theme review is independent and not yet marked complete."
+  },
+  "newResearch": [
+    {
+      "number": 57,
+      "code": "sm2k_057/050",
+      "name": "알로라 나인테일 GX",
+      "rarity": "HR",
+      "evidence": [
+        {
+          "source": "TCGBOX retail card catalog",
+          "url": "https://tcgbox.co.kr/product/%EC%95%8C%EB%A1%9C%EB%9D%BC-%EB%82%98%EC%9D%B8%ED%85%8C%EC%9D%BCgx-hr-sm2k/4089/",
+          "finding": "Listing identifies SM2K 057 as Alolan Ninetales GX HR."
+        }
+      ],
+      "reviewState": "catalog_card_and_korean_retail_lead_only",
+      "printedNumberInPhotographRead": false,
+      "photoDecodeVerified": false,
+      "redistributionRightsVerified": false,
+      "next": "Find intact Korean-language full photo with exact 057/050 footer and obtain permission to self-host"
+    },
+    {
+      "number": 58,
+      "code": "sm2k_058/050",
+      "name": "카푸꼬꼬꼭 GX",
+      "rarity": "HR",
+      "evidence": [
+        {
+          "source": "TCGBOX retail card catalog",
+          "url": "https://tcgbox.co.kr/product/%EC%B9%B4%ED%91%B8%EA%BC%AC%EA%BC%AC%EA%BC%ADgx-hr-sm2k-lp%EB%93%B1%EA%B8%89/4090/",
+          "finding": "Listing identifies SM2K 058 as Tapu Koko GX HR; item description refers to physical card condition."
+        }
+      ],
+      "reviewState": "catalog_card_and_korean_retail_lead_only",
+      "printedNumberInPhotographRead": false,
+      "photoDecodeVerified": false,
+      "redistributionRightsVerified": false,
+      "next": "Find intact Korean-language full photo with exact 058/050 footer and obtain permission to self-host"
+    },
+    {
+      "number": 60,
+      "code": "sm2k_060/050",
+      "name": "필드 블로어",
+      "rarity": "UR",
+      "evidence": [
+        {
+          "source": "Collectory Korean catalog",
+          "url": "https://collectory.cc/cards/deb2e630-8fbe-495c-a8ca-6e77487da77d",
+          "finding": "KR 060/050 metadata, but the page explicitly labels visible reference photo as JP. Not evidence of Korean-language print."
+        },
+        {
+          "source": "KREAM Japanese product record",
+          "url": "https://kream.co.kr/products/660249",
+          "finding": "SM2K 060/050 listing explicitly labeled Japanese version."
+        }
+      ],
+      "reviewState": "held_Japanese_reference_image",
+      "printedNumberInKoreanPhotographRead": false,
+      "redistributionRightsVerified": false,
+      "next": "Locate Korean printed Korean-language UR photo (not app JP reference), verify set/number and permissions"
+    },
+    {
+      "number": 61,
+      "code": "sm2k_061/050",
+      "name": "풀회복약",
+      "rarity": "UR",
+      "evidence": [
+        {
+          "source": "Collectory Korean catalog",
+          "url": "https://collectory.cc/cards/d7673fe6-dd61-4b32-8fc4-7793659bcedb",
+          "finding": "Korean 061/050 catalog metadata, Korean physical photo not established."
+        },
+        {
+          "source": "KREAM Japanese product record",
+          "url": "https://kream.co.kr/products/660250",
+          "finding": "SM2K 061/050 product explicitly Japanese, cannot substitute."
+        }
+      ],
+      "reviewState": "held_Japanese_reference_image",
+      "printedNumberInKoreanPhotographRead": false,
+      "redistributionRightsVerified": false,
+      "next": "Locate printed Korean-language UR photo, verify footer and permission"
+    },
+    {
+      "number": 62,
+      "code": "sm2k_062/050",
+      "name": "기본 번개 에너지",
+      "rarity": "UR",
+      "evidence": [
+        {
+          "source": "Collectory Korean catalog",
+          "url": "https://collectory.cc/cards/7e8890c0-80ab-4824-91ac-50ba256e2963",
+          "finding": "KR 062/050 metadata, image explicitly labeled JP reference."
+        }
+      ],
+      "reviewState": "held_no_exact_Korean_photo",
+      "printedNumberInKoreanPhotographRead": false,
+      "redistributionRightsVerified": false,
+      "next": "Find exact Korean-language card photo and check redistribution rights"
+    }
+  ],
+  "globalPriorAudit191": {
+    "completed": 190,
+    "remaining": 1,
+    "unresolved": "S6K_094",
+    "source": "data/audits/korean-recovery-active-queue-20261018.json",
+    "note": "Do not merge new SM2K thematic/late-era holds into closed original 191 queue."
+  },
+  "s6k094Crosscheck": {
+    "catalogAgreement": [
+      "https://collectory.cc/sets/9a4e302d-fed9-4ca5-9370-786b72150099",
+      "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252"
+    ],
+    "finding": "Retailer catalogs list 094 as Echoing Horn but existing audits report conflicting actual Korean-print footers. No new authenticated Korean 094 print photo acquired.",
+    "sourceAudit": "data/audits/s6k094-korean-app-versus-physical-print-discrepancy-20261018.json",
+    "close": false
+  },
+  "noChangeGuarantees": {
+    "canonicalIdsModified": 0,
+    "masterRecordsModified": 0,
+    "imageFilesModified": 0,
+    "ownerDocumentsModified": 0,
+    "collectionEligibilityModified": 0,
+    "themeDataModified": 0,
+    "existingReviewedCardsReaudited": 0
+  },
+  "nextStart": "SM2K 057 Korean exact-print photo and authorization; then 058,060,061,062. Separately continue S6K 094 conflict proof and MEGA official-source followups."
+}
