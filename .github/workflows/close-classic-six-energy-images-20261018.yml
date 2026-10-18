@@ -1,0 +1,41 @@
+name: Reconcile six Korean Classic unnumbered Energy photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/close-classic-six-energy-images-20261018.yml'
+      - 'scripts/close-classic-six-energy-images-20261018.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: close-classic-six-verified-energy-20261018
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Close only six image-verified catalog-only Korean Energies, never physical printed numbers
+        run: node scripts/close-classic-six-energy-images-20261018.mjs
+      - name: Verify catalog and user interfaces unchanged
+        run: |
+          npm run site:check
+          npm run test:registry
+      - name: Commit 191 work queue with exactly six existing Korean image closures
+        run: |
+          set -euo pipefail
+          git add data/audits/korean-recovery-active-queue-20261018.json data/audits/classic-six-unnumbered-energy-image-and-catalog-resolution-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(images): close six Korean Classic energy image holds as unnumbered catalog slots"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
