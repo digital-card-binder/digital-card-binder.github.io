@@ -149,12 +149,23 @@ async function generate() {
     clean(item.setCode).toLowerCase() + "::" + clean(item.cardCode).toLowerCase()
   ));
   const groups = mergeGroups(JSON.parse(seriesRaw), JSON.parse(legacyRaw))
-    .map((group) => ({
-      ...group,
-      cards: (group.cards || []).filter((card) =>
-        !excluded.has(clean(group.code).toLowerCase() + "::" + clean(card.code).toLowerCase())
-      ),
-    }));
+    .map((group) => {
+      const source = group.cards || [];
+      const hasExclusions = source.some((card) =>
+        excluded.has(clean(group.code).toLowerCase() + "::" + clean(card.code).toLowerCase())
+      );
+      return {
+        ...group,
+        cards: source.map((card, originalIndex) => {
+          if (excluded.has(clean(group.code).toLowerCase() + "::" + clean(card.code).toLowerCase()))
+            return null;
+          // Preserve the original Firebase ID position after a noncollectible
+          // catalog slot is hidden from indexed search results.
+          return hasExclusions && !Number.isInteger(card.accountIndex)
+            ? { ...card, accountIndex: originalIndex } : card;
+        }).filter(Boolean),
+      };
+    });
   const pokedex = JSON.parse(pokedexRaw);
   const metadata = buildMetadata(JSON.parse(artistsRaw), JSON.parse(trainerRaw));
 
