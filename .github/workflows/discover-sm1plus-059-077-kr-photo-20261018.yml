@@ -1,0 +1,22 @@
+name: Discover Korean SM1+ 059-077 exact print photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/discover-sm1plus-059-077-kr-photo-20261018.yml'
+      - 'scripts/discover-sm1plus-059-077-kr-photo-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow beautifulsoup4
+      - name: Read 19 exact Korean SM1+ card detail photos
+        run: python scripts/discover-sm1plus-059-077-kr-photo-20261018.py
