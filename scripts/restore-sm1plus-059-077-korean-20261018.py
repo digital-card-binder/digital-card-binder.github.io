@@ -108,6 +108,24 @@ for old,new in zip(original,group["cards"]):
 # Retain all other era groups and other sets exactly unchanged.
 newRaw=json.dumps(master,ensure_ascii=False,indent=2)+"\n"
 assert len(json.loads(newRaw))==len(master)
+# The old broken official SM1plus_059..077 Cloudflare destinations were
+# used only by those old master images. Their historical 19 repair mappings
+# must be retired when canonical display moves to local own-hosted WebPs:
+# otherwise manifest building detects 19 unreferenced repairs and fails.
+repairPath=ROOT/"scripts/card-image-source-repairs.json"
+repairState=json.loads(repairPath.read_text(encoding="utf8"))
+repairEntries=repairState.get("repairs",[])
+retiredSet={f"data/wmimages/SM/SM1+/SM1plus_{n:03d}.webp" for n in numbers}
+retired=[r for r in repairEntries if r.get("project")=="legacy" and r.get("relativePath") in retiredSet]
+if len(retired)!=19 or {r["relativePath"] for r in retired}!=retiredSet:
+ raise RuntimeError("Old numbered SM1+ cached repair keys differ from expected 19")
+for fix,row in zip(sorted(retired,key=lambda x:x["relativePath"]),rows):
+ if fix["relativePath"]!=f"data/wmimages/SM/SM1+/SM1plus_{row['number']:03d}.webp":
+  raise RuntimeError("Old SM1+ repair ordering unexpectedly changed")
+ if row["imageSource"] not in fix.get("sourceUrls",[]):
+  raise RuntimeError("Existing Cloudflare source verification doesn't match the exact KR app photo")
+repairState["repairs"]=[r for r in repairEntries if r not in retired]
+repairPath.write_text(json.dumps(repairState,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
 DEST.mkdir(parents=True,exist_ok=True)
 for row,payload in results:(ROOT/row["ownedPath"]).write_bytes(payload)
 CATALOG.write_text(newRaw,encoding="utf8")
@@ -121,6 +139,8 @@ report={
  "artThemeAssignmentsMutated":False,"otherSetsChanged":False,
  "priorCompletedCardReviewsUntouched":True,
  "cardSources":rows,
+ "retiredOrphanedOfficialCdnRepairs":[r["relativePath"] for r in retired],
+ "retiredUnusedCdnRepairCount":len(retired),
  "publicationCaveat":"Github Pages deploy/public image check must succeed before declaring all 19 live.",
  "previousConflictAudit":"data/audits/theme-sm1plus-059-077-master-vs-hosted-Korean-art-conflict-20261017.json"
 }
