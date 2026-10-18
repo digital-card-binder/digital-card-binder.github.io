@@ -4544,7 +4544,7 @@
       "candidateSources": [
         "https://tcgbox.co.kr/product/detail.html?product_no=13097"
       ],
-      "action": "Retain Korean print photo hold; Korean app 094 prints 094/070 but card title is 안개의 수정 (not expected 메아리호른); app 093 shows Japanese Echoing Horn. Korean retailer and inspected 093 physical image contradict that app map. Find independent Korean Echoing Horn 094 full print before replacing.",
+      "action": "Korean Echoing Horn seller physical photo shows 093/070; Korean Fog Crystal photos appear with both 093/070 and 094/070; Korean seller catalog lists Echoing Horn as 094 but full photo link 404. Do not use Japanese 094 or Korean 094 Fog Crystal image. Obtain a clean Korean photo whose exact name and 094/070 printed footer match, or manufacturer evidence resolving the conflict.",
       "imageComplete": false,
       "themeComplete": false,
       "cardDataChanged": false,
@@ -4559,7 +4559,13 @@
       "lastKoreanVisualCrosscheckAt": "2026-10-18",
       "app094ShowsKoreanFogCrystalPrinted094": true,
       "app093ShowsJapaneseEchoingHornPrinted094": true,
-      "status": "Korean_app_094_contains_wrong_name_art_for_canonical_Echoing_Horn_094"
+      "status": "Korean_app_094_contains_wrong_name_art_for_canonical_Echoing_Horn_094",
+      "lastKoreanPhotoInspection": "data/audits/s6k093-094-korean-print-footer-conflict-20261018.json",
+      "lastKoreanPhotoInspectionRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39101317296",
+      "koreanEchoingHornSellerPrinted093Observation": true,
+      "koreanFogCrystalPhysicalPrinted093Evidence": true,
+      "koreanFogCrystalAppPrinted094Evidence": true,
+      "confirmedKoreanEchoingHornPrinted094": false
     }
   ],
   "latestCompletion": {
