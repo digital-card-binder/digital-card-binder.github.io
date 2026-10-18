@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "title": "S6K 093 and 094 conflicting Korean physical printed-number proof after magnifying Korean Echoing Horn seller image",
+  "workflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39101317296",
+  "images": [
+    {
+      "identity": "Korean Echoing Horn (메아리호른)",
+      "source": "https://www.ebay.com/itm/287293103698",
+      "sourcePicture": "https://i.ebayimg.com/images/g/jMkAAeSwVqBp7IPR/s-l1600.jpg",
+      "pictureSize": [
+        882,
+        1506
+      ],
+      "printedKoreanName": "메아리호른",
+      "visibleFooterObservation": "s6K E 093/070 UR",
+      "sourcePhotoProvedKorean": true,
+      "caveat": "Seller lists card as 093/070; the native 882px photo footer appears to say 093/070 but seller photography is not official manufacturer identity evidence."
+    },
+    {
+      "identity": "Korean Fog Crystal (안개의 수정) older SSG physical 093",
+      "proofFile": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/stage.json",
+      "source": "https://www.ssg.com/item/itemView.ssg?itemId=1000523202298",
+      "visibleFooterObservation": "s6K E 093/070 UR",
+      "sourcePhotoProvedKorean": true
+    },
+    {
+      "identity": "Korean Fog Crystal (안개의 수정) Korean app 094",
+      "source": "https://www.dogam.app/sets/01KW0QFGBXF892GC515FMJWY30/cards/01KW1C623QH7F713BF7KXMRRNR",
+      "sourcePicture": "https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png",
+      "visibleFooterObservation": "s6K E 094/070 UR",
+      "sourcePhotoProvedKorean": true
+    },
+    {
+      "identity": "Japanese Echoing Horn (やまびこホーン) 094",
+      "source": "https://www.dogam.app/cards/01KW1C623Q2AACTE37C6H86V44",
+      "sourcePicture": "https://static.tcgexchange.kr/27f711a26fc04fbbc682270521964f28.jpg",
+      "visibleFooterObservation": "s6K 094/070 UR",
+      "sourcePhotoProvedKorean": false
+    }
+  ],
+  "failedOfficialSourceChecks": [
+    {
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S6K/S6K_094.png",
+      "response": "HTTP 415 Unsupported Media Type"
+    },
+    {
+      "url": "https://cards.image.pokemonkorea.co.kr/data/wmimages/S/s6K/s6K_094.png",
+      "response": "HTTP 415 Unsupported Media Type"
+    },
+    {
+      "url": "https://tcgbox.co.kr/web/product/big/s6k/S6K_094.jpg",
+      "response": "HTTP 404"
+    }
+  ],
+  "manufacturerKoreanPrintedIdentityForEchoingHorn094": "not_definitively_proven",
+  "assessment": "At least two Korean-language physically pictured Echoing Horn/Fog Crystal variants have conflicting s6K footer numbers across vendors. Do not infer printed 094 Echoing Horn from Japanese 094 art, third-party catalog listing, or a Korean 094 Fog Crystal image. Preserve official Korean 093 Fog Crystal as originally verified and the user's stored 094 Echoing Horn account key until reliable Korean printed 094 photo can be isolated.",
+  "action": "Remain pending. Seek specific 094/070 Korean Echoing Horn physical card full photo or official Korean card-level confirmation; archive self-hosted verified photo only after exact-name-and-footer match.",
+  "catalogChanged": false,
+  "imagesChanged": false,
+  "userCollectionOwnedKeysChanged": false,
+  "remainingOriginal191WorkId": 160
+}
