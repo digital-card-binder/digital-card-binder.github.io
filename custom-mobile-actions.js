@@ -9,8 +9,9 @@
     .custom-card-actions {
       position: relative;
       z-index: 4;
-      display: grid !important;
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
       gap: 7px !important;
       padding: 8px 10px 12px !important;
     }
@@ -25,8 +26,8 @@
     }
 
     .custom-card-actions .custom-owned-toggle {
-      grid-column: 1 / -1;
-      min-height: 42px !important;
+      flex: 1 1 auto;
+      min-height: 40px !important;
       padding: 0 10px;
       white-space: nowrap;
       font-size: 13px;
@@ -66,7 +67,7 @@
 
       .custom-card-actions button,
       .custom-card-actions .custom-owned-toggle {
-        min-height: 46px !important;
+        min-height: 40px !important;
       }
 
       .custom-card-actions button:not(.custom-owned-toggle) {
@@ -91,7 +92,7 @@
 
   function prepareCard(card) {
     if (!(card instanceof HTMLElement)) return;
-    card.draggable = !touchMode();
+    card.draggable = !touchMode() && document.body.classList.contains("custom-bulk-mode");
     card.querySelectorAll(".custom-card-actions button").forEach(prepareButton);
   }
 

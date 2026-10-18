@@ -1,6 +1,6 @@
 "use strict";
 
-const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"f4614080dd6c","./custom.js":"0dddd1fa5333","./custom-mobile-actions.js":"5aa58509b7ce","./custom-sync.js":"837a3d666240"};
+const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-granular-sharing.js":"f4614080dd6c","./custom.js":"0dddd1fa5333","./custom-mobile-actions.js":"de967891cb0e","./custom-mobile-ux.js":"363afaf54909","./custom-sync.js":"837a3d666240"};
 
 (function () {
   const params = new URLSearchParams(window.location.search);
@@ -23,7 +23,9 @@ const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-gr
   load("./custom-granular-sharing.js", () => {
     load("./custom.js", () => {
       load("./custom-mobile-actions.js", () => {
-        load("./custom-sync.js");
+        load("./custom-mobile-ux.js", () => {
+          load("./custom-sync.js");
+        });
       });
     });
   });
