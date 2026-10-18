@@ -3,18 +3,17 @@
   "recordedAt": "2026-10-18",
   "task": "Continue 191 Korean print/image recovery queue without restarting completed checks",
   "initialCheckpoint": "data/audits/korean-recovery-active-queue-20261017.json",
-  "sourceMainCommitAtReconciliation": "d39139ddeadb3e83ccd5dbd74be2388331bb18cb",
-  "status": "33_remaining_138_Korean_app_card_images_live_verified_and_130_image_holds_closed",
-  "countingPolicy": "Exactly 19 SM1+ 059-077 image-mismatch work items closed based on Korean visual source repair and successful archive deployment. This is image repair closure only, not an assertion that all 12 story themes are complete.",
+  "sourceMainCommitAtReconciliation": "33904250c7da629ad127d29ba332390e9c8a5454",
+  "status": "24_remaining_167_closed_9_latest_Korean_card_images_verified_own_CDN",
+  "countingPolicy": "191 original work items unchanged. 158 previously complete cards untouched. Nine remaining Korean image holds closed ONLY following live exact Korean app/source and own-CDN pixel comparisons. Other image-verified identity holds remain open.",
   "counts": {
     "initial": 191,
     "closedFromSM1plus": 19,
-    "stillUnresolved": 33,
+    "stillUnresolved": 24,
     "byEra": {
       "MEGA": 14,
       "SV": 6,
-      "S": 5,
-      "other": 8
+      "S": 4
     },
     "bySeries": {
       "M6a": 3,
@@ -23,31 +22,28 @@
       "CLL": 2,
       "CLK": 2,
       "CLF": 2,
-      "S4a": 1,
       "S6K": 1,
       "S-P": 1,
-      "SN": 2,
-      "SM1M": 4,
-      "SM1S": 4
+      "SN": 2
     },
     "byIssue": {
       "first_party_official_card_identity_or_catalog_number_pending_image_verified": 14,
       "unnumbered_Korean_energy_print_identity_not_yet_finalized": 8,
-      "Korean_print_image_pending": 9,
       "exact_Korean_print_photo_pending": 1,
       "Japanese image replacement needed": 1
     },
     "closedFromS6H": 1,
-    "totalClosed": 158,
+    "totalClosed": 167,
     "closedFromS6HS6K": 8,
     "megaKoreanImagesVerifiedHosted": 14,
     "megaOfficialIdentityHolds": 14,
     "pendingOutsideMega": 149,
     "pendingKoreanImageOrFullFooterOutsideMega": 149,
-    "closedFromKoreanAppSource": 130,
-    "verifiedAppCardImages": 138,
-    "appImageSourcesChanged": 108,
-    "appImagesAlreadyMatching": 30
+    "closedFromKoreanAppSource": 139,
+    "verifiedAppCardImages": 147,
+    "appImageSourcesChanged": 117,
+    "appImagesAlreadyMatching": 30,
+    "newlyClosedFromFinalNineKoreanCdn": 9
   },
   "completedDoNotReaudit": [
     {
@@ -3948,6 +3944,132 @@
       "status": "Korean_app_source_and_own_CDN_verified_image_recovery_closed",
       "imageRecoveryClosed": true,
       "themeReviewStillIndependent": true
+    },
+    {
+      "workId": 141,
+      "slot": "S4A_138",
+      "series": "S4a",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QM63F9JMW2BKMK9DWEHAG/cards/01KW1C62H9NTZYNVPDQ5K2V3ER",
+      "imageSource": "https://static.tcgexchange.kr/b8ec218b83fe96aae53ca1b141b10829.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1548df38206242a4.webp",
+      "archivePixelsMeanDifference": 1.72,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 165,
+      "slot": "SM1M_067",
+      "series": "SM1M",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P80X0V5PETRJZ890EX",
+      "imageSource": "https://static.tcgexchange.kr/a2de83a0c0dc51357a7c578912dc326a.jpg",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/261cf91d2e847727.webp",
+      "archivePixelsMeanDifference": 2.51,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 166,
+      "slot": "SM1M_069",
+      "series": "SM1M",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P8GBP3XJEJ3NMCXQXG",
+      "imageSource": "https://static.tcgexchange.kr/fbdfe1f16ec7cbd95d555bcbb0567f7e.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/03ab3886c0dea9b5.webp",
+      "archivePixelsMeanDifference": 2.15,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 167,
+      "slot": "SM1M_071",
+      "series": "SM1M",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P9HNMJ1J8RNXYW2AVF",
+      "imageSource": "https://static.tcgexchange.kr/fcefbc9eb2fc9c185bc5deba6998cd87.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5833afed7aa89434.webp",
+      "archivePixelsMeanDifference": 2.05,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 168,
+      "slot": "SM1M_073",
+      "series": "SM1M",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P9RY61SCSYZ9G8DT4N",
+      "imageSource": "https://static.tcgexchange.kr/29f98912cb9b541425c5c333bace09e6.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5ece090e479eb526.webp",
+      "archivePixelsMeanDifference": 2.7,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 169,
+      "slot": "SM1S_070",
+      "series": "SM1S",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683V3YVYJSWX7CKVVYHF",
+      "imageSource": "https://static.tcgexchange.kr/8c5eead32563c07899502262cde425a0.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/206667ba798a4903.webp",
+      "archivePixelsMeanDifference": 2.21,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 170,
+      "slot": "SM1S_071",
+      "series": "SM1S",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VXKH9G9V3SKZ6N5H2",
+      "imageSource": "https://static.tcgexchange.kr/942938314dc894e434d46602dd3f784f.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/916242645d48f23d.webp",
+      "archivePixelsMeanDifference": 2.26,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 171,
+      "slot": "SM1S_072",
+      "series": "SM1S",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VDC4HJ5X751F0Y86K",
+      "imageSource": "https://static.tcgexchange.kr/4065f7950de691286c7b836d57ff5272.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/55133f3618f460a8.webp",
+      "archivePixelsMeanDifference": 2.34,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+    },
+    {
+      "workId": 172,
+      "slot": "SM1S_073",
+      "series": "SM1S",
+      "name": null,
+      "status": "Korean_card_app_source_and_selfhosted_pixels_verified",
+      "imageComplete": true,
+      "sourceEvidence": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VMF2XVVV59VAYJXSJ",
+      "imageSource": "https://static.tcgexchange.kr/253afbdcf483124e184dcbf6df52e1a6.png",
+      "archiveImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e3a70b3dd3969c3b.webp",
+      "archivePixelsMeanDifference": 2.48,
+      "verifiedAt": "2026-10-18",
+      "auditReport": "data/audits/final-nine-korean-cdn-closure-20261018.json"
     }
   ],
   "newSourceResearchEvidence": [
@@ -4008,12 +4130,10 @@
     "Distinct completion gate for actual CDN individual rendering versus successful archive deployment."
   ],
   "nextPriority": [
-    "SM1M 067,069,071,073 and SM1S 070,071,072,073: Korean app/source photo replacement, preserving KR numbered mapping.",
-    "S6K 094 Korean app card art and recorded Korean set number/name collision.",
-    "S4A 138 missing first-party and app image: use suitable Korean app image.",
-    "S-P 022 Dogam card detail 404: discover alternative Korean promo listing/source.",
-    "Classic 6 and SN 2 unnumbered basic Energy catalog IDs: photo is Korean and verified; only remaining is physical print numbering provenance.",
-    "MEGA 14 images verified Korean and owned; only first-party promotional print identity/number audit remains."
+    "S6K 094: Korean physical print source says 메아리호른, Korean app 094 says 안개의 수정. Do not silently relabel or overwrite until exact Korean footer settled.",
+    "S-P 022: Korean 022/S-P 나옹 VMAX not Japanese 022/S-P 에이스번. App page returned 404; Korean distribution evidence is uncertain; no Japanese replacement.",
+    "Classic CLL/CLK/CLF six and SN two basic Energy catalog slots: Korean photo already verified, physical printed number is absent; clarify virtual catalog keys before identity audit closure.",
+    "MEGA 14: Korean-language card images already verified on own CDN; unresolved only original release/printed catalog identities (including unnumbered variants)."
   ],
   "unresolved": [
     {
@@ -4628,18 +4748,6 @@
       "officialNumberProofStillPending": true
     },
     {
-      "workId": 141,
-      "era": "S",
-      "series": "S4a",
-      "slot": "S4A_138",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-s4a-301-330-progress-20261016.json",
-      "action": "Check genuine Korean language print and replace if authorized; don't redo other 329.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
       "workId": 160,
       "era": "S",
       "series": "S6K",
@@ -4722,102 +4830,6 @@
       "canonicalOrOwnedStateChanged": false,
       "status": "app_verified_Korean_image_complete_region_number_identity_hold",
       "officialNumberProofStillPending": true
-    },
-    {
-      "workId": 165,
-      "era": "other",
-      "series": "SM1M",
-      "slot": "SM1M_067",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 166,
-      "era": "other",
-      "series": "SM1M",
-      "slot": "SM1M_069",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 167,
-      "era": "other",
-      "series": "SM1M",
-      "slot": "SM1M_071",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 168,
-      "era": "other",
-      "series": "SM1M",
-      "slot": "SM1M_073",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1m-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 169,
-      "era": "other",
-      "series": "SM1S",
-      "slot": "SM1S_070",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 170,
-      "era": "other",
-      "series": "SM1S",
-      "slot": "SM1S_071",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 171,
-      "era": "other",
-      "series": "SM1S",
-      "slot": "SM1S_072",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 172,
-      "era": "other",
-      "series": "SM1S",
-      "slot": "SM1S_073",
-      "issue": "Korean_print_image_pending",
-      "sourceAudit": "data/audits/theme-sm1s-061-073-approved9-held4-progress-20261017.json",
-      "action": "Restore Korean image without changing preexisting canonical ID, owned states or previous 12-theme review.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
     }
   ],
   "latestCompletion": {
@@ -4829,68 +4841,103 @@
   },
   "lastNewlyCompleted": [
     {
-      "workId": 151,
-      "slot": "s6h_088/070",
-      "source": "https://static.tcgexchange.kr/485df004469b074234f8e41677d557ca.png",
-      "rarity": "HR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 141,
+      "slot": "S4A_138",
+      "source": "https://static.tcgexchange.kr/b8ec218b83fe96aae53ca1b141b10829.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QM63F9JMW2BKMK9DWEHAG/cards/01KW1C62H9NTZYNVPDQ5K2V3ER",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1548df38206242a4.webp",
+      "pixelDifference": 1.72,
+      "ownedBytes": 49094,
+      "sourceBytes": 1376311,
+      "verified": true
     },
     {
-      "workId": 152,
-      "slot": "s6h_089/070",
-      "source": "https://static.tcgexchange.kr/4416d99c2b1fe8ac33540bd8dbb1ea50.png",
-      "rarity": "HR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 165,
+      "slot": "SM1M_067",
+      "source": "https://static.tcgexchange.kr/a2de83a0c0dc51357a7c578912dc326a.jpg",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P80X0V5PETRJZ890EX",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/261cf91d2e847727.webp",
+      "pixelDifference": 2.51,
+      "ownedBytes": 43802,
+      "sourceBytes": 621875,
+      "verified": true
     },
     {
-      "workId": 154,
-      "slot": "s6h_091/070",
-      "source": "https://static.tcgexchange.kr/863b283e5fefadd097461c0eebcfdea2.png",
-      "rarity": "HR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 166,
+      "slot": "SM1M_069",
+      "source": "https://static.tcgexchange.kr/fbdfe1f16ec7cbd95d555bcbb0567f7e.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P8GBP3XJEJ3NMCXQXG",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/03ab3886c0dea9b5.webp",
+      "pixelDifference": 2.15,
+      "ownedBytes": 24878,
+      "sourceBytes": 805211,
+      "verified": true
     },
     {
-      "workId": 155,
-      "slot": "s6h_092/070",
-      "source": "https://static.tcgexchange.kr/8be3bf72a02a8c2258c381d1bf92376e.png",
-      "rarity": "UR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 167,
+      "slot": "SM1M_071",
+      "source": "https://static.tcgexchange.kr/fcefbc9eb2fc9c185bc5deba6998cd87.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P9HNMJ1J8RNXYW2AVF",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5833afed7aa89434.webp",
+      "pixelDifference": 2.05,
+      "ownedBytes": 30354,
+      "sourceBytes": 1992355,
+      "verified": true
     },
     {
-      "workId": 156,
-      "slot": "s6h_093/070",
-      "source": "https://static.tcgexchange.kr/72a2fac0dc8fd84d622b8ab58150bb15.png",
-      "rarity": "UR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 168,
+      "slot": "SM1M_073",
+      "source": "https://static.tcgexchange.kr/29f98912cb9b541425c5c333bace09e6.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJ2ZXVSQJ7D8ED81SN3B/cards/01KW1C67P9RY61SCSYZ9G8DT4N",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/5ece090e479eb526.webp",
+      "pixelDifference": 2.7,
+      "ownedBytes": 26750,
+      "sourceBytes": 359935,
+      "verified": true
     },
     {
-      "workId": 157,
-      "slot": "s6k_089/070",
-      "source": "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png",
-      "rarity": "HR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 169,
+      "slot": "SM1S_070",
+      "source": "https://static.tcgexchange.kr/8c5eead32563c07899502262cde425a0.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683V3YVYJSWX7CKVVYHF",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/206667ba798a4903.webp",
+      "pixelDifference": 2.21,
+      "ownedBytes": 41686,
+      "sourceBytes": 3103108,
+      "verified": true
     },
     {
-      "workId": 158,
-      "slot": "s6k_090/070",
-      "source": "https://static.tcgexchange.kr/025fa0280c558bb135fa6fd031053dc0.png",
-      "rarity": "HR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 170,
+      "slot": "SM1S_071",
+      "source": "https://static.tcgexchange.kr/942938314dc894e434d46602dd3f784f.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VXKH9G9V3SKZ6N5H2",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/916242645d48f23d.webp",
+      "pixelDifference": 2.26,
+      "ownedBytes": 45386,
+      "sourceBytes": 3194780,
+      "verified": true
     },
     {
-      "workId": 159,
-      "slot": "s6k_092/070",
-      "source": "https://static.tcgexchange.kr/d287bba0edf2ba741f0a2cfa0dbfc33e.png",
-      "rarity": "UR",
-      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
-      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+      "workId": 171,
+      "slot": "SM1S_072",
+      "source": "https://static.tcgexchange.kr/4065f7950de691286c7b836d57ff5272.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VDC4HJ5X751F0Y86K",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/55133f3618f460a8.webp",
+      "pixelDifference": 2.34,
+      "ownedBytes": 35398,
+      "sourceBytes": 2893756,
+      "verified": true
+    },
+    {
+      "workId": 172,
+      "slot": "SM1S_073",
+      "source": "https://static.tcgexchange.kr/253afbdcf483124e184dcbf6df52e1a6.png",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QNJW0GT90NCK2075KBWN4/cards/01KW1C683VMF2XVVV59VAYJXSJ",
+      "ownedCdn": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e3a70b3dd3969c3b.webp",
+      "pixelDifference": 2.48,
+      "ownedBytes": 28518,
+      "sourceBytes": 367157,
+      "verified": true
     }
   ],
   "megaImageReconciliation": "data/audits/mega-fourteen-live-korean-image-reconciliation-20261018.json",
@@ -4898,15 +4945,16 @@
     "initial191": 191,
     "previouslyClosed": 28,
     "newImageClosures": 130,
-    "totalImageClosures": 158,
-    "remainingNonImageAndImageHolds": 33,
-    "newlyVerifiedAppImages": 138,
+    "totalImageClosures": 167,
+    "remainingNonImageAndImageHolds": 24,
+    "newlyVerifiedAppImages": 147,
     "alreadyMatchedAppImageCount": 30,
-    "newImageSourceReplacements": 108,
+    "newImageSourceReplacements": 117,
     "unnumberedClassicEnergyIdentityHolds": 6,
     "unnumberedSNEnergyIdentityHolds": 2,
     "MegaFirstPartyIdentityHolds": 14,
-    "stillMissingOrConflictedCardImages": 11,
-    "verificationRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39089932806"
+    "stillMissingOrConflictedCardImages": 2,
+    "verificationRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39089932806",
+    "finalNinePublicOwnCdnAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json"
   }
 }
