@@ -4,11 +4,11 @@
   "set": "sm1m",
   "totalMasterCards": 73,
   "KoreanPrintArtworksReviewed": 69,
-  "verifiedKoreanPrintImagesCumulative": 69,
+  "verifiedKoreanPrintImagesCumulative": 73,
   "verifiedOfficialKoreanInLastRange": 6,
   "verifiedThirdPartyKoreanInLastRange": 3,
   "ownedImageCandidatesDecodedInLastRange": 9,
-  "heldArchiveMissingCount": 4,
+  "heldArchiveMissingCount": 0,
   "heldRange": "067,069,071,073",
   "newlyAddedThemeSlotsThisBatch": 9,
   "newlyAddedThemeSlotsCumulative": 107,
@@ -21,11 +21,13 @@
     "070",
     "072"
   ],
-  "status": "in_progress",
+  "status": "all_73_Korean_images_verified_4_new_photo_artwork_theme_reviews_remaining",
   "complete": false,
-  "nextStart": "SM1M 문 컬렉션 067,069,071,073 자체 한국판 이미지 4건 복구·검증 전 보류",
+  "nextStart": "SM1M recovered SM1M_067, SM1M_069, SM1M_071, SM1M_073 artwork themes only; no image holds remain",
   "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
   "manualReview": "data/audits/theme-sm1m-061-073-Korean-art-review-20261017.json",
   "ownedImagePreflight": "data/audits/theme-visual-evidence/sm1m/061-073/visual-index.json",
-  "remainingImageAndArtworkCount": 4
+  "remainingImageAndArtworkCount": 4,
+  "all73KoreanImagesVerified": true,
+  "koreanPhotoEvidence": "data/audits/final-nine-korean-cdn-closure-20261018.json"
 }
