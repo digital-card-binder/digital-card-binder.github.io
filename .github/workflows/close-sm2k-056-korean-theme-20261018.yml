@@ -31,6 +31,11 @@ jobs:
       - run: npm ci
       - name: Apply only verified 056 Korean print and twelve-theme record
         run: node scripts/close-sm2k-056-korean-theme-20261018.mjs
+      - name: Update exact theme-card count contract after one verified addition
+        run: |
+          set -euo pipefail
+          sed -i 's/assert.equal(total,17911);/assert.equal(total,17912); \/\/ Korean SM2K 056 verified color-theme addition/' tests/theme-card-identity.test.mjs
+          grep -Fq 'assert.equal(total,17912)' tests/theme-card-identity.test.mjs
       - name: Prepare generated theme indices and site data
         run: npm run site:prepare
       - name: Verify regression suite before committing
@@ -40,7 +45,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A data/art-themes.json data/audits/theme-sm2k-031-062-Korean-art-review-20261018.json data/audits/theme-sm2k-031-062-progress-20261018.json data/audits/sm2k-056-Korean-print-12theme-closure-20261018.json data/audits/theme-series-coverage.json data/card-related-dex-index.json data/pokemon-search-index.json data/series-inventory-audit.json data/master-card-db-audit.json core/catalog/catalog-service.js collector-nav.js custom-loader.js print.js pwa.js manifest.webmanifest site-version.json ./*.html
+          git add -A tests/theme-card-identity.test.mjs data/art-themes.json data/audits/theme-sm2k-031-062-Korean-art-review-20261018.json data/audits/theme-sm2k-031-062-progress-20261018.json data/audits/sm2k-056-Korean-print-12theme-closure-20261018.json data/audits/theme-series-coverage.json data/card-related-dex-index.json data/pokemon-search-index.json data/series-inventory-audit.json data/master-card-db-audit.json core/catalog/catalog-service.js collector-nav.js custom-loader.js print.js pwa.js manifest.webmanifest site-version.json ./*.html
           if git diff --cached --quiet; then
             echo 'No changes needed'
             exit 0
