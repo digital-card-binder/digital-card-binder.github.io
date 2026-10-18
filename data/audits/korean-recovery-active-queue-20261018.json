@@ -4,7 +4,7 @@
   "task": "Continue 191 Korean print/image recovery queue without restarting completed checks",
   "initialCheckpoint": "data/audits/korean-recovery-active-queue-20261017.json",
   "sourceMainCommitAtReconciliation": "077f8391952f7c28fafb8b2b71573046e3a401a1",
-  "status": "24_remaining_22_image_verified_identity_holds_2_exact_KR_image_holds_new_source_evidence_20261018",
+  "status": "24_unresolved_23_image_verified_identity_or_distribution_holds_1_Korean_photo_still_missing",
   "countingPolicy": "191 original work items unchanged. 158 previously complete cards untouched. Nine remaining Korean image holds closed ONLY following live exact Korean app/source and own-CDN pixel comparisons. Other image-verified identity holds remain open.",
   "counts": {
     "initial": 191,
@@ -30,7 +30,7 @@
       "first_party_official_card_identity_or_catalog_number_pending_image_verified": 14,
       "unnumbered_Korean_energy_print_identity_not_yet_finalized": 8,
       "exact_Korean_print_photo_pending": 1,
-      "Japanese image replacement needed": 1
+      "official_Korean_preview_image_verified_physical_distribution_status_pending": 1
     },
     "closedFromS6H": 1,
     "totalClosed": 167,
@@ -4155,10 +4155,11 @@
     "Distinct completion gate for actual CDN individual rendering versus successful archive deployment."
   ],
   "nextPriority": [
-    "S6K 094: Korean physical print source says 메아리호른, Korean app 094 says 안개의 수정. Do not silently relabel or overwrite until exact Korean footer settled.",
-    "S-P 022: Korean 022/S-P 나옹 VMAX not Japanese 022/S-P 에이스번. App page returned 404; Korean distribution evidence is uncertain; no Japanese replacement.",
-    "Classic CLL/CLK/CLF six and SN two basic Energy catalog slots: Korean photo already verified, physical printed number is absent; clarify virtual catalog keys before identity audit closure.",
-    "MEGA 14: Korean-language card images already verified on own CDN; unresolved only original release/printed catalog identities (including unnumbered variants)."
+    "S6K 094: Korean physical Echoing Horn 094 image still absent (retail image URLs 404), preserve 093 Korean Fog Crystal and correct owner card number.",
+    "S-P 022: official preview Korean art selfhosted/verified, but 2020 official event postponed; check physical distribution and exclude if truly unissued, never claim release from event mockup.",
+    "SN 025/026: identical unnumbered Lightning Energy with potential virtual duplicate; decide collection canonical count/migration only after confirmed unique print mapping.",
+    "Classic six unnumbered Energies: validate virtual catalog-only numbering; do not assume physically printed 033/034.",
+    "MEGA 14: first-party Korean promo physical print identities pending; all fourteen images verified and already selfhosted."
   ],
   "unresolved": [
     {
@@ -4801,12 +4802,18 @@
       "era": "S",
       "series": "S-P",
       "slot": "S-P_022",
-      "issue": "Japanese image replacement needed",
+      "issue": "official_Korean_preview_image_verified_physical_distribution_status_pending",
       "sourceAudit": "data/audits/theme-sp-series-progress-20261013.json",
-      "action": "Verify authentic Korean printing of held promo; conserve 202 completed visual reviews.",
-      "imageComplete": false,
+      "action": "Site now displays genuine 022/S-P Korean event-preview full card art; original event was postponed. Confirm actual printed-distribution record before treating as released/closing 191 scope. Preserve canonical 022 and owner's status.",
+      "imageComplete": true,
       "themeComplete": false,
-      "cardDataChanged": false
+      "cardDataChanged": false,
+      "officialKoreanPreviewImageVerified": true,
+      "officialKoreanPreviewUrl": "https://data1.pokemonkorea.co.kr/2020/01/2020-01-31_16-39-43-27197-1580456383.png",
+      "koreanImageOwnedUrl": "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp",
+      "liveSelfHostedSha256": "db1c9a75b845bb794feec841e5ff50dda537430a0f710543aeb46afc09bafa9c",
+      "actualPhysicalKoreanPrintDistributed": null,
+      "status": "image_restored_from_first_party_2020_event_art_distribution_unconfirmed"
     },
     {
       "workId": 163,
@@ -4985,13 +4992,15 @@
     "unnumberedClassicEnergyIdentityHolds": 6,
     "unnumberedSNEnergyIdentityHolds": 2,
     "MegaFirstPartyIdentityHolds": 14,
-    "stillMissingOrConflictedCardImages": 2,
+    "stillMissingOrConflictedCardImages": 1,
     "verificationRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39089932806",
     "finalNinePublicOwnCdnAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json",
     "remainingVerifiedKoreanImageIdentityHolds": 22,
     "unresolvedExactKoreanImageHolds": [
       "s6k_094/070",
       "S-P_022"
-    ]
+    ],
+    "firstPartySPO22KoreanImageRestoredNotDistributionProven": true,
+    "SPO22VerifiedOwnUrl": "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp"
   }
 }
