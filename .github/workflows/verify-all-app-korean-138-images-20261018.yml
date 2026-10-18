@@ -1,0 +1,21 @@
+name: Verify 138 Korean app pictures on own CDN
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-all-app-korean-138-images-20261018.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow
+      - name: Check original app images against 138 separately routed self-hosted WebP files
+        run: python scripts/verify-all-app-korean-138-images-20261018.py
