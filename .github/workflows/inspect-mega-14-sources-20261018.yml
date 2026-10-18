@@ -1,0 +1,22 @@
+name: Inspect fourteen MEGA Korean image candidates
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/inspect-mega-14-sources-20261018.py'
+      - '.github/workflows/inspect-mega-14-sources-20261018.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pillow
+      - name: Inspect queued MEGA candidate images without changing card data
+        run: python scripts/inspect-mega-14-sources-20261018.py
