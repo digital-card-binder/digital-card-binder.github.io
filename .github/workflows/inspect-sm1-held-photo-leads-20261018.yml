@@ -1,0 +1,21 @@
+name: Inspect held SM1M SM1S Korean card images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/inspect-sm1-held-photo-leads-20261018.yml'
+      - 'scripts/inspect-sm1-held-photo-leads-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - run: python scripts/inspect-sm1-held-photo-leads-20261018.py
