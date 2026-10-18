@@ -19,24 +19,38 @@ const known = new Map((manifest.assets || []).map(asset => [asset.project + ":" 
 const archiveRoot = path.resolve(root, "tmp/card-images/build");
 const seen = new Set();
 
+// An S6K 089 Korean-source scan reuses a historic external archive name.
+// Permit one exact verified destination+source combination and request ID only.
+const verifiedLegacyRefresh = Object.freeze({
+  "external/static.tcgexchange.kr/28a6c6a2874e2319.webp": {
+    source: "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png",
+    requestId: "s6k089-verified-korean-image-force-cache-replacement-20261018-1",
+  },
+});
+
 for (const item of refresh) {
-  if (typeof item !== "string" || !/^data\/wmimages\/[A-Za-z0-9_-]+\/[A-Za-z0-9_+-]+\/[A-Za-z0-9_.-]+\.webp$/.test(item)) {
+  const officialPattern = /^data\\/wmimages\\/[A-Za-z0-9_-]+\\/[A-Za-z0-9_+-]+\\/[A-Za-z0-9_.-]+\\.webp$/;
+  const isOfficialPath = typeof item === "string" && officialPattern.test(item);
+  const approvedLegacy = typeof item === "string" ? verifiedLegacyRefresh[item] : undefined;
+  if (!isOfficialPath && !approvedLegacy) {
     throw new Error("Unsafe image refresh path: " + String(item));
   }
   if (seen.has(item)) throw new Error("Duplicate refresh path: " + item);
   seen.add(item);
-  // The manifest is the sole allowlist. Support verified official-origin legacy
-  // images as well as modern images without allowing arbitrary cached files.
   const asset = known.get("modern:" + item) || known.get("legacy:" + item);
+  const authorizedOfficial = isOfficialPath && asset?.official &&
+    asset.sourceUrls.some(url => url.startsWith("https://cards.image.pokemonkorea.co.kr/"));
+  const authorizedLegacy = approvedLegacy && request.mode === "repair_only" &&
+    request.requestId === approvedLegacy.requestId && asset?.project === "legacy" &&
+    asset.official === false && asset.sourceUrls.includes(approvedLegacy.source);
   if (!asset || !["modern", "legacy"].includes(asset.project) ||
-      !asset.official ||
-      !asset.sourceUrls.some(url => url.startsWith("https://cards.image.pokemonkorea.co.kr/"))) {
-    throw new Error("Refresh path is not an official-origin image in manifest: " + item);
+      !(authorizedOfficial || authorizedLegacy)) {
+    throw new Error("Refresh path is not approved in current manifest: " + item);
   }
   const destination = path.resolve(archiveRoot, asset.project, item);
   const projectRoot = path.join(archiveRoot, asset.project) + path.sep;
   if (!destination.startsWith(projectRoot)) throw new Error("Image refresh escaped archive: " + item);
   fs.rmSync(destination, { force: true });
-  console.log("Official-origin Korean image scheduled for fresh download: " + asset.project + ":" + item);
+  console.log("Approved Korean source scheduled for fresh download: " + asset.project + ":" + item);
 }
 console.log("Requested image refreshes: " + seen.size);
