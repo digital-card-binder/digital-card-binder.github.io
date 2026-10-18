@@ -53,7 +53,7 @@ test("generated catalog metrics cover every core and extended dex", () => {
   const metrics = context.window.DigitalCardBinder.catalog.catalogMetrics;
   const expected = {
     national: [1025, 9],
-    series: [20243, 273],
+    series: [20241, 273],
     ar: [530, 33],
     pack: [151, 9],
     pokemon: [14991, 1025],
@@ -74,12 +74,28 @@ test("generated catalog metrics cover every core and extended dex", () => {
   assert.equal(metrics.pack.promoCardCount, 186);
 });
 
+test("Korean unreleased promo and duplicate Lightning Energy are excluded while legacy ownership remains readable", async () => {
+  const series = await registry.loadCatalog("series");
+  assert.equal(series.items.length, 20241);
+  assert.equal(series.items.some((item) => item.key.toLowerCase().includes("s-p_022/s-p")), false);
+  assert.equal(series.items.some((item) => item.key.toLowerCase().includes("sn_026/024")), false);
+  const lightning = series.items.find((item) => item.key.toLowerCase().includes("sn_025/024"));
+  assert.ok(lightning, "Unique SN unnumbered Lightning Energy must remain");
+  const oldKey = "SN::sn_026/024::25";
+  const legacy = registry.resolveOverrides("series", series, { [oldKey]: { owned: true } });
+  assert.equal(legacy.effectiveOverrides[lightning.key]?.owned, true);
+  const latest = registry.resolveOverrides("series", series, {
+    [oldKey]: { owned: true }, [lightning.key]: { owned: false }
+  });
+  assert.equal(latest.effectiveOverrides[lightning.key]?.owned, false);
+});
+
 test("all existing catalogs retain their expected item counts", async () => {
   const expected = {
     national: 1025,
     pack: 151,
     artist: 4873,
-    series: 20243,
+    series: 20241,
     pokemon: 14991,
     ar: 530,
     people: 179,
@@ -192,7 +208,7 @@ test("public projection summaries use the current catalog total", () => {
 
   assert.deepEqual(JSON.parse(JSON.stringify(metrics)), {
     ownedCount: 2,
-    totalCount: 20243,
+    totalCount: 20241,
     promoOwnedCount: 0,
   });
 });
