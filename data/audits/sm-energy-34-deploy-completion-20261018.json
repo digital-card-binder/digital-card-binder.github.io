@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-18",
+  "task": "34 source-verified Korean SM Energy card image replacements",
+  "sourceIdentityCheckpoint": "data/audits/sm-basic-energy-34-korean-image-identity-checkpoint-20261017.json",
+  "dispatchCheckpoint": "data/audits/sm-energy-34-deploy-request-20261018.json",
+  "reconciliationCheckpoint": "data/audits/sm-secret-80-source-reconciliation-20261018.json",
+  "status": "github_actions_success_all_34_new_images_downloaded_and_full_archive_redeployed",
+  "counts": {
+    "requested": 34,
+    "sourceDownloadsSucceeded": 34,
+    "sourceDownloadsFailed": 0,
+    "sets": {
+      "sm1+": 10,
+      "sm2+": 8,
+      "sm5+": 9,
+      "sm6a": 7
+    }
+  },
+  "deployment": {
+    "workflowName": "Deploy card images to Cloudflare Pages",
+    "workflowRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39081747578",
+    "runId": 39081747578,
+    "sourceMainCommit": "17e246c46e1858e69648109aa40e8ef143ed5f17",
+    "workflowConclusion": "success",
+    "imageArchiveValidation": "success",
+    "sourceRefreshStep": "success",
+    "legacyProject": "dcb-card-images-legacy-2026",
+    "legacyDeploymentPreview": "https://7436f45e.dcb-card-images-legacy-2026.pages.dev",
+    "confirmedInLog": [
+      "Requested image refreshes: 34",
+      "[34/34] ok data/wmimages/SM/SM6A/SM6A_075.webp",
+      "selected:34,downloaded:34,failed:0",
+      "Validate every expected image before deployment: success",
+      "Deployment complete!",
+      "Confirm cutover remains enabled: success"
+    ]
+  },
+  "nextPending": [
+    {
+      "cardId": "sm5plus_061/050",
+      "reason": "exact Korean artwork source unverified, preserve safe fallback"
+    },
+    {
+      "cardId": "sm5plus_062/050",
+      "reason": "existing source may be Japanese print, preserve safe fallback"
+    },
+    {
+      "cardId": "sm7b_063/050",
+      "reason": "official card number points to unrelated artwork, preserve safe fallback"
+    }
+  ],
+  "caveats": [
+    "Workflow success is distinct from independently opening and visually inspecting all 34 public CDN URLs in a separate browser.",
+    "No catalog, owned-card state, rarity, language, theme identity, or excluded-release registry was changed.",
+    "Third-party source-image redistribution rights have not been independently certified in this checkpoint."
+  ],
+  "noCompletedCardsReaudited": true
+}
