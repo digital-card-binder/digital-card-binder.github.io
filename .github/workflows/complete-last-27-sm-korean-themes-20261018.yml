@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/complete-last-27-sm-korean-themes-20261018.yml"
       - "scripts/complete-last-27-sm-korean-themes-20261018.mjs"
+      - "tests/theme-card-identity.test.mjs"
   workflow_dispatch:
 permissions:
   contents: write
