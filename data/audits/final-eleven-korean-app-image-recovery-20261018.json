@@ -6,7 +6,7 @@
   "policy": "User explicitly approves Korean app catalog images as correct when set and card record match. Separate redistribution/license assessment not implied.",
   "totalHeldElevenBefore": 11,
   "successfullyRestoredFromApp": 0,
-  "alreadyMatchingApp": 10,
+  "alreadyMatchingApp": 9,
   "stillHeldAtSourceStage": 11,
   "entries": [
     {
@@ -24,12 +24,9 @@
       "slot": "s6k_094/070",
       "workId": 160,
       "code": "s6k_094/070",
-      "cardName": "메아리호른",
-      "status": "approved_KR_app_source_decoded",
-      "sourcePage": "https://www.dogam.app/cards/01KW1C623QH7F713BF7KXMRRNR",
-      "oldImage": "https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png",
-      "newImage": "https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png",
-      "bytes": 234244
+      "status": "held_Korean_094_print_number_conflict",
+      "sourcePage": "https://www.dogam.app/sets/01KW0QFGBXF892GC515FMJWY30/cards/01KW1C623QH7F713BF7KXMRRNR",
+      "reason": "App 094 displays 안개의 수정, but checked Korean real-print 094 is 메아리호른"
     },
     {
       "slot": "S-P_022",
@@ -130,7 +127,7 @@
   ],
   "caveat": "CDN deployment and verification required before closing the active 191 audit queue. S6K 094 display name requires reconciliation separately.",
   "canonicalCardChanges": 0,
-  "correctiveS6K094Revert": 1,
+  "correctiveS6K094Revert": 0,
   "ownershipChanges": 0,
   "reviewOfPreviouslyCompletedCards": 0
 }
