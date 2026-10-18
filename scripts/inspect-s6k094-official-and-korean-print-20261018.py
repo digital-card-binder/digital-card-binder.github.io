@@ -28,6 +28,15 @@ for label,url in sources:
   info={"label":label,"url":url,"status":"unavailable","error":str(e)[:170]}
   print("S6K094_CANDIDATE",json.dumps(info,ensure_ascii=False),flush=True)
   results.append(info)
+for label,photo in portraits:
+ if label=="ebay_korean_echo_horn_1600":
+  # Full native pixels for small printed footer, not OCR and not an altered card file.
+  crop=photo.crop((145,1245,525,1465))
+  crop=ImageEnhance.Contrast(crop).enhance(1.9)
+  crop=ImageEnhance.Sharpness(crop).enhance(2.8)
+  crop=crop.resize((1140,660),Image.Resampling.NEAREST)
+  buf=io.BytesIO();crop.save(buf,format="PNG")
+  print("S6K094_KOREAN_ECHOHORN_FOOTER_ZOOM_B64="+base64.b64encode(buf.getvalue()).decode("ascii"),flush=True)
 if portraits:
  W,H=380,780
  canvas=Image.new("RGB",(W*len(portraits),H),"#fafafa")
