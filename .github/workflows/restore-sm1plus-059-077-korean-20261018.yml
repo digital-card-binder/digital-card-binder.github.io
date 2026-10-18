@@ -30,6 +30,10 @@ jobs:
           node-version: "22"
       - name: Resynchronize indexes, site bundle and cache fingerprints
         run: |
+          npm run series-inventory:sync
+          npm run master-db-audit:sync
+          npm run theme-audit:sync
+          npm run downstream-sync:sync
           npm run search-index:sync
           npm run catalog-metrics:sync
           npm run related-dex:sync
