@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "policy": "Remove only confirmed unissued/virtual-duplicate slots from active collectible catalogs; keep original raw series entries, original card account keys, all Firebase-owned records, images and audit history unchanged.",
+  "exclusions": [
+    {
+      "setCode": "S-P",
+      "cardCode": "s-p_022/S-P",
+      "reason": "unissued_2020_korean_league_promo",
+      "canonicalReplacement": null,
+      "imagePreviewKept": "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp",
+      "evidence": [
+        "https://pokemonkorea.co.kr/pkl2020_s2_card",
+        "https://bulbapedia.bulbagarden.net/wiki/S-P_Promotional_cards_(KTCG)",
+        "https://www.elitefourum.com/t/korean-promo-cards-database-update-2017-2018-winter-korean-league-promos/58796"
+      ],
+      "ownerKeyAction": "retain_in_user_remote_storage_legacy_record_not_active_collection"
+    },
+    {
+      "setCode": "SN",
+      "cardCode": "sn_026/024",
+      "reason": "same_unnumbered_lightning_energy_virtual_duplicate",
+      "canonicalReplacement": "sn_025/024",
+      "sameImageUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/1e4f64abfda27d28.webp",
+      "evidence": [
+        "https://pokemoncard.co.kr/card/436",
+        "https://collectory.cc/sets/3bb9ed5a-4aba-446b-a819-b6225ae570e7?region=kr&sort=rarity_desc&type=POKEMON",
+        "data/audits/sn-025-026-virtual-duplicate-print-evidence-20261018.json"
+      ],
+      "ownerKeyAction": "map_historical_026_override_to_025_when_new_key_not_explicitly_present"
+    }
+  ],
+  "expectedActiveSeriesCount": 20241,
+  "expectedRawSeriesCount": 20243,
+  "excludedTotal": 2,
+  "notes": [
+    "No deletion of legacy card data",
+    "No deletion or write of Firebase user ownership records",
+    "Preserve original accountIndex before filtering so IDs of following cards never shift",
+    "Unissued Korean event preview remains in repository as historical reference",
+    "Two duplicate synthetic entries are not asserted to be separate printed cards"
+  ]
+}
