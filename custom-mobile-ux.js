@@ -127,12 +127,14 @@
     });
     $("custom-card-menu-close")?.addEventListener("click", () => $("custom-card-menu-dialog").close());
 
-    document.addEventListener("click", (event) => {
-      const tile = event.target.closest("#custom-dex-list .custom-dex-tile");
-      if (tile && mobile.matches) showDetail();
-    });
-
+    // Capture the click before custom.js replaces the entire list during renderAll().
+    // Delegating from document after replacement loses the #custom-dex-list ancestor.
     const list = $("custom-dex-list");
+    list?.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : event.target.parentElement;
+      const tile = target?.closest(".custom-dex-tile");
+      if (tile && list.contains(tile) && mobile.matches) showDetail();
+    }, { capture: true });
     const grid = $("custom-card-grid");
     if (list) new MutationObserver(updateSwitcher).observe(list, { childList: true });
     if (grid) new MutationObserver(() => {
