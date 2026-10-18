@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-18",
+  "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+  "sourceQueue": "data/audits/korean-recovery-active-queue-20261018.json",
+  "closedCount": 8,
+  "cards": [
+    {
+      "workId": 151,
+      "slot": "s6h_088/070",
+      "cardName": "멜론",
+      "sourceImage": "https://static.tcgexchange.kr/485df004469b074234f8e41677d557ca.png",
+      "printedNumber": "088/070",
+      "rarity": "HR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 152,
+      "slot": "s6h_089/070",
+      "cardName": "민지",
+      "sourceImage": "https://static.tcgexchange.kr/4416d99c2b1fe8ac33540bd8dbb1ea50.png",
+      "printedNumber": "089/070",
+      "rarity": "HR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 154,
+      "slot": "s6h_091/070",
+      "cardName": "피오니",
+      "sourceImage": "https://static.tcgexchange.kr/863b283e5fefadd097461c0eebcfdea2.png",
+      "printedNumber": "091/070",
+      "rarity": "HR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 155,
+      "slot": "s6h_092/070",
+      "cardName": "동탁군",
+      "sourceImage": "https://static.tcgexchange.kr/8be3bf72a02a8c2258c381d1bf92376e.png",
+      "printedNumber": "092/070",
+      "rarity": "UR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 156,
+      "slot": "s6h_093/070",
+      "cardName": "마중초롱",
+      "sourceImage": "https://static.tcgexchange.kr/72a2fac0dc8fd84d622b8ab58150bb15.png",
+      "printedNumber": "093/070",
+      "rarity": "UR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 157,
+      "slot": "s6k_089/070",
+      "cardName": "니아",
+      "sourceImage": "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png",
+      "printedNumber": "089/070",
+      "rarity": "HR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 158,
+      "slot": "s6k_090/070",
+      "cardName": "즈미",
+      "sourceImage": "https://static.tcgexchange.kr/025fa0280c558bb135fa6fd031053dc0.png",
+      "printedNumber": "090/070",
+      "rarity": "HR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    },
+    {
+      "workId": 159,
+      "slot": "s6k_092/070",
+      "cardName": "붐볼",
+      "sourceImage": "https://static.tcgexchange.kr/d287bba0edf2ba741f0a2cfa0dbfc33e.png",
+      "printedNumber": "092/070",
+      "rarity": "UR",
+      "language": "ko",
+      "status": "selfhosted_and_public_webp_verified"
+    }
+  ],
+  "verifiedRuns": {
+    "imageDeployment": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+    "wholeArchiveValidation": "success",
+    "publicEightUniqueWebP": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+    "s6k089ForceRefresh": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139",
+    "forceRefreshOutcome": "1 selected, 1 downloaded, 0 failures; Cloudflare redeployed",
+    "regression": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829360"
+  },
+  "metadataWarning": [
+    {
+      "slot": "s6h_092/070",
+      "catalogRarityBefore": "HR",
+      "verifiedPhysicalImageRarity": "UR",
+      "action": "Separate metadata reconciliation needed; preserve canonical IDs and collection state."
+    },
+    {
+      "slot": "s6h_093/070",
+      "catalogRarityBefore": "HR",
+      "verifiedPhysicalImageRarity": "UR",
+      "action": "Separate metadata reconciliation needed; preserve canonical IDs and collection state."
+    },
+    {
+      "slot": "s6k_092/070",
+      "catalogRarityBefore": "HR",
+      "verifiedPhysicalImageRarity": "UR",
+      "action": "Separate metadata reconciliation needed; preserve canonical IDs and collection state."
+    }
+  ],
+  "activeRemaining": 163,
+  "doNotReaudit": [
+    "s6h_088/070",
+    "s6h_089/070",
+    "s6h_091/070",
+    "s6h_092/070",
+    "s6h_093/070",
+    "s6k_089/070",
+    "s6k_090/070",
+    "s6k_092/070"
+  ],
+  "preserved": [
+    "User ownership state and original card IDs",
+    "Prior 20 completed queue work items",
+    "Every other 163 unresolved card",
+    "S6K 094 Korean edition name/number conflict remains held"
+  ],
+  "rightsStatus": "Source language/card identity verified and archived by website. Third-party original image redistribution permission was not separately established; audit must not imply rights cleared.",
+  "siteBrowseLimit": "WebP delivery, unique payloads, and source front visual verification passed; end-user devices/cache have not all been tested.",
+  "themeReviewStatus": "Not reclassified by image-only repair"
+}

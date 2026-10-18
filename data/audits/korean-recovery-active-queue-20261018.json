@@ -3,17 +3,17 @@
   "recordedAt": "2026-10-18",
   "task": "Continue 191 Korean print/image recovery queue without restarting completed checks",
   "initialCheckpoint": "data/audits/korean-recovery-active-queue-20261017.json",
-  "sourceMainCommitAtReconciliation": "25ac996333f454a3e070eaf391c93c043485d6fb",
-  "status": "171_pending_after_20_image_deployment_verified_closures",
+  "sourceMainCommitAtReconciliation": "57856ba5b7ba22bd042050f2a4ffc9a57237d538",
+  "status": "163_pending_after_28_Korean_image_recovery_closures",
   "countingPolicy": "Exactly 19 SM1+ 059-077 image-mismatch work items closed based on Korean visual source repair and successful archive deployment. This is image repair closure only, not an assertion that all 12 story themes are complete.",
   "counts": {
     "initial": 191,
     "closedFromSM1plus": 19,
-    "stillUnresolved": 171,
+    "stillUnresolved": 163,
     "byEra": {
       "MEGA": 14,
       "SV": 71,
-      "S": 78,
+      "S": 70,
       "other": 8
     },
     "bySeries": {
@@ -33,8 +33,8 @@
       "S4a": 1,
       "s5r": 5,
       "s5i": 4,
-      "S6H": 5,
-      "S6K": 4,
+      "S6H": 0,
+      "S6K": 1,
       "S-P": 2,
       "SN": 2,
       "SM1M": 4,
@@ -49,14 +49,15 @@
       "Japanese_printed_image_in_owned_archive": 7,
       "Korean_print_image_pending": 9,
       "Japanese_print_held_retail_Korean_candidate_insufficient_or_unlicensed": 9,
-      "Korean_print_source_pending": 5,
-      "exact_Korean_print_photo_pending": 4,
+      "Korean_print_source_pending": 0,
+      "exact_Korean_print_photo_pending": 1,
       "Japanese image replacement needed": 1,
       "Korean printed ID masked in source": 1,
       "unnumbered_energy_identity_hold_number_inferred_by_audit_order_only": 2
     },
     "closedFromS6H": 1,
-    "totalClosed": 20
+    "totalClosed": 28,
+    "closedFromS6HS6K": 8
   },
   "completedDoNotReaudit": [
     {
@@ -344,6 +345,237 @@
       "sourceRepairRegisteredEarlier": true,
       "deployedThrough": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39084631437",
       "verificationNote": "Verified source in prior repair manifest, refreshed via targeted repair-only request. GitHub Action log 1/1 downloaded, 0 failed, full archive validation and Cloudflare deployment success. Individual browser visual verification not independently repeated; theme memberships remain pending."
+    },
+    {
+      "workId": 151,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_088/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/485df004469b074234f8e41677d557ca.png",
+      "printedNumber": "088/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "HR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 152,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_089/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/4416d99c2b1fe8ac33540bd8dbb1ea50.png",
+      "printedNumber": "089/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "HR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 154,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_091/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/863b283e5fefadd097461c0eebcfdea2.png",
+      "printedNumber": "091/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "HR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 155,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_092/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/8be3bf72a02a8c2258c381d1bf92376e.png",
+      "printedNumber": "092/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "UR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 156,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_093/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/72a2fac0dc8fd84d622b8ab58150bb15.png",
+      "printedNumber": "093/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "UR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 157,
+      "era": "S",
+      "series": "S6K",
+      "slot": "s6k_089/070",
+      "cardName": "니아",
+      "rarity": "HR",
+      "issue": "exact_Korean_print_photo_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "candidateSources": [
+        "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+        "https://adorenaline.me/52"
+      ],
+      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "newSourceLeads20261018": [
+        {
+          "url": "https://m.bunjang.co.kr/products/440070057",
+          "status": "secondary_Korean_card_listing_photo_lead_unverified_footer_and_reuse_rights",
+          "imageReusable": false
+        }
+      ],
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png",
+      "printedNumber": "089/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "HR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139",
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 158,
+      "era": "S",
+      "series": "S6K",
+      "slot": "s6k_090/070",
+      "cardName": "즈미",
+      "rarity": "HR",
+      "issue": "exact_Korean_print_photo_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "candidateSources": [
+        "https://tcgbox.co.kr/product/detail.html?product_no=13093",
+        "https://www.coupang.com/vp/products/5630205706"
+      ],
+      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "newSourceLeads20261018": [
+        {
+          "url": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+          "status": "retail_catalog_identity_only_no_approved_photo",
+          "imageReusable": false
+        }
+      ],
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/025fa0280c558bb135fa6fd031053dc0.png",
+      "printedNumber": "090/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "HR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
+    },
+    {
+      "workId": 159,
+      "era": "S",
+      "series": "S6K",
+      "slot": "s6k_092/070",
+      "cardName": "붐볼",
+      "rarity": "UR",
+      "issue": "exact_Korean_print_photo_pending",
+      "sourceAudit": "data/audits/korean-recovery-s6h5-s6k3-verified-20261018.json",
+      "candidateSources": [
+        "https://tcgbox.co.kr/product/detail.html?product_no=13095",
+        "https://kream.co.kr/products/654794"
+      ],
+      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "newSourceLeads20261018": [
+        {
+          "url": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+          "status": "retail_catalog_identity_only_no_approved_photo",
+          "imageReusable": false
+        }
+      ],
+      "status": "Korean_source_verified_selfhosted_live_WebP",
+      "koreanImageSource": "https://static.tcgexchange.kr/d287bba0edf2ba741f0a2cfa0dbfc33e.png",
+      "printedNumber": "092/070",
+      "verifiedLanguage": "ko",
+      "verifiedRarity": "UR",
+      "ownImageRouting": "scripts/card-image-routing.mjs",
+      "archiveProject": "legacy",
+      "deploymentRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39085829399",
+      "finalS6K089ForceRefreshRun": null,
+      "publicCdnVerification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "verifyEvidence": "Korean face, physically printed set & number and corresponding HR/UR verified from source; public CDN all 8 distinct WebP delivered; final cache replacement verified.",
+      "remainingCaveats": "Full independent 12-theme completeness, third-party redistribution rights, and site catalog rarity metadata not implied by this image closure."
     }
   ],
   "newSourceResearchEvidence": [
@@ -404,11 +636,9 @@
     "Distinct completion gate for actual CDN individual rendering versus successful archive deployment."
   ],
   "nextPriority": [
-    "S6H 088,089,091,092,093 Korean exact printed artwork and image permission; preserve Korean/Japanese number differences.",
-    "S6K 089,090,092,094 direct Korean footer source evidence and permission; recognize 093/094 cross-catalog conflicts.",
-    "SV Classic CLL_004, CLL_005 Korean seller photos with exact printed footer and image reuse permission, then remaining Classic wrong-language cards.",
-    "MEGA 14 Korean market release/printed IDs and authorized Korean images.",
-    "S/SV remaining held Korean-print sources; never interpret official CDN HTTP 415 as nonrelease."
+    "S6K 094 Korean physical printed name conflict with prior 093 proof; do not overwrite until exact Korean print identity and numbering resolved.",
+    "SV Classic CLL_004 and CLL_005 verified Korean seller photos require legible footer and authorized self-hostable images.",
+    "MEGA 14 and remaining S/SV holds: exact Korean card artwork and printed number, permission, then guarded archive-only repair."
   ],
   "unresolved": [
     {
@@ -2489,141 +2719,6 @@
       "cardDataChanged": false
     },
     {
-      "workId": 151,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_088/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 152,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_089/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 154,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_091/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 155,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_092/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 156,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_093/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
-      "workId": 157,
-      "era": "S",
-      "series": "S6K",
-      "slot": "s6k_089/070",
-      "cardName": "니아",
-      "rarity": "HR",
-      "issue": "exact_Korean_print_photo_pending",
-      "sourceAudit": "data/audits/theme-s6K-final-four-Korean-source-checkpoint-20261015.json",
-      "candidateSources": [
-        "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
-        "https://adorenaline.me/52"
-      ],
-      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false,
-      "newSourceLeads20261018": [
-        {
-          "url": "https://m.bunjang.co.kr/products/440070057",
-          "status": "secondary_Korean_card_listing_photo_lead_unverified_footer_and_reuse_rights",
-          "imageReusable": false
-        }
-      ]
-    },
-    {
-      "workId": 158,
-      "era": "S",
-      "series": "S6K",
-      "slot": "s6k_090/070",
-      "cardName": "즈미",
-      "rarity": "HR",
-      "issue": "exact_Korean_print_photo_pending",
-      "sourceAudit": "data/audits/theme-s6K-final-four-Korean-source-checkpoint-20261015.json",
-      "candidateSources": [
-        "https://tcgbox.co.kr/product/detail.html?product_no=13093",
-        "https://www.coupang.com/vp/products/5630205706"
-      ],
-      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false,
-      "newSourceLeads20261018": [
-        {
-          "url": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
-          "status": "retail_catalog_identity_only_no_approved_photo",
-          "imageReusable": false
-        }
-      ]
-    },
-    {
-      "workId": 159,
-      "era": "S",
-      "series": "S6K",
-      "slot": "s6k_092/070",
-      "cardName": "붐볼",
-      "rarity": "UR",
-      "issue": "exact_Korean_print_photo_pending",
-      "sourceAudit": "data/audits/theme-s6K-final-four-Korean-source-checkpoint-20261015.json",
-      "candidateSources": [
-        "https://tcgbox.co.kr/product/detail.html?product_no=13095",
-        "https://kream.co.kr/products/654794"
-      ],
-      "action": "Confirm Korean printed name, exact collector number and rarity; prior mismatched Japanese or SR sources are not proof.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false,
-      "newSourceLeads20261018": [
-        {
-          "url": "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
-          "status": "retail_catalog_identity_only_no_approved_photo",
-          "imageReusable": false
-        }
-      ]
-    },
-    {
       "workId": 160,
       "era": "S",
       "series": "S6K",
@@ -2798,5 +2893,71 @@
     "runId": 39084631437,
     "workflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39084631437",
     "status": "completed_image_archive_only"
-  }
+  },
+  "lastNewlyCompleted": [
+    {
+      "workId": 151,
+      "slot": "s6h_088/070",
+      "source": "https://static.tcgexchange.kr/485df004469b074234f8e41677d557ca.png",
+      "rarity": "HR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 152,
+      "slot": "s6h_089/070",
+      "source": "https://static.tcgexchange.kr/4416d99c2b1fe8ac33540bd8dbb1ea50.png",
+      "rarity": "HR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 154,
+      "slot": "s6h_091/070",
+      "source": "https://static.tcgexchange.kr/863b283e5fefadd097461c0eebcfdea2.png",
+      "rarity": "HR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 155,
+      "slot": "s6h_092/070",
+      "source": "https://static.tcgexchange.kr/8be3bf72a02a8c2258c381d1bf92376e.png",
+      "rarity": "UR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 156,
+      "slot": "s6h_093/070",
+      "source": "https://static.tcgexchange.kr/72a2fac0dc8fd84d622b8ab58150bb15.png",
+      "rarity": "UR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 157,
+      "slot": "s6k_089/070",
+      "source": "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png",
+      "rarity": "HR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 158,
+      "slot": "s6k_090/070",
+      "source": "https://static.tcgexchange.kr/025fa0280c558bb135fa6fd031053dc0.png",
+      "rarity": "HR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    },
+    {
+      "workId": 159,
+      "slot": "s6k_092/070",
+      "source": "https://static.tcgexchange.kr/d287bba0edf2ba741f0a2cfa0dbfc33e.png",
+      "rarity": "UR",
+      "verification": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086205007",
+      "deploy": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39086431139"
+    }
+  ]
 }
