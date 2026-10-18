@@ -5,13 +5,12 @@
   "range": "031-062",
   "totalSlots": 32,
   "previouslyReviewedButPreserved": 1,
-  "newArtworksReviewed": 25,
+  "newArtworksReviewed": 26,
   "previouslyReviewedCode": "SM2K_046",
-  "colorThemeAdditions": 25,
+  "colorThemeAdditions": 26,
   "seasonThemeAdditions": 14,
   "otherThemeAdditions": 0,
   "cardsStillHeld": [
-    56,
     57,
     58,
     60,
@@ -451,10 +450,22 @@
       "number": 56,
       "name": "폭거북스 GX",
       "code": "SM2K_056",
-      "status": "held_language_or_photo",
-      "priorStatus": "held_artwork_diff",
-      "visualIssue": "Korean image missing or CDN artwork does not match",
-      "noThemeDecision": true
+      "status": "reviewed_exact_Korean_selfhosted_print_and_12themes",
+      "noThemeDecision": false,
+      "sourceApp": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6F7QC2KWBBG4DGBVB",
+      "ownedImage": "https://digital-card-binder.github.io/assets/cards/sm2k-korean/056.webp",
+      "readableKoreanPrintedFooter": "SM2K A 056/050 HR",
+      "printedLanguage": "Korean",
+      "matchedThemes": [
+        "color"
+      ],
+      "newlyAddedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "무지개·파스텔"
+      },
+      "evidenceAudit": "data/audits/sm2k-056-Korean-print-12theme-closure-20261018.json"
     },
     {
       "number": 57,
@@ -538,12 +549,14 @@
     "evolution": 79,
     "night": 498,
     "season": 5174,
-    "color": 9949,
+    "color": 9950,
     "sunset": 259,
     "reflections": 58,
     "food": 184,
     "work": 95,
     "street": 1140,
     "cameo": 146
-  }
+  },
+  "sourceAuditSupplement": "data/audits/sm2k-056-Korean-print-12theme-closure-20261018.json",
+  "all12ThemesCheckedFor56": true
 }
