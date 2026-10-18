@@ -1,0 +1,24 @@
+name: Diagnose eight Korean card image routes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/diagnose-korean-image-routes-20261018.mjs'
+      - '.github/workflows/diagnose-korean-image-routes-20261018.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Print matching catalog routes (read only)
+        run: node scripts/diagnose-korean-image-routes-20261018.mjs
