@@ -1,0 +1,63 @@
+name: Repair exact Korean SM2K 056 GX image
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-sm2k-056-exact-korean-20261018.yml"
+      - "scripts/repair-sm2k-056-exact-korean-20261018.py"
+      - "scripts/allow-sm2k-owned-image-tests-20261018.mjs"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: repair-sm2k-056-exact-korean-20261018
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Restore one exact numbered Korean SM2K 056 image and its source
+        run: python scripts/repair-sm2k-056-exact-korean-20261018.py
+      - name: Update only SM photo host regression contract
+        run: node scripts/allow-sm2k-owned-image-tests-20261018.mjs
+      - name: Synchronize master registries and existing image routing
+        run: |
+          npm run series-inventory:sync
+          npm run master-db-audit:sync
+          npm run theme-audit:sync
+          npm run downstream-sync:sync
+          npm run search-index:sync
+          npm run catalog-metrics:sync
+          npm run related-dex:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Test catalog and owner identity before push
+        run: |
+          npm run site:check
+          npm run test:registry
+          npm run test:syntax
+          npm run test:architecture
+      - name: Commit real owned Korean WebP only after all checks pass
+        run: |
+          set -euo pipefail
+          git add assets/cards/sm2k-korean/056.webp
+          git add data/audits/sm2k-056-exact-Korean-image-recovery-20261018.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(images): replace erroneous SM2K 056 art with verified self-hosted Korean print"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
