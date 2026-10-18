@@ -142,7 +142,19 @@ async function generate() {
     readFile(path.join(root, "data/artists.json"), "utf8"),
     readFile(path.join(root, "data/trainer-pokemon.json"), "utf8"),
   ]);
-  const groups = mergeGroups(JSON.parse(seriesRaw), JSON.parse(legacyRaw));
+  const excludedManifest = JSON.parse(
+    await readFile(path.join(root, "data/series-collection-exclusions.json"), "utf8"),
+  );
+  const excluded = new Set((excludedManifest.exclusions || []).map((item) =>
+    clean(item.setCode).toLowerCase() + "::" + clean(item.cardCode).toLowerCase()
+  ));
+  const groups = mergeGroups(JSON.parse(seriesRaw), JSON.parse(legacyRaw))
+    .map((group) => ({
+      ...group,
+      cards: (group.cards || []).filter((card) =>
+        !excluded.has(clean(group.code).toLowerCase() + "::" + clean(card.code).toLowerCase())
+      ),
+    }));
   const pokedex = JSON.parse(pokedexRaw);
   const metadata = buildMetadata(JSON.parse(artistsRaw), JSON.parse(trainerRaw));
 
