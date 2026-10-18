@@ -72,6 +72,22 @@ card["previousForeignPrintImage"]=old
 overrides["sets"][key][KEY]=OWNED
 p.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 overridePath.write_text(json.dumps(overrides,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+# The registry test expected a placeholder for this known issue; change its exact
+# assertion to require verified Korean official self-hosted art instead.
+testPath=ROOT/"tests/collector-registry.test.mjs"
+test=testPath.read_text(encoding="utf-8")
+oldTest='assert.equal(card.image, "/assets/card-image-unavailable.svg", card.code);'
+newTest='assert.equal(card.image, "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp", card.code);\n        assert.equal(card.source, "https://pokemonkorea.co.kr/pkl2020_s2_card", card.code);\n        const imageBytes = await readFile(new URL("../assets/cards/s-p-korean-promo/022-korean.webp", import.meta.url));\n        assert.equal(imageBytes.subarray(0, 4).toString(), "RIFF");'
+if oldTest in test:
+ if test.count(oldTest)!=1:raise RuntimeError("Unexpected registry assertion duplication")
+ test=test.replace(oldTest,newTest)
+elif newTest not in test:
+ raise RuntimeError("Registry source changed; do not silently change tests")
+test=test.replace("// S-P 115 now has a card-specific Korean Dogam source image; S-P 022 remains unverified.",
+ "// S-P 022 now uses Pokemon Korea's authentic Korean event preview (physical distribution separately unverified).")
+testPath.write_text(test,encoding="utf-8")
+
 report={
  "schemaVersion":1,"date":"2026-10-18","cardKey":"S-P_022",
  "canonicalCode":CARD_CODE,"koreanCardName":"나옹 VMAX",
