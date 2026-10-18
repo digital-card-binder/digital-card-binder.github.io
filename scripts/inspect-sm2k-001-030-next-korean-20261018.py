@@ -75,7 +75,7 @@ def inspect(n):
   if not own:raise ValueError("DCB own archive unavailable")
   diff=pixel(img,own)
   out.update(status="matching_Korean_card_and_own_CDN" if diff<18 else "held_artwork_diff",
-             difference:diff,sourceImage:imgurl,pictureSize:[img.width,img.height],ownSize:[own.width,own.height])
+             difference=diff,sourceImage=imgurl,pictureSize=[img.width,img.height],ownSize=[own.width,own.height])
   return out,img
  except Exception as e:
   out.update(status="held_photo_unavailable",error=str(e)[:180])
