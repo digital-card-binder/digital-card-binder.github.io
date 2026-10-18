@@ -1,0 +1,43 @@
+name: Close eight verified Korean MEGA numbered photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/close-mega-eight-verified-korean-20261018.yml'
+      - 'scripts/close-mega-eight-verified-korean-20261018.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: close-mega-eight-verified-korean-20261018
+  cancel-in-progress: false
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preserve existing 167 closings and reconcile 8 exact Korean printed photos
+        run: node scripts/close-mega-eight-verified-korean-20261018.mjs
+      - name: Verify site after audit-only updates
+        run: |
+          npm run site:check
+          npm run test:registry
+      - name: Commit verified photo closures with separate outstanding first-party provenance
+        run: |
+          set -euo pipefail
+          git add data/audits/korean-recovery-active-queue-20261018.json
+          git add data/audits/mega-eight-exact-korean-print-photo-closure-20261018.json
+          git add data/audits/mega-firstparty-evidence-pending-after-image-closure-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(images): close eight numbered Korean MEGA photos, retain official provenance"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
