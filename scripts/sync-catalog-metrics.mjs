@@ -108,6 +108,18 @@ async function buildMetrics() {
   ]);
 
   const series = mergeGroups(seriesBase, seriesLegacy, "code");
+  const excludedManifest = await readJson("data/series-collection-exclusions.json");
+  const excluded = new Set((excludedManifest.exclusions || []).map((record) =>
+    clean(record.setCode) + "::" + clean(record.cardCode)
+  ));
+  const activeSeries = series.map((group) => ({
+    ...group,
+    cards: (group.cards || []).filter((card) =>
+      !excluded.has(clean(group.code) + "::" + clean(card.code))
+    ),
+  }));
+  if (countCards(series) - countCards(activeSeries) !== 2)
+    throw new Error("Unexpected Korean series exclusion count");
   const pokemon = await buildRuntimePokemonCatalog();
   const ar = mergeGroups(arBase, arSupplement, "code");
   const artistGroups = Array.isArray(artists?.artists) ? artists.artists : [];
@@ -143,7 +155,7 @@ async function buildMetrics() {
       unit: "종",
     },
     series: {
-      itemCount: countCards(series),
+      itemCount: countCards(activeSeries),
       groupCount: series.length,
       unit: "장",
     },
