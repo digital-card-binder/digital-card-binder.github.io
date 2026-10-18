@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-18",
+  "task": "Visual read-only Korean print leads within 172 still-pending images",
+  "status": "secondary_visual_candidates_only_not_approved_for_selfhosting",
+  "findings": [
+    {
+      "slot": "CLL_004",
+      "name": "포니타",
+      "sourceListing": "https://m.bunjang.co.kr/products/422377621",
+      "previewImage": "https://media.bunjang.co.kr/product/422377621_2_1785375206_w360.jpg",
+      "languageObservation": "Korean card title 포니타 and Korean move text visible in 360px listing thumbnail.",
+      "photoNumberObservation": "CLL footer not legible at available 360px preview (bottom clipped).",
+      "sourceReusePermission": "not established",
+      "status": "Korean-language artwork likely, exact printed footer and reuse gate still required"
+    },
+    {
+      "slot": "CLL_005",
+      "name": "날쌩마",
+      "sourceListing": "https://m.bunjang.co.kr/products/422377621",
+      "previewImage": "https://media.bunjang.co.kr/product/422377621_3_1785375206_w360.jpg",
+      "languageObservation": "Korean card title 날쌩마 and Korean move text visible in 360px listing thumbnail.",
+      "photoNumberObservation": "CLL footer not legible at available 360px preview (bottom clipped).",
+      "sourceReusePermission": "not established",
+      "status": "Korean-language artwork likely, exact printed footer and reuse gate still required"
+    },
+    {
+      "slot": "s6k_089/070",
+      "name": "니아",
+      "sourceListing": "https://m.bunjang.co.kr/products/440070057",
+      "previewImage": "https://media.bunjang.co.kr/product/440070057_2_1791978415_w360.jpg",
+      "languageObservation": "Korean support-card text and character title 니아 visible on physical holographic card.",
+      "photoNumberObservation": "Card footer is in frame but tiny (360px); listing identifies s6K 089/070 HR, photo seems consistent but exact card number requires high-resolution corroboration.",
+      "sourceReusePermission": "not established",
+      "status": "Korean visible photo lead strengthened, pending exact footer and rights"
+    },
+    {
+      "slot": "s6h_090/070",
+      "name": "의사",
+      "existingRepair": "data/wmimages/S/S6H/S6H_090.webp",
+      "preexistingSource": "https://k-tcgpanda.com/cardimg/S/s6H/%EC%9D%98%EC%82%AC_s6H_090_KOR.jpg",
+      "priorEvidence": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%98%EC%82%AC&cardblock=s6H&cardnum=090",
+      "registrationStatus": "Existing verified Korean source repair present in scripts/card-image-source-repairs.json since before current 172 triage.",
+      "reasonNotAutoClosed": "Read-only checking could not independently verify live modern CDN card artwork and exact printed footer; existing queue says imageComplete=false. Do not re-download onto existing cache blindly.",
+      "sourceReusePermission": "previous repair provenance only; rights not freshly reconfirmed"
+    }
+  ],
+  "observedRegionRisk": {
+    "series": "S6K",
+    "numberRange": "093/070 and 094/070",
+    "evidenceSources": [
+      "https://tcgbox.co.kr/category/s6k%EC%B9%A0%ED%9D%91%EC%9D%98-%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8/252",
+      "https://namu.moe/w/%EC%B9%A0%ED%9D%91%EC%9D%98%20%EA%B0%80%EC%9D%B4%EC%8A%A4%ED%8A%B8",
+      "https://collectory.cc/sets/9a4e302d-fed9-4ca5-9370-786b72150099?region=jp&sort=rarity_desc&type=TRAINER"
+    ],
+    "note": "Secondary catalogs do not agree consistently on which UR item has number 093 versus 094, and the Korean catalog may differ from Japanese. Demand real printed Korean collector number before substitution; do not copy Japanese image by apparent list order."
+  },
+  "scope": [
+    "CLL_004",
+    "CLL_005",
+    "s6k_089/070",
+    "s6h_090/070"
+  ],
+  "noNewCardClosures": true,
+  "activeQueueSource": "data/audits/korean-recovery-active-queue-20261018.json",
+  "safety": [
+    "No new self-hosted seller photos.",
+    "No canonical names or card keys changed.",
+    "Keep all four items pending until their individual acceptance gates are satisfied."
+  ]
+}
