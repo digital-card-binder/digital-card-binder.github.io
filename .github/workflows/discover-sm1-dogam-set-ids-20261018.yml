@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/discover-sm1-dogam-set-ids-20261018.yml'
+      - 'scripts/discover-sm1-dogam-set-ids-20261018.mjs'
   workflow_dispatch:
 permissions:
   contents: read
