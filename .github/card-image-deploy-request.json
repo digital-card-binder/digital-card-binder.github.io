@@ -1,16 +1,7 @@
 {
   "mode": "repair_only",
-  "requestId": "s6h5-s6k3-korean-print-image-recovery-20261018-1",
+  "requestId": "s6h-s6k-eight-korean-image-routed-to-existing-legacy-archive-20261018-2",
   "refreshM6aBase": false,
-  "reason": "Refresh eight exact Korean card scans independently viewed with printed title, Korean effect text, S6H/S6K set code, 0XX/070 bottom number and HR/UR mark. S6H 088 089 091 092 093 and S6K 089 090 092. Preserve other completed repairs and avoid any S6K 093/094 identity collision.",
-  "refreshCardImages": [
-    "data/wmimages/S/S6H/S6H_088.webp",
-    "data/wmimages/S/S6H/S6H_089.webp",
-    "data/wmimages/S/S6H/S6H_091.webp",
-    "data/wmimages/S/S6H/S6H_092.webp",
-    "data/wmimages/S/S6H/S6H_093.webp",
-    "data/wmimages/S/S6K/S6K_089.webp",
-    "data/wmimages/S/S6K/S6K_090.webp",
-    "data/wmimages/S/S6K/S6K_092.webp"
-  ]
+  "reason": "Fix first 8-image deployment rejection by mapping existing catalog URLs (including preexisting legacy CDN placeholders) directly onto source-verified Korean scans. The manifest now routes exactly eight values to new legacy external SHA/FNV destinations, which are missing and safely downloaded in repair_only mode. No unsafe non-manifest refresh needed. Preserve all existing modern/legacy images and user collection IDs.",
+  "refreshCardImages": []
 }

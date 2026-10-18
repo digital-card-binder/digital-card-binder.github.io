@@ -305,3 +305,54 @@ test("card image deployment follows catalog changes and verifies MEGA promo ener
     );
   }
 });
+
+
+test("eight verified Korean S6H/S6K images replace existing catalog routes without breaking CDN ownership", () => {
+  const replacements = [
+  [
+    "https://static.tcgexchange.kr/5eaa1424f187cc9a46736eb754be15f7.jpg",
+    "https://static.tcgexchange.kr/485df004469b074234f8e41677d557ca.png"
+  ],
+  [
+    "https://static.tcgexchange.kr/fa7d8a61781dad5ee9c72cd1d8d71a4c.jpg",
+    "https://static.tcgexchange.kr/4416d99c2b1fe8ac33540bd8dbb1ea50.png"
+  ],
+  [
+    "https://static.tcgexchange.kr/af37a3a90f242cf68df376be40f0c4b0.jpg",
+    "https://static.tcgexchange.kr/863b283e5fefadd097461c0eebcfdea2.png"
+  ],
+  [
+    "https://static.tcgexchange.kr/ac528a39bb48ddc09898b70aa890f065.jpg",
+    "https://static.tcgexchange.kr/8be3bf72a02a8c2258c381d1bf92376e.png"
+  ],
+  [
+    "https://static.tcgexchange.kr/93e25afd7bbcf36cc42e1d018ea9f85a.jpg",
+    "https://static.tcgexchange.kr/72a2fac0dc8fd84d622b8ab58150bb15.png"
+  ],
+  [
+    "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/28a6c6a2874e2319.webp",
+    "https://static.tcgexchange.kr/77e9f3ab6a3bf7f1b8db71312ee2469f.png"
+  ],
+  [
+    "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/a74fac37d56d155c.webp",
+    "https://static.tcgexchange.kr/025fa0280c558bb135fa6fd031053dc0.png"
+  ],
+  [
+    "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e6a8de7da34479cc.webp",
+    "https://static.tcgexchange.kr/d287bba0edf2ba741f0a2cfa0dbfc33e.png"
+  ]
+];
+  const browser = loadBrowserRouter();
+  for (const [oldUrl, koreanUrl] of replacements) {
+    const backend = routeCardImage(oldUrl);
+    const actual = routeCardImage(koreanUrl);
+    assert.equal(backend.project, "legacy");
+    assert.equal(backend.canonicalUrl, koreanUrl);
+    assert.deepEqual(backend, actual);
+    const expected = "https://dcb-card-images-legacy-2026.pages.dev/" + backend.relativePath;
+    assert.equal(browser.window.DigitalCardBinderImageCdn.resolve(oldUrl), expected);
+    const element = new browser.HTMLImageElement();
+    element.src = oldUrl;
+    assert.equal(element.src, expected);
+  }
+});
