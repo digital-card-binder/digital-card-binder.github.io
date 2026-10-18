@@ -1,0 +1,38 @@
+name: Verify 19 published SM1+ Korean card photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-live-sm1plus-059-077-20261018.yml'
+      - 'scripts/verify-live-sm1plus-059-077-20261018.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: verify-live-sm1plus-059-077
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Confirm all 19 published card images are byte-identical to repository
+        run: node scripts/verify-live-sm1plus-059-077-20261018.mjs
+      - name: Commit validated image corrections and old issue closure evidence
+        run: |
+          set -euo pipefail
+          git add data/audits/theme-sm1plus-059-077-master-vs-hosted-Korean-art-conflict-20261017.json
+          git add data/audits/sm1plus-059-077-live-site-image-validation-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(images): verify 19 live SM1+ Korean photos and resolve old mismatch audit"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
