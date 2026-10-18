@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-19",
+  "project": "Korean card art theme audit – resumable evidence checkpoint",
+  "mode": "continuation_only_no_existing_approvals_reopened",
+  "baseline": {
+    "branch": "main",
+    "commit": "860ddac35fc57760ac69cd4af8c3c924bbf2254f",
+    "checkpoint": "data/audits/theme-sm2k-031-062-progress-20261018.json",
+    "priorTriage": "data/audits/sm2k-five-remaining-korean-photo-source-triage-20261018.json",
+    "latestCompleted": "data/audits/sm2k-056-Korean-print-12theme-closure-20261018.json",
+    "lastCompletedSet": "SM2K 알로라의 햇빛",
+    "totalSlots": 62,
+    "imageIdentityAnd12ThemeReviewed": 57,
+    "imageAndThemeHolds": 5,
+    "heldPrintedNumbers": [
+      57,
+      58,
+      60,
+      61,
+      62
+    ],
+    "previous191ImageRecovery": "190 closed; S6K_094 independently held; no reclassification"
+  },
+  "thisPass": {
+    "scope": "Only inspect unresolved SM2K 057, 058, 060, 061, 062 source leads and the existing illustration/evolution set display contract. Do not redo 57 completed cards.",
+    "newCardsVisuallyVerified": 0,
+    "newThemeEntriesApproved": 0,
+    "imagesReplaced": 0,
+    "remainingHolds": 5,
+    "koreanCatalogueMembershipEvidence": [
+      {
+        "url": "https://www.dogam.app/sets",
+        "finding": "Korean-language set directory lists SM2K 62 cards; catalogue count only, not proof of image language."
+      },
+      {
+        "url": "https://collectory.cc/sets/edf70190-da6c-4e00-b7f5-3dd3bdedad24?rarity=HR&region=kr&sort=price_desc",
+        "finding": "Korean-region 62-slot set catalogue and HR 057/058 metadata; displayed reference images may be Japanese."
+      }
+    ],
+    "heldSourceReview": [
+      {
+        "code": "SM2K_057",
+        "printed": "057/050",
+        "name": "알로라 나인테일 GX",
+        "rarity": "HR",
+        "sources": [
+          {
+            "url": "https://tcgbox.co.kr/product/%EC%95%8C%EB%A1%9C%EB%9D%BC-%EB%82%98%EC%9D%B8%ED%85%8C%EC%9D%BCgx-hr-sm2k/4089/",
+            "finding": "Korean retailer product text explicitly lists sm2k 057 HR; a Korean-language image and visible 057/050 print have not been independently decoded."
+          },
+          {
+            "url": "https://kream.co.kr/products/660246",
+            "finding": "Japanese-version listing; must not be used as a Korean-print substitute."
+          }
+        ],
+        "exactKoreanPhotoVerified": false,
+        "themeApproved": false,
+        "status": "hold_source_catalogue_only"
+      },
+      {
+        "code": "SM2K_058",
+        "printed": "058/050",
+        "name": "카푸꼬꼬꼭 GX",
+        "rarity": "HR",
+        "sources": [
+          {
+            "url": "https://tcgbox.co.kr/product/%EC%B9%B4%ED%91%B8%EA%BC%AC%AC%EA%BC%ADgx-hr-sm2k-lp%EB%93%B1%EA%B8%89/4090/",
+            "finding": "Korean retailer product lead already recorded in prior triage; Korean printed footer cannot yet be read."
+          },
+          {
+            "url": "https://kream.co.kr/products/660247",
+            "finding": "Explicitly Japanese-language product; not Korean-print evidence."
+          }
+        ],
+        "exactKoreanPhotoVerified": false,
+        "themeApproved": false,
+        "status": "hold_source_catalogue_only"
+      },
+      {
+        "code": "SM2K_060",
+        "printed": "060/050",
+        "name": "필드블로어",
+        "rarity": "UR",
+        "sources": [
+          {
+            "url": "https://collectory.cc/cards/deb2e630-8fbe-495c-a8ca-6e77487da77d",
+            "finding": "KR catalogue metadata but existing reference photo marked JP in prior triage."
+          }
+        ],
+        "exactKoreanPhotoVerified": false,
+        "themeApproved": false,
+        "status": "hold_JP_reference"
+      },
+      {
+        "code": "SM2K_061",
+        "printed": "061/050",
+        "name": "풀회복약",
+        "rarity": "UR",
+        "sources": [
+          {
+            "url": "https://collectory.cc/cards/d7673fe6-dd61-4b32-8fc4-7793659bcedb",
+            "finding": "KR catalogue metadata does not verify physical Korean art; prior triage preserved Japanese image caution."
+          }
+        ],
+        "exactKoreanPhotoVerified": false,
+        "themeApproved": false,
+        "status": "hold_JP_reference"
+      },
+      {
+        "code": "SM2K_062",
+        "printed": "062/050",
+        "name": "기본 번개 에너지",
+        "rarity": "UR",
+        "sources": [
+          {
+            "url": "https://collectory.cc/cards/7e8890c0-80ab-4824-91ac-50ba256e2963",
+            "finding": "KR catalogue metadata with JP reference image flagged in prior triage."
+          }
+        ],
+        "exactKoreanPhotoVerified": false,
+        "themeApproved": false,
+        "status": "hold_no_Korean_photo"
+      }
+    ],
+    "uiStaticAudit": {
+      "pr": "https://github.com/digital-card-binder/digital-card-binder.github.io/pull/181",
+      "status": "existing_implementation_confirmed_in_source_not_browser_verified",
+      "implementation": "art-themes.js storySets by storyTitle, set-wide search matches, per-set owned totals; art-themes.css separate section row, 2/3/4 card layouts and 9-card 3x3 arrangement.",
+      "note": "4-card mobile sets use horizontal overflow intentionally; no UI changes in this audit. Real PC/mobile runtime and visual wrapping need separate checks."
+    }
+  },
+  "next": {
+    "first": "Find and inspect actual Korean-language SM2K_057 image with legible 057/050 footer; then SM2K_058, _060, _061, _062. Do not approve Japanese reference images as Korean.",
+    "imagePolicy": "Only correct exact Korean card+number+set identity, with source/provenance and permission before self-hosting.",
+    "parallelUnstartedSeries": "SM2L 알로라의 달빛",
+    "sm2lKoreanCatalogueSlots": 62,
+    "sm2lSource": "https://www.dogam.app/sets",
+    "sm2lStatus": "next_candidate_only_no_card_audits_claimed",
+    "independentOriginal191Hold": "S6K_094",
+    "doNotMergeUnrelatedProjects": true
+  },
+  "preservation": {
+    "canonicalIdsChanged": 0,
+    "themeCardsChanged": 0,
+    "imageFilesChanged": 0,
+    "userOwnershipChanged": 0,
+    "firestoreChanged": 0,
+    "previousCheckpointsModified": 0
+  },
+  "result": "SM2K remains 57/62 verified; five unresolved image+theme holds preserved. No new card falsely marked complete."
+}
