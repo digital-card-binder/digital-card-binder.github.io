@@ -356,7 +356,8 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       `${group.code}: one slot per printed set code and card number`,
     );
     for (const card of group.cards) {
-      if (group.code === "S-P" && /^s-p_(?:022|115)\/S-P$/i.test(card.code)) {
+      // S-P 115 now has a card-specific Korean Dogam source image; S-P 022 remains unverified.
+      if (group.code === "S-P" && /^s-p_022\/S-P$/i.test(card.code)) {
         assert.equal(card.image, "/assets/card-image-unavailable.svg", card.code);
       } else {
         assert.match(
