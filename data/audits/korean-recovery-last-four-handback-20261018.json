@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-18",
+  "checkpoint": "191-187-4",
+  "policy": "Keep Korean physical print/card identity truthful; protect all existing card codes, themes, ownership, CDN images. Owner accepts exact Korean app card image as source, but mismatched printed name/number cannot be substituted.",
+  "progress": {
+    "original191": 191,
+    "completedNoReaudit": 187,
+    "remaining4": 4,
+    "actualImageDiscrepancies": 1,
+    "imageAlreadyVerifiedButReleaseOrIdentityPending": 3,
+    "mega14KoreanImagesFullyVerified": true,
+    "mega14FirstPartyCardDetailProvenanceTrackedIndependently": "data/audits/mega-firstparty-evidence-pending-after-image-closure-20261018.json"
+  },
+  "unresolved": [
+    {
+      "workId": 160,
+      "code": "s6k_094/070",
+      "state": "mismatched_Korean_print_card_identity",
+      "koreanSiteRecord": "메아리호른 094/070",
+      "conflictingSource": "https://www.dogam.app/sets/01KW0QFGBXF892GC515FMJWY30/cards/01KW1C623QH7F713BF7KXMRRNR",
+      "observedSourceCard": "안개의 수정 094/070",
+      "koreanPhysical093PhotoProof": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/stage.json",
+      "furtherEvidence": "data/audits/s6k094-korean-app-versus-physical-print-discrepancy-20261018.json",
+      "mustVerifyBeforeChange": "Korean physical メ아리호른 094 OR trustworthy official Korean corrections reconciling 093/094 card names; current Dogam 094 is Fog Crystal and is NOT the site's 094 Echoing Horn card.",
+      "approvedActionNow": "No photo overwrite; preserve user ownership identifiers."
+    },
+    {
+      "workId": 161,
+      "code": "s-p_022/S-P",
+      "state": "unissued_or_changed_distribution_2020_event_preview_only",
+      "verifiedKoreanImage": "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp",
+      "firstPartyEvent": "https://pokemonkorea.co.kr/pkl2020_s2_card",
+      "independentDocumentation": "https://bulbapedia.bulbagarden.net/wiki/S-P_Promotional_cards_(KTCG)",
+      "independentDetails": "https://www.elitefourum.com/t/what-are-some-cards-with-drama-surrounding-their-official-releases/43211?page=2",
+      "evidenceSummary": "Official card preview existed; Season 2 Korean League postponed; multiple collector histories report Korean 022/S-P Meowth VMAX was never normally issued. The preview alone cannot prove a physical released card.",
+      "noPrematureUIClaim": "Physical availability unverified; never count it as confirmed Korean print. Defer eligibility/count changes until tested ownership-compatible exclusion."
+    },
+    {
+      "workId": 163,
+      "code": "sn_025/024",
+      "state": "synthetic_unnumbered_energy_identity",
+      "evidence": "data/audits/sn-025-026-virtual-duplicate-print-evidence-20261018.json",
+      "matchingUnnumberedSource": "https://static.tcgexchange.kr/71c07211bfacc422aa59544eeda45b28.png",
+      "note": "Same Korean Lightning Energy image as SN 026. Neither has physical printed serial 025/024.",
+      "safeNextAction": "Map actual starter-deck quantity and distinct physical print identity before migration; preserve both user ownership keys."
+    },
+    {
+      "workId": 164,
+      "code": "sn_026/024",
+      "state": "possible_duplicate_virtual_catalog_slot",
+      "evidence": "data/audits/sn-025-026-virtual-duplicate-print-evidence-20261018.json",
+      "matchingUnnumberedSource": "https://static.tcgexchange.kr/71c07211bfacc422aa59544eeda45b28.png",
+      "note": "Same Korean card print/art as SN 025; no second physical variant proven. Alternative catalog lists 24 unique cards vs binder 26 slots.",
+      "safeNextAction": "Mark as virtual duplicate only after designing non-destructive owner-state migration and updating all generated counts and search indices."
+    }
+  ],
+  "noChanges": {
+    "canonicalCardIDs": 0,
+    "ownedStatusMutations": 0,
+    "existingImagesChanged": 0,
+    "previouslyCompletedReaudited": 0,
+    "deletedUnissuedCards": 0,
+    "incorrectPhysicalNumberClaims": 0
+  }
+}
