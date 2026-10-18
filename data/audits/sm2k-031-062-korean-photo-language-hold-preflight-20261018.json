@@ -1,0 +1,672 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "set": "sm2K",
+  "range": "031-062",
+  "workflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39109888832",
+  "koreanAppSet": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z",
+  "physicallyCorrectVisibleKoreanCardPhotoValidated": 26,
+  "appNameAndCatalogIdMatched": 32,
+  "matchedAppVsCDNPixels": 28,
+  "clearlyJapaneseCardLanguageDespiteKoreanAppMetadata": [
+    60,
+    61
+  ],
+  "ownedPhotoMissingOrMismatched": [
+    56,
+    57,
+    58,
+    62
+  ],
+  "legacyAlreadyTaggedNotReviewedAgain": [
+    46
+  ],
+  "nextThemeCandidates": [
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    59
+  ],
+  "status": "26 Korean image candidates acceptable for manual theme review, including preserved 046; six image/language holds",
+  "manualVisualCaveat": "SM2K_060 and SM2K_061 have Japanese Japanese-script card names in their full photo even though app page says Korean; they are NOT verified Korean photos. Other app-source file failures are held. Do not mark set complete based on 28 automated pixel near-matches.",
+  "originalCardNamesAndOwnerIDsUntouched": true,
+  "priorReviewedKoreanCardEntriesUntouched": true,
+  "cards": [
+    {
+      "number": 31,
+      "code": "sm2k_031/050",
+      "name": "코코파스",
+      "appName": "코코파스",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P63EQENEYPT4BC194M",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_031.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 3.07,
+      "sourceImage": "https://static.tcgexchange.kr/2afde365878b39ada702bf4ea10fabcd.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 32,
+      "code": "sm2k_032/050",
+      "name": "미꾸리",
+      "appName": "미꾸리",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P67RXKCRWM79CRWXBC",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_032.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.49,
+      "sourceImage": "https://static.tcgexchange.kr/49b86b121c79176fd0de4b0cd38d1b01.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 33,
+      "code": "sm2k_033/050",
+      "name": "메깅",
+      "appName": "메깅",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6NRDG5KSXEJHVJTGS",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_033.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.87,
+      "sourceImage": "https://static.tcgexchange.kr/c9e3d161ee63b516f8360a2e4c258c1e.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 34,
+      "code": "sm2k_034/050",
+      "name": "대코파스",
+      "appName": "대코파스",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P668TX6D4VGJR0ZEPS",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_034.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.84,
+      "sourceImage": "https://static.tcgexchange.kr/0922cb72e073c4e9b9790d3eb2619167.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 35,
+      "code": "sm2k_035/050",
+      "name": "삐삐",
+      "appName": "삐삐",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6SK6QWX2QBX8H67RD",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_035.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.45,
+      "sourceImage": "https://static.tcgexchange.kr/8734a5510ee37a2e44e924908d20037d.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 36,
+      "code": "sm2k_036/050",
+      "name": "픽시",
+      "appName": "픽시",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P61CAZT6D27V8GAQ5C",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_036.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.41,
+      "sourceImage": "https://static.tcgexchange.kr/8de90f2a68f39d8371dc323a4a4b7d41.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 37,
+      "code": "sm2k_037/050",
+      "name": "큐아링",
+      "appName": "큐아링",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P69VZCFR535ETCBPDY",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_037.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.97,
+      "sourceImage": "https://static.tcgexchange.kr/82816fab37c75657a2bea61b9925f04b.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 38,
+      "code": "sm2k_038/050",
+      "name": "할비롱",
+      "appName": "할비롱",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6E0G0NRSKT4BQX3AA",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_038.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.57,
+      "sourceImage": "https://static.tcgexchange.kr/db19b4a81797818ae0d4eeb9c705600e.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 39,
+      "code": "sm2k_039/050",
+      "name": "짜랑꼬",
+      "appName": "짜랑꼬",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6FY6KKJPT539ENTDD",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_039.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.6,
+      "sourceImage": "https://static.tcgexchange.kr/dafc721aa0334243193810d3bc11557a.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 40,
+      "code": "sm2k_040/050",
+      "name": "짜랑고우",
+      "appName": "짜랑고우",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6YT8MMWVWJJZBP7BM",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_040.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.48,
+      "sourceImage": "https://static.tcgexchange.kr/c5579ea796954f3bb58ab59cb26f174a.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 41,
+      "code": "sm2k_041/050",
+      "name": "짜랑고우거 GX",
+      "appName": "짜랑고우거 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P64CWGWHR5ZDQX7SPZ",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_041.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 3.2,
+      "sourceImage": "https://static.tcgexchange.kr/4584750d832ee4e2048eb3921fa73b5e.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 42,
+      "code": "sm2k_042/050",
+      "name": "럭키",
+      "appName": "럭키",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6KYCHBV7MMHXKGC0E",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_042.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.69,
+      "sourceImage": "https://static.tcgexchange.kr/48f2319ec6e90d7783c37922ecf2bcb3.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 43,
+      "code": "sm2k_043/050",
+      "name": "해피너스",
+      "appName": "해피너스",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6H0ZWB5R4X1T0QGDK",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_043.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.02,
+      "sourceImage": "https://static.tcgexchange.kr/9432412e7887563039c06495b92ebaf2.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 44,
+      "code": "sm2k_044/050",
+      "name": "테일로",
+      "appName": "테일로",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6MV4AZVGWNWC0XRJN",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_044.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.94,
+      "sourceImage": "https://static.tcgexchange.kr/47dd59b3e40a0459ae28b1366b68ee75.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 45,
+      "code": "sm2k_045/050",
+      "name": "스왈로",
+      "appName": "스왈로",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P681B8P05D4GN4BN6M",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_045.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.16,
+      "sourceImage": "https://static.tcgexchange.kr/42cee92fecc224c423bff73c50845186.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 46,
+      "code": "sm2k_046/050",
+      "name": "자말라",
+      "appName": "자말라",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6TFRQXESTW8BCC7PR",
+      "existingThemes": [
+        "sleeping"
+      ],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_046.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.88,
+      "sourceImage": "https://static.tcgexchange.kr/6d6ca84c3f5e8daec16a3eb09a98b19b.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 47,
+      "code": "sm2k_047/050",
+      "name": "에너지뽑기",
+      "appName": "에너지뽑기",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6CMT91X2RWS6F6ZB6",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_047.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.06,
+      "sourceImage": "https://static.tcgexchange.kr/23fa7cf1fbb4c1033e3488abe2c74a61.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 48,
+      "code": "sm2k_048/050",
+      "name": "필드블로어",
+      "appName": "필드블로어",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6VF0FT94S2J6J04GN",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_048.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.81,
+      "sourceImage": "https://static.tcgexchange.kr/aa91f022249c585d76d1a57e5d5e613b.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 49,
+      "code": "sm2k_049/050",
+      "name": "할라",
+      "appName": "할라",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6EFET8MVZT2WWNAAP",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_049.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 1.89,
+      "sourceImage": "https://static.tcgexchange.kr/ad595bffd6baf8abd611582c58065df5.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 50,
+      "code": "sm2k_050/050",
+      "name": "에테르파라다이스 보호구",
+      "appName": "에테르파라다이스 보호구",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P69A0ZZH2FMZW71PFF",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_050.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.08,
+      "sourceImage": "https://static.tcgexchange.kr/bbb9403a3f6a6a74f90e0e048aa3bda6.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 51,
+      "code": "sm2k_051/050",
+      "name": "폭거북스 GX",
+      "appName": "폭거북스 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6NAWFMH76JQM8HC42",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_051.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 4.66,
+      "sourceImage": "https://static.tcgexchange.kr/68243efc8a45db4f66331108aa1fad2d.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 52,
+      "code": "sm2k_052/050",
+      "name": "알로라나인테일 GX",
+      "appName": "알로라 나인테일 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6NPZBCSMAXPNSH455",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_052.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 3.47,
+      "sourceImage": "https://static.tcgexchange.kr/913c0e7ad9a9af1dedac0f795951de4c.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 53,
+      "code": "sm2k_053/050",
+      "name": "카푸꼬꼬꼭 GX",
+      "appName": "카푸꼬꼬꼭 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6SYQJDA14AKFA3848",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_053.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 4.28,
+      "sourceImage": "https://static.tcgexchange.kr/d25eed6575da1fcfbd9ea82fac2b9bf3.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 54,
+      "code": "sm2k_054/050",
+      "name": "짜랑고우거 GX",
+      "appName": "짜랑고우거 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6JY3M69VPZEBJ0AJN",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_054.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 4.04,
+      "sourceImage": "https://static.tcgexchange.kr/a6533892cc29016129277634ca5e54bd.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 55,
+      "code": "sm2k_055/050",
+      "name": "할라",
+      "appName": "할라",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P64K4X8BPQ8D50AMZP",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SM2K/SM2K_055.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.57,
+      "sourceImage": "https://static.tcgexchange.kr/9fa34aa7e72647591690eefbfb9715a9.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        420,
+        586
+      ]
+    },
+    {
+      "number": 56,
+      "code": "sm2k_056/050",
+      "name": "폭거북스 GX",
+      "appName": "폭거북스 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6F7QC2KWBBG4DGBVB",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/k-tcgpanda.com/463255032b552ae6.webp",
+      "status": "held_artwork_diff",
+      "difference": 47.25,
+      "sourceImage": "https://static.tcgexchange.kr/f74819f882b3aaad3623a8f88111b09f.png",
+      "pictureSize": [
+        868,
+        1212
+      ],
+      "ownSize": [
+        289,
+        400
+      ]
+    },
+    {
+      "number": 57,
+      "code": "sm2k_057/050",
+      "name": "알로라 나인테일 GX",
+      "appName": "알로라 나인테일 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6B92YP6R5P0NKVFD7",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/4210c89e7d692c37.webp",
+      "status": "held_photo_unavailable",
+      "error": "cannot identify image file <_io.BytesIO object at 0x7fc400001d00>"
+    },
+    {
+      "number": 58,
+      "code": "sm2k_058/050",
+      "name": "카푸꼬꼬꼭 GX",
+      "appName": "카푸꼬꼬꼭 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6KHNB4JNRPXN365VB",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/2b8850399044674f.webp",
+      "status": "held_photo_unavailable",
+      "error": "cannot identify image file <_io.BytesIO object at 0x7fc3f0d63970>"
+    },
+    {
+      "number": 59,
+      "code": "sm2k_059/050",
+      "name": "짜랑고우거 GX",
+      "appName": "짜랑고우거 GX",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6E8ZYZWG07009RPQ4",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/7eaad38ea6b1f2c2.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.11,
+      "sourceImage": "https://static.tcgexchange.kr/b6487071c155392c7be0f3c3a15f352f.png",
+      "pictureSize": [
+        616,
+        883
+      ],
+      "ownSize": [
+        420,
+        602
+      ]
+    },
+    {
+      "number": 60,
+      "code": "sm2k_060/050",
+      "name": "필드 블로어",
+      "appName": "필드 블로어",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P64WN1QBMB39BRKG3W",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/930f66f8fc1d7e22.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.02,
+      "sourceImage": "https://static.tcgexchange.kr/81be380cdbb9dd5680881d6d29f90cf2.jpg",
+      "pictureSize": [
+        743,
+        1031
+      ],
+      "ownSize": [
+        420,
+        583
+      ]
+    },
+    {
+      "number": 61,
+      "code": "sm2k_061/050",
+      "name": "풀회복약",
+      "appName": "풀회복약",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6VFR0Z757K59DJT1K",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/06882c9f57aa1f42.webp",
+      "status": "matching_Korean_card_and_own_CDN",
+      "difference": 2.05,
+      "sourceImage": "https://static.tcgexchange.kr/3692db745cfb3115bb14f2015e9603f5.jpg",
+      "pictureSize": [
+        427,
+        597
+      ],
+      "ownSize": [
+        420,
+        587
+      ]
+    },
+    {
+      "number": 62,
+      "code": "sm2k_062/050",
+      "name": "번개 에너지",
+      "appName": "번개 에너지",
+      "appPage": "https://www.dogam.app/sets/01KW0QNEZ0CVFEB2YEH850TS9Z/cards/01KW1C67P6AA45CCT1TMZVG0EP",
+      "existingThemes": [],
+      "ownedSource": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/5630329eeaabf91b.webp",
+      "status": "held_photo_unavailable",
+      "error": "cannot identify image file <_io.BytesIO object at 0x7fc3f0e50cc0>"
+    }
+  ]
+}
