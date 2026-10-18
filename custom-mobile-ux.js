@@ -38,7 +38,10 @@
 
   function showDetail() {
     if (!mobile.matches) return;
-    listScroll = document.body.dataset.customView === "detail" ? listScroll : window.scrollY;
+    if (document.body.dataset.customView !== "detail") {
+      listScroll = window.scrollY;
+      window.history.pushState({ customDexMobileDetail: true }, "", window.location.href);
+    }
     document.body.dataset.customSection = "dex";
     document.body.dataset.customView = "detail";
     window.scrollTo(0, 0);
@@ -106,7 +109,13 @@
       const button = event.target.closest("button[data-custom-section]");
       if (button) selectSection(button.dataset.customSection);
     });
-    $("custom-mobile-back")?.addEventListener("click", showList);
+    $("custom-mobile-back")?.addEventListener("click", () => {
+      if (window.history.state?.customDexMobileDetail) window.history.back();
+      else showList();
+    });
+    window.addEventListener("popstate", () => {
+      if (document.body.dataset.customView === "detail") showList();
+    });
     $("custom-mobile-switch")?.addEventListener("change", (event) => {
       const id = event.currentTarget.value;
       const tile = [...document.querySelectorAll("#custom-dex-list .custom-dex-tile")]
