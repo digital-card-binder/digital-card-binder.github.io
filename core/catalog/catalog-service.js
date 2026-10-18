@@ -266,15 +266,32 @@
   }
 
   async function series() {
-    const [base, legacy, imageOverrides] = await Promise.all([
+    const [base, legacy, imageOverrides, exceptions] = await Promise.all([
       json("./data/series.json"),
       json("./data/series-legacy.json").catch(() => []),
       json("./data/series-image-overrides.json").catch(() => ({ sets: {} })),
+      json("./data/series-collection-exclusions.json"),
     ]);
-    return applySeriesImageOverrides(
-      mergeGroups(base, legacy, "code"),
-      imageOverrides,
+    const merged = applySeriesImageOverrides(
+      mergeGroups(base, legacy, "code"), imageOverrides,
     );
+    const excluded = new Set((exceptions.exclusions || []).map((item) =>
+      clean(item.setCode).toLowerCase() + "::" + clean(item.cardCode).toLowerCase()
+    ));
+    if (excluded.size !== 2) throw new Error("Korean catalog exceptions changed unexpectedly");
+    let excludedCount = 0;
+    for (const group of merged) {
+      const oldCards = Array.isArray(group.cards) ? group.cards : [];
+      group.cards = oldCards.filter((card, originalIndex) => {
+        const key = clean(group.code).toLowerCase() + "::" + clean(card.code).toLowerCase();
+        if (excluded.has(key)) { excludedCount += 1; return false; }
+        // Keep the original accountIndex when removing a virtual/unissued card.
+        if (!Number.isInteger(card.accountIndex)) card.accountIndex = originalIndex;
+        return true;
+      });
+    }
+    if (excludedCount !== 2) throw new Error("Korean excluded item mapping does not match 2 records");
+    return merged;
   }
 
   async function pokemonSearchIndex() {
