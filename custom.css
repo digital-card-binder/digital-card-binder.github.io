@@ -305,7 +305,7 @@ body[data-page="custom-dex"] .custom-binder-library-status {
 .custom-bulk-mode .custom-sort-hint{display:inline}
 
 @media(max-width:760px){
-  body[data-page="custom-dex"] #custom-mobile-tabs{
+  body[data-page="custom-dex"][data-custom-view] #custom-mobile-tabs{
     display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;
     border-radius:14px;border:1px solid #dbe5ed;background:#edf3f8;
     margin:12px 0 14px;
@@ -364,3 +364,7 @@ body[data-page="custom-dex"] .custom-binder-library-status {
   .custom-card .custom-drag-handle{width:36px;height:36px;font-size:23px}
   body[data-page="custom-dex"] .custom-card-actions{display:flex!important}
 }
+
+/* Hide drag grips outside intentional ordering mode, on both mouse and touch. */
+body[data-page="custom-dex"] .custom-card .custom-drag-handle{display:none!important}
+body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{display:grid!important}
