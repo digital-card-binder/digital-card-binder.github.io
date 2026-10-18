@@ -3,15 +3,15 @@
   "recordedAt": "2026-10-17",
   "set": "sm1m",
   "totalMasterCards": 73,
-  "KoreanPrintArtworksReviewed": 69,
+  "KoreanPrintArtworksReviewed": 73,
   "verifiedKoreanPrintImagesCumulative": 73,
   "verifiedOfficialKoreanInLastRange": 6,
   "verifiedThirdPartyKoreanInLastRange": 3,
   "ownedImageCandidatesDecodedInLastRange": 9,
   "heldArchiveMissingCount": 0,
-  "heldRange": "067,069,071,073",
-  "newlyAddedThemeSlotsThisBatch": 9,
-  "newlyAddedThemeSlotsCumulative": 107,
+  "heldRange": "",
+  "newlyAddedThemeSlotsThisBatch": 13,
+  "newlyAddedThemeSlotsCumulative": 111,
   "existingThemeSlotsPreserved": 0,
   "reviewedRanges": [
     "001-030",
@@ -19,15 +19,17 @@
     "061-066",
     "068",
     "070",
-    "072"
+    "072",
+    "067,069,071,073"
   ],
-  "status": "all_73_Korean_images_verified_4_new_photo_artwork_theme_reviews_remaining",
-  "complete": false,
-  "nextStart": "SM1M recovered SM1M_067, SM1M_069, SM1M_071, SM1M_073 artwork themes only; no image holds remain",
+  "status": "complete_73_Korean_images_and_73_twelve_theme_artwork_reviews",
+  "complete": true,
+  "nextStart": "Advance to next historically unfinished SM set; do not re-review these 73 cards.",
   "globalCheckpointPreserved": "s6K Korean print source pending: 089,090,092,094",
   "manualReview": "data/audits/theme-sm1m-061-073-Korean-art-review-20261017.json",
   "ownedImagePreflight": "data/audits/theme-visual-evidence/sm1m/061-073/visual-index.json",
-  "remainingImageAndArtworkCount": 4,
+  "remainingImageAndArtworkCount": 0,
   "all73KoreanImagesVerified": true,
-  "koreanPhotoEvidence": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+  "koreanPhotoEvidence": "data/audits/final-nine-korean-cdn-closure-20261018.json",
+  "artworkReviewCompletion": "data/audits/sm-final-27-korean-color-theme-art-review-20261018.json"
 }

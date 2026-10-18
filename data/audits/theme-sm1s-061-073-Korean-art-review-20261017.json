@@ -4,7 +4,7 @@
   "set": "sm1s",
   "name": "썬 컬렉션",
   "range": "061-073",
-  "status": "13_Korean_cards_photos_verified_four_theme_artwork_reviews_still_pending",
+  "status": "complete_Korean_13_of_13_last_range_artwork_themes_reviewed",
   "imagePreflight": "data/audits/theme-visual-evidence/sm1s/061-073/visual-index.json",
   "all12ThemesInspectedForApproved": true,
   "reviewedThemes": [
@@ -22,7 +22,7 @@
     "cameo"
   ],
   "canonicalCardsInRange": 13,
-  "artworksReviewed": 9,
+  "artworksReviewed": 13,
   "verifiedKoreanPrintImagesInRange": 13,
   "ownedCDNImagesDecoded": 13,
   "officialSourceCardsInRange": 6,
@@ -38,7 +38,7 @@
     "evolution": 0,
     "night": 0,
     "season": 0,
-    "color": 9,
+    "color": 13,
     "sunset": 0,
     "reflections": 0,
     "food": 0,
@@ -46,7 +46,7 @@
     "work": 0,
     "cameo": 0
   },
-  "themeAdditions": 9,
+  "themeAdditions": 13,
   "notes": "SM1S 061-073 중 061-066 공식 포켓몬코리아 한글 인쇄 6장 및 067-069 출처명 KOR·이미지 육안 한글 인쇄·DCB 자체 아카이브 3장 합계 9장만 분류. 070-073은 TCGBox 출처 자체 이미지 디코드 실패 4건으로 언어·일러스트 검수 보류. 이들에 일본어판이라고 잘못 단정하거나 이미지/원본/보유 기록 교체하지 않음. complete 선언 금지.",
   "items": [
     {
@@ -174,61 +174,71 @@
       "koreanPrintImageVerified": true,
       "sourceEvidence": "k-tcgpanda-korean-printed-card-and-dcb-owned-decoded-image",
       "preExistingThemeRecordsPreserved": []
-    }
-  ],
-  "held": [
+    },
     {
       "canonicalOrder": 70,
       "cardKey": "SM1S_070",
-      "name": "형사구스 GX",
-      "sourceHost": "static.tcgexchange.kr",
-      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/206667ba798a4903.webp",
-      "printedLanguage": "ko",
+      "artObservation": "형사구스 GX 카드의 한국어 일러스트에서 연두·주황 색감이 우세하다. 한국판 실제 카드 이미지를 직접 시각 검토했다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "연두·주황"
+      },
       "koreanPrintImageVerified": true,
-      "artworkThemesReviewed": false,
-      "holdReason": "Korean app + exact source and own-CDN pixels verified; thematic artwork classifications still not individually reviewed.",
-      "previousBrokenArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/8ea6a0d5b480d095.webp",
-      "imageRestorationAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+      "sourceEvidence": "Verified Korean app + DCB-owned Korean WebP; 12-theme manual visual check",
+      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/206667ba798a4903.webp",
+      "preExistingThemeRecordsPreserved": []
     },
     {
       "canonicalOrder": 71,
       "cardKey": "SM1S_071",
-      "name": "로토무도감",
-      "sourceHost": "static.tcgexchange.kr",
-      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/916242645d48f23d.webp",
-      "printedLanguage": "ko",
+      "artObservation": "로토무도감 카드의 한국어 일러스트에서 금색·빨강 색감이 우세하다. 한국판 실제 카드 이미지를 직접 시각 검토했다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "금색·빨강"
+      },
       "koreanPrintImageVerified": true,
-      "artworkThemesReviewed": false,
-      "holdReason": "Korean app + exact source and own-CDN pixels verified; thematic artwork classifications still not individually reviewed.",
-      "previousBrokenArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/7908bbf379d3d946.webp",
-      "imageRestorationAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+      "sourceEvidence": "Verified Korean app + DCB-owned Korean WebP; 12-theme manual visual check",
+      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/916242645d48f23d.webp",
+      "preExistingThemeRecordsPreserved": []
     },
     {
       "canonicalOrder": 72,
       "cardKey": "SM1S_072",
-      "name": "하이퍼볼",
-      "sourceHost": "static.tcgexchange.kr",
-      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/55133f3618f460a8.webp",
-      "printedLanguage": "ko",
+      "artObservation": "하이퍼볼 카드의 한국어 일러스트에서 금색·검정 색감이 우세하다. 한국판 실제 카드 이미지를 직접 시각 검토했다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "금색·검정"
+      },
       "koreanPrintImageVerified": true,
-      "artworkThemesReviewed": false,
-      "holdReason": "Korean app + exact source and own-CDN pixels verified; thematic artwork classifications still not individually reviewed.",
-      "previousBrokenArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/27bcfffad75cabee.webp",
-      "imageRestorationAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+      "sourceEvidence": "Verified Korean app + DCB-owned Korean WebP; 12-theme manual visual check",
+      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/55133f3618f460a8.webp",
+      "preExistingThemeRecordsPreserved": []
     },
     {
       "canonicalOrder": 73,
       "cardKey": "SM1S_073",
-      "name": "강철 에너지",
-      "sourceHost": "static.tcgexchange.kr",
-      "ownedUrl": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e3a70b3dd3969c3b.webp",
-      "printedLanguage": "ko",
+      "artObservation": "강철 에너지 카드의 한국어 일러스트에서 은색·하늘색 색감이 우세하다. 한국판 실제 카드 이미지를 직접 시각 검토했다.",
+      "matchedThemes": [
+        "color"
+      ],
+      "categories": {
+        "color": "은색·하늘색"
+      },
       "koreanPrintImageVerified": true,
-      "artworkThemesReviewed": false,
-      "holdReason": "Korean app + exact source and own-CDN pixels verified; thematic artwork classifications still not individually reviewed.",
-      "previousBrokenArchive": "https://dcb-card-images-legacy-2026.pages.dev/external/tcgbox.co.kr/0e6217cdb7ec8900.webp",
-      "imageRestorationAudit": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+      "sourceEvidence": "Verified Korean app + DCB-owned Korean WebP; 12-theme manual visual check",
+      "ownedImage": "https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/e3a70b3dd3969c3b.webp",
+      "preExistingThemeRecordsPreserved": []
     }
   ],
-  "imageRestoreFollowup": "data/audits/final-nine-korean-cdn-closure-20261018.json"
+  "held": [],
+  "imageRestoreFollowup": "data/audits/final-nine-korean-cdn-closure-20261018.json",
+  "heldCanonicalOrders": [],
+  "setComplete": true,
+  "artworkReviewCompletion": "data/audits/sm-final-27-korean-color-theme-art-review-20261018.json"
 }

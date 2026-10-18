@@ -17,24 +17,27 @@
     "sm1m": {
       "total": 73,
       "verifiedKoreanImages": 73,
-      "artThemeReviewed": 69,
-      "artThemePending": 4,
+      "artThemeReviewed": 73,
+      "artThemePending": 0,
       "oldMissingArchiveHoldsResolved": 4
     },
     "sm1s": {
       "total": 73,
       "verifiedKoreanImages": 73,
-      "artThemeReviewed": 69,
-      "artThemePending": 4,
+      "artThemeReviewed": 73,
+      "artThemePending": 0,
       "oldMissingArchiveHoldsResolved": 4
     }
   },
   "themeAudit": {
     "sm1plus": {
-      "previouslyReviewedWith12Themes": 58,
-      "remainingToReview": 19,
-      "remainingRange": "059-077",
-      "action": "Inspect 19 recovered Korean GX/UR/unnumbered Energy artworks for 12 thematic categories without rechecking first 58"
+      "previouslyReviewedWith12Themes": 77,
+      "remainingToReview": 0,
+      "remainingRange": "",
+      "action": "Inspect 19 recovered Korean GX/UR/unnumbered Energy artworks for 12 thematic categories without rechecking first 58",
+      "setThemeReviewComplete": true,
+      "all12ThemesReviewed": true,
+      "newReview": "data/audits/sm-final-27-korean-color-theme-art-review-20261018.json"
     },
     "sm1m": {
       "artworksStillNeedThemeReview": [
@@ -60,11 +63,11 @@
     "intentionallyUnchanged": true
   },
   "nextSafeStarts": [
-    "SM1+ 059-077: 12 art-theme classifications only; image/identity already corrected",
-    "SM1M 067,069,071,073: four art-theme classifications only",
-    "SM1S 070-073: four art-theme classifications only",
-    "Other SM unfinished sets: resume existing per-set records after reconciling above",
-    "S6K_094: hold until exact Korean printed name and number matched"
+    "SM1+ 77/77 verified Korean artwork identities and theme reviews",
+    "SM1M 73/73 Korean artwork and 12-theme reviews complete",
+    "SM1S 73/73 Korean artwork and 12-theme reviews complete",
+    "Continue next historically incomplete SM set using original per-set audits",
+    "Hold S6K 094 until exact Korean name/printed number reconciliation"
   ],
   "evidenceFiles": [
     "data/audits/sm1plus-001-058-korean-app-identity-live-CDN-proof-20261018.json",
