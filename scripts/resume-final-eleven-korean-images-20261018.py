@@ -64,6 +64,12 @@ def read_one(item):
  if len(found)!=1:raise RuntimeError(f"Expected 1 canonical card for {slot}: {len(found)}")
  code,obj=found[0]
  page=exactPages.get(slot,obj.get("source",""))
+ if slot=="s6k_094":
+  # Korean printed-card evidence contradicts this app's Japanese-order metadata:
+  # KOR 093=안개의 수정, KOR 094=메아리호른.
+  return {"slot":item["slot"],"workId":item["workId"],"code":obj["code"],
+          "status":"held_Korean_094_print_number_conflict","sourcePage":page,
+          "reason":"App 094 displays 안개의 수정, but checked Korean real-print 094 is 메아리호른"}
  if not page.startswith("https://www.dogam.app/") or "/cards/" not in page:
   return {"slot":item["slot"],"workId":item["workId"],"status":"held_no_KR_app_card_page","source":page}
  try:
@@ -119,6 +125,14 @@ for code,items in cards.items():
   if new.get("image")!=expectedImage:raise RuntimeError("Unexpected image change "+code)
   if {k:v for k,v in old.items() if k!="image"}!={k:v for k,v in new.items() if k!="image"}:
    raise RuntimeError("Non-image canonical data changed "+code)
+# Reverse only the mistaken S6K_094 app image applied in the prior batch.
+# Do not alter any canonical numbers, names, owned states or theme entries.
+wrong="https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png"
+restore="https://dcb-card-images-legacy-2026.pages.dev/external/static.tcgexchange.kr/6e36bef8417c34a9.webp"
+reversePattern=re.compile(r'("code"\s*:\s*"s6k_094/070"(?:(?!"code"\s*:).){0,1600}?"image"\s*:\s*)'+re.escape(json.dumps(wrong)),re.S)
+raw,correctiveReverts=reversePattern.subn(lambda m:m.group(1)+json.dumps(restore),raw)
+if correctiveReverts not in (0,1):raise RuntimeError("Unexpected repeated S6K_094 conflict")
+if correctiveReverts:print("KOREAN_S6K_094_APP_IDENTITY_CONFLICT_REVERTED")
 report={"schemaVersion":1,"date":"2026-10-18","operation":"Resume last 11 image holds (not 158 completed entries), canonical series image fields only",
 "origin":"The original series.json card-specific Dogam Korean set card URLs",
 "policy":"User explicitly approves Korean app catalog images as correct when set and card record match. Separate redistribution/license assessment not implied.",
@@ -127,9 +141,9 @@ report={"schemaVersion":1,"date":"2026-10-18","operation":"Resume last 11 image 
 "stillHeldAtSourceStage":len(work)-len(success),
 "entries":results,
 "caveat":"CDN deployment and verification required before closing the active 191 audit queue. S6K 094 display name requires reconciliation separately.",
-"canonicalCardChanges":0,"ownershipChanges":0,"reviewOfPreviouslyCompletedCards":0}
+"canonicalCardChanges":0,"correctiveS6K094Revert":correctiveReverts,"ownershipChanges":0,"reviewOfPreviouslyCompletedCards":0}
 REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-if success:CATALOG.write_text(raw,encoding="utf-8")
+if success or correctiveReverts:CATALOG.write_text(raw,encoding="utf-8")
 print("FINAL_11_APP_IMAGE_SOURCE_RESULT",json.dumps({"restored":len(success),"held":len(work)-len(success),"total":len(work),"codeSample":[x["code"] for x in success[:10]]},ensure_ascii=False))
 for item in results:
  if item["status"]!="approved_KR_app_source_decoded":print("FINAL_11_HELD",json.dumps(item,ensure_ascii=False))
