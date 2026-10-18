@@ -84,6 +84,13 @@ if oldTest in test:
  test=test.replace(oldTest,newTest)
 elif newTest not in test:
  raise RuntimeError("Registry source changed; do not silently change tests")
+oldSourcePattern=r"^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)"
+newSourcePattern=r"^https:\/\/(?:pokemonkorea[.]co[.]kr\/pkl2020_s2_card|pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)"
+if test.count(oldSourcePattern)==1:
+ test=test.replace(oldSourcePattern,newSourcePattern)
+elif newSourcePattern not in test:
+ raise RuntimeError("Unexpected original source validation; do not bypass unrelated tests")
+
 test=test.replace("// S-P 115 now has a card-specific Korean Dogam source image; S-P 022 remains unverified.",
  "// S-P 022 now uses Pokemon Korea's authentic Korean event preview (physical distribution separately unverified).")
 testPath.write_text(test,encoding="utf-8")
