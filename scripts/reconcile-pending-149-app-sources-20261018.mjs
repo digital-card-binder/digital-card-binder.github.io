@@ -25,3 +25,17 @@ for(const x of results){const s=byEra[x.era]??={total:0,mapped:0,app:0};s.total+
 }
 console.log("PENDING149_SUMMARY",JSON.stringify({total:results.length,byEra,bySource,unmapped:results.filter(x=>!x.catalogMatches).map(x=>x.slot)}));
 for(const x of results)console.log("PENDING149_SLOT",JSON.stringify(x));
+
+/* Public app card pages: sample whether metadata discloses a real image for exact KR set+card IDs. */
+const samples=["CLL_004","CLL_005","CLK_004","CLF_004","S1A_079","S2_107"].map(id=>results.find(x=>x.slot===id)).filter(Boolean);
+for (const item of samples){
+ const page=item.matches[0]?.source;
+ if(!page){console.log("APP_PAGE",JSON.stringify({slot:item.slot,status:"no_source_page"}));continue;}
+ try {
+  const response=await fetch(page,{headers:{"User-Agent":"Mozilla/5.0"},signal:AbortSignal.timeout(20000)});
+  const html=await response.text();
+  const external=[...new Set((html.match(/https?:[^"' <>]+?\.(?:png|webp|jpg)(?:\?[^"' <>]*)?/ig)||[]).map(v=>v.replace(/\\u0026/g,"&")))].slice(0,9);
+  const og=html.match(/<meta[^>]+property=["']og:image["'][^>]+>/i)?.[0]||html.match(/<meta[^>]+content=["'][^"']+["'][^>]+property=["']og:image["'][^>]+>/i)?.[0]||"";
+  console.log("APP_PAGE",JSON.stringify({slot:item.slot,source:page,status:response.status,size:html.length,ogImageTag:og.slice(0,500),imageCandidates:external}));
+ }catch(e){console.log("APP_PAGE",JSON.stringify({slot:item.slot,error:String(e).slice(0,250)}));}
+}
