@@ -368,3 +368,80 @@ body[data-page="custom-dex"] .custom-binder-library-status {
 /* Hide drag grips outside intentional ordering mode, on both mouse and touch. */
 body[data-page="custom-dex"] .custom-card .custom-drag-handle{display:none!important}
 body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{display:grid!important}
+
+
+/* Personal dex: switchable mobile 2-up / 4-up cards (2026-10-19).
+   Scoped to this page only; other catalog grids keep their own layouts. */
+.custom-grid-density{display:none}
+@media(max-width:760px){
+  body[data-page="custom-dex"] .custom-results-bar{
+    flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  body[data-page="custom-dex"] #custom-grid-density{
+    display:inline-flex;align-items:center;gap:3px;
+    padding:3px;border:1px solid #d6e2eb;border-radius:11px;background:#eff4f8;
+  }
+  #custom-grid-density button{
+    border:0;background:transparent;border-radius:8px;color:#667688;
+    min-height:34px;padding:5px 9px;font-size:12px;font-weight:800;cursor:pointer;
+  }
+  #custom-grid-density button.is-active{
+    background:#fff;color:#174e69;box-shadow:0 1px 5px rgba(15,40,69,.11);
+  }
+  #custom-grid-density button:focus-visible{outline:2px solid #168895;outline-offset:2px}
+  body[data-page="custom-dex"] #custom-card-grid.card-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:6px;min-height:0;padding:12px 0 8px;
+  }
+  body[data-page="custom-dex"][data-custom-grid-columns="2"] #custom-card-grid.card-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;padding-top:17px;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card{
+    border-radius:8px;min-width:0;contain-intrinsic-size:auto 175px;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-image{
+    aspect-ratio:63 / 88;padding:2px;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-image .card-image{
+    border-radius:5px;object-fit:contain;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card .card-body{
+    min-height:0;gap:2px;padding:4px 3px 3px;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .card-topline,
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-set{display:none}
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .card-name-ko{
+    display:block;margin:0;font-size:10px;line-height:1.3;
+    min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .card-meta{
+    display:block;margin:0;min-width:0;
+    font-size:9px;line-height:1.25;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-actions{
+    display:flex!important;align-items:center;gap:3px!important;
+    padding:3px 3px 5px!important;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-actions .custom-owned-toggle{
+    flex:1 1 auto;width:0;min-width:0;min-height:32px!important;height:32px;
+    padding:0 1px!important;border-radius:7px!important;
+    font-size:10px!important;letter-spacing:-.04em;line-height:1.1;overflow:hidden;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-actions .custom-card-more{
+    flex:0 0 23px;width:23px;min-width:23px!important;min-height:32px!important;height:32px;
+    padding:0!important;border-radius:7px!important;font-size:17px!important;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .missing-overlay{
+    top:3px;left:3px;padding:2px 4px;border-radius:5px;font-size:9px;line-height:1.2;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-drag-handle{
+    right:3px;top:3px;width:31px;height:31px;font-size:20px;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-bulk-select{
+    top:3px;left:3px;padding:3px;gap:0;font-size:0;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-bulk-select input{
+    width:17px;height:17px;
+  }
+}
