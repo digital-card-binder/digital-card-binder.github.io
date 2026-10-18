@@ -4608,11 +4608,17 @@
     }
   ],
   "latestCompletion": {
-    "workId": 153,
-    "slot": "s6h_090/070",
-    "runId": 39084631437,
-    "workflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39084631437",
-    "status": "completed_image_archive_only"
+    "operation": "191 Korean recovery, 187 image/source/identity closures complete",
+    "lastEvidenceCheckpoint": "data/audits/korean-recovery-last-four-handback-20261018.json",
+    "remaining": [
+      "S6K 094 physical card number and artwork",
+      "S-P 022 Korean official preview but no normal issuance",
+      "SN 025/026 virtual duplicated unnumbered Energy"
+    ],
+    "officialMegaReleaseProvenanceIndependent": "data/audits/mega-firstparty-evidence-pending-after-image-closure-20261018.json",
+    "cardImagesRemainingToCorrect": 1,
+    "completedCardWorkNotReaudited": 187,
+    "ownershipStateChanges": 0
   },
   "lastNewlyCompleted": [
     {
@@ -4739,5 +4745,6 @@
     "megaFirstPartyProvenanceOpenInIndependentAudit": 14,
     "classicSixUnnumberedEnergyImageClosures": 6,
     "megaSixSpecialCatalogImageClosures": 6
-  }
+  },
+  "finalFourLatestHandoff": "data/audits/korean-recovery-last-four-handback-20261018.json"
 }
