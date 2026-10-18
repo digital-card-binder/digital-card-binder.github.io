@@ -88,7 +88,25 @@ test("generated search index v2 preserves catalog order, identity, and core fiel
   const pokedex = parse("data/pokedex.json");
   const compact = parse("data/pokemon-search-index.json");
   const decoded = decodeIndex(compact);
-  const canonical = mergeGroups(base, legacy);
+  const exceptions = parse("data/series-collection-exclusions.json");
+  const excluded = new Set((exceptions.exclusions || []).map((x) =>
+    String(x.setCode).toLowerCase() + "::" + String(x.cardCode).toLowerCase()
+  ));
+  const canonical = mergeGroups(base, legacy).map((group) => {
+    const source = group.cards || [];
+    const hasExcluded = source.some((card) =>
+      excluded.has(String(group.code).toLowerCase() + "::" + String(card.code).toLowerCase())
+    );
+    return {
+      ...group,
+      cards: source.map((card, originalIndex) => {
+        if (excluded.has(String(group.code).toLowerCase() + "::" + String(card.code).toLowerCase()))
+          return null;
+        return hasExcluded && !Number.isInteger(card.accountIndex)
+          ? { ...card, accountIndex: originalIndex } : card;
+      }).filter(Boolean),
+    };
+  });
 
   assert.equal(compact.version, 2);
   assert.equal(compact.imageBase, "https://cards.image.pokemonkorea.co.kr");
@@ -132,7 +150,7 @@ test("generated search index v2 preserves catalog order, identity, and core fiel
     });
   });
 
-  assert.equal(cardCount, 20243);
+  assert.equal(cardCount, 20241);
   assert.deepEqual(
     decoded.pokedex.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
     pokedex.records.map((record) => [record.number, record.nameKo, record.nameEn || ""]),
