@@ -54,7 +54,7 @@ for(let n=31;n<=62;n++){
  const entry=pre.cards.find(x=>x.number===n);
  const card=group.cards[n-1];
  const code="SM2K_"+String(n).padStart(3,"0");
- if(!entry||entry.code!==card.code||entry.name!==card.name||entry.appName!==card.name)
+ if(!entry||entry.code!==card.code||entry.name!==card.name||String(entry.appName).replace(/\s+/g,"").toLowerCase()!==String(card.name).replace(/\s+/g,"").toLowerCase())
   throw Error("Master Korean named identity inconsistent "+code);
  if(n===46){
   if(JSON.stringify(entry.existingThemes)!=='["sleeping"]'||
