@@ -1,0 +1,57 @@
+name: Restore official Korean S-P 022 preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/recover-official-sp022-korean-20261018.yml'
+      - 'scripts/recover-official-sp022-korean-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: official-sp022-korean-image-20261018
+  cancel-in-progress: false
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow
+      - name: Download verified Korean S-P 022 preview from Pokemon Korea and replace Japanese art
+        run: python scripts/recover-official-sp022-korean-20261018.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Synchronize catalog and related dex indices
+        run: |
+          npm run series-inventory:sync
+          npm run theme-audit:sync
+          npm run related-dex:sync
+          npm run search-index:sync
+          npm run catalog-metrics:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Validate updated site
+        run: |
+          npm run site:check
+          npm run test:registry
+      - name: Persist Korean official 022 image with provenance
+        run: |
+          set -euo pipefail
+          git add assets/cards/s-p-korean-promo/022-korean.webp data/audits/sp022-official-Korean-preview-recovery-20261018.json
+          git add -u
+          if git diff --cached --quiet; then
+            echo "Already verified Korean image"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(images): restore Korean S-P 022 official card preview, preserving release hold"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
