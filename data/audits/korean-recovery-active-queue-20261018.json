@@ -3,17 +3,17 @@
   "recordedAt": "2026-10-18",
   "task": "Continue 191 Korean print/image recovery queue without restarting completed checks",
   "initialCheckpoint": "data/audits/korean-recovery-active-queue-20261017.json",
-  "sourceMainCommitAtReconciliation": "a7b8e75883859d71240cb3f29e65226ebb7f022c",
-  "status": "172_held_after_19_image_archive_successes_no_new_source_photo_approval_for_172",
+  "sourceMainCommitAtReconciliation": "25ac996333f454a3e070eaf391c93c043485d6fb",
+  "status": "171_pending_after_20_image_deployment_verified_closures",
   "countingPolicy": "Exactly 19 SM1+ 059-077 image-mismatch work items closed based on Korean visual source repair and successful archive deployment. This is image repair closure only, not an assertion that all 12 story themes are complete.",
   "counts": {
     "initial": 191,
     "closedFromSM1plus": 19,
-    "stillUnresolved": 172,
+    "stillUnresolved": 171,
     "byEra": {
       "MEGA": 14,
       "SV": 71,
-      "S": 79,
+      "S": 78,
       "other": 8
     },
     "bySeries": {
@@ -33,7 +33,7 @@
       "S4a": 1,
       "s5r": 5,
       "s5i": 4,
-      "S6H": 6,
+      "S6H": 5,
       "S6K": 4,
       "S-P": 2,
       "SN": 2,
@@ -49,12 +49,14 @@
       "Japanese_printed_image_in_owned_archive": 7,
       "Korean_print_image_pending": 9,
       "Japanese_print_held_retail_Korean_candidate_insufficient_or_unlicensed": 9,
-      "Korean_print_source_pending": 6,
+      "Korean_print_source_pending": 5,
       "exact_Korean_print_photo_pending": 4,
       "Japanese image replacement needed": 1,
       "Korean printed ID masked in source": 1,
       "unnumbered_energy_identity_hold_number_inferred_by_audit_order_only": 2
-    }
+    },
+    "closedFromS6H": 1,
+    "totalClosed": 20
   },
   "completedDoNotReaudit": [
     {
@@ -322,6 +324,26 @@
       "deployedThrough": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39081747578",
       "status": "source_approved_and_archive_deployment_success",
       "caveat": "Browser rendering individually not checked by this reconciliation"
+    },
+    {
+      "workId": 153,
+      "era": "S",
+      "series": "S6H",
+      "slot": "s6h_090/070",
+      "issue": "Korean_print_source_pending",
+      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
+      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
+      "imageComplete": true,
+      "themeComplete": false,
+      "cardDataChanged": false,
+      "sourceVerified": true,
+      "imagePath": "data/wmimages/S/S6H/S6H_090.webp",
+      "imageSource": "https://k-tcgpanda.com/cardimg/S/s6H/%EC%9D%98%EC%82%AC_s6H_090_KOR.jpg",
+      "sourceEvidence": "https://k-tcgpanda.com/cardpage.php?cardname=%EC%9D%98%EC%82%AC&cardblock=s6H&cardnum=090",
+      "status": "korean_source_verified_and_archive_deployment_success",
+      "sourceRepairRegisteredEarlier": true,
+      "deployedThrough": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39084631437",
+      "verificationNote": "Verified source in prior repair manifest, refreshed via targeted repair-only request. GitHub Action log 1/1 downloaded, 0 failed, full archive validation and Cloudflare deployment success. Individual browser visual verification not independently repeated; theme memberships remain pending."
     }
   ],
   "newSourceResearchEvidence": [
@@ -382,6 +404,7 @@
     "Distinct completion gate for actual CDN individual rendering versus successful archive deployment."
   ],
   "nextPriority": [
+    "S6H 088,089,091,092,093 Korean exact printed artwork and image permission; preserve Korean/Japanese number differences.",
     "S6K 089,090,092,094 direct Korean footer source evidence and permission; recognize 093/094 cross-catalog conflicts.",
     "SV Classic CLL_004, CLL_005 Korean seller photos with exact printed footer and image reuse permission, then remaining Classic wrong-language cards.",
     "MEGA 14 Korean market release/printed IDs and authorized Korean images.",
@@ -2490,18 +2513,6 @@
       "cardDataChanged": false
     },
     {
-      "workId": 153,
-      "era": "S",
-      "series": "S6H",
-      "slot": "s6h_090/070",
-      "issue": "Korean_print_source_pending",
-      "sourceAudit": "data/audits/theme-s6H-085-Korean-progress-20261016.json",
-      "action": "Verify genuine Korean printed exact-card image; 085 already approved, do not repeat.",
-      "imageComplete": false,
-      "themeComplete": false,
-      "cardDataChanged": false
-    },
-    {
       "workId": 154,
       "era": "S",
       "series": "S6H",
@@ -2780,5 +2791,12 @@
       "themeComplete": false,
       "cardDataChanged": false
     }
-  ]
+  ],
+  "latestCompletion": {
+    "workId": 153,
+    "slot": "s6h_090/070",
+    "runId": 39084631437,
+    "workflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39084631437",
+    "status": "completed_image_archive_only"
+  }
 }
