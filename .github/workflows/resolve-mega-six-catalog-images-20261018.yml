@@ -1,0 +1,41 @@
+name: Resolve six catalog-only Korean MEGA card images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/resolve-mega-six-catalog-images-20261018.yml'
+      - 'scripts/resolve-mega-six-catalog-images-20261018.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: resolve-mega-six-catalog-images-20261018
+  cancel-in-progress: false
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reconcile 6 already owned Korean app photos as catalog-only not printed numbered prints
+        run: node scripts/resolve-mega-six-catalog-images-20261018.mjs
+      - name: Protect full website catalog and ownership
+        run: |
+          npm run site:check
+          npm run test:registry
+      - name: Commit six MEGA image status closures while preserving independent official evidence holds
+        run: |
+          set -euo pipefail
+          git add data/audits/korean-recovery-active-queue-20261018.json data/audits/mega-six-catalog-only-korean-image-closure-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(images): resolve six Korean MEGA virtual catalog photo holds"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
