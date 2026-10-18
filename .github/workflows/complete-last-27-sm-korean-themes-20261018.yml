@@ -1,11 +1,8 @@
 name: Complete 27 verified Korean SM artwork themes
+# This was a one-off 2026-10-18 backfill. Never re-run on test-count updates:
+# later Korean sets have valid higher theme totals, and the backfill guard must
+# not block them or reclassify already reviewed artworks.
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/complete-last-27-sm-korean-themes-20261018.yml"
-      - "scripts/complete-last-27-sm-korean-themes-20261018.mjs"
-      - "tests/theme-card-identity.test.mjs"
   workflow_dispatch:
 permissions:
   contents: write
