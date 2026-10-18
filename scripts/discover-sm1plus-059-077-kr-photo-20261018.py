@@ -50,12 +50,14 @@ def scan(n):
   im=Image.open(io.BytesIO(pic)); im.load()
   if not 300<=im.width<=2500 or not 440<=im.height<=3500 or len(pic)<9000:
    raise ValueError("unusable full card photograph")
-  if f"{n:03d}/051" not in h:
-   raise ValueError("exact printed set/number missing in Korean app detail")
+  if n<=68 and f"{n:03d}/051" not in h:
+   raise ValueError("printed identifier not verified in Korean card detail")
+  if n>=69 and ("No." not in title or f"{n:03d}" not in title):
+   raise ValueError("unnumbered energy catalog ordinal not reflected in Korean app card")
   if "한글판" not in h: raise ValueError("not clearly Korean app record")
   return {"number":n,"status":"KR_app_exact_page_image_verified","label":row["label"],
     "page":url,"title":title,"image":imageurl,"bytes":len(pic),
-    "width":im.width,"height":im.height},im.convert("RGB")
+    "width":im.width,"height":im.height,"printedNumberEvidence": "printed_exact" if n<=68 else "catalog_only_unnumbered_energy"},im.convert("RGB")
  except Exception as ex:
   return {"number":n,"status":"held","page":url,"error":str(ex)[:230]},None
 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
