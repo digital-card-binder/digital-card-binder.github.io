@@ -1,0 +1,51 @@
+name: Complete 27 verified Korean SM artwork themes
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/complete-last-27-sm-korean-themes-20261018.yml"
+      - "scripts/complete-last-27-sm-korean-themes-20261018.mjs"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: complete-last-27-sm-korean-themes-20261018
+  cancel-in-progress: false
+jobs:
+  complete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Add only 27 visually approved Korean color theme records and reconcile audits
+        run: node scripts/complete-last-27-sm-korean-themes-20261018.mjs
+      - name: Sync theme coverage, related dex, metrics and site bundle versions
+        run: |
+          npm run theme-audit:sync
+          npm run related-dex:sync
+          npm run catalog-metrics:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Run full static site and ownership regression tests
+        run: |
+          npm run site:check
+          npm run test:registry
+          npm run test:syntax
+          npm run test:architecture
+      - name: Push only if all tests pass
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/sm-final-27-korean-color-theme-art-review-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "audit(themes): review 27 Korean SM artworks and complete three set theme checkpoints"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
