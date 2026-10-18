@@ -63,8 +63,8 @@ def read_one(item):
  found=[(key,obj) for key,values in cards.items() if (key==slot or key.startswith(slot+"/")) for obj in values]
  if len(found)!=1:raise RuntimeError(f"Expected 1 canonical card for {slot}: {len(found)}")
  code,obj=found[0]
- page=exactPages.get(slot,obj.get("source",""))
- if slot=="s6k_094":
+ page=exactPages.get(slot.split("/")[0],obj.get("source",""))
+ if slot.startswith("s6k_094"):
   # Korean printed-card evidence contradicts this app's Japanese-order metadata:
   # KOR 093=안개의 수정, KOR 094=메아리호른.
   return {"slot":item["slot"],"workId":item["workId"],"code":obj["code"],
