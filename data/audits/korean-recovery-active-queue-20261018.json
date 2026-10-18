@@ -4837,7 +4837,12 @@
       "imageAcceptance": "Exact KR app card detail source and decoded card image; public CDN WebP image pixel comparison passed",
       "canonicalOrOwnedStateChanged": false,
       "status": "app_verified_Korean_image_complete_region_number_identity_hold",
-      "officialNumberProofStillPending": true
+      "officialNumberProofStillPending": true,
+      "duplicatePrintEvidence": "data/audits/sn-025-026-virtual-duplicate-print-evidence-20261018.json",
+      "printedCardNumberObserved": null,
+      "syntheticCardIdNotPhysicalPrinted": true,
+      "distinctPhysicalCardCountConfirmed": false,
+      "releaseWorkingStatus": "real_Korean_constructed_deck_energy_art_but_unique_physical_variant_count_unproved"
     },
     {
       "workId": 164,
@@ -4868,7 +4873,12 @@
         "retailerCatalog": "https://tcgbox.co.kr/category/sn-%EB%AF%B8%EB%9F%AC%EC%B9%B4%EB%93%9C-%EC%8A%A4%ED%83%80%ED%8A%B8%EB%8D%B1-100-%ED%94%BC%EC%B9%B4%EC%B8%84v-%EC%9D%B4%EB%B8%8Cv/295/",
         "finding": "SN_025 and SN_026 reference the same Korean basic Lightning Energy pixels; SN_026 has no legible physical printed number and the retailer presents SN_025 as a 10-card pack. Distinct physical print variant or editorial duplicate has not been proved.",
         "action": "Check unique inventory/catalog identity before treating SN_026 as separate physical Korean print. Do not delete or merge stored owner IDs without migration."
-      }
+      },
+      "duplicatePrintEvidence": "data/audits/sn-025-026-virtual-duplicate-print-evidence-20261018.json",
+      "printedCardNumberObserved": null,
+      "syntheticCardIdNotPhysicalPrinted": true,
+      "distinctPhysicalCardCountConfirmed": false,
+      "releaseWorkingStatus": "real_Korean_constructed_deck_energy_art_but_unique_physical_variant_count_unproved"
     }
   ],
   "latestCompletion": {
