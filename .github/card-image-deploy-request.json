@@ -1,9 +1,16 @@
 {
   "mode": "repair_only",
-  "requestId": "s6h-090-korean-existing-source-archive-recheck-20261018-1",
+  "requestId": "s6h5-s6k3-korean-print-image-recovery-20261018-1",
   "refreshM6aBase": false,
-  "reason": "Re-verify S6H 090/070 Doctor (의사) using pre-existing visually verified Korean source repair and refresh exactly that cached WebP. The 2026-10-18 unresolved queue still holds this slot. Do not touch other pending 171 entries or completed assets; keep all ownership, 12-theme membership and canonical IDs unchanged.",
+  "reason": "Refresh eight exact Korean card scans independently viewed with printed title, Korean effect text, S6H/S6K set code, 0XX/070 bottom number and HR/UR mark. S6H 088 089 091 092 093 and S6K 089 090 092. Preserve other completed repairs and avoid any S6K 093/094 identity collision.",
   "refreshCardImages": [
-    "data/wmimages/S/S6H/S6H_090.webp"
+    "data/wmimages/S/S6H/S6H_088.webp",
+    "data/wmimages/S/S6H/S6H_089.webp",
+    "data/wmimages/S/S6H/S6H_091.webp",
+    "data/wmimages/S/S6H/S6H_092.webp",
+    "data/wmimages/S/S6H/S6H_093.webp",
+    "data/wmimages/S/S6K/S6K_089.webp",
+    "data/wmimages/S/S6K/S6K_090.webp",
+    "data/wmimages/S/S6K/S6K_092.webp"
   ]
 }
