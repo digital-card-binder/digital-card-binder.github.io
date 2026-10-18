@@ -356,9 +356,12 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       `${group.code}: one slot per printed set code and card number`,
     );
     for (const card of group.cards) {
-      // S-P 115 now has a card-specific Korean Dogam source image; S-P 022 remains unverified.
+      // S-P 022 now uses Pokemon Korea's authentic Korean event preview (physical distribution separately unverified).
       if (group.code === "S-P" && /^s-p_022\/S-P$/i.test(card.code)) {
-        assert.equal(card.image, "/assets/card-image-unavailable.svg", card.code);
+        assert.equal(card.image, "https://digital-card-binder.github.io/assets/cards/s-p-korean-promo/022-korean.webp", card.code);
+        assert.equal(card.source, "https://pokemonkorea.co.kr/pkl2020_s2_card", card.code);
+        const imageBytes = await readFile(new URL("../assets/cards/s-p-korean-promo/022-korean.webp", import.meta.url));
+        assert.equal(imageBytes.subarray(0, 4).toString(), "RIFF");
       } else {
         assert.match(
           card.image,
@@ -368,7 +371,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
       }
       assert.match(
         card.source,
-        /^https:\/\/(?:pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)/,
+        /^https:\/\/(?:pokemonkorea[.]co[.]kr\/pkl2020_s2_card|pokemoncard[.]co[.]kr\/cards\/detail\/|www[.]dogam[.]app\/(?:cards|sets)\/)/,
         card.code,
       );
     }
