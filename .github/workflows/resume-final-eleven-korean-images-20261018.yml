@@ -1,0 +1,54 @@
+name: Resume last 11 Korean card image corrections
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/resume-final-eleven-korean-images-20261018.yml'
+      - 'scripts/resume-final-eleven-korean-images-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: resume-final-eleven-korean-images
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow beautifulsoup4
+      - name: Recover only remaining Korean app images
+        run: python scripts/resume-final-eleven-korean-images-20261018.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Synchronize related indices
+        run: |
+          npm run series-inventory:sync
+          npm run theme-audit:sync
+          npm run related-dex:sync
+          npm run search-index:sync
+          npm run catalog-metrics:sync
+          npm run shell:sync
+          npm run versions:sync
+      - name: Commit recovery report and mapped Korean card images
+        run: |
+          set -euo pipefail
+          git add data/series.json data/audits/final-eleven-korean-app-image-recovery-20261018.json
+          git add -u
+          if git diff --cached --quiet; then
+            echo 'No additional valid Korean app image sources'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "fix(images): resume remaining 11 Korean print image holds"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
