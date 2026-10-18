@@ -403,7 +403,7 @@ test("series catalog contains the complete Korean S and SM box catalogs", async 
     for (const card of group.cards) {
       assert.match(
         card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/sm1plus-korean)\//,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/(?:sm1plus-korean|sm2k-korean))\//,
         card.code,
       );
     }

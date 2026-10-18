@@ -80,10 +80,15 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
       assert.ok(String(card.name || "").trim(), card.code);
       assert.match(
         card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/sm1plus-korean)\//,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/(?:sm1plus-korean|sm2k-korean))\//,
         card.code,
       );
-      if (card.image.startsWith("https://digital-card-binder.github.io/assets/cards/sm1plus-korean/")) {
+      if (card.image.startsWith("https://digital-card-binder.github.io/assets/cards/sm2k-korean/")) {
+        assert.equal(group.code.toLowerCase(), "sm2k");
+        assert.equal(card.code.toLowerCase(), "sm2k_056/050");
+        assert.equal(card.image, "https://digital-card-binder.github.io/assets/cards/sm2k-korean/056.webp");
+        assert.match(card.source, /^https:\/\/www[.]dogam[.]app\/sets\/.+\/cards\//, card.code);
+      } else if (card.image.startsWith("https://digital-card-binder.github.io/assets/cards/sm1plus-korean/")) {
         assert.equal(group.code.toLowerCase(), "sm1+");
         const expected = String(index + 1).padStart(3, "0");
         assert.equal(card.image, `https://digital-card-binder.github.io/assets/cards/sm1plus-korean/${expected}.webp`);
