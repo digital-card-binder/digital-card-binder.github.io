@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-19",
+  "series": "sm2L",
+  "setName": "알로라의 달빛",
+  "totalMasterSlots": 62,
+  "resumeFrom": "data/audits/theme-resume-sm2k-holds-sm2l-next-20261019.json",
+  "checkpoint": {
+    "completedVisualThemeReviews": 1,
+    "reviewedCodes": [
+      "SM2L_005"
+    ],
+    "notReviewed": 61,
+    "nextStart": "SM2L_001..004 then 006 onwards, review each Korean print artwork; skip already reviewed 005.",
+    "priorSM2KHoldCodesStillPending": [
+      "SM2K_057",
+      "SM2K_058",
+      "SM2K_060",
+      "SM2K_061",
+      "SM2K_062"
+    ]
+  },
+  "verifiedCard": {
+    "code": "SM2L_005",
+    "KoreanPrintedName": "샹델라",
+    "printedNumber": "005/050",
+    "rarity": "R",
+    "actualKoreanPhotoSeen": true,
+    "imageArtworkObservation": "보라색 유령 불꽃과 주황빛/갈색 불꽃 배경",
+    "themeSelected": "color",
+    "category": "보라·주황",
+    "noOtherThemeApproved": true,
+    "sourceEvidence": [
+      {
+        "kind": "Korean physical printed card image",
+        "url": "https://www.ebay.com/itm/264592777875",
+        "note": "실물 사진에서 한글 카드 이름, 기술 텍스트 및 005/050 하단 표기 확인."
+      },
+      {
+        "kind": "Korean card seller catalogue",
+        "url": "https://tcgbox.co.kr/product/%EC%83%B9%EB%8D%B8%EB%9D%BCsml2/3980/",
+        "note": "SM2L 005 Korean card listing."
+      },
+      {
+        "kind": "Korean set catalogue",
+        "url": "https://carahi.kr/set/pokemon/%EC%95%8C%EB%A1%9C%EB%9D%BC%EC%9D%98%EB%8B%AC%EB%B9%9B-%ED%95%9C%EA%B8%80%ED%8C%90",
+        "note": "Korean SM2L membership reference."
+      }
+    ],
+    "imageRenderingSource": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_005.png",
+    "imageHostingNote": "Preserved pre-existing canonical image source; existing CDN resolver operates at runtime. Exact own-CDN pixel-to-photo matching and redistribution rights not independently verified; no external seller photo copied or self-hosted.",
+    "noImageFileModified": true
+  },
+  "themeSlotsBefore": {
+    "sleeping": 181,
+    "connected": 148,
+    "evolution": 79,
+    "night": 498,
+    "season": 5174,
+    "color": 9950,
+    "sunset": 259,
+    "reflections": 58,
+    "food": 184,
+    "work": 95,
+    "street": 1140,
+    "cameo": 146
+  },
+  "themeSlotsAfter": {
+    "sleeping": 181,
+    "connected": 148,
+    "evolution": 79,
+    "night": 498,
+    "season": 5174,
+    "color": 9951,
+    "sunset": 259,
+    "reflections": 58,
+    "food": 184,
+    "work": 95,
+    "street": 1140,
+    "cameo": 146
+  },
+  "totalBefore": 17912,
+  "totalAfter": 17913,
+  "safeguards": {
+    "existingCardIdsModified": 0,
+    "masterCardsModified": 0,
+    "ownershipDataModified": 0,
+    "firestoreModified": 0,
+    "otherThemeGroupsModified": 0,
+    "previousApprovedThemeRowsModified": 0,
+    "newThemeRows": 1
+  },
+  "noFalseClaimOf62CardCompletion": true
+}
