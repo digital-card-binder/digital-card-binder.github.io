@@ -1,0 +1,22 @@
+name: Inspect next 30 unreviewed Korean SM2K cards
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/inspect-sm2k-001-030-next-korean-20261018.yml"
+      - "scripts/inspect-sm2k-001-030-next-korean-20261018.py"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --quiet pillow beautifulsoup4
+      - name: Inspect first 30 SM2K exact Korean numbered card images and existing themes
+        run: python scripts/inspect-sm2k-001-030-next-korean-20261018.py
