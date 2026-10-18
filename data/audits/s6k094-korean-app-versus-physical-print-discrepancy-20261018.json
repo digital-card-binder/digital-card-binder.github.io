@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "target": "s6k_094/070",
+  "title": "Korean app S6K 093/094 cross-image printed-card identity discrepancy",
+  "readOnlyWorkflow": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39098700419",
+  "app093": {
+    "page": "https://www.dogam.app/cards/01KW1C623Q2AACTE37C6H86V44",
+    "image": "https://static.tcgexchange.kr/27f711a26fc04fbbc682270521964f28.jpg",
+    "observedPrintedLanguage": "Japanese",
+    "observedTitle": "やまびこホーン",
+    "observedPrintedNumber": "094/070",
+    "appIndex": "093"
+  },
+  "app094": {
+    "page": "https://www.dogam.app/sets/01KW0QFGBXF892GC515FMJWY30/cards/01KW1C623QH7F713BF7KXMRRNR",
+    "image": "https://static.tcgexchange.kr/ef029559a1d9428e4e35cffe972a2b58.png",
+    "observedPrintedLanguage": "Korean",
+    "observedTitle": "안개의 수정",
+    "observedPrintedNumber": "094/070",
+    "appIndex": "094"
+  },
+  "independentKoreanEvidence": [
+    {
+      "url": "https://tcgbox.co.kr/product/detail.html?product_no=13097",
+      "record": "Korean shop catalogue lists 094 as 메아리호른 (photo URL returned HTTP404)"
+    },
+    {
+      "url": "https://collectory.cc/sets/9a4e302d-fed9-4ca5-9370-786b72150099",
+      "record": "Korean catalogue lists 093 안개의 수정, 094 에코혼"
+    },
+    {
+      "file": "data/audits/theme-visual-evidence/s6K/korean-candidates/ssg-093/stage.json",
+      "record": "Older inspected Korean 093/070 안개의 수정 physical photo"
+    }
+  ],
+  "decision": "HOLD current card identity and image (Korean Echoing Horn 094 requested): image of Korean 094 Fog Crystal does NOT demonstrate Korean Echoing Horn 094; do not silently replace names or change collection identifiers.",
+  "remainingNeeded": "Independent Korean printed 094/070 Echoing Horn (메아리호른/에코혼) photo, or authoritative official correction for actual Korean 094 identity. Current alternative Korean Fog Crystal with 094 footer conflicts with other Korean-print evidence.",
+  "changesToUserOwnership": 0,
+  "changesToMasterCardImage": 0
+}
