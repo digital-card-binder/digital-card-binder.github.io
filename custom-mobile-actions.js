@@ -66,7 +66,7 @@
 
       .custom-card-actions button,
       .custom-card-actions .custom-owned-toggle {
-        min-height: 46px !important;
+        min-height: 40px !important;
       }
 
       .custom-card-actions button:not(.custom-owned-toggle) {
