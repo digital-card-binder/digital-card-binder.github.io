@@ -1,0 +1,35 @@
+name: Verify public Korean S-P 022 and preserve release hold
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-published-sp022-korean-20261018.yml'
+      - 'scripts/verify-published-sp022-korean-20261018.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: verify-published-sp022-korean
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify site self-hosted S-P 022 Korean WebP and register remaining release hold
+        run: python scripts/verify-published-sp022-korean-20261018.py
+      - name: Commit 191 queue and thematic evidence after verified public image
+        run: |
+          set -euo pipefail
+          git add data/audits/korean-recovery-active-queue-20261018.json data/audits/theme-sp-001-060-Korean-art-review-20261013.json data/audits/theme-sp-series-progress-20261013.json data/audits/sp022-live-Korean-image-proof-20261018.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(images): verify published S-P 022 Korean art; keep physical distribution hold"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
