@@ -1,9 +1,7 @@
 {
   "mode": "repair_only",
-  "requestId": "s6k089-verified-korean-image-force-cache-replacement-20261018-1",
+  "requestId": "classic-65-korean-app-card-images-deploy-20261018-1",
   "refreshM6aBase": false,
-  "reason": "Refresh exactly verified Korean S6K 089/070 Nia HR from approved source; its archive destination was reused from earlier suspect cache. Verified source must match allowlist, and no other image is touched. Re-trigger after strict pathname validator parsing fix; script now includes single-source legacy allowlist and no unrelated file can be refreshed.",
-  "refreshCardImages": [
-    "external/static.tcgexchange.kr/28a6c6a2874e2319.webp"
-  ]
+  "reason": "Deploy 65 Korean Classic (CLL/CLK/CLF) app-sourced card images newly mapped to individual source PNGs. Preserve existing source assets, canonical card IDs, 6 already-mapped unnumbered basic energy images, user ownership and themes. Source URLs pulled only from exact Dogam KR set card pages and preflight decoded.",
+  "refreshCardImages": []
 }
