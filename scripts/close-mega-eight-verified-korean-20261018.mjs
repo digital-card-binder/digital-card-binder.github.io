@@ -21,7 +21,7 @@ const c = expectedIds.map(id=>{
  if(!v||!p||v.era!=="MEGA"||v.imageComplete!==true||
  v.issue!=="first_party_official_card_identity_or_catalog_number_pending_image_verified"||
  p.verifiedKoreanWordsAndArt!==true||p.language!=="ko"||
- p.archivedImageContentNearMatchOriginal!==true||p.printedSerialNumberConfirmed!==true||
+ p.archivedImageContentNearMatch!==true||p.printedSerialNumberConfirmed!==true||
  p.printedMark!==expectedMark[id]||p.officialFirstPartyCardDetailVerified!==false||
  typeof p.approximatePixelDifference!=="number"||p.approximatePixelDifference>=18||
  !p.selfHostedUrl.startsWith("https://dcb-card-images-legacy-2026.pages.dev/"))
