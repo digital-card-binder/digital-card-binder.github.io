@@ -216,23 +216,30 @@
 
   function renderCards() {
     const group = currentGroup();
-    const cards = reviewedCards(group).filter(matches);
-    const grid = el("art-theme-card-grid");
-    grid.replaceChildren();
-    grid.classList.toggle("is-story-groups", isStoryGroup(group));
-    const sections = new Map();
-    const storyGroupSizes = new Map();
-    const visibleStorySizes = new Map();
-    if (isStoryGroup(group)) {
-      for (const entry of reviewedCards(group)) {
-        const key = entry.storyTitle || entry.category || "연결 그룹";
-        storyGroupSizes.set(key, (storyGroupSizes.get(key) || 0) + 1);
-      }
-      for (const entry of cards) {
-        const key = entry.storyTitle || entry.category || "연결 그룹";
-        visibleStorySizes.set(key, (visibleStorySizes.get(key) || 0) + 1);
+    const isStory = isStoryGroup(group);
+    const all = reviewedCards(group);
+    // Search and ownership filters select complete story sets, never individual
+    // cards within them. This preserves adjacent images and evolution order.
+    const storySets = new Map();
+    if (isStory) {
+      for (const entry of all) {
+        const title = entry.storyTitle || entry.category || "연결 그룹";
+        if (!storySets.has(title)) storySets.set(title, []);
+        storySets.get(title).push(entry);
       }
     }
+    const matchedSets = isStory
+      ? [...storySets.values()].filter((entries) => entries.some(matches))
+      : [];
+    const cards = isStory ? matchedSets.flat() : all.filter(matches);
+    const grid = el("art-theme-card-grid");
+    grid.replaceChildren();
+    grid.classList.toggle("is-story-groups", isStory);
+    const search = el("art-theme-search");
+    if (search) search.placeholder = isStory
+      ? "포켓몬 이름 또는 이야기 세트 이름으로 검색"
+      : "카드명, 세트, 번호, 장면으로 검색";
+    const sections = new Map();
     grid.setAttribute("aria-busy", "false");
     el("art-theme-result-count").textContent = cards.length;
     el("art-theme-empty").hidden = cards.length > 0;
@@ -261,18 +268,15 @@
           }
           const cardsRoot = document.createElement("div");
           cardsRoot.className = "art-theme-card-grid art-story-card-grid";
-          const fullSize = storyGroupSizes.get(title) || 0;
-          if (fullSize === visibleStorySizes.get(title) && fullSize >= 2) {
-            cardsRoot.classList.add(fullSize === 4 ? "art-story-layout-2" : "art-story-layout-" + (fullSize === 9 || fullSize === 3 ? 3 : 2));
-          }
+          const members = storySets.get(title) || [];
+          cardsRoot.classList.add("art-story-layout-" + members.length);
           section.append(cardsRoot);
           grid.append(section);
-          sections.set(title, { root: cardsRoot, count: 0, heading: detail, kind: card.storyKind });
+          const owned = members.filter((entry) => entry.owned).length;
+          detail.textContent = (card.storyKind || "연결 이야기") + " · 보유 " + owned + "/" + members.length + "장";
+          sections.set(title, { root: cardsRoot });
         }
-        const sectionData = sections.get(title);
-        sectionData.count += 1;
-        sectionData.heading.textContent = sectionData.count + "장 · " + (sectionData.kind || "연결 이야기");
-        destination = sectionData.root;
+        destination = sections.get(title).root;
       }
       const article = document.createElement("article");
       article.className = "art-theme-card";

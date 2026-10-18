@@ -63,24 +63,31 @@ html[data-card-columns="3"] .art-theme-card-grid{grid-template-columns:repeat(3,
 @media(max-width:920px){.art-theme-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-card-columns="4"] .art-theme-card-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}}
 @media(max-width:620px){.art-theme-selected-summary{align-items:flex-start}.art-theme-selected-badge{display:none}.art-theme-filter-panel{grid-template-columns:1fr}.art-theme-status-filters button{flex:1}.art-theme-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.art-theme-card-body{padding:9px 9px 60px}.art-theme-owned-button{min-height:42px}.art-theme-dialog[open]{display:block}.art-theme-dialog-image{padding:18px}.art-theme-dialog-image img{max-height:52vh}.art-theme-dialog-copy{padding:22px 18px}.art-theme-dialog-details{grid-template-columns:1fr}html[data-card-columns="4"] .art-theme-card-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}html[data-card-columns="4"] .art-theme-card-body{padding:6px 6px 45px;gap:3px}html[data-card-columns="4"] .art-theme-card h3{font-size:9px}html[data-card-columns="4"] .art-theme-card-meta,html[data-card-columns="4"] .art-theme-card-scene{font-size:7px}html[data-card-columns="4"] .art-theme-card-badges{display:none}html[data-card-columns="4"] .art-theme-owned-button{right:4px;bottom:4px;left:4px;min-height:30px;font-size:8px;padding:2px}}
 
-/* Story review: nested groups, unchanged card identity and ownership keys. */
-#art-theme-card-grid.is-story-groups{display:block}
-.art-story-section{margin:0 0 22px;padding:14px;border:1px solid #dfe5ed;border-radius:16px;background:#f7f9fc}
-.art-story-section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px}
+/* An independent row/section for every reviewed illustration or evolution set. */
+#art-theme-card-grid.is-story-groups{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.art-story-section{min-width:0;margin:0;padding:14px;border:1px solid #dfe5ed;border-radius:16px;background:#f7f9fc}
+.art-story-section-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;margin:0 0 10px}
 .art-story-section-header h3{margin:0;color:#17233f;font-size:.95rem}
-.art-story-section-header span{flex:none;color:#526078;font-size:.7rem;font-weight:700}
+.art-story-section-header span{color:#526078;font-size:.7rem;font-weight:700}
 .art-story-section-note{margin:0 0 12px;color:#64748b;font-size:.74rem;line-height:1.6}
-.art-story-card-grid{margin:0}
-@media(max-width:620px){.art-story-section{padding:10px}.art-story-section-header{align-items:flex-start;flex-direction:column;gap:4px}.art-story-section-header h3{font-size:.86rem}}
-
-/* Story illustrations keep their intended visual rows; this does not change card order or ownership. */
+.is-story-groups .art-story-card-grid{min-width:0;margin:0;display:grid;gap:12px}
 .is-story-groups .art-story-card-grid.art-story-layout-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:630px}
 .is-story-groups .art-story-card-grid.art-story-layout-3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:840px}
+.is-story-groups .art-story-card-grid.art-story-layout-4{grid-template-columns:repeat(4,minmax(0,1fr));max-width:1120px}
+/* Nine-card composite pictures preserve their 3 x 3 artwork rather than a strip. */
+.is-story-groups .art-story-card-grid.art-story-layout-9{grid-template-columns:repeat(3,minmax(0,1fr));max-width:840px}
 @media(max-width:620px){
- .is-story-groups .art-story-card-grid.art-story-layout-2{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
- .is-story-groups .art-story-card-grid.art-story-layout-3{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
- .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-body{padding:7px 6px 55px;gap:4px}
- .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card h3{font-size:.7rem}
- .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-meta{font-size:.52rem}
- .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-scene{font-size:.5rem}
+ .art-story-section{padding:10px}
+ .art-story-section-header h3{font-size:.86rem}
+ .is-story-groups .art-story-card-grid{gap:7px}
+ .is-story-groups .art-story-card-grid.art-story-layout-4{grid-template-columns:repeat(4,minmax(104px,1fr));overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:5px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3{gap:6px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-body,
+ .is-story-groups .art-story-card-grid.art-story-layout-9 .art-theme-card-body{padding:7px 6px 55px;gap:4px}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card h3,
+ .is-story-groups .art-story-card-grid.art-story-layout-9 .art-theme-card h3{font-size:.7rem}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-meta,
+ .is-story-groups .art-story-card-grid.art-story-layout-9 .art-theme-card-meta{font-size:.52rem}
+ .is-story-groups .art-story-card-grid.art-story-layout-3 .art-theme-card-scene,
+ .is-story-groups .art-story-card-grid.art-story-layout-9 .art-theme-card-scene{font-size:.5rem}
 }
