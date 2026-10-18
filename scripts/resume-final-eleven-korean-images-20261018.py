@@ -133,6 +133,26 @@ reversePattern=re.compile(r'("code"\s*:\s*"s6k_094/070"(?:(?!"code"\s*:).){0,160
 raw,correctiveReverts=reversePattern.subn(lambda m:m.group(1)+json.dumps(restore),raw)
 if correctiveReverts not in (0,1):raise RuntimeError("Unexpected repeated S6K_094 conflict")
 if correctiveReverts:print("KOREAN_S6K_094_APP_IDENTITY_CONFLICT_REVERTED")
+
+# Provenance must follow the Korean app image: the site's SM dataset validation
+# requires matching KR /sets/ card-specific source pages, not old retailer pages.
+sourceChanges=[]
+for row in results:
+ if row.get("status")!="approved_KR_app_source_decoded":continue
+ if not row.get("sourcePage","").startswith("https://www.dogam.app/sets/"):continue
+ code=row.get("code")
+ if not code:continue
+ cardsForCode=cards.get(code.lower(),[])
+ if len(cardsForCode)!=1:raise RuntimeError("Canonical source target ambiguous "+code)
+ oldSource=cardsForCode[0].get("source","")
+ newSource=row["sourcePage"]
+ if oldSource==newSource:continue
+ pat=re.compile(r'("code"\s*:\s*'+re.escape(json.dumps(code,ensure_ascii=False))+r'(?:(?!"code"\s*:).){0,1600}?"source"\s*:\s*)'+re.escape(json.dumps(oldSource,ensure_ascii=False)),re.S)
+ raw,n=pat.subn(lambda m:m.group(1)+json.dumps(newSource,ensure_ascii=False),raw)
+ if n!=1:raise RuntimeError("Refusing ambiguous source provenance correction "+code)
+ sourceChanges.append(code)
+print("KOREAN_APP_SOURCE_PROVENANCE_SYNC",json.dumps(sourceChanges,ensure_ascii=False))
+
 report={"schemaVersion":1,"date":"2026-10-18","operation":"Resume last 11 image holds (not 158 completed entries), canonical series image fields only",
 "origin":"The original series.json card-specific Dogam Korean set card URLs",
 "policy":"User explicitly approves Korean app catalog images as correct when set and card record match. Separate redistribution/license assessment not implied.",
@@ -141,9 +161,9 @@ report={"schemaVersion":1,"date":"2026-10-18","operation":"Resume last 11 image 
 "stillHeldAtSourceStage":len(work)-len(success),
 "entries":results,
 "caveat":"CDN deployment and verification required before closing the active 191 audit queue. S6K 094 display name requires reconciliation separately.",
-"canonicalCardChanges":0,"correctiveS6K094Revert":correctiveReverts,"ownershipChanges":0,"reviewOfPreviouslyCompletedCards":0}
+"canonicalCardChanges":0,"correctiveS6K094Revert":correctiveReverts,"sourceProvenanceChanges":sourceChanges,"ownershipChanges":0,"reviewOfPreviouslyCompletedCards":0}
 REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-if success or correctiveReverts:CATALOG.write_text(raw,encoding="utf-8")
+if success or correctiveReverts or sourceChanges:CATALOG.write_text(raw,encoding="utf-8")
 print("FINAL_11_APP_IMAGE_SOURCE_RESULT",json.dumps({"restored":len(success),"held":len(work)-len(success),"total":len(work),"codeSample":[x["code"] for x in success[:10]]},ensure_ascii=False))
 for item in results:
  if item["status"]!="approved_KR_app_source_decoded":print("FINAL_11_HELD",json.dumps(item,ensure_ascii=False))
