@@ -743,7 +743,8 @@
           return ok;
         });
     const stockTask = fetchLiveInventory(jobs);
-    const [mapOK,cuOK] = await Promise.all([mapTask,cuStoreTask,stockTask]);
+    const martFeedTask = loadMartInventory();
+    const [mapOK,cuOK] = await Promise.all([mapTask,cuStoreTask,stockTask,martFeedTask]);
     state.progress.active = false;
     updateProgress("검색 종료");
     render();
@@ -754,7 +755,8 @@
     setStatus("카드 재고 있음 "+positive+"곳 · 재고 응답 매장 "+withNumbers+"곳 · "+
       (mapOK?"지도 후보 검색 완료":"지도 후보 일부 조회 실패")+" · "+
       (jobs.length ? "판매처 API "+state.progress.successes+"건 성공 / "+state.progress.failures+"건 실패." :
-        "선택한 매장 유형은 자동 재고조회 미지원.")+
+        (state.martInventory.length?"인가된 대형마트 데이터 피드에서 관측된 재고가 있습니다.":
+          "선택한 매장 유형의 대형마트 자동 재고조회는 미연동입니다."))+
       " 조회되지 않은 매장은 재고 0개로 간주하지 않습니다.",
       !mapOK || state.progress.failures > 0);
     button.disabled=false;
