@@ -56,7 +56,7 @@ export async function fetchNearbyStores(db,lat,lng,radiusKm,{now=Date.now()}={})
 }
 export async function fetchDatabaseSummary(db) {
   const names=["radarStores","radarRetailers","radarProducts","radarSets",
-    "radarSkuMappings","radarStoreAliases"];
+    "radarSkuMappings","radarStoreAliases","radarObservations","radarSources"];
   const summaries=await Promise.all(names.map(async name=>{
     const result=await db.collection(name).count().get();
     return [name,result.data().count];
