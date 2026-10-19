@@ -9,11 +9,11 @@ const MAX_ROWS=1000;
 const cache=new Map();
 
 const vendors=[
-  ["emart24","convenience",/^(?:이마트24|emart\s*24)\b?/i],
+  ["emart24","convenience",/^(?:이마트24|emart\s*24)/i],
   ["seveneleven","convenience",/^(?:세븐일레븐|7\s*eleven|seven\s*eleven)/i],
   ["gs25","convenience",/^gs\s*25/i],
   ["cu","convenience",/^(?:cu(?=[^a-z]|$)|씨유)/i],
-  ["traders","mart",/^(?:트레이더스|traders)\b?/i],
+  ["traders","mart",/^(?:트레이더스|traders)/i],
   ["lottemart","mart",/^(?:롯데마트|lotte\s*mart)/i],
   ["homeplus","mart",/^(?:홈플러스|home\s*plus)/i],
   ["costco","mart",/^(?:코스트코|costco)/i],
