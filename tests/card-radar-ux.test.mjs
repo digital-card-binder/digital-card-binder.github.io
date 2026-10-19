@@ -626,3 +626,39 @@ test("GPS button reports pending searches instead of silently ignoring taps",()=
   assert.match(css,/\.radar-location-feedback:empty\{display:none\}/);
   assert.match(source,/byId\("radar-geolocate"\)\.addEventListener\("click",\(\)=>showGeolocate\(\)\)/);
 });
+
+test("mobile opens the map and shows verified stock-type pins in either map mode",()=>{
+  const js=read("card-radar.js");
+  const html=read("card-radar.html");
+  const css=read("card-radar.css");
+  const map=js.slice(js.indexOf("  function renderMapMarkers("),js.indexOf("  function render() {"));
+  assert.match(js,/window[.]matchMedia\("\(max-width: 640px\)"\)[.]matches \? "map" : "list"/);
+  assert.match(map,/hasStock && count>0 && window[.]L[.]divIcon/);
+  assert.doesNotMatch(map,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+  assert.match(map,/stockProductCount\(store\)/);
+  assert.match(map,/<small>종<\/small>/);
+  assert.match(html,/data-map-mode="all"[^>]*>.*?장소<\/button>/);
+  assert.match(html,/data-map-mode="stock"[^>]*>.*?재고<\/button>/);
+  assert.match(html,/id="radar-map-stock-summary"/);
+  assert.match(css,/\.radar-map-stock-summary\{/);
+  assert.match(js,/stockChip[.]setAttribute\("aria-pressed",String\(state[.]onlyInStock\)\)/);
+  assert.match(js,/byId\("radar-map-stock-summary"\)[.]addEventListener\("click"/);
+});
+
+test("only current supported positive card observations can contribute to the map stock badge",()=>{
+  const {state,stockProductCount}=harness();
+  const now=new Date().toISOString();
+  const stale=new Date(Date.now()-22*60*1000).toISOString();
+  const shop={verifiedInventory:[
+    {name:"포켓몬카드 30주년 팩",code:"m6a",quantity:3,checkedAt:now},
+    {name:"포켓몬카드 30주년 팩",code:"m6a",quantity:3,checkedAt:now},
+    {name:"포켓몬카드 닌자스피너",code:"m4",quantity:0,checkedAt:now},
+    {name:"포켓몬카드 메가심포니아",code:"m1S",quantity:5,checkedAt:stale},
+    {name:"포켓몬 카드지갑",code:"",quantity:20,checkedAt:now}
+  ]};
+  assert.equal(stockProductCount(shop),1);
+  state.pack="m4";
+  assert.equal(stockProductCount(shop),0);
+  state.pack="m6a";
+  assert.equal(stockProductCount(shop),1);
+});
