@@ -91,6 +91,32 @@
     byId("radar-search-completed").textContent = String(p.successes);
     byId("radar-search-failed").textContent = String(p.failures);
   }
+  function shouldOfferMapSearch(mapCenter) {
+    return !!mapCenter && Number.isFinite(mapCenter.lat) && Number.isFinite(mapCenter.lng) &&
+      validCoord(mapCenter.lat,mapCenter.lng) &&
+      distanceKm(state.center,{lat:mapCenter.lat,lng:mapCenter.lng}) > .12;
+  }
+  function searchCurrentMapArea() {
+    if (state.searching) return setStatus("현재 검색이 끝난 후 지도를 다시 검색해 주세요.");
+    if (!state.map) return setStatus("지도를 사용할 수 없습니다.",true);
+    const point = state.map.getCenter();
+    if (!validCoord(point.lat,point.lng)) return setStatus("지도 중심 위치가 올바르지 않습니다.",true);
+    state.center = {lat:point.lat,lng:point.lng};
+    state.locationLabel = "지도에서 선택한 위치";
+    state.locationChosen = true;
+    state.shops=[];
+    state.inventory=[];
+    state.mapChecked=false;
+    state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+    byId("radar-search-map-area").hidden=true;
+    if (state.radiusCircle) {
+      state.radiusCircle.setLatLng([point.lat,point.lng]);
+      state.radiusCircle.setRadius(state.radiusKm*1000);
+    }
+    updateProgress("검색 대기");
+    render();
+    void search();
+  }
   function centerMap() {
     if (!state.map) return;
     const center = [state.center.lat, state.center.lng];
@@ -117,6 +143,10 @@
         radius: 3000, color:"#456be7",fillColor:"#688bf8",fillOpacity:0.07,weight:2
       }).addTo(state.map);
       state.pinLayer = window.L.layerGroup().addTo(state.map);
+      state.map.on("moveend", () => {
+        const at = state.map.getCenter();
+        byId("radar-search-map-area").hidden = !shouldOfferMapSearch(at);
+      });
     } catch (_) {
       byId("radar-map").hidden = true;
       byId("radar-map-fallback").hidden = false;
@@ -345,7 +375,7 @@
     } catch (_) { state.inventory = []; }
   }
   // Product name is untrusted retailer data: allow confirmed TCG/pack names, reject food and merchandise.
-  const NON_CARD_ITEMS = /빵|띠부씰|스티커|샘플|젤리|캔디|껌|초콜릿|과자|스낵|쿠키|케이크|음료|사이다|콜라|우유|아이스크림|도넛|피규어|인형|키링|열쇠고리|봉제|장난감|문구|팬시|슬리브|카드홀더|바인더|카드앨범|필통|파우치|틴케이스|랜덤씰|증정/i;
+  const NON_CARD_ITEMS = /빵|띠부씰|스티커|샘플|젤리|캔디|껌|초콜릿|과자|스낵|쿠키|케이크|음료|사이다|콜라|우유|아이스크림|도넛|피규어|인형|키링|열쇠고리|봉제|장난감|문구|팬시|슬리브|카드홀더|바인더|카드앨범|필통|파우치|틴케이스|랜덤씰|증정|이즐|EZL|티머니|T-?money|캐시비|교통카드|교통.?결제|선불카드|충전카드|금액권|상품권|기프트카드|멤버십카드|카드지갑|체크카드|신용카드/i;
   const KNOWN_PACK_NAMES = [
     ...PRODUCTS.map((p) => p[1]), "나이트원더러", "배틀파트너즈",
     "테라스탈페스ex", "샤이니트레저ex", "로켓단의 영광",
@@ -358,10 +388,12 @@
     const compact = text.replace(/[\s·_/-]+/g, "").toLowerCase();
     const namedPack = KNOWN_PACK_NAMES.some((pack) =>
       compact.includes(pack.replace(/[\s·_/-]+/g, "").toLowerCase()));
-    return /(포켓몬|pokemon|pokémon).{0,25}(tcg|카드|확장팩|부스터|스타터덱)/i.test(text) ||
-      /(tcg|카드게임|트레이딩카드).{0,25}(포켓몬|pokemon|pokémon)/i.test(text) ||
-      (namedPack && (/(팩|카드|덱|부스터|확장팩)/i.test(text) || KNOWN_PACK_NAMES.some((pack) =>
-        compact === pack.replace(/[\s·_/-]+/g, "").toLowerCase())));
+    const strongTCG = /TCG|트레이딩.?카드.?게임|카드.?게임|확장팩|하이클래스팩|부스터(?:팩|박스)?|스타터(?:덱|세트)?|구축덱|카드팩|카드박스/i.test(text);
+    const hasPokemon = /(포켓몬|pokemon|pokémon)/i.test(text);
+    const namedOnly = KNOWN_PACK_NAMES.some((pack) =>
+      compact === pack.replace(/[\s·_/-]+/g, "").toLowerCase());
+    return (hasPokemon && strongTCG) ||
+      (namedPack && (namedOnly || /팩|박스|덱|세트|카드|TCG/i.test(text)));
   }
   function inventoryLabel(store) {
     const cardItems = (store.verifiedInventory || []).filter((p) =>
@@ -629,7 +661,9 @@
     if(state.pack) return [PACK_TITLES.get(state.pack)].filter(Boolean);
     // These broad queries cover multiple supported card products, without imposing a pack selection.
     // This is not the entire retailer product universe: supported product coverage is best-effort.
-    return ["포켓몬카드","포켓몬스터30주년","스톰에메랄다"];
+    // Exact set and pack queries prevent a generic "card" keyword from selecting transit cards.
+    // This is a bounded best-effort search, NOT an exhaustive retailer inventory index.
+    return ["인페르노X","닌자스피너","30th CELEBRATION","메가심포니아","포켓몬카드 부스터팩"];
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" || state.kind === "cardshop" ? [] :
@@ -707,6 +741,7 @@
       if(event.key==="Enter"){event.preventDefault();void findPlace();}
     });
     byId("radar-search").addEventListener("click",()=>void search());
+    byId("radar-search-map-area").addEventListener("click",searchCurrentMapArea);
     const stockFilter = byId("radar-only-in-stock");
     stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
     initMap();
