@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -397,4 +397,32 @@ test("selected convenience brand only queries its retailer, avoiding wasted thir
   assert.equal(inventoryJobs().length,0);
   state.convenienceBrand="all";
   assert.equal(inventoryJobs().length,20);
+});
+
+test("changing a pack after a search schedules pack-specific refresh, never only filters old stock",()=>{
+  const {schedulePackRefresh,state}=harness();
+  let requests=0;
+  const refresh=()=>{requests++;};
+  assert.equal(schedulePackRefresh(refresh),false,"before first search, selection is just a choice");
+  assert.equal(requests,0);
+  state.hasSearched=true;
+  assert.equal(schedulePackRefresh(refresh),true,"after first search it refreshes automatically");
+  assert.equal(requests,1);
+  assert.equal(state.packRefreshPending,false);
+  state.searching=true;
+  assert.equal(schedulePackRefresh(refresh),false,"avoid overlapping 20-job searches");
+  assert.equal(requests,1);
+  assert.equal(state.packRefreshPending,true,"queue one refresh for the final selected pack");
+  assert.equal(schedulePackRefresh(refresh),false);
+  assert.equal(requests,1,"multiple option changes during search only queue one retry");
+});
+
+test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
+  const html=read("card-radar.html");
+  assert.match(html,/id="radar-pack-coverage-note"/);
+  assert.match(html,/모든 매장의 전 품목을 전수 확인하는 기능은 아직 아닙니다/);
+  assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
+  assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
+  assert.match(source,/state[.]hasSearched = true/);
+  assert.match(source,/if\(state[.]pack\) return \[PACK_TITLES[.]get\(state[.]pack\)\]/);
 });
