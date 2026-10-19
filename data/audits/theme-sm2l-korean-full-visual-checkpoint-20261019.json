@@ -5,7 +5,7 @@
   "sourceInitialAudit": "data/audits/theme-sm2l-korean-visual-confirmation-batch01-20261019.json",
   "sourceImageByteAudit": "data/audits/theme-sm2l-canonical-image-http-and-decoding-20261019.json",
   "additionalReviewProofRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39192532643",
-  "imageEvidenceMethod": "42 official Korean CDN prints and retail KOR scans were visually read for name and printed SM2L/050 set numbers from 3-up true card image panels and enlarged footer strips; all SHA256s re-fetched and matched prior byte audit. Image pixel verification, not OCR.",
+  "imageEvidenceMethod": "All 43 outstanding Korean canonical card images (official Korean CDN and domestic Korean retailers) were visually read for Korean names and SM2L/050 printed numbers from 3-up actual card-face panels and enlarged bottom strips; image SHA256s were independently re-fetched and matched existing source records. This is not OCR or filename-only matching.",
   "note": "All 43 previously outstanding images were displayed and their Korean card-face/title and footer ID were inspected, not merely indexed. Physical retail card provenance or counterfeiting is not assessed.",
   "masterCards": 62,
   "picturesDownloadedAndDecoded": 62,
@@ -26,8 +26,8 @@
     "koreanPrintedNameVisuallyRead": "기본 격투 에너지",
     "canonicalMasterName": "격투 에너지",
     "printedBottomNumber": "062/050",
-    "displayedCardIsGenuineKoreanLayout": true,
-    "disposition": "Preserve master and prior owned-card keys. Determine if printed full name should be exposed as a display alias, with compatibility tests, before marking canonical exact-name checks complete. Do not treat as missing artwork."
+    "disposition": "Preserve master and prior owned-card keys. Determine if printed full name should be exposed as a display alias, with compatibility tests, before marking canonical exact-name checks complete. Do not treat as missing artwork.",
+    "koreanTextAndCardLayoutObserved": true
   },
   "koreanNumberMappingHolds": [],
   "overallArtworkThematicScreen": 62,
