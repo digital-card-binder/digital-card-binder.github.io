@@ -388,8 +388,9 @@
       if (!name || !validCoord(lat,lng)) return [];
       const distance = distanceKm(state.center,{lat,lng});
       if (distance > state.radiusKm+.03) return [];
-      return [{id:"cu:"+String(raw.storeCode||name).slice(0,90),name,lat,lng,distance,
-        retailerId:"cu",chain:"CU",kind:"convenience",addr:String(raw.address||"").slice(0,120),
+      return [{id:"cu:"+String(raw.storeCode||name).slice(0,90),
+        storeId:String(raw.storeCode||"").trim().slice(0,90),
+        name,lat,lng,distance,retailerId:"cu",chain:"CU",kind:"convenience",addr:String(raw.address||"").slice(0,120),
         origin:"retailer-directory",verifiedInventory:[]}];
     });
   }
@@ -574,8 +575,14 @@
     for(const official of state.masterShops){
       if(!selectedKind(official) || distanceKm(state.center,official)>state.radiusKm+.03)continue;
       const existing=merged.find((candidate)=>
-        candidate.storeId===official.storeId ||
-        (candidate.kind===official.kind && distanceKm(candidate,official)<.10 &&
+        (candidate.storeId && official.storeId &&
+          candidate.storeId===official.storeId &&
+          candidate.kind===official.kind &&
+          candidate.retailerId===official.retailerId &&
+          distanceKm(candidate,official)<.5) ||
+        (candidate.kind===official.kind &&
+          (!candidate.retailerId||candidate.retailerId===official.retailerId) &&
+          distanceKm(candidate,official)<.10 &&
           (normalizeShopName(candidate.name)===normalizeShopName(official.name) ||
           ((retailChain(candidate.chain||candidate.name)===official.retailerId) &&
             distanceKm(candidate,official)<.03))));
@@ -754,9 +761,10 @@
     for (const source of known) {
       let target = merged.find((candidate) =>
         sameRetailerForStock(candidate,source) &&
-        (candidate.storeId && source.id && candidate.storeId===source.id ||
-          normalizeShopName(candidate.name)===normalizeShopName(source.name) &&
-          distanceKm(candidate,source)<.13));
+        ((candidate.storeId && source.id && candidate.storeId===source.id &&
+          distanceKm(candidate,source)<.5) ||
+          (normalizeShopName(candidate.name)===normalizeShopName(source.name) &&
+          distanceKm(candidate,source)<.13)));
       if (!target) {
         target = {id:"feed:"+source.id,name:source.name,lat:source.lat,lng:source.lng,
           distance:distanceKm(state.center,source),kind:source.kind,
@@ -771,7 +779,8 @@
       if(source.kind==="mart")target.chain=source.chain||target.chain||"";
       const existing = target.verifiedInventory || [];
       for (const item of source.items || []) {
-        const index = existing.findIndex((p) => p.provider === item.provider && p.name === item.name);
+        const index = existing.findIndex((p) => p.provider===item.provider &&
+          stockProductIdentity(p)===stockProductIdentity(item));
         if (index >= 0) existing[index] = item;
         else existing.push(item);
       }
@@ -867,6 +876,18 @@
     }
     render();
   }
+  // Official apps provide store/product lookup, not an authorized API feed
+  // for our site. These are verified Google Play listings, not store/SKU deep links.
+  const OFFICIAL_STOCK_APPS=Object.freeze({
+    cu:"https://play.google.com/store/apps/details?id=com.bgfcu.membership",
+    gs25:"https://play.google.com/store/apps/details?id=com.gsr.gs25",
+    seveneleven:"https://play.google.com/store/apps/details?id=kr.co.kork7app",
+    emart24:"https://play.google.com/store/apps/details?id=kr.co.emart24.everse"
+  });
+  function officialStockApp(store){
+    return store?.kind==="convenience" ?
+      OFFICIAL_STOCK_APPS[convenienceChain(store)]||"" : "";
+  }
   function addStoreCard(target,store) {
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
@@ -897,6 +918,14 @@
     google.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(store.lat+","+store.lng);
     google.target="_blank";google.rel="noopener noreferrer";
     buttons.append(google);
+    const officialApp=officialStockApp(store);
+    if(officialApp){
+      const verify=make("a","radar-official-stock-link","공식 앱에서 확인");
+      verify.href=officialApp;
+      verify.target="_blank";verify.rel="noopener noreferrer";
+      verify.title="공식 판매처 앱에서 이 상품과 매장을 직접 검색해 확인하세요. 재고가 있다는 뜻은 아닙니다.";
+      buttons.append(verify);
+    }
     if(mart && mart.lookupUrl) {
       const lookup=make("a","radar-mart-lookup-link",mart.lookupLabel+" ↗");
       lookup.href=mart.lookupUrl;
