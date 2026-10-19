@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, normalizeRetailerArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -734,4 +734,21 @@ test("stock product identity uses retailer SKU when present and normalized name 
     stockProductIdentity({name:" 포켓몬카드 닌자스피너팩 "}));
   state.pack="";
   assert.equal(stockProductCount({verifiedInventory:[productA,productB]}),1);
+});
+
+test("Emart24 retries district after local neighborhood 500 but not after 403/429",()=>{
+  const {normalizeRetailerArea,normalizeRetailerDistrict,emart24FallbackArea}=harness();
+  const address={address:{suburb:"금곡동",city_district:"분당구",city:"성남시"}};
+  assert.equal(normalizeRetailerArea(address),"금곡동");
+  assert.equal(normalizeRetailerDistrict(address),"분당");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 500"),"금곡동","분당"),"분당");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 503"),"금곡동","분당"),"분당");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 403"),"금곡동","분당"),"");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 429"),"금곡동","분당"),"");
+  assert.equal(emart24FallbackArea("seveneleven",new Error("HTTP 500"),"금곡동","분당"),"");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 500"),"분당","분당"),"");
+  assert.equal(emart24FallbackArea("emart24",new Error("HTTP 500"),"금곡동",""),"");
+  assert.match(source,/const wider=emart24FallbackArea\(task\.provider,error,/);
+  assert.match(source,/emart24PreferDistrict=true/);
+  assert.match(source,/retailerAreaCache\.set\(key,\{keyword,district:/);
 });
