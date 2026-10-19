@@ -310,8 +310,8 @@ test("inventory map controls reuse the same stock filter, without fabricated nat
   assert.match(css,/[.]radar-map-mode button\[data-map-mode="stock"\][.]selected/);
   assert.match(source,/document[.]querySelectorAll\("\[data-map-mode\]"\)[.]forEach/);
   assert.match(source,/renderMapMarkers\(displayedStores\)/);
-  assert.match(source,/if\(state[.]onlyInStock && hasStock\)/);
-  assert.match(source,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+  assert.match(source,/if\(hasStock\)popup[.]append/);
+  assert.match(source,/hasStock && count>0 && window[.]L[.]divIcon/);
   assert.match(source,/stockProductCount\(store\)/);
   assert.match(source,/state[.]onlyInStock\?"stock":"all"/);
   assert.match(source,/byId\("radar-map-mode-count"\)[.]textContent/);
