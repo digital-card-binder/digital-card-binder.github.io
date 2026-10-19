@@ -6,7 +6,7 @@ import test from "node:test";
 const read = (name) => readFileSync(new URL("../" + name, import.meta.url), "utf8");
 const source = read("card-radar.js");
 
-function harness() {
+function harness(options = {}) {
   const nodes = new Map();
   const element = (id) => {
     if (!nodes.has(id)) {
@@ -27,12 +27,13 @@ function harness() {
   };
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
-    "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
+    ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
+    "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
     "parseRetail, matchesRequestedCardProduct, mergeInventory, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
-  const sandbox = { document, window: {}, console, URL, URLSearchParams, Date, Math };
+  const sandbox = { document, window: options.window || {}, navigator: options.navigator || {}, console, URL, URLSearchParams, Date, Math };
   runInNewContext(body, sandbox, { filename: "card-radar.js" });
   return { ...sandbox.__radarTests, element };
 }
@@ -561,4 +562,67 @@ test("Emart24 branch labels are all recognized as convenience stores, not superm
   const query=categoryQuery(3000,37.5,127.02);
   assert.match(query,/nwr\["shop"="convenience"\]\["brand"/);
   assert.match(query,/이마트 \?24/);
+});
+
+test("GPS selection immediately starts nearby search after positioning the map",()=>{
+  let requested=0,calls=0,opts=null;
+  const geo=harness({stubView:true,navigator:{geolocation:{
+    getCurrentPosition(ok,fail,options){
+      calls++;
+      opts=options;
+      ok({coords:{latitude:37.3589,longitude:127.1077}});
+    }
+  }}});
+  geo.state.center={lat:37.5665,lng:126.978};
+  geo.state.shops=[{name:"old shop"}];
+  geo.element("radar-place").value="강남역";
+  geo.showGeolocate(()=>{requested++;});
+  assert.equal(calls,1);
+  assert.equal(requested,1,"successful GPS must automatically search new surroundings");
+  assert.equal(geo.state.locationChosen,true);
+  assert.equal(geo.state.locationLabel,"내 위치");
+  assert.equal(geo.state.center.lat,37.3589);
+  assert.equal(geo.state.center.lng,127.1077);
+  assert.equal(geo.state.shops.length,0,"old area results are removed");
+  assert.equal(geo.element("radar-place").value,"","stale text search must not constrain Seven-Eleven");
+  assert.equal(geo.element("radar-geolocate").disabled,false,"GPS button is restored");
+  assert.match(geo.element("radar-location-feedback").textContent,/주변 편의점과 마트를 검색합니다/);
+  assert.equal(opts.enableHighAccuracy,true);
+  assert.ok(opts.timeout>=12000);
+});
+
+test("GPS failures show actionable, local permission/location messages",()=>{
+  for(const [errorCode,expected] of [
+    [1,/위치 권한이 차단/],[2,/기기 위치 서비스/],[3,/시간이 초과/],[99,/위치를 확인하지 못/]
+  ]){
+    let started=0;
+    const geo=harness({stubView:true,navigator:{geolocation:{
+      getCurrentPosition(ok,fail){fail({code:errorCode});}
+    }}});
+    geo.showGeolocate(()=>started++);
+    assert.equal(started,0);
+    assert.equal(geo.element("radar-geolocate").disabled,false);
+    assert.match(geo.element("radar-location-feedback").textContent,expected);
+  }
+  const denied=harness({stubView:true,navigator:{}});
+  denied.showGeolocate(()=>{throw Error("must not search");});
+  assert.match(denied.element("radar-location-feedback").textContent,/브라우저에서는 위치 확인을 사용할 수 없습니다/);
+  const insecure=harness({stubView:true,window:{isSecureContext:false},navigator:{geolocation:{}}});
+  insecure.showGeolocate(()=>{throw Error("must not search");});
+  assert.match(insecure.element("radar-location-feedback").textContent,/HTTPS/);
+});
+
+test("GPS button reports pending searches instead of silently ignoring taps",()=>{
+  let calls=0;
+  const geo=harness({stubView:true,navigator:{geolocation:{
+    getCurrentPosition(){calls++;}
+  }}});
+  geo.state.searching=true;
+  geo.showGeolocate(()=>{throw Error("search must not overlap");});
+  assert.equal(calls,0);
+  assert.match(geo.element("radar-location-feedback").textContent,/검색이 끝나면/);
+  const html=read("card-radar.html"),css=read("card-radar.css");
+  assert.match(html,/id="radar-location-feedback"/);
+  assert.match(css,/\.radar-location-feedback:empty\{display:none\}/);
+  assert.match(source,/byId\("radar-geolocate"\)\.addEventListener\("click",\(\)=>showGeolocate\(\)\)/);
 });
