@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -235,7 +235,7 @@ test("map/retail sources classify shops and official mart correctly", () => {
   const {category}=harness();
   assert.equal(category({shop:"convenience",name:"CU 팽성남산로점"}),"convenience");
   assert.equal(category({shop:"supermarket",name:"이마트 속초점"}),"mart");
-  assert.equal(category({shop:"games",name:"카드 상점"}),"cardshop");
+  assert.equal(category({shop:"games",name:"카드 상점"}),null);
   const data=JSON.parse(read("data/card-radar-stores.json"));
   const target=data.stores.find(s=>s.name==="이마트 속초점");
   assert.ok(target);
@@ -420,9 +420,53 @@ test("changing a pack after a search schedules pack-specific refresh, never only
 test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
   const html=read("card-radar.html");
   assert.match(html,/id="radar-pack-coverage-note"/);
-  assert.match(html,/모든 매장의 전 품목을 전수 확인하는 기능은 아직 아닙니다/);
+  assert.match(html,/전체 카드팩은 주요 상품부터 검색합니다/);
   assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
   assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
   assert.match(source,/state[.]hasSearched = true/);
   assert.match(source,/if\(state[.]pack\) return \[PACK_TITLES[.]get\(state[.]pack\)\]/);
+});
+
+test("radar results include only convenience stores and marts regardless of feed type",()=>{
+  const {state,category,parseShops,storeCandidates,filterStoresForDisplay}=harness();
+  state.center={lat:37.42,lng:127.1};
+  state.radiusKm=3;
+  const elements=[
+    {type:"node",id:1,lat:37.42,lon:127.1,tags:{shop:"convenience",name:"CU 테스트"}},
+    {type:"node",id:2,lat:37.4201,lon:127.1,tags:{shop:"supermarket",name:"이마트 테스트"}},
+    {type:"node",id:3,lat:37.4202,lon:127.1,tags:{shop:"games",name:"포켓몬 카드샵"}},
+    {type:"node",id:4,lat:37.4203,lon:127.1,tags:{shop:"bakery",name:"빵집"}}
+  ];
+  assert.equal(category(elements[2].tags),null);
+  assert.equal(category(elements[3].tags),null);
+  const map=parseShops(elements);
+  assert.deepEqual([...map].map(x=>x.kind),["convenience","mart"]);
+  state.masterShops=[
+    {storeId:"test-cardshop",name:"카드샵 지점",kind:"cardshop",lat:37.42,lng:127.1,verifiedInventory:[]},
+    {storeId:"mart-store",name:"롯데마트 테스트",kind:"mart",lat:37.425,lng:127.1,verifiedInventory:[]}
+  ];
+  state.publicShops=[];
+  state.retailerShops=[];
+  state.curatedShops=[];
+  const merged=storeCandidates([...map,{name:"우연히 들어온 카드샵",kind:"cardshop",lat:37.42,lng:127.1}]);
+  assert.ok(merged.every(x=>x.kind==="convenience"||x.kind==="mart"));
+  assert.equal(filterStoresForDisplay(merged).length,merged.length);
+});
+
+test("store query never requests game/card shops and compact UI has just one visit notice",()=>{
+  const {categoryQuery}=harness();
+  const query=categoryQuery(3000,37.42,127.1);
+  assert.ok(!query.includes('shop"="games"'),"no unnecessary card shop query");
+  assert.match(query,/convenience/);
+  assert.match(query,/supermarket/);
+  const html=read("card-radar.html");
+  const css=read("card-radar.css");
+  assert.doesNotMatch(html,/value="cardshop"|is-cardshop|radar-explain|카드샵/);
+  assert.doesNotMatch(css,/radar-explain|is-cardshop|kind--cardshop/);
+  assert.doesNotMatch(source,/cardshop|카드샵/);
+  assert.match(html,/class="radar-visit-note">방문 전 매장 재고를 다시 확인해 주세요/);
+  assert.equal((html.match(/class="radar-visit-note"/g)||[]).length,1);
+  assert.match(html,/재고 확인 범위 <span>자세히<\/span>/);
+  assert.match(html,/id="radar-db-status"/);
+  assert.match(html,/id="radar-public-status"/);
 });

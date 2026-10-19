@@ -51,7 +51,7 @@
     const shop = String(tags.shop || "");
     if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven|이마트24|emart24)/i.test(name) && !/이마트(?!24)|E-?Mart(?!24)/i.test(name.replace(/이마트24|emart24/ig,""))) return "convenience";
     if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
-    return "cardshop";
+    return null;
   }
   function martBrand(name) {
     const nameKey=String(name||"").toLowerCase().replace(/[\s._-]+/g,"");
@@ -83,6 +83,8 @@
     return "other";
   }
   function selectedKind(store) {
+    // Only locations for convenience stores and marts belong on the radar.
+    if(!["convenience","mart"].includes(store.kind))return false;
     if(state.kind!=="all" && store.kind!==state.kind)return false;
     if(state.kind==="mart" && state.martBrand!=="all")
       return martBrand(store.chain||store.name)===state.martBrand;
@@ -297,8 +299,7 @@
       'nwr["shop"="wholesale"]' + around + ";" +
       'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
       'nwr["name"~"트레이더스|Traders|코스트코|Costco|하나로마트|롯데마트|홈플러스|이마트",i]' + around + ";" +
-      'nwr["shop"="games"]["name"~"카드|TCG|포켓몬|Pokemon",i]' + around + ";" +
-      ");out center " + MAX_SHOPS + ";";
+       ");out center " + MAX_SHOPS + ";";
   }
   function parseShops(elements) {
     const seen = new Set(), shops = [];
@@ -306,7 +307,8 @@
       const tags = element.tags || {};
       const coords = recordCoords(element);
       const name = safeStoreName(tags);
-      if (!coords || !name) continue;
+      const kind = category(tags);
+      if (!coords || !name || !kind) continue;
       const distance = distanceKm(state.center, coords);
       if (distance > state.radiusKm + 0.03) continue;
       const key = element.type + ":" + element.id;
@@ -314,7 +316,7 @@
       seen.add(key);
       shops.push({
         id:key, name, lat:coords.lat, lng:coords.lng,
-        kind:category(tags), chain:String(tags.brand||tags.operator||"").slice(0,45),
+        kind, chain:String(tags.brand||tags.operator||"").slice(0,45),
         distance, origin:"osm",
         addr: String(tags["addr:full"] || tags["addr:street"] || tags["addr:city"] || "").slice(0,120),
         verifiedInventory:[]
@@ -507,7 +509,7 @@
   async function loadPublicShopLocations(){
     const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
       lng:state.center.lng.toFixed(6),radiusKm:String(state.radiusKm),limit:"250"});
-    if(["mart","convenience","cardshop"].includes(state.kind))params.set("kind",state.kind);
+    if(["mart","convenience"].includes(state.kind))params.set("kind",state.kind);
     if(state.kind==="convenience"&&state.convenienceBrand!=="all"&&state.convenienceBrand!=="other")
       params.set("retailer",state.convenienceBrand);
     if(state.kind==="mart"&&state.martBrand!=="all"&&state.martBrand!=="other")
@@ -517,10 +519,10 @@
     return parsePublicShopLocations(payload);
   }
   function storeCandidates(shops) {
-    const merged = shops.map((store)=>({ ...store }));
+    const merged = shops.filter(selectedKind).map((store)=>({ ...store }));
     // Independently verified stores are included even when OSM lacks the chain.
     for(const official of state.masterShops){
-      if(distanceKm(state.center,official)>state.radiusKm+.03)continue;
+      if(!selectedKind(official) || distanceKm(state.center,official)>state.radiusKm+.03)continue;
       const existing=merged.find((candidate)=>
         candidate.storeId===official.storeId ||
         (candidate.kind===official.kind && distanceKm(candidate,official)<.10 &&
@@ -545,6 +547,7 @@
     // Public business registry results are location candidates only. The source
     // never supplies retailer-authorized stock or internal product observations.
     for(const publicStore of state.publicShops){
+      if(!selectedKind(publicStore))continue;
       const existing=merged.find(candidate=>candidate.kind===publicStore.kind &&
         distanceKm(candidate,publicStore)<.06 &&
         normalizeShopName(candidate.name).replace(/점$/,"")===
@@ -553,6 +556,7 @@
       if(!existing.addr)existing.addr=publicStore.addr;
     }
     for (const retailer of state.retailerShops) {
+      if(!selectedKind(retailer))continue;
       const existing=merged.find((store)=>
         store.kind === retailer.kind &&
         distanceKm(store,retailer)<.12 &&
@@ -564,7 +568,7 @@
     // The directory does NOT supply stock quantities.
     if (!state.mapChecked && !state.searching) return merged;
     for (const official of state.curatedShops) {
-      if (distanceKm(state.center,official) > state.radiusKm + .03) continue;
+      if (!selectedKind(official) || distanceKm(state.center,official) > state.radiusKm + .03) continue;
       const existing = merged.find((store)=>
         store.kind === official.kind &&
         retailChain(store.name) === retailChain(official.chain || official.name) &&
@@ -590,11 +594,11 @@
         chain:String(store.chain||"").slice(0,40),
         lat:Number(store.lat),lng:Number(store.lng),
         addr:String(store.address||"").slice(0,120),
-        kind:["convenience","mart","cardshop"].includes(store.kind)?store.kind:"mart",
+        kind:["convenience","mart"].includes(store.kind)?store.kind:null,
         phone:String(store.phone||"").slice(0,30),
         sourceUrl:typeof store.sourceUrl==="string"&&/^https:\/\//.test(store.sourceUrl)?store.sourceUrl:"",
         origin:"official-directory",verifiedInventory:[]
-      })).filter((store)=>store.name && validCoord(store.lat,store.lng));
+      })).filter((store)=>store.kind && store.name && validCoord(store.lat,store.lng));
     } catch (_) {
       // Missing directory data never fabricates stores or stock.
       state.curatedShops=[];
@@ -677,7 +681,7 @@
     // Only records supplied by this site's separately maintained authorized feed are stock records.
     // OpenStreetMap entries are location candidates, never evidence of inventory or card sales.
     const known = [...state.inventory,...state.martInventory].filter((s) => {
-      return validCoord(s.lat,s.lng) && distanceKm(state.center,s) <= state.radiusKm + .03;
+      return selectedKind(s) && validCoord(s.lat,s.lng) && distanceKm(state.center,s) <= state.radiusKm + .03;
     });
     const merged = storeCandidates(shops);
     for (const source of known) {
@@ -713,13 +717,13 @@
         id:String(item.id || "").slice(0,90),
         name:String(item.name || "").slice(0,90),
         lat:Number(item.lat), lng:Number(item.lng),
-        kind:["convenience","mart","cardshop"].includes(item.kind) ? item.kind : "cardshop",
+        kind:["convenience","mart"].includes(item.kind) ? item.kind : null,
         address:String(item.address || "").slice(0,120),
         items:Array.isArray(item.items) ? item.items.filter((p) => Number.isInteger(p.quantity) && p.quantity >= 0 &&
           typeof p.name === "string" && typeof p.checkedAt === "string" && Number.isFinite(Date.parse(p.checkedAt)))
           .slice(0,80).map((p) => ({code:String(p.code || "").slice(0,25),
             name:p.name.slice(0,90),quantity:p.quantity,checkedAt:p.checkedAt})) : []
-      })).filter((item) => item.id && item.name && validCoord(item.lat,item.lng));
+      })).filter((item) => item.kind && item.id && item.name && validCoord(item.lat,item.lng));
     } catch (_) { state.inventory = []; }
   }
   // Product name is untrusted retailer data: allow confirmed TCG/pack names, reject food and merchandise.
@@ -791,7 +795,7 @@
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
     const typeName=store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
-      store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):"카드샵 후보";
+      martBrandLabel(martBrand(store.chain||store.name));
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
     header.append(title,badge);
@@ -853,9 +857,9 @@
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
     for (const store of shops) {
-      const mapColors={convenience:"#4168dc",mart:"#ed9b2a",cardshop:"#168b83"};
+      const mapColors={convenience:"#4168dc",mart:"#ed9b2a"};
       const hasStock=inventoryLabel(store).known;
-      const color=mapColors[store.kind]||mapColors.cardshop;
+      const color=mapColors[store.kind]||mapColors.mart;
       const count=stockProductCount(store);
       const marker=(state.onlyInStock && hasStock && window.L.divIcon
         ? window.L.marker([store.lat,store.lng],{
@@ -871,7 +875,7 @@
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
         make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
-            store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:"카드샵 후보")+
+            CONVENIENCE_CHAIN_LABELS[convenienceChain(store)])+
           " · "+(stock.known?stock.message:stock.detail)));
       if(state.onlyInStock && hasStock)popup.append(make("small","",
         "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
@@ -932,8 +936,8 @@
     state.retailerShops = [];
     state.masterShops = [];
     state.publicShops = [];
-    byId("radar-public-status").textContent="정부 상가 위치 보강 조회 중…";
-    byId("radar-db-status").textContent="자체 DB 매장 정보 확인 중…";
+    byId("radar-public-status").textContent="주변 매장 정보를 찾는 중…";
+    byId("radar-db-status").textContent="매장 정보를 확인하는 중…";
     state.inventory = [];
     state.mapChecked = false;
     state.providerNotes = [];
@@ -973,11 +977,11 @@
     const dbTask=loadSelfDbStores()
       .then((records)=>{
         state.masterShops=records;
-        byId("radar-db-status").textContent="자체 DB 등록 매장 "+records.length+"곳 조회 · 미연결 매장의 재고는 미확인";
+        byId("radar-db-status").textContent="등록된 매장 "+records.length+"곳 확인";
         return true;
       })
       .catch(()=>{
-        byId("radar-db-status").textContent="자체 DB 일시 조회 불가 · 공개 지도 매장 후보만 표시";
+        byId("radar-db-status").textContent="일부 매장 정보를 가져오지 못했습니다.";
         return false;
       }).then((ok)=>{
         completeProgressStep(ok,"자체 DB 매장 조회 중",false);
@@ -987,19 +991,13 @@
     const govTask=loadPublicShopLocations().then(result=>{
       state.publicShops=result.stores;
       byId("radar-public-status").textContent=result.configured
-        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · 중심 원자료 "+
-          result.sourceRowsExamined+"건 / "+result.pagesFetched+"페이지 검토"+(
-          result.supplementalCentersAttempted?
-            " · 외곽 "+result.supplementalCentersFetched+"/"+
-            result.supplementalCentersAttempted+"방향 1페이지씩 추가 ("+
-            result.supplementalRowsExamined+"건)":"" )+(
-          result.sourceYearMonth?" · 기준 "+result.sourceYearMonth:"")+" · "+
-          (result.coverageLimited?"부분 조회(전체 범위 보장 안 됨)":"조회 범위 확인")+" · 재고 미확인"
-        : "정부 상가 위치 보강: 공공데이터 API 키 등록 전 · 기존 검색은 계속 이용 가능";
+        ? "주변 매장 후보 "+result.stores.length+"곳 추가 확인"+
+          (result.coverageLimited?" · 일부 구역은 빠져 있을 수 있습니다.":"")
+        : "일부 매장 정보를 확인할 수 없습니다.";
       return result.configured;
     }).catch(()=>{
       byId("radar-public-status").textContent=
-        "정부 상가 위치 보강 일시 조회 불가 · 기존 지도 및 자체 DB 결과 유지";
+        "일부 매장 정보를 가져오지 못했습니다.";
       return false;
     }).then(ok=>{
       completeProgressStep(ok,"정부 상가 위치 조회",false);
@@ -1016,15 +1014,10 @@
       .filter((store)=>store.distance <= state.radiusKm + .03);
     const withNumbers = candidates.filter((store)=>inventoryLabel(store).checked).length;
     const positive = candidates.filter((store)=>inventoryLabel(store).known).length;
-    setStatus("카드 재고 있음 "+positive+"곳 · 재고 응답 매장 "+withNumbers+"곳 · "+
-      (mapOK?"지도 후보 검색 완료":"지도 후보 일부 조회 실패")+" · "+
-      (dbOK?"자체 DB 매장 조회 완료":"자체 DB 일시 조회 불가")+" · "+
-      (govOK?"정부 상가 위치 보강 조회 완료":"정부 상가 API 미설정 또는 일시 조회 불가")+" · "+
-      (jobs.length ? "판매처 API "+state.progress.successes+"건 성공 / "+state.progress.failures+"건 실패." :
-        (state.martInventory.length?"인가된 대형마트 데이터 피드에서 관측된 재고가 있습니다.":
-          "선택한 매장 유형의 대형마트 자동 재고조회는 미연동입니다."))+
-      " 조회되지 않은 매장은 재고 0개로 간주하지 않습니다.",
-      !mapOK || !dbOK || state.progress.failures > 0);
+    const partial = !mapOK || !dbOK || !govOK || state.progress.failures>0;
+    setStatus("재고 확인 "+positive+"곳 · 주변 매장 "+candidates.length+"곳. "+
+      (partial?"일부 매장은 조회하지 못했습니다. ":"")+
+      "재고 미확인 매장은 품절이 아닐 수 있습니다.",partial);
     button.disabled=false;
     state.searching=false;
     // A pack changed while this search was running. Never treat an old broad
@@ -1132,7 +1125,7 @@
     return ["인페르노X","닌자스피너","30th CELEBRATION","메가심포니아","포켓몬카드 부스터팩"];
   }
   function inventoryJobs() {
-    const providers = state.kind === "mart" || state.kind === "cardshop" ? [] :
+    const providers = state.kind === "mart" ? [] :
       (state.kind === "convenience" && state.convenienceBrand !== "all"
         ? (state.convenienceBrand === "other" ? [] : [state.convenienceBrand])
         : ["cu","seveneleven","gs25","emart24"]);
