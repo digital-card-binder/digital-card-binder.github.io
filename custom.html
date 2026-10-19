@@ -243,7 +243,7 @@
           <p id="custom-photo-status" role="status" aria-live="polite">사진을 등록하면 계정에 별도 저장되어 다른 기기에서도 볼 수 있습니다.</p>
         </div>
         <label class="custom-picker-search"><span class="sr-only">추가할 카드 검색</span><input id="card-picker-search" type="search" autocomplete="off" placeholder="기존 카드 검색 · 포켓몬명 · 세트코드 · 카드번호"></label>
-        <div class="custom-picker-meta"><span>현재 시리즈 도감의 카드 DB에서 검색합니다.</span><span><b id="card-picker-count">0</b>개 표시</span></div>
+        <div class="custom-picker-meta"><span>시리즈 카드 검색 · 세트코드 / 한글 세트명 / 카드명</span><span><b id="card-picker-count">0</b>개 검색 · <b id="card-picker-shown-count">0</b>개 표시</span></div>
         <div class="custom-picker-bulk">
           <span><b id="card-picker-selected-count">0</b>장 선택됨</span>
           <button id="card-picker-select-visible" type="button">검색 결과 전체 선택</button>
@@ -251,6 +251,7 @@
           <button id="card-picker-add-selected" type="button" class="primary-button" disabled>선택 카드 일괄 추가</button>
         </div>
         <div id="card-picker-results" class="custom-picker-results"></div>
+        <button id="card-picker-load-more" type="button" class="custom-picker-load-more" hidden>카드 더 보기</button>
         <div id="card-picker-empty" class="custom-empty-card" hidden><strong>검색 결과가 없습니다.</strong><span>아래 직접 추가를 사용하면 사이트 DB에 없는 카드도 넣을 수 있습니다.</span></div>
         <details id="manual-card-details" class="custom-manual-details">
           <summary>사이트 DB에 없는 카드 직접 추가</summary>
