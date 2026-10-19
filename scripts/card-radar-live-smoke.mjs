@@ -1,6 +1,8 @@
 // One-shot, low-volume smoke probe. No retailer credentials or live inventory stored.
 // Verifies transport + deployed parser shape; cannot certify official in-store stock.
 import {readFileSync,writeFileSync,mkdirSync} from "node:fs";
+import {publicRetailerMappingCandidates}
+  from "../radar-service/lib/public-sku-candidates.mjs";
 import {runInNewContext} from "node:vm";
 
 const src=readFileSync(new URL("../card-radar.js",import.meta.url),"utf8");
@@ -29,6 +31,9 @@ const probes=[
   {provider:"emart24",storeArea:"분당",scenario:"district_alias"},
   {provider:"emart24",storeArea:"",scenario:"without_area"}
 ];
+const reviewCandidates={schemaVersion:1,source:"third-party-public-aggregator",
+  reviewed:false,automaticallyImportable:false,
+  capturedAt:new Date().toISOString(),retailerSkus:[],storeAliases:[]};
 const report={schemaVersion:1,checkedAt:new Date().toISOString(),
   target:"South Korea, Seongnam area (approximate map test center)",
   productKeyword:keyword,
@@ -58,6 +63,13 @@ for(const {provider,storeArea,scenario} of probes){
     }else{
       const payload=await res.json();
       result.apiSuccess=payload?.success===true;
+      const candidates=publicRetailerMappingCandidates(provider,payload,{
+        requestedKeyword:keyword,discoveredAt:report.checkedAt
+      });
+      reviewCandidates.retailerSkus.push(...candidates.retailerSkus);
+      reviewCandidates.storeAliases.push(...candidates.storeAliases);
+      result.skuCandidatesRequiringReview=candidates.retailerSkus.length;
+      result.storeCandidatesRequiringReview=candidates.storeAliases.length;
       const data=payload?.data;
       result.dataKeys=data&&typeof data==="object"?
         Object.keys(data).slice(0,18):[];
@@ -90,6 +102,13 @@ for(const {provider,storeArea,scenario} of probes){
 }
 mkdirSync("reports",{recursive:true});
 writeFileSync("reports/card-radar-live-smoke.json",JSON.stringify(report,null,2)+"\n");
+const uniqueBy=(records,key)=>[...new Map(records.map(r=>[key(r),r])).values()];
+reviewCandidates.retailerSkus=uniqueBy(reviewCandidates.retailerSkus,
+  row=>row.retailerId+"|"+row.retailerItemCode);
+reviewCandidates.storeAliases=uniqueBy(reviewCandidates.storeAliases,
+  row=>row.retailerId+"|"+row.providerStoreId);
+writeFileSync("reports/card-radar-sku-review-candidates.json",
+  JSON.stringify(reviewCandidates,null,2)+"\n");
 const outcomes=report.checks.reduce((x,cur)=>{
   x[cur.status]=(x[cur.status]||0)+1;
   return x;
