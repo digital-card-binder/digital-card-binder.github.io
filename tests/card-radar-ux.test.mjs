@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, mergeInventory, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -469,4 +469,79 @@ test("store query never requests game/card shops and compact UI has just one vis
   assert.match(html,/재고 확인 범위 <span>자세히<\/span>/);
   assert.match(html,/id="radar-db-status"/);
   assert.match(html,/id="radar-public-status"/);
+});
+
+test("named card-pack queries reject approximate-search false positives",()=>{
+  const {matchesRequestedCardProduct}=harness();
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 인페르노X 확장팩","인페르노X"),true);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 닌자스피너 부스터팩","인페르노X"),false);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 30주년 팩","30th CELEBRATION"),true);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 30th CELEBRATION 부스터팩","30th CELEBRATION"),true);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 피카츄 30주년 키링","30th CELEBRATION"),false);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 메가심포니아","메가심포니아"),true);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 메가브레이브","메가심포니아"),false);
+  assert.equal(matchesRequestedCardProduct("포켓몬카드 메가브레이브","포켓몬카드 부스터팩"),true);
+});
+
+test("all four convenience parsers discard unrelated products returned for a keyword",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.52,lng:127.02};state.radiusKm=3;
+  const now=new Date().toISOString();
+  const store={storeCode:"S01",storeName:"GS25 테스트",latitude:37.5201,longitude:127.0201};
+  const responses=[
+    ["cu",{success:true,data:{inventory:{available:true},nearbyStores:{
+      stockItemName:"포켓몬카드 메가브레이브",stores:[{...store,stock:6}]
+    }}}],
+    ["gs25",{success:true,data:{product:{name:"포켓몬카드 메가브레이브"},inventory:{
+      stores:[{...store,searchItemName:"포켓몬카드 메가브레이브",realStockQuantity:4}]
+    }}}],
+    ["seveneleven",{success:true,data:{stockAvailable:true,product:{itemName:"포켓몬카드 메가브레이브"},inventory:{
+      stores:[{...store,stockQuantity:3}]
+    }}}],
+    ["emart24",{success:true,data:{goodsInfo:{goodsName:"포켓몬카드 메가브레이브"},
+      stores:[{bizNo:"S01",storeName:"이마트24 테스트",bizQty:7}],
+      nearbyStores:[{storeCode:"S01",latitude:37.5201,longitude:127.0201}]}}]
+  ];
+  for(const [provider,payload] of responses){
+    assert.equal(parseRetail(provider,payload,now,"메가심포니아").length,0,provider);
+    const broad=parseRetail(provider,payload,now,"포켓몬카드 부스터팩");
+    assert.equal(broad.length,1,provider);
+    assert.equal(broad[0].inventorySource,"public-aggregator");
+    assert.equal(broad[0].items[0].inventorySource,"public-aggregator");
+    assert.equal(broad[0].items[0].quantity,[6,4,3,7][responses.findIndex(x=>x[0]===provider)]);
+  }
+});
+
+test("external inventory remains labeled as public source and does not become authorized feed",()=>{
+  const {parseRetail,mergeInventory,inventoryLabel,state}=harness();
+  state.center={lat:37.54,lng:127.05};state.radiusKm=3;
+  state.kind="all";state.pack="";state.martBrand="all";state.convenienceBrand="all";
+  state.masterShops=[];state.retailerShops=[];state.publicShops=[];state.curatedShops=[];
+  state.searching=true;state.mapChecked=false;state.martInventory=[];
+  const raw={success:true,data:{inventory:{available:true},nearbyStores:{
+    stockItemName:"포켓몬카드 인페르노X",stores:[{
+      storeCode:"C701",storeName:"CU 공개조회점",latitude:37.5401,longitude:127.0501,stock:4
+    }]}}};
+  state.inventory=parseRetail("cu",raw,new Date().toISOString(),"인페르노X");
+  const stores=mergeInventory([]);
+  assert.equal(stores.length,1);
+  assert.equal(stores[0].origin,"public-aggregator");
+  assert.equal(stores[0].verifiedInventory[0].inventorySource,"public-aggregator");
+  const summary=inventoryLabel(stores[0]);
+  assert.equal(summary.known,true);
+  assert.match(summary.detail,/공개 재고 조회 응답/);
+  assert.doesNotMatch(summary.detail,/공식|승인|실시간/);
+});
+
+test("zero from a partial all-pack query is not presented as all card products sold out",()=>{
+  const {inventoryLabel,state}=harness();
+  const store={verifiedInventory:[{name:"포켓몬카드 닌자스피너",
+    quantity:0,code:"m4",checkedAt:new Date().toISOString(),provider:"CU"}]};
+  state.pack="";
+  const summary=inventoryLabel(store);
+  assert.equal(summary.checked,true);
+  assert.equal(summary.known,false);
+  assert.match(summary.detail,/다른 카드팩은 미확인/);
+  state.pack="m4";
+  assert.match(inventoryLabel(store).detail,/선택한 카드팩 조회 수량 0개/);
 });
