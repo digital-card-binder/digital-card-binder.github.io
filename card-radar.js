@@ -11,7 +11,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", pack: "", view: "list",
-    shops: [], inventory: [], map: null, radiusCircle: null, pinLayer: null,
+    shops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false
   };
   const byId = (id) => document.getElementById(id);
@@ -217,7 +217,13 @@
           addr:source.address || "",origin:"authorized-feed",verifiedInventory:[]};
         merged.push(target);
       }
-      target.verifiedInventory = source.items;
+      const existing = target.verifiedInventory || [];
+      for (const item of source.items || []) {
+        const index = existing.findIndex((p) => p.provider === item.provider && p.name === item.name);
+        if (index >= 0) existing[index] = item;
+        else existing.push(item);
+      }
+      target.verifiedInventory = existing;
       target.origin = "authorized-feed";
     }
     return merged.sort((a,b) => a.distance-b.distance);
@@ -242,11 +248,14 @@
   function inventoryLabel(store) {
     const items = (store.verifiedInventory || []).filter((p) =>
       !state.pack || p.code.toLowerCase() === state.pack.toLowerCase());
-    if (!items.length) return {message:"재고 조회 불가 · 판매 여부 미확인",known:false};
-    const date = new Date(Math.max(...items.map((p) => Date.parse(p.checkedAt))));
-    const when = Number.isFinite(date.getTime()) ? date.toLocaleString("ko-KR") : "시각 미확인";
-    const line = items.slice(0,4).map((p) => p.name + " " + p.quantity + "개").join(" · ");
-    return {message:line + " · 확인 " + when + (items.length>4 ? " 외 " + (items.length-4) + "종" : ""), known:true};
+    if (!items.length) return {message:"재고 미확인 · 매장 위치만 표시",known:false};
+    const fresh = items.filter((p)=>Date.now()-Date.parse(p.checkedAt)<15*60*1000);
+    const shown = (fresh.length ? fresh : items).slice().sort((a,b)=>Date.parse(b.checkedAt)-Date.parse(a.checkedAt));
+    const latest = new Date(Math.max(...shown.map((p) => Date.parse(p.checkedAt))));
+    const when = Number.isFinite(latest.getTime()) ? latest.toLocaleTimeString("ko-KR", {hour:"2-digit",minute:"2-digit"}) : "시각 미확인";
+    const line = shown.slice(0,4).map((p) => p.name+" "+p.quantity+"개").join(" · ");
+    const suffix = shown.some((p)=>p.provider) ? " · 제공 API 응답 "+when+" (지연 가능)" : " · 확인 "+when;
+    return {message:(fresh.length ? line : "최근 관측(현재 재고 아님) · "+line)+suffix+(shown.length>4?" 외 "+(shown.length-4)+"종":""), known:Boolean(fresh.some((p)=>p.quantity>0))};
   }
   function addStoreCard(target,store) {
     const card=make("article","radar-store");
@@ -309,27 +318,169 @@
     state.searching=true;
     const button=byId("radar-search");
     button.disabled=true;
-    setStatus("공개 지도에서 매장 후보를 찾고 있습니다. 공개 지도에는 실제 재고 수량이 포함되지 않습니다.");
-    try {
-      const query=categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
-      const result=await fetchJson("https://overpass.kumi.systems/api/interpreter",{
-        method:"POST",
-        headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-        body:"data="+encodeURIComponent(query)
-      },30000);
+    state.shops=[];
+    state.inventory=[];
+    state.providerNotes=[];
+    render();
+    setStatus("판매처 공개 재고 조회와 지도 매장 탐색을 함께 진행하고 있습니다. 결과는 순차적으로 확인됩니다.");
+    const q=categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
+    const places=fetchJson("https://overpass.kumi.systems/api/interpreter",{
+      method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:"data="+encodeURIComponent(q)
+    },30000).then((result)=>{
       if(!result || !Array.isArray(result.elements))throw new Error("INVALID_RESPONSE");
-      state.shops=parseShops(result.elements);
-      render();
-      const count=mergeInventory(state.shops).filter(selectedKind).length;
-      setStatus("공개 지도 기반 매장 후보 "+count+"곳 표시 · 카드 판매 여부 및 재고는 확인되지 않았습니다. 재고 연동 매장의 수량만 별도로 표시합니다.");
-    } catch(error) {
-      state.shops=[];
-      render();
-      setStatus(errorMessage(error,"공개 매장 지도 데이터에 연결하지 못했습니다. 잠시 후 다시 검색하거나 검색 범위를 줄여 주세요."),true);
-    } finally {
-      button.disabled=false;state.searching=false;
+      state.shops=parseShops(result.elements);render();return true;
+    }).catch(()=>false);
+    const stock=fetchLiveInventory().then((rows)=>{
+      state.inventory=rows;render();return true;
+    }).catch(()=>false);
+    const [mapOK,stockOK]=await Promise.all([places,stock]);
+    const candidates=mergeInventory(state.shops).filter(selectedKind).filter((s)=>s.distance<=state.radiusKm+.03);
+    const withNumbers=candidates.filter((s)=>(s.verifiedInventory||[]).length>0).length;
+    const providerSuccess=state.providerNotes.filter((p)=>p.endsWith(":ok")).length;
+    if(!mapOK&&!stockOK) {
+      setStatus("매장 및 재고 데이터 제공처에 연결하지 못했습니다. 잠시 후 재시도해 주세요.",true);
+    } else {
+      setStatus("주변 매장 후보 "+candidates.length+"곳 · 수량 응답 매장 "+withNumbers+
+        "곳 · 재고 API 정상 응답 "+providerSuccess+"/"+state.providerNotes.length+
+        "건. 조회 지원 상품만 포함하며 제공처 캐시로 지연될 수 있습니다."+
+        (!mapOK?" 지도 매장 검색 일부 실패.":"")+
+        (providerSuccess<state.providerNotes.length?" 일부 판매처 조회 실패.":""),
+        providerSuccess===0 && state.providerNotes.length>0);
     }
+    button.disabled=false;state.searching=false;
   }
+
+  // An independent, public REST aggregator, documented by the Daiso MCP project.
+  // API responses are never converted into "0 stock" unless the retailer returned a number 0.
+  const API_BASE = "https://mcp.aka.page";
+  const CARD_KEYWORDS = /포켓몬|포켓몬스터|30주년|메가브레이브|메가심포니아|스톰에메랄다|어비스아이|닌자스피너|인페르노X|니힐제로|MEGA드림|로켓단의영광|블랙볼트|화이트플레어/i;
+  const PACK_TITLES = new Map(PRODUCTS);
+  const packFromTitle = (name) => {
+    const found = PRODUCTS.find((p) => name.toLowerCase().includes(p[1].toLowerCase()) ||
+      (p[0] === "m6a" && /30주년/.test(name)));
+    return found ? found[0] : "";
+  };
+  function validQuantity(q) {
+    return typeof q === "number" && Number.isSafeInteger(q) && q >= 0;
+  }
+  function storeFromResult(raw, kind, source, product, quantity, observedAt) {
+    if (!raw || !validQuantity(quantity) || !CARD_KEYWORDS.test(product)) return null;
+    const lat = Number(raw.latitude ?? raw.lat);
+    const lng = Number(raw.longitude ?? raw.lng);
+    if (!validCoord(lat, lng)) return null;
+    const record = {
+      id: String(raw.storeCode || raw.bizNo || raw.storeName || "").slice(0,90),
+      name: String(raw.storeName || raw.name || "").slice(0,90),
+      address: String(raw.address || "").slice(0,120),
+      kind, lat, lng,
+      items:[{code:packFromTitle(product),name:product.slice(0,90),quantity,
+        checkedAt:observedAt,provider:source}]
+    };
+    return record.id && record.name ? record : null;
+  }
+  function endpoint(provider, keyword) {
+    const p=new URLSearchParams();
+    p.set("keyword", keyword);
+    if(provider !== "seveneleven") {
+      p.set("lat", state.center.lat.toFixed(5));
+      p.set("lng", state.center.lng.toFixed(5));
+    }
+    if(provider === "cu") {
+      p.set("size","10");p.set("storeLimit","55");
+    } else if(provider === "seveneleven") {
+      const place=byId("radar-place").value.trim();
+      if(place.length>1) p.set("storeKeyword", place);
+      p.set("storeLimit","60");
+    } else if(provider === "gs25") {
+      p.set("storeLimit","60");
+    } else if(provider === "emart24") {
+      p.set("pageSize","12");p.set("storeLimit","60");
+    }
+    return API_BASE+"/api/"+provider+"/inventory?"+p.toString();
+  }
+  function parseRetail(provider, payload, responseAt) {
+    if(!payload || payload.success !== true || !payload.data) throw new Error("PROVIDER_ERROR");
+    const data=payload.data, results=[];
+    if(provider === "cu") {
+      if(data.inventory?.available===false) return results;
+      const name=String(data.nearbyStores?.stockItemName || "");
+      for(const store of data.nearbyStores?.stores || []) {
+        const parsed=storeFromResult(store,"convenience","CU",name,store.stock,responseAt);
+        if(parsed)results.push(parsed);
+      }
+    } else if(provider === "gs25") {
+      const name=String(data.product?.name || "");
+      for(const store of data.inventory?.stores || []) {
+        const parsed=storeFromResult(store,"convenience","GS25",
+          String(store.searchItemName || name),store.realStockQuantity,responseAt);
+        if(parsed)results.push(parsed);
+      }
+    } else if(provider === "seveneleven") {
+      if(data.stockAvailable!==true)return results;
+      const name=String(data.product?.itemName || "");
+      for(const store of data.inventory?.stores || []) {
+        const parsed=storeFromResult(store,"convenience","세븐일레븐",name,store.stockQuantity,responseAt);
+        if(parsed)results.push(parsed);
+      }
+    } else if(provider === "emart24") {
+      const nearby=Array.isArray(data.nearbyStores)?data.nearbyStores:(data.nearbyStores?.stores||[]);
+      const name=String(data.goodsInfo?.goodsName || data.goodsInfo?.goodsNm ||
+        (data.productCandidates || [])[0]?.goodsName || "");
+      for(const store of data.stores || []) {
+        const companion=nearby.find((row)=>String(row.storeCode)===String(store.bizNo));
+        const parsed=storeFromResult({...store,latitude:companion?.latitude,longitude:companion?.longitude,
+          storeName:store.storeName || companion?.storeName,
+          address:store.address || companion?.address,
+          storeCode:store.bizNo},"convenience","이마트24",name,store.bizQty,responseAt);
+        if(parsed)results.push(parsed);
+      }
+    }
+    return results.filter((row)=>distanceKm(state.center,row) <= state.radiusKm+.03);
+  }
+  function liveQueries() {
+    if(state.pack) return [PACK_TITLES.get(state.pack)].filter(Boolean);
+    // These broad queries cover multiple supported card products, without imposing a pack selection.
+    // This is not the entire retailer product universe: supported product coverage is best-effort.
+    return ["포켓몬카드","포켓몬스터30주년","스톰에메랄다"];
+  }
+  async function fetchLiveInventory() {
+    const jobs=[];
+    const providers=state.kind==="mart"||state.kind==="cardshop" ? [] :
+      ["cu","seveneleven","gs25","emart24"];
+    for(const provider of providers)for(const keyword of liveQueries())jobs.push({provider,keyword});
+    const all=[];
+    const notes=[];
+    // Two concurrent requests protect public service limits and lower errors.
+    let index=0;
+    async function worker() {
+      while(index<jobs.length){
+        const task=jobs[index++];
+        try {
+          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
+          const rows=parseRetail(task.provider,payload,new Date().toISOString());
+          all.push(...rows);
+          notes.push(task.provider+":ok");
+        } catch(_) {notes.push(task.provider+":error");}
+      }
+    }
+    await Promise.all([worker(),worker()]);
+    state.providerNotes=notes;
+    const grouped=new Map();
+    for(const record of all) {
+      const id=record.items[0].provider+"|"+record.id;
+      if(!grouped.has(id))grouped.set(id,record);
+      else {
+        const existing=grouped.get(id);
+        const item=record.items[0];
+        const i=existing.items.findIndex((other)=>other.name===item.name);
+        if(i<0)existing.items.push(item);
+        else if(Date.parse(existing.items[i].checkedAt)<Date.parse(item.checkedAt))existing.items[i]=item;
+      }
+    }
+    return [...grouped.values()];
+  }
+
   function initialize() {
     const product=byId("radar-pack");
     for(const [code,title] of PRODUCTS) {
