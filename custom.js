@@ -10,7 +10,7 @@
   const PICKER_PAGE_SIZE = 48;
   // Korean collector names that do not appear in the series DB's English set title.
   const SET_SEARCH_ALIASES = {
-    m6a: ["30주년", "30주년 피카츄", "포켓몬 30주년", "30th anniversary", "30thcelebration"],
+    m6a: ["30주년", "포켓몬 30주년", "30th anniversary", "30thcelebration"],
   };
 
   const state = {
