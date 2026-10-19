@@ -1,0 +1,44 @@
+name: Continue SM2L official Korean artwork theme audit (five cards)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sm2l-five-official-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-sm2l-five-official-20261019
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Add only five visually inspected Korean SM2L artworks
+        run: node scripts/apply-theme-sm2l-001-010-official-visual-20261019.mjs
+      - name: Rebuild dependent theme coverage, indexes and metrics
+        run: npm run site:prepare
+      - name: Ensure all site regression tests pass before committing
+        run: npm test
+      - name: Publish only the guarded changes
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2l-001-010-official-visual-review-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2l): approve five official Korean card artworks into ten theme slots'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
