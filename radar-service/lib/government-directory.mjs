@@ -40,7 +40,9 @@ export function recognizedGovernmentStore(raw) {
     stockStatus:"unknown",items:[]};
 }
 export function normalizeGovernmentPayload(payload,{lat,lng,radiusKm,kind="all",retailer="all"}){
-  const data=payload?.response;
+  // Government data portal JSON responses can be wrapped in {response:{...}}
+  // or returned directly as {header,body}, unlike the XML response.
+  const data=payload?.response?.header?payload.response:payload;
   const header=data?.header;
   if(!header||String(header.resultCode)!=="00")throw Error("GOV_API_ERROR");
   const body=data.body;
@@ -88,8 +90,15 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
   const cacheId=[lat.toFixed(3),lng.toFixed(3),radiusKm.toFixed(2),kind,retailer].join("|");
   const previous=cache.get(cacheId);
   if(previous&&previous.until>now)return previous.value;
+  // data.go.kr issues both encoded and decoded key variants. URLSearchParams
+  // performs encoding; decode a percent-encoded service key once to prevent %252F.
+  let normalizedKey=serviceKey.trim();
+  if(/%[0-9a-fA-F]{2}/.test(normalizedKey)){
+    try{ normalizedKey=decodeURIComponent(normalizedKey); }
+    catch{ throw Error("GOV_INVALID_SERVICE_KEY_ENCODING"); }
+  }
   const params=new URLSearchParams({
-    serviceKey:serviceKey.trim(),radius:String(Math.min(MAX_RADIUS_METERS,Math.ceil(radiusKm*1000))),
+    serviceKey:normalizedKey,radius:String(Math.min(MAX_RADIUS_METERS,Math.ceil(radiusKm*1000))),
     cx:lng.toFixed(6),cy:lat.toFixed(6),numOfRows:String(MAX_ROWS),
     pageNo:"1",type:"json"
   });
