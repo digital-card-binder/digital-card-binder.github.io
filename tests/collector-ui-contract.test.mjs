@@ -150,6 +150,9 @@ function navigationLayoutContext(moduleSource, initialWidth) {
       body: Object.assign(new FakeElement("body"), { dataset: {} }),
       createElement: (tagName) => new FakeElement(tagName),
       documentElement,
+      // Browser documents always provide this; unrelated Card Radar navigation
+      // binds matching link nodes, and this minimal layout fixture has none.
+      querySelectorAll: () => [],
       querySelector: (selector) => selector.includes(".catalog-panel .results-bar")
         ? resultsBar
         : null,
