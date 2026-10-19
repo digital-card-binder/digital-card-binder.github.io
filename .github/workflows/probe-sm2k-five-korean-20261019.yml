@@ -1,0 +1,50 @@
+name: Probe SM2K five Korean HR UR image holds safely
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-sm2k-five-korean-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: probe-sm2k-five-korean-20261019
+  cancel-in-progress: false
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install image validation tools
+        run: python -m pip install pillow requests
+      - name: Source proof for 5 held Korean HR / UR images only
+        run: python scripts/probe-sm2k-five-korean-print-sources-20261019.py
+      - name: Full unchanged site and ownership regression
+        run: |
+          npm ci
+          npm test
+      - name: Record evidence only, never replace cards or mark them Korean verified
+        run: |
+          set -euo pipefail
+          git add data/audits/sm2k-five-korean-print-source-probe-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2k): preserve 5 held Korean-image source HTTP and decode evidence'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
