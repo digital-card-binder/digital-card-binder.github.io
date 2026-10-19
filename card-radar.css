@@ -236,3 +236,32 @@
 
 /* Convenience chain selector follows the established mart filter layout. */
 #radar-convenience-brand-field[hidden]{display:none}
+
+/* Stage 3C: compact source-coverage panel, expanded only on request. */
+.radar-coverage{margin:10px 0 15px;border:1px solid #dfe8f3;border-radius:12px;background:#fff;overflow:hidden}
+.radar-coverage>summary{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;
+  color:#304b70;font-size:12px;font-weight:850;list-style-position:inside}
+.radar-coverage>summary span{margin-left:auto;color:#6b7f99;font-size:11px;font-weight:600}
+.radar-coverage-body{border-top:1px solid #e5eaf2;padding:13px}
+.radar-coverage-body p{font-size:12px;line-height:1.6;color:#60728c;margin:0 0 9px}
+.radar-coverage-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:8px 0 12px}
+.radar-coverage-metric{border:1px solid #e1e7f1;border-radius:9px;padding:10px;display:flex;
+  flex-direction:column;gap:4px;background:#fbfcff}
+.radar-coverage-metric span{font-size:11px;color:#677995}
+.radar-coverage-metric strong{font-size:20px;color:#2a4578;font-variant-numeric:tabular-nums}
+.radar-coverage-retailers{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  padding:0;margin:0 0 8px;gap:7px}
+.radar-coverage-retailers li{display:flex;align-items:center;flex-wrap:wrap;gap:6px;
+  border-bottom:1px solid #e5eaf0;padding:8px 3px;font-size:12px;line-height:1.5}
+.radar-coverage-retailers strong{font-size:12px;color:#304767}
+.radar-coverage-retailers small{font-size:11px;color:#75839a}
+.radar-coverage-retailers span{margin-left:auto;color:#8f6470;font-size:11px}
+.radar-coverage-retailers span.radar-permission-approved{color:#297356}
+.radar-coverage-body button{border:1px solid #cbd8ec;border-radius:8px;background:#fff;
+  color:#3a5a91;font-size:12px;font-weight:750;padding:9px 11px;cursor:pointer}
+.radar-coverage-body button:disabled{opacity:.45;cursor:default}
+@media(max-width:640px){
+  .radar-coverage>summary{font-size:11px;padding:10px}
+  .radar-coverage-retailers{grid-template-columns:1fr}
+  .radar-coverage-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

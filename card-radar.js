@@ -378,6 +378,77 @@
     });
   }
   const SELF_DB_API="https://digital-card-radar-api.vercel.app/api/v1/stores";
+
+  const COVERAGE_API="https://digital-card-radar-api.vercel.app/api/v1/coverage";
+  function normalizeCoverage(payload) {
+    if(!payload || payload.dbStatus!=="connected"||payload.schemaVersion!==1 ||
+      !Array.isArray(payload.retailers))throw Error("INVALID_COVERAGE_RESPONSE");
+    const keys=["registeredStoreCount","verifiedStoreAliasCount",
+      "verifiedRetailerSkuCount","registeredSourceCount","approvedSourceCount"];
+    const counts={};
+    for(const key of keys){
+      const value=payload[key];
+      if(!Number.isSafeInteger(value)||value<0)throw Error("INVALID_COVERAGE_COUNT");
+      counts[key]=value;
+    }
+    const knownIds=new Set(["cu","gs25","seveneleven","emart24",
+      "emart","traders","lottemart","homeplus","costco","hanaro"]);
+    const retailers=payload.retailers.slice(0,20).flatMap(r=>{
+      if(!r || !knownIds.has(r.retailerId))return [];
+      return [{
+        id:r.retailerId,
+        name:String(r.name||r.retailerId).slice(0,35),
+        permission:r.inventoryPermission==="approved"?"approved":"unverified",
+        kind:r.kind==="convenience"?"편의점":"대형마트"
+      }];
+    });
+    return {counts,retailers};
+  }
+  let coverageFetching=false;
+  async function loadCoverage() {
+    if(coverageFetching)return;
+    coverageFetching=true;
+    const refresh=byId("radar-coverage-refresh");
+    refresh.disabled=true;
+    byId("radar-coverage-intro").textContent="판매처별 자체 DB 연동 현황을 확인하고 있습니다…";
+    try {
+      const response=await fetchJson(COVERAGE_API,
+        {cache:"no-store",headers:{Accept:"application/json"}},14000);
+      const {counts,retailers}=normalizeCoverage(response);
+      byId("radar-coverage-intro").textContent=
+        "자체 DB 등록 판매처 "+retailers.length+"종 · 승인된 재고 공급원 "+
+        counts.approvedSourceCount+"개 (공개 조회 API와 별개)";
+      const metricList=byId("radar-coverage-metrics");
+      metricList.replaceChildren();
+      for(const [label,key] of [["등록 매장","registeredStoreCount"],
+        ["검증된 매장코드 연결","verifiedStoreAliasCount"],
+        ["검증된 상품코드 연결","verifiedRetailerSkuCount"],
+        ["승인된 재고 소스","approvedSourceCount"]]){
+        const item=make("div","radar-coverage-metric");
+        item.append(make("span","",label),make("strong","",String(counts[key])));
+        metricList.append(item);
+      }
+      const ul=byId("radar-coverage-retailers");
+      ul.replaceChildren();
+      for(const retailer of retailers){
+        const li=make("li","");
+        li.append(make("strong","",retailer.name),
+          make("small","",retailer.kind),
+          make("span",retailer.permission==="approved"?"radar-permission-approved":"",
+            retailer.permission==="approved"?"판매처 사용 권한 확인":"자체 DB 재고 사용 권한 미확인"));
+        ul.append(li);
+      }
+    }catch(_){
+      byId("radar-coverage-intro").textContent=
+        "자체 DB 연동 현황을 지금 조회할 수 없습니다. 연결 실패를 재고 0개로 해석하지 않습니다.";
+      byId("radar-coverage-metrics").replaceChildren();
+      byId("radar-coverage-retailers").replaceChildren();
+    }finally{
+      refresh.disabled=false;
+      coverageFetching=false;
+    }
+  }
+
   async function loadSelfDbStores() {
     const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
       lng:state.center.lng.toFixed(6),radiusKm:String(state.radiusKm),limit:"250"});
@@ -1063,6 +1134,10 @@
     });
     byId("radar-search").addEventListener("click",()=>void search());
     byId("radar-search-map-area").addEventListener("click",searchCurrentMapArea);
+    byId("radar-coverage").addEventListener("toggle",()=>{
+      if(byId("radar-coverage").open)void loadCoverage();
+    });
+    byId("radar-coverage-refresh").addEventListener("click",()=>void loadCoverage());
     const stockFilter = byId("radar-only-in-stock");
     stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
     document.querySelectorAll("[data-map-mode]").forEach((button)=>
