@@ -1,0 +1,48 @@
+name: Continue Korean SM2L 011-020 theme artwork screening
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sm2l-011-020-screen-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-sm2l-011-020-screen-20261019
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Guard existing audit and insert only 011-020
+        run: node scripts/apply-theme-sm2l-011-020-screen-20261019.mjs
+      - name: Rebuild catalog indices and versions
+        run: npm run site:prepare
+      - name: Full regression tests including Firestore emulator
+        run: npm test
+      - name: Publish only when all checks succeed
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2l-011-020-artwork-screen-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2l): screen 011-020 artwork and add 15 theme slots with Korean photo holds'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
