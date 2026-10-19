@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, mergeInventory, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, mergeInventory, sameRetailerForStock, normalizeRetailerArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -625,4 +625,52 @@ test("GPS button reports pending searches instead of silently ignoring taps",()=
   assert.match(html,/id="radar-location-feedback"/);
   assert.match(css,/\.radar-location-feedback:empty\{display:none\}/);
   assert.match(source,/byId\("radar-geolocate"\)\.addEventListener\("click",\(\)=>showGeolocate\(\)\)/);
+});
+
+test("nearby text locality routes Seven-Eleven and Emart24 to the selected district",()=>{
+  const {normalizeRetailerArea,endpoint,state}=harness();
+  state.center={lat:37.35,lng:127.10};
+  const area=normalizeRetailerArea({address:{
+    city:"성남시",city_district:"분당구",suburb:"금곡동",state:"경기도"
+  }});
+  assert.equal(area,"분당");
+  assert.equal(normalizeRetailerArea({address:{town:"서현동",state:"경기도"}}),"서현동");
+  assert.equal(normalizeRetailerArea({address:{state:"Gyeonggi-do"}}),"");
+  const seven=new URL(endpoint("seveneleven","인페르노X",area));
+  assert.equal(seven.searchParams.get("storeKeyword"),"분당");
+  assert.equal(seven.searchParams.get("keyword"),"인페르노X");
+  assert.equal(seven.searchParams.get("lat"),null,"Seven-Eleven ignores lat/lng upstream");
+  const emart=new URL(endpoint("emart24","인페르노X",area));
+  assert.equal(emart.searchParams.get("storeKeyword"),"분당");
+  assert.equal(emart.searchParams.get("lat"),"37.35000");
+  const gs25=new URL(endpoint("gs25","인페르노X",area));
+  assert.equal(gs25.searchParams.get("storeKeyword"),null);
+  assert.equal(gs25.searchParams.get("lat"),"37.35000");
+  assert.match(source,/const stockTask = fetchLiveInventory\(jobs,areaTask\)/);
+  assert.match(source,/SEVENELEVEN_LOCALITY_UNAVAILABLE/);
+  assert.match(source,/nominatim[.]openstreetmap[.]org\/reverse/);
+});
+
+test("public stock rows cannot attach to a different convenience or mart chain",()=>{
+  const {sameRetailerForStock,state,mergeInventory}=harness();
+  state.kind="all";state.center={lat:37.35,lng:127.1};
+  state.radiusKm=3;state.martBrand="all";state.convenienceBrand="all";
+  state.masterShops=[];state.publicShops=[];state.retailerShops=[];state.curatedShops=[];
+  state.martInventory=[];
+  const known={id:"STORE123",kind:"convenience",retailerId:"cu",
+    name:"중앙점",chain:"CU",lat:37.3501,lng:127.1001,
+    items:[{name:"포켓몬카드 인페르노X",code:"m2",quantity:2,checkedAt:new Date().toISOString(),provider:"CU"}]};
+  const different={id:"osm:gs",kind:"convenience",name:"중앙점",
+    chain:"GS25",lat:37.35012,lng:127.10012,verifiedInventory:[]};
+  assert.equal(sameRetailerForStock(different,known),false);
+  const same={id:"osm:cu",kind:"convenience",name:"중앙점",
+    chain:"CU",lat:37.3502,lng:127.1002,verifiedInventory:[]};
+  assert.equal(sameRetailerForStock(same,known),true);
+  assert.equal(sameRetailerForStock(
+    {kind:"mart",chain:"롯데마트",name:"중앙점"},known),false);
+  state.inventory=[known];
+  const stores=mergeInventory([different,same]);
+  assert.equal(stores.length,2,"same retailer should merge, different retailer should stay separate");
+  assert.equal(stores.find(x=>x.chain==="GS25").verifiedInventory.length,0);
+  assert.equal(stores.find(x=>x.chain==="CU").verifiedInventory.length,1);
 });

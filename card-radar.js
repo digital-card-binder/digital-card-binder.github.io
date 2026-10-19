@@ -727,6 +727,23 @@
     } catch(_) {state.martInventory=[];}
     render();
   }
+  // A coincidentally similar shop name/location cannot transfer stock
+  // between competing chains. Retailer store codes are stronger evidence.
+  function sameRetailerForStock(candidate,source){
+    if(candidate.kind!==source.kind)return false;
+    if(candidate.retailerId && source.retailerId)
+      return candidate.retailerId===source.retailerId;
+    if(source.kind==="convenience"){
+      const sourceChain=convenienceChain(source);
+      return sourceChain!=="other" && convenienceChain(candidate)===sourceChain;
+    }
+    if(source.kind==="mart"){
+      const sourceChain=martBrand(source.chain||source.name);
+      return sourceChain!=="other" &&
+        martBrand(candidate.chain||candidate.name)===sourceChain;
+    }
+    return false;
+  }
   function mergeInventory(shops) {
     // Only records supplied by this site's separately maintained authorized feed are stock records.
     // OpenStreetMap entries are location candidates, never evidence of inventory or card sales.
@@ -736,8 +753,10 @@
     const merged = storeCandidates(shops);
     for (const source of known) {
       let target = merged.find((candidate) =>
-        normalizeShopName(candidate.name) === normalizeShopName(source.name)
-        && distanceKm(candidate,source) < .13);
+        sameRetailerForStock(candidate,source) &&
+        (candidate.storeId && source.id && candidate.storeId===source.id ||
+          normalizeShopName(candidate.name)===normalizeShopName(source.name) &&
+          distanceKm(candidate,source)<.13));
       if (!target) {
         target = {id:"feed:"+source.id,name:source.name,lat:source.lat,lng:source.lng,
           distance:distanceKm(state.center,source),kind:source.kind,
@@ -1066,7 +1085,9 @@
       render();
       return ok;
     });
-    const stockTask = fetchLiveInventory(jobs);
+    const areaTask=jobs.some(task=>["seveneleven","emart24"].includes(task.provider))
+      ? resolveRetailerArea() : Promise.resolve("");
+    const stockTask = fetchLiveInventory(jobs,areaTask);
     const martFeedTask = loadMartInventory();
     const [mapOK,cuOK,dbOK,govOK] = await Promise.all([mapTask,cuStoreTask,dbTask,govTask,stockTask,martFeedTask]);
     state.progress.active = false;
@@ -1134,7 +1155,36 @@
     };
     return record.id && record.name ? record : null;
   }
-  function endpoint(provider, keyword) {
+  // Seven-Eleven's upstream store search is text-based; without a local
+  // keyword, it can return the first stores elsewhere in Korea. Reverse-geocode
+  // just once per search (not once per product/retailer request), and cache it.
+  const retailerAreaCache=new Map();
+  function normalizeRetailerArea(reverse){
+    const addr=reverse && reverse.address || {};
+    const candidate=[addr.city_district,addr.borough,addr.suburb,
+      addr.town,addr.municipality,addr.city,addr.county,addr.state_district]
+      .find(value=>typeof value==="string" && /[가-힣]{2,}/.test(value));
+    return candidate ? candidate.replace(/(특별자치시|특별시|광역시|자치구|구)$/,"").trim().slice(0,24) : "";
+  }
+  async function resolveRetailerArea(){
+    const input=byId("radar-place").value.trim();
+    if(input.length>1)return input;
+    const key=state.center.lat.toFixed(3)+","+state.center.lng.toFixed(3);
+    const cached=retailerAreaCache.get(key);
+    if(cached && Date.now()<cached.until)return cached.keyword;
+    const q=new URLSearchParams({format:"jsonv2",addressdetails:"1",
+      zoom:"14","accept-language":"ko",lat:state.center.lat.toFixed(5),
+      lon:state.center.lng.toFixed(5)});
+    try {
+      const data=await fetchJson("https://nominatim.openstreetmap.org/reverse?"+q,
+        {headers:{"Accept":"application/json"}},7000);
+      const keyword=normalizeRetailerArea(data);
+      if(retailerAreaCache.size>=16)retailerAreaCache.clear();
+      retailerAreaCache.set(key,{keyword,until:Date.now()+10*60000});
+      return keyword;
+    }catch(_){return "";}
+  }
+  function endpoint(provider, keyword,storeArea="") {
     const p=new URLSearchParams();
     p.set("keyword", keyword);
     if(provider !== "seveneleven") {
@@ -1144,12 +1194,12 @@
     if(provider === "cu") {
       p.set("size","10");p.set("storeLimit","55");
     } else if(provider === "seveneleven") {
-      const place=byId("radar-place").value.trim();
-      if(place.length>1) p.set("storeKeyword", place);
+      if(storeArea) p.set("storeKeyword",storeArea);
       p.set("storeLimit","60");
     } else if(provider === "gs25") {
       p.set("storeLimit","60");
     } else if(provider === "emart24") {
+      if(storeArea) p.set("storeKeyword",storeArea);
       p.set("pageSize","12");p.set("storeLimit","60");
     }
     return API_BASE+"/api/"+provider+"/inventory?"+p.toString();
@@ -1226,7 +1276,7 @@
     }
     return [...grouped.values()];
   }
-  async function fetchLiveInventory(jobs) {
+  async function fetchLiveInventory(jobs,areaTask=Promise.resolve("")) {
     const all=[];
     const notes=[];
     let index=0;
@@ -1235,7 +1285,13 @@
         const task=jobs[index++];
         let success=false;
         try {
-          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
+          const needsArea=task.provider==="seveneleven"||task.provider==="emart24";
+          const storeArea=needsArea?await areaTask:"";
+          // Never query arbitrary first 60 Seven-Eleven stores nationwide and
+          // report zero near the selected GPS point.
+          if(task.provider==="seveneleven" && !storeArea)
+            throw new Error("SEVENELEVEN_LOCALITY_UNAVAILABLE");
+          const payload=await fetchJson(endpoint(task.provider,task.keyword,storeArea),{cache:"no-store"},28000);
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
           if(task.provider==="cu" && payload.data.inventory?.available===false)
             throw new Error("STOCK_UNAVAILABLE");
