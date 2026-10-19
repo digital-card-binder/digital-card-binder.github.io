@@ -1166,6 +1166,20 @@
   // keyword, it can return the first stores elsewhere in Korea. Reverse-geocode
   // just once per search (not once per product/retailer request), and cache it.
   const retailerAreaCache=new Map();
+  let retailerDistrictFallback="";
+  function normalizeRetailerDistrict(reverse){
+    const addr=reverse && reverse.address || {};
+    const district=[addr.city_district,addr.borough,addr.county,addr.city]
+      .find(value=>typeof value==="string" && /[가-힣]{2,}/.test(value));
+    return district ? district.replace(/(특별자치시|특별시|광역시|시|군|구)$/,"").trim().slice(0,24) : "";
+  }
+  function emart24FallbackArea(provider,error,narrowArea,wideArea){
+    // Live check: Emart24 returned HTTP 500 for 금곡동 and HTTP 200
+    // for 분당. Only retry server errors, never auth failures or throttling.
+    if(provider!=="emart24" || !/^HTTP 5\d\d$/.test(String(error?.message||"")))return "";
+    if(!wideArea || wideArea===narrowArea)return "";
+    return wideArea;
+  }
   function normalizeRetailerArea(reverse){
     const addr=reverse && reverse.address || {};
     // A district name (e.g. 분당구) can cover hundreds of shops; selecting
@@ -1177,11 +1191,15 @@
     return candidate ? candidate.replace(/(특별자치시|특별시|광역시|자치구|구)$/,"").trim().slice(0,24) : "";
   }
   async function resolveRetailerArea(){
+    retailerDistrictFallback="";
     const input=byId("radar-place").value.trim();
     if(input.length>1)return input;
     const key=state.center.lat.toFixed(3)+","+state.center.lng.toFixed(3);
     const cached=retailerAreaCache.get(key);
-    if(cached && Date.now()<cached.until)return cached.keyword;
+    if(cached && Date.now()<cached.until){
+      retailerDistrictFallback=cached.district||"";
+      return cached.keyword;
+    }
     const q=new URLSearchParams({format:"jsonv2",addressdetails:"1",
       zoom:"14","accept-language":"ko",lat:state.center.lat.toFixed(5),
       lon:state.center.lng.toFixed(5)});
@@ -1189,8 +1207,11 @@
       const data=await fetchJson("https://nominatim.openstreetmap.org/reverse?"+q,
         {headers:{"Accept":"application/json"}},7000);
       const keyword=normalizeRetailerArea(data);
+      const district=normalizeRetailerDistrict(data);
+      retailerDistrictFallback=district!==keyword?district:"";
       if(retailerAreaCache.size>=16)retailerAreaCache.clear();
-      retailerAreaCache.set(key,{keyword,until:Date.now()+10*60000});
+      retailerAreaCache.set(key,{keyword,district:retailerDistrictFallback,
+        until:Date.now()+10*60000});
       return keyword;
     }catch(_){return "";}
   }
@@ -1304,7 +1325,7 @@
   async function fetchLiveInventory(jobs,areaTask=Promise.resolve("")) {
     const all=[];
     const notes=[];
-    let index=0;
+    let index=0,emart24PreferDistrict=false;
     async function worker() {
       while(index<jobs.length) {
         const task=jobs[index++];
@@ -1316,7 +1337,21 @@
           // report zero near the selected GPS point.
           if(task.provider==="seveneleven" && !storeArea)
             throw new Error("SEVENELEVEN_LOCALITY_UNAVAILABLE");
-          const payload=await fetchJson(endpoint(task.provider,task.keyword,storeArea),{cache:"no-store"},28000);
+          const selectedArea=task.provider==="emart24" &&
+            emart24PreferDistrict && retailerDistrictFallback ?
+            retailerDistrictFallback : storeArea;
+          let payload;
+          try {
+            payload=await fetchJson(endpoint(task.provider,task.keyword,selectedArea),
+              {cache:"no-store"},28000);
+          }catch(error){
+            const wider=emart24FallbackArea(task.provider,error,
+              selectedArea,retailerDistrictFallback);
+            if(!wider)throw error;
+            emart24PreferDistrict=true;
+            payload=await fetchJson(endpoint(task.provider,task.keyword,wider),
+              {cache:"no-store"},28000);
+          }
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
           if(task.provider==="cu" && payload.data.inventory?.available===false)
             throw new Error("STOCK_UNAVAILABLE");
