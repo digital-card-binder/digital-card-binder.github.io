@@ -7,6 +7,11 @@
   const STORAGE_DOCUMENT = "pokemonCollectionsDex";
   const MAX_DEXES = 30;
   const MAX_CARDS_PER_DEX = 1500;
+  const PICKER_PAGE_SIZE = 48;
+  // Korean collector names that do not appear in the series DB's English set title.
+  const SET_SEARCH_ALIASES = {
+    m6a: ["30주년", "포켓몬 30주년", "30th anniversary", "30thcelebration"],
+  };
 
   const state = {
     firebase: null,
@@ -15,6 +20,8 @@
     dexes: {},
     catalog: [],
     catalogMap: new Map(),
+    catalogSetCodes: new Set(),
+    pickerVisibleCount: PICKER_PAGE_SIZE,
     selectedDexId: "",
     filter: "all",
     query: "",
@@ -53,6 +60,20 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
+  }
+
+  function searchMatches(card, query) {
+    const terms = normalize(query).normalize("NFKC").split(/\s+/).filter(Boolean);
+    if (!terms.length) return true;
+    const setCode = normalize(card.setCode);
+    const haystack = card.search || normalize([
+      card.name, card.setCode, card.setTitle, card.cardNumber,
+      ...(SET_SEARCH_ALIASES[setCode] || []),
+    ].join(" "));
+    // An exact set code must not match a substring of another set (M6a != SM6a).
+    return terms.every((term) => state.catalogSetCodes.has(term)
+      ? setCode === term
+      : haystack.includes(term));
   }
 
   function configured() {
@@ -338,12 +359,15 @@
             codePart,
             group.code,
             group.title,
+            group.displayName,
+            ...(SET_SEARCH_ALIASES[normalize(group.code)] || []),
           ].join(" ")),
         });
       }
     }
     state.catalog = catalog;
     state.catalogMap = new Map(catalog.map((card) => [card.key, card]));
+    state.catalogSetCodes = new Set(catalog.map((card) => normalize(card.setCode)));
   }
 
   function renderSummary() {
@@ -416,12 +440,7 @@
       if (state.filter === "missing" && entry.owned) return false;
       if (!query) return true;
       const card = displayCard(entry);
-      return normalize([
-        card.name,
-        card.setCode,
-        card.setTitle,
-        card.cardNumber,
-      ].join(" ")).includes(query);
+      return searchMatches(card, query);
     });
   }
 
@@ -964,15 +983,21 @@
   function pickerMatches(query) {
     const normalizedQuery = normalize(query);
     if (!normalizedQuery) return state.catalog.slice(0, 30);
-    return state.catalog.filter((card) => card.search.includes(normalizedQuery)).slice(0, 60);
+    return state.catalog.filter((card) => searchMatches(card, normalizedQuery));
   }
 
   function renderPicker() {
     const dex = currentDex();
     const results = $("card-picker-results");
+    const previousScrollTop = results.scrollTop;
     results.replaceChildren();
-    const cards = pickerMatches($("card-picker-search").value);
-    $("card-picker-count").textContent = String(cards.length);
+    const matches = pickerMatches($("card-picker-search").value);
+    const cards = matches.slice(0, state.pickerVisibleCount);
+    $("card-picker-count").textContent = String(matches.length);
+    $("card-picker-shown-count").textContent = String(cards.length);
+    const more = $("card-picker-load-more");
+    more.hidden = cards.length >= matches.length;
+    more.textContent = `카드 더 보기 (${cards.length} / ${matches.length})`;
     const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
     for (const key of state.pickedCatalogKeys) if (existing.has(key)) state.pickedCatalogKeys.delete(key);
     $("card-picker-selected-count").textContent = String(state.pickedCatalogKeys.size);
@@ -1010,7 +1035,8 @@
       fragment.append(row);
     });
     results.append(fragment);
-    $("card-picker-empty").hidden = cards.length > 0;
+    results.scrollTop = previousScrollTop;
+    $("card-picker-empty").hidden = matches.length > 0;
   }
 
   async function addSelectedCatalogCards() {
@@ -1335,6 +1361,7 @@
     $("delete-dex-button").addEventListener("click", deleteCurrentDex);
     $("add-card-button").addEventListener("click", () => {
       if (!currentDex()) return;
+      state.pickerVisibleCount = PICKER_PAGE_SIZE;
       $("card-picker-search").value = "";
       state.pickedCatalogKeys.clear();
       if (!state.photoSaving) clearPhotoQueue();
@@ -1348,7 +1375,15 @@
     $("card-picker-close").addEventListener("click", () => {
       if (!state.photoSaving) { clearPhotoQueue(); $("card-picker-dialog").close(); }
     });
-    $("card-picker-search").addEventListener("input", renderPicker);
+    $("card-picker-search").addEventListener("input", () => {
+      state.pickerVisibleCount = PICKER_PAGE_SIZE;
+      $("card-picker-results").scrollTop = 0;
+      renderPicker();
+    });
+    $("card-picker-load-more").addEventListener("click", () => {
+      state.pickerVisibleCount += PICKER_PAGE_SIZE;
+      renderPicker();
+    });
     $("card-picker-select-visible").addEventListener("click", selectVisiblePickerCards);
     $("card-picker-clear-selected").addEventListener("click", () => {
       state.pickedCatalogKeys.clear();
