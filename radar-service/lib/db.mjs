@@ -2,13 +2,18 @@ import { applicationDefault, cert, getApps, initializeApp } from "firebase-admin
 import { getFirestore } from "firebase-admin/firestore";
 import {gridCell,nearbyCells} from "./radar-query.mjs";
 
-const DATABASE_ID = "card-radar"; // Never connect this service to the collection user's default DB.
+// This service is bound to a completely separate Firebase PROJECT.
+// Only its free Spark (default) database may be accessed; never the collector's Firebase project.
+const DATABASE_ID = "(default)";
 const cache=new Map();
 export function radarDatabase() {
   if(process.env.RADAR_FIRESTORE_DATABASE!==DATABASE_ID)
     throw new Error("RADAR_DATABASE_NOT_CONFIGURED");
   const projectId=process.env.GOOGLE_CLOUD_PROJECT;
   if(!projectId)throw new Error("RADAR_PROJECT_NOT_CONFIGURED");
+  if(projectId==="pokemon-dex-40e92")throw new Error("COLLECTOR_FIREBASE_PROJECT_FORBIDDEN");
+  if(!/^digital-card-radar-db(?:-[a-z0-9-]+)?$/.test(projectId))
+    throw new Error("UNRECOGNIZED_RADAR_FIREBASE_PROJECT");
   let credential=applicationDefault();
   if(process.env.RADAR_SERVICE_ACCOUNT_JSON) {
     const config=JSON.parse(process.env.RADAR_SERVICE_ACCOUNT_JSON);
