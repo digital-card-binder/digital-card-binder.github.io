@@ -149,3 +149,69 @@
     padding:10px 12px;font-size:12px}
   .radar-map-legend{gap:8px 13px}
 }
+
+
+/* Independent inventory map mode + optional mart-chain filter. */
+.radar-mart-brand-field{
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+  margin-top:16px;padding:12px 14px;border:1px solid #dfe8f5;
+  background:#f8fbff;border-radius:12px;
+}
+.radar-mart-brand-field[hidden]{display:none!important}
+.radar-mart-brand-field .radar-label{margin:0;white-space:nowrap}
+.radar-mart-brand-field select{
+  max-width:240px;min-width:170px;flex:1;background:#fff;
+}
+.radar-mart-brand-field small{font-size:11px;color:#6b7c95;line-height:1.5}
+.radar-map-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:11px 12px 7px;background:#fff;
+}
+.radar-map-mode{
+  display:inline-flex;gap:3px;background:#eff3f9;border-radius:12px;
+  padding:4px;flex:0 0 auto;
+}
+.radar-map-mode button{
+  display:inline-flex;align-items:center;gap:6px;border:0;border-radius:9px;
+  min-height:36px;padding:7px 12px;color:#53647d;background:transparent;
+  white-space:nowrap;font-size:12px;font-weight:850;
+}
+.radar-map-mode button.selected{
+  background:#fff;color:#284db5;box-shadow:0 2px 7px #263e711b;
+}
+.radar-map-mode button[data-map-mode="stock"].selected{
+  background:#fff1f3;color:#a52945;box-shadow:0 2px 7px #a529451a;
+}
+.radar-map-mode-count{
+  text-align:right;color:#496185;font-size:11px;font-weight:800;
+  font-variant-numeric:tabular-nums;
+}
+.radar-map-mode-note{
+  padding:0 13px 10px;margin:0;background:#fff;
+  font-size:11px;line-height:1.6;color:#647895;
+}
+.radar-map-panel.is-stock-map .radar-map-mode-note{color:#b13252}
+.radar-stock-marker{background:none;border:0}
+.radar-stock-marker-bubble{
+  width:47px;min-height:32px;display:flex;align-items:center;
+  justify-content:center;gap:2px;position:relative;
+  padding:6px 8px;color:#fff;background:#bc284a;
+  border:2px solid #fff;border-radius:15px;
+  box-shadow:0 3px 11px #6121364d;
+  font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;
+}
+.radar-stock-marker-bubble small{font-size:10px;font-weight:800}
+.radar-stock-marker-bubble:after{
+  content:"";position:absolute;left:19px;bottom:-7px;width:10px;height:10px;
+  transform:rotate(45deg);background:#bc284a;border-right:2px solid #fff;
+  border-bottom:2px solid #fff;
+}
+@media(max-width:640px){
+  .radar-map-toolbar{gap:6px;padding:9px 10px 6px}
+  .radar-map-mode button{min-height:38px;font-size:11px;padding:6px 9px}
+  .radar-map-mode-count{font-size:10px}
+  .radar-mart-brand-field{align-items:flex-start}
+  .radar-mart-brand-field .radar-label{width:100%}
+  .radar-mart-brand-field select{max-width:100%;width:100%}
+  .radar-map-mode-note{font-size:10px;padding:0 11px 8px}
+}

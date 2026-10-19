@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, isCardProduct, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -243,4 +243,75 @@ test("map/retail sources classify shops and official mart correctly", () => {
   assert.equal(target.inventoryStatus,"not_connected");
   assert.ok(target.lat>37 && target.lat<39);
   assert.ok(target.lng>127 && target.lng<130);
+});
+
+test("multiple mart chains receive distinct labels and precise subfilters", () => {
+  const { martBrand, martBrandLabel, selectedKind, state, category } = harness();
+  const cases = [
+    ["이마트 속초점","emart","이마트"],
+    ["트레이더스 홀세일 클럽 안성점","traders","트레이더스"],
+    ["롯데마트 송도점","lottemart","롯데마트"],
+    ["홈플러스 평택점","homeplus","홈플러스"],
+    ["코스트코 하남점","costco","코스트코"],
+    ["농협 하나로마트 고양점","hanaro","하나로마트"],
+    ["동네마트","other","기타 마트"],
+  ];
+  for(const [name,id,label] of cases) {
+    assert.equal(martBrand(name),id,name);
+    assert.equal(martBrandLabel(id),label,name);
+  }
+  assert.equal(category({shop:"wholesale",name:"트레이더스"}),"mart");
+  assert.equal(category({shop:"supermarket",name:"롯데마트"}),"mart");
+  assert.equal(category({shop:"convenience",name:"이마트24"}),"convenience");
+  state.kind="mart";
+  state.martBrand="traders";
+  assert.equal(selectedKind({kind:"mart",name:"트레이더스 월평점"}),true);
+  assert.equal(selectedKind({kind:"mart",name:"이마트 속초점"}),false);
+  assert.equal(selectedKind({kind:"convenience",name:"GS25"}),false);
+  state.martBrand="all";
+  assert.equal(selectedKind({kind:"mart",name:"이마트 속초점"}),true);
+  state.kind="all";
+  assert.equal(selectedKind({kind:"convenience",name:"GS25"}),true);
+});
+
+test("stock map pins count only currently confirmed unique card products", () => {
+  const {state,stockProductCount,filterStoresForDisplay} = harness();
+  const current=new Date().toISOString();
+  const old=new Date(Date.now()-40*60000).toISOString();
+  const store={name:"GS25 샘플",verifiedInventory:[
+    {name:"포켓몬카드 인페르노X 부스터팩",quantity:4,checkedAt:current,code:"m2"},
+    {name:"포켓몬카드 인페르노X 부스터팩",quantity:4,checkedAt:current,code:"m2"},
+    {name:"포켓몬카드 닌자스피너 부스터팩",quantity:1,checkedAt:current,code:"m4"},
+    {name:"포켓몬카드 메가심포니아",quantity:0,checkedAt:current,code:"m1S"},
+    {name:"포켓몬카드 배틀파트너즈",quantity:8,checkedAt:old,code:""},
+    {name:"포켓몬 이즐 교통카드",quantity:12,checkedAt:current,code:""},
+  ]};
+  assert.equal(stockProductCount(store),2);
+  state.onlyInStock=true;
+  assert.equal(filterStoresForDisplay([store,{name:"unknown",verifiedInventory:[]}]).length,1);
+  state.pack="m4";
+  assert.equal(stockProductCount(store),1);
+  state.pack="m1S";
+  assert.equal(stockProductCount(store),0);
+});
+
+test("inventory map controls reuse the same stock filter, without fabricated national stock", () => {
+  const html=read("card-radar.html");
+  assert.match(html,/data-map-mode="all"/);
+  assert.match(html,/data-map-mode="stock"/);
+  assert.match(html,/id="radar-map-mode-count"/);
+  assert.match(html,/id="radar-mart-brand"/);
+  for(const id of ["emart","traders","lottemart","homeplus","costco","hanaro"]) {
+    assert.match(html,new RegExp('value="'+id+'"'));
+  }
+  const css=read("card-radar.css");
+  assert.match(css,/[.]radar-stock-marker-bubble/);
+  assert.match(css,/[.]radar-map-mode button\[data-map-mode="stock"\][.]selected/);
+  assert.match(source,/document[.]querySelectorAll\("\[data-map-mode\]"\)[.]forEach/);
+  assert.match(source,/renderMapMarkers\(displayedStores\)/);
+  assert.match(source,/if\(state[.]onlyInStock && hasStock\)/);
+  assert.match(source,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+  assert.match(source,/stockProductCount\(store\)/);
+  assert.match(source,/state[.]onlyInStock\?"stock":"all"/);
+  assert.match(source,/byId\("radar-map-mode-count"\)[.]textContent/);
 });

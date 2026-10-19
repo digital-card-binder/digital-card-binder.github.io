@@ -10,7 +10,7 @@
   const MAX_SHOPS = 250;
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
-    radiusKm: 3, kind: "all", pack: "", view: "list", onlyInStock: false,
+    radiusKm: 3, kind: "all", martBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
@@ -53,8 +53,28 @@
     if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
     return "cardshop";
   }
+  function martBrand(name) {
+    const nameKey=String(name||"").toLowerCase().replace(/[\s._-]+/g,"");
+    // Order matters: Traders is operated by Emart but must have its own filter.
+    if(/트레이더스|traders/.test(nameKey))return "traders";
+    if(/이마트24|emart24/.test(nameKey))return "other";
+    if(/코스트코|costco/.test(nameKey))return "costco";
+    if(/하나로마트|하나로|hanaromart|nhmart/.test(nameKey))return "hanaro";
+    if(/롯데마트|lottemart/.test(nameKey))return "lottemart";
+    if(/홈플러스|homeplus/.test(nameKey))return "homeplus";
+    if(/이마트|emart/.test(nameKey))return "emart";
+    return "other";
+  }
+  function martBrandLabel(brand) {
+    return {emart:"이마트",traders:"트레이더스",lottemart:"롯데마트",
+      homeplus:"홈플러스",costco:"코스트코",hanaro:"하나로마트",
+      other:"기타 마트"}[brand] || "기타 마트";
+  }
   function selectedKind(store) {
-    return state.kind === "all" || store.kind === state.kind;
+    if(state.kind!=="all" && store.kind!==state.kind)return false;
+    if(state.kind==="mart" && state.martBrand!=="all")
+      return martBrand(store.chain||store.name)===state.martBrand;
+    return true;
   }
   function currentSummary(count, displayedCount = count) {
     const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
@@ -254,7 +274,9 @@
     return "[out:json][timeout:22];(" +
       'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트24|emart24",i]' + around + ";" +
       'nwr["shop"="supermarket"]' + around + ";" +
-      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus",i]' + around + ";" +
+      'nwr["shop"="wholesale"]' + around + ";" +
+      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
+      'nwr["name"~"트레이더스|Traders|코스트코|Costco|하나로마트|롯데마트|홈플러스|이마트",i]' + around + ";" +
       'nwr["shop"="games"]["name"~"카드|TCG|포켓몬|Pokemon",i]' + around + ";" +
       ");out center " + MAX_SHOPS + ";";
   }
@@ -272,7 +294,8 @@
       seen.add(key);
       shops.push({
         id:key, name, lat:coords.lat, lng:coords.lng,
-        kind:category(tags), distance, origin:"osm",
+        kind:category(tags), chain:String(tags.brand||tags.operator||"").slice(0,45),
+        distance, origin:"osm",
         addr: String(tags["addr:full"] || tags["addr:street"] || tags["addr:city"] || "").slice(0,120),
         verifiedInventory:[]
       });
@@ -455,6 +478,12 @@
     input.checked = state.onlyInStock;
     const label = input.closest(".radar-stock-filter");
     if (label) label.classList.toggle("is-active", state.onlyInStock);
+    document.querySelectorAll("[data-map-mode]").forEach((button)=>{
+      const active=button.dataset.mapMode === (state.onlyInStock?"stock":"all");
+      button.classList.toggle("selected",active);
+      button.setAttribute("aria-pressed",String(active));
+    });
+    byId("radar-map-panel").classList.toggle("is-stock-map",state.onlyInStock);
     try {
       localStorage.setItem("digitalCardBinderRadarOnlyInStockV1", state.onlyInStock ? "1" : "0");
     } catch (_) {
@@ -466,7 +495,8 @@
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
-    const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"대형마트·마트":"카드샵 후보";
+    const typeName=store.kind==="convenience"?"편의점":
+      store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):"카드샵 후보";
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
     header.append(title,badge);
@@ -499,6 +529,18 @@
     }
     card.append(buttons);target.append(card);
   }
+  function stockProductCount(store) {
+    const seen=new Set();
+    for(const item of store.verifiedInventory||[]) {
+      const age=Date.now()-Date.parse(item.checkedAt);
+      if(!isCardProduct(item.name) ||
+        (state.pack && String(item.code||"").toLowerCase()!==state.pack.toLowerCase()) ||
+        !Number.isSafeInteger(item.quantity) || item.quantity<=0 ||
+        !Number.isFinite(age) || age < -60000 || age >= 15*60000)continue;
+      seen.add(String(item.code||"").toLowerCase()+"|"+item.name.toLowerCase());
+    }
+    return seen.size;
+  }
   function renderMapMarkers(shops) {
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
@@ -506,15 +548,25 @@
       const mapColors={convenience:"#4168dc",mart:"#ed9b2a",cardshop:"#168b83"};
       const hasStock=inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.cardshop;
-      const marker=window.L.circleMarker([store.lat,store.lng],{
-        color:hasStock?"#bd263f":color,
-        fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
-      }).addTo(state.pinLayer);
+      const count=stockProductCount(store);
+      const marker=(state.onlyInStock && hasStock && window.L.divIcon
+        ? window.L.marker([store.lat,store.lng],{
+          icon:window.L.divIcon({className:"radar-stock-marker",html:
+            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+count+
+            '<small>종</small></span>',iconSize:[48,38],iconAnchor:[24,36]})
+        })
+        : window.L.circleMarker([store.lat,store.lng],{
+          color:hasStock?"#bd263f":color,
+          fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
+        })).addTo(state.pinLayer);
       const popup=make("div","");
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
-        make("p","",(store.kind==="mart"?"대형마트·마트":store.kind==="convenience"?"편의점":"카드샵 후보")+
+        make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
+            store.kind==="convenience"?"편의점":"카드샵 후보")+
           " · "+(stock.known?stock.message:stock.detail)));
+      if(state.onlyInStock && hasStock)popup.append(make("small","",
+        "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
       marker.bindPopup(popup);
       store.marker=marker;
     }
@@ -532,6 +584,14 @@
     currentSummary(nearbyStores.length, displayedStores.length);
     byId("radar-stock-filter-count").textContent = hasResults
       ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
+    byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
+      state.onlyInStock ? "재고 확인 "+inStockStores.length+"곳" :
+        "매장 "+nearbyStores.length+"곳 · 재고 확인 "+inStockStores.length+"곳";
+    byId("radar-map-mode-note").textContent = state.onlyInStock
+      ? (inStockStores.length===0
+          ? "현재 검색 반경에서 연결된 재고 API가 확인한 카드 보유 매장이 없습니다. 조회 불가 매장은 품절로 간주하지 않습니다."
+          : "재고가 확인된 매장만 지도에 표시합니다. 지도 이동 후 다시 검색하면 새 지역으로 갱신됩니다.")
+      : "전체 매장 위치를 표시합니다. 재고 보기에서는 확인된 포켓몬 카드 재고 보유 매장만 강조합니다.";
     byId("radar-stock-checked").textContent = hasResults
       ? String(nearbyStores.filter((store) => inventoryLabel(store).checked).length) : "—";
     renderMapMarkers(displayedStores);
@@ -774,7 +834,19 @@
     state.pack=product.value;
     product.addEventListener("change",()=>{state.pack=product.value;render();});
     const type=byId("radar-store-kind");
-    type.addEventListener("change",()=>{state.kind=type.value;render();});
+    const martField=byId("radar-mart-brand-field");
+    const martSelect=byId("radar-mart-brand");
+    type.addEventListener("change",()=>{
+      state.kind=type.value;
+      martField.hidden=type.value!=="mart";
+      if(type.value!=="mart"){state.martBrand="all";martSelect.value="all";}
+      render();
+      if(!state.searching)setStatus("매장 유형을 변경했습니다. 새 유형의 조회 범위를 정확하게 확인하려면 다시 탐색해 주세요.");
+    });
+    martSelect.addEventListener("change",()=>{
+      state.martBrand=martSelect.value;
+      render();
+    });
     document.querySelectorAll("[data-radius]").forEach((button) =>
       button.addEventListener("click",()=>setRadius(Number(button.dataset.radius))));
     document.querySelectorAll("[data-view]").forEach((button) =>
@@ -788,6 +860,8 @@
     byId("radar-search-map-area").addEventListener("click",searchCurrentMapArea);
     const stockFilter = byId("radar-only-in-stock");
     stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
+    document.querySelectorAll("[data-map-mode]").forEach((button)=>
+      button.addEventListener("click",()=>setStockOnly(button.dataset.mapMode==="stock")));
     initMap();
     let saved=3;
     try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||3;}catch(_){}
