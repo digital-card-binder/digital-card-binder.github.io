@@ -1,0 +1,48 @@
+name: Resolve SM2L Korean 047 048 mapping and photo-hold inventory
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sm2l-047-048-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-sm2l-047-048-20261019
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply guarded Korean-only 047-048 mapping correction
+        run: node scripts/apply-theme-sm2l-047-048-korean-mapping-20261019.mjs
+      - name: Rebuild theme coverage and site metrics
+        run: npm run site:prepare
+      - name: Complete regression suite
+        run: npm test
+      - name: Commit only if regression tests pass
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2l-047-048-korean-number-resolution-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2l): resolve Korean 047 and 048 mapping and add two color themes'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
