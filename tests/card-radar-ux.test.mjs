@@ -751,4 +751,6 @@ test("Emart24 retries district after local neighborhood 500 but not after 403/42
   assert.match(source,/const wider=emart24FallbackArea\(task\.provider,error,/);
   assert.match(source,/emart24PreferDistrict=true/);
   assert.match(source,/retailerAreaCache\.set\(key,\{keyword,district:/);
+  assert.match(source,/const keyword=input[.]length>1[?]input:normalizeRetailerArea\(data\)/);
+  assert.match(source,/return input[.]length>1[?]input:""/);
 });
