@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -101,7 +101,7 @@ test("retailer integration discards food even if API returns positive quantities
 
 test("progress tracks settled API attempts rather than pretending stores were checked", () => {
   const { state, element, completeProgressStep, updateProgress, inventoryJobs } = harness();
-  assert.equal(inventoryJobs().length,20);
+  assert.equal(inventoryJobs().length,36);
   state.progress={total:5,completed:0,successes:0,failures:0,active:true};
   updateProgress("검색 중");
   completeProgressStep(true,"재고 조회 중");
@@ -188,8 +188,9 @@ test("transit cards and keyword-matched unrelated products never enter Pokemon T
     "인페르노X 부스터 팩", "포켓몬카드 인페르노X 부스터 팩",
     "포켓몬 카드 30주년 팩", "포켓몬카드 닌자스피너",
   ]) assert.equal(isCardProduct(name), true, name);
-  assert.deepEqual([...liveQueries()], ["인페르노X","닌자스피너",
-    "30th CELEBRATION","메가심포니아","포켓몬카드 부스터팩"]);
+  assert.deepEqual([...liveQueries()], ["30th CELEBRATION","스톰에메랄다",
+    "어비스아이","닌자스피너","니힐제로","MEGA드림ex",
+    "인페르노X","메가심포니아","메가브레이브"]);
 });
 
 test("CU store directory contributes locations without inventing inventory", () => {
@@ -397,7 +398,7 @@ test("selected convenience brand only queries its retailer, avoiding wasted thir
   state.convenienceBrand="other";
   assert.equal(inventoryJobs().length,0);
   state.convenienceBrand="all";
-  assert.equal(inventoryJobs().length,20);
+  assert.equal(inventoryJobs().length,36);
 });
 
 test("changing a pack after a search schedules pack-specific refresh, never only filters old stock",()=>{
@@ -421,7 +422,7 @@ test("changing a pack after a search schedules pack-specific refresh, never only
 test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
   const html=read("card-radar.html");
   assert.match(html,/id="radar-pack-coverage-note"/);
-  assert.match(html,/전체 카드팩은 주요 상품부터 검색합니다/);
+  assert.match(html,/전체 카드팩은 등록된 9종을 검색합니다/);
   assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
   assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
   assert.match(source,/state[.]hasSearched = true/);
@@ -823,4 +824,41 @@ test("inventory merging uses retailer product code for same-SKU aliases",()=>{
   const result=mergeInventory([store]);
   assert.equal(result.length,1);
   assert.equal(result[0].verifiedInventory.length,1,"one retailer SKU cannot count twice");
+});
+
+test("all nine supported products are searched without generic guessing",()=>{
+  const {liveQueries,inventoryJobs,state}=harness();
+  state.pack="";state.kind="all";
+  const queries=[...liveQueries()];
+  assert.equal(queries.length,9);
+  assert.equal(new Set(queries).size,9);
+  assert.ok(!queries.includes("포켓몬카드 부스터팩"));
+  const jobs=[...inventoryJobs()];
+  assert.equal(jobs.length,36);
+  assert.equal(new Set(jobs.slice(0,4).map(x=>x.provider)).size,4,
+    "distribute requests among providers instead of bursts");
+  state.kind="convenience";state.convenienceBrand="cu";
+  assert.equal(inventoryJobs().length,9);
+  state.pack="m6a";
+  assert.equal(inventoryJobs().length,1);
+  state.kind="mart";
+  assert.equal(inventoryJobs().length,0);
+});
+test("provider circuit breaker halts rate-limited, stock-unavailable, and repeated 5xx",()=>{
+  const {updateProviderCircuit}=harness();
+  const blocked=new Set(),failures=new Map();
+  assert.equal(updateProviderCircuit(blocked,failures,"seveneleven",new Error("STOCK_UNAVAILABLE")),true);
+  assert.equal(blocked.has("seveneleven"),true);
+  assert.equal(updateProviderCircuit(blocked,failures,"gs25",new Error("HTTP 429")),true);
+  assert.equal(blocked.has("gs25"),true);
+  assert.equal(updateProviderCircuit(blocked,failures,"cu",new Error("HTTP 500")),false);
+  assert.equal(updateProviderCircuit(blocked,failures,"cu",new Error("HTTP 502")),true);
+  assert.equal(blocked.has("cu"),true);
+  assert.equal(updateProviderCircuit(blocked,failures,"emart24",new Error("HTTP 503")),false);
+  failures.set("emart24",0);
+  assert.equal(updateProviderCircuit(blocked,failures,"emart24",new Error("HTTP 503")),false);
+  assert.equal(updateProviderCircuit(blocked,failures,"emart24",new Error("HTTP 403")),false);
+  assert.equal(blocked.has("emart24"),false);
+  assert.match(source,/if\(brokenProviders[.]has\(task[.]provider\)\)\{/);
+  assert.match(source,/completeProgressStep\(false,"재고 조회 중",false\)/);
 });
