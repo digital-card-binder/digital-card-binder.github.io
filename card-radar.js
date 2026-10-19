@@ -509,7 +509,7 @@
   async function loadPublicShopLocations(){
     const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
       lng:state.center.lng.toFixed(6),radiusKm:String(state.radiusKm),limit:"250"});
-    if(["mart","convenience","cardshop"].includes(state.kind))params.set("kind",state.kind);
+    if(["mart","convenience"].includes(state.kind))params.set("kind",state.kind);
     if(state.kind==="convenience"&&state.convenienceBrand!=="all"&&state.convenienceBrand!=="other")
       params.set("retailer",state.convenienceBrand);
     if(state.kind==="mart"&&state.martBrand!=="all"&&state.martBrand!=="other")
