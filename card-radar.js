@@ -137,7 +137,7 @@
     try { localStorage.setItem("digitalCardBinderRadarRadiusV1", String(value)); } catch (_) {}
     centerMap();
     render();
-    if (state.shops.length) setStatus("검색 반경을 변경했습니다. 새 범위의 매장을 보려면 ‘이 지역 매장 탐색’을 눌러 주세요.");
+    if (changed) setStatus("검색 반경이 변경되었습니다. ‘이 지역 매장 탐색’을 눌러 새 범위를 조회해 주세요.");
   }
   function setView(view) {
     if (!["list","map"].includes(view)) return;
@@ -299,13 +299,13 @@
     if (typeof name !== "string") return false;
     const text = name.trim();
     if (!text || NON_CARD_ITEMS.test(text)) return false;
-    const compact = text.replace(/[\\s·_/-]+/g, "").toLowerCase();
+    const compact = text.replace(/[\s·_/-]+/g, "").toLowerCase();
     const namedPack = KNOWN_PACK_NAMES.some((pack) =>
-      compact.includes(pack.replace(/[\\s·_/-]+/g, "").toLowerCase()));
+      compact.includes(pack.replace(/[\s·_/-]+/g, "").toLowerCase()));
     return /(포켓몬|pokemon|pokémon).{0,25}(tcg|카드|확장팩|부스터|스타터덱)/i.test(text) ||
       /(tcg|카드게임|트레이딩카드).{0,25}(포켓몬|pokemon|pokémon)/i.test(text) ||
       (namedPack && (/(팩|카드|덱|부스터|확장팩)/i.test(text) || KNOWN_PACK_NAMES.some((pack) =>
-        compact === pack.replace(/[\\s·_/-]+/g, "").toLowerCase())));
+        compact === pack.replace(/[\s·_/-]+/g, "").toLowerCase())));
   }
   function inventoryLabel(store) {
     const cardItems = (store.verifiedInventory || []).filter((p) =>
@@ -323,7 +323,7 @@
         checked: true, detail: (item.provider ? item.provider + " · " : "") + "API 응답 " + when + " (시차 가능)" };
     }
     if (fresh.length) return { message: "", known: false, checked: true,
-      detail: "조회한 카드 상품 재고 없음 (0개) · 강조 표시 제외" };
+      detail: "카드 재고 없음 · 재고 있는 품목만 강조" };
     if (cardItems.length) return { message: "", known: false, checked: false,
       detail: "이전 조회 이력만 있음 · 현재 재고 미확인" };
     return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
