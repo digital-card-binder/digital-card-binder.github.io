@@ -49,7 +49,11 @@
   function category(tags) {
     const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
     const shop = String(tags.shop || "");
-    if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven|이마트24|emart24)/i.test(name) && !/이마트(?!24)|E-?Mart(?!24)/i.test(name.replace(/이마트24|emart24/ig,""))) return "convenience";
+    // E-Mart24 is a convenience store, including spaced/hyphenated map labels.
+    // Check the store brand first: OSM entries sometimes incorrectly use supermarket.
+    if (/이마트\s*24|e[\s._-]*mart\s*24/i.test(name)) return "convenience";
+    if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven)/i.test(name) &&
+      !/이마트(?!24)|E-?Mart(?!24)/i.test(name)) return "convenience";
     if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
     return null;
   }
@@ -294,7 +298,8 @@
   function categoryQuery(radius, lat, lng) {
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
     return "[out:json][timeout:22];(" +
-      'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트24|emart24",i]' + around + ";" +
+      'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
+      'nwr["shop"="convenience"]["brand"~"이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
       'nwr["shop"="supermarket"]' + around + ";" +
       'nwr["shop"="wholesale"]' + around + ";" +
       'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
@@ -692,7 +697,9 @@
         target = {id:"feed:"+source.id,name:source.name,lat:source.lat,lng:source.lng,
           distance:distanceKm(state.center,source),kind:source.kind,
           retailerId:source.retailerId||"",chain:source.chain||"",
-          addr:source.address || "",origin:"authorized-feed",verifiedInventory:[]};
+          addr:source.address || "",
+          origin:source.inventorySource==="public-aggregator"?"public-aggregator":"authorized-feed",
+          verifiedInventory:[]};
         merged.push(target);
       }
       if(source.retailerId && !target.retailerId)target.retailerId=source.retailerId;
@@ -705,7 +712,9 @@
         else existing.push(item);
       }
       target.verifiedInventory = existing;
-      target.origin = "authorized-feed";
+      if(source.inventorySource==="public-aggregator"){
+        if(target.origin!=="authorized-feed")target.origin="public-aggregator";
+      }else target.origin="authorized-feed";
     }
     return merged.sort((a,b) => a.distance-b.distance);
   }
@@ -759,11 +768,15 @@
     if (available.length) {
       const item = available[0];
       const when = new Date(item.checkedAt).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
-      return { message: item.name + " · 재고 " + item.quantity + "개", known: true,
-        checked: true, detail: (item.provider ? item.provider + " · " : "") + "API 응답 " + when + " (시차 가능)" };
+      const publicResponse=item.inventorySource==="public-aggregator";
+      return { message: item.name + " · 조회 수량 " + item.quantity + "개", known: true,
+        checked: true, detail: (item.provider ? item.provider + " · " : "") +
+          (publicResponse?"공개 재고 조회 응답 ":"재고 확인 시각 ") + when +
+          (publicResponse?" · 실제 점포 재고는 다를 수 있음":" · 방문 전 재확인 권장") };
     }
     if (fresh.length) return { message: "", known: false, checked: true,
-      detail: "카드 재고 없음 · 재고 있는 품목만 강조" };
+      detail: state.pack ? "선택한 카드팩 조회 수량 0개" :
+        "조회된 카드 상품은 수량 0개 · 다른 카드팩은 미확인" };
     if (cardItems.length) return { message: "", known: false, checked: false,
       detail: "이전 조회 이력만 있음 · 현재 재고 미확인" };
     return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
@@ -801,7 +814,11 @@
     header.append(title,badge);
     top.append(header,km);card.append(top);
     card.append(make("p","radar-store-sub",(store.addr ? store.addr+" · ":"")+
-      (store.origin==="self-db"?"자체 DB 등록 매장 · 재고 별도 확인":store.origin==="government-business-registry"?"정부 상가 위치 후보 · 재고 미확인":store.origin==="official-directory"?"공식 매장 위치 확인 · 재고 연동 별도":"지도 매장 위치 후보")));
+      (store.origin==="public-aggregator"?"외부 재고 조회 응답 · 방문 전 확인":
+        store.origin==="self-db"?"등록 매장 · 재고 별도 확인":
+        store.origin==="government-business-registry"?"매장 위치 후보 · 재고 미확인":
+        store.origin==="official-directory"?"매장 위치 확인 · 재고 별도 확인":
+        store.origin==="authorized-feed"?"재고 데이터 제공 매장":"지도에 등록된 매장 후보")));
     const summary=inventoryLabel(store);
     if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
     card.append(make("p","radar-stock-note",summary.detail));
@@ -1040,6 +1057,20 @@
   function validQuantity(q) {
     return typeof q === "number" && Number.isSafeInteger(q) && q >= 0;
   }
+  // Retailer keyword endpoints can return approximate search matches.
+  // A named pack query may only confirm that named pack; a general pack
+  // query can admit any recognized Pokémon TCG product.
+  function matchesRequestedCardProduct(name,keyword){
+    if(!isCardProduct(name))return false;
+    if(!keyword || keyword==="포켓몬카드 부스터팩")return true;
+    const norm=(value)=>String(value).normalize("NFKC").toLowerCase()
+      .replace(/[^a-z0-9가-힣]+/g,"");
+    const actual=norm(name),requested=norm(keyword);
+    if(!actual || !requested)return false;
+    if(/30thcelebration|30주년/.test(requested))
+      return /30thcelebration|30주년/.test(actual);
+    return actual.includes(requested);
+  }
   function storeFromResult(raw, kind, source, product, quantity, observedAt) {
     if (!raw || !validQuantity(quantity) || !isCardProduct(product)) return null;
     const lat = Number(raw.latitude ?? raw.lat);
@@ -1052,8 +1083,9 @@
       name: String(raw.storeName || raw.name || "").slice(0,90),
       address: String(raw.address || "").slice(0,120),
       kind, lat, lng,
+      inventorySource:"public-aggregator",
       items:[{code:packFromTitle(product),name:product.slice(0,90),quantity,
-        checkedAt:observedAt,provider:source}]
+        checkedAt:observedAt,provider:source,inventorySource:"public-aggregator"}]
     };
     return record.id && record.name ? record : null;
   }
@@ -1077,7 +1109,7 @@
     }
     return API_BASE+"/api/"+provider+"/inventory?"+p.toString();
   }
-  function parseRetail(provider, payload, responseAt) {
+  function parseRetail(provider, payload, responseAt,requestedKeyword="") {
     if(!payload || payload.success !== true || !payload.data) throw new Error("PROVIDER_ERROR");
     const data=payload.data, results=[];
     if(provider === "cu") {
@@ -1114,7 +1146,9 @@
         if(parsed)results.push(parsed);
       }
     }
-    return results.filter((row)=>distanceKm(state.center,row) <= state.radiusKm+.03);
+    return results.filter((row)=>
+      matchesRequestedCardProduct(row.items[0].name,requestedKeyword) &&
+      distanceKm(state.center,row) <= state.radiusKm+.03);
   }
   function liveQueries() {
     if(state.pack) return [PACK_TITLES.get(state.pack)].filter(Boolean);
@@ -1162,7 +1196,7 @@
             throw new Error("STOCK_UNAVAILABLE");
           if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
             throw new Error("STOCK_UNAVAILABLE");
-          const rows=parseRetail(task.provider,payload,new Date().toISOString());
+          const rows=parseRetail(task.provider,payload,new Date().toISOString(),task.keyword);
           all.push(...rows);
           success=true;
           notes.push(task.provider+":ok");
