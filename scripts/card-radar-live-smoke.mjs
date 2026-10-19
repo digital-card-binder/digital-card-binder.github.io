@@ -19,24 +19,38 @@ const {state,endpoint,parseRetail}=context.__radarSmoke;
 state.center={lat:37.35,lng:127.10};
 state.radiusKm=3;
 const keyword="인페르노X";
-const providers=["cu","gs25","seveneleven","emart24"];
+const probes=[
+  {provider:"cu",storeArea:"",scenario:"default"},
+  {provider:"gs25",storeArea:"",scenario:"default"},
+  {provider:"seveneleven",storeArea:"금곡동",scenario:"default"},
+  {provider:"emart24",storeArea:"금곡동",scenario:"default"},
+  // A 500 only when using the district filter suggests a query-shape problem
+  // rather than a blanket service outage; never assume the two are equivalent.
+  {provider:"emart24",storeArea:"분당",scenario:"district_alias"},
+  {provider:"emart24",storeArea:"",scenario:"without_area"}
+];
 const report={schemaVersion:1,checkedAt:new Date().toISOString(),
   target:"South Korea, Seongnam area (approximate map test center)",
   productKeyword:keyword,
   checks:[]};
-for(const provider of providers){
+for(const {provider,storeArea,scenario} of probes){
   const started=Date.now();
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(),24000);
-  const storeArea=(provider==="seveneleven"||provider==="emart24")?"금곡동":"";
-  const result={provider,status:"not_checked",httpStatus:null,apiSuccess:null,
+  const result={provider,scenario,status:"not_checked",httpStatus:null,
+    browserCors:"not_checked",apiSuccess:null,
     dataKeys:[],returnedStoreCount:null,validNearbyStockRows:0,
     positiveQuantityRows:0,responseMs:0};
   try{
     const url=endpoint(provider,keyword,storeArea);
     const res=await fetch(url,{signal:controller.signal,
-      headers:{"Accept":"application/json"},redirect:"follow"});
+      headers:{"Accept":"application/json",
+        "Origin":"https://digital-card-binder.github.io"},redirect:"follow"});
     result.httpStatus=res.status;
+    const allowOrigin=res.headers.get("access-control-allow-origin")||"";
+    result.browserCors=(allowOrigin==="*"||
+      allowOrigin==="https://digital-card-binder.github.io")?
+      "allowed":"missing_or_mismatch";
     const contentType=res.headers.get("content-type")||"";
     if(!res.ok){result.status="http_error";}
     else if(!contentType.toLowerCase().includes("json")){
