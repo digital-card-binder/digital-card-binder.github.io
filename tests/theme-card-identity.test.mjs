@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,17913); // Korean SM2L 005 verified color-theme addition
+  assert.equal(total,17923); // Korean SM2L 001,003,004,007,009 official-art continuation
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
