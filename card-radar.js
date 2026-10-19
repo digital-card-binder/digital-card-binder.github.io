@@ -49,7 +49,11 @@
   function category(tags) {
     const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
     const shop = String(tags.shop || "");
-    if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven|이마트24|emart24)/i.test(name) && !/이마트(?!24)|E-?Mart(?!24)/i.test(name.replace(/이마트24|emart24/ig,""))) return "convenience";
+    // E-Mart24 is a convenience store, including spaced/hyphenated map labels.
+    // Check the store brand first: OSM entries sometimes incorrectly use supermarket.
+    if (/이마트\s*24|e[\s._-]*mart\s*24/i.test(name)) return "convenience";
+    if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven)/i.test(name) &&
+      !/이마트(?!24)|E-?Mart(?!24)/i.test(name)) return "convenience";
     if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
     return null;
   }
@@ -294,7 +298,8 @@
   function categoryQuery(radius, lat, lng) {
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
     return "[out:json][timeout:22];(" +
-      'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트24|emart24",i]' + around + ";" +
+      'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
+      'nwr["shop"="convenience"]["brand"~"이마트 ?24|E[ -]?Mart ?24",i]' + around + ";" +
       'nwr["shop"="supermarket"]' + around + ";" +
       'nwr["shop"="wholesale"]' + around + ";" +
       'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
