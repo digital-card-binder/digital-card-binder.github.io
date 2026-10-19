@@ -242,3 +242,45 @@ test("Korean Classic replacement images remain locally archived and routed acros
   assert.match(client, /applySeriesImageOverridesToSearch[(]decoded[.]groups[)]/);
   assert.match(client, /card[.]originalImage = local/);
 });
+
+
+test("SM2L 062 shows its Korean printed Basic Fighting Energy label without rewriting stored ownership IDs", async () => {
+  const originals = parse("data/series.json");
+  const sm2l = originals.find(group => String(group.code).toLowerCase() === "sm2l");
+  const original = sm2l.cards.find(card => card.code === "SM2L_062/050");
+  assert.equal(original.name, "격투 에너지");
+  const payloads = {
+    "./data/series.json": originals,
+    "./data/series-legacy.json": parse("data/series-legacy.json"),
+    "./data/pokemon-search-index.json": parse("data/pokemon-search-index.json"),
+    "./data/series-image-overrides.json": parse("data/series-image-overrides.json"),
+    "./data/series-collection-exclusions.json": parse("data/series-collection-exclusions.json"),
+  };
+  const context = {
+    window: {},
+    fetch: async (url) => {
+      assert.ok(Object.hasOwn(payloads, url), "Unexpected remote JSON " + url);
+      return { ok: true, json: async () => structuredClone(payloads[url]) };
+    },
+  };
+  vm.createContext(context);
+  vm.runInContext(read("core/catalog/catalog-service.js"), context);
+  const catalog = context.window.DigitalCardBinder.catalog;
+  const groups = await catalog.series();
+  const displayed = groups.find(group => String(group.code).toLowerCase() === "sm2l")
+    .cards.find(card => card.code === "SM2L_062/050");
+  assert.equal(displayed.name, "기본 격투 에너지");
+  assert.equal(displayed.code, original.code);
+  assert.equal(displayed.image, original.image);
+  assert.equal(displayed.accountIndex, original.accountIndex);
+  const compactIndex = await catalog.pokemonSearchIndex();
+  const indexGroup = compactIndex.groups.find(group => String(group[0]).toLowerCase() === "sm2l");
+  const indexCard = indexGroup[4].find(card => card[0] === "SM2L_062/050");
+  assert.equal(indexCard[1], "기본 격투 에너지");
+  assert.ok(indexCard[1].includes("격투 에너지"), "The historical shorter name must still match");
+  assert.equal(indexCard[0], original.code);
+  const originalIndex = payloads["./data/pokemon-search-index.json"].groups
+    .find(group => String(group[0]).toLowerCase() === "sm2l")[4]
+    .find(card => card[0] === "SM2L_062/050");
+  assert.equal(originalIndex[1], "격투 에너지", "Generated source index remains backwards-compatible");
+});
