@@ -10,7 +10,7 @@
   const MAX_SHOPS = 250;
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
-    radiusKm: 3, kind: "all", martBrand: "all", pack: "", view: "list", onlyInStock: false,
+    radiusKm: 3, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], masterShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
@@ -70,20 +70,34 @@
       homeplus:"홈플러스",costco:"코스트코",hanaro:"하나로마트",
       other:"기타 마트"}[brand] || "기타 마트";
   }
+  const CONVENIENCE_CHAIN_LABELS={cu:"CU",gs25:"GS25",seveneleven:"세븐일레븐",
+    emart24:"이마트24",other:"기타 편의점"};
+  function convenienceChain(store) {
+    const fromDb=String(store.retailerId||"").toLowerCase();
+    if(CONVENIENCE_CHAIN_LABELS[fromDb] && fromDb!=="other")return fromDb;
+    const label=String(store.chain||store.name||"").toLowerCase().replace(/[\\s._-]+/g,"");
+    if(/이마트24|emart24/.test(label))return "emart24";
+    if(/세븐일레븐|7eleven|seveneleven/.test(label))return "seveneleven";
+    if(/gs25/.test(label))return "gs25";
+    if(/(?:^|[^a-z])cu|씨유/.test(label))return "cu";
+    return "other";
+  }
   function selectedKind(store) {
     if(state.kind!=="all" && store.kind!==state.kind)return false;
     if(state.kind==="mart" && state.martBrand!=="all")
       return martBrand(store.chain||store.name)===state.martBrand;
+    if(state.kind==="convenience" && state.convenienceBrand!=="all")
+      return convenienceChain(store)===state.convenienceBrand;
     return true;
   }
   function currentSummary(count, displayedCount = count) {
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.masterShops.length > 0;
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0;
     byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
       (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
-    const visible = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
+    const visible = hasResults;
     byId("radar-total-stores").textContent = visible ? String(count) : "—";
     byId("radar-search-completed").textContent = String(state.progress.successes);
     byId("radar-search-failed").textContent = String(state.progress.failures);
@@ -317,7 +331,7 @@
       const distance = distanceKm(state.center,{lat,lng});
       if (distance > state.radiusKm+.03) return [];
       return [{id:"cu:"+String(raw.storeCode||name).slice(0,90),name,lat,lng,distance,
-        kind:"convenience",addr:String(raw.address||"").slice(0,120),
+        retailerId:"cu",chain:"CU",kind:"convenience",addr:String(raw.address||"").slice(0,120),
         origin:"retailer-directory",verifiedInventory:[]}];
     });
   }
@@ -367,6 +381,11 @@
   async function loadSelfDbStores() {
     const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
       lng:state.center.lng.toFixed(6),radiusKm:String(state.radiusKm),limit:"250"});
+    if(state.kind==="mart" || state.kind==="convenience")params.set("kind",state.kind);
+    if(state.kind==="convenience"&&state.convenienceBrand!=="all"&&
+      state.convenienceBrand!=="other")params.set("retailer",state.convenienceBrand);
+    if(state.kind==="mart"&&state.martBrand!=="all"&&
+      state.martBrand!=="other")params.set("retailer",state.martBrand);
     const payload=await fetchJson(SELF_DB_API+"?"+params.toString(),
       {cache:"no-store",headers:{Accept:"application/json"}},15000);
     return parseSelfDbDirectory(payload);
@@ -532,9 +551,12 @@
       if (!target) {
         target = {id:"feed:"+source.id,name:source.name,lat:source.lat,lng:source.lng,
           distance:distanceKm(state.center,source),kind:source.kind,
+          retailerId:source.retailerId||"",chain:source.chain||"",
           addr:source.address || "",origin:"authorized-feed",verifiedInventory:[]};
         merged.push(target);
       }
+      if(source.retailerId && !target.retailerId)target.retailerId=source.retailerId;
+      if(source.chain)target.chain=source.chain;
       if(source.kind==="mart")target.chain=source.chain||target.chain||"";
       const existing = target.verifiedInventory || [];
       for (const item of source.items || []) {
@@ -632,7 +654,7 @@
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
-    const typeName=store.kind==="convenience"?"편의점":
+    const typeName=store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
       store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):"카드샵 후보";
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
@@ -713,7 +735,7 @@
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
         make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
-            store.kind==="convenience"?"편의점":"카드샵 후보")+
+            store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:"카드샵 후보")+
           " · "+(stock.known?stock.message:stock.detail)));
       if(state.onlyInStock && hasStock)popup.append(make("small","",
         "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
@@ -863,6 +885,8 @@
     if (!validCoord(lat, lng)) return null;
     const record = {
       id: String(raw.storeCode || raw.bizNo || raw.storeName || "").slice(0,90),
+      retailerId: {"CU":"cu","GS25":"gs25","세븐일레븐":"seveneleven","이마트24":"emart24"}[source]||"",
+      chain: source,
       name: String(raw.storeName || raw.name || "").slice(0,90),
       address: String(raw.address || "").slice(0,120),
       kind, lat, lng,
@@ -1005,15 +1029,23 @@
     const type=byId("radar-store-kind");
     const martField=byId("radar-mart-brand-field");
     const martSelect=byId("radar-mart-brand");
+    const convenienceField=byId("radar-convenience-brand-field");
+    const convenienceSelect=byId("radar-convenience-brand");
     type.addEventListener("change",()=>{
       state.kind=type.value;
       martField.hidden=type.value!=="mart";
+      convenienceField.hidden=type.value!=="convenience";
       if(type.value!=="mart"){state.martBrand="all";martSelect.value="all";}
+      if(type.value!=="convenience"){state.convenienceBrand="all";convenienceSelect.value="all";}
       render();
       if(!state.searching)setStatus("매장 유형을 변경했습니다. 새 유형의 조회 범위를 정확하게 확인하려면 다시 탐색해 주세요.");
     });
     martSelect.addEventListener("change",()=>{
       state.martBrand=martSelect.value;
+      render();
+    });
+    convenienceSelect.addEventListener("change",()=>{
+      state.convenienceBrand=convenienceSelect.value;
       render();
     });
     document.querySelectorAll("[data-radius]").forEach((button) =>
