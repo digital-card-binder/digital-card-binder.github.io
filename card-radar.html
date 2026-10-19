@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="디지털 카드 바인더 카드팩 레이더: 주변 1~10km 판매점 위치와 카드팩 재고 확인 상태를 탐색합니다.">
+  <meta name="theme-color" content="#17233f">
+  <title>📡 카드 레이더 | 디지털 카드 바인더</title>
+  <link rel="icon" href="./assets/brand/favicon-32.png" type="image/png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="./card-radar.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="./card-radar.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#radar-main">본문으로 건너뛰기</a>
+  <header class="radar-header">
+    <a class="radar-brand" href="./" aria-label="디지털 카드 바인더 홈">
+      <img src="./assets/brand/logo-symbol.png" alt="" aria-hidden="true">
+      <span>디지털 카드 바인더</span>
+    </a>
+    <nav aria-label="바로가기" class="radar-header-nav">
+      <a href="./packs.html">팩도감</a>
+      <a href="./pokemon-search.html">카드 검색</a>
+      <a href="./">홈</a>
+    </nav>
+  </header>
+  <main id="radar-main" class="radar-layout">
+    <section class="radar-hero">
+      <div class="radar-hero-copy">
+        <span class="radar-eyebrow">DIGITAL CARD BINDER · PACK RADAR</span>
+        <h1>📡 카드 레이더</h1>
+        <p>찾는 상품을 고르지 않아도, 가까운 카드 판매점부터 찾아보세요.</p>
+      </div>
+      <div class="radar-hero-orb" aria-hidden="true"><span></span><i></i><i></i></div>
+    </section>
+
+    <section class="radar-controls" aria-label="주변 매장 찾기">
+      <div class="radar-location-row">
+        <div class="radar-input-wrap">
+          <label for="radar-place">검색할 지역</label>
+          <div class="radar-input-inline">
+            <input id="radar-place" type="search" autocomplete="street-address" placeholder="예: 서초역, 강남역, 부산 서면" maxlength="80">
+            <button id="radar-find-place" type="button" class="radar-mini-button">지역 설정</button>
+          </div>
+        </div>
+        <button id="radar-geolocate" type="button" class="radar-locate">◎ 내 위치</button>
+      </div>
+      <p class="radar-coordinate" id="radar-location-label" aria-live="polite">기본 지도 위치: 서울시청 · 지역 검색 또는 내 위치를 선택해 주세요.</p>
+      <div class="radar-field-grid">
+        <div class="radar-field">
+          <span class="radar-label" id="radar-distance-label">검색 반경</span>
+          <div class="radar-radius" role="group" aria-labelledby="radar-distance-label">
+            <button type="button" data-radius="1" aria-pressed="false">1km</button>
+            <button type="button" data-radius="3" aria-pressed="true" class="selected">3km</button>
+            <button type="button" data-radius="5" aria-pressed="false">5km</button>
+            <button type="button" data-radius="10" aria-pressed="false">10km</button>
+          </div>
+        </div>
+        <div class="radar-field">
+          <label class="radar-label" for="radar-pack">상품 검색</label>
+          <select id="radar-pack"><option value="">전체 카드팩 · 기본값</option></select>
+        </div>
+        <div class="radar-field">
+          <label class="radar-label" for="radar-store-kind">매장 유형</label>
+          <select id="radar-store-kind">
+            <option value="all">전체 매장</option>
+            <option value="convenience">편의점</option>
+            <option value="mart">마트</option>
+            <option value="cardshop">카드샵</option>
+          </select>
+        </div>
+      </div>
+      <div class="radar-submit-row">
+        <button type="button" id="radar-search" class="radar-submit">📡 이 지역 매장 탐색</button>
+        <span class="radar-tiny">지도 정보는 OpenStreetMap 기반 · 카드 판매 여부 및 실제 재고는 별도 확인 필요</span>
+      </div>
+    </section>
+
+    <section class="radar-results" aria-label="탐색 결과">
+      <div class="radar-result-top">
+        <div><h2>주변 탐색 결과</h2><p id="radar-summary">지역을 정한 뒤 탐색 버튼을 눌러 주세요.</p></div>
+        <div class="radar-view-switch" role="group" aria-label="결과 보기 방식">
+          <button type="button" data-view="list" class="selected" aria-pressed="true">☷ 목록</button>
+          <button type="button" data-view="map" aria-pressed="false">▧ 지도</button>
+        </div>
+      </div>
+      <p id="radar-status" class="radar-status" role="status" aria-live="polite">재고 데이터 제공처와의 연동은 아직 준비 중입니다. 재고 수량을 임의로 표시하지 않습니다.</p>
+      <div class="radar-result-grid">
+        <div class="radar-list-panel" id="radar-list-panel">
+          <div id="radar-stores" class="radar-stores">
+            <div class="radar-empty"><span aria-hidden="true">📍</span><h3>주변 매장을 찾아보세요</h3><p>매장 위치는 지도 데이터로 찾으며, 카드팩 재고는 연동될 때만 표시됩니다.</p></div>
+          </div>
+        </div>
+        <div class="radar-map-panel" id="radar-map-panel">
+          <div id="radar-map" role="region" aria-label="지도와 검색 반경"></div>
+          <div id="radar-map-fallback" class="radar-map-fallback" hidden>지도를 불러오지 못했습니다. 목록과 외부 지도 길찾기를 이용해 주세요.</div>
+          <div class="radar-map-caption"><strong id="radar-map-caption">반경 3km</strong><span>매장 후보 지도 · 재고 미연동</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="radar-explain">
+      <div><strong>매장 위치와 재고는 다릅니다</strong><p>표시되는 매장은 공개 지도에 등록된 판매점 후보입니다. 포켓몬 카드 취급 여부는 매장별로 다를 수 있습니다.</p></div>
+      <div><strong>확인 시각을 반드시 표시합니다</strong><p>공식 또는 허가받은 재고 공급원이 연결되면 상품명·수량·마지막 확인 시각을 표시합니다. 현재는 미연동입니다.</p></div>
+      <div><strong>위치 정보는 선택 사항입니다</strong><p>내 위치 권한 없이 지역명 검색으로도 이용할 수 있습니다. 위치는 선택한 검색 시점에 외부 지도 서비스로 전송됩니다.</p></div>
+    </section>
+    <footer class="radar-footer"><a href="./">디지털 카드 바인더로 돌아가기</a><span>독립적으로 설계한 카드팩 레이더 · 지도 데이터 © OpenStreetMap contributors</span></footer>
+  </main>
+</body>
+</html>
