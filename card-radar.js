@@ -11,7 +11,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", pack: "", view: "list", onlyInStock: false,
-    shops: [], curatedShops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
+    shops: [], curatedShops: [], retailerShops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
@@ -57,13 +57,13 @@
     return state.kind === "all" || store.kind === state.kind;
   }
   function currentSummary(count, displayedCount = count) {
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
     byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
       (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
-    const visible = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
+    const visible = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
     byId("radar-total-stores").textContent = visible ? String(count) : "—";
     byId("radar-search-completed").textContent = String(state.progress.successes);
     byId("radar-search-failed").textContent = String(state.progress.failures);
@@ -105,6 +105,7 @@
     state.locationLabel = "지도에서 선택한 위치";
     state.locationChosen = true;
     state.shops=[];
+    state.retailerShops=[];
     state.inventory=[];
     state.mapChecked=false;
     state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -156,7 +157,7 @@
     if (![1,3,5,10].includes(value) || state.searching) return;
     const changed = value !== state.radiusKm;
     if (changed) {
-      state.shops=[];state.inventory=[];state.mapChecked=false;
+      state.shops=[];state.retailerShops=[];state.inventory=[];state.mapChecked=false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
       updateProgress("검색 대기");
     }
@@ -196,6 +197,7 @@
       state.locationLabel = "내 위치";
       state.locationChosen = true;
       state.shops = [];
+      state.retailerShops = [];
       state.inventory = [];
       state.mapChecked = false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -235,6 +237,7 @@
       state.locationLabel = String(places[0].display_name || query).split(",").slice(0,3).join(", ");
       state.locationChosen = true;
       state.shops = [];
+      state.retailerShops = [];
       state.inventory = [];
       state.mapChecked = false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -276,6 +279,25 @@
     }
     return shops.sort((a,b) => a.distance - b.distance);
   }
+  function normalizeShopName(name) {
+    return String(name || "").toLowerCase().replace(/^(씨유|cu)\s*/i,"cu")
+      .replace(/[\s._-]+/g,"");
+  }
+  function parseCuStoreDirectory(payload) {
+    if (!payload || payload.success !== true || !Array.isArray(payload.data?.stores)) {
+      throw new Error("INVALID_CU_STORES_RESPONSE");
+    }
+    return payload.data.stores.flatMap((raw) => {
+      const lat = Number(raw.latitude), lng = Number(raw.longitude);
+      const name = String(raw.storeName || raw.name || "").trim().slice(0,90);
+      if (!name || !validCoord(lat,lng)) return [];
+      const distance = distanceKm(state.center,{lat,lng});
+      if (distance > state.radiusKm+.03) return [];
+      return [{id:"cu:"+String(raw.storeCode||name).slice(0,90),name,lat,lng,distance,
+        kind:"convenience",addr:String(raw.address||"").slice(0,120),
+        origin:"retailer-directory",verifiedInventory:[]}];
+    });
+  }
   function retailChain(name) {
     const text = String(name || "").toLowerCase().replace(/[\s_-]/g,"");
     if (/이마트24|emart24/.test(text)) return "emart24";
@@ -288,6 +310,14 @@
   }
   function storeCandidates(shops) {
     const merged = shops.map((store)=>({ ...store }));
+    for (const retailer of state.retailerShops) {
+      const existing=merged.find((store)=>
+        store.kind === retailer.kind &&
+        distanceKm(store,retailer)<.12 &&
+        normalizeShopName(store.name)===normalizeShopName(retailer.name));
+      if (!existing) merged.push({...retailer});
+      else if (!existing.addr && retailer.addr) existing.addr=retailer.addr;
+    }
     // Verify the actual store directory independently of community map names.
     // The directory does NOT supply stock quantities.
     if (!state.mapChecked && !state.searching) return merged;
@@ -338,7 +368,7 @@
     const merged = storeCandidates(shops);
     for (const source of known) {
       let target = merged.find((candidate) =>
-        candidate.name.trim().toLowerCase() === source.name.trim().toLowerCase()
+        normalizeShopName(candidate.name) === normalizeShopName(source.name)
         && distanceKm(candidate,source) < .13);
       if (!target) {
         target = {id:"feed:"+source.id,name:source.name,lat:source.lat,lng:source.lng,
@@ -496,7 +526,7 @@
       .filter((store) => store.distance <= state.radiusKm + .03);
     const inStockStores = nearbyStores.filter((store) => inventoryLabel(store).known);
     const displayedStores = filterStoresForDisplay(nearbyStores);
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
@@ -530,11 +560,13 @@
     const button = byId("radar-search");
     button.disabled = true;
     state.shops = [];
+    state.retailerShops = [];
     state.inventory = [];
     state.mapChecked = false;
     state.providerNotes = [];
     const jobs = inventoryJobs();
-    state.progress = {completed:0,total:jobs.length+1,successes:0,failures:0,active:true};
+    const includeCuStores = state.kind==="all" || state.kind==="convenience";
+    state.progress = {completed:0,total:jobs.length+1+(includeCuStores?1:0),successes:0,failures:0,active:true};
     updateProgress("매장 및 카드 재고 탐색 중");
     render();
     setStatus("카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
@@ -552,8 +584,20 @@
       render();
       return ok;
     });
+    const cuStoreTask = !includeCuStores ? Promise.resolve(null) :
+      fetchJson(API_BASE+"/api/cu/stores?"+new URLSearchParams({
+        lat:state.center.lat.toFixed(5),lng:state.center.lng.toFixed(5),limit:"150"
+      }).toString(),{cache:"no-store"},25000)
+        .then((payload)=>{
+          state.retailerShops = parseCuStoreDirectory(payload);
+          return true;
+        }).catch(()=>false).then((ok)=>{
+          completeProgressStep(ok,"매장 위치 조회 중",false);
+          render();
+          return ok;
+        });
     const stockTask = fetchLiveInventory(jobs);
-    const [mapOK] = await Promise.all([mapTask,stockTask]);
+    const [mapOK,cuOK] = await Promise.all([mapTask,cuStoreTask,stockTask]);
     state.progress.active = false;
     updateProgress("검색 종료");
     render();
