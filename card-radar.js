@@ -478,6 +478,12 @@
     input.checked = state.onlyInStock;
     const label = input.closest(".radar-stock-filter");
     if (label) label.classList.toggle("is-active", state.onlyInStock);
+    document.querySelectorAll("[data-map-mode]").forEach((button)=>{
+      const active=button.dataset.mapMode === (state.onlyInStock?"stock":"all");
+      button.classList.toggle("selected",active);
+      button.setAttribute("aria-pressed",String(active));
+    });
+    byId("radar-map-panel").classList.toggle("is-stock-map",state.onlyInStock);
     try {
       localStorage.setItem("digitalCardBinderRadarOnlyInStockV1", state.onlyInStock ? "1" : "0");
     } catch (_) {
@@ -523,6 +529,18 @@
     }
     card.append(buttons);target.append(card);
   }
+  function stockProductCount(store) {
+    const seen=new Set();
+    for(const item of store.verifiedInventory||[]) {
+      const age=Date.now()-Date.parse(item.checkedAt);
+      if(!isCardProduct(item.name) ||
+        (state.pack && String(item.code||"").toLowerCase()!==state.pack.toLowerCase()) ||
+        !Number.isSafeInteger(item.quantity) || item.quantity<=0 ||
+        !Number.isFinite(age) || age < -60000 || age >= 15*60000)continue;
+      seen.add(String(item.code||"").toLowerCase()+"|"+item.name.toLowerCase());
+    }
+    return seen.size;
+  }
   function renderMapMarkers(shops) {
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
@@ -530,16 +548,25 @@
       const mapColors={convenience:"#4168dc",mart:"#ed9b2a",cardshop:"#168b83"};
       const hasStock=inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.cardshop;
-      const marker=window.L.circleMarker([store.lat,store.lng],{
-        color:hasStock?"#bd263f":color,
-        fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
-      }).addTo(state.pinLayer);
+      const count=stockProductCount(store);
+      const marker=(state.onlyInStock && hasStock && window.L.divIcon
+        ? window.L.marker([store.lat,store.lng],{
+          icon:window.L.divIcon({className:"radar-stock-marker",html:
+            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+count+
+            '<small>종</small></span>',iconSize:[48,38],iconAnchor:[24,36]})
+        })
+        : window.L.circleMarker([store.lat,store.lng],{
+          color:hasStock?"#bd263f":color,
+          fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
+        })).addTo(state.pinLayer);
       const popup=make("div","");
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
         make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
             store.kind==="convenience"?"편의점":"카드샵 후보")+
           " · "+(stock.known?stock.message:stock.detail)));
+      if(state.onlyInStock && hasStock)popup.append(make("small","",
+        "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
       marker.bindPopup(popup);
       store.marker=marker;
     }
@@ -557,6 +584,14 @@
     currentSummary(nearbyStores.length, displayedStores.length);
     byId("radar-stock-filter-count").textContent = hasResults
       ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
+    byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
+      state.onlyInStock ? "재고 확인 "+inStockStores.length+"곳" :
+        "매장 "+nearbyStores.length+"곳 · 재고 확인 "+inStockStores.length+"곳";
+    byId("radar-map-mode-note").textContent = state.onlyInStock
+      ? (inStockStores.length===0
+          ? "현재 검색 반경에서 연결된 재고 API가 확인한 카드 보유 매장이 없습니다. 조회 불가 매장은 품절로 간주하지 않습니다."
+          : "재고가 확인된 매장만 지도에 표시합니다. 지도 이동 후 다시 검색하면 새 지역으로 갱신됩니다.")
+      : "전체 매장 위치를 표시합니다. 재고 보기에서는 확인된 포켓몬 카드 재고 보유 매장만 강조합니다.";
     byId("radar-stock-checked").textContent = hasResults
       ? String(nearbyStores.filter((store) => inventoryLabel(store).checked).length) : "—";
     renderMapMarkers(displayedStores);
@@ -799,7 +834,19 @@
     state.pack=product.value;
     product.addEventListener("change",()=>{state.pack=product.value;render();});
     const type=byId("radar-store-kind");
-    type.addEventListener("change",()=>{state.kind=type.value;render();});
+    const martField=byId("radar-mart-brand-field");
+    const martSelect=byId("radar-mart-brand");
+    type.addEventListener("change",()=>{
+      state.kind=type.value;
+      martField.hidden=type.value!=="mart";
+      if(type.value!=="mart"){state.martBrand="all";martSelect.value="all";}
+      render();
+      if(!state.searching)setStatus("매장 유형을 변경했습니다. 새 유형의 조회 범위를 정확하게 확인하려면 다시 탐색해 주세요.");
+    });
+    martSelect.addEventListener("change",()=>{
+      state.martBrand=martSelect.value;
+      render();
+    });
     document.querySelectorAll("[data-radius]").forEach((button) =>
       button.addEventListener("click",()=>setRadius(Number(button.dataset.radius))));
     document.querySelectorAll("[data-view]").forEach((button) =>
@@ -813,6 +860,8 @@
     byId("radar-search-map-area").addEventListener("click",searchCurrentMapArea);
     const stockFilter = byId("radar-only-in-stock");
     stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
+    document.querySelectorAll("[data-map-mode]").forEach((button)=>
+      button.addEventListener("click",()=>setStockOnly(button.dataset.mapMode==="stock")));
     initMap();
     let saved=3;
     try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||3;}catch(_){}
