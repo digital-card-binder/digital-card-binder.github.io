@@ -369,9 +369,10 @@ test("outer API 429 does not remove center data; report partial and permit earli
   assert.equal(later.supplementalCentersFetched,4);
   assert.equal(later.count,1);
 });
-test("the public UI reports extra directions and remains explicit about incomplete coverage",async()=>{
+test("the public UI keeps coverage metadata but explains missing areas simply",async()=>{
   const js=await readFile(new URL("../card-radar.js",import.meta.url),"utf8");
   assert.match(js,/supplementalCentersAttempted/);
   assert.match(js,/supplementalRowsExamined/);
-  assert.match(js,/부분 조회\(전체 범위 보장 안 됨\)/);
+  assert.match(js,/일부 구역은 빠져 있을 수 있습니다/);
+  assert.doesNotMatch(js,/부분 조회\(전체 범위 보장 안 됨\)/);
 });
