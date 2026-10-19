@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "description": "Retailer and connector capability register, not authorization to scrape or redistribute.",
+  "items": [
+    {
+      "retailerId": "costco",
+      "name": "코스트코",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "cu",
+      "name": "CU",
+      "kind": "convenience",
+      "dataSource": "community_open_source",
+      "adapterState": "public_rest",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "emart",
+      "name": "이마트",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "emart24",
+      "name": "이마트24",
+      "kind": "convenience",
+      "dataSource": "community_open_source",
+      "adapterState": "product_code_required",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "gs25",
+      "name": "GS25",
+      "kind": "convenience",
+      "dataSource": "community_open_source",
+      "adapterState": "session_required",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "hanaro",
+      "name": "하나로마트",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "homeplus",
+      "name": "홈플러스",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "lottemart",
+      "name": "롯데마트",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "seveneleven",
+      "name": "세븐일레븐",
+      "kind": "convenience",
+      "dataSource": "community_open_source",
+      "adapterState": "public_rest",
+      "permissionStatus": "unverified"
+    },
+    {
+      "retailerId": "traders",
+      "name": "트레이더스",
+      "kind": "mart",
+      "dataSource": "official_consumer_web",
+      "adapterState": "not_connected",
+      "permissionStatus": "unverified"
+    }
+  ]
+}
