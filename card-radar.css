@@ -192,6 +192,15 @@
 }
 .radar-map-panel.is-stock-map .radar-map-mode-note{color:#b13252}
 .radar-stock-marker{background:none;border:0}
+.radar-map-stock-summary{
+  position:absolute;bottom:65px;left:50%;transform:translateX(-50%);
+  z-index:1000;display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid #fff9;border-radius:999px;background:#19283d;color:#fff;
+  font-size:13px;font-weight:850;white-space:nowrap;min-height:44px;
+  box-shadow:0 7px 21px #0e1e3666;padding:10px 19px;cursor:pointer;
+}
+.radar-map-stock-summary.is-active{background:#b72c4b}
+.radar-map-stock-summary:focus-visible{outline:3px solid #73aaff;outline-offset:3px}
 .radar-stock-marker-bubble{
   width:47px;min-height:32px;display:flex;align-items:center;
   justify-content:center;gap:2px;position:relative;
