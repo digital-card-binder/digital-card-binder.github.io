@@ -6,7 +6,9 @@ const packPath=new URL("../../packs.js",import.meta.url);
 async function loadJson(file){return JSON.parse(await readFile(new URL(file,root),"utf8"));}
 async function main(){
   if(process.env.RADAR_ENABLE_INITIAL_SEED!=="yes")throw Error("SET_RADAR_ENABLE_INITIAL_SEED=yes");
-  if(process.env.RADAR_FIRESTORE_DATABASE!=="card-radar")throw Error("WRONG_DB");
+  if(process.env.RADAR_FIRESTORE_DATABASE!=="(default)")throw Error("WRONG_DB");
+  if(!/^digital-card-radar-db(?:-[a-z0-9-]+)?$/.test(process.env.GOOGLE_CLOUD_PROJECT||""))
+    throw Error("WRONG_FIREBASE_PROJECT");
   const {validateMaster}=await import("../../lib/radar-master.mjs");
   const names=["sets","retailers","stores","products","retailer-skus","store-aliases","inventory-observations"];
   const docs=Object.fromEntries(await Promise.all(names.map(async name=>[name,await loadJson(name+".json")])));
@@ -38,6 +40,6 @@ async function main(){
     source:"data/radar-master",confirmedStock:0
   },{merge:true});
   await batch.commit();
-  console.log(JSON.stringify({status:"seeded",database:"card-radar",counts:verified},null,2));
+  console.log(JSON.stringify({status:"seeded",database:"(default)",counts:verified},null,2));
 }
 main().catch(error=>{console.error(String(error?.message||error));process.exitCode=1;});
