@@ -63,7 +63,7 @@ test("positive stock is exactly one item and older stock is not shown as current
   const positive = inventoryLabel(store);
   assert.equal(positive.known, true);
   assert.equal(positive.checked, true);
-  assert.equal((positive.message.match(/재고/g) || []).length, 1);
+  assert.equal((positive.message.match(/조회 수량/g) || []).length, 1);
   assert.match(positive.message, /어비스아이/);
   assert.doesNotMatch(positive.message, /포켓몬빵|닌자스피너/);
   state.pack="m4";
