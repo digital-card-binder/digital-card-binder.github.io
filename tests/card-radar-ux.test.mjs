@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, mergeInventory, sameRetailerForStock, normalizeRetailerArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, normalizeRetailerArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -633,15 +633,16 @@ test("nearby text locality routes Seven-Eleven and Emart24 to the selected distr
   const area=normalizeRetailerArea({address:{
     city:"성남시",city_district:"분당구",suburb:"금곡동",state:"경기도"
   }});
-  assert.equal(area,"분당");
+  assert.equal(area,"금곡동","prefer the selected neighborhood over wide district");
+  assert.equal(normalizeRetailerArea({address:{city_district:"분당구"}}),"분당");
   assert.equal(normalizeRetailerArea({address:{town:"서현동",state:"경기도"}}),"서현동");
   assert.equal(normalizeRetailerArea({address:{state:"Gyeonggi-do"}}),"");
   const seven=new URL(endpoint("seveneleven","인페르노X",area));
-  assert.equal(seven.searchParams.get("storeKeyword"),"분당");
+  assert.equal(seven.searchParams.get("storeKeyword"),"금곡동");
   assert.equal(seven.searchParams.get("keyword"),"인페르노X");
   assert.equal(seven.searchParams.get("lat"),null,"Seven-Eleven ignores lat/lng upstream");
   const emart=new URL(endpoint("emart24","인페르노X",area));
-  assert.equal(emart.searchParams.get("storeKeyword"),"분당");
+  assert.equal(emart.searchParams.get("storeKeyword"),"금곡동");
   assert.equal(emart.searchParams.get("lat"),"37.35000");
   const gs25=new URL(endpoint("gs25","인페르노X",area));
   assert.equal(gs25.searchParams.get("storeKeyword"),null);
@@ -673,4 +674,64 @@ test("public stock rows cannot attach to a different convenience or mart chain",
   assert.equal(stores.length,2,"same retailer should merge, different retailer should stay separate");
   assert.equal(stores.find(x=>x.chain==="GS25").verifiedInventory.length,0);
   assert.equal(stores.find(x=>x.chain==="CU").verifiedInventory.length,1);
+});
+
+test("Emart24 resolves PLU candidate by selected code and keeps store coordinates",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.35391,lng:127.11091};state.radiusKm=3;
+  const time=new Date().toISOString();
+  const base={success:true,data:{
+    pluCd:"SKU-224",goodsInfo:null,
+    productCandidates:[
+      {pluCd:"SKU-111",goodsName:"포켓몬카드 메가브레이브 부스터팩"},
+      {pluCd:"SKU-224",goodsName:"포켓몬카드 인페르노X 부스터팩"}],
+    stores:[{bizNo:"42",storeName:"이마트24 금곡점",bizQty:6,
+      latitude:37.35392,longitude:127.11092}],
+    nearbyStores:[]}};
+  const matches=parseRetail("emart24",base,time,"인페르노X");
+  assert.equal(matches.length,1);
+  assert.equal(matches[0].items[0].retailerSku,"SKU-224");
+  assert.equal(matches[0].items[0].quantity,6);
+  assert.equal(matches[0].lat,37.35392);
+  assert.equal(parseRetail("emart24",base,time,"메가브레이브").length,0);
+  const wronglyLinked=JSON.parse(JSON.stringify(base));
+  wronglyLinked.data.goodsInfo={pluCd:"SKU-111",goodsNm:"포켓몬카드 인페르노X 부스터팩"};
+  assert.equal(parseRetail("emart24",wronglyLinked,time,"인페르노X").length,0,
+    "do not show counts when source product and selected SKU disagree");
+});
+
+test("Emart24 preserves fallback location when only stock row is geocoded",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.35,lng:127.1};state.radiusKm=3;
+  const payload={success:true,data:{
+    pluCd:"9909",goodsInfo:{goodsNm:"포켓몬카드 닌자스피너"},
+    nearbyStores:{stores:[{storeCode:"x",latitude:36.0,longitude:127.1}]},
+    stores:[{bizNo:"701",storeName:"이마트24 지점",latitude:37.3501,
+      longitude:127.1002,bizQty:0}]}};
+  const parsed=parseRetail("emart24",payload,new Date().toISOString(),"닌자스피너");
+  assert.equal(parsed.length,1);
+  assert.equal(parsed[0].items[0].quantity,0,"actual zero is preserved, not invented");
+  assert.equal(parsed[0].lat,37.3501);
+});
+
+test("stock product identity uses retailer SKU when present and normalized name otherwise",()=>{
+  const {groupInventoryRows,stockProductIdentity,stockProductCount,state}=harness();
+  const now=new Date().toISOString();
+  const older=new Date(Date.now()-60000).toISOString();
+  const productA={name:"포켓몬카드 인페르노X 팩",retailerSku:"88000123",quantity:2,
+    code:"m2",provider:"이마트24",checkedAt:older};
+  const productB={name:"포켓몬카드 인페르노X 부스터팩",retailerSku:"88000123",quantity:5,
+    code:"m2",provider:"이마트24",checkedAt:now};
+  const first={id:"701",kind:"convenience",retailerId:"emart24",name:"테스트점",
+    items:[productA]};
+  const second={...first,items:[productB]};
+  const grouped=groupInventoryRows([first,second]);
+  assert.equal(grouped.length,1);
+  assert.equal(grouped[0].items.length,1,"same retailer SKU must count once");
+  assert.equal(grouped[0].items[0].quantity,5,"keep latest observation");
+  assert.equal(stockProductIdentity(productA),stockProductIdentity(productB));
+  assert.equal(stockProductIdentity({name:"포켓몬카드 닌자스피너  팩"}),
+    stockProductIdentity({name:" 포켓몬카드 닌자스피너팩 "}));
+  state.pack="";
+  assert.equal(stockProductCount({verifiedInventory:[productA,productB]}),1);
 });
