@@ -135,3 +135,29 @@ test("front-end merges government candidates with base map, never categorizes as
   assert.throws(()=>parsePublicShopLocations({schemaVersion:1,status:"unavailable",stores:[]}),
     /INVALID_GOV_STORE_RESPONSE/);
 });
+
+test("accepts official JSON with header/body at root and items as an array",()=>{
+  const response={
+    header:{resultCode:"00",stdrYm:"202610"},
+    body:{items:[item("GS25 금곡점","MA010123456789")],totalCount:1}
+  };
+  const output=normalizeGovernmentPayload(response,{...center,radiusKm:2});
+  assert.equal(output.count,1);
+  assert.equal(output.stores[0].retailerId,"gs25");
+  assert.equal(output.sourceYearMonth,"202610");
+  assert.equal(output.coverageLimited,false);
+});
+test("an encoded data.go.kr service key is decoded once before query encoding",async()=>{
+  let parsed;
+  const out=await queryGovernmentDirectory({lat:37.3911,lng:127.1122,radiusKm:1},{
+    serviceKey:"abc%2Bdef%2Fghi%3D",
+    now:Date.parse("2026-10-19T09:10:00Z"),
+    fetchImpl:async(url)=>{
+      parsed=new URL(url);
+      return {ok:true,json:async()=>({header:{resultCode:"00"},body:{items:[],totalCount:0}})};
+    }
+  });
+  assert.equal(out.status,"ok");
+  assert.equal(parsed.searchParams.get("serviceKey"),"abc+def/ghi=");
+  assert.doesNotMatch(JSON.stringify(out),/abc%2Bdef/);
+});
