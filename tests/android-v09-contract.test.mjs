@@ -92,3 +92,19 @@ test("Native Android WebView location permission requests are scoped and consent
   assert.equal(version.versionName,"1.0.2");
   assert.match(version.apkUrl,/DigitalCardBinder_v1[.]0[.]2[.]apk$/);
 });
+
+test("Android update dialog and homepage install use the latest release metadata, never hardcoded v1.0",()=>{
+  const pwa=read("pwa.js");
+  const current=JSON.parse(read("app-version.json"));
+  assert.match(pwa,/const versionName = String\(payload[?][.]versionName \|\| ""\)[.]trim\(\)/);
+  assert.match(pwa,/update[.]textContent = versionName \? `v\$\{versionName\} 업데이트` : "업데이트"/);
+  assert.match(pwa,/update[.]addEventListener\("click", \(\) => \{\s*window[.]location[.]href = apkUrl/);
+  assert.match(pwa,/async function latestAndroidRelease\(\)/);
+  assert.match(pwa,/const \{ apkUrl, versionName \} = await latestAndroidRelease\(\)/);
+  assert.match(pwa,/link[.]download = `DigitalCardBinder_v\$\{versionName\}[.]apk`/);
+  assert.doesNotMatch(pwa,/v1[.]0 업데이트|DigitalCardBinder_v1[.]0[.]apk|v1[.]0 파일을 준비 중/);
+  assert.equal(current.versionName,"1.0.2");
+  assert.ok(current.apkUrl.endsWith("/DigitalCardBinder_v"+current.versionName+".apk"));
+  const home=read("index.html");
+  assert.match(home,/pwa[.]js[?]v=[a-f0-9]{12}/,"pwa.js must use versioned URL for updated screens");
+});
