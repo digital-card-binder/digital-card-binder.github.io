@@ -89,7 +89,7 @@ test("production uses standalone and optional government location APIs with sett
   assert.match(source,/state\.masterShops = \[\]/);
   assert.match(source,/state\.progress = \{completed:0,total:jobs\.length\+3\+/);
   assert.match(source,/const dbTask=loadSelfDbStores\(\)/);
-  assert.match(source,/dbTask,stockTask,martFeedTask/);
+  assert.match(source,/dbTask,govTask,stockTask,martFeedTask/);
   assert.match(source,/재고 별도 확인/);
 });
 
