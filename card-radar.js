@@ -923,7 +923,9 @@
       const hasStock=inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.mart;
       const count=stockProductCount(store);
-      const marker=(state.onlyInStock && hasStock && window.L.divIcon
+      // A confirmed pack count is visible even in the "places" map mode.
+      // Never turn an unknown/zero/stale observation into a red stock marker.
+      const marker=(hasStock && count>0 && window.L.divIcon
         ? window.L.marker([store.lat,store.lng],{
           icon:window.L.divIcon({className:"radar-stock-marker",html:
             '<span class="radar-stock-marker-bubble" aria-hidden="true">'+count+
@@ -939,8 +941,8 @@
         make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
             CONVENIENCE_CHAIN_LABELS[convenienceChain(store)])+
           " · "+(stock.known?stock.message:stock.detail)));
-      if(state.onlyInStock && hasStock)popup.append(make("small","",
-        "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
+      if(hasStock)popup.append(make("small","",
+        "확인된 카드 상품 "+count+"종 · 조회 시점 기준"));
       marker.bindPopup(popup);
       store.marker=marker;
     }
@@ -961,11 +963,16 @@
     byId("radar-map-mode-count").textContent = !hasResults ? "매장 탐색 전" :
       state.onlyInStock ? "재고 확인 "+inStockStores.length+"곳" :
         "매장 "+nearbyStores.length+"곳 · 재고 확인 "+inStockStores.length+"곳";
+    const stockChip=byId("radar-map-stock-summary");
+    stockChip.textContent=hasResults
+      ? "재고 확인 "+inStockStores.length+"곳" : "재고 확인 —곳";
+    stockChip.setAttribute("aria-pressed",String(state.onlyInStock));
+    stockChip.classList.toggle("is-active",state.onlyInStock);
     byId("radar-map-mode-note").textContent = state.onlyInStock
       ? (inStockStores.length===0
           ? "현재 검색 반경에서 연결된 재고 API가 확인한 카드 보유 매장이 없습니다. 조회 불가 매장은 품절로 간주하지 않습니다."
           : "재고가 확인된 매장만 지도에 표시합니다. 지도 이동 후 다시 검색하면 새 지역으로 갱신됩니다.")
-      : "전체 매장 위치를 표시합니다. 재고 보기에서는 확인된 포켓몬 카드 재고 보유 매장만 강조합니다.";
+      : "주변 편의점·마트를 표시합니다. 재고가 확인된 매장은 상품 종류 수가 표시됩니다.";
     byId("radar-stock-checked").textContent = hasResults
       ? String(nearbyStores.filter((store) => inventoryLabel(store).checked).length) : "—";
     renderMapMarkers(displayedStores);
@@ -1333,11 +1340,16 @@
     stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
     document.querySelectorAll("[data-map-mode]").forEach((button)=>
       button.addEventListener("click",()=>setStockOnly(button.dataset.mapMode==="stock")));
+    byId("radar-map-stock-summary").addEventListener("click",()=>{
+      setStockOnly(!state.onlyInStock);
+    });
     initMap();
     let saved=3;
     try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||3;}catch(_){}
     setRadius(saved);
-    setView("list");
+    // Prioritize the map on phones, keeping the desktop split view unchanged.
+    setView(typeof window.matchMedia==="function" &&
+      window.matchMedia("(max-width: 640px)").matches ? "map" : "list");
     let savedStockOnly = false;
     try { savedStockOnly = localStorage.getItem("digitalCardBinderRadarOnlyInStockV1") === "1"; }
     catch (_) {}
