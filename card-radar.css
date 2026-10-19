@@ -233,3 +233,6 @@
 
 /* Independently operated database source status; no unsupported stock claims. */
 .radar-db-status {margin:5px 0 12px;color:#486785;font-size:12px;line-height:1.5}
+
+/* Convenience chain selector follows the established mart filter layout. */
+#radar-convenience-brand-field[hidden]{display:none}
