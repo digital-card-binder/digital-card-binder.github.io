@@ -1,0 +1,48 @@
+name: Continue SM2L to final 062 with strict Korean-photo holds
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sm2l-031-062-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-sm2l-031-062-20261019
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Audit SM2L 031-062 and apply only verified illustration themes
+        run: node scripts/apply-theme-sm2l-031-062-full-range-20261019.mjs
+      - name: Rebuild coverage and site asset versions
+        run: npm run site:prepare
+      - name: Run entire verification and Firestore tests
+        run: npm test
+      - name: Commit and publish only on test success
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2l-031-062-full-range-screen-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2l): complete catalogue screen through 062, add 47 themes and preserve strict photo holds'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
