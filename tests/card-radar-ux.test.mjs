@@ -440,7 +440,7 @@ test("radar results include only convenience stores and marts regardless of feed
   assert.equal(category(elements[2].tags),null);
   assert.equal(category(elements[3].tags),null);
   const map=parseShops(elements);
-  assert.deepEqual(map.map(x=>x.kind),["convenience","mart"]);
+  assert.deepEqual([...map].map(x=>x.kind),["convenience","mart"]);
   state.masterShops=[
     {storeId:"test-cardshop",name:"카드샵 지점",kind:"cardshop",lat:37.42,lng:127.1,verifiedInventory:[]},
     {storeId:"mart-store",name:"롯데마트 테스트",kind:"mart",lat:37.425,lng:127.1,verifiedInventory:[]}
