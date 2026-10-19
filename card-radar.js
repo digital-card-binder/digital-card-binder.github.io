@@ -491,7 +491,12 @@
         origin:"government-business-registry",verifiedInventory:[]}];
     });
     return {configured:true,stores,coverageLimited:payload.coverageLimited===true,
-      queriedRadiusKm:Number(payload.queriedRadiusKm)||2};
+      queriedRadiusKm:Number(payload.queriedRadiusKm)||2,
+      pagesFetched:Number.isSafeInteger(payload.pagesFetched)?payload.pagesFetched:1,
+      sourceRowsExamined:Number.isSafeInteger(payload.sourceRowsExamined)?
+        payload.sourceRowsExamined:0,
+      sourceYearMonth:/^20[0-9]{4}$/.test(String(payload.sourceYearMonth||""))?
+        payload.sourceYearMonth:""};
   }
   async function loadPublicShopLocations(){
     const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
@@ -975,8 +980,10 @@
     const govTask=loadPublicShopLocations().then(result=>{
       state.publicShops=result.stores;
       byId("radar-public-status").textContent=result.configured
-        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · "+(
-          result.coverageLimited?"조회 범위 일부만 반영":"조회 완료")+" · 재고 정보 없음"
+        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · 원자료 "+
+          result.sourceRowsExamined+"건 / "+result.pagesFetched+"페이지 검토"+(
+          result.sourceYearMonth?" · 기준 "+result.sourceYearMonth:"")+" · "+
+          (result.coverageLimited?"일부 범위·페이지 미조회":"조회 범위 확인")+" · 재고 미확인"
         : "정부 상가 위치 보강: 공공데이터 API 키 등록 전 · 기존 검색은 계속 이용 가능";
       return result.configured;
     }).catch(()=>{
