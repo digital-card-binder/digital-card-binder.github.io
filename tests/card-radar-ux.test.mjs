@@ -383,3 +383,18 @@ test("unconnected mart has official verification link but is not a stock claim",
   const providers=JSON.parse(read("data/card-radar-mart-providers.json"));
   assert.equal(providers.providers.some(p=>p.inventoryApiConnected),false);
 });
+
+test("selected convenience brand only queries its retailer, avoiding wasted third-party API quota",()=>{
+  const {state,inventoryJobs}=harness();
+  state.kind="convenience";
+  state.convenienceBrand="gs25";
+  assert.equal(inventoryJobs().length,5);
+  assert.ok(inventoryJobs().every(x=>x.provider==="gs25"));
+  state.convenienceBrand="emart24";
+  assert.equal(inventoryJobs().length,5);
+  assert.ok(inventoryJobs().every(x=>x.provider==="emart24"));
+  state.convenienceBrand="other";
+  assert.equal(inventoryJobs().length,0);
+  state.convenienceBrand="all";
+  assert.equal(inventoryJobs().length,20);
+});

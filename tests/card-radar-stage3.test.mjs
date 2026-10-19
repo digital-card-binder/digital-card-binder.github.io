@@ -8,7 +8,7 @@ function harness(){
   const document={readyState:"loading",addEventListener(){},getElementById(){
     return {textContent:"",classList:{toggle(){}},style:{},setAttribute(){}};
   }};
-  const body=source.replace(/\}\)\(\);\s*$/,'globalThis.__radarStage3={parseSelfDbDirectory,storeCandidates,isCardProduct,inventoryLabel,state};\n})();');
+  const body=source.replace(/\}\)\(\);\s*$/,'globalThis.__radarStage3={parseSelfDbDirectory,storeCandidates,isCardProduct,inventoryLabel,convenienceChain,selectedKind,parseCuStoreDirectory,state};\n})();');
   assert.notEqual(body,source);
   const sandbox={document,window:{},Date,URL,URLSearchParams,console};
   runInNewContext(body,sandbox);
@@ -91,4 +91,48 @@ test("production uses standalone API and counts one additional settled data-sour
   assert.match(source,/const dbTask=loadSelfDbStores\(\)/);
   assert.match(source,/dbTask,stockTask,martFeedTask/);
   assert.match(source,/재고 별도 확인/);
+});
+
+test("CU / GS25 / 7-Eleven / emart24 vendor filter works on the list and map data",()=>{
+  const {state,selectedKind,convenienceChain}=harness();
+  const vendors=[
+    ["CU 팽성남산로점","cu"],
+    ["GS25 평택중앙점","gs25"],
+    ["세븐일레븐 평택역점","seveneleven"],
+    ["이마트24 동탄점","emart24"]
+  ].map(([name,retailerId])=>({kind:"convenience",name,retailerId}));
+  state.kind="convenience";
+  state.convenienceBrand="gs25";
+  assert.deepEqual(vendors.filter(selectedKind).map(x=>x.retailerId),["gs25"]);
+  state.convenienceBrand="seveneleven";
+  assert.deepEqual(vendors.filter(selectedKind).map(x=>x.retailerId),["seveneleven"]);
+  state.convenienceBrand="emart24";
+  assert.deepEqual(vendors.filter(selectedKind).map(x=>x.retailerId),["emart24"]);
+  state.convenienceBrand="cu";
+  assert.equal(convenienceChain({name:"팽성남산로점",retailerId:"cu"}),"cu");
+  assert.equal(convenienceChain({name:"CU 팽성남산로점"}),"cu");
+  assert.equal(convenienceChain({name:"GS 25 서울역"}),"gs25");
+  state.convenienceBrand="all";
+  assert.equal(vendors.filter(selectedKind).length,4);
+  state.kind="all";state.convenienceBrand="gs25";
+  assert.equal(vendors.filter(selectedKind).length,4,"other kinds are not filtered by inactive chain selection");
+});
+test("CU store code is authoritative even if point name omits CU prefix",()=>{
+  const {state,parseCuStoreDirectory,convenienceChain}=harness();
+  state.center={lat:36.98,lng:127.04};state.radiusKm=10;
+  const p={success:true,data:{stores:[{storeCode:"C123",storeName:"팽성남산로점",
+    latitude:36.98,longitude:127.04}]}};
+  const rows=parseCuStoreDirectory(p);
+  assert.equal(rows.length,1);
+  assert.equal(rows[0].retailerId,"cu");
+  assert.equal(convenienceChain(rows[0]),"cu");
+});
+
+test("convenience filter UI is present, accessible, and ready for re-rendering",async()=>{
+  const html=await readFile(new URL("../card-radar.html",import.meta.url),"utf8");
+  for(const value of ["cu","gs25","seveneleven","emart24","other"])
+    assert.match(html,new RegExp('<option value="'+value+'">'));
+  assert.match(html,/id="radar-convenience-brand"/);
+  assert.match(source,/convenienceSelect\.addEventListener\("change"/);
+  assert.match(source,/convenienceChain\(store\)/);
 });

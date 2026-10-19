@@ -2,7 +2,7 @@
 import {readFile} from "node:fs/promises";
 import {radarDatabase} from "../lib/db.mjs";
 import {mappingDocId} from "../lib/observation.mjs";
-const validRef=value=>typeof value==="string"&&/^https:\/\//.test(value)&&value.length<=700;
+import {verifyProposedSku,verifyProposedStore} from "../lib/retailer-evidence.mjs";
 async function main(){
   if(process.env.RADAR_ALLOW_MAPPING_IMPORT!=="yes")throw Error("EXPLICIT_MAPPING_APPROVAL_REQUIRED");
   const path=process.argv[2];
@@ -14,18 +14,18 @@ async function main(){
   const db=radarDatabase();
   const records=[];
   for(const a of doc.storeAliases){
-    if(!a.providerStoreId || !a.storeId || !validRef(a.evidenceUrl) ||
-      !a.reviewedAt || !Number.isFinite(Date.parse(a.reviewedAt)))throw Error("STORE_EVIDENCE_MISSING");
+    if(!a.providerStoreId || !a.storeId)throw Error("STORE_EVIDENCE_MISSING");
     const store=await db.collection("radarStores").doc(a.storeId).get();
     if(!store.exists ||store.data()?.retailerId!==a.retailerId)throw Error("STORE_NOT_REGISTERED");
+    verifyProposedStore(a,store.data());
     records.push({collection:"radarStoreAliases",id:mappingDocId(a.retailerId,a.providerStoreId),
       body:{...a,verified:true,verifiedSource:a.evidenceUrl,verifiedAt:a.reviewedAt}});
   }
   for(const s of doc.retailerSkus){
-    if(!s.retailerItemCode ||!s.productId ||!validRef(s.evidenceUrl) ||
-      !s.reviewedAt || !Number.isFinite(Date.parse(s.reviewedAt)))throw Error("SKU_EVIDENCE_MISSING");
+    if(!s.retailerItemCode ||!s.productId)throw Error("SKU_EVIDENCE_MISSING");
     const product=await db.collection("radarProducts").doc(s.productId).get();
     if(!product.exists||!product.data()?.setId)throw Error("SKU_PRODUCT_NOT_REGISTERED");
+    verifyProposedSku(s,product.data());
     const retailer=await db.collection("radarRetailers").doc(s.retailerId).get();
     if(!retailer.exists)throw Error("SKU_RETAILER_NOT_REGISTERED");
     records.push({collection:"radarSkuMappings",id:mappingDocId(s.retailerId,s.retailerItemCode),

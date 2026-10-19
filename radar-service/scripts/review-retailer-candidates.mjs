@@ -11,8 +11,8 @@ async function main(){
     Array.isArray(data.data?.items)?data.data.items:Array.isArray(data.data?.stores)?
     data.data.stores:null;
   const result=kind==="products"?
-    catalogueCandidates(retailerId,entries,{sourceUrl:"https://github.com/hmmhmmhm/daiso-mcp"}):
-    storeCandidates(retailerId,entries,{sourceUrl:"https://github.com/hmmhmmhm/daiso-mcp"});
+    catalogueCandidates(retailerId,entries,{sourceUrl:null}):
+    storeCandidates(retailerId,entries,{sourceUrl:null});
   console.log(JSON.stringify({schemaVersion:1,retailerId,kind,verified:false,
     stockCollected:false,candidateCount:result.length,
     note:"Offline candidates only. Reconcile original retailer SKU / store code, source permission and evidence before any DB import.",
