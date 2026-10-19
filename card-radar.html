@@ -80,6 +80,11 @@
     <section class="radar-results" aria-label="탐색 결과">
       <div class="radar-result-top">
         <div class="radar-result-heading"><h2>주변 탐색 결과</h2><p id="radar-summary">내 위치 또는 지역을 설정한 뒤 탐색해 주세요.</p></div>
+        <label class="radar-stock-filter" for="radar-only-in-stock">
+          <input id="radar-only-in-stock" type="checkbox">
+          <span class="radar-stock-filter-text">재고 있는 매장만 보기</span>
+          <span class="radar-stock-filter-count" id="radar-stock-filter-count" aria-live="polite">재고 있음 —곳</span>
+        </label>
         <div class="radar-progress" id="radar-progress" role="progressbar" aria-label="매장 및 재고 검색 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div class="radar-progress-label"><strong id="radar-progress-stage">검색 대기</strong><span id="radar-progress-percent">0%</span></div>
           <div class="radar-progress-track"><span id="radar-progress-fill"></span></div>
