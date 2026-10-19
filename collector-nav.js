@@ -1568,8 +1568,70 @@
       if (!document.hidden) void refreshStaleShell();
     });
   }
+  function installCardRadarShortcut() {
+    const navs = [...document.querySelectorAll(".collection-nav")];
+    const path = (window.location.pathname.split("/").pop() || "index.html");
+    const active = path === "card-radar.html";
+    for (const nav of navs) {
+      if (nav.querySelector('a[href*="card-radar.html"]')) continue;
+      const link = document.createElement("a");
+      link.className = "collection-link card-radar-shortcut" + (active ? " is-active" : "");
+      link.href = "./card-radar.html";
+      if (active) link.setAttribute("aria-current", "page");
+      const pict = document.createElement("span");
+      pict.className = "radar-shortcut-emoji";
+      pict.textContent = "📡";
+      pict.setAttribute("aria-hidden", "true");
+      const copy = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = "카드 레이더";
+      const caption = document.createElement("small");
+      caption.textContent = "주변 재고 · 최대 10km";
+      copy.append(name, caption);
+      link.append(pict, copy);
+      const packs = [...nav.querySelectorAll("a")].find((item) =>
+        (item.getAttribute("href") || "").includes("packs.html"));
+      if (packs) packs.insertAdjacentElement("afterend", link);
+      else nav.append(link);
+    }
+    for (const nav of document.querySelectorAll('.home-menu nav, .home-top-nav')) {
+      if (nav.querySelector('a[href*="card-radar.html"]')) continue;
+      const link = document.createElement("a");
+      link.href = "./card-radar.html";
+      link.textContent = "📡 카드 레이더";
+      link.className = "card-radar-mobile-link";
+      const packs = [...nav.querySelectorAll("a")].find((item) =>
+        (item.getAttribute("href") || "").includes("packs.html"));
+      if (packs) packs.insertAdjacentElement("afterend",link);
+      else nav.append(link);
+    }
+    if (!document.getElementById("card-radar-nav-style")) {
+      const sheet = document.createElement("style");
+      sheet.id = "card-radar-nav-style";
+      sheet.textContent = [
+        ".collection-nav .card-radar-shortcut{border:1px solid #b8c9fa!important;",
+        "background:linear-gradient(120deg,#eff4ff,#e8eeff)!important;",
+        "color:#233b86!important;border-radius:13px!important;",
+        "margin:8px 0!important;padding:11px 12px!important;min-height:54px!important}",
+        ".collection-nav .card-radar-shortcut:hover{border-color:#6589ef!important;",
+        "background:#e1eaff!important}",
+        ".collection-nav .card-radar-shortcut strong{color:#254bb5!important}",
+        ".collection-nav .card-radar-shortcut small{color:#5774ae!important}",
+        ".card-radar-shortcut .radar-shortcut-emoji{font-size:21px;flex:0 0 30px;",
+        "display:inline-flex;align-items:center;justify-content:center}",
+        ".home-menu .card-radar-mobile-link{color:#2451b9!important;font-weight:850!important;",
+        "background:#eef3ff!important;border-radius:9px}",
+        ".home-top-nav .card-radar-mobile-link{color:#2451b9!important;font-weight:800!important}",
+        "@media(max-width:690px){.collection-nav .card-radar-shortcut{min-width:144px!important;",
+        "padding:8px 10px!important;margin:4px!important}.card-radar-shortcut small{font-size:10px!important}}"
+      ].join("");
+      document.head.append(sheet);
+    }
+  }
+
   activateCollectionUiShell();
   arrangeCollectorNavigation();
+  installCardRadarShortcut();
   loadCardScanner();
   centerActiveNavigationOnMobile();
   if (typeof mobileCardLayoutMedia?.addEventListener === "function") {
