@@ -10,3 +10,42 @@
 @media(max-width:900px){.radar-field-grid{grid-template-columns:1fr 1fr}.radar-field:first-child{grid-column:1/-1}.radar-result-grid{grid-template-columns:1fr}.radar-list-panel{max-height:none;min-height:auto}.radar-map-panel #radar-map{height:350px}.radar-hero-orb{right:-30px}}
 @media(max-width:640px){.radar-header{height:57px;padding:0 15px}.radar-brand{font-size:13px}.radar-brand img{width:27px;height:27px}.radar-header-nav{gap:11px;font-size:12px}.radar-layout{padding:12px 12px 34px}.radar-hero{padding:23px 20px;min-height:158px;border-radius:16px}.radar-hero h1{font-size:28px}.radar-hero p{font-size:13px;max-width:250px}.radar-hero-orb{right:-120px;top:-55px}.radar-controls,.radar-results{border-radius:15px;padding:16px 14px}.radar-location-row{flex-wrap:wrap}.radar-input-wrap{flex-basis:100%}.radar-locate{width:100%}.radar-field-grid{grid-template-columns:1fr;gap:18px}.radar-field:first-child{grid-column:auto}.radar-radius{gap:5px}.radar-submit-row{flex-wrap:wrap}.radar-submit{width:100%}.radar-tiny{font-size:11px}.radar-result-top h2{font-size:17px}.radar-result-top p{font-size:12px}.radar-result-grid{display:flex;flex-direction:column}.radar-result-grid[data-view="map"] .radar-list-panel{display:none}.radar-result-grid[data-view="list"] .radar-map-panel{display:none}.radar-map-panel #radar-map{height:450px}.radar-explain{grid-template-columns:1fr}.radar-footer{flex-direction:column}.radar-store-actions{justify-content:flex-start}}
 @media(min-width:641px){.radar-view-switch{display:none}}
+
+/* Radar search request progress, scan counters, and one-line positive-card stock. */
+.radar-result-top { align-items: start; }
+.radar-result-heading { flex: 1 1 200px; min-width: 0; }
+.radar-progress {
+  flex: 0 1 290px; width: clamp(195px,26vw,290px); min-width: 0;
+  border-radius: 12px; border: 1px solid #d9e6f6; background: #f5f8ff;
+  padding: 11px 13px; color: #365185;
+}
+.radar-progress-label { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.radar-progress-label strong { font-size: 12px; font-weight: 850; }
+.radar-progress-label span { font-weight: 900; font-variant-numeric: tabular-nums; font-size: 13px; }
+.radar-progress-track { height: 8px; border-radius: 999px; background: #dce7f8; overflow: hidden; margin: 8px 0 5px; }
+#radar-progress-fill { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg,#3167d6,#5ac1df); transition: width .24s ease; }
+.radar-progress small { display: block; color: #637897; font-size: 11px; line-height: 1.35; }
+.radar-progress.is-running #radar-progress-fill { background: linear-gradient(90deg,#315bd2,#55cbdc); }
+.radar-progress.is-finished #radar-progress-fill { background: #247bb8; }
+.radar-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; margin: 15px 0 7px; }
+.radar-metrics > div { border-radius: 12px; background: #f6f8fc; border: 1px solid #e1e8f3; padding: 10px 12px; min-width: 0; }
+.radar-metrics span { color: #60748f; font-size: 11px; font-weight: 700; display: block; margin-bottom: 3px; }
+.radar-metrics strong { font-size: 22px; font-variant-numeric: tabular-nums; font-weight: 900; }
+.radar-metrics small { font-size: 11px; margin-left: 3px; color: #7488a2; }
+.radar-metric-explain { font-size: 11px; margin: 4px 0 14px; color: #667991; line-height: 1.5; }
+.radar-stock.in-stock { background: #fff1f1; border: 1px solid #ffc5c5; color: #b42637; font-size: 12px; font-weight: 850; line-height: 1.5; }
+.radar-stock { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.radar-stock-note { color: #8190a2; font-size: 11px; line-height: 1.5; margin: 8px 0 0; }
+@media (max-width: 900px) {
+  .radar-result-top { flex-wrap: wrap; }
+  .radar-progress { flex: 1 1 210px; }
+}
+@media (max-width: 640px) {
+  .radar-result-top { display: grid; grid-template-columns: 1fr auto; align-items: start; }
+  .radar-result-heading { grid-column: 1; }
+  .radar-result-top .radar-view-switch { grid-column: 2; grid-row: 1; }
+  .radar-progress { grid-column: 1 / -1; grid-row: 2; width: 100%; max-width: none; }
+  .radar-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .radar-stock { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { #radar-progress-fill { transition: none; } }
