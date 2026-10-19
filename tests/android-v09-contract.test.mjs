@@ -4,7 +4,7 @@ import fs from "node:fs";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 
-test("Android v1.0.1 keeps version, FCM, camera, and update-check contracts aligned", () => {
+test("Android v1.0.2 keeps FCM, camera, update-check and trusted WebView GPS aligned", () => {
   const appGradle = read("android-app/app/build.gradle");
   const rootGradle = read("android-app/build.gradle");
   const manifest = read("android-app/app/src/main/AndroidManifest.xml");
@@ -16,8 +16,8 @@ test("Android v1.0.1 keeps version, FCM, camera, and update-check contracts alig
   const buildWorkflow = read(".github/workflows/build-android-apk.yml");
   const pushWorkflow = read(".github/workflows/send-android-news-notification.yml");
 
-  assert.match(appGradle, /versionCode\s+16/);
-  assert.match(appGradle, /versionName\s+'1\.0\.1'/);
+  assert.match(appGradle, /versionCode\s+17/);
+  assert.match(appGradle, /versionName\s+'1\.0\.2'/);
   assert.match(rootGradle, /com\.google\.gms\.google-services/);
   assert.match(appGradle, /firebase-bom:34\.18\.0/);
   assert.match(appGradle, /firebase-messaging/);
@@ -47,12 +47,48 @@ test("Android v1.0.1 keeps version, FCM, camera, and update-check contracts alig
   assert.match(manifest, /androidx[.]core[.]content[.]FileProvider/);
   assert.match(filePaths, /external-cache-path/);
 
-  assert.equal(version.versionCode, 16);
-  assert.equal(version.versionName, "1.0.1");
-  assert.match(version.apkUrl, /DigitalCardBinder_v1\.0\.1\.apk$/);
+  assert.equal(version.versionCode, 17);
+  assert.equal(version.versionName, "1.0.2");
+  assert.match(version.apkUrl, /DigitalCardBinder_v1\.0\.2\.apk$/);
 
-  assert.match(buildWorkflow, /Build Android APK v1\.0\.1/);
+  assert.match(buildWorkflow, /Build Android APK v1\.0\.2/);
   assert.match(buildWorkflow, /google-services\.json/);
   assert.match(pushWorkflow, /news\.json/);
   assert.match(pushWorkflow, /send-android-news-notification\.mjs/);
+});
+
+test("Native Android WebView location permission requests are scoped and consented",()=>{
+  const manifest=read("android-app/app/src/main/AndroidManifest.xml");
+  const activity=read("android-app/app/src/main/java/io/github/digitalcardbinder/app/MainActivity.java");
+  const gradle=read("android-app/app/build.gradle");
+  const workflow=read(".github/workflows/build-android-apk.yml");
+  const version=JSON.parse(read("app-version.json"));
+
+  assert.match(manifest,/android[.]permission[.]ACCESS_FINE_LOCATION/);
+  assert.match(manifest,/android[.]permission[.]ACCESS_COARSE_LOCATION/);
+  assert.doesNotMatch(manifest,/ACCESS_BACKGROUND_LOCATION/);
+  assert.match(activity,/settings[.]setGeolocationEnabled\(true\)/);
+  assert.match(activity,/onGeolocationPermissionsShowPrompt/);
+  assert.match(activity,/onGeolocationPermissionsHidePrompt/);
+  assert.match(activity,/hasForegroundLocationPermission\(\)/);
+  assert.match(activity,/onRequestPermissionsResult\(/);
+  assert.match(activity,/LOCATION_PERMISSION_REQUEST_CODE\s*=\s*4110/);
+  assert.match(activity,/Manifest[.]permission[.]ACCESS_COARSE_LOCATION/);
+  assert.match(activity,/Manifest[.]permission[.]ACCESS_FINE_LOCATION/);
+  assert.match(activity,/requestPermissions\(new String\[\]\{/);
+  assert.match(activity,/isTrustedGeolocationOrigin\(origin\)/);
+  assert.match(activity,/HOME_HOST[.]equalsIgnoreCase\(uri[.]getHost\(\)\)/);
+  assert.match(activity,/"https"[.]equalsIgnoreCase\(uri[.]getScheme\(\)\)/);
+  assert.match(activity,/callback[.]invoke\(origin, false, false\)/);
+  assert.match(activity,/callback[.]invoke\(origin, true, false\)/);
+  assert.match(activity,/completeGeolocationRequest\(hasForegroundLocationPermission\(\)\)/);
+  assert.doesNotMatch(activity,/setGeolocationEnabled\(false\)/);
+  assert.doesNotMatch(activity,/callback[.]invoke\(origin, true, true\)/);
+  assert.match(gradle,/versionCode\s+17/);
+  assert.match(gradle,/versionName\s+'1[.]0[.]2'/);
+  assert.match(workflow,/DigitalCardBinder_v1[.]0[.]2[.]apk/);
+  assert.match(workflow,/Build Android APK v1[.]0[.]2/);
+  assert.equal(version.versionCode,17);
+  assert.equal(version.versionName,"1.0.2");
+  assert.match(version.apkUrl,/DigitalCardBinder_v1[.]0[.]2[.]apk$/);
 });
