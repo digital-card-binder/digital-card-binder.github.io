@@ -153,6 +153,9 @@ function navigationLayoutContext(moduleSource, initialWidth) {
       // Browser documents always provide this; unrelated Card Radar navigation
       // binds matching link nodes, and this minimal layout fixture has none.
       querySelectorAll: () => [],
+      // The navigation probe has no live nav links and treats its stylesheet
+      // as already present; avoid unrelated DOM layout effects in this stub.
+      getElementById: (id) => id === "card-radar-nav-style" ? new FakeElement("style") : null,
       querySelector: (selector) => selector.includes(".catalog-panel .results-bar")
         ? resultsBar
         : null,
