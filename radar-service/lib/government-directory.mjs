@@ -7,6 +7,8 @@ export const GOV_DIRECTORY_ENDPOINT="https://apis.data.go.kr/B553077/api/open/sd
 const MAX_RADIUS_METERS=2000;
 const MAX_ROWS=1000;
 const cache=new Map();
+// Collapse simultaneous identical geographic lookups into one upstream request.
+const inFlight=new Map();
 
 const vendors=[
   ["emart24","convenience",/^(?:이마트24|emart\s*24)/i],
@@ -87,9 +89,14 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
   if(kind==="cardshop")return {status:"ok",source:"government-business-registry",
     stores:[],count:0,coverageLimited:false,sourceUrl:GOV_DIRECTORY_SOURCE,
     note:"정부 매장 보강 조회는 편의점과 마트에 한정합니다."};
-  const cacheId=[lat.toFixed(3),lng.toFixed(3),radiusKm.toFixed(2),kind,retailer].join("|");
+  // Match the actual upstream coordinate precision. Rounding to 3 decimals
+  // reused another map center (up to ~100m away) and could omit edge stores.
+  const cacheId=[lat.toFixed(6),lng.toFixed(6),String(radiusKm),kind,retailer].join("|");
   const previous=cache.get(cacheId);
   if(previous&&previous.until>now)return previous.value;
+  const pending=inFlight.get(cacheId);
+  if(pending)return pending;
+  const task=(async()=>{
   // data.go.kr issues both encoded and decoded key variants. URLSearchParams
   // performs encoding; decode a percent-encoded service key once to prevent %252F.
   let normalizedKey=serviceKey.trim();
@@ -153,8 +160,14 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
       queriedRadiusKm:Math.min(radiusKm,2),requestedRadiusKm:radiusKm,
       coverageLimited,pagesFetched,sourceRowsExamined,sourceTotalCount,
       count:stores.length,stores};
-    cache.set(cacheId,{until:now+600000,value:result});
+    // A transient later-page failure must be retried sooner than a complete response.
+    cache.set(cacheId,{until:now+(pageFailure?30000:600000),value:result});
     if(cache.size>100)cache.clear();
     return result;
   }finally{clearTimeout(timer);}
+  })();
+  inFlight.set(cacheId,task);
+  try{return await task;}finally{
+    if(inFlight.get(cacheId)===task)inFlight.delete(cacheId);
+  }
 }
