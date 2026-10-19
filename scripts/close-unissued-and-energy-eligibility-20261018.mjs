@@ -8,6 +8,25 @@ const manifest=load("data/series-collection-exclusions.json");
 const queuePath="data/audits/korean-recovery-active-queue-20261018.json";
 const reportPath="data/audits/final-three-collection-eligibility-resolution-20261018.json";
 const q=load(queuePath),cards=load("data/series.json");
+
+/* This 187 -> 190 reconciliation already ran successfully on 2026-10-18.
+   Later changes to the search index re-trigger the historical workflow. Do
+   not re-run the append to q.completedDoNotReaudit or reject 190 as corrupt. */
+if (q.counts.initial===191&&q.counts.totalClosed===190&&
+    q.counts.stillUnresolved===1&&q.completedDoNotReaudit.length===190&&
+    q.unresolved.length===1&&q.unresolved[0].workId===160&&fs.existsSync(reportPath)){
+  const completed=load(reportPath);
+  if(completed.originalScope!==191||completed.completedBefore!==187||
+     completed.completedNow!==190||completed.remainingImageIdentityIssues!==1||
+     manifest.expectedRawSeriesCount!==20243||
+     manifest.expectedActiveSeriesCount!==20241||manifest.exclusions.length!==2)
+    throw new Error("Existing eligibility resolution is inconsistent; refusing skip");
+  console.log("ALREADY_RESOLVED_KOREAN_RELEASE_ELIGIBILITY",JSON.stringify({
+    completed:190,remaining:1,active:20241,raw:20243,rewrites:0
+  }));
+  process.exit(0);
+}
+
 if(q.counts.initial!==191||q.counts.totalClosed!==187||q.counts.stillUnresolved!==4||
    q.completedDoNotReaudit.length!==187||q.unresolved.length!==4)
  throw new Error("Unexpected 187 completed checkpoint");
