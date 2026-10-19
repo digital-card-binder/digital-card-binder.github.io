@@ -11,7 +11,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", pack: "", view: "list", onlyInStock: false,
-    shops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
+    shops: [], curatedShops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
@@ -44,13 +44,13 @@
     return validCoord(lat, lng) ? {lat, lng} : null;
   }
   function safeStoreName(tags) {
-    return String(tags.name || tags.brand || "").trim().slice(0, 90);
+    return String(tags.name || tags["name:ko"] || tags.brand || tags.operator || "").trim().slice(0,90);
   }
   function category(tags) {
-    const name = safeStoreName(tags);
-    const shop = tags.shop || "";
-    if (shop === "convenience" || /^(CU|GS25|GS 25|세븐일레븐|7.?Eleven|이마트24|emart24)/i.test(name)) return "convenience";
-    if (shop === "supermarket" || /이마트|롯데마트|홈플러스/i.test(name)) return "mart";
+    const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
+    const shop = String(tags.shop || "");
+    if (shop === "convenience" || /(?:CU|GS\s?25|세븐일레븐|7.?Eleven|이마트24|emart24)/i.test(name) && !/이마트(?!24)|E-?Mart(?!24)/i.test(name.replace(/이마트24|emart24/ig,""))) return "convenience";
+    if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
     return "cardshop";
   }
   function selectedKind(store) {
@@ -220,7 +220,8 @@
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
     return "[out:json][timeout:22];(" +
       'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트24|emart24",i]' + around + ";" +
-      'nwr["shop"="supermarket"]["name"~"이마트|롯데마트|홈플러스",i]' + around + ";" +
+      'nwr["shop"="supermarket"]' + around + ";" +
+      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus",i]' + around + ";" +
       'nwr["shop"="games"]["name"~"카드|TCG|포켓몬|Pokemon",i]' + around + ";" +
       ");out center " + MAX_SHOPS + ";";
   }
@@ -245,13 +246,66 @@
     }
     return shops.sort((a,b) => a.distance - b.distance);
   }
+  function retailChain(name) {
+    const text = String(name || "").toLowerCase().replace(/[\s_-]/g,"");
+    if (/이마트24|emart24/.test(text)) return "emart24";
+    if (/이마트|emart/.test(text)) return "emart";
+    if (/롯데마트|lottemart/.test(text)) return "lottemart";
+    if (/홈플러스|homeplus/.test(text)) return "homeplus";
+    if (/gs25/.test(text)) return "gs25";
+    if (/세븐일레븐|7eleven/.test(text)) return "7eleven";
+    return text;
+  }
+  function storeCandidates(shops) {
+    const merged = shops.map((store)=>({ ...store }));
+    // Verify the actual store directory independently of community map names.
+    // The directory does NOT supply stock quantities.
+    if (!state.mapChecked && !state.searching) return merged;
+    for (const official of state.curatedShops) {
+      if (distanceKm(state.center,official) > state.radiusKm + .03) continue;
+      const existing = merged.find((store)=>
+        store.kind === official.kind &&
+        retailChain(store.name) === retailChain(official.chain || official.name) &&
+        distanceKm(store,official) < .18);
+      if (existing) {
+        existing.name = official.name;
+        existing.addr = official.addr;
+        existing.chain = official.chain;
+        existing.sourceUrl = official.sourceUrl;
+        existing.phone = official.phone;
+        existing.origin = "official-directory";
+      } else merged.push({...official, distance:distanceKm(state.center,official)});
+    }
+    return merged;
+  }
+  async function loadStoreCatalog() {
+    try {
+      const data=await fetchJson("./data/card-radar-stores.json",{cache:"no-store"},9000);
+      if (!data || !Array.isArray(data.stores)) return;
+      state.curatedShops=data.stores.map((store)=>({
+        id:"directory:"+String(store.id||"").slice(0,90),
+        name:String(store.name||"").slice(0,90),
+        chain:String(store.chain||"").slice(0,40),
+        lat:Number(store.lat),lng:Number(store.lng),
+        addr:String(store.address||"").slice(0,120),
+        kind:["convenience","mart","cardshop"].includes(store.kind)?store.kind:"mart",
+        phone:String(store.phone||"").slice(0,30),
+        sourceUrl:typeof store.sourceUrl==="string"&&/^https:\/\//.test(store.sourceUrl)?store.sourceUrl:"",
+        origin:"official-directory",verifiedInventory:[]
+      })).filter((store)=>store.name && validCoord(store.lat,store.lng));
+    } catch (_) {
+      // Missing directory data never fabricates stores or stock.
+      state.curatedShops=[];
+    }
+    render();
+  }
   function mergeInventory(shops) {
     // Only records supplied by this site's separately maintained authorized feed are stock records.
     // OpenStreetMap entries are location candidates, never evidence of inventory or card sales.
     const known = state.inventory.filter((s) => {
       return validCoord(s.lat,s.lng) && distanceKm(state.center,s) <= state.radiusKm + .03;
     });
-    const merged = shops.slice();
+    const merged = storeCandidates(shops);
     for (const source of known) {
       let target = merged.find((candidate) =>
         candidate.name.trim().toLowerCase() === source.name.trim().toLowerCase()
@@ -351,8 +405,11 @@
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
     top.append(title,km);card.append(top);
-    const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"마트":"카드샵 후보";
-    card.append(make("p","radar-store-sub",typeName + (store.addr ? " · "+store.addr:"") + " · 위치 정보 참고용"));
+    const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"대형마트·마트":"카드샵 후보";
+    const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
+    top.append(badge);
+    card.append(make("p","radar-store-sub",(store.addr ? store.addr+" · ":"")+
+      (store.origin==="official-directory"?"공식 매장 위치 확인 · 재고 연동 별도":"지도 매장 위치 후보")));
     const summary=inventoryLabel(store);
     if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
     card.append(make("p","radar-stock-note",summary.detail));
@@ -377,14 +434,18 @@
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
     for (const store of shops) {
+      const mapColors={convenience:"#4168dc",mart:"#ed9b2a",cardshop:"#168b83"};
+      const hasStock=inventoryLabel(store).known;
+      const color=mapColors[store.kind]||mapColors.cardshop;
       const marker=window.L.circleMarker([store.lat,store.lng],{
-        color:store.origin==="authorized-feed"?"#15835c":"#3758c6",
-        fillColor:store.origin==="authorized-feed"?"#22b485":"#647ff1",
-        fillOpacity:.9,weight:2,radius:7
+        color:hasStock?"#bd263f":color,
+        fillColor:color,fillOpacity:.92,weight:hasStock?4:2,radius:hasStock?9:7
       }).addTo(state.pinLayer);
       const popup=make("div","");
       const stock = inventoryLabel(store);
-      popup.append(make("strong","",store.name),make("p","",stock.known ? stock.message : stock.detail));
+      popup.append(make("strong","",store.name),
+        make("p","",(store.kind==="mart"?"대형마트·마트":store.kind==="convenience"?"편의점":"카드샵 후보")+
+          " · "+(stock.known?stock.message:stock.detail)));
       marker.bindPopup(popup);
       store.marker=marker;
     }
@@ -650,7 +711,7 @@
     try { savedStockOnly = localStorage.getItem("digitalCardBinderRadarOnlyInStockV1") === "1"; }
     catch (_) {}
     setStockOnly(savedStockOnly);
-    void loadInventory().then(render);
+    void Promise.all([loadInventory(),loadStoreCatalog()]).then(render);
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initialize,{once:true});
   else initialize();
