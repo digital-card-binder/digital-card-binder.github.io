@@ -930,7 +930,7 @@
         (state.pack && String(item.code||"").toLowerCase()!==state.pack.toLowerCase()) ||
         !Number.isSafeInteger(item.quantity) || item.quantity<=0 ||
         !Number.isFinite(age) || age < -60000 || age >= 15*60000)continue;
-      seen.add(String(item.code||"").toLowerCase()+"|"+item.name.toLowerCase());
+      seen.add(stockProductIdentity(item));
     }
     return seen.size;
   }
@@ -1137,7 +1137,13 @@
       return /30thcelebration|30주년/.test(actual);
     return actual.includes(requested);
   }
-  function storeFromResult(raw, kind, source, product, quantity, observedAt) {
+  function stockProductIdentity(item){
+    const sku=String(item.retailerSku||"").trim();
+    if(/^[A-Za-z0-9_-]{1,72}$/.test(sku))return "sku:"+sku.toLowerCase();
+    return "name:"+String(item.name||"").normalize("NFKC").toLowerCase()
+      .replace(/\s+/g,"").slice(0,110);
+  }
+  function storeFromResult(raw, kind, source, product, quantity, observedAt, retailerSku="") {
     if (!raw || !validQuantity(quantity) || !isCardProduct(product)) return null;
     const lat = Number(raw.latitude ?? raw.lat);
     const lng = Number(raw.longitude ?? raw.lng);
@@ -1151,6 +1157,7 @@
       kind, lat, lng,
       inventorySource:"public-aggregator",
       items:[{code:packFromTitle(product),name:product.slice(0,90),quantity,
+        retailerSku:/^[A-Za-z0-9_-]{1,72}$/.test(String(retailerSku))?String(retailerSku):"",
         checkedAt:observedAt,provider:source,inventorySource:"public-aggregator"}]
     };
     return record.id && record.name ? record : null;
@@ -1161,8 +1168,11 @@
   const retailerAreaCache=new Map();
   function normalizeRetailerArea(reverse){
     const addr=reverse && reverse.address || {};
-    const candidate=[addr.city_district,addr.borough,addr.suburb,
-      addr.town,addr.municipality,addr.city,addr.county,addr.state_district]
+    // A district name (e.g. 분당구) can cover hundreds of shops; selecting
+    // its first 60 results misses nearby branches. Prefer 동/리 granularity.
+    const candidate=[addr.neighbourhood,addr.quarter,addr.suburb,
+      addr.village,addr.town,addr.city_district,addr.borough,
+      addr.municipality,addr.city,addr.county,addr.state_district]
       .find(value=>typeof value==="string" && /[가-힣]{2,}/.test(value));
     return candidate ? candidate.replace(/(특별자치시|특별시|광역시|자치구|구)$/,"").trim().slice(0,24) : "";
   }
@@ -1218,26 +1228,40 @@
       const name=String(data.product?.name || "");
       for(const store of data.inventory?.stores || []) {
         const parsed=storeFromResult(store,"convenience","GS25",
-          String(store.searchItemName || name),store.realStockQuantity,responseAt);
+          String(store.searchItemName || name),store.realStockQuantity,responseAt,
+          data.itemCode || "");
         if(parsed)results.push(parsed);
       }
     } else if(provider === "seveneleven") {
       if(data.stockAvailable!==true)return results;
       const name=String(data.product?.itemName || "");
       for(const store of data.inventory?.stores || []) {
-        const parsed=storeFromResult(store,"convenience","세븐일레븐",name,store.stockQuantity,responseAt);
+        const parsed=storeFromResult(store,"convenience","세븐일레븐",
+          name,store.stockQuantity,responseAt,data.product?.itemCode||"");
         if(parsed)results.push(parsed);
       }
     } else if(provider === "emart24") {
       const nearby=Array.isArray(data.nearbyStores)?data.nearbyStores:(data.nearbyStores?.stores||[]);
+      const selectedPlu=String(data.pluCd||"").trim();
+      const stockPlu=String(data.goodsInfo?.pluCd||"").trim();
+      // Retailer stock must be for the product identified by the selected PLU.
+      if(stockPlu && selectedPlu && stockPlu!==selectedPlu)return results;
+      // The API may choose a non-first candidate. Never substitute candidate[0].
+      const selectedCandidate=(data.productCandidates||[]).find(
+        item=>selectedPlu && String(item.pluCd||"").trim()===selectedPlu);
       const name=String(data.goodsInfo?.goodsName || data.goodsInfo?.goodsNm ||
-        (data.productCandidates || [])[0]?.goodsName || "");
+        selectedCandidate?.goodsName || "");
       for(const store of data.stores || []) {
         const companion=nearby.find((row)=>String(row.storeCode)===String(store.bizNo));
-        const parsed=storeFromResult({...store,latitude:companion?.latitude,longitude:companion?.longitude,
+        // Some responses contain the coordinate directly on the stock row.
+        // A missing companion must not erase it.
+        const parsed=storeFromResult({...store,
+          latitude:companion?.latitude??store.latitude??store.lat,
+          longitude:companion?.longitude??store.longitude??store.lng,
           storeName:store.storeName || companion?.storeName,
           address:store.address || companion?.address,
-          storeCode:store.bizNo},"convenience","이마트24",name,store.bizQty,responseAt);
+          storeCode:store.bizNo},"convenience","이마트24",name,store.bizQty,responseAt,
+          selectedPlu || stockPlu);
         if(parsed)results.push(parsed);
       }
     }
@@ -1268,7 +1292,8 @@
       else {
         const existing=grouped.get(id);
         const item=record.items[0];
-        const index=existing.items.findIndex((entry)=>entry.name===item.name);
+        const index=existing.items.findIndex((entry)=>
+          stockProductIdentity(entry)===stockProductIdentity(item));
         if(index<0)existing.items.push(item);
         else if(Date.parse(existing.items[index].checkedAt)<Date.parse(item.checkedAt))
           existing.items[index]=item;
