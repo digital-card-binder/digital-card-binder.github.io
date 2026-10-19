@@ -1,4 +1,4 @@
-import { applicationDefault, getApps, initializeApp } from "firebase-admin/app";
+import { applicationDefault, cert, getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import {gridCell,nearbyCells} from "./radar-query.mjs";
 
@@ -9,8 +9,15 @@ export function radarDatabase() {
     throw new Error("RADAR_DATABASE_NOT_CONFIGURED");
   const projectId=process.env.GOOGLE_CLOUD_PROJECT;
   if(!projectId)throw new Error("RADAR_PROJECT_NOT_CONFIGURED");
+  let credential=applicationDefault();
+  if(process.env.RADAR_SERVICE_ACCOUNT_JSON) {
+    const config=JSON.parse(process.env.RADAR_SERVICE_ACCOUNT_JSON);
+    if(config.project_id!==projectId || !config.private_key || !config.client_email)
+      throw new Error("RADAR_SERVICE_ACCOUNT_PROJECT_MISMATCH");
+    credential=cert(config);
+  }
   const app=getApps().find(app=>app.name==="card-radar-service") ||
-    initializeApp({credential:applicationDefault(),projectId},"card-radar-service");
+    initializeApp({credential,projectId},"card-radar-service");
   return getFirestore(app,DATABASE_ID);
 }
 function cacheKey(cells) {
