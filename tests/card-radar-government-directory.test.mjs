@@ -229,3 +229,65 @@ test("government quota and source age are explicit in front-end status",async()=
   assert.match(js,/sourceRowsExamined/);
   assert.match(js,/sourceYearMonth/);
 });
+
+test("different nearby map centers do not share a rounded government lookup cache",async()=>{
+  // Both centers rounded to 37.415 in the old 3-decimal key, despite
+  // being 33m apart. The API receives six decimals and must not reuse data.
+  const a={lat:37.415161,lng:127.188161,radiusKm:1};
+  const b={lat:37.415461,lng:127.188161,radiusKm:1};
+  let calls=0;
+  const fetchImpl=async url=>{
+    calls++;
+    const lat=Number(new URL(url).searchParams.get("cy"));
+    const id=lat===a.lat?"CENTER-A":"CENTER-B";
+    return {ok:true,json:async()=>fixture([item("GS25 위치후보",id,lat,a.lng)])};
+  };
+  const first=await queryGovernmentDirectory(a,{serviceKey:"TEST-KEY",fetchImpl});
+  const second=await queryGovernmentDirectory(b,{serviceKey:"TEST-KEY",fetchImpl});
+  assert.equal(calls,2);
+  assert.deepEqual(first.stores.map(s=>s.id),["public:CENTER-A"]);
+  assert.deepEqual(second.stores.map(s=>s.id),["public:CENTER-B"]);
+});
+
+test("simultaneous same-center requests share one upstream call without sharing credentials",async()=>{
+  const location={lat:37.416181,lng:127.189191,radiusKm:1};
+  let calls=0;
+  const fetchImpl=async()=>{
+    calls++;
+    await new Promise(resolve=>setTimeout(resolve,20));
+    return {ok:true,json:async()=>fixture([item("CU 동시조회점","COALESCE-01",location.lat,location.lng)])};
+  };
+  const [one,two,three]=await Promise.all(Array.from({length:3},()=>
+    queryGovernmentDirectory(location,{serviceKey:"HIDDEN-KEY",fetchImpl})));
+  assert.equal(calls,1);
+  assert.equal(one.count,1);
+  assert.deepEqual(one,two);
+  assert.deepEqual(two,three);
+  assert.doesNotMatch(JSON.stringify(one),/HIDDEN-KEY/);
+});
+
+test("later page failures use short cache TTL so a retry can recover missing candidates",async()=>{
+  const location={lat:37.416271,lng:127.190291,radiusKm:1};
+  const baseTime=Date.parse("2026-10-19T12:00:00Z");
+  let calls=0;
+  const fetchImpl=async()=>{
+    calls++;
+    if(calls===2)return {ok:false,status:429};
+    const total=calls===1?2000:1;
+    return {ok:true,json:async()=>fixture([
+      item("이마트24 재시도점","RETRY-01",location.lat,location.lng)],total)};
+  };
+  const first=await queryGovernmentDirectory(location,{
+    serviceKey:"KEY",fetchImpl,now:baseTime});
+  assert.equal(first.coverageLimited,true);
+  assert.equal(calls,2);
+  const cached=await queryGovernmentDirectory(location,{
+    serviceKey:"KEY",fetchImpl,now:baseTime+29000});
+  assert.equal(calls,2);
+  assert.equal(cached.coverageLimited,true);
+  const recovered=await queryGovernmentDirectory(location,{
+    serviceKey:"KEY",fetchImpl,now:baseTime+31000});
+  assert.equal(calls,3);
+  assert.equal(recovered.coverageLimited,false);
+  assert.equal(recovered.count,1);
+});
