@@ -1,0 +1,51 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+
+test("SM2L prints 001-062 visually checked, one printed name/master alias remains", () => {
+ const load=p=>JSON.parse(fs.readFileSync(p,"utf8"));
+ const previous=load("data/audits/theme-sm2l-korean-visual-confirmation-batch01-20261019.json");
+ const current=load("data/audits/theme-sm2l-korean-full-visual-checkpoint-20261019.json");
+ const source=load("data/audits/theme-sm2l-canonical-image-http-and-decoding-20261019.json");
+ const master=load("data/series.json").find(s=>String(s.code).toLowerCase()==="sm2l");
+ const themes=load("data/art-themes.json");
+ const coverage=load("data/audits/theme-series-coverage.json");
+ assert.equal(master?.cards?.length,62);
+ assert.equal(source.sourceRecords.length,62);
+ assert.equal(source.allImagesDownloadedAndDecoded,62);
+ assert.equal(previous.cumulativeDirectKoreanCardPhotosConfirmed,19);
+ assert.equal(current.previouslyVisuallyChecked,19);
+ assert.equal(current.newlyVisuallyChecked,43);
+ assert.equal(current.visuallyInspectedKoreanPrintedCardFaces,62);
+ assert.equal(current.visuallyInspectedKoreanPrintedNumbers,62);
+ assert.equal(current.remainingUninspectedKoreanPrintedImages,0);
+ assert.equal(current.cumulativeExactNameAndNumberMatches,61);
+ assert.equal(current.printedTitleAndCanonicalNameMismatchCount,1);
+ assert.deepEqual(current.printedTitleAndCanonicalNameMismatchCodes,["SM2L_062"]);
+ assert.equal(current.strictSetCompletion,false);
+ assert.equal(current.completeSeriesCountUnchanged,108);
+ assert.equal(current.themeSlotTotalUnchanged,18011);
+ assert.equal(themes.groups.reduce((n,g)=>n+g.cards.length,0),18011);
+ assert.equal(coverage.summary.themeCardSlots,18011);
+ assert.equal(coverage.summary.strictCompleteSetCount,108);
+ assert.deepEqual(new Set(current.imagesCheckedAndCardNumbers).size,62);
+ assert.deepEqual(current.imagesCheckedAndCardNumbers,Array.from({length:62},(_,i)=>"SM2L_"+String(i+1).padStart(3,"0")));
+ assert.equal(current.newVerifiedCards.length,43);
+ const sources=Object.fromEntries(source.sourceRecords.map(x=>[x.code,x]));
+ for(const item of current.newVerifiedCards){
+  const scan=sources[item.code];
+  assert.ok(scan?.imageDecoded && scan.httpStatus===200);
+  assert.equal(scan.sha256,item.imageSha256);
+  assert.equal(scan.name,item.canonicalKoreanName);
+  assert.equal(item.cardImageVisuallyInspected,true);
+  assert.equal(item.koreanPrintedTitleVisuallyInspected,true);
+  assert.equal(item.koreanPrintedFooterNumberVisuallyInspected,true);
+ }
+ assert.equal(current.newVerifiedCards.filter(x=>!x.masterAndPrintedKoreanNameExactMatch).length,1);
+ const mismatch=current.newVerifiedCards.find(x=>x.code==="SM2L_062");
+ assert.equal(mismatch.printedKoreanName,"기본 격투 에너지");
+ assert.equal(mismatch.canonicalKoreanName,"격투 에너지");
+ assert.equal(current.titleDiscrepancy.printedBottomNumber,"062/050");
+ assert.equal(previous.needsFurtherInspection.length,43);
+ assert.deepEqual(previous.needsFurtherInspection.map(x=>x.code),current.newVerifiedCards.map(x=>x.code));
+});
