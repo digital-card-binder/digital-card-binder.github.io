@@ -84,10 +84,10 @@ test("only actual original observation time counts and selected pack respected",
   assert.equal(inventoryLabel(rows[0]).known,false);
   state.pack="";
 });
-test("production uses standalone API and counts one additional settled data-source query",()=>{
+test("production uses standalone and optional government location APIs with settled request count",()=>{
   assert.match(source,/SELF_DB_API="https:\/\/digital-card-radar-api\.vercel\.app\/api\/v1\/stores"/);
   assert.match(source,/state\.masterShops = \[\]/);
-  assert.match(source,/state\.progress = \{completed:0,total:jobs\.length\+2\+/);
+  assert.match(source,/state\.progress = \{completed:0,total:jobs\.length\+3\+/);
   assert.match(source,/const dbTask=loadSelfDbStores\(\)/);
   assert.match(source,/dbTask,stockTask,martFeedTask/);
   assert.match(source,/재고 별도 확인/);
