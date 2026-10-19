@@ -59,9 +59,9 @@ for(const g of themes.groups){
 assert.equal(actualHits.color,62,"All 62 cards must have had artwork color checked");
 assert.deepEqual(actualHits,{sleeping:0,connected:0,evolution:0,night:4,season:30,color:62,sunset:1,reflections:0,food:1,street:0,work:1,cameo:0});
 assert.ok(allCodes.every(code=>rowsByCode.get(code).length>=1));
-assert.equal(set.cards.find(x=>x.code==="SM2L_047/050")?.name,"레스큐탱크");
-assert.equal(set.cards.find(x=>x.code==="SM2L_048/050")?.name,"아쿠아패치");
-const original=set.cards.find(x=>x.code==="SM2L_062/050");
+assert.equal(set.cards.find(x=>String(x.code).toUpperCase()==="SM2L_047/050")?.name,"레스큐탱크");
+assert.equal(set.cards.find(x=>String(x.code).toUpperCase()==="SM2L_048/050")?.name,"아쿠아패치");
+const original=set.cards.find(x=>String(x.code).toUpperCase()==="SM2L_062/050");
 assert.equal(original?.name,"격투 에너지");
 assert.equal(latest.titleDiscrepancy.koreanPrintedNameVisuallyRead,"기본 격투 에너지");
 assert.equal(latest.titleDiscrepancy.printedBottomNumber,"062/050");
