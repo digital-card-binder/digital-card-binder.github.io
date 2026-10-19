@@ -80,12 +80,14 @@
       ? "완료한 요청 " + completed + " / 전체 " + total + "건 · 실패 포함"
       : "검색을 시작하면 실제 완료한 요청 수만큼 진행됩니다.";
   }
-  function completeProgressStep(success, stage) {
+  function completeProgressStep(success, stage, isApi = true) {
     const p = state.progress;
     p.completed += 1;
-    if (success) p.successes += 1;
-    else p.failures += 1;
+    if (isApi && success) p.successes += 1;
+    else if (isApi && !success) p.failures += 1;
     updateProgress(stage);
+    byId("radar-search-completed").textContent = String(p.successes);
+    byId("radar-search-failed").textContent = String(p.failures);
   }
   function centerMap() {
     if (!state.map) return;
@@ -119,7 +121,13 @@
     }
   }
   function setRadius(value) {
-    if (![1,3,5,10].includes(value)) return;
+    if (![1,3,5,10].includes(value) || state.searching) return;
+    const changed = value !== state.radiusKm;
+    if (changed) {
+      state.shops=[];state.inventory=[];state.mapChecked=false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
+    }
     state.radiusKm = value;
     document.querySelectorAll("[data-radius]").forEach((button) => {
       const active = Number(button.dataset.radius) === value;
@@ -143,6 +151,7 @@
     if (view === "map" && state.map) setTimeout(() => state.map.invalidateSize(), 0);
   }
   function showGeolocate() {
+    if(state.searching) return setStatus("검색 종료 후 새 위치를 선택해 주세요.");
     if (!navigator.geolocation) {
       setStatus("이 브라우저에서는 위치 확인을 지원하지 않습니다. 지역명을 입력해 주세요.", true);
       return;
@@ -155,6 +164,10 @@
       state.locationLabel = "내 위치";
       state.locationChosen = true;
       state.shops = [];
+      state.inventory = [];
+      state.mapChecked = false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
       centerMap();
       render();
       setStatus("내 위치가 설정되었습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
@@ -174,6 +187,7 @@
     }
   }
   async function findPlace() {
+    if(state.searching) return setStatus("검색 종료 후 새 지역을 선택해 주세요.");
     const query = byId("radar-place").value.trim();
     if (query.length < 2) return setStatus("지역명은 두 글자 이상 입력해 주세요.", true);
     const button = byId("radar-find-place");
@@ -189,6 +203,10 @@
       state.locationLabel = String(places[0].display_name || query).split(",").slice(0,3).join(", ");
       state.locationChosen = true;
       state.shops = [];
+      state.inventory = [];
+      state.mapChecked = false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
       centerMap();
       render();
       setStatus("지역을 설정했습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
@@ -374,41 +392,50 @@
     for (const store of filtered) addStoreCard(list,store);
   }
   async function search() {
-    if(state.searching)return;
-    state.searching=true;
-    const button=byId("radar-search");
-    button.disabled=true;
-    state.shops=[];
-    state.inventory=[];
-    state.providerNotes=[];
+    if (state.searching) return;
+    state.searching = true;
+    const button = byId("radar-search");
+    button.disabled = true;
+    state.shops = [];
+    state.inventory = [];
+    state.mapChecked = false;
+    state.providerNotes = [];
+    const jobs = inventoryJobs();
+    state.progress = {completed:0,total:jobs.length+1,successes:0,failures:0,active:true};
+    updateProgress("매장 및 카드 재고 탐색 중");
     render();
-    setStatus("판매처 공개 재고 조회와 지도 매장 탐색을 함께 진행하고 있습니다. 결과는 순차적으로 확인됩니다.");
-    const q=categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
-    const places=fetchJson("https://overpass.kumi.systems/api/interpreter",{
-      method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-      body:"data="+encodeURIComponent(q)
+    setStatus("카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
+    const query = categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
+    const mapTask = fetchJson("https://overpass.kumi.systems/api/interpreter", {
+      method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:"data="+encodeURIComponent(query)
     },30000).then((result)=>{
       if(!result || !Array.isArray(result.elements))throw new Error("INVALID_RESPONSE");
-      state.shops=parseShops(result.elements);render();return true;
-    }).catch(()=>false);
-    const stock=fetchLiveInventory().then((rows)=>{
-      state.inventory=rows;render();return true;
-    }).catch(()=>false);
-    const [mapOK,stockOK]=await Promise.all([places,stock]);
-    const candidates=mergeInventory(state.shops).filter(selectedKind).filter((s)=>s.distance<=state.radiusKm+.03);
-    const withNumbers=candidates.filter((s)=>(s.verifiedInventory||[]).length>0).length;
-    const providerSuccess=state.providerNotes.filter((p)=>p.endsWith(":ok")).length;
-    if(!mapOK&&!stockOK) {
-      setStatus("매장 및 재고 데이터 제공처에 연결하지 못했습니다. 잠시 후 재시도해 주세요.",true);
-    } else {
-      setStatus("주변 매장 후보 "+candidates.length+"곳 · 수량 응답 매장 "+withNumbers+
-        "곳 · 재고 API 정상 응답 "+providerSuccess+"/"+state.providerNotes.length+
-        "건. 조회 지원 상품만 포함하며 제공처 캐시로 지연될 수 있습니다."+
-        (!mapOK?" 지도 매장 검색 일부 실패.":"")+
-        (providerSuccess<state.providerNotes.length?" 일부 판매처 조회 실패.":""),
-        providerSuccess===0 && state.providerNotes.length>0);
-    }
-    button.disabled=false;state.searching=false;
+      state.shops = parseShops(result.elements);
+      return true;
+    }).catch(()=>false).then((ok)=>{
+      state.mapChecked = true;
+      completeProgressStep(ok, "재고 조회 중", false);
+      render();
+      return ok;
+    });
+    const stockTask = fetchLiveInventory(jobs);
+    const [mapOK] = await Promise.all([mapTask,stockTask]);
+    state.progress.active = false;
+    updateProgress("검색 종료");
+    render();
+    const candidates = mergeInventory(state.shops).filter(selectedKind)
+      .filter((store)=>store.distance <= state.radiusKm + .03);
+    const withNumbers = candidates.filter((store)=>inventoryLabel(store).checked).length;
+    const positive = candidates.filter((store)=>inventoryLabel(store).known).length;
+    setStatus("카드 재고 있음 "+positive+"곳 · 재고 응답 매장 "+withNumbers+"곳 · "+
+      (mapOK?"지도 후보 검색 완료":"지도 후보 일부 조회 실패")+" · "+
+      (jobs.length ? "판매처 API "+state.progress.successes+"건 성공 / "+state.progress.failures+"건 실패." :
+        "선택한 매장 유형은 자동 재고조회 미지원.")+
+      " 조회되지 않은 매장은 재고 0개로 간주하지 않습니다.",
+      !mapOK || state.progress.failures > 0);
+    button.disabled=false;
+    state.searching=false;
   }
 
   // An independent, public REST aggregator, documented by the Daiso MCP project.
@@ -503,43 +530,59 @@
     // This is not the entire retailer product universe: supported product coverage is best-effort.
     return ["포켓몬카드","포켓몬스터30주년","스톰에메랄다"];
   }
-  async function fetchLiveInventory() {
-    const jobs=[];
-    const providers=state.kind==="mart"||state.kind==="cardshop" ? [] :
+  function inventoryJobs() {
+    const providers = state.kind === "mart" || state.kind === "cardshop" ? [] :
       ["cu","seveneleven","gs25","emart24"];
-    for(const provider of providers)for(const keyword of liveQueries())jobs.push({provider,keyword});
-    const all=[];
-    const notes=[];
-    // Two concurrent requests protect public service limits and lower errors.
-    let index=0;
-    async function worker() {
-      while(index<jobs.length){
-        const task=jobs[index++];
-        try {
-          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
-          const rows=parseRetail(task.provider,payload,new Date().toISOString());
-          all.push(...rows);
-          notes.push(task.provider+":ok");
-        } catch(_) {notes.push(task.provider+":error");}
-      }
-    }
-    await Promise.all([worker(),worker()]);
-    state.providerNotes=notes;
-    const grouped=new Map();
-    for(const record of all) {
-      const id=record.items[0].provider+"|"+record.id;
-      if(!grouped.has(id))grouped.set(id,record);
+    return providers.flatMap((provider)=>liveQueries().map((keyword)=>({provider,keyword})));
+  }
+  function groupInventoryRows(records) {
+    const grouped = new Map();
+    for (const record of records) {
+      const id = record.items[0].provider+"|"+record.id;
+      if (!grouped.has(id)) grouped.set(id,record);
       else {
         const existing=grouped.get(id);
         const item=record.items[0];
-        const i=existing.items.findIndex((other)=>other.name===item.name);
-        if(i<0)existing.items.push(item);
-        else if(Date.parse(existing.items[i].checkedAt)<Date.parse(item.checkedAt))existing.items[i]=item;
+        const index=existing.items.findIndex((entry)=>entry.name===item.name);
+        if(index<0)existing.items.push(item);
+        else if(Date.parse(existing.items[index].checkedAt)<Date.parse(item.checkedAt))
+          existing.items[index]=item;
       }
     }
     return [...grouped.values()];
   }
-
+  async function fetchLiveInventory(jobs) {
+    const all=[];
+    const notes=[];
+    let index=0;
+    async function worker() {
+      while(index<jobs.length) {
+        const task=jobs[index++];
+        let success=false;
+        try {
+          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
+          if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
+          if(task.provider==="cu" && payload.data.inventory?.available===false)
+            throw new Error("STOCK_UNAVAILABLE");
+          if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
+            throw new Error("STOCK_UNAVAILABLE");
+          const rows=parseRetail(task.provider,payload,new Date().toISOString());
+          all.push(...rows);
+          success=true;
+          notes.push(task.provider+":ok");
+        } catch (_) {
+          notes.push(task.provider+":error");
+        } finally {
+          state.providerNotes=notes.slice();
+          state.inventory=groupInventoryRows(all);
+          completeProgressStep(success,"재고 조회 중");
+          render();
+        }
+      }
+    }
+    await Promise.all([worker(),worker()]);
+    return state.inventory;
+  }
   function initialize() {
     const product=byId("radar-pack");
     for(const [code,title] of PRODUCTS) {
