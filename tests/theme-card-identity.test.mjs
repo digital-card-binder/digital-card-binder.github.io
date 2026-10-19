@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,17944); // SM2L 011-020: 1 Korean photographed, 9 matched-art screened
+  assert.equal(total,17962); // SM2L 021-030: Korean names matched, artwork screened, print-photo holds
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
