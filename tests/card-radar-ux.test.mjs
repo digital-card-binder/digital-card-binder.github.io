@@ -390,10 +390,10 @@ test("selected convenience brand only queries its retailer, avoiding wasted thir
   const {state,inventoryJobs}=harness();
   state.kind="convenience";
   state.convenienceBrand="gs25";
-  assert.equal(inventoryJobs().length,5);
+  assert.equal(inventoryJobs().length,9);
   assert.ok(inventoryJobs().every(x=>x.provider==="gs25"));
   state.convenienceBrand="emart24";
-  assert.equal(inventoryJobs().length,5);
+  assert.equal(inventoryJobs().length,9);
   assert.ok(inventoryJobs().every(x=>x.provider==="emart24"));
   state.convenienceBrand="other";
   assert.equal(inventoryJobs().length,0);
