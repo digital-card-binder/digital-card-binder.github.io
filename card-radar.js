@@ -10,7 +10,7 @@
   const MAX_SHOPS = 250;
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
-    radiusKm: 3, kind: "all", pack: "", view: "list", onlyInStock: false,
+    radiusKm: 3, kind: "all", martBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
@@ -53,8 +53,28 @@
     if (["supermarket","department_store","wholesale"].includes(shop) || /이마트(?!24)|E[ -]?mart(?!24)|롯데마트|Lotte Mart|홈플러스|Homeplus/i.test(name)) return "mart";
     return "cardshop";
   }
+  function martBrand(name) {
+    const nameKey=String(name||"").toLowerCase().replace(/[\s._-]+/g,"");
+    // Order matters: Traders is operated by Emart but must have its own filter.
+    if(/트레이더스|traders/.test(nameKey))return "traders";
+    if(/이마트24|emart24/.test(nameKey))return "other";
+    if(/코스트코|costco/.test(nameKey))return "costco";
+    if(/하나로마트|하나로|hanaromart|nhmart/.test(nameKey))return "hanaro";
+    if(/롯데마트|lottemart/.test(nameKey))return "lottemart";
+    if(/홈플러스|homeplus/.test(nameKey))return "homeplus";
+    if(/이마트|emart/.test(nameKey))return "emart";
+    return "other";
+  }
+  function martBrandLabel(brand) {
+    return {emart:"이마트",traders:"트레이더스",lottemart:"롯데마트",
+      homeplus:"홈플러스",costco:"코스트코",hanaro:"하나로마트",
+      other:"기타 마트"}[brand] || "기타 마트";
+  }
   function selectedKind(store) {
-    return state.kind === "all" || store.kind === state.kind;
+    if(state.kind!=="all" && store.kind!==state.kind)return false;
+    if(state.kind==="mart" && state.martBrand!=="all")
+      return martBrand(store.chain||store.name)===state.martBrand;
+    return true;
   }
   function currentSummary(count, displayedCount = count) {
     const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0;
@@ -254,7 +274,9 @@
     return "[out:json][timeout:22];(" +
       'nwr["shop"="convenience"]["name"~"CU|GS25|GS 25|세븐일레븐|7-Eleven|이마트24|emart24",i]' + around + ";" +
       'nwr["shop"="supermarket"]' + around + ";" +
-      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus",i]' + around + ";" +
+      'nwr["shop"="wholesale"]' + around + ";" +
+      'nwr["brand"~"이마트|E-?Mart|롯데마트|Lotte Mart|홈플러스|Homeplus|트레이더스|Traders|코스트코|Costco|하나로마트",i]' + around + ";" +
+      'nwr["name"~"트레이더스|Traders|코스트코|Costco|하나로마트|롯데마트|홈플러스|이마트",i]' + around + ";" +
       'nwr["shop"="games"]["name"~"카드|TCG|포켓몬|Pokemon",i]' + around + ";" +
       ");out center " + MAX_SHOPS + ";";
   }
@@ -272,7 +294,8 @@
       seen.add(key);
       shops.push({
         id:key, name, lat:coords.lat, lng:coords.lng,
-        kind:category(tags), distance, origin:"osm",
+        kind:category(tags), chain:String(tags.brand||tags.operator||"").slice(0,45),
+        distance, origin:"osm",
         addr: String(tags["addr:full"] || tags["addr:street"] || tags["addr:city"] || "").slice(0,120),
         verifiedInventory:[]
       });
@@ -466,7 +489,8 @@
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
-    const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"대형마트·마트":"카드샵 후보";
+    const typeName=store.kind==="convenience"?"편의점":
+      store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):"카드샵 후보";
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
     header.append(title,badge);
@@ -513,7 +537,8 @@
       const popup=make("div","");
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
-        make("p","",(store.kind==="mart"?"대형마트·마트":store.kind==="convenience"?"편의점":"카드샵 후보")+
+        make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
+            store.kind==="convenience"?"편의점":"카드샵 후보")+
           " · "+(stock.known?stock.message:stock.detail)));
       marker.bindPopup(popup);
       store.marker=marker;
