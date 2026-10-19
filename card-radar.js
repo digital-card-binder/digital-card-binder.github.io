@@ -495,6 +495,12 @@
       pagesFetched:Number.isSafeInteger(payload.pagesFetched)?payload.pagesFetched:1,
       sourceRowsExamined:Number.isSafeInteger(payload.sourceRowsExamined)?
         payload.sourceRowsExamined:0,
+      supplementalCentersAttempted:Number.isSafeInteger(payload.supplementalCentersAttempted)?
+        payload.supplementalCentersAttempted:0,
+      supplementalCentersFetched:Number.isSafeInteger(payload.supplementalCentersFetched)?
+        payload.supplementalCentersFetched:0,
+      supplementalRowsExamined:Number.isSafeInteger(payload.supplementalRowsExamined)?
+        payload.supplementalRowsExamined:0,
       sourceYearMonth:/^20[0-9]{4}$/.test(String(payload.sourceYearMonth||""))?
         payload.sourceYearMonth:""};
   }
@@ -980,10 +986,14 @@
     const govTask=loadPublicShopLocations().then(result=>{
       state.publicShops=result.stores;
       byId("radar-public-status").textContent=result.configured
-        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · 원자료 "+
+        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · 중심 원자료 "+
           result.sourceRowsExamined+"건 / "+result.pagesFetched+"페이지 검토"+(
+          result.supplementalCentersAttempted?
+            " · 외곽 "+result.supplementalCentersFetched+"/"+
+            result.supplementalCentersAttempted+"방향 1페이지씩 추가 ("+
+            result.supplementalRowsExamined+"건)":"" )+(
           result.sourceYearMonth?" · 기준 "+result.sourceYearMonth:"")+" · "+
-          (result.coverageLimited?"일부 범위·페이지 미조회":"조회 범위 확인")+" · 재고 미확인"
+          (result.coverageLimited?"부분 조회(전체 범위 보장 안 됨)":"조회 범위 확인")+" · 재고 미확인"
         : "정부 상가 위치 보강: 공공데이터 API 키 등록 전 · 기존 검색은 계속 이용 가능";
       return result.configured;
     }).catch(()=>{
