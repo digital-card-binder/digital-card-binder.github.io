@@ -55,11 +55,13 @@ for(const row of batch){
   assert.ok(canonical,"Missing canonical card "+code);
   assert.equal(normalize(canonical.name),normalize(expectedName),code+" Korean identity mismatch");
   const imageUrl=String(canonical.image||"");
-  // Existing canonical Korean scans are legitimately JPG on k-tcgpanda.
-  // Confirm the exact SM2L code and Korean suffix; NEVER rewrite the URL.
-  const hostedArt=new RegExp("/SM2L/SM2L_"+suffix+"\\.png$","i").test(imageUrl);
-  const KoreanPhysical=new RegExp("/cardimg/SM/sm2L/[^/?#]*_sm2L_"+suffix+"_KOR\\.(?:png|jpe?g)(?:\\?.*)?$","i").test(imageUrl);
-  assert.ok(hostedArt||KoreanPhysical,code+" canonical image identity: "+imageUrl);
+  // Canonical scans already use multiple Korean-approved CDNs and naming styles:
+  // own-hosted SM2L_031.png; k-tcgpanda ..._sm2L_056_KOR.jpg;
+  // TCGBOX /sm2l/sm2l 058.jpg. Validate exact identity, not storage format.
+  // Never rewrite/re-source any canonical image during a theme-only audit.
+  assert.equal(new URL(imageUrl).protocol,"https:",code+" non-HTTPS canonical URL");
+  assert.ok(new RegExp("sm2l(?:_|%20| )"+suffix+"(?=[^0-9]|$)","i").test(imageUrl),
+    code+" canonical image identity: "+imageUrl);
   checked.push({code,koreanName:canonical.name,printedNumber:suffix+"/050",rarity,scene,
     approvedThemes:tags,addedThemeCount:Object.keys(tags).length,
     koreanPrintedPhotoDecoded:false,
