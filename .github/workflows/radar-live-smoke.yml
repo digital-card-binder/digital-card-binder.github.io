@@ -30,6 +30,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: card-radar-live-smoke
-          path: reports/card-radar-live-smoke.json
+          path: |
+            reports/card-radar-live-smoke.json
+            reports/card-radar-sku-review-candidates.json
           if-no-files-found: ignore
           retention-days: 7

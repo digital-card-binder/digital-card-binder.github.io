@@ -1323,18 +1323,37 @@
   }
   function liveQueries() {
     if(state.pack) return [PACK_TITLES.get(state.pack)].filter(Boolean);
-    // These broad queries cover multiple supported card products, without imposing a pack selection.
-    // This is not the entire retailer product universe: supported product coverage is best-effort.
-    // Exact set and pack queries prevent a generic "card" keyword from selecting transit cards.
-    // This is a bounded best-effort search, NOT an exhaustive retailer inventory index.
-    return ["인페르노X","닌자스피너","30th CELEBRATION","메가심포니아","포켓몬카드 부스터팩"];
+    // Cover all nine *named* packs in the site's supported selection list.
+    // Do not rely on a generic search that can return an unrelated product.
+    // This still cannot enumerate every product sold by each retailer.
+    return PRODUCTS.map(([,title])=>title);
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" ? [] :
       (state.kind === "convenience" && state.convenienceBrand !== "all"
         ? (state.convenienceBrand === "other" ? [] : [state.convenienceBrand])
         : ["cu","seveneleven","gs25","emart24"]);
-    return providers.flatMap((provider)=>liveQueries().map((keyword)=>({provider,keyword})));
+    // Distribute the requests among chains instead of nine calls to one chain
+    // before checking another. The circuit breaker below limits wasted calls.
+    return liveQueries().flatMap((keyword)=>
+      providers.map((provider)=>({provider,keyword})));
+  }
+  // A 429 or an explicit stock-unavailable response tells us this provider
+  // cannot satisfy the remaining pack requests right now. Two consecutive 5xx
+  // errors indicate upstream instability; stop instead of hammering it.
+  function updateProviderCircuit(broken,failures,provider,error){
+    const reason=String(error?.message||"");
+    const failureCount=(failures.get(provider)||0)+1;
+    if(reason==="STOCK_UNAVAILABLE" || /^HTTP 429\b/.test(reason)){
+      broken.add(provider);
+      return true;
+    }
+    if(/^HTTP 5\d\d\b/.test(reason) && failureCount>=2){
+      broken.add(provider);
+      return true;
+    }
+    failures.set(provider,/^HTTP 5\d\d\b/.test(reason)?failureCount:0);
+    return false;
   }
   function groupInventoryRows(records) {
     const grouped = new Map();
@@ -1357,9 +1376,17 @@
     const all=[];
     const notes=[];
     let index=0,emart24PreferDistrict=false;
+    const brokenProviders=new Set();
+    const upstreamFailures=new Map();
     async function worker() {
       while(index<jobs.length) {
         const task=jobs[index++];
+        if(brokenProviders.has(task.provider)){
+          // Skipped work is not an actual failed HTTP request.
+          state.providerNotes=[...state.providerNotes,task.provider+":skipped"];
+          completeProgressStep(false,"재고 조회 중",false);
+          continue;
+        }
         let success=false;
         try {
           const needsArea=task.provider==="seveneleven"||task.provider==="emart24";
@@ -1391,8 +1418,10 @@
           const rows=parseRetail(task.provider,payload,new Date().toISOString(),task.keyword);
           all.push(...rows);
           success=true;
+          upstreamFailures.set(task.provider,0);
           notes.push(task.provider+":ok");
-        } catch (_) {
+        } catch (error) {
+          updateProviderCircuit(brokenProviders,upstreamFailures,task.provider,error);
           notes.push(task.provider+":error");
         } finally {
           state.providerNotes=notes.slice();
