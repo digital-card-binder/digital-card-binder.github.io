@@ -772,6 +772,7 @@
     state.shops = [];
     state.retailerShops = [];
     state.masterShops = [];
+    byId("radar-db-status").textContent="자체 DB 매장 정보 확인 중…";
     state.inventory = [];
     state.mapChecked = false;
     state.providerNotes = [];
@@ -808,8 +809,15 @@
           return ok;
         });
     const dbTask=loadSelfDbStores()
-      .then((records)=>{state.masterShops=records;return true;})
-      .catch(()=>false).then((ok)=>{
+      .then((records)=>{
+        state.masterShops=records;
+        byId("radar-db-status").textContent="자체 DB 등록 매장 "+records.length+"곳 조회 · 미연결 매장의 재고는 미확인";
+        return true;
+      })
+      .catch(()=>{
+        byId("radar-db-status").textContent="자체 DB 일시 조회 불가 · 공개 지도 매장 후보만 표시";
+        return false;
+      }).then((ok)=>{
         completeProgressStep(ok,"자체 DB 매장 조회 중",false);
         render();
         return ok;
