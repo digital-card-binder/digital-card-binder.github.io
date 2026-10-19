@@ -1,0 +1,523 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-19",
+  "title": "SM2L 한국판 실물 이미지 시각 판독 제1차 12장 확인 및 전체 다운로드 결과",
+  "sourceAudit": "data/audits/theme-sm2l-canonical-image-http-and-decoding-20261019.json",
+  "baselineAudit": "data/audits/theme-sm2l-047-048-korean-number-resolution-20261019.json",
+  "validationMethod": "Read the actual image pixels visually from four 3-up preview sheets generated from freshly downloaded canonical image bytes. Confirmed Korean-language printed names and SM2L card numbers, not just URL/filename. No OCR and no guesses.",
+  "directKoreanCardPhotoEvidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+  "actualOriginalFilesDownloadedAndDecoded": 62,
+  "previousDirectKoreanCardPhotosConfirmed": 7,
+  "newDirectKoreanCardPhotosConfirmed": 12,
+  "cumulativeDirectKoreanCardPhotosConfirmed": 19,
+  "remainingDirectKoreanCardPhotoVerification": 43,
+  "allSetCards": 62,
+  "confirmedCodes": [
+    "SM2L_001",
+    "SM2L_002",
+    "SM2L_003",
+    "SM2L_004",
+    "SM2L_005",
+    "SM2L_006",
+    "SM2L_007",
+    "SM2L_008",
+    "SM2L_009",
+    "SM2L_010",
+    "SM2L_011",
+    "SM2L_012",
+    "SM2L_013",
+    "SM2L_014",
+    "SM2L_015",
+    "SM2L_047",
+    "SM2L_048",
+    "SM2L_056",
+    "SM2L_058"
+  ],
+  "verifiedInThisPass": [
+    {
+      "code": "SM2L_002",
+      "printedKoreanName": "대로트",
+      "printedSetAndNumber": "SM2L_002/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_002.png",
+      "sha256": "2caa3046720be403b446527bc3b3d82eb2a7979b197e26ed6ac7109db86d2349",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 1,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_006",
+      "printedKoreanName": "야도뇽",
+      "printedSetAndNumber": "SM2L_006/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_006.png",
+      "sha256": "61c58d744c4273199a80241dcd78150021d22f9c14dcf5a60981bb66d4b5258b",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 1,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_008",
+      "printedKoreanName": "왕눈해",
+      "printedSetAndNumber": "SM2L_008/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_008.png",
+      "sha256": "7b83311f7ed5f6b1e1d68a9bf984048773da946ba6990fa03c50dc6b729ae0ee",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 1,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_010",
+      "printedKoreanName": "고래왕자",
+      "printedSetAndNumber": "SM2L_010/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_010.png",
+      "sha256": "39d4b179f600e09a1c2a4c07c96a9e6162033b7849d9ffe320ea22f16b88e053",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 2,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_012",
+      "printedKoreanName": "맘복치",
+      "printedSetAndNumber": "SM2L_012/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_012.png",
+      "sha256": "a404354d8edb14cb53291e10422f75dd5a7aa9bffe600519da93f7cb914bed9c",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 2,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_013",
+      "printedKoreanName": "약어리",
+      "printedSetAndNumber": "SM2L_013/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_013.png",
+      "sha256": "d023d21cea43fe6d64dcd2763911e6dfe5911d2f89086e7ea22fdee4ae307bff",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 2,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_014",
+      "printedKoreanName": "약어리 GX",
+      "printedSetAndNumber": "SM2L_014/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_014.png",
+      "sha256": "44e291d6b935b711b678068c7a5cc28c5437c0e659f78ff5561c3618670b8bf7",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 3,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_015",
+      "printedKoreanName": "알로라 꼬마돌",
+      "printedSetAndNumber": "SM2L_015/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_015.png",
+      "sha256": "c0ca81c3680aff66fe941811410e9122414f2ee8c5702a33cf15438f3f7f027b",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 3,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_047",
+      "printedKoreanName": "레스큐탱크",
+      "printedSetAndNumber": "SM2L_047/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_047.png",
+      "sha256": "8ebac33fa2eb57685052bea30981e136ec4ef112b11a5a55512f2231acdbc31a",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 3,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_048",
+      "printedKoreanName": "아쿠아패치",
+      "printedSetAndNumber": "SM2L_048/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2L/SM2L_048.png",
+      "sha256": "75a917a69e4196ee3b336741828b575aa881ebe74200f05514dd8fb3949f62ae",
+      "pixelSize": "868x1212",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 4,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_056",
+      "printedKoreanName": "약어리 GX",
+      "printedSetAndNumber": "SM2L_056/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://k-tcgpanda.com/cardimg/SM/sm2L/%EC%95%BD%EC%96%B4%EB%A6%AC%20GX_sm2L_056_KOR.jpg",
+      "sha256": "28706715c6fbe0a8966aaf3ca4adbc86c431beb2f8409f8c3dc1463634dcf4b1",
+      "pixelSize": "288x400",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 4,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    },
+    {
+      "code": "SM2L_058",
+      "printedKoreanName": "루가루암 GX",
+      "printedSetAndNumber": "SM2L_058/050",
+      "actualKoreanCardFaceVisuallyInspected": true,
+      "actualKoreanFooterNumberVisuallyInspected": true,
+      "imageImageCDN": "https://tcgbox.co.kr/web/product/medium/sm2l/sm2l 058.jpg",
+      "sha256": "c97ae8b8a5ea1dc0281121699aa84d3a4a4cbbd91c8062c7a1b63d957b242dad",
+      "pixelSize": "172x240",
+      "evidenceRun": "https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/39191577367",
+      "previewPart": 4,
+      "note": "Korean card name and SM2L number at card bottom observed directly from fetched card image preview. Full original file was decoded, but source preview was resized, not a physical retail-card authenticity examination."
+    }
+  ],
+  "needsFurtherInspection": [
+    {
+      "code": "SM2L_016",
+      "name": "알로라 데구리",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_017",
+      "name": "알로라 딱구리",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_018",
+      "name": "깨봉이",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_019",
+      "name": "더스트나",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_020",
+      "name": "따라큐",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_021",
+      "name": "타타륜",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_022",
+      "name": "카푸나비나 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_023",
+      "name": "글라이거",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_024",
+      "name": "글라이온",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_025",
+      "name": "판짱",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_026",
+      "name": "암멍이",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_027",
+      "name": "루가루암 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_028",
+      "name": "메테노",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_029",
+      "name": "니로우",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_030",
+      "name": "돈크로우",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_031",
+      "name": "깜까미",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_032",
+      "name": "부란다",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_033",
+      "name": "메탕",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_034",
+      "name": "메탕구",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_035",
+      "name": "메타그로스 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_036",
+      "name": "소미안",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_037",
+      "name": "엘풍",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_038",
+      "name": "미끄메라",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_039",
+      "name": "미끄네일",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_040",
+      "name": "미끄래곤",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_041",
+      "name": "캐스퐁",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_042",
+      "name": "보르쥐",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_043",
+      "name": "보르그",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_044",
+      "name": "화살꼬빈",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_045",
+      "name": "불화살빈",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_046",
+      "name": "파이어로",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_049",
+      "name": "마오",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_050",
+      "name": "잔잔한물가언덕",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_051",
+      "name": "약어리 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_052",
+      "name": "카푸나비나 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_053",
+      "name": "루가루암 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_054",
+      "name": "메타그로스 GX",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_055",
+      "name": "마오",
+      "sourceType": "official_korean_card_art_cdn",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_057",
+      "name": "카푸나비나 GX",
+      "sourceType": "kor_filename_index_reference",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_059",
+      "name": "메타그로스 GX",
+      "sourceType": "kor_filename_index_reference",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_060",
+      "name": "아쿠아패치",
+      "sourceType": "kor_filename_index_reference",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_061",
+      "name": "개조해머",
+      "sourceType": "korean_retailer_image_url",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    },
+    {
+      "code": "SM2L_062",
+      "name": "격투 에너지",
+      "sourceType": "korean_retailer_image_url",
+      "sourceVerified": true,
+      "reason": "Korean printed text and bottom card number not yet visually reviewed"
+    }
+  ],
+  "strictPhotoInspectionCompleted": false,
+  "completeThematicArtworkScreen": true,
+  "numberMappingHolds": [],
+  "seriesStrictComplete": false,
+  "existingThemesUnchanged": 18011,
+  "noChangesToMasterDB": true,
+  "noChangesToOwnershipOrFirestore": true,
+  "noImagesReplacedOrRehosted": true,
+  "qualityCaution": "Korean printed image identity confirmed on 12 previewed renders, not a guarantee that printed physical retail cards are genuine. No upgrade based on source URL or PNG/JPG metadata alone.",
+  "nextBatchSuggested": [
+    "SM2L_016",
+    "SM2L_017",
+    "SM2L_018",
+    "SM2L_019",
+    "SM2L_020",
+    "SM2L_021",
+    "SM2L_022",
+    "SM2L_023",
+    "SM2L_024",
+    "SM2L_025",
+    "SM2L_026",
+    "SM2L_027",
+    "SM2L_028",
+    "SM2L_029",
+    "SM2L_030"
+  ]
+}
