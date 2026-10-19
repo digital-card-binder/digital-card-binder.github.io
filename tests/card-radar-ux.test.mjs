@@ -545,3 +545,20 @@ test("zero from a partial all-pack query is not presented as all card products s
   state.pack="m4";
   assert.match(inventoryLabel(store).detail,/선택한 카드팩 조회 수량 0개/);
 });
+
+test("Emart24 branch labels are all recognized as convenience stores, not supermarkets",()=>{
+  const {category,categoryQuery,state,selectedKind}=harness();
+  for(const name of ["이마트24 판교점","이마트 24 서현점","emart24 정자점","E-Mart24 강남점","E Mart 24 미금점"]){
+    assert.equal(category({shop:"convenience",name}),"convenience",name);
+    assert.equal(category({shop:"supermarket",name}),"convenience",name);
+    assert.equal(category({shop:"shop",name}),"convenience",name);
+  }
+  assert.equal(category({shop:"supermarket",name:"이마트 판교점"}),"mart");
+  assert.equal(category({shop:"wholesale",name:"트레이더스 홀세일"}),"mart");
+  state.kind="convenience";state.convenienceBrand="emart24";
+  assert.equal(selectedKind({kind:"convenience",name:"E-Mart24 강남점"}),true);
+  assert.equal(selectedKind({kind:"mart",name:"이마트 강남점"}),false);
+  const query=categoryQuery(3000,37.5,127.02);
+  assert.match(query,/nwr\["shop"="convenience"\]\["brand"/);
+  assert.match(query,/이마트 \?24/);
+});
