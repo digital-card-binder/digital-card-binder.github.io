@@ -117,7 +117,7 @@
     const update = document.createElement("button");
     update.type = "button";
     update.className = "android-update-now";
-    update.textContent = "v1.0 업데이트";
+    update.textContent = versionName ? `v${versionName} 업데이트` : "업데이트";
     update.addEventListener("click", () => {
       window.location.href = apkUrl;
     });
@@ -348,29 +348,46 @@
     }
   }
 
+  async function latestAndroidRelease() {
+    const response = await fetch(
+      `${ANDROID_VERSION_URL}?t=${Date.now()}`,
+      { cache: "no-store" },
+    );
+    if (!response.ok) throw new Error("ANDROID_VERSION_UNAVAILABLE");
+    const payload = await response.json();
+    const versionName = String(payload?.versionName || "").trim();
+    const apkUrl = String(payload?.apkUrl || "").trim();
+    if (!/^\d+(?:\.\d+){1,3}$/.test(versionName) || !apkUrl) {
+      throw new Error("ANDROID_RELEASE_INVALID");
+    }
+    const uri = new URL(apkUrl, window.location.href);
+    if (uri.protocol !== "https:" ||
+        !uri.pathname.endsWith(`/DigitalCardBinder_v${versionName}.apk`)) {
+      throw new Error("ANDROID_RELEASE_INVALID");
+    }
+    return { apkUrl: uri.href, versionName };
+  }
+
   function bindAndroidDownload() {
     const button = document.getElementById("android-app-download-button");
     if (!button || button.dataset.downloadBound === "true") return;
     button.dataset.downloadBound = "true";
 
     button.addEventListener("click", async () => {
-      const apkUrl = "./DigitalCardBinder_v1.0.apk";
       const originalText = button.textContent;
       button.disabled = true;
       button.textContent = "확인 중…";
 
       try {
-        const response = await fetch(apkUrl, { method: "HEAD", cache: "no-store" });
-        if (!response.ok) throw new Error("APK_NOT_READY");
-
+        const { apkUrl, versionName } = await latestAndroidRelease();
         const link = document.createElement("a");
         link.href = apkUrl;
-        link.download = "DigitalCardBinder_v1.0.apk";
+        link.download = `DigitalCardBinder_v${versionName}.apk`;
         document.body.append(link);
         link.click();
         link.remove();
       } catch {
-        window.alert("안드로이드 앱 v1.0 파일을 준비 중입니다. APK 업로드 후 바로 다운로드할 수 있습니다.");
+        window.alert("최신 안드로이드 설치 파일을 확인하지 못했습니다. 잠시 후 다시 시도해 주세요.");
       } finally {
         button.disabled = false;
         button.textContent = originalText;
