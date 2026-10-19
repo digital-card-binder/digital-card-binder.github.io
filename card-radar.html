@@ -149,15 +149,16 @@
         <div class="radar-map-panel" id="radar-map-panel">
           <div class="radar-map-toolbar">
             <div class="radar-map-mode" role="group" aria-label="지도에 표시할 매장 선택">
-              <button type="button" data-map-mode="all" class="selected" aria-pressed="true"><span aria-hidden="true">◎</span> 전체 매장</button>
-              <button type="button" data-map-mode="stock" aria-pressed="false"><span aria-hidden="true">●</span> 재고 있는 곳</button>
+              <button type="button" data-map-mode="all" class="selected" aria-pressed="true"><span aria-hidden="true">◎</span> 장소</button>
+              <button type="button" data-map-mode="stock" aria-pressed="false"><span aria-hidden="true">●</span> 재고</button>
             </div>
             <span id="radar-map-mode-count" class="radar-map-mode-count" aria-live="polite">매장 탐색 전</span>
           </div>
-          <p class="radar-map-mode-note" id="radar-map-mode-note">재고가 확인된 매장은 별도로 표시됩니다.</p>
+          <p class="radar-map-mode-note" id="radar-map-mode-note">재고가 확인된 매장은 상품 종류 수가 표시됩니다.</p>
           <div id="radar-map" role="region" aria-label="지도와 검색 반경"></div>
           <button id="radar-search-map-area" class="radar-map-area-search" type="button" hidden>📍 이 지도에서 다시 검색</button>
           <div id="radar-map-fallback" class="radar-map-fallback" hidden>지도를 불러오지 못했습니다. 목록과 외부 지도 길찾기를 이용해 주세요.</div>
+          <button id="radar-map-stock-summary" class="radar-map-stock-summary" type="button" aria-pressed="false" aria-label="재고 있는 매장만 표시하거나 전체 매장 보기">재고 확인 —곳</button>
           <div class="radar-map-legend" aria-label="지도 마커 범례">
             <span><i class="radar-legend-dot is-convenience" aria-hidden="true"></i>편의점</span>
             <span><i class="radar-legend-dot is-mart" aria-hidden="true"></i>마트</span>
