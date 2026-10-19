@@ -54,7 +54,12 @@ for(const row of batch){
   const canonical=set.cards.find(c=>String(c.code).toUpperCase()===code+"/050");
   assert.ok(canonical,"Missing canonical card "+code);
   assert.equal(normalize(canonical.name),normalize(expectedName),code+" Korean identity mismatch");
-  assert.match(String(canonical.image||""),new RegExp("/SM2L/SM2L_"+suffix+"\\.png$"),code+" canonical image path");
+  const imageUrl=String(canonical.image||"");
+  // Existing canonical Korean scans are legitimately JPG on k-tcgpanda.
+  // Confirm the exact SM2L code and Korean suffix; NEVER rewrite the URL.
+  const hostedArt=new RegExp("/SM2L/SM2L_"+suffix+"\\.png$","i").test(imageUrl);
+  const KoreanPhysical=new RegExp("/cardimg/SM/sm2L/[^/?#]*_sm2L_"+suffix+"_KOR\\.(?:png|jpe?g)(?:\\?.*)?$","i").test(imageUrl);
+  assert.ok(hostedArt||KoreanPhysical,code+" canonical image identity: "+imageUrl);
   checked.push({code,koreanName:canonical.name,printedNumber:suffix+"/050",rarity,scene,
     approvedThemes:tags,addedThemeCount:Object.keys(tags).length,
     koreanPrintedPhotoDecoded:false,
