@@ -1,0 +1,35 @@
+name: Card Radar Live Smoke (read-only)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/card-radar-live-smoke.mjs'
+      - '.github/workflows/radar-live-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-retail-response:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Probe four public retailer API responses
+        run: node scripts/card-radar-live-smoke.mjs
+      - name: Save sanitized smoke results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: card-radar-live-smoke
+          path: reports/card-radar-live-smoke.json
+          if-no-files-found: ignore
+          retention-days: 7
