@@ -1602,16 +1602,15 @@
       if (packs) packs.insertAdjacentElement("afterend", link);
       else nav.append(link);
     }
-    for (const nav of queryAll('.home-menu nav, .home-top-nav')) {
+    // Desktop top navigation retains the link; mobile enters from the fixed header pill.
+    for (const nav of queryAll('.home-top-nav')) {
       if (nav.querySelector('a[href*="card-radar.html"]')) continue;
       const link = document.createElement("a");
       link.href = "./card-radar.html";
       link.textContent = "📡 카드 레이더";
       link.className = "card-radar-mobile-link";
-      const packs = [...nav.querySelectorAll("a")].find((item) =>
-        (item.getAttribute("href") || "").includes("packs.html"));
-      if (packs) packs.insertAdjacentElement("afterend",link);
-      else nav.append(link);
+      // Dedicated utility on the right edge of the desktop navigation.
+      nav.append(link);
     }
     if (!document.getElementById("card-radar-nav-style")) {
       const sheet = document.createElement("style");
@@ -1627,9 +1626,10 @@
         ".collection-nav .card-radar-shortcut small{color:#5774ae!important}",
         ".card-radar-shortcut .radar-shortcut-emoji{font-size:21px;flex:0 0 30px;",
         "display:inline-flex;align-items:center;justify-content:center}",
-        ".home-menu .card-radar-mobile-link{color:#2451b9!important;font-weight:850!important;",
-        "background:#eef3ff!important;border-radius:9px}",
-        ".home-top-nav .card-radar-mobile-link{color:#2451b9!important;font-weight:800!important}",
+        
+        ".home-top-nav .card-radar-mobile-link{color:#80f2ed!important;font-weight:850!important;",
+        "border:1px solid rgba(72,209,225,.45);border-radius:999px;",
+        "padding:8px 11px;background:rgba(14,78,108,.44)}",
         "@media(max-width:690px){.collection-nav .card-radar-shortcut{min-width:144px!important;",
         "padding:8px 10px!important;margin:4px!important}.card-radar-shortcut small{font-size:10px!important}}"
       ].join("");

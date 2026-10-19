@@ -12,7 +12,8 @@
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", pack: "", view: "list",
     shops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
-    searching: false, locationChosen: false
+    searching: false, locationChosen: false, mapChecked: false,
+    progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
   const byId = (id) => document.getElementById(id);
   const number = (value) => Number(value);
@@ -55,12 +56,38 @@
   function selectedKind(store) {
     return state.kind === "all" || store.kind === state.kind;
   }
-  function currentSummary(count, extra) {
-    byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm +
-      "km · 지도 등록 매장 후보 " + count + "곳" + (extra || "");
+  function currentSummary(count) {
+    byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km";
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
+    const visible = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
+    byId("radar-total-stores").textContent = visible ? String(count) : "—";
+    byId("radar-search-completed").textContent = String(state.progress.successes);
+    byId("radar-search-failed").textContent = String(state.progress.failures);
+  }
+  function updateProgress(stage = "") {
+    const { completed, total, active } = state.progress;
+    const percent = total > 0 ? Math.min(100, Math.floor(completed / total * 100)) : 0;
+    const panel = byId("radar-progress");
+    panel.setAttribute("aria-valuenow", String(percent));
+    panel.classList.toggle("is-running", active);
+    panel.classList.toggle("is-finished", !active && completed > 0 && completed === total);
+    byId("radar-progress-fill").style.width = percent + "%";
+    byId("radar-progress-percent").textContent = percent + "%";
+    byId("radar-progress-stage").textContent = stage || (active ? "재고 조회 중" : completed ? "검색 종료" : "검색 대기");
+    byId("radar-progress-detail").textContent = total > 0
+      ? "완료한 요청 " + completed + " / 전체 " + total + "건 · 실패 포함"
+      : "검색을 시작하면 실제 완료한 요청 수만큼 진행됩니다.";
+  }
+  function completeProgressStep(success, stage, isApi = true) {
+    const p = state.progress;
+    p.completed += 1;
+    if (isApi && success) p.successes += 1;
+    else if (isApi && !success) p.failures += 1;
+    updateProgress(stage);
+    byId("radar-search-completed").textContent = String(p.successes);
+    byId("radar-search-failed").textContent = String(p.failures);
   }
   function centerMap() {
     if (!state.map) return;
@@ -94,7 +121,13 @@
     }
   }
   function setRadius(value) {
-    if (![1,3,5,10].includes(value)) return;
+    if (![1,3,5,10].includes(value) || state.searching) return;
+    const changed = value !== state.radiusKm;
+    if (changed) {
+      state.shops=[];state.inventory=[];state.mapChecked=false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
+    }
     state.radiusKm = value;
     document.querySelectorAll("[data-radius]").forEach((button) => {
       const active = Number(button.dataset.radius) === value;
@@ -104,7 +137,7 @@
     try { localStorage.setItem("digitalCardBinderRadarRadiusV1", String(value)); } catch (_) {}
     centerMap();
     render();
-    if (state.shops.length) setStatus("검색 반경을 변경했습니다. 새 범위의 매장을 보려면 ‘이 지역 매장 탐색’을 눌러 주세요.");
+    if (changed) setStatus("검색 반경이 변경되었습니다. ‘이 지역 매장 탐색’을 눌러 새 범위를 조회해 주세요.");
   }
   function setView(view) {
     if (!["list","map"].includes(view)) return;
@@ -118,6 +151,7 @@
     if (view === "map" && state.map) setTimeout(() => state.map.invalidateSize(), 0);
   }
   function showGeolocate() {
+    if(state.searching) return setStatus("검색 종료 후 새 위치를 선택해 주세요.");
     if (!navigator.geolocation) {
       setStatus("이 브라우저에서는 위치 확인을 지원하지 않습니다. 지역명을 입력해 주세요.", true);
       return;
@@ -130,6 +164,10 @@
       state.locationLabel = "내 위치";
       state.locationChosen = true;
       state.shops = [];
+      state.inventory = [];
+      state.mapChecked = false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
       centerMap();
       render();
       setStatus("내 위치가 설정되었습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
@@ -149,6 +187,7 @@
     }
   }
   async function findPlace() {
+    if(state.searching) return setStatus("검색 종료 후 새 지역을 선택해 주세요.");
     const query = byId("radar-place").value.trim();
     if (query.length < 2) return setStatus("지역명은 두 글자 이상 입력해 주세요.", true);
     const button = byId("radar-find-place");
@@ -164,6 +203,10 @@
       state.locationLabel = String(places[0].display_name || query).split(",").slice(0,3).join(", ");
       state.locationChosen = true;
       state.shops = [];
+      state.inventory = [];
+      state.mapChecked = false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateProgress("검색 대기");
       centerMap();
       render();
       setStatus("지역을 설정했습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
@@ -245,17 +288,45 @@
       })).filter((item) => item.id && item.name && validCoord(item.lat,item.lng));
     } catch (_) { state.inventory = []; }
   }
+  // Product name is untrusted retailer data: allow confirmed TCG/pack names, reject food and merchandise.
+  const NON_CARD_ITEMS = /빵|띠부씰|스티커|샘플|젤리|캔디|껌|초콜릿|과자|스낵|쿠키|케이크|음료|사이다|콜라|우유|아이스크림|도넛|피규어|인형|키링|열쇠고리|봉제|장난감|문구|팬시|슬리브|카드홀더|바인더|카드앨범|필통|파우치|틴케이스|랜덤씰|증정/i;
+  const KNOWN_PACK_NAMES = [
+    ...PRODUCTS.map((p) => p[1]), "나이트원더러", "배틀파트너즈",
+    "테라스탈페스ex", "샤이니트레저ex", "로켓단의 영광",
+    "블랙볼트", "화이트플레어", "포켓몬카드151", "포켓몬 카드 151"
+  ];
+  function isCardProduct(name) {
+    if (typeof name !== "string") return false;
+    const text = name.trim();
+    if (!text || NON_CARD_ITEMS.test(text)) return false;
+    const compact = text.replace(/[\s·_/-]+/g, "").toLowerCase();
+    const namedPack = KNOWN_PACK_NAMES.some((pack) =>
+      compact.includes(pack.replace(/[\s·_/-]+/g, "").toLowerCase()));
+    return /(포켓몬|pokemon|pokémon).{0,25}(tcg|카드|확장팩|부스터|스타터덱)/i.test(text) ||
+      /(tcg|카드게임|트레이딩카드).{0,25}(포켓몬|pokemon|pokémon)/i.test(text) ||
+      (namedPack && (/(팩|카드|덱|부스터|확장팩)/i.test(text) || KNOWN_PACK_NAMES.some((pack) =>
+        compact === pack.replace(/[\s·_/-]+/g, "").toLowerCase())));
+  }
   function inventoryLabel(store) {
-    const items = (store.verifiedInventory || []).filter((p) =>
-      !state.pack || p.code.toLowerCase() === state.pack.toLowerCase());
-    if (!items.length) return {message:"재고 미확인 · 매장 위치만 표시",known:false};
-    const fresh = items.filter((p)=>Date.now()-Date.parse(p.checkedAt)<15*60*1000);
-    const shown = (fresh.length ? fresh : items).slice().sort((a,b)=>Date.parse(b.checkedAt)-Date.parse(a.checkedAt));
-    const latest = new Date(Math.max(...shown.map((p) => Date.parse(p.checkedAt))));
-    const when = Number.isFinite(latest.getTime()) ? latest.toLocaleTimeString("ko-KR", {hour:"2-digit",minute:"2-digit"}) : "시각 미확인";
-    const line = shown.slice(0,4).map((p) => p.name+" "+p.quantity+"개").join(" · ");
-    const suffix = shown.some((p)=>p.provider) ? " · 제공 API 응답 "+when+" (지연 가능)" : " · 확인 "+when;
-    return {message:(fresh.length ? line : "최근 관측(현재 재고 아님) · "+line)+suffix+(shown.length>4?" 외 "+(shown.length-4)+"종":""), known:Boolean(fresh.some((p)=>p.quantity>0))};
+    const cardItems = (store.verifiedInventory || []).filter((p) =>
+      isCardProduct(p.name) && (!state.pack || String(p.code || "").toLowerCase() === state.pack.toLowerCase()));
+    const fresh = cardItems.filter((p) => {
+      const age = Date.now() - Date.parse(p.checkedAt);
+      return Number.isFinite(age) && age >= -60000 && age < 15 * 60000;
+    });
+    const available = fresh.filter((p) => Number.isSafeInteger(p.quantity) && p.quantity > 0)
+      .sort((a,b) => Date.parse(b.checkedAt) - Date.parse(a.checkedAt) || b.quantity - a.quantity);
+    if (available.length) {
+      const item = available[0];
+      const when = new Date(item.checkedAt).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+      return { message: item.name + " · 재고 " + item.quantity + "개", known: true,
+        checked: true, detail: (item.provider ? item.provider + " · " : "") + "API 응답 " + when + " (시차 가능)" };
+    }
+    if (fresh.length) return { message: "", known: false, checked: true,
+      detail: "카드 재고 없음 · 재고 있는 품목만 강조" };
+    if (cardItems.length) return { message: "", known: false, checked: false,
+      detail: "이전 조회 이력만 있음 · 현재 재고 미확인" };
+    return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
   }
   function addStoreCard(target,store) {
     const card=make("article","radar-store");
@@ -265,7 +336,8 @@
     const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"마트":"카드샵 후보";
     card.append(make("p","radar-store-sub",typeName + (store.addr ? " · "+store.addr:"") + " · 위치 정보 참고용"));
     const summary=inventoryLabel(store);
-    card.append(make("div","radar-stock"+(summary.known?" known":""),summary.message));
+    if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
+    card.append(make("p","radar-stock-note",summary.detail));
     const buttons=make("div","radar-store-actions");
     const google=make("a","", "지도 길찾기");
     google.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(store.lat+","+store.lng);
@@ -293,68 +365,82 @@
         fillOpacity:.9,weight:2,radius:7
       }).addTo(state.pinLayer);
       const popup=make("div","");
-      popup.append(make("strong","",store.name),make("p","",inventoryLabel(store).message));
+      const stock = inventoryLabel(store);
+      popup.append(make("strong","",store.name),make("p","",stock.known ? stock.message : stock.detail));
       marker.bindPopup(popup);
       store.marker=marker;
     }
   }
   function render() {
-    const filtered=mergeInventory(state.shops).filter(selectedKind).filter((s) => s.distance<=state.radiusKm+.03);
-    const list=byId("radar-stores");
+    const filtered = mergeInventory(state.shops).filter(selectedKind)
+      .filter((s) => s.distance <= state.radiusKm + .03);
+    const list = byId("radar-stores");
     list.replaceChildren();
-    currentSummary(filtered.length, state.kind!=="all"?" · 매장 유형 필터 적용":"");
+    currentSummary(filtered.length);
+    byId("radar-stock-checked").textContent =
+      state.mapChecked || state.inventory.length ? String(filtered.filter((s) => inventoryLabel(s).checked).length) : "—";
     renderMapMarkers(filtered);
-    if(!filtered.length) {
-      const box=make("div","radar-empty");
+    if (!filtered.length) {
+      const box = make("div","radar-empty");
       box.append(make("span","","📍"),make("h3","","표시할 매장 정보가 없습니다"),
-        make("p","",state.locationChosen?"검색 버튼을 눌러 주변 매장 후보를 찾거나 검색 범위를 바꿔 보세요.":"내 위치 또는 지역명을 설정하고 매장 탐색을 시작하세요."));
+        make("p","",state.locationChosen
+          ? "검색 버튼을 눌러 주변 매장 후보를 찾거나 검색 범위를 바꿔 보세요."
+          : "내 위치 또는 지역명을 설정하고 매장 탐색을 시작하세요."));
       list.append(box);
       return;
     }
-    for(const store of filtered) addStoreCard(list,store);
+    for (const store of filtered) addStoreCard(list,store);
   }
   async function search() {
-    if(state.searching)return;
-    state.searching=true;
-    const button=byId("radar-search");
-    button.disabled=true;
-    state.shops=[];
-    state.inventory=[];
-    state.providerNotes=[];
+    if (state.searching) return;
+    state.searching = true;
+    const button = byId("radar-search");
+    button.disabled = true;
+    state.shops = [];
+    state.inventory = [];
+    state.mapChecked = false;
+    state.providerNotes = [];
+    const jobs = inventoryJobs();
+    state.progress = {completed:0,total:jobs.length+1,successes:0,failures:0,active:true};
+    updateProgress("매장 및 카드 재고 탐색 중");
     render();
-    setStatus("판매처 공개 재고 조회와 지도 매장 탐색을 함께 진행하고 있습니다. 결과는 순차적으로 확인됩니다.");
-    const q=categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
-    const places=fetchJson("https://overpass.kumi.systems/api/interpreter",{
-      method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-      body:"data="+encodeURIComponent(q)
+    setStatus("카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
+    const query = categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
+    const mapTask = fetchJson("https://overpass.kumi.systems/api/interpreter", {
+      method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:"data="+encodeURIComponent(query)
     },30000).then((result)=>{
       if(!result || !Array.isArray(result.elements))throw new Error("INVALID_RESPONSE");
-      state.shops=parseShops(result.elements);render();return true;
-    }).catch(()=>false);
-    const stock=fetchLiveInventory().then((rows)=>{
-      state.inventory=rows;render();return true;
-    }).catch(()=>false);
-    const [mapOK,stockOK]=await Promise.all([places,stock]);
-    const candidates=mergeInventory(state.shops).filter(selectedKind).filter((s)=>s.distance<=state.radiusKm+.03);
-    const withNumbers=candidates.filter((s)=>(s.verifiedInventory||[]).length>0).length;
-    const providerSuccess=state.providerNotes.filter((p)=>p.endsWith(":ok")).length;
-    if(!mapOK&&!stockOK) {
-      setStatus("매장 및 재고 데이터 제공처에 연결하지 못했습니다. 잠시 후 재시도해 주세요.",true);
-    } else {
-      setStatus("주변 매장 후보 "+candidates.length+"곳 · 수량 응답 매장 "+withNumbers+
-        "곳 · 재고 API 정상 응답 "+providerSuccess+"/"+state.providerNotes.length+
-        "건. 조회 지원 상품만 포함하며 제공처 캐시로 지연될 수 있습니다."+
-        (!mapOK?" 지도 매장 검색 일부 실패.":"")+
-        (providerSuccess<state.providerNotes.length?" 일부 판매처 조회 실패.":""),
-        providerSuccess===0 && state.providerNotes.length>0);
-    }
-    button.disabled=false;state.searching=false;
+      state.shops = parseShops(result.elements);
+      return true;
+    }).catch(()=>false).then((ok)=>{
+      state.mapChecked = true;
+      completeProgressStep(ok, "재고 조회 중", false);
+      render();
+      return ok;
+    });
+    const stockTask = fetchLiveInventory(jobs);
+    const [mapOK] = await Promise.all([mapTask,stockTask]);
+    state.progress.active = false;
+    updateProgress("검색 종료");
+    render();
+    const candidates = mergeInventory(state.shops).filter(selectedKind)
+      .filter((store)=>store.distance <= state.radiusKm + .03);
+    const withNumbers = candidates.filter((store)=>inventoryLabel(store).checked).length;
+    const positive = candidates.filter((store)=>inventoryLabel(store).known).length;
+    setStatus("카드 재고 있음 "+positive+"곳 · 재고 응답 매장 "+withNumbers+"곳 · "+
+      (mapOK?"지도 후보 검색 완료":"지도 후보 일부 조회 실패")+" · "+
+      (jobs.length ? "판매처 API "+state.progress.successes+"건 성공 / "+state.progress.failures+"건 실패." :
+        "선택한 매장 유형은 자동 재고조회 미지원.")+
+      " 조회되지 않은 매장은 재고 0개로 간주하지 않습니다.",
+      !mapOK || state.progress.failures > 0);
+    button.disabled=false;
+    state.searching=false;
   }
 
   // An independent, public REST aggregator, documented by the Daiso MCP project.
   // API responses are never converted into "0 stock" unless the retailer returned a number 0.
   const API_BASE = "https://mcp.aka.page";
-  const CARD_KEYWORDS = /포켓몬|포켓몬스터|30주년|메가브레이브|메가심포니아|스톰에메랄다|어비스아이|닌자스피너|인페르노X|니힐제로|MEGA드림|로켓단의영광|블랙볼트|화이트플레어/i;
   const PACK_TITLES = new Map(PRODUCTS);
   const packFromTitle = (name) => {
     const found = PRODUCTS.find((p) => name.toLowerCase().includes(p[1].toLowerCase()) ||
@@ -365,7 +451,7 @@
     return typeof q === "number" && Number.isSafeInteger(q) && q >= 0;
   }
   function storeFromResult(raw, kind, source, product, quantity, observedAt) {
-    if (!raw || !validQuantity(quantity) || !CARD_KEYWORDS.test(product)) return null;
+    if (!raw || !validQuantity(quantity) || !isCardProduct(product)) return null;
     const lat = Number(raw.latitude ?? raw.lat);
     const lng = Number(raw.longitude ?? raw.lng);
     if (!validCoord(lat, lng)) return null;
@@ -444,43 +530,59 @@
     // This is not the entire retailer product universe: supported product coverage is best-effort.
     return ["포켓몬카드","포켓몬스터30주년","스톰에메랄다"];
   }
-  async function fetchLiveInventory() {
-    const jobs=[];
-    const providers=state.kind==="mart"||state.kind==="cardshop" ? [] :
+  function inventoryJobs() {
+    const providers = state.kind === "mart" || state.kind === "cardshop" ? [] :
       ["cu","seveneleven","gs25","emart24"];
-    for(const provider of providers)for(const keyword of liveQueries())jobs.push({provider,keyword});
-    const all=[];
-    const notes=[];
-    // Two concurrent requests protect public service limits and lower errors.
-    let index=0;
-    async function worker() {
-      while(index<jobs.length){
-        const task=jobs[index++];
-        try {
-          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
-          const rows=parseRetail(task.provider,payload,new Date().toISOString());
-          all.push(...rows);
-          notes.push(task.provider+":ok");
-        } catch(_) {notes.push(task.provider+":error");}
-      }
-    }
-    await Promise.all([worker(),worker()]);
-    state.providerNotes=notes;
-    const grouped=new Map();
-    for(const record of all) {
-      const id=record.items[0].provider+"|"+record.id;
-      if(!grouped.has(id))grouped.set(id,record);
+    return providers.flatMap((provider)=>liveQueries().map((keyword)=>({provider,keyword})));
+  }
+  function groupInventoryRows(records) {
+    const grouped = new Map();
+    for (const record of records) {
+      const id = record.items[0].provider+"|"+record.id;
+      if (!grouped.has(id)) grouped.set(id,record);
       else {
         const existing=grouped.get(id);
         const item=record.items[0];
-        const i=existing.items.findIndex((other)=>other.name===item.name);
-        if(i<0)existing.items.push(item);
-        else if(Date.parse(existing.items[i].checkedAt)<Date.parse(item.checkedAt))existing.items[i]=item;
+        const index=existing.items.findIndex((entry)=>entry.name===item.name);
+        if(index<0)existing.items.push(item);
+        else if(Date.parse(existing.items[index].checkedAt)<Date.parse(item.checkedAt))
+          existing.items[index]=item;
       }
     }
     return [...grouped.values()];
   }
-
+  async function fetchLiveInventory(jobs) {
+    const all=[];
+    const notes=[];
+    let index=0;
+    async function worker() {
+      while(index<jobs.length) {
+        const task=jobs[index++];
+        let success=false;
+        try {
+          const payload=await fetchJson(endpoint(task.provider,task.keyword),{cache:"no-store"},28000);
+          if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
+          if(task.provider==="cu" && payload.data.inventory?.available===false)
+            throw new Error("STOCK_UNAVAILABLE");
+          if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
+            throw new Error("STOCK_UNAVAILABLE");
+          const rows=parseRetail(task.provider,payload,new Date().toISOString());
+          all.push(...rows);
+          success=true;
+          notes.push(task.provider+":ok");
+        } catch (_) {
+          notes.push(task.provider+":error");
+        } finally {
+          state.providerNotes=notes.slice();
+          state.inventory=groupInventoryRows(all);
+          completeProgressStep(success,"재고 조회 중");
+          render();
+        }
+      }
+    }
+    await Promise.all([worker(),worker()]);
+    return state.inventory;
+  }
   function initialize() {
     const product=byId("radar-pack");
     for(const [code,title] of PRODUCTS) {

@@ -79,13 +79,25 @@
 
     <section class="radar-results" aria-label="탐색 결과">
       <div class="radar-result-top">
-        <div><h2>주변 탐색 결과</h2><p id="radar-summary">지역을 정한 뒤 탐색 버튼을 눌러 주세요.</p></div>
+        <div class="radar-result-heading"><h2>주변 탐색 결과</h2><p id="radar-summary">내 위치 또는 지역을 설정한 뒤 탐색해 주세요.</p></div>
+        <div class="radar-progress" id="radar-progress" role="progressbar" aria-label="매장 및 재고 검색 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="radar-progress-label"><strong id="radar-progress-stage">검색 대기</strong><span id="radar-progress-percent">0%</span></div>
+          <div class="radar-progress-track"><span id="radar-progress-fill"></span></div>
+          <small id="radar-progress-detail">검색을 시작하면 실제 완료한 요청 수만큼 진행됩니다.</small>
+        </div>
         <div class="radar-view-switch" role="group" aria-label="결과 보기 방식">
           <button type="button" data-view="list" class="selected" aria-pressed="true">☷ 목록</button>
           <button type="button" data-view="map" aria-pressed="false">▧ 지도</button>
         </div>
       </div>
-      <p id="radar-status" class="radar-status" role="status" aria-live="polite">공개 재고조회 API와 지도 데이터를 사용합니다. 실제 응답에서 확인된 수량만 표시합니다.</p>
+      <div class="radar-metrics" aria-label="탐색 현황">
+        <div><span>주변 매장</span><strong id="radar-total-stores">—</strong><small>곳</small></div>
+        <div><span>재고 확인</span><strong id="radar-stock-checked">—</strong><small>곳</small></div>
+        <div><span>검색 완료</span><strong id="radar-search-completed">0</strong><small>건</small></div>
+        <div><span>검색 실패</span><strong id="radar-search-failed">0</strong><small>건</small></div>
+      </div>
+      <p class="radar-metric-explain">검색 완료·실패는 판매처별 상품 조회 요청 기준입니다. 지도 매장 수와 다를 수 있습니다.</p>
+      <p id="radar-status" class="radar-status" role="status" aria-live="polite">재고 1개 이상인 카드 상품만 강조 표시합니다. 수량이 없거나 확인되지 않으면 별도로 안내합니다.</p>
       <div class="radar-result-grid">
         <div class="radar-list-panel" id="radar-list-panel">
           <div id="radar-stores" class="radar-stores">
@@ -101,7 +113,7 @@
     </section>
     <section class="radar-explain">
       <div><strong>매장 위치와 재고는 다릅니다</strong><p>표시되는 매장은 공개 지도에 등록된 판매점 후보입니다. 포켓몬 카드 취급 여부는 매장별로 다를 수 있습니다.</p></div>
-      <div><strong>확인 시각을 반드시 표시합니다</strong><p>공개 재고조회 API의 응답 수량과 응답 시각을 보여줍니다. 확인 실패, 과거 관측, 0개를 구분하며 수량은 판매처 전산과 다를 수 있습니다.</p></div>
+      <div><strong>확인 시각을 반드시 표시합니다</strong><p>카드팩·덱 등 포켓몬 카드게임 상품만 표시합니다. 실제 재고가 있는 상품 한 품목만 강조하며 응답 시각과 실제 매장 재고는 다를 수 있습니다.</p></div>
       <div><strong>위치 정보는 선택 사항입니다</strong><p>내 위치 권한 없이 지역명 검색으로도 이용할 수 있습니다. 위치는 선택한 검색 시점에 외부 지도 서비스로 전송됩니다.</p></div>
     </section>
     <footer class="radar-footer"><a href="./">디지털 카드 바인더로 돌아가기</a><span>독자 설계 · 지도 © OpenStreetMap contributors · 재고 데이터 제공 <a href="https://github.com/hmmhmmhm/daiso-mcp" target="_blank" rel="noopener noreferrer">Daiso MCP 공개 API</a></span></footer>

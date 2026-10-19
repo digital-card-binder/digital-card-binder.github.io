@@ -3480,3 +3480,41 @@ body[data-page="dashboard"] .dashboard-news-more:hover {
     font-size: .56rem;
   }
 }
+
+
+/* Card Radar: primary mobile shortcut beside account, never inside pack navigation. */
+.home-radar-trigger { display: none; }
+@media (max-width: 690px) {
+  body[data-page="dashboard"] .site-header {
+    padding-inline: 14px;
+    gap: 8px;
+  }
+  body[data-page="dashboard"] .home-header-actions { gap: 8px; min-width: 0; }
+  body[data-page="dashboard"] .home-radar-trigger {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 40px;
+    padding: 0 11px;
+    border: 1px solid rgba(83, 227, 232, .48);
+    border-radius: 12px;
+    background: rgba(12, 65, 89, .86);
+    color: #7cf6f4;
+    font-size: 12px;
+    font-weight: 850;
+    text-decoration: none;
+    white-space: nowrap;
+    touch-action: manipulation;
+  }
+  body[data-page="dashboard"] .home-radar-symbol { font-size: 16px; line-height: 1; }
+  body[data-page="dashboard"] .home-radar-trigger:focus-visible {
+    outline: 3px solid rgba(94, 231, 238, .55);
+    outline-offset: 2px;
+  }
+}
+@media (max-width: 370px) {
+  body[data-page="dashboard"] .home-radar-trigger { padding-inline: 9px; font-size: 11px; }
+  body[data-page="dashboard"] .site-header .brand-copy strong { font-size: .73rem; }
+}
