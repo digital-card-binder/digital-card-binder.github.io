@@ -96,10 +96,13 @@ test("Stage 2 API is server only, uses named Firestore and fails closed",async()
   const rules=await read("../radar-service/firestore.rules");
   assert.match(db,/RADAR_FIRESTORE_DATABASE!==DATABASE_ID/);
   assert.match(db,/getFirestore\(app,DATABASE_ID\)/);
+  assert.match(db,/const DATABASE_ID = "\(default\)"/);
+  assert.match(db,/COLLECTOR_FIREBASE_PROJECT_FORBIDDEN/);
   assert.match(db,/collection\("radarStores"\)/);
   assert.match(api,/dbStatus:"unavailable"/);
   assert.match(api,/parseSearchQuery/);
   assert.match(seed,/RADAR_ENABLE_INITIAL_SEED!=="yes"/);
+  assert.match(seed,/WRONG_FIREBASE_PROJECT/);
   assert.match(inventoryImport,/RADAR_ALLOW_STOCK_IMPORT!=="yes"/);
   assert.match(mappingImport,/RADAR_ALLOW_MAPPING_IMPORT!=="yes"/);
   assert.match(rules,/allow read, write: if false/);

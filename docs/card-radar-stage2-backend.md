@@ -1,3 +1,17 @@
+# New Firebase Spark project routing (2026-10-19)
+
+**Confirmed in Firebase UI:** A separate Firebase project named `digital-card-radar-db` now has a Standard Cloud Firestore `(default)` database in Seoul (Spark tier). The project display name may differ from the exact **Project ID**: verify `Settings → Project settings → General → Project ID` before editing Vercel.
+
+The radar-service now requires **this separate Firebase project** (`digital-card-radar-db` or its actual assigned suffix), and `RADAR_FIRESTORE_DATABASE=(default)`. It explicitly rejects the existing collector project `pokemon-dex-40e92` and rejects the old `card-radar` named DB. The separate project ID must be used in Vercel's `GOOGLE_CLOUD_PROJECT` environment variable.
+
+To connect Vercel, add `RADAR_SERVICE_ACCOUNT_JSON` as a **sensitive/encrypted** Vercel environment variable containing a *least-privilege service account JSON from the new radar Firebase project*. **Never paste the credential into ChatGPT, an image, GitHub or a public page.** Provision the credential only inside Vercel project settings and rotate it if exposed. The Vercel API should show `dbStatus=not_seeded` once authenticated but before authorized data loading; then the privileged `seed-master.mjs` command loads the initial verified records. Do not create mock stock.
+
+Firestore Security Rules `allow read, write: if false` apply to browser client SDK, but **Admin SDK bypasses them**. The Firebase IAM service account must be scoped to the new project with the minimum practical permissions. The original collector Firestore is never touched.
+
+This section supersedes the earlier `card-radar` named-database migration plan elsewhere below.
+
+---
+
 # 카드 레이더 2단계: 독립 재고 서버·판매처 매핑
 
 작성일 2026-10-19
