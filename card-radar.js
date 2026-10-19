@@ -404,10 +404,11 @@
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
-    top.append(title,km);card.append(top);
     const typeName=store.kind==="convenience"?"편의점":store.kind==="mart"?"대형마트·마트":"카드샵 후보";
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
-    top.append(badge);
+    const header=make("div","radar-store-name");
+    header.append(title,badge);
+    top.append(header,km);card.append(top);
     card.append(make("p","radar-store-sub",(store.addr ? store.addr+" · ":"")+
       (store.origin==="official-directory"?"공식 매장 위치 확인 · 재고 연동 별도":"지도 매장 위치 후보")));
     const summary=inventoryLabel(store);
@@ -418,6 +419,12 @@
     google.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(store.lat+","+store.lng);
     google.target="_blank";google.rel="noopener noreferrer";
     buttons.append(google);
+    if (store.origin==="official-directory" && store.sourceUrl) {
+      const official=make("a","", "공식 매장 정보");
+      official.href=store.sourceUrl;
+      official.target="_blank";official.rel="noopener noreferrer";
+      buttons.append(official);
+    }
     if (state.map) {
       const show=make("button","","지도에서 보기");
       show.type="button";
