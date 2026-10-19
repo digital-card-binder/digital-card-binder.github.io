@@ -1318,7 +1318,7 @@
       button.addEventListener("click",()=>setRadius(Number(button.dataset.radius))));
     document.querySelectorAll("[data-view]").forEach((button) =>
       button.addEventListener("click",()=>setView(button.dataset.view)));
-    byId("radar-geolocate").addEventListener("click",showGeolocate);
+    byId("radar-geolocate").addEventListener("click",()=>showGeolocate());
     byId("radar-find-place").addEventListener("click",findPlace);
     byId("radar-place").addEventListener("keydown",(event) => {
       if(event.key==="Enter"){event.preventDefault();void findPlace();}
