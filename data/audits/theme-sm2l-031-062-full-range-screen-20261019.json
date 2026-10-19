@@ -1,0 +1,830 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-19",
+  "sourceSet": "sm2L",
+  "setName": "알로라의 달빛",
+  "previous": "data/audits/theme-sm2l-021-030-artwork-screen-20261019.json",
+  "coverage": "Reviewed all 62 Korean canonical SM2L card identities, 12-theme screening from 001 through 062 over four resumable batches. Does NOT certify a strict Korean-language physical-photo audit.",
+  "allKoreanCardNumbersCatalogued": 62,
+  "totalSetCards": 62,
+  "previouslyScreenedArtworks": 30,
+  "newlyScreenedMatchingArtworks": 30,
+  "matchingArtworkScreenedCumulative": 60,
+  "koreanNumberMappingHolds": [
+    "SM2L_047",
+    "SM2L_048"
+  ],
+  "KoreanVsJapaneseNumberMappingNotes": {
+    "KoreanCatalogue": "047 레스큐탱크, 048 아쿠아패치",
+    "JapaneseOriginal": "047 Aqua Patch, 048 Rescue Stretcher",
+    "KoreanEvidence": "https://setory.site/sets/sm-alola-moonlight-kr and https://kream.co.kr/products/865240",
+    "JapaneseEvidence": "https://www.pokemon-card.com/card-search/ and https://www.papermoonjapan-annex.com/diary-detail/80",
+    "disposition": "Korean canonical identity and image unchanged. Both artwork tags postponed pending direct Korean physical-card pixel validation."
+  },
+  "newRange": "SM2L_031..062",
+  "newKoreanEntriesReviewed": 32,
+  "newThemeRows": 47,
+  "oldThemeTotal": 17962,
+  "newThemeTotal": 18009,
+  "themeDeltas": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 1,
+    "season": 13,
+    "color": 30,
+    "sunset": 1,
+    "reflections": 0,
+    "food": 1,
+    "work": 1,
+    "street": 0,
+    "cameo": 0
+  },
+  "before": {
+    "sleeping": 181,
+    "connected": 148,
+    "evolution": 79,
+    "night": 501,
+    "season": 5191,
+    "color": 9980,
+    "sunset": 259,
+    "reflections": 58,
+    "food": 184,
+    "work": 95,
+    "street": 1140,
+    "cameo": 146
+  },
+  "after": {
+    "sleeping": 181,
+    "connected": 148,
+    "evolution": 79,
+    "night": 502,
+    "season": 5204,
+    "color": 10010,
+    "sunset": 260,
+    "reflections": 58,
+    "food": 185,
+    "work": 96,
+    "street": 1140,
+    "cameo": 146
+  },
+  "noAdditionalThemeThisBatch": [
+    "SM2L_047",
+    "SM2L_048"
+  ],
+  "exactKoreanPrintedCardImagesVerifiedPreviously": 7,
+  "exactKoreanPrintedCardImagesVerifiedThisBatch": 0,
+  "exactKoreanPrintedCardImagesVerifiedCumulative": 7,
+  "koreanPrintedImageProofPendingTotal": 55,
+  "remainingKoreanNumberMappingHolds": 2,
+  "pendingStrictKoreanPhotoAudit": true,
+  "strictComplete": false,
+  "importedForeignLanguagePrintIntoKoreanDB": false,
+  "nextWork": "Acquire/zoom 55 Korean-language printed card photos, resolve 047/048 mapping, then decide strict thematic complete state; SM2K five independent held cards remain separate.",
+  "sources": {
+    "koreanPrintCardNames": "https://setory.site/sets/sm-alola-moonlight-kr",
+    "KoreanSecretRareNames": "https://www.namu.moe/w/%EC%95%8C%EB%A1%9C%EB%9D%BC%EC%9D%98%20%EB%8B%AC%EB%B9%9B",
+    "koreanCardImgIndex": "https://k-tcgpanda.com/cardimg/SM/SM2L/",
+    "japaneseArtChecklist": "https://www.papermoonjapan-annex.com/diary-detail/80",
+    "graphicArtwork": "https://www.pokemon-card.com/card-search/"
+  },
+  "reviewedCards": [
+    {
+      "code": "SM2L_031",
+      "koreanName": "깜까미",
+      "printedNumber": "031/050",
+      "rarity": "U",
+      "scene": "수정이 반짝이는 바위 동굴 속 보라빛 깜까미",
+      "approvedThemes": {
+        "color": "보라·청록",
+        "season": "어두운 동굴 속 반짝이는 수정"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33447",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_032",
+      "koreanName": "부란다",
+      "printedNumber": "032/050",
+      "rarity": "U",
+      "scene": "밝은 둥근 달이 떠 있는 밤, 바람에 흔들리는 풀밭에서 부란다가 주먹을 든다",
+      "approvedThemes": {
+        "color": "남색·회색",
+        "season": "보름달빛이 비치는 풀밭",
+        "night": "달이 뜬 밤의 넓은 풀밭"
+      },
+      "addedThemeCount": 3,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33448",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_033",
+      "koreanName": "메탕",
+      "printedNumber": "033/050",
+      "rarity": "C",
+      "scene": "큰 초록 잎과 주황빛 꽃 속 파란 메탕",
+      "approvedThemes": {
+        "color": "군청·초록",
+        "season": "밝은 열대 잎사귀와 주황 꽃"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33449",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_034",
+      "koreanName": "메탕구",
+      "printedNumber": "034/050",
+      "rarity": "C",
+      "scene": "강철빛 남색 메탕구; 별도의 자연/배경 테마 판정은 보류",
+      "approvedThemes": {
+        "color": "남색·회색"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33450",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_035",
+      "koreanName": "메타그로스 GX",
+      "printedNumber": "035/050",
+      "rarity": "RR",
+      "scene": "푸른 메타그로스와 번개 같은 밝은 효과선",
+      "approvedThemes": {
+        "color": "파랑·청록"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33451",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_036",
+      "koreanName": "소미안",
+      "printedNumber": "036/050",
+      "rarity": "C",
+      "scene": "초록 잎 그늘 아래 웅크린 연두빛 소미안",
+      "approvedThemes": {
+        "color": "연두·갈색",
+        "season": "큰 초록 잎 그늘의 숲"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33452",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_037",
+      "koreanName": "엘풍",
+      "printedNumber": "037/050",
+      "rarity": "U",
+      "scene": "화창한 야자나무 해안과 난간 위를 떠다니는 엘풍",
+      "approvedThemes": {
+        "color": "크림·하늘",
+        "season": "맑은 하늘과 야자나무가 있는 열대 테라스"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33453",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_038",
+      "koreanName": "미끄메라",
+      "printedNumber": "038/050",
+      "rarity": "C",
+      "scene": "뜨개 인형과 작은 풀/바위 미니어처; 실제 자연 환경으로 단정하지 않음",
+      "approvedThemes": {
+        "color": "회보라·초록"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33454",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_039",
+      "koreanName": "미끄네일",
+      "printedNumber": "039/050",
+      "rarity": "C",
+      "scene": "다양한 풀과 꽃이 피어난 밝은 풍경 속 보라빛 미끄네일",
+      "approvedThemes": {
+        "color": "보라·노랑",
+        "season": "야생화가 피어난 푸른 풀숲"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33455",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_040",
+      "koreanName": "미끄래곤",
+      "printedNumber": "040/050",
+      "rarity": "R",
+      "scene": "보라빛 미끄래곤과 푸른 충격선이 겹친 공격 장면",
+      "approvedThemes": {
+        "color": "보라·파랑"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33456",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_041",
+      "koreanName": "캐스퐁",
+      "printedNumber": "041/050",
+      "rarity": "C",
+      "scene": "푸른 물, 갈색 바위, 흰 포말 사이 캐스퐁",
+      "approvedThemes": {
+        "color": "하늘·갈색",
+        "season": "바닷물과 바위에 부딪치는 맑은 파도"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33457",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_042",
+      "koreanName": "보르쥐",
+      "printedNumber": "042/050",
+      "rarity": "C",
+      "scene": "밝은 모래사장과 푸른 바다 앞에서 뛰는 보르쥐",
+      "approvedThemes": {
+        "color": "갈색·하늘",
+        "season": "푸른 해변을 따라 펼쳐진 밝은 모래사장"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33458",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_043",
+      "koreanName": "보르그",
+      "printedNumber": "043/050",
+      "rarity": "C",
+      "scene": "흰 구름과 초록 나무를 배경으로 몸을 돌린 보르그",
+      "approvedThemes": {
+        "color": "갈색·하늘",
+        "season": "초록 나무와 하얀 구름이 있는 맑은 하늘"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33459",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_044",
+      "koreanName": "화살꼬빈",
+      "printedNumber": "044/050",
+      "rarity": "C",
+      "scene": "주황 머리의 작은 새와 부드러운 파스텔 배경",
+      "approvedThemes": {
+        "color": "주황·크림"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33460",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_045",
+      "koreanName": "불화살빈",
+      "printedNumber": "045/050",
+      "rarity": "C",
+      "scene": "멀리 밝은 하늘과 초록 잎이 겹치는 숲에서 날아가는 불화살빈",
+      "approvedThemes": {
+        "color": "회색·연두",
+        "season": "맑은 하늘 아래 우거진 나뭇가지"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33461",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_046",
+      "koreanName": "파이어로",
+      "printedNumber": "046/050",
+      "rarity": "U",
+      "scene": "해안선의 저녁 햇살과 바다 위를 질주하는 파이어로",
+      "approvedThemes": {
+        "color": "빨강·주황",
+        "season": "해 질 녘 빛나는 바다와 해안",
+        "sunset": "바다 위로 지는 해를 향해 나는 파이어로"
+      },
+      "addedThemeCount": 3,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33462",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_047",
+      "koreanName": "레스큐탱크",
+      "printedNumber": "047/050",
+      "rarity": "U",
+      "scene": "한국판 047 레스큐탱크와 일본판 048 Rescue Stretcher 카드번호 차이; 동일 인쇄판 직접 판독 전까지 제외",
+      "approvedThemes": {},
+      "addedThemeCount": 0,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "cross_language_number_mapping_hold",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33463",
+      "specialEvidence": "https://kream.co.kr/products/865240"
+    },
+    {
+      "code": "SM2L_048",
+      "koreanName": "아쿠아패치",
+      "printedNumber": "048/050",
+      "rarity": "U",
+      "scene": "한국판 048 아쿠아패치와 일본판 047 Aqua Patch 번호 차이; 동일 인쇄판 직접 판독 전까지 제외",
+      "approvedThemes": {},
+      "addedThemeCount": 0,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "cross_language_number_mapping_hold",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33464",
+      "specialEvidence": "https://kream.co.kr/products/865240"
+    },
+    {
+      "code": "SM2L_049",
+      "koreanName": "마오",
+      "printedNumber": "049/050",
+      "rarity": "U",
+      "scene": "초록 숲과 여러 버섯, 나무 아래 선 마오",
+      "approvedThemes": {
+        "color": "초록·분홍",
+        "season": "짙은 수풀과 버섯이 자란 숲"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33465",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_050",
+      "koreanName": "잔잔한물가언덕",
+      "printedNumber": "050/050",
+      "rarity": "U",
+      "scene": "작은 폭포와 호수·잔디 언덕·밝은 하늘을 그린 스타디움 카드",
+      "approvedThemes": {
+        "color": "파랑·초록",
+        "season": "폭포가 흐르는 푸른 호수와 잔디 언덕"
+      },
+      "addedThemeCount": 2,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://www.pokemon-card.com/card-search/details.php/card/33466",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_051",
+      "koreanName": "약어리 GX",
+      "printedNumber": "051/050",
+      "rarity": "SR",
+      "scene": "물방울과 푸른 약어리 떼가 전면을 채운 풀아트",
+      "approvedThemes": {
+        "color": "파랑·남색"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_052",
+      "koreanName": "카푸나비나 GX",
+      "printedNumber": "052/050",
+      "rarity": "SR",
+      "scene": "분홍·보라 기하학 패턴이 강조된 카푸나비나 풀아트",
+      "approvedThemes": {
+        "color": "분홍·자주"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_053",
+      "koreanName": "루가루암 GX",
+      "printedNumber": "053/050",
+      "rarity": "SR",
+      "scene": "주황 기하학 배경 앞 회색·적갈색 루가루암",
+      "approvedThemes": {
+        "color": "주황·회색"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_054",
+      "koreanName": "메타그로스 GX",
+      "printedNumber": "054/050",
+      "rarity": "SR",
+      "scene": "은색 십자와 푸른 강철 몸체가 화면을 채우는 메타그로스 풀아트",
+      "approvedThemes": {
+        "color": "파랑·은색"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_055",
+      "koreanName": "마오",
+      "printedNumber": "055/050",
+      "rarity": "SR",
+      "scene": "국자와 파란 열매·노란 과일을 들고 있는 풀아트",
+      "approvedThemes": {
+        "color": "초록·분홍",
+        "food": "요리용 국자와 과일을 든 마오",
+        "work": "요리용 국자와 과일을 들고 요리를 준비하는 마오"
+      },
+      "addedThemeCount": 3,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_056",
+      "koreanName": "약어리 GX",
+      "printedNumber": "056/050",
+      "rarity": "HR",
+      "scene": "무지개색 홀로 가공의 약어리 GX HR 변형",
+      "approvedThemes": {
+        "color": "무지개·홀로"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_057",
+      "koreanName": "카푸나비나 GX",
+      "printedNumber": "057/050",
+      "rarity": "HR",
+      "scene": "무지개색 홀로 가공의 카푸나비나 GX HR 변형",
+      "approvedThemes": {
+        "color": "무지개·홀로"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_058",
+      "koreanName": "루가루암 GX",
+      "printedNumber": "058/050",
+      "rarity": "HR",
+      "scene": "무지개색 홀로 가공의 루가루암 GX HR 변형",
+      "approvedThemes": {
+        "color": "무지개·홀로"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_059",
+      "koreanName": "메타그로스 GX",
+      "printedNumber": "059/050",
+      "rarity": "HR",
+      "scene": "무지개색 홀로 가공의 메타그로스 GX HR 변형",
+      "approvedThemes": {
+        "color": "무지개·홀로"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_060",
+      "koreanName": "아쿠아패치",
+      "printedNumber": "060/050",
+      "rarity": "UR",
+      "scene": "물 에너지 심볼의 황금색 UR 카드",
+      "approvedThemes": {
+        "color": "금색·청록"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_061",
+      "koreanName": "개조해머",
+      "printedNumber": "061/050",
+      "rarity": "UR",
+      "scene": "검은 망치와 황금빛 반짝임의 UR 카드",
+      "approvedThemes": {
+        "color": "금색·검정"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    },
+    {
+      "code": "SM2L_062",
+      "koreanName": "격투 에너지",
+      "printedNumber": "062/050",
+      "rarity": "UR",
+      "scene": "주황 격투 에너지 심볼과 금빛 광택의 UR 카드",
+      "approvedThemes": {
+        "color": "금색·주황"
+      },
+      "addedThemeCount": 1,
+      "koreanPrintedPhotoDecoded": false,
+      "artworkGrade": "ko_catalogued_matching_jp_artwork",
+      "JapaneseReference": "https://chasesociety.com/sets/pokemon-japan-sm2l-alolan-moonlight",
+      "specialEvidence": null
+    }
+  ],
+  "inserted": [
+    {
+      "code": "SM2L_031",
+      "theme": "color",
+      "category": "보라·청록"
+    },
+    {
+      "code": "SM2L_031",
+      "theme": "season",
+      "category": "어두운 동굴 속 반짝이는 수정"
+    },
+    {
+      "code": "SM2L_032",
+      "theme": "color",
+      "category": "남색·회색"
+    },
+    {
+      "code": "SM2L_032",
+      "theme": "season",
+      "category": "보름달빛이 비치는 풀밭"
+    },
+    {
+      "code": "SM2L_032",
+      "theme": "night",
+      "category": "달이 뜬 밤의 넓은 풀밭"
+    },
+    {
+      "code": "SM2L_033",
+      "theme": "color",
+      "category": "군청·초록"
+    },
+    {
+      "code": "SM2L_033",
+      "theme": "season",
+      "category": "밝은 열대 잎사귀와 주황 꽃"
+    },
+    {
+      "code": "SM2L_034",
+      "theme": "color",
+      "category": "남색·회색"
+    },
+    {
+      "code": "SM2L_035",
+      "theme": "color",
+      "category": "파랑·청록"
+    },
+    {
+      "code": "SM2L_036",
+      "theme": "color",
+      "category": "연두·갈색"
+    },
+    {
+      "code": "SM2L_036",
+      "theme": "season",
+      "category": "큰 초록 잎 그늘의 숲"
+    },
+    {
+      "code": "SM2L_037",
+      "theme": "color",
+      "category": "크림·하늘"
+    },
+    {
+      "code": "SM2L_037",
+      "theme": "season",
+      "category": "맑은 하늘과 야자나무가 있는 열대 테라스"
+    },
+    {
+      "code": "SM2L_038",
+      "theme": "color",
+      "category": "회보라·초록"
+    },
+    {
+      "code": "SM2L_039",
+      "theme": "color",
+      "category": "보라·노랑"
+    },
+    {
+      "code": "SM2L_039",
+      "theme": "season",
+      "category": "야생화가 피어난 푸른 풀숲"
+    },
+    {
+      "code": "SM2L_040",
+      "theme": "color",
+      "category": "보라·파랑"
+    },
+    {
+      "code": "SM2L_041",
+      "theme": "color",
+      "category": "하늘·갈색"
+    },
+    {
+      "code": "SM2L_041",
+      "theme": "season",
+      "category": "바닷물과 바위에 부딪치는 맑은 파도"
+    },
+    {
+      "code": "SM2L_042",
+      "theme": "color",
+      "category": "갈색·하늘"
+    },
+    {
+      "code": "SM2L_042",
+      "theme": "season",
+      "category": "푸른 해변을 따라 펼쳐진 밝은 모래사장"
+    },
+    {
+      "code": "SM2L_043",
+      "theme": "color",
+      "category": "갈색·하늘"
+    },
+    {
+      "code": "SM2L_043",
+      "theme": "season",
+      "category": "초록 나무와 하얀 구름이 있는 맑은 하늘"
+    },
+    {
+      "code": "SM2L_044",
+      "theme": "color",
+      "category": "주황·크림"
+    },
+    {
+      "code": "SM2L_045",
+      "theme": "color",
+      "category": "회색·연두"
+    },
+    {
+      "code": "SM2L_045",
+      "theme": "season",
+      "category": "맑은 하늘 아래 우거진 나뭇가지"
+    },
+    {
+      "code": "SM2L_046",
+      "theme": "color",
+      "category": "빨강·주황"
+    },
+    {
+      "code": "SM2L_046",
+      "theme": "season",
+      "category": "해 질 녘 빛나는 바다와 해안"
+    },
+    {
+      "code": "SM2L_046",
+      "theme": "sunset",
+      "category": "바다 위로 지는 해를 향해 나는 파이어로"
+    },
+    {
+      "code": "SM2L_049",
+      "theme": "color",
+      "category": "초록·분홍"
+    },
+    {
+      "code": "SM2L_049",
+      "theme": "season",
+      "category": "짙은 수풀과 버섯이 자란 숲"
+    },
+    {
+      "code": "SM2L_050",
+      "theme": "color",
+      "category": "파랑·초록"
+    },
+    {
+      "code": "SM2L_050",
+      "theme": "season",
+      "category": "폭포가 흐르는 푸른 호수와 잔디 언덕"
+    },
+    {
+      "code": "SM2L_051",
+      "theme": "color",
+      "category": "파랑·남색"
+    },
+    {
+      "code": "SM2L_052",
+      "theme": "color",
+      "category": "분홍·자주"
+    },
+    {
+      "code": "SM2L_053",
+      "theme": "color",
+      "category": "주황·회색"
+    },
+    {
+      "code": "SM2L_054",
+      "theme": "color",
+      "category": "파랑·은색"
+    },
+    {
+      "code": "SM2L_055",
+      "theme": "color",
+      "category": "초록·분홍"
+    },
+    {
+      "code": "SM2L_055",
+      "theme": "food",
+      "category": "요리용 국자와 과일을 든 마오"
+    },
+    {
+      "code": "SM2L_055",
+      "theme": "work",
+      "category": "요리용 국자와 과일을 들고 요리를 준비하는 마오"
+    },
+    {
+      "code": "SM2L_056",
+      "theme": "color",
+      "category": "무지개·홀로"
+    },
+    {
+      "code": "SM2L_057",
+      "theme": "color",
+      "category": "무지개·홀로"
+    },
+    {
+      "code": "SM2L_058",
+      "theme": "color",
+      "category": "무지개·홀로"
+    },
+    {
+      "code": "SM2L_059",
+      "theme": "color",
+      "category": "무지개·홀로"
+    },
+    {
+      "code": "SM2L_060",
+      "theme": "color",
+      "category": "금색·청록"
+    },
+    {
+      "code": "SM2L_061",
+      "theme": "color",
+      "category": "금색·검정"
+    },
+    {
+      "code": "SM2L_062",
+      "theme": "color",
+      "category": "금색·주황"
+    }
+  ],
+  "safeguards": {
+    "previousThemeEntriesModified": 0,
+    "canonicalMasterEdited": 0,
+    "ownershipEdited": 0,
+    "firestoreEdited": 0,
+    "imageAssetsEdited": 0
+  }
+}
