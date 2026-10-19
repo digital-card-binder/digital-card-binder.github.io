@@ -121,3 +121,31 @@
   .radar-stock-filter-text { font-size: 11px; }
   .radar-stock-filter-count { font-size: 10px; }
 }
+
+
+/* Radar categories: all sources share one visual taxonomy. */
+.radar-store-name{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-width:0}
+.radar-store-name .radar-store-title{margin-bottom:0}
+.radar-store-kind{display:inline-flex;align-items:center;font-size:10px;font-weight:850;
+  border:1px solid #dae3ef;border-radius:999px;padding:3px 7px;white-space:nowrap}
+.radar-store-kind--convenience{color:#355ab6;background:#edf3ff;border-color:#cbdafd}
+.radar-store-kind--mart{color:#966006;background:#fff5df;border-color:#f5d495}
+.radar-store-kind--cardshop{color:#147d76;background:#e7f8f4;border-color:#a7ded5}
+.radar-map-legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:9px 12px;
+  background:#f9fbff;border-top:1px solid #e7edf5;font-size:11px;color:#5a6e8b}
+.radar-map-legend span{display:inline-flex;align-items:center;gap:5px}
+.radar-legend-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#4168dc}
+.radar-legend-dot.is-convenience{background:#4168dc}
+.radar-legend-dot.is-mart{background:#ed9b2a}
+.radar-legend-dot.is-cardshop{background:#168b83}
+.radar-legend-dot.is-stock{border:2px solid #bd263f;box-shadow:0 0 0 2px #f7d5dc}
+.radar-map-area-search{position:absolute;top:14px;right:14px;z-index:1000;border:1px solid #c3d1f4;
+  background:#234cbe;color:#fff;padding:11px 15px;border-radius:999px;min-height:42px;
+  font-size:12px;font-weight:850;box-shadow:0 5px 18px rgba(6,26,82,.28)}
+.radar-map-area-search:hover{background:#163a9a}
+.radar-map-area-search[hidden]{display:none!important}
+@media(max-width:640px){
+  .radar-map-area-search{top:12px;right:12px;left:auto;max-width:calc(100% - 24px);
+    padding:10px 12px;font-size:12px}
+  .radar-map-legend{gap:8px 13px}
+}

@@ -101,7 +101,7 @@
         <div><span>검색 완료</span><strong id="radar-search-completed">0</strong><small>건</small></div>
         <div><span>검색 실패</span><strong id="radar-search-failed">0</strong><small>건</small></div>
       </div>
-      <p class="radar-metric-explain">검색 완료·실패는 판매처별 상품 조회 요청 기준입니다. 지도 매장 수와 다를 수 있습니다.</p>
+      <p class="radar-metric-explain">검색 완료·실패는 판매처별 상품 조회 요청 기준입니다. 지도 매장 수와 다를 수 있습니다. 이마트 등 대형마트는 현재 위치 정보만 제공하며 카드 재고 수량은 미연동입니다.</p>
       <p id="radar-status" class="radar-status" role="status" aria-live="polite">재고 1개 이상인 카드 상품만 강조 표시합니다. 수량이 없거나 확인되지 않으면 별도로 안내합니다.</p>
       <div class="radar-result-grid">
         <div class="radar-list-panel" id="radar-list-panel">
@@ -111,7 +111,14 @@
         </div>
         <div class="radar-map-panel" id="radar-map-panel">
           <div id="radar-map" role="region" aria-label="지도와 검색 반경"></div>
+          <button id="radar-search-map-area" class="radar-map-area-search" type="button" hidden>📍 이 지도에서 다시 검색</button>
           <div id="radar-map-fallback" class="radar-map-fallback" hidden>지도를 불러오지 못했습니다. 목록과 외부 지도 길찾기를 이용해 주세요.</div>
+          <div class="radar-map-legend" aria-label="지도 마커 범례">
+            <span><i class="radar-legend-dot is-convenience" aria-hidden="true"></i>편의점</span>
+            <span><i class="radar-legend-dot is-mart" aria-hidden="true"></i>마트</span>
+            <span><i class="radar-legend-dot is-cardshop" aria-hidden="true"></i>카드샵</span>
+            <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>카드 재고 확인</span>
+          </div>
           <div class="radar-map-caption"><strong id="radar-map-caption">반경 3km</strong><span>매장 후보 지도 · 재고 지원 상품만 조회</span></div>
         </div>
       </div>
@@ -119,7 +126,7 @@
     <section class="radar-explain">
       <div><strong>매장 위치와 재고는 다릅니다</strong><p>표시되는 매장은 공개 지도에 등록된 판매점 후보입니다. 포켓몬 카드 취급 여부는 매장별로 다를 수 있습니다.</p></div>
       <div><strong>확인 시각을 반드시 표시합니다</strong><p>카드팩·덱 등 포켓몬 카드게임 상품만 표시합니다. 실제 재고가 있는 상품 한 품목만 강조하며 응답 시각과 실제 매장 재고는 다를 수 있습니다.</p></div>
-      <div><strong>위치 정보는 선택 사항입니다</strong><p>내 위치 권한 없이 지역명 검색으로도 이용할 수 있습니다. 위치는 선택한 검색 시점에 외부 지도 서비스로 전송됩니다.</p></div>
+      <div><strong>위치 정보는 선택 사항입니다</strong><p>내 위치·지역명 검색 또는 지도 드래그를 사용할 수 있습니다. 지도를 드래그하여 다른 지역을 이동한 뒤 ‘이 지도에서 다시 검색’을 누르면 입력 없이 그 지역을 탐색합니다. 선택한 위치는 외부 지도 서비스로 전송됩니다.</p></div>
     </section>
     <footer class="radar-footer"><a href="./">디지털 카드 바인더로 돌아가기</a><span>독자 설계 · 지도 © OpenStreetMap contributors · 재고 데이터 제공 <a href="https://github.com/hmmhmmhm/daiso-mcp" target="_blank" rel="noopener noreferrer">Daiso MCP 공개 API</a></span></footer>
   </main>

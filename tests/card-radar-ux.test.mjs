@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, isCardProduct, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -100,7 +100,7 @@ test("retailer integration discards food even if API returns positive quantities
 
 test("progress tracks settled API attempts rather than pretending stores were checked", () => {
   const { state, element, completeProgressStep, updateProgress, inventoryJobs } = harness();
-  assert.equal(inventoryJobs().length,12);
+  assert.equal(inventoryJobs().length,20);
   state.progress={total:5,completed:0,successes:0,failures:0,active:true};
   updateProgress("검색 중");
   completeProgressStep(true,"재고 조회 중");
@@ -173,4 +173,74 @@ test("stock-only filter is shared by map and list, saved, accessible and respons
   assert.match(source, /digitalCardBinderRadarOnlyInStockV1/);
   assert.match(source, /stockFilter[.]addEventListener\("change"/);
   assert.match(source, /savedStockOnly = localStorage[.]getItem/);
+});
+
+
+test("transit cards and keyword-matched unrelated products never enter Pokemon TCG stock", () => {
+  const { isCardProduct, liveQueries } = harness();
+  for (const name of [
+    "포켓몬 이즐카드 1만원", "포켓몬 T머니 교통카드",
+    "포켓몬 캐시비카드", "포켓몬 EZL 카드", "포켓몬 선불카드",
+    "포켓몬 카드지갑", "포켓몬카드 기프트카드", "포켓몬 카드",
+  ]) assert.equal(isCardProduct(name), false, name);
+  for (const name of [
+    "인페르노X 부스터 팩", "포켓몬카드 인페르노X 부스터 팩",
+    "포켓몬 카드 30주년 팩", "포켓몬카드 닌자스피너",
+  ]) assert.equal(isCardProduct(name), true, name);
+  assert.deepEqual([...liveQueries()], ["인페르노X","닌자스피너",
+    "30th CELEBRATION","메가심포니아","포켓몬카드 부스터팩"]);
+});
+
+test("CU store directory contributes locations without inventing inventory", () => {
+  const { parseCuStoreDirectory, storeCandidates, state } = harness();
+  state.center={lat:36.98,lng:127.04};
+  state.radiusKm=10;
+  state.searching=true;
+  const source={success:true,data:{stores:[
+    {storeCode:"cu123",storeName:"CU 팽성남산로점",latitude:36.98,longitude:127.04,
+      address:"경기도 평택시 팽성읍 사거리길 35",stock:6},
+    {storeCode:"far",storeName:"CU 먼곳",latitude:37.40,longitude:127.04},
+  ]}};
+  const shops=parseCuStoreDirectory(source);
+  assert.equal(shops.length,1);
+  assert.equal(shops[0].kind,"convenience");
+  assert.equal(shops[0].verifiedInventory.length,0,
+    "store location response must never be interpreted as confirmed stock");
+  state.retailerShops=shops;
+  assert.equal(storeCandidates([]).length,1);
+  const duplicate={id:"osm:1",name:"씨유 팽성남산로점",kind:"convenience",
+    lat:36.9801,lng:127.0401,origin:"osm",verifiedInventory:[]};
+  assert.equal(storeCandidates([duplicate]).length,1,
+    "same retailer store from map and CU directory should not be duplicated");
+});
+
+test("map pan exposes explicit search action only beyond search center", () => {
+  const { state, shouldOfferMapSearch } = harness();
+  state.center={lat:37.5,lng:127.0};
+  assert.equal(shouldOfferMapSearch({lat:37.5,lng:127.0}),false);
+  assert.equal(shouldOfferMapSearch({lat:37.501,lng:127.0}),false);
+  assert.equal(shouldOfferMapSearch({lat:37.52,lng:127.0}),true);
+  assert.equal(shouldOfferMapSearch({lat:Infinity,lng:127.0}),false);
+  const html=read("card-radar.html");
+  assert.match(html,/id="radar-search-map-area"/);
+  assert.match(html,/이 지도에서 다시 검색/);
+  const css=read("card-radar.css");
+  assert.match(css,/[.]radar-map-area-search\[hidden\]/);
+  assert.match(source,/state[.]map[.]on\("moveend"/);
+  assert.match(source,/const point = state[.]map[.]getCenter\(\)/);
+  assert.match(source,/byId\("radar-search-map-area"\)[.]addEventListener\("click",searchCurrentMapArea\)/);
+});
+
+test("map/retail sources classify shops and official mart correctly", () => {
+  const {category}=harness();
+  assert.equal(category({shop:"convenience",name:"CU 팽성남산로점"}),"convenience");
+  assert.equal(category({shop:"supermarket",name:"이마트 속초점"}),"mart");
+  assert.equal(category({shop:"games",name:"카드 상점"}),"cardshop");
+  const data=JSON.parse(read("data/card-radar-stores.json"));
+  const target=data.stores.find(s=>s.name==="이마트 속초점");
+  assert.ok(target);
+  assert.equal(target.kind,"mart");
+  assert.equal(target.inventoryStatus,"not_connected");
+  assert.ok(target.lat>37 && target.lat<39);
+  assert.ok(target.lng>127 && target.lng<130);
 });
