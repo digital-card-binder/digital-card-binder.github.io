@@ -11,7 +11,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
-    shops: [], curatedShops: [], retailerShops: [], masterShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
+    shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
@@ -91,7 +91,7 @@
     return true;
   }
   function currentSummary(count, displayedCount = count) {
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0;
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0;
     byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
       (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
@@ -140,6 +140,8 @@
     state.locationChosen = true;
     state.shops=[];
     state.retailerShops=[];
+    state.masterShops=[];
+    state.publicShops=[];
     state.inventory=[];
     state.mapChecked=false;
     state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -191,7 +193,7 @@
     if (![1,3,5,10].includes(value) || state.searching) return;
     const changed = value !== state.radiusKm;
     if (changed) {
-      state.shops=[];state.retailerShops=[];state.inventory=[];state.mapChecked=false;
+      state.shops=[];state.retailerShops=[];state.masterShops=[];state.publicShops=[];state.inventory=[];state.mapChecked=false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
       updateProgress("검색 대기");
     }
@@ -232,6 +234,8 @@
       state.locationChosen = true;
       state.shops = [];
       state.retailerShops = [];
+      state.masterShops = [];
+      state.publicShops = [];
       state.inventory = [];
       state.mapChecked = false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -272,6 +276,8 @@
       state.locationChosen = true;
       state.shops = [];
       state.retailerShops = [];
+      state.masterShops = [];
+      state.publicShops = [];
       state.inventory = [];
       state.mapChecked = false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
@@ -461,6 +467,44 @@
       {cache:"no-store",headers:{Accept:"application/json"}},15000);
     return parseSelfDbDirectory(payload);
   }
+  const PUBLIC_SHOPS_API="https://digital-card-radar-api.vercel.app/api/v1/public-shops";
+  function parsePublicShopLocations(payload){
+    if(!payload || payload.schemaVersion!==1 ||
+      !["ok","not_configured"].includes(payload.status) ||
+      !Array.isArray(payload.stores))throw Error("INVALID_GOV_STORE_RESPONSE");
+    if(payload.status==="not_configured")
+      return {configured:false,stores:[],coverageLimited:true};
+    const allowed={cu:"convenience",gs25:"convenience",
+      seveneleven:"convenience",emart24:"convenience",
+      emart:"mart",traders:"mart",lottemart:"mart",homeplus:"mart",
+      costco:"mart",hanaro:"mart"};
+    const stores=payload.stores.slice(0,250).flatMap(p=>{
+      if(!p || !allowed[p.retailerId] || p.kind!==allowed[p.retailerId] ||
+        p.locationStatus!=="candidate" || p.origin!=="government-business-registry" ||
+        typeof p.name!=="string" || !p.name.trim())return [];
+      const lat=Number(p.lat),lng=Number(p.lng);
+      if(!validCoord(lat,lng) || distanceKm(state.center,{lat,lng})>state.radiusKm+.03)return [];
+      return [{id:String(p.id||"").slice(0,90),name:p.name.slice(0,90),
+        lat,lng,distance:distanceKm(state.center,{lat,lng}),
+        kind:p.kind,retailerId:p.retailerId,chain:p.retailerId,
+        addr:String(p.address||"").slice(0,120),
+        origin:"government-business-registry",verifiedInventory:[]}];
+    });
+    return {configured:true,stores,coverageLimited:payload.coverageLimited===true,
+      queriedRadiusKm:Number(payload.queriedRadiusKm)||2};
+  }
+  async function loadPublicShopLocations(){
+    const params=new URLSearchParams({lat:state.center.lat.toFixed(6),
+      lng:state.center.lng.toFixed(6),radiusKm:String(state.radiusKm),limit:"250"});
+    if(["mart","convenience","cardshop"].includes(state.kind))params.set("kind",state.kind);
+    if(state.kind==="convenience"&&state.convenienceBrand!=="all"&&state.convenienceBrand!=="other")
+      params.set("retailer",state.convenienceBrand);
+    if(state.kind==="mart"&&state.martBrand!=="all"&&state.martBrand!=="other")
+      params.set("retailer",state.martBrand);
+    const payload=await fetchJson(PUBLIC_SHOPS_API+"?"+params.toString(),
+      {cache:"no-store",headers:{Accept:"application/json"}},14500);
+    return parsePublicShopLocations(payload);
+  }
   function storeCandidates(shops) {
     const merged = shops.map((store)=>({ ...store }));
     // Independently verified stores are included even when OSM lacks the chain.
@@ -486,6 +530,16 @@
           inventory[idx]=item;
       }
       existing.verifiedInventory=inventory;
+    }
+    // Public business registry results are location candidates only. The source
+    // never supplies retailer-authorized stock or internal product observations.
+    for(const publicStore of state.publicShops){
+      const existing=merged.find(candidate=>candidate.kind===publicStore.kind &&
+        distanceKm(candidate,publicStore)<.06 &&
+        normalizeShopName(candidate.name).replace(/점$/,"")===
+          normalizeShopName(publicStore.name).replace(/점$/,""));
+      if(!existing){merged.push({...publicStore});continue;}
+      if(!existing.addr)existing.addr=publicStore.addr;
     }
     for (const retailer of state.retailerShops) {
       const existing=merged.find((store)=>
@@ -732,7 +786,7 @@
     header.append(title,badge);
     top.append(header,km);card.append(top);
     card.append(make("p","radar-store-sub",(store.addr ? store.addr+" · ":"")+
-      (store.origin==="self-db"?"자체 DB 등록 매장 · 재고 별도 확인":store.origin==="official-directory"?"공식 매장 위치 확인 · 재고 연동 별도":"지도 매장 위치 후보")));
+      (store.origin==="self-db"?"자체 DB 등록 매장 · 재고 별도 확인":store.origin==="government-business-registry"?"정부 상가 위치 후보 · 재고 미확인":store.origin==="official-directory"?"공식 매장 위치 확인 · 재고 연동 별도":"지도 매장 위치 후보")));
     const summary=inventoryLabel(store);
     if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
     card.append(make("p","radar-stock-note",summary.detail));
@@ -821,7 +875,7 @@
       .filter((store) => store.distance <= state.radiusKm + .03);
     const inStockStores = nearbyStores.filter((store) => inventoryLabel(store).known);
     const displayedStores = filterStoresForDisplay(nearbyStores);
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0;
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0;
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
@@ -865,6 +919,8 @@
     state.shops = [];
     state.retailerShops = [];
     state.masterShops = [];
+    state.publicShops = [];
+    byId("radar-public-status").textContent="정부 상가 위치 보강 조회 중…";
     byId("radar-db-status").textContent="자체 DB 매장 정보 확인 중…";
     state.inventory = [];
     state.mapChecked = false;
@@ -872,7 +928,7 @@
     const jobs = inventoryJobs();
     const includeCuStores = state.kind==="all" ||
       (state.kind==="convenience" && ["all","cu"].includes(state.convenienceBrand));
-    state.progress = {completed:0,total:jobs.length+2+(includeCuStores?1:0),successes:0,failures:0,active:true};
+    state.progress = {completed:0,total:jobs.length+3+(includeCuStores?1:0),successes:0,failures:0,active:true};
     updateProgress("매장 및 카드 재고 탐색 중");
     render();
     setStatus("카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
@@ -916,9 +972,25 @@
         render();
         return ok;
       });
+    const govTask=loadPublicShopLocations().then(result=>{
+      state.publicShops=result.stores;
+      byId("radar-public-status").textContent=result.configured
+        ? "정부 상가 위치 후보 "+result.stores.length+"곳 · "+(
+          result.coverageLimited?"조회 범위 일부만 반영":"조회 완료")+" · 재고 정보 없음"
+        : "정부 상가 위치 보강: 공공데이터 API 키 등록 전 · 기존 검색은 계속 이용 가능";
+      return result.configured;
+    }).catch(()=>{
+      byId("radar-public-status").textContent=
+        "정부 상가 위치 보강 일시 조회 불가 · 기존 지도 및 자체 DB 결과 유지";
+      return false;
+    }).then(ok=>{
+      completeProgressStep(ok,"정부 상가 위치 조회",false);
+      render();
+      return ok;
+    });
     const stockTask = fetchLiveInventory(jobs);
     const martFeedTask = loadMartInventory();
-    const [mapOK,cuOK,dbOK] = await Promise.all([mapTask,cuStoreTask,dbTask,stockTask,martFeedTask]);
+    const [mapOK,cuOK,dbOK,govOK] = await Promise.all([mapTask,cuStoreTask,dbTask,govTask,stockTask,martFeedTask]);
     state.progress.active = false;
     updateProgress("검색 종료");
     render();
@@ -929,6 +1001,7 @@
     setStatus("카드 재고 있음 "+positive+"곳 · 재고 응답 매장 "+withNumbers+"곳 · "+
       (mapOK?"지도 후보 검색 완료":"지도 후보 일부 조회 실패")+" · "+
       (dbOK?"자체 DB 매장 조회 완료":"자체 DB 일시 조회 불가")+" · "+
+      (govOK?"정부 상가 위치 보강 조회 완료":"정부 상가 API 미설정 또는 일시 조회 불가")+" · "+
       (jobs.length ? "판매처 API "+state.progress.successes+"건 성공 / "+state.progress.failures+"건 실패." :
         (state.martInventory.length?"인가된 대형마트 데이터 피드에서 관측된 재고가 있습니다.":
           "선택한 매장 유형의 대형마트 자동 재고조회는 미연동입니다."))+
