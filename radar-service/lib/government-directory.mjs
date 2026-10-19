@@ -25,6 +25,9 @@ export function recognizedGovernmentStore(raw) {
   const name=String(raw.bizesNm||"").trim().slice(0,100);
   const id=String(raw.bizesId||"").trim().slice(0,50);
   const lat=Number(raw.lat),lng=Number(raw.lon);
+  // Name-only matching is deliberately conservative; a nearby parking lot,
+  // bakery or cafe mentioning a chain is not itself a retail branch.
+  if(/(?:주차장|근처|맞은편|앞\\s|옆\\s|할인샵|카페|커피|빵집|주유소|병원|부동산|약국|학원)/i.test(name))return null;
   if(!id || !/^[a-zA-Z0-9-]{3,50}$/.test(id) || !name ||
     !Number.isFinite(lat)||!Number.isFinite(lng)||
     lat<33||lat>39.5||lng<124||lng>132)return null;
