@@ -10,7 +10,7 @@
   const MAX_SHOPS = 250;
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
-    radiusKm: 3, kind: "all", pack: "", view: "list",
+    radiusKm: 3, kind: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], inventory: [], providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
     searching: false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
@@ -56,8 +56,10 @@
   function selectedKind(store) {
     return state.kind === "all" || store.kind === state.kind;
   }
-  function currentSummary(count) {
-    byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km";
+  function currentSummary(count, displayedCount = count) {
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
+    byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
+      (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
     byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
@@ -328,6 +330,22 @@
       detail: "이전 조회 이력만 있음 · 현재 재고 미확인" };
     return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
   }
+  function filterStoresForDisplay(stores) {
+    return state.onlyInStock ? stores.filter((store) => inventoryLabel(store).known) : stores;
+  }
+  function setStockOnly(checked) {
+    state.onlyInStock = Boolean(checked);
+    const input = byId("radar-only-in-stock");
+    input.checked = state.onlyInStock;
+    const label = input.closest(".radar-stock-filter");
+    if (label) label.classList.toggle("is-active", state.onlyInStock);
+    try {
+      localStorage.setItem("digitalCardBinderRadarOnlyInStockV1", state.onlyInStock ? "1" : "0");
+    } catch (_) {
+      // The toggle still works in browsers that block persistent storage.
+    }
+    render();
+  }
   function addStoreCard(target,store) {
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
@@ -372,24 +390,39 @@
     }
   }
   function render() {
-    const filtered = mergeInventory(state.shops).filter(selectedKind)
-      .filter((s) => s.distance <= state.radiusKm + .03);
+    // Capture the complete nearby population first. The stock-only preference changes
+    // only the visible list and map markers, not the population or API request totals.
+    const nearbyStores = mergeInventory(state.shops).filter(selectedKind)
+      .filter((store) => store.distance <= state.radiusKm + .03);
+    const inStockStores = nearbyStores.filter((store) => inventoryLabel(store).known);
+    const displayedStores = filterStoresForDisplay(nearbyStores);
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0;
     const list = byId("radar-stores");
     list.replaceChildren();
-    currentSummary(filtered.length);
-    byId("radar-stock-checked").textContent =
-      state.mapChecked || state.inventory.length ? String(filtered.filter((s) => inventoryLabel(s).checked).length) : "—";
-    renderMapMarkers(filtered);
-    if (!filtered.length) {
+    currentSummary(nearbyStores.length, displayedStores.length);
+    byId("radar-stock-filter-count").textContent = hasResults
+      ? "재고 있음 " + inStockStores.length + "곳" : "재고 있음 —곳";
+    byId("radar-stock-checked").textContent = hasResults
+      ? String(nearbyStores.filter((store) => inventoryLabel(store).checked).length) : "—";
+    renderMapMarkers(displayedStores);
+    if (!displayedStores.length) {
       const box = make("div","radar-empty");
-      box.append(make("span","","📍"),make("h3","","표시할 매장 정보가 없습니다"),
-        make("p","",state.locationChosen
+      const heading = state.onlyInStock
+        ? (state.searching ? "재고 있는 매장을 찾는 중입니다" : "현재 재고 있는 매장이 확인되지 않았습니다")
+        : "표시할 매장 정보가 없습니다";
+      const description = state.onlyInStock
+        ? (state.searching
+          ? "판매처 조회가 진행 중입니다. 카드 재고 1개 이상이 확인되면 목록과 지도에 표시됩니다."
+          : "조회할 수 없었던 매장은 품절로 확정된 것이 아닙니다. ‘재고 있는 매장만 보기’를 해제하면 전체 매장을 볼 수 있습니다.")
+        : (state.locationChosen
           ? "검색 버튼을 눌러 주변 매장 후보를 찾거나 검색 범위를 바꿔 보세요."
-          : "내 위치 또는 지역명을 설정하고 매장 탐색을 시작하세요."));
+          : "내 위치 또는 지역명을 설정하고 매장 탐색을 시작하세요.");
+      box.append(make("span","",state.onlyInStock ? "📡" : "📍"),
+        make("h3","",heading),make("p","",description));
       list.append(box);
       return;
     }
-    for (const store of filtered) addStoreCard(list,store);
+    for (const store of displayedStores) addStoreCard(list,store);
   }
   async function search() {
     if (state.searching) return;
@@ -606,11 +639,17 @@
       if(event.key==="Enter"){event.preventDefault();void findPlace();}
     });
     byId("radar-search").addEventListener("click",()=>void search());
+    const stockFilter = byId("radar-only-in-stock");
+    stockFilter.addEventListener("change",()=>setStockOnly(stockFilter.checked));
     initMap();
     let saved=3;
     try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||3;}catch(_){}
     setRadius(saved);
     setView("list");
+    let savedStockOnly = false;
+    try { savedStockOnly = localStorage.getItem("digitalCardBinderRadarOnlyInStockV1") === "1"; }
+    catch (_) {}
+    setStockOnly(savedStockOnly);
     void loadInventory().then(render);
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initialize,{once:true});

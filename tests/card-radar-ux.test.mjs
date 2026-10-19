@@ -28,7 +28,7 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -132,4 +132,45 @@ test("radar has a dedicated top-right mobile entry, clear counts and limited-sto
   assert.match(read("card-radar.css"), /[.]radar-stock[.]in-stock/);
   const nav=read("collector-nav.js");
   assert.doesNotMatch(nav, /queryAll\('[.]home-menu nav, [.]home-top-nav'\)/);
+});
+test("stock-only toggle filters current positive card inventory, never unknown, zero or stale", () => {
+  const { state, filterStoresForDisplay } = harness();
+  const now = new Date().toISOString();
+  const stale = new Date(Date.now() - 31 * 60 * 1000).toISOString();
+  const stores = [
+    {name:"confirmed",verifiedInventory:[{name:"포켓몬카드 닌자스피너",code:"m4",quantity:4,checkedAt:now}]},
+    {name:"zero",verifiedInventory:[{name:"포켓몬카드 닌자스피너",code:"m4",quantity:0,checkedAt:now}]},
+    {name:"old",verifiedInventory:[{name:"포켓몬카드 닌자스피너",code:"m4",quantity:3,checkedAt:stale}]},
+    {name:"food",verifiedInventory:[{name:"포켓몬빵",code:"m4",quantity:30,checkedAt:now}]},
+    {name:"unknown",verifiedInventory:[]},
+  ];
+  assert.equal(filterStoresForDisplay(stores).length, 5, "OFF retains every nearby store");
+  state.onlyInStock = true;
+  assert.deepEqual([...filterStoresForDisplay(stores)].map(s=>s.name), ["confirmed"],
+    "ON includes only fresh, positive Pokémon-card inventory");
+  state.pack = "m1S";
+  assert.equal(filterStoresForDisplay(stores).length, 0,
+    "stock must belong to the currently selected card pack");
+  state.pack = "";
+  state.onlyInStock = false;
+  assert.equal(filterStoresForDisplay(stores).length, 5, "OFF restores every nearby store");
+});
+
+test("stock-only filter is shared by map and list, saved, accessible and responsive", () => {
+  const html = read("card-radar.html");
+  const css = read("card-radar.css");
+  assert.match(html, /id="radar-only-in-stock" type="checkbox"/);
+  assert.match(html, /재고 있는 매장만 보기/);
+  assert.match(html, /id="radar-stock-filter-count"/);
+  assert.match(css, /[.]radar-stock-filter[.]is-active/);
+  assert.match(css, /@media \(max-width: 640px\)[\s\S]*?[.]radar-result-top [.]radar-stock-filter/);
+  const render = source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
+  assert.match(render, /currentSummary\(nearbyStores[.]length, displayedStores[.]length\)/);
+  assert.match(render, /renderMapMarkers\(displayedStores\)/);
+  assert.match(render, /for \(const store of displayedStores\) addStoreCard\(list,store\)/);
+  assert.match(render, /radar-stock-filter-count/);
+  assert.match(render, /현재 재고 있는 매장이 확인되지 않았습니다/);
+  assert.match(source, /digitalCardBinderRadarOnlyInStockV1/);
+  assert.match(source, /stockFilter[.]addEventListener\("change"/);
+  assert.match(source, /savedStockOnly = localStorage[.]getItem/);
 });
