@@ -225,33 +225,78 @@
     });
     if (view === "map" && state.map) setTimeout(() => state.map.invalidateSize(), 0);
   }
-  function showGeolocate() {
-    if(state.searching) return setStatus("검색 종료 후 새 위치를 선택해 주세요.");
-    if (!navigator.geolocation) {
-      setStatus("이 브라우저에서는 위치 확인을 지원하지 않습니다. 지역명을 입력해 주세요.", true);
+  function geolocationErrorMessage(error) {
+    if(error && error.code === 1)
+      return "위치 권한이 차단되어 있습니다. 브라우저의 이 사이트 위치 권한을 허용하거나 지역명을 입력해 주세요.";
+    if(error && error.code === 2)
+      return "현재 위치를 확인할 수 없습니다. 기기 위치 서비스를 켜거나 지역명을 입력해 주세요.";
+    if(error && error.code === 3)
+      return "위치 확인 시간이 초과됐습니다. 다시 시도하거나 지역명을 입력해 주세요.";
+    return "위치를 확인하지 못했습니다. 다시 시도하거나 지역명을 입력해 주세요.";
+  }
+  function showGeolocate(runSearch=search) {
+    const button=byId("radar-geolocate");
+    const feedback=byId("radar-location-feedback");
+    const report=(message,error=false)=>{
+      feedback.textContent=message;
+      feedback.classList.toggle("error",error);
+      setStatus(message,error);
+    };
+    if(state.searching){
+      report("현재 검색이 끝나면 내 위치를 다시 눌러 주세요.");
       return;
     }
-    setStatus("현재 위치 권한을 확인하는 중입니다.");
-    navigator.geolocation.getCurrentPosition((position) => {
-      const lat = position.coords.latitude, lng = position.coords.longitude;
-      if (!validCoord(lat,lng)) return setStatus("위치 좌표를 확인하지 못했습니다.", true);
-      state.center = {lat,lng};
-      state.locationLabel = "내 위치";
-      state.locationChosen = true;
-      state.shops = [];
-      state.retailerShops = [];
-      state.masterShops = [];
-      state.publicShops = [];
-      state.inventory = [];
-      state.mapChecked = false;
-      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
-      updateProgress("검색 대기");
-      centerMap();
-      render();
-      setStatus("내 위치가 설정되었습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
-    }, () => setStatus("위치 권한이 없거나 위치를 확인할 수 없습니다. 지역명 검색을 이용해 주세요.", true), {
-      enableHighAccuracy:false, maximumAge:60000, timeout:12000
-    });
+    if(button.disabled)return;
+    if(typeof window!=="undefined" && window.isSecureContext===false){
+      report("위치는 보안 연결(HTTPS)에서만 확인할 수 있습니다. 브라우저에서 사이트를 직접 열어 주세요.",true);
+      return;
+    }
+    if(typeof navigator==="undefined" || !navigator.geolocation){
+      report("이 브라우저에서는 위치 확인을 사용할 수 없습니다. 지역명을 입력해 주세요.",true);
+      return;
+    }
+    button.disabled=true;
+    button.textContent="위치 확인 중…";
+    report("현재 위치를 확인하고 있습니다. 위치 권한 요청이 나타나면 허용해 주세요.");
+    const finish=()=>{
+      button.disabled=false;
+      button.textContent="◎ 내 위치";
+    };
+    try{
+      navigator.geolocation.getCurrentPosition((position)=>{
+        finish();
+        const lat=Number(position?.coords?.latitude),lng=Number(position?.coords?.longitude);
+        if(!validCoord(lat,lng)){
+          report("위치 좌표를 확인하지 못했습니다. 다시 시도해 주세요.",true);
+          return;
+        }
+        state.center={lat,lng};
+        state.locationLabel="내 위치";
+        state.locationChosen=true;
+        state.shops=[];
+        state.retailerShops=[];
+        state.masterShops=[];
+        state.publicShops=[];
+        state.inventory=[];
+        state.mapChecked=false;
+        state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+        // A previous text search must not restrict Seven-Eleven results near GPS.
+        byId("radar-place").value="";
+        updateProgress("검색 대기");
+        centerMap();
+        render();
+        report("내 위치를 찾았습니다. 주변 편의점과 마트를 검색합니다.");
+        void runSearch();
+      },(error)=>{
+        finish();
+        report(geolocationErrorMessage(error),true);
+      },{
+        enableHighAccuracy:true,maximumAge:30000,timeout:16000
+      });
+    }catch(error){
+      finish();
+      report(geolocationErrorMessage(error),true);
+    }
   }
   async function fetchJson(url, options, timeoutMs) {
     const controller = new AbortController();
