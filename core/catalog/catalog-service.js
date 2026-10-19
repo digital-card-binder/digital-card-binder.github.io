@@ -106,6 +106,9 @@
   const REVIEWED_CARD_NAMES = Object.freeze({
     "sv5m_033/071": "에블리",
     "sv5m_034/071": "에리본",
+    // Korean SM2L 062/050 physically prints 기본 격투 에너지.
+    // Keep canonical storage ID/name stable for old owned-state keys.
+    "sm2l_062/050": "기본 격투 에너지",
   });
   function reviewedCardName(code, fallback) {
     return REVIEWED_CARD_NAMES[clean(code).toLowerCase()] || fallback;
