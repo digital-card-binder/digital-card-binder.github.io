@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -753,4 +753,73 @@ test("Emart24 retries district after local neighborhood 500 but not after 403/42
   assert.match(source,/retailerAreaCache\.set\(key,\{keyword,district:/);
   assert.match(source,/const keyword=input[.]length>1[?]input:normalizeRetailerArea\(data\)/);
   assert.match(source,/return input[.]length>1[?]input:""/);
+});
+
+test("official stock app links map to verified retailer applications only",()=>{
+  const {officialStockApp}=harness();
+  assert.equal(officialStockApp({kind:"convenience",retailerId:"cu"}),
+    "https://play.google.com/store/apps/details?id=com.bgfcu.membership");
+  assert.equal(officialStockApp({kind:"convenience",retailerId:"gs25"}),
+    "https://play.google.com/store/apps/details?id=com.gsr.gs25");
+  assert.equal(officialStockApp({kind:"convenience",retailerId:"seveneleven"}),
+    "https://play.google.com/store/apps/details?id=kr.co.kork7app");
+  assert.equal(officialStockApp({kind:"convenience",retailerId:"emart24"}),
+    "https://play.google.com/store/apps/details?id=kr.co.emart24.everse");
+  assert.equal(officialStockApp({kind:"convenience",retailerId:"other"}),"");
+  assert.equal(officialStockApp({kind:"mart",retailerId:"emart24"}),"");
+  assert.match(source,/공식 앱에서 확인/);
+  assert.match(source,/이 상품과 매장을 직접 검색해 확인하세요/);
+});
+
+test("same CU shop code joins source stock despite name aliases; wrong brands or far codes do not",()=>{
+  const {parseCuStoreDirectory,mergeInventory,state}=harness();
+  state.center={lat:37.35,lng:127.1};state.radiusKm=3;
+  state.kind="all";state.convenienceBrand="all";state.martBrand="all";
+  state.masterShops=[];state.publicShops=[];state.retailerShops=[];state.curatedShops=[];
+  state.martInventory=[];state.mapChecked=false;state.searching=true;
+  const directory=parseCuStoreDirectory({success:true,data:{stores:[{
+    storeCode:"CU-9223",storeName:"CU 금곡역사점",
+    latitude:37.35011,longitude:127.10011
+  }]}});
+  assert.equal(directory.length,1);
+  assert.equal(directory[0].storeId,"CU-9223");
+  const observedAt=new Date().toISOString();
+  state.inventory=[{id:"CU-9223",kind:"convenience",retailerId:"cu",
+    chain:"CU",name:"CU 역사점",lat:37.35014,lng:127.10014,
+    inventorySource:"public-aggregator",
+    items:[{name:"포켓몬카드 인페르노X 부스터팩",provider:"CU",code:"m2",
+      quantity:3,checkedAt:observedAt,inventorySource:"public-aggregator"}]}];
+  let joined=mergeInventory(directory);
+  assert.equal(joined.length,1,"exact retailer store code should override name variations");
+  assert.equal(joined[0].verifiedInventory[0].quantity,3);
+
+  const wrongChain={...directory[0],retailerId:"gs25",chain:"GS25"};
+  joined=mergeInventory([wrongChain]);
+  assert.equal(joined.length,2,"wrong retailer's identical store ID must not be joined");
+  assert.equal(joined.find(x=>x.retailerId==="gs25").verifiedInventory.length,0);
+
+  const remote={...directory[0],lat:37.36,lng:127.10};
+  joined=mergeInventory([remote]);
+  assert.equal(joined.length,2,"code collisions far apart must not merge");
+});
+
+test("inventory merging uses retailer product code for same-SKU aliases",()=>{
+  const {mergeInventory,state}=harness();
+  state.center={lat:37.35,lng:127.1};state.radiusKm=3;
+  state.kind="all";state.convenienceBrand="all";state.martBrand="all";
+  state.masterShops=[];state.publicShops=[];state.retailerShops=[];state.curatedShops=[];
+  const when=new Date().toISOString();
+  const first={name:"포켓몬카드 인페르노X 팩",retailerSku:"123456789",
+    provider:"이마트24",code:"m2",quantity:4,checkedAt:when};
+  const second={...first,name:"포켓몬카드 인페르노X 부스터팩",quantity:2};
+  const store={id:"external-221",kind:"convenience",retailerId:"emart24",
+    name:"이마트24 금곡점",chain:"이마트24",lat:37.3502,lng:127.1002,
+    verifiedInventory:[{...first}]};
+  state.inventory=[{id:"external-221",kind:"convenience",retailerId:"emart24",
+    name:"이마트24 금곡점",chain:"이마트24",lat:37.3502,lng:127.1002,
+    inventorySource:"public-aggregator",items:[second]}];
+  state.martInventory=[];
+  const result=mergeInventory([store]);
+  assert.equal(result.length,1);
+  assert.equal(result[0].verifiedInventory.length,1,"one retailer SKU cannot count twice");
 });
