@@ -1569,7 +1569,15 @@
     });
   }
   function installCardRadarShortcut() {
-    const navs = [...document.querySelectorAll(".collection-nav")];
+    // Unit-test DOM stubs and non-browser renderers do not always implement the full DOM API.
+    if (typeof document.querySelectorAll !== "function" ||
+        typeof document.createElement !== "function" ||
+        typeof document.getElementById !== "function") return;
+    const queryAll = (selector) => {
+      const nodes = document.querySelectorAll(selector);
+      return nodes && typeof nodes[Symbol.iterator] === "function" ? [...nodes] : [];
+    };
+    const navs = queryAll(".collection-nav");
     const path = (window.location.pathname.split("/").pop() || "index.html");
     const active = path === "card-radar.html";
     for (const nav of navs) {
@@ -1594,7 +1602,7 @@
       if (packs) packs.insertAdjacentElement("afterend", link);
       else nav.append(link);
     }
-    for (const nav of document.querySelectorAll('.home-menu nav, .home-top-nav')) {
+    for (const nav of queryAll('.home-menu nav, .home-top-nav')) {
       if (nav.querySelector('a[href*="card-radar.html"]')) continue;
       const link = document.createElement("a");
       link.href = "./card-radar.html";
