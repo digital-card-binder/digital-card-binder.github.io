@@ -420,7 +420,7 @@ test("changing a pack after a search schedules pack-specific refresh, never only
 test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
   const html=read("card-radar.html");
   assert.match(html,/id="radar-pack-coverage-note"/);
-  assert.match(html,/모든 매장의 전 품목을 전수 확인하는 기능은 아직 아닙니다/);
+  assert.match(html,/전체 카드팩은 주요 상품부터 검색합니다/);
   assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
   assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
   assert.match(source,/state[.]hasSearched = true/);
