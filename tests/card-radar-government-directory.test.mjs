@@ -161,3 +161,71 @@ test("an encoded data.go.kr service key is decoded once before query encoding",a
   assert.equal(parsed.searchParams.get("serviceKey"),"abc+def/ghi=");
   assert.doesNotMatch(JSON.stringify(out),/abc%2Bdef/);
 });
+
+test("three pages fill 1km registry gap without claiming inventory or duplicates",async()=>{
+  const loc={lat:37.4327,lng:127.2117,radiusKm:1};
+  const ordinary=(i)=>({...item("일반 식료품점",String(100000+i),loc.lat,loc.lng)});
+  const base=Array.from({length:1000},(_,i)=>ordinary(i));
+  const p1=[...base.slice(1),item("CU 분당점","CU-GEO-1",loc.lat,loc.lng)];
+  const p2=[...base.slice(1),item("CU 분당점","CU-GEO-1",loc.lat,loc.lng)];
+  const p3=[...base.slice(1,501),item("GS25 분당점","GS-GEO-2",loc.lat,loc.lng)];
+  let calls=0;
+  const result=await queryGovernmentDirectory(loc,{serviceKey:"FAKE-TEST-KEY",
+    fetchImpl:async url=>{
+      const page=Number(new URL(url).searchParams.get("pageNo"));
+      calls++;
+      assert.ok(page<=3,"the API must never exceed three pages");
+      const rows=[p1,p2,p3][page-1];
+      return {ok:true,json:async()=>fixture(rows,2501)};
+    }});
+  assert.equal(calls,3);
+  assert.equal(result.status,"ok");
+  assert.equal(result.pagesFetched,3);
+  assert.equal(result.sourceRowsExamined,2501);
+  assert.equal(result.sourceTotalCount,2501);
+  assert.equal(result.coverageLimited,false);
+  assert.equal(result.count,2);
+  assert.equal(new Set(result.stores.map(s=>s.id)).size,2);
+  assert.ok(result.stores.every(s=>s.stockStatus==="unknown"&&s.items.length===0));
+  const repeat=await queryGovernmentDirectory(loc,{serviceKey:"FAKE-TEST-KEY",
+    fetchImpl:async()=>{throw Error("CACHED_EXPECTED");}});
+  assert.equal(repeat.count,2);
+});
+test("quota cap explicitly reports partial government coverage when more than three pages",async()=>{
+  const loc={lat:37.4211,lng:127.2199,radiusKm:1};
+  const ordinary=Array.from({length:1000},(_,i)=>
+    item("일반 소매업",String(200000+i),loc.lat,loc.lng));
+  let calls=0;
+  const value=await queryGovernmentDirectory(loc,{serviceKey:"KEY",
+    fetchImpl:async()=>{
+      calls++;
+      return {ok:true,json:async()=>fixture(ordinary,9000)};
+    }});
+  assert.equal(calls,3);
+  assert.equal(value.pagesFetched,3);
+  assert.equal(value.sourceRowsExamined,3000);
+  assert.equal(value.sourceTotalCount,9000);
+  assert.equal(value.coverageLimited,true);
+  assert.equal(value.count,0,"no Pokemon stock or shop inferred from generic businesses");
+});
+test("later page failures retain earlier discovered candidates but mark incomplete",async()=>{
+  const loc={lat:37.4199,lng:127.2222,radiusKm:1};
+  let calls=0;
+  const value=await queryGovernmentDirectory(loc,{serviceKey:"KEY",
+    fetchImpl:async()=>{
+      calls++;
+      if(calls>1)return {ok:false,status:429};
+      return {ok:true,json:async()=>fixture([
+        item("CU 분당검증점","CU-GEO-3",loc.lat,loc.lng)],2000)};
+    }});
+  assert.equal(calls,2);
+  assert.equal(value.count,1);
+  assert.equal(value.coverageLimited,true);
+  assert.equal(value.pagesFetched,1);
+  assert.equal(value.sourceRowsExamined,1);
+});
+test("government quota and source age are explicit in front-end status",async()=>{
+  const js=await readFile(new URL("../card-radar.js",import.meta.url),"utf8");
+  assert.match(js,/sourceRowsExamined/);
+  assert.match(js,/sourceYearMonth/);
+});

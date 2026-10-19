@@ -102,15 +102,57 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
     cx:lng.toFixed(6),cy:lat.toFixed(6),numOfRows:String(MAX_ROWS),
     pageNo:"1",type:"json"
   });
+  // Safeguard the data.go.kr quota. Fetch at most three pages in one
+  // geographic search; cache the result for ten minutes. A partial response is
+  // explicitly marked incomplete rather than silently meaning "no shop".
+  const PAGE_BUDGET=3;
   const abort=new AbortController();
-  const timer=setTimeout(()=>abort.abort(),12500);
+  const timer=setTimeout(()=>abort.abort(),11500);
+  const seen=new Map();
+  let sourceRowsExamined=0,sourceTotalCount=null,pagesFetched=0;
+  let pageFailure=false,sourceYearMonth="";
   try{
-    const response=await fetchImpl(GOV_DIRECTORY_ENDPOINT+"?"+params.toString(),{
-      method:"GET",headers:{Accept:"application/json"},signal:abort.signal
-    });
-    if(!response.ok)throw Error("GOV_UPSTREAM_HTTP_"+response.status);
-    const data=await response.json();
-    const result=normalizeGovernmentPayload(data,{lat,lng,radiusKm,kind,retailer});
+    for(let page=1;page<=PAGE_BUDGET;page++){
+      params.set("pageNo",String(page));
+      try{
+        const response=await fetchImpl(GOV_DIRECTORY_ENDPOINT+"?"+params.toString(),{
+          method:"GET",headers:{Accept:"application/json"},signal:abort.signal
+        });
+        if(!response.ok)throw Error("GOV_UPSTREAM_HTTP_"+response.status);
+        const payload=await response.json();
+        const parsed=normalizeGovernmentPayload(payload,{lat,lng,radiusKm,kind,retailer});
+        const raw=payload?.response?.header?payload.response:payload;
+        const rawItem=raw?.body?.items?.item??raw?.body?.items??[];
+        const rawCount=Array.isArray(rawItem)?rawItem.length:(rawItem?1:0);
+        const total=Number(raw?.body?.totalCount);
+        if(Number.isSafeInteger(total)&&total>=0)sourceTotalCount=total;
+        sourceRowsExamined+=Math.min(rawCount,MAX_ROWS);
+        pagesFetched++;
+        sourceYearMonth=parsed.sourceYearMonth||sourceYearMonth;
+        for(const store of parsed.stores){
+          if(!seen.has(store.id))seen.set(store.id,store);
+          if(seen.size>=250)break;
+        }
+        if(seen.size>=250 || rawCount===0 || sourceTotalCount===null ||
+          sourceRowsExamined>=sourceTotalCount)break;
+      }catch(error){
+        // A failed *later* page must not erase successfully fetched shops.
+        if(pagesFetched===0)throw error;
+        pageFailure=true;
+        break;
+      }
+    }
+    const stores=[...seen.values()];
+    const coverageLimited=radiusKm>2 || pageFailure ||
+      sourceTotalCount===null || sourceRowsExamined<sourceTotalCount ||
+      stores.length>=250;
+    const result={status:"ok",source:"government-business-registry",
+      license:"Public Data Portal: check applicable open-data terms",
+      sourceUrl:GOV_DIRECTORY_SOURCE,sourceYearMonth,
+      observedStock:false,inventoryStatus:"unknown",
+      queriedRadiusKm:Math.min(radiusKm,2),requestedRadiusKm:radiusKm,
+      coverageLimited,pagesFetched,sourceRowsExamined,sourceTotalCount,
+      count:stores.length,stores};
     cache.set(cacheId,{until:now+600000,value:result});
     if(cache.size>100)cache.clear();
     return result;
