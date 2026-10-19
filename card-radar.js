@@ -420,7 +420,7 @@
         existing.chain = official.chain;
         existing.sourceUrl = official.sourceUrl;
         existing.phone = official.phone;
-        existing.origin = "official-directory";
+        if(existing.origin!=="self-db")existing.origin = "official-directory";
       } else merged.push({...official, distance:distanceKm(state.center,official)});
     }
     return merged;
