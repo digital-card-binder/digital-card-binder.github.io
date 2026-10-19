@@ -12,7 +12,7 @@
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
-    searching: false, locationChosen: false, mapChecked: false,
+    searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
   const byId = (id) => document.getElementById(id);
@@ -925,6 +925,7 @@
   async function search() {
     if (state.searching) return;
     state.searching = true;
+    state.hasSearched = true;
     const button = byId("radar-search");
     button.disabled = true;
     state.shops = [];
@@ -1026,6 +1027,12 @@
       !mapOK || !dbOK || state.progress.failures > 0);
     button.disabled=false;
     state.searching=false;
+    // A pack changed while this search was running. Never treat an old broad
+    // query as proof that the newly selected pack is unavailable.
+    if(state.packRefreshPending){
+      state.packRefreshPending=false;
+      void search();
+    }
   }
 
   // An independent, public REST aggregator, documented by the Daiso MCP project.
@@ -1179,6 +1186,18 @@
     await Promise.all([worker(),worker()]);
     return state.inventory;
   }
+  // Only the first search is user-initiated. Changing the selected pack after
+  // a search must issue new pack-specific requests, not merely filter the
+  // previous five broad keyword responses.
+  function schedulePackRefresh(runSearch=search){
+    if(!state.hasSearched)return false;
+    if(state.searching){
+      state.packRefreshPending=true;
+      return false;
+    }
+    void runSearch();
+    return true;
+  }
   function initialize() {
     const product=byId("radar-pack");
     for(const [code,title] of PRODUCTS) {
@@ -1189,7 +1208,17 @@
     const requested=new URLSearchParams(location.search).get("pack");
     if(requested && PRODUCTS.some((p)=>p[0].toLowerCase()===requested.toLowerCase()))product.value=requested;
     state.pack=product.value;
-    product.addEventListener("change",()=>{state.pack=product.value;render();});
+    product.addEventListener("change",()=>{
+      state.pack=product.value;
+      render();
+      const started=schedulePackRefresh();
+      if(state.hasSearched){
+        setStatus(started?"선택한 카드팩을 자동으로 새로 조회합니다. 이전 검색 결과만 필터링하지 않습니다.":
+          "기존 검색이 끝나면 선택한 카드팩을 다시 조회합니다.");
+      }else{
+        setStatus("카드팩을 선택했습니다. ‘이 지역 매장 탐색’을 눌러 재고를 확인하세요.");
+      }
+    });
     const type=byId("radar-store-kind");
     const martField=byId("radar-mart-brand-field");
     const martSelect=byId("radar-mart-brand");
