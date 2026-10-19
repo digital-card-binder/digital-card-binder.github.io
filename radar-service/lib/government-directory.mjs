@@ -6,6 +6,9 @@ export const GOV_DIRECTORY_SOURCE="https://www.data.go.kr/data/15012005/openapi.
 export const GOV_DIRECTORY_ENDPOINT="https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRadius";
 const MAX_RADIUS_METERS=2000;
 const MAX_ROWS=1000;
+// One 2km core lookup plus no more than four one-page outer samples.
+// Samples do not exhaustively cover circles larger than 2km.
+const MAX_OUTER_SAMPLES=4;
 const cache=new Map();
 // Collapse simultaneous identical geographic lookups into one upstream request.
 const inFlight=new Map();
@@ -73,6 +76,19 @@ export function normalizeGovernmentPayload(payload,{lat,lng,radiusKm,kind="all",
     observedStock:false,inventoryStatus:"unknown",
     queriedRadiusKm:Math.min(radiusKm,2),requestedRadiusKm:radiusKm,
     coverageLimited:limited||result.length===250,count:result.length,stores:result};
+}
+export function supplementalGovernmentCenters(lat,lng,radiusKm){
+  if(radiusKm<=2)return [];
+  // Spread samples into the requested circle without pretending that four
+  // overlapping 2km disks fully cover it. The user can pan for finer searches.
+  const offsetKm=radiusKm<=3?1.8:radiusKm<=5?3.5:Math.min(6.5,radiusKm-2);
+  const dLat=offsetKm/110.574;
+  const dLng=offsetKm/(111.32*Math.max(.2,Math.cos(lat*Math.PI/180)));
+  return [
+    {lat:lat+dLat,lng},{lat:lat-dLat,lng},
+    {lat,lng:lng+dLng},{lat,lng:lng-dLng}
+  ].filter(p=>p.lat>=33&&p.lat<=39.5&&p.lng>=124&&p.lng<=132)
+    .slice(0,MAX_OUTER_SAMPLES);
 }
 export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",retailer="all"},
   {serviceKey=process.env.RADAR_GOV_BUSINESS_API_KEY,fetchImpl=fetch,now=Date.now()}={}){
@@ -149,8 +165,46 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
         break;
       }
     }
+    // Government endpoint accepts a maximum 2km circle. For a broader user
+    // radius, sample four cardinal outer areas (page 1 only per area).
+    // Keep the primary search intact if any supplemental request fails.
+    const supplementalCenters=seen.size>=250?[]:
+      supplementalGovernmentCenters(lat,lng,radiusKm);
+    let supplementalCentersFetched=0,supplementalRowsExamined=0;
+    let supplementalFailed=false;
+    if(supplementalCenters.length){
+      const samples=await Promise.allSettled(supplementalCenters.map(async center=>{
+        const extraParams=new URLSearchParams(params);
+        extraParams.set("radius",String(MAX_RADIUS_METERS));
+        extraParams.set("cx",center.lng.toFixed(6));
+        extraParams.set("cy",center.lat.toFixed(6));
+        extraParams.set("pageNo","1");
+        const response=await fetchImpl(GOV_DIRECTORY_ENDPOINT+"?"+extraParams.toString(),{
+          method:"GET",headers:{Accept:"application/json"},signal:abort.signal
+        });
+        if(!response.ok)throw Error("GOV_UPSTREAM_HTTP_"+response.status);
+        const payload=await response.json();
+        const parsed=normalizeGovernmentPayload(payload,{
+          ...center,radiusKm:2,kind,retailer
+        });
+        const raw=payload?.response?.header?payload.response:payload;
+        const rawItems=raw?.body?.items?.item??raw?.body?.items??[];
+        const rawCount=Array.isArray(rawItems)?rawItems.length:(rawItems?1:0);
+        return {stores:parsed.stores,rawCount:Math.min(MAX_ROWS,rawCount)};
+      }));
+      for(const item of samples){
+        if(item.status!=="fulfilled"){supplementalFailed=true;continue;}
+        supplementalCentersFetched++;
+        supplementalRowsExamined+=item.value.rawCount;
+        for(const store of item.value.stores){
+          if(distanceKm({lat,lng},store)>radiusKm+.02)continue;
+          if(!seen.has(store.id) && seen.size<250)seen.set(store.id,store);
+        }
+      }
+    }
     const stores=[...seen.values()];
-    const coverageLimited=radiusKm>2 || pageFailure ||
+    // Even four direction samples do not constitute a complete >2km search.
+    const coverageLimited=radiusKm>2 || supplementalFailed || pageFailure ||
       sourceTotalCount===null || sourceRowsExamined<sourceTotalCount ||
       stores.length>=250;
     const result={status:"ok",source:"government-business-registry",
@@ -159,9 +213,11 @@ export async function queryGovernmentDirectory({lat,lng,radiusKm,kind="all",reta
       observedStock:false,inventoryStatus:"unknown",
       queriedRadiusKm:Math.min(radiusKm,2),requestedRadiusKm:radiusKm,
       coverageLimited,pagesFetched,sourceRowsExamined,sourceTotalCount,
+      supplementalCentersAttempted:supplementalCenters.length,
+      supplementalCentersFetched,supplementalRowsExamined,
       count:stores.length,stores};
     // A transient later-page failure must be retried sooner than a complete response.
-    cache.set(cacheId,{until:now+(pageFailure?30000:600000),value:result});
+    cache.set(cacheId,{until:now+(pageFailure||supplementalFailed?30000:600000),value:result});
     if(cache.size>100)cache.clear();
     return result;
   }finally{clearTimeout(timer);}
