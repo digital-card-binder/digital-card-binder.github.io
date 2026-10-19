@@ -1193,12 +1193,12 @@
   async function resolveRetailerArea(){
     retailerDistrictFallback="";
     const input=byId("radar-place").value.trim();
-    if(input.length>1)return input;
+    // A typed place also needs its parent district for server-error fallback.
     const key=state.center.lat.toFixed(3)+","+state.center.lng.toFixed(3);
     const cached=retailerAreaCache.get(key);
     if(cached && Date.now()<cached.until){
       retailerDistrictFallback=cached.district||"";
-      return cached.keyword;
+      return input.length>1?input:cached.keyword;
     }
     const q=new URLSearchParams({format:"jsonv2",addressdetails:"1",
       zoom:"14","accept-language":"ko",lat:state.center.lat.toFixed(5),
@@ -1206,14 +1206,14 @@
     try {
       const data=await fetchJson("https://nominatim.openstreetmap.org/reverse?"+q,
         {headers:{"Accept":"application/json"}},7000);
-      const keyword=normalizeRetailerArea(data);
+      const keyword=input.length>1?input:normalizeRetailerArea(data);
       const district=normalizeRetailerDistrict(data);
       retailerDistrictFallback=district!==keyword?district:"";
       if(retailerAreaCache.size>=16)retailerAreaCache.clear();
       retailerAreaCache.set(key,{keyword,district:retailerDistrictFallback,
         until:Date.now()+10*60000});
       return keyword;
-    }catch(_){return "";}
+    }catch(_){return input.length>1?input:"";}
   }
   function endpoint(provider, keyword,storeArea="") {
     const p=new URLSearchParams();
