@@ -799,7 +799,8 @@
     state.mapChecked = false;
     state.providerNotes = [];
     const jobs = inventoryJobs();
-    const includeCuStores = state.kind==="all" || state.kind==="convenience";
+    const includeCuStores = state.kind==="all" ||
+      (state.kind==="convenience" && ["all","cu"].includes(state.convenienceBrand));
     state.progress = {completed:0,total:jobs.length+2+(includeCuStores?1:0),successes:0,failures:0,active:true};
     updateProgress("매장 및 카드 재고 탐색 중");
     render();
@@ -964,7 +965,9 @@
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" || state.kind === "cardshop" ? [] :
-      ["cu","seveneleven","gs25","emart24"];
+      (state.kind === "convenience" && state.convenienceBrand !== "all"
+        ? (state.convenienceBrand === "other" ? [] : [state.convenienceBrand])
+        : ["cu","seveneleven","gs25","emart24"]);
     return providers.flatMap((provider)=>liveQueries().map((keyword)=>({provider,keyword})));
   }
   function groupInventoryRows(records) {
@@ -1047,6 +1050,7 @@
     convenienceSelect.addEventListener("change",()=>{
       state.convenienceBrand=convenienceSelect.value;
       render();
+      if(!state.searching)setStatus("편의점 브랜드를 변경했습니다. 선택한 판매처의 재고는 ‘이 지역 매장 탐색’을 다시 눌러 최신 조회를 시작하세요.");
     });
     document.querySelectorAll("[data-radius]").forEach((button) =>
       button.addEventListener("click",()=>setRadius(Number(button.dataset.radius))));
