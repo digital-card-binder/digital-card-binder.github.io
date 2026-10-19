@@ -407,7 +407,7 @@
   // Product name is untrusted retailer data: allow confirmed TCG/pack names, reject food and merchandise.
   const NON_CARD_ITEMS = /빵|띠부씰|스티커|샘플|젤리|캔디|껌|초콜릿|과자|스낵|쿠키|케이크|음료|사이다|콜라|우유|아이스크림|도넛|피규어|인형|키링|열쇠고리|봉제|장난감|문구|팬시|슬리브|카드홀더|바인더|카드앨범|필통|파우치|틴케이스|랜덤씰|증정|이즐|EZL|티머니|T-?money|캐시비|교통카드|교통.?결제|선불카드|충전카드|금액권|상품권|기프트카드|멤버십카드|카드지갑|체크카드|신용카드/i;
   const KNOWN_PACK_NAMES = [
-    ...PRODUCTS.map((p) => p[1]), "나이트원더러", "배틀파트너즈",
+    ...PRODUCTS.map((p) => p[1]), "30주년", "나이트원더러", "배틀파트너즈",
     "테라스탈페스ex", "샤이니트레저ex", "로켓단의 영광",
     "블랙볼트", "화이트플레어", "포켓몬카드151", "포켓몬 카드 151"
   ];
