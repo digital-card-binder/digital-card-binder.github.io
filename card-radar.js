@@ -75,7 +75,7 @@
   function convenienceChain(store) {
     const fromDb=String(store.retailerId||"").toLowerCase();
     if(CONVENIENCE_CHAIN_LABELS[fromDb] && fromDb!=="other")return fromDb;
-    const label=String(store.chain||store.name||"").toLowerCase().replace(/[\\s._-]+/g,"");
+    const label=String(store.chain||store.name||"").toLowerCase().replace(/[\s._-]+/g,"");
     if(/이마트24|emart24/.test(label))return "emart24";
     if(/세븐일레븐|7eleven|seveneleven/.test(label))return "seveneleven";
     if(/gs25/.test(label))return "gs25";
