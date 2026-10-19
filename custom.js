@@ -7,7 +7,7 @@
   const STORAGE_DOCUMENT = "pokemonCollectionsDex";
   const MAX_DEXES = 30;
   const MAX_CARDS_PER_DEX = 1500;
-  const PICKER_PAGE_SIZE = 48;
+  const PICKER_PAGE_SIZE = 50;
   // Korean collector names that do not appear in the series DB's English set title.
   const SET_SEARCH_ALIASES = {
     m6a: ["30주년", "포켓몬 30주년", "30th anniversary", "30thcelebration"],
@@ -982,7 +982,7 @@
 
   function pickerMatches(query) {
     const normalizedQuery = normalize(query);
-    if (!normalizedQuery) return state.catalog.slice(0, 30);
+    if (!normalizedQuery) return state.catalog.slice(0, PICKER_PAGE_SIZE);
     return state.catalog.filter((card) => searchMatches(card, normalizedQuery));
   }
 
