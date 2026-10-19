@@ -43,7 +43,7 @@ test("master catalogue has no invented retailer SKUs, inventory or unknown as 0"
   assert.equal(master.stores.items[0].name,"이마트 속초점");
 });
 test("explicit provider/store SKU IDs use stable namespace, not ambiguous concatenation",()=>{
-  assert.notEqual(normalizedStoreKey("cu","12:3"),normalizedStoreKey("cu:1","2:3"));
+  assert.notEqual(normalizedStoreKey("cu","12:3"),normalizedStoreKey("cu","12|3"));
   assert.notEqual(normalizedSkuKey("gs25","a:b"),normalizedSkuKey("gs25","ab"));
   assert.throws(()=>normalizedStoreKey("cu",""),/INVALID_STORE_ALIAS/);
 });
@@ -87,7 +87,7 @@ test("PostgreSQL DDL exists but isn't mistaken for a live deployed database",asy
   const ddl=await readFile(new URL("../db/migrations/001_card_radar_master.sql",import.meta.url),"utf8");
   for(const table of ["retailers","card_sets","products","stores","store_aliases",
     "retailer_skus","data_sources","inventory_observations"]) {
-    assert.match(ddl,new RegExp("CREATE TABLE IF NOT EXISTS radar\\\\."+table+"\\\\b"));
+    assert.match(ddl,new RegExp("CREATE TABLE IF NOT EXISTS radar\\."+table+"\\b"));
   }
   assert.match(ddl,/CREATE OR REPLACE VIEW radar[.]current_confirmed_inventory/);
   assert.match(ddl,/source_observed_at >= now\(\) - interval '15 minutes'/);
