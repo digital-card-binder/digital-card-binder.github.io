@@ -777,7 +777,9 @@
       if(source.retailerId && !target.retailerId)target.retailerId=source.retailerId;
       if(source.chain)target.chain=source.chain;
       if(source.kind==="mart")target.chain=source.chain||target.chain||"";
-      const existing = target.verifiedInventory || [];
+      // Never mutate the originating map/directory stock array: the same
+      // candidate can be rendered again with another brand or search response.
+      const existing = (target.verifiedInventory || []).slice();
       for (const item of source.items || []) {
         const index = existing.findIndex((p) => p.provider===item.provider &&
           stockProductIdentity(p)===stockProductIdentity(item));
