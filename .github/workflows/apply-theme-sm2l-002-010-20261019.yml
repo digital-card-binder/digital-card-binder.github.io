@@ -1,0 +1,48 @@
+name: Continue SM2L 002 006 008 010 Korean-listed artwork
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-theme-sm2l-002-010-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-theme-sm2l-002-010-20261019
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply guarded SM2L four-artwork continuation
+        run: node scripts/apply-theme-sm2l-002-006-008-010-20261019.mjs
+      - name: Rebuild theme coverage, related indexes, site versions
+        run: npm run site:prepare
+      - name: Run complete test suite
+        run: npm test
+      - name: Publish only if all validations succeed
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-sm2l-002-006-008-010-artwork-20261019.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm2l): add four catalogued artworks into six independent theme slots'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
