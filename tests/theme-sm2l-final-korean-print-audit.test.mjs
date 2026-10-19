@@ -27,7 +27,14 @@ test("SM2L prints 001-062 visually checked, one printed name/master alias remain
  assert.equal(current.themeSlotTotalUnchanged,18011);
  assert.equal(themes.groups.reduce((n,g)=>n+g.cards.length,0),18011);
  assert.equal(coverage.summary.themeCardSlots,18011);
- assert.equal(coverage.summary.strictCompleteSetCount,108);
+ assert.equal(coverage.summary.strictCompleteSetCount,109);
+ const closure=load("data/audits/theme-sm2l-strict-closure-20261019.json");
+ assert.equal(closure.status,"complete");
+ assert.equal(closure.reviewedCardCount,62);
+ assert.equal(closure.reviewedThemes.length,12);
+ assert.equal(closure.acceptedPrintedNameAlias.code,"SM2L_062/050");
+ const review=load("data/audits/theme-series-review-status.json").reviews;
+ assert.equal(Object.entries(review).find(([key])=>key.toLowerCase()==="sm2l")?.[1].status,"complete");
  assert.deepEqual(new Set(current.imagesCheckedAndCardNumbers).size,62);
  assert.deepEqual(current.imagesCheckedAndCardNumbers,Array.from({length:62},(_,i)=>"SM2L_"+String(i+1).padStart(3,"0")));
  assert.equal(current.newVerifiedCards.length,43);
