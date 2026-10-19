@@ -26,7 +26,7 @@ assert.equal(coverage.summary.baselineRemainingSetCount,164);
 assert.equal(coverage.summary.themeCardSlots,18011);
 assert.equal(coverage.sets.find(x=>x.code.toLowerCase()==="sm2l")?.status,"complete");
 assert.equal(cards.length,62);
-const fought=cards.find(x=>x.code==="SM2L_062/050");
+const fought=cards.find(x=>String(x.code).toUpperCase()==="SM2L_062/050");
 assert.equal(fought.name,"격투 에너지");
 assert.equal(closure.acceptedPrintedNameAlias.actualKoreanPrintedName,"기본 격투 에너지");
 const sm2lCards=themes.groups.flatMap(g=>g.cards.filter(c=>c.set.toLowerCase()==="sm2l"));
