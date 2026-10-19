@@ -28,11 +28,11 @@ function harness() {
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
     "globalThis.__radarTests = {isCardProduct, inventoryLabel,",
-    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, state};",
+    "parseRetail, inventoryJobs, updateProgress, completeProgressStep, filterStoresForDisplay, category, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
-  const sandbox = { document, window: {}, console, URLSearchParams, Date, Math };
+  const sandbox = { document, window: {}, console, URL, URLSearchParams, Date, Math };
   runInNewContext(body, sandbox, { filename: "card-radar.js" });
   return { ...sandbox.__radarTests, element };
 }
@@ -314,4 +314,72 @@ test("inventory map controls reuse the same stock filter, without fabricated nat
   assert.match(source,/stockProductCount\(store\)/);
   assert.match(source,/state[.]onlyInStock\?"stock":"all"/);
   assert.match(source,/byId\("radar-map-mode-count"\)[.]textContent/);
+});
+
+test("official retailer links are restricted to known HTTPS hosts", () => {
+  const {trustedMartLink,martLookup,state}=harness();
+  assert.equal(trustedMartLink("https://eapp.emart.com/webapp/product/search"),
+    "https://eapp.emart.com/webapp/product/search");
+  assert.equal(trustedMartLink("https://company.lottemart.com/mobiledowa/"),
+    "https://company.lottemart.com/mobiledowa/");
+  for(const bad of ["http://company.lottemart.com/","https://fraud.test/",
+      "javascript:alert(1)","https://company.lottemart.com.evil.test/"]) {
+    assert.equal(trustedMartLink(bad),"",bad);
+  }
+  const source=JSON.parse(read("data/card-radar-mart-providers.json"));
+  assert.equal(source.schemaVersion,1);
+  assert.ok(source.providers.length>=6);
+  for(const row of source.providers) {
+    assert.equal(row.inventoryApiConnected,false,row.id);
+    if(row.lookupUrl)assert.ok(trustedMartLink(row.lookupUrl));
+  }
+  state.martProviders=Object.fromEntries(source.providers.map(p=>[p.id,p]));
+  assert.equal(martLookup({kind:"mart",name:"롯데마트 서울점"}).lookupLabel,"롯데마트 공식 도와센터");
+  assert.equal(martLookup({kind:"convenience",name:"이마트24"}),null);
+});
+
+test("licensed feed rejects unconnected, unauthorized, future and stale records", () => {
+  const {parseApprovedMartFeed}=harness();
+  const data=JSON.parse(read("data/card-radar-mart-inventory.json"));
+  assert.deepEqual([...parseApprovedMartFeed(data)],[]);
+  const now=Date.now();
+  const iso=t=>new Date(t).toISOString();
+  const feed={
+    schemaVersion:1,
+    source:{status:"connected",authorized:true,licenseRef:"TEST-AGREEMENT-REFERENCE",
+      providerId:"lottemart",generatedAt:iso(now-1000),expiresAt:iso(now+200000)},
+    stores:[{
+      id:"store-1",name:"롯데마트 테스트점",kind:"mart",chain:"롯데마트",lat:37.1,lng:127.1,
+      items:[
+        {code:"m2",name:"포켓몬카드 인페르노X 부스터팩",quantity:2,checkedAt:iso(now-50000)},
+        {code:"m2",name:"포켓몬빵",quantity:7,checkedAt:iso(now-50000)},
+        {code:"m2",name:"포켓몬카드 인페르노X 부스터팩",quantity:5,checkedAt:iso(now-3600000)},
+        {code:"m2",name:"포켓몬카드 인페르노X 부스터팩",quantity:-1,checkedAt:iso(now-50000)}
+      ]
+    }]
+  };
+  const good=parseApprovedMartFeed(feed,now);
+  assert.equal(good.length,1);
+  assert.equal(good[0].items.length,1);
+  assert.equal(good[0].items[0].quantity,2);
+  assert.equal(good[0].items[0].provider,"lottemart");
+  feed.source.authorized=false;
+  assert.equal(parseApprovedMartFeed(feed,now).length,0);
+  feed.source.authorized=true;
+  feed.source.expiresAt=iso(now-1000);
+  assert.equal(parseApprovedMartFeed(feed,now).length,0);
+  feed.source.expiresAt=iso(now+200000);
+  feed.source.providerId="emart";
+  assert.equal(parseApprovedMartFeed(feed,now).length,0,"no cross-chain data reuse");
+});
+
+test("unconnected mart has official verification link but is not a stock claim", () => {
+  const radar=read("card-radar.js");
+  assert.match(radar,/loadMartProviders\(\)/);
+  assert.match(radar,/loadMartInventory\(\)/);
+  assert.match(radar,/radar-mart-lookup-note/);
+  assert.match(radar,/공식 웹사이트로 이동합니다/);
+  assert.match(radar,/inventoryApiConnected:false/);
+  const providers=JSON.parse(read("data/card-radar-mart-providers.json"));
+  assert.equal(providers.providers.some(p=>p.inventoryApiConnected),false);
 });
