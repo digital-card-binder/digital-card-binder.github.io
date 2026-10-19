@@ -792,6 +792,7 @@ test("same CU shop code joins source stock despite name aliases; wrong brands or
   let joined=mergeInventory(directory);
   assert.equal(joined.length,1,"exact retailer store code should override name variations");
   assert.equal(joined[0].verifiedInventory[0].quantity,3);
+  assert.equal(directory[0].verifiedInventory.length,0,"merge must not mutate original location candidates");
 
   const wrongChain={...directory[0],retailerId:"gs25",chain:"GS25"};
   joined=mergeInventory([wrongChain]);
