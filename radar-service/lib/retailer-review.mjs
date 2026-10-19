@@ -25,12 +25,12 @@ export function proposeCardProduct(name){
 }
 export function catalogueCandidates(retailerId,rows,{
   observedAt=new Date().toISOString(),
-  sourceUrl="https://github.com/hmmhmmhm/daiso-mcp"
+  sourceUrl=null
 }={}){
   if(!CONVENIENCE_RETAILERS.has(retailerId))throw Error("UNKNOWN_CATALOGUE_SOURCE");
   if(!Array.isArray(rows)||rows.length>500)throw Error("INVALID_RETAILER_CATALOGUE");
   if(!Number.isFinite(Date.parse(observedAt)) ||
-    typeof sourceUrl!=="string"||!sourceUrl.startsWith("https://"))
+    (sourceUrl!==null && (typeof sourceUrl!=="string"||!sourceUrl.startsWith("https://"))))
     throw Error("INVALID_CATALOGUE_PROVENANCE");
   const seen=new Set();
   const result=[];
@@ -51,7 +51,7 @@ export function catalogueCandidates(retailerId,rows,{
       retailerId,retailerItemCode:itemCode,productName:name,
       suggestedSetId:evidence.suggestedSetId,
       identityStatus:"review_required",stockStatus:"not_checked",
-      sourceUrl,discoveredAt:observedAt,
+      discoveryUrl:sourceUrl,primaryEvidenceUrl:null,discoveredAt:observedAt,
       // Never issue a verified SKU / in-stock record from a keyword search.
       automaticallyImportable:false
     });
@@ -59,11 +59,11 @@ export function catalogueCandidates(retailerId,rows,{
   return result;
 }
 export function storeCandidates(retailerId,rows,{
-  sourceUrl="https://github.com/hmmhmmhm/daiso-mcp"
+  sourceUrl=null
 }={}){
   if(!CONVENIENCE_RETAILERS.has(retailerId))throw Error("UNKNOWN_STORE_SOURCE");
   if(!Array.isArray(rows)||rows.length>500)throw Error("INVALID_STORES");
-  if(typeof sourceUrl!=="string"||!sourceUrl.startsWith("https://"))
+  if((sourceUrl!==null && (typeof sourceUrl!=="string"||!sourceUrl.startsWith("https://"))))
     throw Error("INVALID_STORE_PROVENANCE");
   const seen=new Set();
   return rows.flatMap(row=>{
@@ -77,7 +77,7 @@ export function storeCandidates(retailerId,rows,{
     seen.add(retailerId+"|"+providerStoreId);
     return [{retailerId,providerStoreId,name,lat,lng,
       address:boundedString(row.address,160),
-      evidenceUrl:sourceUrl,identityStatus:"review_required",
+      discoveryUrl:sourceUrl,primaryEvidenceUrl:null,identityStatus:"review_required",
       locationStatus:"unverified",stockStatus:"not_checked",automaticallyImportable:false}];
   });
 }
