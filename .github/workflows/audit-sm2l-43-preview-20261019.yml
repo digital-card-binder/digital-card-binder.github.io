@@ -1,0 +1,28 @@
+name: View 43 remaining Korean SM2L printed card faces and footers
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-sm2l-43-preview-20261019.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-proofs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        chunk: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install visual proof dependencies
+        run: python -m pip install pillow requests
+      - name: Independently re-fetch and hash-check existing Korean cards
+        env:
+          SM2L_PREVIEW_CHUNK: '${{ matrix.chunk }}'
+        run: python scripts/audit-sm2l-remaining-43-review-panels-20261019.py
