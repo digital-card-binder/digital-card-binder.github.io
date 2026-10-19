@@ -2,6 +2,12 @@
 
 This Android WebView shell opens the live Digital Card Binder site so site updates are reflected without rebuilding the APK. Native bridges handle Google sign-in and owner-only Google Sheets authorization without loading Google OAuth inside the embedded WebView.
 
+## v1.0.2
+
+- Card Radar's '내 위치' button now requests Android foreground location permission through the native WebView; approximate or precise location works, only for the trusted HTTPS site.
+- Geolocation access is never pre-granted to unrelated web origins and is not requested at app startup.
+- Existing users must install the new APK to receive this native permission bridge.
+
 ## v1.0.1
 
 - Binder Studio image inputs can open the device camera as well as the gallery.
