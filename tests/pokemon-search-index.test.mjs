@@ -272,7 +272,9 @@ test("SM2L 062 shows its Korean printed Basic Fighting Energy label without rewr
   assert.equal(displayed.name, "기본 격투 에너지");
   assert.equal(displayed.code, original.code);
   assert.equal(displayed.image, original.image);
-  assert.equal(displayed.accountIndex, original.accountIndex);
+  const expectedAccountIndex = Number.isInteger(original.accountIndex)
+    ? original.accountIndex : sm2l.cards.findIndex(card => card.code === original.code);
+  assert.equal(displayed.accountIndex, expectedAccountIndex);
   const compactIndex = await catalog.pokemonSearchIndex();
   const indexGroup = compactIndex.groups.find(group => String(group[0]).toLowerCase() === "sm2l");
   const indexCard = indexGroup[4].find(card => card[0] === "SM2L_062/050");
