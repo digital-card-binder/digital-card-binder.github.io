@@ -82,6 +82,8 @@ for(const {provider,storeArea,scenario} of probes){
       else if((provider==="cu"&&data.inventory?.available===false)||
         (provider==="seveneleven"&&data.stockAvailable===false)){
         result.status="source_stock_unavailable";
+      }else if(provider==="gs25" && data.itemCodeUsed===false){
+        result.status="product_identity_unverified";
       }else{
         const rows=parseRetail(provider,payload,new Date().toISOString(),keyword);
         result.validNearbyStockRows=rows.length;
