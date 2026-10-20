@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/probe-sm2k-five-korean-20261019.yml'
+      - 'scripts/probe-sm2k-five-korean-print-sources-20261019.py'
   workflow_dispatch:
 permissions:
   contents: write
