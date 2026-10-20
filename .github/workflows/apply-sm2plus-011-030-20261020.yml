@@ -1,0 +1,54 @@
+name: Apply SM2+ Korean 011-030 theme review safely
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-sm2plus-011-030-20261020.yml'
+      - 'scripts/apply-theme-sm2plus-011-030-korean-20261020.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: apply-sm2plus-011-030-themes
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Dependencies
+        run: npm ci
+      - name: Apply next twenty confirmed Korean illustration classifications
+        run: node scripts/apply-theme-sm2plus-011-030-korean-20261020.mjs
+      - name: Regenerate site and verify existing collection contracts
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Commit complete validated audit batch only
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          changed="$(git diff --cached --name-only)"
+          if printf '%s\n' "$changed" | grep -E '^(radar-server/|api/radar/|data/radar-master/|data/card-radar-|tests/card-radar-|scripts/.*radar)' ; then
+            echo 'Refusing to write any Card Radar file in theme-only batch'
+            exit 1
+          fi
+          echo "$changed"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): save SM2+ 011-030 Korean visuals and 34 independent slots'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
