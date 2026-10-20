@@ -41,7 +41,7 @@ for root in indexRoots:
         for href in re.findall(r'<a\s+[^>]*href\s*=\s*["\']([^"\']+)["\']',response.text,re.I):
           candidate=urljoin(root,html.unescape(href))
           part=unquote(urlparse(candidate).path).lower()
-          if (re.search(r'_sm2k_(?:057|058|060|061|062)_kor\.(?:jpg|jpeg|png|webp)
+          if urlparse(candidate).hostname == 'k-tcgpanda.com' and any(part.endswith('_sm2k_%03d_kor.%s' % (num, ext)) for num in HOLD for ext in ('jpg', 'jpeg', 'png', 'webp')):
             matched.append(candidate)
       catalogueChecks.append({"url":root,"httpStatus":response.status_code,"matchingKoreanPhotos":len(matched)})
       sources+=matched
