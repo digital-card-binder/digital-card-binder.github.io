@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18422,
-    "uniqueThemeCards": 11263,
+    "themeCardSlots": 18515,
+    "uniqueThemeCards": 11323,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5320,
-      "setCount": 129,
+      "cardSlots": 5348,
+      "setCount": 130,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10288,
-      "setCount": 135,
+      "cardSlots": 10348,
+      "setCount": 136,
       "rarities": [
         "A",
         "AR",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1151,
-      "setCount": 106,
+      "cardSlots": 1156,
+      "setCount": 107,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 862
+      "currentThemeSlots": 955
     },
     {
       "era": "XY",
@@ -1266,9 +1266,13 @@
       "cardCount": 62,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "season": 28,
+        "color": 60,
+        "street": 5
+      }
     },
     {
       "era": "SM",
