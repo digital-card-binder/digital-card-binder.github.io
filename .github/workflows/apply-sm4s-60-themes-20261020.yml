@@ -1,0 +1,54 @@
+name: Apply SM4S 60 Korean images and hold two source errors
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-sm4s-60-themes-20261020.yml'
+      - 'scripts/apply-theme-sm4s-001-062-korean-hold-two-20261020.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sm4s-60-korean-theme-approval
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply visually verified SM4S independent themes only
+        run: node scripts/apply-theme-sm4s-001-062-korean-hold-two-20261020.mjs
+      - name: Regenerate site from updated cards and test all features
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Save full verified review batch at once
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          changed="$(git diff --cached --name-only)"
+          if printf '%s\n' "$changed" | grep -E '^(radar-server/|api/radar/|data/radar-master/|data/card-radar-|tests/card-radar-|scripts/.*radar)' ; then
+            echo 'Refusing to alter Card Radar files while auditing themes'
+            exit 1
+          fi
+          echo "$changed"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): save SM4S 60 reviewed Korean arts; hold 058 and 061'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
