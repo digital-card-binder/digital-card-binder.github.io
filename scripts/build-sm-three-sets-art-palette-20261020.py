@@ -16,10 +16,10 @@ sets={s["code"].lower():s for s in doc["sets"]}
 assert {k:(v["masterCards"],v["imagesDownloadedAndDecoded"]) for k,v in sets.items()}=={
   "sm4+":(125,125),"sm5s":(78,78),"sm5m":(78,76)}
 def held(code,n):
-    return (code=="sm4+" and n>=121) or (code=="sm5m" and n in (73,74))
+    return (code=="sm4+" and (n==38 or n>=121)) or (code=="sm5m" and n in (73,74))
 todo=[(code,row) for code,block in sets.items() for row in block["sourceRows"]
       if not held(code,row["index"])]
-assert len(todo)==274
+assert len(todo)==273
 
 def bin_color(rgb):
     r,g,b=(z/255 for z in rgb)
@@ -75,7 +75,7 @@ assert len(rows)==274
 report={"schemaVersion":1,"recordedAt":"2026-10-20",
  "sourceEvidence":str(EVIDENCE),"method":"Top two observed pixel color bins in original artwork crop, SHA256-matched to first Korean source probe",
  "methodCaveat":"Palette bins are objective color cues only. All non-color thematic memberships require a separate direct visual decision.",
- "screenedCanonicalSourceCount":274,"heldWithoutPalette":7,
+ "screenedCanonicalSourceCount":273,"heldWithoutPalette":8,
  "previousThemeRowsModified":0,"originalKoreanImagesChanged":0,
  "pixelEvidenceRows":rows}
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
