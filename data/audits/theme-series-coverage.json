@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18611,
-    "uniqueThemeCards": 11380,
+    "themeCardSlots": 19035,
+    "uniqueThemeCards": 11653,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 507,
-      "setCount": 102,
+      "cardSlots": 508,
+      "setCount": 103,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5384,
-      "setCount": 131,
+      "cardSlots": 5527,
+      "setCount": 134,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10407,
-      "setCount": 137,
+      "cardSlots": 10680,
+      "setCount": 140,
       "rarities": [
         "A",
         "AR",
@@ -176,8 +176,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 262,
-      "setCount": 77,
+      "cardSlots": 264,
+      "setCount": 79,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1156,
-      "setCount": 107,
+      "cardSlots": 1161,
+      "setCount": 110,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 1051
+      "currentThemeSlots": 1475
     },
     {
       "era": "XY",
@@ -1297,9 +1297,15 @@
       "cardCount": 125,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "night": 1,
+        "season": 65,
+        "color": 119,
+        "sunset": 1,
+        "street": 2
+      }
     },
     {
       "era": "SM",
@@ -1308,9 +1314,14 @@
       "cardCount": 78,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "season": 40,
+        "color": 78,
+        "sunset": 1,
+        "street": 1
+      }
     },
     {
       "era": "SM",
@@ -1319,9 +1330,13 @@
       "cardCount": 78,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "season": 38,
+        "color": 76,
+        "street": 2
+      }
     },
     {
       "era": "SM",

@@ -1,0 +1,3867 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20",
+  "batch": "SM4+ GX 배틀부스트 / SM5S 울트라썬 / SM5M 울트라문",
+  "sourceCheckpoint": "data/audits/theme-sm4plus-sm5s-sm5m-korean-image-preflight-20261020.json",
+  "sourceColorEvidence": "data/audits/theme-sm4plus-sm5s-sm5m-artwork-palette-evidence-20261020.json",
+  "sceneDecisions": "data/audits/theme-sm-three-sets-visual-scene-decisions-20261020.json",
+  "masterEntries": 281,
+  "artworksVisuallyScreened": 273,
+  "heldCardEntries": 8,
+  "themeSlotsBefore": 18611,
+  "themeSlotsAdded": 424,
+  "themeSlotsAfter": 19035,
+  "themeDeltas": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 1,
+    "season": 143,
+    "color": 273,
+    "sunset": 2,
+    "reflections": 0,
+    "food": 0,
+    "work": 0,
+    "street": 5,
+    "cameo": 0
+  },
+  "strictCompleteMasterSetsAfterBatch": 109,
+  "allTwelveStandaloneThemesConsideredForEachScreenedImage": true,
+  "trueKoreanPrintFooterVerificationPending": true,
+  "preserved": {
+    "previous109FullyCompleteSetsReopened": 0,
+    "previousSM4A2SleepingTagsModified": 0,
+    "previousSMSeriesHoldsAltered": 0,
+    "priorThemeRowsModified": 0,
+    "canonicalCardMasterChanges": 0,
+    "ownerDataOrFirestoreChanges": 0,
+    "CardRadarChanges": 0
+  },
+  "sets": [
+    {
+      "set": "sm4+",
+      "setName": "GX 배틀부스트",
+      "masterCards": 125,
+      "imagesSuccessfullyDecoded": 125,
+      "artworkCardsScreened": 119,
+      "printedIdentityOrImageHolds": 6,
+      "newIndependentThemeRows": 188,
+      "strictlyCompleted": false,
+      "footerMagnificationPending": true,
+      "cards": [
+        {
+          "code": "SM4PLUS_001",
+          "canonicalCode": "sm4plus_001/114",
+          "koreanName": "아라리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_001.png",
+          "sourceSha256": "313109a35d5d89ce9d0beefa7bf6930ef373faea73414d268fcb04de9b60976c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·주황",
+            "season": "작은 호수 옆 초록 나무가 우거진 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_002",
+          "canonicalCode": "sm4plus_002/114",
+          "koreanName": "쁘사이저",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_002.png",
+          "sourceSha256": "8b597a572b6e8f4c312f36d40a18a0a898cc1363652714458c01c0a23c213888",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·회색",
+            "season": "나무들 사이의 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_003",
+          "canonicalCode": "sm4plus_003/114",
+          "koreanName": "턱지충이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_003.png",
+          "sourceSha256": "82c8663babcccdff068aa34dd88ad6eda0f438881392e6088d702df6bdb7574f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록",
+            "season": "야자나무와 울창한 초록 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_004",
+          "canonicalCode": "sm4plus_004/114",
+          "koreanName": "물거미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_004.png",
+          "sourceSha256": "c634001549f6bc572fb940da4dc7bfb1a846f16f2888bd10fcb42fda359fc200",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·회색",
+            "season": "초록 식물과 돌이 있는 물가"
+          }
+        },
+        {
+          "code": "SM4PLUS_005",
+          "canonicalCode": "sm4plus_005/114",
+          "koreanName": "깨비물거미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_005.png",
+          "sourceSha256": "6d6ef2a8d0bdeba6ff227ce998d68db8c24f274fdc473cd5d07c330e1e40d488",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑",
+            "season": "돌과 물결이 보이는 개울"
+          }
+        },
+        {
+          "code": "SM4PLUS_006",
+          "canonicalCode": "sm4plus_006/114",
+          "koreanName": "짜랑랑",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_006.png",
+          "sourceSha256": "d1d4dcdb7d3dee9d84c72e0d415bfbfcf77aecbdf3964208999966dec39d2d87",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록",
+            "season": "잔설과 나무가 있는 겨울 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_007",
+          "canonicalCode": "sm4plus_007/114",
+          "koreanName": "라란티스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_007.png",
+          "sourceSha256": "db982c3095894f9d9e9cba2db3e8e33d88ecb110ad7fcd4e5507e7c9a0e73c07",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·빨강",
+            "season": "꽃과 풀잎이 가득한 들판"
+          }
+        },
+        {
+          "code": "SM4PLUS_008",
+          "canonicalCode": "sm4plus_008/114",
+          "koreanName": "달콤아",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_008.png",
+          "sourceSha256": "621221b4e9dceda73cbe5cf2eebcb4219c9e6525633b0662b2fba6d628f37ac0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "흰 꽃과 푸른 하늘이 보이는 꽃밭"
+          }
+        },
+        {
+          "code": "SM4PLUS_009",
+          "canonicalCode": "sm4plus_009/114",
+          "koreanName": "달무리나",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_009.png",
+          "sourceSha256": "5e5b172974e8bc47c1d8007287b128b8bee8f02c1c537873d3cfeb10e918f3f8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·연두",
+            "season": "꽃과 나무가 있는 정원"
+          }
+        },
+        {
+          "code": "SM4PLUS_010",
+          "canonicalCode": "sm4plus_010/114",
+          "koreanName": "달코퀸",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_010.png",
+          "sourceSha256": "8c331600560651bb7fb1a4a79a528104678bbaffaf7094d94890c92eaf2b0a68",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·연두",
+            "season": "잎과 나뭇가지가 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_011",
+          "canonicalCode": "sm4plus_011/114",
+          "koreanName": "카푸브루루",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_011.png",
+          "sourceSha256": "02591938e795b69743b38dc7906e000e93868944a28f6cf8ffc78d5c44dbd77a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색",
+            "season": "풀과 나무가 있는 숲길"
+          }
+        },
+        {
+          "code": "SM4PLUS_012",
+          "canonicalCode": "sm4plus_012/114",
+          "koreanName": "페로코체 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_012.png",
+          "sourceSha256": "96fbed53c9292927c2ae4cf90467a1b7113d40d02417577335642619880bb3a5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_013",
+          "canonicalCode": "sm4plus_013/114",
+          "koreanName": "칠색조 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_013.png",
+          "sourceSha256": "f2080c2e3585565b5732871085bf04ab5eaec3f6e0172c4f67911d3c57cf515f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·파랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_014",
+          "canonicalCode": "sm4plus_014/114",
+          "koreanName": "비크티니",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_014.png",
+          "sourceSha256": "04a6f2b1e22277b2ebef6e958f49d73724bcea5ffe4550579d939988d5d0606d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "흙길과 수풀 사이의 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_015",
+          "canonicalCode": "sm4plus_015/114",
+          "koreanName": "불켜미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_015.png",
+          "sourceSha256": "343eed4abaaf20f8ad3a0b87ab0cb7b31ea95672d4a9351ff1ee520976dd38c3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·검정"
+          }
+        },
+        {
+          "code": "SM4PLUS_016",
+          "canonicalCode": "sm4plus_016/114",
+          "koreanName": "램프라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_016.png",
+          "sourceSha256": "a0b8eb75ed3de957542997ac5d38eef5c5f88a0af0585cb636d21cd06107a341",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·노랑",
+            "season": "큰 나무와 풀밭"
+          }
+        },
+        {
+          "code": "SM4PLUS_017",
+          "canonicalCode": "sm4plus_017/114",
+          "koreanName": "샹델라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_017.png",
+          "sourceSha256": "da0ae664a45eea25975e3b2c7ef57e6fe7815306e997798087f4cae6829c4b50",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "불꽃과 용암이 솟는 화산"
+          }
+        },
+        {
+          "code": "SM4PLUS_018",
+          "canonicalCode": "sm4plus_018/114",
+          "koreanName": "야도뇽",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_018.png",
+          "sourceSha256": "f809cebaa692d0f082da4e0dd5ac19e1d82fcc32ff934747a0cb32d5eb95e954",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황",
+            "season": "불꽃과 검은 바위가 있는 화산"
+          }
+        },
+        {
+          "code": "SM4PLUS_019",
+          "canonicalCode": "sm4plus_019/114",
+          "koreanName": "염뉴트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_019.png",
+          "sourceSha256": "306c7ac90632750bfd3dc3892cafd9b06ce0c7ebee1be52517b7ff40a5d12c52",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·빨강",
+            "season": "빨간 용암이 흐르는 산"
+          }
+        },
+        {
+          "code": "SM4PLUS_020",
+          "canonicalCode": "sm4plus_020/114",
+          "koreanName": "알로라모래두지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_020.png",
+          "sourceSha256": "f43c06f62aeadb5640b11233de23d93fde911bd5a877aad2b1a9955f86bd7b95",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "눈이 쌓인 겨울 벌판"
+          }
+        },
+        {
+          "code": "SM4PLUS_021",
+          "canonicalCode": "sm4plus_021/114",
+          "koreanName": "알로라고지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_021.png",
+          "sourceSha256": "f90f9cf732e226752ccf15d159551d172a84631d6877edc67a5635fccd6513e9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "고드름과 얼음이 있는 동굴"
+          }
+        },
+        {
+          "code": "SM4PLUS_022",
+          "canonicalCode": "sm4plus_022/114",
+          "koreanName": "알로라식스테일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_022.png",
+          "sourceSha256": "e0946490e63e6784a5f4bf68f09c571be7190202e7111bd1f7ef26519db9fafd",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·노랑",
+            "season": "눈과 나무가 보이는 설원"
+          }
+        },
+        {
+          "code": "SM4PLUS_023",
+          "canonicalCode": "sm4plus_023/114",
+          "koreanName": "알로라나인테일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_023.png",
+          "sourceSha256": "ad6eda9bee638c6ae4038c98e8fc2ed990a87f28d57ee1381ae25a3b80a100b2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "눈 덮인 산과 암석"
+          }
+        },
+        {
+          "code": "SM4PLUS_024",
+          "canonicalCode": "sm4plus_024/114",
+          "koreanName": "레지아이스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_024.png",
+          "sourceSha256": "ccd34cca0ece8fdfaa0e9215ab9ece9e793fcd9a7745cf3d99999bcb0066b3e8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "얼음이 반짝이는 빙설산"
+          }
+        },
+        {
+          "code": "SM4PLUS_025",
+          "canonicalCode": "sm4plus_025/114",
+          "koreanName": "해무기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_025.png",
+          "sourceSha256": "7b9b4115715dbd0ce4caa94a676ae6c8e550f454299bb4bd72c9cd1e8b329666",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "검정·자주",
+            "season": "바다의 파도와 모래 해변"
+          }
+        },
+        {
+          "code": "SM4PLUS_026",
+          "canonicalCode": "sm4plus_026/114",
+          "koreanName": "카푸느지느",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_026.png",
+          "sourceSha256": "8f718025b6f84f2515bd9d9853d57a8251ff691cbc5e59a6e84c96a637ba9341",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "깊은 푸른 바다와 물방울"
+          }
+        },
+        {
+          "code": "SM4PLUS_027",
+          "canonicalCode": "sm4plus_027/114",
+          "koreanName": "카푸느지느 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_027.png",
+          "sourceSha256": "d2e312ee8c58bc2348ec62a4f23e508be46c6f3611814729a747f5285c8d0198",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정",
+            "season": "물방울이 가득한 깊은 바닷속"
+          }
+        },
+        {
+          "code": "SM4PLUS_028",
+          "canonicalCode": "sm4plus_028/114",
+          "koreanName": "피카츄",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_028.png",
+          "sourceSha256": "10c52fb96a05a2797da680673e2e28ab98851e4e3b9feed06f3c9c18f5c75bba",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_029",
+          "canonicalCode": "sm4plus_029/114",
+          "koreanName": "라이츄",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_029.png",
+          "sourceSha256": "3b6da99c4a08c31954eac8d4e6168753b9e2d4bc760766689c3c93b58a0a385b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "나무와 풀들이 있는 초원"
+          }
+        },
+        {
+          "code": "SM4PLUS_030",
+          "canonicalCode": "sm4plus_030/114",
+          "koreanName": "전지충이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_030.png",
+          "sourceSha256": "39308df16924747b8721fe80c37ef0f7c5badadaa4eb6ea883c18a61934c90f7",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·연두",
+            "season": "거대한 잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_031",
+          "canonicalCode": "sm4plus_031/114",
+          "koreanName": "투구뿌논",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_031.png",
+          "sourceSha256": "4fcad1f69b8543e1461c0366288a8bc910a9f8fdc0965f06748d06fe3d332b8f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_032",
+          "canonicalCode": "sm4plus_032/114",
+          "koreanName": "카푸꼬꼬꼭 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_032.png",
+          "sourceSha256": "b36fe4ae75e1bccd923d86348a50bdb85b3bf3892f8e4e40d17ab2d55e6f89d6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황"
+          }
+        },
+        {
+          "code": "SM4PLUS_033",
+          "canonicalCode": "sm4plus_033/114",
+          "koreanName": "전수목 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_033.png",
+          "sourceSha256": "7e707b9a911c139917c286587b0a56281bad8e467589d30428d7e41a00095827",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정"
+          }
+        },
+        {
+          "code": "SM4PLUS_034",
+          "canonicalCode": "sm4plus_034/114",
+          "koreanName": "알로라질퍽이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_034.png",
+          "sourceSha256": "a0f32024310701e94aaa38fe46d5295c0290dc96cc3b5633310f00d9cf6cdc7e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·파랑",
+            "season": "야자나무와 파란 바다가 있는 해변"
+          }
+        },
+        {
+          "code": "SM4PLUS_035",
+          "canonicalCode": "sm4plus_035/114",
+          "koreanName": "알로라질뻐기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_035.png",
+          "sourceSha256": "34ab143ce1bc9dfa685685a9fe4eed2021d2990c856ef7f77bc59e03340062e2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "햇빛과 모래가 있는 바닷가"
+          }
+        },
+        {
+          "code": "SM4PLUS_036",
+          "canonicalCode": "sm4plus_036/114",
+          "koreanName": "뮤츠 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_036.png",
+          "sourceSha256": "b04e98792a5edec70a0283dd64a1cc35d0462368155df020059d26f5861dc6a9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_037",
+          "canonicalCode": "sm4plus_037/114",
+          "koreanName": "마자용",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_037.png",
+          "sourceSha256": "3bef085226b684d7a794cd1494ba4264142e6065d4ae0212cae68ce0c36046f8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "마른 바위와 하늘이 있는 계곡"
+          }
+        },
+        {
+          "code": "SM4PLUS_039",
+          "canonicalCode": "sm4plus_039/114",
+          "koreanName": "깨봉이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_039.png",
+          "sourceSha256": "127633ece1b1a916d8f39bb458aa5d16d289ed3758ec639256d2398eedb3590a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·회색",
+            "season": "낙엽과 흙이 있는 숲 바닥"
+          }
+        },
+        {
+          "code": "SM4PLUS_040",
+          "canonicalCode": "sm4plus_040/114",
+          "koreanName": "더스트나",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_040.png",
+          "sourceSha256": "6b7d813660a719fad484b41f753f37626214694caba6dfffbb986bd34d2abfbe",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "덤불과 바위가 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_041",
+          "canonicalCode": "sm4plus_041/114",
+          "koreanName": "춤추새",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_041.png",
+          "sourceSha256": "aceb449aebfc55bf4230bb53a599dc951779f60c2cb8100ce337247b8d4dfcb0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·청록",
+            "season": "햇살이 드는 해변"
+          }
+        },
+        {
+          "code": "SM4PLUS_042",
+          "canonicalCode": "sm4plus_042/114",
+          "koreanName": "춤추새",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_042.png",
+          "sourceSha256": "520c279d6aab990766f202b4d5255f3e13fc38cbd95864422c577baa261b8deb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·연두",
+            "season": "나무와 풀잎이 우거진 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_043",
+          "canonicalCode": "sm4plus_043/114",
+          "koreanName": "따라큐",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_043.png",
+          "sourceSha256": "d2767ddfaf8e68862229c2c9bbc28ab6679a0ce1f207daafcf696b6ec88b57d8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "돌이 쌓인 어두운 동굴"
+          }
+        },
+        {
+          "code": "SM4PLUS_044",
+          "canonicalCode": "sm4plus_044/114",
+          "koreanName": "타타륜",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_044.png",
+          "sourceSha256": "938439620582a532e212971a4196d5e1e07e9363b3b30bfb59eac06a8b0e3d20",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·파랑",
+            "season": "푸른 바닷속에 잠긴 돌 유적"
+          }
+        },
+        {
+          "code": "SM4PLUS_045",
+          "canonicalCode": "sm4plus_045/114",
+          "koreanName": "카푸나비나 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_045.png",
+          "sourceSha256": "f3cfb911012dd6fbb56b8e48fa10ddccb011e67ab197bdd3961c96a73fcf512d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_046",
+          "canonicalCode": "sm4plus_046/114",
+          "koreanName": "코스모그",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_046.png",
+          "sourceSha256": "e71a6d3689b62bf18bf3b1d2df0abd966c3f030d08a6e961e3a6c1098ab63a1d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_047",
+          "canonicalCode": "sm4plus_047/114",
+          "koreanName": "코스모움",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_047.png",
+          "sourceSha256": "caee0005dd1c7c6d8284577a0a2b5b6abd806a13b9b719560a45a7f1ca4d49ec",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_048",
+          "canonicalCode": "sm4plus_048/114",
+          "koreanName": "루나아라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_048.png",
+          "sourceSha256": "03995bfb41f1b1697ab84d73074f8667639d885ab080d2ef68bd0e7585484a96",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "보라·분홍"
+          }
+        },
+        {
+          "code": "SM4PLUS_049",
+          "canonicalCode": "sm4plus_049/114",
+          "koreanName": "루나아라 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_049.png",
+          "sourceSha256": "56dd892760984f1581eb0ca936fbaf5db26c0cf088c1de37ff07053e05e1d303",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_050",
+          "canonicalCode": "sm4plus_050/114",
+          "koreanName": "네크로즈마 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_050.png",
+          "sourceSha256": "8a2e70db7da210d4c365553163aa73f6cf36e794f79c30d04c9e867e343ba524",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_051",
+          "canonicalCode": "sm4plus_051/114",
+          "koreanName": "꼬지모",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_051.png",
+          "sourceSha256": "b312965b81d579023ebb165d1a94c0bc12f48d42be215e47081149ce8819ab41",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·연두",
+            "season": "큰 나무와 초록 풀이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_052",
+          "canonicalCode": "sm4plus_052/114",
+          "koreanName": "루나톤",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_052.png",
+          "sourceSha256": "4c27d9d5d12512c8276366a473cd51408aa3f85bc0cde64912de7834a55f3527",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·주황",
+            "season": "분홍빛 저녁노을이 지는 하늘과 산",
+            "sunset": "분홍빛 저녁노을이 지는 산과 하늘"
+          }
+        },
+        {
+          "code": "SM4PLUS_053",
+          "canonicalCode": "sm4plus_053/114",
+          "koreanName": "솔록",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_053.png",
+          "sourceSha256": "d9b6a9c79fc476731cac84b767e319169cba7cfbf4c15de7bb0e64eed733f639",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "푸른 바다와 흰 구름"
+          }
+        },
+        {
+          "code": "SM4PLUS_054",
+          "canonicalCode": "sm4plus_054/114",
+          "koreanName": "레지락",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_054.png",
+          "sourceSha256": "3e33ce383dc11ee5829c8b6fb8be42849a39b4832fd9fe39df1967395e96d135",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·노랑",
+            "season": "거친 돌과 바위가 있는 계곡"
+          }
+        },
+        {
+          "code": "SM4PLUS_055",
+          "canonicalCode": "sm4plus_055/114",
+          "koreanName": "암멍이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_055.png",
+          "sourceSha256": "1cc536318ea328688377ad734d26faf6786f3426fc8929086bc451098145c6d2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_056",
+          "canonicalCode": "sm4plus_056/114",
+          "koreanName": "루가루암 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_056.png",
+          "sourceSha256": "1e0c6b2b8d59ea23598478de5bff98ff7ab93a9ae83d94948f7e4a71397e7b73",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·주황"
+          }
+        },
+        {
+          "code": "SM4PLUS_057",
+          "canonicalCode": "sm4plus_057/114",
+          "koreanName": "루가루암 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_057.png",
+          "sourceSha256": "b01dc20e23ab24858ea1f0e85152a1f4e15fc126d68a03a12706e44f93e92fcb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_058",
+          "canonicalCode": "sm4plus_058/114",
+          "koreanName": "내던숭이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_058.png",
+          "sourceSha256": "41e71a413a32d97390dbd9449986f404fafcf25556723ca927446f96da4511cc",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·연두",
+            "season": "잎사귀와 큰 나무가 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_059",
+          "canonicalCode": "sm4plus_059/114",
+          "koreanName": "모래꿍",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_059.png",
+          "sourceSha256": "abb290b8ca3ab74cbf8749f25478f6db95a66706b6272b2a975527ad15c2c3cd",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "파도와 모래가 있는 바닷가"
+          }
+        },
+        {
+          "code": "SM4PLUS_060",
+          "canonicalCode": "sm4plus_060/114",
+          "koreanName": "모래성이당",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_060.png",
+          "sourceSha256": "e926f43ba8d42fe2b483af94cedf333a65d1f06ae64abb29e2388e043151d629",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·파랑",
+            "season": "바다와 구름이 있는 해안"
+          }
+        },
+        {
+          "code": "SM4PLUS_061",
+          "canonicalCode": "sm4plus_061/114",
+          "koreanName": "니로우",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_061.png",
+          "sourceSha256": "7d52682871b09c9ad9267a616e6190264c7561c28c0cda74ea258d496195cb73",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "가을빛 나뭇잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_062",
+          "canonicalCode": "sm4plus_062/114",
+          "koreanName": "돈크로우",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_062.png",
+          "sourceSha256": "8c094de62f6f3def882b09f075cea58595b62bf7938539a3028bfb2fdbc49506",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·파랑",
+            "season": "붉은 둥근 달이 떠 있는 밤의 숲",
+            "night": "둥근 붉은 달이 떠 있는 어두운 밤 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_063",
+          "canonicalCode": "sm4plus_063/114",
+          "koreanName": "깜까미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_063.png",
+          "sourceSha256": "76419f0418abe1ebf77177053c3204263b9ec7dbd5dcf7bb35047d8f20dc9a81",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정",
+            "season": "울창한 어두운 나무숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_064",
+          "canonicalCode": "sm4plus_064/114",
+          "koreanName": "다크라이 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_064.png",
+          "sourceSha256": "280c31215553e7b3c797fac232bdb8835d8784bd26eee9d41a7bc767d6b577a2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_065",
+          "canonicalCode": "sm4plus_065/114",
+          "koreanName": "악식킹 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_065.png",
+          "sourceSha256": "f737ad0eecc211ce2da509a1cfa68e1772d2c4abc120a1308b5533ddf111dd9c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_066",
+          "canonicalCode": "sm4plus_066/114",
+          "koreanName": "알로라디그다",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_066.png",
+          "sourceSha256": "fb943f28773dca37b0147bb8ca792c6355133705cd8d5240350f258a6d0aed4b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "검정·주황",
+            "season": "화산의 어두운 바위 지형"
+          }
+        },
+        {
+          "code": "SM4PLUS_067",
+          "canonicalCode": "sm4plus_067/114",
+          "koreanName": "알로라닥트리오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_067.png",
+          "sourceSha256": "05c92c1919e611e459f4ac93a789385c6effabd3e270f555842be933e215aa1e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색",
+            "season": "큰 나무와 흙굴이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_068",
+          "canonicalCode": "sm4plus_068/114",
+          "koreanName": "레지스틸",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_068.png",
+          "sourceSha256": "347c7926b665fc1103dab4b2f7871f56b907ea784fe2a10f0296e0eef3db8449",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·흰색",
+            "street": "철제 난간과 건물이 있는 도시 연구소 주변"
+          }
+        },
+        {
+          "code": "SM4PLUS_069",
+          "canonicalCode": "sm4plus_069/114",
+          "koreanName": "솔가레오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_069.png",
+          "sourceSha256": "d6c69bceae386cbcf257b059de9266619f5d82cee77c4356a91ff879c2884ede",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·회색",
+            "season": "돌과 바위가 쌓인 산비탈"
+          }
+        },
+        {
+          "code": "SM4PLUS_070",
+          "canonicalCode": "sm4plus_070/114",
+          "koreanName": "솔가레오 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_070.png",
+          "sourceSha256": "7ba8dbe6d4a4fd9e279a299b3c21206558e062b4bade32028dbc908c3d105a78",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황"
+          }
+        },
+        {
+          "code": "SM4PLUS_071",
+          "canonicalCode": "sm4plus_071/114",
+          "koreanName": "철화구야 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_071.png",
+          "sourceSha256": "78da55849114b355101364cf163943012cf0acedc5ca736cb2d233eeb8ab9a98",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록"
+          }
+        },
+        {
+          "code": "SM4PLUS_072",
+          "canonicalCode": "sm4plus_072/114",
+          "koreanName": "마기아나",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_072.png",
+          "sourceSha256": "b0724e067664f3c6dd4b74dd50762b55a07138ef5d9a2d0040007c1fb71e977b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·흰색",
+            "season": "눈이 쌓인 고산지대"
+          }
+        },
+        {
+          "code": "SM4PLUS_073",
+          "canonicalCode": "sm4plus_073/114",
+          "koreanName": "님피아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_073.png",
+          "sourceSha256": "5f8a9ae801b08fa56812b8e23565d895847a60d4bf2ab12fe0b70b9b9fda4d06",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_074",
+          "canonicalCode": "sm4plus_074/114",
+          "koreanName": "디안시",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_074.png",
+          "sourceSha256": "021d69aca4c64addb5bab06286f723b7458f8131026acef0aa85ac5b8c326f40",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·파랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_075",
+          "canonicalCode": "sm4plus_075/114",
+          "koreanName": "자마슈",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_075.png",
+          "sourceSha256": "9a4ab9f0a2145876a084ab359199aed82d0b0bd8eb24c2e78c27af5693c45ae3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·연두",
+            "season": "바위와 풀잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_076",
+          "canonicalCode": "sm4plus_076/114",
+          "koreanName": "마셰이드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_076.png",
+          "sourceSha256": "9439f872d1abc8fd068310157c097f928f30895c04f86f4ad8a5a1de56aa4e53",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "잎사귀와 나무가 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_077",
+          "canonicalCode": "sm4plus_077/114",
+          "koreanName": "카푸나비나",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_077.png",
+          "sourceSha256": "8d76912392cf6364aeacf086fdd23756a711dda77577db931aa7a9028ef4bc0a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·회색",
+            "season": "큰 잎이 우거진 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_078",
+          "canonicalCode": "sm4plus_078/114",
+          "koreanName": "알로라나시",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_078.png",
+          "sourceSha256": "beb875bca53087fbc9db0f29e716b32693f81420cbf0c13138d520f80da47c5d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록",
+            "season": "야자나무가 있는 열대 해변"
+          }
+        },
+        {
+          "code": "SM4PLUS_079",
+          "canonicalCode": "sm4plus_079/114",
+          "koreanName": "할비롱",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_079.png",
+          "sourceSha256": "972915f48efe01ae7ecf45e051583151006cc41034ea83e3ec0ec2055b39b92b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "눈과 바위가 있는 겨울 산"
+          }
+        },
+        {
+          "code": "SM4PLUS_080",
+          "canonicalCode": "sm4plus_080/114",
+          "koreanName": "럭키",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_080.png",
+          "sourceSha256": "aefe00cd060f385d5a207b2e4981ae911bdfa2628a06f4fafe3fdc0e75f52d41",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·회색",
+            "season": "잎과 나무가 있는 정원"
+          }
+        },
+        {
+          "code": "SM4PLUS_081",
+          "canonicalCode": "sm4plus_081/114",
+          "koreanName": "해피너스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_081.png",
+          "sourceSha256": "ddde53b248b870d82af007006177f31ea951b92283fe7587975b3c6532671b6c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·자주"
+          }
+        },
+        {
+          "code": "SM4PLUS_082",
+          "canonicalCode": "sm4plus_082/114",
+          "koreanName": "캥카",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_082.png",
+          "sourceSha256": "23ab801139a35a68f506a77df87aaeba9021b4057446562fecabff8404d97f32",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_083",
+          "canonicalCode": "sm4plus_083/114",
+          "koreanName": "이브이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_083.png",
+          "sourceSha256": "4dd05cce26dcd3e67fb504e5d08b9f91d25a3289cf5a8d61cbf10602fa66d55e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·주황",
+            "season": "나무와 흙길이 있는 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_084",
+          "canonicalCode": "sm4plus_084/114",
+          "koreanName": "레쿠쟈",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_084.png",
+          "sourceSha256": "be0178c9feac56c5c3a65b4ee1b2f0063f39b3ef2abc5809513f125fca4a5270",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·초록",
+            "season": "비바람과 번개가 치는 바위산"
+          }
+        },
+        {
+          "code": "SM4PLUS_085",
+          "canonicalCode": "sm4plus_085/114",
+          "koreanName": "타입:널",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_085.png",
+          "sourceSha256": "4e0d97965afe37a5db80502ade942ac804540159d712e859efe1f758ce332c9d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·파랑",
+            "season": "큰 나무가 있는 어두운 숲"
+          }
+        },
+        {
+          "code": "SM4PLUS_086",
+          "canonicalCode": "sm4plus_086/114",
+          "koreanName": "실버디 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_086.png",
+          "sourceSha256": "cd74766ebc27d34b5bb500e4840164d44875c07cf3c49759f899e6439425bed8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_087",
+          "canonicalCode": "sm4plus_087/114",
+          "koreanName": "할비롱 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_087.png",
+          "sourceSha256": "f696e68b0c735e185405844ca203ab0c09f4fa9abd25f73307a6917de4db26f3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_088",
+          "canonicalCode": "sm4plus_088/114",
+          "koreanName": "개조해머",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_088.png",
+          "sourceSha256": "ce8caf5a1966dc15a649b736059458b9cfa991c90c68ec4dc8217c0e6154cfb3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_089",
+          "canonicalCode": "sm4plus_089/114",
+          "koreanName": "네스트볼",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_089.png",
+          "sourceSha256": "3fa01eb98b1401616857923b0605b28120ed52327fbf194a19632d0dcc03887b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_090",
+          "canonicalCode": "sm4plus_090/114",
+          "koreanName": "동굴탈출로프",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_090.png",
+          "sourceSha256": "bcb08bd8244fc73313528c6147ac1dbae833dd190d3ff04a05ec0c636a65e7ef",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_091",
+          "canonicalCode": "sm4plus_091/114",
+          "koreanName": "레스큐탱크",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_091.png",
+          "sourceSha256": "c836730a03777e4380782ad883dc2926f9b102e617faab9ab9c3fd9fcb149b69",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_092",
+          "canonicalCode": "sm4plus_092/114",
+          "koreanName": "로토무도감",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_092.png",
+          "sourceSha256": "a83dcc7dc9b1ead4f1413f9c35de8c51f3b78ee02643cc312e2be7a743c1ddb3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_093",
+          "canonicalCode": "sm4plus_093/114",
+          "koreanName": "멀티 갈아 달기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_093.png",
+          "sourceSha256": "d498e55e77e3c5dfa4b51fd8c124f547843325728e57d908f0c231f853d94bf5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_094",
+          "canonicalCode": "sm4plus_094/114",
+          "koreanName": "아쿠아패치",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_094.png",
+          "sourceSha256": "ed0553ffe4c78a434e1a5a536c0ab68b78c3d8249d0f390494dcb85c7058ca1d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_095",
+          "canonicalCode": "sm4plus_095/114",
+          "koreanName": "이상한사탕",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_095.png",
+          "sourceSha256": "f5bb66cf8b0e40bda447325fae9b0a6739666b33bda5618f9d2e42bb1bef693b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_096",
+          "canonicalCode": "sm4plus_096/114",
+          "koreanName": "타이마볼",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_096.png",
+          "sourceSha256": "d89b0e5523b1e5a2ff36e7cde5271d6dfd3e8afcce8617bff2dfa101e93353e6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_097",
+          "canonicalCode": "sm4plus_097/114",
+          "koreanName": "풀회복약",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_097.png",
+          "sourceSha256": "d733b0ec125e09ca56a2ebdbd6120f17daf67a4f4cdfeb323759062724dbb651",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_098",
+          "canonicalCode": "sm4plus_098/114",
+          "koreanName": "필드블로어",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_098.png",
+          "sourceSha256": "74b6b3054d7535b04359fdba62691bc422f9413a5338290f5e02818df06c8998",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_099",
+          "canonicalCode": "sm4plus_099/114",
+          "koreanName": "고대의 크리스탈",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_099.png",
+          "sourceSha256": "270be074e48f3b9340b8f2f4ae9c981d8632ba07bcef3775b300a402552473b0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·초록"
+          }
+        },
+        {
+          "code": "SM4PLUS_100",
+          "canonicalCode": "sm4plus_100/114",
+          "koreanName": "구애머리띠",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_100.png",
+          "sourceSha256": "94538865c8acf611305f7257c37aefff3d8399d51d67b89407d969406491f236",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM4PLUS_101",
+          "canonicalCode": "sm4plus_101/114",
+          "koreanName": "일렉트릭메모리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_101.png",
+          "sourceSha256": "bca73c5edb58e4cd332877281ec192300f68d4df3f5dee2cb7a308860c269413",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        },
+        {
+          "code": "SM4PLUS_102",
+          "canonicalCode": "sm4plus_102/114",
+          "koreanName": "파이어메모리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_102.png",
+          "sourceSha256": "8a26c9df641b2aa193a1c1469c7083dae43a55a92b295e953a89e22315a585fb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_103",
+          "canonicalCode": "sm4plus_103/114",
+          "koreanName": "구즈마",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_103.png",
+          "sourceSha256": "08b236d1f51d64d3c74d9dd41c4a4e1affc6bd07eb9871ef86d8a762b7d5ab53",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·주황"
+          }
+        },
+        {
+          "code": "SM4PLUS_104",
+          "canonicalCode": "sm4plus_104/114",
+          "koreanName": "루자미네",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_104.png",
+          "sourceSha256": "80fad71949b9b5e394ab92d4588cb590e113d53195569ea2e3795020bc47129c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_105",
+          "canonicalCode": "sm4plus_105/114",
+          "koreanName": "릴리에",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_105.png",
+          "sourceSha256": "5e5389cad99da3e27437db798a57b1b26d56228623f4f5fef4fd73ac505a9984",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_106",
+          "canonicalCode": "sm4plus_106/114",
+          "koreanName": "마오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_106.png",
+          "sourceSha256": "16b712449766616cb3df31fda8a0bfd1de783da3fdb15dbb5204b208b028686a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·초록",
+            "season": "꽃과 나무가 있는 울창한 정원"
+          }
+        },
+        {
+          "code": "SM4PLUS_107",
+          "canonicalCode": "sm4plus_107/114",
+          "koreanName": "수련",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_107.png",
+          "sourceSha256": "424a5e719d4f2f169b481fc1ebf6d1ce406a7d7de9cf656fbf5d394cfe6a68f5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "푸른 바다와 모래 해변"
+          }
+        },
+        {
+          "code": "SM4PLUS_108",
+          "canonicalCode": "sm4plus_108/114",
+          "koreanName": "아세로라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_108.png",
+          "sourceSha256": "e2b90171827bf04ef69b60f63f95726be0b7d4b34df6180534d3d76757675704",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑",
+            "street": "집과 창문이 있는 마을의 거리"
+          }
+        },
+        {
+          "code": "SM4PLUS_109",
+          "canonicalCode": "sm4plus_109/114",
+          "koreanName": "키아웨",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_109.png",
+          "sourceSha256": "521f6b076a1dea4a4469e6ee845ecee711d20e5b9e1d929c2dae8c33b8fe9f75",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황",
+            "season": "불꽃과 검은 바위가 있는 제단"
+          }
+        },
+        {
+          "code": "SM4PLUS_110",
+          "canonicalCode": "sm4plus_110/114",
+          "koreanName": "에테르파라다이스 보호구",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_110.png",
+          "sourceSha256": "f8e2b04579f2e07d94cf8d350ba6f2f742bd53904ec4b2efbc8077bd79bf0199",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·흰색",
+            "season": "큰 나무와 초록 식물이 있는 정원"
+          }
+        },
+        {
+          "code": "SM4PLUS_111",
+          "canonicalCode": "sm4plus_111/114",
+          "koreanName": "월륜의 제단",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_111.png",
+          "sourceSha256": "684f4f54df4fa9295b47cb489238555b1ead17c40467c2a33b8101137afb6b41",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·빨강",
+            "season": "푸른 하늘과 붉은 벽돌 제단"
+          }
+        },
+        {
+          "code": "SM4PLUS_112",
+          "canonicalCode": "sm4plus_112/114",
+          "koreanName": "일륜의 제단",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_112.png",
+          "sourceSha256": "90994d64b0ed8c58d5c29c8a5f2063cd0b2576e8699be8061e353289105bcff0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·주황",
+            "season": "맑은 하늘과 높은 돌 제단"
+          }
+        },
+        {
+          "code": "SM4PLUS_113",
+          "canonicalCode": "sm4plus_113/114",
+          "koreanName": "잔잔한물가언덕",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_113.png",
+          "sourceSha256": "dfa8a2010d5649c630b0038a0684f89df831e357505597446035a8ac5a022a68",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록",
+            "season": "푸른 물결과 바위가 있는 해안"
+          }
+        },
+        {
+          "code": "SM4PLUS_114",
+          "canonicalCode": "sm4plus_114/114",
+          "koreanName": "더블 무색 에너지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_114.png",
+          "sourceSha256": "8f58182e19cf88bc8ba87081f2abca80daa617815c8d619e669722399faa92a8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정"
+          }
+        },
+        {
+          "code": "SM4PLUS_115",
+          "canonicalCode": "sm4plus_115/114",
+          "koreanName": "페로코체 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_115.png",
+          "sourceSha256": "46213998b8e6cd5b89b2e9dd9cffc09612b0cd875426da490d661a55e13ede0f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_116",
+          "canonicalCode": "sm4plus_116/114",
+          "koreanName": "전수목 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_116.png",
+          "sourceSha256": "96ae1389efaf23247b326dd2875aa88c7f263ddeec334d14deb8c3ab395db18f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_117",
+          "canonicalCode": "sm4plus_117/114",
+          "koreanName": "철화구야 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_117.png",
+          "sourceSha256": "5b47463c0fedac406fba2f56bd490788c416b0772d887f3052faa85447700b7e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·빨강"
+          }
+        },
+        {
+          "code": "SM4PLUS_118",
+          "canonicalCode": "sm4plus_118/114",
+          "koreanName": "루자미네",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_118.png",
+          "sourceSha256": "5f8fa632012aa0a3842685d9dbf2322c4d4b76228119470818ed514ca3599c69",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·분홍"
+          }
+        },
+        {
+          "code": "SM4PLUS_119",
+          "canonicalCode": "sm4plus_119/114",
+          "koreanName": "릴리에",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_119.png",
+          "sourceSha256": "85e236acff652ade1b9a88051edcd71f01f2f36573c753f13133b01922c41dd6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·흰색"
+          }
+        },
+        {
+          "code": "SM4PLUS_120",
+          "canonicalCode": "sm4plus_120/114",
+          "koreanName": "수련",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_120.png",
+          "sourceSha256": "d716f3852d05968bbaaebae58852810cff3cf8b0af6895f8db523fe4fd284a19",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        }
+      ],
+      "held": [
+        {
+          "number": 38,
+          "code": "sm4.5_038/114",
+          "koreanName": "세비퍼",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4.5_938.png",
+          "sha256": "e89555d025413f03c3b6c12f402186cba469c6d59027dcbf48f8b4360fd7517e",
+          "imageError": null,
+          "status": "hold_canonical_master_prefix_mismatch",
+          "reason": "마스터 코드 sm4.5_038/114가 SM4+의 정상 접두어와 불일치. 사용자 보유데이터 영향 검토 전까지 원본 마스터를 변경하지 않고 분류 보류."
+        },
+        {
+          "number": 121,
+          "code": "sm4plus_121/114",
+          "koreanName": "페로코체 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_121.png",
+          "sha256": "2d4b02b144f78aea9b7fd81262a3b6ce0decdc2f1c13778b8779337460392630",
+          "imageError": null,
+          "status": "hold_unnumbered_Korean_energy_print_identity",
+          "reason": "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."
+        },
+        {
+          "number": 122,
+          "code": "sm4plus_122/114",
+          "koreanName": "전수목 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_122.png",
+          "sha256": "e524a74c40a4731a6f9beacc39f72c254f786410fc11b58cacfd1878bad4af80",
+          "imageError": null,
+          "status": "hold_unnumbered_Korean_energy_print_identity",
+          "reason": "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."
+        },
+        {
+          "number": 123,
+          "code": "sm4plus_123/114",
+          "koreanName": "철화구야 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_123.png",
+          "sha256": "947b976b231fa7c65b446a1085a066453239a7d1e9d74912cf82ab3916d3c4eb",
+          "imageError": null,
+          "status": "hold_unnumbered_Korean_energy_print_identity",
+          "reason": "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."
+        },
+        {
+          "number": 124,
+          "code": "sm4plus_124/114",
+          "koreanName": "루나아라 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_124.png",
+          "sha256": "ee15c2bf9349db6b1cf19837ee13b0f31d9b6468164856d7af5e4f7c3358499d",
+          "imageError": null,
+          "status": "hold_unnumbered_Korean_energy_print_identity",
+          "reason": "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."
+        },
+        {
+          "number": 125,
+          "code": "sm4plus_125/114",
+          "koreanName": "솔가레오 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM4+/SM4plus_125.png",
+          "sha256": "0a110a56c13990ff4fcb5dfddb2d195451a91e53c787e71f7c1419d27199d261",
+          "imageError": null,
+          "status": "hold_unnumbered_Korean_energy_print_identity",
+          "reason": "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."
+        }
+      ]
+    },
+    {
+      "set": "sm5S",
+      "setName": "울트라썬",
+      "masterCards": 78,
+      "imagesSuccessfullyDecoded": 78,
+      "artworkCardsScreened": 78,
+      "printedIdentityOrImageHolds": 0,
+      "newIndependentThemeRows": 120,
+      "strictlyCompleted": false,
+      "footerMagnificationPending": true,
+      "cards": [
+        {
+          "code": "SM5S_001",
+          "canonicalCode": "sm5s_001/066",
+          "koreanName": "왕자리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_001.png",
+          "sourceSha256": "b45ae8816d5850395f895c228b31b817a71ffe732d6167ba53fbb8604f243bf2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "구름과 초록 풀이 있는 하늘"
+          }
+        },
+        {
+          "code": "SM5S_002",
+          "canonicalCode": "sm5s_002/066",
+          "koreanName": "메가자리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_002.png",
+          "sourceSha256": "74ee981944334e4c30be8e63f72ef9bebb989bad33d9340b49dd562890f4e17e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·회색",
+            "season": "푸른 나뭇잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM5S_003",
+          "canonicalCode": "sm5s_003/066",
+          "koreanName": "로젤리아",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_003.png",
+          "sourceSha256": "24015065ef0fd1aac2b21c20d9da887a980da357276d5c07d74266ea8964c924",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·연두",
+            "season": "붉은 꽃과 초록 잎이 있는 정원"
+          }
+        },
+        {
+          "code": "SM5S_004",
+          "canonicalCode": "sm5s_004/066",
+          "koreanName": "로즈레이드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_004.png",
+          "sourceSha256": "2e42241490cda6423cb1f98c622628f96e7f8379ddaff071553ae4843c79b3e2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "초록 나무가 있는 숲"
+          }
+        },
+        {
+          "code": "SM5S_005",
+          "canonicalCode": "sm5s_005/066",
+          "koreanName": "모부기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_005.png",
+          "sourceSha256": "b208d428216e6d3f27b4470da9b26c98bd0ad5ae76fa2a03a833988cd5b82f36",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·연두",
+            "season": "꽃잎과 풀이 있는 꽃밭"
+          }
+        },
+        {
+          "code": "SM5S_006",
+          "canonicalCode": "sm5s_006/066",
+          "koreanName": "모부기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_006.png",
+          "sourceSha256": "0a03358d0a0cd619554d6546426f3a5590da95c7b08452b6a8fab58b02129ff0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·초록",
+            "season": "나무와 꽃이 있는 들판"
+          }
+        },
+        {
+          "code": "SM5S_007",
+          "canonicalCode": "sm5s_007/066",
+          "koreanName": "수풀부기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_007.png",
+          "sourceSha256": "3783327ecf08490cf2f5e7489d51c3a0e4458923e7e7a614145997fbd793c671",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·파랑",
+            "season": "바위와 푸른 하늘이 있는 언덕"
+          }
+        },
+        {
+          "code": "SM5S_008",
+          "canonicalCode": "sm5s_008/066",
+          "koreanName": "토대부기",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_008.png",
+          "sourceSha256": "f879965f476ffc0d6885df3d26318115c22c2021cc85c1b806ce99a3b4301511",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·주황",
+            "season": "큰 나무와 이끼 낀 숲"
+          }
+        },
+        {
+          "code": "SM5S_009",
+          "canonicalCode": "sm5s_009/066",
+          "koreanName": "체리버",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_009.png",
+          "sourceSha256": "ed68f5ef0e5507786b471ec0af0f03462c0c03ac5b06ba6708902ace22de2fd8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·청록",
+            "season": "나무와 잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM5S_010",
+          "canonicalCode": "sm5s_010/066",
+          "koreanName": "체리꼬",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_010.png",
+          "sourceSha256": "0245fad4f7108652d96e39d533725a11b4d33d9fec3d03978f5934dd3abe3aa4",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·자주",
+            "season": "나무와 풀밭이 있는 초원"
+          }
+        },
+        {
+          "code": "SM5S_011",
+          "canonicalCode": "sm5s_011/066",
+          "koreanName": "무스틈니",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_011.png",
+          "sourceSha256": "d9dfc3896dcb8c26bb60404ca06b0a633e98605568810637d297c2b71aed125c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·연두",
+            "season": "푸른 언덕과 밝은 하늘"
+          }
+        },
+        {
+          "code": "SM5S_012",
+          "canonicalCode": "sm5s_012/066",
+          "koreanName": "리피아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_012.png",
+          "sourceSha256": "aecabce79e9d8795bd5b333db7e800ed6aca1dad45653c66526afa5e9c201e04",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록"
+          }
+        },
+        {
+          "code": "SM5S_013",
+          "canonicalCode": "sm5s_013/066",
+          "koreanName": "로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_013.png",
+          "sourceSha256": "60759b6711f347055bd807af88a5df5846c2c2d0edc47221c01577805a94ee8d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·연두",
+            "season": "큰 나무와 풀잎이 있는 숲"
+          }
+        },
+        {
+          "code": "SM5S_014",
+          "canonicalCode": "sm5s_014/066",
+          "koreanName": "쉐이미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_014.png",
+          "sourceSha256": "a9c3ea0765064e27e87fb9ddfb54ff2cc80b0f18f07cf940097bc4c2e3cef340",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·연두",
+            "season": "흰 꽃과 잔디가 있는 들판"
+          }
+        },
+        {
+          "code": "SM5S_015",
+          "canonicalCode": "sm5s_015/066",
+          "koreanName": "마그마",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_015.png",
+          "sourceSha256": "635280cda2a855f1c9231d1b95459cd3f1f3fe6d9901f8ffc36c939047b697a5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황",
+            "season": "화산 바위와 불꽃이 있는 지형"
+          }
+        },
+        {
+          "code": "SM5S_016",
+          "canonicalCode": "sm5s_016/066",
+          "koreanName": "마그마번",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_016.png",
+          "sourceSha256": "c8bc95105ff67c2a1b7269b9c888c92353a2c927425b997c6bc4790deed1b597",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·노랑",
+            "season": "용암과 화염이 치솟는 화산"
+          }
+        },
+        {
+          "code": "SM5S_017",
+          "canonicalCode": "sm5s_017/066",
+          "koreanName": "불꽃숭이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_017.png",
+          "sourceSha256": "04b0e214b443af2ee8c21691d638b691707586c24188935faa6854a39c0695e9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황"
+          }
+        },
+        {
+          "code": "SM5S_018",
+          "canonicalCode": "sm5s_018/066",
+          "koreanName": "불꽃숭이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_018.png",
+          "sourceSha256": "0efee9e4943cec0d204cec31a4163dae267ef51fe316d3c9c35dff099825559d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·흰색",
+            "season": "구름과 바위가 있는 건조한 들판"
+          }
+        },
+        {
+          "code": "SM5S_019",
+          "canonicalCode": "sm5s_019/066",
+          "koreanName": "파이숭이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_019.png",
+          "sourceSha256": "9260999e45fb432d832573982be109ec02f1d3d75cd646cb0bab51954dd93ca7",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·주황",
+            "season": "구름이 떠 있는 푸른 하늘"
+          }
+        },
+        {
+          "code": "SM5S_020",
+          "canonicalCode": "sm5s_020/066",
+          "koreanName": "초염몽",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_020.png",
+          "sourceSha256": "35112dc033238ba460ee839fa4a7e7c7cc61e7b08e6e4060d75009cdc283db89",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·노랑"
+          }
+        },
+        {
+          "code": "SM5S_021",
+          "canonicalCode": "sm5s_021/066",
+          "koreanName": "히트로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_021.png",
+          "sourceSha256": "546b22637b2f7ec9ddde8836d9729a77940ecc604af03752bb8e8985e1d73eeb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·빨강",
+            "season": "바위와 넓은 하늘이 보이는 산"
+          }
+        },
+        {
+          "code": "SM5S_022",
+          "canonicalCode": "sm5s_022/066",
+          "koreanName": "야도뇽",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_022.png",
+          "sourceSha256": "703bc41bf3409b54689a5f3e7877e6a09ad99b3fcedba119908ce74f455c8a00",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·노랑"
+          }
+        },
+        {
+          "code": "SM5S_023",
+          "canonicalCode": "sm5s_023/066",
+          "koreanName": "염뉴트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_023.png",
+          "sourceSha256": "44e10afd0df0fb1d50415b563276038e24d23f85deadb2092fe44cf0e0a5a67b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑",
+            "season": "나무와 산비탈이 있는 계곡"
+          }
+        },
+        {
+          "code": "SM5S_024",
+          "canonicalCode": "sm5s_024/066",
+          "koreanName": "폭거북스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_024.png",
+          "sourceSha256": "5ed0ffe800afeb89ddaef8393591ed2d1e1c0087c817d67b978197a21b255b49",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "바위와 맑은 하늘이 있는 황야"
+          }
+        },
+        {
+          "code": "SM5S_025",
+          "canonicalCode": "sm5s_025/066",
+          "koreanName": "니로우",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_025.png",
+          "sourceSha256": "98b4bffdfa47e17c5e73bd585bc55fc9399b43d1f2b99f3e0ca72cd4273cd5cc",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록",
+            "season": "파도와 물거품이 일어나는 바다"
+          }
+        },
+        {
+          "code": "SM5S_026",
+          "canonicalCode": "sm5s_026/066",
+          "koreanName": "돈크로우",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_026.png",
+          "sourceSha256": "5fd9deda87edf5b63928cefc7cd4f72a83da7fac76d1d910f0c7f8164ccb0859",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "street": "도시의 창문과 가로등이 보이는 길"
+          }
+        },
+        {
+          "code": "SM5S_027",
+          "canonicalCode": "sm5s_027/066",
+          "koreanName": "포푸니",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_027.png",
+          "sourceSha256": "9c1b869ea9d8e782ef9137a112e835ac696ab995b38e7cc56e6e4793a1295729",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·자주"
+          }
+        },
+        {
+          "code": "SM5S_028",
+          "canonicalCode": "sm5s_028/066",
+          "koreanName": "포푸니라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_028.png",
+          "sourceSha256": "bac4a7ae8c1c0c15bb22a40c156bd50b09e1e5947ba99db2406ae73b228b4e03",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "눈이 쌓인 겨울 설원"
+          }
+        },
+        {
+          "code": "SM5S_029",
+          "canonicalCode": "sm5s_029/066",
+          "koreanName": "스컹뿡",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_029.png",
+          "sourceSha256": "1838ba0b2924ccb59117a4a085e93f9daf5cb2bb36b71bcaaf6469371345b5f6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·보라",
+            "season": "푸른 풀밭과 나무가 있는 들판"
+          }
+        },
+        {
+          "code": "SM5S_030",
+          "canonicalCode": "sm5s_030/066",
+          "koreanName": "스컹탱크",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_030.png",
+          "sourceSha256": "72dbc9bd50b186c436b137880e7ce0a6c66b5f0c26bd101f64028dff8900ab63",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "분홍·파랑",
+            "season": "구름과 풀잎이 있는 초원"
+          }
+        },
+        {
+          "code": "SM5S_031",
+          "canonicalCode": "sm5s_031/066",
+          "koreanName": "다크라이(프리즘스타)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_031.png",
+          "sourceSha256": "5ebd79bac3363198741b8350257864b64d69565cb1e3fa5dbd5b4531fb9d19db",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "보라·회색"
+          }
+        },
+        {
+          "code": "SM5S_032",
+          "canonicalCode": "sm5s_032/066",
+          "koreanName": "알로라 디그다",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_032.png",
+          "sourceSha256": "17b3092882da195198e4d49a8835046ee082694460e50ec0cbb1f93df93b9ebe",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·흰색",
+            "season": "분홍색 저녁노을과 황토 언덕",
+            "sunset": "분홍빛 저녁노을이 비치는 황토 언덕"
+          }
+        },
+        {
+          "code": "SM5S_033",
+          "canonicalCode": "sm5s_033/066",
+          "koreanName": "알로라 닥트리오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_033.png",
+          "sourceSha256": "95da3d2f3e399906a1a30e5742cfa18695bdbd2df2b31ac58d8d249f751ac4d3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "나무뿌리와 바위가 있는 동굴"
+          }
+        },
+        {
+          "code": "SM5S_034",
+          "canonicalCode": "sm5s_034/066",
+          "koreanName": "코일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_034.png",
+          "sourceSha256": "b9d43900b55feb7fd7ef0c52311ea007bec30dfd990c795b6b4b32e5510d0eb6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "풀잎이 있는 맑은 초원"
+          }
+        },
+        {
+          "code": "SM5S_035",
+          "canonicalCode": "sm5s_035/066",
+          "koreanName": "코일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_035.png",
+          "sourceSha256": "4f004c2477eb65a8092c68674df7b7c0fe582d622c7d90240f329a61de8e1a3a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5S_036",
+          "canonicalCode": "sm5s_036/066",
+          "koreanName": "레어코일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_036.png",
+          "sourceSha256": "8374da1123f73024361d114a8684c690ec6440151667fd7fb31931903024992b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5S_037",
+          "canonicalCode": "sm5s_037/066",
+          "koreanName": "자포코일",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_037.png",
+          "sourceSha256": "220bddfb661bb4c849703ad53db2e506d833ae53f302b04b1ccfe47489d27529",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑"
+          }
+        },
+        {
+          "code": "SM5S_038",
+          "canonicalCode": "sm5s_038/066",
+          "koreanName": "방패톱스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_038.png",
+          "sourceSha256": "32a023d131a99846c1d12e0c9eec887aec5173392b2b833b768f7152935c9767",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·자주",
+            "season": "오래된 동굴 바위와 땅바닥"
+          }
+        },
+        {
+          "code": "SM5S_039",
+          "canonicalCode": "sm5s_039/066",
+          "koreanName": "바리톱스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_039.png",
+          "sourceSha256": "85d5492d882bff6512a4c143c77edb56261cc0ac611429667a74b454767b4855",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·회색",
+            "season": "숲과 바위산이 겹친 풍경"
+          }
+        },
+        {
+          "code": "SM5S_040",
+          "canonicalCode": "sm5s_040/066",
+          "koreanName": "동미러",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_040.png",
+          "sourceSha256": "a4aedbcf064153941412cb0470f41accfabca43049ce16496b743a483208c9c1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·파랑",
+            "season": "햇빛이 드는 푸른 숲"
+          }
+        },
+        {
+          "code": "SM5S_041",
+          "canonicalCode": "sm5s_041/066",
+          "koreanName": "동탁군",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_041.png",
+          "sourceSha256": "8ecf0e55c2ad99b3f1eaaf7a9c192d9be19489d792dba41f7b20b7e7a12c0585",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑",
+            "season": "서리와 얼음이 쌓인 바위"
+          }
+        },
+        {
+          "code": "SM5S_042",
+          "canonicalCode": "sm5s_042/066",
+          "koreanName": "히드런",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_042.png",
+          "sourceSha256": "ea931b5a19c7f3e7b93881739143d7fc700a601636190f2883cd158b4f0ee94e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "불꽃과 돌이 있는 화산 동굴"
+          }
+        },
+        {
+          "code": "SM5S_043",
+          "canonicalCode": "sm5s_043/066",
+          "koreanName": "솔가레오(프리즘스타)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_043.png",
+          "sourceSha256": "bf7812877ccf7e762e5b6b299269c95864105c483205bb050a548c1b2595adb4",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·빨강"
+          }
+        },
+        {
+          "code": "SM5S_044",
+          "canonicalCode": "sm5s_044/066",
+          "koreanName": "네크로즈마 황혼의 갈기 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_044.png",
+          "sourceSha256": "500b4abf3aedc100e6aa219580a9f3480f9d75f99fff47d3fe1a6b370e34dd9b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·흰색"
+          }
+        },
+        {
+          "code": "SM5S_045",
+          "canonicalCode": "sm5s_045/066",
+          "koreanName": "디아루가 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_045.png",
+          "sourceSha256": "ecb28b9aa95f1574142f4c5ffffe5c16536d1bdec4f340957c91272de713dc94",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5S_046",
+          "canonicalCode": "sm5s_046/066",
+          "koreanName": "내루미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_046.png",
+          "sourceSha256": "15815e61ac1c1778c6980f65d015d6d3235e2afdb2c7beb3f09071fb80f266fa",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·흰색",
+            "season": "꽃과 초록 풀이 있는 정원"
+          }
+        },
+        {
+          "code": "SM5S_047",
+          "canonicalCode": "sm5s_047/066",
+          "koreanName": "내룸벨트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_047.png",
+          "sourceSha256": "819d063eff299f70dd990e3e736143dbbc1e5226e17a3ea98eeffa5b2c3864e5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·파랑",
+            "season": "푸른 하늘과 풀밭이 있는 들판"
+          }
+        },
+        {
+          "code": "SM5S_048",
+          "canonicalCode": "sm5s_048/066",
+          "koreanName": "이브이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_048.png",
+          "sourceSha256": "26881cdebb2df9c2ca5a4e315da52312d8d1d78035d3066f553698635606df5d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·주황",
+            "season": "잎이 우거진 숲"
+          }
+        },
+        {
+          "code": "SM5S_049",
+          "canonicalCode": "sm5s_049/066",
+          "koreanName": "나옹마",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_049.png",
+          "sourceSha256": "9e7a5b2aeff7f1ad34d0a8897b6e507823624b95fca7d914120352d24a383c84",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑"
+          }
+        },
+        {
+          "code": "SM5S_050",
+          "canonicalCode": "sm5s_050/066",
+          "koreanName": "몬냥이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_050.png",
+          "sourceSha256": "6aa27be1a9cc3c12a06c175ed55cb3cac293c17f7b271b5089821f24c34eab60",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·회색"
+          }
+        },
+        {
+          "code": "SM5S_051",
+          "canonicalCode": "sm5s_051/066",
+          "koreanName": "스핀로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_051.png",
+          "sourceSha256": "25f6a9993b81a3cb0c9ba729ac34300e519d0e49a641a7c43831a32c171aacee",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "작은 꽃들이 있는 초원"
+          }
+        },
+        {
+          "code": "SM5S_052",
+          "canonicalCode": "sm5s_052/066",
+          "koreanName": "하랑우탄",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_052.png",
+          "sourceSha256": "a5695333c30ad784600130368605dbfcdee841e5dc2a72898dddbb83006772fb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑",
+            "season": "나무와 덤불이 있는 숲"
+          }
+        },
+        {
+          "code": "SM5S_053",
+          "canonicalCode": "sm5s_053/066",
+          "koreanName": "네스트볼",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_053.png",
+          "sourceSha256": "9ff50a0dd4e57cf660d4e2be008cf0c6ed862759383b8fb4dba289d79fd5dc5f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·빨강"
+          }
+        },
+        {
+          "code": "SM5S_054",
+          "canonicalCode": "sm5s_054/066",
+          "koreanName": "미싱클로버",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_054.png",
+          "sourceSha256": "3b7bac24821cdccba2c7d30b9e2d40c48beb45706149ff84aa47cc715cb765c6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록"
+          }
+        },
+        {
+          "code": "SM5S_055",
+          "canonicalCode": "sm5s_055/066",
+          "koreanName": "상처약",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_055.png",
+          "sourceSha256": "a775e16e48f97b776456e948df534d5fff4c56286fd2e7c7033d8ae6d156299f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·회색"
+          }
+        },
+        {
+          "code": "SM5S_056",
+          "canonicalCode": "sm5s_056/066",
+          "koreanName": "수수께끼화석",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_056.png",
+          "sourceSha256": "bfedd6a2f75d59d07b49bed8de881383fc6fac8857c30e929d4a72173e9c5643",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5S_057",
+          "canonicalCode": "sm5s_057/066",
+          "koreanName": "친구수첩",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_057.png",
+          "sourceSha256": "3527469909f048842a3e52b4889ccae76fc652db52f47062ee439a531c81afd6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5S_058",
+          "canonicalCode": "sm5s_058/066",
+          "koreanName": "포켓몬 캐처",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_058.png",
+          "sourceSha256": "d3fe5366790ce4855cd4616dafd4c97a18c3edc7e1a255148296484f8ed02bf6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·회색"
+          }
+        },
+        {
+          "code": "SM5S_059",
+          "canonicalCode": "sm5s_059/066",
+          "koreanName": "릴리에",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_059.png",
+          "sourceSha256": "a2d1441af76b9e3211c5e217a8750b83f846df2c0fbd9b29249da41e290d4d94",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·흰색",
+            "season": "폭포와 바다가 보이는 해변"
+          }
+        },
+        {
+          "code": "SM5S_060",
+          "canonicalCode": "sm5s_060/066",
+          "koreanName": "마스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_060.png",
+          "sourceSha256": "5d0c7374ada676e347ea5c84f88917a7e574da1249a4824fa65dfcea7e3dd9a3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·검정"
+          }
+        },
+        {
+          "code": "SM5S_061",
+          "canonicalCode": "sm5s_061/066",
+          "koreanName": "유채",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_061.png",
+          "sourceSha256": "c3364fbde73efa5e14ee39056299a00fde92e25285fe4d170827fa7e2e974742",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·흰색",
+            "season": "나무와 초록 잔디가 있는 공원"
+          }
+        },
+        {
+          "code": "SM5S_062",
+          "canonicalCode": "sm5s_062/066",
+          "koreanName": "태홍(프리즘스타)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_062.png",
+          "sourceSha256": "fbe0f7942caaa44b33c6d5e4528cf5164b1cd565a99bcb6bac428997425cbfe0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5S_063",
+          "canonicalCode": "sm5s_063/066",
+          "koreanName": "포켓몬애호가클럽",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_063.png",
+          "sourceSha256": "baee2b0300e65b58ef9e8a95b39caee4f53d79de64b304e2d9c277951799db44",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5S_064",
+          "canonicalCode": "sm5s_064/066",
+          "koreanName": "천관산",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_064.png",
+          "sourceSha256": "a0c07956fa37a7cfa445a19f2d8c7610072b7c55217af1b69f3d58c59bf63ac6",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "하늘과 바위가 있는 산봉우리"
+          }
+        },
+        {
+          "code": "SM5S_065",
+          "canonicalCode": "sm5s_065/066",
+          "koreanName": "더블 무색 에너지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_065.png",
+          "sourceSha256": "fb4933e4a58499ec38cf5ec092ec8165188b147e42aeca33feeb7a6d89be0edc",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정"
+          }
+        },
+        {
+          "code": "SM5S_066",
+          "canonicalCode": "sm5s_066/066",
+          "koreanName": "유닛 에너지 (풀) (불꽃) (물)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_066.png",
+          "sourceSha256": "592e527c920135601101507a70a9043a19fd5a1795177be530148c4610936b24",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·초록"
+          }
+        },
+        {
+          "code": "SM5S_067",
+          "canonicalCode": "sm5s_067/066",
+          "koreanName": "리피아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_067.png",
+          "sourceSha256": "9a3c73653cf0273c19473be5eebdd5578d6af6f73db503dfa187a2f1f0509826",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·노랑"
+          }
+        },
+        {
+          "code": "SM5S_068",
+          "canonicalCode": "sm5s_068/066",
+          "koreanName": "네크로즈마 황혼의 갈기 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_068.png",
+          "sourceSha256": "7e790a75e0ba7525e81536c1912110f81d3c7ab045f122cb77ab26d0f683eaad",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "빨강·주황"
+          }
+        },
+        {
+          "code": "SM5S_069",
+          "canonicalCode": "sm5s_069/066",
+          "koreanName": "디아루가 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_069.png",
+          "sourceSha256": "fc6fe785c6802526bae7844dc762c878991045d683c3e21b1b999f4de60ba97c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM5S_070",
+          "canonicalCode": "sm5s_070/066",
+          "koreanName": "마스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_070.png",
+          "sourceSha256": "f5c5a5a8dba94f4e75c3b6caf03474a488472089244ea8016d123289efbca640",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·빨강"
+          }
+        },
+        {
+          "code": "SM5S_071",
+          "canonicalCode": "sm5s_071/066",
+          "koreanName": "유채",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_071.png",
+          "sourceSha256": "f489aa1043bf4021674871ac496e4d0bb505fd388fc4bee0d22adc63fc47e18b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·초록"
+          }
+        },
+        {
+          "code": "SM5S_072",
+          "canonicalCode": "sm5s_072/066",
+          "koreanName": "포켓몬애호가클럽",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5S/SM5S_072.png",
+          "sourceSha256": "b3415e6d46e406370eaaaa386bd92e812ad37d61ce59fe1aee6340547a137c17",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5S_073",
+          "canonicalCode": "sm5s_073/066",
+          "koreanName": "리피아 GX",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5S/SM5S 073.jpg",
+          "sourceSha256": "03c6bdd2a3097ddf91d151fef5eaaf93064e2f16b6ab46342a71a1e3368aca41",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·연두"
+          }
+        },
+        {
+          "code": "SM5S_074",
+          "canonicalCode": "sm5s_074/066",
+          "koreanName": "네크로즈마 황혼의 갈기 GX",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5S/SM5S 074.jpg",
+          "sourceSha256": "3e713505e55cd2dbcff68fb7429da87423b4cebca010ce1dfc5806201acd7670",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·노랑"
+          }
+        },
+        {
+          "code": "SM5S_075",
+          "canonicalCode": "sm5s_075/066",
+          "koreanName": "디아루가 GX",
+          "image": "https://static.tcgexchange.kr/057eacc3b5cc8376b4e952fa90c3be88.jpg",
+          "sourceSha256": "057eacc3b5cc8376b4e952fa90c3be880696844cd40636d42488c8f661e7d084",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·노랑"
+          }
+        },
+        {
+          "code": "SM5S_076",
+          "canonicalCode": "sm5s_076/066",
+          "koreanName": "미싱클로버",
+          "image": "https://static.tcgexchange.kr/c9c0476592fd13adc8e45e687bccbc68.jpg",
+          "sourceSha256": "c9c0476592fd13adc8e45e687bccbc68f869d81a769032e1b71e9aae7768572a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록"
+          }
+        },
+        {
+          "code": "SM5S_077",
+          "canonicalCode": "sm5s_077/066",
+          "koreanName": "엿보기 레드카드",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5S/SM5S 077.jpg",
+          "sourceSha256": "8d0a6d194d29b30232b2c61035289e3b741ffd1958029ceae4ccb7d49e2c1c59",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·빨강"
+          }
+        },
+        {
+          "code": "SM5S_078",
+          "canonicalCode": "sm5s_078/066",
+          "koreanName": "유닛 에너지 (풀) (불꽃) (물)",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5S/SM5S 078.jpg",
+          "sourceSha256": "0e3c82529e72251e83b6ab27073d00f44955ed7dc22f478a1ae46bd338a1a44e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·파랑"
+          }
+        }
+      ],
+      "held": []
+    },
+    {
+      "set": "sm5M",
+      "setName": "울트라문",
+      "masterCards": 78,
+      "imagesSuccessfullyDecoded": 76,
+      "artworkCardsScreened": 76,
+      "printedIdentityOrImageHolds": 2,
+      "newIndependentThemeRows": 116,
+      "strictlyCompleted": false,
+      "footerMagnificationPending": true,
+      "cards": [
+        {
+          "code": "SM5M_001",
+          "canonicalCode": "sm5m_001/066",
+          "koreanName": "알로라모래두지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_001.png",
+          "sourceSha256": "d4c74529ccb27280f3ec867abc7112f2ea1bd0dd957e191b106ae91451b709b1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "눈과 서리가 쌓인 겨울 숲"
+          }
+        },
+        {
+          "code": "SM5M_002",
+          "canonicalCode": "sm5m_002/066",
+          "koreanName": "알로라고지",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_002.png",
+          "sourceSha256": "005bf06be9836fcf931cfab69e0374cf5f094fb5d95f6566cda6175e9fc656df",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "눈과 얼음이 있는 산비탈"
+          }
+        },
+        {
+          "code": "SM5M_003",
+          "canonicalCode": "sm5m_003/066",
+          "koreanName": "팽도리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_003.png",
+          "sourceSha256": "05f5ade1c6cb93b4638358c5abd8b3721f0db439e0a5e1f4d6f5485fd04642e8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "물방울이 있는 푸른 물속"
+          }
+        },
+        {
+          "code": "SM5M_004",
+          "canonicalCode": "sm5m_004/066",
+          "koreanName": "팽도리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_004.png",
+          "sourceSha256": "fd55f209b10a4954e4378330a653e0b9e8f528eda37f55e5515fd48221d8517e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "눈과 얼음이 있는 바위 계곡"
+          }
+        },
+        {
+          "code": "SM5M_005",
+          "canonicalCode": "sm5m_005/066",
+          "koreanName": "팽태자",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_005.png",
+          "sourceSha256": "ee9a8ae0b8c05e7909ff6b0076451d3ef99fd7d05b4a8c77fed1f0c7addc82ee",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "눈과 구름이 있는 설원"
+          }
+        },
+        {
+          "code": "SM5M_006",
+          "canonicalCode": "sm5m_006/066",
+          "koreanName": "엠페르트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_006.png",
+          "sourceSha256": "f6654946351cee4efdc1317ed7b23e6a7c102ebbab62492168eec3dd559db969",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정",
+            "season": "푸른 얼음과 차가운 해안"
+          }
+        },
+        {
+          "code": "SM5M_007",
+          "canonicalCode": "sm5m_007/066",
+          "koreanName": "브이젤",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_007.png",
+          "sourceSha256": "dc7f49a0ba8d43a0fcb2beab2a7ee603cbd5e41589a26ff39e88f164ab6e912c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "파도치는 푸른 바다"
+          }
+        },
+        {
+          "code": "SM5M_008",
+          "canonicalCode": "sm5m_008/066",
+          "koreanName": "플로젤",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_008.png",
+          "sourceSha256": "f5bbccdd69057f88cb048378b1762858b88f24c5cc06536e5123b9183effa3b0",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황",
+            "season": "흰 물결이 일어나는 강물"
+          }
+        },
+        {
+          "code": "SM5M_009",
+          "canonicalCode": "sm5m_009/066",
+          "koreanName": "눈쓰개",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_009.png",
+          "sourceSha256": "6f4352c11e8a066c7b3e5c9d79ed6df19942945943151ecb608c36284a74d13e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "눈이 있는 바위산"
+          }
+        },
+        {
+          "code": "SM5M_010",
+          "canonicalCode": "sm5m_010/066",
+          "koreanName": "눈설왕",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_010.png",
+          "sourceSha256": "e211fc91e9eba0bbdf3e962575ab6bf5139b3f0d595154a95822a061cba91bb9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·파랑",
+            "season": "눈이 쌓인 겨울 숲"
+          }
+        },
+        {
+          "code": "SM5M_011",
+          "canonicalCode": "sm5m_011/066",
+          "koreanName": "글레이시아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_011.png",
+          "sourceSha256": "738cd3ff87ab05b7322b02c2c29c98a96daa89fd344341105c693394c237f528",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5M_012",
+          "canonicalCode": "sm5m_012/066",
+          "koreanName": "워시로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_012.png",
+          "sourceSha256": "27d404b957da779135875730d415210e68ad6e3cd1fae70f2bf03fbe15c1492d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황",
+            "street": "높은 건물과 보도블록이 있는 마을 거리"
+          }
+        },
+        {
+          "code": "SM5M_013",
+          "canonicalCode": "sm5m_013/066",
+          "koreanName": "프로스트로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_013.png",
+          "sourceSha256": "4ed30c234c0c07e54619eb9f7f24ac1e2cc77a8b22034a2ebbf1c376cf3fb948",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_014",
+          "canonicalCode": "sm5m_014/066",
+          "koreanName": "마나피",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_014.png",
+          "sourceSha256": "06d42cb9270d05629bb7fca964cf0dd341e5548ad23f9c6f018ea39eb6ff1fd1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "물이 흐르는 숲속 강가"
+          }
+        },
+        {
+          "code": "SM5M_015",
+          "canonicalCode": "sm5m_015/066",
+          "koreanName": "에레브",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_015.png",
+          "sourceSha256": "e2b71b4c64b34762e85be772fa985a48cfebc4bf5be7fdbe69c8abc3c7253d26",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑",
+            "season": "번개와 구름이 치는 하늘"
+          }
+        },
+        {
+          "code": "SM5M_016",
+          "canonicalCode": "sm5m_016/066",
+          "koreanName": "에레키블",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_016.png",
+          "sourceSha256": "a3517ac6295d2af0336650b6f255720f76afaa52dabfae23945adb244127ed35",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "꽃과 풀잎이 피어난 들판"
+          }
+        },
+        {
+          "code": "SM5M_017",
+          "canonicalCode": "sm5m_017/066",
+          "koreanName": "꼬링크",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_017.png",
+          "sourceSha256": "ff54beb2a685c24b984b8382cb996d22269b63246369c91f6358a017a680890e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록",
+            "season": "들꽃과 풀이 있는 초원"
+          }
+        },
+        {
+          "code": "SM5M_018",
+          "canonicalCode": "sm5m_018/066",
+          "koreanName": "꼬링크",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_018.png",
+          "sourceSha256": "8e96f817ccd90c6c8774e5f866eb11434b59ab2741e06f3a7426276dc2218e3b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM5M_019",
+          "canonicalCode": "sm5m_019/066",
+          "koreanName": "럭시오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_019.png",
+          "sourceSha256": "c35553895e7d934ed408a59b14a7636b4f23fea55ac9c57277003117e047d027",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황",
+            "season": "단풍잎과 큰 나무가 있는 숲"
+          }
+        },
+        {
+          "code": "SM5M_020",
+          "canonicalCode": "sm5m_020/066",
+          "koreanName": "렌트라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_020.png",
+          "sourceSha256": "f1aab55e6cbe9594e273a5813b32563e6d33a358a6aa5eb68b1109b450e73920",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·보라",
+            "season": "비구름과 번개가 치는 계곡"
+          }
+        },
+        {
+          "code": "SM5M_021",
+          "canonicalCode": "sm5m_021/066",
+          "koreanName": "파치리스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_021.png",
+          "sourceSha256": "33c05b5ad8328d415d29acd8cc4972371636da3cd206634f4e46a92f213e1712",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·흰색",
+            "street": "건물과 길이 있는 만화풍 도시 풍경"
+          }
+        },
+        {
+          "code": "SM5M_022",
+          "canonicalCode": "sm5m_022/066",
+          "koreanName": "로토무",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_022.png",
+          "sourceSha256": "7871636d126f3d5485f9694c5c02b67ba42cf64dcd50798aa1fc33b98fd4eb4e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·회색",
+            "season": "수목과 잎이 빽빽한 숲"
+          }
+        },
+        {
+          "code": "SM5M_023",
+          "canonicalCode": "sm5m_023/066",
+          "koreanName": "흔들풍손",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_023.png",
+          "sourceSha256": "af2a44133917de469a1d310d1c28dd399f4ca0c66ff714703513c86277642a9d",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "청록·노랑",
+            "season": "나무와 잔디가 있는 들판"
+          }
+        },
+        {
+          "code": "SM5M_024",
+          "canonicalCode": "sm5m_024/066",
+          "koreanName": "둥실라이드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_024.png",
+          "sourceSha256": "b5dab72e1647b7b319cc0d06b8a2ab2a65a6ed3dc4e011387b5c57a5fac02f85",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·보라",
+            "season": "구름과 푸른 하늘"
+          }
+        },
+        {
+          "code": "SM5M_025",
+          "canonicalCode": "sm5m_025/066",
+          "koreanName": "화강돌",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_025.png",
+          "sourceSha256": "9b60d162208b16ef09b7bd5ac9c1ca4a4fe2fd28e7d498cd7055750e13573c1c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "자주·파랑",
+            "season": "큰 돌과 바위가 있는 동굴"
+          }
+        },
+        {
+          "code": "SM5M_026",
+          "canonicalCode": "sm5m_026/066",
+          "koreanName": "스콜피",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_026.png",
+          "sourceSha256": "88d2ebf41a85b5d20f0ccf09b0d23370dd641871de9e866f14e6c82d1b6e0819",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록",
+            "season": "분홍 꽃이 피어난 정원"
+          }
+        },
+        {
+          "code": "SM5M_027",
+          "canonicalCode": "sm5m_027/066",
+          "koreanName": "드래피온",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_027.png",
+          "sourceSha256": "7d3d6e4a33e9539eb9dbc33743311c8063461e16093d693483b7182107ed76c2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·자주",
+            "season": "모래와 구름이 있는 황토 언덕"
+          }
+        },
+        {
+          "code": "SM5M_028",
+          "canonicalCode": "sm5m_028/066",
+          "koreanName": "삐딱구리",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_028.png",
+          "sourceSha256": "5847a4608539829bb4d3fff9b69460ccf43b1ee0ca2b5c82afff9ac3cec02844",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·파랑",
+            "season": "나무와 흙길이 있는 숲"
+          }
+        },
+        {
+          "code": "SM5M_029",
+          "canonicalCode": "sm5m_029/066",
+          "koreanName": "독개굴",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_029.png",
+          "sourceSha256": "d7031566d682d5d58db083325c0838861323e9c616fa92d8b6b1b9de532fd65c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·보라"
+          }
+        },
+        {
+          "code": "SM5M_030",
+          "canonicalCode": "sm5m_030/066",
+          "koreanName": "기라티나(프리즘스타)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_030.png",
+          "sourceSha256": "0237a4bb8bd1e299b599e444ad2835f5020e258e28381efae06ff88df720373e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "검정·청록"
+          }
+        },
+        {
+          "code": "SM5M_031",
+          "canonicalCode": "sm5m_031/066",
+          "koreanName": "크레세리아",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_031.png",
+          "sourceSha256": "4f1b3e8752c4740af0fdc8a4fe837ceecf580787007890936453bf2c5e8aaed7",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5M_032",
+          "canonicalCode": "sm5m_032/066",
+          "koreanName": "루나아라",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_032.png",
+          "sourceSha256": "642e06f6a385ce6de1daab57ffcc4bfe836691aee9315e4ab3d89d3291dcf051",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "보라·흰색"
+          }
+        },
+        {
+          "code": "SM5M_033",
+          "canonicalCode": "sm5m_033/066",
+          "koreanName": "네크로즈마 새벽의 날개 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_033.png",
+          "sourceSha256": "61f3b18f10d9d21917a778ab65aaf505eb2d3a2656bb34c55ffd820ce8dce7ea",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·검정"
+          }
+        },
+        {
+          "code": "SM5M_034",
+          "canonicalCode": "sm5m_034/066",
+          "koreanName": "두개도스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_034.png",
+          "sourceSha256": "ff0715fc5bea3a7024a7f888ae52fd8d7b6bef1e7c639a4cdb1150882f61a845",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑",
+            "season": "돌기둥이 있는 고대 바위 유적"
+          }
+        },
+        {
+          "code": "SM5M_035",
+          "canonicalCode": "sm5m_035/066",
+          "koreanName": "램펄드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_035.png",
+          "sourceSha256": "d583d764f23fe66ce3992a6ae6801ddbeb55d815c6f996f5d02ab58d4389954f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑",
+            "season": "바위가 이어진 산악 경사면"
+          }
+        },
+        {
+          "code": "SM5M_036",
+          "canonicalCode": "sm5m_036/066",
+          "koreanName": "리오르",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_036.png",
+          "sourceSha256": "e3434a42b9e922bdb00a288bbabee27b2e42d879cf5d3577a602cdf8b3e13cc1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "건조한 돌과 흙이 있는 들판"
+          }
+        },
+        {
+          "code": "SM5M_037",
+          "canonicalCode": "sm5m_037/066",
+          "koreanName": "루카리오",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_037.png",
+          "sourceSha256": "bbb0e60e056e4b22d21b20ab902e7441ceeecb18cf114eae194179451a646b1e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5M_038",
+          "canonicalCode": "sm5m_038/066",
+          "koreanName": "히포포타스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_038.png",
+          "sourceSha256": "5bcefa5828c2bb6dc96319875422f63f973a27b85d2aca61b87188f99e26c27e",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·노랑",
+            "season": "꽃과 풀이 있는 들판"
+          }
+        },
+        {
+          "code": "SM5M_039",
+          "canonicalCode": "sm5m_039/066",
+          "koreanName": "하마돈",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_039.png",
+          "sourceSha256": "fef7ab68aac7233221933ad81012aa35595e67a402aae587a8f61c8281fe0ce3",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색",
+            "season": "모래와 마른 돌이 있는 황야"
+          }
+        },
+        {
+          "code": "SM5M_040",
+          "canonicalCode": "sm5m_040/066",
+          "koreanName": "내던숭이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_040.png",
+          "sourceSha256": "14d3dbec61d1407b4919520832e890cde6c92c947831abd0e85024c7bbdcadd9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑",
+            "season": "바위와 갈색 산악 지형"
+          }
+        },
+        {
+          "code": "SM5M_041",
+          "canonicalCode": "sm5m_041/066",
+          "koreanName": "딥상어동",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_041.png",
+          "sourceSha256": "a58f7cfb4270b64465c9fa831f02ea5b39d0de17f59ea24b5640a5a2fedba7b1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5M_042",
+          "canonicalCode": "sm5m_042/066",
+          "koreanName": "딥상어동",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_042.png",
+          "sourceSha256": "b8041b69bb9cd9695e15a10db9298c2bec722b7ac0470e4799b776c9c0969de2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황",
+            "season": "돌과 흙이 있는 동굴"
+          }
+        },
+        {
+          "code": "SM5M_043",
+          "canonicalCode": "sm5m_043/066",
+          "koreanName": "한바이트",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_043.png",
+          "sourceSha256": "ef666d9348508727252569edeedc7d618afea35532214230e04df8d93cbae807",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "주황·노랑",
+            "season": "높은 바위에 둘러싸인 동굴"
+          }
+        },
+        {
+          "code": "SM5M_044",
+          "canonicalCode": "sm5m_044/066",
+          "koreanName": "한카리아스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_044.png",
+          "sourceSha256": "ab9f8388c9666edf052291635abab83e4d8de9089c357378c6a8d13eb5695fab",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색"
+          }
+        },
+        {
+          "code": "SM5M_045",
+          "canonicalCode": "sm5m_045/066",
+          "koreanName": "펄기아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_045.png",
+          "sourceSha256": "685ff333ada7151485634a1da3e148f7eb22a48edfac2ae682d6ba2c5385101a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·회색"
+          }
+        },
+        {
+          "code": "SM5M_046",
+          "canonicalCode": "sm5m_046/066",
+          "koreanName": "이브이",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_046.png",
+          "sourceSha256": "b62edcaf6d571910ff24a69264c124413823be2ab21a853245af7c6727211cde",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "초록·주황",
+            "season": "나무와 이끼가 있는 숲"
+          }
+        },
+        {
+          "code": "SM5M_047",
+          "canonicalCode": "sm5m_047/066",
+          "koreanName": "이어롤",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_047.png",
+          "sourceSha256": "1d171254e2bb14f178728c00851eb63a931e94167b83560d4096d0f48ece2570",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·노랑",
+            "season": "초록 풀이 가득한 숲"
+          }
+        },
+        {
+          "code": "SM5M_048",
+          "canonicalCode": "sm5m_048/066",
+          "koreanName": "이어롭",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_048.png",
+          "sourceSha256": "707e5bafddf381bd6d39ac44ee8ceb6c24ea23a6f24feed56883a8e74b4e27a9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황",
+            "season": "꽃과 나무가 있는 화사한 정원"
+          }
+        },
+        {
+          "code": "SM5M_049",
+          "canonicalCode": "sm5m_049/066",
+          "koreanName": "쉐이미",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_049.png",
+          "sourceSha256": "e0401657761e4cfbe1e6311b6cb5f66ee2c0ca63b27a1b47e2e3eda13a39d9c5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색",
+            "season": "푸른 하늘과 흰 구름"
+          }
+        },
+        {
+          "code": "SM5M_050",
+          "canonicalCode": "sm5m_050/066",
+          "koreanName": "영구스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_050.png",
+          "sourceSha256": "9345815b11c75e551788ceb45cc6bf11e6bae4f8ae81ee92207f4a3f6fc2c4a9",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·초록",
+            "season": "꽃과 풀잎이 있는 정원"
+          }
+        },
+        {
+          "code": "SM5M_051",
+          "canonicalCode": "sm5m_051/066",
+          "koreanName": "형사구스",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_051.png",
+          "sourceSha256": "178027aff824569a1d705375327d8bfa76ec3cc9c4dc1db60e37b7c6e329f588",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "흰색·노랑",
+            "season": "햇빛이 드는 풀밭과 나무"
+          }
+        },
+        {
+          "code": "SM5M_052",
+          "canonicalCode": "sm5m_052/066",
+          "koreanName": "할비롱",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_052.png",
+          "sourceSha256": "772be21b4f2776c9f389c6a9d42c018a240a505e3f0502d2a40978638ee49bc5",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·회색",
+            "season": "맑은 하늘과 넓은 산기슭"
+          }
+        },
+        {
+          "code": "SM5M_053",
+          "canonicalCode": "sm5m_053/066",
+          "koreanName": "끌어당기기 패드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_053.png",
+          "sourceSha256": "d0d371e406d709de5ab9e0ca2f287c8973203f2d7de78e8e58f691ba4c5add67",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록"
+          }
+        },
+        {
+          "code": "SM5M_054",
+          "canonicalCode": "sm5m_054/066",
+          "koreanName": "레스큐탱크",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_054.png",
+          "sourceSha256": "28ed5d42236150bb8e013cf074ca19b9094b1f82ac8f2d0c7807dd06161e4730",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        },
+        {
+          "code": "SM5M_055",
+          "canonicalCode": "sm5m_055/066",
+          "koreanName": "수수께끼화석",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_055.png",
+          "sourceSha256": "72cec8bd90a33cf15beedf16f9bc5d1533b484579814ec90da23a22ec8db836c",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_056",
+          "canonicalCode": "sm5m_056/066",
+          "koreanName": "이상한사탕",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_056.png",
+          "sourceSha256": "9920372cbdf030b0dd40162d53f693ac959e9dfff1eba83fe32ee776e5b3e7c2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM5M_057",
+          "canonicalCode": "sm5m_057/066",
+          "koreanName": "크래시 해머",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_057.png",
+          "sourceSha256": "fb77ef45c700d8b18fbfdca48b2e122dfdb820032d160a65598df67862a1096b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록"
+          }
+        },
+        {
+          "code": "SM5M_058",
+          "canonicalCode": "sm5m_058/066",
+          "koreanName": "하이퍼볼",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_058.png",
+          "sourceSha256": "867b088c6d2315a67a20aff705039bbc46e57ecab13e1a0415731a0ad900492a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_059",
+          "canonicalCode": "sm5m_059/066",
+          "koreanName": "핸섬휘슬",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_059.png",
+          "sourceSha256": "3a537696d55566fd66c97ba84f41bc5c729c64044960a628ba804845f46fb99a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_060",
+          "canonicalCode": "sm5m_060/066",
+          "koreanName": "이스케이프 보드",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_060.png",
+          "sourceSha256": "d3a264ad2b2cf834424be4690c1c02009fec6c933fb451f6e7ab76fedb291dfe",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5M_061",
+          "canonicalCode": "sm5m_061/066",
+          "koreanName": "난천",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_061.png",
+          "sourceSha256": "720f495966a3718090abd9027cdbd48d533925700fb1b84bc9851243da99ef1a",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑"
+          }
+        },
+        {
+          "code": "SM5M_062",
+          "canonicalCode": "sm5m_062/066",
+          "koreanName": "마마네",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_062.png",
+          "sourceSha256": "e652e8c66c43d03bde0809d0add3a74b4965c5d0a0249e8cead8f43cad3bb9f1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·청록"
+          }
+        },
+        {
+          "code": "SM5M_063",
+          "canonicalCode": "sm5m_063/066",
+          "koreanName": "전진",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_063.png",
+          "sourceSha256": "311a3b76af6f65119bdf873a902c66ea9e5cb1f79a62652c2e764015f5f52591",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·검정"
+          }
+        },
+        {
+          "code": "SM5M_064",
+          "canonicalCode": "sm5m_064/066",
+          "koreanName": "핸섬",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_064.png",
+          "sourceSha256": "1563bd62ed02e0e88633de651e3e6a203c88500fa0f2dcd37883a94674432a43",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·노랑"
+          }
+        },
+        {
+          "code": "SM5M_065",
+          "canonicalCode": "sm5m_065/066",
+          "koreanName": "유닛 에너지 (번개) (초) (강철)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_065.png",
+          "sourceSha256": "09b254222aef82d3f65d29dda88ac04f3354d1279e620c166e2ff85c1cb7d9cb",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        },
+        {
+          "code": "SM5M_066",
+          "canonicalCode": "sm5m_066/066",
+          "koreanName": "초 부스트 에너지(프리즘스타)",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_066.png",
+          "sourceSha256": "721bce3c58943a7f3cb427efc0bf43cc908b5963d7e06e7a5741c9cc1bbd20e2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "회색·파랑"
+          }
+        },
+        {
+          "code": "SM5M_067",
+          "canonicalCode": "sm5m_067/066",
+          "koreanName": "글레이시아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_067.png",
+          "sourceSha256": "d2b85941f7eeb102b75c5cb52a0bf4d63507c2793560d00adf9b537289ecb755",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5M_068",
+          "canonicalCode": "sm5m_068/066",
+          "koreanName": "네크로즈마 새벽의 날개 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_068.png",
+          "sourceSha256": "e43c27bb788a3d84904d8822c25048a6933920748d0c6276d938e4cbb73a24c2",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·빨강"
+          }
+        },
+        {
+          "code": "SM5M_069",
+          "canonicalCode": "sm5m_069/066",
+          "koreanName": "펄기아 GX",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_069.png",
+          "sourceSha256": "edeae940dccaf44de4fab1295258e6557f3cdf15b332f589b8a7f13290e451a1",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·노랑"
+          }
+        },
+        {
+          "code": "SM5M_070",
+          "canonicalCode": "sm5m_070/066",
+          "koreanName": "난천",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_070.png",
+          "sourceSha256": "b60ab6795e11f4f542d6de371e51a210ddb2e2c35d4a7c2bc2129811532f6158",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·분홍"
+          }
+        },
+        {
+          "code": "SM5M_071",
+          "canonicalCode": "sm5m_071/066",
+          "koreanName": "전진",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_071.png",
+          "sourceSha256": "531064e5a07ba6bab72b18edc7f6f5e0ecb7a21acbd66d4ad35935d8875e9f8f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·흰색"
+          }
+        },
+        {
+          "code": "SM5M_072",
+          "canonicalCode": "sm5m_072/066",
+          "koreanName": "핸섬",
+          "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM5M/SM5M_072.png",
+          "sourceSha256": "96633140791b2ea6e81d062d579ac95532bdceef2dadc1a989310520b381e781",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "파랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_075",
+          "canonicalCode": "sm5m_075/066",
+          "koreanName": "펄기아 GX",
+          "image": "https://tcgbox.co.kr/web/product/medium/SM5M/SM5M 075.jpg",
+          "sourceSha256": "2d2b6c4f5cf97eb83cf5fd3f4b8d626495a1e8c3c9f5a4991ed4e9ca6ac36a4b",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "연두·노랑"
+          }
+        },
+        {
+          "code": "SM5M_076",
+          "canonicalCode": "sm5m_076/066",
+          "koreanName": "크래시 해머",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5M/SM5M 076.jpg",
+          "sourceSha256": "9af0551f1e27fefa62236a54699b028a2a0aa79179daa4e0aee2d29043a2d9d8",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·주황"
+          }
+        },
+        {
+          "code": "SM5M_077",
+          "canonicalCode": "sm5m_077/066",
+          "koreanName": "이스케이프 보드",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5M/SM5M 077.jpg",
+          "sourceSha256": "e7c755ddc721b4ee0eaa461a3cbc493e07259e6fbb5772200fe91bb7e4afc05f",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·파랑"
+          }
+        },
+        {
+          "code": "SM5M_078",
+          "canonicalCode": "sm5m_078/066",
+          "koreanName": "유닛 에너지 (번개) (초) (강철)",
+          "image": "https://static.tcgexchange.kr/63a366c781be5be2f20c077458a81e40.png",
+          "sourceSha256": "63a366c781be5be2f20c077458a81e4054cf66d0b4b6cf6668083a9dfe43e617",
+          "actualArtworkVisuallyScreened": true,
+          "sourceColorPixelsSHA256Verified": true,
+          "printedFooterNumberEnlarged": false,
+          "approvedThemes": {
+            "color": "노랑·회색"
+          }
+        }
+      ],
+      "held": [
+        {
+          "number": 73,
+          "code": "sm5m_073/066",
+          "koreanName": "글레이시아 GX",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5M/SM5M 073.jpg",
+          "sha256": null,
+          "imageError": "404 Client Error: Not Found for url: https://tcgbox.co.kr/web/product/big/SM5M/SM5M%20073.jpg",
+          "status": "hold_Korean_card_image_HTTP_404",
+          "reason": "등록한 한국판 이미지 주소가 HTTP 404이며 해당 카드번호 한국어 사진 교차확인 전까지 테마 추가 보류."
+        },
+        {
+          "number": 74,
+          "code": "sm5m_074/066",
+          "koreanName": "네크로즈마 새벽의 날개 GX",
+          "image": "https://tcgbox.co.kr/web/product/big/SM5M/SM5M 074.jpg",
+          "sha256": null,
+          "imageError": "404 Client Error: Not Found for url: https://tcgbox.co.kr/web/product/big/SM5M/SM5M%20074.jpg",
+          "status": "hold_Korean_card_image_HTTP_404",
+          "reason": "등록한 한국판 이미지 주소가 HTTP 404이며 해당 카드번호 한국어 사진 교차확인 전까지 테마 추가 보류."
+        }
+      ]
+    }
+  ],
+  "next": "First address SM4+ 121-125 unnumbered energies and SM5M 073-074 404 Korean-photo gaps; next three SM series SM5+, SM6, SM6a."
+}
