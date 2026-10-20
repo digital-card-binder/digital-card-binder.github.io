@@ -143,9 +143,9 @@
     if(message==="PRODUCT_SKU_UNVERIFIED"||message==="PRODUCT_SKU_CONFLICT")
       return "product_unverified";
     if(message==="SEVENELEVEN_LOCALITY_UNAVAILABLE")return "area_unavailable";
-    if(/^HTTP 429\\b/.test(message))return "rate_limited";
-    if(/^HTTP 5\\d\\d\\b/.test(message))return "server_error";
-    if(/^HTTP 4\\d\\d\\b/.test(message))return "http_error";
+    if(/^HTTP 429\b/.test(message))return "rate_limited";
+    if(/^HTTP 5\d\d\b/.test(message))return "server_error";
+    if(/^HTTP 4\d\d\b/.test(message))return "http_error";
     return "other_error";
   }
   function recordProviderOutcome(provider,status,rows=[],error=null){
