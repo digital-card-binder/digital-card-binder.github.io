@@ -11,7 +11,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 3, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
-    shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], map: null, radiusCircle: null, pinLayer: null,
+    shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
     searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
@@ -118,9 +118,12 @@
     byId("radar-progress-fill").style.width = percent + "%";
     byId("radar-progress-percent").textContent = percent + "%";
     byId("radar-progress-stage").textContent = stage || (active ? "재고 조회 중" : completed ? "검색 종료" : "검색 대기");
+    const skipped=state.progress.skipped||0;
     byId("radar-progress-detail").textContent = total > 0
-      ? "완료한 요청 " + completed + " / 전체 " + total + "건 · 실패 포함"
-      : "검색을 시작하면 실제 완료한 요청 수만큼 진행됩니다.";
+      ? "진행 " + completed + " / " + total + "단계 · 재고 확인 처리 " +
+        (state.progress.successes+state.progress.failures) +
+        "건 · 자동 생략 " + skipped + "건"
+      : "검색을 시작하면 재고 조회와 매장 검색 진행 상황이 표시됩니다.";
   }
   function completeProgressStep(success, stage, isApi = true) {
     const p = state.progress;
@@ -130,6 +133,69 @@
     updateProgress(stage);
     byId("radar-search-completed").textContent = String(p.successes);
     byId("radar-search-failed").textContent = String(p.failures);
+  }
+  const PROVIDER_LABELS={cu:"CU",gs25:"GS25",seveneleven:"세븐일레븐",emart24:"이마트24"};
+  // Keep these summaries separate from retailer feeds. A successful transport
+  // is NOT evidence that every nearby shop was checked or that zero means sold out.
+  function providerFailureCategory(error){
+    const message=String(error?.message||"");
+    if(message==="STOCK_UNAVAILABLE")return "stock_unavailable";
+    if(message==="PRODUCT_SKU_UNVERIFIED"||message==="PRODUCT_SKU_CONFLICT")
+      return "product_unverified";
+    if(message==="SEVENELEVEN_LOCALITY_UNAVAILABLE")return "area_unavailable";
+    if(/^HTTP 429\b/.test(message))return "rate_limited";
+    if(/^HTTP 5\d\d\b/.test(message))return "server_error";
+    if(/^HTTP 4\d\d\b/.test(message))return "http_error";
+    return "other_error";
+  }
+  function recordProviderOutcome(provider,status,rows=[],error=null){
+    if(!PROVIDER_LABELS[provider])return;
+    const counters=state.providerOutcomes[provider]||
+      (state.providerOutcomes[provider]={
+        attempts:0,matched:0,zeroRows:0,positiveRows:0,
+        unmatched:0,skipped:0,failures:0,reasons:{}
+      });
+    if(status==="skipped"){counters.skipped++;return;}
+    counters.attempts++;
+    if(status==="failure"){
+      counters.failures++;
+      const reason=providerFailureCategory(error);
+      counters.reasons[reason]=(counters.reasons[reason]||0)+1;
+      return;
+    }
+    if(!rows.length){counters.unmatched++;return;}
+    counters.matched++;
+    for(const row of rows){
+      const quantity=row?.items?.[0]?.quantity;
+      if(Number.isSafeInteger(quantity)&&quantity>0)counters.positiveRows++;
+      else if(quantity===0)counters.zeroRows++;
+    }
+  }
+  function providerDiagnosticSummary(){
+    const providers=Object.keys(PROVIDER_LABELS).filter(provider=>
+      state.providerOutcomes[provider]);
+    if(!providers.length)return "검색 후 브랜드별 결과가 표시됩니다.";
+    const names={
+      stock_unavailable:"재고 데이터 미제공",product_unverified:"상품코드 검증 실패",
+      area_unavailable:"지역명 확인 실패",rate_limited:"호출 제한",
+      server_error:"판매처 서버 오류",http_error:"HTTP 요청 오류",
+      other_error:"조회 오류"
+    };
+    return providers.map(provider=>{
+      const a=state.providerOutcomes[provider];
+      const reason=Object.entries(a.reasons).map(([code,n])=>
+        (names[code]||"오류")+" "+n+"건").join(", ");
+      return PROVIDER_LABELS[provider]+": 조회 "+a.attempts+"건 · "+
+        "양수 재고 응답 "+a.positiveRows+"행 · "+
+        "수량 0 응답 "+a.zeroRows+"행 · "+
+        "상품 일치 응답 없음 "+a.unmatched+"건 · "+
+        (a.failures?"조회 불가 "+a.failures+"건"+(reason?" ("+reason+")":""):"조회 오류 0건")+
+        (a.skipped?" · 자동 생략 "+a.skipped+"건":"");
+    }).join("\n");
+  }
+  function renderProviderDiagnostics(){
+    const display=byId("radar-provider-diagnostics");
+    if(display)display.textContent=providerDiagnosticSummary();
   }
   function shouldOfferMapSearch(mapCenter) {
     return !!mapCenter && Number.isFinite(mapCenter.lat) && Number.isFinite(mapCenter.lng) &&
@@ -846,8 +912,9 @@
       const publicResponse=item.inventorySource==="public-aggregator";
       return { message: item.name + " · 조회 수량 " + item.quantity + "개", known: true,
         checked: true, detail: (item.provider ? item.provider + " · " : "") +
-          (publicResponse?"공개 재고 조회 응답 ":"재고 확인 시각 ") + when +
-          (publicResponse?" · 실제 점포 재고는 다를 수 있음":" · 방문 전 재확인 권장") };
+          (publicResponse?"공개 재고 조회 응답 수신 ":"재고 확인 시각 ") + when +
+          (publicResponse?" · 판매처 원본 갱신시각 미확인 · 실제 점포 재고와 다를 수 있음":
+            " · 방문 전 재확인 권장") };
     }
     if (fresh.length) return { message: "", known: false, checked: true,
       detail: state.pack ? "선택한 카드팩 조회 수량 0개" :
@@ -1053,6 +1120,8 @@
     state.inventory = [];
     state.mapChecked = false;
     state.providerNotes = [];
+    state.providerOutcomes = {};
+    renderProviderDiagnostics();
     const jobs = inventoryJobs();
     const includeCuStores = state.kind==="all" ||
       (state.kind==="convenience" && ["all","cu"].includes(state.convenienceBrand));
@@ -1400,8 +1469,12 @@
         const task=jobs[index++];
         if(brokenProviders.has(task.provider)){
           // Skipped work is not an actual failed HTTP request.
-          state.providerNotes=[...state.providerNotes,task.provider+":skipped"];
+          notes.push(task.provider+":skipped");
+          recordProviderOutcome(task.provider,"skipped");
+          state.providerNotes=notes.slice();
+          state.progress.skipped=(state.progress.skipped||0)+1;
           completeProgressStep(false,"재고 조회 중",false);
+          renderProviderDiagnostics();
           continue;
         }
         let success=false;
@@ -1447,14 +1520,17 @@
           }
           const rows=parseRetail(task.provider,payload,new Date().toISOString(),task.keyword);
           all.push(...rows);
+          recordProviderOutcome(task.provider,"success",rows);
           success=true;
           upstreamFailures.set(task.provider,0);
           notes.push(task.provider+":ok");
         } catch (error) {
           updateProviderCircuit(brokenProviders,upstreamFailures,task.provider,error);
+          recordProviderOutcome(task.provider,"failure",[],error);
           notes.push(task.provider+":error");
         } finally {
           state.providerNotes=notes.slice();
+          renderProviderDiagnostics();
           state.inventory=groupInventoryRows(all);
           completeProgressStep(success,"재고 조회 중");
           render();
