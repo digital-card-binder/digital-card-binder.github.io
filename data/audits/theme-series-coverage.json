@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18011,
-    "uniqueThemeCards": 10987,
+    "themeCardSlots": 18027,
+    "uniqueThemeCards": 10997,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5204,
-      "setCount": 125,
+      "cardSlots": 5210,
+      "setCount": 126,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10012,
-      "setCount": 131,
+      "cardSlots": 10022,
+      "setCount": 132,
       "rarities": [
         "A",
         "AR",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 451
+      "currentThemeSlots": 467
     },
     {
       "era": "XY",
@@ -1200,9 +1200,12 @@
       "cardCount": 75,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "season": 6,
+        "color": 10
+      }
     },
     {
       "era": "SM",
