@@ -1,16 +1,22 @@
 "use strict";
 (function () {
-  const PRODUCTS = [
+  // Default full search stays bounded; older Korean sets are opt-in.
+  const DEFAULT_PRODUCTS = [
     ["m6a", "30th CELEBRATION"], ["m6", "스톰에메랄다"],
     ["m5", "어비스아이"], ["m4", "닌자스피너"],
     ["m3", "니힐제로"], ["m2a", "MEGA드림ex"],
     ["m2", "인페르노X"], ["m1S", "메가심포니아"], ["m1L", "메가브레이브"]
   ];
+  const SELECTABLE_EXTRA_PRODUCTS = [
+    ["sv10", "로켓단의 영광"], ["sv11b", "블랙볼트"],
+    ["sv11w", "화이트플레어"], ["sv6a", "나이트원더러"]
+  ];
+  const PRODUCTS = [...DEFAULT_PRODUCTS, ...SELECTABLE_EXTRA_PRODUCTS];
   const DEFAULT_CENTER = { lat: 37.5665, lng: 126.9780 };
   const MAX_SHOPS = 250;
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
-    radiusKm: 3, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
+    radiusKm: 10, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
     searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
@@ -153,10 +159,11 @@
     const counters=state.providerOutcomes[provider]||
       (state.providerOutcomes[provider]={
         attempts:0,matched:0,zeroRows:0,positiveRows:0,
-        unmatched:0,skipped:0,failures:0,reasons:{}
+        unmatched:0,skipped:0,cached:0,failures:0,reasons:{}
       });
     if(status==="skipped"){counters.skipped++;return;}
-    counters.attempts++;
+    if(status==="cached")counters.cached++;
+    else counters.attempts++;
     if(status==="failure"){
       counters.failures++;
       const reason=providerFailureCategory(error);
@@ -185,7 +192,8 @@
       const a=state.providerOutcomes[provider];
       const reason=Object.entries(a.reasons).map(([code,n])=>
         (names[code]||"오류")+" "+n+"건").join(", ");
-      return PROVIDER_LABELS[provider]+": 조회 "+a.attempts+"건 · "+
+      return PROVIDER_LABELS[provider]+": 조회 "+a.attempts+"건"+
+        (a.cached?" · 이전 결과 재사용 "+a.cached+"건":"")+" · "+
         "양수 재고 응답 "+a.positiveRows+"행 · "+
         "수량 0 응답 "+a.zeroRows+"행 · "+
         "상품 일치 응답 없음 "+a.unmatched+"건 · "+
@@ -249,7 +257,7 @@
         attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(state.map);
       state.radiusCircle = window.L.circle([DEFAULT_CENTER.lat, DEFAULT_CENTER.lng], {
-        radius: 3000, color:"#456be7",fillColor:"#688bf8",fillOpacity:0.07,weight:2
+        radius: 10000, color:"#456be7",fillColor:"#688bf8",fillOpacity:0.07,weight:2
       }).addTo(state.map);
       state.pinLayer = window.L.layerGroup().addTo(state.map);
       state.map.on("moveend", () => {
@@ -897,12 +905,19 @@
     return (hasPokemon && strongTCG) ||
       (namedPack && (namedOnly || /팩|박스|덱|세트|카드|TCG/i.test(text)));
   }
+  function stockProductUnit(name) {
+    const value=String(name||"").normalize("NFKC");
+    if(/(?:박스|\bbox\b|\d+팩\s*입)/i.test(value))return "박스";
+    if(/(?:구축덱|스타터덱|스타터세트|\bdeck\b)/i.test(value))return "덱";
+    if(/(?:확장팩|강화팩|하이클래스팩|부스터팩|카드팩|\bpack\b|(?:^|\s)팩(?:$|\s))/i.test(value))return "팩";
+    return "단위 미확인";
+  }
   function inventoryLabel(store) {
     const cardItems = (store.verifiedInventory || []).filter((p) =>
       isCardProduct(p.name) && (!state.pack || String(p.code || "").toLowerCase() === state.pack.toLowerCase()));
     const fresh = cardItems.filter((p) => {
       const age = Date.now() - Date.parse(p.checkedAt);
-      return Number.isFinite(age) && age >= -60000 && age < 15 * 60000;
+      return p.previousLookup !== true && Number.isFinite(age) && age >= -60000 && age < 15 * 60000;
     });
     const available = fresh.filter((p) => Number.isSafeInteger(p.quantity) && p.quantity > 0)
       .sort((a,b) => Date.parse(b.checkedAt) - Date.parse(a.checkedAt) || b.quantity - a.quantity);
@@ -910,17 +925,27 @@
       const item = available[0];
       const when = new Date(item.checkedAt).toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
       const publicResponse=item.inventorySource==="public-aggregator";
-      return { message: item.name + " · 조회 수량 " + item.quantity + "개", known: true,
+      const unit=stockProductUnit(item.name);
+      return { message: item.name + " · 조회 수량 " + item.quantity + "개" +
+        (unit==="단위 미확인" ? " · 판매 단위 미확인" : " · "+unit+" 상품"), known: true,
         checked: true, detail: (item.provider ? item.provider + " · " : "") +
           (publicResponse?"공개 재고 조회 응답 수신 ":"재고 확인 시각 ") + when +
           (publicResponse?" · 판매처 원본 갱신시각 미확인 · 실제 점포 재고와 다를 수 있음":
             " · 방문 전 재확인 권장") };
     }
-    if (fresh.length) return { message: "", known: false, checked: true,
+    if (fresh.some((p) => p.quantity === 0)) return { message: "", known: false, checked: true,
       detail: state.pack ? "선택한 카드팩 조회 수량 0개" :
         "조회된 카드 상품은 수량 0개 · 다른 카드팩은 미확인" };
-    if (cardItems.length) return { message: "", known: false, checked: false,
-      detail: "이전 조회 이력만 있음 · 현재 재고 미확인" };
+    if (fresh.length) return { message: "", known: false, checked: false,
+      detail: "재고 수량 미확인 · 품절로 판단할 수 없습니다" };
+    if (cardItems.length) {
+      const previous=cardItems.filter(p=>Number.isFinite(Date.parse(p.checkedAt)))
+        .sort((a,b)=>Date.parse(b.checkedAt)-Date.parse(a.checkedAt))[0];
+      const label=previous && Number.isSafeInteger(previous.quantity) ?
+        " · 이전 조회 수량 "+previous.quantity+"개" : "";
+      return {message:"",known:false,checked:false,
+        detail:"이전 조회 이력만 있음"+label+" · 현재 재고 미확인"};
+    }
     return { message: "", known: false, checked: false, detail: "카드 재고 미확인" };
   }
   function filterStoresForDisplay(stores) {
@@ -1105,6 +1130,33 @@
     }
     for (const store of displayedStores) addStoreCard(list,store);
   }
+  // An in-tab snapshot is display-only history, never current stock.
+  const RADAR_SNAPSHOT_MS=15*60*1000;
+  const radarSnapshots=new Map();
+  function radarSnapshotKey(){
+    return [state.center.lat.toFixed(5),state.center.lng.toFixed(5),state.radiusKm,
+      state.kind,state.martBrand,state.convenienceBrand,state.pack].join("|");
+  }
+  function rememberRadarSnapshot(key,now=Date.now()){
+    if(radarSnapshots.size>=8)radarSnapshots.clear();
+    radarSnapshots.set(key,{savedAt:now,
+      shops:state.shops.slice(),retailerShops:state.retailerShops.slice(),
+      masterShops:state.masterShops.slice(),publicShops:state.publicShops.slice(),
+      inventory:state.inventory.map(s=>({...s,items:(s.items||[]).map(i=>({...i}))}))});
+  }
+  function restoreRadarSnapshot(key,now=Date.now()){
+    const entry=radarSnapshots.get(key);
+    if(!entry)return false;
+    if(now-entry.savedAt>RADAR_SNAPSHOT_MS){radarSnapshots.delete(key);return false;}
+    const asHistory=(stores)=>stores.map(s=>({...s,
+      verifiedInventory:(s.verifiedInventory||[]).map(i=>({...i,previousLookup:true}))}));
+    state.shops=asHistory(entry.shops);state.retailerShops=asHistory(entry.retailerShops);
+    state.masterShops=asHistory(entry.masterShops);state.publicShops=asHistory(entry.publicShops);
+    state.inventory=entry.inventory.map(s=>({...s,items:(s.items||[])
+      .map(i=>({...i,previousLookup:true}))}));
+    state.mapChecked=true;
+    return true;
+  }
   async function search() {
     if (state.searching) return;
     state.searching = true;
@@ -1122,13 +1174,16 @@
     state.providerNotes = [];
     state.providerOutcomes = {};
     renderProviderDiagnostics();
+    const snapshotKey=radarSnapshotKey();
+    const hadPrevious=restoreRadarSnapshot(snapshotKey);
     const jobs = inventoryJobs();
     const includeCuStores = state.kind==="all" ||
       (state.kind==="convenience" && ["all","cu"].includes(state.convenienceBrand));
     state.progress = {completed:0,total:jobs.length+3+(includeCuStores?1:0),successes:0,failures:0,active:true};
     updateProgress("매장 및 카드 재고 탐색 중");
     render();
-    setStatus("카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
+    setStatus(hadPrevious ? "이전 조회 결과를 먼저 표시합니다. 현재 재고는 새로 확인 중입니다." :
+      "카드 상품만 확인하고 있습니다. 매장 후보와 API 응답이 들어오는 순서대로 결과가 갱신됩니다.");
     const query = categoryQuery(state.radiusKm*1000,state.center.lat,state.center.lng);
     const mapTask = fetchJson("https://overpass.kumi.systems/api/interpreter", {
       method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
@@ -1191,6 +1246,7 @@
     const martFeedTask = loadMartInventory();
     const [mapOK,cuOK,dbOK,govOK] = await Promise.all([mapTask,cuStoreTask,dbTask,govTask,stockTask,martFeedTask]);
     state.progress.active = false;
+    rememberRadarSnapshot(snapshotKey);
     updateProgress("검색 종료");
     render();
     const candidates = mergeInventory(state.shops).filter(selectedKind)
@@ -1216,8 +1272,12 @@
   const API_BASE = "https://mcp.aka.page";
   const PACK_TITLES = new Map(PRODUCTS);
   const packFromTitle = (name) => {
-    const found = PRODUCTS.find((p) => name.toLowerCase().includes(p[1].toLowerCase()) ||
-      (p[0] === "m6a" && /30주년/.test(name)));
+    const compact = (value) => String(value||"").normalize("NFKC").toLowerCase()
+      .replace(/[^a-z0-9가-힣]+/g,"");
+    const actual=compact(name);
+    if(!actual)return "";
+    const found=PRODUCTS.find(([code,title])=>actual.includes(compact(title)) ||
+      (code==="m6a" && /30주년/.test(actual)));
     return found ? found[0] : "";
   };
   function validQuantity(q) {
@@ -1258,7 +1318,8 @@
       inventorySource:"public-aggregator",
       items:[{code:packFromTitle(product),name:product.slice(0,90),quantity,
         retailerSku:/^[A-Za-z0-9_-]{1,72}$/.test(String(retailerSku))?String(retailerSku):"",
-        checkedAt:observedAt,provider:source,inventorySource:"public-aggregator"}]
+        checkedAt:observedAt,provider:source,inventorySource:"public-aggregator",
+        packageUnit:stockProductUnit(product)}]
     };
     return record.id && record.name ? record : null;
   }
@@ -1412,7 +1473,7 @@
     // Cover all nine *named* packs in the site's supported selection list.
     // Do not rely on a generic search that can return an unrelated product.
     // This still cannot enumerate every product sold by each retailer.
-    return PRODUCTS.map(([,title])=>title);
+    return DEFAULT_PRODUCTS.map(([,title])=>title);
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" ? [] :
@@ -1452,14 +1513,30 @@
         const index=existing.items.findIndex((entry)=>
           stockProductIdentity(entry)===stockProductIdentity(item));
         if(index<0)existing.items.push(item);
-        else if(Date.parse(existing.items[index].checkedAt)<Date.parse(item.checkedAt))
+        else if((existing.items[index].previousLookup === true && item.previousLookup !== true) ||
+            Date.parse(existing.items[index].checkedAt)<Date.parse(item.checkedAt))
           existing.items[index]=item;
       }
     }
     return [...grouped.values()];
   }
+  // Short-lived, in-tab cache of successful public readings only.
+  const RETAILER_CACHE_MS=60*1000;
+  const retailerResponseCache=new Map();
+  function readCachedRetailer(key,now=Date.now()){
+    const entry=retailerResponseCache.get(key);
+    if(!entry)return null;
+    if(entry.expiresAt<=now){retailerResponseCache.delete(key);return null;}
+    return entry;
+  }
+  function saveCachedRetailer(key,payload,checkedAt,now=Date.now()){
+    if(retailerResponseCache.size>=48)retailerResponseCache.clear();
+    retailerResponseCache.set(key,{payload,checkedAt,expiresAt:now+RETAILER_CACHE_MS});
+  }
   async function fetchLiveInventory(jobs,areaTask=Promise.resolve("")) {
-    const all=[];
+    const all=state.inventory.filter(s=>s.inventorySource==="public-aggregator")
+      .map(s=>({...s,items:(s.items||[]).map(i=>({...i}))}));
+    const deadline=Date.now()+65000;
     const notes=[];
     let index=0,emart24PreferDistrict=false;
     const brokenProviders=new Set();
@@ -1467,7 +1544,7 @@
     async function worker() {
       while(index<jobs.length) {
         const task=jobs[index++];
-        if(brokenProviders.has(task.provider)){
+        if(brokenProviders.has(task.provider) || Date.now()>=deadline){
           // Skipped work is not an actual failed HTTP request.
           notes.push(task.provider+":skipped");
           recordProviderOutcome(task.provider,"skipped");
@@ -1477,7 +1554,7 @@
           renderProviderDiagnostics();
           continue;
         }
-        let success=false;
+        let success=false,usedCache=false;
         try {
           const needsArea=task.provider==="seveneleven"||task.provider==="emart24";
           const storeArea=needsArea?await areaTask:"";
@@ -1488,17 +1565,32 @@
           const selectedArea=task.provider==="emart24" &&
             emart24PreferDistrict && retailerDistrictFallback ?
             retailerDistrictFallback : storeArea;
-          let payload;
+          const remaining=deadline-Date.now();
+          if(remaining<=0)throw new Error("SEARCH_TIME_BUDGET");
+          const requestTimeout=Math.max(1000,Math.min(12000,remaining));
+          let payload,checkedAt="";
+          let requestUrl=endpoint(task.provider,task.keyword,selectedArea);
+          let cacheKey=state.radiusKm+"|"+requestUrl;
           try {
-            payload=await fetchJson(endpoint(task.provider,task.keyword,selectedArea),
-              {cache:"no-store"},28000);
+            const hit=readCachedRetailer(cacheKey);
+            if(hit){payload=hit.payload;checkedAt=hit.checkedAt;usedCache=true;}
+            else {
+              payload=await fetchJson(requestUrl,{cache:"no-store"},requestTimeout);
+              checkedAt=new Date().toISOString();
+            }
           }catch(error){
             const wider=emart24FallbackArea(task.provider,error,
               selectedArea,retailerDistrictFallback);
             if(!wider)throw error;
             emart24PreferDistrict=true;
-            payload=await fetchJson(endpoint(task.provider,task.keyword,wider),
-              {cache:"no-store"},28000);
+            requestUrl=endpoint(task.provider,task.keyword,wider);
+            cacheKey=state.radiusKm+"|"+requestUrl;
+            const hit=readCachedRetailer(cacheKey);
+            if(hit){payload=hit.payload;checkedAt=hit.checkedAt;usedCache=true;}
+            else {
+              payload=await fetchJson(requestUrl,{cache:"no-store"},requestTimeout);
+              checkedAt=new Date().toISOString();
+            }
           }
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
           if(task.provider==="cu" && payload.data.inventory?.available===false)
@@ -1518,12 +1610,13 @@
             if(candidateSet && goodsSet && candidateSet!==goodsSet)
               throw new Error("PRODUCT_SKU_CONFLICT");
           }
-          const rows=parseRetail(task.provider,payload,new Date().toISOString(),task.keyword);
+          const rows=parseRetail(task.provider,payload,checkedAt,task.keyword);
+          if(!usedCache)saveCachedRetailer(cacheKey,payload,checkedAt);
           all.push(...rows);
-          recordProviderOutcome(task.provider,"success",rows);
+          recordProviderOutcome(task.provider,usedCache?"cached":"success",rows);
           success=true;
           upstreamFailures.set(task.provider,0);
-          notes.push(task.provider+":ok");
+          notes.push(task.provider+(usedCache?":cached":":ok"));
         } catch (error) {
           updateProviderCircuit(brokenProviders,upstreamFailures,task.provider,error);
           recordProviderOutcome(task.provider,"failure",[],error);
@@ -1532,7 +1625,7 @@
           state.providerNotes=notes.slice();
           renderProviderDiagnostics();
           state.inventory=groupInventoryRows(all);
-          completeProgressStep(success,"재고 조회 중");
+          completeProgressStep(success,"재고 조회 중",!usedCache);
           render();
         }
       }
@@ -1616,8 +1709,8 @@
     document.querySelectorAll("[data-map-mode]").forEach((button)=>
       button.addEventListener("click",()=>setStockOnly(button.dataset.mapMode==="stock")));
     initMap();
-    let saved=3;
-    try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||3;}catch(_){}
+    let saved=10;
+    try {saved=Number(localStorage.getItem("digitalCardBinderRadarRadiusV1"))||10;}catch(_){}
     setRadius(saved);
     setView("list");
     let savedStockOnly = false;

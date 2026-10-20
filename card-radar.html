@@ -53,15 +53,15 @@
           <span class="radar-label" id="radar-distance-label">검색 반경</span>
           <div class="radar-radius" role="group" aria-labelledby="radar-distance-label">
             <button type="button" data-radius="1" aria-pressed="false">1km</button>
-            <button type="button" data-radius="3" aria-pressed="true" class="selected">3km</button>
+            <button type="button" data-radius="3" aria-pressed="false">3km</button>
             <button type="button" data-radius="5" aria-pressed="false">5km</button>
-            <button type="button" data-radius="10" aria-pressed="false">10km</button>
+            <button type="button" data-radius="10" aria-pressed="true" class="selected">10km</button>
           </div>
         </div>
         <div class="radar-field">
           <label class="radar-label" for="radar-pack">상품 검색</label>
           <select id="radar-pack"><option value="">전체 카드팩 · 기본값</option></select>
-          <small class="radar-tiny" id="radar-pack-coverage-note">전체 카드팩은 등록된 9종을 검색합니다. 다른 카드팩은 검색에서 빠질 수 있습니다.</small>
+          <small class="radar-tiny" id="radar-pack-coverage-note">자동탐색은 주요 9종부터 조회합니다. 다른 지원 팩은 목록에서 선택할 수 있습니다. 매장별 조회 범위는 다를 수 있습니다.</small>
         </div>
         <div class="radar-field">
           <label class="radar-label" for="radar-store-kind">매장 유형</label>
@@ -166,7 +166,7 @@
             <span><i class="radar-legend-dot is-mart" aria-hidden="true"></i>마트</span>
             <span class="radar-legend-positive"><i class="radar-legend-dot is-stock" aria-hidden="true"></i>카드 재고 확인</span>
           </div>
-          <div class="radar-map-caption"><strong id="radar-map-caption">반경 3km</strong><span>편의점 · 마트</span></div>
+          <div class="radar-map-caption"><strong id="radar-map-caption">반경 10km</strong><span>편의점 · 마트</span></div>
         </div>
       </div>
     </section>
