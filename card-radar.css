@@ -265,3 +265,8 @@
   .radar-coverage-retailers{grid-template-columns:1fr}
   .radar-coverage-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Small readable status breakdown; only visible when existing coverage details is open. */
+.radar-provider-diagnostics{white-space:pre-line;line-height:1.6;font-size:.84rem;
+  padding:10px 12px;margin:6px 0 10px;border:1px solid var(--line);
+  border-radius:9px;background:var(--pale);overflow-wrap:anywhere}
