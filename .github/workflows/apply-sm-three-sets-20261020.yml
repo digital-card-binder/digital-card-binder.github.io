@@ -36,11 +36,11 @@ jobs:
         run: python -m pip install requests pillow
       - name: Install site dependencies
         run: npm ci
-      - name: Verify 274 Korean-source image hashes and artwork colors
+      - name: Verify 273 Korean-source image hashes and artwork colors
         run: |
           python -m py_compile scripts/build-sm-three-sets-art-palette-20261020.py
           python scripts/build-sm-three-sets-art-palette-20261020.py
-      - name: Apply 3 separate-set art-theme memberships and 7 image/print holds
+      - name: Apply 3 separate-set art-theme memberships and 8 image/print holds
         run: node scripts/apply-sm-three-sets-art-themes-20261020.mjs
       - name: Synchronize generated site and run all regression tests
         run: |
@@ -59,7 +59,7 @@ jobs:
           echo "$changed"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'audit(theme): save Korean SM4+/SM5S/SM5M screens and seven held prints'
+          git commit -m 'audit(theme): save Korean SM4+/SM5S/SM5M screens and eight held prints'
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
