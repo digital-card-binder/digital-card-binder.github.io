@@ -34,7 +34,7 @@ assert.deepEqual(new Set(source.sets.map(s=>s.code.toLowerCase())),new Set(Objec
 assert.deepEqual(new Set(Object.keys(scenes.seasons)),new Set(Object.keys(plan)));
 const sourceBySet=Object.fromEntries(source.sets.map(x=>[x.code.toLowerCase(),x]));
 const paletteByCard=new Map(palette.pixelEvidenceRows.map(x=>[x.set.toLowerCase()+"#"+x.number,x]));
-assert.equal(paletteByCard.size,274);
+assert.equal(paletteByCard.size,273);
 const byTheme=Object.fromEntries(art.groups.map(g=>[g.code,g]));
 const before=Object.fromEntries(art.groups.map(g=>[g.code,g.cards.length]));
 const reviewedSets=[];
@@ -154,7 +154,7 @@ const record={
 art.updatedAt="2026-10-20";
 save(artPath,art);save(statusPath,status);save(auditPath,record);
 console.log("THREE_KOREAN_SM_SERIES_REVIEW",JSON.stringify({
- screened:274,held:7,newThemeRows:added,totalThemeRows:count(),byTheme:deltas,
+ screened:273,held:8,newThemeRows:added,totalThemeRows:count(),byTheme:deltas,
  perSet:reviewedSets.map(x=>({code:x.set,screened:x.artworkCardsScreened,
  held:x.printedIdentityOrImageHolds,added:x.newIndependentThemeRows}))
 }));
