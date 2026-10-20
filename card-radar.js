@@ -1277,10 +1277,21 @@
         if(parsed)results.push(parsed);
       }
     } else if(provider === "gs25") {
+      // Source chooses a verified SKU when available, but can fall back
+      // to a broad keyword-only stock search. A displayed positive count must
+      // not be inferred from the keyword in that fallback response.
+      if(data.itemCodeUsed===false || (data.itemCodeUsed===true &&
+        !/^[A-Za-z0-9_-]{2,72}$/.test(String(data.itemCode||""))))return results;
       const name=String(data.product?.name || "");
+      if(name && !matchesRequestedCardProduct(name,requestedKeyword))return results;
       for(const store of data.inventory?.stores || []) {
+        const displayedName=String(store.searchItemName || name);
+        // A per-store label disagreeing with the selected SKU's pack set
+        // is an identity conflict, not independent proof of inventory.
+        const sourceSet=packFromTitle(name),storeSet=packFromTitle(displayedName);
+        if(sourceSet && storeSet && sourceSet!==storeSet)continue;
         const parsed=storeFromResult(store,"convenience","GS25",
-          String(store.searchItemName || name),store.realStockQuantity,responseAt,
+          name||displayedName,store.realStockQuantity,responseAt,
           data.itemCode || "");
         if(parsed)results.push(parsed);
       }
@@ -1301,8 +1312,14 @@
       // The API may choose a non-first candidate. Never substitute candidate[0].
       const selectedCandidate=(data.productCandidates||[]).find(
         item=>selectedPlu && String(item.pluCd||"").trim()===selectedPlu);
-      const name=String(data.goodsInfo?.goodsName || data.goodsInfo?.goodsNm ||
-        selectedCandidate?.goodsName || "");
+      const selectedName=String(selectedCandidate?.goodsName||
+        selectedCandidate?.goodsNm||"");
+      const authoritativeName=String(data.goodsInfo?.goodsName||
+        data.goodsInfo?.goodsNm||"");
+      const selectedSet=packFromTitle(selectedName),
+        goodsSet=packFromTitle(authoritativeName);
+      if(selectedSet && goodsSet && selectedSet!==goodsSet)return results;
+      const name=String(authoritativeName||selectedName);
       for(const store of data.stores || []) {
         const companion=nearby.find((row)=>String(row.storeCode)===String(store.bizNo));
         // Some responses contain the coordinate directly on the stock row.
