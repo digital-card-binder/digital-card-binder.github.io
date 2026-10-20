@@ -1,0 +1,54 @@
+name: Apply SM4A 59 Korean artwork reviews and preserve sleeping tags
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-sm4a-korean-59-themes-20261020.yml'
+      - 'scripts/apply-theme-sm4a-korean-art-59-20261020.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sm4a-korean-art-59
+  cancel-in-progress: false
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install project dependencies
+        run: npm ci
+      - name: Apply Korean visual screening while preserving two sleeping records
+        run: node scripts/apply-theme-sm4a-korean-art-59-20261020.mjs
+      - name: Regenerate full site and verify application contracts
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Commit one complete tested batch; never modify Card Radar
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then exit 0; fi
+          changed="$(git diff --cached --name-only)"
+          if printf '%s\n' "$changed" | grep -E '^(radar-server/|api/radar/|data/radar-master/|data/card-radar-|tests/card-radar-|scripts/.*radar)' ; then
+            echo "Card Radar file change prohibited for theme audit"
+            exit 1
+          fi
+          echo "$changed"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): save 59 SM4A Korean artwork reviews, preserve 2 sleeps, hold 3'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
