@@ -120,7 +120,7 @@
     byId("radar-progress-stage").textContent = stage || (active ? "재고 조회 중" : completed ? "검색 종료" : "검색 대기");
     const skipped=state.progress.skipped||0;
     byId("radar-progress-detail").textContent = total > 0
-      ? "진행 " + completed + " / " + total + "단계 · 재고 API 요청 " +
+      ? "진행 " + completed + " / " + total + "단계 · 재고 확인 처리 " +
         (state.progress.successes+state.progress.failures) +
         "건 · 자동 생략 " + skipped + "건"
       : "검색을 시작하면 재고 조회와 매장 검색 진행 상황이 표시됩니다.";
