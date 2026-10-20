@@ -1,0 +1,693 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-20",
+  "series": "sm2+",
+  "setName": "새로운 시련",
+  "priorArtworkReviewed": 30,
+  "thisArtworkReviewed": 36,
+  "cumulativeArtworkScreened": 66,
+  "masterSlots": 75,
+  "independentlyHeldSlots": 9,
+  "scope": "031-066 approved artwork themes; 067-075 visibly mismatched canonical source images",
+  "sourcePreflight": "data/audits/theme-sm2plus-031-075-korean-image-preflight-20261020.json",
+  "previousCheckpoint": "data/audits/theme-sm2plus-011-030-korean-art-screen-20261020.json",
+  "addedIndependentThemeSlots": 48,
+  "totalIndependentThemeSlots": 18109,
+  "themeCountsBefore": {
+    "sleeping": 182,
+    "connected": 148,
+    "evolution": 79,
+    "night": 502,
+    "season": 5223,
+    "color": 10042,
+    "sunset": 260,
+    "reflections": 58,
+    "food": 185,
+    "work": 96,
+    "street": 1140,
+    "cameo": 146
+  },
+  "themeCountsAfter": {
+    "sleeping": 183,
+    "connected": 148,
+    "evolution": 79,
+    "night": 503,
+    "season": 5232,
+    "color": 10078,
+    "sunset": 260,
+    "reflections": 58,
+    "food": 185,
+    "work": 96,
+    "street": 1141,
+    "cameo": 146
+  },
+  "addedCounts": {
+    "sleeping": 1,
+    "connected": 0,
+    "evolution": 0,
+    "night": 1,
+    "season": 9,
+    "color": 36,
+    "sunset": 0,
+    "reflections": 0,
+    "food": 0,
+    "work": 0,
+    "street": 1,
+    "cameo": 0
+  },
+  "allTwelveThemesConsideredFor031to066": true,
+  "strictSetComplete": false,
+  "printNumberFooterEnlargementOutstanding": true,
+  "koreanSetDiscrepancy": "Korean and Japanese SM2+ special prints/energy records must be independently enumerated; do not treat 75 master rows as 75 confirmed separate Korean prints.",
+  "referencePages": [
+    "https://setory.site/sets/sm-new-trials-kr",
+    "https://bulbapedia.bulbagarden.net/wiki/SM2%2B"
+  ],
+  "approvedCards": [
+    {
+      "number": 31,
+      "canonicalCode": "sm2plus_031/049",
+      "koreanName": "솔록",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_031.png",
+      "imageSha256": "b52400dc376840916653717a3daaaa730fc73dd414bcf6604c3c6de9ec3eb415",
+      "artworkScene": "햇빛 아래 푸른 호수와 녹색 섬·물가 상공의 솔록",
+      "approvedThemes": {
+        "color": "노랑·청록",
+        "season": "호수와 녹색 섬이 펼쳐진 밝은 낮"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 32,
+      "canonicalCode": "sm2plus_032/049",
+      "koreanName": "암멍이",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_032.png",
+      "imageSha256": "6af22725cab00b75ff1565c776be1f8c9ee9184e0c1d1b6b87bae8a0647c0d16",
+      "artworkScene": "바람부는 회색 바위 언덕에서 달리는 갈색 암멍이",
+      "approvedThemes": {
+        "color": "갈색·회색",
+        "season": "밝은 바위 언덕과 산비탈"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 33,
+      "canonicalCode": "sm2plus_033/049",
+      "koreanName": "루가루암",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_033.png",
+      "imageSha256": "7f1f1b3cc9480b25b02b801a4df3703d0b6f05aa0c306b25e773f3ba4b58ae65",
+      "artworkScene": "깎아지른 바위와 회색 빛줄기 사이에서 달려드는 루가루암",
+      "approvedThemes": {
+        "color": "회색·빨강"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 34,
+      "canonicalCode": "sm2plus_034/049",
+      "koreanName": "루가루암 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_034.png",
+      "imageSha256": "1e17e0bfd0bd69c9e4dd61c29df2abd14c40a5f7bb0e136959302ee8cf0ca7ec",
+      "artworkScene": "밝은 번개 같은 전투 효과선 앞의 회갈색 루가루암 GX",
+      "approvedThemes": {
+        "color": "회색·갈색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 35,
+      "canonicalCode": "sm2plus_035/049",
+      "koreanName": "니로우",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_035.png",
+      "imageSha256": "bb40c8e962d0da36c619a77f92807b231f71d86356424fb04aa806bd336b6b4a",
+      "artworkScene": "붉은 주황빛 꽃이 핀 들판과 파란 하늘 앞의 니로우",
+      "approvedThemes": {
+        "color": "남색·주황",
+        "season": "색색의 꽃이 핀 들판과 맑은 하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 36,
+      "canonicalCode": "sm2plus_036/049",
+      "koreanName": "돈크로우",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_036.png",
+      "imageSha256": "d8721a4e1bb5cf93b5b2e762ce7a65cd916097fa8b942082e125320528237cab",
+      "artworkScene": "큰 분홍빛 달처럼 둥글게 비치는 배경과 짙은 보라색 야경 속의 돈크로우",
+      "approvedThemes": {
+        "color": "남색·분홍",
+        "night": "보랏빛 밤하늘과 분홍빛 둥근 달"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 37,
+      "canonicalCode": "sm2plus_037/049",
+      "koreanName": "포푸니",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_037.png",
+      "imageSha256": "e80cd9a61912dff48e2931d2ee1ae10895cc26b0b9b6a9c487d7a31a9a76e3ab",
+      "artworkScene": "밝은 초록 숲과 굽은 나무줄기 위에 앉은 포푸니",
+      "approvedThemes": {
+        "color": "초록·검정",
+        "season": "햇살이 들어오는 푸른 숲"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 38,
+      "canonicalCode": "sm2plus_038/049",
+      "koreanName": "포푸니라",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_038.png",
+      "imageSha256": "2c4cd859a3e6811f4dd2e97faccae45a3497c96f10befdc324c5a0a65c498982",
+      "artworkScene": "하얀 바람·속도선이 휘도는 공격 장면의 포푸니라",
+      "approvedThemes": {
+        "color": "회색·주황"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 39,
+      "canonicalCode": "sm2plus_039/049",
+      "koreanName": "깜까미",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_039.png",
+      "imageSha256": "62fcb53282c5ae3d872e9096961eda1e392989c3e4d4bffa6922cbb763dc344a",
+      "artworkScene": "어두운 동굴과 빛나는 초록 바위 사이의 보라색 깜까미",
+      "approvedThemes": {
+        "color": "보라·청록",
+        "season": "어둠 속 초록빛 광물이 있는 바위 동굴"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 40,
+      "canonicalCode": "sm2plus_040/049",
+      "koreanName": "다크라이 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_040.png",
+      "imageSha256": "132ad8148fa0c2fa3d9403ebf6d71cdfbb76ac7bc170f3c6617af6983815a567",
+      "artworkScene": "남색과 회색, 붉은 전투 효과가 강조된 다크라이 GX",
+      "approvedThemes": {
+        "color": "남색·검정"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 41,
+      "canonicalCode": "sm2plus_041/049",
+      "koreanName": "소미안",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_041.png",
+      "imageSha256": "48868b8ea2f26e5e90dd79270cdb0214a35539018ce604059f1a31da60f1b83b",
+      "artworkScene": "짙은 숲속 나무와 큰 녹색 잎 뒤에 숨은 소미안",
+      "approvedThemes": {
+        "color": "연두·회색",
+        "season": "큰 잎이 우거진 그늘진 숲"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 42,
+      "canonicalCode": "sm2plus_042/049",
+      "koreanName": "엘풍",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_042.png",
+      "imageSha256": "83486aab2e54da214a08d9f144b49ae502804f4b5f28df4d02f3a02b11f9aea1",
+      "artworkScene": "화창한 해안의 야자나무와 하늘을 배경으로 떠 있는 엘풍",
+      "approvedThemes": {
+        "color": "크림·청록",
+        "season": "야자나무가 있는 밝은 열대 해변"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 43,
+      "canonicalCode": "sm2plus_043/049",
+      "koreanName": "자말라",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_043.png",
+      "imageSha256": "492e17327d8864fbc73ac9232d9c49eb7022ad4f72848f66fe76c8f3f74d1783",
+      "artworkScene": "눈을 감고 나무통을 끌어안은 자말라와 맑은 야자수 바닷가",
+      "approvedThemes": {
+        "sleeping": "눈을 감고 나무통에 매달려 잠든 자말라",
+        "color": "파랑·크림",
+        "season": "야자나무·푸른 바다가 보이는 맑은 섬"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 44,
+      "canonicalCode": "sm2plus_044/049",
+      "koreanName": "동굴탈출로프",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_044.png",
+      "imageSha256": "d6d714bce15a01c888c37c949bd825d6baf9f987e991b55373a1398bfb63816d",
+      "artworkScene": "초록빛 원과 빛줄기 앞에 놓인 밧줄 아이템",
+      "approvedThemes": {
+        "color": "갈색·초록"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 45,
+      "canonicalCode": "sm2plus_045/049",
+      "koreanName": "소원의 바통",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_045.png",
+      "imageSha256": "33d01822dba13905c60371d826090fd7b3fc89794be88f3fb8cf12a3872b0e02",
+      "artworkScene": "주황빛 반짝임 속의 은색 원통과 작은 장식",
+      "approvedThemes": {
+        "color": "주황·은색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 46,
+      "canonicalCode": "sm2plus_046/049",
+      "koreanName": "약점보험",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_046.png",
+      "imageSha256": "33bf2b23e4711b1242d6ec47a63a9851bf012275f2650b94d7eae7c06dd073b7",
+      "artworkScene": "푸른 보랏빛 후광을 가진 종이형 보험 아이템",
+      "approvedThemes": {
+        "color": "보라·하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 47,
+      "canonicalCode": "sm2plus_047/049",
+      "koreanName": "라이치",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_047.png",
+      "imageSha256": "35c7e3c1ffbd6a35db1072bf707a3947501d47115482874f10af34332aa1a089",
+      "artworkScene": "푸른 하늘과 큰 바위 동굴·초록 잔디 앞의 라이치",
+      "approvedThemes": {
+        "color": "갈색·연두",
+        "season": "바위 동굴과 푸른 잔디가 있는 야외"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 48,
+      "canonicalCode": "sm2plus_048/049",
+      "koreanName": "마마네",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_048.png",
+      "imageSha256": "a90b2d3602670cf27b96c89d74b3c539b8d5191f3d4062888635f0eb15062914",
+      "artworkScene": "파란 기계·벽돌 건물의 실외 테이블에서 마마네가 물건을 다루는 장면",
+      "approvedThemes": {
+        "color": "노랑·파랑"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 49,
+      "canonicalCode": "sm2plus_049/049",
+      "koreanName": "아세로라",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_049.png",
+      "imageSha256": "89f8c0dcbcf7d867a879c9174016cab1390a7bfb3e931e75d513178329b5980f",
+      "artworkScene": "밝은 하늘, 마을 건축물과 가로등 앞에 선 보라 머리 아세로라",
+      "approvedThemes": {
+        "color": "보라·회색",
+        "street": "가로등과 낮은 건축물이 보이는 마을 거리"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 50,
+      "canonicalCode": "sm2plus_050/049",
+      "koreanName": "카푸브루루 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_050.png",
+      "imageSha256": "5b221ae5ac769af30746e753744b1463efcd4985b91453e826a561d84bd3270a",
+      "artworkScene": "선명한 초록·청록·빨강의 기하학 패턴이 강조된 카푸브루루 GX 풀아트",
+      "approvedThemes": {
+        "color": "청록·빨강"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 51,
+      "canonicalCode": "sm2plus_051/049",
+      "koreanName": "염뉴트 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_051.png",
+      "imageSha256": "d8c53e4e666396dc0939ee024dfa6a49f9167774b1ccad88777d226b489027a6",
+      "artworkScene": "밝은 빨강 배경에 검은 몸통과 강한 파란 선을 두른 염뉴트 GX 풀아트",
+      "approvedThemes": {
+        "color": "빨강·검정"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 52,
+      "canonicalCode": "sm2plus_052/049",
+      "koreanName": "카푸느지느 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_052.png",
+      "imageSha256": "fa0ffde4f710be5437cd3de696d438f05b9aa2daa89ff63d7a72fcc7e86e9edc",
+      "artworkScene": "파란 물결 패턴을 배경으로 한 카푸느지느 GX 풀아트",
+      "approvedThemes": {
+        "color": "파랑·검정"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 53,
+      "canonicalCode": "sm2plus_053/049",
+      "koreanName": "괴력몬 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_053.png",
+      "imageSha256": "ce3c77ef6b356efb2944a4f19a7452da31ba6549d8b9c3fb8b49e7c932add758",
+      "artworkScene": "주황 기하학 바탕 위에 푸른 회색 괴력몬 GX 풀아트",
+      "approvedThemes": {
+        "color": "주황·하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 54,
+      "canonicalCode": "sm2plus_054/049",
+      "koreanName": "루가루암 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_054.png",
+      "imageSha256": "fab6db84ed475048724be218c370386c0545a2f1fabfa955ed9fbfe0f2cc5863",
+      "artworkScene": "주황·파랑 기하학 배경에 흰빛 회색 루가루암 GX",
+      "approvedThemes": {
+        "color": "주황·하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 55,
+      "canonicalCode": "sm2plus_055/049",
+      "koreanName": "다크라이 GX",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_055.png",
+      "imageSha256": "b6eef39c9fa6e1af496de187c17b0cb481b9f4d8e9e59f514b41928211b81bbf",
+      "artworkScene": "짙은 회색 다크라이 GX를 감싸는 파란·붉은 기하학 화면",
+      "approvedThemes": {
+        "color": "남색·회색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 56,
+      "canonicalCode": "sm2plus_056/049",
+      "koreanName": "마마네",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_056.png",
+      "imageSha256": "fd7f60c2cb1524fa44e29aa40fd2826c01d5cb9665d60dd0133c02fec0130fa6",
+      "artworkScene": "흰 셔츠와 귤빛 머리, 노랑 물건과 진한 파랑 패턴의 마마네 풀아트",
+      "approvedThemes": {
+        "color": "주황·하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 57,
+      "canonicalCode": "sm2plus_057/049",
+      "koreanName": "아세로라",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_057.png",
+      "imageSha256": "d7692ce676c7f5e12162ab3b9fbc200c0773dc5badb105eeb2c12e192c2353be",
+      "artworkScene": "보라색 긴 머리와 어두운 보랏빛 배경의 아세로라 풀아트",
+      "approvedThemes": {
+        "color": "보라·회색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 58,
+      "canonicalCode": "sm2plus_058/049",
+      "koreanName": "기본 풀 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_058.png",
+      "imageSha256": "c31acaa12d9778cb1b1395c2e1f34ba3d3f2bb60fcf9c17499cb171a19ae65e7",
+      "artworkScene": "초록 배경의 풀 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "초록·연두"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 59,
+      "canonicalCode": "sm2plus_059/049",
+      "koreanName": "기본 불꽃 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_059.png",
+      "imageSha256": "2f30bf0f3b181837220cb65668b820ed757de24dc96f67131da4a2660a254b33",
+      "artworkScene": "붉은 주황 배경의 불꽃 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "빨강·주황"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 60,
+      "canonicalCode": "sm2plus_060/049",
+      "koreanName": "기본 물 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_060.png",
+      "imageSha256": "853ac4f85249065f8c77215483a5b690ed611be6efd8c8324c4c15897739c433",
+      "artworkScene": "맑은 파랑 배경의 물 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "파랑·하늘"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 61,
+      "canonicalCode": "sm2plus_061/049",
+      "koreanName": "기본 번개 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_061.png",
+      "imageSha256": "78c8b08760982139b735174bdcbd7596c597f1ab82e2c830b44fecaf4c1b98d5",
+      "artworkScene": "노란 배경의 번개 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "노랑·금색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 62,
+      "canonicalCode": "sm2plus_062/049",
+      "koreanName": "기본 초 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_062.png",
+      "imageSha256": "8caeee8022d5f36caf185b044d74f3e01b1c2cab0af06959d1fcc521e94ea0eb",
+      "artworkScene": "보라 배경의 초 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "보라·자주"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 63,
+      "canonicalCode": "sm2plus_063/049",
+      "koreanName": "기본 격투 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_063.png",
+      "imageSha256": "7302afc42b9e6c5a257aacafc346b16c23572b4d936a10203a073f62f8928431",
+      "artworkScene": "주황·갈색 배경의 격투 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "주황·갈색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 64,
+      "canonicalCode": "sm2plus_064/049",
+      "koreanName": "기본 악 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_064.png",
+      "imageSha256": "b314201c636d759cee075de5824af24c7d559e35644513495b0ede926f770adb",
+      "artworkScene": "검은 원과 짙푸른 배경의 악 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "검정·청록"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 65,
+      "canonicalCode": "sm2plus_065/049",
+      "koreanName": "기본 강철 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_065.png",
+      "imageSha256": "0302da6c49880448fd42b7eda7a1a098263c84ff9bc5b3ec20b19bacf88e3d60",
+      "artworkScene": "회색·은색 배경의 강철 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "은색·회색"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    },
+    {
+      "number": 66,
+      "canonicalCode": "sm2plus_066/049",
+      "koreanName": "기본 페어리 에너지",
+      "image": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_066.png",
+      "imageSha256": "f0bf2ee3d02dfa690ff20ffc989298b582091a0b99d82ad98acc795dbbb94c8f",
+      "artworkScene": "분홍 배경의 페어리 타입 에너지 심볼",
+      "approvedThemes": {
+        "color": "분홍·자주"
+      },
+      "originalImageDecoded": true,
+      "KoreanCardFaceArtVisuallyScreened": true,
+      "printedFooterIndependentlyEnlarged": false
+    }
+  ],
+  "heldCards": [
+    {
+      "printedSlotInMaster": "067/049",
+      "masterCode": "sm2plus_067/049",
+      "masterName": "기본 물 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_067.png",
+      "imageSha256": "e25b915839b063873fc15ec24f757efa1c83b5b31b2c02272b4330c168a053b6",
+      "visuallyShownEarlierCardNumber": "001/049",
+      "visuallyShownEarlierCardName": "모다피",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "068/049",
+      "masterCode": "sm2plus_068/049",
+      "masterName": "기본 번개 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_068.png",
+      "imageSha256": "76b206baa39b2178fbd61225a49a75566d54efe8b6710d8f80c21101b18118e5",
+      "visuallyShownEarlierCardNumber": "002/049",
+      "visuallyShownEarlierCardName": "우츠동",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "069/049",
+      "masterCode": "sm2plus_069/049",
+      "masterName": "기본 격투 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_069.png",
+      "imageSha256": "997048298297d4d4d8de69ac3d4a084e380e3bf9b467335e3b6af4c51eb36606",
+      "visuallyShownEarlierCardNumber": "003/049",
+      "visuallyShownEarlierCardName": "우츠보트",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "070/049",
+      "masterCode": "sm2plus_070/049",
+      "masterName": "기본 악 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_070.png",
+      "imageSha256": "0d167ea29fe5666b040b2b09d5451c4b45661733264515e6e36063dc327ba382",
+      "visuallyShownEarlierCardNumber": "004/049",
+      "visuallyShownEarlierCardName": "레디바",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "071/049",
+      "masterCode": "sm2plus_071/049",
+      "masterName": "기본 강철 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_071.png",
+      "imageSha256": "2b1c5e4e384fb405ad4c35c4a7b1b942d33dbc7da356d77a158fddb193e05f09",
+      "visuallyShownEarlierCardNumber": "005/049",
+      "visuallyShownEarlierCardName": "레디안",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "072/049",
+      "masterCode": "sm2plus_072/049",
+      "masterName": "기본 불꽃 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_072.png",
+      "imageSha256": "ea576311f1368caf34be81033d0b6c866387345c7dac1cc4259944281ec591d2",
+      "visuallyShownEarlierCardNumber": "006/049",
+      "visuallyShownEarlierCardName": "카푸브루루",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "073/049",
+      "masterCode": "sm2plus_073/049",
+      "masterName": "기본 풀 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_073.png",
+      "imageSha256": "890d87c8bd6fa6eeace45e3ffa131d027060a5bae940730e07f928717520a67e",
+      "visuallyShownEarlierCardNumber": "008/049",
+      "visuallyShownEarlierCardName": "야도뇽",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "074/049",
+      "masterCode": "sm2plus_074/049",
+      "masterName": "기본 페어리 에너지No.",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_074.png",
+      "imageSha256": "880a027bff95dc9b750dc37cb6effc04dcc2e609dbe2dd320f2f0509610f1c6f",
+      "visuallyShownEarlierCardNumber": "009/049",
+      "visuallyShownEarlierCardName": "염뉴트",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    },
+    {
+      "printedSlotInMaster": "075/049",
+      "masterCode": "sm2plus_075/049",
+      "masterName": "알로라모래두지",
+      "currentImage": "https://cards.image.pokemonkorea.co.kr/data/wmimages/SM/SM2+/SM2plus_075.png",
+      "imageSha256": "0e9fdc03970ccef5b85a2fa73c8fe9fb4506cadfb810527c2054843536b181d9",
+      "visuallyShownEarlierCardNumber": "011/049",
+      "visuallyShownEarlierCardName": "알로라모래두지",
+      "blockingReason": "Source art shows a different earlier Korean card, not this master slot; No. energy labels are not pictured energies. Do not assert these are distinct Korean prints.",
+      "state": "hold_image_and_printed_identity_mismatch"
+    }
+  ],
+  "preservation": {
+    "original109StrictCompleteSetsReopened": 0,
+    "existing50SM2PlusThemeRowsModified": 0,
+    "masterOrCollectionIdentityChanged": 0,
+    "firestoreOrOwnershipChanged": 0,
+    "cardRadarFilesChanged": 0
+  },
+  "next": "Investigate true distinct SM2+ Korean printed variants and correct nine image/name/number mismatches with printVariants-safe ownership migration, without fabricating cards; then advance to the next unreviewed SM set."
+}
