@@ -422,7 +422,7 @@ test("changing a pack after a search schedules pack-specific refresh, never only
 test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
   const html=read("card-radar.html");
   assert.match(html,/id="radar-pack-coverage-note"/);
-  assert.match(html,/전체 카드팩은 등록된 9종을 검색합니다/);
+  assert.match(html,/자동탐색은 주요 9종부터 조회합니다/);
   assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
   assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
   assert.match(source,/state[.]hasSearched = true/);
@@ -859,7 +859,7 @@ test("provider circuit breaker halts rate-limited, stock-unavailable, and repeat
   assert.equal(updateProviderCircuit(blocked,failures,"emart24",new Error("HTTP 503")),false);
   assert.equal(updateProviderCircuit(blocked,failures,"emart24",new Error("HTTP 403")),false);
   assert.equal(blocked.has("emart24"),false);
-  assert.match(source,/if\(brokenProviders[.]has\(task[.]provider\)\)\{/);
+  assert.match(source,/if\(brokenProviders[.]has\(task[.]provider\) \|\| Date[.]now\(\)>=deadline\)\{/);
   assert.match(source,/completeProgressStep\(false,"재고 조회 중",false\)/);
 });
 
