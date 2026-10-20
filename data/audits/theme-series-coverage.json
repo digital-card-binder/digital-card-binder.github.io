@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18515,
-    "uniqueThemeCards": 11323,
+    "themeCardSlots": 18611,
+    "uniqueThemeCards": 11380,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 506,
-      "setCount": 101,
+      "cardSlots": 507,
+      "setCount": 102,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5348,
-      "setCount": 130,
+      "cardSlots": 5384,
+      "setCount": 131,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10348,
-      "setCount": 136,
+      "cardSlots": 10407,
+      "setCount": 137,
       "rarities": [
         "A",
         "AR",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 955
+      "currentThemeSlots": 1051
     },
     {
       "era": "XY",
@@ -1281,10 +1281,13 @@
       "cardCount": 62,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "night": 1,
+        "season": 36,
+        "color": 59
       }
     },
     {

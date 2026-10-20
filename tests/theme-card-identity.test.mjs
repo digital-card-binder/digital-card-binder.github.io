@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,18515); // SM4S 60 Korean artwork screens; source 058 and 061 held
+  assert.equal(total,18611); // SM4A 59 artwork screens, 2 existing sleeps retained; 3 source holds
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
