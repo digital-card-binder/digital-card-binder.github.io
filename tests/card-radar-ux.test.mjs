@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -980,4 +980,37 @@ test("the mobile coverage panel explains retailer source status and stock age ho
   assert.match(label.detail,/응답 수신/);
   assert.match(label.detail,/원본 갱신시각 미확인/);
   assert.doesNotMatch(label.detail,/공식 판매처 실시간 갱신/);
+});
+
+test("default 10km and bounded nine-product full scan",()=>{
+  const {state,inventoryJobs,liveQueries,stockProductUnit}=harness();
+  assert.equal(state.radiusKm,10);
+  assert.equal(liveQueries().length,9);
+  assert.equal(inventoryJobs().length,36);
+  assert.equal(stockProductUnit("확장팩"),"팩");
+  assert.equal(stockProductUnit("부스터 박스"),"박스");
+  state.pack="sv10";assert.equal(inventoryJobs().length,4);
+});
+
+test("retailer reply cache preserves original timestamp and expires",()=>{
+  const {readCachedRetailer,saveCachedRetailer}=harness();
+  const now=Date.now(),key="10|test";
+  saveCachedRetailer(key,{success:true,data:{}},new Date(now).toISOString(),now);
+  assert.equal(readCachedRetailer(key,now+1000).checkedAt,new Date(now).toISOString());
+  assert.equal(readCachedRetailer(key,now+60001),null);
+});
+
+test("previous snapshot cannot count as current positive stock",()=>{
+  const {state,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,inventoryLabel}=harness();
+  state.center={lat:37.5,lng:127};state.radiusKm=10;
+  state.shops=[];state.retailerShops=[];state.publicShops=[];state.masterShops=[];
+  state.inventory=[{inventorySource:"public-aggregator",items:[{
+    name:"포켓몬카드 인페르노X 확장팩",code:"m2",quantity:3,
+    checkedAt:new Date().toISOString(),inventorySource:"public-aggregator"
+  }]}];
+  const key=radarSnapshotKey(),now=Date.now();
+  rememberRadarSnapshot(key,now);
+  state.inventory=[];assert.equal(restoreRadarSnapshot(key,now+1000),true);
+  const summary=inventoryLabel({verifiedInventory:state.inventory[0].items});
+  assert.equal(summary.known,false);assert.match(summary.detail,/이전 조회/);
 });
