@@ -12,7 +12,7 @@ EVIDENCE=Path("data/audits/theme-sm4plus-sm5s-sm5m-korean-image-preflight-202610
 OUT=Path("data/audits/theme-sm4plus-sm5s-sm5m-artwork-palette-evidence-20261020.json")
 doc=json.loads(EVIDENCE.read_text(encoding="utf8"))
 assert doc["totalMasterCards"]==281
-sets={s["code"]:s for s in doc["sets"]}
+sets={s["code"].lower():s for s in doc["sets"]}
 assert {k:(v["masterCards"],v["imagesDownloadedAndDecoded"]) for k,v in sets.items()}=={
   "sm4+":(125,125),"sm5s":(78,78),"sm5m":(78,76)}
 def held(code,n):
