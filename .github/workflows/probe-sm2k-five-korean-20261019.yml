@@ -31,6 +31,8 @@ jobs:
           java-version: '21'
       - name: Install image validation tools
         run: python -m pip install pillow requests
+      - name: Check held-source probe syntax before network requests
+        run: python -m py_compile scripts/probe-sm2k-five-korean-print-sources-20261019.py
       - name: Source proof for 5 held Korean HR / UR images only
         run: python scripts/probe-sm2k-five-korean-print-sources-20261019.py
       - name: Full unchanged site and ownership regression
