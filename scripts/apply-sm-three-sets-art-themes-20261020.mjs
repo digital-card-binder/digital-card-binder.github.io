@@ -22,11 +22,11 @@ assert.equal(coverage.summary.themeCardSlots,18611);
 assert.equal(coverage.summary.strictCompleteSetCount,109);
 assert.deepEqual(new Set(art.groups.map(g=>g.code)),new Set(allThemes));
 assert.equal(source.totalMasterCards,281);
-assert.equal(palette.screenedCanonicalSourceCount,274);
-assert.equal(palette.heldWithoutPalette,7);
+assert.equal(palette.screenedCanonicalSourceCount,273);
+assert.equal(palette.heldWithoutPalette,8);
 assert.ok(!fs.existsSync(auditPath),"Never classify a reviewed set twice");
 const plan={
- "sm4+":{prefix:"sm4plus",base:114,total:125,screened:120,hold:[121,122,123,124,125]},
+ "sm4+":{prefix:"sm4plus",base:114,total:125,screened:119,hold:[38,121,122,123,124,125]},
  "sm5s":{prefix:"sm5s",base:66,total:78,screened:78,hold:[]},
  "sm5m":{prefix:"sm5m",base:66,total:78,screened:76,hold:[73,74]}
 };
@@ -50,12 +50,12 @@ for(const [code,cfg] of Object.entries(plan)){
  for(let n=1;n<=cfg.total;n++){
   const num=String(n).padStart(3,"0"),card=set.cards[n-1],proof=photos.sourceRows[n-1];
   const expected=cfg.prefix+"_"+num+"/"+String(cfg.base).padStart(3,"0");
-  assert.equal(norm(card.code),norm(expected),"Unexpected catalogue identity "+code+" "+n);
   assert.equal(norm(proof.code),norm(card.code));
   assert.equal(proof.name,card.name);
   assert.equal(proof.image,card.image);
   assert.equal(proof.index,n);
   if(cfg.hold.includes(n))continue;
+  assert.equal(norm(card.code),norm(expected),"Unexpected catalogue identity "+code+" "+n);
   assert.equal(proof.imageDecoded,true,"Unverified image source "+code+" "+num);
   assert.match(proof.sha256,/^[a-f0-9]{64}$/);
   const colors=paletteByCard.get(code+"#"+n);
@@ -98,9 +98,9 @@ for(const [code,cfg] of Object.entries(plan)){
   return {
    number:n,code:c.code,koreanName:c.name,image:c.image,sha256:p.sha256||null,
    imageError:p.error||null,
-   status:code==="sm4+"?"hold_unnumbered_Korean_energy_print_identity":"hold_Korean_card_image_HTTP_404",
+   status:code==="sm4+"?(n===38?"hold_canonical_master_prefix_mismatch":"hold_unnumbered_Korean_energy_print_identity"):"hold_Korean_card_image_HTTP_404",
    reason:code==="sm4+"?
-    "기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류.":
+    (n===38?"마스터 코드 sm4.5_038/114가 SM4+의 정상 접두어와 불일치. 사용자 보유데이터 영향 검토 전까지 원본 마스터를 변경하지 않고 분류 보류.":"기본 에너지 전면 이미지에 별도 121~125/114 인쇄번호 확인 불가. printVariants/중복 여부 검증 전까지 테마 추가 보류."):
     "등록한 한국판 이미지 주소가 HTTP 404이며 해당 카드번호 한국어 사진 교차확인 전까지 테마 추가 보류."
   };
  });
@@ -122,7 +122,7 @@ for(const [code,cfg] of Object.entries(plan)){
  });
 }
 assert.deepEqual(Object.fromEntries(reviewedSets.map(x=>[x.set.toLowerCase(),x.artworkCardsScreened])),
- {"sm4+":120,"sm5s":78,"sm5m":76});
+ {"sm4+":119,"sm5s":78,"sm5m":76});
 const added=reviewedSets.reduce((n,s)=>n+s.newIndependentThemeRows,0);
 assert.equal(count(),18611+added);
 const deltas=Object.fromEntries(art.groups.map(g=>[g.code,g.cards.length-before[g.code]]));
@@ -131,12 +131,12 @@ const tests=fs.readFileSync(testPath,"utf8");
 const token="assert.equal(total,18611); // SM4A 59 artwork screens, 2 existing sleeps retained; 3 source holds";
 assert.equal(tests.split(token).length,2,"Regression baseline drift: stop");
 fs.writeFileSync(testPath,tests.replace(token,
- "assert.equal(total,"+count()+"); // SM4+/SM5S/SM5M 274 Korean artworks screened; 7 holds"));
+ "assert.equal(total,"+count()+"); // SM4+/SM5S/SM5M 273 Korean artworks screened; 8 holds"));
 const record={
  schemaVersion:1,recordedAt:"2026-10-20",
  batch:"SM4+ GX 배틀부스트 / SM5S 울트라썬 / SM5M 울트라문",
  sourceCheckpoint:sourcePath,sourceColorEvidence:palettePath,sceneDecisions:scenePath,
- masterEntries:281,artworksVisuallyScreened:274,heldCardEntries:7,
+ masterEntries:281,artworksVisuallyScreened:273,heldCardEntries:8,
  themeSlotsBefore:18611,themeSlotsAdded:added,themeSlotsAfter:count(),
  themeDeltas:deltas,strictCompleteMasterSetsAfterBatch:109,
  allTwelveStandaloneThemesConsideredForEachScreenedImage:true,
