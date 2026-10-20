@@ -862,3 +862,63 @@ test("provider circuit breaker halts rate-limited, stock-unavailable, and repeat
   assert.match(source,/if\(brokenProviders[.]has\(task[.]provider\)\)\{/);
   assert.match(source,/completeProgressStep\(false,"재고 조회 중",false\)/);
 });
+
+
+test("GS25 does not display keyword-only counts without a selected product SKU",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  const shop={storeCode:"GS-001",storeName:"GS25 검증점",
+    latitude:37.5501,longitude:127.0501,searchItemName:"포켓몬카드 인페르노X",
+    realStockQuantity:8};
+  const payload={success:true,data:{
+    itemCodeUsed:false,itemCode:null,
+    product:{name:"포켓몬카드 인페르노X"},
+    inventory:{stores:[shop]}
+  }};
+  const now=new Date().toISOString();
+  assert.equal(parseRetail("gs25",payload,now,"인페르노X").length,0,
+    "GS25 keyword fallback does not prove exact SKU stock");
+  payload.data.itemCodeUsed=true;
+  payload.data.itemCode="8800999201";
+  assert.equal(parseRetail("gs25",payload,now,"인페르노X").length,1,
+    "selected SKU and matching name support a qualified public stock reading");
+  assert.equal(parseRetail("gs25",payload,now,"인페르노X")[0].items[0].retailerSku,"8800999201");
+  payload.data.itemCode="???";
+  assert.equal(parseRetail("gs25",payload,now,"인페르노X").length,0,
+    "invalid resolved SKU must not be treated as confirmed");
+});
+
+test("GS25 returned selected product and per-store item may not disagree",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  const original={success:true,data:{
+    itemCodeUsed:true,itemCode:"GS543210",
+    product:{name:"포켓몬카드 메가브레이브 부스터팩"},
+    inventory:{stores:[{storeCode:"S999",storeName:"GS25 검증점",
+      latitude:37.5501,longitude:127.0501,
+      searchItemName:"포켓몬카드 인페르노X 부스터팩",realStockQuantity:9}]}
+  }};
+  const now=new Date().toISOString();
+  assert.equal(parseRetail("gs25",original,now,"인페르노X").length,0,
+    "per-shop keyword cannot override different selected product");
+  const matched={...original,data:{...original.data,
+    product:{name:"포켓몬카드 인페르노X 부스터팩"}}};
+  assert.equal(parseRetail("gs25",matched,now,"인페르노X").length,1);
+  matched.data.inventory.stores[0].searchItemName="포켓몬카드 메가브레이브";
+  assert.equal(parseRetail("gs25",matched,now,"인페르노X").length,0,
+    "same selected SKU with conflicting store product must be quarantined");
+});
+
+test("Emart24 matching PLU with contradictory candidate and goods names is rejected",()=>{
+  const {parseRetail,state}=harness();
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  const base={success:true,data:{pluCd:"PLU5544",
+    goodsInfo:{pluCd:"PLU5544",goodsName:"포켓몬카드 인페르노X 부스터팩"},
+    productCandidates:[{pluCd:"PLU5544",goodsName:"포켓몬카드 메가브레이브 부스터팩"}],
+    stores:[{bizNo:"ST1",storeName:"이마트24 검증점",bizQty:5,
+      latitude:37.5501,longitude:127.0501}],nearbyStores:[]}};
+  const now=new Date().toISOString();
+  assert.equal(parseRetail("emart24",base,now,"인페르노X").length,0);
+  base.data.productCandidates[0].goodsName="포켓몬카드 인페르노X 부스터팩";
+  assert.equal(parseRetail("emart24",base,now,"인페르노X").length,1);
+});
