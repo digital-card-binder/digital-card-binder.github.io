@@ -1,0 +1,41 @@
+name: Probe SM4A 62 Korean card image references
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-sm4a-korean-images-20261020.yml'
+      - 'scripts/probe-sm4a-korean-images-20261020.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sm4a-62-Korean-source-preflight
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install photo decoders
+        run: python -m pip install pillow requests
+      - name: Probe 62 source images without touching old theme art
+        run: |
+          python -m py_compile scripts/probe-sm4a-korean-images-20261020.py
+          python scripts/probe-sm4a-korean-images-20261020.py
+      - name: Save only source evidence
+        run: |
+          set -euo pipefail
+          git add data/audits/theme-sm4a-001-062-korean-image-preflight-20261020.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm4a): save 62 Korean image source and SHA evidence'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
