@@ -1432,6 +1432,19 @@
             throw new Error("STOCK_UNAVAILABLE");
           if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
             throw new Error("STOCK_UNAVAILABLE");
+          if(task.provider==="gs25" && payload.data.itemCodeUsed===false)
+            throw new Error("PRODUCT_SKU_UNVERIFIED");
+          if(task.provider==="emart24"){
+            const data=payload.data;
+            const plu=String(data.pluCd||"").trim();
+            const chosen=(data.productCandidates||[]).find(
+              item=>plu && String(item.pluCd||"").trim()===plu);
+            const candidateSet=packFromTitle(String(chosen?.goodsName||chosen?.goodsNm||""));
+            const goodsSet=packFromTitle(String(data.goodsInfo?.goodsName||
+              data.goodsInfo?.goodsNm||""));
+            if(candidateSet && goodsSet && candidateSet!==goodsSet)
+              throw new Error("PRODUCT_SKU_CONFLICT");
+          }
           const rows=parseRetail(task.provider,payload,new Date().toISOString(),task.keyword);
           all.push(...rows);
           success=true;
