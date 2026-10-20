@@ -1,0 +1,41 @@
+name: Probe Korean SM3+ 001–091 image evidence
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-sm3plus-001-091-20261020.yml'
+      - 'scripts/probe-sm3plus-001-091-korean-20261020.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sm3plus-image-evidence
+  cancel-in-progress: false
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source image decoder dependencies
+        run: python -m pip install requests pillow
+      - name: Check and read actual Korean SM3+ images, without theme changes
+        run: |
+          python -m py_compile scripts/probe-sm3plus-001-091-korean-20261020.py
+          python scripts/probe-sm3plus-001-091-korean-20261020.py
+      - name: Persist factual image source results only
+        run: |
+          set -euo pipefail
+          git add data/audits/theme-sm3plus-001-091-korean-image-preflight-20261020.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm3plus): preserve Korean card-image HTTP and SHA evidence'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
