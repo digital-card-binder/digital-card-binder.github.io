@@ -71,7 +71,7 @@ def inspect(record):
 
 with ThreadPoolExecutor(max_workers=12) as pool:
     rows=list(pool.map(inspect,todo))
-assert len(rows)==274
+assert len(rows)==len(todo)==273
 report={"schemaVersion":1,"recordedAt":"2026-10-20",
  "sourceEvidence":str(EVIDENCE),"method":"Top two observed pixel color bins in original artwork crop, SHA256-matched to first Korean source probe",
  "methodCaveat":"Palette bins are objective color cues only. All non-color thematic memberships require a separate direct visual decision.",
