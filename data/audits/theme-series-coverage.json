@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18109,
-    "uniqueThemeCards": 11053,
+    "themeCardSlots": 18205,
+    "uniqueThemeCards": 11115,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5232,
-      "setCount": 126,
+      "cardSlots": 5264,
+      "setCount": 127,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10078,
-      "setCount": 132,
+      "cardSlots": 10140,
+      "setCount": 133,
       "rarities": [
         "A",
         "AR",
@@ -176,8 +176,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 260,
-      "setCount": 75,
+      "cardSlots": 261,
+      "setCount": 76,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1141,
-      "setCount": 103,
+      "cardSlots": 1142,
+      "setCount": 104,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 549
+      "currentThemeSlots": 645
     },
     {
       "era": "XY",
@@ -1217,9 +1217,14 @@
       "cardCount": 64,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "season": 32,
+        "color": 62,
+        "sunset": 1,
+        "street": 1
+      }
     },
     {
       "era": "SM",
