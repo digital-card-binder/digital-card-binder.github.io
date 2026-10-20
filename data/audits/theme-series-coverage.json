@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 18298,
-    "uniqueThemeCards": 11177,
+    "themeCardSlots": 18422,
+    "uniqueThemeCards": 11263,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 504,
-      "setCount": 100,
+      "cardSlots": 506,
+      "setCount": 101,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5289,
-      "setCount": 128,
+      "cardSlots": 5320,
+      "setCount": 129,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10202,
-      "setCount": 134,
+      "cardSlots": 10288,
+      "setCount": 135,
       "rarities": [
         "A",
         "AR",
@@ -176,8 +176,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 261,
-      "setCount": 76,
+      "cardSlots": 262,
+      "setCount": 77,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1147,
-      "setCount": 105,
+      "cardSlots": 1151,
+      "setCount": 106,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 738
+      "currentThemeSlots": 862
     },
     {
       "era": "XY",
@@ -1249,9 +1249,15 @@
       "cardCount": 91,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-20",
+      "themeHits": {
+        "night": 2,
+        "season": 31,
+        "color": 86,
+        "sunset": 1,
+        "street": 4
+      }
     },
     {
       "era": "SM",
