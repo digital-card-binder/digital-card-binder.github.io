@@ -29,7 +29,7 @@ function harness(options = {}) {
   const body = source.replace(/\}\)\(\);\s*$/, [
     ...(options.stubView ? ["render=()=>{};centerMap=()=>{};updateProgress=()=>{};"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
+    "parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -921,4 +921,63 @@ test("Emart24 matching PLU with contradictory candidate and goods names is rejec
   assert.equal(parseRetail("emart24",base,now,"인페르노X").length,0);
   base.data.productCandidates[0].goodsName="포켓몬카드 인페르노X 부스터팩";
   assert.equal(parseRetail("emart24",base,now,"인페르노X").length,1);
+});
+
+
+test("per-retailer progress distinguishes zero, unknown product, unavailable upstream and skipped work",()=>{
+  const {state,element,providerFailureCategory,recordProviderOutcome,
+    providerDiagnosticSummary,renderProviderDiagnostics,completeProgressStep}=harness();
+  assert.equal(providerFailureCategory(new Error("STOCK_UNAVAILABLE")),"stock_unavailable");
+  assert.equal(providerFailureCategory(new Error("PRODUCT_SKU_UNVERIFIED")),"product_unverified");
+  assert.equal(providerFailureCategory(new Error("PRODUCT_SKU_CONFLICT")),"product_unverified");
+  assert.equal(providerFailureCategory(new Error("HTTP 429")),"rate_limited");
+  assert.equal(providerFailureCategory(new Error("HTTP 500")),"server_error");
+  assert.equal(providerFailureCategory(new Error("HTTP 502")),"server_error");
+  assert.equal(providerFailureCategory(new Error("HTTP 403")),"http_error");
+  assert.equal(providerFailureCategory(new Error("network error")),"other_error");
+  assert.match(providerDiagnosticSummary(),/검색 후 브랜드별/);
+  recordProviderOutcome("cu","success",[
+    {items:[{quantity:0}]},{items:[{quantity:3}]}]);
+  recordProviderOutcome("cu","success",[]);
+  recordProviderOutcome("cu","failure",[],new Error("HTTP 429"));
+  recordProviderOutcome("cu","skipped");
+  recordProviderOutcome("gs25","failure",[],new Error("PRODUCT_SKU_UNVERIFIED"));
+  recordProviderOutcome("seveneleven","failure",[],new Error("STOCK_UNAVAILABLE"));
+  const summary=providerDiagnosticSummary();
+  assert.match(summary,/CU: 조회 3건/);
+  assert.match(summary,/양수 재고 응답 1행/);
+  assert.match(summary,/수량 0 응답 1행/);
+  assert.match(summary,/상품 일치 응답 없음 1건/);
+  assert.match(summary,/호출 제한 1건/);
+  assert.match(summary,/자동 생략 1건/);
+  assert.match(summary,/GS25: 조회 1건/);
+  assert.match(summary,/상품코드 검증 실패 1건/);
+  assert.match(summary,/세븐일레븐: 조회 1건/);
+  assert.match(summary,/재고 데이터 미제공 1건/);
+  renderProviderDiagnostics();
+  assert.equal(element("radar-provider-diagnostics").textContent,summary);
+  state.progress={total:4,completed:0,successes:0,failures:0,active:true,skipped:1};
+  completeProgressStep(true,"재고 조회 중");
+  completeProgressStep(false,"재고 조회 중",false);
+  assert.match(element("radar-progress-detail").textContent,/재고 확인 처리 1건/);
+  assert.match(element("radar-progress-detail").textContent,/자동 생략 1건/);
+  assert.equal(state.progress.failures,0,"skipped work is not a failed API response");
+});
+
+test("the mobile coverage panel explains retailer source status and stock age honestly",()=>{
+  const {state,inventoryLabel}=harness();
+  const html=read("card-radar.html"),css=read("card-radar.css");
+  assert.match(html,/id="radar-provider-diagnostics"/);
+  assert.match(html,/판매처별 공개 재고 조회 응답/);
+  assert.match(html,/수량 0 응답은 해당 상품을 조회한 응답/);
+  assert.match(css,/rada[r]-provider-diagnostics/);
+  const shop={verifiedInventory:[{name:"포켓몬카드 인페르노X",
+    code:"m2",provider:"GS25",inventorySource:"public-aggregator",
+    quantity:2,checkedAt:new Date().toISOString()}]};
+  state.pack="";
+  const label=inventoryLabel(shop);
+  assert.equal(label.known,true);
+  assert.match(label.detail,/응답 수신/);
+  assert.match(label.detail,/원본 갱신시각 미확인/);
+  assert.doesNotMatch(label.detail,/공식 판매처 실시간 갱신/);
 });
