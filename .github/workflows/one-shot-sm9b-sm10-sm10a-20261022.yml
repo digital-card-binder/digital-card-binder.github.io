@@ -1,0 +1,64 @@
+name: One-shot Korean SM9b SM10 SM10a source inspection
+on:
+  push:
+    branches:
+      - audit/theme-sm9b-sm10-sm10a-20261022
+    paths:
+      - .github/workflows/one-shot-sm9b-sm10-sm10a-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm9b-sm10-sm10a-20261022
+  cancel-in-progress: false
+jobs:
+  source-evidence:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/series.json
+            data/series-legacy.json
+            data/art-themes.json
+            data/audits/theme-series-coverage.json
+            data/audits/theme-sm9b-sm10-sm10a-resume-checkpoint-20261022.json
+            scripts/preflight-sm9b-sm10-sm10a-themes-20261022.mjs
+            scripts/audit-sm9b-sm10-sm10a-source-20261022.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Preflight all 254 Korean slots and fetch real image data
+        run: |
+          set -euo pipefail
+          node --check scripts/preflight-sm9b-sm10-sm10a-themes-20261022.mjs
+          python -m py_compile scripts/audit-sm9b-sm10-sm10a-source-20261022.py
+          node scripts/preflight-sm9b-sm10-sm10a-themes-20261022.mjs
+          python scripts/audit-sm9b-sm10-sm10a-source-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: korean-sm9b-sm10-sm10a-254-contact-sheets
+          path: data/audits/theme-sm9b-sm10-sm10a-contact-sheets-20261022/*.jpg
+          retention-days: 7
+          if-no-files-found: error
+      - name: Save evidence, no theme changes yet
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm9b-sm10-sm10a-20261022"
+          git add --sparse -- data/audits/theme-sm9b-sm10-sm10a-master-preflight-20261022.json data/audits/theme-sm9b-sm10-sm10a-image-evidence-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): record 254 live card-image sources and SHA256, no unverified art themes'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
