@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 19717,
-    "uniqueThemeCards": 12144,
+    "themeCardSlots": 20021,
+    "uniqueThemeCards": 12359,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 511,
-      "setCount": 106,
+      "cardSlots": 518,
+      "setCount": 108,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5708,
-      "setCount": 140,
+      "cardSlots": 5785,
+      "setCount": 143,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 11171,
-      "setCount": 146,
+      "cardSlots": 11388,
+      "setCount": 149,
       "rarities": [
         "A",
         "AR",
@@ -219,8 +219,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 96,
-      "setCount": 48,
+      "cardSlots": 97,
+      "setCount": 49,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1165,
-      "setCount": 113,
+      "cardSlots": 1167,
+      "setCount": 115,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 2157
+      "currentThemeSlots": 2461
     },
     {
       "era": "XY",
@@ -1438,9 +1438,13 @@
       "cardCount": 63,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "season": 25,
+        "color": 56,
+        "work": 1
+      }
     },
     {
       "era": "SM",
@@ -1449,10 +1453,14 @@
       "cardCount": 111,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 2,
+        "season": 34,
+        "color": 103,
+        "street": 1
       }
     },
     {
@@ -1462,10 +1470,14 @@
       "cardCount": 65,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "reflections": 1
+        "night": 5,
+        "season": 18,
+        "color": 58,
+        "reflections": 1,
+        "street": 1
       }
     },
     {
