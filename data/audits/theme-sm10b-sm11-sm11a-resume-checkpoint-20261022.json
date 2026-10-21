@@ -4,7 +4,7 @@
   "branch": "audit/theme-sm10b-sm11-sm11a-20261022",
   "previousBatch": "data/audits/theme-sm9b-sm10-sm10a-resume-checkpoint-20261022.json",
   "parentHead": "2ef7cd5b67cea60a775e5aadfdbe3af62cb70fe1",
-  "stage": "source_evidence_preflight_pending",
+  "stage": "provisional_artwork_theme_classification_complete_on_audit_branch",
   "masterSetCount": 273,
   "masterCardCount": 20243,
   "priorThemeRows": 20914,
@@ -41,5 +41,17 @@
     "No production deploy, no main branch writes, no Firestore/user ownership edits",
     "Use single source audit and single theme-apply regression workflow"
   ],
-  "next": "Inspect original-art contact sheets; quarantine broken, outside-source or duplicate printed-number slots, classify only directly reviewed artwork, run full tests."
+  "next": "Hold SM10b 063–069, SM11 107–115, SM11a 074–080 for printed-number authenticity. Resume next three pending sets SM11b 드림리그 (75), SM12 얼터제네시스 (117), SM12a TAG TEAM GX 태그올스타즈 (235), 427 total, from this audit branch without repeating 241 inspected artworks or changing live main.",
+  "sourceChecks": 264,
+  "decodedImages": 257,
+  "artworksScreened": 241,
+  "heldCardEntries": 23,
+  "newStandaloneThemeMemberships": 385,
+  "totalIndependentThemeMembershipsAfterBatch": 21299,
+  "previousStrictCompleteSetsPreserved": 109,
+  "previousFourSM11SM11aSleepingEntriesPreserved": true,
+  "sourceRunId": 39695715224,
+  "applyAndRegressionTestRunId": 39696333563,
+  "reportPath": "data/audits/theme-sm10b-sm11-sm11a-artwork-review-20261022.json",
+  "lastVerifiedState": "GitHub Actions source #39695715224 succeeded; hash revalidation+theme append+site:prepare+npm test #39696333563 completed success. 241 Korean first-party artworks screened, 23 high-number third-party slots held, 385 new independent theme memberships. No main merge or production deploy."
 }
