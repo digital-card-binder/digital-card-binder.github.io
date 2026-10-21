@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "branch": "audit/theme-sm10b-sm11-sm11a-20261022",
+  "previousBatch": "data/audits/theme-sm9b-sm10-sm10a-resume-checkpoint-20261022.json",
+  "parentHead": "2ef7cd5b67cea60a775e5aadfdbe3af62cb70fe1",
+  "stage": "source_evidence_preflight_pending",
+  "masterSetCount": 273,
+  "masterCardCount": 20243,
+  "priorThemeRows": 20914,
+  "strictCompleteSets": 109,
+  "totalCardSlots": 264,
+  "sets": [
+    {
+      "code": "sm10b",
+      "name": "스카이레전드",
+      "cards": 69,
+      "existingThemeHits": {}
+    },
+    {
+      "code": "sm11",
+      "name": "미라클트윈",
+      "cards": 115,
+      "existingThemeHits": {
+        "sleeping": 3
+      }
+    },
+    {
+      "code": "sm11a",
+      "name": "리믹스바우트",
+      "cards": 80,
+      "existingThemeHits": {
+        "sleeping": 1
+      }
+    }
+  ],
+  "safeguards": [
+    "Previously classified cards must not be rescreened or removed",
+    "Independently indexed theme-dex memberships and owned counts",
+    "Do not approve third-party secret art until Korean print numbers are verified",
+    "No production deploy, no main branch writes, no Firestore/user ownership edits",
+    "Use single source audit and single theme-apply regression workflow"
+  ],
+  "next": "Inspect original-art contact sheets; quarantine broken, outside-source or duplicate printed-number slots, classify only directly reviewed artwork, run full tests."
+}
