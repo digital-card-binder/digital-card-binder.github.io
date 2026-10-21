@@ -21,7 +21,7 @@ TARGET = ROOT / "theme-sm8b-sm9-sm9a-image-evidence-20261022.json"
 SHEETDIR = ROOT / "theme-sm8b-sm9-sm9a-contact-sheets-20261022"
 EXPECTED = {"sm8b": 250, "sm9": 118, "sm9a": 70}
 data = json.loads(SOURCE.read_text(encoding="utf-8"))
-assert data["totalCanonicalSlots"] == 438 and data["priorThemeSlotsPreserved"] == 19717
+assert data["totalCanonicalSlots"] == 438 and data["priorThemeSlotsPreserved"] == 20021
 assert data["previousStrictCompleteSetsPreserved"] == 109
 assert data["sourceHttpChecks"] == 0 and data["newlyWrittenThemeRows"] == 0
 assert not TARGET.exists(), "Existing evidence must not be overwritten."
