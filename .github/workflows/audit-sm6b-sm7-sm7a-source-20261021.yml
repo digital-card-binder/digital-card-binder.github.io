@@ -1,10 +1,5 @@
 name: Korean SM6b SM7 SM7a source evidence in one batch
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - .github/workflows/audit-sm6b-sm7-sm7a-source-20261021.yml
-      - scripts/audit-sm6b-sm7-sm7a-source-20261021.py
   workflow_dispatch:
 permissions:
   contents: write

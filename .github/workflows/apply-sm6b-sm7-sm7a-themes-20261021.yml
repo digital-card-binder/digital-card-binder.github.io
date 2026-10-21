@@ -1,12 +1,5 @@
 name: Apply visually reviewed SM6b SM7 SM7a source-safe themes
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - .github/workflows/apply-sm6b-sm7-sm7a-themes-20261021.yml
-      - scripts/build-sm6b-sm7-sm7a-palette-20261021.py
-      - scripts/apply-sm6b-sm7-sm7a-art-themes-20261021.mjs
-      - data/audits/theme-sm6b-sm7-sm7a-visual-decisions-20261021.json
   workflow_dispatch:
 permissions:
   contents: write
