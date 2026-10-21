@@ -1,0 +1,67 @@
+name: One-shot Korean SM7b SM8 SM8a source review evidence
+on:
+  push:
+    branches:
+      - audit/theme-sm7b-sm8-sm8a-20261022
+    paths:
+      - .github/workflows/one-shot-sm7b-sm8-sm8a-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm7b-sm8-sm8a-20261022
+  cancel-in-progress: false
+jobs:
+  metadata-and-images:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/series.json
+            data/series-legacy.json
+            data/art-themes.json
+            data/audits/theme-series-coverage.json
+            data/audits/theme-sm7b-sm8-sm8a-resume-checkpoint-20261022.json
+            scripts/preflight-sm7b-sm8-sm8a-themes-20261022.mjs
+            scripts/audit-sm7b-sm8-sm8a-source-20261022.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install source image validation tools
+        run: python -m pip install requests pillow
+      - name: Run preflight and verify 239 images in a single batch
+        run: |
+          set -euo pipefail
+          node --check scripts/preflight-sm7b-sm8-sm8a-themes-20261022.mjs
+          python -m py_compile scripts/audit-sm7b-sm8-sm8a-source-20261022.py
+          node scripts/preflight-sm7b-sm8-sm8a-themes-20261022.mjs
+          python scripts/audit-sm7b-sm8-sm8a-source-20261022.py
+      - name: Preserve visual review contact sheets
+        uses: actions/upload-artifact@v4
+        with:
+          name: sm7b-sm8-sm8a-239-korean-art-contact-sheets
+          path: data/audits/theme-sm7b-sm8-sm8a-contact-sheets-20261022/*.jpg
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit only factual source evidence on audit branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm7b-sm8-sm8a-20261022"
+          git add --sparse -- \
+            data/audits/theme-sm7b-sm8-sm8a-master-preflight-20261022.json \
+            data/audits/theme-sm7b-sm8-sm8a-image-evidence-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): record 239 SM Korean image-source checks (not thematic approvals)'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
