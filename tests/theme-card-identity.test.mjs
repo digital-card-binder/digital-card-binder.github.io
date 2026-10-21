@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,20021); // SM7b/SM8/SM8a 217 Korean original arts screened; 22 held
+  assert.equal(total,20570); // SM8b/SM9/SM9a visual art review; uncertain Korean print holds
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
