@@ -20,7 +20,7 @@
   },
   "currentBatch": {
     "branch": "audit/theme-sm7b-sm8-sm8a-20261022",
-    "stage": "queued_metadata_preflight_not_yet_executed",
+    "stage": "provisional_artwork_theme_classification_complete_on_audit_branch",
     "totalCanonicalCards": 239,
     "sets": [
       {
@@ -50,12 +50,15 @@
       }
     ],
     "preExistingThemeRowsForTheseSets": 2,
-    "preflightCompleted": false,
-    "downloadedAndHashValidatedImages": 0,
-    "visuallyReviewedImages": 0,
-    "confirmedNewStandaloneThemeMemberships": 0,
-    "newThemeRowsWritten": 0,
-    "strictCompleteSetsAdded": 0
+    "preflightCompleted": true,
+    "downloadedAndHashValidatedImages": 236,
+    "visuallyReviewedImages": 217,
+    "confirmedNewStandaloneThemeMemberships": 304,
+    "newThemeRowsWritten": 304,
+    "strictCompleteSetsAdded": 0,
+    "heldCards": 22,
+    "totalThemeSlotsAfterBatch": 20021,
+    "imageNotDownloaded": 3
   },
   "scripts": {
     "preflight": "node scripts/preflight-sm7b-sm8-sm8a-themes-20261022.mjs",
@@ -66,7 +69,9 @@
       "Pillow"
     ],
     "plannedPreflightOutput": "data/audits/theme-sm7b-sm8-sm8a-master-preflight-20261022.json",
-    "plannedSourceOutput": "data/audits/theme-sm7b-sm8-sm8a-image-evidence-20261022.json"
+    "plannedSourceOutput": "data/audits/theme-sm7b-sm8-sm8a-image-evidence-20261022.json",
+    "result": "data/audits/theme-sm7b-sm8-sm8a-artwork-review-20261022.json",
+    "colorEvidence": "data/audits/theme-sm7b-sm8-sm8a-color-palette-20261022.json"
   },
   "safeguards": [
     "Do not reclassify earlier SM6b/SM7/SM7a work or remove preexisting SM8/SM8a theme memberships.",
@@ -76,6 +81,6 @@
     "Preserve 273 baseline sets, existing user Firestore ownership, master card IDs and Card Radar.",
     "Do not merge, deploy, or trigger repeated CI/Preview workflows during preflight."
   ],
-  "lastVerifiedState": "GitHub PR #271 (Draft, unmerged) and its branch coverage as of 2026-10-22",
-  "nextAction": "Run preflight once on audit branch, inspect 239 source images in contact sheets, hold identity conflicts, apply evidence-backed 12-theme tags, test before PR/deployment."
+  "lastVerifiedState": "GitHub Actions #39691875607 completed success: exact 217-image hashes, theme application, site:prepare, npm test, audited branch commit; main untouched.",
+  "nextAction": "Resolve 22 held printed-number/third-party image identities for SM7b/SM8/SM8a; then resume the NEXT three unreviewed Korean SM series (SM8b, SM9, SM9a) without rechecking the 217 screened cards. Keep new batches on audit branches and do not merge/deploy without review."
 }
