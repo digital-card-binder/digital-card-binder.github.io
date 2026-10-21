@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "task": "Continue previously checked standalone Korean theme atlas, no duplicate scans",
+  "previousCheckpoint": "data/audits/theme-sm7b-sm8-sm8a-resume-checkpoint-20261022.json",
+  "inheritedBranchHead": "f13a298a8c3818721ffe52a8e3619f3645989685",
+  "baseline": {
+    "totalMasterSets": 273,
+    "totalMasterCards": 20243,
+    "totalIndependentThemeMemberships": 20021,
+    "strictCompleteSets": 109,
+    "priorHeldCards": 46
+  },
+  "batch": {
+    "branch": "audit/theme-sm8b-sm9-sm9a-20261022",
+    "stage": "source_preflight_not_run",
+    "totalCanonicalCards": 438,
+    "sets": [
+      {
+        "code": "sm8b",
+        "name": "GX 울트라샤이니",
+        "cards": 250,
+        "existingThemeHits": {}
+      },
+      {
+        "code": "sm9",
+        "name": "태그볼트",
+        "cards": 118,
+        "existingThemeHits": {
+          "sleeping": 2,
+          "cameo": 1
+        }
+      },
+      {
+        "code": "sm9a",
+        "name": "나이트유니슨",
+        "cards": 70,
+        "existingThemeHits": {
+          "sleeping": 1
+        }
+      }
+    ],
+    "existingThemeMembershipsToPreserve": 4,
+    "newThemeMemberships": 0,
+    "passedKoreanArtReview": 0,
+    "held": 0
+  },
+  "scripts": [
+    "scripts/preflight-sm8b-sm9-sm9a-themes-20261022.mjs",
+    "scripts/audit-sm8b-sm9-sm9a-source-20261022.py"
+  ],
+  "safeguards": [
+    "Maintain original 20,021 memberships and 109 strict complete series",
+    "Do not change canonical master data, user ownership, Firestore, Card Radar or deployed site",
+    "Source URLs/hash or decoded images alone are NOT evidence of authentic Korean-printed footer",
+    "Classify only directly visually inspected illustrations against the 12 standalone theme rules",
+    "Never overwrite 46 earlier unresolved identity holds",
+    "No PR or merge to main before batch tests and source evidence"
+  ],
+  "next": "Inspect source images/number footer and their contact sheets for 438 cards, quarantine suspect high-number art, apply only proven theme membership on branch and verify."
+}
