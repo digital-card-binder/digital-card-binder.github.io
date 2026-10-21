@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,19397); // SM5+/SM6/SM6a 244 Korean artwork screens; 13 holds
+  assert.equal(total,19717); // SM6b/SM7/SM7a 247 Korean original arts provisionally screened; 24 identity/source holds
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
