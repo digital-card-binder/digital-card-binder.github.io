@@ -1879,6 +1879,8 @@ function seriesCardRange(card) {
 }
 
 function isBaseSeriesCard(card) {
+  // RGB cards are special unnumbered set extras: master-only even without a card range.
+  if (String(card?.rarity || "").trim().toUpperCase() === "RGB") return false;
   const range = seriesCardRange(card);
   return !range || range.number <= range.denominator;
 }

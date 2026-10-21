@@ -17,13 +17,13 @@
     });
     if (caption) {
       caption.textContent = activeScope === "base"
-        ? "기본 도감은 각 세트의 분모 번호까지 표시하며, 분모를 초과하는 카드는 제외됩니다."
+        ? "기본 도감은 분모 번호까지 표시하며, RGB 특별 카드와 분모 초과 카드는 제외됩니다."
         : defaultCaption;
     }
     const hint = scopeHint();
     if (hint) hint.textContent = activeScope === "base"
-      ? "세트 카드 번호의 분모까지 표시합니다."
-      : "등록된 모든 수록 카드와 분모 초과 카드를 표시합니다.";
+      ? "분모 번호까지만 표시하며 RGB 특별 카드는 제외합니다."
+      : "RGB 특별 카드와 분모 초과 카드를 포함한 전체 카드를 표시합니다.";
   }
 
   function switchScope(nextScope, updateHistory = true) {
@@ -53,8 +53,8 @@
       <span id="series-scope-hint" aria-live="polite"></span>
     </div>
     <div class="series-scope-options">
-      <button type="button" data-scope="all" aria-pressed="false" title="분모 초과 카드까지 포함">마스터 도감</button>
-      <button type="button" data-scope="base" aria-pressed="false" title="세트 카드 번호의 분모까지 표시">기본 도감</button>
+      <button type="button" data-scope="all" aria-pressed="false" title="RGB 특별 카드와 분모 초과 카드까지 포함">마스터 도감</button>
+      <button type="button" data-scope="base" aria-pressed="false" title="분모 번호까지 표시하되 RGB 특별 카드는 제외">기본 도감</button>
     </div>
   `;
   control.querySelectorAll("button[data-scope]").forEach((button) => {
