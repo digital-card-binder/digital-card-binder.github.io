@@ -1,0 +1,68 @@
+name: One-shot Korean SM8b SM9 SM9a 438-card evidence
+on:
+  push:
+    branches:
+      - audit/theme-sm8b-sm9-sm9a-20261022
+    paths:
+      - .github/workflows/one-shot-sm8b-sm9-sm9a-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm8b-sm9-sm9a-20261022
+  cancel-in-progress: false
+jobs:
+  evidence:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/series.json
+            data/series-legacy.json
+            data/art-themes.json
+            data/audits/theme-series-coverage.json
+            data/audits/theme-sm8b-sm9-sm9a-resume-checkpoint-20261022.json
+            scripts/preflight-sm8b-sm9-sm9a-themes-20261022.mjs
+            scripts/audit-sm8b-sm9-sm9a-source-20261022.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image validation dependencies
+        run: python -m pip install requests pillow
+      - name: Preflight master identities, image-source SHA256 and contact sheets
+        run: |
+          set -euo pipefail
+          node --check scripts/preflight-sm8b-sm9-sm9a-themes-20261022.mjs
+          python -m py_compile scripts/audit-sm8b-sm9-sm9a-source-20261022.py
+          node scripts/preflight-sm8b-sm9-sm9a-themes-20261022.mjs
+          python scripts/audit-sm8b-sm9-sm9a-source-20261022.py
+      - name: Upload original cards to visual review artifact only
+        uses: actions/upload-artifact@v4
+        with:
+          name: korean-sm8b-sm9-sm9a-438-card-contact-sheets-20261022
+          path: data/audits/theme-sm8b-sm9-sm9a-contact-sheets-20261022/*.jpg
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit source evidence only, without any theme additions or deployment
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm8b-sm9-sm9a-20261022"
+          git add --sparse -- \
+            data/audits/theme-sm8b-sm9-sm9a-master-preflight-20261022.json \
+            data/audits/theme-sm8b-sm9-sm9a-image-evidence-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): record 438 image source evidence and exact Korean catalog IDs'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
