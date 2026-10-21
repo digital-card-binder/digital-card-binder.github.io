@@ -13,7 +13,7 @@
   },
   "batch": {
     "branch": "audit/theme-sm8b-sm9-sm9a-20261022",
-    "stage": "source_preflight_not_run",
+    "stage": "provisional_artwork_theme_classification_complete_on_audit_branch",
     "totalCanonicalCards": 438,
     "sets": [
       {
@@ -41,9 +41,20 @@
       }
     ],
     "existingThemeMembershipsToPreserve": 4,
-    "newThemeMemberships": 0,
+    "newThemeMemberships": 549,
     "passedKoreanArtReview": 0,
-    "held": 0
+    "held": 23,
+    "sourceHttpChecked": 438,
+    "imagesDecoded": 428,
+    "artworksScreened": 415,
+    "totalThemeMembershipsAfterBatch": 20570,
+    "strictCompleteSeriesAdded": 0,
+    "existingThemeMembershipsPreserved": 4,
+    "reportPath": "data/audits/theme-sm8b-sm9-sm9a-artwork-review-20261022.json",
+    "paletteEvidence": "data/audits/theme-sm8b-sm9-sm9a-color-palette-20261022.json",
+    "visualEvidence": "data/audits/theme-sm8b-sm9-sm9a-visual-decisions-20261022.json",
+    "sourceRunId": 39692929357,
+    "applyAndRegressionTestRunId": 39693724556
   },
   "scripts": [
     "scripts/preflight-sm8b-sm9-sm9a-themes-20261022.mjs",
@@ -57,5 +68,6 @@
     "Never overwrite 46 earlier unresolved identity holds",
     "No PR or merge to main before batch tests and source evidence"
   ],
-  "next": "Inspect source images/number footer and their contact sheets for 438 cards, quarantine suspect high-number art, apply only proven theme membership on branch and verify."
+  "next": "Resolve 23 Korean printed-identity/image-source holds in SM8b 244–250, SM9 110–118 and SM9a 064–070, preserving their pending state. Then continue the next three pending Korean SM series SM9b (69), SM10 (116), SM10a (69) from this branch, without rescreening these 415 artwork images or touching main. Keep provisional visual tags separate from strict Korean printed-footer verified sets.",
+  "lastVerifiedState": "2026-10-22: GitHub Actions #39693724556 succeeded; SHA256 415 actual images, appended 549 new independent theme memberships, npm run site:prepare and npm test, committed on audit branch. Base main untouched."
 }
