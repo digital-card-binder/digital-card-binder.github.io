@@ -5,7 +5,6 @@ No guessed language, thematic membership or ownership changes.  Contact sheets
 must be reviewed separately; a downloaded picture cannot prove a Korean print.
 """
 from __future__ import annotations
-import base64
 import hashlib
 import io
 import json
@@ -103,10 +102,7 @@ for setcode in EXPECTED:
         sheet.save(output, "JPEG", quality=63, optimize=True)
         sheets.append({"set": setcode, "page": idx, "filename": output.name,
                        "cardNumbers": [r["index"] for r in segment]})
-        payload = base64.b64encode(output.read_bytes()).decode("ascii")
-        print(f"CONTACT_{setcode.upper()}_{idx:02d}_BEGIN", flush=True)
-        print(payload, flush=True)
-        print(f"CONTACT_{setcode.upper()}_{idx:02d}_END", flush=True)
+        print("CONTACT_SHEET_READY", str(output), flush=True)
 
 summaries = []
 for setcode, length in EXPECTED.items():
