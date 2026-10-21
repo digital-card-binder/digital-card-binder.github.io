@@ -1,0 +1,68 @@
+name: One-shot apply Korean SM9b SM10 SM10a verified artwork themes
+on:
+  push:
+    branches:
+      - audit/theme-sm9b-sm10-sm10a-20261022
+    paths:
+      - .github/workflows/one-shot-apply-sm9b-sm10-sm10a-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-apply-sm9b-sm10-sm10a-20261022
+  cancel-in-progress: false
+jobs:
+  apply:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: |
+          python -m pip install requests pillow
+          npm ci
+      - name: SHA256 verify 231 first-party Korean artworks and classify palette
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/build-sm9b-sm10-sm10a-palette-20261022.py
+          node --check scripts/apply-sm9b-sm10-sm10a-art-themes-20261022.mjs
+          python scripts/build-sm9b-sm10-sm10a-palette-20261022.py
+      - name: Append independently themed artworks without changing existing 20,570
+        run: node scripts/apply-sm9b-sm10-sm10a-art-themes-20261022.mjs
+      - name: Verify rebuilt coverage and regression tests
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Commit tested audit result to audit branch only, never main
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm9b-sm10-sm10a-20261022"
+          git add -u
+          git add data/audits/theme-sm9b-sm10-sm10a-color-palette-20261022.json
+          git add data/audits/theme-sm9b-sm10-sm10a-artwork-review-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          changed="$(git diff --cached --name-only)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -E '^(radar-service/|radar-server/|api/radar/|data/radar-master/|data/card-radar-|data/series.json|data/series-legacy.json|tests/card-radar-|scripts/.*radar)' ; then
+            echo 'Unexpected protected master data or Radar change'; exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): add 344 standalone Korean artwork theme placements, preserve 23 print holds'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
