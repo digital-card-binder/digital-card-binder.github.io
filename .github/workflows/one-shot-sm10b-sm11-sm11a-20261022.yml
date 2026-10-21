@@ -1,0 +1,64 @@
+name: One-shot Korean SM10b SM11 SM11a source inspection
+on:
+  push:
+    branches:
+      - audit/theme-sm10b-sm11-sm11a-20261022
+    paths:
+      - .github/workflows/one-shot-sm10b-sm11-sm11a-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm10b-sm11-sm11a-20261022
+  cancel-in-progress: false
+jobs:
+  source-evidence:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/series.json
+            data/series-legacy.json
+            data/art-themes.json
+            data/audits/theme-series-coverage.json
+            data/audits/theme-sm10b-sm11-sm11a-resume-checkpoint-20261022.json
+            scripts/preflight-sm10b-sm11-sm11a-themes-20261022.mjs
+            scripts/audit-sm10b-sm11-sm11a-source-20261022.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Preflight 264 Korean card identities and inspect actual image sources
+        run: |
+          set -euo pipefail
+          node --check scripts/preflight-sm10b-sm11-sm11a-themes-20261022.mjs
+          python -m py_compile scripts/audit-sm10b-sm11-sm11a-source-20261022.py
+          node scripts/preflight-sm10b-sm11-sm11a-themes-20261022.mjs
+          python scripts/audit-sm10b-sm11-sm11a-source-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: korean-sm10b-sm11-sm11a-264-contact-sheets
+          path: data/audits/theme-sm10b-sm11-sm11a-contact-sheets-20261022/*.jpg
+          retention-days: 7
+          if-no-files-found: error
+      - name: Commit source evidence only, no theme change or deployment
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm10b-sm11-sm11a-20261022"
+          git add --sparse -- data/audits/theme-sm10b-sm11-sm11a-master-preflight-20261022.json data/audits/theme-sm10b-sm11-sm11a-image-evidence-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): 264 Korean source images and SHA256, no classification yet'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
