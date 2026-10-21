@@ -60,7 +60,7 @@
       "unit": "개"
     },
     "artThemes": {
-      "itemCount": 20570,
+      "itemCount": 20914,
       "groupCount": 12,
       "unit": "장"
     }
