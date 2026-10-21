@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 19397,
-    "uniqueThemeCards": 11897,
+    "themeCardSlots": 19717,
+    "uniqueThemeCards": 12144,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 509,
-      "setCount": 104,
+      "cardSlots": 511,
+      "setCount": 106,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5639,
-      "setCount": 137,
+      "cardSlots": 5708,
+      "setCount": 140,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10924,
-      "setCount": 143,
+      "cardSlots": 11171,
+      "setCount": 146,
       "rarities": [
         "A",
         "AR",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1163,
-      "setCount": 112,
+      "cardSlots": 1165,
+      "setCount": 113,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 1837
+      "currentThemeSlots": 2157
     },
     {
       "era": "XY",
@@ -1393,9 +1393,13 @@
       "cardCount": 86,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "night": 1,
+        "season": 18,
+        "color": 77
+      }
     },
     {
       "era": "SM",
@@ -1404,9 +1408,14 @@
       "cardCount": 112,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "night": 1,
+        "season": 29,
+        "color": 104,
+        "street": 2
+      }
     },
     {
       "era": "SM",
@@ -1415,9 +1424,12 @@
       "cardCount": 73,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "season": 22,
+        "color": 66
+      }
     },
     {
       "era": "SM",
