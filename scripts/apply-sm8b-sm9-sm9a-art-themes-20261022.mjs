@@ -106,6 +106,18 @@ assert.ok(added>=acceptedTotal);
 const delta=Object.fromEntries(art.groups.map(x=>[x.code,x.cards.length-before[x.code]]));
 assert.equal(Object.values(delta).reduce((a,b)=>a+b,0),added);
 for(const g of art.groups)assert.deepEqual(g.cards.slice(0,oldSerialized[g.code].length).map(x=>JSON.stringify(x)),oldSerialized[g.code]);
+// Correct preflight-derived third-party counters (the source reader has a legacy string).
+// This is metadata only, not a new Korean-print approval.
+const external=source.cards.filter(x=>x.referenceKind!=="pokemonkorea_card_image_url");
+assert.equal(external.length,16);
+source.thirdPartyReferencesRequiringKoreanPrintReview=16;
+for (const set of source.sets){
+  const rows=source.cards.filter(x=>norm(x.set)===norm(set.set));
+  set.thirdPartyDecodedCount=rows.filter(x=>x.referenceKind!=="pokemonkorea_card_image_url"&&x.decoded).length;
+  set.thirdPartyUncheckedKoreanPrintCount=rows.filter(x=>x.referenceKind!=="pokemonkorea_card_image_url").length;
+}
+source.provisionalThemeReviewHolds=23;
+source.sourceMetadataCounterCorrectedAt="2026-10-22";
 const tests=fs.readFileSync(testsPath,"utf8");
 const old="assert.equal(total,20021); // SM7b/SM8/SM8a 217 Korean original arts screened; 22 held";
 assert.equal(tests.split(old).length,2);
@@ -126,7 +138,7 @@ const record={
  sets:completed,held:visual.held
 };
 art.updatedAt="2026-10-22";
-write(artPath,art);write(statePath,state);write(resultPath,record);
+write(sourcePath,source);write(artPath,art);write(statePath,state);write(resultPath,record);
 console.log("NEXT_438_SM_THEMES",JSON.stringify({
  valid:acceptedTotal,holds:visual.heldCount,added,after:count(),delta,completed
 }));
