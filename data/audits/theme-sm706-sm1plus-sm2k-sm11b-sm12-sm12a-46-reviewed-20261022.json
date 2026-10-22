@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "work": "Face/printed-number source review of 5 SM source sets",
+  "totalSourceSlots": 60,
+  "validatedThisPass": 46,
+  "flaggedTotal": 14,
+  "unavailableSources": 12,
+  "criticalWrongLanguageMappings": 2,
+  "wrongLanguageCards": [
+    "sm2k_060/050",
+    "sm2k_061/050"
+  ],
+  "bySet": {
+    "sm1plus": 19,
+    "sm2k": 4,
+    "sm11b": 3,
+    "sm12": 1,
+    "sm12a": 19
+  },
+  "visualArtifactId": 12407265371,
+  "previousHeldAfterSM30AandSMP": 380,
+  "heldNowAfterThisPass": 334,
+  "remainingBroken": 12,
+  "remainingWrongLanguage2": 2,
+  "remainingOtherSources": 320,
+  "approvedCards": [
+    {
+      "code": "sm1plus_059/051",
+      "masterName": "모크나이퍼 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "059/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/059.webp",
+      "sourceHash": "fa3cb0040295ba2809151b88e26016d1ba48bb9367f7ab5bfa1a8bca34348b5e",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_060/051",
+      "masterName": "어흥염 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "060/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/060.webp",
+      "sourceHash": "8b1f37d6de8580476b910d939777833fe576c337319aa1ed059f478437199cc8",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_061/051",
+      "masterName": "누리레느 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "061/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/061.webp",
+      "sourceHash": "942cb97c0c72e48ebd4c0eb8e296a0b25fb6241ee68fd87d4a8e85ef4af4f5da",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_062/051",
+      "masterName": "투구뿌논 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "062/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/062.webp",
+      "sourceHash": "fed8aa85039bb5f5332c7b8947c338ab12fd00119b7e199f3176ecb27e4acabf",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_063/051",
+      "masterName": "더시마사리 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "063/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/063.webp",
+      "sourceHash": "1d98fd08dfb906b3a2890a5825797c29a34abcaae15976c861ae44d824a50e0f",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_064/051",
+      "masterName": "님피아 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "064/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/064.webp",
+      "sourceHash": "d03f890f9331ea3df685a636833d0efc7c7609c3835acfbc1d1c279251c43dfc",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_065/051",
+      "masterName": "할비롱 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "065/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/065.webp",
+      "sourceHash": "5050740159e000ccf533eae5f7e8f1e3771b2f83036dfb9743375799e963e94f",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_066/051",
+      "masterName": "이상한사탕",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "066/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/066.webp",
+      "sourceHash": "3694ec22b525472a5f69de562a836c714662359fa7d531180b258693b70eeac9",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_067/051",
+      "masterName": "더블 무색 에너지",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "067/051",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/067.webp",
+      "sourceHash": "c32cb21766c0390445b88dfe3d1b1a37d1fdcb9779447ef0cf759e7f37851ad7",
+      "visualSheet": "sm1+-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm1plus_068/051",
+      "masterName": "기본 풀 에너지",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/068.webp",
+      "sourceHash": "9e190c0e8b1caa9597698eeecd4f91e12ff8f1f73d17c168263d59f6e47ab6db",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_069/051",
+      "masterName": "기본 불꽃 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/069.webp",
+      "sourceHash": "96524485f20b10cacb3933576e0f2482dde98ad520cb0c01b51176b732eb3519",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_070/051",
+      "masterName": "기본 초 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/070.webp",
+      "sourceHash": "f3fdffd422192a8a9f6a3fbac5f88ac048fed7a6ea3b53aee844c9e727dcc434",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_071/051",
+      "masterName": "기본 강철 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/071.webp",
+      "sourceHash": "47036b068e6ab020870710ef61c8a2822e00b333350457d77f2ab8c63672682b",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_072/051",
+      "masterName": "기본 페어리 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/072.webp",
+      "sourceHash": "ca1d349f805ae29c39551a347799c174b442567440694e50365e2478e0f5b189",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_073/051",
+      "masterName": "기본 풀 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/073.webp",
+      "sourceHash": "3ef99d1cd24e4439901070a74e49a3ed5d82e62d9ee3e952a87017ff60f699d1",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_074/051",
+      "masterName": "기본 물 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/074.webp",
+      "sourceHash": "e319a4b8919ac599e4651230efda11ad1668b75c2c00c9545b6247ade89fd7eb",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_075/051",
+      "masterName": "기본 번개 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/075.webp",
+      "sourceHash": "ba712af9e83b4285503b84f77d396ebc30adcf7e72d5a0ab1d25499febac8b48",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_076/051",
+      "masterName": "기본 격투 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/076.webp",
+      "sourceHash": "c0e8a0046f988e74757b24472fcafff510f5380831d6ef6a0dae8e051a0f5350",
+      "visualSheet": "sm1+-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm1plus_077/051",
+      "masterName": "기본 악 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm1plus-korean/077.webp",
+      "sourceHash": "d29b97f6d3900cfb1750ce96712948800f9f523209787a308a4c595eec419962",
+      "visualSheet": "sm1+-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm2k_056/050",
+      "masterName": "폭거북스 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "056/050",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://digital-card-binder.github.io/assets/cards/sm2k-korean/056.webp",
+      "sourceHash": "093d97897a41068bd727c02071d6788ab5b55ecf5d923f19f0271d4ac055ad73",
+      "visualSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm2k_057/050",
+      "masterName": "알로라 나인테일 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "057/050",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/sm2k/sm2k 057.jpg",
+      "sourceHash": "3ba37686990811bee5699694958de8973db859fee52800c2dedd60fe76c63e08",
+      "visualSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm2k_059/050",
+      "masterName": "짜랑고우거 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "059/050",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/b6487071c155392c7be0f3c3a15f352f.png",
+      "sourceHash": "b6487071c155392c7be0f3c3a15f352f532b21837194ae65ab6fb314745928f9",
+      "visualSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm2k_062/050",
+      "masterName": "번개 에너지",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "062/050",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/sm2k/sm2k 062.jpg",
+      "sourceHash": "97886d5cafe6b9b160e1a73009824f965efd89adde584f7b177878ad7790d432",
+      "visualSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm11b_070/049",
+      "masterName": "솔가레오&루나아라 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "070/049",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_070 copy.jpg",
+      "sourceHash": "ead56503b81cbf14c7d286c0d913223b182f6f3b84dea261bc5eb3f8f6464e7b",
+      "visualSheet": "sm11b-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm11b_072/049",
+      "masterName": "실버디 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "072/049",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_072 copy.jpg",
+      "sourceHash": "6b66d69eac4ff9675d7e4523644a89556e72b458741a43a1028fffca9766cf0f",
+      "visualSheet": "sm11b-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm11b_074/049",
+      "masterName": "수련의 낚싯대",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "074/049",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_074 copy.jpg",
+      "sourceHash": "75d3a4bdbb21b56e15df9b275e0dcbb9ad96fe6cc02edff742f7accdcb5818cb",
+      "visualSheet": "sm11b-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12_110/095",
+      "masterName": "춤추새 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "110/095",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/51cb63adbe0b39ec0c77fccb1575498a.jpg",
+      "sourceHash": "51cb63adbe0b39ec0c77fccb1575498a6553cd1d45ef37fc46509aff7dcb3d00",
+      "visualSheet": "sm12-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_211/173",
+      "masterName": "약어리 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "211/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/bf1e1ecf3b69f7fe6981d6d38967179e.png",
+      "sourceHash": "bf1e1ecf3b69f7fe6981d6d38967179ef070f57c62bbb85e5a1d30630f32acc1",
+      "visualSheet": "sm12a-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_212/173",
+      "masterName": "에브이&테오키스 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "212/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_212 copy.jpg",
+      "sourceHash": "d580bc82a7d246d895fe7074176e1c5968278787ebcf961861eb478c002a3647",
+      "visualSheet": "sm12a-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_213/173",
+      "masterName": "대로트&야느와르몽 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "213/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/58348fdb9e00be74553baef3331bb4b8.jpg",
+      "sourceHash": "58348fdb9e00be74553baef3331bb4b8c61f71b09867e7db790f1696a3435308",
+      "visualSheet": "sm12a-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_214/173",
+      "masterName": "지라치 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "214/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/aed4c259504cf0622539d970d635e3b9.png",
+      "sourceHash": "aed4c259504cf0622539d970d635e3b92fc543503c217c0308ca43c4acf766c6",
+      "visualSheet": "sm12a-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_219/173",
+      "masterName": "이브이 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "219/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_219 copy.jpg",
+      "sourceHash": "2a8cbbd3f2a59d6e412b10d284bc78636ff07d4660dcaab5461c34fd668bdc71",
+      "visualSheet": "sm12a-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm12a_220/173",
+      "masterName": "레시라무&리자몽 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "220/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_220 copy.jpg",
+      "sourceHash": "5bb3a9eda1fb95de7f968a9cfb49e7f1f126c97a6e15da6539e417f0ae6ca184",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_221/173",
+      "masterName": "피카츄&제크로무 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "221/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://static.tcgexchange.kr/b4db8254ea27ece4a8e46ad1a8214254.png",
+      "sourceHash": "b4db8254ea27ece4a8e46ad1a821425446f91cda4ce0492ebf0070a32f2250cb",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_222/173",
+      "masterName": "뮤츠&뮤 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "222/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_222 copy.jpg",
+      "sourceHash": "52d5869f2e706715055f224c74a24b233c5b5d8136712296ea1c0e9e97ca4420",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_223/173",
+      "masterName": "개굴닌자&조로아크 GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "223/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_223 copy.jpg",
+      "sourceHash": "1170c8e5a579858f60a9e6ddb0f251c1cf51b6459a364504a7ca34a32461be2a",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_226/173",
+      "masterName": "파이어 & 썬더 & 프리져-GX",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": "226/173",
+      "printedNumberStatus": "number_visible",
+      "imageUrl": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_226 copy.jpg",
+      "sourceHash": "503395db18101293480f622671a1815adfe2d03dfc6cfc9a64f4a421e06be769",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_227/173",
+      "masterName": "기본 풀 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/0e1ecf2247b5b8ff8adcd2d0e31cd512.png",
+      "sourceHash": "0e1ecf2247b5b8ff8adcd2d0e31cd5124475c87031af8e23001da7e19c8ad347",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_228/173",
+      "masterName": "기본 불꽃 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/84b281562f5c9a6ec20d6c2687a7d289.png",
+      "sourceHash": "84b281562f5c9a6ec20d6c2687a7d2896495586af0e6f7b856266971f7c33549",
+      "visualSheet": "sm12a-remaining-print-02.jpg"
+    },
+    {
+      "code": "sm12a_229/173",
+      "masterName": "기본 물 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/0d2df27f97866593881a1d164dd1ef1f.png",
+      "sourceHash": "0d2df27f97866593881a1d164dd1ef1f37036e3a8b722da1ba725cdadbf644b3",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_230/173",
+      "masterName": "기본 번개 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/c7a3ae48423f4a62a552a5bc210a6085.png",
+      "sourceHash": "c7a3ae48423f4a62a552a5bc210a60856058b0ffa82dbf7c916bf0a7c58b6a25",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_231/173",
+      "masterName": "기본 초 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/864da5a9df5e4d1b47ae23884c804c19.png",
+      "sourceHash": "864da5a9df5e4d1b47ae23884c804c19ce74bf6c6311377d11c92ddf4cc059b2",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_232/173",
+      "masterName": "기본 격투 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/27aeb0d7690db51e95f787124ceb2bcd.png",
+      "sourceHash": "27aeb0d7690db51e95f787124ceb2bcd6cd4aa465d144f26f36e1824ac2fcb18",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_233/173",
+      "masterName": "기본 강철 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/49da23470a88c75726b5448bab960c92.png",
+      "sourceHash": "49da23470a88c75726b5448bab960c922d56ef0ca5e7c737941cd6802cda5cec",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_234/173",
+      "masterName": "기본 악 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/3e6b8b77d487acc23a203821cee6f870.png",
+      "sourceHash": "3e6b8b77d487acc23a203821cee6f870e46558f70069e38da96177c80f30c3a4",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    },
+    {
+      "code": "sm12a_235/173",
+      "masterName": "기본 페어리 에너지No.",
+      "koreanNameAndCardArtworkMatched": true,
+      "printedCardNumber": null,
+      "printedNumberStatus": "unnumbered_basic_energy",
+      "imageUrl": "https://static.tcgexchange.kr/abaf86c684b64b9c9aad3124fbee8720.png",
+      "sourceHash": "abaf86c684b64b9c9aad3124fbee8720770ff87afc89e252e2782af24fde1d1b",
+      "visualSheet": "sm12a-remaining-print-03.jpg"
+    }
+  ],
+  "flaggedCards": [
+    {
+      "code": "sm2k_060/050",
+      "issue": "japanese_card_wrongly_mapped_as_korean",
+      "masterName": "필드 블로어",
+      "imageUrl": "https://static.tcgexchange.kr/81be380cdbb9dd5680881d6d29f90cf2.jpg",
+      "inspectionSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm2k_061/050",
+      "issue": "japanese_card_wrongly_mapped_as_korean",
+      "masterName": "풀회복약",
+      "imageUrl": "https://static.tcgexchange.kr/3692db745cfb3115bb14f2015e9603f5.jpg",
+      "inspectionSheet": "sm2k-remaining-print-01.jpg"
+    },
+    {
+      "code": "sm11b_069/049",
+      "issue": "image_not_downloadable",
+      "masterName": "라플레시아 GX"
+    },
+    {
+      "code": "sm11b_071/049",
+      "issue": "image_not_downloadable",
+      "masterName": "레시라무&제크로무 GX"
+    },
+    {
+      "code": "sm11b_073/049",
+      "issue": "image_not_downloadable",
+      "masterName": "릴리에의 삐삐인형"
+    },
+    {
+      "code": "sm11b_075/049",
+      "issue": "image_not_downloadable",
+      "masterName": "무인발전소"
+    },
+    {
+      "code": "sm12_111/095",
+      "issue": "image_not_downloadable",
+      "masterName": "플라이곤 GX"
+    },
+    {
+      "code": "sm12_114/095",
+      "issue": "image_not_downloadable",
+      "masterName": "메가이어롭 & 푸린-GX"
+    },
+    {
+      "code": "sm12a_215/173",
+      "issue": "image_not_downloadable",
+      "masterName": "블래키&다크라이 GX"
+    },
+    {
+      "code": "sm12a_216/173",
+      "issue": "image_not_downloadable",
+      "masterName": "포푸니라 GX"
+    },
+    {
+      "code": "sm12a_217/173",
+      "issue": "image_not_downloadable",
+      "masterName": "멜메탈 GX"
+    },
+    {
+      "code": "sm12a_218/173",
+      "issue": "image_not_downloadable",
+      "masterName": "토게피 & 삐 & 푸푸린-GX"
+    },
+    {
+      "code": "sm12a_224/173",
+      "issue": "image_not_downloadable",
+      "masterName": "루카리오&멜메탈 GX"
+    },
+    {
+      "code": "sm12a_225/173",
+      "issue": "image_not_downloadable",
+      "masterName": "한카리아스&기라티나 GX"
+    }
+  ],
+  "policy": "Japanese printed cards not acceptable as Korean equivalents. Original source/canonical card code remains unchanged until a matching physically Korean card photo is found. Numberless basic energy is correct only as a card identity, never a made-up printed ordinal.",
+  "notes": "SM2K 060/050 and 061/050 actually show Japanese item-name text; existing master image URLs must be replaced by confirmed Korean print before clearing their holds."
+}
