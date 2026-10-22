@@ -1,0 +1,64 @@
+name: One-shot apply 19 Korean SM source-verified color themes
+on:
+  push:
+    branches:
+      - audit/theme-sm-remaining19-20261022
+    paths:
+      - .github/workflows/one-shot-sm-remaining19-apply-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm-remaining19-apply-20261022
+  cancel-in-progress: false
+jobs:
+  apply-and-test:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install test dependencies
+        run: npm ci
+      - name: Build conservative source holds for all 19 sets and apply official art colors only
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/prepare-sm-remaining19-decisions-20261022.py
+          node --check scripts/apply-sm-remaining19-themes-20261022.mjs
+          python scripts/prepare-sm-remaining19-decisions-20261022.py
+          node scripts/apply-sm-remaining19-themes-20261022.mjs
+      - name: Rebuild all coverage and test website and data integrity
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Commit tested 19-set batch to audit branch, never merge or deploy
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/theme-sm-remaining19-20261022"
+          git add -u
+          git add data/audits/theme-sm-remaining19-visual-decisions-20261022.json data/audits/theme-sm-remaining19-artwork-review-20261022.json
+          if git diff --cached --quiet; then exit 0; fi
+          changed="$(git diff --cached --name-only)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -E '^(radar-service/|radar-server/|api/radar/|data/radar-master/|data/card-radar-|data/series.json|data/series-legacy.json|tests/card-radar-|scripts/.*radar)' ; then
+            echo 'Protected master or radar file changed unexpectedly'; exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(theme): source-check all 19 SM pending sets, classify only official-hosted color art'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
