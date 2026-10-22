@@ -1,0 +1,73 @@
+name: One-shot 706 unresolved Korean SM physical card artwork verification
+on:
+  push:
+    branches:
+      - audit/sm-706-unified-physical-print-20261022
+    paths:
+      - .github/workflows/one-shot-sm706-unique-visual-artwork-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm706-unique-visual-20261022
+  cancel-in-progress: false
+jobs:
+  entire-remaining-once:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Import other independently verified Korean starter set 72-card evidence
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin audit/sm-3starter-print-identity-20261022
+          git restore --source=FETCH_HEAD -- data/audits/theme-sm-3starter-print-identity-confirmed-20261022.json
+          test -s data/audits/theme-sm-790-print-review-resume-checkpoint-20261022.json
+      - name: Install only image audit libraries
+        run: python -m pip install requests pillow
+      - name: Skip 84 previously verified cards and inspect only 706 remaining
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/audit-sm706-unified-once-20261022.py
+          python scripts/audit-sm706-unified-once-20261022.py
+      - name: Upload all unrepeated Korean card name and printed-footer sheets
+        uses: actions/upload-artifact@v4
+        with:
+          name: SM706-unique-Korean-printed-artwork-sheets
+          path: data/audits/theme-sm-706-original-plus-print-contact-20261022/*.jpg
+          compression-level: 4
+          if-no-files-found: error
+          retention-days: 14
+      - name: Validate original Korean printed-card ledger invariants
+        run: |
+          python - <<'PY'
+          import json
+          z=json.load(open('data/audits/theme-sm-706-unified-image-review-20261022.json'))
+          assert len(z['neverRecheckConfirmedCodes'])==84
+          assert len(z['remainingSourceImages'])==706
+          assert len({x['code'].lower() for x in z['remainingSourceImages']})==706
+          assert set(z['neverRecheckConfirmedCodes']).isdisjoint(x['code'].lower() for x in z['remainingSourceImages'])
+          assert z['newlyUnresolvedAfterMerge']==706
+          assert z['originalArtworkMissing']==12
+          assert len(z['contactSheets'])>=70
+          print('ALL_706_UNIQUE_CARD_IDS_SAVED_WITHOUT_DUPLICATES')
+          PY
+      - name: Save all 706 source checks without changing production, Firestore or master
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm-706-unified-physical-print-20261022"
+          git add data/audits/theme-sm-3starter-print-identity-confirmed-20261022.json
+          git add data/audits/theme-sm-706-unified-image-review-20261022.json
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): unify 84 reviewed and once-scan 706 Korean SM printed card artworks'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
