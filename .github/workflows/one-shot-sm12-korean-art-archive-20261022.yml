@@ -5,6 +5,9 @@ on:
       - release/sm12-genuine-korean-card-image-fixes-20261022
     paths:
       - .github/workflows/one-shot-sm12-korean-art-archive-20261022.yml
+      - tests/sm-series-dex.test.mjs
+      - tests/collector-registry.test.mjs
+      - scripts/card-image-source-repairs.json
 permissions:
   contents: write
 concurrency:
