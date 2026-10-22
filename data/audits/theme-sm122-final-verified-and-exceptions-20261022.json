@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "reportDate": "2026-10-22",
+  "scope": "Previously unresolved 122 Korean SM entries among prior 790 held cards",
+  "numericPrintedCardNamesVerifiedPreviously": 668,
+  "nonnumericCardClassesReviewed": 108,
+  "nonnumericCardSubclasses": {
+    "basicEnergy": 90,
+    "victoryMedal": 12,
+    "championsFestival": 3,
+    "otherPromotional": 3
+  },
+  "noteOn108": "For these cards no numeric footer is physically printed; the internal master code is a catalog identifier. Distinct set identity and SHA of original art are preserved. Specific promotional edition/foil authenticity is not certified solely by hash.",
+  "newlyRestoredGenuineKoreanCardPhotos": 12,
+  "newPhotoProof": "data/audits/theme-sm14-twelve-genuine-korean-prints-verified-20261022.json",
+  "newPhotoArchive": "data/audits/theme-sm14-twelve-korean-images-repaired-and-archived-20261022.json",
+  "unresolvedAuthenticKoreanArtworkCount": 2,
+  "unresolved": [
+    {
+      "code": "sm2k_060/050",
+      "name": "필드 블로어",
+      "reason": "Existing and current Korean-labelled set catalogs display Japanese printed language in card photo; do not approve as Korean"
+    },
+    {
+      "code": "sm2k_061/050",
+      "name": "풀회복약",
+      "reason": "Existing and current Korean-labelled set catalogs display Japanese printed language in card photo; do not approve as Korean"
+    }
+  ],
+  "guardrails": {
+    "masterSetCount": 273,
+    "masterCardCount": 20243,
+    "independentThemeCardSlots": 22032,
+    "RGBSpecialExcludedFromBasicDex": true,
+    "FirestoreOwnedNeverModified": true,
+    "cardRadarNeverModified": true,
+    "JapaneseSubstitutionNotCertified": true
+  },
+  "status": "12 formerly broken images restored from genuine Korean printed photos; 108 non-numbered category-coded; 2 genuine Korean photo exceptions remain unresolved",
+  "relatedAudit": "audit/sm122-variant-completion-20261022/data/audits/theme-sm122-current-status-after-nonnumeric-classification-20261022.json"
+}
