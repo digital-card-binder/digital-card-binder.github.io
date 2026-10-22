@@ -105,7 +105,7 @@ const old='assert.equal(total,21299); // SM10b/SM11/SM11a visually checked Korea
 const tests=fs.readFileSync(testPath,'utf8');
 assert.equal(tests.split(old).length,2,'Existing regression expected cardinality drift');
 fs.writeFileSync(testPath,tests.replace(old,
- 'assert.equal(total,'+count()+'); // all 19 previously pending SM sets source/hash/pixel-classified, physical print holds remain'));
+ 'assert.equal(total,'+count+'); // all 19 previously pending SM sets source/hash/pixel-classified, physical print holds remain'));
 const report={schemaVersion:1,recordedAt:'2026-10-22',
  scope:'All 19 previously pending Korean SM series, including sets and promo decks',seriesCount:19,
  canonicalCards:1320,sourceEvidence:sourceFile,visualDecisionFile:decisionFile,
