@@ -4,7 +4,7 @@
   "title": "한국판 SM 시리즈 미검수 19개 세트 일괄 조사",
   "sourceBranch": "audit/theme-sm10b-sm11-sm11a-20261022",
   "branch": "audit/theme-sm-remaining19-20261022",
-  "stage": "all_19_sm_pending_source_audited_and_independent_color_slots_applied_on_audit_branch",
+  "stage": "all19_source_and_official_scene_second_pass_complete_on_audit_branch",
   "previousTotalIndependentThemeMemberships": 21299,
   "previousStrictCompletedSeries": 109,
   "unreviewedSetCount": 19,
@@ -18,7 +18,7 @@
     "Do not edit main, master card IDs, user Firestore, radar or production deployment",
     "One source job and one optional guarded theme-apply+test job only"
   ],
-  "next": "Resolve 797 third-party/missing-source printed-number holds by validating Korean card numbers on physically correct images; 13 images could not decode at all. Inspect 76 contact sheets card-by-card to classify any additional season/night/street/sunset/other artwork themes independently. Preserve original 21,299 themed records. Run full npm test once package install is available. No production merge or deploy.",
+  "next": "Still held: 797 third-party or inaccessible Korean printed-card identities across many starters/promos, plus earlier rare-card holds; visually review high-res exact footer for those sources before assigning scene tags. Other categories sleeping/connected/evolution/food/reflections/cameo must be added only with explicit paired or direct illustration proof. Main and production still not updated because branch diverged from main and full npm test was not run; do not overwrite previous review checkpoints.",
   "sourceRunId": 39713248175,
   "finalizeDataIntegrityRunId": 39714773290,
   "finalizeDataIntegrityRunResult": "success",
@@ -31,7 +31,7 @@
   "newIndependentColorThemeRowsWritten": 470,
   "oldThemePlacementsInTheseSetsPreserved": 112,
   "previousThemeRowsPreserved": 21299,
-  "newTotalThemeRows": 21769,
+  "newTotalThemeRows": 22032,
   "strictCompletedBaselineSetsStill": 109,
   "smStatusAfterAudit": {
     "complete": 1,
@@ -49,5 +49,19 @@
   "newSourceEvidencePath": "data/audits/theme-sm-remaining19-source-evidence-20261022.json",
   "newDecisionEvidencePath": "data/audits/theme-sm-remaining19-visual-decisions-20261022.json",
   "contactSheetActionArtifactId": 12398570065,
-  "visualReviewMethod": "Machine HSV pixel-color classification of official-hosted, SHA256-fetched images. Full 1320 card-by-card subjective illustration review or independent physical Korean printed-number verification has not been completed. Never represent partial statuses as strict completed."
+  "visualReviewMethod": "Machine HSV pixel-color classification of official-hosted, SHA256-fetched images. Full 1320 card-by-card subjective illustration review or independent physical Korean printed-number verification has not been completed. Never represent partial statuses as strict completed.",
+  "originalSourcePassThemeSlots": 21769,
+  "followUpSceneReviewPR": 272,
+  "followUpSceneAuditRunId": 39719836513,
+  "followUpSceneReviewMergeCommit": "f1e6b29d41e14b3898adb95ec7d67ece07ecb9ee",
+  "followUpVisualCandidates": 284,
+  "followUpPreviouslyRegisteredSceneRowsSkipped": 21,
+  "followUpNewVisualSceneRows": 263,
+  "followUpVisualSceneRowsByTheme": {
+    "season": 234,
+    "night": 10,
+    "street": 10,
+    "sunset": 2,
+    "work": 7
+  }
 }
