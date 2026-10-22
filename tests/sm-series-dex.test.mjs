@@ -98,7 +98,20 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
       } else if (card.image.startsWith("https://static.tcgexchange.kr/")) {
         assert.match(card.source, /^https:\/\/www[.]dogam[.]app\/sets\//, card.code);
       } else if (card.image.startsWith("https://tcgbox.co.kr/")) {
-        assert.match(card.source, /^https:\/\/tcgbox[.]co[.]kr\/product\//, card.code);
+        if (card.code.toLowerCase() === "sm12_109/095") {
+          // The printed Korean HR image was recovered from TCGBOX, while
+          // the historical card-information citation remains K-TCGPanda.
+          const verified = JSON.parse(readFileSync(
+            new URL("../data/audits/theme-sm19-sm12-109-print-verified-20261022.json", import.meta.url),
+            "utf8",
+          ));
+          assert.equal(verified.accepted[0].code, card.code.toLowerCase());
+          assert.equal(verified.accepted[0].printedNumber, "109/095");
+          assert.equal(card.image, verified.accepted[0].newUrl);
+          assert.match(card.source, /^https:\/\/k-tcgpanda[.]com\/cardpage[.]php\?/, card.code);
+        } else {
+          assert.match(card.source, /^https:\/\/tcgbox[.]co[.]kr\/product\//, card.code);
+        }
         assert.match(String(card.imageReferenceNote || ""), /한글판 실물 참고/, card.code);
       } else if (card.image.startsWith("https://k-tcgpanda.com/")) {
         assert.match(card.source, /^https:\/\/k-tcgpanda[.]com\/cardpage[.]php\?/, card.code);
