@@ -1,0 +1,92 @@
+name: Validate isolated SM art theme release against latest main
+on:
+  push:
+    branches:
+      - release/theme-sm-22032-safe-20261022
+    paths:
+      - .github/workflows/one-shot-sm-theme-release-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm-theme-release-20261022
+  cancel-in-progress: false
+jobs:
+  complete:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Carefully import only art audit data from prevalidated audit branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "release/theme-sm-22032-safe-20261022"
+          git fetch --no-tags origin audit/theme-sm-remaining19-20261022
+          git restore --source=FETCH_HEAD -- data/art-themes.json data/audits tests/theme-card-identity.test.mjs
+          node - <<'JS'
+          const fs=require('fs');
+          const theme=JSON.parse(fs.readFileSync('data/art-themes.json','utf8'));
+          const cover=JSON.parse(fs.readFileSync('data/audits/theme-series-coverage.json','utf8'));
+          const check=JSON.parse(fs.readFileSync('data/audits/theme-sm19-scene-artwork-review-20261022.json','utf8'));
+          const slots=theme.groups.reduce((n,g)=>n+g.cards.length,0);
+          if(slots!==22032||cover.summary.themeCardSlots!==22032||check.themeSlotsAfter!==22032)
+            throw Error('Audited source drift / 22,032 slot invariant failed');
+          if(check.themeRowsAdded!==263)throw Error('Missing tested manual scene classifications');
+          console.log('AUDIT_RELEASE_SOURCE_INVARIANTS',JSON.stringify({slots,groups:theme.groups.length,newSceneTags:check.themeRowsAdded}));
+          JS
+          if ! git diff --quiet -- series-scope-filter.js catalog.js series.html tests/base-series-dex.test.mjs; then
+            echo 'RGB base dex exclusion must remain untouched'; exit 1
+          fi
+      - name: Install dependencies for full website, registry and Firestore tests
+        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: Rebuild production catalog metrics and source data on main-based branch
+        run: |
+          set -euo pipefail
+          npm run site:prepare
+          git diff --check
+          if ! git diff --quiet -- series-scope-filter.js catalog.js series.html tests/base-series-dex.test.mjs; then
+            echo 'RGB/base dex integrity regression'; exit 1
+          fi
+      - name: Full project test suite including Firestore rules and base RGB regression
+        run: npm test
+      - name: Assert true production-theme/card totals before accepting
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const themes=JSON.parse(fs.readFileSync('data/art-themes.json','utf8'));
+          const summary=JSON.parse(fs.readFileSync('data/audits/theme-series-coverage.json','utf8')).summary;
+          const count=themes.groups.reduce((n,g)=>n+g.cards.length,0);
+          if(count!==22032||summary.themeCardSlots!==22032||summary.masterCardCount!==20243||
+             summary.masterSetCount!==273||summary.strictCompleteSetCount!==109)
+            throw Error('Production catalog integrity check failed: '+JSON.stringify(summary));
+          console.log('PRODUCTION_SAFE_THEME_TOTAL',JSON.stringify({count,masterCards:summary.masterCardCount,strict:summary.strictCompleteSetCount}));
+          JS
+      - name: Save tested isolated changes only to release staging branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "release/theme-sm-22032-safe-20261022"
+          git add -u
+          git add data/audits
+          git diff --cached --check
+          changed="$(git diff --cached --name-only)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -E '^(series-scope-filter.js|catalog.js|series.html|tests/base-series-dex.test.mjs|data/series.json|data/series-legacy.json|radar-service/|api/radar/)'; then
+            echo 'Protected RGB/master/radar file changed'; exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'feat(theme): safely integrate 22,032 validated SM art theme entries over RGB-corrected main'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
