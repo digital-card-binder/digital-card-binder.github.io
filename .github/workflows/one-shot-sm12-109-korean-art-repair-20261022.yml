@@ -5,6 +5,8 @@ on:
       - release/sm12-109-korean-hr-image-recovery-20261022
     paths:
       - .github/workflows/one-shot-sm12-109-korean-art-repair-20261022.yml
+      - tests/sm-series-dex.test.mjs
+      - tests/collector-registry.test.mjs
 permissions:
   contents: write
 concurrency:
