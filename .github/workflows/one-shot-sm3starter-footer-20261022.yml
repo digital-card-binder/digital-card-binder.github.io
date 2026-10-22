@@ -1,0 +1,57 @@
+name: One-shot Korean SM 3 starter sets original-print footer review
+on:
+  push:
+    branches:
+      - audit/sm-3starter-print-identity-20261022
+    paths:
+      - .github/workflows/one-shot-sm3starter-footer-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm3starter-footer-20261022
+  cancel-in-progress: false
+jobs:
+  print-source-audit:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            scripts/audit-sm-three-starter-print-identity-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reuse earlier original-source evidence
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin audit/sm19-797-image-identity-recheck-20261022
+          git restore --source=FETCH_HEAD -- data/audits/theme-sm19-797-print-source-recheck-20261022.json
+      - run: python -m pip install requests pillow
+      - name: Compare original 72 art hashes and create real footer review sheets
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/audit-sm-three-starter-print-identity-20261022.py
+          python scripts/audit-sm-three-starter-print-identity-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm3starter-72-real-korean-card-footers
+          path: data/audits/theme-sm-3starter-footer-evidence-20261022/*.jpg
+          if-no-files-found: error
+          retention-days: 7
+      - name: Save immutable source evidence only, never alter users or master
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm-3starter-print-identity-20261022"
+          git add --sparse -- data/audits/theme-sm-3starter-original-print-art-review-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): preserve source images and footer evidence for 72 cards in 3 starters'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
