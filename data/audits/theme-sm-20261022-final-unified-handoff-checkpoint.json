@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-22",
+  "repository": "digital-card-binder/digital-card-binder.github.io",
+  "branch": "audit/sm-final-visible-card-review-20261022",
+  "checkpointType": "single_authoritative_cumulative_nonrepeating_final_audit",
+  "sourceEvidence": {
+    "earlierSourceChecks": "data/audits/theme-sm-706-unified-image-review-20261022.json",
+    "previousPrintApproved": 84,
+    "recent204": "data/audits/theme-sm-706-204-visual-korean-print-review-20261022.json",
+    "recent380": "data/audits/theme-sm-706-additional-380-print-verified-20261022.json",
+    "unnumbered108": "data/audits/theme-sm-706-108-unnumbered-original-korean-photo-review-20261022.json",
+    "consolidatedLedger": "data/audits/theme-sm-all-790-unified-per-card-current-status-20261022.json",
+    "nameConflictSM11b": "data/audits/theme-sm11b-073-075-korean-name-conflict-check-20261022.json",
+    "sourceMontageWorkflowRunId": 39734999767,
+    "sourceMontageArtifactId": 12407265371,
+    "imageReviewSheetCount": 85
+  },
+  "counts": {
+    "originalHeld": 790,
+    "uniquePrintedNameAndNumberVerified": 668,
+    "koreanOriginalArtLanguageTypeVisuallyReviewedWithoutInventingNumber": 108,
+    "originalArtworkPhotoLanguageTypeReviewedOrPrintVerified": 776,
+    "strictNumericOrVariantProvenanceUnresolved": 122,
+    "sourceCorrectionOrAbsentKoreanImageCritical": 14,
+    "wrongLanguageJPArt": 2,
+    "missingImageSources": 12
+  },
+  "criticalOutstanding": [
+    {
+      "code": "sm2k_060/050",
+      "set": "sm2K",
+      "name": "필드 블로어",
+      "reason": "japanese_language_substitute_wrong_for_kr",
+      "badCurrentSource": "https://static.tcgexchange.kr/81be380cdbb9dd5680881d6d29f90cf2.jpg",
+      "imageSha256": "81be380cdbb9dd5680881d6d29f90cf28bc76878462c9c09168ad9bb9e334f3f"
+    },
+    {
+      "code": "sm2k_061/050",
+      "set": "sm2K",
+      "name": "풀회복약",
+      "reason": "japanese_language_substitute_wrong_for_kr",
+      "badCurrentSource": "https://static.tcgexchange.kr/3692db745cfb3115bb14f2015e9603f5.jpg",
+      "imageSha256": "3692db745cfb3115bb14f2015e9603f57fc92ea23c9e817e597b9646456f56a5"
+    },
+    {
+      "code": "sm11b_069/049",
+      "set": "sm11b",
+      "name": "라플레시아 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/medium/sm11b/SM11b_069 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm11b_071/049",
+      "set": "sm11b",
+      "name": "레시라무&제크로무 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_071 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm11b_073/049",
+      "set": "sm11b",
+      "name": "릴리에의 삐삐인형",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_073 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm11b_075/049",
+      "set": "sm11b",
+      "name": "무인발전소",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/sm11b/SM11b_075 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12_111/095",
+      "set": "sm12",
+      "name": "플라이곤 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/medium/sm12/SM12_111 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12_114/095",
+      "set": "sm12",
+      "name": "메가이어롭 & 푸린-GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/medium/sm12/SM12_114 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_215/173",
+      "set": "sm12a",
+      "name": "블래키&다크라이 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_215 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_216/173",
+      "set": "sm12a",
+      "name": "포푸니라 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_216 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_217/173",
+      "set": "sm12a",
+      "name": "멜메탈 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_217 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_218/173",
+      "set": "sm12a",
+      "name": "토게피 & 삐 & 푸푸린-GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_218 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_224/173",
+      "set": "sm12a",
+      "name": "루카리오&멜메탈 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_224 copy.jpg",
+      "imageSha256": null
+    },
+    {
+      "code": "sm12a_225/173",
+      "set": "sm12a",
+      "name": "한카리아스&기라티나 GX",
+      "reason": "missing_korean_image",
+      "badCurrentSource": "https://tcgbox.co.kr/web/product/big/SM12a/SM12a_225 copy.jpg",
+      "imageSha256": null
+    }
+  ],
+  "variantOutstanding": {
+    "count": 108,
+    "types": {
+      "unnumberedBasicEnergy": 90,
+      "eventTrophyOrCertificate": 16,
+      "otherUnnumberedNamedPromos": 2
+    },
+    "exampleRule": "Korean original photo visually matched to type/name, but no readable physical serial exists; use verified original variant provenance instead of inventing printed numbers"
+  },
+  "noRepeatPolicy": [
+    "Do not repeat 790/732/706 HTTP queries or raster generation; same 85-sheet audit already concluded.",
+    "Never re-audit 668 already physically printed-verified entries.",
+    "For 108 unnumbered variants, do not call synthesized catalog ordinal an actual printed number.",
+    "Prioritize obtaining genuine Korean printed original images for 14 critical cards; no Japanese substitution.",
+    "When a valid Korean replacement image is confirmed by name and footer, collect multiple changes and deploy once after full tests.",
+    "Keep independent art theme dexes, owner state, RGB master scope and card radar untouched."
+  ],
+  "deployment": {
+    "mainUnchangedThisTurn": true,
+    "latestMainAtStart": "7597cb30641178c68087e8c18843cf5a90e702bf",
+    "masterSetCount": 273,
+    "masterCardCount": 20243,
+    "standaloneThemeMembershipCount": 22032
+  },
+  "taskContinuation": {
+    "automationConfigured": true,
+    "monitorCadence": "once per hour for seven days",
+    "trigger": "Only alert on real audit progress; continue from this checkpoint",
+    "next": "Authentic KR images for two JP wrong mappings and twelve missing cards, then original variants for 108 unnumbered photos."
+  }
+}
