@@ -4,7 +4,7 @@
   "title": "한국판 SM 시리즈 미검수 19개 세트 일괄 조사",
   "sourceBranch": "audit/theme-sm10b-sm11-sm11a-20261022",
   "branch": "audit/theme-sm-remaining19-20261022",
-  "stage": "preflight_source_run_prepared",
+  "stage": "all_19_sm_pending_source_audited_and_independent_color_slots_applied_on_audit_branch",
   "previousTotalIndependentThemeMemberships": 21299,
   "previousStrictCompletedSeries": 109,
   "unreviewedSetCount": 19,
@@ -18,5 +18,36 @@
     "Do not edit main, master card IDs, user Firestore, radar or production deployment",
     "One source job and one optional guarded theme-apply+test job only"
   ],
-  "next": "1,320 HTTP source and image hashes, manual review of sheets, safely apply visual themes, verify all 19 pending statuses and resume markers."
+  "next": "Resolve 797 third-party/missing-source printed-number holds by validating Korean card numbers on physically correct images; 13 images could not decode at all. Inspect 76 contact sheets card-by-card to classify any additional season/night/street/sunset/other artwork themes independently. Preserve original 21,299 themed records. Run full npm test once package install is available. No production merge or deploy.",
+  "sourceRunId": 39713248175,
+  "finalizeDataIntegrityRunId": 39714773290,
+  "finalizeDataIntegrityRunResult": "success",
+  "totalSetsSourceAudited": 19,
+  "totalCardsSourceChecked": 1320,
+  "imagesDecoded": 1307,
+  "contactSheetsPrepared": 76,
+  "officialHostArtworkColorEligible": 523,
+  "thirdPartyOrUnverifiedImageHolds": 797,
+  "newIndependentColorThemeRowsWritten": 470,
+  "oldThemePlacementsInTheseSetsPreserved": 112,
+  "previousThemeRowsPreserved": 21299,
+  "newTotalThemeRows": 21769,
+  "strictCompletedBaselineSetsStill": 109,
+  "smStatusAfterAudit": {
+    "complete": 1,
+    "in_progress": 2,
+    "partial": 46,
+    "pending": 0
+  },
+  "dependencyFreeCardTests": {
+    "tests": 16,
+    "passed": 16,
+    "failed": 0
+  },
+  "fullWebsiteRegressionTestStatus": "not_run_full_suite_due_to_external_npm_dependency_install_stall; data integrity tests passed",
+  "newReportPath": "data/audits/theme-sm-remaining19-artwork-review-20261022.json",
+  "newSourceEvidencePath": "data/audits/theme-sm-remaining19-source-evidence-20261022.json",
+  "newDecisionEvidencePath": "data/audits/theme-sm-remaining19-visual-decisions-20261022.json",
+  "contactSheetActionArtifactId": 12398570065,
+  "visualReviewMethod": "Machine HSV pixel-color classification of official-hosted, SHA256-fetched images. Full 1320 card-by-card subjective illustration review or independent physical Korean printed-number verification has not been completed. Never represent partial statuses as strict completed."
 }
