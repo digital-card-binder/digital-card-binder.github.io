@@ -1,0 +1,52 @@
+name: One-shot Korean SM14 image rescue from Korean set listings
+on:
+  push:
+    branches:
+      - audit/sm122-variant-completion-20261022
+    paths:
+      - .github/workflows/one-shot-sm14-korean-source-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm14-korean-image-rescue-20261022
+  cancel-in-progress: false
+jobs:
+  locate-originals:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm122-current-status-after-nonnumeric-classification-20261022.json
+            scripts/verify-sm14-dogam-photo-candidates-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests beautifulsoup4 pillow
+      - name: Find Korean cards by exact set and collector number and make visual prints
+        run: |
+          set -euo pipefail
+          python scripts/verify-sm14-dogam-photo-candidates-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm14-fullsize-korean-card-physical-footer-candidates
+          path: data/audits/theme-sm14-dogam-korean-photo-evidence-20261022/*
+          if-no-files-found: error
+          retention-days: 14
+      - name: Record exact URLs and SHA evidence, without approving unread prints
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm122-variant-completion-20261022"
+          git add --sparse -- data/audits/theme-sm14-dogam-korean-image-candidate-probe-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): recover direct Korean image candidates for 14 unresolved prints, pending original photo verification'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
