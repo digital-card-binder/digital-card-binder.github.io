@@ -5,6 +5,7 @@ on:
       - audit/theme-sm-remaining19-20261022
     paths:
       - .github/workflows/one-shot-sm-remaining19-finalize-20261022.yml
+      - scripts/apply-sm-remaining19-themes-20261022.mjs
 permissions:
   contents: write
 concurrency:
