@@ -80,7 +80,7 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
       assert.ok(String(card.name || "").trim(), card.code);
       assert.match(
         card.image,
-        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/(?:sm1plus-korean|sm2k-korean))\//,
+        /^https:\/\/(?:cards[.]image[.]pokemonkorea[.]co[.]kr|static[.]tcgexchange[.]kr|tcgbox[.]co[.]kr|k-tcgpanda[.]com|digital-card-binder[.]github[.]io\/assets\/cards\/(?:sm1plus-korean|sm2k-korean|korean-sm-restored))\//,
         card.code,
       );
       if (card.image.startsWith("https://digital-card-binder.github.io/assets/cards/sm2k-korean/")) {
@@ -93,6 +93,21 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
         const expected = String(index + 1).padStart(3, "0");
         assert.equal(card.image, `https://digital-card-binder.github.io/assets/cards/sm1plus-korean/${expected}.webp`);
         assert.match(card.source, /^https:\/\/www[.]dogam[.]app\/sets\/.+\/cards\//, card.code);
+      } else if (card.image.startsWith("https://digital-card-binder.github.io/assets/cards/korean-sm-restored/")) {
+        const decisions = JSON.parse(readFileSync(
+          new URL("../data/audits/theme-sm14-twelve-genuine-korean-prints-verified-20261022.json", import.meta.url),
+          "utf8",
+        ));
+        const original = decisions.approved.find((row) => row.code.toLowerCase() === card.code.toLowerCase());
+        assert.ok(original?.physicalKoreanPhotoConfirmed, card.code);
+        assert.equal(
+          card.image,
+          "https://digital-card-binder.github.io/assets/cards/korean-sm-restored/"
+            + card.code.toLowerCase().replace("/", "-") + ".webp",
+          card.code,
+        );
+        assert.equal(card.source, original.sourcePage, card.code);
+        assert.ok(card.source.startsWith("https://www.dogam.app/sets/"), card.code);
       } else if (card.image.startsWith("https://cards.image.pokemonkorea.co.kr/")) {
         assert.match(card.source, /^https:\/\/pokemoncard[.]co[.]kr\/cards(?:\/detail\/|$)/, card.code);
       } else if (card.image.startsWith("https://static.tcgexchange.kr/")) {
