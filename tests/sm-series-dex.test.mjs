@@ -107,7 +107,7 @@ test("SM 전 카드 슬롯은 한글명과 검증 가능한 한국판 이미지 
           card.code,
         );
         assert.equal(card.source, original.sourcePage, card.code);
-        assert.match(card.source, /^https:\\/\\/www[.]dogam[.]app\\/sets\\//, card.code);
+        assert.ok(card.source.startsWith("https://www.dogam.app/sets/"), card.code);
       } else if (card.image.startsWith("https://cards.image.pokemonkorea.co.kr/")) {
         assert.match(card.source, /^https:\/\/pokemoncard[.]co[.]kr\/cards(?:\/detail\/|$)/, card.code);
       } else if (card.image.startsWith("https://static.tcgexchange.kr/")) {
