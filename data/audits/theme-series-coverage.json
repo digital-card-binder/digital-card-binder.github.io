@@ -36,7 +36,7 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 21769,
+    "themeCardSlots": 22032,
     "uniqueThemeCards": 13698,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 537,
-      "setCount": 114,
+      "cardSlots": 547,
+      "setCount": 120,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 6126,
-      "setCount": 152,
+      "cardSlots": 6360,
+      "setCount": 157,
       "rarities": [
         "AR",
         "C",
@@ -176,8 +176,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 278,
-      "setCount": 87,
+      "cardSlots": 280,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -219,8 +219,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 99,
-      "setCount": 51,
+      "cardSlots": 106,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1185,
-      "setCount": 124,
+      "cardSlots": 1195,
+      "setCount": 127,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 4209
+      "currentThemeSlots": 4472
     },
     {
       "era": "XY",
@@ -1146,6 +1146,8 @@
       "status": "partial",
       "reviewedAt": "2026-10-22",
       "themeHits": {
+        "night": 1,
+        "season": 28,
         "color": 77
       }
     },
@@ -1171,7 +1173,8 @@
       "reviewedAt": "2026-10-22",
       "themeHits": {
         "sleeping": 2,
-        "season": 31,
+        "night": 2,
+        "season": 37,
         "color": 57
       }
     },
@@ -1609,7 +1612,11 @@
       "status": "partial",
       "reviewedAt": "2026-10-22",
       "themeHits": {
-        "color": 24
+        "night": 1,
+        "season": 8,
+        "color": 24,
+        "work": 1,
+        "street": 3
       }
     },
     {
@@ -1659,7 +1666,12 @@
       "reviewedAt": "2026-10-22",
       "themeHits": {
         "sleeping": 2,
-        "color": 68
+        "night": 2,
+        "season": 41,
+        "color": 68,
+        "sunset": 1,
+        "work": 2,
+        "street": 2
       }
     },
     {
@@ -1672,7 +1684,10 @@
       "status": "partial",
       "reviewedAt": "2026-10-22",
       "themeHits": {
+        "night": 2,
+        "season": 69,
         "color": 108,
+        "street": 2,
         "cameo": 1
       }
     },
@@ -1686,9 +1701,12 @@
       "status": "partial",
       "reviewedAt": "2026-10-22",
       "themeHits": {
+        "night": 2,
+        "season": 82,
         "color": 210,
-        "sunset": 1,
-        "street": 1
+        "sunset": 2,
+        "work": 4,
+        "street": 4
       }
     },
     {
