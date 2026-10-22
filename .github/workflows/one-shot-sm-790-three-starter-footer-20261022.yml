@@ -1,0 +1,52 @@
+name: One-shot verify original KR print art for three SM starter sets
+on:
+  push:
+    branches:
+      - audit/sm-790-crosssource-print-20261022
+    paths:
+      - .github/workflows/one-shot-sm-790-three-starter-footer-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm790-three-starter-20261022
+  cancel-in-progress: false
+jobs:
+  source-and-contact:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 26
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm-790-crosssource-card-identity-20261022.json
+            scripts/audit-sm-three-starter-footer-images-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Audit 139 Korean image byte hashes and build footer thumbnails
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/audit-sm-three-starter-footer-images-20261022.py
+          python scripts/audit-sm-three-starter-footer-images-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm-139-korean-printed-footer-contact-sheets
+          path: data/audits/theme-sm-790-three-starter-footer-contact-20261022/*.jpg
+          if-no-files-found: error
+          retention-days: 7
+      - name: Persist source evidence only, never alter master or public site
+        run: |
+          test "$GITHUB_REF_NAME" = "audit/sm-790-crosssource-print-20261022"
+          git add --sparse -- data/audits/theme-sm-790-three-starter-image-recheck-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): original-image evidence and print-footer sheets for 139 SM starter cards'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
