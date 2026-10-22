@@ -1,0 +1,512 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-22",
+  "stage": "all_732_source_scanned_once_55_visual_sheets_persisted",
+  "sourceBranch": "audit/sm-732-all-remaining-once-20261022",
+  "workflowRunId": 39739262865,
+  "artifactId": 12408836388,
+  "referenceReport": "data/audits/theme-sm-732-entire-remainder-artwork-source-20261022.json",
+  "previousFullPrintVerified": 58,
+  "alreadyVerifiedExcludedFromRecheck": true,
+  "remainingSourceAudited": 732,
+  "successfullyDownloaded": 720,
+  "missingKoreanImage": 12,
+  "originalImageDuplicateGroups": 0,
+  "reviewSheetsCount": 55,
+  "physicallyVerifiedAdditionalDuringAutomatedRun": 0,
+  "printIdentityStillRequiresManualCheck": 732,
+  "bySet": {
+    "sm1+": {
+      "inspected": 19,
+      "downloaded": 19,
+      "broken": 0
+    },
+    "sm60a": {
+      "inspected": 3,
+      "downloaded": 3,
+      "broken": 0
+    },
+    "sm2k": {
+      "inspected": 6,
+      "downloaded": 6,
+      "broken": 0
+    },
+    "sm11b": {
+      "inspected": 7,
+      "downloaded": 3,
+      "broken": 4
+    },
+    "sm12": {
+      "inspected": 3,
+      "downloaded": 1,
+      "broken": 2
+    },
+    "sm12a": {
+      "inspected": 25,
+      "downloaded": 19,
+      "broken": 6
+    },
+    "smp": {
+      "inspected": 249,
+      "downloaded": 249,
+      "broken": 0
+    },
+    "sm30a": {
+      "inspected": 77,
+      "downloaded": 77,
+      "broken": 0
+    },
+    "sm60b": {
+      "inspected": 1,
+      "downloaded": 1,
+      "broken": 0
+    },
+    "smm": {
+      "inspected": 33,
+      "downloaded": 33,
+      "broken": 0
+    },
+    "sml": {
+      "inspected": 57,
+      "downloaded": 57,
+      "broken": 0
+    },
+    "smn": {
+      "inspected": 44,
+      "downloaded": 44,
+      "broken": 0
+    },
+    "smk": {
+      "inspected": 32,
+      "downloaded": 32,
+      "broken": 0
+    },
+    "smi": {
+      "inspected": 41,
+      "downloaded": 41,
+      "broken": 0
+    },
+    "sme": {
+      "inspected": 22,
+      "downloaded": 22,
+      "broken": 0
+    },
+    "smd": {
+      "inspected": 30,
+      "downloaded": 30,
+      "broken": 0
+    },
+    "smc": {
+      "inspected": 23,
+      "downloaded": 23,
+      "broken": 0
+    },
+    "sma": {
+      "inspected": 60,
+      "downloaded": 60,
+      "broken": 0
+    }
+  },
+  "neverRestartInstructions": "DO NOT repeat 790 or 732 HTTP source audits; use existing archived SHA and contact sheets. Iterate sheet reviews, persist verified codes and physical Korean printed footer evidence, skip already verified 58. Distinguish remaining missing Korean physical images, never substitute JP. Only deploy actual verified image replacements.",
+  "categoryProgress": {
+    "original790": 790,
+    "previouslyPrintVerified": 58,
+    "awaitingPhysicalFooterReviewOfAccessible": 720,
+    "unavailableImages": 12
+  },
+  "preserve": {
+    "masterCards": 20243,
+    "standaloneThemeMemberships": 22032,
+    "masterCardIdentities": true,
+    "ownerFirestore": true,
+    "cardRadar": true,
+    "noProductionChangesFromThisSourceAudit": true
+  },
+  "sheets": [
+    {
+      "set": "sm1+",
+      "firstCode": "sm1plus_059/051",
+      "lastCode": "sm1plus_074/051",
+      "filename": "sm1+-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm1+",
+      "firstCode": "sm1plus_075/051",
+      "lastCode": "sm1plus_077/051",
+      "filename": "sm1+-002.jpg",
+      "images": 3
+    },
+    {
+      "set": "sm11b",
+      "firstCode": "sm11b_069/049",
+      "lastCode": "sm11b_075/049",
+      "filename": "sm11b-001.jpg",
+      "images": 7
+    },
+    {
+      "set": "sm12",
+      "firstCode": "sm12_110/095",
+      "lastCode": "sm12_114/095",
+      "filename": "sm12-001.jpg",
+      "images": 3
+    },
+    {
+      "set": "sm12a",
+      "firstCode": "sm12a_211/173",
+      "lastCode": "sm12a_226/173",
+      "filename": "sm12a-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm12a",
+      "firstCode": "sm12a_227/173",
+      "lastCode": "sm12a_235/173",
+      "filename": "sm12a-002.jpg",
+      "images": 9
+    },
+    {
+      "set": "sm2k",
+      "firstCode": "sm2k_056/050",
+      "lastCode": "sm2k_062/050",
+      "filename": "sm2k-001.jpg",
+      "images": 6
+    },
+    {
+      "set": "sm30a",
+      "firstCode": "sm30a_013/080",
+      "lastCode": "sm30a_028/080",
+      "filename": "sm30a-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm30a",
+      "firstCode": "sm30a_029/080",
+      "lastCode": "sm30a_044/080",
+      "filename": "sm30a-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm30a",
+      "firstCode": "sm30a_045/080",
+      "lastCode": "sm30a_060/080",
+      "filename": "sm30a-003.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm30a",
+      "firstCode": "sm30a_061/080",
+      "lastCode": "sm30a_076/080",
+      "filename": "sm30a-004.jpg",
+      "images": 16
+    },
+    {
+      "set": "sm30a",
+      "firstCode": "sm30a_077/080",
+      "lastCode": "sm30a_089/080",
+      "filename": "sm30a-005.jpg",
+      "images": 13
+    },
+    {
+      "set": "sm60a",
+      "firstCode": "sm60a_025",
+      "lastCode": "sm60a_027",
+      "filename": "sm60a-001.jpg",
+      "images": 3
+    },
+    {
+      "set": "sm60b",
+      "firstCode": "sm60b_023",
+      "lastCode": "sm60b_023",
+      "filename": "sm60b-001.jpg",
+      "images": 1
+    },
+    {
+      "set": "sma",
+      "firstCode": "sma_001",
+      "lastCode": "sma_016",
+      "filename": "sma-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sma",
+      "firstCode": "sma_017",
+      "lastCode": "sma_032",
+      "filename": "sma-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "sma",
+      "firstCode": "sma_033",
+      "lastCode": "sma_048",
+      "filename": "sma-003.jpg",
+      "images": 16
+    },
+    {
+      "set": "sma",
+      "firstCode": "sma_049",
+      "lastCode": "sma_060",
+      "filename": "sma-004.jpg",
+      "images": 12
+    },
+    {
+      "set": "smc",
+      "firstCode": "smc_001",
+      "lastCode": "smc_016",
+      "filename": "smc-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smc",
+      "firstCode": "smc_017",
+      "lastCode": "smc_023",
+      "filename": "smc-002.jpg",
+      "images": 7
+    },
+    {
+      "set": "smd",
+      "firstCode": "smd_001",
+      "lastCode": "smd_016",
+      "filename": "smd-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smd",
+      "firstCode": "smd_017",
+      "lastCode": "smd_030",
+      "filename": "smd-002.jpg",
+      "images": 14
+    },
+    {
+      "set": "sme",
+      "firstCode": "sme_001",
+      "lastCode": "sme_016",
+      "filename": "sme-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sme",
+      "firstCode": "sme_017",
+      "lastCode": "sme_022",
+      "filename": "sme-002.jpg",
+      "images": 6
+    },
+    {
+      "set": "smi",
+      "firstCode": "smi_001",
+      "lastCode": "smi_016",
+      "filename": "smi-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smi",
+      "firstCode": "smi_017",
+      "lastCode": "smi_032",
+      "filename": "smi-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "smi",
+      "firstCode": "smi_033",
+      "lastCode": "smi_041",
+      "filename": "smi-003.jpg",
+      "images": 9
+    },
+    {
+      "set": "smk",
+      "firstCode": "smk_001",
+      "lastCode": "smk_016",
+      "filename": "smk-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smk",
+      "firstCode": "smk_017",
+      "lastCode": "smk_032",
+      "filename": "smk-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "sml",
+      "firstCode": "sml_001/051",
+      "lastCode": "sml_016/051",
+      "filename": "sml-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "sml",
+      "firstCode": "sml_017/051",
+      "lastCode": "sml_032/051",
+      "filename": "sml-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "sml",
+      "firstCode": "sml_033/051",
+      "lastCode": "sml_048/051",
+      "filename": "sml-003.jpg",
+      "images": 16
+    },
+    {
+      "set": "sml",
+      "firstCode": "sml_049/051",
+      "lastCode": "sml_057/051",
+      "filename": "sml-004.jpg",
+      "images": 9
+    },
+    {
+      "set": "smm",
+      "firstCode": "smm_001",
+      "lastCode": "smm_016",
+      "filename": "smm-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smm",
+      "firstCode": "smm_017",
+      "lastCode": "smm_032",
+      "filename": "smm-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "smm",
+      "firstCode": "smm_033",
+      "lastCode": "smm_033",
+      "filename": "smm-003.jpg",
+      "images": 1
+    },
+    {
+      "set": "smn",
+      "firstCode": "smn_001",
+      "lastCode": "smn_016",
+      "filename": "smn-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smn",
+      "firstCode": "smn_017",
+      "lastCode": "smn_032",
+      "filename": "smn-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "smn",
+      "firstCode": "smn_033",
+      "lastCode": "smn_044",
+      "filename": "smn-003.jpg",
+      "images": 12
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_001/sm-p",
+      "lastCode": "sm-p_016/sm-p",
+      "filename": "smp-001.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_017/sm-p",
+      "lastCode": "sm-p_032/sm-p",
+      "filename": "smp-002.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_033/sm-p",
+      "lastCode": "sm-p_048/sm-p",
+      "filename": "smp-003.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_049/sm-p",
+      "lastCode": "sm-p_064/sm-p",
+      "filename": "smp-004.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_065/sm-p",
+      "lastCode": "sm-p_080/sm-p",
+      "filename": "smp-005.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_081/sm-p",
+      "lastCode": "sm-p_096/sm-p",
+      "filename": "smp-006.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_097/sm-p",
+      "lastCode": "sm-p_112/sm-p",
+      "filename": "smp-007.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_113/sm-p",
+      "lastCode": "sm-p_128/sm-p",
+      "filename": "smp-008.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_129/sm-p",
+      "lastCode": "sm-p_144/sm-p",
+      "filename": "smp-009.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_145/sm-p",
+      "lastCode": "sm-p_160/sm-p",
+      "filename": "smp-010.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_161/sm-p",
+      "lastCode": "sm-p_176/sm-p",
+      "filename": "smp-011.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_177/sm-p",
+      "lastCode": "sm-p_192/sm-p",
+      "filename": "smp-012.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_193/sm-p",
+      "lastCode": "sm-p_502/sm-p",
+      "filename": "smp-013.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_503/sm-p",
+      "lastCode": "sm-p_518/sm-p",
+      "filename": "smp-014.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_519/sm-p",
+      "lastCode": "sm-p_534/sm-p",
+      "filename": "smp-015.jpg",
+      "images": 16
+    },
+    {
+      "set": "smp",
+      "firstCode": "sm-p_535/sm-p",
+      "lastCode": "sm-p_543/sm-p",
+      "filename": "smp-016.jpg",
+      "images": 9
+    }
+  ]
+}
