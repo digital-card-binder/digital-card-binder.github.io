@@ -1,0 +1,54 @@
+name: One-shot probe 13 missing Korean SM secret prints
+on:
+  push:
+    branches:
+      - audit/sm19-13-hard-missing-source-probe-20261022
+    paths:
+      - .github/workflows/one-shot-sm19-13-probe-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm19-13-probe-20261022
+  cancel-in-progress: false
+jobs:
+  audit-only:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm19-797-print-source-recheck-20261022.json
+            data/audits/theme-sm19-six-korean-print-footer-verified-20261022.json
+            scripts/probe-sm19-13-missing-images-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Probe images and prepare Korean card footers for personal verification
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/probe-sm19-13-missing-images-20261022.py
+          python scripts/probe-sm19-13-missing-images-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thirteen-sm-korean-image-identity-candidates
+          path: data/audits/theme-sm19-13-source-rescue-contact-20261022/*
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit source-probe findings only, not unverified image URLs
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm19-13-hard-missing-source-probe-20261022"
+          git add --sparse -- data/audits/theme-sm19-13-source-rescue-probe-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): source probe for thirteen image holds without editing Korean master'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
