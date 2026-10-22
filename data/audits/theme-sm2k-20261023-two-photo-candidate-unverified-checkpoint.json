@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-23",
+  "baseMainSha": "368edc9362ee79005b8a00cc1368185eeb99e01f",
+  "purpose": "Preserve exact two candidates without re-searching; no production image approval until the physical footer is legible.",
+  "candidates": [
+    {
+      "expectedCode": "sm2k_060/050",
+      "expectedKoreanName": "필드블로어",
+      "expectedPrintNumber": "060/050",
+      "url": "https://img.carahi.kr/card-thumbs/v1/manual/printings-v2/sm2k-60-ko-retail-3939c31e.webp",
+      "physicalImageDownloaded": false,
+      "physicalKoreanNameVerified": false,
+      "physicalPrintNumberVerified": false,
+      "sourceSha256": null,
+      "decision": "HOLD_CANNOT_READ_PHYSICAL_PRINT"
+    },
+    {
+      "expectedCode": "sm2k_061/050",
+      "expectedKoreanName": "풀회복약",
+      "expectedPrintNumber": "061/050",
+      "url": "https://img.carahi.kr/card-thumbs/v1/manual/printings-v2/sm2k-60-ko-retail-8ed31e6b.webp",
+      "physicalImageDownloaded": false,
+      "physicalKoreanNameVerified": false,
+      "physicalPrintNumberVerified": false,
+      "sourceSha256": null,
+      "decision": "HOLD_CANNOT_READ_PHYSICAL_PRINT"
+    }
+  ],
+  "caveat": "Carahi listing appears to swap labels/numbers; do not trust listing metadata, filename, or item order; read Korean card name and physical printed number on each image. The two candidate-to-card associations remain UNVERIFIED.",
+  "attempts": [
+    "2026-10-23: direct requests from isolated execution environment could not resolve img.carahi.kr DNS",
+    "2026-10-23: direct image open via web image viewer returned inaccessible for both URLs",
+    "2026-10-23: exact filename targeted image search yielded no indexed original",
+    "2026-10-23: GitHub main and fix branch still contain placeholders for both codes; no production edits made"
+  ],
+  "doNotChange": [
+    "data/series-image-overrides.json until verified",
+    "other 788 SM cards",
+    "theme/master/Firestore/radar/RGB membership"
+  ],
+  "next": "Only when BOTH candidate files can be opened and enlarged, inspect physical printed footer. Verify 060/050 + 필드블로어 and 061/050 + 풀회복약, or swap associations based on actual physical evidence; then modify only two override values and run full regression tests, PR, merge and production check."
+}
