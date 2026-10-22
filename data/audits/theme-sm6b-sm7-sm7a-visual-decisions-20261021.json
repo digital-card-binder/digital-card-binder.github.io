@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-21",
+  "sourceEvidence": "data/audits/theme-sm6b-sm7-sm7a-image-evidence-20261021.json",
+  "sourceGithubRunId": 39533553177,
+  "reviewedContactSheets": 19,
+  "reviewMethod": "Direct visual examination of all 19 source-image contact sheets in GitHub Actions run 39533553177. Review labels and visible backgrounds, but do not claim footer enlargement.",
+  "scope": [
+    "sm6b",
+    "sm7",
+    "sm7a"
+  ],
+  "canonicalCardSlots": 271,
+  "imagesSuccessfullyDecoded": 268,
+  "safeForProvisionalThemeArtReview": 247,
+  "held": [
+    {
+      "set": "sm6b",
+      "number": 78,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 79,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 80,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 81,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 82,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 83,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 84,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 85,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 86,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm7",
+      "number": 105,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 106,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 107,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 108,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 109,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 110,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 111,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 112,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7a",
+      "number": 67,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 68,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 69,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 70,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 71,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 72,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 73,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    }
+  ],
+  "heldCount": 24,
+  "eligibleRule": "Official Korean-hosted image source AND visible Korean-language design on contact sheet AND no suspected misassigned repeated secret-number artwork; still provisional until printed footer enlargement.",
+  "automatedColorRule": "Verified original image SHA256 and objective artwork-pixel palette only, never infer color from Pokemon type",
+  "confirmedJapaneseLanguageImages": [
+    {
+      "set": "sm7a",
+      "number": 68,
+      "visibleText": "マグカルゴ GX"
+    },
+    {
+      "set": "sm7a",
+      "number": 69,
+      "visibleText": "ゼラオラ GX"
+    },
+    {
+      "set": "sm7a",
+      "number": 73,
+      "visibleText": "カウンターゲイン"
+    }
+  ],
+  "visuallySuspectedWrongArtworkRange": {
+    "set": "sm6b",
+    "numbers": [
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86
+    ],
+    "note": "Illustrations visibly repeat lower-number base cards; treat as source mismatch risk rather than certifying secret card art."
+  },
+  "sm7MissingSourceNumbers": [
+    108,
+    109,
+    110
+  ],
+  "sm7UnusableResolutionNumbers": [
+    105,
+    106,
+    107,
+    111,
+    112
+  ],
+  "seasons": {
+    "sm6b": {
+      "1": "나무와 바위가 있는 숲길",
+      "2": "덩굴과 잎이 우거진 숲",
+      "3": "나무와 초록 수풀이 빽빽한 숲",
+      "6": "햇살이 비치는 나무숲",
+      "8": "어두운 숲과 박쥐가 있는 하늘",
+      "11": "나무와 풀이 있는 야외",
+      "12": "호수와 초록빛 산기슭",
+      "15": "나무가 자란 물가",
+      "18": "물과 푸른 수풀이 있는 연못",
+      "20": "초록 잎과 나무가 우거진 숲",
+      "26": "짙은 풀이 자란 숲 바닥",
+      "27": "나뭇잎이 우거진 숲속",
+      "29": "선인장과 바위가 있는 사막",
+      "35": "푸른 하늘과 거친 암벽",
+      "42": "바위와 물이 있는 숲",
+      "43": "울창한 나무숲",
+      "44": "나무가 있는 바위산",
+      "49": "숲과 풀밭이 있는 야외"
+    },
+    "sm7": {
+      "1": "황금빛 잎이 보이는 숲",
+      "5": "나무와 건물이 있는 마을 풍경",
+      "6": "물가와 초록 풀밭",
+      "10": "초록빛 숲과 풀잎",
+      "11": "분홍빛 꽃이 핀 들판",
+      "12": "꽃이 만발한 정원",
+      "13": "큰 나무와 열대 수풀",
+      "15": "바위와 풀이 있는 숲길",
+      "20": "꽃이 피어난 초원",
+      "22": "해초가 있는 물속",
+      "25": "강가의 나무와 건물",
+      "30": "모래와 바다 물결",
+      "31": "눈과 얼음이 있는 산지",
+      "37": "꽃이 만발한 초원",
+      "46": "바위 계곡과 푸른 물",
+      "48": "커다란 바위와 숲",
+      "49": "산악 바위와 먼 하늘",
+      "52": "초록 숲의 나뭇가지",
+      "54": "울창한 나무숲",
+      "62": "바위 산과 하늘",
+      "63": "햇살이 비치는 깊은 숲",
+      "70": "달빛이 비치는 바다와 밤하늘",
+      "71": "꽃과 나무가 있는 숲",
+      "73": "초록 숲의 나무",
+      "78": "야자수와 풀이 있는 풍경",
+      "88": "바닷가와 푸른 하늘",
+      "90": "섬과 구름이 보이는 하늘",
+      "94": "바위와 종유석이 있는 동굴",
+      "95": "높은 탑과 구름이 있는 풍경"
+    },
+    "sm7a": {
+      "1": "초록빛 나무로 가득한 숲",
+      "2": "나무와 바위가 보이는 숲",
+      "3": "숲의 나무와 푸른 하늘",
+      "4": "어두운 숲의 나무와 잎",
+      "5": "나무가 빽빽한 숲속",
+      "7": "초록 목초지와 하늘",
+      "8": "마을집과 초록 목초지",
+      "9": "설산과 거친 바위산",
+      "11": "화산과 용암이 있는 야외",
+      "13": "산악 지형과 초목",
+      "15": "야외의 나뭇잎과 풀",
+      "16": "나무가 자란 울창한 숲",
+      "17": "햇빛과 꽃이 보이는 물가",
+      "19": "눈 덮인 나무와 겨울 풍경",
+      "20": "눈 덮인 설원",
+      "23": "햇살과 나무가 있는 숲",
+      "28": "나무와 풀숲이 있는 길",
+      "29": "초록 풀이 펼쳐진 들판",
+      "35": "메마른 벌판과 돌무더기",
+      "36": "흙과 나무가 있는 숲속",
+      "42": "초록 풀밭과 푸른 하늘",
+      "44": "나무와 보랏빛 수풀이 있는 숲"
+    }
+  },
+  "extra": {
+    "night": {
+      "sm6b": {
+        "8": "짙은 어둠 속 밤하늘과 날아다니는 박쥐"
+      },
+      "sm7": {
+        "70": "밤하늘에 초승달과 바다"
+      }
+    },
+    "street": {
+      "sm7": {
+        "89": "마을 거리의 가게와 건물",
+        "91": "건물들이 늘어선 도시 거리"
+      }
+    }
+  },
+  "explicitlyNotInferredThemes": [
+    "sleeping",
+    "connected",
+    "evolution",
+    "reflections",
+    "food",
+    "work",
+    "cameo",
+    "sunset"
+  ],
+  "cautions": [
+    "Contact sheets do not prove Korean printed footer number",
+    "A SHA256 unique image can still contain wrongly repeated artwork",
+    "Do not classify 24 held sources",
+    "No personal collection, Firestore, master code or Card Radar changes"
+  ],
+  "status": "visually_screened; 247 provisional original artworks; 24 quarantine"
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "title": "SM 테마도감 전수조사 재개 체크포인트 (중복 검수 방지)",
+  "task": "기존 PR #271 작업에 이어 3개 한국판 세트를 새로 검수",
+  "carryForward": {
+    "predecessorDraftPR": 271,
+    "predecessorBranch": "audit/theme-sm6b-sm7-sm7a-20261021",
+    "predecessorHead": "c1dc55134f7559b40f7a2da9cb93185a33b46373",
+    "priorThemeRows": 19717,
+    "strictCompleteSets": 109,
+    "priorKoreanArtProvisionallyScreened": 247,
+    "unresolvedPriorCards": 24,
+    "priorHoldsBySeries": {
+      "sm6b": 9,
+      "sm7": 8,
+      "sm7a": 7
+    },
+    "predecessorMergedToMain": false
+  },
+  "currentBatch": {
+    "branch": "audit/theme-sm7b-sm8-sm8a-20261022",
+    "stage": "provisional_artwork_theme_classification_complete_on_audit_branch",
+    "totalCanonicalCards": 239,
+    "sets": [
+      {
+        "code": "sm7b",
+        "name": "페어리라이즈",
+        "masterCards": 63,
+        "coverage": "pending",
+        "existingThemeHits": {}
+      },
+      {
+        "code": "sm8",
+        "name": "버스트임팩트",
+        "masterCards": 111,
+        "coverage": "pending",
+        "existingThemeHits": {
+          "sleeping": 1
+        }
+      },
+      {
+        "code": "sm8a",
+        "name": "다크오더",
+        "masterCards": 65,
+        "coverage": "pending",
+        "existingThemeHits": {
+          "reflections": 1
+        }
+      }
+    ],
+    "preExistingThemeRowsForTheseSets": 2,
+    "preflightCompleted": true,
+    "downloadedAndHashValidatedImages": 236,
+    "visuallyReviewedImages": 217,
+    "confirmedNewStandaloneThemeMemberships": 304,
+    "newThemeRowsWritten": 304,
+    "strictCompleteSetsAdded": 0,
+    "heldCards": 22,
+    "totalThemeSlotsAfterBatch": 20021,
+    "imageNotDownloaded": 3
+  },
+  "scripts": {
+    "preflight": "node scripts/preflight-sm7b-sm8-sm8a-themes-20261022.mjs",
+    "source": "python3 scripts/audit-sm7b-sm8-sm8a-source-20261022.py",
+    "dependencies": [
+      "python3",
+      "requests",
+      "Pillow"
+    ],
+    "plannedPreflightOutput": "data/audits/theme-sm7b-sm8-sm8a-master-preflight-20261022.json",
+    "plannedSourceOutput": "data/audits/theme-sm7b-sm8-sm8a-image-evidence-20261022.json",
+    "result": "data/audits/theme-sm7b-sm8-sm8a-artwork-review-20261022.json",
+    "colorEvidence": "data/audits/theme-sm7b-sm8-sm8a-color-palette-20261022.json"
+  },
+  "safeguards": [
+    "Do not reclassify earlier SM6b/SM7/SM7a work or remove preexisting SM8/SM8a theme memberships.",
+    "Do not label incomplete, unverified Korean-printed-footer images as verified or strict complete.",
+    "A theme membership requires directly examined Korean card artwork; do not invent subjective story links.",
+    "Maintain standalone dex membership and independent owned/unowned progress; never merge counts across dexes.",
+    "Preserve 273 baseline sets, existing user Firestore ownership, master card IDs and Card Radar.",
+    "Do not merge, deploy, or trigger repeated CI/Preview workflows during preflight."
+  ],
+  "lastVerifiedState": "GitHub Actions #39691875607 completed success: exact 217-image hashes, theme application, site:prepare, npm test, audited branch commit; main untouched.",
+  "nextAction": "Resolve 22 held printed-number/third-party image identities for SM7b/SM8/SM8a; then resume the NEXT three unreviewed Korean SM series (SM8b, SM9, SM9a) without rechecking the 217 screened cards. Keep new batches on audit branches and do not merge/deploy without review."
+}

@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "auditType": "standalone Korean artwork-theme audit continuation",
+  "predecessor": "data/audits/theme-sm8b-sm9-sm9a-resume-checkpoint-20261022.json",
+  "parentCommit": "557ea5b79a1be032eaba1a2ed9935b7934ecb83c",
+  "batch": {
+    "branch": "audit/theme-sm9b-sm10-sm10a-20261022",
+    "stage": "provisional_artwork_theme_classification_completed_on_audit_branch",
+    "totalCardSlots": 254,
+    "sets": [
+      {
+        "code": "sm9b",
+        "name": "풀메탈월",
+        "cards": 69,
+        "existingThemeHits": {}
+      },
+      {
+        "code": "sm10",
+        "name": "더블블레이즈",
+        "cards": 116,
+        "existingThemeHits": {
+          "sleeping": 3
+        }
+      },
+      {
+        "code": "sm10a",
+        "name": "GG엔드",
+        "cards": 69,
+        "existingThemeHits": {
+          "sleeping": 1
+        }
+      }
+    ],
+    "existingThemeMembershipsPreserved": 4,
+    "addedThemeMemberships": 344,
+    "screenedImages": 0,
+    "heldCardEntries": 23,
+    "sourceHttpChecked": 254,
+    "imagesDecoded": 244,
+    "artworksScreened": 231,
+    "totalIndependentThemeMembershipsAfterBatch": 20914,
+    "strictCompleteSeriesAdded": 0,
+    "sourceRunId": 39694323627,
+    "applyAndRegressionTestRunId": 39694960379,
+    "report": "data/audits/theme-sm9b-sm10-sm10a-artwork-review-20261022.json"
+  },
+  "baselines": {
+    "sets": 273,
+    "masterCards": 20243,
+    "themeMemberships": 20570,
+    "strictCompletedSets": 109
+  },
+  "restrictions": [
+    "Only Korean cards; Japanese artwork can be comparison but never independent proof",
+    "Hold third-party image URLs, failed downloads and unverified secret-number mismatches",
+    "Do not remove existing four sleeping theme records or rereview prior completed cards",
+    "No master ID edits, user/Firestore changes, Card Radar edits, or live deployment",
+    "Keep strict-complete series at 109 until all held cards have Korean printed-number evidence"
+  ],
+  "next": "Resolve SM9b 063-069, SM10 108-116, SM10a 063-069 Korean printed-number holds (23). Continue next three pending Korean sets SM10b 69, SM11 115, SM11a 80 from this audit branch, not main. Keep 109 strict-complete set statuses untouched and avoid reviewing already checked 231 cards.",
+  "lastVerifiedState": "GitHub source audit #39694323627 and theme-apply/full regression #39694960379 passed; 231 Korean-original artworks, 344 standalone theme placements, 23 third-party printed-number holds, previous 20,570 membership entries preserved."
+}

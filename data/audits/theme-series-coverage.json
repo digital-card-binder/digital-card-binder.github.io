@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 19397,
-    "uniqueThemeCards": 11897,
+    "themeCardSlots": 22032,
+    "uniqueThemeCards": 13698,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -110,8 +110,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 509,
-      "setCount": 104,
+      "cardSlots": 547,
+      "setCount": 120,
       "rarities": [
         "AR",
         "C",
@@ -127,8 +127,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 5639,
-      "setCount": 137,
+      "cardSlots": 6360,
+      "setCount": 157,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +149,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 10924,
-      "setCount": 143,
+      "cardSlots": 12745,
+      "setCount": 162,
       "rarities": [
         "A",
         "AR",
@@ -176,8 +176,8 @@
     {
       "code": "sunset",
       "name": "노을 · 골든아워",
-      "cardSlots": 267,
-      "setCount": 82,
+      "cardSlots": 280,
+      "setCount": 88,
       "rarities": [
         "AR",
         "C",
@@ -219,8 +219,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 96,
-      "setCount": 48,
+      "cardSlots": 106,
+      "setCount": 54,
       "rarities": [
         "AR",
         "C",
@@ -235,8 +235,8 @@
     {
       "code": "street",
       "name": "도시 · 스트리트",
-      "cardSlots": 1163,
-      "setCount": 112,
+      "cardSlots": 1195,
+      "setCount": 127,
       "rarities": [
         "AR",
         "C",
@@ -298,7 +298,7 @@
       "cardCount": 3950,
       "completeSetCount": 1,
       "remainingSetCount": 48,
-      "currentThemeSlots": 1837
+      "currentThemeSlots": 4472
     },
     {
       "era": "XY",
@@ -487,70 +487,70 @@
       "code": "SMA",
       "name": "스타터세트 3종",
       "cardCount": 60,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMC",
       "name": "개조 스타터 세트 「카푸브루루 GX」",
       "cardCount": 23,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMD",
       "name": "대전 세트 「지우 VS 로켓단」",
       "cardCount": 30,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SME",
       "name": "전설 스타터 세트 「솔가레오 GX ･ 루나아라 GX」",
       "cardCount": 22,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMI",
       "name": "스타터 세트 「불꽃의 부스터 GX」「물의 샤미드 GX」「번개의 쥬피썬더 GX」",
       "cardCount": 41,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMK",
       "name": "스타터 세트 롱스톤 GX·아쿠스타 GX",
       "cardCount": 32,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMN",
       "name": "파워업덱 BOX 「TAG TEAM GX」",
       "cardCount": 44,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SML",
       "name": "패밀리 포켓몬 카드 게임",
       "cardCount": 57,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "SMM",
       "name": "스타터 세트 TAG TEAM GX",
       "cardCount": 33,
-      "status": "pending"
+      "status": "partial"
     },
     {
       "era": "SM",
       "code": "sm60B",
       "name": "전격 스타터 세트 「라이코 GX」",
       "cardCount": 23,
-      "status": "pending"
+      "status": "partial"
     }
   ],
   "sets": [
@@ -1143,10 +1143,12 @@
       "cardCount": 77,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "color": 19
+        "night": 1,
+        "season": 28,
+        "color": 77
       }
     },
     {
@@ -1156,8 +1158,8 @@
       "cardCount": 27,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -1167,12 +1169,13 @@
       "cardCount": 62,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
         "sleeping": 2,
-        "season": 31,
-        "color": 55
+        "night": 2,
+        "season": 37,
+        "color": 57
       }
     },
     {
@@ -1393,9 +1396,13 @@
       "cardCount": 86,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "night": 1,
+        "season": 18,
+        "color": 77
+      }
     },
     {
       "era": "SM",
@@ -1404,9 +1411,14 @@
       "cardCount": 112,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "night": 1,
+        "season": 29,
+        "color": 104,
+        "street": 2
+      }
     },
     {
       "era": "SM",
@@ -1415,9 +1427,12 @@
       "cardCount": 73,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-21",
+      "themeHits": {
+        "season": 22,
+        "color": 66
+      }
     },
     {
       "era": "SM",
@@ -1426,9 +1441,13 @@
       "cardCount": 63,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "season": 25,
+        "color": 56,
+        "work": 1
+      }
     },
     {
       "era": "SM",
@@ -1437,10 +1456,14 @@
       "cardCount": 111,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 2,
+        "season": 34,
+        "color": 103,
+        "street": 1
       }
     },
     {
@@ -1450,10 +1473,14 @@
       "cardCount": 65,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "reflections": 1
+        "night": 5,
+        "season": 18,
+        "color": 58,
+        "reflections": 1,
+        "street": 1
       }
     },
     {
@@ -1463,9 +1490,15 @@
       "cardCount": 250,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "night": 2,
+        "season": 36,
+        "color": 243,
+        "sunset": 4,
+        "street": 2
+      }
     },
     {
       "era": "SM",
@@ -1474,10 +1507,15 @@
       "cardCount": 118,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
         "sleeping": 2,
+        "night": 3,
+        "season": 49,
+        "color": 109,
+        "sunset": 3,
+        "street": 3,
         "cameo": 1
       }
     },
@@ -1488,10 +1526,13 @@
       "cardCount": 70,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "season": 31,
+        "color": 63,
+        "street": 1
       }
     },
     {
@@ -1501,9 +1542,13 @@
       "cardCount": 69,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "season": 24,
+        "color": 62,
+        "street": 1
+      }
     },
     {
       "era": "SM",
@@ -1512,10 +1557,16 @@
       "cardCount": 116,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 3
+        "sleeping": 3,
+        "night": 4,
+        "season": 53,
+        "color": 107,
+        "sunset": 2,
+        "work": 1,
+        "street": 2
       }
     },
     {
@@ -1525,10 +1576,13 @@
       "cardCount": 69,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "season": 25,
+        "color": 62,
+        "street": 1
       }
     },
     {
@@ -1538,9 +1592,15 @@
       "cardCount": 69,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "night": 3,
+        "season": 28,
+        "color": 62,
+        "sunset": 1,
+        "street": 3
+      }
     },
     {
       "era": "SM",
@@ -1549,9 +1609,15 @@
       "cardCount": 24,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
-      "themeHits": {}
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
+      "themeHits": {
+        "night": 1,
+        "season": 8,
+        "color": 24,
+        "work": 1,
+        "street": 3
+      }
     },
     {
       "era": "SM",
@@ -1560,10 +1626,15 @@
       "cardCount": 115,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 3
+        "sleeping": 3,
+        "night": 4,
+        "season": 56,
+        "color": 106,
+        "sunset": 1,
+        "street": 2
       }
     },
     {
@@ -1573,10 +1644,15 @@
       "cardCount": 80,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "night": 3,
+        "season": 39,
+        "color": 73,
+        "work": 1,
+        "street": 3
       }
     },
     {
@@ -1586,10 +1662,16 @@
       "cardCount": 75,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sleeping": 2
+        "sleeping": 2,
+        "night": 2,
+        "season": 41,
+        "color": 68,
+        "sunset": 1,
+        "work": 2,
+        "street": 2
       }
     },
     {
@@ -1599,9 +1681,13 @@
       "cardCount": 117,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
+        "night": 2,
+        "season": 69,
+        "color": 108,
+        "street": 2,
         "cameo": 1
       }
     },
@@ -1612,11 +1698,15 @@
       "cardCount": 235,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {
-        "sunset": 1,
-        "street": 1
+        "night": 2,
+        "season": 82,
+        "color": 210,
+        "sunset": 2,
+        "work": 4,
+        "street": 4
       }
     },
     {
@@ -1626,8 +1716,8 @@
       "cardCount": 249,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -1637,8 +1727,8 @@
       "cardCount": 89,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -1648,8 +1738,8 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3464,8 +3554,8 @@
       "cardCount": 33,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3475,8 +3565,8 @@
       "cardCount": 57,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3486,8 +3576,8 @@
       "cardCount": 44,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3497,8 +3587,8 @@
       "cardCount": 32,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3508,8 +3598,8 @@
       "cardCount": 41,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3519,8 +3609,8 @@
       "cardCount": 22,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3530,8 +3620,8 @@
       "cardCount": 30,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3541,8 +3631,8 @@
       "cardCount": 23,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
@@ -3552,8 +3642,8 @@
       "cardCount": 60,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-22",
       "themeHits": {}
     },
     {
