@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-22",
+  "scope": "SM11b Korean 073-075 printed-name mapping discrepancy, no master edit",
+  "findings": [
+    {
+      "code": "sm11b_073/049",
+      "masterKorean": "릴리에의 삐삐인형",
+      "koreanTraditionalChecklist": "릴리에의 삐삐인형",
+      "foreignDerivedCollectoryKR": "수련의 낚싯대",
+      "decision": "KEEP_MASTER_AS_IS__DO_NOT_AUTOCORRECT",
+      "sourceKorean": "https://namu.moe/w/%EB%93%9C%EB%A6%BC%EB%A6%AC%EA%B7%B8(%ED%8F%AC%EC%BC%93%EB%AA%AC%20%EC%B9%B4%EB%93%9C%20%EA%B2%8C%EC%9E%84)",
+      "sourceCollectory": "https://collectory.cc/sets/28af28cd-edcb-4234-8291-aabb5bc11593?region=kr",
+      "imageRecoveryStatus": "missing_authentic_KR_original"
+    },
+    {
+      "code": "sm11b_074/049",
+      "masterKorean": "수련의 낚싯대",
+      "koreanTraditionalChecklist": "수련의 낚싯대",
+      "decision": "KEEP_MASTER_AS_IS__KOREAN_IMAGE_OBSERVED_IN_SOURCE_CONTACT",
+      "sourceImageAudit": "data/audits/theme-sm-706-unified-image-review-20261022.json"
+    },
+    {
+      "code": "sm11b_075/049",
+      "masterKorean": "무인발전소",
+      "koreanTraditionalChecklist": "무인발전소",
+      "foreignDerivedCollectoryKR": "발전소",
+      "decision": "KEEP_MASTER_AS_IS__DO_NOT_RENAME_BY_TRANSLATION_ALONE",
+      "imageRecoveryStatus": "missing_authentic_KR_original"
+    }
+  ],
+  "note": "Published third-party indices do not match Korean-checklist ordinal/name scheme; direct real Korean print is decisive. Reference list corroborates retained master for 073-075; no series ID or user collection edited."
+}
