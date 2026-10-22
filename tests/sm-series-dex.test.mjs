@@ -135,3 +135,32 @@ test("SM 주요 하이클래스·강화팩은 비밀 카드까지 Dogam 장수�
   assert.equal(byCode.get("sm8b")?.cards.length, 250);
   assert.equal(byCode.get("sm12a")?.cards.length, 235);
 });
+
+
+test("SM14 한국판 이미지 복구 및 일본판 오연결 차단", () => {
+  const overrides = JSON.parse(
+    readFileSync(new URL("../data/series-image-overrides.json", import.meta.url), "utf8"),
+  ).sets;
+  const verified = {
+    sm11b: ["069/049", "071/049", "073/049", "075/049"],
+    sm12: ["111/095", "114/095"],
+    sm12a: ["215/173", "216/173", "217/173", "218/173", "224/173", "225/173"],
+  };
+  let verifiedCount = 0;
+  for (const [set, numbers] of Object.entries(verified)) {
+    const group = byCode.get(set);
+    assert.ok(group, `Missing group ${set}`);
+    for (const number of numbers) {
+      const code = `${set}_${number}`;
+      assert.ok(group.cards.some((card) => card.code.toLowerCase() === code), code);
+      assert.match(overrides[set]?.[code] || "", /^https:\/\/static[.]tcgexchange[.]kr\/[0-9a-f]+[.]w960[.]webp$/);
+      verifiedCount += 1;
+    }
+  }
+  assert.equal(verifiedCount, 12);
+  for (const number of ["060/050", "061/050"]) {
+    const code = `sm2k_${number}`;
+    assert.ok(byCode.get("sm2K").cards.some((card) => card.code.toLowerCase() === code), code);
+    assert.equal(overrides.sm2k[code], "./assets/cards/classic-korean-original-pending.svg");
+  }
+});
