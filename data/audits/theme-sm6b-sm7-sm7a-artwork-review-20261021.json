@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-21",
+  "batch": "SM6b 챔피언로드 / SM7 창공의 카리스마 / SM7a 플라스마 스파크",
+  "sourceEvidence": "data/audits/theme-sm6b-sm7-sm7a-master-preflight-20261021.json",
+  "actualSourceReport": "data/audits/theme-sm6b-sm7-sm7a-image-evidence-20261021.json",
+  "visualEvidence": "data/audits/theme-sm6b-sm7-sm7a-visual-decisions-20261021.json",
+  "paletteEvidence": "data/audits/theme-sm6b-sm7-sm7a-color-palette-20261021.json",
+  "sourceRunId": 39533553177,
+  "masterEntries": 271,
+  "artworksScreened": 247,
+  "heldCardEntries": 24,
+  "themeRowsBefore": 19397,
+  "themeRowsAdded": 320,
+  "themeRowsAfter": 19717,
+  "deltas": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 2,
+    "season": 69,
+    "color": 247,
+    "sunset": 0,
+    "reflections": 0,
+    "food": 0,
+    "work": 0,
+    "street": 2,
+    "cameo": 0
+  },
+  "strictCompleteSets": 109,
+  "fullKoreanPrintedFooterVerificationPending": true,
+  "preserved": {
+    "priorThemeRowsModified": 0,
+    "otherStrictCompleteSetsReopened": 0,
+    "masterChanged": 0,
+    "ownerOrFirestoreChanged": 0,
+    "cardRadarChanged": 0
+  },
+  "sets": [
+    {
+      "set": "sm6b",
+      "masterCards": 86,
+      "provisionallyScreened": 77,
+      "held": 9,
+      "newIndependentThemeSlots": 96,
+      "strictlyComplete": false
+    },
+    {
+      "set": "sm7",
+      "masterCards": 112,
+      "provisionallyScreened": 104,
+      "held": 8,
+      "newIndependentThemeSlots": 136,
+      "strictlyComplete": false
+    },
+    {
+      "set": "sm7a",
+      "masterCards": 73,
+      "provisionallyScreened": 66,
+      "held": 7,
+      "newIndependentThemeSlots": 88,
+      "strictlyComplete": false
+    }
+  ],
+  "held": [
+    {
+      "set": "sm6b",
+      "number": 78,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 79,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 80,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 81,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 82,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 83,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 84,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 85,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm6b",
+      "number": 86,
+      "reason": "Secret-number slot visually repeats ordinary-number artwork; printed Korean footer identity unproven"
+    },
+    {
+      "set": "sm7",
+      "number": 105,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 106,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 107,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 108,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 109,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 110,
+      "reason": "Third-party image returned HTTP 404"
+    },
+    {
+      "set": "sm7",
+      "number": 111,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7",
+      "number": 112,
+      "reason": "Third-party lower-resolution image: Korean print number not enlarged"
+    },
+    {
+      "set": "sm7a",
+      "number": 67,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 68,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 69,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 70,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 71,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 72,
+      "reason": "Third-party source needs enlarged physical Korean printed-number evidence"
+    },
+    {
+      "set": "sm7a",
+      "number": 73,
+      "reason": "Japanese card name visible in contact sheet; not Korean print evidence"
+    }
+  ],
+  "next": "Replace 3 Japanese SM7a photos; recover SM7 108-110 404; inspect 9 SM6b repeated secret-number artwork; enlarge 5 SM7 rare print footers, 4 SM7a rare print footers; do not claim strict completion."
+}

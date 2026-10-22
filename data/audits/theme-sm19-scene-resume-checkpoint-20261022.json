@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "task": "19개 SM 세트의 테마별 세부 일러스트 검수 및 안전한 추가 분류",
+  "branch": "audit/theme-sm19-scene-review-20261022",
+  "predecessorBranch": "audit/theme-sm-remaining19-20261022",
+  "sourceHead": "7fa2b7c1b992f2c601f2f80352545647d6148504",
+  "before": {
+    "sourceSetsChecked": 19,
+    "canonicalCardsChecked": 1320,
+    "existingThemeSlots": 21769,
+    "strictCompleteSets": 109,
+    "unverifiedThirdPartyOrMissingSlots": 797
+  },
+  "phase": "manual_scene_review_completed_on_audit_branch",
+  "directVisualGroups": [
+    "sm1+",
+    "sm2k",
+    "smp2",
+    "sm11b",
+    "sm12",
+    "sm12a"
+  ],
+  "manualCandidateCategories": [
+    "season",
+    "night",
+    "street",
+    "sunset",
+    "work"
+  ],
+  "explicitlyNotAutoTagged": [
+    "connected",
+    "evolution",
+    "sleeping",
+    "food",
+    "reflections",
+    "cameo"
+  ],
+  "candidateSelections": 284,
+  "guardrails": [
+    "Treat archived contact sheet selections as per-card visual evidence, not as Korean physical printed-number proof.",
+    "Use additional SHA256 recheck and original Korea hosted card URL for every new scene tag.",
+    "Never alter or duplicate 21,769 earlier theme memberships, master card IDs, user Firestore ownership or Card Radar.",
+    "Other 13 sets remain source-only reviewed because their images depend on third-party hosts.",
+    "Run dependency-free registry/data tests once; no auto preview, merge or deployment triggered by this branch."
+  ],
+  "evidenceFiles": [
+    "data/audits/theme-sm19-scene-decisions-20261022.json",
+    "data/audits/theme-sm19-scene-source-recheck-20261022.json",
+    "data/audits/theme-sm19-scene-artwork-review-20261022.json"
+  ],
+  "next": "Prioritize 797 held third-party or missing Korean printed-footer card identities across 13 mostly promo/starter sets, plus the special rare tail of six other sets; then manually review any additional sleeping, food, reflections, cameo, connected, or evolution art ONLY when illustrated relationships are directly verified. Keep 12 standalone theme progress counters separate. Full npm test and main merge are separate deployment gates.",
+  "exactSourceSha256RecheckRunId": 39719836513,
+  "curatedCandidates": 284,
+  "skippedPreviouslyExistingScenePlacements": 21,
+  "newStandaloneScenePlacementsAdded": 263,
+  "newStandaloneThemePlacementsTotal": 22032,
+  "verifiedOfficialArtworkSourceCandidates": 269,
+  "holdsRemainingFromAll19": 797,
+  "currentStrictCompletedSeries": 109,
+  "reviewedThemeDeltas": {
+    "season": 234,
+    "night": 10,
+    "street": 10,
+    "sunset": 2,
+    "work": 7
+  },
+  "reviewedSceneSeriesDelta": {
+    "sm1+": 29,
+    "sm2k": 8,
+    "smp2": 13,
+    "sm11b": 48,
+    "sm12": 73,
+    "sm12a": 92
+  },
+  "verification": "GitHub Actions #39719836513 completed success: SHA256 original-card recheck, independent card tag append, theme coverage sync, source-ID and theme navigation regression tests; no main merge or deploy."
+}

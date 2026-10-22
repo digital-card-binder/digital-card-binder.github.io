@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "sourceEvidence": "data/audits/theme-sm7b-sm8-sm8a-image-evidence-20261022.json",
+  "sourceGithubRunId": 39690764769,
+  "contactSheetArtifactId": 12387827793,
+  "reviewedContactSheets": 18,
+  "reviewMethod": "Directly inspected all 18 generated contact sheets representing 239 Korean-card catalog slots; item images show Korean-language artwork where accessible. Scrutinized terminal secret-number slices for repeated lower-number footer imagery.",
+  "scope": "SM7b 페어리라이즈 / SM8 버스트임팩트 / SM8a 다크오더",
+  "canonicalCardSlots": 239,
+  "imagesSuccessfullyDecoded": 236,
+  "held": [
+    {
+      "set": "sm7b",
+      "number": 57,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 58,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 59,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 60,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 61,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 62,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm7b",
+      "number": 63,
+      "reason": "Official-host picture visibly repeats lower-number ordinary art and appears to bear its earlier printed footer; secret-number print identity needs close-up evidence"
+    },
+    {
+      "set": "sm8",
+      "number": 104,
+      "reason": "External image source HTTP 404; Korean-numbered art missing"
+    },
+    {
+      "set": "sm8",
+      "number": 105,
+      "reason": "External image source HTTP 404; Korean-numbered art missing"
+    },
+    {
+      "set": "sm8",
+      "number": 106,
+      "reason": "Third-party print image; Korean-number footer/quality not sufficiently verified"
+    },
+    {
+      "set": "sm8",
+      "number": 107,
+      "reason": "Third-party print image; Korean-number footer/quality not sufficiently verified"
+    },
+    {
+      "set": "sm8",
+      "number": 108,
+      "reason": "Third-party print image; Korean-number footer/quality not sufficiently verified"
+    },
+    {
+      "set": "sm8",
+      "number": 109,
+      "reason": "Third-party print image; Korean-number footer/quality not sufficiently verified"
+    },
+    {
+      "set": "sm8",
+      "number": 110,
+      "reason": "Third-party print image; Korean-number footer/quality not sufficiently verified"
+    },
+    {
+      "set": "sm8",
+      "number": 111,
+      "reason": "External image source HTTP 404; Korean-numbered art missing"
+    },
+    {
+      "set": "sm8a",
+      "number": 59,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 60,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 61,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 62,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 63,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 64,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    },
+    {
+      "set": "sm8a",
+      "number": 65,
+      "reason": "Official-host picture visibly repeats a lower-number ordinary print; secret-number footer needs independent proof"
+    }
+  ],
+  "heldCount": 22,
+  "safeForProvisionalThemeArtReview": 217,
+  "heldBySet": {
+    "sm7b": 7,
+    "sm8": 8,
+    "sm8a": 7
+  },
+  "strictCompleteSeriesAdded": 0,
+  "fullyEnlargedKoreanPrintedFootersVerified": false,
+  "eligibilityRule": "Only unheld original Korean Pokémon Korea-hosted images, with successful real-source decode and SHA256 matching, may receive provisional artwork-level tags.",
+  "automatedColorRule": "Top two HSV bins in the artwork crop; no national rarity or ownership implication.",
+  "seasons": {
+    "sm7b": {
+      "2": "햇살이 드는 녹색 숲",
+      "3": "나뭇잎이 우거진 숲",
+      "4": "나무와 수풀이 있는 숲",
+      "7": "큰 나무가 자란 숲",
+      "8": "꽃이 피어난 밝은 정원",
+      "9": "나무 그늘이 드리운 숲",
+      "10": "눈과 얼음이 펼쳐진 설원",
+      "11": "분홍색 꽃이 핀 들판",
+      "13": "나뭇잎과 꽃이 있는 숲",
+      "14": "눈 덮인 나무와 설원",
+      "15": "하늘과 나무가 있는 풍경",
+      "16": "풀과 나무가 있는 야외",
+      "21": "풀밭과 푸른 하늘",
+      "22": "풀밭과 구름 낀 하늘",
+      "24": "나무와 꽃이 있는 숲",
+      "27": "덩굴이 우거진 숲",
+      "28": "푸른 나무와 수풀",
+      "29": "눈 덮인 바위산",
+      "34": "햇살과 풀숲",
+      "35": "하늘과 녹색 목초지",
+      "36": "나무가 우거진 숲",
+      "37": "꽃이 피어난 숲",
+      "38": "햇빛과 꽃이 있는 들판",
+      "41": "풀과 나뭇가지가 있는 풍경",
+      "50": "숲과 푸른 물이 흐르는 풍경"
+    },
+    "sm8": {
+      "1": "나무와 풀잎이 우거진 숲",
+      "2": "분홍빛 꽃이 핀 숲",
+      "3": "잎이 우거진 숲속",
+      "4": "푸른 물과 바위 해안",
+      "6": "나무와 물이 있는 숲",
+      "7": "높은 바위와 넓은 하늘",
+      "8": "풀과 나무가 보이는 풍경",
+      "10": "푸른 하늘과 꽃",
+      "16": "꽃이 핀 숲과 산",
+      "17": "꽃과 나무가 있는 평원",
+      "18": "나무와 풀이 있는 야외",
+      "20": "눈 덮인 산과 푸른 하늘",
+      "24": "호수와 풀밭",
+      "25": "나무와 물가 풍경",
+      "27": "푸른 바다와 물결",
+      "29": "안개가 낀 호수",
+      "30": "수초와 물이 있는 풍경",
+      "34": "꽃이 핀 초원",
+      "35": "하늘과 들꽃이 보이는 들판",
+      "40": "나무와 꽃이 있는 숲",
+      "41": "푸른 잎이 우거진 숲",
+      "50": "눈밭과 얼음이 있는 마을",
+      "52": "나무가 있는 야외",
+      "53": "돌기둥과 구름 낀 들판",
+      "55": "숲의 나무 뿌리",
+      "56": "바닷가와 푸른 하늘",
+      "63": "돌밭과 푸른 하늘",
+      "64": "파란 하늘과 꽃밭",
+      "68": "꽃과 풀잎이 있는 야외",
+      "69": "안개가 끼어 있는 숲",
+      "73": "나무와 가지가 있는 숲",
+      "74": "바위산과 나무가 있는 숲",
+      "76": "눈 덮인 바위산",
+      "90": "구름과 섬이 보이는 하늘"
+    },
+    "sm8a": {
+      "4": "푸른 하늘과 구름",
+      "5": "꽃이 가득한 들판",
+      "7": "나무와 풀밭",
+      "10": "꽃과 풀이 있는 숲",
+      "13": "해바라기가 핀 들판",
+      "16": "푸른 물과 바위산",
+      "17": "초록빛 숲과 풀",
+      "18": "나무와 들풀",
+      "22": "눈 덮인 산악 지형",
+      "25": "수풀과 풀밭",
+      "27": "구름과 산악 바위",
+      "28": "나무와 계곡이 있는 풍경",
+      "37": "마른 땅과 바위",
+      "38": "초록빛 숲",
+      "39": "푸른 나무가 있는 숲",
+      "42": "얼음과 설원이 펼쳐진 풍경",
+      "43": "꽃과 나뭇잎이 있는 숲",
+      "45": "마른 땅과 먼 하늘"
+    }
+  },
+  "extra": {
+    "night": {
+      "sm8": {
+        "39": "어두운 밤하늘과 바다",
+        "58": "어두운 숲 속 야간 장면"
+      },
+      "sm8a": {
+        "1": "어스름한 저녁빛이 감도는 골목",
+        "24": "어둠 속 나무와 유령의 야경",
+        "29": "달빛 아래의 밤하늘",
+        "34": "별빛이 반짝이는 밤하늘",
+        "51": "가로등이 켜진 어두운 거리"
+      }
+    },
+    "street": {
+      "sm8": {
+        "71": "건물과 사람이 보이는 도시 거리"
+      },
+      "sm8a": {
+        "1": "마을 건물과 골목이 보이는 거리"
+      }
+    },
+    "work": {
+      "sm7b": {
+        "48": "화판 앞에서 그림을 그리고 있는 화가"
+      }
+    }
+  },
+  "explicitlyNotInferredThemes": [
+    "connected",
+    "evolution",
+    "sunset",
+    "reflections",
+    "food",
+    "cameo"
+  ],
+  "cautions": [
+    "SM7b 057-063 and SM8a 059-065 visually reuse low-number card art and may display the earlier printed footer. Hold rather than falsely map secret numbers.",
+    "SM8 104,105,111 returned 404; 106-110 external-source printed Korean identity remains uncertain, including low resolution.",
+    "All classifications are provisional artwork screening; not a certificate of independently enlarged Korean printed footer for each card.",
+    "One preexisting sleeping membership from SM8 and one reflections membership from SM8a are preserved independently."
+  ],
+  "status": "visual_art_screening_complete_eligible217_held22"
+}

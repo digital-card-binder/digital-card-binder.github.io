@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,19397); // SM5+/SM6/SM6a 244 Korean artwork screens; 13 holds
+  assert.equal(total,22032); // SM19 second-pass scene review: official source image SHA256 and manually checked scenes
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
