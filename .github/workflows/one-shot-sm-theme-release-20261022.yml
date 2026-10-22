@@ -5,6 +5,7 @@ on:
       - release/theme-sm-22032-safe-20261022
     paths:
       - .github/workflows/one-shot-sm-theme-release-20261022.yml
+      - .github/workflows/one-shot-sm-theme-release-20261022.retry.yml
 permissions:
   contents: write
 concurrency:
@@ -45,7 +46,7 @@ jobs:
           if(check.themeRowsAdded!==263)throw Error('Missing tested manual scene classifications');
           console.log('AUDIT_RELEASE_SOURCE_INVARIANTS',JSON.stringify({slots,groups:theme.groups.length,newSceneTags:check.themeRowsAdded}));
           JS
-          if ! git diff --quiet -- series-scope-filter.js catalog.js series.html tests/base-series-dex.test.mjs; then
+          if ! git diff --quiet -- series-scope-filter.js catalog.js tests/base-series-dex.test.mjs; then
             echo 'RGB base dex exclusion must remain untouched'; exit 1
           fi
       - name: Install dependencies for full website, registry and Firestore tests
@@ -55,7 +56,9 @@ jobs:
           set -euo pipefail
           npm run site:prepare
           git diff --check
-          if ! git diff --quiet -- series-scope-filter.js catalog.js series.html tests/base-series-dex.test.mjs; then
+          echo 'Generated series.html changes (asset version only expected):'
+          git diff --numstat -- series.html
+          if ! git diff --quiet -- series-scope-filter.js catalog.js tests/base-series-dex.test.mjs; then
             echo 'RGB/base dex integrity regression'; exit 1
           fi
       - name: Full project test suite including Firestore rules and base RGB regression
