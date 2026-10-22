@@ -1,0 +1,57 @@
+name: One-shot audit ALL 732 unresolved SM Korean print images
+on:
+  push:
+    branches:
+      - audit/sm-732-all-remaining-once-20261022
+    paths:
+      - .github/workflows/one-shot-sm732-all-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm732-entire-remainder-20261022
+  cancel-in-progress: false
+jobs:
+  source-and-image-review:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm-790-crosssource-card-identity-20261022.json
+            data/audits/theme-sm-790-first18-verified-korean-print-footers-20261022.json
+            data/audits/theme-sm-790-next18-verified-korean-print-footers-20261022.json
+            data/audits/theme-sm-790-starter-numbered-58-verified-20261022.json
+            scripts/audit-sm-all-732-once-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Evaluate each remaining 732 image source once
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/audit-sm-all-732-once-20261022.py
+          python scripts/audit-sm-all-732-once-20261022.py
+      - name: Retain all visually readable Korean printed-card sheets
+        uses: actions/upload-artifact@v4
+        with:
+          name: sm-all-732-print-identity-review-sheets
+          path: data/audits/theme-sm-732-all-contact-sheets-20261022/*.jpg
+          if-no-files-found: error
+          retention-days: 14
+      - name: Save progress once; NEVER touch master, theme or production
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm-732-all-remaining-once-20261022"
+          git add --sparse -- data/audits/theme-sm-732-entire-remainder-artwork-source-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): all remaining 732 card image sources analyzed with no duplicate prior work'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
