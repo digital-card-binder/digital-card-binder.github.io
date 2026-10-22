@@ -1,0 +1,48 @@
+name: One-shot SM19 six broken image footers verification
+on:
+  push:
+    branches:
+      - audit/sm19-797-image-identity-recheck-20261022
+    paths:
+      - .github/workflows/one-shot-sm19-six-card-footer-check-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm19-six-card-footer-check-20261022
+  cancel-in-progress: false
+jobs:
+  verify-six:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm19-797-print-source-recheck-20261022.json
+            scripts/prepare-sm19-six-recovered-identity-images-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - run: python scripts/prepare-sm19-six-recovered-identity-images-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm19-six-recovered-korean-card-fullsize-footers
+          path: data/audits/theme-sm19-797-six-original-source-visual-20261022/*
+          if-no-files-found: error
+          retention-days: 7
+      - name: Keep six candidates pending until independent number footer is seen
+        run: |
+          test "$GITHUB_REF_NAME" = "audit/sm19-797-image-identity-recheck-20261022"
+          git add --sparse -- data/audits/theme-sm19-797-six-recovered-printed-identity-evidence-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): six recovered Korean art candidates; printed identity requires verification'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
