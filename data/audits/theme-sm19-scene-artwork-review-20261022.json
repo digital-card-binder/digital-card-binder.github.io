@@ -1,0 +1,2307 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "reviewScope": "19 previously source-audited SM sets, with direct scene classification only for six Korean official-host eligible expansions",
+  "visualReview": "data/audits/theme-sm19-scene-decisions-20261022.json",
+  "imageProof": "data/audits/theme-sm19-scene-source-recheck-20261022.json",
+  "sourceEvidence": "data/audits/theme-sm-remaining19-source-evidence-20261022.json",
+  "candidateSelections": 284,
+  "verifiedSourceArtworkCandidates": 269,
+  "themeRowsAdded": 263,
+  "themeRowsSkippedBecauseAlreadyPresent": 21,
+  "themeRowsQuarantined": 0,
+  "themeSlotsBefore": 21769,
+  "themeSlotsAfter": 22032,
+  "themeDeltas": {
+    "sleeping": 0,
+    "connected": 0,
+    "evolution": 0,
+    "night": 10,
+    "season": 234,
+    "color": 0,
+    "sunset": 2,
+    "reflections": 0,
+    "food": 0,
+    "work": 7,
+    "street": 10,
+    "cameo": 0
+  },
+  "affectedSets": {
+    "sm1+": {
+      "added": 29,
+      "existed": 0,
+      "quarantined": 0
+    },
+    "sm2k": {
+      "added": 8,
+      "existed": 21,
+      "quarantined": 0
+    },
+    "smp2": {
+      "added": 13,
+      "existed": 0,
+      "quarantined": 0
+    },
+    "sm11b": {
+      "added": 48,
+      "existed": 0,
+      "quarantined": 0
+    },
+    "sm12": {
+      "added": 73,
+      "existed": 0,
+      "quarantined": 0
+    },
+    "sm12a": {
+      "added": 92,
+      "existed": 0,
+      "quarantined": 0
+    }
+  },
+  "notes": [
+    "No story/evolution/cameo/reflection/sleeping tags created from mere Pokémon species or colors.",
+    "797 third-party/missing sources held in previous one-pass audit; still need full printed-number verification.",
+    "These six sets remain partial, not strict Korean physical print verified complete."
+  ],
+  "unaffected": {
+    "previous21769ThemeRows": true,
+    "userFirestoreOwnership": true,
+    "masterCardIdentity": true,
+    "cardRadar": true
+  },
+  "added": [
+    {
+      "set": "sm1+",
+      "n": 1,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "0ed0fecec7a99da1ba4996d86064605c35bdd11dd6b948c72403aa421d1ec518"
+    },
+    {
+      "set": "sm1+",
+      "n": 2,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "ed0f479c9dd3ff1217f1a4657c292e3c687a65ff312e89e86055e9a422c00148"
+    },
+    {
+      "set": "sm1+",
+      "n": 4,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "cb88e094f737b48ed20b30e0a23b13483395b6a8660d789c73aa11560bd6e2d3"
+    },
+    {
+      "set": "sm1+",
+      "n": 5,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "fa16e272a1f73ae5e482f6ca52e92a9bbe07ab4523b67ecada3c3a8c7a120ad0"
+    },
+    {
+      "set": "sm1+",
+      "n": 7,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "177be21e191808d496bc386d85df49debd05a7a35dd1440af3e7131e3a422c96"
+    },
+    {
+      "set": "sm1+",
+      "n": 10,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "d33e3afc84aafd0d2c4a93a4531baa6ae32160dd74b977034c66e0fee5bfcc44"
+    },
+    {
+      "set": "sm1+",
+      "n": 11,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "26e417b2bfbba0278129671c72aa5403d68e336219c2507ae0578983f3999b8a"
+    },
+    {
+      "set": "sm1+",
+      "n": 12,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "b7fbe31032e7b875996c169d11a7958149da15f8fca4b04103aae434364faabd"
+    },
+    {
+      "set": "sm1+",
+      "n": 13,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "475e020a5c9d68a358a14a4dcbcc4ebbd580634c9b4858b49231fac52e6af7fd"
+    },
+    {
+      "set": "sm1+",
+      "n": 14,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "a80487491b41086aa88b0627581fff924b345aaa5afabc707d9692e52099a5a2"
+    },
+    {
+      "set": "sm1+",
+      "n": 15,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "c8270f3e9f43334eff0d2fa3d1d1e66f922153ae3a22461f21a853a1f797f88f"
+    },
+    {
+      "set": "sm1+",
+      "n": 17,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "32648268e397a06479a40ef686118354ddf5e1ae36f88317cedb070f788f6e24"
+    },
+    {
+      "set": "sm1+",
+      "n": 19,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "e0d1fceccdf113ed4e957cf94fe4b6bec9ac2377cd39332c282a1aca62a42a1d"
+    },
+    {
+      "set": "sm1+",
+      "n": 20,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-01.jpg",
+      "imageSha256": "50ab069c482706aca1e3437be334160e9ede8e0a3cc00b33160b696375e7db19"
+    },
+    {
+      "set": "sm1+",
+      "n": 22,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "a59d444d313c63280ae0a3c42d6b62c7b524533318dfed4622a8c1bf47a086ec"
+    },
+    {
+      "set": "sm1+",
+      "n": 23,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "cd5a1baf0ae97a1b2b265b9de9dfd51df1d29d2b342716fc65ab001bf76c1c79"
+    },
+    {
+      "set": "sm1+",
+      "n": 25,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "c8e76fa158bb4162a2a7bb0074bf58f12b46eeb761c5ef0c37125ccb35fcfc22"
+    },
+    {
+      "set": "sm1+",
+      "n": 28,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "6a42cee36cb85e7ce2852fff1a7c5d61a5fcf9e639490d2753dece63fdad491c"
+    },
+    {
+      "set": "sm1+",
+      "n": 30,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "2c8cacfb9934e4e76a06bf187041588945b5dfb600ac9f0d14f6213fb5b29267"
+    },
+    {
+      "set": "sm1+",
+      "n": 31,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "99b3ffe5945b0c69b5310cbc6b137a05af2df9e50c9f689746c7bcf4dca7372d"
+    },
+    {
+      "set": "sm1+",
+      "n": 32,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "d498cd169131df209b8b8c2c4de68a980fca5ecfeca51f10670d5e7a37b25dfa"
+    },
+    {
+      "set": "sm1+",
+      "n": 33,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "54b80d757c6453c948945011f2e937354908e6f3b919bdfe93414ed152759b9d"
+    },
+    {
+      "set": "sm1+",
+      "n": 35,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "41ec3131808bd46f1afef24119e8716ce0305ad1aa123a7883f3e7f8fdc7ea14"
+    },
+    {
+      "set": "sm1+",
+      "n": 36,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "4c89d8f1ad8595d962f1d2fe32b07ef9cd802163d3c47be8245ed15ba760d67c"
+    },
+    {
+      "set": "sm1+",
+      "n": 37,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "c1700d05c8bbce9b682fa44959aa888047c8e6c563b85258878d1cac702ef0c1"
+    },
+    {
+      "set": "sm1+",
+      "n": 38,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "b0318cd09111ed43bbf3c4ea0317ef5afd5b7f65f06e2a2f6188f121d9c36d0a"
+    },
+    {
+      "set": "sm1+",
+      "n": 40,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "14906759c749c1dc0209e0b2a77b81e8aa8098f25e8216f9f4d40d9652f0b968"
+    },
+    {
+      "set": "sm1+",
+      "n": 41,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm1plus-sheet-03.jpg",
+      "imageSha256": "4fcd51bf96f3d6afcee4c00dce3e3f1336259442f90b82d12db5b5c13f2725f6"
+    },
+    {
+      "set": "sm2k",
+      "n": 5,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-01.jpg",
+      "imageSha256": "ea12061b2d6948ab02cc7398498fe086da7cb2505c13e0fa079473ec63f0811f"
+    },
+    {
+      "set": "sm2k",
+      "n": 14,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-01.jpg",
+      "imageSha256": "faeac7e3f70fc2f7501aef9d91f5ea06b871b8b773bab12fbb04b4c5f5ed8ac2"
+    },
+    {
+      "set": "sm2k",
+      "n": 29,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-02.jpg",
+      "imageSha256": "3ad194fae358002e4b24869fbc6b989dca2f12f6e609d1bdf0a9bb6fd259ac05"
+    },
+    {
+      "set": "sm2k",
+      "n": 41,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-03.jpg",
+      "imageSha256": "4584750d832ee4e2048eb3921fa73b5e7a3b7bb0c4b95d057367c709961b65dc"
+    },
+    {
+      "set": "sm2k",
+      "n": 43,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-03.jpg",
+      "imageSha256": "9432412e7887563039c06495b92ebaf2955c898733171e2486ac8253b872535e"
+    },
+    {
+      "set": "sm2k",
+      "n": 46,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm2k-sheet-03.jpg",
+      "imageSha256": "6d6ca84c3f5e8daec16a3eb09a98b19b0d3d9d7f16008dde9f629e30bc462789"
+    },
+    {
+      "set": "smp2",
+      "n": 1,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "5801668a6f30eee3430c415ff8623f79ff592209988de7c1a21730fbc6e685fd"
+    },
+    {
+      "set": "smp2",
+      "n": 2,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "19f2da1394f47b5002bc9f0fa79139933d7469d818e75346706c9fbc062bccde"
+    },
+    {
+      "set": "smp2",
+      "n": 3,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "2c9699273d5f057591c3e000af4d44ae4512ad746a414638ed83068218230d75"
+    },
+    {
+      "set": "smp2",
+      "n": 4,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "42587519a80cb6bcc94e76d5fdc0a0c3161f1bb16279fea32c347dd57ba1c71f"
+    },
+    {
+      "set": "smp2",
+      "n": 7,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "31e1a59aa66c9632a26409a317b07356bc7246f52eca8a7f11a0fe5f6c76069f"
+    },
+    {
+      "set": "smp2",
+      "n": 12,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "f8cae563332e6d36cad629479eac8592c955cd241a97e0685d5dc6b1cb84747c"
+    },
+    {
+      "set": "smp2",
+      "n": 13,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "db27c2abc8a0ae6066d37feb4c07bee42aada05bd52e6070275ae6139777d597"
+    },
+    {
+      "set": "smp2",
+      "n": 17,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "c4da72ef2d2a5a33a03fc85880af7761270734d6c40aee0f3a10bda9f485b8f7"
+    },
+    {
+      "set": "sm11b",
+      "n": 1,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "d05c29f679782a5eee025bce99271249756ca8172193fc1aeaf8a44223a803ba"
+    },
+    {
+      "set": "sm11b",
+      "n": 2,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "5298ef9767c76179f62614a8e4473c9ecdf4f6c33c14cbd6a433ba8732f1d2e4"
+    },
+    {
+      "set": "sm11b",
+      "n": 3,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "48d1a30cc012e555ade264c46cd812bcf02f346fa01a9affd0db76378479f3f2"
+    },
+    {
+      "set": "sm11b",
+      "n": 7,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "36cf7dab4c72549602d30a5c6296378d892e9087ae1436248a6c91c2ae5397bf"
+    },
+    {
+      "set": "sm11b",
+      "n": 8,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "dd13df59089f8c9dff79151624bd75c70a8e3ec237ed07ded5e5fca05091a95d"
+    },
+    {
+      "set": "sm11b",
+      "n": 9,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "ec051ba008c5a84546cfc3b6976c3f3ff958b477c6a0145b46ebcfd048b131c8"
+    },
+    {
+      "set": "sm11b",
+      "n": 10,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "e84370bf41f053e1d317600fc6eb47ccecb01548624f0fc0575492b6ea4b6c87"
+    },
+    {
+      "set": "sm11b",
+      "n": 11,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "0ab65fcfa069be3fee6a79cbc52687ac2ba945080e6ad893cccecebd065b26f8"
+    },
+    {
+      "set": "sm11b",
+      "n": 12,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "8777569e466c6b1840db01f38a1e39cfd2a2926f5ce5f7bd1fbc0ef620576f67"
+    },
+    {
+      "set": "sm11b",
+      "n": 13,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "7bc37379bc21cc925b23b7ef1780c3fc450198869dd9887ed303701e0faa2c94"
+    },
+    {
+      "set": "sm11b",
+      "n": 14,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "84caf34f5212ef1cbe3e95d03b4a6ee25c2a7978bd76d5d7126411622204d04a"
+    },
+    {
+      "set": "sm11b",
+      "n": 15,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "def87da94d34b8fcaec550deeb0d3db5e8f67e5b6dc2efd1b34cf5105b75acd1"
+    },
+    {
+      "set": "sm11b",
+      "n": 16,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "dc79a9c08a19462a7790b458b42e5be82da3c1f4b7cab633045061958923a83d"
+    },
+    {
+      "set": "sm11b",
+      "n": 17,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "dd91a9d1137219d951a6feb357b564adf75421dde2c651d1d2150983d3683e47"
+    },
+    {
+      "set": "sm11b",
+      "n": 18,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "f03185aaf346dc8b642eaeda2b3f82c41899cf1c588e19251e57bad94df17d6f"
+    },
+    {
+      "set": "sm11b",
+      "n": 19,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "a5dbb880da15c448ab4702da4a705ab3238f638f1d72d2cf233237fa7ced69bc"
+    },
+    {
+      "set": "sm11b",
+      "n": 20,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-01.jpg",
+      "imageSha256": "42e9ac16d9837a91a8b3e5bf0a988d3d1409b8cce4ad91dfe17bd86adc6267a9"
+    },
+    {
+      "set": "sm11b",
+      "n": 21,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "be5bacd27aec2255fabd645781210f740f8277eb510a21f93649614f084a9a11"
+    },
+    {
+      "set": "sm11b",
+      "n": 23,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "5a4a20e9da5cf06216d61a02d37d6d1dd957f32168ab4888328feeef3ddd3c91"
+    },
+    {
+      "set": "sm11b",
+      "n": 24,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "149fdaa90b4525234763e82560dbf2385107ff8c84103b227da1e2e90bc1f7d2"
+    },
+    {
+      "set": "sm11b",
+      "n": 25,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "46e4ff227cfcd8166e5170d94b6ee5b4cec1443041dbf63bc88e2ca818d5948f"
+    },
+    {
+      "set": "sm11b",
+      "n": 26,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "1d9a7e2cc2f72386cac03566ceb56557cbf842c861ab6980fce319a7323fed70"
+    },
+    {
+      "set": "sm11b",
+      "n": 27,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "18324277c9567a1f7d73c04ae795b7d26134f7048beebf3fb96661f67a8c0966"
+    },
+    {
+      "set": "sm11b",
+      "n": 28,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "cd948adc121881d5546a9538b3285eb58dfbae2b1dce9c785bc0185ccb5e1c2e"
+    },
+    {
+      "set": "sm11b",
+      "n": 29,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "b134582faeccc2ef55b776437a225a53f7b6d6986ccc619480d7e9cf499371cf"
+    },
+    {
+      "set": "sm11b",
+      "n": 30,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "82574780b81b5fdc1038f56f146eb0518c399789795f642c70324765029e204c"
+    },
+    {
+      "set": "sm11b",
+      "n": 31,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "e76ccfebc3b716116484abb90c40433541f9ae31b85b77f30631d5845a208473"
+    },
+    {
+      "set": "sm11b",
+      "n": 32,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "129835d1c270e4fc8971f02805e12ee09e5ee14f0a77c973e25183e928140102"
+    },
+    {
+      "set": "sm11b",
+      "n": 33,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "0718294a379ea53086fdc212356dfa8c49fce317b31a3ebaf079283b359a4957"
+    },
+    {
+      "set": "sm11b",
+      "n": 35,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "35b609c4dc8d10fe9939044d04340b3d4676c946ed2cec1b11bd32248fca7273"
+    },
+    {
+      "set": "sm11b",
+      "n": 36,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "89fa53641832b8ba8ab22395acaa9655f5c067bf446bc1b694101bc4d0133bc3"
+    },
+    {
+      "set": "sm11b",
+      "n": 37,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "a9a1376d5b41aa232a9ced23ac5bc1893364be1853fb09d27b9c00c9ff0479e6"
+    },
+    {
+      "set": "sm11b",
+      "n": 38,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "0cab19cbf01a9216691cd80b596144e03258e7da2ef11f25387655d1eed34031"
+    },
+    {
+      "set": "sm11b",
+      "n": 39,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "7b0a623f18077a7f9bc43e7de73f6bd858dc5ba1d3cb1421e30aeb6e2d671c3b"
+    },
+    {
+      "set": "sm11b",
+      "n": 40,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "9cabe0a77c86a2b70549302d99621b9dfa4f5316afcb56d7b4037ef8c7fa8f08"
+    },
+    {
+      "set": "sm11b",
+      "n": 41,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "8cfab0bd89ddf07c94fb60c76dbf5138762b515c97c7824f8f6796b5997c0981"
+    },
+    {
+      "set": "sm11b",
+      "n": 51,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "8cc349c7fdabf1183b2e590907ee2f1270906e296250b8c7af3bbff27eeadab8"
+    },
+    {
+      "set": "sm11b",
+      "n": 53,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "1d0bdb5f2ee9a0f9a7314ea042cabe49b888d1b241783a4ac53f673ebf88383d"
+    },
+    {
+      "set": "sm11b",
+      "n": 54,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "686bacf865732dfeef265a8bcccac656c9b8c2dcf147f17bde34be5d15d15b21"
+    },
+    {
+      "set": "sm11b",
+      "n": 55,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "c6d958c8b968cbf4b4adabe1fa38f6c406bd4f399c07b0e00f75f8b11d407c50"
+    },
+    {
+      "set": "sm11b",
+      "n": 61,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm11b-sheet-04.jpg",
+      "imageSha256": "32f9f65cf04ee9f0836127e18facccf46e7daf8db8d1978004623baebc8d7a2e"
+    },
+    {
+      "set": "sm12",
+      "n": 1,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "9ad825dcceb4360005aa31e0beed395d981596b5db4b8f3888edd9bdea8df8d8"
+    },
+    {
+      "set": "sm12",
+      "n": 2,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "1cb197547d483c36a5b51406dc6b59c8211655f79477e3ca08de8f3c87646a2e"
+    },
+    {
+      "set": "sm12",
+      "n": 3,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "f5eb4833cefe16527af32876cf9b111a2a2e1078c0498492c13c2525227d1038"
+    },
+    {
+      "set": "sm12",
+      "n": 4,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "2755c0521effb69bd1675a260709a19cb275934a436f20d691f864290f48fd4c"
+    },
+    {
+      "set": "sm12",
+      "n": 5,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "3d62e40081c51ab49fbffaec13edb66966d48f5671967ef76ce0623f9c07039b"
+    },
+    {
+      "set": "sm12",
+      "n": 7,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "0aaacda5284721415562429427c4c39548a3bd537f319e294a28d6df0241896d"
+    },
+    {
+      "set": "sm12",
+      "n": 8,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "d2a2503bb401e47da97228703b00d7cb1cc8c5c63ca94b368747bff935128152"
+    },
+    {
+      "set": "sm12",
+      "n": 9,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "187727bf21894fd6689486ce4e10123517d0a96a9fd4728bd453bd916de3530a"
+    },
+    {
+      "set": "sm12",
+      "n": 10,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "42bb2894d833c8d1877bb7fea7b3f0531df2b328899c4de6b07bbba0f5e98121"
+    },
+    {
+      "set": "sm12",
+      "n": 11,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "e137866dfa3b6cb3777c0c19b77a9efcb6de0a9d075e3c4647cafc1dd9aa9b5d"
+    },
+    {
+      "set": "sm12",
+      "n": 12,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "19187f2c75f0943e7cded190c53cd141ac5460cdaaf3f4fd97f61c72439bcfd9"
+    },
+    {
+      "set": "sm12",
+      "n": 14,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "31806301d1ff142ac87693ff5f8324d0c3d15ff8efc8cdf67ddf0ce365e8624e"
+    },
+    {
+      "set": "sm12",
+      "n": 16,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "a3c5219ac84fe9c2d75055ad07a10474d81cc9f6cb1742acc1c5638237843d4d"
+    },
+    {
+      "set": "sm12",
+      "n": 19,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "eb601d571d5189712a003fc1de7e075a79f8ddc3f3db5469728ca6cca5d141ed"
+    },
+    {
+      "set": "sm12",
+      "n": 20,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-01.jpg",
+      "imageSha256": "3eaefcf64e597ef58f707953830587e30980da38e1b2d4a95e6a95c54d65e1b6"
+    },
+    {
+      "set": "sm12",
+      "n": 21,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "0493060b1b509065c0ce317fe00e445c716b4b92db558098173443c39ed54aea"
+    },
+    {
+      "set": "sm12",
+      "n": 22,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "332ea85f059d1d7d495cf43249218bef087f2a3102843ee2f7f34cee3bbf10f5"
+    },
+    {
+      "set": "sm12",
+      "n": 23,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "966c1c48bb334db09d17b233059c9b8b590afeae9e4b83be1fcfd1fb0e1538ef"
+    },
+    {
+      "set": "sm12",
+      "n": 24,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "ce3b4f6a617db1645e94ea650fdf510614334f00ac0ab462422c7bc989cd647f"
+    },
+    {
+      "set": "sm12",
+      "n": 25,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "326d59ee51e5ab280c84b7db1fea1fc5fc54da55b95804104817efbd442682bf"
+    },
+    {
+      "set": "sm12",
+      "n": 26,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "fd9bdffc09cd89aad48cbec13e2a815d5d2eb9874ef1285b2d48d37eebb24324"
+    },
+    {
+      "set": "sm12",
+      "n": 27,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "d2518eee16872c0766489550bb138fb27d1d75b154624ef6a438f0ba81b8ce62"
+    },
+    {
+      "set": "sm12",
+      "n": 28,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "86893cd2ac8a7fb0a9bb0e1f040db68174a034b26c97bb645bf9ca9d4278b88b"
+    },
+    {
+      "set": "sm12",
+      "n": 31,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "4598991effd914e89e82f5ff1026d881b32a9825722d377346e13dd4a06586ce"
+    },
+    {
+      "set": "sm12",
+      "n": 32,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "ef48f043d058cac7bb49d903f45dc47c8fafd40cf33276bc33aa4a122cf16424"
+    },
+    {
+      "set": "sm12",
+      "n": 33,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "fc68dbc3e61f4243a336f1e50ca9b67d8ee7425bb72fa2948f9eb16d5967c2ba"
+    },
+    {
+      "set": "sm12",
+      "n": 34,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "ee3d6f250a31da6233a6b33faeec57c385c7cd97adc5902f680d2b514a6114f6"
+    },
+    {
+      "set": "sm12",
+      "n": 35,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "8c579e7dfa0ececf92f040e66c61bf2c05233c6f11465b0df0b988f9fd341049"
+    },
+    {
+      "set": "sm12",
+      "n": 36,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "d6f364a539d8306b26c0237d46efe49c258242f12014f304e33f53866e6eca9d"
+    },
+    {
+      "set": "sm12",
+      "n": 37,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "8fe079ddc72cf2f15411ce8b431b658cb343daa87bad8eb576473b801358404e"
+    },
+    {
+      "set": "sm12",
+      "n": 38,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "9394169a32a67689519b0c9efea1128e83779a415a1b1876b81e5a8ec39aeb2c"
+    },
+    {
+      "set": "sm12",
+      "n": 39,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "4d3800c8aaacda4e47740786de6167656badcf62d8c85dccbe22011a54a13ac6"
+    },
+    {
+      "set": "sm12",
+      "n": 40,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "8407a03583bf2ddee97b0211f027f9111baa97d161b5e9de2b3a6fc73a42ff44"
+    },
+    {
+      "set": "sm12",
+      "n": 41,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "7a7f20b05a5151773cc84b58349b04fc41a1269fe29b228a2589eb691e165b4d"
+    },
+    {
+      "set": "sm12",
+      "n": 42,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "1c42adbf4e5f020efb20e69e5f3957d1be53bcff98749694ca51b3498ae7bc0f"
+    },
+    {
+      "set": "sm12",
+      "n": 43,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "8258560cce1d5f2e8665706f5467e41f8098c155db14a1742c7bd06f796bfc66"
+    },
+    {
+      "set": "sm12",
+      "n": 45,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "580965cc7425bf458eb0047b4f2939abc6c1216d084704e6dbaf053f976abe5c"
+    },
+    {
+      "set": "sm12",
+      "n": 46,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "eb0023032eb95e4a10905534c757c0545953190cf702fc7e9790fc20116f2771"
+    },
+    {
+      "set": "sm12",
+      "n": 48,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "a77919e9e56a7be3ca98a946b6cd9c2687901bc84fed73653044ba8a22df5a5d"
+    },
+    {
+      "set": "sm12",
+      "n": 49,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "ca0428907b8ece02cb62be95ee1fc45888241632b40067e207418f8169ee2be7"
+    },
+    {
+      "set": "sm12",
+      "n": 50,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "5d260311aa4fab4524962cf6b5552fd3a4307519abb97bb4393cfdb5a13a1c87"
+    },
+    {
+      "set": "sm12",
+      "n": 51,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "fb1e6a1eac93df8312b88fadf7f57d76855c83566d4ef5dc2e34fc8be669aeb9"
+    },
+    {
+      "set": "sm12",
+      "n": 52,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "d692aa76b34916d97994485b395efe38cdeb57317d46e89a1a7ba289b51620b8"
+    },
+    {
+      "set": "sm12",
+      "n": 53,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "825c8537be405d30f628bff92e36ca9a551a5b17a7ee2f2390b9aa7e001acd93"
+    },
+    {
+      "set": "sm12",
+      "n": 54,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "35ccad89ffae7fde9daabb1899728eb9ed267dbe8e7f45e07941ba61561571dd"
+    },
+    {
+      "set": "sm12",
+      "n": 55,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "61a37e82fae1021895940055a378401d97b043a0f8b97fcdc4d6b5d7c6b75e65"
+    },
+    {
+      "set": "sm12",
+      "n": 56,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "d57b375d2cc1574cfe08523d3b0d322a093203d1d16eae4267dc01e57c5b8ab7"
+    },
+    {
+      "set": "sm12",
+      "n": 57,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "df261b96c8ed953c48761adbb8f5b1cee5125f07d508528f19de583bbac68a7d"
+    },
+    {
+      "set": "sm12",
+      "n": 58,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "d46ddbaf37b99e4190286c6aa44160799871a94b6ee790692edcfdc8bcc55753"
+    },
+    {
+      "set": "sm12",
+      "n": 60,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-03.jpg",
+      "imageSha256": "8fb94b15769a89ab98627846270537863e06e785b1b4244fa0d6012693d03244"
+    },
+    {
+      "set": "sm12",
+      "n": 61,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "fd5e0b5c7f631fc5903193d9e95eaee3205f374a251eaa08c267af3ae54749bf"
+    },
+    {
+      "set": "sm12",
+      "n": 63,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "b4bfbaa2f88692700c3fb159e3f5fbd2e67d016f328f557f7634ba9dd841e3d1"
+    },
+    {
+      "set": "sm12",
+      "n": 64,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "741773e772fce86b2b9c5258be5db813c66d951bc7def9c2b19c84c446ea3580"
+    },
+    {
+      "set": "sm12",
+      "n": 65,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "02a7233457401605982a32347b8511654642d6a5de9410d9d5249de54bd2da72"
+    },
+    {
+      "set": "sm12",
+      "n": 66,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "b4190a1e3eedb8c7ba19034ca6b2e0fcb68686fd4be059d2e5a8ecf617c90a2e"
+    },
+    {
+      "set": "sm12",
+      "n": 67,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "d966cbbfb807458a59ad78609fc34039f06f1209cb83d5a80cfe20a87d6bd2a1"
+    },
+    {
+      "set": "sm12",
+      "n": 68,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "adac41345ce683ffe20c9ff3b88591523d311bd7dc8179091c607db42d923565"
+    },
+    {
+      "set": "sm12",
+      "n": 69,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "daef391db86b8a5431db96d10f312bdc7627511c2a3c58dbb35c8eee2bf5ece7"
+    },
+    {
+      "set": "sm12",
+      "n": 70,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "d97f846276fb3e81fb66399a68e0cd9461326c73fa7607d9b5cbe050434b5037"
+    },
+    {
+      "set": "sm12",
+      "n": 71,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "59dfc15ab17fc8520f4c0ed86cc24aff58b84fb875107eeb6542678177429ba2"
+    },
+    {
+      "set": "sm12",
+      "n": 72,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "6b9e902415644a434098c6f645512fdd450f409e5ac1cd8bbdd20634ad4239de"
+    },
+    {
+      "set": "sm12",
+      "n": 73,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "c583d17d86c24436cdcc81e996ee9b04c222f2292ed945a25a598f7242f3e598"
+    },
+    {
+      "set": "sm12",
+      "n": 74,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "bec74956c327bf34771f46e6300257262967507a224c4189ddd79318d14760f6"
+    },
+    {
+      "set": "sm12",
+      "n": 75,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "305ef13901d9f045ecc30e8f415b890adbd8d3f477e3ba0e7786a096e8095ffc"
+    },
+    {
+      "set": "sm12",
+      "n": 76,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "a3f8f9245be2e5022845dc5f69deb40c3837d733993dce5bd4fa52d0258bec62"
+    },
+    {
+      "set": "sm12",
+      "n": 77,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "e4cbd5fe2d079eabf67b7a409a2c96217fa55adeb358ce1250067b850c595326"
+    },
+    {
+      "set": "sm12",
+      "n": 78,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "b1e4c91c8f90d9be80dd29fe9f813c88c576010c57c05a201fdfb0f38c391130"
+    },
+    {
+      "set": "sm12",
+      "n": 79,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "6aecb283d8f01cffc5ef62ab88af74aa01e098dcb4857022d53bda996ef949a5"
+    },
+    {
+      "set": "sm12",
+      "n": 80,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "9c7b1651e5667471d049a7b563827a8499bbc049fae6530c1b20f49996998241"
+    },
+    {
+      "set": "sm12a",
+      "n": 2,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "75906d66ce40136996d59b27d5dbeb3bcf7cb9bac02bc77b54b71e34a1d88ed2"
+    },
+    {
+      "set": "sm12a",
+      "n": 3,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "a12f3ffb21d0426e43552bcde48ed82181f64e5f043b88f3f96ebde55f7f5cb3"
+    },
+    {
+      "set": "sm12a",
+      "n": 4,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "4418549f5cc734ee84cb477462ee4f1b3c72e48e9f943673d8ec261e14b3cfa6"
+    },
+    {
+      "set": "sm12a",
+      "n": 5,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "8c0048f91c29d90e9de94a9aab8a2f9a3fa0ab128f6b064c677baa0b5e65437c"
+    },
+    {
+      "set": "sm12a",
+      "n": 6,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "f7eb118f197af770d9f8c673fc23c5256ca5d29f50b342b40d32619ad8f59e95"
+    },
+    {
+      "set": "sm12a",
+      "n": 7,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "791cbacd63536790bdbd8256f098511fb9c0731067de8e4218214f949c06cb3b"
+    },
+    {
+      "set": "sm12a",
+      "n": 8,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "50f6a37bbdacf694c89c31d723411048fa9f38801f60c31bc48e02ddf24d21cf"
+    },
+    {
+      "set": "sm12a",
+      "n": 9,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "bfbbc91ba337718b1d73b4d5c6399414c1f703a90f66c439746d3412264133aa"
+    },
+    {
+      "set": "sm12a",
+      "n": 10,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "f119306a65150e10ebfc6ff63b67d33742d429b181b8843b40ca7ebc28a2894b"
+    },
+    {
+      "set": "sm12a",
+      "n": 11,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "cdda94a309383db2e1f436756247610c69d9a5f47997556bd49c2b27a15cd820"
+    },
+    {
+      "set": "sm12a",
+      "n": 12,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "720018bbd0a97ae407268987fc41aa5a6af56a6f976e67716bb0598e91d44205"
+    },
+    {
+      "set": "sm12a",
+      "n": 13,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "963adc2f934688f1e70ef5c1461f3d835ed9d44d69cbe85499a5b292d75ec929"
+    },
+    {
+      "set": "sm12a",
+      "n": 17,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "757ab33110cc15b3130e48abd4be167c20998c529f54a26005bbad60f5d7cead"
+    },
+    {
+      "set": "sm12a",
+      "n": 18,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "75db4fda47cd8e6effc978645e39acfb2d1ef91294410f38cdcf5ba7bddf3d2f"
+    },
+    {
+      "set": "sm12a",
+      "n": 19,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "fb34a83a4c1a8f3805da27e5a24c61f2bb37cb0c0fbc86521d2012c40bc140f3"
+    },
+    {
+      "set": "sm12a",
+      "n": 20,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-01.jpg",
+      "imageSha256": "4116ad8ba5208a89592108701f689639125228300acaf158b6faa1eeb5e11fe6"
+    },
+    {
+      "set": "sm12a",
+      "n": 21,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "caf7cf802fab78f5941533dc1d455e3a7eaf28681f4091bc622d160810274b57"
+    },
+    {
+      "set": "sm12a",
+      "n": 22,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "8ffc97c9f8ebead31b1a17637f01e212bd9b9214902498d2065e0f290c561b85"
+    },
+    {
+      "set": "sm12a",
+      "n": 23,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "cbd87a5975e4218493796c35565a4fea4fbe0360f48c056d6504f4ce5589a616"
+    },
+    {
+      "set": "sm12a",
+      "n": 24,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "9e52663263ad15cadb2134ff0cd66bd78b5ac99249972ddd9af32ea5334d5c2d"
+    },
+    {
+      "set": "sm12a",
+      "n": 26,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "f3236e9aac5bac85923047a372fb1b1f5af9d67a843f8a6727e9135ae321bf6d"
+    },
+    {
+      "set": "sm12a",
+      "n": 27,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "b20c5cf44b47d29c01619c95b447ac0052e3a35ed369ec9056dfc11ee169e82b"
+    },
+    {
+      "set": "sm12a",
+      "n": 29,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "53678fbd528a571f27bd1b6a12b4c43f72f6df1ba670a18813a29771148cf272"
+    },
+    {
+      "set": "sm12a",
+      "n": 30,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "63f63b9adb56ae3626b4c1efe4f9c0de782c482ae49b33844de51e05c24170a1"
+    },
+    {
+      "set": "sm12a",
+      "n": 31,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "bb8f200e52f5b3096d30582462ae480be6936fabf60694d7ce4cd5d4e4b0765e"
+    },
+    {
+      "set": "sm12a",
+      "n": 32,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "1713eba7f94bdec90791d8ab845043ee407cc6dae3e13de6dff33fb9f0553333"
+    },
+    {
+      "set": "sm12a",
+      "n": 33,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "6b6a5c016d08df41dd954f9b527a95f1788100919c981211ba44e4eee4af8592"
+    },
+    {
+      "set": "sm12a",
+      "n": 36,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "92de0ed5844f8421011f4daa18d072820500f336fb6cad9a1824a1af44420fe6"
+    },
+    {
+      "set": "sm12a",
+      "n": 37,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "e04ef0a242806b0a8993b929e121823432081c57c4b43653f6480d2414241099"
+    },
+    {
+      "set": "sm12a",
+      "n": 38,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "c8c1c319edecb1ca0f1e30f6c62331cabfb8de7823db9e9484dd801daa3d2c0e"
+    },
+    {
+      "set": "sm12a",
+      "n": 39,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "d8fcee99700559ed1a28c19cae4fdff2e2650852ad24fc4cc3a7bd13812255a0"
+    },
+    {
+      "set": "sm12a",
+      "n": 40,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-02.jpg",
+      "imageSha256": "9771eb3427c4dae7148f4168459a100e810687fb4397d65bfc54a4d9058618c4"
+    },
+    {
+      "set": "sm12a",
+      "n": 41,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "476fad849918cc252a5a3cb078b8c05115e73052751c646bcd1e375223725115"
+    },
+    {
+      "set": "sm12a",
+      "n": 42,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "c45151496cd82044eba3353ae8261b6045ba230d1ed23c6ce926f89b9dd9dfba"
+    },
+    {
+      "set": "sm12a",
+      "n": 44,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "053ebe9b7e4f70920fb6c6f0e4d2bfcd9156c925168adb4f52f3048886eca1ae"
+    },
+    {
+      "set": "sm12a",
+      "n": 45,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "7c0ea8ef8791411d82dd4e2f5c9086bf4b5cdde7e97a8c03c90e0f6621462bfc"
+    },
+    {
+      "set": "sm12a",
+      "n": 46,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "1e6c76be3636ab0230d1c4f4132ddd0f865edc2c715a4a0a0237aa7932287884"
+    },
+    {
+      "set": "sm12a",
+      "n": 47,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "eebbb703af4c03e95a24ceb40b6472ca05eea4b0e67bbcb83600a6becd9a5fac"
+    },
+    {
+      "set": "sm12a",
+      "n": 50,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "cd9f6836d88f6b4509a31aaac5e451d33b6cb5239d6d0fb087ff2a6c1fe2cd23"
+    },
+    {
+      "set": "sm12a",
+      "n": 53,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "c408d71a229d54a9fe8c52d4038d5c3d07753d0c355b2820a3313f83fba34ecf"
+    },
+    {
+      "set": "sm12a",
+      "n": 55,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "e3a12340f835063c251daaec8f2206e0152ae10850578696ac187182ed987d8f"
+    },
+    {
+      "set": "sm12a",
+      "n": 57,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "e814c0e02d8895a3a853630c0725676923e34f2e36fae72c978d9eeaa7721b67"
+    },
+    {
+      "set": "sm12a",
+      "n": 58,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "6441bfc26bb932d0fb1f95d3fae9cc544d13d2dbe4cb4ecb8e52bbef3aeeb5b5"
+    },
+    {
+      "set": "sm12a",
+      "n": 59,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-03.jpg",
+      "imageSha256": "4a24c232e906075abb29491f623c95fce8b2b70ea17da091d5f7cb7179518da6"
+    },
+    {
+      "set": "sm12a",
+      "n": 63,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "225cefe851eac72c211b604b2c0f5b1fcfcad4ae97a7d99bc4a905de101ad6ea"
+    },
+    {
+      "set": "sm12a",
+      "n": 68,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "a09de76458629a530a74d863c6d8edc3edcbead6218433ba1bad4796f2c6746e"
+    },
+    {
+      "set": "sm12a",
+      "n": 73,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "0b5d520cb4502bc4f74d080189b9a522b6afa3204e956711023aaa4f82d2d530"
+    },
+    {
+      "set": "sm12a",
+      "n": 74,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "159409c5f2927500d7516e466902c8e416f8769cf9ac8a52e6cc6f616c42b379"
+    },
+    {
+      "set": "sm12a",
+      "n": 75,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "f6bce0d340be07cc1ee534496c5f612e60382f430c883e36b30d5256647c4a8b"
+    },
+    {
+      "set": "sm12a",
+      "n": 78,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "b343a0412bb917644eff85b8b43b7bbc9e0c3a92b2988dcc692259f98fbb348c"
+    },
+    {
+      "set": "sm12a",
+      "n": 79,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "e7de208a41863318b47c22a05be2a36e22e9ad8d4cf8915a06f7c16f83f31b6a"
+    },
+    {
+      "set": "sm12a",
+      "n": 80,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "182b7d12dc89b636f3b1bcfa00c4e5104eeb5fa9b66c3a067b4aa4c19cece46c"
+    },
+    {
+      "set": "sm12a",
+      "n": 84,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "9b8ffc9d4c71291e19faa5c23725952a1c8ff23e09559805dd4ec3d3e8904942"
+    },
+    {
+      "set": "sm12a",
+      "n": 85,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "1fc3723a622390f86cbabf45494a22afff91d3708890ff6f17d06cba3dfa077c"
+    },
+    {
+      "set": "sm12a",
+      "n": 86,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "547cf7020d377f2e19cfd9411c1c345f59afbe7033baece858fecada70e7486a"
+    },
+    {
+      "set": "sm12a",
+      "n": 90,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "be07d5aa95752ad033c83f3c400b26ff4fbc22915eb2fe36267bd15fc3d078f4"
+    },
+    {
+      "set": "sm12a",
+      "n": 91,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "737c940648938fae26a64e5609cec66eafa3ae183f7b5f88b55d66ef8b163baa"
+    },
+    {
+      "set": "sm12a",
+      "n": 92,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "1308331833700d7b6e88e96df9d8d17334bf6c5d877caa9c446d4a856eba7179"
+    },
+    {
+      "set": "sm12a",
+      "n": 96,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-05.jpg",
+      "imageSha256": "e7fb183f7a8dc99abfe97766abb041a452af00f58c1014b8f8b56e4950add523"
+    },
+    {
+      "set": "sm12a",
+      "n": 103,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "5391482cedab75845ed87caee4ca5390653fab980fdfe553a68b0eea5b5ea983"
+    },
+    {
+      "set": "sm12a",
+      "n": 104,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "8b1b64539585e97e94d2f601903d6f73fd8b009f3bb42c75d368c76f5b1a836a"
+    },
+    {
+      "set": "sm12a",
+      "n": 105,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "b04b77ebfb12bf400c39411e3605a0840d5c6cc8c0f8bddfe2b35c9338ce167f"
+    },
+    {
+      "set": "sm12a",
+      "n": 106,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "8f318df188987399cd822516568fd458ce2cd07f5cc22e2db9a6283548aa1796"
+    },
+    {
+      "set": "sm12a",
+      "n": 107,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "fd82fd78342ba3f8bacb9b170630bc6b27ec825cd26c96990c1bdf1028114d48"
+    },
+    {
+      "set": "sm12a",
+      "n": 109,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "bfbd330f7f363408fc781e9b4b3d869789e51709c93b4cc7d79e4d931386c7c7"
+    },
+    {
+      "set": "sm12a",
+      "n": 110,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "f150643cd6a80c2017795b03c949b90c1c42eea2c528ac8d042ae9adc96ac0a5"
+    },
+    {
+      "set": "sm12a",
+      "n": 111,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "62187d268b61e89ade8a1b3aaa2baf1e596dde0f28a598c5445e102c61cf8e8f"
+    },
+    {
+      "set": "sm12a",
+      "n": 112,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "ff0df8b934d891a238190406c702e79affd4f0a28c836722fb0a55249dbece8e"
+    },
+    {
+      "set": "sm12a",
+      "n": 113,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "d377086e6eaf0b183ea4b2c53325b6c394fda6354b7dbadcae9797a9eaca1c64"
+    },
+    {
+      "set": "sm12a",
+      "n": 114,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "ad03334b197788fc1491a9b84022bf3912c829be70e0aee9df347628e0325ea0"
+    },
+    {
+      "set": "sm12a",
+      "n": 115,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "847f844911aeba2c8a4077f273b02100e9019f548fef5c0f9e1d79dd1a6c33d5"
+    },
+    {
+      "set": "sm12a",
+      "n": 117,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "c1104ad83a8f96c0e47bc2a9848b3f1f7744f1a7afbb8f10eca2fe3db4e9bfe0"
+    },
+    {
+      "set": "sm12a",
+      "n": 119,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "ab08792c14c2c85e54417d54d7381cb393a240add38804d1e4a481568878d5a0"
+    },
+    {
+      "set": "sm12a",
+      "n": 120,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "248a822de543616464dc62757c313f5affad20ae7a1fa0dcf5f1f024d8a461f4"
+    },
+    {
+      "set": "sm12a",
+      "n": 146,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "31433e0bc0f736ac1ef9c3d0f68d393feb10d59e8e286be6f0536cba6f11d323"
+    },
+    {
+      "set": "sm12a",
+      "n": 147,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "23200a0dbb522cee390a0a2c36b71e88a535fc7e402297f0d2c92e55c43a8259"
+    },
+    {
+      "set": "sm12a",
+      "n": 149,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "5274f6da745db2762949ce63442277c54df49e3fc81fa6331a843a59fd6f9dae"
+    },
+    {
+      "set": "sm12a",
+      "n": 150,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "fbe7c59a7f2f3dc4528b586b7bc6c9917f9e8eda09d1da90815d30cdcef4a275"
+    },
+    {
+      "set": "sm12a",
+      "n": 163,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-09.jpg",
+      "imageSha256": "f50ec6603a96d6c6545ad0bccbbc275889d03188186d869075dc00e1fde73e70"
+    },
+    {
+      "set": "sm12a",
+      "n": 164,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-09.jpg",
+      "imageSha256": "e99c0bd217a4f769c3d7c6855257db20386114e93c09a9ec3f779b18bc1c46e3"
+    },
+    {
+      "set": "sm12a",
+      "n": 165,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-09.jpg",
+      "imageSha256": "5cbfc97a101148332848c17d8f747eed20326d7fa8892946e0c51774f266d8ac"
+    },
+    {
+      "set": "sm12a",
+      "n": 168,
+      "theme": "season",
+      "category": "실제 카드 아트에서 식생·꽃밭·숲·산·물가 또는 하늘을 배경으로 하는 자연 풍경을 확인",
+      "contactSheet": "sm12a-sheet-09.jpg",
+      "imageSha256": "b0913730aad570096b65a4612268a44aa61522879234f3de8bf6df27482fe0f6"
+    },
+    {
+      "set": "sm1+",
+      "n": 29,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm1plus-sheet-02.jpg",
+      "imageSha256": "4062bfcbbf9eca4c26156ef99802b55dc4a1cbead845e6044f2e53bdad38aee9"
+    },
+    {
+      "set": "sm2k",
+      "n": 26,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm2k-sheet-02.jpg",
+      "imageSha256": "4ff8459d8768f2c34bbe5de7b6fd689d6999f50717f90dfa6a69d5d32ae73625"
+    },
+    {
+      "set": "sm2k",
+      "n": 27,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm2k-sheet-02.jpg",
+      "imageSha256": "7e785b76e1a5ffeeefd0878b90cc397e3760b5fc5d9dc8682105c636f6d249b6"
+    },
+    {
+      "set": "smp2",
+      "n": 4,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "42587519a80cb6bcc94e76d5fdc0a0c3161f1bb16279fea32c347dd57ba1c71f"
+    },
+    {
+      "set": "sm11b",
+      "n": 28,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "cd948adc121881d5546a9538b3285eb58dfbae2b1dce9c785bc0185ccb5e1c2e"
+    },
+    {
+      "set": "sm11b",
+      "n": 40,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm11b-sheet-02.jpg",
+      "imageSha256": "9cabe0a77c86a2b70549302d99621b9dfa4f5316afcb56d7b4037ef8c7fa8f08"
+    },
+    {
+      "set": "sm12",
+      "n": 30,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "4b8cb84ee2157f0902a3220cfbc06b32f4e0b44759fe69961d3f2c8497abe0c7"
+    },
+    {
+      "set": "sm12",
+      "n": 39,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm12-sheet-02.jpg",
+      "imageSha256": "4d3800c8aaacda4e47740786de6167656badcf62d8c85dccbe22011a54a13ac6"
+    },
+    {
+      "set": "sm12a",
+      "n": 64,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "2fbf5816e44efda2ee6ad85667d7f94a27dfedde50ea27f5ae19db08bf237ca4"
+    },
+    {
+      "set": "sm12a",
+      "n": 78,
+      "theme": "night",
+      "category": "실제 카드 아트에서 달빛·별이 뜬 어두운 야간 하늘 또는 야간 조명을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "b343a0412bb917644eff85b8b43b7bbc9e0c3a92b2988dcc692259f98fbb348c"
+    },
+    {
+      "set": "smp2",
+      "n": 5,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "7d0d7f2f7909854e572ac80e8d14475a7c8403c77e8364eb9ff9b32030d17c96"
+    },
+    {
+      "set": "smp2",
+      "n": 14,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "9e754edecbbea424150abcd6f4d28cbd153da4c6c514bed87f51ee24a8023052"
+    },
+    {
+      "set": "smp2",
+      "n": 18,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "2924404989966ff3c75d05086db2c3959e5a2828a95397f680564af73cf60b56"
+    },
+    {
+      "set": "sm11b",
+      "n": 43,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "e3f36ee1f3bdcf9fcdc11328da598e7a75b90ecf135955723d0c9e8fefeff252"
+    },
+    {
+      "set": "sm11b",
+      "n": 54,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "686bacf865732dfeef265a8bcccac656c9b8c2dcf147f17bde34be5d15d15b21"
+    },
+    {
+      "set": "sm12",
+      "n": 76,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "a3f8f9245be2e5022845dc5f69deb40c3837d733993dce5bd4fa52d0258bec62"
+    },
+    {
+      "set": "sm12",
+      "n": 78,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm12-sheet-04.jpg",
+      "imageSha256": "b1e4c91c8f90d9be80dd29fe9f813c88c576010c57c05a201fdfb0f38c391130"
+    },
+    {
+      "set": "sm12a",
+      "n": 68,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm12a-sheet-04.jpg",
+      "imageSha256": "a09de76458629a530a74d863c6d8edc3edcbead6218433ba1bad4796f2c6746e"
+    },
+    {
+      "set": "sm12a",
+      "n": 147,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "23200a0dbb522cee390a0a2c36b71e88a535fc7e402297f0d2c92e55c43a8259"
+    },
+    {
+      "set": "sm12a",
+      "n": 149,
+      "theme": "street",
+      "category": "카드 아트에 거리·마을 건물 또는 도심 공간이 실제 배경으로 등장함을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "5274f6da745db2762949ce63442277c54df49e3fc81fa6331a843a59fd6f9dae"
+    },
+    {
+      "set": "sm11b",
+      "n": 54,
+      "theme": "sunset",
+      "category": "카드 아트에 해질 무렵의 노을빛과 낮게 드리운 저녁 하늘을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "686bacf865732dfeef265a8bcccac656c9b8c2dcf147f17bde34be5d15d15b21"
+    },
+    {
+      "set": "sm12a",
+      "n": 104,
+      "theme": "sunset",
+      "category": "카드 아트에 해질 무렵의 노을빛과 낮게 드리운 저녁 하늘을 확인",
+      "contactSheet": "sm12a-sheet-06.jpg",
+      "imageSha256": "8b1b64539585e97e94d2f601903d6f73fd8b009f3bb42c75d368c76f5b1a836a"
+    },
+    {
+      "set": "smp2",
+      "n": 14,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "smp2-sheet-01.jpg",
+      "imageSha256": "9e754edecbbea424150abcd6f4d28cbd153da4c6c514bed87f51ee24a8023052"
+    },
+    {
+      "set": "sm11b",
+      "n": 52,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "369ff2524f4af0a1179fdda12505fa900cdc484d64d9e7bc20e79b1327bf6ced"
+    },
+    {
+      "set": "sm11b",
+      "n": 55,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm11b-sheet-03.jpg",
+      "imageSha256": "c6d958c8b968cbf4b4adabe1fa38f6c406bd4f399c07b0e00f75f8b11d407c50"
+    },
+    {
+      "set": "sm12a",
+      "n": 148,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "4d638b6e881466353a2bd3952e4ec834b3ffb79dce2b4a0d1f19354a05a0fad3"
+    },
+    {
+      "set": "sm12a",
+      "n": 155,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "cbc200c7cc0ba055a348e1aedf1b38a779ed9e5e6ff51ad1bbcfde55521f016b"
+    },
+    {
+      "set": "sm12a",
+      "n": 158,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "ccd931c71dbcccd6ef6dc28006c6e23f203c175cc92688ba7d1d27c235aa5908"
+    },
+    {
+      "set": "sm12a",
+      "n": 159,
+      "theme": "work",
+      "category": "카드 아트에서 탐정 활동·조리·건설·연구실 업무 등 직업 활동 장면을 확인",
+      "contactSheet": "sm12a-sheet-08.jpg",
+      "imageSha256": "ef8acbb6b30e68f8d62b2af57f9ec162bb28696234dea6557efb60ba3deaa6c6"
+    }
+  ],
+  "skippedExisting": [
+    {
+      "set": "sm2k",
+      "n": 1,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 2,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 4,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 6,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 10,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 20,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 23,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 24,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 25,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 28,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 33,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 34,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 35,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 36,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 37,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 39,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 42,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 44,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 45,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 49,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    },
+    {
+      "set": "sm2k",
+      "n": 50,
+      "theme": "season",
+      "reason": "Previously present; preserve exact earlier record"
+    }
+  ],
+  "quarantined": []
+}
