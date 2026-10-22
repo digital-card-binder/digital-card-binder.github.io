@@ -9,7 +9,7 @@ permissions:
   contents: write
 concurrency:
   group: one-shot-sm-remaining19-apply-20261022
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   apply-and-test:
     if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
