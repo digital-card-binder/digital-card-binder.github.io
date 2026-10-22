@@ -1,0 +1,55 @@
+name: One-shot SM19 797 Korean print image source recheck
+on:
+  push:
+    branches:
+      - audit/sm19-797-image-identity-recheck-20261022
+    paths:
+      - .github/workflows/one-shot-sm19-797-20261022.yml
+permissions:
+  contents: write
+concurrency:
+  group: one-shot-sm19-797-print-check-20261022
+  cancel-in-progress: false
+jobs:
+  recheck-797:
+    if: github.repository == 'digital-card-binder/digital-card-binder.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/audits/theme-sm-remaining19-visual-decisions-20261022.json
+            data/audits/theme-sm-remaining19-source-evidence-20261022.json
+            data/audits/theme-sm-remaining19-resume-checkpoint-20261022.json
+            scripts/audit-sm19-797-print-sources-20261022.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install requests pillow
+      - name: Check all 797 unverified original images and recovery URL candidates
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/audit-sm19-797-print-sources-20261022.py
+          python scripts/audit-sm19-797-print-sources-20261022.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sm19-797-failed-image-recovery-sheets
+          path: data/audits/theme-sm19-797-recovery-sheets-20261022/*.jpg
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Commit image URL evidence only to audit branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "audit/sm19-797-image-identity-recheck-20261022"
+          git add --sparse -- data/audits/theme-sm19-797-print-source-recheck-20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'audit(sm): full 797 unresolved image source recheck; no unverified Korean-print approvals'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
