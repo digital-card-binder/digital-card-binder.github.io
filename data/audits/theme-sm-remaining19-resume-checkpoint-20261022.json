@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-22",
+  "title": "한국판 SM 시리즈 미검수 19개 세트 일괄 조사",
+  "sourceBranch": "audit/theme-sm10b-sm11-sm11a-20261022",
+  "branch": "audit/theme-sm-remaining19-20261022",
+  "stage": "preflight_source_run_prepared",
+  "previousTotalIndependentThemeMemberships": 21299,
+  "previousStrictCompletedSeries": 109,
+  "unreviewedSetCount": 19,
+  "masterCardsTarget": 1320,
+  "knownPreservedMemberships": "Existing sm1+, sm2K, SM11b, SM12 and SM12a thematic memberships remain unchanged; check each card/theme key to avoid duplicates.",
+  "rules": [
+    "Independent theme dex memberships and saved ownership per dex; do not mix counts",
+    "Never mistake HTTP response or dominant pixel color for fully verified Korean print number",
+    "Keep source host, SHA256, duplicate image groups and contact sheets as evidence",
+    "Third-party and image-mismatched cards held without guessing",
+    "Do not edit main, master card IDs, user Firestore, radar or production deployment",
+    "One source job and one optional guarded theme-apply+test job only"
+  ],
+  "next": "1,320 HTTP source and image hashes, manual review of sheets, safely apply visual themes, verify all 19 pending statuses and resume markers."
+}
