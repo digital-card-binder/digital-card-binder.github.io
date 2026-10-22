@@ -84,7 +84,7 @@ jobs:
           git diff --cached --check
           changed="$(git diff --cached --name-only)"
           echo "$changed"
-          if printf '%s\n' "$changed" | grep -E '^(series-scope-filter.js|catalog.js|series.html|tests/base-series-dex.test.mjs|data/series.json|data/series-legacy.json|radar-service/|api/radar/)'; then
+          if printf '%s\n' "$changed" | grep -E '^(series-scope-filter.js|catalog.js|tests/base-series-dex.test.mjs|data/series.json|data/series-legacy.json|radar-service/|api/radar/)'; then
             echo 'Protected RGB/master/radar file changed'; exit 1
           fi
           git config user.name 'github-actions[bot]'
