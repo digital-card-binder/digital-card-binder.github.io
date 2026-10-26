@@ -59,7 +59,7 @@ test("legacy ownership identifiers survive visible code repairs",()=>{
       assert.notEqual(card.legacyIdentityCode,card.code,group.code+" "+index);
     }
   }
-  assert.equal(total,24154); // XY archived artwork COLOR only; 11 story/scene themes still pending // SM19 second-pass scene review: official source image SHA256 and manually checked scenes
+  assert.equal(total,24156); // XY archived artwork COLOR only; 11 story/scene themes still pending // SM19 second-pass scene review: official source image SHA256 and manually checked scenes
   assert.equal(corrected,786);
   assert.deepEqual(audit.corrected,{masterNames:6,themeVisibleCodes:782,themeNames:27,connectedEvolutionSetImages:4});
 });
