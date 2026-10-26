@@ -1,0 +1,61 @@
+name: XY 100-card resume-safe checkpoint batches
+on:
+  push:
+    branches: [audit/xy-every100-checkpoint-20261026]
+    paths:
+      - scripts/xy-100-card-checkpoint-20261026.mjs
+      - .github/workflows/xy-every100-checkpoint-20261026.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-every100-checkpoint-20261026
+  cancel-in-progress: false
+jobs:
+  checkpoint-all-xy-every100:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout latest checkpoint branch
+        uses: actions/checkout@v4
+        with:
+          ref: audit/xy-every100-checkpoint-20261026
+          persist-credentials: true
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install site regression tests
+        run: npm ci --no-fund
+      - name: Verify current dataset is consistent before starting
+        run: |
+          npm run site:check
+          node --test tests/theme-card-identity.test.mjs
+      - name: Process evidence in 100-card batches and persist EACH before advancing
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for batch in $(seq 1 24); do
+            node scripts/xy-100-card-checkpoint-20261026.mjs --next
+            git add data/audits/theme-xy-100-card-progress-20261026.json
+            git add data/audits/theme-xy-100-card-batches-20261026/
+            if git diff --cached --quiet; then
+              echo "Nothing to commit; 2,313 evidence rows are already checkpointed."
+              break
+            fi
+            git commit -m "audit(xy): checkpoint evidence batch $batch of 24 (100 cards each)"
+            git push origin HEAD:audit/xy-every100-checkpoint-20261026
+            echo "Saved checkpoint batch $batch to GitHub."
+          done
+      - name: Validate 24 saved batches and complete source evidence accounting
+        shell: bash
+        run: |
+          node -e "const fs=require('fs'); const p=JSON.parse(fs.readFileSync('data/audits/theme-xy-100-card-progress-20261026.json')); if(p.nextOffset!==2313||p.savedBatches.length!==24||!p.completedSourceAndMembershipAudit||p.strictAllThemeVisualReviewComplete)process.exit(2); console.log('XY CHECKPOINTS SAVED:',p.savedBatches.length,'CARDS:',p.nextOffset,'VISUAL SCENES PENDING:',p.remainingIndividualTwelveThemeInspections)"
+          npm test
