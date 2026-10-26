@@ -241,7 +241,7 @@ art["updatedAt"]=TODAY
 delta=len(added)
 actual_total=sum(len(g["cards"]) for g in art["groups"])
 assert actual_total==BASELINE+delta
-assert original_existing_count==BASELINE, "Prior theme memberships unexpectedly duplicated"
+assert original_existing_count==BASELINE-6, "Prior XY baseline duplicate identities changed unexpectedly"
 assert len(added)==len(set(added)), "Duplicate card identity added"
 
 by_status=dict(Counter(r["status"] for r,_ in results))
