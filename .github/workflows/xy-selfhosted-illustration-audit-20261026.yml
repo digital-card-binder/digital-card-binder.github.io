@@ -1,0 +1,88 @@
+name: XY 37-set self-hosted illustration source audit
+
+on:
+  push:
+    branches:
+      - audit/xy-37-set-consolidated-20261026
+    paths:
+      - .github/workflows/xy-selfhosted-illustration-audit-20261026.yml
+      - scripts/audit-xy-all37-korean-color-20261026.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xy-37-selfhosted-audit
+  cancel-in-progress: false
+
+jobs:
+  audit-archive-first:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-37-set-consolidated-20261026
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install image and project check dependencies
+        run: |
+          python -m pip install Pillow==11.3.0
+          npm ci --no-fund
+      - name: Check OUR legacy archive responds (do not request Pokemon Korea)
+        run: |
+          python - <<'PY'
+          import urllib.request
+          urls=[
+            "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/XY/CP6/CP6_001.webp",
+            "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/SM/SMXY/SMXY_001.webp",
+            "https://dcb-card-images-legacy-2026.pages.dev/data/wmimages/XY/CP3/CP3_012.webp",
+          ]
+          ok=0
+          for url in urls:
+            try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":"DigitalCardBinder-CDN-Audit/1.0"}),timeout=12) as resp:
+                header=resp.headers.get("Content-Type","")
+                payload=resp.read(1024)
+                if resp.status==200 and header.startswith("image/") and payload: ok+=1
+                print(url,resp.status,header)
+            except Exception as ex: print("Missing archived sample:",url,repr(ex))
+          if ok<2:
+            raise SystemExit("STOP: own Cloudflare XY archive unavailable. Do not re-fetch original Pokemon Korea files.")
+          PY
+      - name: Examine 2,313 XY images from OUR Cloudflare archive only
+        run: python scripts/audit-xy-all37-korean-color-20261026.py
+      - name: Regenerate website metadata and run full regression tests
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Upload completed per-card evidence and 37 set sample sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xy37-archive-only-audit
+          if-no-files-found: warn
+          path: |
+            data/audits/theme-xy-all37-image-color-proof-20261026.json
+            tmp/xy37-review-sheets/
+      - name: Commit validated data only on successful test
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/art-themes.json data/audits/theme-series-review-status.json data/audits/theme-series-coverage.json data/audits/theme-xy-all37-image-color-proof-20261026.json tests/theme-card-identity.test.mjs
+          git add -u
+          if ! git diff --cached --quiet; then
+            git commit -m "audit(xy): publish source-verified 37-set Cloudflare archive color selections on review branch"
+            git push origin HEAD:audit/xy-37-set-consolidated-20261026
+          fi
