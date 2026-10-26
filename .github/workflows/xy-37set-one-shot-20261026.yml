@@ -1,0 +1,74 @@
+name: Consolidated Korean XY 37-set artwork and theme audit
+on:
+  push:
+    branches: [audit/xy-37set-consolidated-20261026]
+    paths:
+      - '.github/workflows/xy-37set-one-shot-20261026.yml'
+      - 'scripts/audit-xy-all37-20261026.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-all37-source-and-theme-20261026
+  cancel-in-progress: false
+jobs:
+  xy-37set:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install image-verification libraries
+        run: python -m pip install requests pillow
+      - name: Review every XY canonical card with fixed source identity
+        run: |
+          python -m py_compile scripts/audit-xy-all37-20261026.py
+          python scripts/audit-xy-all37-20261026.py
+      - name: Retain 37-set contact-sheet evidence even when later tests fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xy-37set-evidence-20261026
+          path: audit-artifacts/xy37-20261026/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Install site dependencies
+        run: npm ci --no-fund
+      - name: Rebuild all site metrics and verify entire project
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Safely commit the verified XY audit to its dedicated branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -u
+          git add data/audits/theme-xy-all37-source-color-20261026.json
+          files="$(git diff --cached --name-only)"
+          printf '%s\n' "$files"
+          if printf '%s\n' "$files" | grep -E '^(data/series\.json|data/series-legacy\.json|data/series-image-overrides\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|tests/card-radar-|scripts/.*radar|\.github/)'; then
+            echo 'XY artwork audit must not mutate card master, Firebase, Radar or workflows'
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            echo 'No safe XY classification changes'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "audit(xy): consolidate 37 Korean XY set art-color checks (run $GITHUB_RUN_ID)"
+          git fetch origin audit/xy-37set-consolidated-20261026
+          git rebase origin/audit/xy-37set-consolidated-20261026
+          git push origin HEAD:audit/xy-37set-consolidated-20261026
