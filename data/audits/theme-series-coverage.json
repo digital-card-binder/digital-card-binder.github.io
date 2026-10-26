@@ -36,8 +36,8 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 22032,
-    "uniqueThemeCards": 13698,
+    "themeCardSlots": 22041,
+    "uniqueThemeCards": 13702,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
     "baselineRemainingSetCount": 164,
@@ -99,12 +99,14 @@
     {
       "code": "evolution",
       "name": "진화 스토리",
-      "cardSlots": 79,
-      "setCount": 18,
+      "cardSlots": 82,
+      "setCount": 19,
       "rarities": [
         "AR",
+        "C",
         "PROMO",
-        "SAR"
+        "SAR",
+        "U"
       ]
     },
     {
@@ -127,8 +129,8 @@
     {
       "code": "season",
       "name": "계절 · 풍경",
-      "cardSlots": 6360,
-      "setCount": 157,
+      "cardSlots": 6362,
+      "setCount": 158,
       "rarities": [
         "AR",
         "C",
@@ -149,8 +151,8 @@
     {
       "code": "color",
       "name": "컬러 도감",
-      "cardSlots": 12745,
-      "setCount": 162,
+      "cardSlots": 12749,
+      "setCount": 163,
       "rarities": [
         "A",
         "AR",
@@ -306,7 +308,7 @@
       "cardCount": 2313,
       "completeSetCount": 0,
       "remainingSetCount": 37,
-      "currentThemeSlots": 8
+      "currentThemeSlots": 17
     },
     {
       "era": "BW",
@@ -4411,10 +4413,13 @@
       "cardCount": 32,
       "origin": "baseline",
       "changedSinceBaseline": false,
-      "status": "pending",
-      "reviewedAt": "",
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
       "themeHits": {
-        "sleeping": 1
+        "sleeping": 1,
+        "evolution": 3,
+        "season": 2,
+        "color": 4
       }
     },
     {

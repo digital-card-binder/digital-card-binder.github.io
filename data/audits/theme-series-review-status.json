@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-17",
+  "updatedAt": "2026-10-26",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -64551,6 +64551,27 @@
       ],
       "evidence": "data/audits/theme-sm-remaining19-artwork-review-20261022.json",
       "note": "Source-image audit of 60 master cards; 0 official-host SHA256/color-eligible illustrations, 60 cards with unverified source, duplicate picture, bad decoding or recorded image hold. 0 previously classified color cards preserved. Machine artwork-color classification only; subjective scene themes and Korean physical printed footer remain to verify."
+    },
+    "CP3": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 4,
+      "reviewedThemes": [
+        "sleeping",
+        "connected",
+        "evolution",
+        "night",
+        "season",
+        "color",
+        "sunset",
+        "reflections",
+        "food",
+        "street",
+        "work",
+        "cameo"
+      ],
+      "evidence": "data/audits/theme-xy-all-37-sets-review-checkpoint-20261026.json",
+      "note": "CP3 003/004/005/010 한국판 카드 이미지 및 테마 장면 확인; 신규 독립 테마 등록 9건. CP3 나머지 28장의 12테마 검수는 미완료. XY 총 37세트의 전수 완료를 주장하지 않음."
     }
   },
   "queue": {
