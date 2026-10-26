@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-17",
+  "updatedAt": "2026-10-26",
   "title": "테마 도감 시리즈별 전수검수 상태",
   "policy": {
     "masterSource": "data/series.json + data/series-legacy.json",
@@ -64551,6 +64551,376 @@
       ],
       "evidence": "data/audits/theme-sm-remaining19-artwork-review-20261022.json",
       "note": "Source-image audit of 60 master cards; 0 official-host SHA256/color-eligible illustrations, 60 cards with unverified source, duplicate picture, bad decoding or recorded image hold. 0 previously classified color cards preserved. Machine artwork-color classification only; subjective scene themes and Korean physical printed footer remain to verify."
+    },
+    "XY": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 186,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "CP6": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 109,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 4 source/identity slots."
+    },
+    "CP5": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 36,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XY11-Br": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 55,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 4 source/identity slots."
+    },
+    "XY11-Bb": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 55,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 4 source/identity slots."
+    },
+    "CP4": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 106,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 34 source/identity slots."
+    },
+    "XY10": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 87,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "XYH": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 27,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "XYG": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 19,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "CP3": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 32,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "20th": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 0,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 71 source/identity slots."
+    },
+    "XY9": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 85,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 4 source/identity slots."
+    },
+    "XYF": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 16,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "XY8-Bb": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 58,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 7 source/identity slots."
+    },
+    "UBD": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 17,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "RBD": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 19,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "XY8-Br": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 62,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 3 source/identity slots."
+    },
+    "XYE": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 26,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "CP2": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 27,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "XY7": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 92,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 5 source/identity slots."
+    },
+    "XY6": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 89,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XYD": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 19,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "CP1": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 34,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 0 source/identity slots."
+    },
+    "XY5-Bg": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 78,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XY5-Bt": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 78,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XYC": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 23,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XYB": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 18,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XY4": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 95,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XY3": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 103,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 2 source/identity slots."
+    },
+    "XYA": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 22,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "XY2": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 87,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 3 source/identity slots."
+    },
+    "X30": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 14,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "Y30": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 14,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "XY1-Bx": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 62,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "XY1-By": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 62,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 1 source/identity slots."
+    },
+    "FXY": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 36,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 6 source/identity slots."
+    },
+    "XYP": {
+      "status": "partial",
+      "reviewedAt": "2026-10-26",
+      "reviewedCardCount": 166,
+      "reviewedThemes": [
+        "color"
+      ],
+      "evidence": "data/audits/theme-xy-all37-source-color-20261026.json",
+      "note": "Whole XY set source audited. Original-pixel color only; all other 11 themes and Korean printed footer authentication remain a separate visual-evidence gate. Held 25 source/identity slots."
     }
   },
   "queue": {
