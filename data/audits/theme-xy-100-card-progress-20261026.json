@@ -9,7 +9,7 @@
   "description": "Each 100-card batch verifies evidence integrity and existing theme links; does not certify uninspected 12-theme artwork.",
   "fullTwelveThemeApprovedAtStart": 5,
   "existingThemeSlotsAtStart": 24167,
-  "nextOffset": 700,
+  "nextOffset": 800,
   "savedBatches": [
     {
       "number": 1,
@@ -108,11 +108,25 @@
       "partialSceneEvidence": 3,
       "sha256": "92e4a294e5205c3430fd0260d1f5ec13bba21d28c514dab13a1a5718df7f7fc6",
       "path": "data/audits/theme-xy-100-card-batches-20261026/xy-batch-007.json"
+    },
+    {
+      "number": 8,
+      "processed": 100,
+      "startOffset": 700,
+      "endOffset": 800,
+      "firstCard": "XYH|xyh_016/026",
+      "lastCard": "20th|20th_036/071",
+      "archivedColorProofPresent": 64,
+      "imageHeld": 36,
+      "previousFullThemeReviews": 5,
+      "partialSceneEvidence": 13,
+      "sha256": "bf38d917fe6d19d246ddb4fe9847df1b760f60b9e60fc806affbb829e1a5268e",
+      "path": "data/audits/theme-xy-100-card-batches-20261026/xy-batch-008.json"
     }
   ],
   "completedSourceAndMembershipAudit": false,
   "strictAllThemeVisualReviewComplete": false,
-  "remainingSourceEvidenceEntries": 1613,
-  "sourceAndMembershipEvidenceChecked": 700,
+  "remainingSourceEvidenceEntries": 1513,
+  "sourceAndMembershipEvidenceChecked": 800,
   "remainingIndividualTwelveThemeInspections": 2308
 }
