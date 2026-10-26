@@ -123,7 +123,7 @@ for(let i=0;i<slice.length;i++){
  assert.equal(v.name,card.name,'Wrong source card '+id);
  assert.equal(v.image,card.image,'Image reference changed '+id);
  assert.equal(v.source,card.source,'Card detail source changed '+id);
- const printed=String(card.code).match(/_([0-9]+)\/([0-9]+)/);
+ const printed=String(card.code).match(/^[^_]+_([0-9]+)(?:\/([0-9]+))?$/);
  assert(printed,'Missing printed number '+id);
  assert.equal(v.themeReview && Object.keys(v.themeReview).length,12,'Theme review matrix must include 12 categories');
  assert.deepEqual(Object.keys(v.themeReview).sort(),[...SCENE].sort());
