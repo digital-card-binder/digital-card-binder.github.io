@@ -1,0 +1,56 @@
+name: XY CP3 scene evidence review
+on:
+  push:
+    branches: [audit/xy-cp3-visual-scenes-20261026]
+    paths:
+      - .github/workflows/xy-cp3-visual-scenes-20261026.yml
+      - scripts/audit-xy-cp3-new-scene-evidence-20261026.mjs
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-cp3-visual-scenes-20261026
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-cp3-visual-scenes-20261026
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Register manually checked scene illustrations
+        run: node scripts/audit-xy-cp3-new-scene-evidence-20261026.mjs
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Rebuild metadata, test all dexes and user data boundaries
+        run: |
+          npm run site:prepare
+          npm test
+      - name: Verify no master, ownership, radar or Firebase modifications
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|data/series-image-overrides\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|tests/card-radar-|scripts/.*radar|\.github/)'; then
+            echo 'STOP: protected scope was modified'
+            exit 1
+          fi
+      - name: Commit successful review to isolated branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add data/audits/theme-xy-cp3-new-scene-evidence-20261026.json
+          git commit -m "audit(xy): add CP3 Chikorita cameo and Gulpin dining scene evidence"
+          git push origin HEAD:audit/xy-cp3-visual-scenes-20261026
