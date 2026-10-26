@@ -57,12 +57,17 @@ def download(item):
     if not candidate or not printed or int(candidate.group(1))!=int(printed.group(1)):
         entry["reason"]="source filename/index differs from Korean canonical slot"
         return entry,None
+    # IMPORTANT: inspect the already archived WebP from OUR Cloudflare Pages.
+    # No image request is ever sent to the original Pokemon Korea CDN.
+    source_path=urllib.parse.urlsplit(url).path
+    mirror_path=re.sub(r"\.(?:png|jpe?g|webp)$",".webp",source_path,flags=re.I)
+    mirror_url="https://dcb-card-images-legacy-2026.pages.dev"+mirror_path
+    entry["archiveUrl"]=mirror_url
     raw=None
     for attempt in range(3):
         try:
-            req=urllib.request.Request(url,headers={
-              "User-Agent":"Mozilla/5.0 (compatible; PokemonCardThemeSourceAudit/1.0)",
-              "Referer":"https://pokemoncard.co.kr/"})
+            req=urllib.request.Request(mirror_url,headers={
+              "User-Agent":"Mozilla/5.0 (compatible; DigitalCardBinder XY Archive Audit/1.0)"})
             with urllib.request.urlopen(req,timeout=19) as resp:
                 if not str(resp.headers.get("Content-Type","")).lower().startswith("image/"):
                     raise ValueError("non-image content type")
@@ -72,7 +77,8 @@ def download(item):
                 photo.load()
                 if photo.width<140 or photo.height<180:raise ValueError("small/incomplete image")
                 img=photo.convert("RGB")
-            entry["sha256"]=hashlib.sha256(raw).hexdigest()
+            entry["archiveWebpSha256"]=hashlib.sha256(raw).hexdigest()
+            entry["sha256"]=entry["archiveWebpSha256"]
             entry["width"],entry["height"]=img.size
             entry["status"]="source-image-verified"
             return entry,img
@@ -174,7 +180,7 @@ for e in results:
        "cardNumber":card["code"].split("_",1)[-1],
        "rarity":card.get("rarity") or "","category":e["colorCategory"],
        "image":card["image"],
-       "evidence":"Korean Pokémon official-host artwork pixels reviewed as color only, SHA256="+e["sha256"]+
+       "evidence":"Our Cloudflare self-hosted Korean artwork WebP inspected for color only, archive SHA256="+e["sha256"]+
                   "; no independent scene or printed-footer certification; "+AUDIT})
     added+=1
 assert len(GROUP["color"]["cards"])==len({(str(x.get("set","")).lower(),str(x.get("code","")).lower()) for x in GROUP["color"]["cards"]}),"duplicate color code"
@@ -201,7 +207,7 @@ for s in XY:
 report={
  "schemaVersion":1,"recordedAt":DATE,
  "task":"XY 37 Korean sets, 2,313 individual official source artwork images, conservative COLOR-only audit",
- "method":"Downloaded actual official card picture, verified filename card ordinal and decoded pixels, recorded SHA256, sampled central illustration pixels. Source host alone does not prove physical printed footer.",
+ "method":"Downloaded our already mirrored Cloudflare Pages archival WebP (no original-source requests); checked canonical number against original catalog filename, decoded image and archived WebP SHA256, sampled center illustration pixels. Archived copy provenance or Korean physical footer NOT verified.",
  "sets":by_set,
  "totalMasterCards":2313,
  "actualSourceImageColorReviewed":sum(x["officialImagesColorReviewed"] for x in by_set),
