@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-26",
+  "title": "SM independent theme-dex status reconciliation after Korean image audit",
+  "observedMainCommit": "368edc9362ee79005b8a00cc1368185eeb99e01f",
+  "purpose": "Preserve one authoritative checkpoint to prevent restarting already-reviewed SM batches. This file does not claim any new artwork visual approvals.",
+  "source": {
+    "themeCoverage": "data/audits/theme-series-coverage.json",
+    "sm1190": "data/audits/theme-sm-remaining19-resume-checkpoint-20261022.json",
+    "sceneEvidence": "data/audits/theme-sm19-scene-artwork-review-20261022.json",
+    "finalSm122": "data/audits/theme-sm122-final-verified-and-exceptions-20261022.json",
+    "productionMerge": "https://github.com/digital-card-binder/digital-card-binder.github.io/pull/273",
+    "imageRepairMerge": "https://github.com/digital-card-binder/digital-card-binder.github.io/pull/277"
+  },
+  "baseline": {
+    "masterSetCount": 273,
+    "masterCardCount": 20243,
+    "independentThemeDextrCount": 12,
+    "allEraIndependentThemeMemberships": 22032,
+    "smSetCount": 49,
+    "smMasterCards": 3950,
+    "smIndependentThemeMemberships": 4472
+  },
+  "auditOutcomes": {
+    "smSourceFirstPassReviewedSets": 49,
+    "smPendingFirstPassSets": 0,
+    "strictCompleteSets": [
+      "sm2L"
+    ],
+    "partialSetCount": 46,
+    "inProgressSetCodes": [
+      "sm1S",
+      "sm1M"
+    ],
+    "unfinishedArtVisualCertificationSetCount": 48,
+    "zeroRegisteredThemeSetCodes": [
+      "sm60A",
+      "SMP",
+      "sm30A",
+      "sm60B",
+      "SMM",
+      "SML",
+      "SMN",
+      "SMK",
+      "SMI",
+      "SME",
+      "SMD",
+      "SMC",
+      "SMA"
+    ],
+    "imageExceptionOnlyCount": 2,
+    "imageExceptionCodes": [
+      "sm2k_060/050",
+      "sm2k_061/050"
+    ],
+    "note": "The historical 797 external/unverified artwork source slots from the Oct 22 first pass and the later 122-image exception resolution are different checkpoint populations. Do not treat them as the same count. Image repair does not imply a card-by-card review across all 12 subjective themes."
+  },
+  "queue": {
+    "priority1": "Inspect Korean card art for 13 zero-theme starter/promo sets. Keep identities, occurrence and owned records unchanged. Assign themes only where source and illustrated scene are supported.",
+    "priority2": "Complete SM1S and SM1M 12-theme evidence review (currently in_progress).",
+    "priority3": "Review underrepresented narrative themes for remaining 33 partial sets, including sleeping, connected, evolution, food, reflections, cameo and scenery; confirm paired illustrations instead of inferring from Pokémon names.",
+    "priority4": "Resolve SM2K 060/050 and 061/050 only with authentic Korean printed card evidence. Keep Japanese substitutions blocked."
+  },
+  "firstPassBySet": [
+    {
+      "code": "sm1S",
+      "count": 73,
+      "status": "in_progress",
+      "themeSlots": 113,
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "code": "sm1M",
+      "count": 73,
+      "status": "in_progress",
+      "themeSlots": 111,
+      "reviewedAt": "2026-10-17"
+    },
+    {
+      "code": "sm1+",
+      "count": 77,
+      "status": "partial",
+      "themeSlots": 106,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm60A",
+      "count": 27,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm2K",
+      "count": 62,
+      "status": "partial",
+      "themeSlots": 98,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm2L",
+      "count": 62,
+      "status": "complete",
+      "themeSlots": 99,
+      "reviewedAt": "2026-10-19"
+    },
+    {
+      "code": "sm2+",
+      "count": 75,
+      "status": "partial",
+      "themeSlots": 98,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm3H",
+      "count": 64,
+      "status": "partial",
+      "themeSlots": 96,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm3N",
+      "count": 64,
+      "status": "partial",
+      "themeSlots": 93,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm3+",
+      "count": 91,
+      "status": "partial",
+      "themeSlots": 124,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm4S",
+      "count": 62,
+      "status": "partial",
+      "themeSlots": 93,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm4A",
+      "count": 62,
+      "status": "partial",
+      "themeSlots": 98,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm4+",
+      "count": 125,
+      "status": "partial",
+      "themeSlots": 188,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm5S",
+      "count": 78,
+      "status": "partial",
+      "themeSlots": 120,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm5M",
+      "count": 78,
+      "status": "partial",
+      "themeSlots": 116,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm5+",
+      "count": 72,
+      "status": "partial",
+      "themeSlots": 105,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm6",
+      "count": 110,
+      "status": "partial",
+      "themeSlots": 149,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm6a",
+      "count": 75,
+      "status": "partial",
+      "themeSlots": 108,
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "code": "sm6b",
+      "count": 86,
+      "status": "partial",
+      "themeSlots": 96,
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "code": "sm7",
+      "count": 112,
+      "status": "partial",
+      "themeSlots": 136,
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "code": "sm7a",
+      "count": 73,
+      "status": "partial",
+      "themeSlots": 88,
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "code": "sm7b",
+      "count": 63,
+      "status": "partial",
+      "themeSlots": 82,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm8",
+      "count": 111,
+      "status": "partial",
+      "themeSlots": 141,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm8a",
+      "count": 65,
+      "status": "partial",
+      "themeSlots": 83,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm8b",
+      "count": 250,
+      "status": "partial",
+      "themeSlots": 287,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm9",
+      "count": 118,
+      "status": "partial",
+      "themeSlots": 170,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm9a",
+      "count": 70,
+      "status": "partial",
+      "themeSlots": 96,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm9b",
+      "count": 69,
+      "status": "partial",
+      "themeSlots": 87,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm10",
+      "count": 116,
+      "status": "partial",
+      "themeSlots": 172,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm10a",
+      "count": 69,
+      "status": "partial",
+      "themeSlots": 89,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm10b",
+      "count": 69,
+      "status": "partial",
+      "themeSlots": 97,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "smp2",
+      "count": 24,
+      "status": "partial",
+      "themeSlots": 37,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm11",
+      "count": 115,
+      "status": "partial",
+      "themeSlots": 172,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm11a",
+      "count": 80,
+      "status": "partial",
+      "themeSlots": 120,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm11b",
+      "count": 75,
+      "status": "partial",
+      "themeSlots": 118,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm12",
+      "count": 117,
+      "status": "partial",
+      "themeSlots": 182,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm12a",
+      "count": 235,
+      "status": "partial",
+      "themeSlots": 304,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMP",
+      "count": 249,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm30A",
+      "count": 89,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "sm60B",
+      "count": 23,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMM",
+      "count": 33,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SML",
+      "count": 57,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMN",
+      "count": 44,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMK",
+      "count": 32,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMI",
+      "count": 41,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SME",
+      "count": 22,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMD",
+      "count": 30,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMC",
+      "count": 23,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    },
+    {
+      "code": "SMA",
+      "count": 60,
+      "status": "partial",
+      "themeSlots": 0,
+      "reviewedAt": "2026-10-22"
+    }
+  ],
+  "guardrails": {
+    "neverOverwriteApprovedExistingThemeMemberships": true,
+    "requireOriginalKoreanPrintedArtToCertify": true,
+    "avoidJapaneseArtworkSubstitution": true,
+    "keepThemeCollectionsIndependent": true,
+    "preserveFirestoreOwnedRecords": true,
+    "preserveCardRadar": true,
+    "noUserFacingFullCompletionClaimUntil48SetsAreActuallyClosed": true
+  }
+}
