@@ -1,0 +1,55 @@
+name: XY 37-set 12-theme evidence ledger
+on:
+  push:
+    branches: [audit/xy-scene-evidence-next-20261026]
+    paths:
+      - .github/workflows/xy-scene-evidence-next-20261026.yml
+      - scripts/xy-scene-review-evidence-ledger-20261026.mjs
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-scene-evidence-next-20261026
+  cancel-in-progress: false
+jobs:
+  verify-and-save:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-scene-evidence-next-20261026
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Record exact evidence status for all 2,313 XY cards
+        run: node scripts/xy-scene-review-evidence-ledger-20261026.mjs
+      - name: Verify all site and data regression tests
+        run: |
+          npm ci --no-fund
+          npm run site:prepare
+          npm test
+      - name: Protect card master identity and private user data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|data/series-image-overrides\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|tests/card-radar-|scripts/.*radar|\.github/)'; then
+            echo 'Unexpected protected scope changed'
+            exit 1
+          fi
+      - name: Commit only validated evidence to audit branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add data/audits/theme-xy-scene-review-manifest-20261026.json
+          git commit -m "audit(xy): preserve 2,313-card 12-theme open/verified matrix and CP3 scenes"
+          git push origin HEAD:audit/xy-scene-evidence-next-20261026
