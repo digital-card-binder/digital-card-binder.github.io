@@ -1,0 +1,82 @@
+.binder-market-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: -2px 0 18px;
+  padding: 16px 18px;
+  border: 1px solid rgba(21, 78, 138, 0.14);
+  border-radius: 16px;
+  background: rgba(247, 250, 253, 0.96);
+}
+
+.binder-market-value[hidden] {
+  display: none;
+}
+
+.binder-market-value__main,
+.binder-market-value__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.binder-market-value__main span,
+.binder-market-value__meta small {
+  color: var(--muted, #6b7280);
+  font-size: 12px;
+}
+
+.binder-market-value__main strong {
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.binder-market-value__meta {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.binder-market-value__meta > span {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.card-market-price {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #154e8a;
+}
+
+.card-market-price.is-unavailable,
+#dialog-market-price.is-unavailable {
+  color: var(--muted, #7c838d);
+  font-weight: 600;
+}
+
+#dialog-market-price {
+  font-weight: 800;
+}
+
+@media (max-width: 690px) {
+  .binder-market-value {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 9px;
+    padding: 14px;
+  }
+
+  .binder-market-value__meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .card-market-price {
+    font-size: 12px;
+  }
+}
