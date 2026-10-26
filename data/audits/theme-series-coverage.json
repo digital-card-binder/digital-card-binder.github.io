@@ -36,7 +36,7 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 24167,
+    "themeCardSlots": 24180,
     "uniqueThemeCards": 15807,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
@@ -83,8 +83,8 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 148,
-      "setCount": 31,
+      "cardSlots": 159,
+      "setCount": 35,
       "rarities": [
         "AR",
         "C",
@@ -254,8 +254,8 @@
     {
       "code": "cameo",
       "name": "카메오 · 숨은 포켓몬",
-      "cardSlots": 151,
-      "setCount": 55,
+      "cardSlots": 153,
+      "setCount": 56,
       "rarities": [
         "AR",
         "C",
@@ -308,7 +308,7 @@
       "cardCount": 2313,
       "completeSetCount": 0,
       "remainingSetCount": 37,
-      "currentThemeSlots": 2143
+      "currentThemeSlots": 2156
     },
     {
       "era": "BW",
@@ -4464,7 +4464,9 @@
       "status": "partial",
       "reviewedAt": "",
       "themeHits": {
-        "color": 85
+        "connected": 2,
+        "color": 85,
+        "cameo": 2
       }
     },
     {
@@ -4556,6 +4558,7 @@
       "status": "partial",
       "reviewedAt": "",
       "themeHits": {
+        "connected": 5,
         "color": 27
       }
     },
@@ -4622,6 +4625,7 @@
       "status": "partial",
       "reviewedAt": "",
       "themeHits": {
+        "connected": 2,
         "color": 78
       }
     },
@@ -4687,6 +4691,7 @@
       "status": "partial",
       "reviewedAt": "",
       "themeHits": {
+        "connected": 2,
         "color": 103
       }
     },
