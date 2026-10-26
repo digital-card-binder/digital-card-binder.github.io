@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-26",
+  "title": "XY Korean independent art theme census and single-pass review checkpoint",
+  "target": {
+    "setCount": 37,
+    "masterCardCount": 2313,
+    "themeCount": 12
+  },
+  "baseline": {
+    "masterSetCount": 273,
+    "masterCardCount": 20243,
+    "existingThemeMembershipsAcrossAllSeries": 22032,
+    "previouslyRegisteredXYThemeMemberships": 8,
+    "xySetsWithPriorTags": 6,
+    "setsAlreadyStrictComplete": 0
+  },
+  "status": "full_set_inventory_reconciled; individual Korean artwork visual verification remains outstanding; no speculative theme tags added",
+  "sourceEvidence": [
+    "data/audits/theme-series-coverage.json",
+    "data/series.json",
+    "data/series-legacy.json",
+    "data/art-themes.json"
+  ],
+  "certifiedReviewedImageCountThisRun": 0,
+  "addedThemeEntriesThisRun": 0,
+  "categorizationRules": {
+    "themes": [
+      "sleeping",
+      "connected",
+      "evolution",
+      "night",
+      "season",
+      "color",
+      "sunset",
+      "reflections",
+      "food",
+      "street",
+      "work",
+      "cameo"
+    ],
+    "preserveExistingRecords": true,
+    "preventDuplicateThemeIdentity": true,
+    "onlyActualKoreanReleasedCardPhotos": true,
+    "neverApproveJapaneseOrMismatchedPrints": true,
+    "oneCardMayBelongToMultipleThemes": true,
+    "connectedEvolutionRequireVerifiableIllustrationSequence": true,
+    "noInferenceFromCardNamesAlone": true,
+    "keepOwnershipFirestoreAndRadarUnchanged": true
+  },
+  "sets": [
+    {
+      "code": "XY",
+      "name": "THE BEST OF XY",
+      "expectedMasterCards": 188,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP6",
+      "name": "확장팩 BASE PACK 20th Anniversary",
+      "expectedMasterCards": 113,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP5",
+      "name": "환상 전설 드림 컬렉션",
+      "expectedMasterCards": 38,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY11-Br",
+      "name": "냉혹한 반역자",
+      "expectedMasterCards": 59,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY11-Bb",
+      "name": "타오르는 투사",
+      "expectedMasterCards": 59,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP4",
+      "name": "프리미엄 챔피언팩",
+      "expectedMasterCards": 140,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY10",
+      "name": "초능력의 제왕",
+      "expectedMasterCards": 88,
+      "existingThemeMemberships": {
+        "sleeping": 2
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYH",
+      "name": "메가 배틀 덱 「M다부니 EX」",
+      "expectedMasterCards": 27,
+      "existingThemeMemberships": {
+        "sleeping": 1
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYG",
+      "name": "퍼펙트 배틀 덱 「지가르데 EX」",
+      "expectedMasterCards": 20,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP3",
+      "name": "포켓심쿵 컬렉션",
+      "expectedMasterCards": 32,
+      "existingThemeMemberships": {
+        "sleeping": 1
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "20th",
+      "name": "트레이너 세트 20th Anniversary",
+      "expectedMasterCards": 71,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY9",
+      "name": "천공의 분노",
+      "expectedMasterCards": 89,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYF",
+      "name": "콤보 덱 「골덕 BREAK +펄기아 EX」",
+      "expectedMasterCards": 17,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY8-Bb",
+      "name": "푸른 충격",
+      "expectedMasterCards": 65,
+      "existingThemeMemberships": {
+        "sleeping": 1
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "UBD",
+      "name": "덱 「음번 BREAK」",
+      "expectedMasterCards": 19,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "RBD",
+      "name": "덱 「라이츄 BREAK」",
+      "expectedMasterCards": 19,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY8-Br",
+      "name": "붉은 섬광",
+      "expectedMasterCards": 65,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYE",
+      "name": "대전 세트 「염무왕 EX vs 토게키스 EX」",
+      "expectedMasterCards": 26,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP2",
+      "name": "레전드 컬렉션",
+      "expectedMasterCards": 27,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY7",
+      "name": "밴디트링",
+      "expectedMasterCards": 97,
+      "existingThemeMemberships": {
+        "sleeping": 1
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY6",
+      "name": "에메랄드 브레이크",
+      "expectedMasterCards": 91,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYD",
+      "name": "메가 배틀 덱 「M레쿠쟈 EX」",
+      "expectedMasterCards": 20,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "CP1",
+      "name": "마그마단vs아쿠아단 더블크라이시스",
+      "expectedMasterCards": 34,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY5-Bg",
+      "name": "가이아 볼케이노",
+      "expectedMasterCards": 80,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY5-Bt",
+      "name": "타이달스톰",
+      "expectedMasterCards": 80,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYC",
+      "name": "레전드 배틀 덱 「제르네아스 EX+이벨타르 EX」",
+      "expectedMasterCards": 25,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYB",
+      "name": "하이퍼 메탈 체인 덱 「디아루가 EX+킬가르도 EX」",
+      "expectedMasterCards": 20,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY4",
+      "name": "팬텀게이트",
+      "expectedMasterCards": 97,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY3",
+      "name": "라이징피스트",
+      "expectedMasterCards": 105,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYA",
+      "name": "메가 배틀 덱 「M리자몽 EX」",
+      "expectedMasterCards": 23,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY2",
+      "name": "와일드 블레이즈",
+      "expectedMasterCards": 90,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "X30",
+      "name": "제르네아스 덱",
+      "expectedMasterCards": 15,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "Y30",
+      "name": "이벨타르 덱",
+      "expectedMasterCards": 15,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY1-Bx",
+      "name": "X컬렉션",
+      "expectedMasterCards": 63,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XY1-By",
+      "name": "Y컬렉션",
+      "expectedMasterCards": 63,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "FXY",
+      "name": "XY 퍼스트 세트",
+      "expectedMasterCards": 42,
+      "existingThemeMemberships": {},
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    },
+    {
+      "code": "XYP",
+      "name": "XY 프로모",
+      "expectedMasterCards": 191,
+      "existingThemeMemberships": {
+        "sleeping": 2
+      },
+      "sourceAndVisualReview": "not-certified",
+      "printedIdentityReview": "not-certified",
+      "next": "Review canonical Korean imagery against 12 independent themes; record actual source, SHA256, footers and image-verified decisions."
+    }
+  ],
+  "completionGate": {
+    "mustInspectEveryKoreanMasterCard": 2313,
+    "reviewEverySet": 37,
+    "updateThemeRowsOnlyAfterVisualProof": true,
+    "rerunFullTests": true,
+    "doNotMarkCompleteWithoutFullInspection": true
+  }
+}
