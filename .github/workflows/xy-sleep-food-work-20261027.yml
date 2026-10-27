@@ -1,0 +1,54 @@
+name: XY curated sleep food and work image proof
+on:
+  push:
+    branches: [audit/xy-sleep-food-work-20261027]
+    paths: [scripts/xy-scene-sleep-food-work-20261027.py, .github/workflows/xy-sleep-food-work-20261027.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-sleep-food-work-20261027
+  cancel-in-progress: false
+jobs:
+  verify-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-sleep-food-work-20261027
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: python -m pip install --quiet pillow imagehash
+      - name: Verify cross-language curated sleep food and work illustrations
+        run: python -u scripts/xy-scene-sleep-food-work-20261027.py
+      - name: Prepare derived index and full QA
+        run: |
+          npm ci --no-fund
+          npm run site:prepare
+          npm test
+      - name: Block master, ownership, radar and old checkpoint edits
+        shell: bash
+        run: |
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|data/audits/theme-xy-100-card-batches-20261026/|data/audits/theme-xy-100-card-progress-20261026.json|\.github/)'; then
+            echo "Protected files modified unexpectedly"
+            exit 1
+          fi
+      - name: Commit passing audit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add data/audits/theme-xy-sleep-food-work-source-20261027.json
+          git commit -m "audit(xy): save Korean artwork-matched sleep, food and work scene evidence"
+          git push origin HEAD:audit/xy-sleep-food-work-20261027
