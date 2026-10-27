@@ -25,8 +25,10 @@ test("published Android v1.0.2 binary matches Gradle and remote update manifest"
   const data=readFileSync(new URL("../"+apkName,import.meta.url));
   assert.ok(data.length>1_000_000,"APK must be non-trivial (not a placeholder)");
   assert.equal(data.subarray(0,2).toString(),"PK","APK is a ZIP-compatible binary");
-  assert.equal(new URL(config.apkUrl).pathname,"/"+apkName);
-  assert.equal(new URL(config.apkUrl).hostname,"digital-card-binder.github.io");
+  const releaseUrl=new URL(config.apkUrl);
+  assert.equal(releaseUrl.protocol,"https:");
+  assert.equal(releaseUrl.hostname,"raw.githubusercontent.com");
+  assert.equal(releaseUrl.pathname,"/digital-card-binder/digital-card-binder.github.io/main/"+apkName);
   assert.ok(createHash("sha256").update(data).digest("hex").length===64);
 });
 
