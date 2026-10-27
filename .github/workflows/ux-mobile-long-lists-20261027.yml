@@ -1,0 +1,61 @@
+name: Validate mobile long-list UX improvement
+on:
+  push:
+    branches: [ux/mobile-long-dex-navigation-20261027]
+    paths:
+      - collector-nav.js
+      - styles.css
+      - pokemon-search.css
+      - package.json
+      - tests/long-page-navigation.test.mjs
+      - .github/workflows/ux-mobile-long-lists-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-mobile-long-lists-20261027
+  cancel-in-progress: false
+jobs:
+  audit-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/mobile-long-dex-navigation-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install site dependencies
+        run: npm ci --no-fund
+      - name: Run UX interaction tests before preparing
+        run: node --test tests/long-page-navigation.test.mjs
+      - name: Prepare synchronized static site
+        run: npm run site:prepare
+      - name: Complete site, UI, schema and Firebase regressions
+        run: npm test
+      - name: Assert the master catalog, ownership and radar are unmodified
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Unexpected modification of protected data or backend files'
+            exit 1
+          fi
+      - name: Persist only derived asset versions and common shell updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize shared UX asset references across static pages'
+            git push origin HEAD:ux/mobile-long-dex-navigation-20261027
+          fi
