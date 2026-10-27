@@ -1,0 +1,44 @@
+name: Validate v6 card intake UX
+on:
+  push:
+    branches: [ux/v6-card-bulk-and-search-add-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/v6-card-bulk-and-search-add-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci --no-fund
+      - run: node --test tests/ux-v6-card-intake.test.mjs
+      - run: npm run site:prepare
+      - run: npm test
+      - name: Guard user and catalog data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then exit 1; fi
+      - name: Commit generated static versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: refresh asset versions after v6 card intake'
+            git push origin HEAD:ux/v6-card-bulk-and-search-add-20261027
+          fi
