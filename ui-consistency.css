@@ -1,0 +1,68 @@
+/* Shared interaction standards for catalog, search, pack and studio pages.
+   Presentation-only: preserves every page's layout, ownership and data logic. */
+:root{
+  --dcb-control-touch:44px;
+  --dcb-control-focus:#168895;
+}
+:where(
+  .catalog-toolbar,
+  .catalog-filter-row,
+  .catalog-era-filter,
+  .pack-filter-row,
+  .promo-catalog-panel,
+  .pokemon-search-box,
+  .pokemon-search-filters,
+  .custom-workspace-filter,
+  .studio-control-card,
+  .studio-tabs,
+  .studio-top-nav
+) :is(button,select,a,input[type="search"],input[type="text"]){
+  touch-action:manipulation;
+}
+:where(
+  .catalog-toolbar,
+  .catalog-filter-row,
+  .catalog-era-filter,
+  .pack-filter-row,
+  .promo-catalog-panel,
+  .pokemon-search-box,
+  .pokemon-search-filters,
+  .custom-workspace-filter,
+  .studio-control-card,
+  .studio-tabs,
+  .studio-top-nav
+) :is(button,select,a,input[type="search"],input[type="text"]):focus-visible{
+  outline:3px solid var(--dcb-control-focus);
+  outline-offset:2px;
+}
+:where(.catalog-toolbar,.catalog-filter-row,.pack-filter-row,.pokemon-search-filters){
+  row-gap:12px;
+}
+@media(max-width:760px){
+  :where(
+    .catalog-toolbar,
+    .catalog-filter-row,
+    .catalog-era-filter,
+    .pack-filter-row,
+    .promo-catalog-panel,
+    .pokemon-search-box,
+    .pokemon-search-filters,
+    .custom-workspace-filter,
+    .studio-control-card,
+    .studio-tabs
+  ) :is(button,select,a,input[type="search"],input[type="text"]){
+    min-height:var(--dcb-control-touch);
+  }
+  :where(
+    .catalog-toolbar,
+    .catalog-filter-row,
+    .pack-filter-row,
+    .promo-catalog-panel,
+    .pokemon-search-box,
+    .pokemon-search-filters,
+    .custom-workspace-filter,
+    .studio-control-card
+  ) :is(select,input[type="search"],input[type="text"]){
+    font-size:16px;
+  }
+}
