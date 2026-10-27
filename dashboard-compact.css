@@ -154,3 +154,59 @@ body[data-page="dashboard"] #dashboard-theme-grid .dashboard-theme-card--untrack
     padding: 10px 11px;
   }
 }
+
+/* 27차: light, colored-at-the-edge progress tiles instead of dark dashboard slabs. */
+body[data-page="dashboard"] :is(#home-collection-section,#dashboard-theme-section,
+  #dashboard-news-strip,#dashboard-account-note,.dashboard-utility-panel,
+  .dashboard-insight-panel,.dashboard-shortcut-card){
+  border-color:#dfe9f5;
+  background:#fff;
+  color:#233d5a;
+  box-shadow:0 7px 23px rgba(41,87,137,.06);
+}
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-collection-card{
+  border:1px solid #d9e6f3;
+  background:linear-gradient(155deg,#fff 12%,color-mix(in srgb,var(--collection-accent) 10%,#fff) 100%);
+  color:#213c58;
+  box-shadow:0 6px 16px rgba(40,88,140,.045);
+}
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-title strong,
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-count strong{
+  color:#213c58;
+}
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-rate{
+  color:color-mix(in srgb,var(--collection-accent) 76%,#142c49);
+}
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-count span{
+  color:#5b7089;
+}
+body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-progress{
+  background:#dce9f4;
+}
+body[data-page="dashboard"] .dashboard-news-label{color:#9d3450}
+body[data-page="dashboard"] .dashboard-news-row,
+body[data-page="dashboard"] .dashboard-news-row-title{color:#253d5b}
+body[data-page="dashboard"] .dashboard-news-row-category,
+body[data-page="dashboard"] .dashboard-news-more{color:#1f689b}
+body[data-page="dashboard"] .dashboard-news-row-date,
+body[data-page="dashboard"] .dashboard-account-note p,
+body[data-page="dashboard"] .dashboard-utility-copy span,
+body[data-page="dashboard"] .dashboard-list-empty{color:#617890}
+body[data-page="dashboard"] .dashboard-shortcut-card strong,
+body[data-page="dashboard"] .dashboard-utility-copy strong{color:#25415e}
+body[data-page="dashboard"] .dashboard-news-row:hover,
+body[data-page="dashboard"] .dashboard-news-more:hover{background:#f0f7ff}
+@media(max-width:690px){
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-collection-card{
+    border-radius:12px;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-title strong{
+    font-size:.72rem;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-count span{
+    font-size:.62rem;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-rate{
+    font-size:.67rem;
+  }
+}

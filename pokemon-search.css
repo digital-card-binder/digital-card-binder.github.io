@@ -131,3 +131,27 @@
     max-height:38dvh;object-fit:contain;
   }
 }
+
+/* 27차: search filters and result cards share the airy catalog language. */
+body .pokemon-search-panel{
+  border-color:#dfe9f5;background:#fff;
+}
+.pokemon-search-field{
+  border-color:#d7e6f3;
+  background:#fff;
+}
+.pokemon-search-advanced-filters{
+  border-color:#d8e6f5;background:linear-gradient(140deg,#fff,#f5f9ff);
+}
+.pokemon-search-advanced-filters[open] > summary{
+  color:#23567f;
+}
+.pokemon-search-suggestion:is(:hover,.is-active){
+  background:#eaf5ff;
+}
+.pokemon-search-card .card-image-wrap{
+  background:linear-gradient(150deg,#fff,#edf6ff);
+}
+#pokemon-search-dialog .dialog-card-image{
+  background:linear-gradient(140deg,#fff,#ebf5ff);
+}
