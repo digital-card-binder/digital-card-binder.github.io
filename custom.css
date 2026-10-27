@@ -526,3 +526,29 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   .custom-card-page-selector{width:min(100%,260px);justify-content:space-between}
   .custom-card-page-selector select{min-width:155px;font-size:16px}
 }
+
+/* Keep personal-dex navigation reachable while browsing lengthy mobile collections. */
+@media (max-width: 760px) {
+  body[data-page="custom-dex"][data-custom-view="detail"] .custom-mobile-detail-nav {
+    position: sticky;
+    top: calc(66px + env(safe-area-inset-top, 0px));
+    z-index: 21;
+    margin: 0 -8px 12px;
+    padding: 7px 8px;
+    border: 1px solid #dde8ee;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 3px 13px rgba(23,35,63,.08);
+    backdrop-filter: blur(12px);
+  }
+  body[data-page="custom-dex"] #custom-card-grid {
+    scroll-margin-top: calc(139px + env(safe-area-inset-top, 0px));
+  }
+  body[data-page="custom-dex"] #custom-mobile-switch {
+    min-height: 44px;
+    font-size: 16px;
+  }
+  body[data-page="custom-dex"] #custom-mobile-back {
+    min-height: 44px;
+  }
+}

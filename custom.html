@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./catalog.css?v=59e3945dd42a">
     <link rel="stylesheet" href="./collection-manager.css?v=332f22b3a57d">
     <link rel="stylesheet" href="./collector.css?v=c5b576cc90ff">
-    <link rel="stylesheet" href="./custom.css?v=eb617df9c053">
+    <link rel="stylesheet" href="./custom.css?v=03d43f010ae0">
     <link rel="stylesheet" href="./collection-preview.css?v=4d8c4e43ce3a">
     <link rel="stylesheet" href="./card-scanner.css?v=5282bb803c7b" data-card-scanner-style="true" />
     <script src="./card-image-cdn.js?v=9c71680ab48e" defer></script>
@@ -29,14 +29,14 @@
     <script src="./collector-collection-registry.js?v=019654c8d345" defer></script>
     <script src="./custom-sharing.js?v=e33ab6121040" defer></script>
     <script src="./collector-public-sync.js?v=15c79a88f845" defer></script>
-    <script src="./collector-nav.js?v=8cb6f8b9725a" defer></script><script src="./card-scanner.js?v=551f99508485" defer data-card-scanner-script="true"></script>
+    <script src="./collector-nav.js?v=108827877ba3" defer></script><script src="./card-scanner.js?v=551f99508485" defer data-card-scanner-script="true"></script>
     <script src="./collection-preview.js?v=54a9e3e3a9a3" defer></script>
     <script src="./owner-sheets-sync.js?v=34d2b13bbf57" defer></script>
     <script src="./custom-loader.js?v=ade386ae66fe" defer></script>
-    <script src="./custom-grid-density.js?v=7bdc170c0468" defer></script>
+    <script src="./custom-grid-density.js?v=c1e5cfddf466" defer></script>
     <script src="./custom-binder-library.js?v=1039b207c719" defer></script>
   </head>
-  <body data-page="custom-dex">
+  <body data-page="custom-dex" data-custom-grid-columns="2">
     <a class="skip-link" href="#main-content">본문으로 바로가기</a>
     <header class="site-header">
       <a class="brand" href="./" aria-label="디지털 카드 바인더 홈">
@@ -169,8 +169,8 @@
                 <div class="custom-results-bar">
                   <p>검색 결과 <strong id="custom-result-count">0</strong>장</p>
                   <div id="custom-grid-density" class="custom-grid-density" role="group" aria-label="한 줄에 표시할 카드 수">
-                    <button type="button" data-columns="2" aria-pressed="false">2장씩</button>
-                    <button type="button" data-columns="4" class="is-active" aria-pressed="true">4장씩</button>
+                    <button type="button" data-columns="2" class="is-active" aria-pressed="true" aria-label="카드를 한 줄에 두 장씩 크게 보기">2장씩</button>
+                    <button type="button" data-columns="4" aria-pressed="false" aria-label="카드를 한 줄에 네 장씩 작게 보기">4장씩</button>
                   </div>
                   <span class="custom-sort-hint">카드를 드래그하거나 ↑ ↓ 버튼으로 순서를 바꿀 수 있습니다.</span>
                 </div>

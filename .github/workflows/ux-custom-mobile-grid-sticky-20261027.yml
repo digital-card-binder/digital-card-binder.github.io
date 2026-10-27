@@ -1,0 +1,61 @@
+name: Verify mobile personal dex grid and navigation
+on:
+  push:
+    branches: [ux/custom-mobile-default-2col-sticky-nav-20261027]
+    paths:
+      - custom-grid-density.js
+      - custom.html
+      - custom.css
+      - tests/custom-mobile-density-navigation.test.mjs
+      - package.json
+      - .github/workflows/ux-custom-mobile-grid-sticky-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-custom-mobile-grid-sticky-20261027
+  cancel-in-progress: false
+jobs:
+  qa-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/custom-mobile-default-2col-sticky-nav-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Verify personal dex 2-column default, 4-column preference and sticky nav
+        run: node --test tests/custom-mobile-density-navigation.test.mjs
+      - name: Rebuild versioned static asset references
+        run: npm run site:prepare
+      - name: Verify full site, Firestore and UI regressions
+        run: npm test
+      - name: Guard original cards, customer collections, and radar
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Protected data or backend modification detected'
+            exit 1
+          fi
+      - name: Save verified derived version references only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: sync versioned assets for mobile 2-column personal dex'
+            git push origin HEAD:ux/custom-mobile-default-2col-sticky-nav-20261027
+          fi
