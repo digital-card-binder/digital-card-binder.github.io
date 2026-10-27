@@ -1,0 +1,64 @@
+name: Verify consistent catalog and studio touch controls
+on:
+  push:
+    branches: [ux/catalog-studio-shared-touch-controls-20261027]
+    paths:
+      - ui-consistency.css
+      - series.html
+      - packs.html
+      - pokemon-search.html
+      - studio.html
+      - custom.html
+      - tests/ui-consistency-contract.test.mjs
+      - package.json
+      - .github/workflows/ux-cross-page-control-consistency-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-cross-page-control-consistency-20261027
+  cancel-in-progress: false
+jobs:
+  qa-build-and-version:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/catalog-studio-shared-touch-controls-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Test shared UI controls and page references
+        run: node --test tests/ui-consistency-contract.test.mjs
+      - name: Synchronize cache-busted static pages
+        run: npm run site:prepare
+      - name: Run full site, catalog and Firebase regressions
+        run: npm test
+      - name: Guard original card and account data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Unexpected protected data or backend file changes'
+            exit 1
+          fi
+      - name: Save passing generated page references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize shared catalog and studio control styles'
+            git push origin HEAD:ux/catalog-studio-shared-touch-controls-20261027
+          fi
