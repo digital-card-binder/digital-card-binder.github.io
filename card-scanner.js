@@ -53,6 +53,7 @@
     liveStream: null,
     liveScanToken: 0,
     liveConsensus: null,
+    analysisToken: 0,
   };
 
   const els = {};
@@ -976,7 +977,7 @@
             '<div class="card-scan-preview-copy"><strong id="card-scan-preview-title">카드 분석 중</strong><span id="card-scan-preview-meta"></span><small id="card-scan-ocr-text"></small></div>' +
           '</div>' +
           '<div id="card-scan-status" class="card-scan-status" role="status"></div>' +
-          '<div class="card-scan-progress" aria-hidden="true"><span id="card-scan-progress-bar"></span></div>' +
+          '<div class="card-scan-progress" role="progressbar" aria-label="카드 인식 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="card-scan-progress-bar"></span></div>' +
           '<section id="card-scan-candidate-section" class="card-scan-section" hidden>' +
             '<div class="card-scan-section-head"><strong>인식 후보</strong><span id="card-scan-candidate-count"></span></div>' +
             '<div id="card-scan-candidates" class="card-scan-candidates"></div>' +
@@ -1034,6 +1035,12 @@
     els.dialog.addEventListener("click", (event) => {
       if (event.target === els.dialog) closeScanner();
     });
+    // Also handle Escape/browser dialog dismissal, not just the close button.
+    els.dialog.addEventListener("close", () => {
+      state.analysisToken += 1;
+      stopLiveCamera();
+      setBusy(false);
+    });
     els.camera.addEventListener("click", () => {
       void openLiveCamera().catch((error) => {
         console.warn("실시간 카메라를 사용할 수 없어 기본 촬영으로 전환합니다.", error);
@@ -1065,6 +1072,7 @@
   }
 
   function closeScanner() {
+    state.analysisToken += 1;
     stopLiveCamera();
     if (typeof els.dialog.close === "function") els.dialog.close();
     else els.dialog.removeAttribute("open");
@@ -1182,6 +1190,7 @@
   state.lastInputMode = "camera";
 
   function resetScanner() {
+    state.analysisToken += 1;
     stopLiveCamera();
     state.selected = null;
     state.memberships = [];
@@ -1217,6 +1226,7 @@
     if (!els.progress) return;
     const amount = Math.max(0, Math.min(100, Number(value) || 0));
     els.progress.style.width = amount + "%";
+    els.progress.parentElement?.setAttribute("aria-valuenow", String(amount));
   }
 
   function setBusy(busy) {
@@ -1504,6 +1514,7 @@
 
   async function analyzeFile(file, options = {}) {
     if (!file) return;
+    const token = ++state.analysisToken;
 
     if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
     state.previewUrl = URL.createObjectURL(file);
@@ -1520,9 +1531,11 @@
 
     try {
       await loadSearchCards();
+      if (token !== state.analysisToken) return;
       const prepared = await preparedCardVariantsFromFile(file, {
         preferWholeIfCardRatio: Boolean(options.preferWholeIfCardRatio),
       });
+      if (token !== state.analysisToken) return;
       els.previewMeta.textContent =
         prepared.variants.length > 1
           ? "원본과 보정본을 함께 비교해 더 잘 맞는 쪽을 자동 선택합니다."
@@ -1532,6 +1545,7 @@
         console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
         return [];
       });
+      if (token !== state.analysisToken) return;
       const bestVariantLabel =
         visualMatches[0]?.variantLabel || prepared.preferredLabel || "whole";
       const ocrVariant =
@@ -1551,8 +1565,11 @@
       // Preserve it as a selectable candidate instead of discarding the scan.
       try {
         const worker = await ensureOcrWorker();
+        if (token !== state.analysisToken) return;
         const regions = await makeOcrCanvases(ocrVariant.canvas);
+        if (token !== state.analysisToken) return;
         for (let index = 0; index < regions.length; index += 1) {
+        if (token !== state.analysisToken) return;
         const region = regions[index];
         setProgress(18 + Math.round((index / regions.length) * 58));
 
@@ -1564,6 +1581,7 @@
         }
 
         const result = await worker.recognize(region.canvas);
+        if (token !== state.analysisToken) return;
         const text = clean(result?.data?.text);
         if (text) {
           if (region.kind === "title") titleTexts.push(text);
@@ -1583,6 +1601,7 @@
       }
 
       } catch (ocrError) {
+        if (token !== state.analysisToken) return;
         console.warn("문자 인식을 사용할 수 없어 이미지 후보로 계속합니다.", ocrError);
         els.previewMeta.textContent = visualMatches.length
           ? "문자 인식 없이 이미지 비교 결과를 표시합니다. 카드명과 번호를 확인해 주세요."
@@ -1597,6 +1616,7 @@
       ].filter(Boolean).join(" / ");
       els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
+      if (token !== state.analysisToken) return;
       const mergedCandidates = mergeScanCandidates(
         visualMatches,
         candidates,
@@ -1610,13 +1630,14 @@
         els.candidateCount.textContent = "";
         setProgress(94);
         await selectCard(auto.card);
+        if (token !== state.analysisToken) return;
         setStatus("자동 인식 완료 · " + auto.reason + " 등록할 도감을 선택해 주세요.", "success");
       } else {
         const visible = visibleScanCandidates(mergedCandidates);
         renderCandidates(visible);
         if (!visible.length) {
           setStatus(
-            "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
+            "자동 인식 후보를 찾지 못했습니다. 세트코드·카드번호·카드명으로 직접 검색해 주세요.",
             "error",
           );
         } else {
@@ -1628,12 +1649,15 @@
       }
       setProgress(100);
     } catch (error) {
+      if (token !== state.analysisToken) return;
       console.error(error);
       setStatus("자동 인식에 실패했습니다. 직접 검색은 계속 사용할 수 있습니다.", "error");
       setProgress(0);
     } finally {
-      setBusy(false);
-      state.liveConsensus = null;
+      if (token === state.analysisToken) {
+        setBusy(false);
+        state.liveConsensus = null;
+      }
     }
   }
 
@@ -1857,6 +1881,8 @@
       const image = document.createElement("img");
       image.src = card.image || card.originalImage || "";
       image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
 
       const copy = document.createElement("span");
       const name = document.createElement("strong");
