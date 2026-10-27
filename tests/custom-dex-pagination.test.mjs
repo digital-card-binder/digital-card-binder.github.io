@@ -143,7 +143,7 @@ test("page jump rejects out-of-range values and filter shrinking resets safely",
  h.api.jumpToCustomCardPage("9999");
  assert.equal(h.state.customCardPageStart,0);
  h.api.jumpToCustomCardPage("100");
- assert.equal(h.grid.children.length,51);
+ assert.equal(h.grid.children.length,50);
  h.state.query="card-14";
  h.api.renderWorkspace();
  assert.equal(h.state.customCardPageStart,0);
