@@ -10,8 +10,8 @@
     "archivalImageColorScreened": 2117,
     "archivalImageHeld": 196,
     "strictCompleteSets": 0,
-    "independentXYThemeRows": 2156,
-    "independentAllThemeRows": 24180
+    "independentXYThemeRows": 2162,
+    "independentAllThemeRows": 24186
   },
   "classification": {
     "manuallyFullyScreened": "Only five CP3 card IDs in the signed previous per-card visual checkpoint",
@@ -25927,13 +25927,14 @@
           "imageHoldReason": null,
           "allTwelveVisuallyScreened": false,
           "registeredThemes": [
-            "color"
+            "color",
+            "night"
           ],
           "themeReview": {
             "sleeping": "not-screened",
             "connected": "not-screened",
             "evolution": "not-screened",
-            "night": "not-screened",
+            "night": "scene-evidence-partial",
             "season": "not-screened",
             "color": "color-screened-only",
             "sunset": "not-screened",
@@ -26575,18 +26576,20 @@
           "imageHoldReason": null,
           "allTwelveVisuallyScreened": false,
           "registeredThemes": [
-            "color"
+            "color",
+            "connected",
+            "food"
           ],
           "themeReview": {
             "sleeping": "not-screened",
-            "connected": "not-screened",
+            "connected": "scene-evidence-partial",
             "evolution": "not-screened",
             "night": "not-screened",
             "season": "not-screened",
             "color": "color-screened-only",
             "sunset": "not-screened",
             "reflections": "not-screened",
-            "food": "not-screened",
+            "food": "scene-evidence-partial",
             "street": "not-screened",
             "work": "not-screened",
             "cameo": "not-screened"
@@ -27128,10 +27131,10 @@
         }
       ],
       "fullyVisualReviewed": 0,
-      "scenePartiallyReviewed": 1,
+      "scenePartiallyReviewed": 3,
       "archiveColorReviewed": 62,
       "archiveHeld": 3,
-      "themeRows": 63
+      "themeRows": 66
     },
     {
       "set": "UBD",
@@ -29463,20 +29466,23 @@
           "imageHoldReason": null,
           "allTwelveVisuallyScreened": false,
           "registeredThemes": [
-            "color"
+            "color",
+            "connected",
+            "food",
+            "work"
           ],
           "themeReview": {
             "sleeping": "not-screened",
-            "connected": "not-screened",
+            "connected": "scene-evidence-partial",
             "evolution": "not-screened",
             "night": "not-screened",
             "season": "not-screened",
             "color": "color-screened-only",
             "sunset": "not-screened",
             "reflections": "not-screened",
-            "food": "not-screened",
+            "food": "scene-evidence-partial",
             "street": "not-screened",
-            "work": "not-screened",
+            "work": "scene-evidence-partial",
             "cameo": "not-screened"
           }
         },
@@ -29935,10 +29941,10 @@
         }
       ],
       "fullyVisualReviewed": 0,
-      "scenePartiallyReviewed": 0,
+      "scenePartiallyReviewed": 1,
       "archiveColorReviewed": 62,
       "archiveHeld": 3,
-      "themeRows": 62
+      "themeRows": 65
     },
     {
       "set": "XYE",
