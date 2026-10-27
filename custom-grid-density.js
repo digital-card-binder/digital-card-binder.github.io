@@ -5,12 +5,12 @@
 (function () {
   const STORAGE_KEY = "dcb-custom-dex-mobile-columns";
   const valid = new Set(["2", "4"]);
-  let columns = "4";
+  let columns = "2";
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (valid.has(stored)) columns = stored;
   } catch (_) {
-    // Private browsing or disabled storage: keep the 4-column default.
+    // Private browsing or disabled storage: use the 2-column mobile default.
   }
 
   function applyColumns(next) {
