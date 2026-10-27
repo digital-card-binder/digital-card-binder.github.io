@@ -29,3 +29,13 @@
 
 ## 주의
 실제 갤럭시 Android WebView의 위치, 카메라 권한, 특정 사진 인식률과 Firebase 사용자 계정의 저장 재접속은 CI가 직접 증명하지 못합니다. 실기기 확인이 별도로 필요합니다. 이 작업으로 Android APK 재설치나 데이터 초기화는 하지 않습니다.
+
+## 자동 검증·배포 이력
+
+- 21차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40479470603)
+- 22차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40479786963)
+- 23차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40480113369)
+- 24차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40480564800)
+- 검증 후 정적 파일 캐시 동기화 커밋: `6f90b8f4b3444cfb69630c4f4099e3d7b258e509`. 변경 내용은 정적 HTML 버전 참조와 `site-version.json` 등이며 카드 DB, 감사 데이터, Firebase 규칙 및 Android 소스와 APK는 변경 없음.
+- 자동 동기화 커밋 이후 최종 문서화 커밋에서 Verify를 다시 확인하고 병합.
+- 사용자 단말에서 촬영·갤러리·로그인 및 실보유 데이터 반영 결과는 자동 검증 대상이 아니므로 별도 실사용 QA 필요.
