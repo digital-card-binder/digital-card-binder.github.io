@@ -1,0 +1,22 @@
+name: XY cameo held-source publication guard
+on:
+  push:
+    branches: [audit/xy-visual-crossmatch-20261027]
+    paths:
+      - scripts/xy-verified-cameo-hold-safety-20261027.py
+      - .github/workflows/xy-cameo-hold-safety-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  strict-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-visual-crossmatch-20261027
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/xy-verified-cameo-hold-safety-20261027.py
