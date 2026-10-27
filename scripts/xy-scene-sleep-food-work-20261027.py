@@ -49,9 +49,9 @@ def fp(im):
  return {'f':str(imagehash.phash(im)),'a':str(imagehash.phash(art)),
          'ad':str(imagehash.dhash(art))}
 def distances(a,b):
- return {'f':imagehash.hex_to_hash(a['f'])-imagehash.hex_to_hash(b['f']),
-         'a':imagehash.hex_to_hash(a['a'])-imagehash.hex_to_hash(b['a']),
-         'ad':imagehash.hex_to_hash(a['ad'])-imagehash.hex_to_hash(b['ad'])}
+ return {'f':int(imagehash.hex_to_hash(a['f'])-imagehash.hex_to_hash(b['f'])),
+         'a':int(imagehash.hex_to_hash(a['a'])-imagehash.hex_to_hash(b['a'])),
+         'ad':int(imagehash.hex_to_hash(a['ad'])-imagehash.hex_to_hash(b['ad']))}
 def safe(v):return v['f']<=6 and v['a']<=10 and v['ad']<=10
 def canon(s):return str(s).lower()
 art=read('data/art-themes.json'); checkpoint=read(CHECK); manifest=read(MANIFEST); reviews=read(REVIEW)
