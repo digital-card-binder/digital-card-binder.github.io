@@ -712,3 +712,43 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   .custom-photo-item input{font-size:16px;min-height:44px}
   #custom-photo-status{font-size:13px;line-height:1.6}
 }
+
+/* 27차: bring personal dex tiles and editors into the same bright collection system. */
+body[data-page="custom-dex"] :is(.custom-auth-bar,.custom-sidebar-panel,.custom-workspace-panel,.custom-binder-library-section){
+  border-color:#dfe9f5;
+  background:#fff;
+  box-shadow:0 8px 25px rgba(45,93,146,.065);
+}
+body[data-page="custom-dex"] .custom-dex-tile{
+  border-color:#dbe8f5;
+  background:linear-gradient(120deg,#fff,#f3f8ff);
+  color:#253e5a;
+}
+body[data-page="custom-dex"] .custom-dex-tile:is(:hover,:focus-visible){
+  border-color:#9cbfe9;
+  background:linear-gradient(120deg,#fff,#eaf4ff);
+}
+body[data-page="custom-dex"] .custom-dex-tile.is-active{
+  border-color:#8fb8e4;
+  background:linear-gradient(120deg,#e9f4ff,#f4efff);
+}
+body[data-page="custom-dex"] .custom-picker-card,
+body[data-page="custom-dex"] .custom-photo-item{
+  border-color:#dbe6f4;
+  background:#f8fbff;
+}
+body[data-page="custom-dex"] .custom-card .card-body{
+  background:#fff;
+}
+body[data-page="custom-dex"] .custom-card .card-image-wrap{
+  background:linear-gradient(135deg,#fbfdff,#eef6ff);
+}
+body[data-page="custom-dex"] .custom-workspace-copy .custom-progress{
+  color:#276caa;
+}
+body[data-page="custom-dex"] .custom-card.is-owned .custom-owned-toggle{
+  background:#e5f7f0;border-color:#addac9;color:#17674b;
+}
+@media(max-width:760px){
+  body[data-page="custom-dex"] .custom-dex-tile{min-height:64px}
+}

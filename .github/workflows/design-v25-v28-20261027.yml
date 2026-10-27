@@ -1,0 +1,51 @@
+name: Verify bright refresh v25-v28 and synchronize
+on:
+  push:
+    branches: [design/v25-v28-bright-refresh-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: design-v25-v28-bright-refresh
+  cancel-in-progress: false
+jobs:
+  full-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/v25-v28-bright-refresh-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install
+        run: npm ci --no-fund
+      - name: Synchronize static references
+        run: npm run site:prepare
+      - name: Run site, UI, architecture, collector data and Firestore security tests
+        run: npm test
+      - name: Protect card database, audit records and app
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|DigitalCardBinder_.*\.apk$|\.github/)'; then
+            echo 'Protected file changed unexpectedly'; exit 1
+          fi
+      - name: Commit verified static version references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize tested v25-v28 bright UI assets'
+            git push origin HEAD:design/v25-v28-bright-refresh-20261027
+          fi
