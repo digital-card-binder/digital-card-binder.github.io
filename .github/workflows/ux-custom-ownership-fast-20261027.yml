@@ -1,0 +1,59 @@
+name: Verify personal dex targeted ownership updates
+on:
+  push:
+    branches: [perf/custom-ownership-targeted-update-20261027]
+    paths:
+      - custom.js
+      - package.json
+      - tests/custom-ownership-targeted-update.test.mjs
+      - .github/workflows/ux-custom-ownership-fast-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-custom-ownership-fast-20261027
+  cancel-in-progress: false
+jobs:
+  qa-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: perf/custom-ownership-targeted-update-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Verify in-place ownership change, failure rollback and rapid taps
+        run: node --test tests/custom-ownership-targeted-update.test.mjs
+      - name: Refresh static client cache-busting asset references
+        run: npm run site:prepare
+      - name: Full app QA and Firebase rule regression
+        run: npm test
+      - name: Original cards, user ownership and radar guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Protected master or backend data changed'
+            exit 1
+          fi
+      - name: Save only derived static references after successful checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: sync versioned assets for ownership fast UI'
+            git push origin HEAD:perf/custom-ownership-targeted-update-20261027
+          fi
