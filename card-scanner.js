@@ -1046,8 +1046,9 @@
     els.selectAll.addEventListener("click", selectAllMissing);
     els.save.addEventListener("click", saveSelectedMemberships);
     els.next.addEventListener("click", () => {
+      const nextInput = state.lastInputMode === "album" ? els.fileInput : els.cameraInput;
       resetScanner();
-      window.setTimeout(() => els.cameraInput.click(), 60);
+      window.setTimeout(() => nextInput.click(), 60);
     });
   }
 
@@ -1174,6 +1175,9 @@
       window.setTimeout(() => els.cameraInput.click(), 50);
     });
   }
+
+  // The next-card action continues the last source (camera or album).
+  state.lastInputMode = "camera";
 
   function resetScanner() {
     stopLiveCamera();
@@ -1482,11 +1486,16 @@
   }
 
   async function onPhotoSelected(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    const input = event.currentTarget;
+    const file = input.files?.[0];
+    // Android's file picker suppresses the next change when the same photo is chosen.
+    // Clear only the input value, not the captured File or existing scan result.
+    input.value = "";
+    if (!file || state.busy) return;
+    state.lastInputMode = input === els.fileInput ? "album" : "camera";
     await analyzeFile(file, {
       liveConsensus: null,
-      preferWholeIfCardRatio: event.currentTarget === els.fileInput,
+      preferWholeIfCardRatio: input === els.fileInput,
     });
   }
 
