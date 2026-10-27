@@ -47,6 +47,9 @@
   .pokemon-search-hero .hero-description br{display:none}
   .pokemon-search-box{margin-top:18px}
   .pokemon-search-field{height:52px}
+  /* Avoid mobile browser zoom on focus and make filter choices easier to tap. */
+  .pokemon-search-field input{font-size:16px}
+  .pokemon-search-filters .catalog-select select{font-size:16px}
   .pokemon-search-field kbd{display:none}
   .pokemon-search-suggestions{max-height:310px;border-radius:13px}
   .pokemon-search-filters{grid-template-columns:1fr;gap:10px;margin-top:11px}
