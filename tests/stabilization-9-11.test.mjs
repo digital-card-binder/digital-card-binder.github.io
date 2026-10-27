@@ -45,7 +45,7 @@ function fakePager(total=20000){
     clean:v=>String(v||""),
     renderEmpty:()=>{},
     updateSummary:()=>{},
-    JSON,Math
+    JSON,Math,SEARCH_PAGE_SIZE:60
   };
   vm.runInNewContext(searchFns,ctx);
   return {state,nodes,grid,get rendered(){return rendered},api:ctx.__pager};
@@ -141,6 +141,7 @@ test("backup exports server-only snapshots and preflights restore before mutatio
  assert.doesNotMatch(binderReader,/await firestoreModule\.getDocs\(/);
  assert.match(ops,/accountUid: state\.user\.uid/);
  assert.match(ops,/if \(file\.size > 120 \* 1024 \* 1024\)/);
- assert.match(ops,/const payload = validateBackup\(JSON\.parse\(text\)\);\s*restoreDocumentWrites\(payload\);/);
+ assert.match(ops,/const payload = validateBackup\(JSON\.parse\(text\)\);/);
+ assert.match(ops,/restoreDocumentWrites\(payload\);/);
  assert.match(backupHtml,/서버의 최신 데이터만 백업/);
 });
