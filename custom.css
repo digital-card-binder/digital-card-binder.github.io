@@ -654,3 +654,26 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   #custom-quick-add-dialog .custom-dialog-actions{display:grid;grid-template-columns:1fr 1fr}
   #custom-quick-add-dialog .custom-dialog-actions button{min-height:44px}
 }
+
+/* Post-save undo: appears only after persistence succeeds. */
+.custom-undo-toast{
+  position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%);z-index:101;
+  width:max-content;max-width:calc(100vw - 24px);
+  display:flex;align-items:center;gap:9px;padding:9px 11px 9px 15px;
+  border:1px solid #cbd8e4;border-radius:14px;
+  background:#17233f;color:#fff;
+  box-shadow:0 11px 30px rgba(12,25,44,.2);font-size:13px;font-weight:700;
+}
+.custom-undo-toast[hidden]{display:none!important}
+.custom-undo-toast button{
+  min-height:44px;border:1px solid rgba(255,255,255,.32);
+  border-radius:10px;background:#fff;color:#17233f;
+  font-weight:800;padding:8px 12px;cursor:pointer;
+}
+.custom-undo-toast button:focus-visible{outline:3px solid #55dce3;outline-offset:2px}
+#custom-undo-dismiss{min-width:40px;padding:5px;font-size:19px}
+@media(max-width:760px){
+  .custom-undo-toast{bottom:calc(86px + env(safe-area-inset-bottom,0px));width:calc(100vw - 24px);justify-content:space-between}
+  #custom-undo-message{flex:1}
+}
