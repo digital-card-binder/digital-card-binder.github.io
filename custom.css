@@ -677,3 +677,29 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   .custom-undo-toast{bottom:calc(86px + env(safe-area-inset-bottom,0px));width:calc(100vw - 24px);justify-content:space-between}
   #custom-undo-message{flex:1}
 }
+
+/* 19차: personal-dex card management uses a reachable compact mobile sheet. */
+@media(max-width:760px){
+  body[data-page="custom-dex"] .custom-card-menu-dialog[open]{
+    position:fixed;inset:auto 0 0;
+    margin:0 auto;width:min(100%,560px);
+    max-height:min(80dvh,640px);overflow-y:auto;
+    border-radius:20px 20px 0 0;
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  body[data-page="custom-dex"] .custom-card-menu-dialog .custom-dialog-inner{
+    padding:17px 14px 15px;
+  }
+  body[data-page="custom-dex"] .custom-card-menu-actions button{
+    min-height:48px;touch-action:manipulation;
+  }
+  body[data-page="custom-dex"] .custom-card-menu-dialog .custom-dialog-heading{
+    margin-bottom:12px;
+  }
+  body[data-page="custom-dex"] .custom-mobile-detail-nav{
+    gap:8px;
+  }
+  body[data-page="custom-dex"] #custom-card-grid .custom-card-actions .custom-card-more{
+    min-width:44px;
+  }
+}

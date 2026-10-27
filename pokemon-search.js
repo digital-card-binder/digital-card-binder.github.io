@@ -875,6 +875,12 @@
       state.visiblePageKey = key;
       state.visibleCount = SEARCH_PAGE_SIZE;
     }
+    const advancedCount = el("pokemon-search-advanced-count");
+    if (advancedCount) {
+      const active = Number(state.scope !== "ALL") + Number(state.era !== "ALL") +
+        Number(state.setCode !== "ALL");
+      advancedCount.textContent = active ? active + "개 적용" : "";
+    }
     const shown = filteredCards();
     // Keep the sorted, filtered snapshot so every 60-card expansion is O(batch).
     state.renderedCards = shown;
@@ -1378,7 +1384,17 @@
     });
   }
 
+  function initAdvancedFilterDisclosure() {
+    const details = el("pokemon-search-advanced-filters");
+    if (!details || typeof window.matchMedia !== "function") return;
+    const mobile = window.matchMedia("(max-width: 690px)");
+    const sync = () => { details.open = !mobile.matches; };
+    sync();
+    mobile.addEventListener?.("change", sync);
+  }
+
   async function init() {
+    initAdvancedFilterDisclosure();
     try {
       if (!catalogService?.pokemonSearchIndex) {
         throw new Error("공용 검색 인덱스 서비스를 찾지 못했습니다.");

@@ -5,6 +5,7 @@
   const mobile = window.matchMedia("(max-width: 760px)");
   let listScroll = 0;
   let activeDex = "";
+  let lastMenuTrigger = null;
   const $ = (id) => document.getElementById(id);
 
   function currentTile() {
@@ -77,6 +78,8 @@
     more.className = "custom-card-more";
     more.innerHTML = '<span class="custom-more-icon" aria-hidden="true">⋯</span><span class="custom-more-label" aria-hidden="true">관리</span>';
     more.setAttribute("aria-label", "카드 관리 메뉴 열기");
+    more.setAttribute("aria-haspopup", "dialog");
+    more.setAttribute("aria-controls", "custom-card-menu-dialog");
     const title = article.querySelector(".card-name-ko")?.textContent || "카드";
     actions.replaceChildren(own, more);
 
@@ -103,6 +106,7 @@
       controls.append(ownedAction);
       if (document.body.classList.contains("custom-bulk-mode")) controls.append(up, down);
       controls.append(remove);
+      lastMenuTrigger = more;
       dialog.showModal();
     });
   }
@@ -159,6 +163,10 @@
       }
     });
     $("custom-card-menu-close")?.addEventListener("click", () => $("custom-card-menu-dialog").close());
+    $("custom-card-menu-dialog")?.addEventListener("close", () => {
+      if (lastMenuTrigger?.isConnected) lastMenuTrigger.focus({ preventScroll: true });
+      lastMenuTrigger = null;
+    });
     $("custom-dex-manage")?.addEventListener("click", (event) => {
       if (event.target.closest("button")) $("custom-dex-manage").open = false;
     });
