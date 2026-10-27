@@ -84,17 +84,17 @@ test("disabled storage keeps the two-column default and allows runtime toggles",
   assert.equal(f.document.body.dataset.customGridColumns,"4");
 });
 
-test("page's initial DOM and accessible labels match two-column default",()=>{
-  assert.match(html,/<body data-page="custom-dex" data-custom-grid-columns="2">/);
-  assert.match(html,/data-columns="2" class="is-active" aria-pressed="true" aria-label="카드를 한 줄에 두 장씩 크게 보기"/);
-  assert.match(html,/data-columns="4" aria-pressed="false" aria-label="카드를 한 줄에 네 장씩 작게 보기"/);
-  assert.match(css,/data-custom-grid-columns="2"[^\\n]*#custom-card-grid/);
+test("page initial DOM and accessible labels match the two-column default",()=>{
+  assert.ok(html.includes('<body data-page="custom-dex" data-custom-grid-columns="2">'));
+  assert.ok(html.includes('data-columns="2" class="is-active" aria-pressed="true" aria-label="카드를 한 줄에 두 장씩 크게 보기"'));
+  assert.ok(html.includes('data-columns="4" aria-pressed="false" aria-label="카드를 한 줄에 네 장씩 작게 보기"'));
+  assert.ok(css.includes('data-custom-grid-columns="2"] #custom-card-grid.card-grid'));
 });
 
 test("mobile dex-switch controls remain reachable and page jumps are not obscured",()=>{
-  assert.match(css,/data-custom-view="detail"\\] \\.custom-mobile-detail-nav \\{/);
-  assert.match(css,/position: sticky;/);
-  assert.match(css,/z-index: 21;/);
-  assert.match(css,/#custom-card-grid \\{\\s*scroll-margin-top:/);
-  assert.match(css,/#custom-mobile-switch \\{\\s*min-height: 44px;\\s*font-size: 16px;/);
+  assert.ok(css.includes('data-custom-view="detail"] .custom-mobile-detail-nav {'));
+  assert.ok(css.includes('position: sticky;'));
+  assert.ok(css.includes('z-index: 21;'));
+  assert.ok(css.includes('#custom-card-grid {\n    scroll-margin-top:'));
+  assert.ok(css.includes('#custom-mobile-switch {\n    min-height: 44px;\n    font-size: 16px;'));
 });
