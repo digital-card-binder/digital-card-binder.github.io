@@ -552,3 +552,90 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
     min-height: 44px;
   }
 }
+
+/* Refined personal-dex actions: frequent actions remain visible, destructive
+   options live behind an accessible, lightweight disclosure menu. */
+.custom-dex-manage{position:relative;z-index:12;min-width:120px}
+.custom-dex-manage summary{
+  display:flex;align-items:center;justify-content:center;
+  min-height:44px;padding:9px 13px;
+  border:1px solid #d8e3eb;border-radius:11px;
+  background:#fff;color:#2b4761;font-size:13px;font-weight:800;
+  cursor:pointer;list-style:none;
+}
+.custom-dex-manage summary::-webkit-details-marker{display:none}
+.custom-dex-manage summary::after{content:"⌄";font-size:15px;margin-left:9px;color:#607588}
+.custom-dex-manage[open] summary{border-color:#91b6c8;background:#f0f7fc}
+.custom-dex-manage summary:focus-visible{outline:3px solid #168895;outline-offset:2px}
+.custom-dex-manage-actions{
+  position:absolute;top:calc(100% + 6px);right:0;z-index:13;
+  display:grid;gap:7px;min-width:188px;padding:9px;
+  border:1px solid #d9e4ed;border-radius:13px;
+  background:#fff;box-shadow:0 12px 29px rgba(18,45,71,.13);
+}
+.custom-dex-manage:not([open]) .custom-dex-manage-actions{display:none!important}
+.custom-dex-manage-actions button{width:100%;min-height:44px!important;font-size:13px!important;text-align:left}
+
+/* Two clear import paths instead of search, photos and manual entry mixed
+   into a single long scrollable dialog. Manual entry stays under Search. */
+#card-picker-dialog .custom-import-methods{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:5px;padding:5px;margin:0 0 14px;
+  border:1px solid #d9e4ed;border-radius:14px;background:#edf3f8;
+}
+#card-picker-dialog .custom-import-methods button{
+  min-width:0;min-height:44px;padding:9px 6px;
+  border:0;border-radius:10px;background:transparent;
+  color:#587089;font-size:14px;font-weight:800;
+}
+#card-picker-dialog .custom-import-methods button.is-active{
+  background:#fff;color:#174e69;
+  box-shadow:0 2px 8px rgba(23,35,63,.1);
+}
+#card-picker-dialog .custom-import-methods button:focus-visible{
+  outline:3px solid #168895;outline-offset:1px;
+}
+#card-picker-dialog[data-custom-import-mode="search"] [data-custom-import-section="photo"],
+#card-picker-dialog[data-custom-import-mode="photo"] [data-custom-import-section="search"]{
+  display:none!important;
+}
+.custom-import-photo-help{margin:0 0 12px;color:#536579;font-size:13px;line-height:1.5}
+#custom-import-photo-section #custom-photo-trigger{
+  display:block;width:100%;min-height:48px;
+  border:1px solid #aacdda;border-radius:12px;
+  background:#f1f8fc;color:#16526c;font-size:14px;font-weight:800;
+  cursor:pointer;
+}
+#custom-import-photo-section #custom-photo-panel{margin-top:12px}
+
+/* Compact 4-column cards are for browsing; use one reliable management
+   touch target instead of two cramped 23-32px action buttons. */
+#custom-card-grid .custom-more-label{display:none}
+#custom-card-grid .custom-card-actions .custom-card-more{min-height:44px}
+#custom-card-menu-actions .custom-card-menu-owned{
+  background:#e9f5fb;border-color:#b5d6e6;color:#174e69;
+}
+@media(max-width:760px){
+  body[data-page="custom-dex"][data-custom-view="detail"] .custom-dex-manage{
+    grid-column:1/-1;
+  }
+  body[data-page="custom-dex"] .custom-dex-manage summary{
+    min-height:44px;
+  }
+  body[data-page="custom-dex"] #custom-card-grid .custom-card-actions .custom-owned-toggle{
+    min-height:44px!important;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card[data-compact-ready="1"] .custom-owned-toggle{
+    display:none!important;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-card-actions .custom-card-more{
+    flex:1 1 100%!important;width:100%!important;
+    min-height:44px!important;height:44px!important;
+    font-size:12px!important;
+  }
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-more-icon{display:none}
+  body[data-page="custom-dex"]:not([data-custom-grid-columns="2"]) #custom-card-grid .custom-more-label{
+    display:inline;font-size:12px;font-weight:800;
+  }
+  #custom-card-menu-actions .custom-card-menu-owned{min-height:48px}
+}
