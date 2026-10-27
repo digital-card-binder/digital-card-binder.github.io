@@ -36,11 +36,16 @@
     requestAnimationFrame(() => window.scrollTo(0, listScroll));
   }
 
-  function showDetail() {
+  function showDetail(fromHistory = false) {
     if (!mobile.matches) return;
-    if (document.body.dataset.customView !== "detail") {
+    if (document.body.dataset.customView !== "detail" && !fromHistory) {
       listScroll = window.scrollY;
-      window.history.pushState({ customDexMobileDetail: true }, "", window.location.href);
+      // Preserve other page history metadata and create only one detail entry.
+      window.history.pushState(
+        { ...(window.history.state || {}), customDexMobileDetail: true },
+        "",
+        window.location.href,
+      );
     }
     document.body.dataset.customSection = "dex";
     document.body.dataset.customView = "detail";
@@ -139,8 +144,10 @@
       if (window.history.state?.customDexMobileDetail) window.history.back();
       else showList();
     });
-    window.addEventListener("popstate", () => {
-      if (document.body.dataset.customView === "detail") showList();
+    window.addEventListener("popstate", (event) => {
+      // Android back returns to the list; browser forward must reopen the detail.
+      if (event.state?.customDexMobileDetail && mobile.matches) showDetail(true);
+      else if (document.body.dataset.customView === "detail") showList();
     });
     $("custom-mobile-switch")?.addEventListener("change", (event) => {
       const id = event.currentTarget.value;
