@@ -1,0 +1,56 @@
+name: XY cross-language cameo scene evidence batch
+on:
+  push:
+    branches: [audit/xy-visual-crossmatch-20261027]
+    paths: [scripts/xy-visual-crossmatch-cameos-20261027.py, .github/workflows/xy-cameo-matching-20261027.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-cameo-match-20261027
+  cancel-in-progress: false
+jobs:
+  audit-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 105
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-visual-crossmatch-20261027
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install public image comparison dependencies
+        run: python -m pip install --quiet pillow imagehash
+      - name: Cross-match existing official Korean XY artwork with English cameo source images
+        run: python -u scripts/xy-visual-crossmatch-cameos-20261027.py
+      - name: Rebuild derived catalog and verify all regressions
+        run: |
+          npm ci --no-fund
+          npm run site:prepare
+          npm test
+      - name: Confirm user ownership, master series, radar and original checkpoints unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|tests/card-radar-|scripts/.*radar|data/audits/theme-xy-100-card-batches-20261026/|data/audits/theme-xy-100-card-progress-20261026.json|\.github/)'; then
+            echo "Protected files unexpectedly modified"
+            exit 1
+          fi
+      - name: Save tested cameo proof and exact review checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add data/audits/theme-xy-verified-cameo-image-match-20261027.json
+          git commit -m "audit(xy): save Korean-English pixel-matched cameos and 12-theme holds"
+          git push origin HEAD:audit/xy-visual-crossmatch-20261027
