@@ -2540,3 +2540,74 @@ body:has(.card-dialog.show) .dex-scroll-top { display: none !important; }
     margin-bottom:12px;
   }
 }
+
+/* 25차 — bright shared foundation. Neutral ink, airy blue/lilac/coral accents.
+   No card colors, owned-state semantics, or page structure are changed. */
+:root {
+  --surface-soft:#f8fbff;
+  --line:#dee8f4;
+  --ink:#1d3047;
+  --ink-soft:#52667e;
+  --ink-faint:#64778e;
+  --shadow-sm:0 8px 24px rgba(36,79,128,.065);
+  --shadow-md:0 17px 42px rgba(33,69,118,.12);
+  --bright-blue:#226aa7;
+  --bright-blue-pale:#eaf5ff;
+  --bright-lilac:#f2eeff;
+  --bright-coral:#fff0ec;
+}
+body {
+  background:
+    radial-gradient(circle at 96% 2%,rgba(163,206,255,.19),transparent 32rem),
+    radial-gradient(circle at 3% 33%,rgba(246,205,230,.13),transparent 26rem),
+    var(--surface-soft);
+}
+body:not([data-page="dashboard"]) .main-content > .hero {
+  border:1px solid #e2e9f7;
+  background:
+    radial-gradient(circle at 91% 10%,rgba(184,168,251,.23),transparent 30%),
+    radial-gradient(circle at 4% 94%,rgba(255,207,195,.22),transparent 36%),
+    linear-gradient(120deg,#fff 0%,#f0f8ff 100%);
+  color:var(--ink);
+  box-shadow:0 14px 38px rgba(47,100,157,.075);
+}
+body:not([data-page="dashboard"]) .main-content > .hero::before {
+  opacity:.08;
+}
+body:not([data-page="dashboard"]) .main-content > .hero .hero-description,
+body:not([data-page="dashboard"]) .main-content > .hero .hero-progress-copy > span,
+body:not([data-page="dashboard"]) .main-content > .hero .hero-progress-copy > strong small,
+body:not([data-page="dashboard"]) .main-content > .hero .hero-progress-copy p {
+  color:#4f637c;
+}
+body:not([data-page="dashboard"]) .main-content > .hero .hero-progress-copy p b{
+  color:#1d405c;
+}
+body:not([data-page="dashboard"]) .main-content > .hero .eyebrow{
+  color:#245c95;
+}
+body:not([data-page="dashboard"]) .main-content > .hero .progress-ring{
+  background:conic-gradient(#438cdb calc(var(--progress) * 1%),#dfe9f7 0);
+}
+body:not([data-page="dashboard"]) .main-content > .hero .progress-ring::before{
+  background:#fff;
+}
+body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
+  color:#566982;
+}
+:is(.catalog-panel,.stat-card){
+  border-color:#e1e9f3;
+  background:#fff;
+  box-shadow:var(--shadow-sm);
+}
+.pokemon-card-button{
+  border-color:#e0e8f2;
+  box-shadow:0 8px 22px rgba(45,87,132,.065);
+}
+.pokemon-card-button:hover{
+  border-color:#9ec8ed;
+  box-shadow:0 13px 30px rgba(44,111,177,.15);
+}
+.card-image-wrap{
+  background:linear-gradient(145deg,#fbfdff,#eff6ff);
+}
