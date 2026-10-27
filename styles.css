@@ -2407,3 +2407,52 @@ img {
     to { transform: translateX(0); opacity: 1; }
   }
 }
+
+/* Reusable long-catalog navigation: compact, touch-friendly and safe-area aware. */
+.dex-scroll-top {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 84px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid rgba(33, 48, 79, .14);
+  border-radius: 999px;
+  background: rgba(23, 35, 63, .94);
+  color: #fff;
+  box-shadow: 0 5px 18px rgba(23, 35, 63, .20);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(12px);
+}
+.dex-scroll-top[hidden] { display: none !important; }
+.dex-scroll-top:focus-visible { outline: 3px solid #ffcc30; outline-offset: 3px; }
+.dex-scroll-top:hover { background: #26365b; }
+.dex-scroll-top-arrow { font-size: 17px; line-height: 1; }
+body:has(dialog[open]) .dex-scroll-top,
+body:has(.card-dialog.is-open) .dex-scroll-top,
+body:has(.card-dialog.show) .dex-scroll-top { display: none !important; }
+
+@media (max-width: 760px) {
+  .dex-scroll-top {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+    min-width: 48px;
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    box-shadow: 0 4px 14px rgba(23, 35, 63, .16);
+  }
+  .dex-scroll-top-caption { display: none; }
+  .dex-scroll-top-arrow { font-size: 22px; }
+}
