@@ -639,3 +639,18 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
   }
   #custom-card-menu-actions .custom-card-menu-owned{min-height:48px}
 }
+
+/* Search -> personal binder: explicit destination, no implicit ownership changes. */
+#custom-quick-add-dialog .custom-quick-add-card{margin:0 0 12px;font-weight:800;line-height:1.6}
+#custom-quick-add-dialog .custom-quick-add-label{display:block;margin-bottom:7px;font-size:13px;font-weight:800;color:#344e69}
+#custom-quick-add-dialog #custom-quick-add-dex{
+  width:100%;height:48px;border:1px solid #cbd9e6;border-radius:12px;
+  padding:0 12px;font-size:16px;background:white;color:#20394e;
+}
+#custom-quick-add-message{margin:12px 0;color:#587089;font-size:13px;line-height:1.5}
+#custom-quick-add-dialog :is(button,select):focus-visible{outline:3px solid #168895;outline-offset:2px}
+@media(max-width:760px){
+  #card-picker-select-visible,#card-picker-select-all{min-height:44px}
+  #custom-quick-add-dialog .custom-dialog-actions{display:grid;grid-template-columns:1fr 1fr}
+  #custom-quick-add-dialog .custom-dialog-actions button{min-height:44px}
+}
