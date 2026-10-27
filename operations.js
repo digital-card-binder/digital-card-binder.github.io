@@ -98,6 +98,17 @@
     }
   }
 
+  // A successful backup must reflect the server, never an outdated offline
+  // Firestore cache. If the network fails, fail safely rather than exporting
+  // apparently valid but stale user data.
+  function readServerDocument(reference) {
+    return state.firebase.firestoreModule.getDocFromServer(reference);
+  }
+
+  function readServerCollection(reference) {
+    return state.firebase.firestoreModule.getDocsFromServer(reference);
+  }
+
   async function readCollection(documentId) {
     const ref = accountCore.documentRef(
       state.firebase.firestoreModule,
@@ -106,7 +117,7 @@
       CONFIG,
       documentId,
     );
-    const snapshot = await state.firebase.firestoreModule.getDoc(ref);
+    const snapshot = await readServerDocument(ref);
     return snapshot.exists() ? snapshot.data() || {} : null;
   }
 
@@ -165,7 +176,7 @@
 
   async function readCustomBinders() {
     const { firestoreModule } = state.firebase;
-    const snapshot = await firestoreModule.getDocs(customBinderCollectionRef());
+    const snapshot = await readServerCollection(customBinderCollectionRef());
     if (snapshot.size > MAX_CUSTOM_BINDERS) {
       throw new Error(`커스텀 바인더가 ${MAX_CUSTOM_BINDERS}개를 초과해 백업을 중단했습니다.`);
     }
@@ -179,7 +190,7 @@
       let pages = [];
 
       if (schemaVersion === 2) {
-        const pageSnapshot = await firestoreModule.getDocs(
+        const pageSnapshot = await readServerCollection(
           firestoreModule.collection(binderSnapshot.ref, "pages"),
         );
         const pageOrder = Array.isArray(data.pageOrder)
@@ -220,7 +231,7 @@
         if (chunkSet) expectedBySet.set(chunkSet, chunkCount);
       }
 
-      const chunkSnapshot = await firestoreModule.getDocs(
+      const chunkSnapshot = await readServerCollection(
         firestoreModule.collection(binderSnapshot.ref, "chunks"),
       );
       const chunks = chunkSnapshot.docs
@@ -298,6 +309,7 @@
         schemaVersion: 2,
         createdAt: new Date().toISOString(),
         siteVersion,
+        accountUid: state.user.uid,
         documents,
         overrideShards,
         local,
@@ -587,6 +599,13 @@
     if (!payload.documents || typeof payload.documents !== "object" || Array.isArray(payload.documents)) {
       throw new Error("백업의 도감 문서가 올바르지 않습니다.");
     }
+    // Backups made from 2026-10-27 onward are locked to the account that
+    // exported them. Older backups without this field remain supported.
+    if (payload.accountUid !== undefined &&
+        (typeof payload.accountUid !== "string" || !payload.accountUid ||
+         payload.accountUid !== state.user?.uid)) {
+      throw new Error("현재 로그인 계정과 백업 파일의 계정이 다릅니다. 복구를 중단했습니다.");
+    }
     for (const key of Object.keys(payload.documents)) {
       if (!DOCUMENT_IDS.includes(key) || !payload.documents[key] || typeof payload.documents[key] !== "object" || Array.isArray(payload.documents[key])) {
         throw new Error(`지원하지 않는 도감 문서가 포함되어 있습니다: ${key}`);
@@ -768,8 +787,15 @@
   }
 
   async function readRestoreFile(file) {
+    if (file.size > 120 * 1024 * 1024) {
+      throw new Error("백업 파일이 120MB를 초과합니다. 파일을 다시 확인해 주세요.");
+    }
     const text = await file.text();
-    return validateBackup(JSON.parse(text));
+    const payload = validateBackup(JSON.parse(text));
+    // Perform the same safe write-size preflight at file selection,
+    // before enabling the destructive restore button.
+    restoreDocumentWrites(payload);
+    return payload;
   }
 
   async function restoreBackup() {
@@ -780,7 +806,8 @@
       ? payload.customBinders.length
       : 0;
     if (!confirm(
-      `${documentCount}개 도감 문서와 커스텀 바인더 ${binderCount}개를 백업 내용으로 복구할까요?\n현재 저장 데이터가 변경됩니다.`,
+      `${documentCount}개 도감 문서와 커스텀 바인더 ${binderCount}개를 백업 내용으로 복구할까요?\n현재 저장 데이터가 변경됩니다.` +
+      (!payload.accountUid ? "\n주의: 이 파일은 이전 버전 백업으로 계정 식별 정보가 없습니다." : ""),
     )) return;
 
     const button = $("operations-restore");
@@ -842,7 +869,7 @@
         $("operations-restore").disabled = false;
         setStatus(
           $("operations-restore-status"),
-          `${Object.keys(state.restorePayload.documents).length}개 도감 문서와 커스텀 바인더 ${state.restorePayload.customBinders?.length || 0}개가 들어 있는 백업입니다.`,
+          `복구 전 용량·구조 검증 완료: ${Object.keys(state.restorePayload.documents).length}개 도감 문서, 커스텀 바인더 ${state.restorePayload.customBinders?.length || 0}개.` + (state.restorePayload.accountUid ? "" : " 이전 백업이라 계정 식별 정보가 없습니다."),
           "success",
         );
       } catch (error) {
