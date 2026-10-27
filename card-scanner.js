@@ -967,6 +967,7 @@
             '<div class="card-scan-manual">' +
               '<input id="card-scan-set" type="text" autocomplete="off" placeholder="세트코드 예: sv2a">' +
               '<input id="card-scan-number" type="text" autocomplete="off" placeholder="카드번호 예: 142/165">' +
+              '<input id="card-scan-name" type="search" autocomplete="off" placeholder="카드명 예: 피카츄 (인식 실패 시)">' +
               '<button id="card-scan-manual-search" class="card-scan-secondary" type="button">직접 검색</button>' +
             '</div>' +
           '</div>' +
@@ -1008,6 +1009,7 @@
       liveClose: dialog.querySelector("#card-scan-live-close"),
       manualSet: dialog.querySelector("#card-scan-set"),
       manualNumber: dialog.querySelector("#card-scan-number"),
+      manualName: dialog.querySelector("#card-scan-name"),
       manualSearch: dialog.querySelector("#card-scan-manual-search"),
       preview: dialog.querySelector("#card-scan-preview"),
       previewImage: dialog.querySelector("#card-scan-preview-image"),
@@ -1197,6 +1199,7 @@
     if (els.ocrText) els.ocrText.textContent = "";
     if (els.manualSet) els.manualSet.value = "";
     if (els.manualNumber) els.manualNumber.value = "";
+    if (els.manualName) els.manualName.value = "";
     if (els.cameraInput) els.cameraInput.value = "";
     if (els.fileInput) els.fileInput.value = "";
     setProgress(0);
@@ -1541,13 +1544,15 @@
           "비교 결과: " + ocrVariant.description + "을 기준으로 문자까지 확인합니다.";
       }
 
-      const worker = await ensureOcrWorker();
-      const regions = await makeOcrCanvases(ocrVariant.canvas);
       const numberTexts = [];
       const titleTexts = [];
       let candidates = [];
-
-      for (let index = 0; index < regions.length; index += 1) {
+      // Image matching is already available even if OCR CDN/worker fails.
+      // Preserve it as a selectable candidate instead of discarding the scan.
+      try {
+        const worker = await ensureOcrWorker();
+        const regions = await makeOcrCanvases(ocrVariant.canvas);
+        for (let index = 0; index < regions.length; index += 1) {
         const region = regions[index];
         setProgress(18 + Math.round((index / regions.length) * 58));
 
@@ -1575,6 +1580,13 @@
         ) {
           break;
         }
+      }
+
+      } catch (ocrError) {
+        console.warn("문자 인식을 사용할 수 없어 이미지 후보로 계속합니다.", ocrError);
+        els.previewMeta.textContent = visualMatches.length
+          ? "문자 인식 없이 이미지 비교 결과를 표시합니다. 카드명과 번호를 확인해 주세요."
+          : "문자 인식이 어려워 직접 검색을 사용할 수 있습니다.";
       }
 
       const numberText = numberTexts.join(" ").replace(/\s+/g, " ").trim();
@@ -1799,13 +1811,20 @@
     return filtered.map((item) => item.card);
   }
 
+  function manualNameMatches(card, query) {
+    const name = compactCardName(query);
+    if (!name) return true;
+    return [card.name, card.pokemonName].some((value) => compactCardName(value).includes(name));
+  }
+
   function manualSearch() {
     void (async () => {
       await loadSearchCards();
       const set = normalizeSetCode(els.manualSet.value);
       const parsed = parseCardNumber(els.manualNumber.value);
-      if (!set && !parsed.numerator) {
-        setStatus("세트코드 또는 카드번호를 입력해 주세요.", "error");
+      const nameQuery = clean(els.manualName?.value);
+      if (!set && !parsed.numerator && compactCardName(nameQuery).length < 2) {
+        setStatus("세트코드·카드번호 또는 두 글자 이상의 카드명을 입력해 주세요.", "error");
         return;
       }
 
@@ -1813,6 +1832,7 @@
         .filter((card) => !set || normalizeSetCode(card.setCode) === set)
         .filter((card) => !parsed.numerator || card.numerator === parsed.numerator)
         .filter((card) => !parsed.denominator || !card.denominator || card.denominator === parsed.denominator)
+        .filter((card) => manualNameMatches(card, nameQuery))
         .slice(0, 16);
 
       renderCandidates(candidates);

@@ -679,3 +679,9 @@
 .card-scan-sheet :is(button,input):focus-visible {
   outline:3px solid #168895;outline-offset:2px;
 }
+
+/* 22차: name-based manual recovery is available without external OCR APIs. */
+.card-scan-manual #card-scan-name{
+  grid-column:1/-1;
+  font-size:16px;
+}
