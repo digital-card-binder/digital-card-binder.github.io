@@ -1,0 +1,50 @@
+name: Close XY theme audit pass with explicit skips
+on:
+  push:
+    branches: [audit/xy-disposition-final-20261027]
+    paths:
+      - scripts/audit-xy-close-skips-20261027.mjs
+      - .github/workflows/xy-audit-closure-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  final-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-disposition-final-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Preserve earlier scene proof and classify every XY card as approved or skipped
+        run: node scripts/audit-xy-close-skips-20261027.mjs
+      - name: Site regressions
+        run: |
+          npm ci --no-fund
+          npm run site:prepare
+          npm test
+      - name: Protect original data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|data/art-themes\.json|firestore\.rules|radar-server/|api/radar/|data/audits/theme-xy-100-card-batches-20261026/|data/audits/theme-xy-100-card-progress-20261026.json)'; then
+            echo 'Protected source changed'
+            exit 1
+          fi
+      - name: Commit completed audit pass with skipped list
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/audits/theme-xy-final-disposition-skipped-20261027.json
+          git add data/audits/theme-xy-audit-closure-status-20261027.json
+          git commit -m 'audit(xy): close current theme review pass and preserve skipped cards'
+          git push origin HEAD:audit/xy-disposition-final-20261027
