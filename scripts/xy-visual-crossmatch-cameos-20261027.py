@@ -129,11 +129,7 @@ kos=[v for v in results.values() if v['status']=='downloaded']
 matched=[];unmatched=[];uncertain=[]
 for k,e in er.items():
  if e['status']!='downloaded':unmatched.append({'english':k,'reason':'download failed'});continue
- distances=[(score(v),v['card'],v) for v in (
-  {'f':comparison(c,e)['f'],'a':comparison(c,e)['a'],
-   'ad':comparison(c,e)['a'],'id':comparison(c,e)['i']}
-   for c in kos)]
- # NOTE: corrected art distance metrics are calculated below for accepted shortlists.
+ # Compare source artwork against Korean cards without assuming matching card numbers.
  shortlist=[]
  for c in kos:
   ko=c['card']
