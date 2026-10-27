@@ -1,0 +1,52 @@
+name: Stabilization v14-v16 QA and safe asset sync
+on:
+  push:
+    branches: [stabilization/v14-v16-mobile-performance-qa-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stabilization-v14-v16-20261027
+  cancel-in-progress: false
+jobs:
+  verify-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: stabilization/v14-v16-mobile-performance-qa-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install locked dependencies
+        run: npm ci --no-fund
+      - name: Synchronize static references and generated metrics
+        run: npm run site:prepare
+      - name: Full card registry, UI, Firebase and regression verification
+        run: npm test
+      - name: Protect cards, accounts, audit records and Android application
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|DigitalCardBinder_.*\.apk$|\.github/)'; then
+            echo 'Protected card DB, audit, user security or Android resource changed'
+            exit 1
+          fi
+      - name: Commit only verified static version references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: sync verified v14-v16 static asset versions'
+            git push origin HEAD:stabilization/v14-v16-mobile-performance-qa-20261027
+          fi

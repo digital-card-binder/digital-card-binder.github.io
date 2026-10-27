@@ -51,6 +51,7 @@
     searchCache: { key: "", items: [] },
     visibleCount: SEARCH_PAGE_SIZE,
     visiblePageKey: "",
+    renderedCards: [],
   };
 
   const el = (id) => document.getElementById(id);
@@ -875,6 +876,8 @@
       state.visibleCount = SEARCH_PAGE_SIZE;
     }
     const shown = filteredCards();
+    // Keep the sorted, filtered snapshot so every 60-card expansion is O(batch).
+    state.renderedCards = shown;
     const grid = el("pokemon-search-grid");
     const fragment = document.createDocumentFragment();
     for (const item of shown.slice(0, state.visibleCount)) fragment.append(makeCard(item));
@@ -894,7 +897,12 @@
   }
 
   function loadMoreSearchCards() {
-    const shown = filteredCards();
+    // If filters changed before the button event, rebuild instead of appending stale cards.
+    if (state.visiblePageKey !== searchPageKey()) {
+      render();
+      return;
+    }
+    const shown = state.renderedCards;
     const start = Math.min(state.visibleCount, shown.length);
     const end = Math.min(start + SEARCH_PAGE_SIZE, shown.length);
     if (end <= start) return;

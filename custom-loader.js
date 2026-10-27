@@ -9,7 +9,7 @@ const DYNAMIC_ASSET_VERSIONS = {"./custom-public.js":"2fe8782967e9","./custom-gr
 
   function load(src, onload) {
     const script = document.createElement("script");
-    script.src = `${src}?v=${DYNAMIC_ASSET_VERSIONS[src] || (src === "./custom-mobile-ux.js" ? "a8d492587f32" : "1")}`;
+    script.src = `${src}?v=${DYNAMIC_ASSET_VERSIONS[src] || (src === "./custom-mobile-ux.js" ? "902bff8de93f" : "1")}`;
     script.async = false;
     if (onload) script.addEventListener("load", onload, { once: true });
     document.head.append(script);

@@ -3,7 +3,7 @@
 (function () {
   const FIREBASE_VERSION = "12.16.0";
   const PUSH_CONFIG_URL = "/push-config.json";
-  const SERVICE_WORKER_URL = "/sw.js?v=632392d98c06";
+  const SERVICE_WORKER_URL = "/sw.js?v=2c83bd3ef7b6";
   const MANIFEST_URL = "/manifest.webmanifest?v=a54b174a6bc6";
   const ANDROID_VERSION_URL = "/app-version.json";
   const ANDROID_UPDATE_DISMISS_KEY = "digitalCardBinderAndroidUpdateDismissV1";
