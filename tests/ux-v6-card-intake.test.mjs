@@ -24,7 +24,7 @@ function fixture(query="pik",visible=50,total=130,capacity=1500){
       pickedCatalogKeys:selected
     },
     $:(key)=>elements[key],
-    currentDex:()=>({cards:catalog.slice(0,1500-capacity).map(c=>({key:c.key}))}),
+    currentDex:()=>({cards:Array.from({length:1500-capacity},(_,i)=>({key:"already-owned-"+i}))}),
     pickerMatches:(q)=>q?catalog:catalog.slice(0,50),
     MAX_CARDS_PER_DEX:1500,
     renderPicker:()=>{context.renders=(context.renders||0)+1;},
