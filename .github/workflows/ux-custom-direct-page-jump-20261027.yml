@@ -1,0 +1,60 @@
+name: Validate custom dex direct card range navigation
+on:
+  push:
+    branches: [ux/custom-dex-direct-page-jump-20261027]
+    paths:
+      - custom.js
+      - custom.css
+      - custom.html
+      - tests/custom-dex-pagination.test.mjs
+      - .github/workflows/ux-custom-direct-page-jump-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-custom-direct-page-jump-20261027
+  cancel-in-progress: false
+jobs:
+  test-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/custom-dex-direct-page-jump-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Dependencies
+        run: npm ci --no-fund
+      - name: Verify jump, 50-card append and filter regression
+        run: node --test tests/custom-dex-pagination.test.mjs
+      - name: Regenerate shared website version references
+        run: npm run site:prepare
+      - name: Run complete repository test suite
+        run: npm test
+      - name: Ensure private collections and original card data untouched
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Protected database or backend unexpectedly modified'
+            exit 1
+          fi
+      - name: Save tested static asset references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize asset versions for custom dex direct page jump'
+            git push origin HEAD:ux/custom-dex-direct-page-jump-20261027
+          fi
