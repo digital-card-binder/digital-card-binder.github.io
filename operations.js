@@ -289,7 +289,10 @@
       const overrideShards = {};
       for (const documentId of DOCUMENT_IDS.filter(accountCore.usesOverrideShards)) {
         const reference = accountCore.documentRef(state.firebase.firestoreModule, state.firebase.db, state.user, CONFIG, documentId);
-        overrideShards[documentId] = await accountCore.readOverrideShards(state.firebase.firestoreModule, reference, { preferServer: true });
+        // Do not use accountCore.readOverrideShards(preferServer): its offline
+        // fallback could silently produce stale ownership in a valid backup.
+        const shardSnapshot = await readServerCollection(state.firebase.firestoreModule.collection(reference, "overrideShards"));
+        overrideShards[documentId] = shardSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
       }
       const customBinders = await readCustomBinders();
       let siteVersion = "";
