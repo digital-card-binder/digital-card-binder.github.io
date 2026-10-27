@@ -1,0 +1,55 @@
+name: XY original-art scene review batch 002
+on:
+  push:
+    branches:
+      - audit/xy-scene-resume-20261027
+    paths:
+      - scripts/audit-xy-original-art-scenes-batch-002-20261027.mjs
+      - .github/workflows/xy-scene-resume-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xy-scene-resume-20261027
+  cancel-in-progress: false
+jobs:
+  apply-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-scene-resume-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Apply XY original-art scenes and partial themes
+        run: node scripts/audit-xy-original-art-scenes-batch-002-20261027.mjs
+      - name: Prepare and run full regressions
+        run: |
+          npm ci --no-fund
+          npm run site:prepare
+          npm test
+      - name: Ensure protected master, ownership, and radar files unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/series\.json|data/series-legacy\.json|firestore\.rules|radar-server/|api/radar/|data/radar-|data/card-radar-|tests/card-radar-|scripts/.*radar|\.github/)'; then
+            echo "Protected files unexpectedly modified"
+            exit 1
+          fi
+      - name: Commit passing scene proof on branch
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add data/audits/theme-xy-original-art-scene-batch-002-20261027.json
+          git commit -m "audit(xy): review three Korean-mapped original art scenes and register six partial themes"
+          git push origin HEAD:audit/xy-scene-resume-20261027
