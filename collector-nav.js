@@ -1637,6 +1637,59 @@
     }
   }
 
+  // Compact navigation for long card grids. Presentation-only; never touches collection data.
+  function installLongPageNavigation() {
+    if (typeof document.createElement !== "function" ||
+        typeof document.body?.appendChild !== "function" ||
+        typeof window.addEventListener !== "function") return;
+    if (document.getElementById("dex-scroll-top")) return;
+
+    const button = document.createElement("button");
+    button.id = "dex-scroll-top";
+    button.className = "dex-scroll-top";
+    button.type = "button";
+    button.hidden = true;
+    button.setAttribute("aria-label", "맨 위로 이동");
+    button.setAttribute("title", "맨 위로 이동");
+
+    const arrow = document.createElement("span");
+    arrow.className = "dex-scroll-top-arrow";
+    arrow.textContent = "↑";
+    arrow.setAttribute("aria-hidden", "true");
+    const caption = document.createElement("span");
+    caption.className = "dex-scroll-top-caption";
+    caption.textContent = "맨 위";
+    button.append(arrow, caption);
+    document.body.appendChild(button);
+
+    let scheduled = false;
+    const update = () => {
+      scheduled = false;
+      const y = window.scrollY || document.documentElement?.scrollTop || 0;
+      const pageHeight = document.documentElement?.scrollHeight || 0;
+      const viewport = window.innerHeight || 0;
+      button.hidden = y < 640 || pageHeight <= viewport + 640;
+    };
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      if (typeof window.requestAnimationFrame === "function") {
+        window.requestAnimationFrame(update);
+      } else {
+        update();
+      }
+    };
+    button.addEventListener("click", () => {
+      const reduceMotion = typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "instant" : "smooth" });
+    });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("pageshow", onScroll, { passive: true });
+    onScroll();
+  }
+
   activateCollectionUiShell();
   arrangeCollectorNavigation();
   installCardRadarShortcut();
@@ -1659,5 +1712,6 @@
   addCardLayoutToggle();
   addHeroActions();
   rememberCurrentDexPage();
+  installLongPageNavigation();
 
 })();
