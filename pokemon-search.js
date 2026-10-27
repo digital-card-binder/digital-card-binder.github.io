@@ -1202,6 +1202,52 @@
     }
   }
 
+  const SEARCH_RESUME_KEY = "dcb-pokemon-search-resume-v1";
+
+  function saveSearchResume() {
+    try {
+      window.sessionStorage.setItem(SEARCH_RESUME_KEY, JSON.stringify({
+        query: state.query, scope: state.scope, era: state.era,
+        setCode: state.setCode, status: state.status,
+        scrollY: Math.max(0, Math.round(window.scrollY || 0)),
+      }));
+    } catch { /* Storage may be disabled; searching must still work. */ }
+  }
+
+  function restoreSearchResume() {
+    let saved;
+    try {
+      saved = JSON.parse(window.sessionStorage.getItem(SEARCH_RESUME_KEY) || "null");
+    } catch { return; }
+    if (!saved || typeof saved !== "object") return;
+    const scope = ["ALL", "NAME", "NUMBER", "SET", "ARTIST", "TRAINER", "RARITY"].includes(saved.scope) ? saved.scope : "ALL";
+    const era = ["ALL", "M", "SV", "S", "SM", "XY", "BW", "DP", "ADV", "ORIGIN"].includes(saved.era) ? saved.era : "ALL";
+    const status = ["all", "owned", "missing"].includes(saved.status) ? saved.status : "all";
+    state.scope = scope;
+    state.era = era;
+    state.status = status;
+    state.query = typeof saved.query === "string" ? saved.query.slice(0, 150) : "";
+    state.target = (scope === "ALL" || scope === "NAME") ? exactPokemon(state.query) : null;
+    el("pokemon-search-input").value = state.query;
+    el("pokemon-search-scope").value = scope;
+    el("pokemon-search-era").value = era;
+    el("pokemon-search-status").querySelectorAll("button[data-status]").forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.status === status);
+    });
+    syncSearchPlaceholder();
+    populateSetFilter();
+    const setSelect = el("pokemon-search-set");
+    if ([...setSelect.options].some((option) => option.value === saved.setCode)) {
+      state.setCode = saved.setCode;
+      setSelect.value = saved.setCode;
+    } else {
+      state.setCode = "ALL";
+    }
+    render();
+    const y = Number(saved.scrollY) || 0;
+    if (y > 0) window.requestAnimationFrame(() => window.scrollTo(0, y));
+  }
+
   function bindEvents() {
     const input = el("pokemon-search-input");
     input.addEventListener("input", onSearchInput);
@@ -1261,6 +1307,7 @@
     el("pokemon-search-toggle-owned").addEventListener("click", toggleOwned);
     el("pokemon-search-add-custom").addEventListener("click", addSearchCardToCustomDex);
 
+    window.addEventListener("pagehide", saveSearchResume);
     window.addEventListener("pageshow", async (event) => {
       if (!event.persisted) return;
       const account = window.PokemonDexPageAccount;
@@ -1321,6 +1368,7 @@
       render();
 
       const requested = new URLSearchParams(window.location.search).get("q");
+      if (!requested) restoreSearchResume();
       if (requested) {
         el("pokemon-search-input").value = requested;
         state.query = requested;
