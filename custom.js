@@ -24,6 +24,7 @@
     catalogSetCodes: new Set(),
     pickerVisibleCount: PICKER_PAGE_SIZE,
     customCardVisibleCount: CUSTOM_CARD_PAGE_SIZE,
+    customCardPageStart: 0,
     selectedDexId: "",
     filter: "all",
     query: "",
@@ -415,6 +416,7 @@
       button.addEventListener("click", () => {
         state.selectedDexId = dex.id;
         state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+        state.customCardPageStart = 0;
         state.bulkOrderMode = false;
         state.bulkOrderKeys.clear();
         state.pickedCatalogKeys.clear();
@@ -880,6 +882,8 @@
       state.query = "";
       $("custom-search").value = "";
       setStatusFilter("all");
+      state.customCardPageStart = 0;
+      state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
     }
     renderAll();
   }
@@ -889,19 +893,42 @@
   function updateCustomCardsPagination(visible, total) {
     const panel = $("custom-cards-pagination");
     if (!panel) return;
-    const hasMore = !state.bulkOrderMode && visible < total;
-    panel.hidden = !hasMore;
+    const start = state.bulkOrderMode ? 0 : state.customCardPageStart;
+    const end = Math.min(start + visible, total);
+    panel.hidden = state.bulkOrderMode || total <= CUSTOM_CARD_PAGE_SIZE;
     const label = $("custom-cards-visible-counter");
-    if (label) label.textContent = String(visible) + " / " + String(total) + "장 표시";
+    if (label) label.textContent = start
+      ? String(start + 1) + "–" + String(end) + " / " + String(total) + "장 표시"
+      : String(end) + " / " + String(total) + "장 표시";
     const button = $("custom-cards-load-more");
-    if (button) button.textContent = String(Math.min(CUSTOM_CARD_PAGE_SIZE, total - visible)) + "장 더보기";
+    if (button) {
+      button.hidden = state.bulkOrderMode || end >= total;
+      button.textContent = String(Math.min(CUSTOM_CARD_PAGE_SIZE, total - end)) + "장 더보기";
+    }
+    const select = $("custom-cards-page-jump");
+    if (select) {
+      const count = Math.ceil(total / CUSTOM_CARD_PAGE_SIZE);
+      if (select.options.length !== count) {
+        select.replaceChildren();
+        for (let page = 0; page < count; page += 1) {
+          const offset = page * CUSTOM_CARD_PAGE_SIZE;
+          const option = document.createElement("option");
+          option.value = String(offset);
+          option.textContent = String(offset + 1) + "–" +
+            String(Math.min(offset + CUSTOM_CARD_PAGE_SIZE, total)) + "장";
+          select.append(option);
+        }
+      }
+      select.value = String(start);
+    }
   }
 
   function loadMoreCustomCards() {
     const dex = currentDex();
     if (!dex || state.bulkOrderMode) return;
     const entries = filteredEntries(dex);
-    const current = Math.min(state.customCardVisibleCount, entries.length);
+    const start = state.customCardPageStart;
+    const current = Math.min(start + state.customCardVisibleCount, entries.length);
     const next = Math.min(current + CUSTOM_CARD_PAGE_SIZE, entries.length);
     if (next <= current) return;
     const positions = new Map(dex.cards.map((card, index) => [card.key, index]));
@@ -910,8 +937,21 @@
       fragment.append(makeCustomCard(entry, positions.get(entry.key), dex));
     }
     $("custom-card-grid").append(fragment);
-    state.customCardVisibleCount = next;
-    updateCustomCardsPagination(next, entries.length);
+    state.customCardVisibleCount = next - start;
+    updateCustomCardsPagination(state.customCardVisibleCount, entries.length);
+  }
+
+  function jumpToCustomCardPage(value) {
+    const dex = currentDex();
+    if (!dex || state.bulkOrderMode) return;
+    const total = filteredEntries(dex).length;
+    const offset = Number(value);
+    if (!Number.isSafeInteger(offset) || offset < 0 ||
+        offset % CUSTOM_CARD_PAGE_SIZE !== 0 || offset >= total) return;
+    state.customCardPageStart = offset;
+    state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+    renderWorkspace();
+    $("custom-card-grid")?.scrollIntoView?.({ block: "start", behavior: "instant" });
   }
 
   function renderWorkspace() {
@@ -934,14 +974,19 @@
 
     const visibleEntries = filteredEntries(dex);
     $("custom-result-count").textContent = String(visibleEntries.length);
+    if (!state.bulkOrderMode && state.customCardPageStart >= visibleEntries.length) {
+      state.customCardPageStart = 0;
+      state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+    }
+    const start = state.bulkOrderMode ? 0 : state.customCardPageStart;
     const limit = state.bulkOrderMode
       ? visibleEntries.length
-      : Math.min(state.customCardVisibleCount, visibleEntries.length);
+      : Math.min(state.customCardVisibleCount, visibleEntries.length - start);
     const grid = $("custom-card-grid");
     grid.replaceChildren();
     const positions = new Map(dex.cards.map((card, index) => [card.key, index]));
     const fragment = document.createDocumentFragment();
-    for (const entry of visibleEntries.slice(0, limit)) {
+    for (const entry of visibleEntries.slice(start, start + limit)) {
       fragment.append(makeCustomCard(entry, positions.get(entry.key), dex));
     }
     grid.append(fragment);
@@ -1449,9 +1494,11 @@
     });
     $("manual-card-form").addEventListener("submit", addManualCard);
     $("custom-cards-load-more").addEventListener("click", loadMoreCustomCards);
+    $("custom-cards-page-jump").addEventListener("change", (event) => jumpToCustomCardPage(event.currentTarget.value));
     $("custom-search").addEventListener("input", (event) => {
       state.query = event.currentTarget.value;
       state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+      state.customCardPageStart = 0;
       renderWorkspace();
     });
     $("custom-status").addEventListener("click", (event) => {
@@ -1459,6 +1506,7 @@
       if (!button) return;
       setStatusFilter(button.dataset.status);
       state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+      state.customCardPageStart = 0;
       renderWorkspace();
     });
     for (const dialog of document.querySelectorAll("dialog")) {
