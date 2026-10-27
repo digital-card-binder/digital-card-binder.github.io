@@ -45,6 +45,20 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+// Notifications may open only this application's origin, never arbitrary push links.
+function safeNotificationUrl(value) {
+  const fallback = new URL(DEFAULT_URL, self.location.origin).href;
+  try {
+    const target = new URL(String(value || DEFAULT_URL), self.location.origin);
+    return target.origin === self.location.origin &&
+      (target.protocol === "https:" || target.protocol === "http:")
+      ? target.href
+      : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 self.addEventListener("push", (event) => {
   let payload = {};
   try {
@@ -55,7 +69,7 @@ self.addEventListener("push", (event) => {
 
   const title = String(payload.title || DEFAULT_TITLE);
   const body = String(payload.body || "새소식이 등록되었습니다.");
-  const url = String(payload.url || DEFAULT_URL);
+  const url = safeNotificationUrl(payload.url);
 
   event.waitUntil(
     self.registration.showNotification(title, {
@@ -70,10 +84,7 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const targetUrl = new URL(
-    String(event.notification?.data?.url || DEFAULT_URL),
-    self.location.origin,
-  ).href;
+  const targetUrl = safeNotificationUrl(event.notification?.data?.url);
 
   event.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
