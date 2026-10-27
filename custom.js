@@ -43,6 +43,8 @@
     ownershipSaving: false,
     photoQueue: [],
     photoSaving: false,
+    quickAddCard: null,
+    quickAddSaving: false,
     photoCache: new Map(),
     publicSyncTimer: null,
   };
@@ -1225,10 +1227,114 @@
   function selectVisiblePickerCards() {
     const dex = currentDex();
     const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
-    pickerMatches($("card-picker-search").value).forEach((card) => {
+    pickerMatches($("card-picker-search").value).slice(0, state.pickerVisibleCount).forEach((card) => {
       if (!existing.has(card.key)) state.pickedCatalogKeys.add(card.key);
     });
     renderPicker();
+  }
+
+  function selectAllPickerCards() {
+    const dex = currentDex();
+    const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
+    const matches = pickerMatches($("card-picker-search").value).filter((card) => !existing.has(card.key));
+    const remaining = Math.max(0, MAX_CARDS_PER_DEX - (dex?.cards.length || 0));
+    // A 1,500-card accidental import is expensive and confusing. Never
+    // implicitly select more than the remaining collection capacity.
+    if (matches.length > remaining) {
+      $("custom-photo-status").textContent = "";
+      alert("검색 결과 " + matches.length + "장 중 추가 가능한 카드가 " + remaining + "장입니다. 검색어를 좁혀 선택해 주세요.");
+      return;
+    }
+    for (const card of matches) state.pickedCatalogKeys.add(card.key);
+    renderPicker();
+  }
+
+  function requestedQuickAddCard() {
+    const params = new URLSearchParams(window.location.search);
+    const setCode = clean(params.get("addSet"));
+    const cardCode = clean(params.get("addCode"));
+    if (!setCode || !cardCode || setCode.length > 40 || cardCode.length > 100) return null;
+    return state.catalog.find((card) =>
+      normalize(card.setCode) === normalize(setCode) &&
+      normalize(card.key.split("::").slice(1).join("::")) === normalize(cardCode)) || null;
+  }
+
+  function offerSearchQuickAdd() {
+    const requested = requestedQuickAddCard();
+    if (!requested) return;
+    const params = new URLSearchParams(window.location.search);
+    params.delete("addSet");
+    params.delete("addCode");
+    const cleaned = window.location.pathname + (params.toString() ? "?" + params.toString() : "") + window.location.hash;
+    window.history.replaceState(window.history.state, "", cleaned);
+    const msg = $("custom-quick-add-message");
+    state.quickAddCard = requested;
+    $("custom-quick-add-card").textContent = requested.name + " · " + requested.setCode + " · " + requested.cardNumber;
+    const selector = $("custom-quick-add-dex");
+    selector.replaceChildren();
+    if (!state.user) {
+      msg.textContent = "로그인 후 다시 카드 검색에서 도감에 추가해 주세요.";
+      $("custom-quick-add-confirm").disabled = true;
+    } else if (!orderedDexes().length) {
+      msg.textContent = "도감이 없습니다. 먼저 나만의도감을 만들어 주세요.";
+      $("custom-quick-add-confirm").disabled = true;
+    } else {
+      msg.textContent = "추가할 도감과 카드를 확인한 뒤 등록하세요. 보유 상태는 미보유로 시작합니다.";
+      $("custom-quick-add-confirm").disabled = false;
+      for (const dex of orderedDexes()) {
+        const option = document.createElement("option");
+        option.value = dex.id;
+        option.textContent = dex.title;
+        selector.append(option);
+      }
+      selector.value = state.selectedDexId && state.dexes[state.selectedDexId] ? state.selectedDexId : selector.value;
+    }
+    $("custom-quick-add-dialog").showModal();
+  }
+
+  async function commitSearchQuickAdd(event) {
+    event.preventDefault();
+    if (state.quickAddSaving || !state.user || !state.quickAddCard) return;
+    const dex = state.dexes[$("custom-quick-add-dex").value];
+    const card = state.quickAddCard;
+    const message = $("custom-quick-add-message");
+    if (!dex) return;
+    if (dex.cards.some((entry) => entry.key === card.key)) {
+      message.textContent = "이미 이 도감에 추가된 카드입니다.";
+      return;
+    }
+    if (dex.cards.length >= MAX_CARDS_PER_DEX) {
+      message.textContent = "도감은 최대 " + MAX_CARDS_PER_DEX + "장까지 추가할 수 있습니다.";
+      return;
+    }
+    const beforeUpdatedAt = dex.updatedAt;
+    state.quickAddSaving = true;
+    $("custom-quick-add-confirm").disabled = true;
+    const added = { key: card.key, owned: false, manual: null };
+    dex.cards.push(added);
+    dex.updatedAt = new Date().toISOString();
+    message.textContent = "도감에 저장 중입니다…";
+    try {
+      await saveDexes();
+      state.selectedDexId = dex.id;
+      state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
+      state.customCardPageStart = 0;
+      state.query = "";
+      state.filter = "all";
+      $("custom-search").value = "";
+      setStatusFilter("all");
+      renderAll();
+      $("custom-quick-add-dialog").close();
+      const tile = [...document.querySelectorAll("#custom-dex-list .custom-dex-tile")].find((node)=>node.dataset.dexId === dex.id);
+      if (window.matchMedia?.("(max-width: 760px)").matches) tile?.click();
+    } catch (error) {
+      dex.cards = dex.cards.filter((entry)=>entry!==added);
+      dex.updatedAt = beforeUpdatedAt;
+      message.textContent = error?.message || "저장에 실패했습니다. 다시 시도해 주세요.";
+    } finally {
+      state.quickAddSaving = false;
+      $("custom-quick-add-confirm").disabled = false;
+    }
   }
 
   async function addCatalogCard(key) {
@@ -1538,6 +1644,10 @@
       renderPicker();
     });
     $("card-picker-select-visible").addEventListener("click", selectVisiblePickerCards);
+    $("card-picker-select-all").addEventListener("click", selectAllPickerCards);
+    $("custom-quick-add-form").addEventListener("submit", commitSearchQuickAdd);
+    $("custom-quick-add-close").addEventListener("click", () => $("custom-quick-add-dialog").close());
+    $("custom-quick-add-cancel").addEventListener("click", () => $("custom-quick-add-dialog").close());
     $("card-picker-clear-selected").addEventListener("click", () => {
       state.pickedCatalogKeys.clear();
       renderPicker();
@@ -1616,6 +1726,7 @@
     try {
       await Promise.all([loadCatalog(), initializeFirebase()]);
       renderAll();
+      offerSearchQuickAdd();
     } catch (error) {
       console.error(error);
       $("custom-error").hidden = false;
