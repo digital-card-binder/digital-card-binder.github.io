@@ -30,6 +30,7 @@ function fakePager(total=20000){
     ["pokemon-search-load-more",{hidden:true}],
     ["pokemon-search-result-count",{textContent:""}],
     ["pokemon-search-active-filter",{textContent:""}],
+    ["pokemon-search-advanced-count",{textContent:""}],
     ["pokemon-search-reset",{hidden:false}]
   ]);
   const state={query:"피카츄",scope:"NAME",era:"ALL",setCode:"ALL",status:"all",visibleCount:60,visiblePageKey:""};
