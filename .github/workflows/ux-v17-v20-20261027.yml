@@ -1,0 +1,52 @@
+name: Verify and synchronize UI v17-v20
+on:
+  push:
+    branches: [ux/v17-v20-mobile-simplification-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-v17-v20-20261027
+  cancel-in-progress: false
+jobs:
+  verify-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/v17-v20-mobile-simplification-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Synchronize generated references
+        run: npm run site:prepare
+      - name: Verify all UI, card data, architecture and Firestore permissions
+        run: npm test
+      - name: Prevent modifications to cards, audited themes, account security and app binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|DigitalCardBinder_.*\.apk$|\.github/)'; then
+            echo 'Unexpected protected file changes - abort'
+            exit 1
+          fi
+      - name: Commit passing static version references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize verified v17-v20 asset hashes'
+            git push origin HEAD:ux/v17-v20-mobile-simplification-20261027
+          fi
