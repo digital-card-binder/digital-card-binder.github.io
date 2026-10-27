@@ -1690,6 +1690,16 @@
     onScroll();
   }
 
+  // Same-tab, local-only diagnostics shared by the operational health panel.
+  // A second navigation script may run on mobile; request only once.
+  if (!window.__dcbDiagnosticsLoaderRequested) {
+    window.__dcbDiagnosticsLoaderRequested = true;
+    const diagnosticScript = document.createElement("script");
+    diagnosticScript.src = "./site-error-diagnostics.js";
+    diagnosticScript.async = true;
+    document.head.append(diagnosticScript);
+  }
+
   activateCollectionUiShell();
   arrangeCollectorNavigation();
   installCardRadarShortcut();
