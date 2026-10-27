@@ -1125,6 +1125,9 @@
 
     const account = window.PokemonDexPageAccount;
     const toggle = el("pokemon-search-toggle-owned");
+    const destination = el("pokemon-search-add-custom");
+    destination.disabled = !clean(item.setCode) || !clean(card.code || card.meta);
+    destination.title = destination.disabled ? "도감에 등록할 카드번호가 없습니다." : "나만의도감에서 저장할 도감 선택";
     const canEdit = Boolean(account?.canEdit?.());
     const seriesOwned = Boolean(card.seriesOwned);
     toggle.disabled = !canEdit;
@@ -1153,6 +1156,16 @@
     });
     if (typeof dialog.showModal === "function") dialog.showModal();
     else dialog.setAttribute("open", "");
+  }
+
+  function addSearchCardToCustomDex() {
+    const item = state.activeCard;
+    if (!item) return;
+    const setCode = clean(item.setCode);
+    const code = clean(item.card?.code || item.card?.meta);
+    if (!setCode || !code) return;
+    const params = new URLSearchParams({ addSet: setCode, addCode: code });
+    window.location.assign("./custom.html?" + params.toString());
   }
 
   async function toggleOwned() {
@@ -1246,6 +1259,7 @@
       else event.currentTarget.removeAttribute("open");
     });
     el("pokemon-search-toggle-owned").addEventListener("click", toggleOwned);
+    el("pokemon-search-add-custom").addEventListener("click", addSearchCardToCustomDex);
 
     window.addEventListener("pageshow", async (event) => {
       if (!event.persisted) return;
