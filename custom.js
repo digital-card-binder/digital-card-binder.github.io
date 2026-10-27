@@ -45,6 +45,8 @@
     photoSaving: false,
     quickAddCard: null,
     quickAddSaving: false,
+    undoOwnership: null,
+    undoTimer: null,
     photoCache: new Map(),
     publicSyncTimer: null,
   };
@@ -661,18 +663,47 @@
     });
   }
 
-  async function toggleCustomCardOwned(entry, dex) {
+  function dismissCustomOwnershipUndo() {
+    if (typeof window !== "undefined") window.clearTimeout(state.undoTimer);
+    state.undoTimer = null;
+    state.undoOwnership = null;
+    const toast = $("custom-undo-toast");
+    if (toast) toast.hidden = true;
+  }
+
+  function offerCustomOwnershipUndo(entry, dex) {
+    const toast = $("custom-undo-toast");
+    if (!toast) return;
+    dismissCustomOwnershipUndo();
+    state.undoOwnership = { entry, dex };
+    $("custom-undo-message").textContent = entry.owned
+      ? "보유 카드로 저장했습니다."
+      : "미보유 카드로 저장했습니다.";
+    toast.hidden = false;
+    state.undoTimer = window.setTimeout(dismissCustomOwnershipUndo, 8000);
+  }
+
+  async function undoCustomOwnership() {
+    if (!state.undoOwnership || state.ownershipSaving) return;
+    const { entry, dex } = state.undoOwnership;
+    dismissCustomOwnershipUndo();
+    await toggleCustomCardOwned(entry, dex, false);
+  }
+
+  async function toggleCustomCardOwned(entry, dex, offerUndo = true) {
     // Serialize this collection's owned-status edits to avoid losing a quick
     // second click while Firestore is persisting the previous snapshot.
     if (state.ownershipSaving || !dex.cards.includes(entry)) return;
     const previousOwned = entry.owned;
     const previousUpdatedAt = dex.updatedAt;
+    if (typeof window !== "undefined") dismissCustomOwnershipUndo();
     setCustomOwnershipSaving(true);
     entry.owned = !previousOwned;
     dex.updatedAt = new Date().toISOString();
     refreshCustomOwnershipUi(entry, dex);
     try {
       await saveDexes();
+      if (offerUndo && typeof window !== "undefined") offerCustomOwnershipUndo(entry, dex);
     } catch (error) {
       entry.owned = previousOwned;
       dex.updatedAt = previousUpdatedAt;
@@ -1646,6 +1677,8 @@
     $("card-picker-select-visible").addEventListener("click", selectVisiblePickerCards);
     $("card-picker-select-all").addEventListener("click", selectAllPickerCards);
     $("custom-quick-add-form").addEventListener("submit", commitSearchQuickAdd);
+    $("custom-undo-button").addEventListener("click", () => void undoCustomOwnership());
+    $("custom-undo-dismiss").addEventListener("click", dismissCustomOwnershipUndo);
     $("custom-quick-add-close").addEventListener("click", () => $("custom-quick-add-dialog").close());
     $("custom-quick-add-cancel").addEventListener("click", () => $("custom-quick-add-dialog").close());
     $("card-picker-clear-selected").addEventListener("click", () => {
