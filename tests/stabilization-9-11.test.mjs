@@ -140,6 +140,7 @@ test("backup exports server-only snapshots and preflights restore before mutatio
  assert.ok(binderReader.includes("await readServerCollection("));
  assert.doesNotMatch(binderReader,/await firestoreModule\.getDocs\(/);
  assert.match(ops,/accountUid: state\.user\.uid/);
+ assert.match(ops,/const shardSnapshot = await readServerCollection\(state\.firebase\.firestoreModule\.collection\(reference, "overrideShards"\)\)/);
  assert.match(ops,/if \(file\.size > 120 \* 1024 \* 1024\)/);
  assert.match(ops,/const payload = validateBackup\(JSON\.parse\(text\)\);/);
  assert.match(ops,/restoreDocumentWrites\(payload\);/);
