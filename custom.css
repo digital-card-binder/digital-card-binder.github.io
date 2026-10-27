@@ -456,3 +456,43 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
 .custom-picker-load-more:hover{background:#e6f2f8}
 .custom-picker-load-more[hidden]{display:none!important}
 .custom-picker-load-more:focus-visible{outline:3px solid #168895;outline-offset:2px}
+
+/* Large personal collections load card elements in 50-item pages. */
+.custom-cards-pagination{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:18px auto 4px;
+  padding:8px 0;
+}
+.custom-cards-pagination[hidden]{display:none!important}
+.custom-cards-pagination span{
+  color:var(--ink-soft);
+  font-size:13px;
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+.custom-cards-pagination button{
+  min-height:44px;
+  min-width:136px;
+  padding:10px 20px;
+  border:1px solid #c9d7e3;
+  border-radius:12px;
+  background:#f5f8fb;
+  color:#18445f;
+  font:inherit;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.custom-cards-pagination button:hover{background:#eaf3f9;border-color:#a4c1d3}
+.custom-cards-pagination button:focus-visible{outline:3px solid #168895;outline-offset:2px}
+@media(max-width:760px){
+ .custom-cards-pagination{flex-direction:column;gap:8px;margin-top:14px}
+ .custom-cards-pagination button{width:min(100%,260px)}
+ .custom-workspace-filter #custom-search,
+ .custom-workspace-filter input[type="search"]{font-size:16px}
+}

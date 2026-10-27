@@ -1,0 +1,61 @@
+name: Verify personal dex pagination without data changes
+on:
+  push:
+    branches: [ux/custom-dex-card-pagination-20261027]
+    paths:
+      - custom.js
+      - custom.css
+      - custom.html
+      - tests/custom-dex-pagination.test.mjs
+      - package.json
+      - .github/workflows/ux-custom-dex-pagination-20261027.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ux-custom-dex-pagination-20261027
+  cancel-in-progress: false
+jobs:
+  qa-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/custom-dex-card-pagination-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Confirm personal dex only renders cards in pages and preserves order
+        run: node --test tests/custom-dex-pagination.test.mjs
+      - name: Synchronize client-side versioned asset references
+        run: npm run site:prepare
+      - name: Run all existing catalog and Firebase regression checks
+        run: npm test
+      - name: Guard master data and personal ownership integrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Protected master, ownership or backend files changed!'
+            exit 1
+          fi
+      - name: Commit passing prepared static-site references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: update static references for personal-dex pagination'
+            git push origin HEAD:ux/custom-dex-card-pagination-20261027
+          fi

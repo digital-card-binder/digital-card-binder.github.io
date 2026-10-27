@@ -8,6 +8,7 @@
   const MAX_DEXES = 30;
   const MAX_CARDS_PER_DEX = 1500;
   const PICKER_PAGE_SIZE = 50;
+  const CUSTOM_CARD_PAGE_SIZE = 50;
   // Korean collector names that do not appear in the series DB's English set title.
   const SET_SEARCH_ALIASES = {
     m6a: ["30주년", "포켓몬 30주년", "30th anniversary", "30thcelebration"],
@@ -22,6 +23,7 @@
     catalogMap: new Map(),
     catalogSetCodes: new Set(),
     pickerVisibleCount: PICKER_PAGE_SIZE,
+    customCardVisibleCount: CUSTOM_CARD_PAGE_SIZE,
     selectedDexId: "",
     filter: "all",
     query: "",
@@ -412,6 +414,7 @@
       `;
       button.addEventListener("click", () => {
         state.selectedDexId = dex.id;
+        state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
         state.bulkOrderMode = false;
         state.bulkOrderKeys.clear();
         state.pickedCatalogKeys.clear();
@@ -881,6 +884,36 @@
     renderAll();
   }
 
+  // Paginate large personal collections without changing stored card order or ownership.
+  // Sorting deliberately exposes all cards, preserving cross-page drag targets.
+  function updateCustomCardsPagination(visible, total) {
+    const panel = $("custom-cards-pagination");
+    if (!panel) return;
+    const hasMore = !state.bulkOrderMode && visible < total;
+    panel.hidden = !hasMore;
+    const label = $("custom-cards-visible-counter");
+    if (label) label.textContent = String(visible) + " / " + String(total) + "장 표시";
+    const button = $("custom-cards-load-more");
+    if (button) button.textContent = String(Math.min(CUSTOM_CARD_PAGE_SIZE, total - visible)) + "장 더보기";
+  }
+
+  function loadMoreCustomCards() {
+    const dex = currentDex();
+    if (!dex || state.bulkOrderMode) return;
+    const entries = filteredEntries(dex);
+    const current = Math.min(state.customCardVisibleCount, entries.length);
+    const next = Math.min(current + CUSTOM_CARD_PAGE_SIZE, entries.length);
+    if (next <= current) return;
+    const positions = new Map(dex.cards.map((card, index) => [card.key, index]));
+    const fragment = document.createDocumentFragment();
+    for (const entry of entries.slice(current, next)) {
+      fragment.append(makeCustomCard(entry, positions.get(entry.key), dex));
+    }
+    $("custom-card-grid").append(fragment);
+    state.customCardVisibleCount = next;
+    updateCustomCardsPagination(next, entries.length);
+  }
+
   function renderWorkspace() {
     const workspace = $("custom-workspace");
     const dex = currentDex();
@@ -888,6 +921,8 @@
     if (!dex) {
       workspace.hidden = true;
       $("custom-no-selection").hidden = false;
+      const pager = $("custom-cards-pagination");
+      if (pager) pager.hidden = true;
       return;
     }
     workspace.hidden = false;
@@ -899,12 +934,18 @@
 
     const visibleEntries = filteredEntries(dex);
     $("custom-result-count").textContent = String(visibleEntries.length);
+    const limit = state.bulkOrderMode
+      ? visibleEntries.length
+      : Math.min(state.customCardVisibleCount, visibleEntries.length);
     const grid = $("custom-card-grid");
     grid.replaceChildren();
-    visibleEntries.forEach((entry) => {
-      const originalIndex = dex.cards.findIndex((item) => item.key === entry.key);
-      grid.append(makeCustomCard(entry, originalIndex, dex));
-    });
+    const positions = new Map(dex.cards.map((card, index) => [card.key, index]));
+    const fragment = document.createDocumentFragment();
+    for (const entry of visibleEntries.slice(0, limit)) {
+      fragment.append(makeCustomCard(entry, positions.get(entry.key), dex));
+    }
+    grid.append(fragment);
+    updateCustomCardsPagination(limit, visibleEntries.length);
     $("custom-card-empty").hidden = visibleEntries.length > 0;
   }
 
@@ -1407,14 +1448,17 @@
       if (button) void moveSelectedCards(button.dataset.bulkAction);
     });
     $("manual-card-form").addEventListener("submit", addManualCard);
+    $("custom-cards-load-more").addEventListener("click", loadMoreCustomCards);
     $("custom-search").addEventListener("input", (event) => {
       state.query = event.currentTarget.value;
+      state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
       renderWorkspace();
     });
     $("custom-status").addEventListener("click", (event) => {
       const button = event.target.closest("button[data-status]");
       if (!button) return;
       setStatusFilter(button.dataset.status);
+      state.customCardVisibleCount = CUSTOM_CARD_PAGE_SIZE;
       renderWorkspace();
     });
     for (const dialog of document.querySelectorAll("dialog")) {
