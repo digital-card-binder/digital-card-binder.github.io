@@ -13,13 +13,13 @@
   <link rel="stylesheet" href="./legal.css?v=8fe2cef876a9">
   <link rel="stylesheet" href="./collection-manager.css?v=332f22b3a57d">
   <link rel="stylesheet" href="./collector.css?v=c5b576cc90ff">
-  <link rel="stylesheet" href="./operations.css?v=189a9e56ddd6">
+  <link rel="stylesheet" href="./operations.css?v=bcb885dfcdd1">
   <script src="./firebase-config.js?v=0844fbabed65" defer></script>
   <script src="./site-metrics.js?v=1a2c63965420" defer></script>
   <script src="./legal.js?v=ca76fb29682d" defer></script>
   <script src="./core/account/firebase-account.js?v=1cc883381a3e" defer></script>
-  <script src="./collector-nav.js?v=50af7cd5225e" defer></script>
-  <script src="./operations.js?v=b3f6d147f03e" defer></script>
+  <script src="./collector-nav.js?v=65bd06a359f3" defer></script>
+  <script src="./operations.js?v=070fd6ce2eec" defer></script>
 </head>
 <body data-page="operations">
 <a class="skip-link" href="#main-content">본문으로 바로가기</a>
@@ -76,6 +76,36 @@
             <div><dt>마지막 변화</dt><dd id="operations-watch-date">—</dd></div>
             <div class="is-wide"><dt>확인 필요 제품</dt><dd id="operations-watch-products">없음</dd></div>
           </dl>
+        </article>
+
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>13</span><h2>이용자 의견 관리</h2></div><span id="operations-feedback-badge" class="operations-badge" data-state="ok">확인 중</span></div>
+          <p>사용자가 보낸 건의사항과 오류 제보의 처리 상태를 확인합니다. 개인정보가 포함된 내용은 기존 관리자 의견함에서만 확인합니다.</p>
+          <dl class="operations-meta">
+            <div><dt>전체 의견</dt><dd id="operations-feedback-total">—</dd></div>
+            <div><dt>새 의견</dt><dd id="operations-feedback-new">—</dd></div>
+            <div><dt>오류 제보</dt><dd id="operations-feedback-bugs">—</dd></div>
+            <div><dt>처리 완료</dt><dd id="operations-feedback-completed">—</dd></div>
+          </dl>
+          <div class="operations-feedback-actions">
+            <button id="operations-feedback-refresh" class="manager-button operations-action" type="button">의견 현황 새로고침</button>
+            <a class="manager-button operations-action" href="./index.html#feedback-admin">받은 의견 관리</a>
+          </div>
+          <p id="operations-feedback-status" class="operations-status" role="status" aria-live="polite"></p>
+        </article>
+
+        <article class="catalog-panel operations-card">
+          <div class="operations-card-head"><div><span>13</span><h2>브라우저 오류 진단</h2></div></div>
+          <p>현재 브라우저 탭에서 감지한 오류 건수만 확인합니다. 오류 메시지, 카드 검색어, 계정 정보는 저장하거나 서버로 보내지 않습니다.</p>
+          <dl class="operations-meta">
+            <div><dt>이번 탭의 오류</dt><dd id="operations-error-total">—</dd></div>
+            <div><dt>마지막 오류 화면</dt><dd id="operations-error-page">—</dd></div>
+          </dl>
+          <div class="operations-feedback-actions">
+            <button id="operations-error-refresh" class="manager-button operations-action" type="button">오류 현황 새로고침</button>
+            <button id="operations-error-clear" class="manager-button operations-action" type="button">이번 탭 오류 기록 지우기</button>
+          </div>
+          <p id="operations-error-status" class="operations-status" aria-live="polite">진단 정보는 이 탭에만 보관됩니다.</p>
         </article>
 
         <article class="catalog-panel operations-card">

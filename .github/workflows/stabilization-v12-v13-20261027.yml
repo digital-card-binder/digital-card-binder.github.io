@@ -1,0 +1,70 @@
+name: Verify v12 Android/PWA and v13 operations
+on:
+  push:
+    branches: [stabilization/v12-v13-app-operations-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stabilization-v12-v13-20261027
+  cancel-in-progress: false
+jobs:
+  qa-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: stabilization/v12-v13-app-operations-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install locked dependencies
+        run: npm ci --no-fund
+      - name: Android WebView and PWA release configuration tests
+        run: node --test tests/stabilization-12-mobile-app.test.mjs
+      - name: Owner feedback and privacy-safe diagnostics tests
+        run: node --test tests/stabilization-13-operations.test.mjs
+      - name: Verify existing Android APK signature, package and version
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="DigitalCardBinder_v1.0.2.apk"
+          test -s "$APK"
+          APK_SIGNER=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -type f -name apksigner | sort -V | tail -n 1)
+          AAPT=$(find "$ANDROID_HOME/build-tools" -maxdepth 2 -type f -name aapt | sort -V | tail -n 1)
+          test -n "$APK_SIGNER"
+          test -n "$AAPT"
+          "$APK_SIGNER" verify --verbose --print-certs "$APK"
+          "$AAPT" dump badging "$APK" > /tmp/dcb-apk-badging.txt
+          grep -F "package: name='io.github.digitalcardbinder.app.test' versionCode='17' versionName='1.0.2'" /tmp/dcb-apk-badging.txt
+          echo "Existing signed APK identity and version verified; binary was not rebuilt."
+      - name: Synchronize HTML asset versions and metrics
+        run: npm run site:prepare
+      - name: Full regression, master-card database and Firebase security tests
+        run: npm test
+      - name: Protect original card DB and Firestore infrastructure
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js|DigitalCardBinder_.*\.apk)'; then
+            echo "Protected master/user storage, Android code, or APK was altered"
+            exit 1
+          fi
+      - name: Commit passing generated static references only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize v12-v13 verified static asset hashes'
+            git push origin HEAD:stabilization/v12-v13-app-operations-20261027
+          fi

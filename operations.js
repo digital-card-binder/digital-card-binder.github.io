@@ -109,6 +109,53 @@
     return state.firebase.firestoreModule.getDocsFromServer(reference);
   }
 
+  async function refreshFeedbackMetrics() {
+    if (!state.user || !accountCore.isOwner(CONFIG, state.user)) return;
+    const button = $("operations-feedback-refresh");
+    button.disabled = true;
+    setStatus($("operations-feedback-status"), "의견 현황을 서버에서 확인하고 있습니다.");
+    try {
+      const reference = state.firebase.firestoreModule.collection(state.firebase.db, "siteFeedback");
+      const snapshot = await state.firebase.firestoreModule.getDocsFromServer(reference);
+      const data = snapshot.docs.map((document) => document.data() || {});
+      const count = (predicate) => data.filter(predicate).length;
+      const pending = count((item) => item.status === "new");
+      $("operations-feedback-total").textContent = String(data.length);
+      $("operations-feedback-new").textContent = String(pending);
+      $("operations-feedback-bugs").textContent = String(count((item) => item.type === "bug"));
+      $("operations-feedback-completed").textContent = String(count((item) => item.status === "completed"));
+      $("operations-feedback-badge").dataset.state = pending > 0 ? "warning" : "ok";
+      $("operations-feedback-badge").textContent = pending > 0 ? pending + "건 확인 필요" : "확인 완료";
+      setStatus($("operations-feedback-status"), "실시간 누적 현황을 서버에서 불러왔습니다.", "success");
+    } catch (error) {
+      console.warn("의견 현황을 불러오지 못했습니다.", error?.code || "");
+      $("operations-feedback-badge").dataset.state = "warning";
+      $("operations-feedback-badge").textContent = "조회 실패";
+      setStatus($("operations-feedback-status"), "의견 현황을 확인할 수 없습니다. 인터넷 연결과 관리자 권한을 확인하세요.", "error");
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  function refreshLocalDiagnostics() {
+    const key = "dcb-session-error-diagnostics-v1";
+    let records = [];
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(key) || "[]");
+      if (Array.isArray(saved)) records = saved.filter((item) =>
+        item && typeof item.page === "string" && typeof item.type === "string").slice(-20);
+    } catch { /* private mode may block browser storage */ }
+    $("operations-error-total").textContent = String(records.length);
+    $("operations-error-page").textContent = records.length ? records[records.length - 1].page : "없음";
+    setStatus($("operations-error-status"),
+      records.length ? "이 탭의 오류 유형과 화면 이름만 저장되었습니다." : "이번 탭에서 기록된 오류가 없습니다.");
+  }
+
+  function clearLocalDiagnostics() {
+    try { sessionStorage.removeItem("dcb-session-error-diagnostics-v1"); } catch {}
+    refreshLocalDiagnostics();
+  }
+
   async function readCollection(documentId) {
     const ref = accountCore.documentRef(
       state.firebase.firestoreModule,
@@ -862,6 +909,9 @@
 
   function bindEvents() {
     $("operations-backup").addEventListener("click", makeBackup);
+    $("operations-feedback-refresh").addEventListener("click", () => void refreshFeedbackMetrics());
+    $("operations-error-refresh").addEventListener("click", refreshLocalDiagnostics);
+    $("operations-error-clear").addEventListener("click", clearLocalDiagnostics);
     $("operations-restore-file").addEventListener("change", async (event) => {
       const file = event.currentTarget.files?.[0];
       state.restorePayload = null;
@@ -910,6 +960,8 @@
       $("operations-gate").hidden = true;
       $("operations-content").hidden = false;
       bindEvents();
+      refreshLocalDiagnostics();
+      void refreshFeedbackMetrics();
     } catch (error) {
       console.error("운영센터 초기화 실패", error);
       $("operations-gate-message").textContent = "관리자 계정을 확인하지 못했습니다.";
