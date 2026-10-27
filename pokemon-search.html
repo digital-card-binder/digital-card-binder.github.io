@@ -128,6 +128,17 @@
           </div>
 
           <div class="pokemon-search-filters" aria-label="검색 필터">
+            <div class="filter-group filter-group--status">
+              <span class="filter-label">보유 상태</span>
+              <div id="pokemon-search-status" class="segmented-control" role="group" aria-label="보유 상태 선택">
+                <button class="is-active" type="button" data-status="all">전체</button>
+                <button type="button" data-status="owned">보유</button>
+                <button type="button" data-status="missing">미보유</button>
+              </div>
+            </div>
+            <details id="pokemon-search-advanced-filters" class="pokemon-search-advanced-filters" open>
+              <summary>상세 필터 <span id="pokemon-search-advanced-count" aria-live="polite"></span><span aria-hidden="true" class="pokemon-search-filter-chevron">⌄</span></summary>
+              <div class="pokemon-search-advanced-grid">
             <label class="catalog-select pokemon-search-scope-filter">
               <span class="filter-label">검색 범위</span>
               <select id="pokemon-search-scope">
@@ -163,15 +174,8 @@
                 <option value="ALL">전체 세트</option>
               </select>
             </label>
-
-            <div class="filter-group filter-group--status">
-              <span class="filter-label">보유 상태</span>
-              <div id="pokemon-search-status" class="segmented-control" role="group" aria-label="보유 상태 선택">
-                <button class="is-active" type="button" data-status="all">전체</button>
-                <button type="button" data-status="owned">보유</button>
-                <button type="button" data-status="missing">미보유</button>
               </div>
-            </div>
+            </details>
           </div>
 
           <div class="results-bar">
