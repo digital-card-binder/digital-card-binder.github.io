@@ -36,7 +36,7 @@
     "masterSetCount": 273,
     "masterCardCount": 20243,
     "themeCount": 12,
-    "themeCardSlots": 24180,
+    "themeCardSlots": 24186,
     "uniqueThemeCards": 15807,
     "strictCompleteSetCount": 109,
     "baselineSetCount": 273,
@@ -83,8 +83,8 @@
     {
       "code": "connected",
       "name": "연결 일러스트",
-      "cardSlots": 159,
-      "setCount": 35,
+      "cardSlots": 161,
+      "setCount": 37,
       "rarities": [
         "AR",
         "C",
@@ -112,8 +112,8 @@
     {
       "code": "night",
       "name": "밤 · 달빛",
-      "cardSlots": 547,
-      "setCount": 120,
+      "cardSlots": 548,
+      "setCount": 121,
       "rarities": [
         "AR",
         "C",
@@ -205,8 +205,8 @@
     {
       "code": "food",
       "name": "음식 · 먹는 포켓몬",
-      "cardSlots": 188,
-      "setCount": 70,
+      "cardSlots": 190,
+      "setCount": 72,
       "rarities": [
         "AR",
         "C",
@@ -221,8 +221,8 @@
     {
       "code": "work",
       "name": "일하는 포켓몬",
-      "cardSlots": 107,
-      "setCount": 55,
+      "cardSlots": 108,
+      "setCount": 56,
       "rarities": [
         "AR",
         "C",
@@ -308,7 +308,7 @@
       "cardCount": 2313,
       "completeSetCount": 0,
       "remainingSetCount": 37,
-      "currentThemeSlots": 2156
+      "currentThemeSlots": 2162
     },
     {
       "era": "BW",
@@ -4493,7 +4493,10 @@
       "reviewedAt": "",
       "themeHits": {
         "sleeping": 1,
-        "color": 62
+        "connected": 1,
+        "night": 1,
+        "color": 62,
+        "food": 1
       }
     },
     {
@@ -4532,7 +4535,10 @@
       "status": "partial",
       "reviewedAt": "",
       "themeHits": {
-        "color": 62
+        "connected": 1,
+        "color": 62,
+        "food": 1,
+        "work": 1
       }
     },
     {
