@@ -3769,3 +3769,48 @@ body[data-page="dashboard"] .home-community-banner > b{
     color:#295a80;
   }
 }
+
+/* 28차 — readable text at 320px–690px and focus in the bright home. */
+body[data-page="dashboard"] :is(.home-feature-card,.home-community-banner,.home-primary-action,.home-resume-card):focus-visible{
+  outline:3px solid #1f689f;
+  outline-offset:3px;
+}
+@media(max-width:690px){
+  body[data-page="dashboard"] .home-feature-content > strong,
+  body[data-page="dashboard"] .home-feature-card--wide .home-feature-content > strong{
+    font-size:clamp(.76rem,3.4vw,.9rem);
+    line-height:1.25;
+  }
+  body[data-page="dashboard"] .home-feature-meta {
+    font-size:.62rem;
+    line-height:1.35;
+  }
+  body[data-page="dashboard"] .home-mobile-tabbar strong{
+    font-size:.64rem;
+    line-height:1.15;
+  }
+  body[data-page="dashboard"] .home-mobile-tabbar a{
+    min-height:48px;
+    touch-action:manipulation;
+  }
+  body[data-page="dashboard"] .home-mobile-tabbar a:focus-visible{
+    outline:3px solid #1f689f;
+    outline-offset:-2px;
+  }
+  body[data-page="dashboard"] .home-community-copy small{
+    font-size:.63rem;
+  }
+  body[data-page="dashboard"] .home-primary-action strong{
+    font-size:.75rem;
+  }
+  body[data-page="dashboard"] .home-primary-action small{
+    font-size:.63rem;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-page="dashboard"] .home-feature-card,
+  body[data-page="dashboard"] .home-feature-card > img,
+  body[data-page="dashboard"] .home-community-banner{
+    transition:none!important;
+  }
+}

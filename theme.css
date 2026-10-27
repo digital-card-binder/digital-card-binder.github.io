@@ -244,3 +244,31 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 28차 — themed collecting has the same pastel visual language as the home. */
+.theme-card{
+  border-color:#dce7f4;
+  background:linear-gradient(140deg,#fff,#f2f8ff);
+  box-shadow:0 8px 25px rgba(47,93,145,.075);
+}
+.theme-card:nth-child(3n+2){
+  background:linear-gradient(140deg,#fff,#f7f1ff);
+}
+.theme-card:nth-child(3n){
+  background:linear-gradient(140deg,#fff,#fff3f0);
+}
+.theme-card-symbol{
+  background:linear-gradient(140deg,#dceeff,#eae5ff);
+  color:#28547d;
+}
+.theme-card h3{color:#253e5b}
+.theme-card p{color:#566c86}
+.theme-card-footer{color:#365b79}
+.theme-card:hover,.theme-card:focus-visible{
+  border-color:#9bbfe6;
+  box-shadow:0 12px 30px rgba(47,99,152,.115);
+}
+@media(prefers-reduced-motion:reduce){
+  .theme-card{transition:none}
+  .theme-card:hover,.theme-card:focus-visible{transform:none}
+}

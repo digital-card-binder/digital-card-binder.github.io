@@ -210,3 +210,20 @@ body[data-page="dashboard"] .dashboard-news-more:hover{background:#f0f7ff}
     font-size:.67rem;
   }
 }
+
+/* 28차 — keep collection counts legible despite older compact !important sizes. */
+@media(max-width:690px){
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-title strong{
+    font-size:.72rem!important;
+    line-height:1.3!important;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-count strong{
+    font-size:.88rem!important;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-count span{
+    font-size:.62rem!important;
+  }
+  body[data-page="dashboard"] :is(#dashboard-primary-grid,#dashboard-theme-grid) .dashboard-card-rate{
+    font-size:.65rem!important;
+  }
+}

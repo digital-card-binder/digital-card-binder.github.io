@@ -2611,3 +2611,46 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
 .card-image-wrap{
   background:linear-gradient(145deg,#fbfdff,#eff6ff);
 }
+
+/* 28차 — final legibility, focus and reduced-motion polish across catalogs. */
+@media(max-width:690px){
+  body:not([data-page="dashboard"]) .main-content > .hero {
+    min-height:0;
+    padding:22px 17px;
+    border-radius:18px;
+    box-shadow:0 8px 23px rgba(47,97,148,.07);
+  }
+  body:not([data-page="dashboard"]) .main-content > .hero h1 {
+    line-height:1.22;
+    letter-spacing:-.04em;
+  }
+  body:not([data-page="dashboard"]) .main-content > .hero .hero-description {
+    line-height:1.55;
+  }
+  .pokemon-card-button:focus-visible,
+  .card-dialog :is(button,a):focus-visible{
+    outline:3px solid #1e6096;
+    outline-offset:3px;
+  }
+  .card-dialog .dialog-card-image {
+    background:linear-gradient(145deg,#fff,#eef5ff);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  :where(.pokemon-card-button,.home-feature-card,.dashboard-collection-card,.theme-card),
+  :where(.pokemon-card-button,.home-feature-card,.dashboard-collection-card,.theme-card)::before,
+  :where(.pokemon-card-button,.home-feature-card,.dashboard-collection-card,.theme-card)::after{
+    transition:none!important;animation:none!important;
+  }
+}
+@media(forced-colors:active){
+  :where(.catalog-panel,.pokemon-card-button,.hero,.card-dialog){
+    border:1px solid CanvasText;
+    box-shadow:none;
+  }
+  :where(.pokemon-card-button,.home-feature-card,.theme-card):focus-visible{
+    outline:3px solid Highlight;
+    outline-offset:2px;
+  }
+}
