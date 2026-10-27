@@ -496,3 +496,33 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
  .custom-workspace-filter #custom-search,
  .custom-workspace-filter input[type="search"]{font-size:16px}
 }
+
+/* Direct range navigation: only the chosen 50 cards enter the DOM. */
+.custom-card-page-selector{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--ink-soft);
+  font-size:13px;
+  font-weight:800;
+}
+.custom-card-page-selector select{
+  min-width:126px;
+  max-width:180px;
+  height:44px;
+  padding:0 12px;
+  border:1px solid #c9d7e3;
+  border-radius:12px;
+  background:#fff;
+  color:#18445f;
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+.custom-card-page-selector select:focus-visible{outline:3px solid #168895;outline-offset:2px}
+.custom-cards-pagination button[hidden]{display:none!important}
+@media(max-width:760px){
+  .custom-card-page-selector{width:min(100%,260px);justify-content:space-between}
+  .custom-card-page-selector select{min-width:155px;font-size:16px}
+}
