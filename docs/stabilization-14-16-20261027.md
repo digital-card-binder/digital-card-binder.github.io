@@ -32,3 +32,11 @@ CI는 갤럭시 실제 앱의 위치 권한, 카메라 업로드, Google 로그�
 ## 안전성
 
 마스터 카드 DB/이미지, 보유·미보유 기록, 테마 감사 체크포인트, 백업·복원 형식, 회원 계정, Firebase 규칙을 수정하지 않음. PR 전체 검증이 통과할 때만 main 병합.
+
+## 자동 검증 실행 기록
+
+- 14차 모바일 이동 개선: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40473910305).
+- 15차 검색 성능 개선: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40474204316).
+- 16차 알림 안전성 및 통합 QA: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40474670232).
+- 16차 브랜치의 검증 후 자동 생성 커밋은 정적 자산 경로/해시를 맞추는 변경만 포함하며 카드 마스터·FireStore 규칙·APK에는 변경 없음.
+- 외부 Vercel의 빌드 횟수 제한은 별도 배포 프로젝트 문제이며, 이 GitHub Pages 정적 사이트의 QA 성공으로 대체 증명하지 않음.
