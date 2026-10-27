@@ -1,0 +1,44 @@
+name: Verify v8 shared mobile navigation
+on:
+  push:
+    branches: [ux/v8-mobile-common-navigation-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/v8-mobile-common-navigation-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci --no-fund
+      - run: node --test tests/ux-v8-mobile-nav.test.mjs
+      - run: npm run site:prepare
+      - run: npm test
+      - name: Guard master card and user data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then exit 1; fi
+      - name: Refresh verified asset hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: refresh cache versions for v8 navigation'
+            git push origin HEAD:ux/v8-mobile-common-navigation-20261027
+          fi
