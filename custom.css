@@ -703,3 +703,12 @@ body[data-page="custom-dex"].custom-bulk-mode .custom-card .custom-drag-handle{d
     min-width:44px;
   }
 }
+
+/* 23차: dense multi-card picker clarifies duplicates without hiding results. */
+.custom-picker-meta{flex-wrap:wrap;align-items:center;line-height:1.5}
+#card-picker-existing-count{color:#176783}
+@media(max-width:760px){
+  .custom-picker-meta{font-size:12px;gap:5px}
+  .custom-photo-item input{font-size:16px;min-height:44px}
+  #custom-photo-status{font-size:13px;line-height:1.6}
+}

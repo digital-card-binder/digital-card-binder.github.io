@@ -1185,6 +1185,9 @@
     more.hidden = cards.length >= matches.length;
     more.textContent = `카드 더 보기 (${cards.length} / ${matches.length})`;
     const existing = new Set(dex?.cards.map((entry) => entry.key) || []);
+    // Explain why some search results cannot be selected again.
+    $("card-picker-existing-count").textContent =
+      String(matches.reduce((count, card) => count + Number(existing.has(card.key)), 0));
     for (const key of state.pickedCatalogKeys) if (existing.has(key)) state.pickedCatalogKeys.delete(key);
     $("card-picker-selected-count").textContent = String(state.pickedCatalogKeys.size);
     $("card-picker-add-selected").disabled = !state.pickedCatalogKeys.size || state.bulkSaving;
@@ -1495,6 +1498,7 @@
       name.type = "text";
       name.value = item.name;
       name.maxLength = 80;
+      name.disabled = state.photoSaving;
       name.setAttribute("aria-label", "카드명");
       name.addEventListener("input", () => { item.name = name.value; });
       const remove = document.createElement("button");
@@ -1514,23 +1518,46 @@
     $("custom-photo-trigger").disabled = state.photoSaving;
   }
 
+  function photoBatchIdentity(file) {
+    // This only detects repeat selection of the same local file in this queue.
+    // It is not a content hash and never claims to detect all duplicate images.
+    return [file.name, file.size, file.lastModified, file.type].join("::");
+  }
+
   function preparePhotoBatch(files) {
     if (state.photoSaving) return;
-    const accepted = [...files].filter((file) => file.type.startsWith("image/") && file.size <= 15 * 1024 * 1024);
+    const inputFiles = [...files];
+    const accepted = inputFiles.filter((file) => file.type.startsWith("image/") && file.size <= 15 * 1024 * 1024);
+    const seen = new Set(state.photoQueue.map((item) => photoBatchIdentity(item.file)));
     const slots = Math.max(0, 30 - state.photoQueue.length);
-    for (const file of accepted.slice(0, slots)) {
+    let added = 0;
+    let duplicates = 0;
+    let overLimit = 0;
+    for (const file of accepted) {
+      const signature = photoBatchIdentity(file);
+      if (seen.has(signature)) {
+        duplicates += 1;
+        continue;
+      }
+      seen.add(signature);
+      if (added >= slots) {
+        overLimit += 1;
+        continue;
+      }
       state.photoQueue.push({
         file,
         preview: URL.createObjectURL(file),
         name: clean(file.name.replace(/\.[^.]+$/, "")).slice(0, 80) || "내 카드",
       });
+      added += 1;
     }
     renderPhotoQueue();
-    if (accepted.length > slots || files.length !== accepted.length) {
-      $("custom-photo-status").textContent = "한 번에 30장까지, 사진 한 장당 15MB 이하로 선택할 수 있습니다.";
-    } else {
-      $("custom-photo-status").textContent = "사진명을 필요하면 수정하고 일괄 등록을 누르세요.";
-    }
+    const notes = [added + "장 준비됨"];
+    if (duplicates) notes.push("같은 파일 " + duplicates + "장 중복 제외");
+    if (overLimit) notes.push("30장 제한으로 " + overLimit + "장 제외");
+    const invalid = inputFiles.length - accepted.length;
+    if (invalid) notes.push("지원하지 않는 파일 또는 15MB 초과 " + invalid + "장 제외");
+    $("custom-photo-status").textContent = notes.join(" · ") + " · 이름을 확인하고 등록하세요.";
   }
 
   async function compressPhoto(file) {
@@ -1589,7 +1616,8 @@
     const uploaded = [];
     const failed = [];
     for (const [index, item] of candidates.entries()) {
-      $("custom-photo-status").textContent = "사진 저장 중 " + (index + 1) + " / " + candidates.length;
+      $("custom-photo-status").textContent = "사진 저장 중 " + (index + 1) + " / " + candidates.length +
+        " · " + Math.round(((index + 1) / candidates.length) * 100) + "%";
       const id = makeId("photo");
       try {
         const imageData = await compressPhoto(item.file);
