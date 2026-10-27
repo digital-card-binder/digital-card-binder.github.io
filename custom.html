@@ -297,6 +297,11 @@
         <div class="custom-dialog-actions"><button type="button" id="custom-quick-add-cancel" class="custom-secondary-button">취소</button><button type="submit" id="custom-quick-add-confirm" class="primary-button">선택 도감에 추가</button></div>
       </form>
     </dialog>
+    <div id="custom-undo-toast" class="custom-undo-toast" role="status" aria-live="polite" hidden>
+      <span id="custom-undo-message">보유 상태가 저장됐습니다.</span>
+      <button id="custom-undo-button" type="button">실행 취소</button>
+      <button id="custom-undo-dismiss" type="button" aria-label="안내 닫기">×</button>
+    </div>
     <div id="custom-error" class="app-error" hidden><strong>나만의 도감을 불러오지 못했습니다.</strong><span>페이지를 새로고침해 주세요.</span></div>
   </body>
 </html>
