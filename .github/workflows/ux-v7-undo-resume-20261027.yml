@@ -1,0 +1,44 @@
+name: Verify v7 ownership undo and resumed search
+on:
+  push:
+    branches: [ux/v7-undo-and-search-resume-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ux/v7-undo-and-search-resume-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci --no-fund
+      - run: node --test tests/ux-v7-undo-resume.test.mjs
+      - run: npm run site:prepare
+      - run: npm test
+      - name: Guard cards and account data
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then exit 1; fi
+      - name: Commit generated cache versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: refresh asset versions after v7 UX'
+            git push origin HEAD:ux/v7-undo-and-search-resume-20261027
+          fi
