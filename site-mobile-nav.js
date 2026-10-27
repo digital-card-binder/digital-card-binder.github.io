@@ -24,7 +24,17 @@
     if (menu && menu.tagName === "DETAILS") menu.open = true;
   }
 
+  function enableLocalErrorDiagnostics() {
+    if (window.__dcbDiagnosticsLoaderRequested) return;
+    window.__dcbDiagnosticsLoaderRequested = true;
+    const script = document.createElement("script");
+    script.src = "./site-error-diagnostics.js";
+    script.async = true;
+    document.head.append(script);
+  }
+
   function init() {
+    enableLocalErrorDiagnostics();
     openRequestedMenu();
     window.addEventListener("hashchange", openRequestedMenu);
     if (document.querySelector(".home-mobile-tabbar, .dcb-mobile-nav")) return;
