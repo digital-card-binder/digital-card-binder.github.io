@@ -32,6 +32,7 @@
     RARITY: "레어도 (예: AR, SAR, SR)",
   });
 
+  const SEARCH_PAGE_SIZE = 60;
   const state = {
     groups: [],
     cards: [],
@@ -48,6 +49,8 @@
     activeCard: null,
     facets: { sets: [], artists: [], trainers: [], rarities: [] },
     searchCache: { key: "", items: [] },
+    visibleCount: SEARCH_PAGE_SIZE,
+    visiblePageKey: "",
   };
 
   const el = (id) => document.getElementById(id);
@@ -852,10 +855,30 @@
     }
   }
 
+  function searchPageKey() {
+    return JSON.stringify([state.query, state.scope, state.era, state.setCode, state.status]);
+  }
+
+  function updateSearchPagination(total) {
+    const controls = el("pokemon-search-pagination");
+    const visible = Math.min(state.visibleCount, total);
+    controls.hidden = total <= SEARCH_PAGE_SIZE;
+    el("pokemon-search-page-counter").textContent =
+      formatNumber(visible) + " / " + formatNumber(total) + "장 표시";
+    el("pokemon-search-load-more").hidden = visible >= total;
+  }
+
   function render() {
+    const key = searchPageKey();
+    if (state.visiblePageKey !== key) {
+      state.visiblePageKey = key;
+      state.visibleCount = SEARCH_PAGE_SIZE;
+    }
     const shown = filteredCards();
     const grid = el("pokemon-search-grid");
-    grid.replaceChildren(...shown.map(makeCard));
+    const fragment = document.createDocumentFragment();
+    for (const item of shown.slice(0, state.visibleCount)) fragment.append(makeCard(item));
+    grid.replaceChildren(fragment);
     grid.setAttribute("aria-busy", "false");
     el("pokemon-search-result-count").textContent = formatNumber(shown.length);
     el("pokemon-search-active-filter").textContent = activeFilterLabel();
@@ -865,8 +888,21 @@
       state.era === "ALL" &&
       state.setCode === "ALL" &&
       state.status === "all";
+    updateSearchPagination(shown.length);
     renderEmpty(shown);
     updateSummary();
+  }
+
+  function loadMoreSearchCards() {
+    const shown = filteredCards();
+    const start = Math.min(state.visibleCount, shown.length);
+    const end = Math.min(start + SEARCH_PAGE_SIZE, shown.length);
+    if (end <= start) return;
+    const fragment = document.createDocumentFragment();
+    for (const item of shown.slice(start, end)) fragment.append(makeCard(item));
+    el("pokemon-search-grid").append(fragment);
+    state.visibleCount = end;
+    updateSearchPagination(shown.length);
   }
 
   function suggestionCandidates(query) {
@@ -1294,6 +1330,7 @@
     });
 
     el("pokemon-search-reset").addEventListener("click", resetSearch);
+    el("pokemon-search-load-more").addEventListener("click", loadMoreSearchCards);
     el("pokemon-search-dialog-close").addEventListener("click", () => {
       const dialog = el("pokemon-search-dialog");
       if (typeof dialog.close === "function") dialog.close();

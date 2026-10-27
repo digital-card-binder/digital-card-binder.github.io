@@ -1,0 +1,54 @@
+name: Verify stabilization v9-v11 (QA, 20k search, backup safety)
+on:
+  push:
+    branches: [stabilization/v9-v11-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stabilization-v9-v11-20261027
+  cancel-in-progress: false
+jobs:
+  qa-and-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: stabilization/v9-v11-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install locked dependencies
+        run: npm ci --no-fund
+      - name: Verify high-volume rendering and safe restore preflight
+        run: node --test tests/stabilization-9-11.test.mjs
+      - name: Refresh static version references and search metrics
+        run: npm run site:prepare
+      - name: Full-site regression, Firebase rules and data integrity
+        run: npm test
+      - name: Disallow changes to original card data and backend
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|firestore\.rules|radar-service/|android-app/|\.github/|firebase-config\.js)'; then
+            echo 'Generated output changed protected card/backend data'
+            exit 1
+          fi
+      - name: Commit only generated assets after passing tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize cache versions for stabilization v9-v11'
+            git push origin HEAD:stabilization/v9-v11-20261027
+          fi
