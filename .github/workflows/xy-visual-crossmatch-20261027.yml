@@ -1,0 +1,22 @@
+name: XY cross-language artwork validation probe
+on:
+  push:
+    branches: [audit/xy-visual-crossmatch-20261027]
+    paths: [scripts/xy-visual-crossmatch-probe-20261027.py, .github/workflows/xy-visual-crossmatch-20261027.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/xy-visual-crossmatch-20261027
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --quiet pillow imagehash
+      - name: Compare official Korean and English art hashes
+        run: python scripts/xy-visual-crossmatch-probe-20261027.py
