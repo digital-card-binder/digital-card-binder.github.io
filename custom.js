@@ -40,6 +40,7 @@
     bulkOrderMode: false,
     bulkOrderKeys: new Set(),
     bulkSaving: false,
+    ownershipSaving: false,
     photoQueue: [],
     photoSaving: false,
     photoCache: new Map(),
@@ -605,6 +606,81 @@
     if (sameDex && destination) void dropDragKeys(dex, movingKeys, destination);
   }
 
+  // Update only the changed card and ownership counters, preserving all image
+  // elements, the current 50-card page, mobile controls and scroll position.
+  function setCustomOwnershipSaving(busy) {
+    state.ownershipSaving = busy;
+    document.querySelectorAll("#custom-card-grid .custom-owned-toggle").forEach((button) => {
+      button.disabled = busy;
+      button.setAttribute("aria-busy", String(busy));
+    });
+  }
+
+  function refreshCustomOwnershipUi(entry, dex) {
+    renderSummary();
+    const owned = dex.cards.filter((item) => item.owned).length;
+    document.querySelectorAll("#custom-dex-list .custom-dex-tile").forEach((tile) => {
+      if (tile.dataset.dexId !== dex.id) return;
+      const counter = tile.querySelector(".custom-dex-tile-copy small");
+      if (counter) counter.textContent = owned + " / " + dex.cards.length + "장 보유";
+    });
+    if (currentDex()?.id !== dex.id) return;
+    $("selected-dex-progress").textContent = owned + " / " + dex.cards.length + "장 보유";
+
+    // A status-filtered card can enter/leave the results; only the workspace
+    // must re-render. The dex switcher and all other collections remain intact.
+    if (state.filter !== "all") {
+      renderWorkspace();
+      return;
+    }
+    document.querySelectorAll("#custom-card-grid .custom-card").forEach((article) => {
+      if (article.dataset.cardKey !== entry.key) return;
+      article.classList.toggle("is-owned", entry.owned);
+      article.classList.toggle("is-missing", !entry.owned);
+      const button = article.querySelector(".custom-owned-toggle");
+      if (button) button.textContent = entry.owned ? "✓ 보유" : "○ 미보유";
+      const badge = article.querySelector(".status-badge");
+      if (badge) {
+        badge.classList.toggle("is-owned", entry.owned);
+        badge.classList.toggle("is-missing", !entry.owned);
+        badge.textContent = entry.owned ? "보유" : "미보유";
+      }
+      const image = article.querySelector(".custom-card-image");
+      if (!image) return;
+      const overlay = image.querySelector(".missing-overlay");
+      if (entry.owned) {
+        overlay?.remove();
+      } else if (!overlay) {
+        const missing = document.createElement("span");
+        missing.className = "missing-overlay";
+        missing.textContent = "미보유";
+        image.append(missing);
+      }
+    });
+  }
+
+  async function toggleCustomCardOwned(entry, dex) {
+    // Serialize this collection's owned-status edits to avoid losing a quick
+    // second click while Firestore is persisting the previous snapshot.
+    if (state.ownershipSaving || !dex.cards.includes(entry)) return;
+    const previousOwned = entry.owned;
+    const previousUpdatedAt = dex.updatedAt;
+    setCustomOwnershipSaving(true);
+    entry.owned = !previousOwned;
+    dex.updatedAt = new Date().toISOString();
+    refreshCustomOwnershipUi(entry, dex);
+    try {
+      await saveDexes();
+    } catch (error) {
+      entry.owned = previousOwned;
+      dex.updatedAt = previousUpdatedAt;
+      refreshCustomOwnershipUi(entry, dex);
+      alert(error.message || "보유 상태를 저장하지 못했습니다.");
+    } finally {
+      setCustomOwnershipSaving(false);
+    }
+  }
+
   function makeCustomCard(entry, index, dex) {
     const card = displayCard(entry);
     const article = document.createElement("article");
@@ -675,18 +751,9 @@
     own.type = "button";
     own.className = "custom-owned-toggle";
     own.textContent = entry.owned ? "✓ 보유" : "○ 미보유";
-    own.addEventListener("click", async () => {
-      entry.owned = !entry.owned;
-      dex.updatedAt = new Date().toISOString();
-      renderAll();
-      try {
-        await saveDexes();
-      } catch (error) {
-        entry.owned = !entry.owned;
-        renderAll();
-        alert(error.message || "보유 상태를 저장하지 못했습니다.");
-      }
-    });
+    own.disabled = state.ownershipSaving;
+    own.setAttribute("aria-busy", String(state.ownershipSaving));
+    own.addEventListener("click", () => void toggleCustomCardOwned(entry, dex));
 
     const up = document.createElement("button");
     up.type = "button";
