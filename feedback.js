@@ -109,6 +109,12 @@
     alert("Google 로그인 후 의견을 보낼 수 있습니다.");
   }
 
+  function openAdminDeepLinkIfAuthorized() {
+    if (window.location.hash !== "#feedback-admin" || !isOwner(currentUser)) return;
+    startAdminSubscription();
+    openDialog(elements.adminDialog);
+  }
+
   function updateUi() {
     const owner = isOwner(currentUser);
     if (elements.adminOpen) elements.adminOpen.hidden = !owner;
@@ -117,6 +123,7 @@
         ? `${currentUser.email || "로그인 계정"}으로 전달됩니다.`
         : "Google 로그인 후 의견을 보낼 수 있습니다.";
     }
+    if (owner) openAdminDeepLinkIfAuthorized();
     if (!owner) {
       stopAdminSubscription();
       if (elements.adminDialog?.open) closeDialog(elements.adminDialog);
@@ -432,6 +439,7 @@
     });
   }
 
+  window.addEventListener("hashchange", openAdminDeepLinkIfAuthorized);
   updateUi();
   initializeFirebase();
 })();
