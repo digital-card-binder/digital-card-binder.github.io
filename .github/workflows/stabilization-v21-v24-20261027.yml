@@ -1,0 +1,51 @@
+name: v21-v24 final QA and static version sync
+on:
+  push:
+    branches: [stabilization/v21-v24-realuse-20261027]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stabilization-v21-v24-20261027
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: stabilization/v21-v24-realuse-20261027
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - run: npm ci --no-fund
+      - name: Synchronize generated static references
+        run: npm run site:prepare
+      - name: Run complete UI, card data, architecture and Firebase QA
+        run: npm test
+      - name: Prevent changes to cards, user permissions, audits and Android binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|DigitalCardBinder_.*\.apk$|\.github/)'; then
+            echo 'Unexpected protected data or security change'
+            exit 1
+          fi
+      - name: Commit static asset versions only after verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize verified v21-v24 static asset hashes'
+            git push origin HEAD:stabilization/v21-v24-realuse-20261027
+          fi

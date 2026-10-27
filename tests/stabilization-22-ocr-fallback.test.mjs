@@ -1,0 +1,31 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import vm from "node:vm";
+import {readFileSync} from "node:fs";
+const read=p=>readFileSync(new URL("../"+p,import.meta.url),"utf8");
+const js=read("card-scanner.js"),style=read("card-scanner.css");
+test("22차: OCR errors retain already-matched visual candidates",()=>{
+ const begin=js.indexOf("async function analyzeFile(file,");
+ const end=js.indexOf("  function compactOcr(",begin);
+ const method=js.slice(begin,end);
+ assert.match(method,/const visualMatches = await findVisualCandidates/);
+ assert.match(method,/try \{\s*const worker = await ensureOcrWorker\(\)/);
+ assert.match(method,/catch \(ocrError\)/);
+ assert.match(method,/const mergedCandidates = mergeScanCandidates\(\s*visualMatches,/);
+ assert.match(method,/renderCandidates\(visible\)/);
+});
+test("22차: fallback search supports Korean name and prevents broad accidental matches",()=>{
+ assert.match(js,/id="card-scan-name"/);
+ assert.match(js,/manualName: dialog\.querySelector\("#card-scan-name"\)/);
+ assert.match(js,/compactCardName\(nameQuery\)\.length < 2/);
+ assert.match(js,/filter\(\(card\) => manualNameMatches\(card, nameQuery\)\)/);
+ const start=js.indexOf("  function manualNameMatches(card, query) {");
+ const end=js.indexOf("  function manualSearch()",start);
+ assert.ok(start>0&&end>start);
+ const ctx={compactCardName:value=>String(value||"").replace(/\s+/g,"").toLowerCase()};
+ vm.runInNewContext(js.slice(start,end)+"\nglobalThis.matchName=manualNameMatches;",ctx);
+ assert.equal(ctx.matchName({name:"피카츄",pokemonName:"피카츄"},"피카"),true);
+ assert.equal(ctx.matchName({name:"리자몽"},"피카"),false);
+ assert.equal(ctx.matchName({name:"Pikachu"},"PIKA"),true);
+ assert.match(style,/#card-scan-name/);
+});

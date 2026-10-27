@@ -53,6 +53,7 @@
     liveStream: null,
     liveScanToken: 0,
     liveConsensus: null,
+    analysisToken: 0,
   };
 
   const els = {};
@@ -967,6 +968,7 @@
             '<div class="card-scan-manual">' +
               '<input id="card-scan-set" type="text" autocomplete="off" placeholder="세트코드 예: sv2a">' +
               '<input id="card-scan-number" type="text" autocomplete="off" placeholder="카드번호 예: 142/165">' +
+              '<input id="card-scan-name" type="search" autocomplete="off" placeholder="카드명 예: 피카츄 (인식 실패 시)">' +
               '<button id="card-scan-manual-search" class="card-scan-secondary" type="button">직접 검색</button>' +
             '</div>' +
           '</div>' +
@@ -975,7 +977,7 @@
             '<div class="card-scan-preview-copy"><strong id="card-scan-preview-title">카드 분석 중</strong><span id="card-scan-preview-meta"></span><small id="card-scan-ocr-text"></small></div>' +
           '</div>' +
           '<div id="card-scan-status" class="card-scan-status" role="status"></div>' +
-          '<div class="card-scan-progress" aria-hidden="true"><span id="card-scan-progress-bar"></span></div>' +
+          '<div class="card-scan-progress" role="progressbar" aria-label="카드 인식 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="card-scan-progress-bar"></span></div>' +
           '<section id="card-scan-candidate-section" class="card-scan-section" hidden>' +
             '<div class="card-scan-section-head"><strong>인식 후보</strong><span id="card-scan-candidate-count"></span></div>' +
             '<div id="card-scan-candidates" class="card-scan-candidates"></div>' +
@@ -1008,6 +1010,7 @@
       liveClose: dialog.querySelector("#card-scan-live-close"),
       manualSet: dialog.querySelector("#card-scan-set"),
       manualNumber: dialog.querySelector("#card-scan-number"),
+      manualName: dialog.querySelector("#card-scan-name"),
       manualSearch: dialog.querySelector("#card-scan-manual-search"),
       preview: dialog.querySelector("#card-scan-preview"),
       previewImage: dialog.querySelector("#card-scan-preview-image"),
@@ -1032,6 +1035,12 @@
     els.dialog.addEventListener("click", (event) => {
       if (event.target === els.dialog) closeScanner();
     });
+    // Also handle Escape/browser dialog dismissal, not just the close button.
+    els.dialog.addEventListener("close", () => {
+      state.analysisToken += 1;
+      stopLiveCamera();
+      setBusy(false);
+    });
     els.camera.addEventListener("click", () => {
       void openLiveCamera().catch((error) => {
         console.warn("실시간 카메라를 사용할 수 없어 기본 촬영으로 전환합니다.", error);
@@ -1046,8 +1055,9 @@
     els.selectAll.addEventListener("click", selectAllMissing);
     els.save.addEventListener("click", saveSelectedMemberships);
     els.next.addEventListener("click", () => {
+      const nextInput = state.lastInputMode === "album" ? els.fileInput : els.cameraInput;
       resetScanner();
-      window.setTimeout(() => els.cameraInput.click(), 60);
+      window.setTimeout(() => nextInput.click(), 60);
     });
   }
 
@@ -1062,6 +1072,7 @@
   }
 
   function closeScanner() {
+    state.analysisToken += 1;
     stopLiveCamera();
     if (typeof els.dialog.close === "function") els.dialog.close();
     else els.dialog.removeAttribute("open");
@@ -1175,7 +1186,11 @@
     });
   }
 
+  // The next-card action continues the last source (camera or album).
+  state.lastInputMode = "camera";
+
   function resetScanner() {
+    state.analysisToken += 1;
     stopLiveCamera();
     state.selected = null;
     state.memberships = [];
@@ -1193,6 +1208,7 @@
     if (els.ocrText) els.ocrText.textContent = "";
     if (els.manualSet) els.manualSet.value = "";
     if (els.manualNumber) els.manualNumber.value = "";
+    if (els.manualName) els.manualName.value = "";
     if (els.cameraInput) els.cameraInput.value = "";
     if (els.fileInput) els.fileInput.value = "";
     setProgress(0);
@@ -1210,6 +1226,7 @@
     if (!els.progress) return;
     const amount = Math.max(0, Math.min(100, Number(value) || 0));
     els.progress.style.width = amount + "%";
+    els.progress.parentElement?.setAttribute("aria-valuenow", String(amount));
   }
 
   function setBusy(busy) {
@@ -1482,16 +1499,22 @@
   }
 
   async function onPhotoSelected(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    const input = event.currentTarget;
+    const file = input.files?.[0];
+    // Android's file picker suppresses the next change when the same photo is chosen.
+    // Clear only the input value, not the captured File or existing scan result.
+    input.value = "";
+    if (!file || state.busy) return;
+    state.lastInputMode = input === els.fileInput ? "album" : "camera";
     await analyzeFile(file, {
       liveConsensus: null,
-      preferWholeIfCardRatio: event.currentTarget === els.fileInput,
+      preferWholeIfCardRatio: input === els.fileInput,
     });
   }
 
   async function analyzeFile(file, options = {}) {
     if (!file) return;
+    const token = ++state.analysisToken;
 
     if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
     state.previewUrl = URL.createObjectURL(file);
@@ -1508,9 +1531,11 @@
 
     try {
       await loadSearchCards();
+      if (token !== state.analysisToken) return;
       const prepared = await preparedCardVariantsFromFile(file, {
         preferWholeIfCardRatio: Boolean(options.preferWholeIfCardRatio),
       });
+      if (token !== state.analysisToken) return;
       els.previewMeta.textContent =
         prepared.variants.length > 1
           ? "원본과 보정본을 함께 비교해 더 잘 맞는 쪽을 자동 선택합니다."
@@ -1520,6 +1545,7 @@
         console.warn("시각 지문 매칭을 사용할 수 없어 OCR로 계속합니다.", error);
         return [];
       });
+      if (token !== state.analysisToken) return;
       const bestVariantLabel =
         visualMatches[0]?.variantLabel || prepared.preferredLabel || "whole";
       const ocrVariant =
@@ -1532,13 +1558,18 @@
           "비교 결과: " + ocrVariant.description + "을 기준으로 문자까지 확인합니다.";
       }
 
-      const worker = await ensureOcrWorker();
-      const regions = await makeOcrCanvases(ocrVariant.canvas);
       const numberTexts = [];
       const titleTexts = [];
       let candidates = [];
-
-      for (let index = 0; index < regions.length; index += 1) {
+      // Image matching is already available even if OCR CDN/worker fails.
+      // Preserve it as a selectable candidate instead of discarding the scan.
+      try {
+        const worker = await ensureOcrWorker();
+        if (token !== state.analysisToken) return;
+        const regions = await makeOcrCanvases(ocrVariant.canvas);
+        if (token !== state.analysisToken) return;
+        for (let index = 0; index < regions.length; index += 1) {
+        if (token !== state.analysisToken) return;
         const region = regions[index];
         setProgress(18 + Math.round((index / regions.length) * 58));
 
@@ -1550,6 +1581,7 @@
         }
 
         const result = await worker.recognize(region.canvas);
+        if (token !== state.analysisToken) return;
         const text = clean(result?.data?.text);
         if (text) {
           if (region.kind === "title") titleTexts.push(text);
@@ -1568,6 +1600,14 @@
         }
       }
 
+      } catch (ocrError) {
+        if (token !== state.analysisToken) return;
+        console.warn("문자 인식을 사용할 수 없어 이미지 후보로 계속합니다.", ocrError);
+        els.previewMeta.textContent = visualMatches.length
+          ? "문자 인식 없이 이미지 비교 결과를 표시합니다. 카드명과 번호를 확인해 주세요."
+          : "문자 인식이 어려워 직접 검색을 사용할 수 있습니다.";
+      }
+
       const numberText = numberTexts.join(" ").replace(/\s+/g, " ").trim();
       const titleText = titleTexts.join(" ").replace(/\s+/g, " ").trim();
       const recognized = [
@@ -1576,6 +1616,7 @@
       ].filter(Boolean).join(" / ");
       els.ocrText.textContent = recognized || "카드명과 카드번호를 읽지 못했습니다.";
 
+      if (token !== state.analysisToken) return;
       const mergedCandidates = mergeScanCandidates(
         visualMatches,
         candidates,
@@ -1589,13 +1630,14 @@
         els.candidateCount.textContent = "";
         setProgress(94);
         await selectCard(auto.card);
+        if (token !== state.analysisToken) return;
         setStatus("자동 인식 완료 · " + auto.reason + " 등록할 도감을 선택해 주세요.", "success");
       } else {
         const visible = visibleScanCandidates(mergedCandidates);
         renderCandidates(visible);
         if (!visible.length) {
           setStatus(
-            "자동 인식 후보를 찾지 못했습니다. 세트코드와 카드번호를 직접 입력해 주세요.",
+            "자동 인식 후보를 찾지 못했습니다. 세트코드·카드번호·카드명으로 직접 검색해 주세요.",
             "error",
           );
         } else {
@@ -1607,12 +1649,15 @@
       }
       setProgress(100);
     } catch (error) {
+      if (token !== state.analysisToken) return;
       console.error(error);
       setStatus("자동 인식에 실패했습니다. 직접 검색은 계속 사용할 수 있습니다.", "error");
       setProgress(0);
     } finally {
-      setBusy(false);
-      state.liveConsensus = null;
+      if (token === state.analysisToken) {
+        setBusy(false);
+        state.liveConsensus = null;
+      }
     }
   }
 
@@ -1790,13 +1835,20 @@
     return filtered.map((item) => item.card);
   }
 
+  function manualNameMatches(card, query) {
+    const name = compactCardName(query);
+    if (!name) return true;
+    return [card.name, card.pokemonName].some((value) => compactCardName(value).includes(name));
+  }
+
   function manualSearch() {
     void (async () => {
       await loadSearchCards();
       const set = normalizeSetCode(els.manualSet.value);
       const parsed = parseCardNumber(els.manualNumber.value);
-      if (!set && !parsed.numerator) {
-        setStatus("세트코드 또는 카드번호를 입력해 주세요.", "error");
+      const nameQuery = clean(els.manualName?.value);
+      if (!set && !parsed.numerator && compactCardName(nameQuery).length < 2) {
+        setStatus("세트코드·카드번호 또는 두 글자 이상의 카드명을 입력해 주세요.", "error");
         return;
       }
 
@@ -1804,6 +1856,7 @@
         .filter((card) => !set || normalizeSetCode(card.setCode) === set)
         .filter((card) => !parsed.numerator || card.numerator === parsed.numerator)
         .filter((card) => !parsed.denominator || !card.denominator || card.denominator === parsed.denominator)
+        .filter((card) => manualNameMatches(card, nameQuery))
         .slice(0, 16);
 
       renderCandidates(candidates);
@@ -1828,6 +1881,8 @@
       const image = document.createElement("img");
       image.src = card.image || card.originalImage || "";
       image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
 
       const copy = document.createElement("span");
       const name = document.createElement("strong");

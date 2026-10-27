@@ -1,0 +1,41 @@
+# 디지털 카드 바인더 21~24차 실사용 안정화 (2026-10-27)
+
+기준 main commit: `1819baa` — 새 검수, 카드 데이터 재편집, Firebase 스키마 수정 없이 실사용 UX만 개선.
+
+## 21차 모바일 QA
+- 앨범에서 동일 사진을 다시 선택할 때 브라우저 input change가 무시되지 않도록 파일 선택 후 value를 초기화.
+- 다음 카드 촬영이 마지막으로 사용한 카메라/앨범 입력 방식을 유지.
+- 모바일 스캔 입력, 닫기 버튼 최소 터치 크기와 확대 방지 글자 크기.
+- 회귀: `tests/stabilization-21-mobile-scan.test.mjs`.
+
+## 22차 OCR 인식 실패 복원
+- 시각 지문으로 찾은 후보가 있어도 OCR 네트워크/워커 실패로 전부 버려지는 동작 방지.
+- 문자 인식 불가 시 이미지 후보를 유지하고 직접 카드명 검색 추가. 불확실한 매칭을 임의 저장하지 않음.
+- 한글/영문 이름 검색과 카드번호/세트 필터 동시 사용 가능.
+- 회귀: `tests/stabilization-22-ocr-fallback.test.mjs`.
+
+## 23차 다중 등록 및 중복 피드백
+- 나만의도감 카드 선택기에서 해당 도감에 이미 추가한 카드 개수를 표시, 중복 추가 버튼은 그대로 비활성.
+- 같은 이름·크기·수정시각·형식의 *동일한 로컬 파일 재선택*만 업로드 대기열 중복으로 제거. 내용 기반 이미지 비교 또는 다른 이름의 동일 내용은 중복으로 단정하지 않음.
+- 제외된 파일 수, 업로드 % 진행 상태, 처리 중 이름 변경 잠금.
+- 회귀: `tests/stabilization-23-bulk-duplicates.test.mjs`.
+
+## 24차 로딩·안전성·최종 QA
+- 카드 스캔 중 사용자 닫기/뒤로 가기/재시작 시 오래된 비동기 결과가 새 화면을 덮지 않게 토큰 취소.
+- 스캔 진행률에 접근 가능한 progressbar 값을 표시, 이미지 후보는 지연 로딩.
+- 기존 보유 기록 쓰기, OCR 알고리즘 점수, 자동 판정 안전 기준, Card Radar 동작은 변경 없음.
+- 회귀: `tests/stabilization-24-scan-qa.test.mjs`.
+- GitHub Actions `npm run site:prepare` → `npm test` → 보호 파일 변경 확인 → 정적 자산 해시 동기화 후에만 최종 병합.
+
+## 주의
+실제 갤럭시 Android WebView의 위치, 카메라 권한, 특정 사진 인식률과 Firebase 사용자 계정의 저장 재접속은 CI가 직접 증명하지 못합니다. 실기기 확인이 별도로 필요합니다. 이 작업으로 Android APK 재설치나 데이터 초기화는 하지 않습니다.
+
+## 자동 검증·배포 이력
+
+- 21차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40479470603)
+- 22차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40479786963)
+- 23차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40480113369)
+- 24차: [GitHub Verify 성공](https://github.com/digital-card-binder/digital-card-binder.github.io/actions/runs/40480564800)
+- 검증 후 정적 파일 캐시 동기화 커밋: `6f90b8f4b3444cfb69630c4f4099e3d7b258e509`. 변경 내용은 정적 HTML 버전 참조와 `site-version.json` 등이며 카드 DB, 감사 데이터, Firebase 규칙 및 Android 소스와 APK는 변경 없음.
+- 자동 동기화 커밋 이후 최종 문서화 커밋에서 Verify를 다시 확인하고 병합.
+- 사용자 단말에서 촬영·갤러리·로그인 및 실보유 데이터 반영 결과는 자동 검증 대상이 아니므로 별도 실사용 QA 필요.
