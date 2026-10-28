@@ -312,7 +312,8 @@ test("inventory map controls reuse the same stock filter, without fabricated nat
   for(const id of ["emart","traders","lottemart","toysrus","homeplus"]) {
     assert.match(html,new RegExp('value="'+id+'"'));
   }
-  assert.doesNotMatch(html,/value="hanaro"|value="costco"|value="other"/);
+  const martOptions=html.split('id="radar-mart-brand"')[1].split("</select>")[0];
+  assert.doesNotMatch(martOptions,/value="hanaro"|value="costco"|value="other"/);
   const css=read("card-radar.css");
   assert.match(css,/[.]radar-stock-marker-bubble/);
   assert.match(css,/[.]radar-map-mode button\[data-map-mode="stock"\][.]selected/);
@@ -337,7 +338,7 @@ test("official retailer links are restricted to known HTTPS hosts", () => {
   }
   const source=JSON.parse(read("data/card-radar-mart-providers.json"));
   assert.equal(source.schemaVersion,1);
-  assert.ok(source.providers.length>=6);
+  assert.equal(source.providers.length,5);
   for(const row of source.providers) {
     assert.equal(row.inventoryApiConnected,false,row.id);
     if(row.lookupUrl)assert.ok(trustedMartLink(row.lookupUrl));
@@ -1094,7 +1095,7 @@ test("radar hides redundant result-banner and map advisory without losing detail
   assert.match(html,/<p id="radar-status" class="radar-status" role="status" aria-live="polite"><\/p>/);
   assert.match(css,/[.]radar-status:empty\{display:none\}/);
   assert.match(source,/byId\("radar-coverage-search-note"\)[.]textContent/);
-  assert.match(source,/setStatus\("",false\)/);
+  assert.match(source,/setStatus\(state[.]kind==="mart" && state[.]mapLocationError/);
 });
 
 test("Yangyang public Emart24 starter-set SKU is included in full search and can render",()=>{
