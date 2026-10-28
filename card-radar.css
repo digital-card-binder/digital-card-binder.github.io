@@ -296,3 +296,7 @@ body.radar-vending-mode .radar-metrics{grid-template-columns:1fr}
 .radar-mart-copy-term:focus-visible,.radar-mart-app-link:focus-visible{
   outline:2px solid #3564cf;outline-offset:3px;
 }
+
+/* Fresh, verified stock appears on the normal map as well as stock-only. */
+.radar-stock-marker-bubble{min-width:48px;box-sizing:border-box;padding:4px 7px;white-space:nowrap;box-shadow:0 2px 7px rgba(20,40,70,.22)}
+.radar-stock-marker-bubble small{font-size:10px;font-weight:700}
