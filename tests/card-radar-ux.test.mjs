@@ -190,9 +190,10 @@ test("transit cards and keyword-matched unrelated products never enter Pokemon T
     "인페르노X 부스터 팩", "포켓몬카드 인페르노X 부스터 팩",
     "포켓몬 카드 30주년 팩", "포켓몬카드 닌자스피너",
   ]) assert.equal(isCardProduct(name), true, name);
-  assert.deepEqual([...liveQueries()], ["30th CELEBRATION","스톰에메랄다",
+  assert.deepEqual([...liveQueries()], ["메가심포니아","사이버저지",
+    "와일드포스","조로아&조로아크","30th CELEBRATION","스톰에메랄다",
     "어비스아이","닌자스피너","니힐제로","MEGA드림ex",
-    "인페르노X","메가심포니아","메가브레이브"]);
+    "인페르노X","메가브레이브"]);
 });
 
 test("CU store directory contributes locations without inventing inventory", () => {
@@ -424,11 +425,15 @@ test("changing a pack after a search schedules pack-specific refresh, never only
 test("pack selector discloses bounded keyword coverage and code schedules refresh on change",()=>{
   const html=read("card-radar.html");
   assert.match(html,/id="radar-pack-coverage-note"/);
-  assert.match(html,/자동탐색은 주요 9종부터 조회합니다/);
+  assert.match(html,/자동탐색은 주요 12종부터 조회합니다/);
   assert.match(source,/product[.]addEventListener\("change",\(\)=>\{[\s\S]*?schedulePackRefresh\(\)/);
   assert.match(source,/if\(state[.]packRefreshPending\)\{[\s\S]*?void search\(\)/);
   assert.match(source,/state[.]hasSearched = true/);
-  assert.match(source,/if\(state[.]pack\) return \[PACK_TITLES[.]get\(state[.]pack\)\]/);
+  const {state,liveQueries}=harness();
+  state.pack="starter-zoroark";
+  assert.deepEqual([...liveQueries()],["조로아&조로아크"]);
+  state.pack="m6";
+  assert.deepEqual([...liveQueries()],["스톰에메랄다"]);
 });
 
 test("radar results include only convenience stores and marts regardless of feed type",()=>{
