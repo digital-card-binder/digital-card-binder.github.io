@@ -41,13 +41,18 @@ for(const p of probes){
         payload.productList.filter(x=>/조로아/.test(String(x.goodsNm))).length:0;
     }
     if(p.name==="emart24_stock_by_plu_store"){
-      r.stockQtyShape=Array.isArray(payload.storeGoodsQty)?"array":
-        payload.storeGoodsQty===null?"null":typeof payload.storeGoodsQty;
-      r.stockQtyKeys=payload.storeGoodsQty && !Array.isArray(payload.storeGoodsQty)
-        ? Object.keys(payload.storeGoodsQty).slice(0,12):[];
-      r.stockRowCount=Array.isArray(payload.storeGoodsQty)?payload.storeGoodsQty.length:null;
+      let qty=payload.storeGoodsQty;
+      if(typeof qty==="string"){
+        r.stringLength=qty.length;
+        try{qty=JSON.parse(qty);r.decodedString=true}catch{r.decodedString=false}
+      }
+      r.stockQtyShape=Array.isArray(qty)?"array":
+        qty===null?"null":typeof qty;
+      r.stockQtyKeys=qty && !Array.isArray(qty)
+        ? Object.keys(qty).slice(0,12):[];
+      r.stockRowCount=Array.isArray(qty)?qty.length:null;
       r.validQtyRows=Array.isArray(payload.storeGoodsQty)?
-        payload.storeGoodsQty.filter(x=>Number.isFinite(Number(x.BIZQTY))&&x.BIZNO).length:0;
+        qty.filter(x=>Number.isFinite(Number(x.BIZQTY))&&x.BIZNO).length:0;
       // No source quantities in logs: expose only shape and presence.
     }
    }catch{r.jsonError=true}
