@@ -1530,3 +1530,17 @@ test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit
   assert.equal(result.source,"osm-photon");
   assert.equal(result.stores[0].name,"롯데마트 서울역점");
 });
+
+
+test("mart filters hide irrelevant sellers and rendering defines map-failure state before use",()=>{
+  const html=read("card-radar.html");
+  const source=read("card-radar.js");
+  for(const name of ["이마트","롯데마트","토이저러스","트레이더스","홈플러스"])
+    assert.ok(html.includes(">"+name+"</option>"),name);
+  assert.doesNotMatch(html,/<option value="(?:hanaro|costco|other)">/);
+  const render=source.slice(source.indexOf("  function render() {"),
+    source.indexOf("  // An in-tab snapshot"));
+  assert.ok(render.indexOf("const unresolvedMartMap=")>0);
+  assert.ok(render.indexOf("const unresolvedMartMap=")<render.indexOf("!hasResults || unresolvedMartMap"));
+  assert.match(source,/nwr\["operator"~/);
+});
