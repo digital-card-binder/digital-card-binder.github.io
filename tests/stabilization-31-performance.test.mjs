@@ -49,7 +49,7 @@ test("31차: sorted global search retains exact order, owned/missing and identit
     &&(opts.status==="all"||(opts.status==="owned"?i.card.owned:!i.card.owned)))
    .sort((a,b)=>rank[a.era]-rank[b.era]||a.groupIndex-b.groupIndex||a.card.num-b.card.num);
   assert.equal(actual.length,expected.length);
-  assert.deepEqual(actual.map(i=>cards.indexOf(i)).slice(0,120),expected.map(i=>cards.indexOf(i)).slice(0,120));
+  assert.deepEqual(Array.from(actual,i=>cards.indexOf(i)).slice(0,120),expected.map(i=>cards.indexOf(i)).slice(0,120));
  }
 });
 test("31차: viewport rendering remains paginated, images lazy and asynchronously decoded",()=>{
