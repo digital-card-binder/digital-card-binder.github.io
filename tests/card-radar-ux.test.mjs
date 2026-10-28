@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -1199,4 +1199,143 @@ test("Emart24 retries district when neighborhood search misses a stock-positive 
   assert.equal(joined.length,1);
   assert.equal(inventoryLabel(joined[0]).known,true);
   assert.match(inventoryLabel(joined[0]).message,/1개/);
+});
+
+
+test("publicly listed retail stock catalog covers 62 unique pack box and starter selections",()=>{
+  const {PRODUCTS,BOX_PRODUCTS,DEFAULT_PRODUCTS}=harness();
+  assert.equal(PRODUCTS.length,62);
+  assert.equal(DEFAULT_PRODUCTS.length,12);
+  assert.equal(BOX_PRODUCTS.length,18);
+  assert.equal(new Set(PRODUCTS.map(([code])=>code)).size,62);
+  assert.equal(new Set(PRODUCTS.map(([,title])=>title)).size,62);
+  const names=PRODUCTS.map(([,name])=>name);
+  for(const title of ["30th CELEBRATION","스톰에메랄다","메가심포니아",
+    "사이버저지","와일드포스","클레이버스트","이브이 히어로즈",
+    "VSTAR 유니버스","스타버스","마천퍼펙트","백은의 랜스",
+    "칠흑의 가이스트","MEGA 스타트 덱 100 배틀컬렉션",
+    "MEGA 스타터 세트 ex 나오하&마스카나 ex",
+    "MEGA 스타터 세트 ex 이브이 ex",
+    "MEGA 스타터 세트 ex 조로아&조로아크 ex",
+    "MEGA 스페셜 카드 세트 메가엘레이드 ex",
+    "MEGA ex 스페셜 세트",
+    "배틀파트너즈 박스","어비스아이 박스",
+    "테라스탈 페스타 ex 박스","나이트원더러 박스"]){
+    assert.ok(names.includes(title),"missing public retail listing: "+title);
+  }
+  const html=read("card-radar.html");
+  assert.match(html,/62종에서 선택/);
+  assert.match(source,/make\("optgroup",""\)/);
+  assert.match(source,/확장팩 · 낱팩/);
+  assert.match(source,/부스터 박스/);
+});
+
+test("retailer package types never inflate boxes from individual packs",()=>{
+  const {state,packFromTitle,parseRetail,stockProductUnit,inventoryLabel}=harness();
+  state.center={lat:37.5633,lng:126.9837};state.radiusKm=5;
+  assert.equal(packFromTitle("포켓몬확장팩(메가심포니아)"),"m1S");
+  assert.equal(packFromTitle("포켓몬카드 메가심포니아 박스"),"m1S-box");
+  assert.equal(packFromTitle("메가심포니아 30팩입"),"m1S-box");
+  assert.equal(packFromTitle("포켓몬카드 MEGA 스타터세트 조로아&조로아크 ex"),
+    "starter-zoroark");
+  assert.equal(packFromTitle("포켓몬카드 MEGA 스타트덱 100 배틀컬렉션"),
+    "retail-start100");
+  assert.equal(stockProductUnit("포켓몬 확장팩 메가심포니아 박스"),"박스");
+  const time=new Date().toISOString();
+  const response=(name,qty)=>({success:true,data:{
+    stockAvailable:true,product:{itemName:name,itemCode:name.includes("박스")?"BOX01":"PACK01"},
+    inventory:{stores:[{storeCode:"S000",storeName:"명동스카이호텔점",
+      latitude:37.5634,longitude:126.9838,stockQuantity:qty}]}
+  }});
+  const loose=parseRetail("seveneleven",
+    response("비젼)포켓몬확장팩(메가심포니아)",30),time,"메가심포니아");
+  assert.equal(loose[0].items[0].code,"m1S");
+  state.pack="m1S-box";
+  assert.equal(inventoryLabel({verifiedInventory:loose[0].items}).known,false);
+  const box=parseRetail("seveneleven",
+    response("포켓몬카드 메가심포니아 박스",2),time,"메가심포니아");
+  assert.equal(box[0].items[0].code,"m1S-box");
+  assert.equal(inventoryLabel({verifiedInventory:box[0].items}).known,true);
+  assert.match(inventoryLabel({verifiedInventory:box[0].items}).message,/2개/);
+  state.pack="m1S";
+  assert.equal(inventoryLabel({verifiedInventory:box[0].items}).known,false);
+});
+
+test("every selectable retail product schedules an actual targeted query, not a generic fallback",()=>{
+  const {state,PRODUCTS,liveQueries,inventoryJobs}=harness();
+  state.kind="convenience";state.convenienceBrand="emart24";
+  for(const [code,title] of PRODUCTS){
+    state.pack=code;
+    assert.equal(liveQueries().length,1,code);
+    assert.ok(liveQueries()[0] && typeof liveQueries()[0]==="string",code);
+    const jobs=inventoryJobs();
+    assert.equal(jobs.length,1,code);
+    assert.equal(jobs[0].provider,"emart24");
+    assert.equal(jobs[0].keyword,liveQueries()[0]);
+  }
+  state.pack="m1S-box";
+  assert.deepEqual([...liveQueries()],["메가심포니아"]);
+  state.pack="starter-zoroark";
+  assert.deepEqual([...liveQueries()],["조로아&조로아크"]);
+});
+
+
+test("Emart24 selected booster box resolves its own PLU and never uses loose-pack stock",async()=>{
+  const called=[];
+  const packName="포켓몬카드 메가심포니아 확장팩";
+  const boxName="포켓몬카드 메가심포니아 박스";
+  const store={bizNo:"MARKET1",storeName:"이마트24 테스트",
+    latitude:37.5501,longitude:127.0501};
+  const fakeFetch=async url=>{
+    const u=new URL(url);
+    called.push(u);
+    const requestedPlu=u.searchParams.get("pluCd");
+    if(requestedPlu==="BOX22"){
+      return {success:true,data:{pluCd:"BOX22",
+        goodsInfo:{pluCd:"BOX22",goodsName:boxName},
+        productCandidates:[],
+        stores:[{...store,bizQty:2}],nearbyStores:[]}};
+    }
+    return {success:true,data:{pluCd:"PACK11",
+      goodsInfo:{pluCd:"PACK11",goodsName:packName},
+      productCandidates:[
+        {pluCd:"PACK11",goodsName:packName},
+        {pluCd:"BOX22",goodsName:boxName}],
+      stores:[{...store,bizQty:30}],nearbyStores:[]}};
+  };
+  const {state,fetchLiveInventory,inventoryJobs}=harness({mockFetch:fakeFetch,stubView:true});
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  state.kind="convenience";state.convenienceBrand="emart24";state.pack="m1S-box";
+  state.progress={total:1,completed:0,successes:0,failures:0,active:true};
+  await fetchLiveInventory(inventoryJobs(),Promise.resolve("명동"));
+  assert.equal(called.length,2);
+  assert.equal(called[1].searchParams.get("pluCd"),"BOX22");
+  assert.equal(state.inventory.length,1);
+  assert.equal(state.inventory[0].items[0].code,"m1S-box");
+  assert.equal(state.inventory[0].items[0].quantity,2);
+  assert.notEqual(state.inventory[0].items[0].quantity,30);
+});
+
+test("Emart24 unknown box SKU never converts pack stock into box stock",async()=>{
+  let queries=0;
+  const fakeFetch=async url=>{
+    queries++;
+    if(new URL(url).pathname.endsWith("/products"))
+      return {success:true,data:{products:[]}};
+    return {success:true,data:{pluCd:"PACK1",
+      productCandidates:[{pluCd:"PACK1",
+        goodsName:"포켓몬카드 메가심포니아 확장팩"}],
+      goodsInfo:{goodsName:"포켓몬카드 메가심포니아 확장팩"},
+      stores:[{bizNo:"S01",storeName:"이마트24",
+        latitude:37.55,longitude:127.05,bizQty:99}],nearbyStores:[]}};
+  };
+  const {state,fetchLiveInventory,inventoryJobs}=harness({mockFetch:fakeFetch,stubView:true});
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  state.kind="convenience";state.convenienceBrand="emart24";state.pack="m1S-box";
+  state.progress={total:1,completed:0,successes:0,failures:0,active:true};
+  await fetchLiveInventory(inventoryJobs(),Promise.resolve("명동"));
+  assert.equal(queries,2);
+  assert.equal(state.inventory.length,0);
+  assert.equal(state.progress.successes,0);
+  assert.equal(state.progress.failures,1);
 });
