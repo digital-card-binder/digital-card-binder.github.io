@@ -576,8 +576,9 @@
         if(!response||!Array.isArray(response.elements))
           throw Error("INVALID_MAP_RESPONSE");
         const parsed=parseShops(response.elements);
-        if(!parsed.length && server!==OVERPASS_ENDPOINTS[OVERPASS_ENDPOINTS.length-1])continue;
-        return {stores:parsed,source:server};
+        if(parsed.length)return {stores:parsed,source:server};
+        // Even a valid empty source may have incomplete POI coverage.
+        // Retry the remaining provider and eventually use bounded Photon.
       }catch(error){lastError=error;}
     }
     if(state.kind==="mart" || state.kind==="all"){
