@@ -568,7 +568,12 @@
       state.shops=[];state.retailerShops=[];state.masterShops=[];
       state.publicShops=[];state.inventory=[];state.mapChecked=false;
       state.progress={completed:0,total:0,successes:0,failures:0,active:false};
-      updateRegionControls();centerMap();render();
+      updateRegionControls();
+      // Regional browsing must not inherit a previous 'stock only' filter:
+      // mart stock APIs are not yet connected, but all known locations
+      // should remain visible as unverified locations.
+      setStockOnly(false);
+      centerMap();render();
       setStatus(name+" 전체 주요 마트 매장을 검색합니다.");
       void runSearch();
     }catch(error){
