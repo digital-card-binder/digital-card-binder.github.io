@@ -1278,3 +1278,64 @@ test("every selectable retail product schedules an actual targeted query, not a 
   state.pack="starter-zoroark";
   assert.deepEqual([...liveQueries()],["조로아&조로아크"]);
 });
+
+
+test("Emart24 selected booster box resolves its own PLU and never uses loose-pack stock",async()=>{
+  const called=[];
+  const packName="포켓몬카드 메가심포니아 확장팩";
+  const boxName="포켓몬카드 메가심포니아 박스";
+  const store={bizNo:"MARKET1",storeName:"이마트24 테스트",
+    latitude:37.5501,longitude:127.0501};
+  const fakeFetch=async url=>{
+    const u=new URL(url);
+    called.push(u);
+    const requestedPlu=u.searchParams.get("pluCd");
+    if(requestedPlu==="BOX22"){
+      return {success:true,data:{pluCd:"BOX22",
+        goodsInfo:{pluCd:"BOX22",goodsName:boxName},
+        productCandidates:[],
+        stores:[{...store,bizQty:2}],nearbyStores:[]}};
+    }
+    return {success:true,data:{pluCd:"PACK11",
+      goodsInfo:{pluCd:"PACK11",goodsName:packName},
+      productCandidates:[
+        {pluCd:"PACK11",goodsName:packName},
+        {pluCd:"BOX22",goodsName:boxName}],
+      stores:[{...store,bizQty:30}],nearbyStores:[]}};
+  };
+  const {state,fetchLiveInventory,inventoryJobs}=harness({mockFetch:fakeFetch,stubView:true});
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  state.kind="convenience";state.convenienceBrand="emart24";state.pack="m1S-box";
+  state.progress={total:1,completed:0,successes:0,failures:0,active:true};
+  await fetchLiveInventory(inventoryJobs(),Promise.resolve("명동"));
+  assert.equal(called.length,2);
+  assert.equal(called[1].searchParams.get("pluCd"),"BOX22");
+  assert.equal(state.inventory.length,1);
+  assert.equal(state.inventory[0].items[0].code,"m1S-box");
+  assert.equal(state.inventory[0].items[0].quantity,2);
+  assert.notEqual(state.inventory[0].items[0].quantity,30);
+});
+
+test("Emart24 unknown box SKU never converts pack stock into box stock",async()=>{
+  let queries=0;
+  const fakeFetch=async url=>{
+    queries++;
+    if(new URL(url).pathname.endsWith("/products"))
+      return {success:true,data:{products:[]}};
+    return {success:true,data:{pluCd:"PACK1",
+      productCandidates:[{pluCd:"PACK1",
+        goodsName:"포켓몬카드 메가심포니아 확장팩"}],
+      goodsInfo:{goodsName:"포켓몬카드 메가심포니아 확장팩"},
+      stores:[{bizNo:"S01",storeName:"이마트24",
+        latitude:37.55,longitude:127.05,bizQty:99}],nearbyStores:[]}};
+  };
+  const {state,fetchLiveInventory,inventoryJobs}=harness({mockFetch:fakeFetch,stubView:true});
+  state.center={lat:37.55,lng:127.05};state.radiusKm=3;
+  state.kind="convenience";state.convenienceBrand="emart24";state.pack="m1S-box";
+  state.progress={total:1,completed:0,successes:0,failures:0,active:true};
+  await fetchLiveInventory(inventoryJobs(),Promise.resolve("명동"));
+  assert.equal(queries,2);
+  assert.equal(state.inventory.length,0);
+  assert.equal(state.progress.successes,0);
+  assert.equal(state.progress.failures,1);
+});
