@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, parsePhotonMartShops, loadPhotonMartShops, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -1488,4 +1488,45 @@ test("stock map shows verified numeric quantity for selected pack and never inve
   const js=read("card-radar.js");
   assert.match(js,/stockBadge && window[.]L[.]divIcon/);
   assert.doesNotMatch(js,/state[.]onlyInStock && hasStock && window[.]L[.]divIcon/);
+});
+
+
+test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit",async()=>{
+  const {state,parsePhotonMartShops,loadNearbyMapStores,categoryQuery}=harness();
+  state.kind="mart";state.martBrand="lottemart";
+  state.radiusKm=10;state.center={lat:37.5665,lng:126.978};
+  const features=[
+    {properties:{osm_key:"highway",osm_id:1,osm_type:"N",name:"롯데마트 버스정류장"},
+      geometry:{coordinates:[126.976,37.566]}},
+    {properties:{osm_key:"landuse",osm_id:2,osm_type:"W",name:"롯데마트 주차장"},
+      geometry:{coordinates:[126.97,37.556]}},
+    {properties:{osm_key:"shop",osm_id:3,osm_type:"N",name:"롯데마트 서울역점",city:"서울특별시"},
+      geometry:{coordinates:[126.97057,37.55563]}},
+    {properties:{osm_key:"shop",osm_id:4,osm_type:"N",name:"동네마트"},
+      geometry:{coordinates:[126.97,37.558]}},
+    {properties:{osm_key:"shop",osm_id:5,osm_type:"N",name:"롯데마트 대구점"},
+      geometry:{coordinates:[128.6,35.87]}}
+  ];
+  const valid=parsePhotonMartShops({features});
+  assert.equal(valid.length,1);
+  assert.equal(valid[0].name,"롯데마트 서울역점");
+  assert.equal(valid[0].origin,"osm-photon");
+  assert.ok(valid[0].distance<2);
+  let overpassRequests=0,photonRequests=0;
+  const result=await loadNearbyMapStores(categoryQuery(10000,37.5665,126.978),
+    async url=>{
+      if(url.includes("overpass")){overpassRequests++;throw Error("HTTP 429")}
+      photonRequests++;
+      assert.match(url,/photon[.]komoot[.]io\/api/);
+      const u=new URL(url);
+      assert.equal(u.searchParams.get("countrycode"),"KR");
+      assert.ok(u.searchParams.get("bbox"));
+      assert.equal(u.searchParams.get("q"),"롯데마트");
+      return {features};
+    });
+  assert.equal(overpassRequests,2);
+  assert.equal(photonRequests,1);
+  assert.equal(result.stores.length,1);
+  assert.equal(result.source,"osm-photon");
+  assert.equal(result.stores[0].name,"롯데마트 서울역점");
 });
