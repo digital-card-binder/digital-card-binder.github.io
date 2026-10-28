@@ -24,6 +24,13 @@ for(const endpoint of endpoints){
     result.optionsCount=(body.match(/<option\b/gi)||[]).length;
     result.listCount=(body.match(/<li\b/gi)||[]).length;
     result.vendingMachineCount=/178개|자판기/.test(body);
+    if(endpoint.label==="pokemon_official_vending"||endpoint.label==="emart_lookup"){
+      result.scripts=[...body.matchAll(/<script[^>]+src=["']([^"']+)/g)]
+        .map(x=>x[1]).filter(x=>!x.startsWith("https://www.google")).slice(0,25);
+      result.apiHints=[...body.matchAll(/.{0,40}(?:vending|machine|store|api|marker|findMap|searchProduct).{0,65}/gi)]
+        .map(x=>x[0].replace(/<[^>]*>/g," ").trim()).slice(0,30);
+      result.hasInlineStoreData=/롯데마트.*김포공항|위도|longitude|latitude|storeList/.test(body);
+    }
     result.status=response.ok?"response":"http_error";
   }catch(e){result.errorType=e.name;result.status=e.name==="AbortError"?"timeout":"network_error"}
   finally{clearTimeout(timer);result.ms=Date.now()-start;console.log("MART_VENDING_PUBLIC_CHECK",JSON.stringify(result))}
