@@ -1129,3 +1129,37 @@ test("older packs visible on public store screens join default named-product sea
   assert.ok(liveQueries().includes("메가심포니아"));
   assert.equal(new Set([...liveQueries()]).size,12);
 });
+
+test("Myeongdong Seven-Eleven publicly returned 30, 240, 30; parser and stock counter preserve values",()=>{
+  const {parseRetail,state,liveQueries,mergeInventory,inventoryLabel}=harness();
+  state.center={lat:37.5633,lng:126.9837};state.radiusKm=3;
+  state.kind="all";state.pack="";
+  state.masterShops=[];state.retailerShops=[];state.publicShops=[];
+  state.shops=[];state.curatedShops=[];state.martInventory=[];
+  const names=[["메가심포니아",30,"m1S"],["사이버저지",240,"sv5m"],["와일드포스",30,"sv5k"]];
+  const now=new Date().toISOString();
+  const rows=[];
+  for(const [name,quantity,code] of names){
+    const payload={success:true,data:{
+      stockAvailable:true,product:{itemName:"비젼)포켓몬확장팩("+name+")_H",itemCode:"880001"},
+      inventory:{stores:[{storeName:"명동스카이호텔점",storeCode:"777",
+        latitude:37.5634,longitude:126.9838,stockQuantity:quantity}]}
+    }};
+    const parsed=parseRetail("seveneleven",payload,now,name);
+    assert.equal(parsed.length,1,name);
+    assert.equal(parsed[0].items[0].code,code);
+    assert.equal(parsed[0].items[0].quantity,quantity);
+    rows.push(...parsed);
+  }
+  state.inventory=rows;
+  const merged=mergeInventory([]);
+  assert.equal(merged.length,1,"three positive products in one store count as one store");
+  assert.equal(merged[0].verifiedInventory.length,3);
+  assert.equal(inventoryLabel(merged[0]).known,true);
+  state.pack="sv5m";
+  assert.equal(inventoryLabel(merged[0]).known,true);
+  assert.match(inventoryLabel(merged[0]).message,/240개/);
+  state.pack="";
+  const lookups=liveQueries();
+  assert.deepEqual([...lookups].slice(0,4),["메가심포니아","사이버저지","와일드포스","조로아&조로아크"]);
+});
