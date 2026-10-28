@@ -48,3 +48,18 @@ for(const version of ["v3"]){
  const q=new URLSearchParams({searchPluCode:expectedPlu,bizNoArr:bizNo});
  await inspect("stock_"+version,"/api/stock/"+version+"/stock-search/store?"+q);
 }
+
+const storeUrl="https://emart24.co.kr/api1/store?page=1&search="+encodeURIComponent("양양물치항");
+const ctrl=new AbortController(),time=setTimeout(()=>ctrl.abort(),8500);
+try{
+ const res=await fetch(storeUrl,{signal:ctrl.signal});
+ const data=await res.json();
+ const rows=Array.isArray(data?.data)?data.data:[];
+ console.log("EMART24_DIRECT_STORE_DIRECTORY",JSON.stringify({
+   status:res.status,shape:Object.keys(data).slice(0,12),
+   count:rows.length,matched:rows.filter(x=>/물치항/.test(x.TITLE||""))
+   .slice(0,3).map(x=>({CODE:x.CODE,TITLE:x.TITLE,
+     LATITUDE:x.LATITUDE,LONGITUDE:x.LONGITUDE}))
+ }));
+}catch(e){console.log("EMART24_DIRECT_STORE_DIRECTORY",JSON.stringify({error:e?.name||"unknown"}))}
+finally{clearTimeout(time)}
