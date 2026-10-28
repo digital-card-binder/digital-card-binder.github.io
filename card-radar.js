@@ -1492,9 +1492,14 @@
     const keywordFor=(code,title)=>RETAILER_SEARCH_KEYWORDS.get(code)||title;
     if(state.pack) return [keywordFor(state.pack,PACK_TITLES.get(state.pack))]
       .filter(Boolean);
-    // Run exact named-product queries instead of generic "Pokémon cards".
-    // A bounded 12-product scan does not prove complete store inventory.
-    return DEFAULT_PRODUCTS.map(([code,title])=>keywordFor(code,title));
+    // Observe positive-stock lookups early. CU, Seven-Eleven and Emart24 have
+    // returned measured positive quantities for these named products in public
+    // API diagnostics. This scan still cannot confirm all products in a shop.
+    const testedPriority=["m1S","sv5m","sv5k","starter-zoroark"];
+    return [...DEFAULT_PRODUCTS].sort((a,b)=>{
+      const ai=testedPriority.indexOf(a[0]),bi=testedPriority.indexOf(b[0]);
+      return (ai<0?testedPriority.length:ai)-(bi<0?testedPriority.length:bi);
+    }).map(([code,title])=>keywordFor(code,title));
   }
   function inventoryJobs() {
     const providers = state.kind === "mart" ? [] :
