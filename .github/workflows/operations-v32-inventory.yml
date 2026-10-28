@@ -1,0 +1,82 @@
+name: Operations backup and Actions inventory (read-only)
+on:
+  push:
+    branches: [ops/backup-workflows-audit-20261028]
+    paths:
+      - 'operations.js'
+      - 'scripts/audit-workflow-inventory.mjs'
+      - 'tests/stabilization-ops-backup-workflows.test.mjs'
+      - '.github/workflows/operations-v32-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ops-backup-v32-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  inventory:
+    name: Inspect all workflows without disabling anything
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inventory the 596 workflow files
+        run: node scripts/audit-workflow-inventory.mjs .github/workflows .artifacts/workflow-inventory
+      - name: Run non-destructive workflow/backup regression
+        run: node --test tests/stabilization-ops-backup-workflows.test.mjs
+      - name: Upload complete per-workflow classification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v32-workflow-inventory
+          path: .artifacts/workflow-inventory/
+          if-no-files-found: warn
+          retention-days: 30
+  full-qa:
+    needs: inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    if: github.ref == 'refs/heads/ops/backup-workflows-audit-20261028'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ops/backup-workflows-audit-20261028
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Regenerate asset versions and catalog integrity references
+        run: npm run site:prepare
+      - name: Complete site, UI, Firestore emulator and operations regression
+        run: npm test
+      - name: Protect live catalogs, account data and audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|\.github/)'; then
+            echo 'Protected file unexpectedly modified during generation'
+            exit 1
+          fi
+      - name: Commit verified static asset references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize verified operations backup asset versions'
+            git push origin HEAD:ops/backup-workflows-audit-20261028
+          fi
