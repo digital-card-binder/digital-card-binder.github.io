@@ -69,6 +69,7 @@
             <option value="all">전체 매장</option>
             <option value="convenience">편의점</option>
             <option value="mart">마트</option>
+            <option value="vending">공식 카드 자판기</option>
           </select>
         </div>
       </div>
@@ -120,9 +121,10 @@
           <button type="button" data-view="map" aria-pressed="false">▧ 지도</button>
         </div>
       </div>
+      <p id="radar-vending-source-note" class="radar-vending-source-note" hidden>포켓몬코리아 공식 설치 장소 기준입니다. 자판기 내부 재고는 조회되지 않습니다. <a href="https://pokemonkorea.co.kr/card_vending_machine" target="_blank" rel="noopener noreferrer">공식 설치 위치 확인</a></p>
       <div class="radar-metrics" aria-label="매장 및 카드 재고 현황">
         <div class="radar-metric-nearby">
-          <span>주변 매장</span>
+          <span id="radar-total-stores-label">주변 매장</span>
           <strong id="radar-total-stores">—</strong><small>곳</small>
           <p>검색 반경 내 편의점 · 마트</p>
         </div>
