@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -1338,4 +1338,44 @@ test("Emart24 unknown box SKU never converts pack stock into box stock",async()=
   assert.equal(state.inventory.length,0);
   assert.equal(state.progress.successes,0);
   assert.equal(state.progress.failures,1);
+});
+
+
+test("official Pokémon vending locations are parsed accurately without card stock",()=>{
+  const {state,parseOfficialVending,selectedKind,inventoryJobs}=harness();
+  const result=parseOfficialVending([
+    {id:"cgv-구로점",brand:"CGV",name:"CGV 구로점",
+      kind:"cinema",addr:"서울특별시 구로구 구로중앙로 152",
+      lat:37.50147,lng:126.882261},
+    {id:"lotte-김포공항",brand:"롯데마트",name:"롯데마트 김포공항점",
+      addr:"서울특별시 강서구 하늘길 38",lat:37.566,lng:126.8},
+    {id:"unknown",name:"정보 없는 자판기",addr:"서울",lat:null,lng:null},
+    {id:"cgv-구로점",brand:"CGV",name:"CGV 구로점",
+      addr:"서울특별시 구로구 구로중앙로 152",lat:37.50147,lng:126.882261},
+  ]);
+  assert.equal(result.length,2);
+  assert.equal(result[0].kind,"vending");
+  assert.equal(result[0].origin,"official-vending-directory");
+  assert.equal(result[0].lat,37.50147);
+  assert.equal(result[0].lng,126.882261);
+  assert.equal(result[0].verifiedInventory.length,0);
+  assert.equal(result[0].sourceUrl,"https://pokemonkorea.co.kr/card_vending_machine");
+  state.kind="vending";
+  assert.equal(selectedKind(result[0]),true);
+  assert.equal(inventoryJobs().length,0,"a vending locator must never invent product stock calls");
+  state.kind="all";
+  assert.equal(selectedKind(result[0]),false,"vending installation should not inflate the store count");
+});
+
+test("vending-machine filter and official source are available in the public radar",()=>{
+  const html=read("card-radar.html");
+  const css=read("card-radar.css");
+  assert.match(html,/<option value="vending">공식 카드 자판기<\/option>/);
+  assert.match(html,/id="radar-vending-source-note"/);
+  assert.match(source,/calendar-1ut[.]pages[.]dev\/scripts\/venderlist[.]json/);
+  assert.match(source,/loadOfficialVending\(\)/);
+  assert.match(source,/state[.]vendingShops[.]map\(store/);
+  assert.match(source,/store[.]kind==="vending"/);
+  assert.match(css,/body[.]radar-vending-mode [.]radar-stock-filter/);
+  assert.match(css,/body[.]radar-vending-mode [.]radar-metric-in-stock/);
 });
