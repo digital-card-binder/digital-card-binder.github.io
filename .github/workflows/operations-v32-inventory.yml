@@ -32,3 +32,48 @@ jobs:
           path: .artifacts/workflow-inventory/
           if-no-files-found: warn
           retention-days: 30
+  full-qa:
+    needs: inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    if: github.ref == 'refs/heads/ops/backup-workflows-audit-20261028'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ops/backup-workflows-audit-20261028
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install dependencies
+        run: npm ci --no-fund
+      - name: Regenerate asset versions and catalog integrity references
+        run: npm run site:prepare
+      - name: Complete site, UI, Firestore emulator and operations regression
+        run: npm test
+      - name: Protect live catalogs, account data and audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only | grep -E '^(data/|db/|firestore\.rules$|radar-service/|android-app/|firebase-config\.js$|\.github/)'; then
+            echo 'Protected file unexpectedly modified during generation'
+            exit 1
+          fi
+      - name: Commit verified static asset references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --quiet; then
+            git add -u
+            git commit -m 'build: synchronize verified operations backup asset versions'
+            git push origin HEAD:ops/backup-workflows-audit-20261028
+          fi
