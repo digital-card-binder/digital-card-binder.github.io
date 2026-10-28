@@ -29,7 +29,7 @@ test("28차: reduced-motion and high-contrast fallbacks avoid breaking card coll
  assert.match(read("pokemon-search.html"),/id="pokemon-search-status"/);
 });
 test("28차: workflow tests and forbids writes to collector data and Android app",()=>{
- const wf=read(".github/workflows/design-v25-v28-20261027.yml");
+ const wf=read("docs/workflow-archive/20261028/design-v25-v28-20261027.yml");
  assert.match(wf,/npm run site:prepare/);
  assert.match(wf,/npm test/);
  for(const key of ["data/","db/","firestore","radar-service/","android-app/"])assert.ok(wf.includes(key),key);
