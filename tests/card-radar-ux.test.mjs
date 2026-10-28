@@ -1058,3 +1058,30 @@ test("scan completion clearly distinguishes partial coverage from zero stock",()
   assert.match(source,/stockSkipped>0/);
   assert.match(source,/외부 조회 수량은 공식 실재고를 보장하지 않으며/);
 });
+
+test("radar overview shows only nearby stores and positive-stock stores, not request counts",()=>{
+  const html=read("card-radar.html");
+  const summary=html.slice(html.indexOf('<div class="radar-metrics"'),html.indexOf('<details class="radar-coverage"'));
+  assert.match(summary,/주변 매장/);
+  assert.match(summary,/재고 있는 매장/);
+  assert.match(summary,/카드 재고 1개 이상 조회된 곳/);
+  assert.doesNotMatch(summary,/재고 확인|검색 완료|검색 실패/);
+  const details=html.slice(html.indexOf('<details class="radar-coverage"'),html.indexOf("</details>"));
+  assert.match(details,/id="radar-search-completed"/);
+  assert.match(details,/id="radar-search-failed"/);
+  assert.match(details,/id="radar-coverage-search-note"/);
+  const render=source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
+  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = hasResults\s*\? String\(inStockStores[.]length\)/);
+  assert.doesNotMatch(render,/filter\(\(store\) => inventoryLabel\(store\)[.]checked\)[.]length/);
+});
+
+test("radar hides redundant result-banner and map advisory without losing details or errors",()=>{
+  const html=read("card-radar.html");
+  const css=read("card-radar.css");
+  assert.doesNotMatch(html,/id="radar-map-mode-note"/);
+  assert.doesNotMatch(source,/byId\("radar-map-mode-note"\)/);
+  assert.match(html,/<p id="radar-status" class="radar-status" role="status" aria-live="polite"><\/p>/);
+  assert.match(css,/[.]radar-status:empty\{display:none\}/);
+  assert.match(source,/byId\("radar-coverage-search-note"\)[.]textContent/);
+  assert.match(source,/setStatus\("",false\)/);
+});
