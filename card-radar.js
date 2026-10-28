@@ -11,17 +11,66 @@
     ["starter-zoroark", "MEGA 스타터 세트 ex 조로아&조로아크 ex"],
     ["sv5m", "사이버저지"], ["sv5k", "와일드포스"]
   ];
+  // Publicly listed stock-check product families from Dogam's four convenience
+  // retailers and Lotte Mart/Toys R Us, reviewed 2026-10-28. Listings describe
+  // candidate products, not permission to copy the competitor's private API.
+  // The first 12 are the bounded automatic scan; every other product can be
+  // looked up explicitly without flooding external retailer services.
   const SELECTABLE_EXTRA_PRODUCTS = [
-    ["sv10", "로켓단의 영광"], ["sv11b", "블랙볼트"],
-    ["sv11w", "화이트플레어"], ["sv6a", "나이트원더러"]
+    ["sv10","로켓단의 영광"], ["sv11b","블랙볼트"],
+    ["sv11w","화이트플레어"], ["sv6a","나이트원더러"],
+    ["retail-arena","열풍의 아레나"], ["retail-partners","배틀파트너즈"],
+    ["retail-festa","테라스탈 페스타 ex"],
+    ["retail-breaker","초전브레이커"], ["retail-dragona","낙원드래고나"],
+    ["retail-stellar","스텔라미라클"], ["retail-mask","변환의 가면"],
+    ["retail-crimson","크림슨헤이즈"], ["retail-shiny","샤이니트레저 ex"],
+    ["retail-ancient","고대의 포효"], ["retail-future","미래의 일섬"],
+    ["retail-raging","레이징서프"], ["retail-151","포켓몬 카드 151"],
+    ["retail-snow","스노해저드"], ["retail-clay","클레이버스트"],
+    ["retail-vstar","VSTAR 유니버스"], ["retail-lost","로스트어비스"],
+    ["retail-time","타임게이저"], ["retail-eeveeheroes","이브이 히어로즈"],
+    ["retail-starbirth","스타버스"], ["retail-skys","마천퍼펙트"],
+    ["retail-silver","백은의 랜스"], ["retail-blackgeist","칠흑의 가이스트"],
+    ["retail-start100","MEGA 스타트 덱 100 배틀컬렉션"],
+    ["starter-meowscarada","MEGA 스타터 세트 ex 나오하&마스카나 ex"],
+    ["starter-eevee","MEGA 스타터 세트 ex 이브이 ex"],
+    ["retail-gallade","MEGA 스페셜 카드 세트 메가엘레이드 ex"],
+    ["retail-mega-special","MEGA ex 스페셜 세트"]
   ];
-  const PRODUCTS = [...DEFAULT_PRODUCTS, ...SELECTABLE_EXTRA_PRODUCTS];
+  // Different packaging is a different retail product. Never count loose
+  // booster packs as booster-box stock or infer a box from a set title.
+  const BOX_PRODUCTS = [
+    ["m6a-box","30th CELEBRATION 박스"],
+    ["m6-box","스톰에메랄다 박스"], ["m5-box","어비스아이 박스"],
+    ["m4-box","닌자스피너 박스"], ["m2-box","인페르노X 박스"],
+    ["m1L-box","메가브레이브 박스"], ["m1S-box","메가심포니아 박스"],
+    ["sv11b-box","블랙볼트 박스"], ["sv11w-box","화이트플레어 박스"],
+    ["sv10-box","로켓단의 영광 박스"],
+    ["retail-partners-box","배틀파트너즈 박스"],
+    ["retail-festa-box","테라스탈 페스타 ex 박스"],
+    ["retail-breaker-box","초전브레이커 박스"],
+    ["retail-dragona-box","낙원드래고나 박스"],
+    ["retail-stellar-box","스텔라미라클 박스"],
+    ["sv6a-box","나이트원더러 박스"],
+    ["retail-mask-box","변환의 가면 박스"],
+    ["retail-crimson-box","크림슨헤이즈 박스"]
+  ];
+  const PRODUCTS = [...DEFAULT_PRODUCTS,...SELECTABLE_EXTRA_PRODUCTS,...BOX_PRODUCTS];
   // Confirmed by an actual Emart24 public response at 양양물치항점:
   // full starter-set title gave a server error, while the distinct
   // "조로아&조로아크" keyword selected SKU 8800286279914 / quantity 1.
   // This evidence is not permission to republish official POS data.
   const RETAILER_SEARCH_KEYWORDS = new Map([
-    ["starter-zoroark","조로아&조로아크"]
+    ["starter-zoroark","조로아&조로아크"],
+    ["starter-meowscarada","나오하&마스카나"],
+    ["starter-eevee","스타터 세트 이브이"],
+    ["retail-start100","스타트 덱 100"],
+    ["retail-gallade","메가엘레이드"],
+    ["retail-mega-special","MEGA ex 스페셜 세트"]
+  ]);
+  const SPECIAL_PRODUCT_CODES=new Set([
+    "starter-zoroark","starter-meowscarada","starter-eevee",
+    "retail-start100","retail-gallade","retail-mega-special"
   ]);
   const DEFAULT_CENTER = { lat: 37.5665, lng: 126.9780 };
   const MAX_SHOPS = 250;
@@ -898,7 +947,10 @@
   // Product name is untrusted retailer data: allow confirmed TCG/pack names, reject food and merchandise.
   const NON_CARD_ITEMS = /빵|띠부씰|스티커|샘플|젤리|캔디|껌|초콜릿|과자|스낵|쿠키|케이크|음료|사이다|콜라|우유|아이스크림|도넛|피규어|인형|키링|열쇠고리|봉제|장난감|문구|팬시|슬리브|카드홀더|바인더|카드앨범|필통|파우치|틴케이스|랜덤씰|증정|이즐|EZL|티머니|T-?money|캐시비|교통카드|교통.?결제|선불카드|충전카드|금액권|상품권|기프트카드|멤버십카드|카드지갑|체크카드|신용카드/i;
   const KNOWN_PACK_NAMES = [
-    ...PRODUCTS.map((p) => p[1]), "30주년", "나이트원더러", "배틀파트너즈",
+    ...PRODUCTS.map((p) => p[1]),
+    ...PRODUCTS.filter(([code])=>code.endsWith("-box"))
+      .map(([,title])=>title.replace(/\s*박스$/,"")),
+    "30주년", "나이트원더러", "배틀파트너즈",
     "테라스탈페스ex", "샤이니트레저ex", "로켓단의 영광",
     "블랙볼트", "화이트플레어", "포켓몬카드151", "포켓몬 카드 151"
   ];
@@ -909,7 +961,7 @@
     const compact = text.replace(/[\s·_/-]+/g, "").toLowerCase();
     const namedPack = KNOWN_PACK_NAMES.some((pack) =>
       compact.includes(pack.replace(/[\s·_/-]+/g, "").toLowerCase()));
-    const strongTCG = /TCG|트레이딩.?카드.?게임|카드.?게임|확장팩|하이클래스팩|부스터(?:팩|박스)?|스타터(?:덱|세트)?|구축덱|카드팩|카드박스/i.test(text);
+    const strongTCG = /TCG|트레이딩.?카드.?게임|카드.?게임|확장팩|하이클래스팩|부스터(?:팩|박스)?|스타트(?:덱|세트)|스타터(?:덱|세트)?|구축덱|스페셜(?:카드)?세트|카드팩|카드박스/i.test(text);
     const hasPokemon = /(포켓몬|pokemon|pokémon)/i.test(text);
     const namedOnly = KNOWN_PACK_NAMES.some((pack) =>
       compact === pack.replace(/[\s·_/-]+/g, "").toLowerCase());
@@ -919,7 +971,7 @@
   function stockProductUnit(name) {
     const value=String(name||"").normalize("NFKC");
     if(/(?:박스|\bbox\b|\d+팩\s*입)/i.test(value))return "박스";
-    if(/(?:구축덱|스타터\s*(?:덱|세트)|\bdeck\b)/i.test(value))return "덱";
+    if(/(?:구축덱|스타트\s*(?:덱|세트)|스타터\s*(?:덱|세트)|\bdeck\b)/i.test(value))return "덱";
     if(/(?:확장팩|강화팩|하이클래스팩|부스터팩|카드팩|\bpack\b|(?:^|\s)팩(?:$|\s))/i.test(value))return "팩";
     return "단위 미확인";
   }
@@ -1296,8 +1348,29 @@
     if(!actual)return "";
     if(/조로아.*조로아크/.test(actual) && /스타터|덱/.test(actual))
       return "starter-zoroark";
-    const found=PRODUCTS.find(([code,title])=>actual.includes(compact(title)) ||
-      (code==="m6a" && /30주년/.test(actual)));
+    if(/나오하.*마스카나/.test(actual)&&/스타터|덱/.test(actual))
+      return "starter-meowscarada";
+    if(/이브이/.test(actual)&&/스타터/.test(actual))
+      return "starter-eevee";
+    if(/스타트덱100|스타터덱100|배틀컬렉션/.test(actual))
+      return "retail-start100";
+    if(/메가엘레이드/.test(actual)&&/스페셜|세트/.test(actual))
+      return "retail-gallade";
+    if(/megaex스페셜세트|메가ex스페셜세트/.test(actual))
+      return "retail-mega-special";
+    const isBox=stockProductUnit(name)==="박스";
+    // Box keywords overlap their loose-pack set names. Resolve package type
+    // *before* the shared set name; return empty when a box SKU is unknown.
+    if(isBox){
+      const found=BOX_PRODUCTS.find(([code,title])=>actual.includes(
+        compact(title.replace(/\s*박스$/,""))) ||
+        (code==="m6a-box"&&/30주년/.test(actual)));
+      return found?found[0]:"";
+    }
+    const found=[...DEFAULT_PRODUCTS,...SELECTABLE_EXTRA_PRODUCTS]
+      .find(([code,title])=>!SPECIAL_PRODUCT_CODES.has(code) &&
+        (actual.includes(compact(title)) ||
+        (code==="m6a"&&/30주년/.test(actual))));
     return found ? found[0] : "";
   };
   function validQuantity(q) {
@@ -1489,7 +1562,8 @@
       distanceKm(state.center,row) <= state.radiusKm+.03);
   }
   function liveQueries() {
-    const keywordFor=(code,title)=>RETAILER_SEARCH_KEYWORDS.get(code)||title;
+    const keywordFor=(code,title)=>RETAILER_SEARCH_KEYWORDS.get(code)||
+      (code.endsWith("-box")?title.replace(/\s*박스$/,""):title);
     if(state.pack) return [keywordFor(state.pack,PACK_TITLES.get(state.pack))]
       .filter(Boolean);
     // Observe positive-stock lookups early. CU, Seven-Eleven and Emart24 have
@@ -1715,10 +1789,20 @@
   }
   function initialize() {
     const product=byId("radar-pack");
+    const labels={pack:"확장팩 · 낱팩",box:"부스터 박스",special:"덱 · 스타터 · 세트"};
+    const groups=new Map();
+    for(const type of ["pack","box","special"]){
+      const group=make("optgroup","");
+      group.label=labels[type];
+      groups.set(type,group);
+      product.append(group);
+    }
     for(const [code,title] of PRODUCTS) {
+      const type=code.endsWith("-box")?"box":
+        SPECIAL_PRODUCT_CODES.has(code)?"special":"pack";
       const option=make("option","",title);
       option.value=code;
-      product.append(option);
+      groups.get(type).append(option);
     }
     const requested=new URLSearchParams(location.search).get("pack");
     if(requested && PRODUCTS.some((p)=>p[0].toLowerCase()===requested.toLowerCase()))product.value=requested;
