@@ -1,17 +1,14 @@
 {
   "schemaVersion": 1,
   "officialUrl": "https://pokemoncard.co.kr/card",
-  "status": "attention",
+  "status": "clear",
   "knownOfficialProducts": [
     "30th CELEBRATION"
   ],
-  "detectedProducts": [
-    "닌자스피너",
-    "어비스아이"
-  ],
-  "lastChangedAt": "2026-09-24T23:58:40.813Z",
+  "detectedProducts": [],
+  "lastChangedAt": "2026-10-28T01:21:31.509Z",
   "schedule": "매일 1회 공식 제품 페이지 확인",
-  "note": "자동 감시는 공식 제품 페이지를 한 번만 요청하고, 변화가 있을 때만 이 파일을 갱신합니다.",
+  "note": "2026-10-28: M4 닌자스피너·M5 어비스아이의 기존 등록을 확인하고, 제품명 뒤 (카드수/기본번호) 표기 오탐을 수정함. M4 미입력 카드명 96건은 이 감시 상태와 별도로 확인 필요.",
   "lastOfficialProducts": [
     "30th CELEBRATION",
     "스톰에메랄다",
