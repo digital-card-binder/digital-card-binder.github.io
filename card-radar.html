@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="./card-radar.css?v=ab1faf26da41">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="./card-radar.js?v=948d420e3c35" defer></script>
+  <script src="./card-radar.js?v=86930d35c09c" defer></script>
 </head>
 <body>
   <a class="skip" href="#radar-main">본문으로 건너뛰기</a>
@@ -49,6 +49,30 @@
       <p class="radar-coordinate" id="radar-location-label" aria-live="polite">기본 지도 위치: 서울시청 · 지역 검색 또는 내 위치를 선택해 주세요.</p>
       <p id="radar-location-feedback" class="radar-location-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
       <div class="radar-field-grid">
+        <div class="radar-field">
+          <label class="radar-label" for="radar-region">지역 전체 마트 검색</label>
+          <select id="radar-region">
+            <option value="">지역 전체 선택 · 미사용</option>
+            <option value="서울특별시">서울</option>
+            <option value="경기도">경기</option>
+            <option value="인천광역시">인천</option>
+            <option value="부산광역시">부산</option>
+            <option value="대구광역시">대구</option>
+            <option value="대전광역시">대전</option>
+            <option value="광주광역시">광주</option>
+            <option value="울산광역시">울산</option>
+            <option value="세종특별자치시">세종</option>
+            <option value="강원특별자치도">강원</option>
+            <option value="충청북도">충북</option>
+            <option value="충청남도">충남</option>
+            <option value="전북특별자치도">전북</option>
+            <option value="전라남도">전남</option>
+            <option value="경상북도">경북</option>
+            <option value="경상남도">경남</option>
+            <option value="제주특별자치도">제주</option>
+          </select>
+          <small id="radar-region-scope-note" class="radar-tiny">내 위치 또는 상세 위치를 기준으로 반경 1~10km 매장을 검색합니다.</small>
+        </div>
         <div class="radar-field">
           <span class="radar-label" id="radar-distance-label">검색 반경</span>
           <div class="radar-radius" role="group" aria-labelledby="radar-distance-label">
