@@ -1,0 +1,34 @@
+name: Operations backup and Actions inventory (read-only)
+on:
+  push:
+    branches: [ops/backup-workflows-audit-20261028]
+    paths:
+      - 'operations.js'
+      - 'scripts/audit-workflow-inventory.mjs'
+      - 'tests/stabilization-ops-backup-workflows.test.mjs'
+      - '.github/workflows/operations-v32-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    name: Inspect all workflows without disabling anything
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inventory the 596 workflow files
+        run: node scripts/audit-workflow-inventory.mjs .github/workflows .artifacts/workflow-inventory
+      - name: Run non-destructive workflow/backup regression
+        run: node --test tests/stabilization-ops-backup-workflows.test.mjs
+      - name: Upload complete per-workflow classification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v32-workflow-inventory
+          path: .artifacts/workflow-inventory/
+          if-no-files-found: warn
+          retention-days: 30
