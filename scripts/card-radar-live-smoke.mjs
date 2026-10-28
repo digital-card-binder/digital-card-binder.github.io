@@ -165,3 +165,6 @@ const outcomes=report.checks.reduce((x,cur)=>{
 },{});
 process.stdout.write("RADAR_LIVE_SUMMARY "+JSON.stringify(outcomes)+"\n");
 process.stdout.write("Note: public API stock rows are unverified against official retailer apps.\n");
+
+// One-shot geographic diagnostic, removed before production merge.
+await import("./radar-mart-map-one-shot.mjs");
