@@ -131,12 +131,8 @@ test("official product page reads declared EUC-KR rather than corrupting stock l
       ...encoder.encode(template.slice(index+placeholder.length))
     ]);
   };
-  const html='<li><div class="prod-box"><div class="prod-name">포켓몬카드 메가심포니아 박스</div>'+
-    '<div class="prod-count"><!-- 8801234567890 -->30팩</div>'+
-    '<table><tr><th>ㆍ__STOCK__ :</th><td>7 개</td></tr></table></div></li>';
-  // Encoding tests isolate only '재고'; other Hangul bytes are served as
-  // UTF-8 in this fixture. Use ASCII-only surrounding markup and an
-  // EUC-KR-encoded entire HTML body for an end-to-end assertion instead.
+  // The stock column contains actual EUC-KR Hangul bytes in otherwise
+  // ASCII markup, so an ordinary UTF-8 Response.text() would lose the label.
   assert.equal(koreanBytes.length,4);
   const calls=[];
   const mock=async(url,opts)=>{
@@ -155,6 +151,6 @@ test("official product page reads declared EUC-KR rather than corrupting stock l
   const output=await queryLotteMartOfficial(
     {...request,keyword:"Mega Symphony"},{fetcher:mock});
   assert.equal(calls.length,2);
-  assert.equal(output.status,"unverified_product_or_stock",
-    "mismatched title/barcode identity must never invent a stock row");
+  assert.equal(output.status,"observed");
+  assert.equal(output.stores[0].quantity,7);
 });
