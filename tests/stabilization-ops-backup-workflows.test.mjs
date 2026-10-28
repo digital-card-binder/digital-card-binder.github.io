@@ -20,6 +20,7 @@ function makeBackupFixture(invalid=false){
    }}},
    DOCUMENT_IDS:["nationalDex","seriesDex","arDex","worldDex"],
    BACKUP_FORMAT:"digital-card-binder-backup-v2",
+   CONFIG:{userCollection:"collections"},
    accountCore:{usesOverrideShards:x=>["seriesDex","arDex"].includes(x),documentRef:()=>({})},
    $:id=>id==="operations-backup"?button:status,
    setStatus:(el,message,kind="")=>{el.textContent=message;el.dataset.state=kind;},
