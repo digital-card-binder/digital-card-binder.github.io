@@ -121,3 +121,6 @@ npm test
 
 운영 중 발견된 카드 상품 후보는 검증 전 자동 반영하지 않고
 [공식 상품 감시 검토 이슈 #308](https://github.com/digital-card-binder/digital-card-binder.github.io/issues/308)에서 확인합니다.
+
+운영센터 백업 구조, 복원 안전성, GitHub Actions 전체 분류와 보존 원칙은
+[운영센터·Actions 전수 점검 결과](./docs/ops-backup-workflows-audit-20261028.md)에서 확인할 수 있습니다.
