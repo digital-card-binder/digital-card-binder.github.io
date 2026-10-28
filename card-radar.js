@@ -156,10 +156,10 @@
     if(store.kind==="vending")return state.kind==="vending";
     if(!["convenience","mart"].includes(store.kind))return false;
     if(store.kind==="mart" && !SUPPORTED_MART_BRANDS.has(
-      martBrand(store.chain||store.name)))return false;
+      martBrand((store.name||'')+' '+(store.chain||''))))return false;
     if(state.kind!=="all" && store.kind!==state.kind)return false;
     if(state.kind==="mart" && state.martBrand!=="all")
-      return martBrand(store.chain||store.name)===state.martBrand;
+      return martBrand((store.name||'')+' '+(store.chain||''))===state.martBrand;
     if(state.kind==="convenience" && state.convenienceBrand!=="all")
       return convenienceChain(store)===state.convenienceBrand;
     return true;
@@ -839,7 +839,7 @@
       const data=await fetchJson("./data/card-radar-mart-providers.json",{cache:"no-store"},8000);
       if(!data || data.schemaVersion!==1 || !Array.isArray(data.providers))return;
       state.martProviders=Object.fromEntries(data.providers
-        .filter((p)=>["emart","traders","lottemart","homeplus","costco","hanaro"].includes(p.id))
+        .filter((p)=>["emart","traders","lottemart","toysrus","homeplus"].includes(p.id))
         .map((p)=>[p.id,{
           label:String(p.label||"").slice(0,50),
           lookupLabel:String(p.lookupLabel||"공식 상품 확인").slice(0,65),
@@ -853,19 +853,20 @@
   }
   function martLookup(store) {
     if(store.kind!=="mart")return null;
-    const id=martBrand(store.chain||store.name);
+    const id=martBrand((store.name||'')+' '+(store.chain||''));
     return state.martProviders[id] || null;
   }
   // Manual customer self-check: product and store are copied/opened by the user.
   // No inventory is scraped, recorded or inferred from an official link.
   const MART_OFFICIAL_APP_URLS=Object.freeze({
     lottemart:"https://play.google.com/store/apps/details?id=com.lottemart.lmscp",
+    toysrus:"https://play.google.com/store/apps/details?id=com.lottemart.lmscp",
     emart:"https://play.google.com/store/apps/details?id=com.emart.today",
     traders:"https://play.google.com/store/apps/details?id=com.emart.today"
   });
   function martOfficialApp(store){
     return store?.kind==="mart" ?
-      MART_OFFICIAL_APP_URLS[martBrand(store.chain||store.name)]||"" : "";
+      MART_OFFICIAL_APP_URLS[martBrand((store.name||'')+' '+(store.chain||''))]||"" : "";
   }
   function martOfficialSearchTerm(){
     if(!state.pack)return "포켓몬카드";
@@ -1148,7 +1149,7 @@
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
     const typeName=store.kind==="vending"?"공식 자판기":
       store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
-      martBrandLabel(martBrand(store.chain||store.name));
+      martBrandLabel(martBrand((store.name||'')+' '+(store.chain||'')));
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
     header.append(title,badge);
@@ -1170,7 +1171,7 @@
     const mart=martLookup(store);
     if(store.kind!=="vending" && mart && !summary.checked){
       const info=make("p","radar-mart-lookup-note",
-        ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))
+        ["lottemart","toysrus","emart","traders"].includes(martBrand((store.name||'')+' '+(store.chain||'')))
           ? "공식 재고에서 '"+store.name+"' 매장과 상품을 선택해 확인하세요. 자동 수량은 미연동입니다."
           : "대형마트 자동 재고 연동 미지원 · "+mart.note);
       card.append(info);
@@ -1190,14 +1191,14 @@
     }
     if(mart && mart.lookupUrl) {
       const lookup=make("a","radar-mart-lookup-link",
-        ["lottemart","emart"].includes(martBrand(store.chain||store.name))
+        ["lottemart","toysrus","emart"].includes(martBrand((store.name||'')+' '+(store.chain||'')))
           ? "공식 재고 확인" : mart.lookupLabel+" ↗");
       lookup.href=mart.lookupUrl;
       lookup.target="_blank";lookup.rel="noopener noreferrer";
       lookup.title="공식 웹사이트로 이동합니다. 점포 및 상품을 직접 선택해야 하며, 카드 재고가 있다는 뜻은 아닙니다.";
       buttons.append(lookup);
     }
-    if(mart && ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))){
+    if(mart && ["lottemart","toysrus","emart","traders"].includes(martBrand((store.name||'')+' '+(store.chain||'')))){
       const term=martOfficialSearchTerm();
       const copy=make("button","radar-mart-copy-term","상품명 복사");
       copy.type="button";
@@ -1254,6 +1255,30 @@
     }
     return seen.size;
   }
+  // Exact product quantities require a recent verified source response.
+  function stockMarkerSummary(store) {
+    const items=(store.verifiedInventory||[]).filter(item=>{
+      const age=Date.now()-Date.parse(item.checkedAt);
+      return isCardProduct(item.name)&&item.previousLookup!==true&&
+        (!state.pack||String(item.code||"").toLowerCase()===state.pack.toLowerCase())&&
+        Number.isSafeInteger(item.quantity)&&item.quantity>0&&
+        Number.isFinite(age)&&age>=-60000&&age<15*60000;
+    });
+    const unique=new Map();
+    for(const item of items){
+      const key=stockProductIdentity(item);
+      const previous=unique.get(key);
+      if(!previous||Date.parse(previous.checkedAt)<Date.parse(item.checkedAt))
+        unique.set(key,item);
+    }
+    if(!unique.size)return null;
+    if(state.pack){
+      const quantity=[...unique.values()].reduce((n,item)=>n+item.quantity,0);
+      return {label:String(quantity),unit:"개",description:"선택 상품 조회 수량 "+quantity+"개"};
+    }
+    return {label:String(unique.size),unit:"종",
+      description:"카드 재고 확인 상품 "+unique.size+"종 (수량은 매장 상세에서 확인)"};
+  }
   function renderMapMarkers(shops) {
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
@@ -1262,11 +1287,13 @@
       const hasStock=store.kind!=="vending" && inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.mart;
       const count=stockProductCount(store);
-      const marker=(state.onlyInStock && hasStock && window.L.divIcon
+      const stockBadge=hasStock?stockMarkerSummary(store):null;
+      const marker=(stockBadge && window.L.divIcon
         ? window.L.marker([store.lat,store.lng],{
           icon:window.L.divIcon({className:"radar-stock-marker",html:
-            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+count+
-            '<small>종</small></span>',iconSize:[48,38],iconAnchor:[24,36]})
+            '<span class="radar-stock-marker-bubble" aria-hidden="true">'+
+            stockBadge.label+'<small>'+stockBadge.unit+
+            '</small></span>',iconSize:[56,40],iconAnchor:[28,38]})
         })
         : window.L.circleMarker([store.lat,store.lng],{
           color:hasStock?"#bd263f":color,
@@ -1277,11 +1304,11 @@
       popup.append(make("strong","",store.name),
         make("p","",store.kind==="vending"
           ? "포켓몬코리아 공식 자판기 설치 위치 · 재고 미제공"
-          : (store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
+          : (store.kind==="mart"?martBrandLabel(martBrand((store.name||'')+' '+(store.chain||''))):
             CONVENIENCE_CHAIN_LABELS[convenienceChain(store)])+
             " · "+(stock.known?stock.message:stock.detail)));
-      if(state.onlyInStock && hasStock)popup.append(make("small","",
-        "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
+      if(stockBadge)popup.append(make("small","",
+        stockBadge.description+" · 마지막 재고 응답 기준"));
       marker.bindPopup(popup);
       store.marker=marker;
     }
