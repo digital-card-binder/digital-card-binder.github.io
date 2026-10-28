@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const SERIES_URL = new URL("../data/series.json", import.meta.url);
+const THEMES_URL = new URL("../data/art-themes.json", import.meta.url);
 const EVIDENCE_URL = new URL("../data/audits/m4-korean-card-names-20261028.json", import.meta.url);
 const DETAIL_ROOT = "https://pokemoncard.co.kr/cards/detail/BS2026003";
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -91,20 +92,48 @@ export async function applyVerifiedM4Names({ request = fetchOfficialPage, delayM
   const remaining = list.filter((card) => !String(card.name || "").trim()).length;
   if (remaining !== held.length || verified.length + held.length !== 96)
     throw new Error("M4 review counts do not reconcile");
+  // Some themes store the same printed M4 card with an empty display name.
+  // Keep membership, image, review status and every existing non-empty name as-is.
+  const themes = JSON.parse(await readFile(THEMES_URL, "utf8"));
+  const officialNames = new Map(verified.map(item => [String(item.number).padStart(3,"0"), item.name]));
+  const themeUpdates=[], themeConflicts=[];
+  for (const group of themes.groups || []) {
+    for (const entry of group.cards || []) {
+      const id = String(entry.code||"").match(/^m4_(\d{3})$/i);
+      if (!id || !officialNames.has(id[1])) continue;
+      const printed = String(entry.image||"").match(/\/M4\/M4_(\d{3})\.(?:png|webp|jpe?g)(?:\?|$)/i);
+      if (printed && printed[1] !== id[1]) {
+        themeConflicts.push({theme:group.code,code:entry.code,reason:"Printed image number disagrees with identity"});
+        continue;
+      }
+      const expected = officialNames.get(id[1]);
+      if (!String(entry.name || "").trim()) {
+        entry.name = expected;
+        themeUpdates.push({theme:group.code,code:entry.code,name:expected});
+      } else if (entry.name.replace(/\s+/g,"") !== expected.replace(/\s+/g,"")) {
+        themeConflicts.push({theme:group.code,code:entry.code,reason:"Existing theme name differs from official Korean printed name",currentName:entry.name,officialName:expected});
+      }
+    }
+  }
+  if (themeConflicts.length) {
+    throw new Error("M4 theme identity mismatch requires manual review: "+JSON.stringify(themeConflicts.slice(0,12)));
+  }
   const evidence = {
     schemaVersion:1, set:"m4", product:"닌자스피너", verifiedAt:new Date().toISOString(),
     sourceProductUrl:"https://pokemoncard.co.kr/card/887",
     officialCardIdPattern:"BS2026003NNN",
     beforeMissing:96, verifiedCount:verified.length, heldCount:held.length,
     afterMissing:remaining, verified, held,
+    themeNamesUpdated:themeUpdates.length, themeNameEvidence:themeUpdates,
     policy:"Only exact numbered Pokemon Korea M4 detail pages with expected set and existing Korean Pokemon-name consistency were copied; others held"
   };
   // Write audit evidence even if some pages fail. Never mark unverified names done.
   await writeFile(EVIDENCE_URL, JSON.stringify(evidence,null,2)+"\n");
   if (verified.length) await writeFile(SERIES_URL,JSON.stringify(groups,null,2)+"\n");
+  if (themeUpdates.length) await writeFile(THEMES_URL,JSON.stringify(themes,null,2)+"\n");
   console.log("M4_OFFICIAL_NAME_RECONCILIATION "+JSON.stringify({
     before:96,verified:verified.length,held:held.length,after:remaining,
-    heldCodes:held.map(x=>x.code)
+    heldCodes:held.map(x=>x.code), themeNamesUpdated:themeUpdates.length
   }));
   return evidence;
 }

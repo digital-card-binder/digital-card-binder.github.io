@@ -31,3 +31,11 @@ test("M4 source and official evidence both preserve 120 distinct existing card I
  assert.match(source,/card\.name = official\.title/);
  assert.doesNotMatch(source,/card\.owned\s*=|card\.image\s*=|card\.code\s*=/);
 });
+
+test("M4 theme names are updated only for blank matching printed identities",()=>{
+ const source=repo("scripts/enrich-m4-korean-card-names-20261028.mjs");
+ assert.match(source,/if \(!String\(entry\.name \|\| ""\)\.trim\(\)\) \{/);
+ assert.match(source,/entry\.name = expected;/);
+ assert.match(source,/themeConflicts\.length/);
+ assert.doesNotMatch(source,/entry\.owned\s*=|entry\.image\s*=|entry\.code\s*=/);
+});
