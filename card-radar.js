@@ -971,6 +971,7 @@
   function stockProductUnit(name) {
     const value=String(name||"").normalize("NFKC");
     if(/(?:박스|\bbox\b|\d+팩\s*입)/i.test(value))return "박스";
+    if(/(?:스페셜\s*(?:카드\s*)?세트|ex\s*스페셜\s*세트)/i.test(value))return "세트";
     if(/(?:구축덱|스타트\s*(?:덱|세트)|스타터\s*(?:덱|세트)|\bdeck\b)/i.test(value))return "덱";
     if(/(?:확장팩|강화팩|하이클래스팩|부스터팩|카드팩|\bpack\b|(?:^|\s)팩(?:$|\s))/i.test(value))return "팩";
     return "단위 미확인";
