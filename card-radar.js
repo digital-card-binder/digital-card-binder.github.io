@@ -1401,6 +1401,7 @@
       : mergeInventory(state.shops)).filter(selectedKind)
       .filter((store) => store.distance <= state.radiusKm + .03)
       .sort((a,b)=>a.distance-b.distance);
+    const martStockUnlinked=state.kind==="mart"&&!state.martInventory.length;
     const inStockStores = state.kind==="vending"?[]:
       nearbyStores.filter((store) => inventoryLabel(store).known);
     const displayedStores = state.kind==="vending"?nearbyStores:
@@ -1411,16 +1412,20 @@
     currentSummary(nearbyStores.length, displayedStores.length);
     const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
       !nearbyStores.length && !state.masterShops.length && !state.publicShops.length;
-    byId("radar-stock-filter-count").textContent = !hasResults || unresolvedMartMap
+    byId("radar-stock-filter-count").textContent = martStockUnlinked
+      ? "재고 수량 미연동" :
+      !hasResults || unresolvedMartMap
       ? "재고 있음 —곳" : "재고 있음 " + inStockStores.length + "곳";
     byId("radar-map-mode-count").textContent = unresolvedMartMap ? "마트 위치 조회 실패" :
       !hasResults ? "매장 탐색 전" :
       state.kind==="vending" ? "공식 자판기 "+nearbyStores.length+"곳" :
+      martStockUnlinked ? "매장 "+nearbyStores.length+"곳 · 재고 수량 미확인" :
       state.onlyInStock ? "재고 있음 "+inStockStores.length+"곳" :
         "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
     // Only fresh positive Pokémon-card stock may contribute to this counter.
     // A checked-but-zero or unchecked location is never counted as in stock.
-    byId("radar-stock-checked").textContent = state.kind==="vending" || unresolvedMartMap?"—":
+    byId("radar-stock-checked").textContent =
+      state.kind==="vending"||unresolvedMartMap||martStockUnlinked?"—":
       hasResults ? String(inStockStores.length) : "—";
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
@@ -2139,7 +2144,9 @@
       state.kind=type.value;
       document.body.classList.toggle("radar-vending-mode",state.kind==="vending");
       byId("radar-vending-source-note").hidden=state.kind!=="vending";
-      if(state.kind==="vending")setStockOnly(false);
+      const martUnlinked=state.kind==="mart"&&!state.martInventory.length;
+      document.body.classList.toggle("radar-mart-unlinked-mode",martUnlinked);
+      if(state.kind==="vending"||martUnlinked)setStockOnly(false);
       martField.hidden=type.value!=="mart";
       convenienceField.hidden=type.value!=="convenience";
       if(type.value!=="mart"){state.martBrand="all";martSelect.value="all";}
