@@ -1141,7 +1141,7 @@ test("Myeongdong Seven-Eleven publicly returned 30, 240, 30; parser and stock co
   const rows=[];
   for(const [name,quantity,code] of names){
     const payload={success:true,data:{
-      stockAvailable:true,product:{itemName:"비젼)포켓몬확장팩("+name+")_H",itemCode:"880001"},
+      stockAvailable:true,product:{itemName:"비젼)포켓몬확장팩("+name+")_H",itemCode:"880-"+code},
       inventory:{stores:[{storeName:"명동스카이호텔점",storeCode:"777",
         latitude:37.5634,longitude:126.9838,stockQuantity:quantity}]}
     }};
