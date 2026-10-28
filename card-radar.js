@@ -77,7 +77,7 @@
   const state = {
     center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
     radiusKm: 10, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
-    shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
+    shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], vendingShops: [], vendingLoadedAt:0, inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
     searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
     progress: { completed: 0, total: 0, successes: 0, failures: 0, active: false }
   };
@@ -153,7 +153,8 @@
     return "other";
   }
   function selectedKind(store) {
-    // Only locations for convenience stores and marts belong on the radar.
+    // Vending locations are sourced separately from the official Pokémon Korea list.
+    if(store.kind==="vending")return state.kind==="vending";
     if(!["convenience","mart"].includes(store.kind))return false;
     if(state.kind!=="all" && store.kind!==state.kind)return false;
     if(state.kind==="mart" && state.martBrand!=="all")
@@ -163,6 +164,7 @@
     return true;
   }
   function currentSummary(count, displayedCount = count) {
+    byId("radar-total-stores-label").textContent = state.kind==="vending"?"주변 자판기":"주변 매장";
     const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0;
     byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
       (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
@@ -927,6 +929,37 @@
     }
     return merged.sort((a,b) => a.distance-b.distance);
   }
+  const OFFICIAL_VENDING_JSON="https://calendar-1ut.pages.dev/scripts/venderlist.json";
+  const OFFICIAL_VENDING_URL="https://pokemonkorea.co.kr/card_vending_machine";
+  function parseOfficialVending(data){
+    if(!Array.isArray(data)||data.length>400)throw Error("INVALID_VENDING_DIRECTORY");
+    const seen=new Set();
+    return data.flatMap(raw=>{
+      const lat=Number(raw?.lat),lng=Number(raw?.lng);
+      const name=String(raw?.name||"").trim().slice(0,90);
+      const address=String(raw?.addr||"").trim().slice(0,140);
+      const id=String(raw?.id||"").trim().slice(0,110);
+      if(!validCoord(lat,lng)||!name||!address||!id)return [];
+      if(lat<33||lat>39.5||lng<124||lng>132)return [];
+      const key=id+"|"+lat.toFixed(5)+"|"+lng.toFixed(5);
+      if(seen.has(key))return [];
+      seen.add(key);
+      return [{id:"vending:"+id,name:name+" 자판기",lat,lng,addr:address,
+        chain:String(raw.brand||"").slice(0,35),kind:"vending",
+        origin:"official-vending-directory",sourceUrl:OFFICIAL_VENDING_URL,
+        verifiedInventory:[]}];
+    });
+  }
+  async function loadOfficialVending(){
+    if(state.vendingShops.length && Date.now()-state.vendingLoadedAt<3600*1000)
+      return state.vendingShops;
+    const data=await fetchJson(OFFICIAL_VENDING_JSON,{cache:"no-store"},12000);
+    const parsed=parseOfficialVending(data);
+    if(parsed.length<100)throw Error("OFFICIAL_VENDING_LIST_INCOMPLETE");
+    state.vendingShops=parsed;
+    state.vendingLoadedAt=Date.now();
+    return parsed;
+  }
   async function loadInventory() {
     try {
       const data = await fetchJson("./data/card-radar-inventory.json", {cache:"no-store"}, 8000);
@@ -1050,7 +1083,8 @@
     const card=make("article","radar-store");
     const top=make("div","radar-store-top"),title=make("h3","radar-store-title",store.name);
     const km=make("span","radar-store-distance",store.distance.toFixed(1)+"km");
-    const typeName=store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
+    const typeName=store.kind==="vending"?"공식 자판기":
+      store.kind==="convenience"?CONVENIENCE_CHAIN_LABELS[convenienceChain(store)]:
       martBrandLabel(martBrand(store.chain||store.name));
     const badge=make("span","radar-store-kind radar-store-kind--"+store.kind,typeName);
     const header=make("div","radar-store-name");
@@ -1063,10 +1097,14 @@
         store.origin==="official-directory"?"매장 위치 확인 · 재고 별도 확인":
         store.origin==="authorized-feed"?"재고 데이터 제공 매장":"지도에 등록된 매장 후보")));
     const summary=inventoryLabel(store);
-    if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
-    card.append(make("p","radar-stock-note",summary.detail));
+    if(store.kind==="vending"){
+      card.append(make("p","radar-stock-note","포켓몬코리아 공식 설치 위치 · 실시간 재고 미제공"));
+    }else{
+      if (summary.known) card.append(make("div","radar-stock in-stock",summary.message));
+      card.append(make("p","radar-stock-note",summary.detail));
+    }
     const mart=martLookup(store);
-    if(mart && !summary.checked){
+    if(store.kind!=="vending" && mart && !summary.checked){
       const info=make("p","radar-mart-lookup-note",
         "대형마트 자동 재고 연동 미지원 · "+mart.note);
       card.append(info);
@@ -1090,6 +1128,12 @@
       lookup.target="_blank";lookup.rel="noopener noreferrer";
       lookup.title="공식 웹사이트로 이동합니다. 점포 및 상품을 직접 선택해야 하며, 카드 재고가 있다는 뜻은 아닙니다.";
       buttons.append(lookup);
+    }
+    if (store.origin==="official-vending-directory" && store.sourceUrl) {
+      const official=make("a","","공식 자판기 목록");
+      official.href=store.sourceUrl;
+      official.target="_blank";official.rel="noopener noreferrer";
+      buttons.append(official);
     }
     if (store.origin==="official-directory" && store.sourceUrl) {
       const official=make("a","", "공식 매장 정보");
@@ -1125,8 +1169,8 @@
     if (!state.map || !state.pinLayer) return;
     state.pinLayer.clearLayers();
     for (const store of shops) {
-      const mapColors={convenience:"#4168dc",mart:"#ed9b2a"};
-      const hasStock=inventoryLabel(store).known;
+      const mapColors={convenience:"#4168dc",mart:"#ed9b2a",vending:"#16846c"};
+      const hasStock=store.kind!=="vending" && inventoryLabel(store).known;
       const color=mapColors[store.kind]||mapColors.mart;
       const count=stockProductCount(store);
       const marker=(state.onlyInStock && hasStock && window.L.divIcon
@@ -1142,9 +1186,11 @@
       const popup=make("div","");
       const stock = inventoryLabel(store);
       popup.append(make("strong","",store.name),
-        make("p","",(store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
+        make("p","",store.kind==="vending"
+          ? "포켓몬코리아 공식 자판기 설치 위치 · 재고 미제공"
+          : (store.kind==="mart"?martBrandLabel(martBrand(store.chain||store.name)):
             CONVENIENCE_CHAIN_LABELS[convenienceChain(store)])+
-          " · "+(stock.known?stock.message:stock.detail)));
+            " · "+(stock.known?stock.message:stock.detail)));
       if(state.onlyInStock && hasStock)popup.append(make("small","",
         "확인된 카드 상품 "+count+"종 · 마지막 재고 응답 기준"));
       marker.bindPopup(popup);
@@ -1154,11 +1200,16 @@
   function render() {
     // Capture the complete nearby population first. The stock-only preference changes
     // only the visible list and map markers, not the population or API request totals.
-    const nearbyStores = mergeInventory(state.shops).filter(selectedKind)
-      .filter((store) => store.distance <= state.radiusKm + .03);
-    const inStockStores = nearbyStores.filter((store) => inventoryLabel(store).known);
-    const displayedStores = filterStoresForDisplay(nearbyStores);
-    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0;
+    const nearbyStores = (state.kind==="vending"
+      ? state.vendingShops.map(store=>({...store,distance:distanceKm(state.center,store)}))
+      : mergeInventory(state.shops)).filter(selectedKind)
+      .filter((store) => store.distance <= state.radiusKm + .03)
+      .sort((a,b)=>a.distance-b.distance);
+    const inStockStores = state.kind==="vending"?[]:
+      nearbyStores.filter((store) => inventoryLabel(store).known);
+    const displayedStores = state.kind==="vending"?nearbyStores:
+      filterStoresForDisplay(nearbyStores);
+    const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0 || state.vendingShops.length>0;
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
@@ -1169,8 +1220,8 @@
         "매장 "+nearbyStores.length+"곳 · 재고 있음 "+inStockStores.length+"곳";
     // Only fresh positive Pokémon-card stock may contribute to this counter.
     // A checked-but-zero or unchecked location is never counted as in stock.
-    byId("radar-stock-checked").textContent = hasResults
-      ? String(inStockStores.length) : "—";
+    byId("radar-stock-checked").textContent = state.kind==="vending"?"—":
+      hasResults ? String(inStockStores.length) : "—";
     renderMapMarkers(displayedStores);
     if (!displayedStores.length) {
       const box = make("div","radar-empty");
@@ -1224,6 +1275,24 @@
     state.hasSearched = true;
     const button = byId("radar-search");
     button.disabled = true;
+    if(state.kind==="vending"){
+      state.progress={completed:0,total:1,successes:0,failures:0,active:true};
+      updateProgress("공식 자판기 위치 조회 중");
+      try{
+        await loadOfficialVending();
+        state.mapChecked=true;
+        state.progress={completed:1,total:1,successes:0,failures:0,active:false};
+        updateProgress("공식 위치 검색 완료");
+        setStatus("");
+      }catch(_){
+        state.progress={completed:1,total:1,successes:0,failures:1,active:false};
+        updateProgress("자판기 위치 확인 불가");
+        setStatus("공식 자판기 위치 목록을 불러오지 못했습니다. 공식 자판기 페이지에서 확인해 주세요.",true);
+      }finally{
+        state.searching=false;button.disabled=false;render();
+      }
+      return;
+    }
     state.shops = [];
     state.retailerShops = [];
     state.masterShops = [];
@@ -1577,7 +1646,7 @@
     }).map(([code,title])=>keywordFor(code,title));
   }
   function inventoryJobs() {
-    const providers = state.kind === "mart" ? [] :
+    const providers = ["mart","vending"].includes(state.kind) ? [] :
       (state.kind === "convenience" && state.convenienceBrand !== "all"
         ? (state.convenienceBrand === "other" ? [] : [state.convenienceBrand])
         : ["cu","seveneleven","gs25","emart24"]);
@@ -1860,6 +1929,9 @@
     const convenienceSelect=byId("radar-convenience-brand");
     type.addEventListener("change",()=>{
       state.kind=type.value;
+      document.body.classList.toggle("radar-vending-mode",state.kind==="vending");
+      byId("radar-vending-source-note").hidden=state.kind!=="vending";
+      if(state.kind==="vending")setStockOnly(false);
       martField.hidden=type.value!=="mart";
       convenienceField.hidden=type.value!=="convenience";
       if(type.value!=="mart"){state.martBrand="all";martSelect.value="all";}
