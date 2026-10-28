@@ -1166,7 +1166,7 @@
     }
     if(mart && mart.lookupUrl) {
       const lookup=make("a","radar-mart-lookup-link",
-        ["lottemart","emart","traders"].includes(martBrand(store.chain||store.name))
+        ["lottemart","emart"].includes(martBrand(store.chain||store.name))
           ? "공식 재고 확인" : mart.lookupLabel+" ↗");
       lookup.href=mart.lookupUrl;
       lookup.target="_blank";lookup.rel="noopener noreferrer";
