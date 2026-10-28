@@ -75,7 +75,7 @@
   const DEFAULT_CENTER = { lat: 37.5665, lng: 126.9780 };
   const MAX_SHOPS = 250;
   const state = {
-    center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)",
+    center: { ...DEFAULT_CENTER }, locationLabel: "서울시청 (기본 지도)", region: null,
     radiusKm: 10, kind: "all", martBrand: "all", convenienceBrand: "all", pack: "", view: "list", onlyInStock: false,
     shops: [], curatedShops: [], retailerShops: [], masterShops: [], publicShops: [], vendingShops: [], vendingLoadedAt:0, inventory: [], martInventory: [], martProviders: {}, providerNotes: [], providerOutcomes: {}, map: null, radiusCircle: null, pinLayer: null,
     mapLocationError:false, searching: false, hasSearched:false, packRefreshPending:false, locationChosen: false, mapChecked: false,
@@ -114,6 +114,43 @@
   }
   const SUPPORTED_MART_BRANDS=new Set(["emart","lottemart","toysrus","traders"]);
   const MART_NAME_PATTERN="이마트|E[ -]?Mart|롯데마트|Lotte ?Mart|토이저러스|Toys ?[Rr] ?[Uu]s|트레이더스|Traders";
+  const KOREAN_REGIONS=[
+    "서울특별시","부산광역시","대구광역시","인천광역시","광주광역시",
+    "대전광역시","울산광역시","세종특별자치시","경기도","강원특별자치도",
+    "충청북도","충청남도","전북특별자치도","전라남도","경상북도","경상남도",
+    "제주특별자치도"
+  ];
+  function parseAdministrativeRegion(place,name){
+    const category=String(place?.class||place?.category||"");
+    const bbox=place?.boundingbox;
+    if(category!=="boundary"||place?.type!=="administrative"||
+      place?.osm_type!=="relation"||!/^\d{1,12}$/.test(String(place?.osm_id||""))||
+      !Array.isArray(bbox)||bbox.length!==4)return null;
+    const [south,north,west,east]=bbox.map(Number);
+    if(![south,north,west,east].every(Number.isFinite)||
+      south>=north||west>=east||south<33||north>39.8||west<124||east>132||
+      north-south<.003||east-west<.003)return null;
+    return {name:String(name||place.name||"선택 지역").trim().slice(0,75),
+      bounds:[south,west,north,east],
+      areaId:String(3600000000+Number(place.osm_id))};
+  }
+  function regionSearchActive(){return state.kind==="mart"&&!!state.region;}
+  function withinSearchArea(point){
+    if(regionSearchActive()){
+      const [south,west,north,east]=state.region.bounds;
+      return point.lat>=south-.0001&&point.lat<=north+.0001&&
+        point.lng>=west-.0001&&point.lng<=east+.0001;
+    }
+    return distanceKm(state.center,point)<=state.radiusKm+.03;
+  }
+  function updateRegionControls(){
+    const active=regionSearchActive();
+    document.querySelectorAll("[data-radius]").forEach(button=>{button.disabled=active;});
+    const note=byId("radar-region-scope-note");
+    if(note)note.textContent=active
+      ? "선택한 행정구역 전체의 주요 마트 위치를 검색합니다. 지도에 등록되지 않은 매장은 누락될 수 있으며 재고 수량은 별도 확인입니다."
+      : "내 위치 또는 상세 위치를 기준으로 반경 1~10km 매장을 검색합니다.";
+  }
   function category(tags) {
     const name = [tags.name, tags["name:ko"], tags.brand, tags.operator].filter(Boolean).join(" ");
     const shop = String(tags.shop || "");
@@ -167,9 +204,10 @@
   function currentSummary(count, displayedCount = count) {
     byId("radar-total-stores-label").textContent = state.kind==="vending"?"주변 자판기":"주변 매장";
     const hasResults = state.mapChecked || state.inventory.length > 0 || state.shops.length > 0 || state.retailerShops.length > 0 || state.masterShops.length > 0 || state.publicShops.length > 0;
-    byId("radar-summary").textContent = state.locationLabel + " · 반경 " + state.radiusKm + "km" +
+    const scope=regionSearchActive()?"지역 전체":"반경 "+state.radiusKm+"km";
+    byId("radar-summary").textContent = state.locationLabel + " · " + scope +
       (hasResults ? " · " + (state.onlyInStock ? "재고 보유 " : "전체 ") + displayedCount + "곳 표시" : "");
-    byId("radar-map-caption").textContent = "반경 " + state.radiusKm + "km";
+    byId("radar-map-caption").textContent = scope;
     byId("radar-location-label").textContent = "검색 중심: " + state.locationLabel +
       " · " + state.center.lat.toFixed(4) + ", " + state.center.lng.toFixed(4);
     // All map sources can fail at once. In that situation "0 stores" is not
@@ -283,6 +321,7 @@
     const point = state.map.getCenter();
     if (!validCoord(point.lat,point.lng)) return setStatus("지도 중심 위치가 올바르지 않습니다.",true);
     state.center = {lat:point.lat,lng:point.lng};
+    state.region=null;byId("radar-region").value="";updateRegionControls();
     state.locationLabel = "지도에서 선택한 위치";
     state.locationChosen = true;
     state.shops=[];
@@ -303,12 +342,19 @@
   }
   function centerMap() {
     if (!state.map) return;
+    const inRegion=regionSearchActive();
+    if(inRegion && typeof state.map.fitBounds==="function"){
+      const [south,west,north,east]=state.region.bounds;
+      state.map.fitBounds([[south,west],[north,east]],{animate:false,padding:[16,16]});
+    }
     const center = [state.center.lat, state.center.lng];
     const zoom = state.radiusKm >= 10 ? 11 : state.radiusKm >= 5 ? 12 : state.radiusKm >= 3 ? 13 : 14;
-    state.map.setView(center, zoom, {animate:false});
+    if(!inRegion)state.map.setView(center, zoom, {animate:false});
     if (state.radiusCircle) {
       state.radiusCircle.setLatLng(center);
       state.radiusCircle.setRadius(state.radiusKm * 1000);
+      if(typeof state.radiusCircle.setStyle==="function")
+        state.radiusCircle.setStyle({opacity:inRegion?0:1,fillOpacity:inRegion?0:.07});
     }
   }
   function initMap() {
@@ -412,6 +458,7 @@
           return;
         }
         state.center={lat,lng};
+        state.region=null;byId("radar-region").value="";updateRegionControls();
         state.locationLabel="내 위치";
         state.locationChosen=true;
         state.shops=[];
@@ -458,13 +505,20 @@
     button.disabled = true;
     setStatus("지역 좌표를 찾는 중입니다.");
     try {
-      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=kr&q=" + encodeURIComponent(query);
+      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=kr&q=" + encodeURIComponent(query);
       const places = await fetchJson(url, {headers:{"Accept":"application/json"}}, 12000);
       if (!Array.isArray(places) || !places.length) throw new Error("NOT_FOUND");
-      const lat = Number(places[0].lat), lng = Number(places[0].lon);
+      // Respect the top geocode match for specific places such as '부산 서면'.
+      // Do not silently jump to a broader administrative boundary.
+      const place=places[0];
+      const lat = Number(place.lat), lng = Number(place.lon);
       if (!validCoord(lat,lng)) throw new Error("INVALID");
+      state.region=parseAdministrativeRegion(place,query);
+      byId("radar-region").value=KOREAN_REGIONS.includes(query)?query:"";
       state.center = {lat,lng};
-      state.locationLabel = String(places[0].display_name || query).split(",").slice(0,3).join(", ");
+      state.locationLabel = state.region?.name ||
+        String(place.display_name || query).split(",").slice(0,3).join(", ");
+      updateRegionControls();
       state.locationChosen = true;
       state.shops = [];
       state.retailerShops = [];
@@ -476,12 +530,66 @@
       updateProgress("검색 대기");
       centerMap();
       render();
-      setStatus("지역을 설정했습니다. ‘이 지역 매장 탐색’을 눌러 주세요.");
+      setStatus(regionSearchActive()
+        ? "선택 지역 전체의 마트를 조회할 수 있습니다. ‘이 지역 매장 탐색’을 눌러 주세요."
+        : "위치를 설정했습니다. 검색 버튼을 눌러 반경 내 매장을 조회해 주세요.");
     } catch (error) {
       setStatus(errorMessage(error, "지역을 찾지 못했습니다. 다른 지역명으로 다시 검색해 주세요."), true);
     } finally {button.disabled = false;}
   }
+  async function chooseWholeRegion(value,reader=fetchJson,runSearch=search){
+    if(state.searching)return setStatus("현재 검색이 끝나면 지역을 변경해 주세요.");
+    const name=String(value||"");
+    if(!name){
+      state.region=null;updateRegionControls();centerMap();render();
+      return setStatus("반경 검색으로 전환했습니다. 지역명이나 내 위치를 설정해 주세요.");
+    }
+    if(!KOREAN_REGIONS.includes(name))return setStatus("지원하지 않는 지역입니다.",true);
+    const dropdown=byId("radar-region");
+    dropdown.disabled=true;
+    setStatus(name+" 지역 경계를 찾는 중입니다.");
+    try{
+      const url="https://nominatim.openstreetmap.org/search?"+new URLSearchParams({
+        format:"json",limit:"5",countrycodes:"kr",q:name
+      });
+      const places=await reader(url,{headers:{Accept:"application/json"}},13000);
+      const place=Array.isArray(places)?places.find(p=>parseAdministrativeRegion(p,name)):null;
+      if(!place)throw Error("REGION_NOT_FOUND");
+      const region=parseAdministrativeRegion(place,name);
+      const lat=Number(place.lat),lng=Number(place.lon);
+      if(!validCoord(lat,lng))throw Error("INVALID_COORDS");
+      state.center={lat,lng};state.region=region;state.locationLabel=name;
+      state.locationChosen=true;state.kind="mart";
+      byId("radar-store-kind").value="mart";
+      document.body.classList.remove("radar-vending-mode");
+      byId("radar-vending-source-note").hidden=true;
+      byId("radar-mart-brand-field").hidden=false;
+      byId("radar-convenience-brand-field").hidden=true;
+      state.shops=[];state.retailerShops=[];state.masterShops=[];
+      state.publicShops=[];state.inventory=[];state.mapChecked=false;
+      state.progress={completed:0,total:0,successes:0,failures:0,active:false};
+      updateRegionControls();
+      // Regional browsing must not inherit a previous 'stock only' filter:
+      // mart stock APIs are not yet connected, but all known locations
+      // should remain visible as unverified locations.
+      setStockOnly(false);
+      centerMap();render();
+      setStatus(name+" 전체 주요 마트 매장을 검색합니다.");
+      void runSearch();
+    }catch(error){
+      dropdown.value=state.region&&KOREAN_REGIONS.includes(state.region.name)?
+        state.region.name:"";
+      setStatus(errorMessage(error,"지역 경계를 확인하지 못했습니다. 다른 지역을 선택해 주세요."),true);
+    }finally{dropdown.disabled=false;}
+  }
   function categoryQuery(radius, lat, lng) {
+    if(regionSearchActive()){
+      const areaId=state.region.areaId;
+      const retail=["name","brand","operator"].map(field=>
+        'nwr["'+field+'"~"'+MART_NAME_PATTERN+'",i](area.region);').join("");
+      return "[out:json][timeout:35];area("+areaId+")->.region;("+
+        retail+");out center 1800;";
+    }
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
     const retail =
       'nwr["name"~"'+MART_NAME_PATTERN+'",i]' + around + ";" +
@@ -520,7 +628,7 @@
       const name=String(p.name||"").trim().slice(0,90);
       if(!validCoord(lat,lng)||!name||!SUPPORTED_MART_BRANDS.has(martBrand(name)))return [];
       const distance=distanceKm(state.center,{lat,lng});
-      if(distance>state.radiusKm+.03)return [];
+      if(!withinSearchArea({lat,lng}))return [];
       const osmId=String(p.osm_id||"").slice(0,32);
       const key=String(p.osm_type||"")+":"+osmId;
       if(!osmId||seen.has(key))return [];
@@ -534,11 +642,15 @@
   }
   async function loadPhotonMartShops(reader=fetchJson){
     const center=state.center,km=state.radiusKm;
-    const key=[center.lat.toFixed(3),center.lng.toFixed(3),km,state.martBrand].join("|");
+    const key=[center.lat.toFixed(3),center.lng.toFixed(3),km,state.martBrand,
+      state.region?.areaId||""].join("|");
     const cached=photonMartCache.get(key);
     if(cached && cached.expiresAt>Date.now())return cached.stores.map(x=>({...x}));
     const dy=(km+.4)/111.2,dx=dy/Math.max(.2,Math.cos(rad(center.lat)));
-    const bbox=[center.lng-dx,center.lat-dy,center.lng+dx,center.lat+dy]
+    const bbox=(regionSearchActive()
+      ? [state.region.bounds[1],state.region.bounds[0],
+          state.region.bounds[3],state.region.bounds[2]]
+      : [center.lng-dx,center.lat-dy,center.lng+dx,center.lat+dy])
       .map(x=>x.toFixed(5)).join(",");
     const terms=state.kind==="mart"&&state.martBrand!=="all"?
       MART_PHOTON_TERMS.filter(([id])=>id===state.martBrand):MART_PHOTON_TERMS;
@@ -574,7 +686,7 @@
       try{
         const response=await reader(server,{method:"POST",
           headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-          body:"data="+encodeURIComponent(query)},14000);
+          body:"data="+encodeURIComponent(query)},regionSearchActive()?23000:14000);
         if(!response||!Array.isArray(response.elements))
           throw Error("INVALID_MAP_RESPONSE");
         const parsed=parseShops(response.elements);
@@ -599,7 +711,7 @@
       const kind = category(tags);
       if (!coords || !name || !kind) continue;
       const distance = distanceKm(state.center, coords);
-      if (distance > state.radiusKm + 0.03) continue;
+      if (!withinSearchArea(coords)) continue;
       const key = element.type + ":" + element.id;
       if (seen.has(key)) continue;
       seen.add(key);
@@ -657,7 +769,7 @@
       const lat=Number(record.lat),lng=Number(record.lng);
       if(!validCoord(lat,lng))return [];
       const distance=distanceKm(state.center,{lat,lng});
-      if(distance>state.radiusKm+.03)return [];
+      if(!withinSearchArea({lat,lng}))return [];
       const items=Array.isArray(record.items)?record.items.slice(0,80).flatMap((p)=>{
         if(!p || !Number.isSafeInteger(p.quantity) || p.quantity<0 ||
           !isCardProduct(p.name) || typeof p.observedAt!=="string" ||
@@ -775,7 +887,7 @@
         p.locationStatus!=="candidate" || p.origin!=="government-business-registry" ||
         typeof p.name!=="string" || !p.name.trim())return [];
       const lat=Number(p.lat),lng=Number(p.lng);
-      if(!validCoord(lat,lng) || distanceKm(state.center,{lat,lng})>state.radiusKm+.03)return [];
+      if(!validCoord(lat,lng) || !withinSearchArea({lat,lng}))return [];
       return [{id:String(p.id||"").slice(0,90),name:p.name.slice(0,90),
         lat,lng,distance:distanceKm(state.center,{lat,lng}),
         kind:p.kind,retailerId:p.retailerId,chain:p.retailerId,
@@ -812,7 +924,7 @@
     const merged = shops.filter(selectedKind).map((store)=>({ ...store }));
     // Independently verified stores are included even when OSM lacks the chain.
     for(const official of state.masterShops){
-      if(!selectedKind(official) || distanceKm(state.center,official)>state.radiusKm+.03)continue;
+      if(!selectedKind(official) || !withinSearchArea(official))continue;
       const existing=merged.find((candidate)=>
         (candidate.storeId && official.storeId &&
           candidate.storeId===official.storeId &&
@@ -864,7 +976,7 @@
     // The directory does NOT supply stock quantities.
     if (!state.mapChecked && !state.searching) return merged;
     for (const official of state.curatedShops) {
-      if (!selectedKind(official) || distanceKm(state.center,official) > state.radiusKm + .03) continue;
+      if (!selectedKind(official) || !withinSearchArea(official)) continue;
       const existing = merged.find((store)=>
         store.kind === official.kind &&
         retailChain(store.name) === retailChain(official.chain || official.name) &&
@@ -1034,7 +1146,7 @@
     // Only records supplied by this site's separately maintained authorized feed are stock records.
     // OpenStreetMap entries are location candidates, never evidence of inventory or card sales.
     const known = [...state.inventory,...state.martInventory].filter((s) => {
-      return selectedKind(s) && validCoord(s.lat,s.lng) && distanceKm(state.center,s) <= state.radiusKm + .03;
+      return selectedKind(s) && validCoord(s.lat,s.lng) && withinSearchArea(s);
     });
     const merged = storeCandidates(shops);
     for (const source of known) {
@@ -1429,7 +1541,7 @@
     const nearbyStores = (state.kind==="vending"
       ? state.vendingShops.map(store=>({...store,distance:distanceKm(state.center,store)}))
       : mergeInventory(state.shops)).filter(selectedKind)
-      .filter((store) => store.distance <= state.radiusKm + .03)
+      .filter((store) => withinSearchArea(store))
       .sort((a,b)=>a.distance-b.distance);
     const inStockStores = state.kind==="vending"?[]:
       nearbyStores.filter((store) => inventoryLabel(store).known);
@@ -1624,7 +1736,7 @@
     updateProgress("검색 종료");
     render();
     const candidates = mergeInventory(state.shops).filter(selectedKind)
-      .filter((store)=>store.distance <= state.radiusKm + .03);
+      .filter((store)=>withinSearchArea(store));
     const positive = candidates.filter((store)=>inventoryLabel(store).known).length;
     const stockRequested=jobs.length;
     const stockAttempted=Object.values(state.providerOutcomes).reduce(
@@ -1639,7 +1751,8 @@
       "재고 1개 이상 조회 "+positive+"곳 · 상품별 조회 "+stockAttempted+
       "/"+stockRequested+"건. "+
       (partial?"일부 상품 또는 매장은 조회가 완료되지 않았습니다. ":"")+
-      "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다.";
+      "외부 조회 수량은 공식 실재고를 보장하지 않으며, 미확인은 품절이 아닙니다."+
+      (regionSearchActive()?" 이 지역에서 공개 지도에 등록되지 않은 마트는 누락될 수 있습니다.":"");
     setStatus(state.kind==="mart" && state.mapLocationError && !candidates.length
       ? "주변 마트 지도 조회가 실패했습니다. 매장이 없다는 뜻이 아닙니다. 다시 검색해 주세요." : "",
       state.kind==="mart"&&state.mapLocationError&&!candidates.length);
@@ -2175,6 +2288,8 @@
     const convenienceSelect=byId("radar-convenience-brand");
     type.addEventListener("change",()=>{
       state.kind=type.value;
+      if(state.kind!=="mart"){state.region=null;byId("radar-region").value="";}
+      updateRegionControls();centerMap();
       document.body.classList.toggle("radar-vending-mode",state.kind==="vending");
       byId("radar-vending-source-note").hidden=state.kind!=="vending";
       const martUnlinked=state.kind==="mart"&&!state.martInventory.length &&
@@ -2189,6 +2304,8 @@
       render();
       if(!state.searching)setStatus("매장 유형을 변경했습니다. 새 유형의 조회 범위를 정확하게 확인하려면 다시 탐색해 주세요.");
     });
+    byId("radar-region").addEventListener("change",(event)=>
+      void chooseWholeRegion(event.target.value));
     martSelect.addEventListener("change",()=>{
       state.martBrand=martSelect.value;
       render();

@@ -24,6 +24,7 @@ function harness(options = {}) {
     readyState: "loading",
     addEventListener() {},
     getElementById: element,
+    querySelectorAll() { return []; },
   };
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
@@ -31,7 +32,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, parsePhotonMartShops, loadPhotonMartShops, state};",
+    "parseAdministrativeRegion,regionSearchActive,withinSearchArea,KOREAN_REGIONS,stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, stockMarkerSummary, loadNearbyMapStores, parsePhotonMartShops, loadPhotonMartShops, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -1656,4 +1657,51 @@ test("mart total pin sums only verified positive retail units, no duplicates",()
   assert.equal(stockMarkerSummary(store).label,"2");
   state.pack="";
   assert.equal(stockMarkerSummary({kind:"mart",verifiedInventory:[]}),null);
+});
+
+test("region selector offers all 17 first-level South Korean regions",()=>{
+  const html=read("card-radar.html");
+  const {KOREAN_REGIONS}=harness();
+  assert.equal(KOREAN_REGIONS.length,17);
+  assert.match(html,/id="radar-region"/);
+  for(const name of KOREAN_REGIONS)
+    assert.ok(html.includes('value="'+name+'"'),"missing region "+name);
+});
+test("administrative region uses OSM relation and excludes invalid boundaries",()=>{
+  const {parseAdministrativeRegion}=harness();
+  const place={class:"boundary",type:"administrative",osm_type:"relation",
+    osm_id:4282,lat:"37.45",lon:"127.0",
+    boundingbox:["37.4","37.8","126.7","127.5"]};
+  const region=parseAdministrativeRegion(place,"서울특별시");
+  assert.equal(region.areaId,"3600004282");
+  assert.equal(region.name,"서울특별시");
+  assert.deepEqual(Array.from(region.bounds),[37.4,126.7,37.8,127.5]);
+  assert.equal(parseAdministrativeRegion({...place,osm_type:"node"},"서울"),null);
+  assert.equal(parseAdministrativeRegion({...place,boundingbox:["bad","37.8","126.7","127.5"]},"서울"),null);
+  assert.equal(parseAdministrativeRegion({...place,class:"place"},"서울"),null);
+});
+test("mart administrative region search includes far-away stores in same region but excludes outside and unrelated chains",()=>{
+  const {parseAdministrativeRegion,regionSearchActive,withinSearchArea,categoryQuery,parseShops,state}=harness();
+  state.kind="mart";state.martBrand="all";state.radiusKm=1;
+  state.center={lat:37.51,lng:127.0};
+  state.region=parseAdministrativeRegion({class:"boundary",type:"administrative",
+    osm_type:"relation",osm_id:4282,boundingbox:["37.4","37.9","126.7","127.6"]},"서울");
+  assert.equal(regionSearchActive(),true);
+  const q=categoryQuery(1000,state.center.lat,state.center.lng);
+  assert.match(q,/area\(3600004282\)->[.]region/);
+  assert.match(q,/nwr\["name"~".*롯데마트.*"\,i\]\(area[.]region\)/);
+  assert.doesNotMatch(q,/around:1000/);
+  const nodes=[
+    {type:"node",id:1,lat:37.80,lon:127.40,tags:{name:"이마트 테스트1점"}},
+    {type:"node",id:2,lat:37.91,lon:127.40,tags:{name:"롯데마트 구역밖점"}},
+    {type:"node",id:3,lat:37.80,lon:127.40,tags:{name:"하나로마트 테스트점"}},
+    {type:"node",id:4,lat:37.81,lon:127.40,tags:{name:"트레이더스 테스트점"}},
+    {type:"node",id:5,lat:37.81,lon:127.40,tags:{name:"토이저러스 테스트점"}},
+  ];
+  assert.deepEqual(Array.from(parseShops(nodes),x=>x.name),[
+    "이마트 테스트1점","트레이더스 테스트점","토이저러스 테스트점"]);
+  assert.equal(withinSearchArea({lat:37.8,lng:127.4}),true);
+  state.kind="convenience";
+  assert.equal(regionSearchActive(),false);
+  assert.equal(withinSearchArea({lat:37.8,lng:127.4}),false);
 });
