@@ -2654,3 +2654,18 @@ body:not([data-page="dashboard"]) .main-content > .hero .progress-ring span{
     outline-offset:2px;
   }
 }
+
+/* 29차: prevent intrinsic min-width from overflowing narrow collection views. */
+@media(max-width:760px){
+  .main-content,.catalog-panel,.card-grid,.filter-row,.results-bar{
+    min-width:0;
+    max-width:100%;
+  }
+  .catalog-panel :is(input[type="search"],select){
+    max-width:100%;
+    min-width:0;
+  }
+  .card-dialog[open]{
+    max-width:calc(100vw - 16px);
+  }
+}

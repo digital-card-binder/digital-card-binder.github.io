@@ -752,3 +752,23 @@ body[data-page="custom-dex"] .custom-card.is-owned .custom-owned-toggle{
 @media(max-width:760px){
   body[data-page="custom-dex"] .custom-dex-tile{min-height:64px}
 }
+
+/* 29차: picker and photo controls must fit at 320px without sideways scroll. */
+@media(max-width:640px){
+  body[data-page="custom-dex"] .custom-picker-dialog{
+    width:calc(100vw - 16px);
+    max-width:100%;
+  }
+  body[data-page="custom-dex"] .custom-picker-card{
+    grid-template-columns:44px minmax(0,1fr) auto;
+    gap:6px;
+  }
+  body[data-page="custom-dex"] .custom-picker-card img{width:44px}
+  body[data-page="custom-dex"] .custom-picker-card .primary-button{
+    min-width:44px;
+    padding-inline:7px;
+  }
+  body[data-page="custom-dex"] .custom-picker-card div{
+    min-width:0;
+  }
+}

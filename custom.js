@@ -37,6 +37,7 @@
     dragScrollFrame: 0,
     saveQueue: Promise.resolve(),
     pickedCatalogKeys: new Set(),
+    pickerMatchCache: null,
     bulkOrderMode: false,
     bulkOrderKeys: new Set(),
     bulkSaving: false,
@@ -374,6 +375,7 @@
       }
     }
     state.catalog = catalog;
+    state.pickerMatchCache = null;
     state.catalogMap = new Map(catalog.map((card) => [card.key, card]));
     state.catalogSetCodes = new Set(catalog.map((card) => normalize(card.setCode)));
   }
@@ -1168,8 +1170,16 @@
 
   function pickerMatches(query) {
     const normalizedQuery = normalize(query);
-    if (!normalizedQuery) return state.catalog.slice(0, PICKER_PAGE_SIZE);
-    return state.catalog.filter((card) => searchMatches(card, normalizedQuery));
+    const cached = state.pickerMatchCache;
+    if (cached && cached.catalog === state.catalog && cached.query === normalizedQuery) {
+      return cached.items;
+    }
+    // A selection or "show more" click should not re-search all 20k cards.
+    const items = !normalizedQuery
+      ? state.catalog.slice(0, PICKER_PAGE_SIZE)
+      : state.catalog.filter((card) => searchMatches(card, normalizedQuery));
+    state.pickerMatchCache = { catalog: state.catalog, query: normalizedQuery, items };
+    return items;
   }
 
   function renderPicker() {
@@ -1199,6 +1209,7 @@
       image.src = card.imageUrl;
       image.alt = "";
       image.loading = "lazy";
+      image.decoding = "async";
       const copy = document.createElement("div");
       copy.innerHTML = `<strong>${escapeHtml(card.name)}</strong><span>${escapeHtml(card.setCode)} · ${escapeHtml(card.cardNumber)}</span><small>${escapeHtml(card.setTitle)}</small>`;
       const add = document.createElement("button");

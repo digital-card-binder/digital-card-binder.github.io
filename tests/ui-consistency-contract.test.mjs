@@ -16,8 +16,8 @@ test("all five main workflows load shared control standards",()=>{
 });
 
 test("large touch targets and keyboard focus are consistently available on mobile",()=>{
-  assert.match(css,/--dcb-control-touch:44px/);
-  assert.match(css,/--dcb-control-focus:#168895/);
+  assert.match(css,/--dcb-control-touch:var\(--dcb-ux-touch,44px\)/);
+  assert.match(css,/--dcb-control-focus:var\(--dcb-ux-accent,#176783\)/);
   assert.match(css,/@media\(max-width:760px\)/);
   assert.match(css,/min-height:var\(--dcb-control-touch\)/);
   assert.match(css,/outline:3px solid var\(--dcb-control-focus\)/);
