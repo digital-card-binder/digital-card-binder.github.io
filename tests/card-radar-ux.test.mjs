@@ -24,6 +24,7 @@ function harness(options = {}) {
     readyState: "loading",
     addEventListener() {},
     getElementById: element,
+    querySelectorAll() { return []; },
   };
   // Keep production internals private; expose pure calculations only in the test VM.
   const body = source.replace(/\}\)\(\);\s*$/, [
