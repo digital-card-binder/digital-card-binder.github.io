@@ -338,7 +338,7 @@ test("official retailer links are restricted to known HTTPS hosts", () => {
   }
   const source=JSON.parse(read("data/card-radar-mart-providers.json"));
   assert.equal(source.schemaVersion,1);
-  assert.equal(source.providers.length,5);
+  assert.equal(source.providers.length,4);
   for(const row of source.providers) {
     assert.equal(row.inventoryApiConnected,false,row.id);
     if(row.lookupUrl)assert.ok(trustedMartLink(row.lookupUrl));
@@ -1536,10 +1536,10 @@ test("OpenStreetMap Photon fallback rejects transit, roads and out-of-radius hit
 test("mart filters hide irrelevant sellers and rendering defines map-failure state before use",()=>{
   const html=read("card-radar.html");
   const source=read("card-radar.js");
-  for(const name of ["이마트","롯데마트","토이저러스","트레이더스","홈플러스"])
+  for(const name of ["이마트","롯데마트","토이저러스","트레이더스"])
     assert.ok(html.includes(">"+name+"</option>"),name);
   const martHtml=html.slice(html.indexOf('id="radar-mart-brand"'),html.indexOf('</select>',html.indexOf('id="radar-mart-brand"')));
-  assert.doesNotMatch(martHtml,/<option value="(?:hanaro|costco|other)">/);
+  assert.doesNotMatch(martHtml,/<option value="(?:hanaro|costco|other|homeplus)">/);
   const render=source.slice(source.indexOf("  function render() {"),
     source.indexOf("  // An in-tab snapshot"));
   assert.ok(render.indexOf("const unresolvedMartMap=")>0);
