@@ -1077,7 +1077,7 @@ test("radar overview shows only nearby stores and positive-stock stores, not req
   assert.match(details,/id="radar-search-failed"/);
   assert.match(details,/id="radar-coverage-search-note"/);
   const render=source.slice(source.indexOf("  function render() {"),source.indexOf("  async function search()"));
-  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = hasResults\s*\? String\(inStockStores[.]length\)/);
+  assert.match(render,/byId\("radar-stock-checked"\)[.]textContent = state[.]kind==="vending"\?"—":\s*hasResults \? String\(inStockStores[.]length\)/);
   assert.doesNotMatch(render,/filter\(\(store\) => inventoryLabel\(store\)[.]checked\)[.]length/);
 });
 
