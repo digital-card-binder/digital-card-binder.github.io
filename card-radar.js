@@ -485,7 +485,8 @@
     const around = "(around:" + radius + "," + lat.toFixed(5) + "," + lng.toFixed(5) + ")";
     const retail =
       'nwr["name"~"'+MART_NAME_PATTERN+'",i]' + around + ";" +
-      'nwr["brand"~"'+MART_NAME_PATTERN+'",i]' + around + ";";
+      'nwr["brand"~"'+MART_NAME_PATTERN+'",i]' + around + ";" +
+      'nwr["operator"~"'+MART_NAME_PATTERN+'",i]' + around + ";";
     // Avoid unscoped supermarket results which displaced all large marts.
     if(state.kind==="mart")
       return "[out:json][timeout:20];("+retail+");out center 500;";
@@ -496,6 +497,7 @@
   }
   const OVERPASS_ENDPOINTS=[
     "https://overpass.private.coffee/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
     "https://overpass-api.de/api/interpreter"
   ];
   // Public OSM Photon is a supplementary, user-triggered place-name search,
@@ -545,7 +547,7 @@
       const q=new URLSearchParams({q:term,bbox,countrycode:"KR",limit:"40"});
       try{
         const payload=await reader("https://photon.komoot.io/api/?"+q,
-          {headers:{Accept:"application/json"}},8000);
+          {headers:{Accept:"application/json"}},5000);
         stores.push(...parsePhotonMartShops(payload));
       }catch(error){
         // Respect public-service rate limits; one failed request may mean
@@ -1407,10 +1409,10 @@
     const list = byId("radar-stores");
     list.replaceChildren();
     currentSummary(nearbyStores.length, displayedStores.length);
-    byId("radar-stock-filter-count").textContent = !hasResults || unresolvedMartMap
-      ? "재고 있음 —곳" : "재고 있음 " + inStockStores.length + "곳";
     const unresolvedMartMap=state.kind==="mart" && state.mapLocationError &&
       !nearbyStores.length && !state.masterShops.length && !state.publicShops.length;
+    byId("radar-stock-filter-count").textContent = !hasResults || unresolvedMartMap
+      ? "재고 있음 —곳" : "재고 있음 " + inStockStores.length + "곳";
     byId("radar-map-mode-count").textContent = unresolvedMartMap ? "마트 위치 조회 실패" :
       !hasResults ? "매장 탐색 전" :
       state.kind==="vending" ? "공식 자판기 "+nearbyStores.length+"곳" :
