@@ -1584,7 +1584,7 @@
     // Distribute the requests among chains instead of nine calls to one chain
     // before checking another. The circuit breaker below limits wasted calls.
     return liveQueries().flatMap((keyword)=>
-      providers.map((provider)=>({provider,keyword})));
+      providers.map((provider)=>({provider,keyword,productCode:state.pack||""})));
   }
   // A 429 or an explicit stock-unavailable response tells us this provider
   // cannot satisfy the remaining pack requests right now. Two consecutive 5xx
@@ -1702,6 +1702,40 @@
             }
           }
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
+          // Emart24 product keyword search can select a loose pack while its
+          // catalog also contains a distinct booster BOX SKU. For explicitly
+          // selected boxes, resolve the actual PLU, never reuse a pack quantity.
+          if(task.provider==="emart24" && task.productCode?.endsWith("-box")){
+            const candidates=Array.isArray(payload.data.productCandidates)?
+              payload.data.productCandidates:[];
+            let candidate=candidates.find(p=>
+              packFromTitle(String(p.goodsName||p.goodsNm||""))===task.productCode);
+            if(!candidate && deadline-Date.now()>4000){
+              const productUrl=API_BASE+"/api/emart24/products?"+
+                new URLSearchParams({keyword:task.keyword,pageSize:"30"});
+              const products=await fetchJson(productUrl,{cache:"no-store"},
+                Math.min(8500,deadline-Date.now()));
+              candidate=(products?.data?.products||[]).find(p=>
+                packFromTitle(String(p.goodsName||p.goodsNm||""))===task.productCode);
+            }
+            const boxPlu=String(candidate?.pluCd||"").trim();
+            if(!/^[A-Za-z0-9_-]{3,72}$/.test(boxPlu))
+              throw new Error("PRODUCT_SKU_UNVERIFIED");
+            if(String(payload.data.pluCd||"").trim()!==boxPlu){
+              const targeted=new URL(requestUrl);
+              targeted.searchParams.delete("keyword");
+              targeted.searchParams.set("pluCd",boxPlu);
+              requestUrl=targeted.toString();
+              cacheKey=state.radiusKm+"|"+requestUrl;
+              const hit=readCachedRetailer(cacheKey);
+              payload=hit?hit.payload:await fetchJson(requestUrl,
+                {cache:"no-store"},Math.min(9500,Math.max(1000,deadline-Date.now())));
+              checkedAt=hit?hit.checkedAt:new Date().toISOString();
+              usedCache=Boolean(hit);
+              if(payload?.success!==true||!payload.data)
+                throw new Error("PROVIDER_ERROR");
+            }
+          }
           // Store names used by the upstream search are not necessarily the
           // user's reverse-geocoded neighbourhood (e.g. 물치리 vs 양양물치항점).
           // Retry at most once with the enclosing district when the narrow
