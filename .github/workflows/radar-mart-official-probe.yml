@@ -1,0 +1,19 @@
+name: Mart and vending official public route diagnostic
+on:
+  pull_request:
+    paths:
+      - 'scripts/radar-mart-vending-official-probe.mjs'
+      - '.github/workflows/radar-mart-official-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/radar-mart-vending-official-probe.mjs
