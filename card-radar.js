@@ -1627,6 +1627,40 @@
             }
           }
           if(payload?.success !== true || !payload.data)throw new Error("PROVIDER_ERROR");
+          // Store names used by the upstream search are not necessarily the
+          // user's reverse-geocoded neighbourhood (e.g. 물치리 vs 양양물치항점).
+          // Retry at most once with the enclosing district when the narrow
+          // reply contains no matching local stock rows. A wider reply must
+          // still pass the same product, coordinates and distance validation.
+          let preParsed=null;
+          if((task.provider==="seveneleven"||task.provider==="emart24") &&
+             retailerDistrictFallback && retailerDistrictFallback!==selectedArea){
+            const narrow=parseRetail(task.provider,payload,checkedAt,task.keyword);
+            if(narrow.length===0 && deadline-Date.now()>1800){
+              const widerUrl=endpoint(task.provider,task.keyword,retailerDistrictFallback);
+              const widerKey=state.radiusKm+"|"+widerUrl;
+              try{
+                const hit=readCachedRetailer(widerKey);
+                const widerPayload=hit?hit.payload:await fetchJson(widerUrl,
+                  {cache:"no-store"},Math.min(9000,deadline-Date.now()));
+                const widerAt=hit?hit.checkedAt:new Date().toISOString();
+                if(widerPayload?.success===true && widerPayload.data){
+                  const widerRows=parseRetail(task.provider,widerPayload,widerAt,task.keyword);
+                  if(widerRows.length>0){
+                    payload=widerPayload;
+                    checkedAt=widerAt;
+                    cacheKey=widerKey;
+                    usedCache=Boolean(hit);
+                    preParsed=widerRows;
+                    if(task.provider==="emart24")emart24PreferDistrict=true;
+                  }
+                }
+              }catch(_){
+                // A failed optional region retry must never overwrite a valid
+                // narrow reply or generate an invented zero-stock result.
+              }
+            }else preParsed=narrow;
+          }
           if(task.provider==="cu" && payload.data.inventory?.available===false)
             throw new Error("STOCK_UNAVAILABLE");
           if(task.provider==="seveneleven" && payload.data.stockAvailable===false)
@@ -1644,7 +1678,7 @@
             if(candidateSet && goodsSet && candidateSet!==goodsSet)
               throw new Error("PRODUCT_SKU_CONFLICT");
           }
-          const rows=parseRetail(task.provider,payload,checkedAt,task.keyword);
+          const rows=preParsed||parseRetail(task.provider,payload,checkedAt,task.keyword);
           if(!usedCache)saveCachedRetailer(cacheKey,payload,checkedAt);
           all.push(...rows);
           recordProviderOutcome(task.provider,usedCache?"cached":"success",rows);
