@@ -31,7 +31,7 @@ function harness(options = {}) {
     ...(options.mockFetch ? ["fetchJson=globalThis.__mockRadarFetch;"] : []),
     ...(options.district ? ["retailerDistrictFallback="+JSON.stringify(options.district)+";"] : []),
     "globalThis.__radarTests = {isCardProduct, inventoryLabel, showGeolocate, geolocationErrorMessage,",
-    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, state};",
+    "stockProductUnit,radarSnapshotKey,rememberRadarSnapshot,restoreRadarSnapshot,readCachedRetailer,saveCachedRetailer,parseRetail, matchesRequestedCardProduct, stockProductIdentity, groupInventoryRows, mergeInventory, sameRetailerForStock, officialStockApp, normalizeRetailerArea, normalizeRetailerDistrict, emart24FallbackArea, endpoint, inventoryJobs, updateProviderCircuit, providerFailureCategory, recordProviderOutcome, providerDiagnosticSummary, renderProviderDiagnostics, updateProgress, completeProgressStep, schedulePackRefresh, filterStoresForDisplay, category, parseShops, categoryQuery, parseCuStoreDirectory, storeCandidates, shouldOfferMapSearch, liveQueries, martBrand, martBrandLabel, selectedKind, stockProductCount, trustedMartLink, martLookup, martOfficialApp, martOfficialSearchTerm, copyMartOfficialTerm, parseApprovedMartFeed, fetchLiveInventory, packFromTitle, PRODUCTS, BOX_PRODUCTS, DEFAULT_PRODUCTS, parseOfficialVending, loadOfficialVending, state};",
     "})();",
   ].join("\n"));
   assert.notEqual(body, source, "script test hook insertion");
@@ -1378,4 +1378,40 @@ test("vending-machine filter and official source are available in the public rad
   assert.match(source,/store[.]kind==="vending"/);
   assert.match(css,/body[.]radar-vending-mode [.]radar-stock-filter/);
   assert.match(css,/body[.]radar-vending-mode [.]radar-metric-in-stock/);
+});
+
+
+test("mart self-check searches precise card keywords without inventing store stock",()=>{
+  const {martOfficialSearchTerm,martOfficialApp,state}=harness();
+  state.pack="";
+  assert.equal(martOfficialSearchTerm(),"포켓몬카드");
+  state.pack="m1S-box";
+  assert.equal(martOfficialSearchTerm(),"메가심포니아");
+  state.pack="starter-zoroark";
+  assert.equal(martOfficialSearchTerm(),"조로아&조로아크");
+  state.pack="sv5m";
+  assert.equal(martOfficialSearchTerm(),"사이버저지");
+  const lotte={kind:"mart",name:"롯데마트 강변점",chain:"롯데마트"};
+  const emart={kind:"mart",name:"이마트 양재점",chain:"이마트"};
+  const traders={kind:"mart",name:"트레이더스 홀세일 클럽",chain:"트레이더스"};
+  assert.equal(martOfficialApp(lotte),"https://play.google.com/store/apps/details?id=com.lottemart.lmscp");
+  assert.equal(martOfficialApp(emart),"https://play.google.com/store/apps/details?id=com.emart.today");
+  assert.equal(martOfficialApp(traders),"https://play.google.com/store/apps/details?id=com.emart.today");
+  assert.equal(martOfficialApp({kind:"convenience",chain:"이마트24"}),"");
+  const js=read("card-radar.js");
+  assert.match(js,/상품명 복사/);
+  assert.match(js,/공식 재고 확인/);
+  assert.match(js,/자동 수량은 미연동입니다/);
+  assert.doesNotMatch(js,/RADAR_MART_DATA_USE_APPROVED\s*=\s*"1"/);
+});
+
+test("mart product copy uses user clipboard without external inventory or network",async()=>{
+  const copied=[];
+  const {copyMartOfficialTerm}=harness({navigator:{
+    clipboard:{async writeText(text){copied.push(text)}}
+  }});
+  assert.equal(await copyMartOfficialTerm("메가심포니아"),true);
+  assert.deepEqual(copied,["메가심포니아"]);
+  const unavailable=harness({navigator:{}}).copyMartOfficialTerm;
+  assert.equal(await unavailable("포켓몬카드"),false);
 });
